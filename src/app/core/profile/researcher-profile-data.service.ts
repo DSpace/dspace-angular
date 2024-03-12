@@ -1,22 +1,50 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Operation, ReplaceOperation, } from 'fast-json-patch';
-import { Observable, of as observableOf, } from 'rxjs';
-import { find, map, mergeMap, } from 'rxjs/operators';
+import {
+  Operation,
+  ReplaceOperation,
+} from 'fast-json-patch';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  find,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 
-import { hasValue, isEmpty, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { followLink, FollowLinkConfig, } from '../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CreateData, CreateDataImpl, } from '../data/base/create-data';
-import { DeleteData, DeleteDataImpl, } from '../data/base/delete-data';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { PatchData, PatchDataImpl, } from '../data/base/patch-data';
-import { SearchData, SearchDataImpl, } from '../data/base/search-data';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
 import { ItemDataService } from '../data/item-data.service';

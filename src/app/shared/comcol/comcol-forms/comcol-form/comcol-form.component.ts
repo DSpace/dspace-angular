@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -13,8 +18,14 @@ import {
   DynamicFormService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Operation } from 'fast-json-patch';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Operation,
+  Operation,
+} from 'fast-json-patch';
 import { FileUploader } from 'ng2-file-upload';
 import {
   BehaviorSubject,
@@ -35,23 +46,25 @@ import {
   MetadataMap,
   MetadataValue,
 } from '../../../../core/shared/metadata.models';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import {
+  NoContent,
+  NoContent,
+} from '../../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../../../../core/shared/operators';
 import { ResourceType } from '../../../../core/shared/resource-type';
 import {
   hasValue,
   isNotEmpty,
 } from '../../../empty.util';
+import { FormComponent } from '../../../form/form.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
-import { Operation } from 'fast-json-patch';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { FormComponent } from '../../../form/form.component';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
-import { VarDirective } from '../../../utils/var.directive';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
+import { VarDirective } from '../../../utils/var.directive';
+import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -68,9 +81,9 @@ import { UploaderOptions } from '../../../upload/uploader/uploader-options.model
     ComcolPageLogoComponent,
     NgIf,
     NgClass,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {
 

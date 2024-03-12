@@ -1,17 +1,19 @@
-import { Component, OnInit, } from '@angular/core';
-import { ActivatedRoute, Data, } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { RemoteData } from '../../../core/data/remote-data';
 import { Community } from '../../../core/shared/community.model';
-import {
-  ThemedCommunityPageSubCommunityListComponent
-} from './sub-community-list/themed-community-page-sub-community-list.component';
-import {
-  ThemedCollectionPageSubCollectionListComponent
-} from './sub-collection-list/themed-community-page-sub-collection-list.component';
-import { AsyncPipe } from '@angular/common';
+import { ThemedCollectionPageSubCollectionListComponent } from './sub-collection-list/themed-community-page-sub-collection-list.component';
+import { ThemedCommunityPageSubCommunityListComponent } from './sub-community-list/themed-community-page-sub-community-list.component';
 
 @Component({
   selector: 'ds-sub-com-col-section',
@@ -20,9 +22,9 @@ import { AsyncPipe } from '@angular/common';
   imports: [
     ThemedCommunityPageSubCommunityListComponent,
     ThemedCollectionPageSubCollectionListComponent,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubComColSectionComponent implements OnInit {
 

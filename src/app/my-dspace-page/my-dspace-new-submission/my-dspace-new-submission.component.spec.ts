@@ -51,10 +51,10 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
@@ -62,8 +62,8 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         RouterTestingModule,
         MyDSpaceNewSubmissionComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -76,9 +76,9 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   describe('', () => {
@@ -129,11 +129,11 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [NgbModule,
-        RouterTestingModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [NgbModule,
+    RouterTestingModule],
 })
 class TestComponent {
 

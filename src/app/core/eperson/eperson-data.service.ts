@@ -32,7 +32,6 @@ import {
   CreateData,
   CreateDataImpl,
 } from '../data/base/create-data';
-import { dataService } from '../data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -60,24 +59,13 @@ import {
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { EPerson } from './models/eperson.model';
 import { NoContent } from '../shared/NoContent.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { CreateData, CreateDataImpl } from '../data/base/create-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { PatchData, PatchDataImpl } from '../data/base/patch-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { getEPersonEditRoute } from '../../access-control/access-control-routing-paths';
 import { EPerson } from './models/eperson.model';
-import { EPERSON } from './models/eperson.resource-type';
 
 // todo: optimize imports
 

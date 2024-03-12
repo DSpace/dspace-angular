@@ -1,4 +1,10 @@
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -8,15 +14,14 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
 import { Context } from '../../../core/shared/context.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgClass, NgIf, AsyncPipe } from '@angular/common';
-import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
   hasValue,
@@ -24,14 +29,15 @@ import {
 } from '../../empty.util';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { followLink } from '../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 
 @Component({
-    selector: 'ds-sidebar-search-list-element',
-    templateUrl: './sidebar-search-list-element.component.html',
-    standalone: true,
-    imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule]
+  selector: 'ds-sidebar-search-list-element',
+  templateUrl: './sidebar-search-list-element.component.html',
+  standalone: true,
+  imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a list element for a {@link SearchResult} in the sidebar search modal

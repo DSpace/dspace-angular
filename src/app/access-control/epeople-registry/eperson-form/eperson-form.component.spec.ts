@@ -3,8 +3,13 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
-  waitForAsync,} from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import {
@@ -13,6 +18,8 @@ import {
 } from '@angular/platform-browser';
 import {
   ActivatedRoute,
+  ActivatedRoute,
+  Router,
   Router,
 } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -26,54 +33,72 @@ import {
 } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import {
+  EpersonRegistrationService,
+  EpersonRegistrationService,
+} from '../../../core/data/eperson-registration.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import {
+  FindListOptions,
+  FindListOptions,
+} from '../../../core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
+import {
+  RequestService,
+  RequestService,
+} from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
+import {
+  PaginationService,
+  PaginationService,
+} from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { EPersonFormComponent } from './eperson-form.component';
-import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import {
+  ActivatedRouteStub,
+  ActivatedRouteStub,
+} from '../../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import {
   EPersonMock,
+  EPersonMock,
+  EPersonMock2,
   EPersonMock2,
 } from '../../../shared/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
+import {
+  PaginationServiceStub,
+  PaginationServiceStub,
+} from '../../../shared/testing/pagination-service.stub';
+import {
+  RouterStub,
+  RouterStub,
+} from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { RequestService } from '../../../core/data/request.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { FormComponent } from '../../../shared/form/form.component';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
-import { EPersonFormComponent } from './eperson-form.component';
-import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  EPersonFormComponent,
+  EPersonFormComponent,
+} from './eperson-form.component';
+import {
+  ValidateEmailNotTaken,
+  ValidateEmailNotTaken,
+} from './validators/email-taken.validator';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -233,17 +258,17 @@ describe('EPersonFormComponent', () => {
     route = new ActivatedRouteStub();
     router = new RouterStub();
     TestBed.configureTestingModule({
-    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         EPersonFormComponent,
         HasNoValuePipe,
       ],
-    providers: [
+      providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
         { provide: FormBuilderService, useValue: builderService },
@@ -256,11 +281,11 @@ describe('EPersonFormComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
         EPeopleRegistryComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(EPersonFormComponent, {
-        remove: { imports: [    ThemedLoadingComponent, PaginationComponent,FormComponent]}
+        remove: { imports: [    ThemedLoadingComponent, PaginationComponent,FormComponent] },
       })
       .compileComponents();
   }));

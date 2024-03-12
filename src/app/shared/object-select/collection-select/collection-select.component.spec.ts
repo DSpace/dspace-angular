@@ -1,45 +1,68 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {
+  By,
+  By,
+} from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { ObjectSelectService } from '../object-select.service';
-import { HostWindowService } from '../../host-window.service';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { CollectionSelectComponent } from './collection-select.component';
-import { Collection } from '../../../core/shared/collection.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { of as observableOf } from 'rxjs';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
+import {
+  PaginationService,
+  PaginationService,
+} from '../../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../../core/services/link-head.service';
-import { Collection } from '../../../core/shared/collection.model';
+import {
+  Collection,
+  Collection,
+} from '../../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { HostWindowService } from '../../host-window.service';
+import {
+  HostWindowService,
+  HostWindowService,
+} from '../../host-window.service';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { SharedModule } from '../../shared.module';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import {
+  createSuccessfulRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../remote-data.utils';
+import {
+  HostWindowServiceStub,
+  HostWindowServiceStub,
+} from '../../testing/host-window-service.stub';
+import {
+  ObjectSelectServiceStub,
+  ObjectSelectServiceStub,
+} from '../../testing/object-select-service.stub';
+import {
+  PaginationServiceStub,
+  PaginationServiceStub,
+} from '../../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../testing/utils.test';
-import { ObjectSelectService } from '../object-select.service';
-import { CollectionSelectComponent } from './collection-select.component';
+import {
+  createPaginatedList,
+  createPaginatedList,
+} from '../../testing/utils.test';
+import {
+  ObjectSelectService,
+  ObjectSelectService,
+} from '../object-select.service';
+import {
+  CollectionSelectComponent,
+  CollectionSelectComponent,
+} from './collection-select.component';
 
 describe('CollectionSelectComponent', () => {
   let comp: CollectionSelectComponent;
@@ -89,8 +112,8 @@ describe('CollectionSelectComponent', () => {
   const paginationService = new PaginationServiceStub();
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockCollectionList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
@@ -99,9 +122,9 @@ describe('CollectionSelectComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

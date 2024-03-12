@@ -16,7 +16,6 @@ import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PatchData,
@@ -30,7 +29,6 @@ import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RequestEntryState } from './request-entry-state.model';
 import { RestRequestMethod } from './rest-request-method';
-import { Operation } from 'fast-json-patch';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API

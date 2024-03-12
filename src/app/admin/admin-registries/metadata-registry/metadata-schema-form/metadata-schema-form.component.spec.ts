@@ -1,16 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { FormComponent } from '../../../../shared/form/form.component';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../../shared/form/form.component';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { MetadataSchemaFormComponent } from './metadata-schema-form.component';
 
@@ -50,8 +55,8 @@ describe('MetadataSchemaFormComponent', () => {
     })
       .overrideComponent(MetadataSchemaFormComponent, {
         remove: {
-          imports: [FormComponent]
-        }
+          imports: [FormComponent],
+        },
       })
       .compileComponents();
   }));

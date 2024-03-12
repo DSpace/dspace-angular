@@ -1,29 +1,44 @@
 import { CommonModule } from '@angular/common';
-import { Component, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
-import { cold, getTestScheduler, } from 'jasmine-marbles';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from 'src/app/core/data/item-data.service';
 
-import { SortDirection, SortOptions, } from '../../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import {
-  QualityAssuranceEventDataService
-} from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import {
   getMockQualityAssuranceEventRestService,
-  ItemMockPid10,
   ItemMockPid8,
   ItemMockPid9,
+  ItemMockPid10,
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
   qualityAssuranceEventObjectMissingProjectNotFound,
@@ -104,13 +119,13 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         TranslateModule.forRoot(),
         QualityAssuranceEventsComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub(activatedRouteParamsMap, activatedRouteParams) },
         { provide: QualityAssuranceEventDataService, useValue: qualityAssuranceEventRestServiceStub },
         { provide: NgbModal, useValue: modalStub },
@@ -120,9 +135,9 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         { provide: ItemDataService, useValue: {} },
         { provide: AuthorizationDataService, useValue: {} },
         QualityAssuranceEventsComponent,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents().then();
+    }).compileComponents().then();
     scheduler = getTestScheduler();
   }));
 
@@ -333,10 +348,10 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [CommonModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
 

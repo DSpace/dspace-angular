@@ -9,10 +9,10 @@ import {
 import { TruncatableService } from './truncatable.service';
 
 @Component({
-    selector: 'ds-truncatable',
-    templateUrl: './truncatable.component.html',
-    styleUrls: ['./truncatable.component.scss'],
-    standalone: true
+  selector: 'ds-truncatable',
+  templateUrl: './truncatable.component.html',
+  styleUrls: ['./truncatable.component.scss'],
+  standalone: true,
 })
 
 /**

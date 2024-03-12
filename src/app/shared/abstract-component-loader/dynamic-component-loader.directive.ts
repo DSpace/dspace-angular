@@ -8,7 +8,7 @@ import {
  */
 @Directive({
   standalone: true,
-  selector: '[dsDynamicComponentLoader]'
+  selector: '[dsDynamicComponentLoader]',
 })
 export class DynamicComponentLoaderDirective {
 

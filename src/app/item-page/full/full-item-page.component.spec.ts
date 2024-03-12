@@ -1,11 +1,26 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID, } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
-import { BehaviorSubject, of as observableOf, } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
@@ -15,29 +30,30 @@ import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
-import { ItemVersionsComponent } from '../versions/item-versions.component';
-import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import {
-  ThemedItemPageTitleFieldComponent
-} from '../simple/field-components/specific-field/title/themed-item-page-field.component';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { Item } from '../../core/shared/item.model';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { TruncatePipe } from '../../shared/utils/truncate.pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { CollectionsComponent } from '../field-components/collections/collections.component';
-import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { Item } from '../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$, } from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { TruncatePipe } from '../../shared/utils/truncate.pipe';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
 import { FullItemPageComponent } from './full-item-page.component';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ThemeService } from '../../shared/theme-support/theme.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -128,13 +144,13 @@ describe('FullItemPageComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule, FullItemPageComponent, TruncatePipe, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule, FullItemPageComponent, TruncatePipe, VarDirective],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
         { provide: MetadataService, useValue: metadataServiceStub },
@@ -160,8 +176,8 @@ describe('FullItemPageComponent', () => {
             ViewTrackerComponent,
             ThemedItemAlertsComponent,
             CollectionsComponent,
-            ThemedFullFileSectionComponent
-          ]
+            ThemedFullFileSectionComponent,
+          ],
         },
         add: { changeDetection: ChangeDetectionStrategy.Default },
       }).compileComponents();

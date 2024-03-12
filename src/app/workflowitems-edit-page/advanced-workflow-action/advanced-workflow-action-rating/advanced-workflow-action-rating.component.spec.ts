@@ -65,29 +65,29 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
     workflowItemDataService = new WorkflowItemDataServiceStub();
 
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         AdvancedWorkflowActionRatingComponent,
-        VarDirective
-    ],
-    providers: [
+        VarDirective,
+      ],
+      providers: [
         {
-            provide: ActivatedRoute,
-            useValue: {
-                data: observableOf({
-                    id: workflowId,
-                    wfi: createSuccessfulRemoteDataObject(workflowItem),
-                }),
-                snapshot: {
-                    queryParams: {
-                        claimedTask: claimedTaskId,
-                        workflow: 'testaction',
-                    },
-                },
+          provide: ActivatedRoute,
+          useValue: {
+            data: observableOf({
+              id: workflowId,
+              wfi: createSuccessfulRemoteDataObject(workflowItem),
+            }),
+            snapshot: {
+              queryParams: {
+                claimedTask: claimedTaskId,
+                workflow: 'testaction',
+              },
             },
+          },
         },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: Location, useValue: new LocationStub() },
@@ -97,9 +97,9 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
         { provide: RequestService, useClass: RequestServiceStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   });
 
   beforeEach(() => {

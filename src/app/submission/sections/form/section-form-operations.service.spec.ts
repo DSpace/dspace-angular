@@ -13,6 +13,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
@@ -35,7 +36,6 @@ import {
 } from '../../../shared/mocks/form-models.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { SectionFormOperationsService } from './section-form-operations.service';
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
 describe('SectionFormOperationsService test suite', () => {
   let formBuilderService: any;

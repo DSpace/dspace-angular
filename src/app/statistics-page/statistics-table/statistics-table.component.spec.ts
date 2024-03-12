@@ -20,16 +20,16 @@ describe('StatisticsTableComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
-        StatisticsTableComponent
-    ],
-    providers: [
+        StatisticsTableComponent,
+      ],
+      providers: [
         { provide: DSpaceObjectDataService, useValue: {} },
         { provide: DSONameService, useValue: {} },
-    ]
-})
-    .compileComponents();
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

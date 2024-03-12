@@ -1,23 +1,38 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Params, Router, RouterLink, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { SearchLabelComponent } from './search-label.component';
-import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
-import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../testing/search-service.stub';
+import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
+import { SearchLabelComponent } from './search-label.component';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;
@@ -57,7 +72,7 @@ describe('SearchLabelComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchLabelComponent, {
       remove: {
-        imports: [RouterLink]
+        imports: [RouterLink],
       },
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();

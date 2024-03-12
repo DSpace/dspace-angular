@@ -4,10 +4,10 @@ import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { HomePageComponent } from './home-page.component';
 
 @Component({
-    selector: 'ds-themed-home-page',
-    styleUrls: [],
-    templateUrl: '../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-home-page',
+  styleUrls: [],
+  templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedHomePageComponent extends ThemedComponent<HomePageComponent> {
 

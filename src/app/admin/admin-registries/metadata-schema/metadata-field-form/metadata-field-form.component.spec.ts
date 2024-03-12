@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -8,10 +13,10 @@ import { of as observableOf } from 'rxjs';
 
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { FormComponent } from '../../../../shared/form/form.component';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../../shared/form/form.component';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { MetadataFieldFormComponent } from './metadata-field-form.component';
 
@@ -51,15 +56,15 @@ describe('MetadataFieldFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataFieldFormComponent, EnumKeysPipe],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataFieldFormComponent, EnumKeysPipe],
+      providers: [
         { provide: RegistryService, useValue: registryServiceStub },
-        { provide: FormBuilderService, useValue: getMockFormBuilderService() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(MetadataFieldFormComponent, {
-        remove: { imports: [FormComponent]}
+        remove: { imports: [FormComponent] },
       })
       .compileComponents();
   }));

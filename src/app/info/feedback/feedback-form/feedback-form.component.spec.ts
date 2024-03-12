@@ -45,8 +45,8 @@ describe('FeedbackFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), FeedbackFormComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), FeedbackFormComponent],
+      providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
         { provide: NotificationsService, useValue: notificationService },
@@ -54,9 +54,9 @@ describe('FeedbackFormComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: Router, useValue: routerStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

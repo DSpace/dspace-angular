@@ -1,17 +1,23 @@
-import { Component, EventEmitter, Input, Output, } from '@angular/core';
-import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { Suggestion } from '../../core/notifications/models/suggestion.model';
-import { EntityDropdownComponent } from '../../shared/entity-dropdown/entity-dropdown.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
-import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-approve-and-import';
 import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import {
-  CreateItemParentSelectorComponent
-} from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { EntityDropdownComponent } from '../../shared/entity-dropdown/entity-dropdown.component';
+import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-approve-and-import';
 
 /**
  * Show and trigger the actions to submit for a suggestion
@@ -24,9 +30,9 @@ import {
     EntityDropdownComponent,
     TranslateModule,
     NgIf,
-    NgbDropdownModule
+    NgbDropdownModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SuggestionActionsComponent {
 

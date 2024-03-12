@@ -1,16 +1,20 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
-import {
-  JournalVolumeSearchResultListElementComponent
-} from '../search-result-list-elements/journal-volume/journal-volume-search-result-list-element.component';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { JournalVolumeSearchResultListElementComponent } from '../search-result-list-elements/journal-volume/journal-volume-search-result-list-element.component';
 import { JournalVolumeListElementComponent } from './journal-volume-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -47,15 +51,15 @@ describe('JournalVolumeListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, JournalVolumeListElementComponent],
-    providers: [
+      imports: [TruncatePipe, JournalVolumeListElementComponent],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(JournalVolumeListElementComponent, {
+    }).overrideComponent(JournalVolumeListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [JournalVolumeSearchResultListElementComponent]}
+      remove: { imports: [JournalVolumeSearchResultListElementComponent] },
     }).compileComponents();
   }));
 

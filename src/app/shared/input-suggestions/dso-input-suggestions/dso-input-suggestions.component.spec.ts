@@ -14,14 +14,16 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { DsoInputSuggestionsComponent } from './dso-input-suggestions.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ThemeService } from '../../theme-support/theme.service';
+import {
+  DSpaceObject,
+  DSpaceObject,
+} from '../../../core/shared/dspace-object.model';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
+import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ThemeService } from '../../theme-support/theme.service';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 import { DebounceDirective } from '../../utils/debounce.directive';
-import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { DsoInputSuggestionsComponent } from './dso-input-suggestions.component';
 
 describe('DsoInputSuggestionsComponent', () => {
 

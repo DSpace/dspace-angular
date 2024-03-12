@@ -27,11 +27,11 @@ describe('NotifyRequestsStatusComponent', () => {
       getNotifyRequestsStatus:() => createSuccessfulRemoteDataObject$(mock),
     };
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NotifyRequestsStatusComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), NotifyRequestsStatusComponent],
+      providers: [
         { provide: NotifyRequestsStatusDataService, useValue: notifyInfoServiceSpy },
       ],
-});
+    });
   });
 
   beforeEach(() => {

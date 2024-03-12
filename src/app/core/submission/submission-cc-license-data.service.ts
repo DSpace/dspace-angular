@@ -4,14 +4,17 @@ import { Observable } from 'rxjs';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { SubmissionCcLicence } from './models/submission-cc-license.model';
 import { BaseDataService } from '../data/base/base-data.service';
-import { FindAllData, FindAllDataImpl, } from '../data/base/find-all-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../data/base/find-all-data';
 import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { SubmissionCcLicence } from './models/submission-cc-license.model';
 
 @Injectable({ providedIn: 'root' })
 export class SubmissionCcLicenseDataService extends BaseDataService<SubmissionCcLicence> implements FindAllData<SubmissionCcLicence> {

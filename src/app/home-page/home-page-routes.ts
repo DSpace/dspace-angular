@@ -1,9 +1,10 @@
-import { HomePageResolver } from './home-page.resolver';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { ThemedHomePageComponent } from './themed-home-page.component';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { Route } from '@angular/router';
+
 import { provideSuggestionNotifications } from '../notifications/provide-suggestion-notifications';
+import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { HomePageResolver } from './home-page.resolver';
+import { ThemedHomePageComponent } from './themed-home-page.component';
 
 export const ROUTES: Route[] = [
   {
@@ -11,7 +12,7 @@ export const ROUTES: Route[] = [
     component: ThemedHomePageComponent,
     providers: [
       HomePageResolver,
-      provideSuggestionNotifications()
+      provideSuggestionNotifications(),
     ],
     pathMatch: 'full',
     data: {
@@ -31,7 +32,7 @@ export const ROUTES: Route[] = [
       },
     },
     resolve: {
-      site: HomePageResolver
-    }
-  }
+      site: HomePageResolver,
+    },
+  },
 ];

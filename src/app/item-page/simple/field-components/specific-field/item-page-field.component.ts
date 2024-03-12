@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -10,7 +11,6 @@ import { BrowseDefinition } from '../../../../core/shared/browse-definition.mode
 import { Item } from '../../../../core/shared/item.model';
 import { getRemoteDataPayload } from '../../../../core/shared/operators';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
-import { AsyncPipe } from '@angular/common';
 import { ImageField } from './image-field';
 
 
@@ -24,9 +24,9 @@ import { ImageField } from './image-field';
   templateUrl: './item-page-field.component.html',
   imports: [
     MetadataValuesComponent,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ItemPageFieldComponent {
 

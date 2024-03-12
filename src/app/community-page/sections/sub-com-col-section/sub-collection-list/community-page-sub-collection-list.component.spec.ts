@@ -28,7 +28,6 @@ import { HostWindowService } from '../../../../shared/host-window.service';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { SharedModule } from '../../../../shared/shared.module';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
@@ -153,14 +152,14 @@ describe('CommunityPageSubCollectionListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
         NgbModule,
         NoopAnimationsModule,
-        CommunityPageSubCollectionListComponent
-    ],
-    providers: [
+        CommunityPageSubCollectionListComponent,
+      ],
+      providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
@@ -170,9 +169,9 @@ describe('CommunityPageSubCollectionListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

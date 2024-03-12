@@ -5,19 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
-import { TranslateModule } from '@ngx-translate/core';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
@@ -73,19 +71,19 @@ describe('ExistingRelationListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
-      TranslateModule.forRoot(),
-      ExistingRelationListElementComponent
-    ],
-    providers: [
+      imports: [
+        TranslateModule.forRoot(),
+        ExistingRelationListElementComponent,
+      ],
+      providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .overrideComponent(ExistingRelationListElementComponent, {
-        remove: { imports: [ListableObjectComponentLoaderComponent]}
+        remove: { imports: [ListableObjectComponentLoaderComponent] },
       })
       .compileComponents();
   }));

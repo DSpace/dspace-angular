@@ -1,8 +1,4 @@
 /* eslint-disable max-classes-per-file */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
-import { Router } from '@angular/router';
-import { RouterStub } from '../../../shared/testing/router.stub';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,31 +6,42 @@ import {
   Directive,
   Injector,
   NO_ERRORS_SCHEMA,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import {
-  DynamicComponentLoaderDirective
-} from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
 import {
   ComponentFixture,
+  ComponentFixture,
+  TestBed,
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  Router,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
-import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import {
+  DynamicComponentLoaderDirective,
+  DynamicComponentLoaderDirective,
+} from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  RouterStub,
+  RouterStub,
+} from '../../../shared/testing/router.stub';
+import {
+  AdvancedWorkflowActionsLoaderComponent,
+  AdvancedWorkflowActionsLoaderComponent,
+} from './advanced-workflow-actions-loader.component';
 
 const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction';
 
@@ -50,7 +57,7 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
     router = new RouterStub();
     mockComponentFactoryResolver = {
       resolveComponentFactory: jasmine.createSpy('resolveComponentFactory').and.returnValue(
-        AdvancedWorkflowActionTestComponent
+        AdvancedWorkflowActionTestComponent,
       ),
     };
     themeService = getMockThemeService();
@@ -70,7 +77,7 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
         ViewContainerRef,
         { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(AdvancedWorkflowActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
@@ -120,14 +127,14 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '<span id="AdvancedWorkflowActionsLoaderComponent"></span>',
-  standalone: true
+  standalone: true,
 })
 class AdvancedWorkflowActionTestComponent {
 }
 
 @Directive({
   selector: '[dsAdvancedWorkflowActions]',
-  standalone: true
+  standalone: true,
 })
 export class MockAdvancedWorkflowActionsDirective {
   constructor(public viewContainerRef: ViewContainerRef) {}

@@ -1,8 +1,24 @@
-import { ChangeDetectorRef, Component, Injector, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  Component,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { cold, getTestScheduler, } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -14,12 +30,18 @@ import { ResourcePolicyDataService } from '../../../core/resource-policy/resourc
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject, } from '../../remote-data.utils';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../remote-data.utils';
 import { GroupMock } from '../../testing/group-mock';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { createTestComponent } from '../../testing/utils.test';
-import { ResourcePolicyEvent, ResourcePolicyFormComponent } from '../form/resource-policy-form.component';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
 import { ResourcePolicyEditComponent } from './resource-policy-edit.component';
 
@@ -70,12 +92,12 @@ describe('ResourcePolicyEditComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         ResourcePolicyEditComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: LinkService, useValue: linkService },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -84,13 +106,13 @@ describe('ResourcePolicyEditComponent test suite', () => {
         ResourcePolicyEditComponent,
         ChangeDetectorRef,
         Injector,
-    ],
-    schemas: [
+      ],
+      schemas: [
         NO_ERRORS_SCHEMA,
-    ],
-})
+      ],
+    })
       .overrideComponent(ResourcePolicyEditComponent, {
-        remove: { imports: [ResourcePolicyFormComponent]}
+        remove: { imports: [ResourcePolicyFormComponent] },
       })
       .compileComponents();
   }));
@@ -214,9 +236,9 @@ describe('ResourcePolicyEditComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

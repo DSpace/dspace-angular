@@ -1,7 +1,15 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+} from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -12,31 +20,53 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Registration } from '../core/shared/registration.model';
-import { RemoteData } from '../core/data/remote-data';
-import { BehaviorSubject, combineLatest, Observable, of, Subscription, switchMap, } from 'rxjs';
-import { map, startWith, take, } from 'rxjs/operators';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+  Subscription,
+  switchMap,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  take,
+} from 'rxjs/operators';
 
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { CAPTCHA_NAME, GoogleRecaptchaService, } from '../core/google-recaptcha/google-recaptcha.service';
+import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
+import { RemoteData } from '../core/data/remote-data';
+import {
+  CAPTCHA_NAME,
+  GoogleRecaptchaService,
+} from '../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../core/services/cookie.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload, } from '../core/shared/operators';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '../core/shared/operators';
+import { Registration } from '../core/shared/registration.model';
+import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
-import { AlertComponent } from '../shared/alert/alert.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
 
 @Component({
-    selector: 'ds-register-email-form',
-    templateUrl: './register-email-form.component.html',
-    standalone: true,
-    imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-register-email-form',
+  templateUrl: './register-email-form.component.html',
+  standalone: true,
+  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component responsible to render an email registration form.

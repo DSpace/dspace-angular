@@ -7,16 +7,28 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  By,
+  By,
+} from '@angular/platform-browser';
+import {
+  RouterTestingModule,
+  RouterTestingModule,
+} from '@angular/router/testing';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_CONFIG,
+} from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import {
+  BrowseDefinitionDataService,
+  BrowseDefinitionDataService,
+} from '../../../../core/browse/browse-definition-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import {
   MetadataMap,
@@ -24,15 +36,12 @@ import {
 } from '../../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { SharedModule } from '../../../../shared/shared.module';
-import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
+import {
+  BrowseDefinitionDataServiceStub,
+  BrowseDefinitionDataServiceStub,
+} from '../../../../shared/testing/browse-definition-data-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { MarkdownPipe } from '../../../../shared/utils/markdown.pipe';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { By } from '@angular/platform-browser';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
-import { RouterTestingModule } from '@angular/router/testing';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from './item-page-field.component';
 
@@ -58,22 +67,22 @@ describe('ItemPageFieldComponent', () => {
 
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
-        ItemPageFieldComponent, MetadataValuesComponent
-    ],
-    providers: [
+        ItemPageFieldComponent, MetadataValuesComponent,
+      ],
+      providers: [
         { provide: APP_CONFIG, useValue: appConfig },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemPageFieldComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ItemPageFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
     markdownSpy = spyOn(MarkdownPipe.prototype, 'transform');

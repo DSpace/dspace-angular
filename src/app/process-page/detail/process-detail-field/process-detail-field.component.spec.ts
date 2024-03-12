@@ -1,5 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,10 +21,10 @@ describe('ProcessDetailFieldComponent', () => {
     title = 'fake.title.message';
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProcessDetailFieldComponent, VarDirective],
-    providers: [],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProcessDetailFieldComponent, VarDirective],
+      providers: [],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

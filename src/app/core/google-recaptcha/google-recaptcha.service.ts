@@ -34,7 +34,7 @@ export const CAPTCHA_NAME = 'google-recaptcha';
 /**
  * A GoogleRecaptchaService used to send action and get a token from REST
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class GoogleRecaptchaService {
 
   private renderer: Renderer2;

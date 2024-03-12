@@ -11,10 +11,10 @@ import { FullFileSectionComponent } from './full-file-section.component';
  * Themed wrapper for {@link FullFileSectionComponent}
  */
 @Component({
-    selector: 'ds-themed-item-page-full-file-section',
-    styleUrls: [],
-    templateUrl: './../../../../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-item-page-full-file-section',
+  styleUrls: [],
+  templateUrl: './../../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedFullFileSectionComponent extends ThemedComponent<FullFileSectionComponent> {
 

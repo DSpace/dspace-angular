@@ -1,9 +1,24 @@
-import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { combineLatest as observableCombineLatest, Observable, Subscription, } from 'rxjs';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -11,17 +26,17 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
-import { getFacetValueForType } from '../../../../search.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { FacetValue } from '../../../../models/facet-value.model';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+import { getFacetValueForType } from '../../../../search.utils';
 
 @Component({
-    selector: 'ds-search-facet-option',
-    styleUrls: ['./search-facet-option.component.scss'],
-    templateUrl: './search-facet-option.component.html',
-    standalone: true,
-    imports: [NgIf, RouterLink, AsyncPipe, TranslateModule, ShortNumberPipe]
+  selector: 'ds-search-facet-option',
+  styleUrls: ['./search-facet-option.component.scss'],
+  templateUrl: './search-facet-option.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe, TranslateModule, ShortNumberPipe],
 })
 
 /**

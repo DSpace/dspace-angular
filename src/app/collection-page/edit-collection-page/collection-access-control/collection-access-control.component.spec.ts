@@ -2,20 +2,20 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRoute,
+} from '@angular/router';
 import {
   of as observableOf,
+  of,
   of,
 } from 'rxjs';
 
 import { Community } from '../../../core/shared/community.model';
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CollectionAccessControlComponent } from './collection-access-control.component';
-import { ActivatedRoute } from '@angular/router';
-import {
-  AccessControlFormContainerComponent
-} from '../../../shared/access-control-form-container/access-control-form-container.component';
-import { of } from 'rxjs';
 
 describe('CollectionAccessControlComponent', () => {
   let component: CollectionAccessControlComponent;
@@ -53,25 +53,25 @@ describe('CollectionAccessControlComponent', () => {
             return {
               pipe: () => {
                 return of({});
-              }
+              },
             };
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CollectionAccessControlComponent],
       providers: [{
-        provide: ActivatedRoute, useValue: routeStub
-      }]
+        provide: ActivatedRoute, useValue: routeStub,
+      }],
     })
       .overrideComponent(CollectionAccessControlComponent, {
         remove: {
-          imports: [AccessControlFormContainerComponent]
-        }
+          imports: [AccessControlFormContainerComponent],
+        },
       })
       .compileComponents();
   });

@@ -17,9 +17,9 @@ import { ThemeService } from './theme.service';
 import { ThemedComponent } from './themed.component';
 
 @Component({
-    selector: 'ds-test-themed-component',
-    templateUrl: './themed.component.html',
-    standalone: true
+  selector: 'ds-test-themed-component',
+  templateUrl: './themed.component.html',
+  standalone: true,
 })
 class TestThemedComponent extends ThemedComponent<TestComponent> {
   protected inAndOutputNames: (keyof TestComponent & keyof this)[] = ['testInput'];
@@ -45,12 +45,12 @@ describe('ThemedComponent', () => {
   function setupTestingModuleForTheme(theme: string, themes?: ThemeConfig[]) {
     themeService = getMockThemeService(theme, themes);
     TestBed.configureTestingModule({
-    imports: [TestThemedComponent, VarDirective],
-    providers: [
+      imports: [TestThemedComponent, VarDirective],
+      providers: [
         { provide: ThemeService, useValue: themeService },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }
 
   function initComponent() {

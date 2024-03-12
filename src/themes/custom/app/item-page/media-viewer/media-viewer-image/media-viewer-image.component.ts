@@ -1,8 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 import { MediaViewerImageComponent as BaseComponent } from '../../../../../../app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
-import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ds-media-viewer-image',
@@ -13,7 +13,7 @@ import { AsyncPipe } from '@angular/common';
   standalone: true,
   imports: [
     NgxGalleryModule,
-    AsyncPipe
+    AsyncPipe,
   ],
 })
 export class MediaViewerImageComponent extends BaseComponent {

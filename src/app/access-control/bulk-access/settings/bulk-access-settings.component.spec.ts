@@ -1,4 +1,7 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -6,11 +9,8 @@ import {
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { BulkAccessSettingsComponent } from './bulk-access-settings.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  AccessControlFormContainerComponent
-} from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 describe('BulkAccessSettingsComponent', () => {
   let component: BulkAccessSettingsComponent;
@@ -49,11 +49,11 @@ describe('BulkAccessSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [NgbAccordionModule, TranslateModule.forRoot(), BulkAccessSettingsComponent],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+      imports: [NgbAccordionModule, TranslateModule.forRoot(), BulkAccessSettingsComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(BulkAccessSettingsComponent, {
-        remove: { imports: [AccessControlFormContainerComponent]}
+        remove: { imports: [AccessControlFormContainerComponent] },
       })
       .compileComponents();
   });

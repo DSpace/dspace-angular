@@ -16,7 +16,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 /**
  * The service handling all Quality Assurance source requests to the REST service.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class QualityAssuranceSourceService {
 
   /**

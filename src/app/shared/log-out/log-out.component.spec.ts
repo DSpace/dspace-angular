@@ -1,8 +1,19 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store, StoreModule, } from '@ngrx/store';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AppState } from '../../app.reducer';
@@ -33,25 +44,25 @@ describe('LogOutComponent', () => {
   beforeEach(waitForAsync(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer, {
-            runtimeChecks: {
-                strictStateImmutability: false,
+          runtimeChecks: {
+            strictStateImmutability: false,
             strictActionImmutability: false,
           },
         }),
         TranslateModule.forRoot(),
-        LogOutComponent
-    ],
-    providers: [
+        LogOutComponent,
+      ],
+      providers: [
         { provide: Router, useValue: routerStub },
-    ],
-    schemas: [
+      ],
+      schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-})
+    })
       .compileComponents();
 
   }));

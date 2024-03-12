@@ -1,9 +1,23 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router, } from '@angular/router';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
@@ -13,10 +27,16 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { MetadataService } from '../../core/metadata/metadata.service';
-import { LinkDefinition, LinkHeadService, } from '../../core/services/link-head.service';
+import {
+  LinkDefinition,
+  LinkHeadService,
+} from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
@@ -25,16 +45,11 @@ import {
 } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
-import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { ItemVersionsComponent } from '../versions/item-versions.component';
-import { ErrorComponent } from '../../shared/error/error.component';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { ItemPageComponent } from './item-page.component';
 import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
 
@@ -115,13 +130,13 @@ describe('ItemPageComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), BrowserAnimationsModule, ItemPageComponent, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, ItemPageComponent, VarDirective],
+      providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: ItemDataService, useValue: {} },
         { provide: MetadataService, useValue: mockMetadataService },
@@ -133,19 +148,19 @@ describe('ItemPageComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemPageComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ItemPageComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: { imports: [
-          ThemedItemAlertsComponent,
-          ItemVersionsNoticeComponent,
-          ViewTrackerComponent,
-          ListableObjectComponentLoaderComponent,
-          ItemVersionsComponent,
-          ErrorComponent,
-          ThemedLoadingComponent,
-        ]}
+        ThemedItemAlertsComponent,
+        ItemVersionsNoticeComponent,
+        ViewTrackerComponent,
+        ListableObjectComponentLoaderComponent,
+        ItemVersionsComponent,
+        ErrorComponent,
+        ThemedLoadingComponent,
+      ] },
     }).compileComponents();
   }));
 

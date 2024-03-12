@@ -1,19 +1,30 @@
 import { Component } from '@angular/core';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
+import {
+  BitstreamFormatDataService,
+  BitstreamFormatDataService,
+} from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import {
+  BitstreamFormat,
+  BitstreamFormat,
+} from '../../../../core/shared/bitstream-format.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import {
+  NotificationsService,
+  NotificationsService,
+} from '../../../../shared/notifications/notifications.service';
+import {
+  getBitstreamFormatsModuleRoute,
+  getBitstreamFormatsModuleRoute,
+} from '../../admin-registries-routing-paths';
 import { FormatFormComponent } from '../format-form/format-form.component';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
  * This component renders the page to create a new bitstream format.
@@ -23,9 +34,9 @@ import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-p
   templateUrl: './add-bitstream-format.component.html',
   imports: [
     FormatFormComponent,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class AddBitstreamFormatComponent {
 

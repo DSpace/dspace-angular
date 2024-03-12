@@ -47,21 +47,21 @@ describe('BreadcrumbsComponent', () => {
     } as BreadcrumbsService;
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
           },
         }),
         BreadcrumbsComponent,
-        VarDirective
-    ],
-    providers: [
+        VarDirective,
+      ],
+      providers: [
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceMock },
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BreadcrumbsComponent);
     component = fixture.componentInstance;

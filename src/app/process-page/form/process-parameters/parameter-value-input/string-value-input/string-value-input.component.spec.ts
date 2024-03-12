@@ -21,18 +21,18 @@ describe('StringValueInputComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        StringValueInputComponent
-    ],
-    providers: [],
-})
+        StringValueInputComponent,
+      ],
+      providers: [],
+    })
       .compileComponents();
   }));
 

@@ -37,9 +37,9 @@ import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item.resolver';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
-    selector: 'ds-abstract-item-update',
-    template: '',
-    standalone: true
+  selector: 'ds-abstract-item-update',
+  template: '',
+  standalone: true,
 })
 /**
  * Abstract component for managing object updates of an item

@@ -3,12 +3,8 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
-import {
-  AdminSidebarSectionComponent
-} from './admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
-import {
-  ExpandableAdminSidebarSectionComponent
-} from './admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
+import { AdminSidebarSectionComponent } from './admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
+import { ExpandableAdminSidebarSectionComponent } from './admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { ThemedAdminSidebarComponent } from './admin/admin-sidebar/themed-admin-sidebar.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.component';
@@ -25,16 +21,14 @@ import { NavbarModule } from './navbar/navbar.module';
 import { PageErrorComponent } from './page-error/page-error.component';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
-import {
-  ThemedPageInternalServerErrorComponent
-} from './page-internal-server-error/themed-page-internal-server-error.component';
+import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
-import { NotificationComponent } from './shared/notifications/notification/notification.component';
-import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { RootComponent } from './root/root.component';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
+import { NotificationComponent } from './shared/notifications/notification/notification.component';
+import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { SystemWideAlertModule } from './system-wide-alert/system-wide-alert.module';
 
 const IMPORTS = [
@@ -80,16 +74,16 @@ const EXPORTS = [
 ];
 
 @NgModule({
-    imports: [
-        ...IMPORTS,
-        ...DECLARATIONS
-    ],
-    providers: [
+  imports: [
+    ...IMPORTS,
+    ...DECLARATIONS,
+  ],
+  providers: [
     ...PROVIDERS,
-    ],
-    exports: [
-        ...EXPORTS,
-        ...DECLARATIONS,
+  ],
+  exports: [
+    ...EXPORTS,
+    ...DECLARATIONS,
   ],
 })
 export class RootModule {

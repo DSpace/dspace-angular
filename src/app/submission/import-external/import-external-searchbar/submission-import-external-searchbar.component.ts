@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,6 +8,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
   of as observableOf,
@@ -34,11 +39,6 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { hasValue } from '../../../shared/empty.util';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { TranslateModule } from '@ngx-translate/core';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 /**
  * Interface for the selected external source element.
@@ -69,9 +69,9 @@ export interface ExternalSourceData {
     TranslateModule,
     InfiniteScrollModule,
     NgbDropdownModule,
-    FormsModule
+    FormsModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**

@@ -1,19 +1,35 @@
-import { Component, Input, OnInit, } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { Observable, Subscription, } from 'rxjs';
-import { distinctUntilChanged, take, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  take,
+} from 'rxjs/operators';
 
 import { SuggestionTarget } from '../../../core/notifications/models/suggestion-target.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { hasValue } from '../../../shared/empty.util';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
 import { SuggestionsService } from '../../suggestions.service';
 import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 /**
  * Component to display the Suggestion Target list.
@@ -28,9 +44,9 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
     TranslateModule,
     PaginationComponent,
     NgIf,
-    RouterLink
+    RouterLink,
   ],
-  standalone: true
+  standalone: true,
 })
 export class PublicationClaimComponent implements OnInit {
 

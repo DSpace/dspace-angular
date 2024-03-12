@@ -39,23 +39,23 @@ describe('FiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbAccordionModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         HttpClientTestingModule,
-        FilteredCollectionsComponent
-    ],
-    providers: [
+        FilteredCollectionsComponent,
+      ],
+      providers: [
         FormBuilder,
         DspaceRestService,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-});
+    });
   }));
 
   beforeEach(waitForAsync(() => {

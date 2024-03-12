@@ -11,10 +11,10 @@ import { AdminSidebarComponent } from './admin-sidebar.component';
  * Themed wrapper for AdminSidebarComponent
  */
 @Component({
-    selector: 'ds-themed-admin-sidebar',
-    styleUrls: [],
-    templateUrl: '../../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-admin-sidebar',
+  styleUrls: [],
+  templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedAdminSidebarComponent extends ThemedComponent<AdminSidebarComponent> {
 

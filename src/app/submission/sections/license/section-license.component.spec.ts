@@ -1,11 +1,35 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
-import { DynamicCheckboxModel, DynamicFormControlEvent, DynamicFormControlEventType, } from '@ng-dynamic-forms/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  DynamicCheckboxModel,
+  DynamicFormControlEvent,
+  DynamicFormControlEventType,
+} from '@ng-dynamic-forms/core';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  APP_DYNAMIC_FORM_CONTROL_FN,
+} from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -13,6 +37,7 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
+import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -36,21 +61,12 @@ import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';
 import { SubmissionSectionLicenseComponent } from './section-license.component';
-import { provideMockStore } from '@ngrx/store/testing';
-import {
-  DsDynamicTypeBindRelationService
-} from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { APP_CONFIG, APP_DATA_SERVICES_MAP, APP_DYNAMIC_FORM_CONTROL_FN } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
-import {
-  dsDynamicFormControlMapFn
-} from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
     getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
     matchesCondition: jasmine.createSpy('matchesCondition'),
-    subscribeRelations: jasmine.createSpy('subscribeRelations')
+    subscribeRelations: jasmine.createSpy('subscribeRelations'),
   });
 }
 
@@ -132,7 +148,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
       'cache/object-updates': {},
       'data/request': {},
       'index': {},
-    }
+    },
   };
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
@@ -158,7 +174,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
-        provideMockStore({initialState}),
+        provideMockStore({ initialState }),
         FormBuilderService,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
@@ -351,8 +367,8 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     CommonModule,
     FormsModule,
     FormComponent,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 
 @Directive({
-    selector: '[dsClickOutside]',
-    standalone: true
+  selector: '[dsClickOutside]',
+  standalone: true,
 })
 /**
  * Directive to detect when the users clicks outside of the element the directive was put on

@@ -1,7 +1,20 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -11,18 +24,24 @@ import {
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { Store, StoreModule, } from '@ngrx/store';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { storeModuleConfig } from '../../app.reducer';
-import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import { storeModuleConfig } from '../../app.reducer';
 import { StoreMock } from '../testing/store.mock';
 import { createTestComponent } from '../testing/utils.test';
+import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import { FormChangeAction, FormStatusChangeAction, } from './form.actions';
+import {
+  FormChangeAction,
+  FormStatusChangeAction,
+} from './form.actions';
 import { FormComponent } from './form.component';
 import { FormState } from './form.reducer';
 import { FormService } from './form.service';
@@ -158,15 +177,15 @@ describe('FormComponent test suite', () => {
         FormService,
         { provide: Store, useClass: StoreMock },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideComponent(FormComponent, {
         remove: {
-          imports: [DsDynamicFormComponent]
+          imports: [DsDynamicFormComponent],
         },
         add: {
-          changeDetection: ChangeDetectionStrategy.Default
-        }
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
       });
   }));
 
@@ -456,7 +475,7 @@ describe('FormComponent test suite', () => {
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    DynamicFormsCoreModule]
+    DynamicFormsCoreModule],
 })
 class TestComponent {
 

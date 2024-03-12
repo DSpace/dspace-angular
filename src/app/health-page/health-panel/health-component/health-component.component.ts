@@ -1,11 +1,18 @@
-import { Component, Input, } from '@angular/core';
+import {
+  NgFor,
+  NgIf,
+  TitleCasePipe,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { HealthComponent } from '../../models/health-component.model';
 
 /**
@@ -16,11 +23,11 @@ import { HealthComponent } from '../../models/health-component.model';
  * API.
  */
 @Component({
-    selector: 'ds-health-component',
-    templateUrl: './health-component.component.html',
-    styleUrls: ['./health-component.component.scss'],
-    standalone: true,
-    imports: [NgIf, NgFor, NgbCollapseModule, AlertComponent, TitleCasePipe, ObjNgFor]
+  selector: 'ds-health-component',
+  templateUrl: './health-component.component.html',
+  styleUrls: ['./health-component.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgFor, NgbCollapseModule, AlertComponent, TitleCasePipe, ObjNgFor],
 })
 export class HealthComponentComponent {
 

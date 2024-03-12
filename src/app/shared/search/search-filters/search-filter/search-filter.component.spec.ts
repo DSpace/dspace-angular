@@ -1,19 +1,29 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf, } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchFilterComponent } from './search-filter.component';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
-import { FilterType } from '../../models/filter-type.model';
-import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SequenceService } from '../../../../core/shared/sequence.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
-import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { FilterType } from '../../models/filter-type.model';
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
+import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
+import { SearchFilterComponent } from './search-filter.component';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -62,20 +72,20 @@ describe('SearchFilterComponent', () => {
     sequenceService = jasmine.createSpyObj('sequenceService', { next: 17 });
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchFilterComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchFilterComponent],
+      providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {
-            provide: SearchFilterService,
+          provide: SearchFilterService,
           useValue: mockFilterService,
         },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: SequenceService, useValue: sequenceService },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(SearchFilterComponent, {
+    }).overrideComponent(SearchFilterComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [SearchFacetFilterWrapperComponent]}
+      remove: { imports: [SearchFacetFilterWrapperComponent] },
     }).compileComponents();
   }));
 

@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Operation } from 'fast-json-patch';
-import { EMPTY, Observable, } from 'rxjs';
-import { map, switchMap, } from 'rxjs/operators';
+import {
+  EMPTY,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { isNotEmpty } from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
@@ -12,7 +18,10 @@ import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { PatchData, PatchDataImpl, } from './base/patch-data';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';

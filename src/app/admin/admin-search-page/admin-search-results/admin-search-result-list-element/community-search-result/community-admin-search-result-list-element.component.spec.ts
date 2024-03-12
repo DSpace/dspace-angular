@@ -15,11 +15,11 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { Community } from '../../../../../core/shared/community.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CommunityAdminSearchResultListElementComponent } from './community-admin-search-result-list-element.component';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 
 describe('CommunityAdminSearchResultListElementComponent', () => {
   let component: CommunityAdminSearchResultListElementComponent;
@@ -37,18 +37,18 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        CommunityAdminSearchResultListElementComponent
-    ],
-    providers: [
+        CommunityAdminSearchResultListElementComponent,
+      ],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+        { provide: APP_CONFIG, useValue: environment },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   }));
 

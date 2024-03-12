@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
-import { hasNoValue } from '../../shared/empty.util';
+
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasNoValue } from '../../shared/empty.util';
 import {
+  hasNoValue,
+  hasNoValue,
+} from '../../shared/empty.util';
+import {
+  DEFAULT_THEME,
   DEFAULT_THEME,
   resolveTheme,
+  resolveTheme,
 } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { BrowseByDataType } from './browse-by-data-type';
-import { BrowseByTitleComponent } from '../browse-by-title/browse-by-title.component';
-import { BrowseByMetadataComponent } from '../browse-by-metadata/browse-by-metadata.component';
 import { BrowseByDateComponent } from '../browse-by-date/browse-by-date.component';
+import { BrowseByMetadataComponent } from '../browse-by-metadata/browse-by-metadata.component';
 import { BrowseByTaxonomyComponent } from '../browse-by-taxonomy/browse-by-taxonomy.component';
-import {
-  DEFAULT_THEME,
-  resolveTheme
-} from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { BrowseByTitleComponent } from '../browse-by-title/browse-by-title.component';
+import { BrowseByDataType } from './browse-by-data-type';
 
 export const DEFAULT_BROWSE_BY_TYPE = BrowseByDataType.Metadata;
 export const DEFAULT_BROWSE_BY_CONTEXT = Context.Any;
@@ -33,7 +34,7 @@ export const BROWSE_BY_DECORATOR_MAP =
     [BrowseByDataType.Date, new Map([[DEFAULT_BROWSE_BY_CONTEXT, new Map([[DEFAULT_THEME, BrowseByDateComponent]])]])],
     [BrowseByDataType.Metadata, new Map([[DEFAULT_BROWSE_BY_CONTEXT, new Map([[DEFAULT_THEME, BrowseByMetadataComponent]])]])],
     [BrowseByDataType.Hierarchy, new Map([[DEFAULT_BROWSE_BY_CONTEXT, new Map([[DEFAULT_THEME, BrowseByTaxonomyComponent]])]])],
-    [BrowseByDataType.Title, new Map([[DEFAULT_BROWSE_BY_CONTEXT, new Map([[DEFAULT_THEME, BrowseByTitleComponent]])]])]
+    [BrowseByDataType.Title, new Map([[DEFAULT_BROWSE_BY_CONTEXT, new Map([[DEFAULT_THEME, BrowseByTitleComponent]])]])],
   ]);
 
 /**

@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Metadata } from '../../../../../core/shared/metadata.utils';
@@ -7,10 +16,8 @@ import { FormComponent } from '../../../../../shared/form/form.component';
 import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
 import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
-import {
-  SubmissionSectionUploadAccessConditionsComponent
-} from '../../accessConditions/submission-section-upload-access-conditions.component';
 
 describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 
@@ -36,11 +43,11 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
     })
       .overrideComponent(SubmissionSectionUploadFileViewComponent, {
         remove: {
-          imports: [SubmissionSectionUploadAccessConditionsComponent]
+          imports: [SubmissionSectionUploadAccessConditionsComponent],
         },
         add: {
-          changeDetection: ChangeDetectionStrategy.Default
-        }
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
       })
       .compileComponents().then();
   }));
@@ -102,7 +109,7 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
-  standalone: true
+  standalone: true,
 })
 class TestComponent {
 

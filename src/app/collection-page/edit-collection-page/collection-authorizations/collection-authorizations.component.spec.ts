@@ -44,19 +44,19 @@ describe('CollectionAuthorizationsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
-        CollectionAuthorizationsComponent
-    ],
-    providers: [
+        CollectionAuthorizationsComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         ChangeDetectorRef,
         CollectionAuthorizationsComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(CollectionAuthorizationsComponent, {
-        remove: { imports: [ResourcePoliciesComponent] }
+        remove: { imports: [ResourcePoliciesComponent] },
       })
       .compileComponents();
   }));

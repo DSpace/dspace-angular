@@ -25,7 +25,7 @@ import { CorrectionType } from './models/correctiontype.model';
 /**
  * A service that provides methods to make REST requests with correctiontypes endpoint.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 @dataService(CorrectionType.type)
 export class CorrectionTypeDataService extends IdentifiableDataService<CorrectionType> {
   protected linkPath = 'correctiontypes';

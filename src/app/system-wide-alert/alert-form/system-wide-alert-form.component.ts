@@ -1,4 +1,11 @@
-import { Component, OnInit, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -8,33 +15,51 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbDatepickerModule, NgbDateStruct, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { utcToZonedTime, zonedTimeToUtc, } from 'date-fns-tz';
-import { BehaviorSubject, Observable, } from 'rxjs';
-import { filter, map, } from 'rxjs/operators';
+import {
+  NgbDatepickerModule,
+  NgbDateStruct,
+  NgbTimepickerModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  utcToZonedTime,
+  zonedTimeToUtc,
+} from 'date-fns-tz';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { hasValue, isNotEmpty, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SystemWideAlert } from '../system-wide-alert.model';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { UiSwitchModule } from 'ngx-ui-switch';
 
 
 /**
  * Component responsible for rendering the form to update a system-wide alert
  */
 @Component({
-    selector: 'ds-system-wide-alert-form',
-    styleUrls: ['./system-wide-alert-form.component.scss'],
-    templateUrl: './system-wide-alert-form.component.html',
-    standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule]
+  selector: 'ds-system-wide-alert-form',
+  styleUrls: ['./system-wide-alert-form.component.scss'],
+  templateUrl: './system-wide-alert-form.component.html',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule],
 })
 export class SystemWideAlertFormComponent implements OnInit {
 

@@ -31,18 +31,18 @@ const mockLabel = 'test label';
 describe('ItemPageUriFieldComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), ItemPageUriFieldComponent, MetadataUriValuesComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), ItemPageUriFieldComponent, MetadataUriValuesComponent],
+      providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemPageUriFieldComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ItemPageUriFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

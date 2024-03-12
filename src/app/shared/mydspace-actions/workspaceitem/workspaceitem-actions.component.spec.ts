@@ -1,9 +1,19 @@
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  Router,
+} from '@angular/router';
 import {
   NgbModal,
   NgbModule,
@@ -17,7 +27,10 @@ import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { RequestService } from '../../../core/data/request.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
+import {
+  EPerson,
+  EPerson,
+} from '../../../core/eperson/models/eperson.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
@@ -31,10 +44,10 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let component: WorkspaceitemActionsComponent;
 let fixture: ComponentFixture<WorkspaceitemActionsComponent>;
@@ -168,18 +181,18 @@ describe('WorkspaceitemActionsComponent', () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true),
     });
-   await TestBed.configureTestingModule({
-    imports: [
+    await TestBed.configureTestingModule({
+      imports: [
         NgbModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        WorkspaceitemActionsComponent
-    ],
-    providers: [
+        WorkspaceitemActionsComponent,
+      ],
+      providers: [
         Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
@@ -190,9 +203,9 @@ describe('WorkspaceitemActionsComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         NgbModal,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(WorkspaceitemActionsComponent, {
+    }).overrideComponent(WorkspaceitemActionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

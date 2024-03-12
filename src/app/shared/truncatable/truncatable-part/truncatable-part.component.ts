@@ -1,17 +1,25 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { hasValue } from '../../empty.util';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
 import { DragClickDirective } from '../../utils/drag-click.directive';
 import { TruncatableService } from '../truncatable.service';
 
 @Component({
-    selector: 'ds-truncatable-part',
-    templateUrl: './truncatable-part.component.html',
-    styleUrls: ['./truncatable-part.component.scss'],
-    standalone: true,
-    imports: [DragClickDirective, NgIf, TranslateModule]
+  selector: 'ds-truncatable-part',
+  templateUrl: './truncatable-part.component.html',
+  styleUrls: ['./truncatable-part.component.scss'],
+  standalone: true,
+  imports: [DragClickDirective, NgIf, TranslateModule],
 })
 
 /**

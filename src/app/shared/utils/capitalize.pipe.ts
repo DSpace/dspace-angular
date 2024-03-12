@@ -4,8 +4,8 @@ import {
 } from '@angular/core';
 
 @Pipe({
-    name: 'dsCapitalize',
-    standalone: true
+  name: 'dsCapitalize',
+  standalone: true,
 })
 
 /**

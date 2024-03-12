@@ -24,6 +24,7 @@ import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 // Import mocks
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 // Import utils
@@ -34,11 +35,10 @@ import {
   findByEPersonAndDsoResEmpty,
   subscriptionMock,
 } from '../../testing/subscriptions-data.mock';
+import { ThemeService } from '../../theme-support/theme.service';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionViewComponent } from './subscription-view.component';
-import { ThemeService } from '../../theme-support/theme.service';
-import { getMockThemeService } from '../../mocks/theme-service.mock';
 
 describe('SubscriptionViewComponent', () => {
   let component: SubscriptionViewComponent;
@@ -67,29 +67,29 @@ describe('SubscriptionViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         NgbModule,
         ReactiveFormsModule,
         BrowserModule,
         RouterTestingModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
-        SubscriptionViewComponent
-    ],
-    providers: [
+        SubscriptionViewComponent,
+      ],
+      providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
-    .compileComponents();
+    })
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,5 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -139,14 +143,14 @@ describe('TopLevelCommunityListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
         NgbModule,
         NoopAnimationsModule,
-        TopLevelCommunityListComponent
-    ],
-    providers: [
+        TopLevelCommunityListComponent,
+      ],
+      providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -157,9 +161,9 @@ describe('TopLevelCommunityListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

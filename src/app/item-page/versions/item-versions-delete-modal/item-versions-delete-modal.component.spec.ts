@@ -14,11 +14,11 @@ describe('ItemVersionsDeleteModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsDeleteModalComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsDeleteModalComponent],
+      providers: [
         { provide: NgbActiveModal },
       ],
-}).compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {

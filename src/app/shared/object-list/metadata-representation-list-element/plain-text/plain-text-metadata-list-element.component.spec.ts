@@ -1,13 +1,18 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import {
-  MetadatumRepresentation
-} from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { mockData } from '../../../testing/browse-definition-data-service.stub';
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+
+import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { mockData } from '../../../testing/browse-definition-data-service.stub';
 import { PlainTextMetadataListElementComponent } from './plain-text-metadata-list-element.component';
 
 // Render the mock representation with the default mock author browse definition so it is also rendered as a link
@@ -23,10 +28,10 @@ describe('PlainTextMetadataListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [PlainTextMetadataListElementComponent],
-    providers: [{ provide: ActivatedRoute, useValue: new ActivatedRouteStub() }],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(PlainTextMetadataListElementComponent, {
+      imports: [PlainTextMetadataListElementComponent],
+      providers: [{ provide: ActivatedRoute, useValue: new ActivatedRouteStub() }],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(PlainTextMetadataListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

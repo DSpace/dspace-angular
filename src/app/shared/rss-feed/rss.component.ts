@@ -1,7 +1,25 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription, } from 'rxjs';
-import { map, switchMap, } from 'rxjs/operators';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../src/environments/environment';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
@@ -12,22 +30,20 @@ import { LinkHeadService } from '../../core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgIf } from '@angular/common';
 
 
 /**
  * The Rss feed button componenet.
  */
 @Component({
-    exportAs: 'rssComponent',
-    selector: 'ds-rss',
-    styleUrls: ['rss.component.scss'],
-    templateUrl: 'rss.component.html',
-    changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.Emulated,
-    standalone: true,
-    imports: [NgIf, AsyncPipe, TranslateModule]
+  exportAs: 'rssComponent',
+  selector: 'ds-rss',
+  styleUrls: ['rss.component.scss'],
+  templateUrl: 'rss.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.Emulated,
+  standalone: true,
+  imports: [NgIf, AsyncPipe, TranslateModule],
 })
 export class RSSComponent implements OnInit, OnDestroy  {
 

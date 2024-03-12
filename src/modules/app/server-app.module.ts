@@ -1,4 +1,7 @@
-import { XhrFactory } from '@angular/common';
+import {
+  XhrFactory,
+  XhrFactory,
+} from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import {
@@ -10,6 +13,12 @@ import {
   ServerModule,
   ServerTransferStateModule,
 } from '@angular/platform-server';
+import { EffectsModule } from '@ngrx/effects';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
 import {
   TranslateLoader,
   TranslateModule,
@@ -22,20 +31,33 @@ import {
 
 import { AppComponent } from '../../app/app.component';
 import { AppModule } from '../../app/app.module';
+import { storeModuleConfig } from '../../app/app.reducer';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
+import { coreEffects } from '../../app/core/core.effects';
+import { coreReducers } from '../../app/core/core.reducers';
+import { CoreState } from '../../app/core/core-state.model';
 import { ForwardClientIpInterceptor } from '../../app/core/forward-client-ip/forward-client-ip.interceptor';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { ServerLocaleService } from '../../app/core/locale/server-locale.service';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
-import { ReferrerService } from '../../app/core/services/referrer.service';
-import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
+import {
+  ReferrerService,
+  ReferrerService,
+} from '../../app/core/services/referrer.service';
+import {
+  ServerReferrerService,
+  ServerReferrerService,
+} from '../../app/core/services/server.referrer.service';
 import { ServerCookieService } from '../../app/core/services/server-cookie.service';
 import { ServerHardRedirectService } from '../../app/core/services/server-hard-redirect.service';
-import { ServerXhrService } from '../../app/core/services/server-xhr.service';
+import {
+  ServerXhrService,
+  ServerXhrService,
+} from '../../app/core/services/server-xhr.service';
 import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
@@ -43,16 +65,6 @@ import { ServerSubmissionService } from '../../app/submission/server-submission.
 import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
 import { ServerInitService } from './server-init.service';
-import { XhrFactory } from '@angular/common';
-import { ServerXhrService } from '../../app/core/services/server-xhr.service';
-import { ReferrerService } from '../../app/core/services/referrer.service';
-import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
-import { Action, StoreConfig, StoreModule } from '@ngrx/store';
-import { coreReducers } from '../../app/core/core.reducers';
-import { storeModuleConfig } from '../../app/app.reducer';
-import { CoreState } from '../../app/core/core-state.model';
-import { EffectsModule } from '@ngrx/effects';
-import { coreEffects } from '../../app/core/core.effects';
 
 export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');

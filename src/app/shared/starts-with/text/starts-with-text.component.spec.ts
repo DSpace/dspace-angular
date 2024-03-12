@@ -37,14 +37,14 @@ describe('StartsWithTextComponent', () => {
     router = new RouterStub();
 
     await TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, StartsWithTextComponent, EnumKeysPipe],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, StartsWithTextComponent, EnumKeysPipe],
+      providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

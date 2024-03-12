@@ -1,7 +1,16 @@
 // Load the implementations that should be tested
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -23,21 +32,21 @@ describe('Chips component', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FileUploadModule,
         TranslateModule.forRoot(),
         UploaderComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         ChangeDetectorRef,
         UploaderComponent,
         DragService,
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-});
+    });
 
   }));
 
@@ -61,10 +70,10 @@ describe('Chips component', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [FileUploadModule, UploaderComponent]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [FileUploadModule, UploaderComponent],
 })
 class TestComponent {
   public uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {

@@ -1,9 +1,23 @@
-import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { combineLatest as observableCombineLatest, of as observableOf, } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -20,7 +34,10 @@ import { ItemType } from '../../../core/shared/item-relationships/item-type.mode
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { INotification, Notification, } from '../../../shared/notifications/models/notification.model';
+import {
+  INotification,
+  Notification,
+} from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
@@ -213,8 +230,8 @@ describe('ItemRelationshipsComponent', () => {
 
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ItemRelationshipsComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), ItemRelationshipsComponent],
+      providers: [
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
@@ -227,10 +244,10 @@ describe('ItemRelationshipsComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RelationshipTypeDataService, useValue: relationshipTypeService },
         ChangeDetectorRef,
-    ], schemas: [
+      ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

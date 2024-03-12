@@ -1,36 +1,68 @@
-import { Component, Inject, OnInit, } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators, } from '@angular/forms';
-import { select, Store, } from '@ngrx/store';
-import { combineLatest, Observable, shareReplay, } from 'rxjs';
-import { filter, map, } from 'rxjs/operators';
-import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  shareReplay,
+} from 'rxjs';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
-import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
-import { isNotEmpty } from '../../../empty.util';
-import { fadeOut } from '../../../animations/fade';
-import { getForgotPasswordRoute, getRegisterRoute, } from '../../../../app-routing-paths';
+import {
+  getForgotPasswordRoute,
+  getRegisterRoute,
+} from '../../../../app-routing-paths';
+import {
+  AuthenticateAction,
+  ResetAuthenticationMessagesAction,
+} from '../../../../core/auth/auth.actions';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import {
+  getAuthenticationError,
+  getAuthenticationInfo,
+} from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core-state.model';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { fadeOut } from '../../../animations/fade';
+import { isNotEmpty } from '../../../empty.util';
+import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
 
 /**
  * /users/sign-in
  * @class LogInPasswordComponent
  */
 @Component({
-    selector: 'ds-log-in-password',
-    templateUrl: './log-in-password.component.html',
-    styleUrls: ['./log-in-password.component.scss'],
-    animations: [fadeOut],
-    standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe]
+  selector: 'ds-log-in-password',
+  templateUrl: './log-in-password.component.html',
+  styleUrls: ['./log-in-password.component.scss'],
+  animations: [fadeOut],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 export class LogInPasswordComponent implements OnInit {
 

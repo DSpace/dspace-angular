@@ -1,7 +1,27 @@
-import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, } from '@angular/router';
-import { NgbModal, NgbModalRef, } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -10,7 +30,13 @@ import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
-import { defaultIfEmpty, filter, map, switchMap, take, } from 'rxjs/operators';
+import {
+  defaultIfEmpty,
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
@@ -29,18 +55,18 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ViewMode } from '../../../core/shared/view-mode.model';
-import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemEditRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
-import { VarDirective } from '../../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-item-delete',
@@ -53,9 +79,9 @@ import { VarDirective } from '../../../shared/utils/var.directive';
     AsyncPipe,
     VarDirective,
     NgForOf,
-    RouterLink
+    RouterLink,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component responsible for rendering the item delete page

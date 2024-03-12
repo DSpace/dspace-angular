@@ -1,17 +1,18 @@
 import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Output,
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import {
-  ThemedCollectionDropdownComponent
-} from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgClass, NgIf } from '@angular/common';
 
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 
 /**
  * Wrap component for 'ds-collection-dropdown'.
@@ -25,9 +26,9 @@ import { CollectionListEntry } from '../../../shared/collection-dropdown/collect
     ThemedCollectionDropdownComponent,
     TranslateModule,
     NgClass,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionImportExternalCollectionComponent {
   /**

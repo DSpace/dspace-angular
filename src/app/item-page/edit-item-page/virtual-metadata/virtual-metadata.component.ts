@@ -1,16 +1,28 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { APP_CONFIG, AppConfig, } from '../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { AsyncPipe, NgClass, NgForOf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 
 @Component({
   selector: 'ds-virtual-metadata',
@@ -21,9 +33,9 @@ import {
     NgForOf,
     VarDirective,
     AsyncPipe,
-    ListableObjectComponentLoaderComponent
+    ListableObjectComponentLoaderComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component that lists both items of a relationship, along with their virtual metadata of the relationship.

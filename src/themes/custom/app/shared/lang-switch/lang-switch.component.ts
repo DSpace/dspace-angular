@@ -1,9 +1,12 @@
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { LangSwitchComponent as BaseComponent } from '../../../../../app/shared/lang-switch/lang-switch.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgForOf, NgIf } from '@angular/common';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-lang-switch',
@@ -12,7 +15,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
   // templateUrl: './lang-switch.component.html',
   templateUrl: '../../../../../app/shared/lang-switch/lang-switch.component.html',
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgForOf, TranslateModule]
+  imports: [NgIf, NgbDropdownModule, NgForOf, TranslateModule],
 })
 export class LangSwitchComponent extends BaseComponent {
 }

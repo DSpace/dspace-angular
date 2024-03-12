@@ -1,5 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 
 import { QualityAssuranceSourcePageComponent } from './quality-assurance-source-page.component';
 
@@ -9,10 +12,10 @@ describe('QualityAssuranceSourcePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [QualityAssuranceSourcePageComponent],
-    schemas: [NO_ERRORS_SCHEMA],
-})
-    .compileComponents();
+      imports: [QualityAssuranceSourcePageComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,10 +1,18 @@
-import { Component, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FilterGroup } from './filter-group.model';
+import { NgForOf } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { Filter } from './filter.model';
-import { NgForOf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { FilterGroup } from './filter-group.model';
 
 /**
  * Component representing the Query Filters section used in both
@@ -17,9 +25,9 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     NgForOf,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class FiltersComponent {
 

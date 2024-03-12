@@ -1,9 +1,9 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
 
 /**
  * This component renders any content inside of this component.
@@ -17,9 +17,9 @@ import { NgIf } from '@angular/common';
   templateUrl: './comcol-page-content.component.html',
   imports: [
     TranslateModule,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ComcolPageContentComponent {
 

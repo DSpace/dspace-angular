@@ -12,9 +12,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['../item-bitstreams.component.scss'],
   templateUrl: './item-edit-bitstream-drag-handle.component.html',
   imports: [
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component displaying a drag handle for the item-edit-bitstream page

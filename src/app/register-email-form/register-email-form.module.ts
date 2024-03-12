@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { RegisterEmailFormComponent } from './register-email-form.component';
 import { ThemedRegisterEmailFormComponent } from './themed-registry-email-form.component';
-import { NgModule } from '@angular/core';
 
 const DECLARATIONS = [
   RegisterEmailFormComponent,
@@ -9,13 +10,13 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ...DECLARATIONS,
-    ],
-    providers: [],
-    exports: [
-      ...DECLARATIONS,
+  imports: [
+    CommonModule,
+    ...DECLARATIONS,
+  ],
+  providers: [],
+  exports: [
+    ...DECLARATIONS,
   ],
 })
 

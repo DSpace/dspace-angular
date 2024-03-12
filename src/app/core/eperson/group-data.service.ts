@@ -1,8 +1,15 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { createSelector, select, Store, } from '@ngrx/store';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
-import { Observable, zip as observableZip, } from 'rxjs';
+import {
+  Observable,
+  zip as observableZip,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
@@ -18,16 +25,32 @@ import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CreateData, CreateDataImpl, } from '../data/base/create-data';
-import { DeleteData, DeleteDataImpl, } from '../data/base/delete-data';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { PatchData, PatchDataImpl, } from '../data/base/patch-data';
-import { SearchData, SearchDataImpl, } from '../data/base/search-data';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { CreateRequest, DeleteRequest, PostRequest, } from '../data/request.models';
+import {
+  CreateRequest,
+  DeleteRequest,
+  PostRequest,
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';

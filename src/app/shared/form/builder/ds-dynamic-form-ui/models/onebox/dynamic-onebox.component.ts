@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -7,21 +13,34 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormsModule, UntypedFormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   NgbModal,
+  NgbModal,
+  NgbModalRef,
   NgbModalRef,
   NgbTypeahead,
+  NgbTypeahead,
+  NgbTypeaheadModule,
+  NgbTypeaheadSelectItemEvent,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
+  Observable,
+  of as observableOf,
   of as observableOf,
   Subject,
+  Subject,
+  Subscription,
   Subscription,
 } from 'rxjs';
 import {
@@ -35,14 +54,6 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
-import {
-  NgbModal,
-  NgbModalRef,
-  NgbTypeahead,
-  NgbTypeaheadModule,
-  NgbTypeaheadSelectItemEvent
-} from '@ng-bootstrap/ng-bootstrap';
 
 import {
   buildPaginatedList,
@@ -61,11 +72,9 @@ import {
   isNotEmpty,
   isNotNull,
 } from '../../../../../empty.util';
-import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
-import { AsyncPipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
-import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { TranslateModule } from '@ngx-translate/core';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
+import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
@@ -87,9 +96,9 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
     TranslateModule,
     ObjNgFor,
     NgForOf,
-    FormsModule
+    FormsModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
 

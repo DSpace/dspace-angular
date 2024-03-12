@@ -11,9 +11,9 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { IdlePreloadModule } from 'angular-idle-preload';
+
 import { AppModule } from '../../app/app.module';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
-import { MenuModule } from '../../app/shared/menu/menu.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
@@ -25,14 +25,12 @@ import { SearchPageModule } from '../../app/search-page/search-page.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 import { FormModule } from '../../app/shared/form/form.module';
+import { MenuModule } from '../../app/shared/menu/menu.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { SearchModule } from '../../app/shared/search/search.module';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
 import { SubmissionModule } from '../../app/submission/submission.module';
-import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
-import { HomePageComponent } from './app/home-page/home-page.component';
-import { RootComponent } from './app/root/root.component';
 import { SystemWideAlertModule } from '../../app/system-wide-alert/system-wide-alert.module';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
@@ -42,53 +40,37 @@ import { BrowseByMetadataComponent } from './app/browse-by/browse-by-metadata/br
 import { BrowseByTaxonomyComponent } from './app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component';
 import { BrowseByTitleComponent } from './app/browse-by/browse-by-title/browse-by-title.component';
 import { CollectionPageComponent } from './app/collection-page/collection-page.component';
-import {
-  EditItemTemplatePageComponent
-} from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
+import { EditItemTemplatePageComponent } from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
 import { CommunityListPageComponent } from './app/community-list-page/community-list-page.component';
 import { CommunityPageComponent } from './app/community-page/community-page.component';
-import {
-  CommunityPageSubCollectionListComponent
-} from './app/community-page/sections/sub-com-col-section/sub-collection-list/community-page-sub-collection-list.component';
-import {
-  CommunityPageSubCommunityListComponent
-} from './app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component';
+import { CommunityPageSubCollectionListComponent } from './app/community-page/sections/sub-com-col-section/sub-collection-list/community-page-sub-collection-list.component';
+import { CommunityPageSubCommunityListComponent } from './app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component';
 import { DsoEditMetadataComponent } from './app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 import { ForbiddenComponent } from './app/forbidden/forbidden.component';
 import { ForgotEmailComponent } from './app/forgot-password/forgot-password-email/forgot-email.component';
 import { ForgotPasswordFormComponent } from './app/forgot-password/forgot-password-form/forgot-password-form.component';
+import { HomePageComponent } from './app/home-page/home-page.component';
 import { EndUserAgreementComponent } from './app/info/end-user-agreement/end-user-agreement.component';
 import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
 import { PrivacyComponent } from './app/info/privacy/privacy.component';
 import { ItemAlertsComponent } from './app/item-page/alerts/item-alerts.component';
 import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/item-status.component';
-import {
-  FullFileSectionComponent
-} from './app/item-page/full/field-components/file-section/full-file-section.component';
+import { FullFileSectionComponent } from './app/item-page/full/field-components/file-section/full-file-section.component';
 import { FullItemPageComponent } from './app/item-page/full/full-item-page.component';
 import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.component';
-import {
-  MediaViewerImageComponent
-} from './app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
-import {
-  MediaViewerVideoComponent
-} from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
-import {
-  ItemPageTitleFieldComponent
-} from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+import { MediaViewerImageComponent } from './app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
+import { MediaViewerVideoComponent } from './app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
+import { FileSectionComponent } from './app/item-page/simple/field-components/file-section/file-section.component';
+import { ItemPageTitleFieldComponent } from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
-import {
-  MetadataRepresentationListComponent
-} from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
+import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { LoginPageComponent } from './app/login-page/login-page.component';
 import { LogoutPageComponent } from './app/logout-page/logout-page.component';
 import { ObjectNotFoundComponent } from './app/lookup-by-id/objectnotfound/objectnotfound.component';
 import { MyDSpacePageComponent } from './app/my-dspace-page/my-dspace-page.component';
-import {
-  ExpandableNavbarSectionComponent
-} from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
+import { ExpandableNavbarSectionComponent } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import { PageNotFoundComponent } from './app/pagenotfound/pagenotfound.component';
 import { ProfilePageComponent } from './app/profile-page/profile-page.component';
 import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
@@ -97,6 +79,7 @@ import { RegisterEmailComponent } from './app/register-page/register-email/regis
 import { DenyRequestCopyComponent } from './app/request-copy/deny-request-copy/deny-request-copy.component';
 import { EmailRequestCopyComponent } from './app/request-copy/email-request-copy/email-request-copy.component';
 import { GrantRequestCopyComponent } from './app/request-copy/grant-request-copy/grant-request-copy.component';
+import { RootComponent } from './app/root/root.component';
 import { ConfigurationSearchPageComponent } from './app/search-page/configuration-search-page.component';
 import { SearchPageComponent } from './app/search-page/search-page.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
@@ -104,23 +87,13 @@ import { UserMenuComponent } from './app/shared/auth-nav-menu/user-menu/user-men
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import { ComcolPageBrowseByComponent } from './app/shared/comcol-page-browse-by/comcol-page-browse-by.component';
 import { ComcolPageHandleComponent } from './app/shared/comcol-page-handle/comcol-page-handle.component';
-import {
-  DsDynamicLookupRelationExternalSourceTabComponent
-} from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
-import {
-  ExternalSourceEntryImportModalComponent
-} from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
-import {
-  DsDynamicLookupRelationSearchTabComponent
-} from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { ExternalSourceEntryImportModalComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { LoadingComponent } from './app/shared/loading/loading.component';
-import {
-  AccessStatusBadgeComponent
-} from './app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component';
+import { AccessStatusBadgeComponent } from './app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component';
 import { BadgesComponent } from './app/shared/object-collection/shared/badges/badges.component';
-import {
-  MyDSpaceStatusBadgeComponent
-} from './app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
+import { MyDSpaceStatusBadgeComponent } from './app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 import { StatusBadgeComponent } from './app/shared/object-collection/shared/badges/status-badge/status-badge.component';
 import { TypeBadgeComponent } from './app/shared/object-collection/shared/badges/type-badge/type-badge.component';
 import { ObjectListComponent } from './app/shared/object-list/object-list.component';
@@ -130,32 +103,18 @@ import { SearchResultsComponent } from './app/shared/search/search-results/searc
 import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
 import { SearchSidebarComponent } from './app/shared/search/search-sidebar/search-sidebar.component';
 import { SearchFormComponent } from './app/shared/search-form/search-form.component';
-import {
-  CollectionStatisticsPageComponent
-} from './app/statistics-page/collection-statistics-page/collection-statistics-page.component';
-import {
-  CommunityStatisticsPageComponent
-} from './app/statistics-page/community-statistics-page/community-statistics-page.component';
+import { CollectionStatisticsPageComponent } from './app/statistics-page/collection-statistics-page/collection-statistics-page.component';
+import { CommunityStatisticsPageComponent } from './app/statistics-page/community-statistics-page/community-statistics-page.component';
 import { ItemStatisticsPageComponent } from './app/statistics-page/item-statistics-page/item-statistics-page.component';
 import { SiteStatisticsPageComponent } from './app/statistics-page/site-statistics-page/site-statistics-page.component';
 import { SubmissionEditComponent } from './app/submission/edit/submission-edit.component';
-import {
-  SubmissionImportExternalComponent
-} from './app/submission/import-external/submission-import-external.component';
-import {
-  SubmissionSectionUploadFileComponent
-} from './app/submission/sections/upload/file/section-upload-file.component';
+import { SubmissionImportExternalComponent } from './app/submission/import-external/submission-import-external.component';
+import { SubmissionSectionUploadFileComponent } from './app/submission/sections/upload/file/section-upload-file.component';
 import { SubmissionSubmitComponent } from './app/submission/submit/submission-submit.component';
-import {
-  WorkflowItemDeleteComponent
-} from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
-import {
-  WorkflowItemSendBackComponent
-} from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
-import {
-  WorkspaceItemsDeletePageComponent
-} from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
+import { WorkflowItemDeleteComponent } from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
+import { WorkflowItemSendBackComponent } from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
+import { WorkspaceItemsDeletePageComponent } from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -244,7 +203,7 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
+  imports: [
     AppModule,
     RootModule,
     CommonModule,
@@ -278,8 +237,8 @@ const DECLARATIONS = [
     SystemWideAlertModule,
     NgxGalleryModule,
     FormModule,
-    ...DECLARATIONS
-],
+    ...DECLARATIONS,
+  ],
 })
 
 /**

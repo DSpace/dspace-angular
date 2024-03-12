@@ -1,15 +1,30 @@
 import { Injectable } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, } from 'rxjs';
-import { map, mergeMap, switchMap, toArray, } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  switchMap,
+  toArray,
+} from 'rxjs/operators';
 
 import { hasValue } from '../../shared/empty.util';
-import { followLink, FollowLinkConfig, } from '../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload, } from '../shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
 import { BaseDataService } from './base/base-data.service';
 import { FindAllDataImpl } from './base/find-all-data';
 import { SearchDataImpl } from './base/search-data';

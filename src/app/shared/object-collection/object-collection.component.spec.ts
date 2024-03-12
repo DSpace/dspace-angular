@@ -9,17 +9,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { RouterStub } from '../testing/router.stub';
-import { ObjectCollectionComponent } from './object-collection.component';
-import { provideMockStore } from '@ngrx/store/testing';
-import { ThemeService } from '../theme-support/theme.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
+import { RouterStub } from '../testing/router.stub';
+import { ThemeService } from '../theme-support/theme.service';
+import { ObjectCollectionComponent } from './object-collection.component';
 
 describe('ObjectCollectionComponent', () => {
   let fixture: ComponentFixture<ObjectCollectionComponent>;
@@ -40,16 +40,16 @@ describe('ObjectCollectionComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub },
         { provide: ThemeService, useValue: getMockThemeService() },
-        provideMockStore()
+        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-    .overrideComponent(ObjectCollectionComponent, {
-      remove: {
-       imports: [ ThemedObjectListComponent, ObjectGridComponent, ObjectDetailComponent]
-      }
-    })
-    .compileComponents();  // compile template and css
+      .overrideComponent(ObjectCollectionComponent, {
+        remove: {
+          imports: [ ThemedObjectListComponent, ObjectGridComponent, ObjectDetailComponent],
+        },
+      })
+      .compileComponents();  // compile template and css
   }));
 
 

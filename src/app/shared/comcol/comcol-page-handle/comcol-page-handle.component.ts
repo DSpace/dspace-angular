@@ -1,9 +1,9 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Injectable,
   Input,
 } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**
@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./comcol-page-handle.component.scss'],
   templateUrl: './comcol-page-handle.component.html',
   imports: [NgIf, TranslateModule],
-  standalone: true
+  standalone: true,
 })
 
 @Injectable()

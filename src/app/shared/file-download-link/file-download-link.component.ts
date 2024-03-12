@@ -1,23 +1,42 @@
-import { Component, Input, OnInit, } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, } from 'rxjs';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute, } from '../../app-routing-paths';
+import {
+  getBitstreamDownloadRoute,
+  getBitstreamRequestACopyRoute,
+} from '../../app-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
-import { AsyncPipe, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { hasValue, isNotEmpty, } from '../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 
 @Component({
-    selector: 'ds-file-download-link',
-    templateUrl: './file-download-link.component.html',
-    styleUrls: ['./file-download-link.component.scss'],
-    standalone: true,
-    imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe, TranslateModule]
+  selector: 'ds-file-download-link',
+  templateUrl: './file-download-link.component.html',
+  styleUrls: ['./file-download-link.component.scss'],
+  standalone: true,
+  imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a download link

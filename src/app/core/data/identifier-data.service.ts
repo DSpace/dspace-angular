@@ -1,8 +1,15 @@
-import { HttpClient, HttpHeaders, HttpParams, } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, switchMap, } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';

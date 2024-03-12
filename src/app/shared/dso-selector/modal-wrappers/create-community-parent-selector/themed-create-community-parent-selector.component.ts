@@ -9,8 +9,8 @@ import { CreateCommunityParentSelectorComponent } from './create-community-paren
 @Component({
   selector: 'ds-themed-create-community-parent-selector',
   styleUrls: [],
-    templateUrl: '../../../theme-support/themed.component.html',
-    standalone: true
+  templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCreateCommunityParentSelectorComponent
   extends ThemedComponent<CreateCommunityParentSelectorComponent> {

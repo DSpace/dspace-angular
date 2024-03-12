@@ -14,7 +14,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { dataService } from './base/data-service.decorator';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
@@ -22,10 +21,6 @@ import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { BitstreamDataService } from './bitstream-data.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { isNotEmpty } from '../../shared/empty.util';
-import { FindListOptions } from './find-list-options.model';
 
 @Injectable({ providedIn: 'root' })
 export class CommunityDataService extends ComColDataService<Community> {

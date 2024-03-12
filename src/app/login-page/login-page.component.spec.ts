@@ -1,16 +1,20 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
 import { AuthService } from '../core/auth/auth.service';
 import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
-import { provideMockStore } from '@ngrx/store/testing';
-import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { LoginPageComponent } from './login-page.component';
-import { Store } from '@ngrx/store';
 
 describe('LoginPageComponent', () => {
   let comp: LoginPageComponent;
@@ -30,13 +34,13 @@ describe('LoginPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        LoginPageComponent
+        LoginPageComponent,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        provideMockStore({})
+        provideMockStore({}),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

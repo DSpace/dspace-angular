@@ -21,20 +21,20 @@ describe('HealthInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbAccordionModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         HealthInfoComponent,
         ObjNgFor,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
-    .compileComponents();
+    })
+      .compileComponents();
   });
 
   beforeEach(() => {

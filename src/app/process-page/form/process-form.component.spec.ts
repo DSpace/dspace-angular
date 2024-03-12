@@ -1,22 +1,32 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RequestService } from '../../core/data/request.service';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
-import { RouterMock } from '../../shared/mocks/router.mock';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { Script } from '../scripts/script.model';
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { ProcessFormComponent } from './process-form.component';
+import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 
 describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
@@ -62,7 +72,7 @@ describe('ProcessFormComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        ProcessFormComponent
+        ProcessFormComponent,
       ],
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
@@ -76,9 +86,9 @@ describe('ProcessFormComponent', () => {
       .overrideComponent(ProcessFormComponent, {
         remove: {
           imports: [
-            ScriptsSelectComponent
-          ]
-        }
+            ScriptsSelectComponent,
+          ],
+        },
       })
       .compileComponents();
   }));

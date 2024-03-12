@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 
 @Directive({
-    selector: '[dsHoverClass]',
-    standalone: true
+  selector: '[dsHoverClass]',
+  standalone: true,
 })
 /**
  * A directive adding a class to an element when hovered over

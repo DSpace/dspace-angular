@@ -1,33 +1,67 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { BehaviorSubject, combineLatest, from, shareReplay } from 'rxjs';
-import { map, mergeMap, take, tap } from 'rxjs/operators';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AsyncPipe,
+  KeyValuePipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
+import {
+  BehaviorSubject,
+  combineLatest,
+  from,
+  shareReplay,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { AlertComponent } from '../../alert/alert.component';
 import { isNotEmpty } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
-import { AlertComponent } from '../../alert/alert.component';
-import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { AsyncPipe, KeyValuePipe, NgFor, NgIf } from '@angular/common';
 
 @Component({
-    selector: 'ds-subscription-modal',
-    templateUrl: './subscription-modal.component.html',
-    styleUrls: ['./subscription-modal.component.scss'],
-    standalone: true,
-    imports: [NgIf, FormsModule, ReactiveFormsModule, ThemedTypeBadgeComponent, NgFor, AlertComponent, AsyncPipe, KeyValuePipe, TranslateModule]
+  selector: 'ds-subscription-modal',
+  templateUrl: './subscription-modal.component.html',
+  styleUrls: ['./subscription-modal.component.scss'],
+  standalone: true,
+  imports: [NgIf, FormsModule, ReactiveFormsModule, ThemedTypeBadgeComponent, NgFor, AlertComponent, AsyncPipe, KeyValuePipe, TranslateModule],
 })
 /**
  * Modal that allows to manage the subscriptions for the selected item

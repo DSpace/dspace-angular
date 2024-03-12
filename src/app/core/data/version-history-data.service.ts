@@ -1,12 +1,23 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, } from 'rxjs';
-import { filter, map, switchMap, take, } from 'rxjs/operators';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { hasValueOperator } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { followLink, FollowLinkConfig, } from '../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
@@ -20,7 +31,6 @@ import {
 } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
 import { Version } from '../shared/version.model';
-import { VersionDataService } from './version-data.service';
 import { VersionHistory } from '../shared/version-history.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { FindListOptions } from './find-list-options.model';
@@ -29,6 +39,7 @@ import { RemoteData } from './remote-data';
 import { PostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
+import { VersionDataService } from './version-data.service';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object

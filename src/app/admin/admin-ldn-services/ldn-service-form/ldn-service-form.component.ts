@@ -1,27 +1,63 @@
-import { animate, state, style, transition, trigger, } from '@angular/animations';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild, } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
-import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
-import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LdnService } from '../ldn-services-model/ldn-services.model';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { combineLatestWith, Observable, Subscription, } from 'rxjs';
+import {
+  combineLatestWith,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { RemoteData } from 'src/app/core/data/remote-data';
 
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
 import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
+import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
+import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
 import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
 import { NotifyServicePattern } from '../ldn-services-model/ldn-service-patterns.model';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { LdnService } from '../ldn-services-model/ldn-services.model';
+import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
 
 /**
  * Component for editing LDN service through a form that allows to create or edit the properties of a service
@@ -44,8 +80,8 @@ import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
     NgIf,
     NgbDropdownModule,
     NgForOf,
-    AsyncPipe
-  ]
+    AsyncPipe,
+  ],
 })
 export class LdnServiceFormComponent implements OnInit, OnDestroy {
   formModel: FormGroup;

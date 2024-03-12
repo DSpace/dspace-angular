@@ -1,5 +1,7 @@
-import { DebugElement} from '@angular/core';
-import { DebugElement } from '@angular/core';
+import {
+  DebugElement,
+  DebugElement,
+} from '@angular/core';
 import {
   ComponentFixture,
   inject,
@@ -33,14 +35,14 @@ describe('CustomSwitchComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         ReactiveFormsModule,
         NoopAnimationsModule,
         DynamicFormsCoreModule.forRoot(),
-        CustomSwitchComponent
-    ]
-}).compileComponents().then(() => {
+        CustomSwitchComponent,
+      ],
+    }).compileComponents().then(() => {
       fixture = TestBed.createComponent(CustomSwitchComponent);
 
       component = fixture.componentInstance;

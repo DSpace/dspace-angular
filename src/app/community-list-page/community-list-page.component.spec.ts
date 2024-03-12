@@ -1,7 +1,4 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ThemeService } from '../shared/theme-support/theme.service';
-import { getMockThemeService } from '../shared/mocks/theme-service.mock';
-import { CommunityListService } from './community-list-service';
 import {
   ComponentFixture,
   inject,
@@ -13,8 +10,11 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { ThemeService } from '../shared/theme-support/theme.service';
 import { CommunityListPageComponent } from './community-list-page.component';
+import { CommunityListService } from './community-list-service';
 
 describe('CommunityListPageComponent', () => {
   let component: CommunityListPageComponent;
@@ -22,22 +22,22 @@ describe('CommunityListPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
-            },
+          },
         }),
-        CommunityListPageComponent
-    ],
-    providers: [
+        CommunityListPageComponent,
+      ],
+      providers: [
         CommunityListPageComponent,
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: CommunityListService, useValue: {} },
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
       .compileComponents();
   }));
 

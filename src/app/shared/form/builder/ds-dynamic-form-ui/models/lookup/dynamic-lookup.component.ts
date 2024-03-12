@@ -1,4 +1,10 @@
 import {
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -7,12 +13,21 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormsModule, UntypedFormGroup } from '@angular/forms';
-import { NgbDropdown, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  NgbDropdown,
+  NgbDropdownModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   of as observableOf,
   Subscription,
@@ -36,13 +51,10 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../../../../empty.util';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 
 /**
@@ -63,9 +75,9 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
     InfiniteScrollModule,
     NgForOf,
     NgTemplateOutlet,
-    ObjNgFor
+    ObjNgFor,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 

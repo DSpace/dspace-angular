@@ -1,18 +1,33 @@
-import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { ActivatedRoute, CanActivate, Route, Router, RouterLink, RouterOutlet } from '@angular/router';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectionStrategy,
+  Component,
   Component,
   Injector,
+  Injector,
+  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
+  ActivatedRoute,
+  CanActivate,
   CanActivate,
   Route,
+  Route,
   Router,
+  Router,
+  RouterLink,
+  RouterOutlet,
 } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -21,18 +36,19 @@ import {
 import { map } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {
+  GenericConstructor,
+  GenericConstructor,
+} from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
 import {
   fadeIn,
+  fadeIn,
+  fadeInOut,
   fadeInOut,
 } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
 import { getItemPageRoute } from '../item-page-routing-paths';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-edit-item-page',
@@ -40,7 +56,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
+    fadeInOut,
   ],
   imports: [
     TranslateModule,
@@ -50,9 +66,9 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     AsyncPipe,
     NgbTooltipModule,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Page component for editing an item

@@ -8,7 +8,10 @@ import {
   fakeAsync,
   TestBed,
 } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -31,10 +34,10 @@ import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
 } from '../remote-data.utils';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
 import { RouterStub } from '../testing/router.stub';
 import { PoolTaskActionsComponent } from './pool-task/pool-task-actions.component';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
 
 let mockDataService: PoolTaskDataService;
 let mockClaimedTaskDataService: ClaimedTaskDataService;
@@ -89,16 +92,16 @@ describe('MyDSpaceReloadableActionsComponent', () => {
     mockDataService = new PoolTaskDataService(null, null, null, null);
     mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        PoolTaskActionsComponent
-    ],
-    providers: [
+        PoolTaskActionsComponent,
+      ],
+      providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
@@ -106,10 +109,10 @@ describe('MyDSpaceReloadableActionsComponent', () => {
         { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
-    ],
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(PoolTaskActionsComponent, {
+    }).overrideComponent(PoolTaskActionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

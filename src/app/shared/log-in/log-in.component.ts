@@ -1,6 +1,22 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, } from '@angular/core';
-import { select, Store, } from '@ngrx/store';
-import { map, Observable, } from 'rxjs';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  map,
+  Observable,
+} from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
@@ -12,18 +28,17 @@ import {
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core-state.model';
 import { hasValue } from '../empty.util';
-import { LogInContainerComponent } from './container/log-in-container.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 
 @Component({
-    selector: 'ds-log-in',
-    templateUrl: './log-in.component.html',
-    styleUrls: ['./log-in.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe]
+  selector: 'ds-log-in',
+  templateUrl: './log-in.component.html',
+  styleUrls: ['./log-in.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe],
 })
 export class LogInComponent implements OnInit {
 

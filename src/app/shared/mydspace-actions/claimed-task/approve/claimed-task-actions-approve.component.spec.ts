@@ -51,16 +51,16 @@ describe('ClaimedTaskActionsApproveComponent', () => {
   beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ClaimedTaskActionsApproveComponent
-    ],
-    providers: [
+        ClaimedTaskActionsApproveComponent,
+      ],
+      providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -68,9 +68,9 @@ describe('ClaimedTaskActionsApproveComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ClaimedTaskActionsApproveComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ClaimedTaskActionsApproveComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

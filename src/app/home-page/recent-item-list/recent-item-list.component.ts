@@ -1,10 +1,30 @@
-import { AsyncPipe, isPlatformBrowser, NgClass, NgFor, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, PLATFORM_ID, } from '@angular/core';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { APP_CONFIG, AppConfig, } from '../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -13,31 +33,34 @@ import { Item } from '../../core/shared/item.model';
 import { toDSpaceObjectListRD } from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { fadeIn, fadeInOut, } from '../../shared/animations/fade';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../shared/animations/fade';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
-import { TranslateModule } from '@ngx-translate/core';
-import { LoadingComponent } from '../../shared/loading/loading.component';
-import { ErrorComponent } from '../../shared/error/error.component';
 import {
-  ListableObjectComponentLoaderComponent
-} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
+import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
-    selector: 'ds-recent-item-list',
-    templateUrl: './recent-item-list.component.html',
-    styleUrls: ['./recent-item-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [
-        fadeIn,
-        fadeInOut
-    ],
-    standalone: true,
-    imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, LoadingComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-recent-item-list',
+  templateUrl: './recent-item-list.component.html',
+  styleUrls: ['./recent-item-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    fadeIn,
+    fadeInOut,
+  ],
+  standalone: true,
+  imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, LoadingComponent, AsyncPipe, TranslateModule],
 })
 export class RecentItemListComponent implements OnInit {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;

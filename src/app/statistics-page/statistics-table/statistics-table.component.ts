@@ -1,24 +1,44 @@
-import { Component, Input, OnInit, } from '@angular/core';
-import { Observable, of, } from 'rxjs';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { getFinishedRemoteData, getRemoteDataPayload, } from '../../core/shared/operators';
-import { Point, UsageReport, } from '../../core/statistics/models/usage-report.model';
+import {
+  getFinishedRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import {
+  Point,
+  UsageReport,
+} from '../../core/statistics/models/usage-report.model';
 import { isEmpty } from '../../shared/empty.util';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
 /**
  * Component representing a statistics table for a given usage report.
  */
 @Component({
-    selector: 'ds-statistics-table',
-    templateUrl: './statistics-table.component.html',
-    styleUrls: ['./statistics-table.component.scss'],
-    standalone: true,
-    imports: [NgIf, NgFor, AsyncPipe, TranslateModule]
+  selector: 'ds-statistics-table',
+  templateUrl: './statistics-table.component.html',
+  styleUrls: ['./statistics-table.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgFor, AsyncPipe, TranslateModule],
 })
 export class StatisticsTableComponent implements OnInit {
 

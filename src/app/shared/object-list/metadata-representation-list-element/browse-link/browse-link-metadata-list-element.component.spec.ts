@@ -35,9 +35,9 @@ describe('BrowseLinkMetadataListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
-    imports: [BrowseLinkMetadataListElementComponent],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(BrowseLinkMetadataListElementComponent, {
+      imports: [BrowseLinkMetadataListElementComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(BrowseLinkMetadataListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

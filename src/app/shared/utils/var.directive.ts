@@ -7,8 +7,8 @@ import {
 
 /* eslint-disable @angular-eslint/directive-selector */
 @Directive({
-    selector: '[ngVar]',
-    standalone: true
+  selector: '[ngVar]',
+  standalone: true,
 })
 export class VarDirective {
   @Input()

@@ -17,10 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import {
-  AuthorizedCollectionSelectorComponent
-} from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { RouterStub } from '../../../testing/router.stub';
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 
 describe('CreateItemParentSelectorComponent', () => {
@@ -42,29 +40,29 @@ describe('CreateItemParentSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), CreateItemParentSelectorComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), CreateItemParentSelectorComponent],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
-            provide: ActivatedRoute,
-            useValue: {
-                root: {
-                    snapshot: {
-                        data: {
-                            dso: collectionRD,
-                        },
-                    },
+          provide: ActivatedRoute,
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: collectionRD,
+                },
+              },
             },
-            },
+          },
         },
         {
           provide: Router, useValue: router,
         },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(CreateItemParentSelectorComponent, {
-        remove: { imports: [AuthorizedCollectionSelectorComponent]}
+        remove: { imports: [AuthorizedCollectionSelectorComponent] },
       })
       .compileComponents();
 

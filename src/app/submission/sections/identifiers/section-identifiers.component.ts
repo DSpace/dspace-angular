@@ -1,18 +1,30 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-
 import {
-  WorkspaceitemSectionIdentifiersObject
-} from '../../../core/submission/models/workspaceitem-section-identifiers.model';
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+} from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+
+import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { VarDirective } from '../../../shared/utils/var.directive';
 
 /**
  * This simple component displays DOI, handle and other identifiers that are already minted for the item in
@@ -30,9 +42,9 @@ import { VarDirective } from '../../../shared/utils/var.directive';
     NgForOf,
     NgIf,
     AsyncPipe,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 
 export class SubmissionSectionIdentifiersComponent extends SectionModelComponent {

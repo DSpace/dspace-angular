@@ -1,29 +1,46 @@
-import { Component, Input, OnInit, } from '@angular/core';
-import { select, Store, } from '@ngrx/store';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
-import { getProfileModuleRoute, getSubscriptionsModuleRoute, } from '../../../app-routing-paths';
+import {
+  getProfileModuleRoute,
+  getSubscriptionsModuleRoute,
+} from '../../../app-routing-paths';
 import { AuthService } from '../../../core/auth/auth.service';
 import { isAuthenticationLoading } from '../../../core/auth/selectors';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { LogOutComponent } from '../../log-out/log-out.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { LogOutComponent } from '../../log-out/log-out.component';
 
 /**
  * This component represents the user nav menu.
  */
 @Component({
-    selector: 'ds-user-menu',
-    templateUrl: './user-menu.component.html',
-    styleUrls: ['./user-menu.component.scss'],
-    standalone: true,
-    imports: [NgIf, ThemedLoadingComponent, RouterLinkActive, NgClass, RouterLink, LogOutComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-user-menu',
+  templateUrl: './user-menu.component.html',
+  styleUrls: ['./user-menu.component.scss'],
+  standalone: true,
+  imports: [NgIf, ThemedLoadingComponent, RouterLinkActive, NgClass, RouterLink, LogOutComponent, AsyncPipe, TranslateModule],
 })
 export class UserMenuComponent implements OnInit {
 

@@ -1,8 +1,15 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { FileValueAccessorDirective } from '../../../../shared/utils/file-value-accessor.directive';
@@ -35,13 +42,13 @@ describe('ParameterValueInputComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         ParameterValueInputComponent,
         BooleanValueInputComponent,
@@ -50,9 +57,9 @@ describe('ParameterValueInputComponent', () => {
         DateValueInputComponent,
         FileValueAccessorDirective,
         FileValidator,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .compileComponents();
   }));
 

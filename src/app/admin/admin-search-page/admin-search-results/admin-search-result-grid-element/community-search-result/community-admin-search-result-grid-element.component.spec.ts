@@ -18,16 +18,17 @@ import { Community } from '../../../../../core/shared/community.model';
 import { FileService } from '../../../../../core/shared/file.service';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import {
+  TruncatableService,
+  TruncatableService,
+} from '../../../../../shared/truncatable/truncatable.service';
 import { CommunityAdminSearchResultGridElementComponent } from './community-admin-search-result-grid-element.component';
 
 describe('CommunityAdminSearchResultGridElementComponent', () => {
@@ -50,13 +51,13 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        CommunityAdminSearchResultGridElementComponent
-    ],
-    providers: [
+        CommunityAdminSearchResultGridElementComponent,
+      ],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
@@ -64,9 +65,9 @@ describe('CommunityAdminSearchResultGridElementComponent', () => {
         { provide: FileService, useClass: FileServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .compileComponents();
   }));
 

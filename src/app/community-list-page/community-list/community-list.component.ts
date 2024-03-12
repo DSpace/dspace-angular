@@ -1,33 +1,49 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
+import {
+  CdkTreeModule,
+  FlatTreeControl,
+  FlatTreeControl,
+} from '@angular/cdk/tree';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { CommunityListService } from '../community-list-service';
-import { CommunityListDatasource } from '../community-list-datasource';
-import { CdkTreeModule, FlatTreeControl } from '@angular/cdk/tree';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
+  SortDirection,
+  SortOptions,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+import {
+  FindListOptions,
+  FindListOptions,
+} from '../../core/data/find-list-options.model';
 import { isEmpty } from '../../shared/empty.util';
-import { CommunityListDatasource } from '../community-list-datasource';
-import { CommunityListService } from '../community-list-service';
-import { FlatNode } from '../flat-node.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
-import { RouterLink } from '@angular/router';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  CommunityListDatasource,
+  CommunityListDatasource,
+} from '../community-list-datasource';
+import {
+  CommunityListService,
+  CommunityListService,
+} from '../community-list-service';
+import { FlatNode } from '../flat-node.model';
 
 /**
  * A tree-structured list of nodes representing the communities, their subCommunities and collections.
@@ -41,7 +57,7 @@ import { AsyncPipe, NgClass, NgIf } from '@angular/common';
   templateUrl: './community-list.component.html',
   styleUrls: ['./community-list.component.scss'],
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule]
+  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
 

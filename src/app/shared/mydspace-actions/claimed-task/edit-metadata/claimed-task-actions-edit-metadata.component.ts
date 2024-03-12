@@ -1,32 +1,47 @@
-import { Component, Injector } from '@angular/core';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { Router, RouterLink } from '@angular/router';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../../../core/shared/search/search.service';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
+  Component,
+  Injector,
   Injector,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Router,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { RequestService } from '../../../../core/data/request.service';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
+import {
+  SearchService,
+  SearchService,
+} from '../../../../core/shared/search/search.service';
+import {
+  NotificationsService,
+  NotificationsService,
+} from '../../../notifications/notifications.service';
+import {
+  ClaimedTaskActionsAbstractComponent,
+  ClaimedTaskActionsAbstractComponent,
+} from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
 
 @Component({
-    selector: 'ds-claimed-task-actions-edit-metadata',
-    styleUrls: ['./claimed-task-actions-edit-metadata.component.scss'],
-    templateUrl: './claimed-task-actions-edit-metadata.component.html',
-    standalone: true,
-    imports: [NgIf, NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule]
+  selector: 'ds-claimed-task-actions-edit-metadata',
+  styleUrls: ['./claimed-task-actions-edit-metadata.component.scss'],
+  templateUrl: './claimed-task-actions-edit-metadata.component.html',
+  standalone: true,
+  imports: [NgIf, NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying the edit metadata action on a workflow task item

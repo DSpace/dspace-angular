@@ -1,18 +1,22 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
-  Output,} from '@angular/core';
+  Output,
+} from '@angular/core';
 import {
   AbstractControl,
   ReactiveFormsModule,
   UntypedFormArray,
   UntypedFormControl,
-  UntypedFormGroup
-,
+  UntypedFormGroup,
 } from '@angular/forms';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -20,8 +24,10 @@ import {
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicFormLayout, DynamicFormsCoreModule,
+  DynamicFormLayout,
+  DynamicFormsCoreModule,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import {
   Observable,
@@ -39,18 +45,19 @@ import {
   isNotNull,
   isNull,
 } from '../empty.util';
+import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import {
+  FormFieldMetadataValueObject,
+  FormFieldMetadataValueObject,
+} from './builder/models/form-field-metadata-value.model';
 import {
   FormEntry,
+  FormEntry,
+  FormError,
   FormError,
 } from './form.reducer';
 import { FormService } from './form.service';
-import { FormEntry, FormError } from './form.reducer';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgIf } from '@angular/common';
 
 /**
  * The default form component.
@@ -68,7 +75,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
     NgIf,
     AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class FormComponent implements OnDestroy, OnInit {
 

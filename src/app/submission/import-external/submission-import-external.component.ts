@@ -1,16 +1,40 @@
-import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { NgbModal, NgbModalRef, } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject, combineLatest, Subscription, } from 'rxjs';
-import { filter, mergeMap, switchMap, take, tap, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
 import {
-  ExternalSourceData,
-  SubmissionImportExternalSearchbarComponent
-} from './import-external-searchbar/submission-import-external-searchbar.component';
-import { buildPaginatedList, PaginatedList, } from '../../core/data/paginated-list.model';
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RouteService } from '../../core/services/route.service';
 import { Context } from '../../core/shared/context.model';
@@ -19,19 +43,22 @@ import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type
 import { getFinishedRemoteData } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
-import { hasValue, isNotEmpty, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import {
-  SubmissionImportExternalPreviewComponent
-} from './import-external-preview/submission-import-external-preview.component';
-import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import {
+  ExternalSourceData,
+  SubmissionImportExternalSearchbarComponent,
+} from './import-external-searchbar/submission-import-external-searchbar.component';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
@@ -50,9 +77,9 @@ import { VarDirective } from '../../shared/utils/var.directive';
     SubmissionImportExternalSearchbarComponent,
     TranslateModule,
     VarDirective,
-    RouterLink
+    RouterLink,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
 

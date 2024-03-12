@@ -1,9 +1,36 @@
-import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, Subscription, } from 'rxjs';
-import { map, switchMap, take, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
@@ -12,14 +39,16 @@ import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { NoContent } from '../../../../core/shared/NoContent.model';
-import { getAllCompletedRemoteData, getFirstCompletedRemoteData, } from '../../../../core/shared/operators';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../../../../core/shared/operators';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { ContextHelpDirective } from '../../../../shared/context-help.directive';
-import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -41,9 +70,9 @@ enum SubKey {
     TranslateModule,
     ReactiveFormsModule,
     PaginationComponent,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * The list of subgroups in the edit group page

@@ -1,17 +1,27 @@
-import { EventEmitter, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
+import { of } from 'rxjs';
 
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { FormComponent } from '../../shared/form/form.component';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { of } from 'rxjs';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.component';
 
@@ -65,7 +75,7 @@ describe('ProfilePageMetadataFormComponent', () => {
     };
 
     configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
-      findByPropertyName: of({payload: {value: 'test'}}),
+      findByPropertyName: of({ payload: { value: 'test' } }),
     });
 
   }
@@ -73,18 +83,18 @@ describe('ProfilePageMetadataFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProfilePageMetadataFormComponent, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProfilePageMetadataFormComponent, VarDirective],
+      providers: [
         { provide: EPersonDataService, useValue: epersonService },
         { provide: TranslateService, useValue: translate },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         FormBuilderService,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(ProfilePageMetadataFormComponent, {
-        remove: { imports: [FormComponent]}
+        remove: { imports: [FormComponent] },
       })
       .compileComponents();
   }));

@@ -8,10 +8,10 @@ import { ThemedComponent } from '../../../shared/theme-support/themed.component'
 import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
 
 @Component({
-    selector: 'ds-themed-metadata-representation-list',
-    styleUrls: [],
-    templateUrl: '../../../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-metadata-representation-list',
+  styleUrls: [],
+  templateUrl: '../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedMetadataRepresentationListComponent extends ThemedComponent<MetadataRepresentationListComponent> {
   protected inAndOutputNames: (keyof MetadataRepresentationListComponent & keyof this)[] = ['parentItem', 'itemType', 'metadataFields', 'label', 'incrementBy'];

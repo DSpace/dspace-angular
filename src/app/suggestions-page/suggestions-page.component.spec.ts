@@ -23,10 +23,9 @@ import { TestScheduler } from 'rxjs/testing';
 import { AuthService } from '../core/auth/auth.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 import { SuggestionEvidencesComponent } from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
-import {
-  SuggestionListElementComponent,
-} from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../notifications/suggestions.service';
 import {
@@ -47,7 +46,6 @@ import { RouterStub } from '../shared/testing/router.stub';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SuggestionsPageComponent } from './suggestions-page.component';
-import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
@@ -74,7 +72,7 @@ describe('SuggestionPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         BrowserModule,
         CommonModule,
         TranslateModule.forRoot(),
@@ -83,8 +81,8 @@ describe('SuggestionPageComponent', () => {
         SuggestionsPageComponent,
         ObjectKeysPipe,
         VarDirective,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: AuthService, useValue: authService },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: WorkspaceitemDataService, useValue: workspaceitemServiceMock },
@@ -95,9 +93,9 @@ describe('SuggestionPageComponent', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: PaginationService, useValue: paginationService },
         SuggestionsPageComponent,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .compileComponents().then();
   }));
 

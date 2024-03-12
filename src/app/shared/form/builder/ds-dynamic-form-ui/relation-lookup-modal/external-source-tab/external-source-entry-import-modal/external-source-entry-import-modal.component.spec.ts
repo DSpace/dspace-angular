@@ -4,6 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   NgbActiveModal,
@@ -20,9 +21,8 @@ import { NotificationsService } from '../../../../../../notifications/notificati
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
-import { createPaginatedList } from '../../../../../../testing/utils.test';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchResultsComponent } from '../../../../../../search/search-results/search-results.component';
+import { createPaginatedList } from '../../../../../../testing/utils.test';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
 import {
   ExternalSourceEntryImportModalComponent,
@@ -80,24 +80,24 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
-      TranslateModule.forRoot(),
-      RouterTestingModule.withRoutes([]),
-      NgbModule,
-      ExternalSourceEntryImportModalComponent,
-      NoopAnimationsModule
-    ],
-    providers: [
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        NgbModule,
+        ExternalSourceEntryImportModalComponent,
+        NoopAnimationsModule,
+      ],
+      providers: [
         { provide: LookupRelationService, useValue: lookupRelationService },
         { provide: SelectableListService, useValue: selectService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ItemDataService, useValue: itemService },
         { provide: NgbActiveModal, useValue: modalStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(ExternalSourceEntryImportModalComponent, {
-        remove: { imports: [SearchResultsComponent]}
+        remove: { imports: [SearchResultsComponent] },
       })
       .compileComponents();
   }));

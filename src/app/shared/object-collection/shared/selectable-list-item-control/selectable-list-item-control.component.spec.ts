@@ -53,15 +53,15 @@ describe('SelectableListItemControlComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [FormsModule, SelectableListItemControlComponent, VarDirective, TranslateModule.forRoot()],
-    providers: [
+      imports: [FormsModule, SelectableListItemControlComponent, VarDirective, TranslateModule.forRoot()],
+      providers: [
         {
-            provide: SelectableListService,
+          provide: SelectableListService,
           useValue: selectionService,
         },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

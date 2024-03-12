@@ -1,10 +1,17 @@
-import { Component, OnInit, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
-import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../suggestions.service';
 
@@ -20,7 +27,7 @@ import { SuggestionsService } from '../suggestions.service';
     TranslateModule,
     AsyncPipe,
     NgIf,
-    NgForOf
+    NgForOf,
   ],
   styleUrls: ['./suggestions-notification.component.scss'],
 })

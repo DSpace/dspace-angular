@@ -1,10 +1,20 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject, of as observableOf, } from 'rxjs';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
@@ -18,6 +28,7 @@ import {
   SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
@@ -26,7 +37,6 @@ import { FacetValue } from '../../../models/facet-value.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;
@@ -96,8 +106,8 @@ describe('SearchRangeFilterComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchRangeFilterComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchRangeFilterComponent],
+      providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: mockFilterConfig },
@@ -108,21 +118,21 @@ describe('SearchRangeFilterComponent', () => {
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         { provide: SCOPE, useValue: undefined },
         {
-            provide: SearchFilterService, useValue: {
-                getSelectedValuesForFilter: () => selectedValues,
-                isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-                getPage: (paramName: string) => page,
-                /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-                incrementPage: (filterName: string) => {
-                },
-                resetPage: (filterName: string) => {
+          provide: SearchFilterService, useValue: {
+            getSelectedValuesForFilter: () => selectedValues,
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
+            getPage: (paramName: string) => page,
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+            incrementPage: (filterName: string) => {
             },
-                /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+            resetPage: (filterName: string) => {
+            },
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           },
         },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(SearchRangeFilterComponent, {
+    }).overrideComponent(SearchRangeFilterComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

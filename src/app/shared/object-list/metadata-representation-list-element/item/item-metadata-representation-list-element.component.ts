@@ -9,9 +9,9 @@ import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths'
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
-    selector: 'ds-item-metadata-representation-list-element',
-    template: '',
-    standalone: true
+  selector: 'ds-item-metadata-representation-list-element',
+  template: '',
+  standalone: true,
 })
 /**
  * An abstract class for displaying a single ItemMetadataRepresentation

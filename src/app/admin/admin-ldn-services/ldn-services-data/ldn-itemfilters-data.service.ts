@@ -22,7 +22,7 @@ import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
 /**
  * A service responsible for fetching/sending data from/to the REST API on the itemfilters endpoint
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 @dataService(LDN_SERVICE_CONSTRAINT_FILTERS)
 export class LdnItemfiltersService extends IdentifiableDataService<Itemfilter> implements FindAllData<Itemfilter> {
   private findAllData: FindAllDataImpl<Itemfilter>;

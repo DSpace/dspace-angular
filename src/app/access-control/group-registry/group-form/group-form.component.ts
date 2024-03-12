@@ -1,6 +1,21 @@
-import { ChangeDetectorRef, Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -8,10 +23,25 @@ import {
   DynamicInputModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription, } from 'rxjs';
-import { catchError, debounceTime, filter, map, switchMap, take, } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
@@ -36,20 +66,26 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
-import { hasValue, hasValueOperator, isNotEmpty, } from '../../../shared/empty.util';
+import { ContextHelpDirective } from '../../../shared/context-help.directive';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { getGroupEditRoute, getGroupsRoute, } from '../../access-control-routing-paths';
-import { ValidateGroupExists } from './validators/group-exists.validator';
-import { FormComponent } from '../../../shared/form/form.component';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { ContextHelpDirective } from '../../../shared/context-help.directive';
+import {
+  getGroupEditRoute,
+  getGroupsRoute,
+} from '../../access-control-routing-paths';
 import { MembersListComponent } from './members-list/members-list.component';
 import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
+import { ValidateGroupExists } from './validators/group-exists.validator';
 
 @Component({
   selector: 'ds-group-form',
@@ -62,9 +98,9 @@ import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component
     TranslateModule,
     ContextHelpDirective,
     MembersListComponent,
-    SubgroupsListComponent
+    SubgroupsListComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * A form used for creating and editing groups

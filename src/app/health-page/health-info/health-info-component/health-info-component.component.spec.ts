@@ -32,8 +32,8 @@ describe('HealthInfoComponentComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         HealthInfoComponentComponent,
         ObjNgFor,

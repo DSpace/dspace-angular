@@ -1,8 +1,22 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
@@ -19,10 +33,10 @@ import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let mockDataService: PoolTaskDataService;
 let mockClaimedTaskDataService: ClaimedTaskDataService;
@@ -77,16 +91,16 @@ describe('PoolTaskActionsComponent', () => {
     mockDataService = new PoolTaskDataService(null, null, null, null);
     mockClaimedTaskDataService = new ClaimedTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        PoolTaskActionsComponent
-    ],
-    providers: [
+        PoolTaskActionsComponent,
+      ],
+      providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
@@ -95,9 +109,9 @@ describe('PoolTaskActionsComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(PoolTaskActionsComponent, {
+    }).overrideComponent(PoolTaskActionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

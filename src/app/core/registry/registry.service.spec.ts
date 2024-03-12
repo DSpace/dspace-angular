@@ -1,9 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Store, StoreModule, } from '@ngrx/store';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf, } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import {
   MetadataRegistryCancelFieldAction,
@@ -19,7 +25,10 @@ import {
 } from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { storeModuleConfig } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$, } from '../../shared/remote-data.utils';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { StoreMock } from '../../shared/testing/store.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -33,9 +42,9 @@ import { NoContent } from '../shared/NoContent.model';
 import { RegistryService } from './registry.service';
 
 @Component({
-    template: '',
-    standalone: true,
-    imports: [CommonModule]
+  template: '',
+  standalone: true,
+  imports: [CommonModule],
 })
 class DummyComponent {
 }
@@ -149,16 +158,16 @@ describe('RegistryService', () => {
   beforeEach(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot(), DummyComponent,
+      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot(), DummyComponent,
       ],
-    providers: [
+      providers: [
         { provide: Store, useClass: StoreMock },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: MetadataSchemaDataService, useValue: metadataSchemaService },
         { provide: MetadataFieldDataService, useValue: metadataFieldService },
         RegistryService,
       ],
-});
+    });
     registryService = TestBed.inject(RegistryService);
     mockStore = TestBed.inject(Store);
   });

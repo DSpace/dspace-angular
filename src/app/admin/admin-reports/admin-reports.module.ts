@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormModule } from '../../shared/form/form.module';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { FormModule } from '../../shared/form/form.module';
 
 @NgModule({
   imports: [

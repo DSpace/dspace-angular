@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   DebugElement,
@@ -24,7 +25,6 @@ import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { hasValue } from '../../empty.util';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { NgIf } from '@angular/common';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
@@ -50,24 +50,24 @@ describe('DSOSelectorModalWrapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), TestComponent, MockComponent(DSOSelectorComponent)],
-    providers: [
+      imports: [TranslateModule.forRoot(), TestComponent, MockComponent(DSOSelectorComponent)],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
-            provide: ActivatedRoute,
-            useValue: {
-                root: {
-                    snapshot: {
-                        data: {
-                            dso: itemRD,
-                        },
-                    },
+          provide: ActivatedRoute,
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: itemRD,
+                },
+              },
             },
           },
         },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
 
   }));
 
@@ -165,9 +165,9 @@ describe('DSOSelectorModalWrapperComponent', () => {
   imports: [
     DSOSelectorComponent,
     NgIf,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 class TestComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

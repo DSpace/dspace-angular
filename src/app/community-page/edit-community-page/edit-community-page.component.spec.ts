@@ -1,21 +1,28 @@
-import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  CommonModule,
+  CommonModule,
+} from '@angular/common';
+import {
+  NO_ERRORS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  RouterTestingModule,
+  RouterTestingModule,
+} from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of as observableOf,
+} from 'rxjs';
 
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { SharedModule } from '../../shared/shared.module';
 import { EditCommunityPageComponent } from './edit-community-page.component';
 
 describe('EditCommunityPageComponent', () => {
@@ -47,13 +54,13 @@ describe('EditCommunityPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditCommunityPageComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditCommunityPageComponent],
+      providers: [
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: routeStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

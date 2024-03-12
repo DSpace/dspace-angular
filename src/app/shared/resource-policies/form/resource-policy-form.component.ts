@@ -1,11 +1,30 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, } from '@angular/core';
-import { NgbModal, NgbNavChangeEvent, NgbNavModule, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbNavChangeEvent,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -13,7 +32,11 @@ import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
-import { filter, map, take, } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -24,10 +47,20 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { dateToISOFormat, stringToNgbDateStruct, } from '../../date.util';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty, } from '../../empty.util';
+import {
+  dateToISOFormat,
+  stringToNgbDateStruct,
+} from '../../date.util';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '../../empty.util';
+import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
 import {
   RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG,
@@ -41,10 +74,6 @@ import {
   RESOURCE_POLICY_FORM_START_DATE_CONFIG,
   RESOURCE_POLICY_FORM_START_DATE_LAYOUT,
 } from './resource-policy-form.model';
-import { FormComponent } from '../../form/form.component';
-import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
 export interface ResourcePolicyEvent {
   object: ResourcePolicy;
@@ -67,7 +96,7 @@ export interface ResourcePolicyEvent {
     NgIf,
     NgFor,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component that show form for adding/editing a resource policy

@@ -1,23 +1,32 @@
-import { Component, OnInit, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { HealthService } from './health.service';
-import { HealthInfoResponse, HealthResponse } from './models/health-component.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { AlertComponent } from '../shared/alert/alert.component';
+import { AlertType } from '../shared/alert/alert-type';
+import { HealthService } from './health.service';
 import { HealthInfoComponent } from './health-info/health-info.component';
 import { HealthPanelComponent } from './health-panel/health-panel.component';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { AlertType } from '../shared/alert/alert-type';
+import {
+  HealthInfoResponse,
+  HealthResponse,
+} from './models/health-component.model';
 
 @Component({
-    selector: 'ds-health-page',
-    templateUrl: './health-page.component.html',
-    styleUrls: ['./health-page.component.scss'],
-    standalone: true,
-    imports: [NgIf, NgbNavModule, HealthPanelComponent, HealthInfoComponent, AlertComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-health-page',
+  templateUrl: './health-page.component.html',
+  styleUrls: ['./health-page.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgbNavModule, HealthPanelComponent, HealthInfoComponent, AlertComponent, AsyncPipe, TranslateModule],
 })
 export class HealthPageComponent implements OnInit {
 

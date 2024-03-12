@@ -1,16 +1,51 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, } from '@angular/core';
-import { ControlContainer, FormsModule, NgForm, } from '@angular/forms';
-import { ActivatedRoute, Params, Router, } from '@angular/router';
-import { Observable, Subscription, } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Output,
+} from '@angular/core';
+import {
+  ControlContainer,
+  FormsModule,
+  NgForm,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload, } from '../../../core/shared/operators';
-import { hasNoValue, hasValue, } from '../../../shared/empty.util';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { Script } from '../../scripts/script.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { controlContainerFactory } from '../process-form.component';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
@@ -19,14 +54,14 @@ const SCRIPT_QUERY_PARAMETER = 'script';
  * Component used to select a script
  */
 @Component({
-    selector: 'ds-scripts-select',
-    templateUrl: './scripts-select.component.html',
-    styleUrls: ['./scripts-select.component.scss'],
-    viewProviders: [{ provide: ControlContainer,
-            useFactory: controlContainerFactory,
-            deps: [[new Optional(), NgForm]] }],
-    standalone: true,
-    imports: [NgIf, FormsModule, NgFor, AsyncPipe, TranslateModule]
+  selector: 'ds-scripts-select',
+  templateUrl: './scripts-select.component.html',
+  styleUrls: ['./scripts-select.component.scss'],
+  viewProviders: [{ provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]] }],
+  standalone: true,
+  imports: [NgIf, FormsModule, NgFor, AsyncPipe, TranslateModule],
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
   /**

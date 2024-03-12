@@ -1,19 +1,23 @@
 import { Route } from '@angular/router';
-import { RequestCopyResolver } from './request-copy.resolver';
-import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy/grant-deny-request-copy.component';
-import { REQUEST_COPY_DENY_PATH, REQUEST_COPY_GRANT_PATH } from './request-copy-routing-paths';
+
 import { ThemedDenyRequestCopyComponent } from './deny-request-copy/themed-deny-request-copy.component';
+import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy/grant-deny-request-copy.component';
 import { ThemedGrantRequestCopyComponent } from './grant-request-copy/themed-grant-request-copy.component';
+import { RequestCopyResolver } from './request-copy.resolver';
+import {
+  REQUEST_COPY_DENY_PATH,
+  REQUEST_COPY_GRANT_PATH,
+} from './request-copy-routing-paths';
 
 export const ROUTES: Route[] = [
   {
     path: ':token',
     providers: [
       RequestCopyResolver,
-      GrantDenyRequestCopyComponent
+      GrantDenyRequestCopyComponent,
     ],
     resolve: {
-      request: RequestCopyResolver
+      request: RequestCopyResolver,
     },
     children: [
       {
@@ -28,6 +32,6 @@ export const ROUTES: Route[] = [
         path: REQUEST_COPY_GRANT_PATH,
         component: ThemedGrantRequestCopyComponent,
       },
-    ]
-  }
+    ],
+  },
 ];

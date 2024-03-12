@@ -1,12 +1,12 @@
-import { SectionsType } from './sections-type';
 import { SubmissionSectionAccessesComponent } from './accesses/section-accesses.component';
-import { SubmissionSectionLicenseComponent } from './license/section-license.component';
 import { SubmissionSectionCcLicensesComponent } from './cc-license/submission-section-cc-licenses.component';
-import { SubmissionSectionSherpaPoliciesComponent } from './sherpa-policies/section-sherpa-policies.component';
-import { SubmissionSectionUploadComponent } from './upload/section-upload.component';
 import { SubmissionSectionFormComponent } from './form/section-form.component';
 import { SubmissionSectionIdentifiersComponent } from './identifiers/section-identifiers.component';
+import { SubmissionSectionLicenseComponent } from './license/section-license.component';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify/section-coar-notify.component';
+import { SectionsType } from './sections-type';
+import { SubmissionSectionSherpaPoliciesComponent } from './sherpa-policies/section-sherpa-policies.component';
+import { SubmissionSectionUploadComponent } from './upload/section-upload.component';
 
 const submissionSectionsMap = new Map();
 

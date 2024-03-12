@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -7,11 +12,21 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { Observable, Subscription, } from 'rxjs';
-import { map, switchMap, } from 'rxjs/operators';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 import { LdnServicesService } from 'src/app/admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 
@@ -21,13 +36,10 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { RouterLink } from '@angular/router';
-
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 
 /**
@@ -48,9 +60,9 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
     TruncatableComponent,
     TruncatablePartComponent,
     NgClass,
-    RouterLink
+    RouterLink,
   ],
-  standalone: true
+  standalone: true,
 })
 export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
 

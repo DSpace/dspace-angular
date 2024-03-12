@@ -1,10 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Router, UrlTree, } from '@angular/router';
+import {
+  Router,
+  UrlTree,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Angulartics2 } from 'angulartics2';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
@@ -31,9 +38,9 @@ import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
 
 @Component({
-    template: '',
-    standalone: true,
-    imports: [CommonModule]
+  template: '',
+  standalone: true,
+  imports: [CommonModule],
 })
 class DummyComponent {
 }
@@ -46,27 +53,27 @@ describe('SearchService', () => {
     const searchConfigService = { paginationID: 'page-id' };
     beforeEach(() => {
       TestBed.configureTestingModule({
-    imports: [
-        CommonModule,
-        RouterTestingModule.withRoutes([
+        imports: [
+          CommonModule,
+          RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
-        ]),
-        DummyComponent
-    ],
-    providers: [
-        { provide: Router, useValue: router },
-        { provide: RouteService, useValue: routeServiceStub },
-        { provide: RequestService, useValue: getMockRequestService() },
-        { provide: RemoteDataBuildService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
-        { provide: CommunityDataService, useValue: {} },
-        { provide: DSpaceObjectDataService, useValue: {} },
-        { provide: PaginationService, useValue: {} },
-        { provide: SearchConfigurationService, useValue: searchConfigService },
-        { provide: Angulartics2, useValue: {} },
-        SearchService,
-    ]
-});
+          ]),
+          DummyComponent,
+        ],
+        providers: [
+          { provide: Router, useValue: router },
+          { provide: RouteService, useValue: routeServiceStub },
+          { provide: RequestService, useValue: getMockRequestService() },
+          { provide: RemoteDataBuildService, useValue: {} },
+          { provide: HALEndpointService, useValue: {} },
+          { provide: CommunityDataService, useValue: {} },
+          { provide: DSpaceObjectDataService, useValue: {} },
+          { provide: PaginationService, useValue: {} },
+          { provide: SearchConfigurationService, useValue: searchConfigService },
+          { provide: Angulartics2, useValue: {} },
+          SearchService,
+        ],
+      });
       searchService = TestBed.inject(SearchService);
     });
 
@@ -113,27 +120,27 @@ describe('SearchService', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-    imports: [
-        CommonModule,
-        RouterTestingModule.withRoutes([
+        imports: [
+          CommonModule,
+          RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
-        ]),
-        DummyComponent
-    ],
-    providers: [
-        { provide: Router, useValue: router },
-        { provide: RouteService, useValue: routeServiceStub },
-        { provide: RequestService, useValue: requestService },
-        { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
-        { provide: HALEndpointService, useValue: halService },
-        { provide: CommunityDataService, useValue: {} },
-        { provide: DSpaceObjectDataService, useValue: {} },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: SearchConfigurationService, useValue: searchConfigService },
-        { provide: Angulartics2, useValue: {} },
-        SearchService,
-    ]
-});
+          ]),
+          DummyComponent,
+        ],
+        providers: [
+          { provide: Router, useValue: router },
+          { provide: RouteService, useValue: routeServiceStub },
+          { provide: RequestService, useValue: requestService },
+          { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
+          { provide: HALEndpointService, useValue: halService },
+          { provide: CommunityDataService, useValue: {} },
+          { provide: DSpaceObjectDataService, useValue: {} },
+          { provide: PaginationService, useValue: paginationService },
+          { provide: SearchConfigurationService, useValue: searchConfigService },
+          { provide: Angulartics2, useValue: {} },
+          SearchService,
+        ],
+      });
       searchService = TestBed.inject(SearchService);
       routeService = TestBed.inject(RouteService);
       const urlTree = Object.assign(new UrlTree(), { root: { children: { primary: 'search' } } });

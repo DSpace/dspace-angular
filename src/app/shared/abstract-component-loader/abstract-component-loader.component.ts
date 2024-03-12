@@ -35,7 +35,7 @@ import { DynamicComponentLoaderDirective } from './dynamic-component-loader.dire
   standalone: true,
   imports: [
     DynamicComponentLoaderDirective,
-  ]
+  ],
 })
 export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnChanges, OnDestroy {
 

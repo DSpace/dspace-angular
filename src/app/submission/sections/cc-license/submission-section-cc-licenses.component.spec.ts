@@ -1,12 +1,14 @@
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SectionsService } from '../sections.service';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsType } from '../sections-type';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -15,11 +17,13 @@ import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submissio
 import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { SectionsType } from '../sections-type';
 import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
 describe('SubmissionSectionCcLicensesComponent', () => {
 
@@ -170,11 +174,11 @@ describe('SubmissionSectionCcLicensesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
-        SubmissionSectionCcLicensesComponent
-    ],
-    providers: [
+        SubmissionSectionCcLicensesComponent,
+      ],
+      providers: [
         { provide: SubmissionCcLicenseDataService, useValue: submissionCcLicensesDataService },
         { provide: SubmissionCcLicenseUrlDataService, useValue: submissionCcLicenseUrlDataService },
         { provide: SectionsService, useValue: sectionService },
@@ -184,15 +188,15 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
         { provide: FormBuilderService, useValue: {} },
-    ]
-})
-.overrideComponent(SubmissionSectionCcLicensesComponent, {
-  remove: {
-    imports:[
-      ThemedLoadingComponent,
-    ]
-  }
-})
+      ],
+    })
+      .overrideComponent(SubmissionSectionCcLicensesComponent, {
+        remove: {
+          imports:[
+            ThemedLoadingComponent,
+          ],
+        },
+      })
       .compileComponents();
   }));
 

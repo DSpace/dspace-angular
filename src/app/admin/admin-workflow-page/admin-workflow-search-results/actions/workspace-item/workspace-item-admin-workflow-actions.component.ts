@@ -1,15 +1,23 @@
 import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   map,
   Observable,
@@ -26,25 +34,26 @@ import { Item } from '../../../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderListEntry, SupervisionOrderStatusComponent } from './supervision-order-status/supervision-order-status.component';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../../../shared/empty.util';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator';
-import { RouterLink } from '@angular/router';
-import { NgClass, NgIf } from '@angular/common';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
-import { SupervisionOrderListEntry } from './supervision-order-status/supervision-order-status.component';
+import {
+  SupervisionOrderListEntry,
+  SupervisionOrderListEntry,
+  SupervisionOrderStatusComponent,
+} from './supervision-order-status/supervision-order-status.component';
 
 @Component({
-    selector: 'ds-workspace-item-admin-workflow-actions-element',
-    styleUrls: ['./workspace-item-admin-workflow-actions.component.scss'],
-    templateUrl: './workspace-item-admin-workflow-actions.component.html',
-    standalone: true,
-    imports: [SupervisionOrderStatusComponent, NgClass, RouterLink, NgIf, TranslateModule]
+  selector: 'ds-workspace-item-admin-workflow-actions-element',
+  styleUrls: ['./workspace-item-admin-workflow-actions.component.scss'],
+  templateUrl: './workspace-item-admin-workflow-actions.component.html',
+  standalone: true,
+  imports: [SupervisionOrderStatusComponent, NgClass, RouterLink, NgIf, TranslateModule],
 })
 /**
  * The component for displaying the actions for a list element for a workspace-item on the admin workflow search page

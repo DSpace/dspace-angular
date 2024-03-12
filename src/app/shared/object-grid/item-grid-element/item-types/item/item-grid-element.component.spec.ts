@@ -62,13 +62,13 @@ describe('ItemGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, TruncatePipe, ItemGridElementComponent],
-    providers: [
+      imports: [NoopAnimationsModule, TruncatePipe, ItemGridElementComponent],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemGridElementComponent, {
+    }).overrideComponent(ItemGridElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

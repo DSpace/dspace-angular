@@ -9,6 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -33,7 +34,6 @@ import {
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { OrcidAuthComponent } from './orcid-auth.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('OrcidAuthComponent test suite', () => {
   let comp: OrcidAuthComponent;
@@ -137,25 +137,25 @@ describe('OrcidAuthComponent test suite', () => {
     });
 
     void TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbAccordionModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         RouterTestingModule.withRoutes([]),
         OrcidAuthComponent,
-        NoopAnimationsModule
-    ],
-    providers: [
+        NoopAnimationsModule,
+      ],
+      providers: [
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: OrcidAuthService, useValue: orcidAuthService },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(OrcidAuthComponent, {
+    }).overrideComponent(OrcidAuthComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

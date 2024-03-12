@@ -7,9 +7,15 @@
  */
 
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, TestBed, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -116,18 +122,18 @@ describe('ResourcePolicyEntryComponent', () => {
 
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         TranslateModule.forRoot(),
-        ResourcePolicyEntryComponent
-    ],
-    providers: [
+        ResourcePolicyEntryComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: GroupDataService, useValue: groupService },
         { provide: DSONameService, useValue: dsoNameService },
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

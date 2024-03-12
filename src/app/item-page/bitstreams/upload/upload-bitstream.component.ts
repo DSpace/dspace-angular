@@ -1,13 +1,36 @@
-import { Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
-import { ActivatedRoute, Router, } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, Subscription, } from 'rxjs';
-import { map, switchMap, take, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 import { getBitstreamModuleRoute } from '../../../app-routing-paths';
 import { AuthService } from '../../../core/auth/auth.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -16,17 +39,21 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../../core/shared/operators';
-import { hasValue, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
-import { getEntityEditRoute } from '../../item-page-routing-paths';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import {
-  DsoInputSuggestionsComponent
-} from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
-import { FormsModule } from '@angular/forms';
+import { getEntityEditRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-upload-bitstream',
@@ -38,9 +65,9 @@ import { FormsModule } from '@angular/forms';
     NgIf,
     DsoInputSuggestionsComponent,
     FormsModule,
-    UploaderComponent
+    UploaderComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Page component for uploading a bitstream to an item

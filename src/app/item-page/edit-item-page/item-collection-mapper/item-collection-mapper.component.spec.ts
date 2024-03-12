@@ -131,8 +131,8 @@ describe('ItemCollectionMapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemCollectionMapperComponent, CollectionSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
-    providers: [
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemCollectionMapperComponent, CollectionSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
@@ -145,7 +145,7 @@ describe('ItemCollectionMapperComponent', () => {
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
       ],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

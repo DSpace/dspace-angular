@@ -63,14 +63,14 @@ describe('SystemWideAlertFormComponent', () => {
     router = new RouterStub();
 
     TestBed.configureTestingModule({
-    imports: [FormsModule, SystemWideAlertModule, UiSwitchModule, TranslateModule.forRoot(), SystemWideAlertFormComponent],
-    providers: [
+      imports: [FormsModule, SystemWideAlertModule, UiSwitchModule, TranslateModule.forRoot(), SystemWideAlertFormComponent],
+      providers: [
         { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Router, useValue: router },
         { provide: RequestService, useValue: requestService },
       ],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

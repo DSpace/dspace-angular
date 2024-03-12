@@ -19,6 +19,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { hasValue } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -26,9 +27,6 @@ import {
 import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { createPaginatedList } from '../../testing/utils.test';
 import { DSOSelectorComponent } from './dso-selector.component';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 
 describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;
@@ -84,15 +82,15 @@ describe('DSOSelectorComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), DSOSelectorComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), DSOSelectorComponent],
+      providers: [
         { provide: SearchService, useValue: searchService },
         { provide: NotificationsService, useValue: notificationsService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(DSOSelectorComponent, {
-        remove: { imports: [ListableObjectComponentLoaderComponent]}
+        remove: { imports: [ListableObjectComponentLoaderComponent] },
       })
       .compileComponents();
 

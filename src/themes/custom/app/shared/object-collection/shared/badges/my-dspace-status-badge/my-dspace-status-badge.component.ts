@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  MyDSpaceStatusBadgeComponent as BaseComponent
-} from 'src/app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MyDSpaceStatusBadgeComponent as BaseComponent } from 'src/app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 
 @Component({
   selector: 'ds-my-dspace-status-badge',
@@ -11,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
   // templateUrl: './my-dspace-status-badge.component.html',
   templateUrl: '../../../../../../../../app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component.html',
   standalone: true,
-  imports: [TranslateModule]
+  imports: [TranslateModule],
 })
 export class MyDSpaceStatusBadgeComponent extends BaseComponent {
 }

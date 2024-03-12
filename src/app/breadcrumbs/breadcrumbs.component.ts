@@ -1,14 +1,21 @@
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  Observable,
+} from 'rxjs';
 
+import { VarDirective } from '../shared/utils/var.directive';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';
 import { BreadcrumbsService } from './breadcrumbs.service';
-import { Observable } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
-import { VarDirective } from '../shared/utils/var.directive';
 
 /**
  * Component representing the breadcrumbs of a page
@@ -18,7 +25,7 @@ import { VarDirective } from '../shared/utils/var.directive';
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgIf, NgTemplateOutlet, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule]
+  imports: [VarDirective, NgIf, NgTemplateOutlet, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 export class BreadcrumbsComponent {
 

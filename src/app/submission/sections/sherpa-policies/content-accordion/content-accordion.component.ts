@@ -1,12 +1,16 @@
 import {
+  NgForOf,
+  NgIf,
+  TitleCasePipe,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { PermittedVersions } from '../../../../core/submission/models/sherpa-policies-details.model';
-import { NgForOf, NgIf, TitleCasePipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * This component represents a section that contains the inner accordions for the publisher policy versions.
@@ -20,9 +24,9 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     TranslateModule,
     NgIf,
     NgbCollapseModule,
-    TitleCasePipe
+    TitleCasePipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ContentAccordionComponent {
   /**

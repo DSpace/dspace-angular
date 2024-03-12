@@ -9,10 +9,10 @@ import { ThemedComponent } from '../theme-support/themed.component';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 
 @Component({
-    selector: 'ds-themed-file-download-link',
-    styleUrls: [],
-    templateUrl: '../theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-file-download-link',
+  styleUrls: [],
+  templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloadLinkComponent> {
 

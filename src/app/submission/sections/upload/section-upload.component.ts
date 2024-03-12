@@ -1,4 +1,14 @@
-import { ChangeDetectorRef, Component, Inject, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -6,7 +16,14 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap, } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -21,21 +38,22 @@ import { Group } from '../../../core/eperson/models/group.model';
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined, } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '../../../shared/empty.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
+import { SubmissionSectionUploadAccessConditionsComponent } from './accessConditions/submission-section-upload-access-conditions.component';
 import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';
-import {
-  SubmissionSectionUploadAccessConditionsComponent
-} from './accessConditions/submission-section-upload-access-conditions.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { SectionUploadService } from './section-upload.service';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
@@ -60,9 +78,9 @@ export interface AccessConditionGroupsMapEntry {
     AlertComponent,
     TranslateModule,
     NgForOf,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionSectionUploadComponent extends SectionModelComponent {
 

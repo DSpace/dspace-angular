@@ -96,10 +96,10 @@ describe('EPersonDataService', () => {
         { provide: ObjectCacheService, useValue: {} },
         { provide: DSOChangeAnalyzer, useClass: DummyChangeAnalyzer },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-    ],
-    providers: [],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-});
+      ],
+      providers: [],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    });
 
     service = TestBed.inject(EPersonDataService);
     store = TestBed.inject(Store) as MockStore<CoreState>;

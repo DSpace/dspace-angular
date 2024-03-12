@@ -1,7 +1,12 @@
-import { InjectionToken, Type } from '@angular/core';
+import {
+  InjectionToken,
+  Type,
+} from '@angular/core';
 import { makeStateKey } from '@angular/platform-browser';
+import { DynamicFormControl } from '@ng-dynamic-forms/core/lib/component/dynamic-form-control-interface';
 
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -23,9 +28,6 @@ import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { SearchConfig } from './search-page-config.interface';
-import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
-import { DynamicFormControl } from '@ng-dynamic-forms/core/lib/component/dynamic-form-control-interface';
-
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';

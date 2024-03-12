@@ -1,5 +1,5 @@
-import { Routes ,
-} from '@angular/router';
+import { Routes } from '@angular/router';
+
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { NavigationBreadcrumbResolver } from '../../core/breadcrumbs/navigation-breadcrumb.resolver';
 import { LdnServiceFormComponent } from './ldn-service-form/ldn-service-form.component';
@@ -28,11 +28,11 @@ const moduleRoutes: Routes = [
 ];
 
 export const ROUTES = moduleRoutes.map(route => {
-  return {...route, data: {
-      ...route.data,
-      relatedRoutes: moduleRoutes.filter(relatedRoute => relatedRoute.path !== route.path)
-        .map((relatedRoute) => {
-          return {path: relatedRoute.path, data: relatedRoute.data};
-          }),
-    }};
+  return { ...route, data: {
+    ...route.data,
+    relatedRoutes: moduleRoutes.filter(relatedRoute => relatedRoute.path !== route.path)
+      .map((relatedRoute) => {
+        return { path: relatedRoute.path, data: relatedRoute.data };
+      }),
+  } };
 });

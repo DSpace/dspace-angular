@@ -11,10 +11,10 @@ import { ItemPageTitleFieldComponent } from './item-page-title-field.component';
  * Themed wrapper for {@link ItemPageTitleFieldComponent}
  */
 @Component({
-    selector: 'ds-themed-item-page-title-field',
-    styleUrls: [],
-    templateUrl: '../../../../../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-item-page-title-field',
+  styleUrls: [],
+  templateUrl: '../../../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedItemPageTitleFieldComponent extends ThemedComponent<ItemPageTitleFieldComponent> {
 

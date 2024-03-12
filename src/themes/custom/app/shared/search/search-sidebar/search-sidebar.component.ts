@@ -5,25 +5,17 @@
  *
  * https://www.atmire.com/software-license/
  */
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  SearchSidebarComponent as BaseComponent,
-} from '../../../../../../app/shared/search/search-sidebar/search-sidebar.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchConfigurationService } from '../../../../../../app/core/shared/search/search-configuration.service';
-import { NgIf } from '@angular/common';
-import { ViewModeSwitchComponent } from '../../../../../../app/shared/view-mode-switch/view-mode-switch.component';
-import {
-  SearchSwitchConfigurationComponent
-} from '../../../../../../app/shared/search/search-switch-configuration/search-switch-configuration.component';
-import {
-  ThemedSearchFiltersComponent
-} from '../../../../../../app/shared/search/search-filters/themed-search-filters.component';
-import {
-  ThemedSearchSettingsComponent
-} from '../../../../../../app/shared/search/search-settings/themed-search-settings.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { ThemedSearchFiltersComponent } from '../../../../../../app/shared/search/search-filters/themed-search-filters.component';
+import { ThemedSearchSettingsComponent } from '../../../../../../app/shared/search/search-settings/themed-search-settings.component';
+import { SearchSidebarComponent as BaseComponent } from '../../../../../../app/shared/search/search-sidebar/search-sidebar.component';
+import { SearchSwitchConfigurationComponent } from '../../../../../../app/shared/search/search-switch-configuration/search-switch-configuration.component';
+import { ViewModeSwitchComponent } from '../../../../../../app/shared/view-mode-switch/view-mode-switch.component';
 
 
 @Component({
@@ -39,7 +31,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-d
     },
   ],
   standalone: true,
-  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule]
+  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule],
 })
 export class SearchSidebarComponent extends BaseComponent {
 }

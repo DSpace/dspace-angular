@@ -1,17 +1,15 @@
+import {
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 
+import { ImportableListItemControlComponent } from '../../../../../app/shared/object-collection/shared/importable-list-item-control/importable-list-item-control.component';
+import { ListableObjectComponentLoaderComponent } from '../../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SelectableListItemControlComponent } from '../../../../../app/shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { ObjectListComponent as BaseComponent } from '../../../../../app/shared/object-list/object-list.component';
 import { PaginationComponent } from '../../../../../app/shared/pagination/pagination.component';
-import { NgClass, NgFor, NgIf } from '@angular/common';
-import {
-  SelectableListItemControlComponent
-} from '../../../../../app/shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import {
-  ImportableListItemControlComponent
-} from '../../../../../app/shared/object-collection/shared/importable-list-item-control/importable-list-item-control.component';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../../../app/shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pipe';
 
 /**
@@ -26,9 +24,9 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   templateUrl: '../../../../../app/shared/object-list/object-list.component.html',
   imports: [
     PaginationComponent, NgIf, NgClass, NgFor, SelectableListItemControlComponent,
-    ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe
+    ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 
 export class ObjectListComponent extends BaseComponent {}

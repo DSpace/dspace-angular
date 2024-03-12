@@ -53,19 +53,19 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         SubmissionImportExternalSearchbarComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         ChangeDetectorRef,
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         SubmissionImportExternalSearchbarComponent,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents().then();
+    }).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -180,9 +180,9 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
   initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };

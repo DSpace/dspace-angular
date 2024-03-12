@@ -26,7 +26,7 @@ import { SUGGESTION_SOURCE } from '../models/suggestion-source-object.resource-t
 /**
  * Service that retrieves Suggestion Source data
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 @dataService(SUGGESTION_SOURCE)
 export class SuggestionSourceDataService extends IdentifiableDataService<SuggestionSource> {
 

@@ -16,6 +16,7 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { AuthService } from '../../../../core/auth/auth.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -29,7 +30,12 @@ import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
@@ -41,12 +47,6 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { VarDirective } from '../../../utils/var.directive';
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
-import { ThemeService } from '../../../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
@@ -99,17 +99,17 @@ describe('ItemDetailPreviewComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
-        ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective
-    ],
-    providers: [
+        ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective,
+      ],
+      providers: [
         { provide: FileService, useValue: getMockFileService() },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: ObjectCacheService, useValue: {} },
@@ -126,9 +126,9 @@ describe('ItemDetailPreviewComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: SearchService, useValue: new SearchServiceStub() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemDetailPreviewComponent, {
+    }).overrideComponent(ItemDetailPreviewComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

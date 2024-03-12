@@ -7,10 +7,10 @@ import { HeaderComponent } from './header.component';
  * Themed wrapper for HeaderComponent
  */
 @Component({
-    selector: 'ds-themed-header',
-    styleUrls: [],
-    templateUrl: '../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-header',
+  styleUrls: [],
+  templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedHeaderComponent extends ThemedComponent<HeaderComponent> {
   protected getComponentName(): string {

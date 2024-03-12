@@ -9,8 +9,8 @@ import { CreateCollectionParentSelectorComponent } from './create-collection-par
 @Component({
   selector: 'ds-themed-create-collection-parent-selector',
   styleUrls: [],
-    templateUrl: '../../../theme-support/themed.component.html',
-    standalone: true
+  templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCreateCollectionParentSelectorComponent
   extends ThemedComponent<CreateCollectionParentSelectorComponent> {

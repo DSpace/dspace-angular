@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
+  ChangeDetectorRef,
   Component,
+  Component,
+  NO_ERRORS_SCHEMA,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -13,7 +14,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
-  BrowserModule,
+  By,
   By,
 } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,19 +32,19 @@ describe('AlertComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         AlertComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         ChangeDetectorRef,
         AlertComponent,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents().then();
+    }).compileComponents().then();
   }));
 
   describe('', () => {
@@ -113,10 +114,10 @@ describe('AlertComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [CommonModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
 

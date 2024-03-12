@@ -1,5 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  CommonModule,
+  CommonModule,
+} from '@angular/common';
+import {
+  NO_ERRORS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -9,7 +15,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  RouterTestingModule,
+  RouterTestingModule,
+} from '@angular/router/testing';
 import {
   TranslateModule,
   TranslateService,
@@ -20,15 +29,11 @@ import { of as observableOf } from 'rxjs';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { Community } from '../../../../core/shared/community.model';
-import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
 } from '../../../remote-data.utils';
-import { SharedModule } from '../../../shared.module';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 

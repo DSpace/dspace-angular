@@ -1,25 +1,39 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { isEmpty, isNotEmpty, } from '../empty.util';
-import { currentPath } from '../utils/route.utils';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
+import { currentPath } from '../utils/route.utils';
 
 /**
  * Component to switch between list and grid views.
  */
 @Component({
-    selector: 'ds-view-mode-switch',
-    styleUrls: ['./view-mode-switch.component.scss'],
-    templateUrl: './view-mode-switch.component.html',
-    standalone: true,
-    imports: [NgIf, RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe]
+  selector: 'ds-view-mode-switch',
+  styleUrls: ['./view-mode-switch.component.scss'],
+  templateUrl: './view-mode-switch.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe],
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
 

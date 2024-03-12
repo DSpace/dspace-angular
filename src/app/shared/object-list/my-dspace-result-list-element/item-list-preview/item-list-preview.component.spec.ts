@@ -1,25 +1,31 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { Item } from '../../../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { ItemListPreviewComponent } from './item-list-preview.component';
 import { ThumbnailComponent } from '../../../../thumbnail/thumbnail.component';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
+import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
+import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
-import {
-  ItemSubmitterComponent
-} from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
-import {
-  ItemCollectionComponent
-} from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
+import { TruncatePipe } from '../../../utils/truncate.pipe';
+import { ItemListPreviewComponent } from './item-list-preview.component';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
@@ -91,30 +97,30 @@ const enviromentNoThumbs = {
 describe('ItemListPreviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         NoopAnimationsModule,
-        ItemListPreviewComponent, TruncatePipe
-    ],
-    providers: [
+        ItemListPreviewComponent, TruncatePipe,
+      ],
+      providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemListPreviewComponent, {
-      add: {changeDetection: ChangeDetectionStrategy.Default},
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ItemListPreviewComponent, {
+      add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
           ThumbnailComponent, ThemedBadgesComponent,
           TruncatableComponent, TruncatablePartComponent,
           ItemSubmitterComponent, ItemCollectionComponent,
-        ]
-      }
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -203,30 +209,30 @@ describe('ItemListPreviewComponent', () => {
 describe('ItemListPreviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         NoopAnimationsModule,
-        ItemListPreviewComponent, TruncatePipe
-    ],
-    providers: [
+        ItemListPreviewComponent, TruncatePipe,
+      ],
+      providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemListPreviewComponent, {
-      add: {changeDetection: ChangeDetectionStrategy.Default},
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ItemListPreviewComponent, {
+      add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
           ThumbnailComponent, ThemedBadgesComponent,
           TruncatableComponent, TruncatablePartComponent,
           ItemSubmitterComponent, ItemCollectionComponent,
-        ]
-      }
+        ],
+      },
     }).compileComponents();
   }));
   beforeEach(waitForAsync(() => {

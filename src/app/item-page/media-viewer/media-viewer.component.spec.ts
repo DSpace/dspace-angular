@@ -1,23 +1,30 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { MediaViewerComponent } from './media-viewer.component';
 
@@ -67,26 +74,26 @@ describe('MediaViewerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         BrowserAnimationsModule,
         MediaViewerComponent,
         VarDirective,
         FileSizePipe,
-        MetadataFieldWrapperComponent
-    ],
-    providers: [
+        MetadataFieldWrapperComponent,
+      ],
+      providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

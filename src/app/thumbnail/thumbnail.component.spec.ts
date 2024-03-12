@@ -9,6 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../core/auth/auth.service';
@@ -16,21 +17,20 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { RemoteData } from '../core/data/remote-data';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
+import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
+import { ThemeService } from '../shared/theme-support/theme.service';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ThumbnailComponent } from './thumbnail.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { getMockThemeService } from '../shared/mocks/theme-service.mock';
-import { ThemeService } from '../shared/theme-support/theme.service';
 
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
-    name: 'translate',
-    standalone: true
+  name: 'translate',
+  standalone: true,
 })
 class MockTranslatePipe implements PipeTransform {
   transform(key: string): string {
@@ -62,23 +62,23 @@ describe('ThumbnailComponent', () => {
     fileService.retrieveFileDownloadLink.and.callFake((url) => observableOf(`${url}?authentication-token=fake`));
 
     TestBed.configureTestingModule({
-    imports: [
-      TranslateModule.forRoot(),
-      ThumbnailComponent,
-      SafeUrlPipe,
-      MockTranslatePipe,
-      VarDirective
-    ],
-    providers: [
+      imports: [
+        TranslateModule.forRoot(),
+        ThumbnailComponent,
+        SafeUrlPipe,
+        MockTranslatePipe,
+        VarDirective,
+      ],
+      providers: [
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: FileService, useValue: fileService },
-        { provide: ThemeService, useValue: getMockThemeService() }
-    ]
-}).overrideComponent(ThumbnailComponent, {
-  add: {
-    imports: [MockTranslatePipe]
-  }
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
+    }).overrideComponent(ThumbnailComponent, {
+      add: {
+        imports: [MockTranslatePipe],
+      },
     })
       .compileComponents();
   }));

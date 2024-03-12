@@ -1,8 +1,38 @@
-import { AsyncPipe, isPlatformBrowser, NgClass, NgForOf, NgIf } from '@angular/common';
-import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { BehaviorSubject, from as observableFrom, mergeMap, Observable, Subscription, } from 'rxjs';
-import { filter, map, switchMap, take, toArray, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  from as observableFrom,
+  mergeMap,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+  toArray,
+} from 'rxjs/operators';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
 
 import { AuthService } from '../../../core/auth/auth.service';
@@ -14,18 +44,22 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { RouteService } from '../../../core/services/route.service';
 import { redirectOn4xx } from '../../../core/shared/authorized.operators';
-import { getAllCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../../core/shared/operators';
+import {
+  getAllCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../../shared/utils/var.directive';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { Process } from '../../processes/process.model';
 import { ProcessStatus } from '../../processes/process-status.model';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
-import { ProcessOverviewService, ProcessSortField, } from '../process-overview.service';
+import {
+  ProcessOverviewService,
+  ProcessSortField,
+} from '../process-overview.service';
 
 const NEW_PROCESS_PARAM = 'new_process_id';
 
@@ -54,8 +88,8 @@ export interface ProcessOverviewTableEntry {
     NgForOf,
     NgIf,
     ThemedLoadingComponent,
-    VarDirective
-  ]
+    VarDirective,
+  ],
 })
 export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
 

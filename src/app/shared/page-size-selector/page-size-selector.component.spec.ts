@@ -1,20 +1,30 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { first, take, } from 'rxjs/operators';
+import {
+  first,
+  take,
+} from 'rxjs/operators';
 
-import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { VarDirective } from '../utils/var.directive';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { PageSizeSelectorComponent } from './page-size-selector.component';
 
 describe('PageSizeSelectorComponent', () => {
@@ -48,19 +58,19 @@ describe('PageSizeSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), PageSizeSelectorComponent, EnumKeysPipe, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), PageSizeSelectorComponent, EnumKeysPipe, VarDirective],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: PaginationService, useValue: paginationService },
         {
-            provide: SEARCH_CONFIG_SERVICE,
-            useValue: {
-                paginatedSearchOptions: observableOf(paginatedSearchOptions),
+          provide: SEARCH_CONFIG_SERVICE,
+          useValue: {
+            paginatedSearchOptions: observableOf(paginatedSearchOptions),
           },
         },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

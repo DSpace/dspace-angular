@@ -29,10 +29,10 @@ describe('FilterInputSuggestionsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, FilterInputSuggestionsComponent],
-    providers: [],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, FilterInputSuggestionsComponent],
+      providers: [],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(FilterInputSuggestionsComponent, {
+    }).overrideComponent(FilterInputSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

@@ -1,5 +1,10 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -11,13 +16,12 @@ import { PaginationService } from '../../../../../core/pagination/pagination.ser
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../../../core/shared/bitstream-format.model';
 import { Bundle } from '../../../../../core/shared/bundle.model';
+import { PaginationComponent } from '../../../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
-import { PaginationComponent } from '../../../../../shared/pagination/pagination.component';
-import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../../../shared/utils/var.directive';
@@ -133,8 +137,8 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     })
       .overrideComponent(PaginatedDragAndDropBitstreamListComponent, {
         remove: {
-          imports: [PaginationComponent]
-        }
+          imports: [PaginationComponent],
+        },
       })
       .compileComponents();
   }));

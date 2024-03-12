@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { QualityAssuranceSourceComponent } from '../../notifications/qa/source/quality-assurance-source.component';
 
 /**
@@ -8,8 +9,8 @@ import { QualityAssuranceSourceComponent } from '../../notifications/qa/source/q
   selector: 'ds-quality-assurance-source-page-component',
   templateUrl: './quality-assurance-source-page.component.html',
   imports: [
-    QualityAssuranceSourceComponent
+    QualityAssuranceSourceComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class QualityAssuranceSourcePageComponent {}

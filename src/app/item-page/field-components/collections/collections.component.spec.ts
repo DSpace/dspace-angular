@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -22,13 +23,12 @@ import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { CollectionsComponent } from './collections.component';
 
 const createMockCollection = (id: string) => Object.assign(new Collection(), {
@@ -61,15 +61,15 @@ describe('CollectionsComponent', () => {
     mockCollection4 = createMockCollection('c4');
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), CollectionsComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), CollectionsComponent],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService() },
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(CollectionsComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(CollectionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

@@ -1,13 +1,20 @@
-import { Component, EventEmitter, OnInit, } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { TranslateModule } from '@ngx-translate/core';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
-import { SortDirection, SortOptions, } from '../../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -20,11 +27,11 @@ import {
  * Used to select a scope
  */
 @Component({
-    selector: 'ds-scope-selector-modal',
-    styleUrls: ['./scope-selector-modal.component.scss'],
-    templateUrl: './scope-selector-modal.component.html',
-    standalone: true,
-    imports: [DSOSelectorComponent, TranslateModule]
+  selector: 'ds-scope-selector-modal',
+  styleUrls: ['./scope-selector-modal.component.scss'],
+  templateUrl: './scope-selector-modal.component.html',
+  standalone: true,
+  imports: [DSOSelectorComponent, TranslateModule],
 })
 export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;

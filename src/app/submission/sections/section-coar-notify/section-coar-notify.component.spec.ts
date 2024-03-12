@@ -66,8 +66,8 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), SubmissionSectionCoarNotifyComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), SubmissionSectionCoarNotifyComponent],
+      providers: [
         { provide: LdnServicesService, useValue: ldnServicesService },
         { provide: CoarNotifyConfigDataService, useValue: coarNotifyConfigDataService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
@@ -77,8 +77,8 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
         { provide: 'sectionDataProvider', useValue: { id: 'sectionId', data: {} } },
         { provide: 'submissionIdProvider', useValue: 'submissionId' },
         NgbDropdown,
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SubmissionSectionCoarNotifyComponent);
     component = fixture.componentInstance;

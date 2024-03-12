@@ -1,6 +1,14 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
@@ -8,7 +16,6 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { Item } from '../../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { TranslateModule } from '@ngx-translate/core';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
@@ -71,17 +78,17 @@ const enviromentNoThumbs = {
 describe('JournalSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, TranslateModule.forRoot(), JournalSearchResultListElementComponent],
-    providers: [
+      imports: [TruncatePipe, TranslateModule.forRoot(), JournalSearchResultListElementComponent],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(JournalSearchResultListElementComponent, {
-      add: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(JournalSearchResultListElementComponent, {
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -135,16 +142,16 @@ describe('JournalSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, TranslateModule.forRoot(), JournalSearchResultListElementComponent],
-    providers: [
+      imports: [TruncatePipe, TranslateModule.forRoot(), JournalSearchResultListElementComponent],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(JournalSearchResultListElementComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(JournalSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

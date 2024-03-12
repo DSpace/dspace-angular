@@ -1,6 +1,10 @@
 // Load the implementations that should be tested
 import {
-  ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Renderer2,
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  EventEmitter,
+  Renderer2,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -14,21 +18,22 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import {
+  By,
+  By,
+} from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
-import { By } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { DsDatePickerComponent } from './date-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
@@ -70,16 +75,16 @@ describe('DsDatePickerComponent test suite', () => {
       get: () => observableOf('test-message'),
       onLangChange: new EventEmitter(),
       onTranslationChange: new EventEmitter(),
-      onDefaultLangChange: new EventEmitter()
+      onDefaultLangChange: new EventEmitter(),
     };
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbModule,
         DsDatePickerComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         ChangeDetectorRef,
         DsDatePickerComponent,
         { provide: TranslateService, useValue: translateServiceStub },
@@ -367,10 +372,10 @@ describe('DsDatePickerComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [NgbModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

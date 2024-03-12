@@ -1,27 +1,54 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable, } from '@angular/core';
-import { MemoizedSelector, select, Store, } from '@ngrx/store';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap, } from 'rxjs/operators';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  startWith,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { AppState, keySelector, } from '../../app.reducer';
+import {
+  AppState,
+  keySelector,
+} from '../../app.reducer';
 import {
   compareArraysUsingIds,
   PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems,
 } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator, } from '../../shared/empty.util';
 import {
-  ReorderableRelationship
-} from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
+import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import {
   RemoveNameVariantAction,
   SetNameVariantAction,
 } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
+import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import {
-  NameVariantListState
-} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
-import { followLink, FollowLinkConfig, } from '../../shared/utils/follow-link-config.model';
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { itemLinksToFollow } from '../../shared/utils/relation-query.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -45,13 +72,22 @@ import {
 } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { PutData, PutDataImpl, } from './base/put-data';
-import { SearchData, SearchDataImpl, } from './base/search-data';
+import {
+  PutData,
+  PutDataImpl,
+} from './base/put-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
 import { FindListOptions } from './find-list-options.model';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { DeleteRequest, PostRequest, } from './request.models';
+import {
+  DeleteRequest,
+  PostRequest,
+} from './request.models';
 import { RequestService } from './request.service';
 import { RequestEntryState } from './request-entry-state.model';
 import { RestRequest } from './rest-request.model';

@@ -19,12 +19,12 @@ import {
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ObjectDetailComponent } from './object-detail.component';
-import { PaginationComponent } from '../pagination/pagination.component';
-import { ThemedLoadingComponent } from '../loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 
 describe('ObjectDetailComponent', () => {
   let comp: ObjectDetailComponent;

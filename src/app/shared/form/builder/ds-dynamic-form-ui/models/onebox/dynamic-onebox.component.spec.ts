@@ -148,7 +148,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
     );
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
@@ -161,17 +161,17 @@ describe('DsDynamicOneboxComponent test suite', () => {
         AuthorityConfidenceStateDirective,
         ObjNgFor,
         VocabularyTreeviewComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         ChangeDetectorRef,
         DsDynamicOneboxComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: NgbModal, useValue: modal },
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
 
   });
 
@@ -471,15 +471,15 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
-        FormsModule,
-        NgbModule,
-        ReactiveFormsModule,
-        CdkTreeModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule,
+    CdkTreeModule],
 })
 class TestComponent {
 

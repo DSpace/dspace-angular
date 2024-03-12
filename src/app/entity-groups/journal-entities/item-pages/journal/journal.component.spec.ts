@@ -1,11 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -27,11 +40,11 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
-import {
-  GenericItemPageFieldComponent
-} from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { MetadataValuesComponent } from '../../../../item-page/field-components/metadata-values/metadata-values.component';
+import { GenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { mockRouteService } from '../../../../item-page/simple/item-types/shared/item.component.spec';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
@@ -39,11 +52,6 @@ import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/brow
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { JournalComponent } from './journal.component';
-import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import {
-  MetadataValuesComponent
-} from '../../../../item-page/field-components/metadata-values/metadata-values.component';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
@@ -80,18 +88,18 @@ describe('JournalComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         RouterTestingModule,
         GenericItemPageFieldComponent, TruncatePipe,
-        JournalComponent
-    ],
-    providers: [
+        JournalComponent,
+      ],
+      providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: {} },
@@ -113,13 +121,13 @@ describe('JournalComponent', () => {
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: APP_CONFIG, useValue: {} },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(JournalComponent, {
-      add: {changeDetection: ChangeDetectionStrategy.Default},
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(JournalComponent, {
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     })
       .overrideComponent(GenericItemPageFieldComponent, {
-        remove: {imports: [MetadataValuesComponent]}
+        remove: { imports: [MetadataValuesComponent] },
       })
       .compileComponents();
   }));

@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -7,25 +8,29 @@ import {
   Router,
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { environment } from '../../../../../environments/environment';
-import { getCommunityEditRoute } from '../../../../community-page/community-page-routing-paths';
+import {
+  environment,
+  environment,
+} from '../../../../../environments/environment';
+import {
+  getCommunityEditRoute,
+  getCommunityEditRoute,
+} from '../../../../community-page/community-page-routing-paths';
 import {
   SortDirection,
+  SortDirection,
+  SortOptions,
   SortOptions,
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
-import { getCommunityEditRoute } from '../../../../community-page/community-page-routing-paths';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { environment } from '../../../../../environments/environment';
-import { TranslateModule } from '@ngx-translate/core';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
-import { NgIf } from '@angular/common';
 
 /**
  * Component to wrap a list of existing communities inside a modal
@@ -33,10 +38,10 @@ import { NgIf } from '@angular/common';
  */
 
 @Component({
-    selector: 'ds-edit-community-selector',
-    templateUrl: '../dso-selector-modal-wrapper.component.html',
-    standalone: true,
-    imports: [NgIf, DSOSelectorComponent, TranslateModule]
+  selector: 'ds-edit-community-selector',
+  templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 
 export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {

@@ -1,9 +1,38 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { BehaviorSubject, from as observableFrom, Observable, Subscription } from 'rxjs';
-import { concatMap, distinctUntilChanged, filter, map, reduce, scan, take } from 'rxjs/operators';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  from as observableFrom,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  concatMap,
+  distinctUntilChanged,
+  filter,
+  map,
+  reduce,
+  scan,
+  take,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../core/data/request.service';
@@ -12,11 +41,17 @@ import { GroupDataService } from '../../core/eperson/group-data.service';
 import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
 import { getAllSucceededRemoteData } from '../../core/shared/operators';
-import { hasValue, isEmpty, isNotEmpty, } from '../empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
-import { ResourcePolicyCheckboxEntry, ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import {
+  ResourcePolicyCheckboxEntry,
+  ResourcePolicyEntryComponent,
+} from './entry/resource-policy-entry.component';
 
 @Component({
   selector: 'ds-resource-policies',
@@ -27,9 +62,9 @@ import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
     TranslateModule,
     NgIf,
     AsyncPipe,
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component that shows the policies for given resource

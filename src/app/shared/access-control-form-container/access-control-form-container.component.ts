@@ -1,11 +1,18 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   concatMap,
   Observable,
@@ -16,41 +23,45 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
-import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
+import {
+  BulkAccessConfigDataService,
+  BulkAccessConfigDataService,
+} from '../../core/config/bulk-access-config-data.service';
+import {
+  BulkAccessConditionOptions,
+  BulkAccessConditionOptions,
+} from '../../core/config/models/bulk-access-condition-options.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { AlertType } from '../alert/alert-type';
+import {
+  getFirstCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../../core/shared/operators';
+import { AlertComponent } from '../alert/alert.component';
+import {
+  AlertType,
+  AlertType,
+} from '../alert/alert-type';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
-import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
+import {
+  createAccessControlInitialFormState,
+  createAccessControlInitialFormState,
+} from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';
 import {
   ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
   ItemAccessControlSelectBitstreamsModalComponent,
 } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
-import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
-import { AlertType } from '../alert/alert-type';
-import {
-  createAccessControlInitialFormState
-} from './access-control-form-container-intial-state';
-import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
-import { UiSwitchModule } from 'ngx-ui-switch';
-import { AlertComponent } from '../alert/alert.component';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-access-control-form-container',
-    templateUrl: './access-control-form-container.component.html',
-    styleUrls: ['./access-control-form-container.component.scss'],
-    exportAs: 'dsAccessControlForm',
-    standalone: true,
-    imports: [NgIf, AlertComponent, UiSwitchModule, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-access-control-form-container',
+  templateUrl: './access-control-form-container.component.html',
+  styleUrls: ['./access-control-form-container.component.scss'],
+  exportAs: 'dsAccessControlForm',
+  standalone: true,
+  imports: [NgIf, AlertComponent, UiSwitchModule, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule],
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
 

@@ -13,9 +13,9 @@ import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { ListableObject } from '../listable-object.model';
 
 @Component({
-    selector: 'ds-abstract-object-element',
-    template: ``,
-    standalone: true
+  selector: 'ds-abstract-object-element',
+  template: ``,
+  standalone: true,
 })
 export class AbstractListableElementComponent<T extends ListableObject> {
 

@@ -15,12 +15,14 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
@@ -42,8 +44,6 @@ import {
   AddRelationshipAction,
   RemoveRelationshipAction,
 } from './relationship.actions';
-import { provideMockStore } from '@ngrx/store/testing';
-import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -123,10 +123,10 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent],
+      providers: [
         {
-            provide: SearchConfigurationService, useValue: {
+          provide: SearchConfigurationService, useValue: {
             paginatedSearchOptions: observableOf(pSearchOptions),
           },
         },
@@ -141,19 +141,19 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
-            provide: Store, useValue: {
-                // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
-                dispatch: () => {
+          provide: Store, useValue: {
+            // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
+            dispatch: () => {
             },
           },
         },
         { provide: NgZone, useValue: new NgZone({}) },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         NgbActiveModal,
-        provideMockStore()
-    ],
+        provideMockStore(),
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .compileComponents();
   }));
 

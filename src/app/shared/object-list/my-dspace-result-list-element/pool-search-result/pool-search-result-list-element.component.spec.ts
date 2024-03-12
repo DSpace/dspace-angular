@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
@@ -17,14 +27,17 @@ import { SubmissionDuplicateDataService } from '../../../../core/submission/subm
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$, } from '../../../remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../remote-data.utils';
 import { createPaginatedList } from '../../../testing/utils.test';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { PoolSearchResultListElementComponent } from './pool-search-result-list-element.component';
-import { ThemeService } from '../../../theme-support/theme.service';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -96,8 +109,8 @@ const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
 describe('PoolSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, VarDirective, PoolSearchResultListElementComponent],
-    providers: [
+      imports: [NoopAnimationsModule, VarDirective, PoolSearchResultListElementComponent],
+      providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
@@ -105,10 +118,10 @@ describe('PoolSearchResultListElementComponent', () => {
         { provide: ObjectCacheService, useValue: objectCacheServiceMock },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SubmissionDuplicateDataService, useValue: duplicateDataServiceStub },
-        { provide: ThemeService, useValue: getMockThemeService() }
-    ],
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(PoolSearchResultListElementComponent, {
+    }).overrideComponent(PoolSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

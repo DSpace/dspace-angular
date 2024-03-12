@@ -45,8 +45,8 @@ describe('AdvancedSearchComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), BrowserAnimationsModule, ReactiveFormsModule, BrowserOnlyMockPipe, AdvancedSearchComponent],
-    providers: [
+      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), BrowserAnimationsModule, ReactiveFormsModule, BrowserOnlyMockPipe, AdvancedSearchComponent],
+      providers: [
         FormBuilder,
         { provide: APP_CONFIG, useValue: environment },
         { provide: FormBuilderService, useValue: builderService },
@@ -54,9 +54,9 @@ describe('AdvancedSearchComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: SearchService, useValue: searchServiceStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(AdvancedSearchComponent, {
+    }).overrideComponent(AdvancedSearchComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   });

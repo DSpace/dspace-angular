@@ -1,20 +1,30 @@
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { RequestService } from '../../core/data/request.service';
+import {
+  RequestService,
+  RequestService,
+} from '../../core/data/request.service';
 import { RouteService } from '../../core/services/route.service';
 import { Community } from '../../core/shared/community.model';
 import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/create-comcol-page/create-comcol-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RequestService } from '../../core/data/request.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { CommunityFormComponent } from '../community-form/community-form.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { CommunityFormComponent } from '../community-form/community-form.component';
 
 /**
  * Component that represents the page where a user can create a new Community
@@ -28,9 +38,9 @@ import { AsyncPipe, NgIf } from '@angular/common';
     TranslateModule,
     VarDirective,
     NgIf,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CreateCommunityPageComponent extends CreateComColPageComponent<Community> {
   protected frontendURL = '/communities/';

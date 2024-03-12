@@ -1,8 +1,15 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ProcessParameter } from '../../processes/process-parameter.model';
@@ -30,18 +37,18 @@ describe('ProcessParametersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ProcessParametersComponent, ParameterSelectComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+        ProcessParametersComponent, ParameterSelectComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   }));
 

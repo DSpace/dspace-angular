@@ -1,5 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,12 +26,12 @@ describe('RelatedEntitiesSearchComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RelatedEntitiesSearchComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(RelatedEntitiesSearchComponent, {
         remove: {
-          imports: [ConfigurationSearchPageComponent]
-        }
+          imports: [ConfigurationSearchPageComponent],
+        },
       })
       .compileComponents();
   }));

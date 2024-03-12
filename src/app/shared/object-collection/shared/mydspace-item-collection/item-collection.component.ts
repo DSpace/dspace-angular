@@ -1,6 +1,22 @@
-import { Component, Input, OnInit, } from '@angular/core';
-import { EMPTY, Observable, } from 'rxjs';
-import { map, mergeMap, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  EMPTY,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
@@ -10,19 +26,16 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { isNotEmpty } from '../../../empty.util';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgIf } from '@angular/common';
 
 /**
  * This component represents a badge with collection information.
  */
 @Component({
-    selector: 'ds-item-collection',
-    styleUrls: ['./item-collection.component.scss'],
-    templateUrl: './item-collection.component.html',
-    standalone: true,
-    imports: [NgIf, RouterLink, AsyncPipe, TranslateModule]
+  selector: 'ds-item-collection',
+  styleUrls: ['./item-collection.component.scss'],
+  templateUrl: './item-collection.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe, TranslateModule],
 })
 export class ItemCollectionComponent implements OnInit {
 

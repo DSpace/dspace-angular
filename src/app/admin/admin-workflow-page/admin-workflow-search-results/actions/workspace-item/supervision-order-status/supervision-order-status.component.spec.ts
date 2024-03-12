@@ -24,21 +24,21 @@ describe('SupervisionOrderStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbTooltipModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        SupervisionOrderStatusComponent, VarDirective
-    ],
-    schemas: [
+        SupervisionOrderStatusComponent, VarDirective,
+      ],
+      schemas: [
         NO_ERRORS_SCHEMA,
       ],
-})
-    .compileComponents();
+    })
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -4,6 +4,10 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
   ComponentFixture,
   fakeAsync,
   TestBed,
@@ -12,10 +16,15 @@ import {
 import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
   ActivatedRouteSnapshot,
   CanActivate,
-  Router,
+  CanActivate,
+  RouterModule,
   RouterStateSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
   UrlTree,
 } from '@angular/router';
 import {
@@ -29,15 +38,6 @@ import {
 
 import { Item } from '../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterModule,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { EditItemPageComponent } from './edit-item-page.component';
 
@@ -96,23 +96,23 @@ describe('ItemPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
-      RouterModule.forRoot([]),
-      TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+      imports: [
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-      EditItemPageComponent
-    ],
-    providers: [
+        EditItemPageComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         AcceptAllGuard,
         AcceptNoneGuard,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(EditItemPageComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(EditItemPageComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

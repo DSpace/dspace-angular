@@ -1,8 +1,19 @@
-import { Component, OnDestroy, OnInit, } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest as observableCombineLatest, Subscription, } from 'rxjs';
-import { filter, take, } from 'rxjs/operators';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
 import {
@@ -13,20 +24,22 @@ import {
 } from '../core/auth/auth.actions';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '../core/auth/selectors';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
 import { LogInComponent } from '../shared/log-in/log-in.component';
 import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
-import { hasValue, isNotEmpty, } from '../shared/empty.util';
 
 /**
  * This component represents the login page
  */
 @Component({
-    selector: 'ds-login-page',
-    styleUrls: ['./login-page.component.scss'],
-    templateUrl: './login-page.component.html',
-    standalone: true,
-    imports: [LogInComponent, ThemedLogInComponent, TranslateModule]
+  selector: 'ds-login-page',
+  styleUrls: ['./login-page.component.scss'],
+  templateUrl: './login-page.component.html',
+  standalone: true,
+  imports: [LogInComponent, ThemedLogInComponent, TranslateModule],
 })
 export class LoginPageComponent implements OnDestroy, OnInit {
 

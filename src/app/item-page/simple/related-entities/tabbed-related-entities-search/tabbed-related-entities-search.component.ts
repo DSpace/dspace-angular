@@ -1,20 +1,31 @@
-import { Component, Input, OnInit, } from '@angular/core';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../../../../shared/utils/var.directive';
-import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
 import { Item } from '../../../../core/shared/item.model';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
 
 @Component({
-    selector: 'ds-tabbed-related-entities-search',
-    templateUrl: './tabbed-related-entities-search.component.html',
-    standalone: true,
-    imports: [NgIf, NgbNavModule, NgFor, RelatedEntitiesSearchComponent, VarDirective, AsyncPipe, TranslateModule]
+  selector: 'ds-tabbed-related-entities-search',
+  templateUrl: './tabbed-related-entities-search.component.html',
+  standalone: true,
+  imports: [NgIf, NgbNavModule, NgFor, RelatedEntitiesSearchComponent, VarDirective, AsyncPipe, TranslateModule],
 })
 /**
  * A component to show related items as search results, split into tabs by relationship-type

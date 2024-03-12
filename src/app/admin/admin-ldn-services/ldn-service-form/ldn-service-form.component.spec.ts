@@ -114,8 +114,8 @@ describe('LdnServiceFormEditComponent', () => {
     activatedRoute = new MockActivatedRoute(routeParams, routeUrlSegments);
 
     await TestBed.configureTestingModule({
-    imports: [ReactiveFormsModule, TranslateModule.forRoot(), NgbDropdownModule, LdnServiceFormComponent],
-    providers: [
+      imports: [ReactiveFormsModule, TranslateModule.forRoot(), NgbDropdownModule, LdnServiceFormComponent],
+      providers: [
         { provide: LdnServicesService, useValue: ldnServicesService },
         { provide: LdnItemfiltersService, useValue: ldnItemfiltersService },
         { provide: Router, useValue: new RouterStub() },
@@ -129,7 +129,7 @@ describe('LdnServiceFormEditComponent', () => {
         RouteService,
         provideMockStore({}),
       ],
-})
+    })
       .compileComponents();
 
     fixture = TestBed.createComponent(LdnServiceFormComponent);

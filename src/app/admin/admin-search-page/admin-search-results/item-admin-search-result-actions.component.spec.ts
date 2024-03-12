@@ -36,13 +36,13 @@ describe('ItemAdminSearchResultActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        ItemAdminSearchResultActionsComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+        ItemAdminSearchResultActionsComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   }));
 

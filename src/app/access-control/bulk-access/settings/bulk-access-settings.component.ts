@@ -1,12 +1,12 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   ViewChild,
 } from '@angular/core';
-
-import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
+
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 @Component({
   selector: 'ds-bulk-access-settings',
@@ -17,9 +17,9 @@ import { NgIf } from '@angular/common';
     NgbAccordionModule,
     TranslateModule,
     NgIf,
-    AccessControlFormContainerComponent
+    AccessControlFormContainerComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class BulkAccessSettingsComponent {
 

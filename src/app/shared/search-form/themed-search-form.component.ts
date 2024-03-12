@@ -12,10 +12,10 @@ import { SearchFormComponent } from './search-form.component';
  * Themed wrapper for {@link SearchFormComponent}
  */
 @Component({
-    selector: 'ds-themed-search-form',
-    styleUrls: [],
-    templateUrl: '../../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-search-form',
+  styleUrls: [],
+  templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSearchFormComponent extends ThemedComponent<SearchFormComponent> {
 

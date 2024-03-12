@@ -29,9 +29,9 @@ import { NotificationsService } from '../../../notifications/notifications.servi
  * Component representing the delete page for communities and collections
  */
 @Component({
-    selector: 'ds-delete-comcol',
-    template: '',
-    standalone: true
+  selector: 'ds-delete-comcol',
+  template: '',
+  standalone: true,
 })
 export class DeleteComColPageComponent<TDomain extends Community | Collection> implements OnInit {
   /**

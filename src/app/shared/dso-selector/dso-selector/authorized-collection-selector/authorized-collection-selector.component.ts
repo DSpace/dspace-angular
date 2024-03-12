@@ -1,46 +1,63 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
+import {
+  FindListOptions,
+  FindListOptions,
+} from '../../../../core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { Collection } from '../../../../core/shared/collection.model';
+import {
+  Collection,
+  Collection,
+} from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { hasValue } from '../../../empty.util';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
-import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { HoverClassDirective } from '../../../hover-class.directive';
-import { NgIf, NgFor, NgClass, AsyncPipe } from '@angular/common';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { NotificationsService } from '../../../notifications/notifications.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({
-    selector: 'ds-authorized-collection-selector',
-    styleUrls: ['../dso-selector.component.scss'],
-    templateUrl: '../dso-selector.component.html',
-    standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgIf, NgFor, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-authorized-collection-selector',
+  styleUrls: ['../dso-selector.component.scss'],
+  templateUrl: '../dso-selector.component.html',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgIf, NgFor, HoverClassDirective, NgClass, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component rendering a list of collections to select from

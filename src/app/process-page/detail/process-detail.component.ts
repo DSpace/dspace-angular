@@ -1,11 +1,46 @@
-import { AsyncPipe, DatePipe, isPlatformBrowser, NgFor, NgIf } from '@angular/common';
+import {
+  AsyncPipe,
+  DatePipe,
+  isPlatformBrowser,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, finalize, find, map, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { NgbModal, NgbModalRef, } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  Component,
+  Inject,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  finalize,
+  find,
+  map,
+  startWith,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -25,22 +60,22 @@ import {
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/alert-type';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 import { PROCESS_PAGE_FOLLOW_LINKS } from '../process-page.resolver';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';
 import { ProcessStatus } from '../processes/process-status.model';
+import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 
 @Component({
-    selector: 'ds-process-detail',
-    templateUrl: './process-detail.component.html',
-    standalone: true,
-    imports: [NgIf, ProcessDetailFieldComponent, NgFor, VarDirective, ThemedFileDownloadLinkComponent, ThemedLoadingComponent, RouterLink, AsyncPipe, DatePipe, FileSizePipe, TranslateModule]
+  selector: 'ds-process-detail',
+  templateUrl: './process-detail.component.html',
+  standalone: true,
+  imports: [NgIf, ProcessDetailFieldComponent, NgFor, VarDirective, ThemedFileDownloadLinkComponent, ThemedLoadingComponent, RouterLink, AsyncPipe, DatePipe, FileSizePipe, TranslateModule],
 })
 /**
  * A component displaying detailed information about a DSpace Process

@@ -1,18 +1,33 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  AsyncPipe,
+  CommonModule,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AsyncPipe, CommonModule } from '@angular/common';
-
-import { of, of as observableOf } from 'rxjs';
-import { NgbModal, NgbModule, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import {
-  SubmissionJsonPatchOperationsService
-} from '../../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
@@ -23,22 +38,19 @@ import {
   mockUploadConfigResponse,
   mockUploadFiles,
 } from '../../../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
-import {
-  SubmissionJsonPatchOperationsServiceStub
-} from '../../../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../shared/testing/utils.test';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
+import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
-import { ThemeService } from '../../../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
-import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 
 const configMetadataFormMock = {
   rows: [{
@@ -83,15 +95,15 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         NgbModule,
         TranslateModule.forRoot(),
         FileSizePipe,
         SubmissionSectionUploadFileComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: FormService, useValue: getMockFormService() },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
@@ -105,13 +117,13 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         SubmissionSectionUploadFileComponent,
         SubmissionSectionUploadFileEditComponent,
         FormBuilderService,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(SubmissionSectionUploadFileComponent, {
         remove: { imports: [
-            SubmissionSectionUploadFileViewComponent,
-          ]}
+          SubmissionSectionUploadFileViewComponent,
+        ] },
       })
       .compileComponents().then();
   }));
@@ -266,14 +278,14 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [
-      SubmissionSectionUploadFileComponent,
-        CommonModule,
-      AsyncPipe,
-        NgbModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [
+    SubmissionSectionUploadFileComponent,
+    CommonModule,
+    AsyncPipe,
+    NgbModule],
 })
 class TestComponent {
 

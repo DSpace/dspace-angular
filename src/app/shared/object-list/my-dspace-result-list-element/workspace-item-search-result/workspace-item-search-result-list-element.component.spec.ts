@@ -9,32 +9,42 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {
+  By,
+  By,
+} from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import {
+  APP_CONFIG,
+  APP_CONFIG,
+} from '../../../../../config/app-config.interface';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { Context } from '../../../../core/shared/context.model';
+import {
+  Context,
+  Context,
+} from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import {
+  DSONameServiceMock,
+  DSONameServiceMock,
+} from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkspaceItemSearchResultListElementComponent } from './workspace-item-search-result-list-element.component';
-import { By } from '@angular/platform-browser';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { Context } from '../../../../core/shared/context.model';
-import { ThemeService } from '../../../theme-support/theme.service';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 
 
 
@@ -88,17 +98,17 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, WorkspaceItemSearchResultListElementComponent],
-    providers: [
+      imports: [NoopAnimationsModule, WorkspaceItemSearchResultListElementComponent],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
-        { provide: ThemeService, useValue: getMockThemeService() }
-    ],
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(WorkspaceItemSearchResultListElementComponent, {
+    }).overrideComponent(WorkspaceItemSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

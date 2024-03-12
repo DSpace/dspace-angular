@@ -9,7 +9,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -32,11 +35,11 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { VarDirective } from '../../utils/var.directive';
 import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let component: ClaimedTaskActionsComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsComponent>;
@@ -109,16 +112,16 @@ describe('ClaimedTaskActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ClaimedTaskActionsComponent, VarDirective
-    ],
-    providers: [
+        ClaimedTaskActionsComponent, VarDirective,
+      ],
+      providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
@@ -127,9 +130,9 @@ describe('ClaimedTaskActionsComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
         { provide: WorkflowActionDataService, useValue: workflowActionService },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ClaimedTaskActionsComponent, {
+    }).overrideComponent(ClaimedTaskActionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

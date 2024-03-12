@@ -1,4 +1,9 @@
-import { Location } from '@angular/common';
+import {
+  AsyncPipe,
+  Location,
+  Location,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -19,9 +24,11 @@ import {
   DynamicRadioGroupModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { AsyncPipe, Location, NgIf } from '@angular/common';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   Observable,
@@ -56,11 +63,11 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../shared/empty.util';
+import { FormComponent } from '../../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { FormComponent } from '../../../shared/form/form.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 
 /**
@@ -75,9 +82,9 @@ import { CollectionSourceControlsComponent } from './collection-source-controls/
     NgIf,
     ThemedLoadingComponent,
     FormComponent,
-    CollectionSourceControlsComponent
+    CollectionSourceControlsComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CollectionSourceComponent extends AbstractTrackableComponent implements OnInit, OnDestroy {
   /**

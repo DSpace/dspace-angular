@@ -1,3 +1,7 @@
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,9 +11,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { ItemVersionsComponent } from '../../versions/item-versions.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { ItemVersionsComponent } from '../../versions/item-versions.component';
 
 @Component({
   selector: 'ds-item-version-history',
@@ -18,9 +21,9 @@ import { AsyncPipe, NgIf } from '@angular/common';
     ItemVersionsComponent,
     VarDirective,
     NgIf,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for listing and managing an item's version history

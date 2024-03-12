@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, take, } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { Process } from '../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
@@ -12,7 +15,10 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
-import { FindAllData, FindAllDataImpl, } from '../base/find-all-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../base/find-all-data';
 import { IdentifiableDataService } from '../base/identifiable-data.service';
 import { FindListOptions } from '../find-list-options.model';
 import { PaginatedList } from '../paginated-list.model';

@@ -16,9 +16,9 @@ import { ThemeService } from '../../../shared/theme-support/theme.service';
  * Component for loading a {@link AdvancedWorkflowActionComponent} depending on the "{@link type}" input
  */
 @Component({
-    selector: 'ds-advanced-workflow-actions-loader',
-    templateUrl: '../../../shared/abstract-component-loader/abstract-component-loader.component.html',
-    standalone: true,
+  selector: 'ds-advanced-workflow-actions-loader',
+  templateUrl: '../../../shared/abstract-component-loader/abstract-component-loader.component.html',
+  standalone: true,
 })
 export class AdvancedWorkflowActionsLoaderComponent extends AbstractComponentLoaderComponent<Component> implements OnInit {
 

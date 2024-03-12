@@ -1,5 +1,16 @@
-import { animate, state, style, transition, trigger, } from '@angular/animations';
-import { Component, Inject, OnDestroy, OnInit, } from '@angular/core';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
   BehaviorSubject,
@@ -9,7 +20,16 @@ import {
   Subject,
   Subscription,
 } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap, } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
@@ -24,23 +44,30 @@ import {
   SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { hasNoValue, hasValue, isNotEmpty, } from '../../../../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../../empty.util';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
-import { SearchOptions } from '../../../models/search-options.model';
 import { createPendingRemoteDataObject } from '../../../../remote-data.utils';
 import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
 import { currentPath } from '../../../../utils/route.utils';
 import { FacetValue } from '../../../models/facet-value.model';
 import { FacetValues } from '../../../models/facet-values.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { getFacetValueForType, stripOperatorFromFilterValue, } from '../../../search.utils';
+import { SearchOptions } from '../../../models/search-options.model';
+import {
+  getFacetValueForType,
+  stripOperatorFromFilterValue,
+} from '../../../search.utils';
 
 @Component({
-    selector: 'ds-search-facet-filter',
-    template: ``,
-    standalone: true
+  selector: 'ds-search-facet-filter',
+  template: ``,
+  standalone: true,
 })
 
 /**

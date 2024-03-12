@@ -1,31 +1,48 @@
-import { FormsModule, UntypedFormGroup } from '@angular/forms';
-import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
-import { DynamicDsDatePickerModel } from './date-picker.model';
-import { hasValue } from '../../../../../empty.util';
-import { DOCUMENT } from '@angular/common';
+import {
+  DOCUMENT,
+  DOCUMENT,
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
+  Component,
+  EventEmitter,
   EventEmitter,
   HostListener,
+  HostListener,
+  Inject,
   Inject,
   Input,
+  Input,
+  OnInit,
   OnInit,
   Output,
+  Output,
+  Renderer2,
   Renderer2,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  UntypedFormGroup,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { NgClass, NgIf } from '@angular/common';
-import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
-import { DOCUMENT } from '@angular/common';
 import isEqual from 'lodash/isEqual';
 
-import { hasValue } from '../../../../../empty.util';
-import { DynamicDsDatePickerModel } from './date-picker.model';
+import {
+  hasValue,
+  hasValue,
+} from '../../../../../empty.util';
+import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
+import {
+  DynamicDsDatePickerModel,
+  DynamicDsDatePickerModel,
+} from './date-picker.model';
 
 export type DatePickerFieldType = '_year' | '_month' | '_day';
 
@@ -39,9 +56,9 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
     NgClass,
     NgIf,
     NumberPickerComponent,
-    FormsModule
+    FormsModule,
   ],
-  standalone: true
+  standalone: true,
 })
 
 export class DsDatePickerComponent extends DynamicFormControlComponent implements OnInit {

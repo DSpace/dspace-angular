@@ -1,29 +1,40 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MenuServiceStub } from '../../../testing/menu-service.stub';
 import { Component } from '@angular/core';
 import {
   ComponentFixture,
+  ComponentFixture,
   TestBed,
+  TestBed,
+  waitForAsync,
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
+import { MenuItemType } from '../../../../shared/menu/menu-item-type.model';
 import { MenuService } from '../../../menu/menu.service';
-import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
+import {
+  OnClickMenuItemModel,
+  OnClickMenuItemModel,
+} from '../../../menu/menu-item/models/onclick.model';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MenuServiceStub } from '../../../testing/menu-service.stub';
+import {
+  MenuServiceStub,
+  MenuServiceStub,
+} from '../../../testing/menu-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
 import { DsoEditMenuSectionComponent } from './dso-edit-menu-section.component';
-import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
-import { MenuItemType } from '../../../../shared/menu/menu-item-type.model';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { TranslateModule } from '@ngx-translate/core';
 
 function initAsync(dummySectionText: {
   visible: boolean;
@@ -37,15 +48,15 @@ function initAsync(dummySectionText: {
       imports: [
         TranslateModule.forRoot(),
         DsoEditMenuSectionComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: 'sectionDataProvider', useValue: dummySectionText },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },
-        {provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-      ]
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
     }).compileComponents();
   }));
 }
@@ -181,9 +192,9 @@ describe('DsoEditMenuSectionComponent', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 }

@@ -1,49 +1,64 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
+  Component,
   Injector,
+  Injector,
+  OnInit,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
   UntypedFormBuilder,
   UntypedFormGroup,
+  UntypedFormGroup,
+  Validators,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   NgbModal,
+  NgbModal,
   NgbModalRef,
+  NgbModalRef,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of,
 } from 'rxjs';
+
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import {
-  ClaimedDeclinedTaskSearchResult
-} from '../../../object-collection/shared/claimed-declined-task-search-result.model';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
+import {
+  ClaimedDeclinedTaskSearchResult,
+  ClaimedDeclinedTaskSearchResult,
+} from '../../../object-collection/shared/claimed-declined-task-search-result.model';
+import {
+  ClaimedTaskActionsAbstractComponent,
+  ClaimedTaskActionsAbstractComponent,
+} from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
 
 @Component({
-    selector: 'ds-claimed-task-actions-reject',
-    styleUrls: ['./claimed-task-actions-reject.component.scss'],
-    templateUrl: './claimed-task-actions-reject.component.html',
-    standalone: true,
-    imports: [NgbTooltipModule, NgIf, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule]
+  selector: 'ds-claimed-task-actions-reject',
+  styleUrls: ['./claimed-task-actions-reject.component.scss'],
+  templateUrl: './claimed-task-actions-reject.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, NgIf, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying and processing the reject action on a workflow task item

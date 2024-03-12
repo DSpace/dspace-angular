@@ -23,7 +23,7 @@ import { ContextHelpWrapperComponent } from './context-help-wrapper.component';
 import { PlacementDir } from './placement-dir.model';
 
 @Component({
-    template: `
+  template: `
     <ng-template #div>template</ng-template>
     <ds-context-help-wrapper
       #chwrapper
@@ -36,8 +36,8 @@ import { PlacementDir } from './placement-dir.model';
     >
     </ds-context-help-wrapper>
   `,
-    standalone: true,
-  imports: [NgbTooltipModule, ContextHelpWrapperComponent]
+  standalone: true,
+  imports: [NgbTooltipModule, ContextHelpWrapperComponent],
 })
 class TemplateComponent {
   @Input() content: string;
@@ -86,12 +86,12 @@ describe('ContextHelpWrapperComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
-    imports: [NgbTooltipModule, TemplateComponent, ContextHelpWrapperComponent],
-    providers: [
+      imports: [NgbTooltipModule, TemplateComponent, ContextHelpWrapperComponent],
+      providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

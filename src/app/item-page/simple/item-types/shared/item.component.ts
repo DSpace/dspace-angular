@@ -21,9 +21,9 @@ import {
 } from './item-iiif-utils';
 
 @Component({
-    selector: 'ds-item',
-    template: '',
-    standalone: true
+  selector: 'ds-item',
+  template: '',
+  standalone: true,
 })
 /**
  * A generic component for displaying metadata and relations of an item

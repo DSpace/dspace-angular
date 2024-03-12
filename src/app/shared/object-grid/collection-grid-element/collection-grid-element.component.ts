@@ -1,38 +1,45 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { Collection } from '../../../core/shared/collection.model';
 import {
-  AbstractListableElementComponent
-} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+  DSONameService,
+  DSONameService,
+} from '../../../core/breadcrumbs/dso-name.service';
+import {
+  LinkService,
+  LinkService,
+} from '../../../core/cache/builders/link.service';
+import { Collection } from '../../../core/shared/collection.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
 import {
   hasNoValue,
   hasValue,
 } from '../../empty.util';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import {
+  AbstractListableElementComponent,
+  AbstractListableElementComponent,
+} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { followLink } from '../../utils/follow-link-config.model';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
-import { RouterLink } from '@angular/router';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * Component representing a grid element for collection
  */
 @Component({
-    selector: 'ds-collection-grid-element',
-    styleUrls: ['./collection-grid-element.component.scss'],
-    templateUrl: './collection-grid-element.component.html',
-    standalone: true,
-    imports: [NgIf, RouterLink, ThemedThumbnailComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-collection-grid-element',
+  styleUrls: ['./collection-grid-element.component.scss'],
+  templateUrl: './collection-grid-element.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, AsyncPipe, TranslateModule],
 })
 @listableObjectComponent(Collection, ViewMode.GridElement)
 export class CollectionGridElementComponent extends AbstractListableElementComponent<

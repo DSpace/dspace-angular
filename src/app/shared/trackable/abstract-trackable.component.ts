@@ -9,9 +9,9 @@ import { NotificationsService } from '../notifications/notifications.service';
  * Abstract Component that is able to track changes made in the inheriting component using the ObjectUpdateService
  */
 @Component({
-    selector: 'ds-abstract-trackable',
-    template: '',
-    standalone: true
+  selector: 'ds-abstract-trackable',
+  template: '',
+  standalone: true,
 })
 export class AbstractTrackableComponent {
 

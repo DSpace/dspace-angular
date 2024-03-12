@@ -25,13 +25,13 @@ describe('AdminSidebarSectionComponent', () => {
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot(), AdminSidebarSectionComponent, TestComponent],
-    providers: [
-        { provide: 'sectionDataProvider', useValue: { model: { link: 'google.com' }, icon: iconString } },
-        { provide: MenuService, useValue: menuService },
-        { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+        imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot(), AdminSidebarSectionComponent, TestComponent],
+        providers: [
+          { provide: 'sectionDataProvider', useValue: { model: { link: 'google.com' }, icon: iconString } },
+          { provide: MenuService, useValue: menuService },
+          { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         ],
-}).overrideComponent(AdminSidebarSectionComponent, {
+      }).overrideComponent(AdminSidebarSectionComponent, {
         set: {
           entryComponents: [TestComponent],
         },
@@ -64,13 +64,13 @@ describe('AdminSidebarSectionComponent', () => {
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot(), AdminSidebarSectionComponent, TestComponent],
-    providers: [
-        { provide: 'sectionDataProvider', useValue: { model: { link: 'google.com', disabled: true }, icon: iconString } },
-        { provide: MenuService, useValue: menuService },
-        { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+        imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot(), AdminSidebarSectionComponent, TestComponent],
+        providers: [
+          { provide: 'sectionDataProvider', useValue: { model: { link: 'google.com', disabled: true }, icon: iconString } },
+          { provide: MenuService, useValue: menuService },
+          { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         ],
-}).overrideComponent(AdminSidebarSectionComponent, {
+      }).overrideComponent(AdminSidebarSectionComponent, {
         set: {
           entryComponents: [TestComponent],
         },
@@ -103,10 +103,10 @@ describe('AdminSidebarSectionComponent', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [RouterTestingModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [RouterTestingModule],
 })
 class TestComponent {
 }

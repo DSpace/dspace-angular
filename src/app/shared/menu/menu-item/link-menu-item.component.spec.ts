@@ -1,12 +1,23 @@
-import { DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
 import { RouterStub } from '../../testing/router.stub';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { RouterLinkDirectiveStub } from '../../testing/router-link-directive.stub';
 import { LinkMenuItemComponent } from './link-menu-item.component';
 
@@ -34,13 +45,13 @@ describe('LinkMenuItemComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         RouterLinkDirectiveStub,
         QueryParamsDirectiveStub,
-        RouterLink
+        RouterLink,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(LinkMenuItemComponent, {
         remove: { imports: [] },
-        add: { imports: [RouterLinkDirectiveStub, QueryParamsDirectiveStub] }
+        add: { imports: [RouterLinkDirectiveStub, QueryParamsDirectiveStub] },
       })
       .compileComponents();
   }));

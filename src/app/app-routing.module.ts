@@ -1,11 +1,23 @@
-import { importProvidersFrom, NgModule } from '@angular/core';
-import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
+import {
+  importProvidersFrom,
+  NgModule,
+} from '@angular/core';
 import {
   NoPreloading,
   RouterModule,
 } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
 
-import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
+import {
+  NOTIFICATIONS_MODULE_PATH,
+  NOTIFICATIONS_MODULE_PATH,
+} from './admin/admin-routing-paths';
+import { storeModuleConfig } from './app.reducer';
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
@@ -24,42 +36,46 @@ import {
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
+import {
+  AuthBlockingGuard,
+  AuthBlockingGuard,
+} from './core/auth/auth-blocking.guard';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { ReloadGuard } from './core/reload/reload.guard';
-import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
+import {
+  ForgotPasswordCheckGuard,
+  ForgotPasswordCheckGuard,
+} from './core/rest-property/forgot-password-check-guard.guard';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
-import { Action, StoreConfig, StoreModule } from '@ngrx/store';
-import { storeModuleConfig } from './app.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { submissionReducers, SubmissionState } from './submission/submission.reducers';
-import { submissionEffects } from './submission/submission.effects';
-import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
-import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
+import { submissionEffects } from './submission/submission.effects';
+import {
+  submissionReducers,
+  SubmissionState,
+} from './submission/submission.reducers';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      {path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent},
-      {path: ERROR_PAGE, component: ThemedPageErrorComponent},
+      { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
+      { path: ERROR_PAGE, component: ThemedPageErrorComponent },
       {
         path: '',
         canActivate: [AuthBlockingGuard],
         canActivateChild: [ServerCheckGuard],
         resolve: [MenuResolver],
         children: [
-          {path: '', redirectTo: '/home', pathMatch: 'full'},
+          { path: '', redirectTo: '/home', pathMatch: 'full' },
           {
             path: 'reload/:rnd',
             component: ThemedPageNotFoundComponent,
@@ -70,7 +86,7 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: 'home',
             loadChildren: () => import('./home-page/home-page-routes')
               .then((m) => m.ROUTES),
-            data: {showBreadcrumbs: false},
+            data: { showBreadcrumbs: false },
             canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {

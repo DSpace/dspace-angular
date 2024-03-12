@@ -28,30 +28,36 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import {
+  VocabularyEntry,
+  VocabularyEntry,
+} from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import {
   mockDynamicFormLayoutService,
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
   mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../testing/utils.test';
+import {
+  createTestComponent,
+  createTestComponent,
+} from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
-import { Chips } from '../../../../chips/models/chips.model';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import {
+  Chips,
+  Chips,
+} from '../../../../chips/models/chips.model';
+import {
+  FormFieldMetadataValueObject,
+  FormFieldMetadataValueObject,
+} from '../../../models/form-field-metadata-value.model';
 import { DsDynamicTagComponent } from './dynamic-tag.component';
 import { DynamicTagModel } from './dynamic-tag.model';
-import { Chips } from '../../../../chips/models/chips.model';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService
-} from '../../../../../testing/dynamic-form-mock-services';
-import { TranslateModule } from '@ngx-translate/core';
 
 function createKeyUpEvent(key: number) {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -106,7 +112,7 @@ describe('DsDynamicTagComponent test suite', () => {
     const vocabularyServiceStub = new VocabularyServiceStub();
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
@@ -114,17 +120,17 @@ describe('DsDynamicTagComponent test suite', () => {
         NgbModule,
         ReactiveFormsModule,
         DsDynamicTagComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         ChangeDetectorRef,
         DsDynamicTagComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-});
+    });
 
   }));
 
@@ -316,14 +322,14 @@ describe('DsDynamicTagComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
-        FormsModule,
-        NgbModule,
-        ReactiveFormsModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule],
 })
 class TestComponent {
 

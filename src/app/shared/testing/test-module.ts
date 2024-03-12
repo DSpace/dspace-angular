@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, } from '@angular/core';
-
 import {
-  MySimpleItemActionComponent
-} from '../../item-page/edit-item-page/simple-item-action/abstract-simple-item-action.component.spec';
+  CUSTOM_ELEMENTS_SCHEMA,
+  NgModule,
+} from '@angular/core';
+
+import { MySimpleItemActionComponent } from '../../item-page/edit-item-page/simple-item-action/abstract-simple-item-action.component.spec';
 import { BrowserOnlyMockPipe } from './browser-only-mock.pipe';
 import { NgComponentOutletDirectiveStub } from './ng-component-outlet-directive.stub';
 import { QueryParamsDirectiveStub } from './query-params-directive.stub';
@@ -26,8 +27,8 @@ import { RouterLinkDirectiveStub } from './router-link-directive.stub';
   ],
   exports: [
     QueryParamsDirectiveStub,
-        RouterLinkDirectiveStub,
-        BrowserOnlyMockPipe
+    RouterLinkDirectiveStub,
+    BrowserOnlyMockPipe,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

@@ -10,9 +10,20 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, switchMap, take, } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { hasValue, isNotEmpty, isNotEmptyOperator, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { BrowseService } from '../browse/browse.service';
@@ -30,17 +41,34 @@ import { MetadataMap } from '../shared/metadata.models';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { CreateData, CreateDataImpl, } from './base/create-data';
-import { DeleteData, DeleteDataImpl, } from './base/delete-data';
-import { ConstructIdEndpoint, IdentifiableDataService, } from './base/identifiable-data.service';
-import { PatchData, PatchDataImpl, } from './base/patch-data';
+import {
+  CreateData,
+  CreateDataImpl,
+} from './base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './base/delete-data';
+import {
+  ConstructIdEndpoint,
+  IdentifiableDataService,
+} from './base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
 import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { ResponseParsingService } from './parsing.service';
 import { RemoteData } from './remote-data';
-import { DeleteRequest, GetRequest, PostRequest, PutRequest, } from './request.models';
+import {
+  DeleteRequest,
+  GetRequest,
+  PostRequest,
+  PutRequest,
+} from './request.models';
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
 import { RestRequestMethod } from './rest-request-method';

@@ -1,20 +1,30 @@
-import { Component, Inject, Input } from '@angular/core';
-import { Params, Router, } from '@angular/router';
+import {
+  AsyncPipe,
+  NgFor,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Input,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
-import { SearchLabelComponent } from './search-label/search-label.component';
-import { AsyncPipe, NgFor } from '@angular/common';
 
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
+import { SearchLabelComponent } from './search-label/search-label.component';
 
 @Component({
-    selector: 'ds-search-labels',
-    styleUrls: ['./search-labels.component.scss'],
-    templateUrl: './search-labels.component.html',
-    standalone: true,
-    imports: [NgFor, SearchLabelComponent, AsyncPipe, ObjectKeysPipe]
+  selector: 'ds-search-labels',
+  styleUrls: ['./search-labels.component.scss'],
+  templateUrl: './search-labels.component.html',
+  standalone: true,
+  imports: [NgFor, SearchLabelComponent, AsyncPipe, ObjectKeysPipe],
 })
 
 /**

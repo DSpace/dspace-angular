@@ -7,6 +7,7 @@
  */
 
 import { NgModule } from '@angular/core';
+
 import { ItemVersionsComponent } from './item-versions.component';
 import { ItemVersionsNoticeComponent } from './notice/item-versions-notice.component';
 
@@ -16,12 +17,12 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
-        ...DECLARATIONS
-    ],
-    exports: [
-        ...DECLARATIONS,
-    ]
+  imports: [
+    ...DECLARATIONS,
+  ],
+  exports: [
+    ...DECLARATIONS,
+  ],
 })
 export class ItemVersionsModule {
 

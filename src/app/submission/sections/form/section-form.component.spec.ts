@@ -1,9 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
-import { DynamicFormControlEvent, DynamicFormControlEventType, } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlEventType,
+} from '@ng-dynamic-forms/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
@@ -16,9 +34,7 @@ import { WorkflowItem } from '../../../core/submission/models/workflowitem.model
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import {
-  DynamicRowGroupModel
-} from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
+import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldModel } from '../../../shared/form/builder/models/form-field.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
@@ -32,6 +48,7 @@ import {
   mockSubmissionId,
   mockUploadResponse1ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -39,6 +56,7 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionService } from '../../submission.service';
 import { SectionDataObject } from '../models/section-data.model';
@@ -46,8 +64,6 @@ import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';
 import { SubmissionSectionFormComponent } from './section-form.component';
 import { SectionFormOperationsService } from './section-form-operations.service';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { ThemeService } from '../../../shared/theme-support/theme.service';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -162,7 +178,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -170,8 +186,8 @@ describe('SubmissionSectionFormComponent test suite', () => {
         FormComponent,
         SubmissionSectionFormComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: formService },
@@ -191,9 +207,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem()) } },
         ChangeDetectorRef,
         SubmissionSectionFormComponent,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents().then();
+    }).compileComponents().then();
   }));
 
   describe('', () => {
@@ -635,9 +651,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 class TestComponent {}

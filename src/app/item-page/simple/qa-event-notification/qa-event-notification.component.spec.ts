@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, TestBed, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,9 +13,7 @@ import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import {
-  QualityAssuranceSourceDataService
-} from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -40,17 +41,17 @@ describe('QaEventNotificationComponent', () => {
       getSourcesByTarget: () => objPL,
     };
     await TestBed.configureTestingModule({
-    imports: [CommonModule, TranslateModule.forRoot(), QaEventNotificationComponent, SplitPipe],
-    providers: [
+      imports: [CommonModule, TranslateModule.forRoot(), QaEventNotificationComponent, SplitPipe],
+      providers: [
         { provide: QualityAssuranceSourceDataService, useValue: qualityAssuranceSourceDataServiceStub },
         { provide: RequestService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         ObjectCacheService,
         RemoteDataBuildService,
-        provideMockStore({})
-    ]
-})
+        provideMockStore({}),
+      ],
+    })
       .compileComponents();
     fixture = TestBed.createComponent(QaEventNotificationComponent);
     component = fixture.componentInstance;

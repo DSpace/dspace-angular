@@ -1,7 +1,18 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
@@ -15,21 +26,21 @@ let fixture: ComponentFixture<ItemPageAbstractFieldComponent>;
 describe('ItemPageAbstractFieldComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
-        ItemPageAbstractFieldComponent
-    ],
-    providers: [
+        ItemPageAbstractFieldComponent,
+      ],
+      providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemPageAbstractFieldComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ItemPageAbstractFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

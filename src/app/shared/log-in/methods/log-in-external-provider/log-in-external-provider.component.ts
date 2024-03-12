@@ -1,24 +1,40 @@
-import { Component, Inject, OnInit, } from '@angular/core';
-import { select, Store, } from '@ngrx/store';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { isAuthenticated, isAuthenticationLoading, } from '../../../../core/auth/selectors';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core-state.model';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import { NativeWindowRef, NativeWindowService, } from '../../../../core/services/window.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../../core/services/window.service';
 import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
-import { TranslateModule } from '@ngx-translate/core';
-import { isEmpty, isNotNull, } from '../../../empty.util';
+import {
+  isEmpty,
+  isNotNull,
+} from '../../../empty.util';
 
 @Component({
-    selector: 'ds-log-in-external-provider',
-    templateUrl: './log-in-external-provider.component.html',
-    styleUrls: ['./log-in-external-provider.component.scss'],
-    standalone: true,
-    imports: [TranslateModule]
+  selector: 'ds-log-in-external-provider',
+  templateUrl: './log-in-external-provider.component.html',
+  styleUrls: ['./log-in-external-provider.component.scss'],
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class LogInExternalProviderComponent implements OnInit {
 

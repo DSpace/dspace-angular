@@ -37,9 +37,9 @@ import { MenuSectionComponent } from './menu-section/menu-section.component';
  * A basic implementation of a MenuComponent
  */
 @Component({
-    selector: 'ds-menu',
-    template: '',
-    standalone: true
+  selector: 'ds-menu',
+  template: '',
+  standalone: true,
 })
 export class MenuComponent implements OnInit, OnDestroy {
   /**

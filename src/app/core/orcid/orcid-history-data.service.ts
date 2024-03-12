@@ -1,7 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';

@@ -9,7 +9,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -26,10 +29,10 @@ import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let component: WorkflowitemActionsComponent;
 let fixture: ComponentFixture<WorkflowitemActionsComponent>;
@@ -77,16 +80,16 @@ mockObject = Object.assign(new WorkflowItem(), { item: observableOf(rd), id: '12
 describe('WorkflowitemActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        WorkflowitemActionsComponent
-    ],
-    providers: [
+        WorkflowitemActionsComponent,
+      ],
+      providers: [
         { provide: Injector, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkflowItemDataService, useValue: mockDataService },
@@ -94,9 +97,9 @@ describe('WorkflowitemActionsComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(WorkflowitemActionsComponent, {
+    }).overrideComponent(WorkflowitemActionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

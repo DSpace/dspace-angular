@@ -1,13 +1,17 @@
-import { Component, EventEmitter, Output, } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { LoadingComponent } from '../loading/loading.component';
-import { FormsModule } from '@angular/forms';
-import { AsyncPipe } from '@angular/common';
 import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'ds-item-withdrawn-reinstate-modal',
@@ -17,9 +21,9 @@ import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface
     TranslateModule,
     LoadingComponent,
     FormsModule,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Represents a modal component for withdrawing or reinstating an item.

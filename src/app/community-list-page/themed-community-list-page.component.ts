@@ -7,10 +7,10 @@ import { CommunityListPageComponent } from './community-list-page.component';
  * Themed wrapper for CommunityListPageComponent
  */
 @Component({
-    selector: 'ds-themed-community-list-page',
-    styleUrls: [],
-    templateUrl: '../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-community-list-page',
+  styleUrls: [],
+  templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCommunityListPageComponent extends ThemedComponent<CommunityListPageComponent> {
   protected getComponentName(): string {

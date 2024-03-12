@@ -1,8 +1,34 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild, } from '@angular/core';
-import { ActivatedRoute, Router, } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, } from 'rxjs';
-import { filter, map, startWith, switchMap, take, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
@@ -23,15 +49,19 @@ import {
 } from '../../../core/shared/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { fadeIn, fadeInOut, } from '../../../shared/animations/fade';
-import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../shared/animations/fade';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { getItemPageRoute } from '../../item-page-routing-paths';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-collection-mapper',
@@ -40,7 +70,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
+    fadeInOut,
   ],
   imports: [
     NgbNavModule,
@@ -48,9 +78,9 @@ import { AsyncPipe, NgIf } from '@angular/common';
     ThemedSearchFormComponent,
     AsyncPipe,
     TranslateModule,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for mapping collections to an item

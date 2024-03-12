@@ -1,7 +1,19 @@
-import { Component, Inject, Input, OnInit, } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { APP_CONFIG, AppConfig, } from 'src/config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -11,17 +23,12 @@ import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import {
-  ThemedFileDownloadLinkComponent
-} from '../../../../shared/file-download-link/themed-file-download-link.component';
-import {
-  MetadataFieldWrapperComponent
-} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { CommonModule } from '@angular/common';
 
 /**
  * This component renders the file section of the item
@@ -39,7 +46,7 @@ import { CommonModule } from '@angular/common';
     FileSizePipe,
     VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 export class FileSectionComponent implements OnInit {
 

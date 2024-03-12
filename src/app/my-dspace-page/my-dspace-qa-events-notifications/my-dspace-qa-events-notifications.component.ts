@@ -1,17 +1,21 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
   tap,
 } from 'rxjs';
 import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
 
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
 import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
@@ -31,9 +35,9 @@ import {
     NgForOf,
     TranslateModule,
     RouterLink,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
 

@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Inject,
@@ -9,7 +13,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -25,17 +34,37 @@ import {
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
+  SortDirection,
+  SortOptions,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../core/data/item-data.service';
+import {
+  CollectionDataService,
+  CollectionDataService,
+} from '../../core/data/collection-data.service';
+import {
+  FeatureID,
+  FeatureID,
+} from '../../core/data/feature-authorization/feature-id';
+import {
+  ItemDataService,
+  ItemDataService,
+} from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { NoContent } from '../../core/shared/NoContent.model';
+import {
+  DSpaceObject,
+  DSpaceObject,
+} from '../../core/shared/dspace-object.model';
+import {
+  DSpaceObjectType,
+  DSpaceObjectType,
+} from '../../core/shared/dspace-object-type.model';
+import {
+  NoContent,
+  NoContent,
+} from '../../core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
@@ -43,32 +72,26 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { isNotEmpty } from '../../shared/empty.util';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
-import { isNotEmpty } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe, NgIf } from '@angular/common';
+import {
+  isNotEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import {
+  NotificationsService,
+  NotificationsService,
+} from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -82,8 +105,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configurat
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
+      useClass: SearchConfigurationService,
+    },
   ],
   imports: [
     ThemedSearchFormComponent,
@@ -91,9 +114,9 @@ import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configurat
     TranslateModule,
     AsyncPipe,
     ItemSelectComponent,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component used to map items to a collection

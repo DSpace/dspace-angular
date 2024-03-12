@@ -1,22 +1,34 @@
-import { Component, OnInit, } from '@angular/core';
-import { Observable, Subscription, } from 'rxjs';
-import { distinctUntilChanged, take, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  take,
+} from 'rxjs/operators';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import {
-  QualityAssuranceSourcePageParams
-} from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { hasValue } from '../../../shared/empty.util';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
-import { AlertComponent } from '../../../shared/alert/alert.component';
 
 /**
  * Component to display the Quality Assurance source list.
@@ -26,7 +38,7 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
   standalone: true,
-  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe]
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
 export class QualityAssuranceSourceComponent implements OnInit {
 

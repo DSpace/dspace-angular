@@ -1,29 +1,36 @@
-import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component, SimpleChange } from '@angular/core';
-import { rendersBrowseBy } from './browse-by-decorator';
-import { ThemeService } from '../../shared/theme-support/theme.service';
 import {
   Component,
+  Component,
+  SimpleChange,
   SimpleChange,
 } from '@angular/core';
 import {
   ComponentFixture,
+  ComponentFixture,
   TestBed,
+  TestBed,
+  waitForAsync,
   waitForAsync,
 } from '@angular/core/testing';
 
 import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from '../../core/shared/non-hierarchical-browse-definition';
 import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
-import {
-  DynamicComponentLoaderDirective
-} from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ThemeService } from '../../shared/theme-support/theme.service';
+import {
+  ThemeService,
+  ThemeService,
+} from '../../shared/theme-support/theme.service';
 import { BrowseByDataType } from './browse-by-data-type';
-import { rendersBrowseBy } from './browse-by-decorator';
-import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
+import {
+  rendersBrowseBy,
+  rendersBrowseBy,
+} from './browse-by-decorator';
+import {
+  BrowseBySwitcherComponent,
+  BrowseBySwitcherComponent,
+} from './browse-by-switcher.component';
 
 @rendersBrowseBy('BrowseBySwitcherComponent' as BrowseByDataType)
 @Component({
@@ -73,15 +80,15 @@ describe('BrowseBySwitcherComponent', () => {
     themeService = getMockThemeService(themeName);
 
     void TestBed.configureTestingModule({
-    imports: [
+      imports: [
         BrowseBySwitcherComponent,
         DynamicComponentLoaderDirective,
       ],
-    providers: [
+      providers: [
         BrowseByTestComponent,
         { provide: ThemeService, useValue: themeService },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

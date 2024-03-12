@@ -1,8 +1,33 @@
-import { filter, map } from 'rxjs/operators';
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Data, Router, RouterLink } from '@angular/router';
-import { AsyncPipe, KeyValuePipe, Location, NgForOf, NgIf } from '@angular/common';
-import { BehaviorSubject, Observable, } from 'rxjs';
+import {
+  AsyncPipe,
+  KeyValuePipe,
+  Location,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
@@ -15,22 +40,19 @@ import { ServerResponseService } from '../../core/services/server-response.servi
 import { Item } from '../../core/shared/item.model';
 import { MetadataMap } from '../../core/shared/metadata.models';
 import { fadeInOut } from '../../shared/animations/fade';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { hasValue } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
-import { CollectionsComponent } from '../field-components/collections/collections.component';
-import { ItemVersionsComponent } from '../versions/item-versions.component';
-import {
-  ThemedItemPageTitleFieldComponent
-} from '../simple/field-components/specific-field/title/themed-item-page-field.component';
-import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { CollectionsComponent } from '../field-components/collections/collections.component';
+import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemPageComponent } from '../simple/item-page.component';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
 
 /**
  * This component renders a full item page.
@@ -60,9 +82,9 @@ import { ItemPageComponent } from '../simple/item-page.component';
     ItemVersionsNoticeComponent,
     ViewTrackerComponent,
     ThemedItemAlertsComponent,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit, OnDestroy {
 

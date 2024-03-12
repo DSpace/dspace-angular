@@ -1,35 +1,49 @@
-import { NO_ERRORS_SCHEMA, PLATFORM_ID, } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of, of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '../../core/orcid/orcid-queue-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { Item } from '../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { OrcidPageComponent } from './orcid-page.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { OrcidQueueDataService } from '../../core/orcid/orcid-queue-data.service';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
 
 describe('OrcidPageComponent test suite', () => {
   let comp: OrcidPageComponent;
@@ -125,18 +139,18 @@ describe('OrcidPageComponent test suite', () => {
     });
 
     void TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         RouterTestingModule.withRoutes([]),
         OrcidPageComponent,
         NoopAnimationsModule,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: OrcidAuthService, useValue: orcidAuthService },
@@ -147,9 +161,9 @@ describe('OrcidPageComponent test suite', () => {
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: PLATFORM_ID, useValue: 'browser' },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

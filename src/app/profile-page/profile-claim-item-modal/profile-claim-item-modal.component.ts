@@ -1,6 +1,20 @@
-import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -11,17 +25,11 @@ import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
-import {
-  DSOSelectorModalWrapperComponent
-} from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
+import { DSOSelectorModalWrapperComponent } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { AsyncPipe, NgForOf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component representing a modal that show a list of suggested profile item to claim
@@ -33,9 +41,9 @@ import { TranslateModule } from '@ngx-translate/core';
     ListableObjectComponentLoaderComponent,
     AsyncPipe,
     TranslateModule,
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
 

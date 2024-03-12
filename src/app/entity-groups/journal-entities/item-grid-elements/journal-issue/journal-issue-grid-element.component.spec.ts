@@ -56,13 +56,13 @@ describe('JournalIssueGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, TruncatePipe, JournalIssueGridElementComponent],
-    providers: [
+      imports: [NoopAnimationsModule, TruncatePipe, JournalIssueGridElementComponent],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(JournalIssueGridElementComponent, {
+    }).overrideComponent(JournalIssueGridElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

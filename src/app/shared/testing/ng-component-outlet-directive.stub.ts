@@ -7,7 +7,7 @@ import {
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[ngComponentOutlet]',
-  standalone: true
+  standalone: true,
 })
 export class NgComponentOutletDirectiveStub {
   @Input() ngComponentOutlet: any;

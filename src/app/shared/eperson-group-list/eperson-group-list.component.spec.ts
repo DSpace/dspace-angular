@@ -15,6 +15,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 import { of as observableOf } from 'rxjs';
+import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
+import {
+  dataService,
+  getDataServiceFor,
+} from 'src/app/core/data/base/data-service.decorator';
+import { EPERSON } from 'src/app/core/eperson/models/eperson.resource-type';
+import { GROUP } from 'src/app/core/eperson/models/group.resource-type';
+import { ResourceType } from 'src/app/core/shared/resource-type';
 
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { RequestService } from '../../core/data/request.service';
@@ -22,28 +30,23 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 import { getMockRequestService } from '../mocks/request.service.mock';
-import { EpersonGroupListComponent } from './eperson-group-list.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { EPersonMock } from '../testing/eperson.mock';
 import { GroupMock } from '../testing/group-mock';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
-import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
-import { PaginationComponent } from '../pagination/pagination.component';
-import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
-import { EPERSON } from 'src/app/core/eperson/models/eperson.resource-type';
-import { GROUP } from 'src/app/core/eperson/models/group.resource-type';
-import { ResourceType } from 'src/app/core/shared/resource-type';
-import { dataService, getDataServiceFor } from 'src/app/core/data/base/data-service.decorator';
-import { SearchEvent } from './eperson-group-list-event-type';
 import { createTestComponent } from '../testing/utils.test';
 import {
   EpersonGroupListComponent,
+  EpersonGroupListComponent,
   SearchEvent,
 } from './eperson-group-list.component';
+import { SearchEvent } from './eperson-group-list-event-type';
+import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
 
 describe('EpersonGroupListComponent test suite', () => {
   let comp: EpersonGroupListComponent;
@@ -98,8 +101,8 @@ describe('EpersonGroupListComponent test suite', () => {
         EpersonGroupListComponent,
         TestComponent,
         EpersonSearchBoxComponent,
-            GroupSearchBoxComponent,
-            PaginationComponent,
+        GroupSearchBoxComponent,
+        PaginationComponent,
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
@@ -316,9 +319,9 @@ describe('EpersonGroupListComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

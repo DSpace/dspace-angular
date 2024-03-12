@@ -1,9 +1,25 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, UntypedFormBuilder } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgClass } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { isEmpty } from '../../empty.util';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'ds-number-picker',
@@ -15,9 +31,9 @@ import { NgClass } from '@angular/common';
   imports: [
     NgClass,
     FormsModule,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 
 export class NumberPickerComponent implements OnInit, ControlValueAccessor {

@@ -9,6 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -32,11 +33,10 @@ import { UUIDService } from '../../../../../core/shared/uuid.service';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
-import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
-import { ActivatedRoute } from '@angular/router';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
@@ -226,29 +226,29 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
 
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-    imports: [
-        NoopAnimationsModule,
-        TranslateModule.forRoot(),
-        TruncatePipe,
-        component
-    ],
-    providers: [
-        { provide: TruncatableService, useValue: truncatableServiceStub },
-        { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
-        { provide: RemoteDataBuildService, useValue: {} },
-        { provide: CommunityDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
-        { provide: HttpClient, useValue: {} },
-        { provide: DSOChangeAnalyzer, useValue: {} },
-        { provide: NotificationsService, useValue: {} },
-        { provide: DefaultChangeAnalyzer, useValue: {} },
-        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
-    ],
+        imports: [
+          NoopAnimationsModule,
+          TranslateModule.forRoot(),
+          TruncatePipe,
+          component,
+        ],
+        providers: [
+          { provide: TruncatableService, useValue: truncatableServiceStub },
+          { provide: ObjectCacheService, useValue: {} },
+          { provide: UUIDService, useValue: {} },
+          { provide: Store, useValue: {} },
+          { provide: RemoteDataBuildService, useValue: {} },
+          { provide: CommunityDataService, useValue: {} },
+          { provide: HALEndpointService, useValue: {} },
+          { provide: HttpClient, useValue: {} },
+          { provide: DSOChangeAnalyzer, useValue: {} },
+          { provide: NotificationsService, useValue: {} },
+          { provide: DefaultChangeAnalyzer, useValue: {} },
+          { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        ],
         schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(component, {
+      }).overrideComponent(component, {
         add: { changeDetection: ChangeDetectionStrategy.Default },
       }).compileComponents();
     }));

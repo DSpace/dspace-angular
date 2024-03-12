@@ -1,4 +1,10 @@
-import { Component, Injector, Input, OnInit, } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
@@ -12,13 +18,12 @@ import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { renderFilterType } from '../search-filter-type-decorator';
-import { NgComponentOutlet } from '@angular/common';
 
 @Component({
-    selector: 'ds-search-facet-filter-wrapper',
-    templateUrl: './search-facet-filter-wrapper.component.html',
-    standalone: true,
-    imports: [NgComponentOutlet]
+  selector: 'ds-search-facet-filter-wrapper',
+  templateUrl: './search-facet-filter-wrapper.component.html',
+  standalone: true,
+  imports: [NgComponentOutlet],
 })
 
 /**

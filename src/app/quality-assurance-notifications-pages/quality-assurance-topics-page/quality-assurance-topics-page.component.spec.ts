@@ -13,10 +13,10 @@ describe('QualityAssuranceTopicsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [QualityAssuranceTopicsPageComponent],
-    schemas: [NO_ERRORS_SCHEMA],
-})
-    .compileComponents();
+      imports: [QualityAssuranceTopicsPageComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {

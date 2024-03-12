@@ -61,18 +61,18 @@ describe('ClaimedTaskActionsRejectComponent', () => {
   beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ClaimedTaskActionsRejectComponent
-    ],
-    providers: [
+        ClaimedTaskActionsRejectComponent,
+      ],
+      providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
         Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -82,9 +82,9 @@ describe('ClaimedTaskActionsRejectComponent', () => {
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
         UntypedFormBuilder,
         NgbModal,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ClaimedTaskActionsRejectComponent, {
+    }).overrideComponent(ClaimedTaskActionsRejectComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
     fixture = TestBed.createComponent(ClaimedTaskActionsRejectComponent);

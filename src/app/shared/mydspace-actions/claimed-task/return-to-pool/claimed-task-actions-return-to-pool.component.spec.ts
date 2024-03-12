@@ -49,16 +49,16 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ClaimedTaskActionsReturnToPoolComponent
-    ],
-    providers: [
+        ClaimedTaskActionsReturnToPoolComponent,
+      ],
+      providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -66,9 +66,9 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ClaimedTaskActionsReturnToPoolComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ClaimedTaskActionsReturnToPoolComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

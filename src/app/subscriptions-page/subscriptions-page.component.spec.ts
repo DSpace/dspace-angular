@@ -1,19 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { BrowserModule, By, } from '@angular/platform-browser';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../core/auth/auth.service';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { PageInfo } from '../core/shared/page-info.model';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
 import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
@@ -24,9 +40,6 @@ import {
   subscriptionMock2,
 } from '../shared/testing/subscriptions-data.mock';
 import { VarDirective } from '../shared/utils/var.directive';
-import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { AlertComponent } from '../shared/alert/alert.component';
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
 
 describe('SubscriptionsPageComponent', () => {
@@ -67,7 +80,7 @@ describe('SubscriptionsPageComponent', () => {
           },
         }),
         NoopAnimationsModule,
-        SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective
+        SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective,
       ],
       providers: [
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
@@ -79,8 +92,8 @@ describe('SubscriptionsPageComponent', () => {
     })
       .overrideComponent(SubscriptionsPageComponent, {
         remove: {
-          imports: [ThemedLoadingComponent, PaginationComponent, AlertComponent]
-        }
+          imports: [ThemedLoadingComponent, PaginationComponent, AlertComponent],
+        },
       })
       .compileComponents();
   }));

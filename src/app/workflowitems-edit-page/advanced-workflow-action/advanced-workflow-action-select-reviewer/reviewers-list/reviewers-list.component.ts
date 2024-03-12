@@ -1,7 +1,31 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import {
   EPersonListActionConfig,
@@ -16,9 +40,8 @@ import { Group } from '../../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
-import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -46,7 +69,7 @@ enum SubKey {
     AsyncPipe,
     RouterLink,
     NgClass,
-    NgForOf
+    NgForOf,
   ],
 })
 export class ReviewersListComponent extends MembersListComponent implements OnInit, OnChanges, OnDestroy {

@@ -5,8 +5,23 @@
  *
  * http://www.dspace.org/license/
  */
-import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,15 +29,21 @@ import { getGroupEditRoute } from '../../../access-control/access-control-routin
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
 import { Group } from '../../../core/eperson/models/group.model';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { getAllSucceededRemoteData, getFirstSucceededRemoteDataPayload, } from '../../../core/shared/operators';
-import { dateToString, stringToNgbDateStruct, } from '../../date.util';
-import { hasValue, isNotEmpty, } from '../../empty.util';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  dateToString,
+  stringToNgbDateStruct,
+} from '../../date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
 
 export interface ResourcePolicyCheckboxEntry {
   id: string;
@@ -38,9 +59,9 @@ export interface ResourcePolicyCheckboxEntry {
     AsyncPipe,
     TranslateModule,
     FormsModule,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ResourcePolicyEntryComponent implements OnInit {
   @Input()

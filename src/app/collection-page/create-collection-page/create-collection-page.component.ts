@@ -1,20 +1,27 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { RequestService } from '../../core/data/request.service';
+import {
+  RequestService,
+  RequestService,
+} from '../../core/data/request.service';
 import { RouteService } from '../../core/services/route.service';
 import { Collection } from '../../core/shared/collection.model';
 import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/create-comcol-page/create-comcol-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RequestService } from '../../core/data/request.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CollectionFormComponent } from '../collection-form/collection-form.component';
-import { AsyncPipe } from '@angular/common';
 
 /**
  * Component that represents the page where a user can create a new Collection
@@ -26,9 +33,9 @@ import { AsyncPipe } from '@angular/common';
   imports: [
     CollectionFormComponent,
     TranslateModule,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CreateCollectionPageComponent extends CreateComColPageComponent<Collection> {
   protected frontendURL = '/collections/';

@@ -21,12 +21,12 @@ describe('MyDspaceQaEventsNotificationsComponent', () => {
       getSources: () => obj,
     };
     await TestBed.configureTestingModule({
-    imports: [MyDspaceQaEventsNotificationsComponent],
-    providers: [
+      imports: [MyDspaceQaEventsNotificationsComponent],
+      providers: [
         { provide: QualityAssuranceSourceDataService, useValue: qualityAssuranceSourceDataServiceStub },
       ],
-})
-    .compileComponents();
+    })
+      .compileComponents();
 
     fixture = TestBed.createComponent(MyDspaceQaEventsNotificationsComponent);
     component = fixture.componentInstance;

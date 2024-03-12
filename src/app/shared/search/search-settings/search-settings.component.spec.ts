@@ -1,19 +1,26 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { VarDirective } from '../../utils/var.directive';
-import { SidebarService } from '../../sidebar/sidebar.service';
-import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { SortDirection, SortOptions, } from '../../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { SidebarService } from '../../sidebar/sidebar.service';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
+import { VarDirective } from '../../utils/var.directive';
 import { SearchSettingsComponent } from './search-settings.component';
 
 describe('SearchSettingsComponent', () => {
@@ -50,32 +57,32 @@ describe('SearchSettingsComponent', () => {
     paginationService = new PaginationServiceStub(pagination, sort);
 
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), SearchSettingsComponent, EnumKeysPipe, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), SearchSettingsComponent, EnumKeysPipe, VarDirective],
+      providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         {
-            provide: SidebarService,
-            useValue: SidebarServiceStub,
+          provide: SidebarService,
+          useValue: SidebarServiceStub,
         },
         {
-            provide: SearchFilterService,
-            useValue: {},
+          provide: SearchFilterService,
+          useValue: {},
         },
         {
-            provide: PaginationService,
-            useValue: paginationService,
+          provide: PaginationService,
+          useValue: paginationService,
         },
         {
-            provide: SEARCH_CONFIG_SERVICE,
-            useValue: {
-                paginatedSearchOptions: observableOf(paginatedSearchOptions),
-                getCurrentScope: observableOf('test-id'),
+          provide: SEARCH_CONFIG_SERVICE,
+          useValue: {
+            paginatedSearchOptions: observableOf(paginatedSearchOptions),
+            getCurrentScope: observableOf('test-id'),
           },
         },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

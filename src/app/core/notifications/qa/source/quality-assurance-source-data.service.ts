@@ -26,7 +26,7 @@ import { QUALITY_ASSURANCE_SOURCE_OBJECT } from '../models/quality-assurance-sou
 /**
  * The service handling all Quality Assurance source REST requests.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 @dataService(QUALITY_ASSURANCE_SOURCE_OBJECT)
 export class QualityAssuranceSourceDataService extends IdentifiableDataService<QualityAssuranceSourceObject> {
 

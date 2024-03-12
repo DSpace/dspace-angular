@@ -1,12 +1,22 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { cold, getTestScheduler, } from 'jasmine-marbles';
-import { BehaviorSubject, of as observableOf, } from 'rxjs';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 
 import { storeModuleConfig } from '../app.reducer';
 import { authReducer } from '../core/auth/auth.reducer';
@@ -18,17 +28,21 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
-import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
-import {
-  ProfilePageResearcherFormComponent
-} from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$, } from '../shared/remote-data.utils';
-import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$, } from '../shared/testing/special-group.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
+import {
+  EmptySpecialGroupDataMock$,
+  SpecialGroupDataMock$,
+} from '../shared/testing/special-group.mock';
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageComponent } from './profile-page.component';
+import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -95,28 +109,28 @@ describe('ProfilePageComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        ProfilePageComponent, VarDirective
-    ],
-    providers: [
+        ProfilePageComponent, VarDirective,
+      ],
+      providers: [
         { provide: EPersonDataService, useValue: epersonService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: authService },
         { provide: ConfigurationDataService, useValue: configurationService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(ProfilePageComponent, {
         remove: { imports: [
-            ProfilePageMetadataFormComponent,
-            ProfilePageSecurityFormComponent,
-            ProfilePageResearcherFormComponent,
-          ]}
+          ProfilePageMetadataFormComponent,
+          ProfilePageSecurityFormComponent,
+          ProfilePageResearcherFormComponent,
+        ] },
       })
       .compileComponents();
   }));

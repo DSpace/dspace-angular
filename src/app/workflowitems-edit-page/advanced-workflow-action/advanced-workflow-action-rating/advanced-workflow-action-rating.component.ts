@@ -1,28 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
+  Component,
+  OnInit,
   OnInit,
 } from '@angular/core';
 import {
+  ReactiveFormsModule,
+  UntypedFormControl,
   UntypedFormControl,
   UntypedFormGroup,
+  UntypedFormGroup,
+  Validators,
   Validators,
 } from '@angular/forms';
-
-import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
-import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
-import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
-import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
-import {
-  ModifyItemOverviewComponent
-} from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import {
+  RatingAdvancedWorkflowInfo,
+  RatingAdvancedWorkflowInfo,
+} from '../../../core/tasks/models/rating-advanced-workflow-info.model';
+import {
+  WorkflowAction,
+  WorkflowAction,
+} from '../../../core/tasks/models/workflow-action-object.model';
+import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_RATING = 'submit_score';
 export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
@@ -43,9 +52,9 @@ export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
     NgbRatingModule,
     NgClass,
     ReactiveFormsModule,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 export class AdvancedWorkflowActionRatingComponent extends AdvancedWorkflowActionComponent implements OnInit {
 

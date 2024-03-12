@@ -1,9 +1,15 @@
-import { Component, Input, } from '@angular/core';
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgForOf, NgIf } from '@angular/common';
 import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
 
 /**
@@ -21,9 +27,9 @@ import { MetadataValuesComponent } from '../metadata-values/metadata-values.comp
     MetadataFieldWrapperComponent,
     TranslateModule,
     NgForOf,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class MetadataUriValuesComponent extends MetadataValuesComponent {
 

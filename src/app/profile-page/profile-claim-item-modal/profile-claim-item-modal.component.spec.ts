@@ -1,7 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -9,12 +16,10 @@ import { of } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { RouterStub } from '../../shared/testing/router.stub';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal.component';
 
@@ -107,17 +112,17 @@ describe('ProfileClaimItemModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ProfileClaimItemModalComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), ProfileClaimItemModalComponent],
+      providers: [
         { provide: NgbActiveModal, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
         { provide: ProfileClaimService, useValue: profileClaimService },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .overrideComponent(ProfileClaimItemModalComponent, {
-        remove: { imports: [ListableObjectComponentLoaderComponent]}
+        remove: { imports: [ListableObjectComponentLoaderComponent] },
       })
       .compileComponents();
   }));

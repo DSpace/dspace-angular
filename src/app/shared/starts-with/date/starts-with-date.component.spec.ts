@@ -37,14 +37,14 @@ describe('StartsWithDateComponent', () => {
     paginationService = new PaginationServiceStub();
 
     await TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, StartsWithDateComponent, EnumKeysPipe],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, StartsWithDateComponent, EnumKeysPipe],
+      providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: router },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

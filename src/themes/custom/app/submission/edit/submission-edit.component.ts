@@ -14,8 +14,8 @@ import { SubmissionFormComponent } from '../../../../../app/submission/form/subm
   templateUrl: '../../../../../app/submission/edit/submission-edit.component.html',
   standalone: true,
   imports: [
-    SubmissionFormComponent
-  ]
+    SubmissionFormComponent,
+  ],
 })
 export class SubmissionEditComponent extends BaseComponent {
 }

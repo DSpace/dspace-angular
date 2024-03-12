@@ -1,18 +1,26 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   ChangeDetectorRef,
   Component,
+  Component,
   OnDestroy,
+  OnDestroy,
+  OnInit,
   OnInit,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   ActivatedRoute,
+  ActivatedRoute,
   Router,
+  Router,
+  RouterLink,
 } from '@angular/router';
 import {
   DynamicFormControlModel,
@@ -22,7 +30,10 @@ import {
   DynamicInputModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   combineLatest,
@@ -33,23 +44,48 @@ import {
 } from 'rxjs';
 import {
   filter,
+  filter,
+  map,
   map,
   switchMap,
+  switchMap,
+  tap,
   tap,
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  BitstreamFormatDataService,
+  BitstreamFormatDataService,
+} from '../../core/data/bitstream-format-data.service';
+import {
+  PaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
+import {
+  RemoteData,
+  RemoteData,
+} from '../../core/data/remote-data';
+import {
+  Bitstream,
+  Bitstream,
+} from '../../core/shared/bitstream.model';
+import {
+  BitstreamFormat,
+  BitstreamFormat,
+} from '../../core/shared/bitstream-format.model';
+import {
+  BitstreamFormatSupportLevel,
+  BitstreamFormatSupportLevel,
+} from '../../core/shared/bitstream-format-support-level';
 import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
-import { Metadata } from '../../core/shared/metadata.utils';
+import {
+  Metadata,
+  Metadata,
+} from '../../core/shared/metadata.utils';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
@@ -57,32 +93,30 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { Metadata } from '../../core/shared/metadata.utils';
-import { AsyncPipe, Location, NgIf } from '@angular/common';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import {
   hasValue,
+  hasValue,
+  hasValueOperator,
   hasValueOperator,
   isEmpty,
+  isEmpty,
+  isNotEmpty,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FormComponent } from '../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import {
+  NotificationsService,
+  NotificationsService,
+} from '../../shared/notifications/notifications.service';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
-import { ErrorComponent } from '../../shared/error/error.component';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -99,9 +133,9 @@ import { FileSizePipe } from '../../shared/utils/file-size-pipe';
     ErrorComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    FileSizePipe
+    FileSizePipe,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Page component for editing a bitstream

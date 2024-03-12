@@ -10,7 +10,7 @@ import { PrivacyContentComponent } from '../../../../../app/info/privacy/privacy
   // templateUrl: './privacy.component.html'
   templateUrl: '../../../../../app/info/privacy/privacy.component.html',
   standalone: true,
-  imports: [PrivacyContentComponent]
+  imports: [PrivacyContentComponent],
 })
 
 /**

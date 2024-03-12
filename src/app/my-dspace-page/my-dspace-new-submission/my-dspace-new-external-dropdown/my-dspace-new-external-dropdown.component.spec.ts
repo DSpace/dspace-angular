@@ -1,6 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +21,10 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { createPaginatedList, createTestComponent, } from '../../../shared/testing/utils.test';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../../../shared/testing/utils.test';
 import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {
@@ -78,19 +90,19 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
   describe('With only one Entity', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-    imports: [
-        CommonModule,
-        TranslateModule.forRoot(),
-        MyDSpaceNewExternalDropdownComponent,
-        TestComponent
-    ],
-    providers: [
-        { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
-        { provide: Router, useValue: new RouterStub() },
+        imports: [
+          CommonModule,
+          TranslateModule.forRoot(),
           MyDSpaceNewExternalDropdownComponent,
-    ],
+          TestComponent,
+        ],
+        providers: [
+          { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
+          { provide: Router, useValue: new RouterStub() },
+          MyDSpaceNewExternalDropdownComponent,
+        ],
         schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 
@@ -127,19 +139,19 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
   describe('With more than one Entity', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-    imports: [
-        CommonModule,
-        TranslateModule.forRoot(),
-        MyDSpaceNewExternalDropdownComponent,
-        TestComponent
-    ],
-    providers: [
-        { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
-        { provide: Router, useValue: new RouterStub() },
+        imports: [
+          CommonModule,
+          TranslateModule.forRoot(),
           MyDSpaceNewExternalDropdownComponent,
-    ],
+          TestComponent,
+        ],
+        providers: [
+          { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
+          { provide: Router, useValue: new RouterStub() },
+          MyDSpaceNewExternalDropdownComponent,
+        ],
         schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 
@@ -176,10 +188,10 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [CommonModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

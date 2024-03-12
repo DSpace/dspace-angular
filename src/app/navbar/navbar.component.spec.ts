@@ -23,7 +23,10 @@ import {
   AppState,
   storeModuleConfig,
 } from '../app.reducer';
-import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data-type';
+import {
+  BrowseByDataType,
+  BrowseByDataType,
+} from '../browse-by/browse-by-switcher/browse-by-data-type';
 import { authReducer } from '../core/auth/auth.reducer';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { BrowseService } from '../core/browse/browse.service';
@@ -45,7 +48,6 @@ import { HostWindowServiceStub } from '../shared/testing/host-window-service.stu
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { NavbarComponent } from './navbar.component';
-import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data-type';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;
@@ -129,15 +131,15 @@ describe('NavbarComponent', () => {
     };
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         NoopAnimationsModule,
         ReactiveFormsModule,
         RouterTestingModule,
-        NavbarComponent
-    ],
-    providers: [
+        NavbarComponent,
+      ],
+      providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: MenuService, useValue: menuService },
@@ -146,9 +148,9 @@ describe('NavbarComponent', () => {
         { provide: BrowseService, useValue: { getBrowseDefinitions: createSuccessfulRemoteDataObject$(buildPaginatedList(undefined, browseDefinitions)) } },
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .compileComponents();  // compile template and css
   }));
 

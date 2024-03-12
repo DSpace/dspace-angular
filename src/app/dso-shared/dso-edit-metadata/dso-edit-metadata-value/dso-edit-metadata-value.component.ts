@@ -1,4 +1,13 @@
 import {
+  CdkDrag,
+  CdkDragHandle,
+} from '@angular/cdk/drag-drop';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -9,10 +18,16 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  FormsModule,
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   EMPTY,
   Observable,
@@ -50,45 +65,33 @@ import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabul
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import {
   DsDynamicOneboxModelConfig,
   DynamicOneboxModel,
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
+import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
+import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { DebounceDirective } from '../../../shared/utils/debounce.directive';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataValue,
 } from '../dso-edit-metadata-form';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { RouterLink } from '@angular/router';
-import { DebounceDirective } from '../../../shared/utils/debounce.directive';
-import { FormsModule } from '@angular/forms';
-import { NgClass, NgIf, AsyncPipe } from '@angular/common';
-import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import {
-  DsDynamicScrollableDropdownComponent
-} from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import {
-  DsDynamicOneboxComponent
-} from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
-import {
-  AuthorityConfidenceStateDirective
-} from '../../../shared/form/directives/authority-confidence-state.directive';
 
 @Component({
-    selector: 'ds-dso-edit-metadata-value',
-    styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
-    templateUrl: './dso-edit-metadata-value.component.html',
-    standalone: true,
-  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective]
+  selector: 'ds-dso-edit-metadata-value',
+  styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
+  templateUrl: './dso-edit-metadata-value.component.html',
+  standalone: true,
+  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective],
 })
 /**
  * Component displaying a single editable row for a metadata value

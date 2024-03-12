@@ -1,6 +1,21 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement, } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -14,23 +29,20 @@ import { CommunityDataService } from '../../../core/data/community-data.service'
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { Collection } from '../../../core/shared/collection.model';
-import {
-  SubmissionJsonPatchOperationsService
-} from '../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
-import { mockSubmissionId, mockSubmissionRestResponse, } from '../../../shared/mocks/submission.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import {
-  SubmissionJsonPatchOperationsServiceStub
-} from '../../../shared/testing/submission-json-patch-operations-service.stub';
+  mockSubmissionId,
+  mockSubmissionRestResponse,
+} from '../../../shared/mocks/submission.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
-import {
-  ThemedCollectionDropdownComponent
-} from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 
 describe('SubmissionFormCollectionComponent Component', () => {
 
@@ -133,15 +145,15 @@ describe('SubmissionFormCollectionComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
         TranslateModule.forRoot(),
         SubmissionFormCollectionComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
@@ -152,11 +164,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
         { provide: SectionsService, useValue: sectionsService },
         ChangeDetectorRef,
         SubmissionFormCollectionComponent,
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-})
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
       .overrideComponent(SubmissionFormCollectionComponent, {
-        remove: { imports: [ThemedCollectionDropdownComponent]}
+        remove: { imports: [ThemedCollectionDropdownComponent] },
       })
       .compileComponents();
   }));
@@ -299,12 +311,12 @@ describe('SubmissionFormCollectionComponent Component', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [FormsModule,
-        ReactiveFormsModule,
-        NgbModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    NgbModule],
 })
 class TestComponent {
 

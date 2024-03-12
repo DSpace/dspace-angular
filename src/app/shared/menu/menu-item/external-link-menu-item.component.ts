@@ -1,11 +1,12 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   Inject,
-  OnInit,} from '@angular/core';
-import { isNotEmpty } from '../../empty.util';
-import { rendersMenuItemForType } from '../menu-item.decorator';
+  OnInit,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgClass } from '@angular/common';
+
+import { isNotEmpty } from '../../empty.util';
 import { ExternalLinkMenuItemModel } from './models/external-link.model';
 
 /**
@@ -16,7 +17,7 @@ import { ExternalLinkMenuItemModel } from './models/external-link.model';
   styleUrls: ['./menu-item.component.scss'],
   templateUrl: './external-link-menu-item.component.html',
   standalone: true,
-  imports: [NgClass, TranslateModule]
+  imports: [NgClass, TranslateModule],
 })
 export class ExternalLinkMenuItemComponent implements OnInit {
   item: ExternalLinkMenuItemModel;

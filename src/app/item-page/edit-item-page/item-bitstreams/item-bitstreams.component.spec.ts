@@ -26,6 +26,7 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import {
   INotification,
@@ -44,10 +45,7 @@ import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
-import {
-  ItemEditBitstreamDragHandleComponent
-} from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -171,8 +169,8 @@ describe('ItemBitstreamsComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
+      providers: [
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: Router, useValue: router },
@@ -184,16 +182,16 @@ describe('ItemBitstreamsComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfig },
         { provide: BundleDataService, useValue: bundleService },
         ChangeDetectorRef,
-    ], schemas: [
+      ], schemas: [
         NO_ERRORS_SCHEMA,
-    ],
-})
+      ],
+    })
       .overrideComponent(ItemBitstreamsComponent, {
         remove: {
           imports: [ItemEditBitstreamBundleComponent,
             ItemEditBitstreamDragHandleComponent,
-            ThemedLoadingComponent]
-        }
+            ThemedLoadingComponent],
+        },
       })
       .compileComponents();
   }));

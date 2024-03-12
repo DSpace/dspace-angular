@@ -221,7 +221,7 @@ describe('ResourcePoliciesComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -230,8 +230,8 @@ describe('ResourcePoliciesComponent test suite', () => {
         ResourcePolicyEntryComponent,
         TestComponent,
         HasValuePipe,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: LinkService, useValue: linkService },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: EPersonDataService, useValue: epersonService },
@@ -243,10 +243,10 @@ describe('ResourcePoliciesComponent test suite', () => {
         { provide: DSONameService, useValue: dsoNameService },
         ChangeDetectorRef,
         ResourcePoliciesComponent,
-    ], schemas: [
+      ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   describe('', () => {
@@ -444,12 +444,12 @@ describe('ResourcePoliciesComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [CommonModule,
-        FormsModule,
-        ReactiveFormsModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [CommonModule,
+    FormsModule,
+    ReactiveFormsModule],
 })
 class TestComponent {
 

@@ -1,12 +1,23 @@
 // Load the implementations that should be tested
-import { Component, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { mockSubmissionCollectionId, mockSubmissionId, } from '../../../shared/mocks/submission.mock';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../../shared/mocks/submission.mock';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
@@ -65,20 +76,20 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbModule,
         TranslateModule.forRoot(),
         SubmissionSectionContainerComponent,
         SectionsDirective,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
         SubmissionSectionContainerComponent,
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
 
   }));
 
@@ -221,11 +232,11 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
 // declare a test component
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: '',
-    template: ``,
-    standalone: true,
-    imports: [NgbModule]
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '',
+  template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

@@ -1,49 +1,73 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
-import { map } from 'rxjs/operators';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
-import { RemoteData } from '../core/data/remote-data';
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
+  ChangeDetectorRef,
+  Component,
   Component,
   Input,
+  Input,
   OnDestroy,
+  OnDestroy,
+  OnInit,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormControl,
+  UntypedFormControl,
+  UntypedFormGroup,
   UntypedFormGroup,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  map,
+} from 'rxjs/operators';
 
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { RemoteData } from '../core/data/remote-data';
+import {
+  ScriptDataService,
+  ScriptDataService,
+} from '../core/data/processes/script-data.service';
+import {
+  RemoteData,
+  RemoteData,
+} from '../core/data/remote-data';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import {
   getFirstCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
 } from '../core/shared/operators';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { Process } from '../process-page/processes/process.model';
 import {
   hasValue,
+  hasValue,
   isEmpty,
+  isEmpty,
+  isNotEmpty,
   isNotEmpty,
 } from '../shared/empty.util';
 import { HandleService } from '../shared/handle.service';
-import { NgFor, NgIf } from '@angular/common';
-import { NotificationsService } from '../shared/notifications/notifications.service';
+import {
+  NotificationsService,
+  NotificationsService,
+} from '../shared/notifications/notifications.service';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 
@@ -51,10 +75,10 @@ export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
  * Component responsible for rendering the Curation Task form
  */
 @Component({
-    selector: 'ds-curation-form',
-    templateUrl: './curation-form.component.html',
-    standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, TranslateModule]
+  selector: 'ds-curation-form',
+  templateUrl: './curation-form.component.html',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, TranslateModule],
 })
 export class CurationFormComponent implements OnDestroy, OnInit {
 

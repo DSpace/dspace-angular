@@ -35,22 +35,22 @@ describe('NotificationsBoardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         BrowserModule,
         BrowserAnimationsModule,
         StoreModule.forRoot({ notificationsReducer }, {
-            runtimeChecks: {
-                strictStateImmutability: false,
-                strictActionImmutability: false,
-            },
+          runtimeChecks: {
+            strictStateImmutability: false,
+            strictActionImmutability: false,
+          },
         }),
-        NotificationsBoardComponent, NotificationComponent
-    ],
-    providers: [
+        NotificationsBoardComponent, NotificationComponent,
+      ],
+      providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        ChangeDetectorRef
-    ],
-}).compileComponents();  // compile template and css
+        ChangeDetectorRef,
+      ],
+    }).compileComponents();  // compile template and css
   }));
 
   beforeEach(inject([NotificationsService, Store], (service: NotificationsService, store: Store<AppState>) => {

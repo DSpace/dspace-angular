@@ -1,12 +1,23 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
+import {
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterReducerState } from '@ngrx/router-store';
 import {
   select,
   Store,
 } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -37,23 +48,19 @@ import {
 } from '../animations/fade';
 import { isNotUndefined } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
-import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { UserMenuComponent } from './user-menu/user-menu.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LogInComponent } from '../log-in/log-in.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgClass, NgIf, AsyncPipe } from '@angular/common';
 import { ThemedLogInComponent } from '../log-in/themed-log-in.component';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component';
+import { UserMenuComponent } from './user-menu/user-menu.component';
 
 @Component({
-    selector: 'ds-auth-nav-menu',
-    templateUrl: './auth-nav-menu.component.html',
-    styleUrls: ['./auth-nav-menu.component.scss'],
-    animations: [fadeInOut, fadeOut],
-    standalone: true,
-    imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, ThemedLogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
+  selector: 'ds-auth-nav-menu',
+  templateUrl: './auth-nav-menu.component.html',
+  styleUrls: ['./auth-nav-menu.component.scss'],
+  animations: [fadeInOut, fadeOut],
+  standalone: true,
+  imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, ThemedLogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 export class AuthNavMenuComponent implements OnInit {
   /**

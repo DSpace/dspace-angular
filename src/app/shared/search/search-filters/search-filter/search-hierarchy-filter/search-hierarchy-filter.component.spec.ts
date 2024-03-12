@@ -1,11 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, } from '@angular/core/testing';
+import {
+  DebugElement,
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NgbModal, NgbModule, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject, of as observableOf, } from 'rxjs';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
@@ -22,16 +37,14 @@ import {
   SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import {
-  VocabularyEntryDetail
-} from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {
@@ -64,13 +77,13 @@ describe('SearchHierarchyFilterComponent', () => {
 
   beforeEach(() => {
     return TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         NgbModule,
         TranslateModule.forRoot(),
-        SearchHierarchyFilterComponent
-    ],
-    providers: [
+        SearchHierarchyFilterComponent,
+      ],
+      providers: [
         { provide: SearchService, useValue: searchService },
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: RemoteDataBuildService, useValue: {} },
@@ -83,9 +96,9 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         { provide: SCOPE, useValue: undefined },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   });
 
   function init() {

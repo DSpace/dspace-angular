@@ -1,17 +1,30 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { NgbDatepicker, NgbDatepickerConfig, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
+  Component,
+  EventEmitter,
   EventEmitter,
   Input,
+  Input,
+  Output,
   Output,
   ViewChild,
+  ViewChild,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   NgbDatepicker,
+  NgbDatepicker,
   NgbDatepickerConfig,
+  NgbDatepickerConfig,
+  NgbDatepickerModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
@@ -20,7 +33,6 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-dynamic-date-picker-inline',
@@ -29,9 +41,9 @@ import { NgClass, NgIf } from '@angular/common';
     NgClass,
     NgbDatepickerModule,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDatePickerInlineComponent extends DynamicFormControlComponent {
 

@@ -1,53 +1,64 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Item } from '../../core/shared/item.model';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { of as observableOf } from 'rxjs';
-import { AsyncPipe, CommonModule } from '@angular/common';
-import { CommonModule } from '@angular/common';
+import {
+  AsyncPipe,
+  CommonModule,
+  CommonModule,
+} from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  ComponentFixture,
   TestBed,
+  TestBed,
+  waitForAsync,
   waitForAsync,
 } from '@angular/core/testing';
 import {
   ActivatedRoute,
+  ActivatedRoute,
+  Router,
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of as observableOf,
+} from 'rxjs';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment';
+import {
+  APP_CONFIG,
+  APP_CONFIG,
+} from '../../../config/app-config.interface';
+import {
+  environment,
+  environment,
+} from '../../../environments/environment';
 import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
-import { Item } from '../../core/shared/item.model';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment';
+import {
+  Item,
+  Item,
+} from '../../core/shared/item.model';
+import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
+import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
+import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import {
-  ThemedComcolPageHandleComponent
-} from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import {
-  ThemedComcolPageBrowseByComponent
-} from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
-
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  ActivatedRouteStub,
+  ActivatedRouteStub,
+} from '../../shared/testing/active-router.stub';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
@@ -99,29 +110,29 @@ describe('BrowseByTitleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BrowseByTitleComponent, EnumKeysPipe, VarDirective, AsyncPipe],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BrowseByTitleComponent, EnumKeysPipe, VarDirective, AsyncPipe],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
         { provide: APP_CONFIG, useValue: environment },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(BrowseByTitlePageComponent, {
-        remove: {imports: [
-            ComcolPageHeaderComponent,
-            ComcolPageLogoComponent,
-            ThemedComcolPageHandleComponent,
-            ComcolPageContentComponent,
-            DsoEditMenuComponent,
-            ThemedComcolPageBrowseByComponent,
-            BrowseByComponent,
-            ThemedLoadingComponent,
-            ThemedBrowseByComponent
-          ]}
+        remove: { imports: [
+          ComcolPageHeaderComponent,
+          ComcolPageLogoComponent,
+          ThemedComcolPageHandleComponent,
+          ComcolPageContentComponent,
+          DsoEditMenuComponent,
+          ThemedComcolPageBrowseByComponent,
+          BrowseByComponent,
+          ThemedLoadingComponent,
+          ThemedBrowseByComponent,
+        ] },
       })
       .compileComponents();
   }));

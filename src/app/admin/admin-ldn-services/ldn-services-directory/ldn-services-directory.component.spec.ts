@@ -50,25 +50,25 @@ describe('LdnServicesOverviewComponent', () => {
       'patch': createSuccessfulRemoteDataObject$({}),
     });
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), LdnServicesOverviewComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), LdnServicesOverviewComponent],
+      providers: [
         {
-            provide: LdnServicesService,
+          provide: LdnServicesService,
           useValue: ldnServicesService,
         },
         { provide: PaginationService, useValue: paginationService },
         {
-            provide: NgbModal, useValue: {
-                open: () => {
-                },
+          provide: NgbModal, useValue: {
+            open: () => {
             },
+          },
         },
         { provide: ChangeDetectorRef, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {

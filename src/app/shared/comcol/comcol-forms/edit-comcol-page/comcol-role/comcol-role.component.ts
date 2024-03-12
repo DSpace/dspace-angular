@@ -1,9 +1,18 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -15,7 +24,10 @@ import {
 } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestService } from '../../../../../core/data/request.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
@@ -28,18 +40,14 @@ import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
 } from '../../../../../core/shared/operators';
+import { AlertComponent } from '../../../../alert/alert.component';
 import {
   hasNoValue,
   hasValue,
 } from '../../../../empty.util';
-import { NotificationsService } from '../../../../notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { AlertComponent } from '../../../../alert/alert.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { NotificationsService } from '../../../../notifications/notifications.service';
 import { VarDirective } from '../../../../utils/var.directive';
-import { RouterLink } from '@angular/router';
 
 /**
  * Component for managing a community or collection role.
@@ -55,9 +63,9 @@ import { RouterLink } from '@angular/router';
     TranslateModule,
     NgIf,
     RouterLink,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ComcolRoleComponent implements OnInit {
 

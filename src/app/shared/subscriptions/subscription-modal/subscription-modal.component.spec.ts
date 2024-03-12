@@ -28,6 +28,7 @@ import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
@@ -35,10 +36,9 @@ import {
   subscriptionMock,
   subscriptionMock2,
 } from '../../testing/subscriptions-data.mock';
+import { ThemeService } from '../../theme-support/theme.service';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionModalComponent } from './subscription-modal.component';
-import { ThemeService } from '../../theme-support/theme.service';
-import { getMockThemeService } from '../../mocks/theme-service.mock';
 
 describe('SubscriptionModalComponent', () => {
   let component: SubscriptionModalComponent;
@@ -98,29 +98,29 @@ describe('SubscriptionModalComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         NgbModalModule,
         ReactiveFormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
-        SubscriptionModalComponent
-    ],
-    providers: [
+        SubscriptionModalComponent,
+      ],
+      providers: [
         NgbActiveModal,
         { provide: AuthService, useValue: authService },
         { provide: NotificationsService, useValue: notificationServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
-    ],
-    schemas: [
+      ],
+      schemas: [
         NO_ERRORS_SCHEMA,
       ],
-}).compileComponents();
+    }).compileComponents();
 
   }));
 

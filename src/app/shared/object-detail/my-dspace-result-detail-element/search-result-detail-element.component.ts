@@ -1,20 +1,21 @@
-import { Component, OnInit, } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { hasValue } from '../../empty.util';
-import {
-  AbstractListableElementComponent
-} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { SearchResult } from '../../search/models/search-result.model';
 
 /**
  * Component representing Search Results with ViewMode.DetailedElement
  */
 @Component({
-    selector: 'ds-search-result-detail-element',
-    template: ``,
-    standalone: true
+  selector: 'ds-search-result-detail-element',
+  template: ``,
+  standalone: true,
 })
 export class SearchResultDetailElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
 

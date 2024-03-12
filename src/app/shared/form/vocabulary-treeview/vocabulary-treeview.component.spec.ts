@@ -1,7 +1,17 @@
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -16,12 +26,14 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createTestComponent } from '../../testing/utils.test';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
-import { TreeviewFlatNode, TreeviewNode, } from './vocabulary-treeview-node.model';
+import {
+  TreeviewFlatNode,
+  TreeviewNode,
+} from './vocabulary-treeview-node.model';
 
 describe('VocabularyTreeviewComponent test suite', () => {
 
@@ -75,24 +87,24 @@ describe('VocabularyTreeviewComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CdkTreeModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
         VocabularyTreeviewComponent,
         TestComponent,
-        NoopAnimationsModule
-    ],
-    providers: [
+        NoopAnimationsModule,
+      ],
+      providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: NgbActiveModal, useValue: modalStub },
         provideMockStore({ initialState }),
         ChangeDetectorRef,
         VocabularyTreeviewComponent,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents().then(() => {
+    }).compileComponents().then(() => {
       vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
       vocabularyTreeviewServiceStub.isLoading.and.returnValue(observableOf(false));
     });
@@ -282,10 +294,10 @@ describe('VocabularyTreeviewComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [CdkTreeModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [CdkTreeModule],
 })
 class TestComponent {
 

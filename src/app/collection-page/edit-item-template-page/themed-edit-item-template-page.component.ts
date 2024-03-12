@@ -4,10 +4,10 @@ import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { EditItemTemplatePageComponent } from './edit-item-template-page.component';
 
 @Component({
-    selector: 'ds-themed-edit-item-template-page',
-    styleUrls: [],
-    templateUrl: '../../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-edit-item-template-page',
+  styleUrls: [],
+  templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 /**
  * Component for editing the item template of a collection

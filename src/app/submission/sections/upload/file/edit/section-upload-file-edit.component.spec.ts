@@ -1,35 +1,48 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
-import { NgbActiveModal, NgbModal, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormGroupModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 
 import {
-  JsonPatchOperationPathCombiner
-} from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment.test';
+import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import {
-  SubmissionJsonPatchOperationsService
-} from '../../../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';
-import {
-  DynamicCustomSwitchModel
-} from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
-import { SubmissionService } from '../../../../submission.service';
-import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
-import {
-  FormFieldMetadataValueObject
-} from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
@@ -43,25 +56,19 @@ import {
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
 } from '../../../../../shared/mocks/submission.mock';
-import {
-  SubmissionJsonPatchOperationsServiceStub
-} from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
+import { SubmissionService } from '../../../../submission.service';
 import { SectionUploadService } from '../../section-upload.service';
-import { provideMockStore } from '@ngrx/store/testing';
-import {
-  DsDynamicTypeBindRelationService
-} from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { APP_CONFIG, APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
-import { environment } from '../../../../../../environments/environment.test';
-import { NgxMaskModule } from 'ngx-mask';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
+import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
     getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
     matchesCondition: jasmine.createSpy('matchesCondition'),
-    subscribeRelations: jasmine.createSpy('subscribeRelations')
+    subscribeRelations: jasmine.createSpy('subscribeRelations'),
   });
 }
 
@@ -86,7 +93,7 @@ const initialState: any = {
     'json/patch': {},
     'metaTag': {},
     'route': {},
-  }
+  },
 };
 
 describe('SubmissionSectionUploadFileEditComponent test suite', () => {
@@ -117,12 +124,12 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   delete noAccessConditionsMock.accessConditions;
 
   const mockCdRef = Object.assign({
-    detectChanges: () => undefined
+    detectChanges: () => undefined,
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -131,25 +138,25 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         SubmissionSectionUploadFileEditComponent,
         TestComponent,
         NgxMaskModule.forRoot(),
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
-        provideMockStore({initialState}),
+        provideMockStore({ initialState }),
         FormBuilderService,
-        {provide: ChangeDetectorRef, useValue: mockCdRef},
+        { provide: ChangeDetectorRef, useValue: mockCdRef },
         SubmissionSectionUploadFileEditComponent,
         NgbModal,
         NgbActiveModal,
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents().then();
+    }).compileComponents().then();
   }));
 
   describe('', () => {
@@ -397,8 +404,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     CommonModule,
     FormsModule,
     FormComponent,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 }

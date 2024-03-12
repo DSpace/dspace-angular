@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -9,7 +10,6 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 import {
   APP_CONFIG,
@@ -18,12 +18,14 @@ import {
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import {
+  SearchConfigurationService,
+  SearchConfigurationService,
+} from '../../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../empty.util';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
-import { AsyncPipe } from '@angular/common';
 
 /**
  * The search tab on community & collection pages
@@ -40,9 +42,9 @@ import { AsyncPipe } from '@angular/common';
   ],
   imports: [
     ThemedSearchComponent,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ComcolSearchSectionComponent implements OnInit {
 

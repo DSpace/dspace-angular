@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnDestroy,
@@ -13,6 +18,8 @@ import {
 import {
   map,
   mergeMap,
+  mergeMap,
+  tap,
   tap,
 } from 'rxjs/operators';
 
@@ -23,41 +30,44 @@ import {
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { Item } from '../../../../core/shared/item.model';
-import { mergeMap, tap } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../../empty.util';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Context } from '../../../../core/shared/context.model';
-import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
-import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
-import { NgIf, NgClass, AsyncPipe } from '@angular/common';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import {
+  Item,
+  Item,
+} from '../../../../core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import {
   hasValue,
+  hasValue,
+  isNotEmpty,
   isNotEmpty,
 } from '../../../empty.util';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 
 @Component({
-    selector: 'ds-claimed-search-result-list-element',
-    styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
-    templateUrl: './claimed-search-result-list-element.component.html',
-    standalone: true,
-    imports: [NgIf, ThemedItemListPreviewComponent, NgClass, ClaimedTaskActionsComponent, AsyncPipe]
+  selector: 'ds-claimed-search-result-list-element',
+  styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
+  templateUrl: './claimed-search-result-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, ThemedItemListPreviewComponent, NgClass, ClaimedTaskActionsComponent, AsyncPipe],
 })
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit, OnDestroy {

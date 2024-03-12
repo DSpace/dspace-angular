@@ -26,9 +26,9 @@ const QUERY = 'test query';
       </ds-configuration-search-page>
   `,
   imports: [
-    ConfigurationSearchPageComponent
+    ConfigurationSearchPageComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 class HostComponent {
   @ViewChild('configurationSearchPage') configurationSearchPage: ConfigurationSearchPageComponent;

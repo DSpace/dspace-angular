@@ -1,47 +1,63 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
+  ActivatedRoute,
+  NavigationEnd,
   NavigationEnd,
   Router,
+  Router,
+  RouterLink,
+  Scroll,
   Scroll,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as combineLatestObservable,
   Observable,
 } from 'rxjs';
 import {
   map,
+  map,
+  switchMap,
   switchMap,
 } from 'rxjs/operators';
 
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, Scroll } from '@angular/router';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { map, switchMap } from 'rxjs/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
+import {
+  Item,
+  Item,
+} from '../../../core/shared/item.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { hasValue } from '../../../shared/empty.util';
-import { CollectionFormComponent } from '../../collection-form/collection-form.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import {
+  NotificationsService,
+  NotificationsService,
+} from '../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { CollectionFormComponent } from '../../collection-form/collection-form.component';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 
 /**
@@ -56,9 +72,9 @@ import { getCollectionItemTemplateRoute } from '../../collection-page-routing-pa
     AsyncPipe,
     TranslateModule,
     NgIf,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CollectionMetadataComponent extends ComcolMetadataComponent<Collection> implements OnInit {
   protected frontendURL = '/collections/';

@@ -1,28 +1,38 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { Context } from '../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import {
-  ItemListElementComponent
-} from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
-import { ThemeService } from '../../../theme-support/theme.service';
-import { APP_CONFIG, APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { provideMockStore } from '@ngrx/store/testing';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { AuthRequestServiceStub } from 'src/app/shared/testing/auth-request-service.stub';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
-import { CookieServiceMock } from 'src/app/shared/mocks/cookie.service.mock';
 import { CookieService } from 'src/app/core/services/cookie.service';
 import { HardRedirectService } from 'src/app/core/services/hard-redirect.service';
+import { CookieServiceMock } from 'src/app/shared/mocks/cookie.service.mock';
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
+import { AuthRequestServiceStub } from 'src/app/shared/testing/auth-request-service.stub';
+
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../config/app-config.interface';
+import { Context } from '../../../../core/shared/context.model';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableModule } from '../../../../core/shared/listable.module';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
+import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { ListableObject } from '../listable-object.model';
 import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
 
@@ -53,7 +63,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
         ListableObjectComponentLoaderComponent,
         ListableModule,
         ItemListElementComponent,
-        DynamicComponentLoaderDirective
+        DynamicComponentLoaderDirective,
       ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
@@ -63,8 +73,8 @@ describe('ListableObjectComponentLoaderComponent', () => {
         { provide: REQUEST, useValue: {} },
         {
           provide: ActivatedRoute,
-          useValue: { data: of({ dso: { payload: {} } }), params: of({}) }
-      },
+          useValue: { data: of({ dso: { payload: {} } }), params: of({}) },
+        },
         provideMockStore({}),
         { provide: ThemeService, useValue: getMockThemeService('dspace') },
         { provide: APP_CONFIG, useValue: { browseBy: { showThumbnails: true } } },
@@ -73,7 +83,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-      }
+      },
     }).compileComponents();
   }));
 

@@ -24,14 +24,19 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import {
+  AuthorizationDataService,
+  AuthorizationDataService,
+} from '../../../../core/data/feature-authorization/authorization-data.service';
 import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '../../../../core/data/processes/script-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
+import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
@@ -42,9 +47,6 @@ import {
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
@@ -54,9 +56,9 @@ import { SearchServiceStub } from '../../../../shared/testing/search-service.stu
         provide: TranslateLoader,
         useClass: TranslateLoaderMock,
       },
-        }), ConfirmationModalComponent],
+    }), ConfirmationModalComponent],
   exports: [],
-    providers: [],
+  providers: [],
 })
 class ModelTestModule {
 }
@@ -109,31 +111,31 @@ describe('ExportBatchSelectorComponent', () => {
       isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportBatchSelectorComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportBatchSelectorComponent],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
-        { provide: SearchService, useValue:  new SearchServiceStub()},
+        { provide: SearchService, useValue:  new SearchServiceStub() },
         {
-            provide: ActivatedRoute,
-            useValue: {
-                root: {
-                    snapshot: {
-                        data: {
-                            dso: itemRD,
-                        },
-                    },
+          provide: ActivatedRoute,
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: itemRD,
+                },
+              },
             },
-            },
+          },
         },
         {
           provide: Router, useValue: router,
         },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
 
   }));
 

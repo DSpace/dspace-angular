@@ -1,5 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  CommonModule,
+  CommonModule,
+} from '@angular/common';
+import {
+  NO_ERRORS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -9,17 +15,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  RouterTestingModule,
+  RouterTestingModule,
+} from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { Community } from '../../../../core/shared/community.model';
-import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SharedModule } from '../../../shared.module';
+import {
+  DSpaceObject,
+  DSpaceObject,
+} from '../../../../core/shared/dspace-object.model';
 import { EditComColPageComponent } from './edit-comcol-page.component';
 
 describe('EditComColPageComponent', () => {

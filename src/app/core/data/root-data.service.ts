@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
-import { Observable, of as observableOf, } from 'rxjs';
-import { catchError, map, } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
 
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -10,6 +15,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { BaseDataService } from './base/base-data.service';
 import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
 import { Root } from './root.model';
 
 /**

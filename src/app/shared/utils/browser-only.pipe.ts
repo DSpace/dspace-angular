@@ -22,8 +22,8 @@ import {
  * until such components are fully interactive before trying to interact with them.
  */
 @Pipe({
-    name: 'dsBrowserOnly',
-    standalone: true
+  name: 'dsBrowserOnly',
+  standalone: true,
 })
 export class BrowserOnlyPipe implements PipeTransform {
   constructor(

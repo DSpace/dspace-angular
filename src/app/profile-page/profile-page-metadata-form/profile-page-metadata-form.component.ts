@@ -1,4 +1,9 @@
-import { Component, Input, OnInit, } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlModel,
@@ -13,21 +18,26 @@ import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload, } from '../../core/shared/operators';
-import { hasValue, isNotEmpty, } from '../../shared/empty.util';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FormComponent } from '../../shared/form/form.component';
-import { NgIf } from '@angular/common';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-profile-page-metadata-form',
   templateUrl: './profile-page-metadata-form.component.html',
   imports: [
     FormComponent,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for a user to edit their metadata

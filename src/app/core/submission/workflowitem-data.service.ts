@@ -11,7 +11,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,

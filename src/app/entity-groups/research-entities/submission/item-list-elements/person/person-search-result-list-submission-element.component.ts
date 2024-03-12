@@ -1,11 +1,22 @@
-import { Component, Inject, OnInit } from '@angular/core';
 import {
-  SearchResultListElementComponent
-} from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
 
-import { APP_CONFIG, AppConfig, } from '../../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
@@ -14,24 +25,21 @@ import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import {
-  listableObjectComponent
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
-import { FormsModule } from '@angular/forms';
-import { PersonInputSuggestionsComponent } from './person-suggestions/person-input-suggestions.component';
 import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
+import { PersonInputSuggestionsComponent } from './person-suggestions/person-input-suggestions.component';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
-    selector: 'ds-person-search-result-list-submission-element',
-    styleUrls: ['./person-search-result-list-submission-element.component.scss'],
-    templateUrl: './person-search-result-list-submission-element.component.html',
-    standalone: true,
-    imports: [NgIf, ThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, NgFor, AsyncPipe]
+  selector: 'ds-person-search-result-list-submission-element',
+  styleUrls: ['./person-search-result-list-submission-element.component.scss'],
+  templateUrl: './person-search-result-list-submission-element.component.html',
+  standalone: true,
+  imports: [NgIf, ThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, NgFor, AsyncPipe],
 })
 
 /**

@@ -6,18 +6,16 @@ import {
   Output,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Suggestion } from 'src/app/core/notifications/models/suggestion.model';
 
+import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { Item } from '../../core/shared/item.model';
 import { fadeIn } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
-import { TranslateModule } from '@ngx-translate/core';
-import {
-  ItemSearchResultListElementComponent
-} from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
-import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
 import { SuggestionApproveAndImport } from './suggestion-approve-and-import';
+import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
 
 /**
  * Show all the suggestions by researcher
@@ -31,9 +29,9 @@ import { SuggestionApproveAndImport } from './suggestion-approve-and-import';
     TranslateModule,
     ItemSearchResultListElementComponent,
     SuggestionActionsComponent,
-    SuggestionEvidencesComponent
+    SuggestionEvidencesComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SuggestionListElementComponent implements OnInit {
 

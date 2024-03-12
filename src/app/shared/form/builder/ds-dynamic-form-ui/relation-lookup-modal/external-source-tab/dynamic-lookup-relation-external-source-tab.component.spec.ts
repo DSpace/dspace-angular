@@ -1,5 +1,7 @@
 import {
   EventEmitter,
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -9,16 +11,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  RouterTestingModule,
+  RouterTestingModule,
+} from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { EMPTY, of as observableOf } from 'rxjs';
 import {
   EMPTY,
+  EMPTY,
+  of as observableOf,
   of as observableOf,
 } from 'rxjs';
 
@@ -29,25 +31,31 @@ import { ExternalSource } from '../../../../../../core/shared/external-source.mo
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import {
+  SearchConfigurationService,
+  SearchConfigurationService,
+} from '../../../../../../core/shared/search/search-configuration.service';
+import { ErrorComponent } from '../../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../../remote-data.utils';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
+import {
+  PaginatedSearchOptions,
+  PaginatedSearchOptions,
+} from '../../../../../search/models/paginated-search-options.model';
+import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../../testing/utils.test';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
 import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
-import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
-import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
-import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { ErrorComponent } from '../../../../../error/error.component';
-import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;
@@ -57,7 +65,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let selectableListService;
   let modalService;
 
-  const itemType = Object.assign(new ItemType(), {label: 'Person'});
+  const itemType = Object.assign(new ItemType(), { label: 'Person' });
   const externalSource = {
     id: 'orcidV2',
     name: 'orcidV2',
@@ -128,8 +136,8 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
             paginatedSearchOptions: observableOf(pSearchOptions),
           },
         },
-        {provide: ExternalSourceDataService, useValue: externalSourceService},
-        {provide: SelectableListService, useValue: selectableListService},
+        { provide: ExternalSourceDataService, useValue: externalSourceService },
+        { provide: SelectableListService, useValue: selectableListService },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -141,9 +149,9 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
             PageSizeSelectorComponent,
             ObjectCollectionComponent,
             ErrorComponent,
-            ThemedLoadingComponent
-          ]
-        }
+            ThemedLoadingComponent,
+          ],
+        },
       })
       .compileComponents();
   }));

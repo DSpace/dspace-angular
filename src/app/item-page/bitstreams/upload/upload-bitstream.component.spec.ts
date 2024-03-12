@@ -1,7 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,10 +24,7 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
-import {
-  DsoInputSuggestionsComponent
-} from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
+import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
@@ -30,6 +34,7 @@ import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { UploadBitstreamComponent } from './upload-bitstream.component';
 
@@ -310,8 +315,8 @@ describe('UploadBitstreamComponent', () => {
     })
       .overrideComponent(UploadBitstreamComponent, {
         remove: {
-          imports: [UploaderComponent, DsoInputSuggestionsComponent]
-        }
+          imports: [UploaderComponent, DsoInputSuggestionsComponent],
+        },
       })
       .compileComponents();
   }

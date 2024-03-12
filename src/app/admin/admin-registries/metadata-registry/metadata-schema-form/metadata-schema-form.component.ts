@@ -1,4 +1,14 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlModel,
@@ -6,14 +16,23 @@ import {
   DynamicFormLayout,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { combineLatest, Observable, } from 'rxjs';
-import { switchMap, take, tap, } from 'rxjs/operators';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { FormComponent } from '../../../../shared/form/form.component';
 
 @Component({
@@ -23,9 +42,9 @@ import { FormComponent } from '../../../../shared/form/form.component';
     NgIf,
     AsyncPipe,
     TranslateModule,
-    FormComponent
+    FormComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * A form used for creating and editing metadata schemas

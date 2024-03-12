@@ -1,9 +1,16 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
   BehaviorSubject,
@@ -21,33 +28,37 @@ import {
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
+import {
+  LinkService,
+  LinkService,
+} from '../../../core/cache/builders/link.service';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../core/data/paginated-list.model';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Bundle } from '../../../core/shared/bundle.model';
+import {
+  Bitstream,
+  Bitstream,
+} from '../../../core/shared/bitstream.model';
+import {
+  Bundle,
+  Bundle,
+} from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
   hasValue,
+  hasValue,
+  isNotEmpty,
   isNotEmpty,
 } from '../../../shared/empty.util';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NgForTrackByIdDirective } from '../../../shared/ng-for-track-by-id.directive';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 /**
  * Interface for a bundle's bitstream map entry
@@ -69,9 +80,9 @@ interface BundleBitstreamsMapEntry {
     NgForTrackByIdDirective,
     AsyncPipe,
     NgIf,
-    AlertComponent
+    AlertComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component that handles the item Authorizations

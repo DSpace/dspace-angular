@@ -1,19 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { RestResponse } from '../../../core/cache/response.models';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RegistryService } from '../../../core/registry/registry.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
@@ -22,16 +34,12 @@ import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
 import { MetadataSchemaComponent } from './metadata-schema.component';
 
 describe('MetadataSchemaComponent', () => {
@@ -141,9 +149,9 @@ describe('MetadataSchemaComponent', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {

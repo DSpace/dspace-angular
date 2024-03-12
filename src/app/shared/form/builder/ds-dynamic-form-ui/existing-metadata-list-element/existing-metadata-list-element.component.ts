@@ -1,5 +1,9 @@
 /* eslint-disable max-classes-per-file */
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -11,6 +15,7 @@ import {
 import { UntypedFormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,
@@ -30,26 +35,26 @@ import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
-import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
-import { SubmissionService } from '../../../../../submission/submission.service';
+import {
+  SubmissionObjectEntry,
+  SubmissionObjectEntry,
+} from '../../../../../submission/objects/submission-objects.reducer';
+import {
+  SubmissionService,
+  SubmissionService,
+} from '../../../../../submission/submission.service';
 import {
   hasValue,
   isNotEmpty,
 } from '../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
-import { SubmissionService } from '../../../../../submission/submission.service';
-import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import {
-  MetadataRepresentationLoaderComponent
-} from '../../../../metadata-representation/metadata-representation-loader.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Abstract class that defines objects that can be reordered
@@ -171,9 +176,9 @@ export class ReorderableRelationship extends Reorderable {
     ThemedLoadingComponent,
     AsyncPipe,
     MetadataRepresentationLoaderComponent,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {
   @Input() listId: string;

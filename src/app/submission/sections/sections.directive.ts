@@ -27,9 +27,9 @@ import { SectionsType } from './sections-type';
  * Directive for handling generic section functionality
  */
 @Directive({
-    selector: '[dsSection]',
-    exportAs: 'sectionRef',
-    standalone: true
+  selector: '[dsSection]',
+  exportAs: 'sectionRef',
+  standalone: true,
 })
 export class SectionsDirective implements OnDestroy, OnInit {
 

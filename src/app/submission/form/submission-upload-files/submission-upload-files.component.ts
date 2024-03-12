@@ -1,20 +1,33 @@
-import { Component, Input, OnChanges, } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, Subscription, } from 'rxjs';
-import { first, take, } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  first,
+  take,
+} from 'rxjs/operators';
 
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import {
-  SubmissionJsonPatchOperationsService
-} from '../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '../../../core/submission/submission-response-parsing.service';
-import { hasValue, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
 import { SectionsType } from '../../sections/sections-type';
-import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
-import { NgIf } from '@angular/common';
 import { SubmissionService } from '../../submission.service';
 import parseSectionErrors from '../../utils/parseSectionErrors';
 
@@ -26,9 +39,9 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
   templateUrl: './submission-upload-files.component.html',
   imports: [
     UploaderComponent,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionUploadFilesComponent implements OnChanges {
 

@@ -1,27 +1,28 @@
 import { Route } from '@angular/router';
 
-import { CommunityPageResolver } from './community-page.resolver';
-import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { CreateCommunityPageGuard } from './create-community-page/create-community-page.guard';
-import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
-import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
-import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
-import { LinkService } from '../core/cache/builders/link.service';
-import { COMMUNITY_CREATE_PATH, COMMUNITY_EDIT_PATH } from './community-page-routing-paths';
-import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { ThemedCommunityPageComponent } from './themed-community-page.component';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
-import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import {
-  ComcolSearchSectionComponent
-} from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
-import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { BrowseByGuard } from '../browse-by/browse-by-guard';
 import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
+import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
+import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { LinkService } from '../core/cache/builders/link.service';
+import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
+import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
+import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { CommunityPageResolver } from './community-page.resolver';
+import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
+import {
+  COMMUNITY_CREATE_PATH,
+  COMMUNITY_EDIT_PATH,
+} from './community-page-routing-paths';
+import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
+import { CreateCommunityPageGuard } from './create-community-page/create-community-page.guard';
+import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
+import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
+import { ThemedCommunityPageComponent } from './themed-community-page.component';
 
 export const ROUTES: Route[] = [
   {
@@ -35,14 +36,14 @@ export const ROUTES: Route[] = [
       LinkService,
       CreateCommunityPageGuard,
       CommunityPageAdministratorGuard,
-    ]
+    ],
   },
   {
     path: ':id',
     resolve: {
       dso: CommunityPageResolver,
       breadcrumb: CommunityBreadcrumbResolver,
-      menu: DSOEditMenuResolver
+      menu: DSOEditMenuResolver,
     },
     providers: [
       CommunityPageResolver,
@@ -58,7 +59,7 @@ export const ROUTES: Route[] = [
         path: COMMUNITY_EDIT_PATH,
         loadChildren: () => import('./edit-community-page/edit-community-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [CommunityPageAdministratorGuard]
+        canActivate: [CommunityPageAdministratorGuard],
       },
       {
         path: 'delete',
@@ -95,7 +96,7 @@ export const ROUTES: Route[] = [
             data: { breadcrumbKey: 'browse.metadata' },
           },
         ],
-      }
+      },
     ],
     data: {
       menu: {

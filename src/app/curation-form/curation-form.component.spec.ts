@@ -75,17 +75,17 @@ describe('CurationFormComponent', () => {
     router = new RouterStub();
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, CurationFormComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, CurationFormComponent],
+      providers: [
         { provide: ScriptDataService, useValue: scriptDataService },
         { provide: ProcessDataService, useValue: processDataService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: HandleService, useValue: handleService },
         { provide: Router, useValue: router },
         { provide: ConfigurationDataService, useValue: configurationDataService },
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -17,7 +17,10 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Operation } from 'fast-json-patch';
+import {
+  Operation,
+  Operation,
+} from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
@@ -26,20 +29,20 @@ import { RequestService } from '../../../../core/data/request.service';
 import { RestRequestMethod } from '../../../../core/data/rest-request-method';
 import { Community } from '../../../../core/shared/community.model';
 import { hasValue } from '../../../empty.util';
+import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { VarDirective } from '../../../utils/var.directive';
-import { ComColFormComponent } from './comcol-form.component';
-import { Operation } from 'fast-json-patch';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
-import { FormComponent } from '../../../form/form.component';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
+import { VarDirective } from '../../../utils/var.directive';
 import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
+import { ComColFormComponent } from './comcol-form.component';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<any>;
@@ -100,11 +103,11 @@ describe('ComColFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule, ComColFormComponent, VarDirective],
       providers: [
-        {provide: Location, useValue: locationStub},
-        {provide: DynamicFormService, useValue: formServiceStub},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: AuthService, useValue: new AuthServiceMock()},
-        {provide: RequestService, useValue: requestServiceStub},
+        { provide: Location, useValue: locationStub },
+        { provide: DynamicFormService, useValue: formServiceStub },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: RequestService, useValue: requestServiceStub },
         { provide: ObjectCacheService, useValue: objectCacheStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -115,8 +118,8 @@ describe('ComColFormComponent', () => {
             FormComponent,
             UploaderComponent,
             ComcolPageLogoComponent,
-          ]
-        }
+          ],
+        },
       })
       .compileComponents();
   }));

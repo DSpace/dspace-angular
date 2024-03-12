@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -9,18 +16,12 @@ import { RelationshipDataService } from '../../../core/data/relationship-data.se
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import {
-  ItemMetadataRepresentation
-} from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import {
-  MetadatumRepresentation
-} from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { BrowseDefinitionDataServiceStub } from '../../../shared/testing/browse-definition-data-service.stub';
-import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import {
-  MetadataRepresentationLoaderComponent
-} from '../../../shared/metadata-representation/metadata-representation-loader.component';
+import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';
+import { BrowseDefinitionDataServiceStub } from '../../../shared/testing/browse-definition-data-service.stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
 
@@ -113,15 +114,15 @@ describe('MetadataRepresentationListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), MetadataRepresentationListComponent, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), MetadataRepresentationListComponent, VarDirective],
+      providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(MetadataRepresentationListComponent, {
-      add: {changeDetection: ChangeDetectionStrategy.Default},
-      remove: {imports: [MetadataFieldWrapperComponent, MetadataRepresentationLoaderComponent, ThemedLoadingComponent]}
+    }).overrideComponent(MetadataRepresentationListComponent, {
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [MetadataFieldWrapperComponent, MetadataRepresentationLoaderComponent, ThemedLoadingComponent] },
     }).compileComponents();
   }));
 

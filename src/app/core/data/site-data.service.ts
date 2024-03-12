@@ -9,7 +9,10 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
 import { BaseDataService } from './base/base-data.service';
-import { FindAllData, FindAllDataImpl, } from './base/find-all-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';

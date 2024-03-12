@@ -34,14 +34,14 @@ describe('ValidationSuggestionsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, ReactiveFormsModule, ValidationSuggestionsComponent],
-    providers: [FormsModule,
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, ReactiveFormsModule, ValidationSuggestionsComponent],
+      providers: [FormsModule,
         ReactiveFormsModule,
         { provide: MetadataFieldDataService, useValue: {} },
         { provide: ObjectUpdatesService, useValue: {} },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ValidationSuggestionsComponent, {
+    }).overrideComponent(ValidationSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

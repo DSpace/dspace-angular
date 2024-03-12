@@ -1,13 +1,12 @@
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-
-import {
-  ForgotPasswordFormComponent as BaseComponent
-} from '../../../../../app/forgot-password/forgot-password-form/forgot-password-form.component';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  ProfilePageSecurityFormComponent
-} from '../../../../../app/profile-page/profile-page-security-form/profile-page-security-form.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+
+import { ForgotPasswordFormComponent as BaseComponent } from '../../../../../app/forgot-password/forgot-password-form/forgot-password-form.component';
+import { ProfilePageSecurityFormComponent } from '../../../../../app/profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pipe';
 
 @Component({
@@ -22,7 +21,7 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
     ProfilePageSecurityFormComponent,
     BrowserOnlyPipe,
     AsyncPipe,
-    NgIf
+    NgIf,
   ],
 })
 /**

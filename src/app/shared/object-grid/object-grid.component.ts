@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -7,39 +12,53 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, } from 'rxjs';
-import { distinctUntilChanged, map, startWith, } from 'rxjs/operators';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+} from 'rxjs/operators';
 
-import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Context } from '../../core/shared/context.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeIn } from '../animations/fade';
-import { hasNoValue, hasValue, } from '../empty.util';
-import { HostWindowService, WidthCategory, } from '../host-window.service';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import {
+  hasNoValue,
+  hasValue,
+} from '../empty.util';
 import { ErrorComponent } from '../error/error.component';
 import {
-  ListableObjectComponentLoaderComponent
-} from '../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+  HostWindowService,
+  WidthCategory,
+} from '../host-window.service';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.Emulated,
-    selector: 'ds-object-grid',
-    styleUrls: ['./object-grid.component.scss'],
-    templateUrl: './object-grid.component.html',
-    animations: [fadeIn],
-    standalone: true,
-    imports: [PaginationComponent, NgIf, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.Emulated,
+  selector: 'ds-object-grid',
+  styleUrls: ['./object-grid.component.scss'],
+  templateUrl: './object-grid.component.html',
+  animations: [fadeIn],
+  standalone: true,
+  imports: [PaginationComponent, NgIf, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 
 export class ObjectGridComponent implements OnInit {

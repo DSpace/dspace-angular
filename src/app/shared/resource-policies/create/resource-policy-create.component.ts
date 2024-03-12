@@ -1,28 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyEvent, ResourcePolicyFormComponent } from '../form/resource-policy-form.component';
-import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
 
 @Component({
   selector: 'ds-resource-policy-create',
   templateUrl: './resource-policy-create.component.html',
   imports: [
     ResourcePolicyFormComponent,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ResourcePolicyCreateComponent implements OnInit {
 

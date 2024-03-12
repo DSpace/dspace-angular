@@ -19,8 +19,8 @@ import { of as observableOf } from 'rxjs';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
 
 describe('BitstreamAuthorizationsComponent', () => {
@@ -52,25 +52,25 @@ describe('BitstreamAuthorizationsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        BitstreamAuthorizationsComponent
-    ],
-    providers: [
+        BitstreamAuthorizationsComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         ChangeDetectorRef,
         BitstreamAuthorizationsComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(BitstreamAuthorizationsComponent, {
-        remove: { imports: [ResourcePoliciesComponent]}
+        remove: { imports: [ResourcePoliciesComponent] },
       })
       .compileComponents();
   }));

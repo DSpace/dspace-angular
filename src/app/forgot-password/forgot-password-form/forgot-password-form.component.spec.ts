@@ -10,6 +10,7 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   Router,
@@ -31,7 +32,6 @@ import {
 } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 
@@ -66,25 +66,25 @@ describe('ForgotPasswordFormComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [
-      CommonModule,
-      RouterTestingModule.withRoutes([]),
-      TranslateModule.forRoot(),
-      ReactiveFormsModule,
-      BrowserOnlyPipe,
-      ForgotPasswordFormComponent,
-      NoopAnimationsModule
-    ],
-    providers: [
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        ReactiveFormsModule,
+        BrowserOnlyPipe,
+        ForgotPasswordFormComponent,
+        NoopAnimationsModule,
+      ],
+      providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
         { provide: Store, useValue: store },
         { provide: EPersonDataService, useValue: ePersonDataService },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
         { provide: NotificationsService, useValue: notificationsService },
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(ForgotPasswordFormComponent);

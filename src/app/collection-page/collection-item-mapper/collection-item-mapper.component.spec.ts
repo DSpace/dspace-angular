@@ -25,7 +25,10 @@ import {
 } from '../../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import {
+  AuthorizationDataService,
+  AuthorizationDataService,
+} from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { GroupDataService } from '../../core/eperson/group-data.service';
@@ -35,6 +38,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';
@@ -49,8 +53,6 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchFormComponent } from '../../shared/search-form/search-form.component';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
@@ -59,11 +61,13 @@ import { ObjectSelectServiceStub } from '../../shared/testing/object-select-serv
 import { RouterStub } from '../../shared/testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../shared/testing/search-service.stub';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import {
+  createPaginatedList,
+  createPaginatedList,
+} from '../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { CollectionItemMapperComponent } from './collection-item-mapper.component';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -185,8 +189,8 @@ describe('CollectionItemMapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
-    providers: [
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
@@ -203,7 +207,7 @@ describe('CollectionItemMapperComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
-}).overrideComponent(CollectionItemMapperComponent, {
+    }).overrideComponent(CollectionItemMapperComponent, {
       set: {
         providers: [
           {

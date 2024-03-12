@@ -23,9 +23,9 @@ import { ContextHelpService } from './context-help.service';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 
 @Component({
-    template: `<div *dsContextHelp="contextHelpParams()">some text</div>`,
-    standalone: true,
-  imports: [NgbTooltipModule, ContextHelpDirective]
+  template: `<div *dsContextHelp="contextHelpParams()">some text</div>`,
+  standalone: true,
+  imports: [NgbTooltipModule, ContextHelpDirective],
 })
 class TestComponent {
   @Input() content = '';
@@ -70,12 +70,12 @@ describe('ContextHelpDirective', () => {
     ]);
 
     TestBed.configureTestingModule({
-    imports: [NgbTooltipModule, TestComponent, ContextHelpWrapperComponent, ContextHelpDirective],
-    providers: [
+      imports: [NgbTooltipModule, TestComponent, ContextHelpWrapperComponent, ContextHelpDirective],
+      providers: [
         { provide: TranslateService, useValue: translateService },
-        { provide: ContextHelpService, useValue: contextHelpService }
-    ]
-}).compileComponents();
+        { provide: ContextHelpService, useValue: contextHelpService },
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

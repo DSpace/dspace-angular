@@ -12,10 +12,10 @@ import { MediaViewerVideoComponent } from './media-viewer-video.component';
  * Themed wrapper for {@link MediaViewerVideoComponent}.
  */
 @Component({
-    selector: 'ds-themed-media-viewer-video',
-    styleUrls: [],
-    templateUrl: '../../../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-media-viewer-video',
+  styleUrls: [],
+  templateUrl: '../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedMediaViewerVideoComponent extends ThemedComponent<MediaViewerVideoComponent> {
 

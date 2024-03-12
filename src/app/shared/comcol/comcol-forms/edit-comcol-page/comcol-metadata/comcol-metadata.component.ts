@@ -30,9 +30,9 @@ import {
 import { NotificationsService } from '../../../../notifications/notifications.service';
 
 @Component({
-    selector: 'ds-comcol-metadata',
-    template: '',
-    standalone: true
+  selector: 'ds-comcol-metadata',
+  template: '',
+  standalone: true,
 })
 export class ComcolMetadataComponent<TDomain extends Community | Collection> implements OnInit {
   /**

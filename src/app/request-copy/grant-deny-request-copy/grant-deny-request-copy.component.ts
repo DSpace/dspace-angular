@@ -1,29 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
-import { ItemRequest } from '../../core/shared/item-request.model';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
+import { ItemRequest } from '../../core/shared/item-request.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
-import { getRequestCopyDenyRoute, getRequestCopyGrantRoute, } from '../request-copy-routing-paths';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import {
+  getRequestCopyDenyRoute,
+  getRequestCopyGrantRoute,
+} from '../request-copy-routing-paths';
 
 @Component({
-    selector: 'ds-grant-deny-request-copy',
-    styleUrls: ['./grant-deny-request-copy.component.scss'],
-    templateUrl: './grant-deny-request-copy.component.html',
-    standalone: true,
-    imports: [VarDirective, NgIf, RouterLink, ThemedLoadingComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-grant-deny-request-copy',
+  styleUrls: ['./grant-deny-request-copy.component.scss'],
+  templateUrl: './grant-deny-request-copy.component.html',
+  standalone: true,
+  imports: [VarDirective, NgIf, RouterLink, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component for an author to decide to grant or deny an item request

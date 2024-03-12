@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MissingTranslationHandler, TranslateModule, } from '@ngx-translate/core';
+import {
+  MissingTranslationHandler,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { NouisliderModule } from 'ng2-nouislider';
 
 import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
@@ -11,51 +14,29 @@ import { FacetConfigResponse } from './models/facet-config-response.model';
 import { FacetValues } from './models/facet-values.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchResult } from './models/search-result.model';
-import { SearchResultsComponent } from './search-results/search-results.component';
 import { SearchComponent } from './search.component';
-import {
-  SearchAuthorityFilterComponent
-} from './search-filters/search-filter/search-authority-filter/search-authority-filter.component';
-import {
-  SearchBooleanFilterComponent
-} from './search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
-import {
-  SearchFacetFilterComponent
-} from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
-import {
-  SearchFacetOptionComponent
-} from './search-filters/search-filter/search-facet-filter-options/search-facet-option/search-facet-option.component';
-import {
-  SearchFacetRangeOptionComponent
-} from './search-filters/search-filter/search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
-import {
-  SearchFacetSelectedOptionComponent
-} from './search-filters/search-filter/search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
-import {
-  SearchFacetFilterWrapperComponent
-} from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
+import { SearchAuthorityFilterComponent } from './search-filters/search-filter/search-authority-filter/search-authority-filter.component';
+import { SearchBooleanFilterComponent } from './search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
+import { SearchFacetFilterComponent } from './search-filters/search-filter/search-facet-filter/search-facet-filter.component';
+import { SearchFacetOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-option/search-facet-option.component';
+import { SearchFacetRangeOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
+import { SearchFacetSelectedOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { SearchFacetFilterWrapperComponent } from './search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SearchFilterComponent } from './search-filters/search-filter/search-filter.component';
-import {
-  SearchHierarchyFilterComponent
-} from './search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
-import {
-  SearchRangeFilterComponent
-} from './search-filters/search-filter/search-range-filter/search-range-filter.component';
-import {
-  SearchTextFilterComponent
-} from './search-filters/search-filter/search-text-filter/search-text-filter.component';
+import { SearchHierarchyFilterComponent } from './search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
+import { SearchRangeFilterComponent } from './search-filters/search-filter/search-range-filter/search-range-filter.component';
+import { SearchTextFilterComponent } from './search-filters/search-filter/search-text-filter/search-text-filter.component';
 import { SearchFiltersComponent } from './search-filters/search-filters.component';
 import { ThemedSearchFiltersComponent } from './search-filters/themed-search-filters.component';
 import { SearchLabelComponent } from './search-labels/search-label/search-label.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { SearchSettingsComponent } from './search-settings/search-settings.component';
 import { ThemedSearchSettingsComponent } from './search-settings/themed-search-settings.component';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
-import {
-  SearchSwitchConfigurationComponent
-} from './search-switch-configuration/search-switch-configuration.component';
+import { SearchSwitchConfigurationComponent } from './search-switch-configuration/search-switch-configuration.component';
 import { ThemedSearchComponent } from './themed-search.component';
 
 const COMPONENTS = [
@@ -111,16 +92,16 @@ export const MODELS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        TranslateModule.forChild({
-            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+  imports: [
+    CommonModule,
+    TranslateModule.forChild({
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
       useDefaultLang: true,
-        }),
-        NouisliderModule,
-        ...COMPONENTS
-    ],
-    exports: [
+    }),
+    NouisliderModule,
+    ...COMPONENTS,
+  ],
+  exports: [
     ...COMPONENTS,
   ],
 })

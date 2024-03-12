@@ -18,8 +18,8 @@ import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
+import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;
@@ -70,8 +70,8 @@ describe('EndUserAgreementComponent', () => {
     })
       .overrideComponent(EndUserAgreementComponent, {
         remove: {
-          imports: [EndUserAgreementContentComponent]
-        }
+          imports: [EndUserAgreementContentComponent],
+        },
       })
       .compileComponents();
   }));

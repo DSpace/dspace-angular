@@ -29,8 +29,8 @@ const mockItem = Object.assign(new Item(), {
 describe('ModifyItemOverviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ModifyItemOverviewComponent]
-}).compileComponents();
+      imports: [TranslateModule.forRoot(), ModifyItemOverviewComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

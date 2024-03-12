@@ -5,13 +5,28 @@
  *
  * http://www.dspace.org/license/
  */
-import { APP_INITIALIZER, Inject, Provider, Type, } from '@angular/core';
-import { makeStateKey, TransferState, } from '@angular/platform-browser';
-import { select, Store, } from '@ngrx/store';
+import {
+  APP_INITIALIZER,
+  Inject,
+  Provider,
+  Type,
+} from '@angular/core';
+import {
+  makeStateKey,
+  TransferState,
+} from '@angular/platform-browser';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, find, } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  find,
+} from 'rxjs/operators';
+
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
@@ -23,12 +38,12 @@ import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticationBlocking } from './core/auth/selectors';
+import { LAZY_DATA_SERVICES } from './core/data-services-map';
 import { LocaleService } from './core/locale/locale.service';
 import { MetadataService } from './core/metadata/metadata.service';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
-import { MenuService } from './shared/menu/menu.service';
-import { LAZY_DATA_SERVICES } from './core/data-services-map';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 

@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
 
 export const ROUTES: Route[] = [
@@ -12,6 +13,6 @@ export const ROUTES: Route[] = [
         path: '',
         component: SubscriptionsPageComponent,
       },
-    ]
+    ],
   },
 ];

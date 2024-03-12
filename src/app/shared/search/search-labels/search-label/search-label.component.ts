@@ -1,22 +1,33 @@
-import { Component, Input, OnInit, } from '@angular/core';
-import { Params, Router, RouterLink, } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { hasValue, isNotEmpty, } from '../../../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import { currentPath } from '../../../utils/route.utils';
 import { stripOperatorFromFilterValue } from '../../search.utils';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-search-label',
-    templateUrl: './search-label.component.html',
-    standalone: true,
-    imports: [RouterLink, AsyncPipe, TranslateModule]
+  selector: 'ds-search-label',
+  templateUrl: './search-label.component.html',
+  standalone: true,
+  imports: [RouterLink, AsyncPipe, TranslateModule],
 })
 
 /**

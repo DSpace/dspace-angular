@@ -41,11 +41,11 @@ describe('ItemEditBitstreamBundleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ItemEditBitstreamBundleComponent],
-    schemas: [
+      imports: [TranslateModule.forRoot(), ItemEditBitstreamBundleComponent],
+      schemas: [
         NO_ERRORS_SCHEMA,
       ],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

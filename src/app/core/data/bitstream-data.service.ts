@@ -28,7 +28,6 @@ import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Bitstream } from '../shared/bitstream.model';
-import { BITSTREAM } from '../shared/bitstream.resource-type';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -37,7 +36,6 @@ import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { sendRequest } from '../shared/request.operators';
-import { dataService } from './base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -66,12 +64,6 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
-import { DeleteData, DeleteDataImpl } from './base/delete-data';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NoContent } from '../shared/NoContent.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { Operation, RemoveOperation } from 'fast-json-patch';
-import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /**
  * A service to retrieve {@link Bitstream}s from the REST API

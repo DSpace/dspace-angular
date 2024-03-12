@@ -3,17 +3,23 @@ import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { NoContent } from '../shared/NoContent.model';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
 import { OrcidQueue } from './model/orcid-queue.model';
 
 /**

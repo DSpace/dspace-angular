@@ -1,14 +1,15 @@
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CommunityPageSubCommunityListComponent as BaseComponent } from '../../../../../../../app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component';
 import { ErrorComponent } from '../../../../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../../../../app/shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../../../../app/shared/object-collection/object-collection.component';
 import { VarDirective } from '../../../../../../../app/shared/utils/var.directive';
-import { AsyncPipe, NgIf } from '@angular/common';
-import {
-  ObjectCollectionComponent
-} from '../../../../../../../app/shared/object-collection/object-collection.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-community-page-sub-community-list',
@@ -28,8 +29,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ObjectCollectionComponent,
     ErrorComponent,
     ThemedLoadingComponent,
-    VarDirective
-  ]
+    VarDirective,
+  ],
 })
 export class CommunityPageSubCommunityListComponent extends BaseComponent {
 }

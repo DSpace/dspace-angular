@@ -1,8 +1,23 @@
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { first, map, } from 'rxjs/operators';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
 
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -12,9 +27,8 @@ import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
-import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { getItemPageRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 
 @Component({
@@ -26,9 +40,9 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
     TranslateModule,
     AsyncPipe,
     NgIf,
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component responsible for rendering the Item Register DOI page

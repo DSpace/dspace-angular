@@ -5,6 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -17,7 +18,6 @@ import { VersionHistory } from '../../../core/shared/version-history.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ItemVersionsNoticeComponent } from './item-versions-notice.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ItemVersionsNoticeComponent', () => {
   let component: ItemVersionsNoticeComponent;
@@ -65,17 +65,17 @@ describe('ItemVersionsNoticeComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [
-      TranslateModule.forRoot(),
-      RouterTestingModule.withRoutes([]),
-      ItemVersionsNoticeComponent,
-      NoopAnimationsModule
-    ],
-    providers: [
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        ItemVersionsNoticeComponent,
+        NoopAnimationsModule,
+      ],
+      providers: [
         { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
 

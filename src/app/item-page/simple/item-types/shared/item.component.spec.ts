@@ -1,13 +1,31 @@
+import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
-import { Observable, of as observableOf, } from 'rxjs';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { AuthService } from '../../../../core/auth/auth.service';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -34,42 +52,30 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ThemedResultsBackButtonComponent } from '../../../../shared/results-back-button/themed-results-back-button.component';
+import { AuthServiceStub } from '../../../../shared/testing/auth-service.stub';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import {
-  GenericItemPageFieldComponent
-} from '../../field-components/specific-field/generic/generic-item-page-field.component';
-import { ItemComponent } from './item.component';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { provideMockStore } from '@ngrx/store/testing';
-import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
-import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../../shared/testing/auth-service.stub';
-import { AsyncPipe } from '@angular/common';
-import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import {
-  MetadataFieldWrapperComponent
-} from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import {
-  ThemedResultsBackButtonComponent
-} from '../../../../shared/results-back-button/themed-results-back-button.component';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
-import {
-  ThemedItemPageTitleFieldComponent
-} from '../../field-components/specific-field/title/themed-item-page-field.component';
-import {
-  TabbedRelatedEntitiesSearchComponent
-} from '../../related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
+import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import { ThemedItemPageTitleFieldComponent } from '../../field-components/specific-field/title/themed-item-page-field.component';
+import { TabbedRelatedEntitiesSearchComponent } from '../../related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { RelatedItemsComponent } from '../../related-items/related-items-component';
-
-import { compareArraysUsing, compareArraysUsingIds, } from './item-relationships-utils';
+import { ItemComponent } from './item.component';
+import {
+  compareArraysUsing,
+  compareArraysUsingIds,
+} from './item-relationships-utils';
 
 export function getIIIFSearchEnabled(enabled: boolean): MetadataValue {
   return Object.assign(new MetadataValue(), {
@@ -100,7 +106,7 @@ export const mockRouteService = {
   },
   getRouteParameterValue(): Observable<string> {
     return observableOf('');
-  }
+  },
 };
 
 /**
@@ -132,56 +138,56 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
       });
 
       await TestBed.configureTestingModule({
-    imports: [
-        TranslateModule.forRoot({
+        imports: [
+          TranslateModule.forRoot({
             loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
+              provide: TranslateLoader,
+              useClass: TranslateLoaderMock,
             },
-        }),
-        RouterTestingModule,
-        GenericItemPageFieldComponent,
-        TruncatePipe,
-        AsyncPipe,
-        component
-    ],
-    providers: [
-        {
+          }),
+          RouterTestingModule,
+          GenericItemPageFieldComponent,
+          TruncatePipe,
+          AsyncPipe,
+          component,
+        ],
+        providers: [
+          {
             provide: APP_CONFIG,
             useValue: {
-                browseBy: { showThumbnails: true },
-                markdown: { enabled: true },
+              browseBy: { showThumbnails: true },
+              markdown: { enabled: true },
             },
-        },
-        provideMockStore(),
-        { provide: ItemDataService, useValue: {} },
-        { provide: TruncatableService, useValue: mockTruncatableService },
-        { provide: RelationshipDataService, useValue: relationshipService },
-        { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
-        { provide: RemoteDataBuildService, useValue: {} },
-        { provide: CommunityDataService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
-        { provide: HttpClient, useValue: {} },
-        { provide: DSOChangeAnalyzer, useValue: {} },
-        { provide: VersionHistoryDataService, useValue: {} },
-        { provide: VersionDataService, useValue: {} },
-        { provide: NotificationsService, useValue: {} },
-        { provide: DefaultChangeAnalyzer, useValue: {} },
-        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
-        { provide: WorkspaceitemDataService, useValue: {} },
-        { provide: SearchService, useValue: {} },
-        { provide: RouteService, useValue: routeServiceStub },
-        { provide: AuthService, useValue: new AuthServiceStub() },
-        { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: ResearcherProfileDataService, useValue: {} },
-        {
+          },
+          provideMockStore(),
+          { provide: ItemDataService, useValue: {} },
+          { provide: TruncatableService, useValue: mockTruncatableService },
+          { provide: RelationshipDataService, useValue: relationshipService },
+          { provide: ObjectCacheService, useValue: {} },
+          { provide: UUIDService, useValue: {} },
+          { provide: RemoteDataBuildService, useValue: {} },
+          { provide: CommunityDataService, useValue: {} },
+          { provide: HALEndpointService, useValue: {} },
+          { provide: HttpClient, useValue: {} },
+          { provide: DSOChangeAnalyzer, useValue: {} },
+          { provide: VersionHistoryDataService, useValue: {} },
+          { provide: VersionDataService, useValue: {} },
+          { provide: NotificationsService, useValue: {} },
+          { provide: DefaultChangeAnalyzer, useValue: {} },
+          { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: WorkspaceitemDataService, useValue: {} },
+          { provide: SearchService, useValue: {} },
+          { provide: RouteService, useValue: routeServiceStub },
+          { provide: AuthService, useValue: new AuthServiceStub() },
+          { provide: AuthorizationDataService, useValue: authorizationService },
+          { provide: ResearcherProfileDataService, useValue: {} },
+          {
             provide: BrowseDefinitionDataService,
             useValue: BrowseDefinitionDataServiceStub,
-        },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+          },
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      })
         .overrideComponent(component, {
           remove: {
             imports: [
@@ -191,7 +197,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
               MetadataFieldWrapperComponent,
               ThemedThumbnailComponent,
               RelatedItemsComponent,
-              TabbedRelatedEntitiesSearchComponent
+              TabbedRelatedEntitiesSearchComponent,
             ],
           },
           add: { changeDetection: ChangeDetectionStrategy.Default },
@@ -485,7 +491,7 @@ describe('ItemComponent', () => {
             },
           }),
           RouterTestingModule,
-          ItemComponent, GenericItemPageFieldComponent, TruncatePipe
+          ItemComponent, GenericItemPageFieldComponent, TruncatePipe,
         ],
         providers: [
           { provide: ItemDataService, useValue: {} },

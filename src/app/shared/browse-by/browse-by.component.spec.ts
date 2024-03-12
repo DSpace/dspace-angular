@@ -18,8 +18,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AccessControlRoutingModule } from '../../access-control/access-control-routing.module';
-import { BrowseByRoutingModule } from '../../browse-by/browse-by-routing.module';
 import {
   SortDirection,
   SortOptions,
@@ -34,10 +32,16 @@ import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import {
+  SearchConfigurationService,
+  SearchConfigurationService,
+} from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { HostWindowService } from '../host-window.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
+import {
+  getMockThemeService,
+  getMockThemeService,
+} from '../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import {
   DEFAULT_CONTEXT,
@@ -48,13 +52,10 @@ import { BrowseEntryListElementComponent } from '../object-list/browse-entry-lis
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { SharedModule } from '../shared.module';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { routeServiceStub } from '../testing/route-service.stub';
 import { SearchConfigurationServiceStub } from '../testing/search-configuration-service.stub';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
 import { createPaginatedList } from '../testing/utils.test';
 import { ThemeService } from '../theme-support/theme.service';
 import { BrowseByComponent } from './browse-by.component';
@@ -104,20 +105,20 @@ describe('BrowseByComponent', () => {
   beforeEach(waitForAsync(() => {
     themeService = getMockThemeService('base');
     void TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         NgbModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         RouterTestingModule,
         NoopAnimationsModule,
-        BrowseByComponent
-    ],
-    providers: [
+        BrowseByComponent,
+      ],
+      providers: [
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
@@ -128,9 +129,9 @@ describe('BrowseByComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: SelectableListService, useValue: {} },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
     fixture = TestBed.createComponent(BrowseByComponent);
     comp = fixture.componentInstance;
     comp.paginationConfig = paginationConfig;

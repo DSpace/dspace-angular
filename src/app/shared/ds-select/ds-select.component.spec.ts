@@ -13,11 +13,11 @@ describe('DsSelectComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
-        DsSelectComponent
-    ]
-})
+        DsSelectComponent,
+      ],
+    })
       .compileComponents();
   }));
 

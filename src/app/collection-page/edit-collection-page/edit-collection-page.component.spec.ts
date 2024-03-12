@@ -8,13 +8,16 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of as observableOf,
+} from 'rxjs';
 
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { SharedModule } from '../../shared/shared.module';
+import {
+  CollectionDataService,
+  CollectionDataService,
+} from '../../core/data/collection-data.service';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { of as observableOf } from 'rxjs';
 
 describe('EditCollectionPageComponent', () => {
   let comp: EditCollectionPageComponent;
@@ -45,13 +48,13 @@ describe('EditCollectionPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditCollectionPageComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, EditCollectionPageComponent],
+      providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: routeStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

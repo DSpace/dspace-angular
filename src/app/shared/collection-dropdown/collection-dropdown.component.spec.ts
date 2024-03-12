@@ -21,10 +21,10 @@ import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { MockElementRef } from '../testing/element-ref.mock';
-import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { CollectionDropdownComponent } from './collection-dropdown.component';
 
@@ -127,23 +127,23 @@ describe('CollectionDropdownComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        CollectionDropdownComponent
-    ],
-    providers: [
-      {provide: CollectionDataService, useValue: collectionDataServiceMock},
-      {provide: ElementRef, useClass: MockElementRef},
-      ChangeDetectorRef,
-      {provide: ThemeService, useValue: themeService},
-    ],
+        CollectionDropdownComponent,
+      ],
+      providers: [
+        { provide: CollectionDataService, useValue: collectionDataServiceMock },
+        { provide: ElementRef, useClass: MockElementRef },
+        ChangeDetectorRef,
+        { provide: ThemeService, useValue: themeService },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .compileComponents();
   }));
 

@@ -1,7 +1,18 @@
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { cold, getTestScheduler, } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -10,9 +21,8 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
-import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
-import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 
 describe('FileDownloadLinkComponent', () => {
@@ -47,17 +57,17 @@ describe('FileDownloadLinkComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        FileDownloadLinkComponent
+        FileDownloadLinkComponent,
       ],
       providers: [
         RouterLinkDirectiveStub,
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
-      ]
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
     })
       .overrideComponent(FileDownloadLinkComponent, {
         remove: { imports: [RouterLink] },
-        add: { imports: [RouterLinkDirectiveStub] }
+        add: { imports: [RouterLinkDirectiveStub] },
       })
       .compileComponents();
   }

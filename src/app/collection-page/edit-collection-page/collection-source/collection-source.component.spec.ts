@@ -31,6 +31,8 @@ import {
   ContentSourceHarvestType,
 } from '../../../core/shared/content-source.model';
 import { hasValue } from '../../../shared/empty.util';
+import { FormComponent } from '../../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   INotification,
   Notification,
@@ -43,8 +45,6 @@ import {
 } from '../../../shared/remote-data.utils';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { CollectionSourceComponent } from './collection-source.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { FormComponent } from '../../../shared/form/form.component';
 import { CollectionSourceControlsComponent } from './collection-source-controls/collection-source-controls.component';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
@@ -145,8 +145,8 @@ describe('CollectionSourceComponent', () => {
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule, CollectionSourceComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule, CollectionSourceComponent],
+      providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Location, useValue: location },
@@ -155,15 +155,15 @@ describe('CollectionSourceComponent', () => {
         { provide: Router, useValue: router },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: RequestService, useValue: requestService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(CollectionSourceComponent, {
         remove: { imports: [
-            ThemedLoadingComponent,
-            FormComponent,
-            CollectionSourceControlsComponent
-          ]}
+          ThemedLoadingComponent,
+          FormComponent,
+          CollectionSourceControlsComponent,
+        ] },
       })
       .compileComponents();
   }));

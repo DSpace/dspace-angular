@@ -2,20 +2,20 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRoute,
+} from '@angular/router';
 import {
   of as observableOf,
+  of,
   of,
 } from 'rxjs';
 
 import { Community } from '../../../core/shared/community.model';
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CommunityAccessControlComponent } from './community-access-control.component';
-import {
-  AccessControlFormContainerComponent
-} from '../../../shared/access-control-form-container/access-control-form-container.component';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
 
 describe('CommunityAccessControlComponent', () => {
   let component: CommunityAccessControlComponent;
@@ -28,12 +28,12 @@ describe('CommunityAccessControlComponent', () => {
             return {
               pipe: () => {
                 return of({});
-              }
+              },
             };
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   };
   const testCommunity = Object.assign(new Community(),
     {
@@ -64,16 +64,16 @@ describe('CommunityAccessControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [CommunityAccessControlComponent],
-    providers: [{
-      provide: ActivatedRoute, useValue: routeStub
-    }]
-})
-    .overrideComponent(CommunityAccessControlComponent, {
-      remove: {
-        imports: [AccessControlFormContainerComponent]
-      }
+      imports: [CommunityAccessControlComponent],
+      providers: [{
+        provide: ActivatedRoute, useValue: routeStub,
+      }],
     })
+      .overrideComponent(CommunityAccessControlComponent, {
+        remove: {
+          imports: [AccessControlFormContainerComponent],
+        },
+      })
       .compileComponents();
   });
 

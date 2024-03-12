@@ -1,8 +1,19 @@
-import { Component, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -13,7 +24,12 @@ import { ExternalSourceDataService } from '../../core/data/external-source-data.
 import { RouteService } from '../../core/services/route.service';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { HostWindowService } from '../../shared/host-window.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   createFailedRemoteDataObject$,
@@ -21,25 +37,19 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
-import { createPaginatedList, createTestComponent, } from '../../shared/testing/utils.test';
-import { VarDirective } from '../../shared/utils/var.directive';
 import {
-  SubmissionImportExternalPreviewComponent
-} from './import-external-preview/submission-import-external-preview.component';
-import { SubmissionImportExternalComponent } from './submission-import-external.component';
-import { HostWindowService } from '../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import {
-  SubmissionImportExternalSearchbarComponent
-} from './import-external-searchbar/submission-import-external-searchbar.component';
+  createPaginatedList,
+  createTestComponent,
+} from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { AlertComponent } from '../../shared/alert/alert.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import { SubmissionImportExternalSearchbarComponent } from './import-external-searchbar/submission-import-external-searchbar.component';
+import { SubmissionImportExternalComponent } from './submission-import-external.component';
 
 describe('SubmissionImportExternalComponent test suite', () => {
   let comp: SubmissionImportExternalComponent;
@@ -61,14 +71,14 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
   beforeEach(waitForAsync (() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
         SubmissionImportExternalComponent,
         TestComponent,
         VarDirective,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
@@ -78,9 +88,9 @@ describe('SubmissionImportExternalComponent test suite', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         { provide: ThemeService, useValue: getMockThemeService() },
         SubmissionImportExternalComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(SubmissionImportExternalComponent, {
         remove: {
           imports: [
@@ -88,8 +98,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
             ThemedLoadingComponent,
             AlertComponent,
             SubmissionImportExternalSearchbarComponent,
-          ]
-        }
+          ],
+        },
       })
       .compileComponents().then();
   }));
@@ -532,9 +542,9 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

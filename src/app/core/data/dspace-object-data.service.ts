@@ -4,9 +4,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from './request.service';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RequestService } from './request.service';
 

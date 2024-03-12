@@ -1,6 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
 import { Injectable } from '@angular/core';
-import { RequestService } from '../data/request.service';
 import {
   Observable,
   of as observableOf,
@@ -16,15 +15,11 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import {
   FindAllData,
   FindAllDataImpl,
 } from '../data/base/find-all-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
-import { isNotEmpty, isNotEmptyOperator, hasValue } from '../../shared/empty.util';
-import { take } from 'rxjs/operators';
 import {
   SearchData,
   SearchDataImpl,
@@ -35,7 +30,6 @@ import { RemoteData } from '../data/remote-data';
 import { BrowseDefinitionRestRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
-import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 /**

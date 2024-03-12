@@ -1,10 +1,17 @@
 import {
+  AsyncPipe,
+  NgComponentOutlet,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   HostListener,
   Inject,
   Injector,
   OnInit,
 } from '@angular/core';
+import { RouterLinkActive } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -12,8 +19,6 @@ import { slide } from '../../shared/animations/slide';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { NgComponentOutlet, NgIf, NgFor, AsyncPipe } from '@angular/common';
-import { RouterLinkActive } from '@angular/router';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 
@@ -21,12 +26,12 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
  * Represents an expandable section in the navbar
  */
 @Component({
-    selector: 'ds-expandable-navbar-section',
-    templateUrl: './expandable-navbar-section.component.html',
-    styleUrls: ['./expandable-navbar-section.component.scss'],
-    animations: [slide],
-    standalone: true,
-    imports: [VarDirective, RouterLinkActive, NgComponentOutlet, NgIf, NgFor, AsyncPipe]
+  selector: 'ds-expandable-navbar-section',
+  templateUrl: './expandable-navbar-section.component.html',
+  styleUrls: ['./expandable-navbar-section.component.scss'],
+  animations: [slide],
+  standalone: true,
+  imports: [VarDirective, RouterLinkActive, NgComponentOutlet, NgIf, NgFor, AsyncPipe],
 })
 export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements OnInit {
   /**

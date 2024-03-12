@@ -14,7 +14,7 @@ import { SubmissionState } from '../../submission.reducers';
 /**
  * A service that provides methods to handle submission item's accesses condition state.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SectionAccessesService {
 
   /**

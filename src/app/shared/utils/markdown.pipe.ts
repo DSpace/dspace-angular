@@ -47,8 +47,8 @@ const SANITIZE_HTML = new InjectionToken<SanitizeHtml>(
  *   </span>
  */
 @Pipe({
-    name: 'dsMarkdown',
-    standalone: true
+  name: 'dsMarkdown',
+  standalone: true,
 })
 export class MarkdownPipe implements PipeTransform {
 

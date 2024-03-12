@@ -11,9 +11,9 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectListComponent } from './object-list.component';
 import { SelectableListService } from './selectable-list/selectable-list.service';
-import { PaginationComponent } from '../pagination/pagination.component';
 
 describe('ObjectListComponent', () => {
   let comp: ObjectListComponent;
@@ -27,7 +27,7 @@ describe('ObjectListComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ObjectListComponent, {
       remove: {
-        imports: [PaginationComponent]
+        imports: [PaginationComponent],
       },
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();

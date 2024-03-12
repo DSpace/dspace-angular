@@ -1,12 +1,19 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnChanges,
 } from '@angular/core';
 import {
   NgbModal,
+  NgbModal,
+  NgbModalRef,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -19,8 +26,14 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import {
+  FieldChangeType,
+  FieldChangeType,
+} from '../../../../core/data/object-updates/field-change-type.model';
+import {
+  FieldUpdate,
+  FieldUpdate,
+} from '../../../../core/data/object-updates/field-update.model';
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
@@ -32,20 +45,14 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 import {
   hasValue,
+  hasValue,
+  isNotEmpty,
   isNotEmpty,
 } from '../../../../shared/empty.util';
+import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -57,9 +64,9 @@ import {
     AsyncPipe,
     NgIf,
     TranslateModule,
-    VirtualMetadataComponent
+    VirtualMetadataComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class EditRelationshipComponent implements OnChanges {
   /**

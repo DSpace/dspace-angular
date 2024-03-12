@@ -1,14 +1,18 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
-import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALResource } from '../../../core/shared/hal-resource.model';
+import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';

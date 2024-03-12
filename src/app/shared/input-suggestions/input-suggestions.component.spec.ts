@@ -31,10 +31,10 @@ describe('InputSuggestionsComponent', () => {
     }, { displayValue: 'suggestion tres', value: 'suggestion tres' }];
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, InputSuggestionsComponent],
-    providers: [],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, InputSuggestionsComponent],
+      providers: [],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(InputSuggestionsComponent, {
+    }).overrideComponent(InputSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

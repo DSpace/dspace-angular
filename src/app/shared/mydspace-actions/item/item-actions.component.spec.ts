@@ -8,7 +8,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { Router, RouterLink } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -71,26 +74,26 @@ const requestServce = getMockRequestService();
 describe('ItemActionsComponent', () => {
   beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ItemActionsComponent
-    ],
-    providers: [
+        ItemActionsComponent,
+      ],
+      providers: [
         { provide: Injector, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
         { provide: ItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemActionsComponent, {
-    remove: {imports: [RouterLink]},
+    }).overrideComponent(ItemActionsComponent, {
+      remove: { imports: [RouterLink] },
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

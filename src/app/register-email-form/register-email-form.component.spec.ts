@@ -1,12 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, } from '@angular/forms';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf, of, } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
 import { RestResponse } from '../core/cache/response.models';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -14,6 +27,8 @@ import { EpersonRegistrationService } from '../core/data/eperson-registration.se
 import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../core/services/cookie.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
@@ -24,8 +39,6 @@ import {
   TYPE_REQUEST_FORGOT,
   TYPE_REQUEST_REGISTER,
 } from './register-email-form.component';
-import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
-import { AlertComponent } from '../shared/alert/alert.component';
 
 describe('RegisterEmailFormComponent', () => {
 
@@ -64,8 +77,8 @@ describe('RegisterEmailFormComponent', () => {
     jasmine.getEnv().allowRespy(true);
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailFormComponent, FormsModule],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, RegisterEmailFormComponent, FormsModule],
+      providers: [
         { provide: Router, useValue: router },
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
@@ -73,12 +86,12 @@ describe('RegisterEmailFormComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: CookieService, useValue: new CookieServiceMock() },
         { provide: GoogleRecaptchaService, useValue: googleRecaptchaService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(RegisterEmailFormComponent, {
-  remove: { imports: [GoogleRecaptchaComponent, AlertComponent] }
-})
-  .compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(RegisterEmailFormComponent, {
+      remove: { imports: [GoogleRecaptchaComponent, AlertComponent] },
+    })
+      .compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterEmailFormComponent);

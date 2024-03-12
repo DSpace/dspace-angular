@@ -14,11 +14,11 @@ describe('ItemVersionsSummaryModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsSummaryModalComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsSummaryModalComponent],
+      providers: [
         { provide: NgbActiveModal },
       ],
-}).compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {

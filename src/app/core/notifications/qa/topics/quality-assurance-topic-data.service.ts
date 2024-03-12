@@ -26,7 +26,7 @@ import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topi
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 @dataService(QUALITY_ASSURANCE_TOPIC_OBJECT)
 export class QualityAssuranceTopicDataService extends IdentifiableDataService<QualityAssuranceTopicObject> {
 

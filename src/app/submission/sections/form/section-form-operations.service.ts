@@ -39,7 +39,7 @@ import { FormFieldPreviousValueObject } from '../../../shared/form/builder/model
 /**
  * The service handling all form section operations
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SectionFormOperationsService {
 
   /**

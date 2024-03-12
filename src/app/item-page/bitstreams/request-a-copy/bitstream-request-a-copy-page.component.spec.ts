@@ -113,8 +113,8 @@ describe('BitstreamRequestACopyPageComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
-    imports: [CommonModule, TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, BitstreamRequestACopyPageComponent],
-    providers: [
+      imports: [CommonModule, TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, BitstreamRequestACopyPageComponent],
+      providers: [
         { provide: Location, useValue: location },
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Router, useValue: router },
@@ -125,7 +125,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
       ],
-})
+    })
       .compileComponents();
   }
 

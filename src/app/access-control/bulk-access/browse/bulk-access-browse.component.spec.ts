@@ -13,20 +13,16 @@ import { of } from 'rxjs';
 
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SelectableObject } from '../../../shared/object-list/selectable-list/selectable-list.service.spec';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { BulkAccessBrowseComponent } from './bulk-access-browse.component';
-import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
-import {
-  SelectableListItemControlComponent
-} from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { BulkAccessBrowseComponent } from './bulk-access-browse.component';
 
 describe('BulkAccessBrowseComponent', () => {
   let component: BulkAccessBrowseComponent;
@@ -48,7 +44,7 @@ describe('BulkAccessBrowseComponent', () => {
         NgbAccordionModule,
         NgbNavModule,
         TranslateModule.forRoot(),
-        BulkAccessBrowseComponent
+        BulkAccessBrowseComponent,
       ],
       providers: [
         { provide: SelectableListService, useValue: selectableListService },
@@ -64,9 +60,9 @@ describe('BulkAccessBrowseComponent', () => {
             PaginationComponent,
             ThemedSearchComponent,
             SelectableListItemControlComponent,
-            ListableObjectComponentLoaderComponent
-          ]
-        }
+            ListableObjectComponentLoaderComponent,
+          ],
+        },
       })
       .compileComponents();
   }));

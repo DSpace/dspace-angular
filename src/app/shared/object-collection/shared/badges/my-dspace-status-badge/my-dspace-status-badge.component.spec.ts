@@ -35,17 +35,17 @@ mockResultObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rd
 describe('MyDSpaceItemStatusComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        MyDSpaceStatusBadgeComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(MyDSpaceStatusBadgeComponent, {
+        MyDSpaceStatusBadgeComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(MyDSpaceStatusBadgeComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

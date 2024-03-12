@@ -29,7 +29,7 @@ import {
 /**
  * The service handling the Notifications State.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class NotificationsStateService {
 
   /**

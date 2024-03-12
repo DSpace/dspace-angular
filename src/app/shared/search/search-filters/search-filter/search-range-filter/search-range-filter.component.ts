@@ -1,13 +1,35 @@
-import { AsyncPipe, isPlatformBrowser, NgFor, NgIf } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, } from '@angular/core';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription, } from 'rxjs';
-import { map, startWith, } from 'rxjs/operators';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { NouisliderComponent } from 'ng2-nouislider';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+} from 'rxjs/operators';
 import { yearFromString } from 'src/app/shared/date.util';
+
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { RouteService } from '../../../../../core/services/route.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
@@ -18,16 +40,20 @@ import {
   SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../../empty.util';
-import {
-  SearchFacetRangeOptionComponent
-} from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
-import { NouisliderComponent } from 'ng2-nouislider';
-import { FormsModule } from '@angular/forms';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { RANGE_FILTER_MAX_SUFFIX, RANGE_FILTER_MIN_SUFFIX } from './search-range-filter-constants';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import {
+  facetLoad,
+  SearchFacetFilterComponent,
+} from '../search-facet-filter/search-facet-filter.component';
+import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
+import {
+  RANGE_FILTER_MAX_SUFFIX,
+  RANGE_FILTER_MIN_SUFFIX,
+} from './search-range-filter-constants';
 
 /**
  * This component renders a simple item page.
@@ -35,12 +61,12 @@ import { RANGE_FILTER_MAX_SUFFIX, RANGE_FILTER_MIN_SUFFIX } from './search-range
  * All fields of the item that should be displayed, are defined in its template.
  */
 @Component({
-    selector: 'ds-search-range-filter',
-    styleUrls: ['./search-range-filter.component.scss'],
-    templateUrl: './search-range-filter.component.html',
-    animations: [facetLoad],
-    standalone: true,
-    imports: [FormsModule, NgIf, NouisliderComponent, DebounceDirective, NgFor, SearchFacetRangeOptionComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-search-range-filter',
+  styleUrls: ['./search-range-filter.component.scss'],
+  templateUrl: './search-range-filter.component.html',
+  animations: [facetLoad],
+  standalone: true,
+  imports: [FormsModule, NgIf, NouisliderComponent, DebounceDirective, NgFor, SearchFacetRangeOptionComponent, AsyncPipe, TranslateModule],
 })
 
 /**

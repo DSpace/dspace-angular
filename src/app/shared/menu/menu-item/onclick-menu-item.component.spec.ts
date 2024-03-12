@@ -25,12 +25,12 @@ describe('OnClickMenuItemComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), OnClickMenuItemComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), OnClickMenuItemComponent],
+      providers: [
         { provide: 'itemModelProvider', useValue: item },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .compileComponents();
   }));
 

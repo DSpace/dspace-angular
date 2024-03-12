@@ -1,8 +1,24 @@
-import { ChangeDetectorRef, Component, Injector, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  Component,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { cold, getTestScheduler, } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -23,8 +39,14 @@ import { EPersonMock } from '../../testing/eperson.mock';
 import { GroupMock } from '../../testing/group-mock';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
-import { createPaginatedList, createTestComponent, } from '../../testing/utils.test';
-import { ResourcePolicyEvent, ResourcePolicyFormComponent } from '../form/resource-policy-form.component';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../../testing/utils.test';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
 import { ResourcePolicyCreateComponent } from './resource-policy-create.component';
 
@@ -88,12 +110,12 @@ describe('ResourcePolicyCreateComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         ResourcePolicyCreateComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: LinkService, useValue: linkService },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -102,17 +124,17 @@ describe('ResourcePolicyCreateComponent test suite', () => {
         ResourcePolicyCreateComponent,
         ChangeDetectorRef,
         Injector,
-    ],
-    schemas: [
+      ],
+      schemas: [
         NO_ERRORS_SCHEMA,
-    ],
-})
-.overrideComponent(ResourcePolicyCreateComponent, {
-  remove: {
-    imports: [ResourcePolicyFormComponent]
-  }
-})
-.compileComponents();
+      ],
+    })
+      .overrideComponent(ResourcePolicyCreateComponent, {
+        remove: {
+          imports: [ResourcePolicyFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -264,9 +286,9 @@ describe('ResourcePolicyCreateComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

@@ -1,17 +1,23 @@
-import { Component, Input, OnInit, } from '@angular/core';
-
-import { MetadataMap, MetadataValue, } from '../../../../../core/shared/metadata.models';
-import { Metadata } from '../../../../../core/shared/metadata.utils';
 import {
-  WorkspaceitemSectionUploadFileObject
-} from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { isNotEmpty } from '../../../../../shared/empty.util';
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
-  SubmissionSectionUploadAccessConditionsComponent
-} from '../../accessConditions/submission-section-upload-access-conditions.component';
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../../../../../core/shared/metadata.models';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { isNotEmpty } from '../../../../../shared/empty.util';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { NgForOf, NgIf } from '@angular/common';
+import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
 
 /**
  * This component allow to show bitstream's metadata
@@ -24,9 +30,9 @@ import { NgForOf, NgIf } from '@angular/common';
     TranslateModule,
     TruncatePipe,
     NgIf,
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionSectionUploadFileViewComponent implements OnInit {
 

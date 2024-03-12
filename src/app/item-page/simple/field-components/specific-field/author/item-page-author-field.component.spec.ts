@@ -7,6 +7,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -15,9 +16,8 @@ import {
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
-import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
-import { ActivatedRoute } from '@angular/router';
+import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
@@ -32,19 +32,19 @@ const mockValue = 'test value';
 describe('ItemPageAuthorFieldComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), ItemPageAuthorFieldComponent, MetadataValuesComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), ItemPageAuthorFieldComponent, MetadataValuesComponent],
+      providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemPageAuthorFieldComponent, {
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ItemPageAuthorFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

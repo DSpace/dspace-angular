@@ -11,10 +11,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { IdlePreloadModule } from 'angular-idle-preload';
 import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
+
 import { AppModule } from '../../app/app.module';
 import { BrowseByPageModule } from '../../app/browse-by/browse-by-page.module';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
-import { MenuModule } from '../../app/shared/menu/menu.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
@@ -23,6 +23,7 @@ import { RegisterEmailFormModule } from '../../app/register-email-form/register-
 import { RootModule } from '../../app/root.module';
 import { SearchPageModule } from '../../app/search-page/search-page.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { MenuModule } from '../../app/shared/menu/menu.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { SearchModule } from '../../app/shared/search/search.module';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
@@ -64,7 +65,7 @@ const DECLARATIONS = [
     SearchModule,
     FormsModule,
     ResourcePoliciesModule,
-],
+  ],
   declarations: DECLARATIONS,
 })
 

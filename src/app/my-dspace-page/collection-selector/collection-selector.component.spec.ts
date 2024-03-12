@@ -1,9 +1,11 @@
 /* eslint-disable max-classes-per-file */
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ChangeDetectorRef,
   ElementRef,
@@ -11,11 +13,16 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
+  ComponentFixture,
+  TestBed,
   TestBed,
   waitForAsync,
+  waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRoute,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -41,7 +48,10 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { MockElementRef } from '../../shared/testing/element-ref.mock';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import {
+  createPaginatedList,
+  createPaginatedList,
+} from '../../shared/testing/utils.test';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CollectionSelectorComponent } from './collection-selector.component';
 
@@ -129,8 +139,8 @@ describe('CollectionSelectorComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         CollectionSelectorComponent,
         // CollectionDropdownComponent,
@@ -147,8 +157,8 @@ describe('CollectionSelectorComponent', () => {
     })
       .overrideComponent(CollectionSelectorComponent, {
         set: {
-          changeDetection: ChangeDetectionStrategy.Default
-        }
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
       })
       .compileComponents();
   }));
@@ -174,7 +184,7 @@ describe('CollectionSelectorComponent', () => {
     scheduler.flush();
     fixture.detectChanges();
 
-    component.selectObject({collection: {name: 'test', id: 'test', uuid: 'test'}, communities: []});
+    component.selectObject({ collection: { name: 'test', id: 'test', uuid: 'test' }, communities: [] });
 
     expect(component.selectObject).toHaveBeenCalled();
   });
@@ -193,7 +203,7 @@ describe('CollectionSelectorComponent', () => {
             class="dropdown-item collection-item"
             title="test" >
     </li>`,
-  standalone: true
+  standalone: true,
 })
 export class CollectionDropdownStubComponent {
   test() {

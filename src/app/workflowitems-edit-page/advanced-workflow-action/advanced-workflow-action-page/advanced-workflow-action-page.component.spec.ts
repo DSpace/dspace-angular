@@ -4,8 +4,8 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { AdvancedWorkflowActionsLoaderComponent } from '../advanced-workflow-actions-loader/advanced-workflow-actions-loader.component';
 
+import { AdvancedWorkflowActionsLoaderComponent } from '../advanced-workflow-actions-loader/advanced-workflow-actions-loader.component';
 import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action-page.component';
 
 describe('AdvancedWorkflowActionPageComponent', () => {
@@ -14,26 +14,26 @@ describe('AdvancedWorkflowActionPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         AdvancedWorkflowActionPageComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         {
-            provide: ActivatedRoute,
-            useValue: {
-                snapshot: {
-                    queryParams: {
-                        workflow: 'testaction',
-                    },
-                },
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              queryParams: {
+                workflow: 'testaction',
+              },
             },
+          },
         },
-    ]
-}).overrideComponent(AdvancedWorkflowActionPageComponent, {
-  remove: { imports: [AdvancedWorkflowActionsLoaderComponent] }
-})
-.compileComponents();
+      ],
+    }).overrideComponent(AdvancedWorkflowActionPageComponent, {
+      remove: { imports: [AdvancedWorkflowActionsLoaderComponent] },
+    })
+      .compileComponents();
   });
 
   beforeEach(() => {

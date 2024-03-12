@@ -1,22 +1,26 @@
 import {
-  EditBitstreamPageComponent as BaseComponent
-} from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormComponent } from '../../../../../app/shared/form/form.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-thumbnail.component';
-import { RouterLink } from '@angular/router';
-import { ErrorComponent } from '../../../../../app/shared/error/error.component';
-import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { FileSizePipe } from '../../../../../app/shared/utils/file-size-pipe';
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectionStrategy,
+  Component,
   Component,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { EditBitstreamPageComponent as BaseComponent } from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
+import {
+  EditBitstreamPageComponent as BaseComponent,
+  EditBitstreamPageComponent as BaseComponent,
+} from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
+import { ErrorComponent } from '../../../../../app/shared/error/error.component';
+import { FormComponent } from '../../../../../app/shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
+import { FileSizePipe } from '../../../../../app/shared/utils/file-size-pipe';
+import { VarDirective } from '../../../../../app/shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-thumbnail.component';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -36,7 +40,7 @@ import { EditBitstreamPageComponent as BaseComponent } from '../../../../../app/
     ErrorComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    FileSizePipe
+    FileSizePipe,
   ],
 })
 export class EditBitstreamPageComponent extends BaseComponent {

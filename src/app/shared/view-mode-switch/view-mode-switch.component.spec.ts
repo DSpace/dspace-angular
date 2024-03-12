@@ -1,8 +1,20 @@
-import { ChangeDetectionStrategy, Component, } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
@@ -11,8 +23,8 @@ import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
 @Component({
-    template: '',
-    standalone: true
+  template: '',
+  standalone: true,
 })
 class DummyComponent {
 }
@@ -26,23 +38,23 @@ describe('ViewModeSwitchComponent', () => {
   let detailButton: HTMLElement;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         RouterTestingModule.withRoutes([
-            { path: 'search', component: DummyComponent, pathMatch: 'full' },
+          { path: 'search', component: DummyComponent, pathMatch: 'full' },
         ]),
         ViewModeSwitchComponent,
-        DummyComponent
-    ],
-    providers: [
+        DummyComponent,
+      ],
+      providers: [
         { provide: SearchService, useValue: searchService },
-    ]
-}).overrideComponent(ViewModeSwitchComponent, {
+      ],
+    }).overrideComponent(ViewModeSwitchComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

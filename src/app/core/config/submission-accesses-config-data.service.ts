@@ -14,7 +14,7 @@ import { SubmissionAccessesModel } from './models/config-submission-accesses.mod
 /**
  * Provides methods to retrieve, from REST server, bitstream access conditions configurations applicable during the submission process.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SubmissionAccessesConfigDataService extends ConfigDataService {
   constructor(
     protected requestService: RequestService,

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { DebugElement } from '@angular/core';
 import {
   ComponentFixture,
@@ -5,6 +6,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   TranslateLoader,
   TranslateModule,
@@ -13,8 +15,6 @@ import {
 
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { ErrorComponent } from './error.component';
-import { CommonModule } from '@angular/common';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ErrorComponent (inline template)', () => {
 
@@ -34,7 +34,7 @@ describe('ErrorComponent (inline template)', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        ErrorComponent
+        ErrorComponent,
       ],
       providers: [TranslateService],
     }).compileComponents();  // compile template and css

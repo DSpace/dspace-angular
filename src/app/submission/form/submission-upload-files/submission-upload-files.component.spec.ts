@@ -1,13 +1,26 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
-import { cold, hot, } from 'jasmine-marbles';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import {
-  SubmissionJsonPatchOperationsService
-} from '../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import {
   mockSectionsData,
   mockSubmissionCollectionId,
@@ -21,9 +34,7 @@ import { getMockTranslateService } from '../../../shared/mocks/translate.service
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import {
-  SubmissionJsonPatchOperationsServiceStub
-} from '../../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
@@ -53,12 +64,12 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         SubmissionUploadFilesComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SectionsService, useClass: SectionsServiceStub },
@@ -67,9 +78,9 @@ describe('SubmissionUploadFilesComponent Component', () => {
         { provide: Store, useValue: store },
         ChangeDetectorRef,
         SubmissionUploadFilesComponent,
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   describe('', () => {
@@ -201,9 +212,9 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

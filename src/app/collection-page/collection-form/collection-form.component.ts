@@ -1,17 +1,36 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormOptionConfig,
   DynamicFormService,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  Observable,
+} from 'rxjs';
 import {
   hasNoValue,
+  hasNoValue,
+  isNotNull,
   isNotNull,
 } from 'src/app/shared/empty.util';
 
@@ -22,22 +41,22 @@ import { EntityTypeDataService } from '../../core/data/entity-type-data.service'
 import { RequestService } from '../../core/data/request.service';
 import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import {
+  NONE_ENTITY_TYPE,
+  NONE_ENTITY_TYPE,
+} from '../../core/shared/item-relationships/item-type.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
-import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
-import { FormComponent } from '../../shared/form/form.component';
-import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import { VarDirective } from '../../shared/utils/var.directive';
-
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   collectionFormEntityTypeSelectionConfig,
+  collectionFormEntityTypeSelectionConfig,
+  collectionFormModels,
   collectionFormModels,
 } from './collection-form.models';
 
@@ -57,7 +76,7 @@ import {
     ComcolPageLogoComponent,
     NgIf,
     NgClass,
-    VarDirective
+    VarDirective,
   ],
 })
 export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {

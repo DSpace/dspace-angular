@@ -1,6 +1,16 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -8,10 +18,10 @@ import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dy
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { StartsWithType } from './starts-with-type';
 import { RouterStub } from '../testing/router.stub';
 import { ThemeService } from '../theme-support/theme.service';
 import { StartsWithLoaderComponent } from './starts-with-loader.component';
+import { StartsWithType } from './starts-with-type';
 import { StartsWithTextComponent } from './text/starts-with-text.component';
 
 describe('StartsWithLoaderComponent', () => {
@@ -30,20 +40,20 @@ describe('StartsWithLoaderComponent', () => {
     themeService = getMockThemeService('dspace');
 
     void TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         StartsWithTextComponent,
-        StartsWithLoaderComponent
-    ],
-    declarations: [DynamicComponentLoaderDirective],
-    providers: [
+        StartsWithLoaderComponent,
+      ],
+      declarations: [DynamicComponentLoaderDirective],
+      providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: new RouterStub() },
         { provide: ThemeService, useValue: themeService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(StartsWithLoaderComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(StartsWithLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [StartsWithTextComponent],

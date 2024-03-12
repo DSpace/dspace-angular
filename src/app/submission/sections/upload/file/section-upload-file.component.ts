@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnChanges,
@@ -8,8 +12,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import {
+  NgbModalOptions,
+  NgbModalOptions,
+} from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -20,26 +28,23 @@ import { filter } from 'rxjs/operators';
 import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
+import {
+  Bitstream,
+  Bitstream,
+} from '../../../../core/shared/bitstream.model';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import {
   hasValue,
   isNotUndefined,
 } from '../../../../shared/empty.util';
+import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
-import { TranslateModule } from '@ngx-translate/core';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import {
-  ThemedFileDownloadLinkComponent
-} from '../../../../shared/file-download-link/themed-file-download-link.component';
-import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -54,9 +59,9 @@ import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
     NgIf,
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
-    FileSizePipe
+    FileSizePipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, OnDestroy {
   /**

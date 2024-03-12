@@ -7,10 +7,10 @@ import { SubmissionSubmitComponent } from './submission-submit.component';
  * Themed wrapper for SubmissionSubmitComponent
  */
 @Component({
-    selector: 'ds-themed-submission-submit',
-    styleUrls: [],
-    templateUrl: './../../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-submission-submit',
+  styleUrls: [],
+  templateUrl: './../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSubmissionSubmitComponent extends ThemedComponent<SubmissionSubmitComponent> {
   protected getComponentName(): string {

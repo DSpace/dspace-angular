@@ -1,5 +1,9 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -9,15 +13,13 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { ItemAdminSearchResultListElementComponent } from './item-admin-search-result-list-element.component';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-result-actions.component';
+import { ItemAdminSearchResultListElementComponent } from './item-admin-search-result-list-element.component';
 
 describe('ItemAdminSearchResultListElementComponent', () => {
   let component: ItemAdminSearchResultListElementComponent;
@@ -35,20 +37,20 @@ describe('ItemAdminSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        ItemAdminSearchResultListElementComponent
-    ],
-    providers: [
+        ItemAdminSearchResultListElementComponent,
+      ],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+        { provide: APP_CONFIG, useValue: environment },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(ItemAdminSearchResultListElementComponent, {
-        remove: { imports: [ListableObjectComponentLoaderComponent, ItemAdminSearchResultActionsComponent]}
+        remove: { imports: [ListableObjectComponentLoaderComponent, ItemAdminSearchResultActionsComponent] },
       })
       .compileComponents();
   }));

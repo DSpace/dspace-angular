@@ -1,37 +1,44 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+} from '@angular/common';
+import {
   Component,
   forwardRef,
   Input,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { hasValue } from '../../empty.util';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { NgClass, NgFor, AsyncPipe } from '@angular/common';
-import { DebounceDirective } from '../../utils/debounce.directive';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
-import { TranslateModule } from '@ngx-translate/core';
+import { DebounceDirective } from '../../utils/debounce.directive';
+import { InputSuggestionsComponent } from '../input-suggestions.component';
 
 @Component({
-    selector: 'ds-dso-input-suggestions',
-    styleUrls: ['./../input-suggestions.component.scss'],
-    templateUrl: './dso-input-suggestions.component.html',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
-            // eslint-disable-next-line @angular-eslint/no-forward-ref
-            useExisting: forwardRef(() => DsoInputSuggestionsComponent),
-            multi: true
-        }
-    ],
-    standalone: true,
-    imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, ListableObjectComponentLoaderComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-dso-input-suggestions',
+  styleUrls: ['./../input-suggestions.component.scss'],
+  templateUrl: './dso-input-suggestions.component.html',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
+      // eslint-disable-next-line @angular-eslint/no-forward-ref
+      useExisting: forwardRef(() => DsoInputSuggestionsComponent),
+      multi: true,
+    },
+  ],
+  standalone: true,
+  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, ListableObjectComponentLoaderComponent, AsyncPipe, TranslateModule],
 })
 
 /**

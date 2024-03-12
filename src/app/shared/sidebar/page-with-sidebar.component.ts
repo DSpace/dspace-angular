@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
@@ -6,19 +10,18 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NgTemplateOutlet, AsyncPipe } from '@angular/common';
 
 import { pushInOut } from '../animations/push';
 import { HostWindowService } from '../host-window.service';
 import { SidebarService } from './sidebar.service';
 
 @Component({
-    selector: 'ds-page-with-sidebar',
-    styleUrls: ['./page-with-sidebar.component.scss'],
-    templateUrl: './page-with-sidebar.component.html',
-    animations: [pushInOut],
-    standalone: true,
-    imports: [NgTemplateOutlet, AsyncPipe]
+  selector: 'ds-page-with-sidebar',
+  styleUrls: ['./page-with-sidebar.component.scss'],
+  templateUrl: './page-with-sidebar.component.html',
+  animations: [pushInOut],
+  standalone: true,
+  imports: [NgTemplateOutlet, AsyncPipe],
 })
 /**
  * This component takes care of displaying the sidebar properly on all viewports. It does not

@@ -1,27 +1,22 @@
 import { Route } from '@angular/router';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
+
 import { CollectionPageResolver } from '../collection-page/collection-page.resolver';
 import { CommunityPageResolver } from '../community-page/community-page.resolver';
-import {
-  ThemedCollectionStatisticsPageComponent
-} from './collection-statistics-page/themed-collection-statistics-page.component';
-import {
-  ThemedCommunityStatisticsPageComponent
-} from './community-statistics-page/themed-community-statistics-page.component';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
+import { StatisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { ItemResolver } from '../item-page/item.resolver';
+import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
+import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
-import { ItemResolver } from '../item-page/item.resolver';
-import {
-  StatisticsAdministratorGuard
-} from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 
 const providers = [
   I18nBreadcrumbResolver,
   I18nBreadcrumbsService,
   CollectionPageResolver,
   CommunityPageResolver,
-  ItemResolver
+  ItemResolver,
 ];
 
 export const ROUTES: Route[] = [
@@ -29,11 +24,11 @@ export const ROUTES: Route[] = [
     path: '',
     providers,
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver
+      breadcrumb: I18nBreadcrumbResolver,
     },
     data: {
       title: 'statistics.title',
-      breadcrumbKey: 'statistics'
+      breadcrumbKey: 'statistics',
     },
     children: [
       {
@@ -41,48 +36,48 @@ export const ROUTES: Route[] = [
         component: ThemedSiteStatisticsPageComponent,
       },
     ],
-    canActivate: [StatisticsAdministratorGuard]
+    canActivate: [StatisticsAdministratorGuard],
   },
   {
     path: `items/:id`,
     providers,
     resolve: {
       scope: ItemResolver,
-      breadcrumb: I18nBreadcrumbResolver
+      breadcrumb: I18nBreadcrumbResolver,
     },
     data: {
       title: 'statistics.title',
-      breadcrumbKey: 'statistics'
+      breadcrumbKey: 'statistics',
     },
     component: ThemedItemStatisticsPageComponent,
-    canActivate: [StatisticsAdministratorGuard]
+    canActivate: [StatisticsAdministratorGuard],
   },
   {
     path: `collections/:id`,
     providers,
     resolve: {
       scope: CollectionPageResolver,
-      breadcrumb: I18nBreadcrumbResolver
+      breadcrumb: I18nBreadcrumbResolver,
     },
     data: {
       title: 'statistics.title',
-      breadcrumbKey: 'statistics'
+      breadcrumbKey: 'statistics',
     },
     component: ThemedCollectionStatisticsPageComponent,
-    canActivate: [StatisticsAdministratorGuard]
+    canActivate: [StatisticsAdministratorGuard],
   },
   {
     path: `communities/:id`,
     providers,
     resolve: {
       scope: CommunityPageResolver,
-      breadcrumb: I18nBreadcrumbResolver
+      breadcrumb: I18nBreadcrumbResolver,
     },
     data: {
       title: 'statistics.title',
-      breadcrumbKey: 'statistics'
+      breadcrumbKey: 'statistics',
     },
     component: ThemedCommunityStatisticsPageComponent,
-    canActivate: [StatisticsAdministratorGuard]
+    canActivate: [StatisticsAdministratorGuard],
   },
 ];

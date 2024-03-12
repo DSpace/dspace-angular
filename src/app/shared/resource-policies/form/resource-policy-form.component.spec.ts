@@ -1,16 +1,38 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { NgxMaskModule } from 'ngx-mask';
 import { of as observableOf } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  APP_DYNAMIC_FORM_CONTROL_FN,
+} from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
@@ -21,9 +43,16 @@ import { ActionType } from '../../../core/resource-policy/models/action-type.mod
 import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { dateToISOFormat, stringToNgbDateStruct, } from '../../date.util';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { SubmissionService } from '../../../submission/submission.service';
+import {
+  dateToISOFormat,
+  stringToNgbDateStruct,
+} from '../../date.util';
 import { isNotEmptyOperator } from '../../empty.util';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
+import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import { DsDynamicTypeBindRelationService } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../form/builder/form-builder.service';
 import { FormComponent } from '../../form/form.component';
 import { FormService } from '../../form/form.service';
@@ -34,18 +63,11 @@ import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { GroupMock } from '../../testing/group-mock';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import {
-  DsDynamicTypeBindRelationService
-} from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { SubmissionService } from '../../../submission/submission.service';
-import { APP_CONFIG, APP_DATA_SERVICES_MAP, APP_DYNAMIC_FORM_CONTROL_FN } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
-import { NgxMaskModule } from 'ngx-mask';
-import { provideMockStore } from '@ngrx/store/testing';
-import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { createTestComponent } from '../../testing/utils.test';
-import { ResourcePolicyEvent, ResourcePolicyFormComponent, } from './resource-policy-form.component';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from './resource-policy-form.component';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -182,7 +204,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
   };
 
   beforeEach(waitForAsync(() => {
-   TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [
         CommonModule,
         FormsModule,
@@ -212,18 +234,18 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
-        provideMockStore({})
+        provideMockStore({}),
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
     })
-    .overrideComponent(ResourcePolicyFormComponent, {
-      remove: {
-        imports: [EpersonGroupListComponent]
-      }
-    })
-    .compileComponents();
+      .overrideComponent(ResourcePolicyFormComponent, {
+        remove: {
+          imports: [EpersonGroupListComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -473,7 +495,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
     CommonModule,
     FormsModule,
     NgbModule,
-    ReactiveFormsModule]
+    ReactiveFormsModule],
 })
 class TestComponent {
 

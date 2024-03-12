@@ -12,14 +12,20 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterLinkWithHref } from '@angular/router';
+import {
+  RouterLinkWithHref,
+  RouterLinkWithHref,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
+import {
+  v4 as uuidv4,
+  v4 as uuidv4,
+} from 'uuid';
 
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Collection } from '../../core/shared/collection.model';
@@ -29,19 +35,17 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
 import {
   CommunityListService,
   showMoreFlatNode,
   toFlatNode,
 } from '../community-list-service';
 import { FlatNode } from '../flat-node.model';
-import { RouterLinkWithHref } from '@angular/router';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
-import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { v4 as uuidv4 } from 'uuid';
 import { CommunityListComponent } from './community-list.component';
 
 describe('CommunityListComponent', () => {
@@ -212,29 +216,29 @@ describe('CommunityListComponent', () => {
       },
     };
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
-            },
+          },
         }),
         CdkTreeModule,
         RouterTestingModule,
         RouterLinkWithHref,
-        CommunityListComponent
-    ],
-    providers: [CommunityListComponent,
+        CommunityListComponent,
+      ],
+      providers: [CommunityListComponent,
         { provide: CommunityListService, useValue: communityListServiceStub }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
       .overrideComponent(CommunityListComponent, {
         remove: {
           imports: [
             ThemedLoadingComponent,
             TruncatableComponent,
             TruncatablePartComponent,
-          ]}
+          ] },
       })
       .compileComponents();
   }));

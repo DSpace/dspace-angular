@@ -17,8 +17,8 @@ describe('ItemOperationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemOperationComponent],
-}).compileComponents();
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemOperationComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

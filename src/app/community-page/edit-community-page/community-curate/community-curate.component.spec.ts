@@ -12,11 +12,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Community } from '../../../core/shared/community.model';
+import {
+  Community,
+  Community,
+} from '../../../core/shared/community.model';
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CommunityCurateComponent } from './community-curate.component';
-import { Community } from '../../../core/shared/community.model';
-import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 
 describe('CommunityCurateComponent', () => {
   let comp: CommunityCurateComponent;
@@ -53,8 +55,8 @@ describe('CommunityCurateComponent', () => {
     })
       .overrideComponent(CommunityCurateComponent, {
         remove: {
-          imports: [CurationFormComponent]
-        }
+          imports: [CurationFormComponent],
+        },
       })
       .compileComponents();
   }));

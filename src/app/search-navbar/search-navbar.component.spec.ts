@@ -1,10 +1,25 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationExtras, Router, } from '@angular/router';
+import {
+  NavigationExtras,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
@@ -24,23 +39,23 @@ describe('SearchNavbarComponent', () => {
     };
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
         RouterTestingModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        SearchNavbarComponent
-    ],
-    providers: [
+        SearchNavbarComponent,
+      ],
+      providers: [
         { provide: SearchService, useValue: mockSearchService },
       ],
-})
+    })
       .compileComponents();
   }));
 

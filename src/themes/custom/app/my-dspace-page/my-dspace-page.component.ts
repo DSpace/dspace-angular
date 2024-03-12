@@ -1,22 +1,23 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { pushInOut } from '../../../../app/shared/animations/push';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
+import { MyDSpaceConfigurationService } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { MyDSpaceNewSubmissionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
 import {
   MyDSpacePageComponent as BaseComponent,
-  SEARCH_CONFIG_SERVICE
+  SEARCH_CONFIG_SERVICE,
 } from '../../../../app/my-dspace-page/my-dspace-page.component';
-import { MyDSpaceConfigurationService } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
-import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
-import {
-  MyDSpaceNewSubmissionComponent
-} from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { MyDspaceQaEventsNotificationsComponent } from '../../../../app/my-dspace-page/my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
+import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions-notification/suggestions-notification.component';
+import { pushInOut } from '../../../../app/shared/animations/push';
 import { RoleDirective } from '../../../../app/shared/roles/role.directive';
-import {
-  MyDspaceQaEventsNotificationsComponent
-} from '../../../../app/my-dspace-page/my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
-import {
-  SuggestionsNotificationComponent
-} from '../../../../app/notifications/suggestions-notification/suggestions-notification.component';
+import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
 
 /**
  * This component represents the whole mydspace page
@@ -32,8 +33,8 @@ import {
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: MyDSpaceConfigurationService
-    }
+      useClass: MyDSpaceConfigurationService,
+    },
   ],
   standalone: true,
   imports: [
@@ -43,7 +44,7 @@ import {
     SuggestionsNotificationComponent,
     AsyncPipe,
     RoleDirective,
-    NgIf
+    NgIf,
   ],
 })
 export class MyDSpacePageComponent extends BaseComponent {

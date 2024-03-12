@@ -1,35 +1,42 @@
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { of, of as observableOf } from 'rxjs';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SubmissionService } from '../submission.service';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-
-import { RouterStub } from '../../shared/testing/router.stub';
-import {
-  SubmissionJsonPatchOperationsServiceStub
-} from '../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionEditComponent } from './submission-edit.component';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { SectionsService } from '../sections/sections.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
 import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { provideMockStore } from '@ngrx/store/testing';
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import { SectionsService } from '../sections/sections.service';
+import { SubmissionService } from '../submission.service';
+import { SubmissionEditComponent } from './submission-edit.component';
 
 describe('SubmissionEditComponent Component', () => {
 
@@ -53,18 +60,18 @@ describe('SubmissionEditComponent Component', () => {
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: of('fake-url')
+      getEndpoint: of('fake-url'),
     });
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([
-            { path: ':id/edit', component: SubmissionEditComponent, pathMatch: 'full' },
+          { path: ':id/edit', component: SubmissionEditComponent, pathMatch: 'full' },
         ]),
-        SubmissionEditComponent
-    ],
-    providers: [
+        SubmissionEditComponent,
+      ],
+      providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
@@ -77,10 +84,10 @@ describe('SubmissionEditComponent Component', () => {
         { provide: SectionsService, useValue: new SectionsServiceStub() },
         { provide: ThemeService, useValue: themeService },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        provideMockStore()
-    ],
+        provideMockStore(),
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

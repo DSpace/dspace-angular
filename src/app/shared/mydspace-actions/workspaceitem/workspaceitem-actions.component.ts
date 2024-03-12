@@ -1,12 +1,25 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Injector,
   Input,
   OnInit,
 } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -28,7 +41,6 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
-import { NgIf, AsyncPipe } from '@angular/common';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
@@ -36,11 +48,11 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
  * This component represents actions related to WorkspaceItem object.
  */
 @Component({
-    selector: 'ds-workspaceitem-actions',
-    styleUrls: ['./workspaceitem-actions.component.scss'],
-    templateUrl: './workspaceitem-actions.component.html',
-    standalone: true,
-    imports: [NgbTooltipModule, RouterLink, NgIf, AsyncPipe, TranslateModule]
+  selector: 'ds-workspaceitem-actions',
+  styleUrls: ['./workspaceitem-actions.component.scss'],
+  templateUrl: './workspaceitem-actions.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, RouterLink, NgIf, AsyncPipe, TranslateModule],
 })
 export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<WorkspaceItem, WorkspaceitemDataService> implements OnInit {
 

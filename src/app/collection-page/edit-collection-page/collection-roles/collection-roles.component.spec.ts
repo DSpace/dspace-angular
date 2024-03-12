@@ -1,40 +1,52 @@
 import {
   DebugElement,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  By,
+  By,
+} from '@angular/platform-browser';
+import {
+  NoopAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  RouterTestingModule,
+  RouterTestingModule,
+} from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { CollectionRolesComponent } from './collection-roles.component';
-import { Collection } from '../../../core/shared/collection.model';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../core/data/request.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { ComcolModule } from '../../../shared/comcol/comcol.module';
+import {
+  GroupDataService,
+  GroupDataService,
+} from '../../../core/eperson/group-data.service';
+import {
+  Collection,
+  Collection,
+} from '../../../core/shared/collection.model';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { SharedModule } from '../../../shared/shared.module';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { CollectionRolesComponent } from './collection-roles.component';
+import {
+  CollectionRolesComponent,
+  CollectionRolesComponent,
+} from './collection-roles.component';
 
 describe('CollectionRolesComponent', () => {
 
@@ -87,21 +99,21 @@ describe('CollectionRolesComponent', () => {
     };
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule,
-        CollectionRolesComponent
-    ],
-    providers: [
+        CollectionRolesComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: RequestService, useValue: requestService },
         { provide: GroupDataService, useValue: groupDataService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CollectionRolesComponent);
     comp = fixture.componentInstance;

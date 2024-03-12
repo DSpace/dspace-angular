@@ -1,33 +1,43 @@
 // eslint-disable-next-line max-classes-per-file
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  ComponentFixture,
+  TestBed,
   TestBed,
   waitForAsync,
+  waitForAsync,
 } from '@angular/core/testing';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { Item } from '../../../../core/shared/item.model';
+import {
+  Item,
+  Item,
+} from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { Item } from '../../../../core/shared/item.model';
-import { EditRelationshipComponent } from './edit-relationship.component';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { EditRelationshipComponent } from './edit-relationship.component';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 import {
-  ListableObjectComponentLoaderComponent
-} from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+  EditRelationshipComponent,
+  EditRelationshipComponent,
+} from './edit-relationship.component';
 
 let objectUpdatesService;
 const url = 'http://test-url.com/test-url';
@@ -134,25 +144,25 @@ describe('EditRelationshipComponent', () => {
 
     mockNgbModal = {
       open: jasmine.createSpy('open').and.returnValue(
-        { componentInstance: {}, closed: observableOf({})} as NgbModalRef
-      )
+        { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+      ),
     };
 
     spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => observableOf(itemSelection[uuid]));
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), EditRelationshipComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), EditRelationshipComponent],
+      providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NgbModal, useValue: mockNgbModal },
-        { provide: ThemeService, useValue: getMockThemeService() }
-    ], schemas: [
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ], schemas: [
         NO_ERRORS_SCHEMA,
-    ],
-})
+      ],
+    })
       .overrideComponent(EditRelationshipComponent, {
         remove: { imports: [ VirtualMetadataComponent, ListableObjectComponentLoaderComponent ] },
-        add: { imports: [ MockVirtualMetadataComponent, MockListableObjectComponentLoaderComponent ] }
+        add: { imports: [ MockVirtualMetadataComponent, MockListableObjectComponentLoaderComponent ] },
       })
       .compileComponents();
   }));
@@ -242,7 +252,7 @@ describe('EditRelationshipComponent', () => {
 @Component({
   selector: 'ds-virtual-metadata',
   template: ``,
-  standalone: true
+  standalone: true,
 })
 class MockVirtualMetadataComponent {}
 

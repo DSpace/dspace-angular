@@ -52,17 +52,17 @@ describe('DsoEditMenuComponent', () => {
     });
     spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([section]));
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule, DsoPageModule, DsoEditMenuComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule, DsoPageModule, DsoEditMenuComponent],
+      providers: [
         Injector,
         { provide: MenuService, useValue: menuService },
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ThemeService, useValue: getMockThemeService() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,9 +1,37 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
@@ -18,11 +46,10 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { getEPersonEditRoute } from '../../../access-control-routing-paths';
 
 // todo: optimize imports
@@ -77,9 +104,9 @@ export interface EPersonListActionConfig {
     AsyncPipe,
     RouterLink,
     NgClass,
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * The list of members in the edit group page

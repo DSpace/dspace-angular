@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
@@ -10,7 +14,6 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-eperson-data',
@@ -18,7 +21,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
   standalone: true,
   imports: [
     NgIf,
-    AsyncPipe
+    AsyncPipe,
   ],
   styleUrls: ['./ePerson-data.component.scss'],
 })

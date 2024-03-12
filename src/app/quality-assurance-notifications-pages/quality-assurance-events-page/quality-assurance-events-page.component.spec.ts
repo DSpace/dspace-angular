@@ -1,8 +1,12 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed, } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 
-import { QualityAssuranceEventsPageComponent } from './quality-assurance-events-page.component';
 import { QualityAssuranceEventsComponent } from '../../../notifications/qa/events/quality-assurance-events.component';
+import { QualityAssuranceEventsPageComponent } from './quality-assurance-events-page.component';
 
 describe('QualityAssuranceEventsPageComponent', () => {
   let component: QualityAssuranceEventsPageComponent;
@@ -10,13 +14,13 @@ describe('QualityAssuranceEventsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [QualityAssuranceEventsPageComponent],
-    schemas: [NO_ERRORS_SCHEMA],
-})
-    .overrideComponent(AdminQualityAssuranceEventsPageComponent, {
+      imports: [QualityAssuranceEventsPageComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(AdminQualityAssuranceEventsPageComponent, {
         remove: {
-          imports: [QualityAssuranceEventsComponent]
-        }
+          imports: [QualityAssuranceEventsComponent],
+        },
       })
       .compileComponents();
   }));

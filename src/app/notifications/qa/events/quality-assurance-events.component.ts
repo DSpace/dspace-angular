@@ -1,21 +1,56 @@
-import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, from, Observable, of, Subscription, } from 'rxjs';
-import { distinctUntilChanged, last, map, mergeMap, scan, switchMap, take, tap, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  from,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  last,
+  map,
+  mergeMap,
+  scan,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { SortDirection, SortOptions, } from '../../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import {
-  QualityAssuranceEventDataService
-} from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
 import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
@@ -24,32 +59,34 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData, getRemoteDataPayload, } from '../../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { hasValue } from '../../../shared/empty.util';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   ProjectEntryImportModalComponent,
   QualityAssuranceEventData,
 } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { AlertComponent } from '../../../shared/alert/alert.component';
 import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
 
 /**
  * Component to display the Quality Assurance event list.
  */
 @Component({
-    selector: 'ds-quality-assurance-events',
-    templateUrl: './quality-assurance-events.component.html',
-    styleUrls: ['./quality-assurance-events.component.scss'],
-    standalone: true,
-  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent]
+  selector: 'ds-quality-assurance-events',
+  templateUrl: './quality-assurance-events.component.html',
+  styleUrls: ['./quality-assurance-events.component.scss'],
+  standalone: true,
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent],
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**

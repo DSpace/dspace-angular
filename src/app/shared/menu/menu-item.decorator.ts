@@ -1,8 +1,8 @@
-import { MenuItemType } from './menu-item-type.model';
 import { ExternalLinkMenuItemComponent } from './menu-item/external-link-menu-item.component';
 import { LinkMenuItemComponent } from './menu-item/link-menu-item.component';
 import { OnClickMenuItemComponent } from './menu-item/onclick-menu-item.component';
 import { TextMenuItemComponent } from './menu-item/text-menu-item.component';
+import { MenuItemType } from './menu-item-type.model';
 
 const menuMenuItemComponentMap = new Map();
 

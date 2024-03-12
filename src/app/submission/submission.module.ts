@@ -1,12 +1,19 @@
-import { CommonModule, NgOptimizedImage, } from '@angular/common';
+import {
+  CommonModule,
+  NgOptimizedImage,
+} from '@angular/common';
 import { NgModule } from '@angular/core';
-
-import { SubmissionSectionFormComponent } from './sections/form/section-form.component';
-import { SectionsDirective } from './sections/sections.directive';
-import { SectionsService } from './sections/sections.service';
-import { NgbAccordionModule, NgbCollapseModule, NgbModalModule, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAccordionModule,
+  NgbCollapseModule,
+  NgbModalModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
-import { Action, StoreConfig, StoreModule, } from '@ngrx/store';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
 
 import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { storeModuleConfig } from '../app.reducer';
@@ -21,55 +28,43 @@ import { SubmissionFormFooterComponent } from './form/footer/submission-form-foo
 import { SubmissionFormSectionAddComponent } from './form/section-add/submission-form-section-add.component';
 import { SubmissionFormComponent } from './form/submission-form.component';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
-import {
-  SubmissionImportExternalCollectionComponent
-} from './import-external/import-external-collection/submission-import-external-collection.component';
-import {
-  SubmissionImportExternalPreviewComponent
-} from './import-external/import-external-preview/submission-import-external-preview.component';
-import {
-  SubmissionImportExternalSearchbarComponent
-} from './import-external/import-external-searchbar/submission-import-external-searchbar.component';
+import { SubmissionImportExternalCollectionComponent } from './import-external/import-external-collection/submission-import-external-collection.component';
+import { SubmissionImportExternalPreviewComponent } from './import-external/import-external-preview/submission-import-external-preview.component';
+import { SubmissionImportExternalSearchbarComponent } from './import-external/import-external-searchbar/submission-import-external-searchbar.component';
 import { SubmissionImportExternalComponent } from './import-external/submission-import-external.component';
-import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
-import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 import { ThemedSubmissionImportExternalComponent } from './import-external/themed-submission-import-external.component';
-import {
-  ThemedSubmissionSectionUploadFileComponent
-} from './sections/upload/file/themed-section-upload-file.component';
 import { SubmissionSectionAccessesComponent } from './sections/accesses/section-accesses.component';
 import { SectionAccessesService } from './sections/accesses/section-accesses.service';
+import { SubmissionSectionCcLicensesComponent } from './sections/cc-license/submission-section-cc-licenses.component';
 import { SubmissionSectionContainerComponent } from './sections/container/section-container.component';
 import { SubmissionSectionDuplicatesComponent } from './sections/duplicates/section-duplicates.component';
+import { SubmissionSectionFormComponent } from './sections/form/section-form.component';
 import { SectionFormOperationsService } from './sections/form/section-form-operations.service';
 import { SubmissionSectionIdentifiersComponent } from './sections/identifiers/section-identifiers.component';
 import { SubmissionSectionLicenseComponent } from './sections/license/section-license.component';
 import { CoarNotifyConfigDataService } from './sections/section-coar-notify/coar-notify-config-data.service';
 import { SubmissionSectionCoarNotifyComponent } from './sections/section-coar-notify/section-coar-notify.component';
+import { SectionsDirective } from './sections/sections.directive';
+import { SectionsService } from './sections/sections.service';
 import { ContentAccordionComponent } from './sections/sherpa-policies/content-accordion/content-accordion.component';
-import {
-  MetadataInformationComponent
-} from './sections/sherpa-policies/metadata-information/metadata-information.component';
-import {
-  PublicationInformationComponent
-} from './sections/sherpa-policies/publication-information/publication-information.component';
+import { MetadataInformationComponent } from './sections/sherpa-policies/metadata-information/metadata-information.component';
+import { PublicationInformationComponent } from './sections/sherpa-policies/publication-information/publication-information.component';
 import { PublisherPolicyComponent } from './sections/sherpa-policies/publisher-policy/publisher-policy.component';
 import { SubmissionSectionSherpaPoliciesComponent } from './sections/sherpa-policies/section-sherpa-policies.component';
-import {
-  SubmissionSectionUploadAccessConditionsComponent
-} from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
-import {
-  SubmissionSectionUploadFileEditComponent
-} from './sections/upload/file/edit/section-upload-file-edit.component';
+import { SubmissionSectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/submission-section-upload-access-conditions.component';
+import { SubmissionSectionUploadFileEditComponent } from './sections/upload/file/edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileComponent } from './sections/upload/file/section-upload-file.component';
-import {
-  SubmissionSectionUploadFileViewComponent
-} from './sections/upload/file/view/section-upload-file-view.component';
+import { ThemedSubmissionSectionUploadFileComponent } from './sections/upload/file/themed-section-upload-file.component';
+import { SubmissionSectionUploadFileViewComponent } from './sections/upload/file/view/section-upload-file-view.component';
 import { SubmissionSectionUploadComponent } from './sections/upload/section-upload.component';
 import { SectionUploadService } from './sections/upload/section-upload.service';
 import { submissionEffects } from './submission.effects';
-import { submissionReducers, SubmissionState, } from './submission.reducers';
+import {
+  submissionReducers,
+  SubmissionState,
+} from './submission.reducers';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
+import { ThemedSubmissionSubmitComponent } from './submit/themed-submission-submit.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -126,20 +121,20 @@ const DECLARATIONS = [
     NgbAccordionModule,
     UploadModule,
     NgOptimizedImage,
-        ...DECLARATIONS
+    ...DECLARATIONS,
   ],
-    exports: [
-        ...DECLARATIONS,
-        FormModule,
-    ],
-    providers: [
-        SectionUploadService,
-        SectionsService,
-        SubmissionUploadsConfigDataService,
-        SubmissionAccessesConfigDataService,
-        SectionAccessesService,
-        SectionFormOperationsService,
-        CoarNotifyConfigDataService,
+  exports: [
+    ...DECLARATIONS,
+    FormModule,
+  ],
+  providers: [
+    SectionUploadService,
+    SectionsService,
+    SubmissionUploadsConfigDataService,
+    SubmissionAccessesConfigDataService,
+    SectionAccessesService,
+    SectionFormOperationsService,
+    CoarNotifyConfigDataService,
     LdnServicesService,
   ],
 })

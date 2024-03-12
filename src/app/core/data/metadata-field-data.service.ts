@@ -6,17 +6,29 @@ import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
-import { CreateData, CreateDataImpl, } from './base/create-data';
-import { DeleteData, DeleteDataImpl, } from './base/delete-data';
+import {
+  CreateData,
+  CreateDataImpl,
+} from './base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './base/delete-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { PutData, PutDataImpl, } from './base/put-data';
-import { SearchData, SearchDataImpl, } from './base/search-data';
+import {
+  PutData,
+  PutDataImpl,
+} from './base/put-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';

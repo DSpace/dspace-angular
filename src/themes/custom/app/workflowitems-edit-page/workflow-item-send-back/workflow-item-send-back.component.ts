@@ -1,14 +1,10 @@
-import { Component } from '@angular/core';
-
-import {
-  WorkflowItemSendBackComponent as BaseComponent
-} from '../../../../../app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
-import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import {
-  ModifyItemOverviewComponent
-} from '../../../../../app/item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ModifyItemOverviewComponent } from '../../../../../app/item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { VarDirective } from '../../../../../app/shared/utils/var.directive';
+import { WorkflowItemSendBackComponent as BaseComponent } from '../../../../../app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
 
 @Component({
   selector: 'ds-workflow-item-send-back',
@@ -19,7 +15,7 @@ import {
   // templateUrl: './workflow-item-send-back.component.html'
   templateUrl: '../../../../../app/workflowitems-edit-page/workflow-item-action-page.component.html',
   standalone: true,
-  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent]
+  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],
 })
 /**
  * Component representing a page to send back a workflow item to the submitter

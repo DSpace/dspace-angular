@@ -1,13 +1,35 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  FormsModule,
+  UntypedFormBuilder,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -25,12 +47,24 @@ import {
 } from 'rxjs/operators';
 
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../core/data/item-data.service';
+import {
+  AuthorizationDataService,
+  AuthorizationDataService,
+} from '../../core/data/feature-authorization/authorization-data.service';
+import {
+  FeatureID,
+  FeatureID,
+} from '../../core/data/feature-authorization/feature-id';
+import {
+  ItemDataService,
+  ItemDataService,
+} from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { VersionDataService } from '../../core/data/version-data.service';
+import {
+  VersionDataService,
+  VersionDataService,
+} from '../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
@@ -47,44 +81,39 @@ import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {
   hasValue,
   hasValueOperator,
 } from '../../shared/empty.util';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  NotificationsService,
+  NotificationsService,
+} from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   getItemEditVersionhistoryRoute,
   getItemPageRoute,
   getItemVersionRoute,
 } from '../item-page-routing-paths';
-import { UntypedFormBuilder, FormsModule } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { Router, RouterLink } from '@angular/router';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
-import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { NgIf, NgFor, NgClass, AsyncPipe, DatePipe } from '@angular/common';
-import { VarDirective } from '../../shared/utils/var.directive';
+import {
+  ItemVersionsSummaryModalComponent,
+  ItemVersionsSummaryModalComponent,
+} from './item-versions-summary-modal/item-versions-summary-modal.component';
 
 @Component({
-    selector: 'ds-item-versions',
-    templateUrl: './item-versions.component.html',
-    styleUrls: ['./item-versions.component.scss'],
-    standalone: true,
-    imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule]
+  selector: 'ds-item-versions',
+  templateUrl: './item-versions.component.html',
+  styleUrls: ['./item-versions.component.scss'],
+  standalone: true,
+  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule],
 })
 
 /**

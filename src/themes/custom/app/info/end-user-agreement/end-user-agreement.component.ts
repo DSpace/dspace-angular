@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
-
-import {
-  EndUserAgreementComponent as BaseComponent
-} from '../../../../../app/info/end-user-agreement/end-user-agreement.component';
-import {
-  EndUserAgreementContentComponent
-} from '../../../../../app/info/end-user-agreement/end-user-agreement-content/end-user-agreement-content.component';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { EndUserAgreementComponent as BaseComponent } from '../../../../../app/info/end-user-agreement/end-user-agreement.component';
+import { EndUserAgreementContentComponent } from '../../../../../app/info/end-user-agreement/end-user-agreement-content/end-user-agreement-content.component';
 
 @Component({
   selector: 'ds-end-user-agreement',
@@ -16,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
   // templateUrl: './end-user-agreement.component.html'
   templateUrl: '../../../../../app/info/end-user-agreement/end-user-agreement.component.html',
   standalone: true,
-  imports: [EndUserAgreementContentComponent, FormsModule, TranslateModule]
+  imports: [EndUserAgreementContentComponent, FormsModule, TranslateModule],
 })
 
 /**

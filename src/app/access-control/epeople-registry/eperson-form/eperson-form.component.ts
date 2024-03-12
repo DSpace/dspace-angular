@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -9,7 +14,10 @@ import {
 import { UntypedFormGroup } from '@angular/forms';
 import {
   ActivatedRoute,
+  ActivatedRoute,
   Router,
+  Router,
+  RouterLink,
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -18,7 +26,10 @@ import {
   DynamicFormLayout,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -34,8 +45,14 @@ import {
 } from 'rxjs/operators';
 
 import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../../core/breadcrumbs/dso-name.service';
+import {
+  EpersonRegistrationService,
+  EpersonRegistrationService,
+} from '../../../core/data/eperson-registration.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -53,26 +70,28 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { Registration } from '../../../core/shared/registration.model';
-import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
+import {
+  Registration,
+  Registration,
+} from '../../../core/shared/registration.model';
+import {
+  TYPE_REQUEST_FORGOT,
+  TYPE_REQUEST_FORGOT,
+} from '../../../register-email-form/register-email-form.component';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-import { Registration } from '../../../core/shared/registration.model';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { FormComponent } from '../../../shared/form/form.component';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
-import { ValidateEmailNotTaken } from './validators/email-taken.validator';
+import {
+  ValidateEmailNotTaken,
+  ValidateEmailNotTaken,
+} from './validators/email-taken.validator';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -85,9 +104,9 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     NgClass,
     ThemedLoadingComponent,
     PaginationComponent,
-    RouterLink
+    RouterLink,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * A form used for creating and editing EPeople

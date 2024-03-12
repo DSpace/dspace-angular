@@ -1,18 +1,39 @@
 // Load the implementations that should be tested
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement, } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { HostWindowService } from '../host-window.service';
@@ -20,11 +41,11 @@ import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { HostWindowServiceMock } from '../mocks/host-window-service.mock';
 import { RouterMock } from '../mocks/router.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { RSSComponent } from '../rss-feed/rss.component';
 import { createTestComponent } from '../testing/utils.test';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponent } from './pagination.component';
 import { PaginationComponentOptions } from './pagination-component-options.model';
-import { RSSComponent } from '../rss-feed/rss.component';
 
 function expectPages(fixture: ComponentFixture<any>, pagesDef: string[]): void {
   const de = fixture.debugElement.query(By.css('.pagination'));
@@ -135,38 +156,38 @@ describe('Pagination component', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         NgxPaginationModule,
         NgbModule,
         RouterTestingModule.withRoutes([
-            { path: 'home', component: TestComponent },
+          { path: 'home', component: TestComponent },
         ]),
         PaginationComponent,
         TestComponent,
         EnumKeysPipe,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
         { provide: HostWindowService, useValue: hostWindowServiceStub },
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
         PaginationComponent,
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).overrideComponent(PaginationComponent, {
-  remove: {
-    imports: [RSSComponent]
-  }
-});
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).overrideComponent(PaginationComponent, {
+      remove: {
+        imports: [RSSComponent],
+      },
+    });
 
   }));
 
@@ -374,12 +395,12 @@ describe('Pagination component', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp', template: '',
-    standalone: true,
-    imports: [CommonModule,
-        NgxPaginationModule,
-      PaginationComponent,
-        NgbModule]
+  selector: 'ds-test-cmp', template: '',
+  standalone: true,
+  imports: [CommonModule,
+    NgxPaginationModule,
+    PaginationComponent,
+    NgbModule],
 })
 class TestComponent {
 

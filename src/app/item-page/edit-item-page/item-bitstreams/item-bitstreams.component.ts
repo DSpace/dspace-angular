@@ -1,39 +1,68 @@
-import { ChangeDetectorRef, Component, NgZone, OnDestroy } from '@angular/core';
-import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { Observable, Subscription, zip as observableZip } from 'rxjs';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  OnDestroy,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  Subscription,
+  zip as observableZip,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload, } from '../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
-import {
-  ItemEditBitstreamDragHandleComponent
-} from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
+import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -48,10 +77,10 @@ import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
     VarDirective,
     ItemEditBitstreamDragHandleComponent,
     NgForOf,
-    ThemedLoadingComponent
+    ThemedLoadingComponent,
   ],
   providers: [ObjectValuesPipe],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for displaying an item's bitstreams edit page

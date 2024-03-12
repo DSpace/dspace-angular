@@ -17,9 +17,9 @@ import { isNotEmpty } from '../../../empty.util';
  * Component representing the edit page for communities and collections
  */
 @Component({
-    selector: 'ds-edit-comcol',
-    template: '',
-    standalone: true
+  selector: 'ds-edit-comcol',
+  template: '',
+  standalone: true,
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**

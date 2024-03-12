@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -15,14 +16,13 @@ import {
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { isNotEmpty } from '../empty.util';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-google-recaptcha',
-    templateUrl: './google-recaptcha.component.html',
-    styleUrls: ['./google-recaptcha.component.scss'],
-    standalone: true,
-    imports: [AsyncPipe]
+  selector: 'ds-google-recaptcha',
+  templateUrl: './google-recaptcha.component.html',
+  styleUrls: ['./google-recaptcha.component.scss'],
+  standalone: true,
+  imports: [AsyncPipe],
 })
 export class GoogleRecaptchaComponent implements OnInit {
 

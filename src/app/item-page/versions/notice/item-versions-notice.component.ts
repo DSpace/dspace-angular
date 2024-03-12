@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -20,21 +25,19 @@ import {
 } from '../../../core/shared/operators';
 import { Version } from '../../../core/shared/version.model';
 import { VersionHistory } from '../../../core/shared/version-history.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   hasValueOperator,
 } from '../../../shared/empty.util';
 import { getItemPageRoute } from '../../item-page-routing-paths';
-import { TranslateModule } from '@ngx-translate/core';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ds-item-versions-notice',
-    templateUrl: './item-versions-notice.component.html',
-    standalone: true,
-    imports: [NgIf, AlertComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-item-versions-notice',
+  templateUrl: './item-versions-notice.component.html',
+  standalone: true,
+  imports: [NgIf, AlertComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying a warning notice when the item is not the latest version within its version history

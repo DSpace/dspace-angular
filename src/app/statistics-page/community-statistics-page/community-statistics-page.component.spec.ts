@@ -1,4 +1,7 @@
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  CommonModule,
+} from '@angular/common';
 import { DebugElement } from '@angular/core';
 import {
   ComponentFixture,
@@ -6,8 +9,6 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { CommonModule } from '@angular/common';
 import {
   ActivatedRoute,
   Router,
@@ -19,10 +20,12 @@ import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Community } from '../../core/shared/community.model';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
+import {
+  UsageReport,
+  UsageReport,
+} from '../../core/statistics/models/usage-report.model';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { SharedModule } from '../../shared/shared.module';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { CommunityStatisticsPageComponent } from './community-statistics-page.component';
 
@@ -72,21 +75,21 @@ describe('CommunityStatisticsPageComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         CommonModule,
         CommunityStatisticsPageComponent,
-        StatisticsTableComponent
-    ],
-    providers: [
+        StatisticsTableComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Router, useValue: router },
         { provide: UsageReportDataService, useValue: usageReportService },
         { provide: DSpaceObjectDataService, useValue: {} },
         { provide: DSONameService, useValue: nameService },
         { provide: AuthService, useValue: authService },
-    ]
-})
+      ],
+    })
       .compileComponents();
   }));
 

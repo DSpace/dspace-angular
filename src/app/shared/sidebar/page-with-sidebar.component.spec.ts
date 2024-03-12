@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
@@ -14,21 +18,21 @@ describe('PageWithSidebarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, PageWithSidebarComponent],
-    providers: [
+      imports: [NoopAnimationsModule, PageWithSidebarComponent],
+      providers: [
         {
-            provide: SidebarService,
+          provide: SidebarService,
           useClass: SidebarServiceStub,
         },
         {
-            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
-                isXs: observableOf(true),
-                isSm: observableOf(false),
-              isXsOrSm: observableOf(true),
-            }),
+          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+            isXs: observableOf(true),
+            isSm: observableOf(false),
+            isXsOrSm: observableOf(true),
+          }),
         },
-    ]
-}).compileComponents().then(() => {
+      ],
+    }).compileComponents().then(() => {
       fixture = TestBed.createComponent(PageWithSidebarComponent);
       comp = fixture.componentInstance;
       comp.id = 'mock-id';

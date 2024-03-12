@@ -1,7 +1,28 @@
-import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -10,13 +31,22 @@ import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
-import { catchError, defaultIfEmpty, map, switchMap, tap, } from 'rxjs/operators';
+import {
+  catchError,
+  defaultIfEmpty,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { buildPaginatedList, PaginatedList, } from '../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -36,13 +66,11 @@ import {
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { AsyncPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -58,9 +86,9 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     NgSwitch,
     NgSwitchCase,
     NgbTooltipModule,
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * A component used for managing all existing groups within the repository.

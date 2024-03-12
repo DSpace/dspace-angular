@@ -21,17 +21,17 @@ describe('DateValueInputComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        DateValueInputComponent
-    ],
-})
+        DateValueInputComponent,
+      ],
+    })
       .compileComponents();
   }));
 

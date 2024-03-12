@@ -47,23 +47,23 @@ describe('MetadataRepresentationLoaderComponent', () => {
   beforeEach(waitForAsync(() => {
     themeService = getMockThemeService(themeName);
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         MetadataRepresentationLoaderComponent,
         PlainTextMetadataListElementComponent,
         DynamicComponentLoaderDirective,
       ],
-    schemas: [NO_ERRORS_SCHEMA],
-    providers: [
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
         {
-            provide: METADATA_REPRESENTATION_COMPONENT_FACTORY,
+          provide: METADATA_REPRESENTATION_COMPONENT_FACTORY,
           useValue: jasmine.createSpy('getMetadataRepresentationComponent').and.returnValue(PlainTextMetadataListElementComponent),
         },
         {
-            provide: ThemeService,
-            useValue: themeService,
+          provide: ThemeService,
+          useValue: themeService,
         },
       ],
-}).overrideComponent(MetadataRepresentationLoaderComponent, {
+    }).overrideComponent(MetadataRepresentationLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [PlainTextMetadataListElementComponent],

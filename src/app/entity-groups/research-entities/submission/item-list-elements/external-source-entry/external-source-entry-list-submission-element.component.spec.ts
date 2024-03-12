@@ -29,9 +29,9 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ExternalSourceEntryListSubmissionElementComponent],
-    schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      imports: [TranslateModule.forRoot(), ExternalSourceEntryListSubmissionElementComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

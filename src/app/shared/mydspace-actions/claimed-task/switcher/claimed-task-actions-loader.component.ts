@@ -3,15 +3,13 @@ import {
   EventEmitter,
   Input,
   Output,
-Type, } from '@angular/core';
+} from '@angular/core';
 
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import {
-  AbstractComponentLoaderComponent
-} from '../../../abstract-component-loader/abstract-component-loader.component';
+import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';

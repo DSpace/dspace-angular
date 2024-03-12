@@ -37,27 +37,30 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
-import { ThemeService } from './shared/theme-support/theme.service';
-import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { AuthService } from './core/auth/auth.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { models } from './core/core.module';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from './core/services/window.service';
 import { distinctNext } from './core/shared/distinct-next';
 import { HostWindowResizeAction } from './shared/host-window.actions';
-import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
+import {
+  IdleModalComponent,
+  IdleModalComponent,
+} from './shared/idle-modal/idle-modal.component';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
-import { ThemeService } from './shared/theme-support/theme.service';
+import {
+  ThemeService,
+  ThemeService,
+} from './shared/theme-support/theme.service';
 
 @Component({
-    selector: 'ds-app',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'ds-app',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, AfterViewInit {
   notificationOptions;

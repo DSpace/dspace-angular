@@ -5,6 +5,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   Router,
@@ -12,13 +13,27 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { cold } from 'jasmine-marbles';
+import {
+  cold,
+  cold,
+} from 'jasmine-marbles';
 import {
   Observable,
   of as observableOf,
 } from 'rxjs';
+import { RouteService } from 'src/app/core/services/route.service';
+import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { HostWindowService } from 'src/app/shared/host-window.service';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
+import { SelectableListService } from 'src/app/shared/object-list/selectable-list/selectable-list.service';
+import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { APP_CONFIG } from '../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_CONFIG,
+} from '../../../config/app-config.interface';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
@@ -38,17 +53,6 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { RouteService } from 'src/app/core/services/route.service';
-import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThemeService } from 'src/app/shared/theme-support/theme.service';
-import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
-import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
-import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import { SelectableListService } from 'src/app/shared/object-list/selectable-list/selectable-list.service';
-import { HostWindowService } from 'src/app/shared/host-window.service';
-import { cold } from 'jasmine-marbles';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
@@ -136,7 +140,7 @@ describe('BrowseByMetadataComponent', () => {
         BrowseByMetadataComponent,
         EnumKeysPipe,
         VarDirective,
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -154,8 +158,8 @@ describe('BrowseByMetadataComponent', () => {
     })
       .overrideComponent(BrowseByMetadataPageComponent, {
         remove: {
-          imports: [ThemedLoadingComponent, DsoEditMenuComponent]
-        }
+          imports: [ThemedLoadingComponent, DsoEditMenuComponent],
+        },
       })
       .compileComponents();
   }));

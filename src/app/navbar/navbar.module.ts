@@ -5,9 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { MenuModule } from '../shared/menu/menu.module';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section/expandable-navbar-section.component';
-import {
-  ThemedExpandableNavbarSectionComponent
-} from './expandable-navbar-section/themed-expandable-navbar-section.component';
+import { ThemedExpandableNavbarSectionComponent } from './expandable-navbar-section/themed-expandable-navbar-section.component';
 import { NavbarComponent } from './navbar.component';
 import { NavbarEffects } from './navbar.effects';
 import { NavbarSectionComponent } from './navbar-section/navbar-section.component';
@@ -25,19 +23,19 @@ const ENTRY_COMPONENTS = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        MenuModule,
-        FormsModule,
-        EffectsModule.forFeature(effects),
-        ...ENTRY_COMPONENTS,
-        NavbarComponent,
-        ThemedNavbarComponent
-    ],
-    providers: [],
-    exports: [
-        ThemedNavbarComponent,
-        NavbarSectionComponent,
+  imports: [
+    CommonModule,
+    MenuModule,
+    FormsModule,
+    EffectsModule.forFeature(effects),
+    ...ENTRY_COMPONENTS,
+    NavbarComponent,
+    ThemedNavbarComponent,
+  ],
+  providers: [],
+  exports: [
+    ThemedNavbarComponent,
+    NavbarSectionComponent,
     ThemedExpandableNavbarSectionComponent,
   ],
 })

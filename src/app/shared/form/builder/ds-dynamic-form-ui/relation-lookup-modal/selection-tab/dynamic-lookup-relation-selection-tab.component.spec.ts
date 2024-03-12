@@ -20,14 +20,14 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { ObjectCollectionComponent } from '../../../../../../shared/object-collection/object-collection.component';
+import { PageSizeSelectorComponent } from '../../../../../../shared/page-size-selector/page-size-selector.component';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { PageSizeSelectorComponent } from '../../../../../../shared/page-size-selector/page-size-selector.component';
-import { ObjectCollectionComponent } from '../../../../../../shared/object-collection/object-collection.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationSelectionTabComponent } from './dynamic-lookup-relation-selection-tab.component';
 
@@ -78,8 +78,8 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
       .overrideComponent(DsDynamicLookupRelationSelectionTabComponent, {
         remove: {
           imports: [ObjectCollectionComponent,
-            PageSizeSelectorComponent,]
-        }
+            PageSizeSelectorComponent],
+        },
       })
       .compileComponents();
   }));

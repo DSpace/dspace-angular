@@ -1,12 +1,22 @@
-import { ComponentFixture, MetadataOverride, TestBed, } from '@angular/core/testing';
-import { Observable, of as observableOf, } from 'rxjs';
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  MetadataOverride,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { buildPaginatedList, PaginatedList, } from '../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RequestEntry } from '../../core/data/request-entry.model';
 import { RequestEntryState } from '../../core/data/request-entry-state.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { UnCacheableObject } from '../../core/shared/uncacheable-object.model';
-import { Component } from '@angular/core';
 
 /**
  * Returns true if a Native Element has a specified css class.
@@ -33,7 +43,7 @@ export const hasClass = (element: any, className: string): boolean => {
 export const createTestComponent = <T>(html: string, type: new (...args: any[]) => T, override: MetadataOverride<Component> = {}): ComponentFixture<T> => {
   TestBed.overrideComponent(type, {
     set: { template: html },
-    ...override
+    ...override,
   });
   const fixture = TestBed.createComponent(type);
 

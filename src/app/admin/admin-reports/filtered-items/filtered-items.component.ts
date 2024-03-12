@@ -1,8 +1,30 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgbAccordion, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { map, Observable } from 'rxjs';
+import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import {
+  Component,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  NgbAccordion,
+  NgbAccordionModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+} from 'rxjs';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { CommunityDataService } from 'src/app/core/data/community-data.service';
 import { MetadataFieldDataService } from 'src/app/core/data/metadata-field-data.service';
@@ -24,7 +46,6 @@ import { FilteredItems } from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
 import { PresetQuery } from './preset-query.model';
 import { QueryPredicate } from './query-predicate.model';
-import { AsyncPipe, NgForOf } from '@angular/common';
 
 /**
  * Component representing the Filtered Items content report.
@@ -39,9 +60,9 @@ import { AsyncPipe, NgForOf } from '@angular/common';
     TranslateModule,
     AsyncPipe,
     NgForOf,
-    FiltersComponent
+    FiltersComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class FilteredItemsComponent {
 

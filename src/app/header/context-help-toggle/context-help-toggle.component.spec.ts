@@ -22,11 +22,11 @@ describe('ContextHelpToggleComponent', () => {
     ]);
     contextHelpService.tooltipCount$.and.returnValue(observableOf(0));
     await TestBed.configureTestingModule({
-    providers: [
+      providers: [
         { provide: ContextHelpService, useValue: contextHelpService },
-    ],
-    imports: [TranslateModule.forRoot(), ContextHelpToggleComponent],
-})
+      ],
+      imports: [TranslateModule.forRoot(), ContextHelpToggleComponent],
+    })
       .compileComponents();
   });
 

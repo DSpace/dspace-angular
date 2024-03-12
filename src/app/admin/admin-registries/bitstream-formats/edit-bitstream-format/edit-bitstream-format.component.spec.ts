@@ -24,9 +24,9 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../../shared/remote-data.utils';
-import { FormatFormComponent } from '../format-form/format-form.component';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
+import { FormatFormComponent } from '../format-form/format-form.component';
 import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
 
 describe('EditBitstreamFormatComponent', () => {
@@ -73,8 +73,8 @@ describe('EditBitstreamFormatComponent', () => {
     })
       .overrideComponent(EditBitstreamFormatComponent, {
         remove: {
-          imports: [FormatFormComponent]
-        }
+          imports: [FormatFormComponent],
+        },
       })
       .compileComponents();
   };
@@ -129,8 +129,8 @@ describe('EditBitstreamFormatComponent', () => {
       })
         .overrideComponent(EditBitstreamFormatComponent, {
           remove: {
-            imports: [FormatFormComponent]
-          }
+            imports: [FormatFormComponent],
+          },
         })
         .compileComponents();
     }));

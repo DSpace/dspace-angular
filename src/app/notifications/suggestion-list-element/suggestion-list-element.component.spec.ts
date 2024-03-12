@@ -21,15 +21,15 @@ describe('SuggestionListElementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
-        SuggestionListElementComponent
-    ],
-    providers: [
+        SuggestionListElementComponent,
+      ],
+      providers: [
         NgbModal,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents().then();
+    }).compileComponents().then();
   }));
 
   beforeEach(() => {

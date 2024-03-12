@@ -1,11 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 
+import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
 
 describe('AdminSearchPageComponent', () => {
@@ -20,9 +20,9 @@ describe('AdminSearchPageComponent', () => {
       .overrideComponent(AdminWorkflowPageComponent, {
         remove: {
           imports: [
-            ConfigurationSearchPageComponent
-          ]
-        }
+            ConfigurationSearchPageComponent,
+          ],
+        },
       })
       .compileComponents();
   }));

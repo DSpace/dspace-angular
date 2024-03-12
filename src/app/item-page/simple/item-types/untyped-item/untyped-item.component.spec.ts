@@ -1,12 +1,29 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
-import { Observable, of, } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -27,6 +44,7 @@ import { MetadataMap } from '../../../../core/shared/metadata.models';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { WorkspaceitemDataService } from '../../../../core/submission/workspaceitem-data.service';
+import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
@@ -35,9 +53,7 @@ import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ItemVersionsSharedService } from '../../../versions/item-versions-shared.service';
-import {
-  GenericItemPageFieldComponent
-} from '../../field-components/specific-field/generic/generic-item-page-field.component';
+import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import {
   createRelationshipsObservable,
   getIIIFEnabled,
@@ -45,9 +61,6 @@ import {
   mockRouteService,
 } from '../shared/item.component.spec';
 import { UntypedItemComponent } from './untyped-item.component';
-import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
-import { environment } from '../../../../../environments/environment.test';
 
 const noMetadata = new MetadataMap();
 
@@ -70,18 +83,18 @@ describe('UntypedItemComponent', () => {
       },
     };
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         RouterTestingModule,
         GenericItemPageFieldComponent, TruncatePipe,
-        UntypedItemComponent
-    ],
-    providers: [
+        UntypedItemComponent,
+      ],
+      providers: [
         { provide: ItemDataService, useValue: {} },
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: {} },
@@ -105,9 +118,9 @@ describe('UntypedItemComponent', () => {
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: APP_CONFIG, useValue: environment },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(UntypedItemComponent, {
+    }).overrideComponent(UntypedItemComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     });
   }));

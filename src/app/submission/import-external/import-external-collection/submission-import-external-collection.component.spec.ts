@@ -1,14 +1,22 @@
-import { Component, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
-import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
 
 describe('SubmissionImportExternalCollectionComponent test suite', () => {
   let comp: SubmissionImportExternalCollectionComponent;
@@ -21,12 +29,12 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       imports: [
         TranslateModule.forRoot(),
         SubmissionImportExternalCollectionComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         NgbActiveModal,
         SubmissionImportExternalCollectionComponent,
-        {provide: ThemeService, useValue: themeService},
+        { provide: ThemeService, useValue: themeService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
@@ -136,9 +144,9 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

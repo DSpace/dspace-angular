@@ -1,36 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Router, RouterLink } from '@angular/router';
-
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { AuthService } from '../core/auth/auth.service';
-import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../core/cache/models/sort-options.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
 import { Suggestion } from '../core/notifications/models/suggestion.model';
 import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
-import { SuggestionBulkResult, SuggestionsService } from '../notifications/suggestions.service';
-import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
-import {
-  SuggestionApproveAndImport,
-  SuggestionListElementComponent
-} from '../notifications/suggestion-list-element/suggestion-list-element.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { VarDirective } from '../shared/utils/var.directive';
-import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
-import { LoadingComponent } from '../shared/loading/loading.component';
-import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
+import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
+import {
+  SuggestionApproveAndImport,
+  SuggestionListElementComponent,
+} from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
+import {
+  SuggestionBulkResult,
+  SuggestionsService,
+} from '../notifications/suggestions.service';
+import { LoadingComponent } from '../shared/loading/loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../shared/utils/var.directive';
 import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 @Component({
@@ -47,9 +76,9 @@ import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowit
     LoadingComponent,
     PaginationComponent,
     SuggestionListElementComponent,
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 
 /**

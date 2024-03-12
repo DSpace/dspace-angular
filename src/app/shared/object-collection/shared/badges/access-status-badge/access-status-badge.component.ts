@@ -1,7 +1,12 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -17,17 +22,15 @@ import { environment } from 'src/environments/environment';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ITEM } from '../../../../../core/shared/item.resource-type';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf, AsyncPipe } from '@angular/common';
 import { hasValue } from '../../../../empty.util';
 import { AccessStatusObject } from './access-status.model';
 
 @Component({
-    selector: 'ds-access-status-badge',
-    templateUrl: './access-status-badge.component.html',
-    styleUrls: ['./access-status-badge.component.scss'],
-    standalone: true,
-    imports: [NgIf, AsyncPipe, TranslateModule]
+  selector: 'ds-access-status-badge',
+  templateUrl: './access-status-badge.component.html',
+  styleUrls: ['./access-status-badge.component.scss'],
+  standalone: true,
+  imports: [NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component rendering the access status of an item as a badge

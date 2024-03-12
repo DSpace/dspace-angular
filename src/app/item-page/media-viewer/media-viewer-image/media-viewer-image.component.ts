@@ -1,10 +1,20 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryModule, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
+import {
+  NgxGalleryAnimation,
+  NgxGalleryImage,
+  NgxGalleryModule,
+  NgxGalleryOptions,
+} from '@kolkov/ngx-gallery';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
-import { AsyncPipe } from '@angular/common';
+import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 
 /**
  * This componenet render an image gallery for the image viewer
@@ -15,9 +25,9 @@ import { AsyncPipe } from '@angular/common';
   styleUrls: ['./media-viewer-image.component.scss'],
   imports: [
     NgxGalleryModule,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class MediaViewerImageComponent implements OnChanges, OnInit {
   @Input() images: MediaViewerItem[];

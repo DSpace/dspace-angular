@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
@@ -8,13 +17,23 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { BehaviorSubject, Observable, of as observableOf, } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { APP_CONFIG, APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
-import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { RouteService } from '../../core/services/route.service';
@@ -22,26 +41,32 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
-import { SearchConfig, SortConfig, } from '../../core/shared/search/search-filters/search-config.model';
+import {
+  SearchConfig,
+  SortConfig,
+} from '../../core/shared/search/search-filters/search-config.model';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { HostWindowService } from '../host-window.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
+import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
+import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
-import { FilterType } from './models/filter-type.model';
-import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
-import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
-import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
-import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
-import { SearchLabelsComponent } from './search-labels/search-labels.component';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
+import { FilterType } from './models/filter-type.model';
+import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchComponent } from './search.component';
+import { SearchLabelsComponent } from './search-labels/search-labels.component';
+import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
+import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -188,40 +213,40 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
   TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, NgbCollapseModule, compType, ...additionalDeclarations],
     providers: [
-        { provide: SearchService, useValue: searchServiceStub },
-        {
-            provide: CommunityDataService,
+      { provide: SearchService, useValue: searchServiceStub },
+      {
+        provide: CommunityDataService,
         useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll']),
-        },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: RouteService, useValue: routeServiceStub },
-        {
+      },
+      { provide: ActivatedRoute, useValue: activatedRouteStub },
+      { provide: RouteService, useValue: routeServiceStub },
+      {
         provide: Store, useValue: store,
-        },
-        {
-            provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
-                isXs: observableOf(true),
-                isSm: observableOf(false),
-            isXsOrSm: observableOf(true),
-          }),
-        },
-        {
-            provide: SidebarService,
-            useClass: SidebarServiceStub,
-        },
-        {
-            provide: SearchFilterService,
+      },
+      {
+        provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+          isXs: observableOf(true),
+          isSm: observableOf(false),
+          isXsOrSm: observableOf(true),
+        }),
+      },
+      {
+        provide: SidebarService,
+        useClass: SidebarServiceStub,
+      },
+      {
+        provide: SearchFilterService,
         useValue: {},
-        },
-        {
-            provide: SEARCH_CONFIG_SERVICE,
+      },
+      {
+        provide: SEARCH_CONFIG_SERVICE,
         useValue: searchConfigurationServiceStub,
-        },
-        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        { provide: APP_CONFIG, useValue: environment },
+      },
+      { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+      { provide: APP_CONFIG, useValue: environment },
     ],
     schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(compType, {
+  }).overrideComponent(compType, {
     add: {
       changeDetection: ChangeDetectionStrategy.Default,
       providers: [{
@@ -237,8 +262,8 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         ThemedSearchSidebarComponent,
         ThemedSearchFormComponent,
         SearchLabelsComponent,
-      ]
-    }
+      ],
+    },
 
   }).compileComponents();
 }

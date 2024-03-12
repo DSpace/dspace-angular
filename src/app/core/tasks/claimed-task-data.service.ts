@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { FindListOptions } from '../data/find-list-options.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
@@ -15,11 +14,6 @@ import { getFirstSucceededRemoteData } from '../shared/operators';
 import { ClaimedTask } from './models/claimed-task-object.model';
 import { ProcessTaskResponse } from './models/process-task-response';
 import { TasksService } from './tasks.service';
-import { RemoteData } from '../data/remote-data';
-import { RequestParam } from '../cache/models/request-param.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { getFirstSucceededRemoteData } from '../shared/operators';
-import { FindListOptions } from '../data/find-list-options.model';
 
 /**
  * The service handling all REST requests for ClaimedTask

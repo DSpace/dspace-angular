@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
-  tap,} from 'rxjs/operators';
-import {
- FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+  tap,
+} from 'rxjs/operators';
+import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
-import { BitstreamFormatsRegistryDeselectAction,
+import {
+  BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
-  BitstreamFormatsRegistrySelectAction
-,
+  BitstreamFormatsRegistrySelectAction,
 } from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { BitstreamFormatRegistryState } from '../../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -25,12 +25,9 @@ import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { Bitstream } from '../shared/bitstream.model';
-import { BITSTREAM_FORMAT } from '../shared/bitstream-format.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
-import { dataService } from './base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -42,7 +39,6 @@ import {
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
-import { NoContent } from '../shared/NoContent.model';
 import { RemoteData } from './remote-data';
 import {
   PostRequest,

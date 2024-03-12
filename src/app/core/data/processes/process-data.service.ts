@@ -1,6 +1,19 @@
-import { Inject, Injectable, InjectionToken, NgZone, } from '@angular/core';
-import { Observable, Subscription, } from 'rxjs';
-import { distinctUntilChanged, filter, find, switchMap, } from 'rxjs/operators';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+  NgZone,
+} from '@angular/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  switchMap,
+} from 'rxjs/operators';
 import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
 
 import { Process } from '../../../process-page/processes/process.model';
@@ -13,10 +26,19 @@ import { Bitstream } from '../../shared/bitstream.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NoContent } from '../../shared/NoContent.model';
 import { getAllCompletedRemoteData } from '../../shared/operators';
-import { DeleteData, DeleteDataImpl, } from '../base/delete-data';
-import { FindAllData, FindAllDataImpl, } from '../base/find-all-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../base/find-all-data';
 import { IdentifiableDataService } from '../base/identifiable-data.service';
-import { SearchData, SearchDataImpl, } from '../base/search-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../base/search-data';
 import { BitstreamDataService } from '../bitstream-data.service';
 import { FindListOptions } from '../find-list-options.model';
 import { PaginatedList } from '../paginated-list.model';

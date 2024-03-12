@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
   Observable,
@@ -20,18 +25,16 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { isNotEmpty } from '../../../empty.util';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 /**
  * This component represents a badge with submitter information.
  */
 @Component({
-    selector: 'ds-item-submitter',
-    styleUrls: ['./item-submitter.component.scss'],
-    templateUrl: './item-submitter.component.html',
-    standalone: true,
-    imports: [NgIf, AsyncPipe, TranslateModule]
+  selector: 'ds-item-submitter',
+  styleUrls: ['./item-submitter.component.scss'],
+  templateUrl: './item-submitter.component.html',
+  standalone: true,
+  imports: [NgIf, AsyncPipe, TranslateModule],
 })
 export class ItemSubmitterComponent implements OnInit {
 

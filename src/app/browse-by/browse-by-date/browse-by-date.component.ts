@@ -1,71 +1,81 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Inject,
-  OnInit,} from '@angular/core';
+  OnInit,
+} from '@angular/core';
 import {
   ActivatedRoute,
   Params,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  map,
+} from 'rxjs/operators';
+import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
   APP_CONFIG,
+  APP_CONFIG,
+  AppConfig,
   AppConfig,
 } from '../../../config/app-config.interface';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import {
   SortDirection,
+  SortDirection,
+  SortOptions,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { map } from 'rxjs/operators';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { isValidDate } from '../../shared/date.util';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
+import {
+  PaginationService,
+  PaginationService,
+} from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
+import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import {
-  ThemedComcolPageHandleComponent
-} from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+  isValidDate,
+  isValidDate,
+} from '../../shared/date.util';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import {
-  ThemedComcolPageBrowseByComponent
-} from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
-import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import { isValidDate } from '../../shared/date.util';
 import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import {
+  PaginationComponentOptions,
+  PaginationComponentOptions,
+} from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { StartsWithType } from '../../shared/starts-with/starts-with-type';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
   getBrowseSearchOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-date',
@@ -85,8 +95,8 @@ import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
     BrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
-    ThemedBrowseByComponent
-  ]
+    ThemedBrowseByComponent,
+  ],
 })
 /**
  * Component for browsing items by metadata definition of type 'date'

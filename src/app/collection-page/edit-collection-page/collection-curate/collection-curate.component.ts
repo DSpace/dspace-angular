@@ -1,5 +1,7 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -10,10 +12,8 @@ import {
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
-import { hasValue } from '../../../shared/empty.util';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe } from '@angular/common';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a collection's curation tasks
@@ -24,9 +24,9 @@ import { AsyncPipe } from '@angular/common';
   imports: [
     CurationFormComponent,
     TranslateModule,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CollectionCurateComponent {
   dsoRD$: Observable<RemoteData<Collection>>;

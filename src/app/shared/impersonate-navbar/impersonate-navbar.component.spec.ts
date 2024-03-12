@@ -52,18 +52,18 @@ describe('ImpersonateNavbarComponent', () => {
     };
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
-        ImpersonateNavbarComponent, VarDirective
-    ],
-    providers: [
+        ImpersonateNavbarComponent, VarDirective,
+      ],
+      providers: [
         { provide: AuthService, useValue: authService },
         provideMockStore({ initialState }),
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

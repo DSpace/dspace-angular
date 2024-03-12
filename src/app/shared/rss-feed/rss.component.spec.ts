@@ -80,17 +80,17 @@ describe('RssComponent', () => {
       paginatedSearchOptions: mockSearchOptions,
     };
     TestBed.configureTestingModule({
-    imports: [RSSComponent],
-    providers: [
+      imports: [RSSComponent],
+      providers: [
         { provide: GroupDataService, useValue: groupDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: Router, useValue: new RouterMock() }
-    ]
-}).compileComponents();
-      }));
+        { provide: Router, useValue: new RouterMock() },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     uuid = '2cfcf65e-0a51-4bcb-8592-b8db7b064790';

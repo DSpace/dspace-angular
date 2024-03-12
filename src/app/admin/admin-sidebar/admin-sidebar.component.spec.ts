@@ -10,35 +10,56 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {
+  By,
+  By,
+} from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ActivatedRoute,
+  ActivatedRoute,
+} from '@angular/router';
+import {
+  RouterTestingModule,
+  RouterTestingModule,
+} from '@angular/router/testing';
+import {
+  NgbModal,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of as observableOf,
+} from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import {
+  AuthService,
+  AuthService,
+} from '../../core/auth/auth.service';
+import {
+  AuthorizationDataService,
+  AuthorizationDataService,
+} from '../../core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { Item } from '../../core/shared/item.model';
+import {
+  Item,
+  Item,
+} from '../../core/shared/item.model';
 import { MenuService } from '../../shared/menu/menu.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../shared/remote-data.utils';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
+import {
+  AuthServiceStub,
+  AuthServiceStub,
+} from '../../shared/testing/auth-service.stub';
 import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
-import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { of as observableOf } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import createSpy = jasmine.createSpy;
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { Item } from '../../core/shared/item.model';
 import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { AdminSidebarComponent } from './admin-sidebar.component';
@@ -73,8 +94,8 @@ describe('AdminSidebarComponent', () => {
 
   const mockNgbModal = {
     open: jasmine.createSpy('open').and.returnValue(
-      { componentInstance: {}, closed: observableOf({})} as NgbModalRef
-    )
+      { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+    ),
   };
 
 
@@ -84,8 +105,8 @@ describe('AdminSidebarComponent', () => {
     });
     scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: observableOf(true) });
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
+      providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: MenuService, useValue: menuService },
@@ -95,10 +116,10 @@ describe('AdminSidebarComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: ActivatedRoute, useValue: routeStub },
-        { provide: NgbModal, useValue: mockNgbModal }
-    ],
+        { provide: NgbModal, useValue: mockNgbModal },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(AdminSidebarComponent, {
+    }).overrideComponent(AdminSidebarComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
       },

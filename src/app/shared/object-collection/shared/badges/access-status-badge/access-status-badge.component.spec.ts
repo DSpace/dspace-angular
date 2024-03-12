@@ -6,9 +6,9 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { environment } from 'src/environments/environment';
 
+import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
@@ -62,12 +62,12 @@ describe('ItemAccessStatusBadgeComponent', () => {
 
   function initTestBed() {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), AccessStatusBadgeComponent, TruncatePipe],
-    schemas: [NO_ERRORS_SCHEMA],
-    providers: [
+      imports: [TranslateModule.forRoot(), AccessStatusBadgeComponent, TruncatePipe],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
         { provide: AccessStatusDataService, useValue: accessStatusDataService },
       ],
-}).compileComponents();
+    }).compileComponents();
   }
 
   function initFixtureAndComponent() {

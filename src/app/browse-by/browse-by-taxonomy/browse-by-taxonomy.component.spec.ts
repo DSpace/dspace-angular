@@ -9,8 +9,8 @@ import { BehaviorSubject } from 'rxjs';
 
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { createDataWithBrowseDefinition } from '../browse-by-switcher/browse-by-switcher.component.spec';
 import { BrowseByTaxonomyComponent } from './browse-by-taxonomy.component';
 
@@ -32,15 +32,15 @@ describe('BrowseByTaxonomyComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), BrowseByTaxonomyComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), BrowseByTaxonomyComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: ThemeService, useValue: themeService },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .overrideComponent(BrowseByTaxonomyPageComponent, {
-        remove: { imports: [VocabularyTreeviewComponent]}
+        remove: { imports: [VocabularyTreeviewComponent] },
       })
       .compileComponents();
   });

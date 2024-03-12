@@ -1,10 +1,31 @@
-import { ChangeDetectorRef, Component, Inject, ViewChild, } from '@angular/core';
-import { DynamicFormControlEvent, DynamicFormControlModel, } from '@ng-dynamic-forms/core';
+import { NgIf } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewChild,
+} from '@angular/core';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
-import { combineLatest as observableCombineLatest, Observable, Subscription, } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mergeMap, take, tap, } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  mergeMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -15,18 +36,27 @@ import { SubmissionFormsConfigDataService } from '../../../core/config/submissio
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { getFirstSucceededRemoteData, getRemoteDataPayload, } from '../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import { hasValue, isEmpty, isNotEmpty, isUndefined, } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { difference } from '../../../shared/object.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -37,8 +67,6 @@ import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { NgIf } from '@angular/common';
 
 /**
  * This component represents a section that contains a Form.
@@ -50,9 +78,9 @@ import { NgIf } from '@angular/common';
   imports: [
     FormComponent,
     ThemedLoadingComponent,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionSectionFormComponent extends SectionModelComponent {
 

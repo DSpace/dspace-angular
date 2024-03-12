@@ -1,13 +1,13 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 
+import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminSearchPageComponent } from './admin-search-page.component';
 
 describe('AdminSearchPageComponent', () => {
@@ -18,13 +18,13 @@ describe('AdminSearchPageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AdminSearchPageComponent],
       providers: [
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(AdminSearchPageComponent, {
       remove: {
-        imports: [ConfigurationSearchPageComponent]
-      }
+        imports: [ConfigurationSearchPageComponent],
+      },
     })
       .compileComponents();
   }));

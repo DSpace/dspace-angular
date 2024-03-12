@@ -1,15 +1,12 @@
-import { ItemSelectComponent } from './item-select.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Item } from '../../../core/shared/item.model';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { ObjectSelectService } from '../object-select.service';
-import { HostWindowService } from '../../host-window.service';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
@@ -19,11 +16,18 @@ import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../../core/services/link-head.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { Item } from '../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { HostWindowService } from '../../host-window.service';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
+import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { createPaginatedList } from '../../testing/utils.test';
+import { ObjectSelectService } from '../object-select.service';
+import { ItemSelectComponent } from './item-select.component';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
@@ -97,8 +101,8 @@ describe('ItemSelectComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
@@ -107,9 +111,9 @@ describe('ItemSelectComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

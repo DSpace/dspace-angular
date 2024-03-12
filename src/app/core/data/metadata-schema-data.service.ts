@@ -10,11 +10,23 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
-import { CreateData, CreateDataImpl, } from './base/create-data';
-import { DeleteData, DeleteDataImpl, } from './base/delete-data';
-import { FindAllData, FindAllDataImpl, } from './base/find-all-data';
+import {
+  CreateData,
+  CreateDataImpl,
+} from './base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { PutData, PutDataImpl, } from './base/put-data';
+import {
+  PutData,
+  PutDataImpl,
+} from './base/put-data';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';

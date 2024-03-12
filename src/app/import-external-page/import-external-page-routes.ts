@@ -1,8 +1,7 @@
 import { Route } from '@angular/router';
+
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import {
-  ThemedSubmissionImportExternalComponent
-} from '../submission/import-external/themed-submission-import-external.component';
+import { ThemedSubmissionImportExternalComponent } from '../submission/import-external/themed-submission-import-external.component';
 import { provideSubmission } from '../submission/provide-submission';
 
 export const ROUTES: Route[] = [
@@ -13,8 +12,8 @@ export const ROUTES: Route[] = [
     providers: [provideSubmission()],
     pathMatch: 'full',
     data: {
-      title: 'submission.import-external.page.title'
-    }
-  }
+      title: 'submission.import-external.page.title',
+    },
+  },
 ];
 

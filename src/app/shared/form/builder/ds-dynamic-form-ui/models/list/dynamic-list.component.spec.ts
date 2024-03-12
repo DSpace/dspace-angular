@@ -25,16 +25,16 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
+import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../../../../core/shared/configuration-property.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
-import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import { ConfigurationProperty } from '../../../../../../core/shared/configuration-property.model';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { FormBuilderService } from '../../../form-builder.service';
@@ -93,25 +93,25 @@ describe('DsDynamicListComponent test suite', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
         DsDynamicListComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         ChangeDetectorRef,
         DsDynamicListComponent,
         DynamicFormValidationService,
@@ -119,10 +119,10 @@ describe('DsDynamicListComponent test suite', () => {
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
-        { provide: ConfigurationDataService, useValue: configurationDataService }
-    ],
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-});
+    });
 
   }));
 
@@ -309,10 +309,10 @@ describe('DsDynamicListComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [DsDynamicListComponent]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [DsDynamicListComponent],
 })
 class TestComponent {
 

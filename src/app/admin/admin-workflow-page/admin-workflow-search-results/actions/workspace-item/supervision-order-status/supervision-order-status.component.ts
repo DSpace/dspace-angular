@@ -1,6 +1,28 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-import { BehaviorSubject, from, Observable, } from 'rxjs';
-import { map, mergeMap, reduce, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  from,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  reduce,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../../../core/data/remote-data';
@@ -8,9 +30,6 @@ import { Group } from '../../../../../../core/eperson/models/group.model';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
 import { isNotEmpty } from '../../../../../../shared/empty.util';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 
 export interface SupervisionOrderListEntry {
@@ -19,11 +38,11 @@ export interface SupervisionOrderListEntry {
 }
 
 @Component({
-    selector: 'ds-supervision-order-status',
-    templateUrl: './supervision-order-status.component.html',
-    styleUrls: ['./supervision-order-status.component.scss'],
-    standalone: true,
-    imports: [VarDirective, NgIf, NgFor, NgbTooltipModule, AsyncPipe, TranslateModule]
+  selector: 'ds-supervision-order-status',
+  templateUrl: './supervision-order-status.component.html',
+  styleUrls: ['./supervision-order-status.component.scss'],
+  standalone: true,
+  imports: [VarDirective, NgIf, NgFor, NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 export class SupervisionOrderStatusComponent implements OnChanges {
 

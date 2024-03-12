@@ -1,16 +1,19 @@
 import {
+  NgClass,
+  NgForOf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
   type OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { NotifyStatuses } from '../notify-requests-status.model';
 import { RequestStatusEnum } from '../notify-status.enum';
-import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
-import { NgClass, NgForOf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-request-status-alert-box',
@@ -23,8 +26,8 @@ import { TranslateModule } from '@ngx-translate/core';
     TruncatableComponent,
     NgForOf,
     TranslateModule,
-    NgClass
-  ]
+    NgClass,
+  ],
 })
 /**
  * Represents a component that displays the status of a request.

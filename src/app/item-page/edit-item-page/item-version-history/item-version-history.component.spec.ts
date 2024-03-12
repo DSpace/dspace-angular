@@ -1,14 +1,22 @@
-import { ItemVersionHistoryComponent } from './item-version-history.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../../shared/utils/var.directive';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
+
+import { Item } from '../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemVersionsComponent } from '../../versions/item-versions.component';
+import { ItemVersionHistoryComponent } from './item-version-history.component';
 
 describe('ItemVersionHistoryComponent', () => {
   let component: ItemVersionHistoryComponent;
@@ -29,20 +37,20 @@ describe('ItemVersionHistoryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
-      TranslateModule.forRoot(),
-      RouterTestingModule.withRoutes([]),
-      ItemVersionHistoryComponent,
-      VarDirective
-    ],
-    providers: [
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        ItemVersionHistoryComponent,
+        VarDirective,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(ItemVersionHistoryComponent, {
-        remove: {imports: [ItemVersionsComponent]},
-        add: { imports: [MockItemVersionsComponent]}
+        remove: { imports: [ItemVersionsComponent] },
+        add: { imports: [MockItemVersionsComponent] },
       })
       .compileComponents();
   }));
@@ -64,6 +72,6 @@ describe('ItemVersionHistoryComponent', () => {
 @Component({
   selector: 'ds-item-versions',
   template: '',
-  standalone: true
+  standalone: true,
 })
 class MockItemVersionsComponent {}

@@ -1,18 +1,26 @@
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { Community } from '../../core/shared/community.model';
 import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
@@ -26,9 +34,9 @@ import { VarDirective } from '../../shared/utils/var.directive';
     TranslateModule,
     AsyncPipe,
     VarDirective,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DeleteCommunityPageComponent extends DeleteComColPageComponent<Community> {
   protected frontendURL = '/communities/';

@@ -14,10 +14,10 @@ import { ItemListPreviewComponent } from './item-list-preview.component';
  * Themed wrapper for ItemListPreviewComponent
  */
 @Component({
-    selector: 'ds-themed-item-list-preview',
-    styleUrls: [],
-    templateUrl: '../../../theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-item-list-preview',
+  styleUrls: [],
+  templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
   protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'workflowItem'];

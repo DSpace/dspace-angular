@@ -1,15 +1,11 @@
-import { Component } from '@angular/core';
-
-import {
-  ItemStatisticsPageComponent as BaseComponent
-} from '../../../../../app/statistics-page/item-statistics-page/item-statistics-page.component';
 import { CommonModule } from '@angular/common';
-import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
-import {
-  StatisticsTableComponent
-} from '../../../../../app/statistics-page/statistics-table/statistics-table.component';
+import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
+import { VarDirective } from '../../../../../app/shared/utils/var.directive';
+import { ItemStatisticsPageComponent as BaseComponent } from '../../../../../app/statistics-page/item-statistics-page/item-statistics-page.component';
+import { StatisticsTableComponent } from '../../../../../app/statistics-page/statistics-table/statistics-table.component';
 
 @Component({
   selector: 'ds-item-statistics-page',

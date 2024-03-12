@@ -7,10 +7,10 @@ import { CollectionStatisticsPageComponent } from './collection-statistics-page.
  * Themed wrapper for CollectionStatisticsPageComponent
  */
 @Component({
-    selector: 'ds-themed-collection-statistics-page',
-    styleUrls: [],
-    templateUrl: '../../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-collection-statistics-page',
+  styleUrls: [],
+  templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCollectionStatisticsPageComponent extends ThemedComponent<CollectionStatisticsPageComponent> {
   protected getComponentName(): string {

@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -7,10 +12,10 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
-,
+  ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
   DynamicFormControlModel,
@@ -19,6 +24,7 @@ import {
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import {
@@ -46,7 +52,9 @@ import {
   isNotEmpty,
   isNotNull,
 } from '../../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
+import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { ChipsItem } from '../../../../chips/models/chips-item.model';
 import { FormComponent } from '../../../../form.component';
@@ -55,11 +63,6 @@ import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
-import { ChipsComponent } from '../../../../chips/chips.component';
 
 /**
  * Component representing a group input field
@@ -79,7 +82,7 @@ import { ChipsComponent } from '../../../../chips/chips.component';
     ChipsComponent,
     forwardRef(() => FormComponent),
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 

@@ -1,34 +1,40 @@
-import { Component, Input, Optional } from '@angular/core';
-import { ValueInputComponent } from '../value-input.component';
-import { ControlContainer, NgForm, FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
-import { controlContainerFactory } from '../../../process-form-factory';
 import {
   Component,
+  Component,
   Input,
+  Input,
+  Optional,
   Optional,
 } from '@angular/core';
 import {
   ControlContainer,
+  ControlContainer,
+  FormsModule,
+  NgForm,
   NgForm,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { controlContainerFactory } from '../../../process-form.component';
-import { ValueInputComponent } from '../value-input.component';
+import { controlContainerFactory } from '../../../process-form-factory';
+import {
+  ValueInputComponent,
+  ValueInputComponent,
+} from '../value-input.component';
 
 /**
  * Represents the user inputted value of a date parameter
  */
 @Component({
-    selector: 'ds-date-value-input',
-    templateUrl: './date-value-input.component.html',
-    styleUrls: ['./date-value-input.component.scss'],
-    viewProviders: [{ provide: ControlContainer,
-            useFactory: controlContainerFactory,
-            deps: [[new Optional(), NgForm]] }],
-    standalone: true,
-    imports: [FormsModule, NgIf, TranslateModule]
+  selector: 'ds-date-value-input',
+  templateUrl: './date-value-input.component.html',
+  styleUrls: ['./date-value-input.component.scss'],
+  viewProviders: [{ provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]] }],
+  standalone: true,
+  imports: [FormsModule, NgIf, TranslateModule],
 })
 export class DateValueInputComponent extends ValueInputComponent<string> {
   /**

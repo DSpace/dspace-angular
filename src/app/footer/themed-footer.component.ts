@@ -7,10 +7,10 @@ import { FooterComponent } from './footer.component';
  * Themed wrapper for FooterComponent
  */
 @Component({
-    selector: 'ds-themed-footer',
-    styleUrls: [],
-    templateUrl: '../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-footer',
+  styleUrls: [],
+  templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedFooterComponent extends ThemedComponent<FooterComponent> {
   protected getComponentName(): string {

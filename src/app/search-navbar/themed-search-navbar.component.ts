@@ -4,10 +4,10 @@ import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { SearchNavbarComponent } from './search-navbar.component';
 
 @Component({
-    selector: 'ds-themed-search-navbar',
-    styleUrls: [],
-    templateUrl: '../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-search-navbar',
+  styleUrls: [],
+  templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSearchNavbarComponent extends ThemedComponent<SearchNavbarComponent> {
 

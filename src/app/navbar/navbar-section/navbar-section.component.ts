@@ -1,8 +1,16 @@
-import { Component, Inject, Injector, OnInit, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgComponentOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
 
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { AsyncPipe, NgComponentOutlet } from '@angular/common';
 import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-section.component';
 
 /**
@@ -13,7 +21,7 @@ import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-sectio
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss'],
   standalone: true,
-  imports: [NgComponentOutlet, AsyncPipe]
+  imports: [NgComponentOutlet, AsyncPipe],
 })
 export class NavbarSectionComponent extends MenuSectionComponent implements OnInit {
   /**

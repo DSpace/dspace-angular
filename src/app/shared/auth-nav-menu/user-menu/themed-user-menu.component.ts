@@ -13,7 +13,7 @@ import { UserMenuComponent } from './user-menu.component';
   selector: 'ds-themed-user-menu',
   templateUrl: './../../theme-support/themed.component.html',
   styleUrls: [],
-  standalone: true
+  standalone: true,
 })
 export class ThemedUserMenuComponent extends ThemedComponent<UserMenuComponent>{
 

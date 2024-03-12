@@ -1,9 +1,20 @@
-import { importProvidersFrom, makeEnvironmentProviders } from '@angular/core';
+import {
+  importProvidersFrom,
+  makeEnvironmentProviders,
+} from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
-import { submissionEffects } from './submission.effects';
-import { submissionReducers, SubmissionState } from './submission.reducers';
-import { Action, StoreConfig, StoreModule } from '@ngrx/store';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
+
 import { storeModuleConfig } from '../app.reducer';
+import { submissionEffects } from './submission.effects';
+import {
+  submissionReducers,
+  SubmissionState,
+} from './submission.reducers';
 
 export const provideSubmission = () => {
   return makeEnvironmentProviders([

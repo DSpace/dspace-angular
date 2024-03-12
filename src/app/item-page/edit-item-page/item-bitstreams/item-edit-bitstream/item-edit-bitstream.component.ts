@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnChanges,
@@ -8,6 +12,9 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 import { Observable } from 'rxjs';
 
@@ -23,11 +30,7 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-item-edit-bitstream',
@@ -39,9 +42,9 @@ import { AsyncPipe, NgIf } from '@angular/common';
     BrowserOnlyPipe,
     NgbTooltipModule,
     AsyncPipe,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component that displays a single bitstream of an item on the edit page

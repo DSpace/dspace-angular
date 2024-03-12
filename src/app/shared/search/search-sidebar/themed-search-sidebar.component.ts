@@ -22,10 +22,10 @@ import { SearchSidebarComponent } from './search-sidebar.component';
  * Themed wrapper for SearchSidebarComponent
  */
 @Component({
-    selector: 'ds-themed-search-sidebar',
-    styleUrls: [],
-    templateUrl: '../../theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-search-sidebar',
+  styleUrls: [],
+  templateUrl: '../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarComponent> {
 

@@ -13,7 +13,7 @@ import { FeatureID } from '../data/feature-authorization/feature-id';
 /**
  * An guard for redirecting users to the feedback page if user is authorized
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class FeedbackGuard implements CanActivate {
 
   constructor(private authorizationService: AuthorizationDataService) {

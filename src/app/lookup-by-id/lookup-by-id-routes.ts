@@ -1,4 +1,8 @@
-import { Route, UrlSegment, } from '@angular/router';
+import {
+  Route,
+  UrlSegment,
+} from '@angular/router';
+
 import { isNotEmpty } from '../shared/empty.util';
 import { LookupGuard } from './lookup-guard';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
@@ -7,11 +11,11 @@ export const ROUTES: Route[] = [
   {
     matcher: urlMatcher,
     providers: [
-      LookupGuard
+      LookupGuard,
     ],
     canActivate: [LookupGuard],
-    component: ThemedObjectNotFoundComponent
-  }
+    component: ThemedObjectNotFoundComponent,
+  },
 ];
 
 

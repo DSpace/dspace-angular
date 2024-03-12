@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
@@ -14,11 +23,11 @@ import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
-import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 
 
 let component: WorkflowItemSearchResultListElementComponent;
@@ -72,17 +81,17 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     linkService = getMockLinkService();
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, WorkflowItemSearchResultListElementComponent],
-    providers: [
+      imports: [NoopAnimationsModule, WorkflowItemSearchResultListElementComponent],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: ItemDataService, useValue: {} },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(WorkflowItemSearchResultListElementComponent, {
-      add: {changeDetection: ChangeDetectionStrategy.Default},
+    }).overrideComponent(WorkflowItemSearchResultListElementComponent, {
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -7,11 +14,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { SearchService } from '../../../core/shared/search/search.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchServiceStub } from '../../testing/search-service.stub';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
 import { SearchLabelComponent } from './search-label/search-label.component';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchLabelsComponent } from './search-labels.component';
 
 describe('SearchLabelsComponent', () => {
@@ -42,7 +49,7 @@ describe('SearchLabelsComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchLabelsComponent, {
       remove: {
-        imports: [SearchLabelComponent]
+        imports: [SearchLabelComponent],
       },
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();

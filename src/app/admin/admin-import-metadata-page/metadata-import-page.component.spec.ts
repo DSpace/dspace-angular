@@ -54,20 +54,20 @@ describe('MetadataImportPageComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        MetadataImportPageComponent, FileValueAccessorDirective, FileValidator
-    ],
-    providers: [
+        MetadataImportPageComponent, FileValueAccessorDirective, FileValidator,
+      ],
+      providers: [
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: Router, useValue: router },
         { provide: Location, useValue: locationStub },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

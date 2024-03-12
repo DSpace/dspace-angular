@@ -7,11 +7,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ds-item-versions-delete-modal',
-    templateUrl: './item-versions-delete-modal.component.html',
-    styleUrls: ['./item-versions-delete-modal.component.scss'],
-    standalone: true,
-    imports: [TranslateModule]
+  selector: 'ds-item-versions-delete-modal',
+  templateUrl: './item-versions-delete-modal.component.html',
+  styleUrls: ['./item-versions-delete-modal.component.scss'],
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class ItemVersionsDeleteModalComponent {
   /**

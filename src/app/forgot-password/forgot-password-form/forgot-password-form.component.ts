@@ -1,7 +1,17 @@
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -10,14 +20,14 @@ import { CoreState } from '../../core/core-state.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
 import {
-  ProfilePageSecurityFormComponent
-} from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
 import { Registration } from '../../core/shared/registration.model';
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 @Component({
   selector: 'ds-forgot-password-form',
@@ -28,9 +38,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     BrowserOnlyPipe,
     ProfilePageSecurityFormComponent,
     AsyncPipe,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for a user to enter a new password for a forgot token.

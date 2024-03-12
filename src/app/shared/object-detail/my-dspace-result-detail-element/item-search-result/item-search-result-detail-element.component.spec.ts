@@ -9,8 +9,9 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
-import { Context } from '../../../../core/shared/context.model';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
@@ -57,12 +58,12 @@ mockResultObject.indexableObject = Object.assign(new Item(), {
 describe('ItemSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, ItemSearchResultDetailElementComponent],
-    providers: [
+      imports: [NoopAnimationsModule, ItemSearchResultDetailElementComponent],
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ItemSearchResultDetailElementComponent, {
+    }).overrideComponent(ItemSearchResultDetailElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

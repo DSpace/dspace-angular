@@ -1,26 +1,48 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { BehaviorSubject, combineLatest, } from 'rxjs';
-import { map, take, } from 'rxjs/operators';
+import {
+  CommonModule,
+  isPlatformBrowser,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
 import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { LoadingComponent } from '../../shared/loading/loading.component';
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';
-import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-settings.component';
-import { OrcidQueueComponent } from './orcid-queue/orcid-queue.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AlertType } from '../../shared/alert/alert-type';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { AlertType } from '../../shared/alert/alert-type';
 import { isNotEmpty } from '../../shared/empty.util';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 import { getItemPageRoute } from '../item-page-routing-paths';
+import { OrcidAuthComponent } from './orcid-auth/orcid-auth.component';
+import { OrcidQueueComponent } from './orcid-queue/orcid-queue.component';
+import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-settings.component';
 
 /**
  * A component that represents the orcid settings page
@@ -37,9 +59,9 @@ import { getItemPageRoute } from '../item-page-routing-paths';
     OrcidSyncSettingsComponent,
     OrcidQueueComponent,
     TranslateModule,
-    RouterLink
+    RouterLink,
   ],
-  standalone: true
+  standalone: true,
 })
 export class OrcidPageComponent implements OnInit {
   protected readonly AlertType = AlertType;

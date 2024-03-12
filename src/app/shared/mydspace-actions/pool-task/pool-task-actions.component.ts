@@ -1,9 +1,27 @@
-import { Component, Injector, Input, OnDestroy } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
@@ -16,8 +34,6 @@ import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';
 
@@ -25,11 +41,11 @@ import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actio
  * This component represents mydspace actions related to PoolTask object.
  */
 @Component({
-    selector: 'ds-pool-task-actions',
-    styleUrls: ['./pool-task-actions.component.scss'],
-    templateUrl: './pool-task-actions.component.html',
-    standalone: true,
-    imports: [NgbTooltipModule, NgIf, RouterLink, AsyncPipe, TranslateModule]
+  selector: 'ds-pool-task-actions',
+  styleUrls: ['./pool-task-actions.component.scss'],
+  templateUrl: './pool-task-actions.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, NgIf, RouterLink, AsyncPipe, TranslateModule],
 })
 export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent<PoolTask, PoolTaskDataService> implements OnDestroy {
 

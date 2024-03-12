@@ -1,59 +1,77 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { Registration } from '../../core/shared/registration.model';
-import { Observable } from 'rxjs';
 import {
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-  UntypedFormControl,
-  UntypedFormGroup,
-  Validators
-} from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
+  Component,
+  OnInit,
   OnInit,
 } from '@angular/core';
 import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
   UntypedFormBuilder,
   UntypedFormControl,
+  UntypedFormControl,
   UntypedFormGroup,
+  UntypedFormGroup,
+  Validators,
   Validators,
 } from '@angular/forms';
 import {
   ActivatedRoute,
+  ActivatedRoute,
+  Router,
   Router,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  map,
+} from 'rxjs/operators';
 
 import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { CoreState } from '../../core/core-state.model';
+import {
+  CoreState,
+  CoreState,
+} from '../../core/core-state.model';
 import { RemoteData } from '../../core/data/remote-data';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
 } from '../../core/end-user-agreement/end-user-agreement.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { CoreState } from '../../core/core-state.model';
 import {
-  ProfilePageSecurityFormComponent
-} from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+  EPersonDataService,
+  EPersonDataService,
+} from '../../core/eperson/eperson-data.service';
+import {
+  EPerson,
+  EPerson,
+} from '../../core/eperson/models/eperson.model';
 import {
   getFirstCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
-import { Registration } from '../../core/shared/registration.model';
+import {
+  Registration,
+  Registration,
+} from '../../core/shared/registration.model';
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
@@ -70,9 +88,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     NgIf,
     AsyncPipe,
     ReactiveFormsModule,
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CreateProfileComponent implements OnInit {
   registration$: Observable<Registration>;

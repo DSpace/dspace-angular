@@ -1,15 +1,17 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
 } from '@angular/core';
-import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { NgIf, AsyncPipe } from '@angular/common';
-import { VarDirective } from '../../../utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import {
   map,
   skip,
@@ -17,14 +19,15 @@ import {
 } from 'rxjs/operators';
 
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { VarDirective } from '../../../utils/var.directive';
 import { ListableObject } from '../listable-object.model';
 
 @Component({
-    selector: 'ds-selectable-list-item-control',
-    // styleUrls: ['./selectable-list-item-control.component.scss'],
-    templateUrl: './selectable-list-item-control.component.html',
-    standalone: true,
-    imports: [VarDirective, NgIf, FormsModule, AsyncPipe, TranslateModule]
+  selector: 'ds-selectable-list-item-control',
+  // styleUrls: ['./selectable-list-item-control.component.scss'],
+  templateUrl: './selectable-list-item-control.component.html',
+  standalone: true,
+  imports: [VarDirective, NgIf, FormsModule, AsyncPipe, TranslateModule],
 })
 /**
  * Component for rendering list item that has a control (checkbox or radio button) because it's selectable

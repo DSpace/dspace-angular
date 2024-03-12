@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import {
@@ -21,22 +26,20 @@ import {
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
-import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { NgIf, AsyncPipe } from '@angular/common';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement, Context.AdminWorkflowSearch)
 @Component({
-    selector: 'ds-workflow-item-search-result-admin-workflow-list-element',
-    styleUrls: ['./workflow-item-search-result-admin-workflow-list-element.component.scss'],
-    templateUrl: './workflow-item-search-result-admin-workflow-list-element.component.html',
-    standalone: true,
-    imports: [NgIf, ListableObjectComponentLoaderComponent, WorkflowItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-workflow-item-search-result-admin-workflow-list-element',
+  styleUrls: ['./workflow-item-search-result-admin-workflow-list-element.component.scss'],
+  templateUrl: './workflow-item-search-result-admin-workflow-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, ListableObjectComponentLoaderComponent, WorkflowItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule],
 })
 /**
  * The component for displaying a list element for a workflow item on the admin workflow search page

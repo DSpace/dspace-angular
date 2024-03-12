@@ -130,8 +130,8 @@ describe('MenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, MenuComponent, StoreModule.forRoot(authReducer, storeModuleConfig)],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, MenuComponent, StoreModule.forRoot(authReducer, storeModuleConfig)],
+      providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
         MenuService,

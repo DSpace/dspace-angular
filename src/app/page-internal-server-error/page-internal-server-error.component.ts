@@ -1,18 +1,21 @@
-import { ChangeDetectionStrategy, Component, } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ServerResponseService } from '../core/services/server-response.service';
-import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component representing the `PageInternalServer` DSpace page.
  */
 @Component({
-    selector: 'ds-page-internal-server-error',
-    styleUrls: ['./page-internal-server-error.component.scss'],
-    templateUrl: './page-internal-server-error.component.html',
-    changeDetection: ChangeDetectionStrategy.Default,
-    standalone: true,
-    imports: [TranslateModule]
+  selector: 'ds-page-internal-server-error',
+  styleUrls: ['./page-internal-server-error.component.scss'],
+  templateUrl: './page-internal-server-error.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class PageInternalServerErrorComponent {
 

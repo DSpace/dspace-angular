@@ -1,37 +1,52 @@
-import { Component, Injector } from '@angular/core';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { Observable, of } from 'rxjs';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Injector,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
+  Observable,
+  of,
   of,
 } from 'rxjs';
 
-import { RemoteData } from '../../../../core/data/remote-data';
+import {
+  RemoteData,
+  RemoteData,
+} from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import {
-  ClaimedApprovedTaskSearchResult
-} from '../../../object-collection/shared/claimed-approved-task-search-result.model';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+  DSpaceObject,
+  DSpaceObject,
+} from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { ClaimedApprovedTaskSearchResult } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
+import {
+  ClaimedApprovedTaskSearchResult,
+  ClaimedApprovedTaskSearchResult,
+} from '../../../object-collection/shared/claimed-approved-task-search-result.model';
+import {
+  ClaimedTaskActionsAbstractComponent,
+  ClaimedTaskActionsAbstractComponent,
+} from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
 
 @Component({
-    selector: 'ds-claimed-task-actions-approve',
-    styleUrls: ['./claimed-task-actions-approve.component.scss'],
-    templateUrl: './claimed-task-actions-approve.component.html',
-    standalone: true,
-    imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule]
+  selector: 'ds-claimed-task-actions-approve',
+  styleUrls: ['./claimed-task-actions-approve.component.scss'],
+  templateUrl: './claimed-task-actions-approve.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying and processing the approve action on a workflow task item

@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -14,36 +21,39 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { filter, mergeMap, take, } from 'rxjs/operators';
 import {
-  DynamicCustomSwitchModel
-} from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+  filter,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
+import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
 import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
 import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
-import {
-  JsonPatchOperationPathCombiner
-} from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import {
-  WorkspaceitemSectionUploadObject
-} from '../../../../../core/submission/models/workspaceitem-section-upload.model';
-import {
-  WorkspaceitemSectionUploadFileObject
-} from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import {
-  SubmissionJsonPatchOperationsService
-} from '../../../../../core/submission/submission-json-patch-operations.service';
+import { WorkspaceitemSectionUploadObject } from '../../../../../core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';
-import { hasNoValue, hasValue, isNotEmpty, isNotNull, } from '../../../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '../../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { SubmissionService } from '../../../../submission.service';
 import { SectionUploadService } from '../../section-upload.service';
+import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import {
   BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
   BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT,
@@ -60,11 +70,6 @@ import {
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
 } from './section-upload-file-edit.model';
-import { NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
-import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
-import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
 /**
  * This component represents the edit form for bitstream
@@ -76,9 +81,9 @@ import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models
   imports: [
     FormComponent,
     NgIf,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionSectionUploadFileEditComponent
 implements OnInit, OnDestroy {

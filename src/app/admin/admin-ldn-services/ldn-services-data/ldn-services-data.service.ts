@@ -56,7 +56,7 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
  * @implements {PatchData<LdnService>}
  * @implements {CreateData<LdnService>}
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 @dataService(LDN_SERVICE)
 export class LdnServicesService extends IdentifiableDataService<LdnService> implements FindAllData<LdnService>, DeleteData<LdnService>, PatchData<LdnService>, CreateData<LdnService> {
   createData: CreateDataImpl<LdnService>;

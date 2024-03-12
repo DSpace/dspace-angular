@@ -1,20 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
-import { NavbarComponent } from './app/navbar/navbar.component';
-import { HeaderComponent } from './app/header/header.component';
-import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
-import { RootModule } from '../../app/root.module';
 import { NgModule } from '@angular/core';
 
 import { NavbarModule } from '../../app/navbar/navbar.module';
-import { RootModule } from '../../app/root.module';
+import {
+  RootModule,
+  RootModule,
+} from '../../app/root.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
-import { SharedModule } from '../../app/shared/shared.module';
-import { HeaderComponent } from './app/header/header.component';
-import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
-import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
-import { NavbarComponent } from './app/navbar/navbar.component';
+import {
+  HeaderComponent,
+  HeaderComponent,
+} from './app/header/header.component';
+import {
+  HeaderNavbarWrapperComponent,
+  HeaderNavbarWrapperComponent,
+} from './app/header-nav-wrapper/header-navbar-wrapper.component';
+import {
+  HomeNewsComponent,
+  HomeNewsComponent,
+} from './app/home-page/home-news/home-news.component';
+import {
+  NavbarComponent,
+  NavbarComponent,
+} from './app/navbar/navbar.component';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
@@ -31,16 +39,16 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
+  imports: [
     CommonModule,
     SharedBrowseByModule,
     RootModule,
     NavbarModule,
-    ...DECLARATIONS
-],
-    providers: [
-        ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
-    ]
+    ...DECLARATIONS,
+  ],
+  providers: [
+    ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
+  ],
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should

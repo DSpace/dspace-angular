@@ -1,8 +1,28 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { BehaviorSubject, Observable, } from 'rxjs';
-import { filter, switchMap, tap, } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
 import { AuthService } from '../core/auth/auth.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
@@ -14,24 +34,22 @@ import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { Group } from '../core/eperson/models/group.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import {
-  ProfilePageResearcherFormComponent
-} from './profile-page-researcher-form/profile-page-researcher-form.component';
-import { VarDirective } from '../shared/utils/var.directive';
-import {
-  SuggestionsNotificationComponent
-} from '../notifications/suggestions-notification/suggestions-notification.component';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../core/shared/operators';
-import { hasValue, isNotEmpty, } from '../shared/empty.util';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
+import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
 @Component({
   selector: 'ds-profile-page',
@@ -46,9 +64,9 @@ import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/p
     VarDirective,
     NgIf,
     NgForOf,
-    SuggestionsNotificationComponent
+    SuggestionsNotificationComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for a user to edit their profile information

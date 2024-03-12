@@ -1,40 +1,59 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormsModule, UntypedFormGroup } from '@angular/forms';
-
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
-import { NgbTypeahead, NgbTypeaheadModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
+  ChangeDetectorRef,
+  Component,
   Component,
   EventEmitter,
+  EventEmitter,
+  Input,
   Input,
   OnInit,
+  OnInit,
+  Output,
   Output,
   ViewChild,
+  ViewChild,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  UntypedFormGroup,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   NgbTypeahead,
+  NgbTypeahead,
+  NgbTypeaheadModule,
+  NgbTypeaheadSelectItemEvent,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import isEqual from 'lodash/isEqual';
 import {
   Observable,
+  Observable,
+  of as observableOf,
   of as observableOf,
 } from 'rxjs';
 import {
   catchError,
+  catchError,
+  debounceTime,
   debounceTime,
   distinctUntilChanged,
+  distinctUntilChanged,
+  map,
   map,
   merge,
+  merge,
   switchMap,
+  switchMap,
+  tap,
   tap,
 } from 'rxjs/operators';
 
@@ -51,10 +70,9 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../../../empty.util';
+import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
-import { NgIf } from '@angular/common';
-import { ChipsComponent } from '../../../../chips/chips.component';
 import { DynamicTagModel } from './dynamic-tag.model';
 
 /**
@@ -68,9 +86,9 @@ import { DynamicTagModel } from './dynamic-tag.model';
     NgbTypeaheadModule,
     FormsModule,
     NgIf,
-    ChipsComponent
+    ChipsComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 

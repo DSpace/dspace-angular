@@ -1,20 +1,26 @@
-import { Component, EventEmitter, Input, Output, } from '@angular/core';
-import { BehaviorSubject, Observable, } from 'rxjs';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
-import {
-  SearchSwitchConfigurationComponent
-} from '../search-switch-configuration/search-switch-configuration.component';
-import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
-import { NgIf } from '@angular/common';
+import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
+import { SearchSwitchConfigurationComponent } from '../search-switch-configuration/search-switch-configuration.component';
 
 /**
  * This component renders a simple item page.
@@ -23,11 +29,11 @@ import { SearchConfigurationOption } from '../search-switch-configuration/search
  */
 
 @Component({
-    selector: 'ds-search-sidebar',
-    styleUrls: ['./search-sidebar.component.scss'],
-    templateUrl: './search-sidebar.component.html',
-    standalone: true,
-    imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule]
+  selector: 'ds-search-sidebar',
+  styleUrls: ['./search-sidebar.component.scss'],
+  templateUrl: './search-sidebar.component.html',
+  standalone: true,
+  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule],
 })
 
 /**

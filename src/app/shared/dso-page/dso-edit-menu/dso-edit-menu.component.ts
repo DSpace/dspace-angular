@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgComponentOutlet,
+  NgFor,
+} from '@angular/common';
+import {
   Component,
   Injector,
 } from '@angular/core';
@@ -8,18 +13,17 @@ import { AuthorizationDataService } from 'src/app/core/data/feature-authorizatio
 import { MenuComponent } from '../../menu/menu.component';
 import { MenuService } from '../../menu/menu.service';
 import { MenuID } from '../../menu/menu-id.model';
-import { NgFor, NgComponentOutlet, AsyncPipe } from '@angular/common';
 import { ThemeService } from '../../theme-support/theme.service';
 
 /**
  * Component representing the edit menu and other menus on the dspace object pages
  */
 @Component({
-    selector: 'ds-dso-edit-menu',
-    styleUrls: ['./dso-edit-menu.component.scss'],
-    templateUrl: './dso-edit-menu.component.html',
-    standalone: true,
-    imports: [NgFor, NgComponentOutlet, AsyncPipe]
+  selector: 'ds-dso-edit-menu',
+  styleUrls: ['./dso-edit-menu.component.scss'],
+  templateUrl: './dso-edit-menu.component.html',
+  standalone: true,
+  imports: [NgFor, NgComponentOutlet, AsyncPipe],
 })
 export class DsoEditMenuComponent extends MenuComponent {
   /**

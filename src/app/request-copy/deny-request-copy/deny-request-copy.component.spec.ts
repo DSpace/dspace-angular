@@ -23,17 +23,17 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Item } from '../../core/shared/item.model';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { DenyRequestCopyComponent } from './deny-request-copy.component';
-import { ThemeService } from '../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 
 describe('DenyRequestCopyComponent', () => {
   let component: DenyRequestCopyComponent;
@@ -112,8 +112,8 @@ describe('DenyRequestCopyComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
 
     return TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DenyRequestCopyComponent, VarDirective],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DenyRequestCopyComponent, VarDirective],
+      providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
         { provide: AuthService, useValue: authService },
@@ -122,9 +122,9 @@ describe('DenyRequestCopyComponent', () => {
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ThemeService, useValue: getMockThemeService() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

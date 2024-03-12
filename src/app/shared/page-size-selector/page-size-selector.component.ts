@@ -1,24 +1,37 @@
-import { Component, Inject, OnInit, } from '@angular/core';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  AsyncPipe,
+  NgFor,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, take, } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { FormsModule } from '@angular/forms';
-import { AsyncPipe, NgFor } from '@angular/common';
 import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
-    selector: 'ds-page-size-selector',
-    styleUrls: ['./page-size-selector.component.scss'],
-    templateUrl: './page-size-selector.component.html',
-    standalone: true,
-    imports: [SidebarDropdownComponent, NgFor, FormsModule, AsyncPipe]
+  selector: 'ds-page-size-selector',
+  styleUrls: ['./page-size-selector.component.scss'],
+  templateUrl: './page-size-selector.component.html',
+  standalone: true,
+  imports: [SidebarDropdownComponent, NgFor, FormsModule, AsyncPipe],
 })
 
 /**

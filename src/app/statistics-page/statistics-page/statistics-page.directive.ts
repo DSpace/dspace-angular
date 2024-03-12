@@ -1,5 +1,6 @@
 import {
-  Directive, inject,
+  Directive,
+  inject,
   OnInit,
 } from '@angular/core';
 import {

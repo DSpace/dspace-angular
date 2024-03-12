@@ -1,5 +1,13 @@
-import { Component, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -10,11 +18,17 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
-import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList, createTestComponent } from '../../../shared/testing/utils.test';
-import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../../../shared/testing/utils.test';
 import { ItemAuthorizationsComponent } from './item-authorizations.component';
 
 describe('ItemAuthorizationsComponent test suite', () => {
@@ -76,26 +90,26 @@ describe('ItemAuthorizationsComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         ItemAuthorizationsComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: LinkService, useValue: linkService },
         { provide: ActivatedRoute, useValue: routeStub },
         ItemAuthorizationsComponent,
-    ],
-    schemas: [
+      ],
+      schemas: [
         NO_ERRORS_SCHEMA,
-    ],
-})
+      ],
+    })
       .overrideComponent(ItemAuthorizationsComponent, {
         remove: { imports: [
-            ResourcePoliciesComponent,
-            AlertComponent
-          ]}
+          ResourcePoliciesComponent,
+          AlertComponent,
+        ] },
       })
       .compileComponents();
   }));
@@ -175,9 +189,9 @@ describe('ItemAuthorizationsComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

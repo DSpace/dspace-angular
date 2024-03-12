@@ -20,12 +20,12 @@ describe('TruncatableComponent', () => {
   let truncatableService;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [NoopAnimationsModule, TruncatableComponent],
-    providers: [
+      imports: [NoopAnimationsModule, TruncatableComponent],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(TruncatableComponent, {
+    }).overrideComponent(TruncatableComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

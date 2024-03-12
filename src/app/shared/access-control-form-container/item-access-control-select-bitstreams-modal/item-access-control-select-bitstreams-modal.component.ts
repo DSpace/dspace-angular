@@ -1,6 +1,17 @@
-import { Component, Input, OnInit, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { PaginatedList } from 'src/app/core/data/paginated-list.model';
 import { RemoteData } from 'src/app/core/data/remote-data';
@@ -9,21 +20,20 @@ import { Context } from 'src/app/core/shared/context.model';
 
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { hasValue } from '../../empty.util';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { hasValue } from '../../empty.util';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 
 export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams';
 
 @Component({
-    selector: 'ds-item-access-control-select-bitstreams-modal',
-    templateUrl: './item-access-control-select-bitstreams-modal.component.html',
-    styleUrls: ['./item-access-control-select-bitstreams-modal.component.scss'],
-    standalone: true,
-    imports: [NgIf, ObjectCollectionComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-item-access-control-select-bitstreams-modal',
+  templateUrl: './item-access-control-select-bitstreams-modal.component.html',
+  styleUrls: ['./item-access-control-select-bitstreams-modal.component.scss'],
+  standalone: true,
+  imports: [NgIf, ObjectCollectionComponent, AsyncPipe, TranslateModule],
 })
 export class ItemAccessControlSelectBitstreamsModalComponent implements OnInit {
 

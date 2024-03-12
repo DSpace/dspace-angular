@@ -1,5 +1,11 @@
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -35,15 +41,15 @@ describe('SearchFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-    imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), SearchFormComponent],
-    providers: [
+      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), SearchFormComponent],
+      providers: [
         { provide: Router, useValue: router },
         { provide: SearchService, useValue: searchService },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -68,16 +68,16 @@ describe('ItemPrivateComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemPrivateComponent],
-    providers: [
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemPrivateComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
-    ], schemas: [
+      ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

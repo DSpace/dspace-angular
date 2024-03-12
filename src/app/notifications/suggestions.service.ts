@@ -54,7 +54,7 @@ export interface SuggestionBulkResult {
 /**
  * The service handling all Suggestion Target  requests to the REST service.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SuggestionsService {
 
   /**

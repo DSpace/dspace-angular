@@ -19,12 +19,12 @@ describe('ComcolSearchSectionComponent', () => {
     route = new ActivatedRouteStub();
 
     await TestBed.configureTestingModule({
-    imports: [ComcolSearchSectionComponent],
-    providers: [
+      imports: [ComcolSearchSectionComponent],
+      providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: ActivatedRoute, useValue: route },
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ComcolSearchSectionComponent);
     component = fixture.componentInstance;

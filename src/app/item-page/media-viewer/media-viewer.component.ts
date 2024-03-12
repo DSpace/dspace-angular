@@ -1,6 +1,25 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, } from 'rxjs';
-import { filter, take, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { Subscription } from 'rxjs/internal/Subscription';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
 
 import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 import { environment } from '../../../environments/environment';
@@ -13,15 +32,12 @@ import { Item } from '../../core/shared/item.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { Subscription } from 'rxjs/internal/Subscription';
-import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
-import { ThumbnailComponent } from '../../thumbnail/thumbnail.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ThumbnailComponent } from '../../thumbnail/thumbnail.component';
+import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
+import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
 
 /**
  * This component renders the media viewers
@@ -38,9 +54,9 @@ import { VarDirective } from '../../shared/utils/var.directive';
     ThemedMediaViewerVideoComponent,
     TranslateModule,
     ThemedLoadingComponent,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 export class MediaViewerComponent implements OnDestroy, OnInit {
   @Input() item: Item;

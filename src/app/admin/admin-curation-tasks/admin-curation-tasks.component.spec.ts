@@ -1,5 +1,4 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CurationFormComponent } from '../../curation-form/curation-form.component';
 import {
   ComponentFixture,
   TestBed,
@@ -7,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { CurationFormComponent } from '../../curation-form/curation-form.component';
 import { AdminCurationTasksComponent } from './admin-curation-tasks.component';
 
 describe('AdminCurationTasksComponent', () => {
@@ -16,14 +16,14 @@ describe('AdminCurationTasksComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), AdminCurationTasksComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .overrideComponent(AdminCurationTasksComponent, {
-      remove: {
-        imports: [CurationFormComponent]
-      }
-    })
-    .compileComponents();
+      .overrideComponent(AdminCurationTasksComponent, {
+        remove: {
+          imports: [CurationFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,17 +1,31 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { APP_CONFIG, AppConfig, } from '../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
-import { TranslateModule } from '@ngx-translate/core';
-import { MarkdownPipe as MarkdownPipe_1 } from '../../../shared/utils/markdown.pipe';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
-import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { ImageField } from '../../simple/field-components/specific-field/image-field';
 import { hasValue } from '../../../shared/empty.util';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MarkdownPipe as MarkdownPipe_1 } from '../../../shared/utils/markdown.pipe';
+import { ImageField } from '../../simple/field-components/specific-field/image-field';
 import { ImageField } from '../../simple/field-components/specific-field/item-page-field.component';
 
 /**
@@ -19,11 +33,11 @@ import { ImageField } from '../../simple/field-components/specific-field/item-pa
  * It puts the given 'separator' between each two values.
  */
 @Component({
-    selector: 'ds-metadata-values',
-    styleUrls: ['./metadata-values.component.scss'],
-    templateUrl: './metadata-values.component.html',
-    standalone: true,
-    imports: [MetadataFieldWrapperComponent, NgFor, NgTemplateOutlet, NgIf, RouterLink, AsyncPipe, MarkdownPipe_1, TranslateModule]
+  selector: 'ds-metadata-values',
+  styleUrls: ['./metadata-values.component.scss'],
+  templateUrl: './metadata-values.component.html',
+  standalone: true,
+  imports: [MetadataFieldWrapperComponent, NgFor, NgTemplateOutlet, NgIf, RouterLink, AsyncPipe, MarkdownPipe_1, TranslateModule],
 })
 export class MetadataValuesComponent implements OnChanges {
 

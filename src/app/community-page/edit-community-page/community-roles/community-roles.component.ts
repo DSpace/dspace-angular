@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -13,13 +17,10 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Community } from '../../../core/shared/community.model';
 import { HALLink } from '../../../core/shared/hal-link.model';
 import {
-  ComcolRoleComponent
-} from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
-import { AsyncPipe, NgForOf } from '@angular/common';
-import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 
 /**
  * Component for managing a community's roles
@@ -30,9 +31,9 @@ import {
   imports: [
     ComcolRoleComponent,
     AsyncPipe,
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CommunityRolesComponent implements OnInit {
 

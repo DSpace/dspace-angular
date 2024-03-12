@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Injector,
@@ -7,6 +12,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
@@ -33,23 +39,21 @@ import {
   hasValue,
   isNotEmpty,
 } from '../empty.util';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
-import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SearchEvent } from './eperson-group-list-event-type';
+import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
 
 @Component({
-    selector: 'ds-eperson-group-list',
-    styleUrls: ['./eperson-group-list.component.scss'],
-    templateUrl: './eperson-group-list.component.html',
-    animations: [
-        fadeInOut
-    ],
-    standalone: true,
-    imports: [NgIf, EpersonSearchBoxComponent, GroupSearchBoxComponent, PaginationComponent, NgFor, AsyncPipe, TranslateModule]
+  selector: 'ds-eperson-group-list',
+  styleUrls: ['./eperson-group-list.component.scss'],
+  templateUrl: './eperson-group-list.component.html',
+  animations: [
+    fadeInOut,
+  ],
+  standalone: true,
+  imports: [NgIf, EpersonSearchBoxComponent, GroupSearchBoxComponent, PaginationComponent, NgFor, AsyncPipe, TranslateModule],
 })
 /**
  * Component that shows a list of eperson or group

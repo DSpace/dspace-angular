@@ -1,12 +1,16 @@
-import { Component, Input, OnInit, } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { HostWindowService } from '../../../shared/host-window.service';
 import { SectionDataObject } from '../../sections/models/section-data.model';
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
 
@@ -18,7 +22,7 @@ import { SubmissionService } from '../../submission.service';
   styleUrls: ['./submission-form-section-add.component.scss'],
   templateUrl: './submission-form-section-add.component.html',
   standalone: true,
-  imports: [CommonModule, TranslateModule, NgbDropdownModule,]
+  imports: [CommonModule, TranslateModule, NgbDropdownModule],
 })
 export class SubmissionFormSectionAddComponent implements OnInit {
 

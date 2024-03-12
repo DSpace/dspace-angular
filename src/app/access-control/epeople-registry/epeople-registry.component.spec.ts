@@ -19,6 +19,7 @@ import {
   By,
 } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import {
   NgbModal,
   NgbModule,
@@ -29,38 +30,42 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import {
+  AuthorizationDataService,
+  AuthorizationDataService,
+} from '../../core/data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
+import {
+  RequestService,
+  RequestService,
+} from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
+import {
+  PaginationService,
+  PaginationService,
+} from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getMockFormBuilderService } from '../../shared/mocks/form-builder-service.mock';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {
   EPersonMock,
   EPersonMock2,
 } from '../../shared/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { RouterStub } from '../../shared/testing/router.stub';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RouterMock } from '../../shared/mocks/router.mock';
 
 describe('EPeopleRegistryComponent', () => {
   let component: EPeopleRegistryComponent;
@@ -154,15 +159,15 @@ describe('EPeopleRegistryComponent', () => {
 
     paginationService = new PaginationServiceStub();
     awaitTestBed.configureTestingModule({
-    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule.withRoutes([]),
+      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(), EPeopleRegistryComponent],
       providers: [
-        {provide: EPersonDataService, useValue: ePersonDataServiceStub},
-        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: FormBuilderService, useValue: builderService},
-        {provide: Router, useValue: new RouterMock()},
-        {provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring'])},
+        { provide: EPersonDataService, useValue: ePersonDataServiceStub },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: FormBuilderService, useValue: builderService },
+        { provide: Router, useValue: new RouterMock() },
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
         { provide: PaginationService, useValue: paginationService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -173,8 +178,8 @@ describe('EPeopleRegistryComponent', () => {
             EPersonFormComponent,
             ThemedLoadingComponent,
             PaginationComponent,
-          ]
-        }
+          ],
+        },
       })
       .compileComponents();
   }));

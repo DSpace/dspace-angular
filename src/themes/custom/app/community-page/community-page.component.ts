@@ -1,37 +1,28 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CommunityPageComponent as BaseComponent } from '../../../../app/community-page/community-page.component';
+import { ThemedCollectionPageSubCollectionListComponent } from '../../../../app/community-page/sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
+import { ThemedCommunityPageSubCommunityListComponent } from '../../../../app/community-page/sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
 import { fadeInOut } from '../../../../app/shared/animations/fade';
-import {
-  ComcolPageContentComponent
-} from '../../../../app/shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageBrowseByComponent } from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import {
-  ThemedComcolPageBrowseByComponent
-} from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { DsoEditMenuComponent } from '../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import {
-  ThemedComcolPageHandleComponent
-} from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import {
-  ComcolPageHeaderComponent
-} from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
-import {
-  ThemedCommunityPageSubCommunityListComponent
-} from '../../../../app/community-page/sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
-import {
-  ThemedCollectionPageSubCollectionListComponent
-} from '../../../../app/community-page/sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
-import { RouterModule } from '@angular/router';
+import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
 
 
 @Component({
@@ -59,7 +50,7 @@ import { RouterModule } from '@angular/router';
     AsyncPipe,
     ViewTrackerComponent,
     VarDirective,
-    RouterModule
+    RouterModule,
   ],
 })
 /**

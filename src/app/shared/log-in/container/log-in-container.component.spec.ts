@@ -22,7 +22,6 @@ import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
-import { SharedModule } from '../../shared.module';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { createTestComponent } from '../../testing/utils.test';
@@ -44,24 +43,24 @@ describe('LogInContainerComponent', () => {
     });
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer),
         TranslateModule.forRoot(),
         RouterTestingModule,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: HardRedirectService, useValue: hardRedirectService },
         LogInContainerComponent,
-    ],
-    schemas: [
+      ],
+      schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-})
+    })
       .compileComponents();
 
   }));
@@ -120,12 +119,12 @@ describe('LogInContainerComponent', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [FormsModule,
-        ReactiveFormsModule,
-        RouterTestingModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    RouterTestingModule],
 })
 class TestComponent {
 

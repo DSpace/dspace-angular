@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { SearchModule } from '../shared/search/search.module';
@@ -15,18 +16,18 @@ const components = [
 ];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SearchModule,
-        StatisticsModule.forRoot(),
-        ...components
-    ],
-    providers: [
-        SidebarService,
-        SearchFilterService,
-        ConfigurationSearchPageGuard,
+  imports: [
+    CommonModule,
+    SearchModule,
+    StatisticsModule.forRoot(),
+    ...components,
+  ],
+  providers: [
+    SidebarService,
+    SearchFilterService,
+    ConfigurationSearchPageGuard,
     SearchConfigurationService,
-    ],
+  ],
   exports: components,
 })
 

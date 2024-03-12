@@ -19,11 +19,10 @@ import { BulkAccessConfigDataService } from '../../core/config/bulk-access-confi
 import { Item } from '../../core/shared/item.model';
 import { SharedBrowseByModule } from '../browse-by/shared-browse-by.module';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { AccessControlFormModule } from './access-control-form.module';
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';
-import { ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID} from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
+import { ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
 
 
 describe('AccessControlFormContainerComponent', () => {
@@ -36,11 +35,11 @@ describe('AccessControlFormContainerComponent', () => {
     selector: 'ds-ngb-modal', template: '',
     standalone: true,
     imports: [CommonModule,
-        FormsModule,
-        SharedBrowseByModule,
-        NgbDatepickerModule,
-        UiSwitchModule]
-})
+      FormsModule,
+      SharedBrowseByModule,
+      NgbDatepickerModule,
+      UiSwitchModule],
+  })
   class MockNgbModalComponent {
   }
 
@@ -67,22 +66,22 @@ describe('AccessControlFormContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         FormsModule,
         SharedBrowseByModule,
         TranslateModule.forRoot(),
         NgbDatepickerModule,
         UiSwitchModule,
-        AccessControlFormContainerComponent, MockNgbModalComponent
-    ],
-    providers: [
+        AccessControlFormContainerComponent, MockNgbModalComponent,
+      ],
+      providers: [
         { provide: BulkAccessControlService, useValue: mockBulkAccessControlService },
         { provide: BulkAccessConfigDataService, useValue: mockBulkAccessConfigDataService },
         { provide: SelectableListService, useValue: mockSelectableListService },
         { provide: NgbModal, useValue: mockNgbModal },
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

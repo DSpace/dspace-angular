@@ -41,19 +41,19 @@ let notifyInfoService = {
 describe('Footer component', () => {
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-    imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
-        }), FooterComponent],
-    providers: [
+      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), FooterComponent],
+      providers: [
         FooterComponent,
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: NotifyInfoService, useValue: notifyInfoService },
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-});
+    });
   }));
 
   // synchronous beforeEach

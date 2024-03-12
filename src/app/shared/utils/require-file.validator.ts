@@ -1,13 +1,17 @@
 import { Directive } from '@angular/core';
-import { NG_VALIDATORS, UntypedFormControl, Validator, } from '@angular/forms';
+import {
+  NG_VALIDATORS,
+  UntypedFormControl,
+  Validator,
+} from '@angular/forms';
 
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: '[requireFile]',
-    providers: [
-        { provide: NG_VALIDATORS, useExisting: FileValidator, multi: true },
-    ],
-    standalone: true
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: '[requireFile]',
+  providers: [
+    { provide: NG_VALIDATORS, useExisting: FileValidator, multi: true },
+  ],
+  standalone: true,
 })
 /**
  * Validator directive to validate if a file is selected

@@ -1,22 +1,44 @@
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, zip } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  zip,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { Router, RouterLink } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { RemoteData } from '../../../core/data/remote-data';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RegistryService } from '../../../core/registry/registry.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-schema-form.component';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-schema-form.component';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -30,9 +52,9 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
     NgIf,
     NgForOf,
     NgClass,
-    RouterLink
+    RouterLink,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * A component used for managing all existing metadata schemas within the repository.

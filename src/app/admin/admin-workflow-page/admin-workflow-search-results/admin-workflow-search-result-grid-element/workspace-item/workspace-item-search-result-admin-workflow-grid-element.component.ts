@@ -1,18 +1,27 @@
-import { Component, ComponentRef, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, mergeMap, take, tap } from 'rxjs/operators';
-
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  ComponentRef,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  BehaviorSubject,
+  Observable,
   Observable,
 } from 'rxjs';
 import {
   map,
+  map,
+  mergeMap,
   mergeMap,
   take,
+  take,
+  tap,
   tap,
 } from 'rxjs/operators';
 
@@ -25,23 +34,23 @@ import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import {
-  Item } from '../../../../../core/shared/item.model';
+  Item,
+  Item,
+} from '../../../../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import {
+  ViewMode,
+  ViewMode,
+} from '../../../../../core/shared/view-mode.model';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { hasValue } from '../../../../../shared/empty.util';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe } from '@angular/common';
-import {
-  WorkspaceItemAdminWorkflowActionsComponent
-} from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
 import {
   getListableObjectComponent,
   listableObjectComponent,
@@ -51,14 +60,15 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
-    selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
-    styleUrls: ['./workspace-item-search-result-admin-workflow-grid-element.component.scss'],
-    templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html',
-    standalone: true,
-  imports: [WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule, DynamicComponentLoaderDirective]
+  selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
+  styleUrls: ['./workspace-item-search-result-admin-workflow-grid-element.component.scss'],
+  templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html',
+  standalone: true,
+  imports: [WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule, DynamicComponentLoaderDirective],
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page

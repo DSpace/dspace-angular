@@ -1,19 +1,34 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup, ValidatorFn, ValidationErrors, AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
+  ChangeDetectorRef,
+  Component,
   Component,
   EventEmitter,
+  EventEmitter,
+  Input,
   Input,
   OnInit,
+  OnInit,
+  Output,
   Output,
 } from '@angular/core';
 import {
   AbstractControl,
+  AbstractControl,
+  ReactiveFormsModule,
+  UntypedFormGroup,
   UntypedFormGroup,
   ValidationErrors,
+  ValidationErrors,
+  ValidatorFn,
   ValidatorFn,
 } from '@angular/forms';
+import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
@@ -22,11 +37,26 @@ import {
 } from '@ng-dynamic-forms/core';
 import findKey from 'lodash/findKey';
 
-import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  PaginatedList,
+  PaginatedList,
+} from '../../../../../../core/data/paginated-list.model';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../../../../core/shared/operators';
+import {
+  PageInfo,
+  PageInfo,
+} from '../../../../../../core/shared/page-info.model';
+import {
+  VocabularyEntry,
+  VocabularyEntry,
+} from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import {
+  VocabularyService,
+  VocabularyService,
+} from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import {
   hasValue,
   isNotEmpty,
@@ -34,13 +64,6 @@ import {
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 
 export interface ListItem {
   id: string;
@@ -61,9 +84,9 @@ export interface ListItem {
     NgIf,
     NgbButtonsModule,
     NgForOf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
 

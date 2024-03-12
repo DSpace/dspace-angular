@@ -1,8 +1,31 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AsyncPipe, isPlatformServer, NgIf } from '@angular/common';
-import { combineLatest, Observable, of, } from 'rxjs';
-import { map, switchMap, take, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  isPlatformServer,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
 
 import { AuthService } from '../../core/auth/auth.service';
@@ -12,7 +35,10 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
-import { LinkDefinition, LinkHeadService, } from '../../core/services/link-head.service';
+import {
+  LinkDefinition,
+  LinkHeadService,
+} from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Item } from '../../core/shared/item.model';
@@ -20,21 +46,16 @@ import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
-import { getItemPageRoute } from '../item-page-routing-paths';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
-import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
-import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
-import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { TranslateModule } from '@ngx-translate/core';
-import {
-  NotifyRequestsStatusComponent
-} from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { getItemPageRoute } from '../item-page-routing-paths';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
 import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
 /**
@@ -62,8 +83,8 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
     AsyncPipe,
     NgIf,
     NotifyRequestsStatusComponent,
-    QaEventNotificationComponent
-  ]
+    QaEventNotificationComponent,
+  ],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
 

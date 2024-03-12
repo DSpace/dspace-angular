@@ -1,15 +1,23 @@
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import {
   ActivatedRoute,
+  ActivatedRoute,
   Router,
+  Router,
+  RouterLink,
+  RouterOutlet,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { Community } from '../../core/shared/community.model';
-import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { getCommunityPageRoute } from '../community-page-routing-paths';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 
 /**
  * Component that represents the page where a user can edit an existing Community
@@ -25,8 +33,8 @@ import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
     NgForOf,
     RouterOutlet,
     NgIf,
-    AsyncPipe
-  ]
+    AsyncPipe,
+  ],
 })
 export class EditCommunityPageComponent extends EditComColPageComponent<Community> {
   type = 'community';

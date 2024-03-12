@@ -44,14 +44,14 @@ describe('BrowseByPageComponent', () => {
     themeService = getMockThemeService();
 
     await TestBed.configureTestingModule({
-    imports: [BrowseBySwitcherComponent, BrowseByPageComponent],
-    declarations: [DynamicComponentLoaderDirective],
-    providers: [
+      imports: [BrowseBySwitcherComponent, BrowseByPageComponent],
+      declarations: [DynamicComponentLoaderDirective],
+      providers: [
         BrowseByTestComponent,
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: ThemeService, useValue: themeService },
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BrowseByPageComponent);
     component = fixture.componentInstance;

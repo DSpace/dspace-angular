@@ -1,14 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
-import { AlertType } from '../../shared/alert/alert-type';
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
+  Component,
+  Input,
   Input,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   map,
@@ -22,9 +23,16 @@ import {
 
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Item } from '../../core/shared/item.model';
+import {
+  Item,
+  Item,
+} from '../../core/shared/item.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
-import { AlertType } from '../../shared/alert/alert-type';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import {
+  AlertType,
+  AlertType,
+} from '../../shared/alert/alert-type';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,
@@ -39,9 +47,9 @@ import {
     NgIf,
     TranslateModule,
     RouterLink,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component displaying alerts for an item

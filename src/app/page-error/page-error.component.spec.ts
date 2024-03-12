@@ -1,7 +1,14 @@
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
@@ -19,19 +26,19 @@ describe('PageErrorComponent', () => {
   });
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        PageErrorComponent
-    ],
-    providers: [
+        PageErrorComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
       ],
-}).compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PageErrorComponent);
     component = fixture.componentInstance;

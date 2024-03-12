@@ -1,10 +1,20 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject, of as observableOf, } from 'rxjs';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
@@ -91,8 +101,8 @@ describe('SearchFacetFilterComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetFilterComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetFilterComponent],
+      providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
@@ -102,21 +112,21 @@ describe('SearchFacetFilterComponent', () => {
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         { provide: SCOPE, useValue: undefined },
         {
-            provide: SearchFilterService, useValue: {
-                getSelectedValuesForFilter: () => observableOf(selectedValues),
-                isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-                getPage: (paramName: string) => page,
-                /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-                incrementPage: (filterName: string) => {
-                },
-                resetPage: (filterName: string) => {
+          provide: SearchFilterService, useValue: {
+            getSelectedValuesForFilter: () => observableOf(selectedValues),
+            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
+            getPage: (paramName: string) => page,
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+            incrementPage: (filterName: string) => {
             },
-                /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+            resetPage: (filterName: string) => {
+            },
+            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           },
         },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(SearchFacetFilterComponent, {
+    }).overrideComponent(SearchFacetFilterComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

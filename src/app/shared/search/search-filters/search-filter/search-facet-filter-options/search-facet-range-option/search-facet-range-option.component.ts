@@ -1,6 +1,21 @@
-import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { Observable, Subscription, } from 'rxjs';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
@@ -10,7 +25,6 @@ import { SearchFilterService } from '../../../../../../core/shared/search/search
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import {
@@ -21,12 +35,12 @@ import {
 const rangeDelimiter = '-';
 
 @Component({
-    selector: 'ds-search-facet-range-option',
-    styleUrls: ['./search-facet-range-option.component.scss'],
-    // templateUrl: './search-facet-range-option.component.html',
-    templateUrl: './search-facet-range-option.component.html',
-    standalone: true,
-    imports: [NgIf, RouterLink, AsyncPipe, ShortNumberPipe]
+  selector: 'ds-search-facet-range-option',
+  styleUrls: ['./search-facet-range-option.component.scss'],
+  // templateUrl: './search-facet-range-option.component.html',
+  templateUrl: './search-facet-range-option.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe, ShortNumberPipe],
 })
 
 /**

@@ -215,25 +215,25 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
-    providers: [
-        { provide: NotificationsService, useValue: notificationsService },
-        { provide: DynamicFormService, useValue: formService },
-        {
+        imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        providers: [
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: DynamicFormService, useValue: formService },
+          {
             provide: ActivatedRoute,
             useValue: {
-                data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
               snapshot: { queryParams: {} },
             },
-        },
-        { provide: BitstreamDataService, useValue: bitstreamService },
-        { provide: DSONameService, useValue: dsoNameService },
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
-        { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+          },
+          { provide: BitstreamDataService, useValue: bitstreamService },
+          { provide: DSONameService, useValue: dsoNameService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+          { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           ChangeDetectorRef,
-    ],
+        ],
         schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      }).compileComponents();
 
     }));
 
@@ -503,25 +503,25 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
-    providers: [
-        { provide: NotificationsService, useValue: notificationsService },
-        { provide: DynamicFormService, useValue: formService },
-        {
+        imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        providers: [
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: DynamicFormService, useValue: formService },
+          {
             provide: ActivatedRoute,
             useValue: {
-                data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
               snapshot: { queryParams: {} },
             },
-        },
-        { provide: BitstreamDataService, useValue: bitstreamService },
-        { provide: DSONameService, useValue: dsoNameService },
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
-        { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+          },
+          { provide: BitstreamDataService, useValue: bitstreamService },
+          { provide: DSONameService, useValue: dsoNameService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+          { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           ChangeDetectorRef,
-    ],
+        ],
         schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+      }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -627,25 +627,25 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
-    providers: [
-        { provide: NotificationsService, useValue: notificationsService },
-        { provide: DynamicFormService, useValue: formService },
-        { provide: ActivatedRoute,
+        imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        providers: [
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: DynamicFormService, useValue: formService },
+          { provide: ActivatedRoute,
             useValue: {
-                data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
               snapshot: { queryParams: {} },
             },
-        },
-        { provide: BitstreamDataService, useValue: bitstreamService },
-        { provide: DSONameService, useValue: dsoNameService },
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
-        { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+          },
+          { provide: BitstreamDataService, useValue: bitstreamService },
+          { provide: DSONameService, useValue: dsoNameService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+          { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           ChangeDetectorRef,
-    ],
+        ],
         schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
-      }));
+      }).compileComponents();
+    }));
 
     beforeEach(() => {
       fixture = TestBed.createComponent(EditBitstreamPageComponent);

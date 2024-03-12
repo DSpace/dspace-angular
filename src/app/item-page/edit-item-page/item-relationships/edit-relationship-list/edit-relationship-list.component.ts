@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Inject,
@@ -11,6 +17,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -18,7 +25,8 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import {defaultIfEmpty,
+import {
+  defaultIfEmpty,
   map,
   mergeMap,
   startWith,
@@ -59,22 +67,18 @@ import {
   hasValue,
   hasValueOperator,
 } from '../../../../shared/empty.util';
-import {
-  DsDynamicLookupRelationModalComponent
-} from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { SearchResult } from '../../../../shared/search/models/search-result.model';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
-import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';
-import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
+import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -90,9 +94,9 @@ import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loadin
     NgFor,
     TranslateModule,
     NgClass,
-    ThemedLoadingComponent
+    ThemedLoadingComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * A component creating a list of editable relationships of a certain type

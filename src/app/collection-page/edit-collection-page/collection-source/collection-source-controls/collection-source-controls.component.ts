@@ -1,11 +1,22 @@
-import { HttpClient } from '@angular/common/http';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  HttpClient,
+  HttpClient,
+} from '@angular/common/http';
 import {
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -18,31 +29,38 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import {
+  BitstreamDataService,
+  BitstreamDataService,
+} from '../../../../core/data/bitstream-data.service';
+import {
+  CollectionDataService,
+  CollectionDataService,
+} from '../../../../core/data/collection-data.service';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestService } from '../../../../core/data/request.service';
-import { Collection } from '../../../../core/shared/collection.model';
+import {
+  Collection,
+  Collection,
+} from '../../../../core/shared/collection.model';
 import { ContentSource } from '../../../../core/shared/content-source.model';
-import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import {
+  ContentSourceSetSerializer,
+  ContentSourceSetSerializer,
+} from '../../../../core/shared/content-source-set-serializer';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { Process } from '../../../../process-page/processes/process.model';
+import {
+  Process,
+  Process,
+} from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { Process } from '../../../../process-page/processes/process.model';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**
@@ -56,9 +74,9 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     TranslateModule,
     AsyncPipe,
     NgIf,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
 

@@ -7,10 +7,10 @@ import { ProfilePageComponent } from './profile-page.component';
  * Themed wrapper for ProfilePageComponent
  */
 @Component({
-    selector: 'ds-themed-profile-page',
-    styleUrls: [],
-    templateUrl: './../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-profile-page',
+  styleUrls: [],
+  templateUrl: './../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedProfilePageComponent extends ThemedComponent<ProfilePageComponent> {
   protected getComponentName(): string {

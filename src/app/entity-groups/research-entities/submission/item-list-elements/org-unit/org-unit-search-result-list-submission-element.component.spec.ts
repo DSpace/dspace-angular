@@ -1,11 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
@@ -25,16 +35,14 @@ import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.serv
 import { Item } from '../../../../../core/shared/item.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import {
-  OrgUnitSearchResultListSubmissionElementComponent
-} from './org-unit-search-result-list-submission-element.component';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { OrgUnitSearchResultListSubmissionElementComponent } from './org-unit-search-result-list-submission-element.component';
 
 let personListElementComponent: OrgUnitSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<OrgUnitSearchResultListSubmissionElementComponent>;
@@ -104,8 +112,8 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
       },
     };
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, OrgUnitSearchResultListSubmissionElementComponent],
-    providers: [
+      imports: [TruncatePipe, OrgUnitSearchResultListSubmissionElementComponent],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: NotificationsService, useValue: {} },
@@ -125,9 +133,9 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(OrgUnitSearchResultListSubmissionElementComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(OrgUnitSearchResultListSubmissionElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

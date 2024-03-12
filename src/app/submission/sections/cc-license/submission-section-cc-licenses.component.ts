@@ -1,7 +1,28 @@
-import { Component, Inject, } from '@angular/core';
-import { NgbModal, NgbModalRef, } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, of as observableOf, Subscription, } from 'rxjs';
-import { distinctUntilChanged, filter, map, take, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -11,22 +32,22 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { Field, Option, SubmissionCcLicence, } from '../../../core/submission/models/submission-cc-license.model';
 import {
-  WorkspaceitemSectionCcLicenseObject
-} from '../../../core/submission/models/workspaceitem-section-cc-license.model';
+  Field,
+  Option,
+  SubmissionCcLicence,
+} from '../../../core/submission/models/submission-cc-license.model';
+import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
-import { SectionsType } from '../sections-type';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
+import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
+import { SectionsType } from '../sections-type';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -42,9 +63,9 @@ import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component
     AsyncPipe,
     VarDirective,
     NgForOf,
-    DsSelectComponent
+    DsSelectComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent {
 

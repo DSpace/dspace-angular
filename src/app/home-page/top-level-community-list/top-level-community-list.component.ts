@@ -1,9 +1,30 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, } from '@angular/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription, } from 'rxjs';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { APP_CONFIG, AppConfig, } from 'src/config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
-import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -11,25 +32,23 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * this component renders the Top-Level Community list
  */
 @Component({
-    selector: 'ds-top-level-community-list',
-    styleUrls: ['./top-level-community-list.component.scss'],
-    templateUrl: './top-level-community-list.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [fadeInOut],
-    standalone: true,
-    imports: [VarDirective, NgIf, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule]
+  selector: 'ds-top-level-community-list',
+  styleUrls: ['./top-level-community-list.component.scss'],
+  templateUrl: './top-level-community-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeInOut],
+  standalone: true,
+  imports: [VarDirective, NgIf, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 
 export class TopLevelCommunityListComponent implements OnInit, OnDestroy {

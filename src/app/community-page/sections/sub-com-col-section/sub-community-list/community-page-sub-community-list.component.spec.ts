@@ -23,14 +23,17 @@ import { LinkHeadService } from '../../../../core/services/link-head.service';
 import { Community } from '../../../../core/shared/community.model';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { HostWindowService } from '../../../../shared/host-window.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { HostWindowService } from '../../../../shared/host-window.service';
+import {
+  HostWindowService,
+  HostWindowService,
+} from '../../../../shared/host-window.service';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { SharedModule } from '../../../../shared/shared.module';
+import {
+  createSuccessfulRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
@@ -156,14 +159,14 @@ describe('CommunityPageSubCommunityListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
         NgbModule,
         NoopAnimationsModule,
-        CommunityPageSubCommunityListComponent
-    ],
-    providers: [
+        CommunityPageSubCommunityListComponent,
+      ],
+      providers: [
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
@@ -173,9 +176,9 @@ describe('CommunityPageSubCommunityListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

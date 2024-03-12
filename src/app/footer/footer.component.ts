@@ -1,25 +1,29 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Optional,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
-import { NgIf, AsyncPipe, DatePipe } from '@angular/common';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { hasValue } from '../shared/empty.util';
 
 @Component({
-    selector: 'ds-footer',
-    styleUrls: ['footer.component.scss'],
-    templateUrl: 'footer.component.html',
-    standalone: true,
-    imports: [NgIf, RouterLink, AsyncPipe, DatePipe, TranslateModule]
+  selector: 'ds-footer',
+  styleUrls: ['footer.component.scss'],
+  templateUrl: 'footer.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe, DatePipe, TranslateModule],
 })
 export class FooterComponent {
   dateObj: number = Date.now();

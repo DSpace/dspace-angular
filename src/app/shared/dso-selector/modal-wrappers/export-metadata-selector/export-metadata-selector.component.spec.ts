@@ -24,7 +24,10 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import {
+  AuthorizationDataService,
+  AuthorizationDataService,
+} from '../../../../core/data/feature-authorization/authorization-data.service';
 import {
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
@@ -42,9 +45,8 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
@@ -54,9 +56,9 @@ import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component'
         provide: TranslateLoader,
         useClass: TranslateLoaderMock,
       },
-        }), ConfirmationModalComponent],
+    }), ConfirmationModalComponent],
   exports: [],
-    providers: [],
+  providers: [],
 })
 class ModelTestModule {
 }
@@ -123,32 +125,32 @@ describe('ExportMetadataSelectorComponent', () => {
       isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportMetadataSelectorComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportMetadataSelectorComponent],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         {
-            provide: ActivatedRoute,
-            useValue: {
-                root: {
-                    snapshot: {
-                        data: {
-                            dso: itemRD,
-                        },
-                    },
+          provide: ActivatedRoute,
+          useValue: {
+            root: {
+              snapshot: {
+                data: {
+                  dso: itemRD,
+                },
+              },
             },
-            },
+          },
         },
         {
           provide: Router, useValue: router,
         },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(ExportMetadataSelectorComponent, {
-        remove: { imports: [DSOSelectorComponent] }
+        remove: { imports: [DSOSelectorComponent] },
       })
       .compileComponents();
 

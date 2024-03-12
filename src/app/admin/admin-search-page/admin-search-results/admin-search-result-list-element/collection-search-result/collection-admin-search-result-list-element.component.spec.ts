@@ -1,6 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-
   ComponentFixture,
   TestBed,
   waitForAsync,
@@ -16,13 +15,13 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { Collection } from '../../../../../core/shared/collection.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionAdminSearchResultListElementComponent } from './collection-admin-search-result-list-element.component';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { CollectionAdminSearchResultListElementComponent } from './collection-admin-search-result-list-element.component';
 
 describe('CollectionAdminSearchResultListElementComponent', () => {
   let component: CollectionAdminSearchResultListElementComponent;
@@ -40,19 +39,19 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        CollectionAdminSearchResultListElementComponent
-    ],
-    providers: [
+        CollectionAdminSearchResultListElementComponent,
+      ],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: ThemeService, useValue: getMockThemeService() }
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   }));
 

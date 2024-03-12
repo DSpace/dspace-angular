@@ -1,58 +1,64 @@
-import { filter, map, mergeMap } from 'rxjs/operators';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectionStrategy,
   Component,
+  Component,
+  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
+  ActivatedRoute,
   Router,
+  Router,
+  RouterModule,
+  RouterOutlet,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
+  filter,
   map,
+  map,
+  mergeMap,
   mergeMap,
 } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth/auth.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
+import {
+  redirectOn4xx,
+  redirectOn4xx,
+} from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { Community } from '../core/shared/community.model';
 import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
-import { hasValue } from '../shared/empty.util';
-import { getCommunityPageRoute } from './community-page-routing-paths';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { ThemedComcolPageBrowseByComponent } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from '../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { hasValue } from '../shared/empty.util';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import {
-  ThemedComcolPageBrowseByComponent
-} from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
-import {
-  ThemedComcolPageHandleComponent
-} from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { VarDirective } from '../shared/utils/var.directive';
-import {
-  ThemedCollectionPageSubCollectionListComponent
-} from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
-import {
-  ThemedCommunityPageSubCommunityListComponent
-} from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
+import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
+import { getCommunityPageRoute } from './community-page-routing-paths';
+import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
+import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
 
 @Component({
   selector: 'ds-community-page',
@@ -77,9 +83,9 @@ import {
     ViewTrackerComponent,
     VarDirective,
     RouterOutlet,
-    RouterModule
+    RouterModule,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * This component represents a detail page for a single community

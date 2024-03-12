@@ -53,7 +53,7 @@ import { QUALITY_ASSURANCE_EVENT_OBJECT } from '../models/quality-assurance-even
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 @dataService(QUALITY_ASSURANCE_EVENT_OBJECT)
 export class QualityAssuranceEventDataService extends IdentifiableDataService<QualityAssuranceEventObject> {
 

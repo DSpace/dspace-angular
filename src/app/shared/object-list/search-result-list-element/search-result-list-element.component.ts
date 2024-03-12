@@ -18,9 +18,9 @@ import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 
 @Component({
-    selector: 'ds-search-result-list-element',
-    template: ``,
-    standalone: true
+  selector: 'ds-search-result-list-element',
+  template: ``,
+  standalone: true,
 })
 export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   /**

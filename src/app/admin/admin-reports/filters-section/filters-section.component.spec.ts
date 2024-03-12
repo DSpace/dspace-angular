@@ -20,20 +20,20 @@ describe('FiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        FiltersComponent
-    ],
-    providers: [
+        FiltersComponent,
+      ],
+      providers: [
         FormBuilder,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-});
+    });
   }));
 
   beforeEach(waitForAsync(() => {

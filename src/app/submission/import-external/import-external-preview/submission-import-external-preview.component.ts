@@ -9,6 +9,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { mergeMap } from 'rxjs/operators';
 
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
@@ -19,7 +20,6 @@ import { CollectionListEntry } from '../../../shared/collection-dropdown/collect
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component display a preview of an external source item.
@@ -29,9 +29,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./submission-import-external-preview.component.scss'],
   templateUrl: './submission-import-external-preview.component.html',
   imports: [
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**

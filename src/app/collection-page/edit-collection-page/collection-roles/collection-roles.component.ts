@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -16,11 +20,8 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { hasValue } from '../../../shared/empty.util';
-import {
-  ComcolRoleComponent
-} from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
-import { AsyncPipe, NgForOf } from '@angular/common';
 
 /**
  * Component for managing a collection's roles
@@ -31,9 +32,9 @@ import { AsyncPipe, NgForOf } from '@angular/common';
   imports: [
     ComcolRoleComponent,
     NgForOf,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CollectionRolesComponent implements OnInit {
 

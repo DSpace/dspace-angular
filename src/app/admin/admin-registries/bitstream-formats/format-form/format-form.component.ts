@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
   DynamicCheckboxModel,
@@ -9,14 +16,16 @@ import {
   DynamicSelectModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { hasValue, isEmpty } from '../../../../shared/empty.util';
 
 import { environment } from '../../../../../environments/environment';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
-import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
+import {
+  hasValue,
+  isEmpty,
+} from '../../../../shared/empty.util';
 import { FormComponent } from '../../../../shared/form/form.component';
-import { NgIf } from '@angular/common';
+import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
  * The component responsible for rendering the form to create/edit a bitstream format
@@ -26,9 +35,9 @@ import { NgIf } from '@angular/common';
   templateUrl: './format-form.component.html',
   imports: [
     FormComponent,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class FormatFormComponent implements OnInit {
 

@@ -8,12 +8,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { Community } from '../../../core/shared/community.model';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { CommunityGridElementComponent } from './community-grid-element.component';
 
 let communityGridElementComponent: CommunityGridElementComponent;
@@ -48,17 +48,17 @@ const linkService = jasmine.createSpyObj('linkService', {
 describe('CommunityGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
-        CommunityGridElementComponent
-    ],
-    providers: [
+        CommunityGridElementComponent,
+      ],
+      providers: [
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
         { provide: LinkService, useValue: linkService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(CommunityGridElementComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(CommunityGridElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

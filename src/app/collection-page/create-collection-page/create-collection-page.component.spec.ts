@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouteService } from '../../core/services/route.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 import {
   ComponentFixture,
   TestBed,
@@ -12,18 +10,23 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
+import {
+  CollectionDataService,
+  CollectionDataService,
+} from '../../core/data/collection-data.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
-import { RouteService } from '../../core/services/route.service';
-import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
-import { AuthService } from '../../core/auth/auth.service';
+import {
+  RouteService,
+  RouteService,
+} from '../../core/services/route.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { CollectionFormComponent } from '../collection-form/collection-form.component';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SharedModule } from '../../shared/shared.module';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { CollectionFormComponent } from '../collection-form/collection-form.component';
 import { CreateCollectionPageComponent } from './create-collection-page.component';
 
 describe('CreateCollectionPageComponent', () => {
@@ -50,8 +53,8 @@ describe('CreateCollectionPageComponent', () => {
     })
       .overrideComponent(CreateCollectionPageComponent, {
         remove: {
-          imports: [CollectionFormComponent]
-        }
+          imports: [CollectionFormComponent],
+        },
       })
       .compileComponents();
   }));

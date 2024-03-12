@@ -27,12 +27,12 @@ describe('ExternalLinkMenuItemComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ExternalLinkMenuItemComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), ExternalLinkMenuItemComponent],
+      providers: [
         { provide: 'itemModelProvider', useValue: { text: text, href: link } },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .compileComponents();
   }));
 

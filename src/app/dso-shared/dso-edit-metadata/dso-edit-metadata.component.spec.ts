@@ -1,6 +1,10 @@
 import {
+  ChangeDetectionStrategy,
+  DebugElement,
   DebugElement,
   Injectable,
+  Injectable,
+  NO_ERRORS_SCHEMA,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -9,10 +13,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  RouterTestingModule,
+  RouterTestingModule,
+} from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ChangeDetectionStrategy, DebugElement, Injectable, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
 
@@ -23,17 +28,17 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
-import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
-import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
-import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
-import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata-headers/dso-edit-metadata-headers.component';
+import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value/dso-edit-metadata-value.component';
+import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
+import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';

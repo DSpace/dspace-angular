@@ -1,17 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { map, switchMap } from 'rxjs/operators';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { Item } from '../../../core/shared/item.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
@@ -19,14 +37,13 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { getItemEditRoute, getItemPageRoute, } from '../../item-page-routing-paths';
-import { FormsModule } from '@angular/forms';
-import { AsyncPipe, NgIf } from '@angular/common';
 import {
-  AuthorizedCollectionSelectorComponent
-} from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+  getItemEditRoute,
+  getItemPageRoute,
+} from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-move',
@@ -38,9 +55,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RouterLink,
     AsyncPipe,
     AuthorizedCollectionSelectorComponent,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component that handles the moving of an item to a different collection

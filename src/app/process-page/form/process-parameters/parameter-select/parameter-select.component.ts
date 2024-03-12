@@ -1,27 +1,40 @@
-import { Component, EventEmitter, Input, Optional, Output, } from '@angular/core';
-import { ControlContainer, FormsModule, NgForm, } from '@angular/forms';
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Optional,
+  Output,
+} from '@angular/core';
+import {
+  ControlContainer,
+  FormsModule,
+  NgForm,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ProcessParameter } from '../../../processes/process-parameter.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
-import { NgFor, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { controlContainerFactory } from '../../process-form.component';
+import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 
 /**
  * Component to select a single parameter for a process
  */
 @Component({
-    selector: 'ds-parameter-select',
-    templateUrl: './parameter-select.component.html',
-    styleUrls: ['./parameter-select.component.scss'],
-    viewProviders: [{
-            provide: ControlContainer,
-            useFactory: controlContainerFactory,
-            deps: [[new Optional(), NgForm]]
-        }],
-    standalone: true,
-    imports: [FormsModule, NgFor, ParameterValueInputComponent, NgIf, TranslateModule]
+  selector: 'ds-parameter-select',
+  templateUrl: './parameter-select.component.html',
+  styleUrls: ['./parameter-select.component.scss'],
+  viewProviders: [{
+    provide: ControlContainer,
+    useFactory: controlContainerFactory,
+    deps: [[new Optional(), NgForm]],
+  }],
+  standalone: true,
+  imports: [FormsModule, NgFor, ParameterValueInputComponent, NgIf, TranslateModule],
 })
 export class ParameterSelectComponent {
   @Input() index: number;

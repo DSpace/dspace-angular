@@ -1,9 +1,16 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -32,9 +39,6 @@ import {
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 /**
  * This component renders the parent collections section of the item
@@ -50,9 +54,9 @@ import { RouterLink } from '@angular/router';
     NgForOf,
     AsyncPipe,
     RouterLink,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CollectionsComponent implements OnInit {
 

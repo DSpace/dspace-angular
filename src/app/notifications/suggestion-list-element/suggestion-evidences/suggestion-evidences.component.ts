@@ -1,14 +1,13 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { SuggestionEvidences } from '../../../core/notifications/models/suggestion.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
-import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
-
 import { fadeIn } from '../../../shared/animations/fade';
+import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
 
 /**
  * Show suggestion evidences such as score (authorScore, dateScore)
@@ -21,9 +20,9 @@ import { fadeIn } from '../../../shared/animations/fade';
   imports: [
     TranslateModule,
     NgIf,
-    ObjectKeysPipe
+    ObjectKeysPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SuggestionEvidencesComponent {
 

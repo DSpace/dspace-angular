@@ -8,17 +8,21 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
+
 import { RequestService } from '../../../../core/data/request.service';
 import { Item } from '../../../../core/shared/item.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
@@ -76,13 +80,13 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
     themeService = getMockThemeService('dspace');
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(),
+      imports: [TranslateModule.forRoot(),
         ClaimedTaskActionsLoaderComponent,
         ClaimedTaskActionsEditMetadataComponent,
         DynamicComponentLoaderDirective,
       ],
-    schemas: [NO_ERRORS_SCHEMA],
-    providers: [
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
         { provide: ClaimedTaskDataService, useValue: {} },
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -92,8 +96,8 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
         { provide: PoolTaskDataService, useValue: {} },
         { provide: ThemeService, useValue: themeService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-}).overrideComponent(ClaimedTaskActionsLoaderComponent, {
+      ],
+    }).overrideComponent(ClaimedTaskActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
         entryComponents: [ClaimedTaskActionsEditMetadataComponent],

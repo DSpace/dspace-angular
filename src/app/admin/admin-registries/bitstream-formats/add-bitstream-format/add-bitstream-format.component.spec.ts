@@ -14,20 +14,21 @@ import { of as observableOf } from 'rxjs';
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormService } from '../../../../shared/form/form.service';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
-import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { FormService } from '../../../../shared/form/form.service';
-import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormatFormComponent } from '../format-form/format-form.component';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
 
 describe('AddBitstreamFormatComponent', () => {
   let comp: AddBitstreamFormatComponent;
@@ -66,12 +67,12 @@ describe('AddBitstreamFormatComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .overrideComponent(AddBitstreamFormatComponent, {
-      remove: {
-        imports: [FormatFormComponent]
-      }
-    })
-    .compileComponents();
+      .overrideComponent(AddBitstreamFormatComponent, {
+        remove: {
+          imports: [FormatFormComponent],
+        },
+      })
+      .compileComponents();
   };
 
   const initBeforeEach = () => {
@@ -113,12 +114,12 @@ describe('AddBitstreamFormatComponent', () => {
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
       })
-      .overrideComponent(AddBitstreamFormatComponent, {
-        remove: {
-          imports: [FormatFormComponent]
-        }
-      })
-      .compileComponents();
+        .overrideComponent(AddBitstreamFormatComponent, {
+          remove: {
+            imports: [FormatFormComponent],
+          },
+        })
+        .compileComponents();
     }));
     beforeEach(initBeforeEach);
     it('should send the updated form to the service, show a notification and navigate to ', () => {

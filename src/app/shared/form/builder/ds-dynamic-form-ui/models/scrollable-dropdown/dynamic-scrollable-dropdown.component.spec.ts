@@ -84,7 +84,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
@@ -93,17 +93,17 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         NgbModule,
         TranslateModule.forRoot(),
         DsDynamicScrollableDropdownComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         ChangeDetectorRef,
         DsDynamicScrollableDropdownComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-});
+    });
 
   }));
 
@@ -236,15 +236,15 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [DynamicFormsCoreModule,
-        DynamicFormsNGBootstrapUIModule,
-        FormsModule,
-        InfiniteScrollModule,
-        ReactiveFormsModule,
-        NgbModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    InfiniteScrollModule,
+    ReactiveFormsModule,
+    NgbModule],
 })
 class TestComponent {
 

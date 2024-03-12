@@ -60,14 +60,14 @@ describe('SearchExportCsvComponent', () => {
 
     router = jasmine.createSpyObj('authorizationService', ['navigateByUrl']);
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NgbModule, SearchExportCsvComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), NgbModule, SearchExportCsvComponent],
+      providers: [
         { provide: ScriptDataService, useValue: scriptDataService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Router, useValue: router },
       ],
-}).compileComponents();
+    }).compileComponents();
   }
 
   function initBeforeEach() {

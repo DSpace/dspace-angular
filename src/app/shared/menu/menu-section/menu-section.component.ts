@@ -30,9 +30,9 @@ import { MenuSection } from '../menu-section.model';
  * A basic implementation of a menu section's component
  */
 @Component({
-    selector: 'ds-menu-section',
-    template: '',
-    standalone: true
+  selector: 'ds-menu-section',
+  template: '',
+  standalone: true,
 })
 export class MenuSectionComponent implements OnInit, OnDestroy {
 

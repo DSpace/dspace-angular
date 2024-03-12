@@ -41,17 +41,17 @@ const mockLabel = 'fake.message';
 describe('MetadataValuesComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
           useClass: TranslateLoaderMock,
-            },
-        }), MetadataValuesComponent],
-    providers: [
+        },
+      }), MetadataValuesComponent],
+      providers: [
         { provide: APP_CONFIG, useValue: environment },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(MetadataValuesComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(MetadataValuesComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

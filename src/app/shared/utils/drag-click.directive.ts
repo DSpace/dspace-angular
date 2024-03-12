@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 
 @Directive({
-    selector: '[dsDragClick]',
-    standalone: true
+  selector: '[dsDragClick]',
+  standalone: true,
 })
 
 /**

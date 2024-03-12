@@ -1,21 +1,28 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { ProjectSearchResultListElementComponent } from './project-search-result-list-element.component';
-import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 
 let projectListElementComponent: ProjectSearchResultListElementComponent;
 let fixture: ComponentFixture<ProjectSearchResultListElementComponent>;
@@ -73,16 +80,16 @@ const enviromentNoThumbs = {
 describe('ProjectSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, ProjectSearchResultListElementComponent],
-    providers: [
+      imports: [TruncatePipe, ProjectSearchResultListElementComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ProjectSearchResultListElementComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ProjectSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
@@ -137,16 +144,16 @@ describe('ProjectSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TruncatePipe, ProjectSearchResultListElementComponent],
-    providers: [
+      imports: [TruncatePipe, ProjectSearchResultListElementComponent],
+      providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(ProjectSearchResultListElementComponent, {
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ProjectSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

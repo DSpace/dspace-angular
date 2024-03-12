@@ -1,22 +1,33 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { catchError, map, } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
 
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
 import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { SplitPipe } from '../../../shared/utils/split.pipe';
 import { RemoteData } from '../../../core/data/remote-data';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import {
-  QualityAssuranceSourceDataService
-} from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { SplitPipe } from '../../../shared/utils/split.pipe';
 
 @Component({
   selector: 'ds-qa-event-notification',
@@ -30,9 +41,9 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
     AsyncPipe,
     RouterLink,
     TranslateModule,
-    SplitPipe
+    SplitPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for displaying quality assurance event notifications for an item.

@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -20,14 +27,14 @@ describe('OrgUnitInputSuggestionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         OrgUnitInputSuggestionsComponent,
         TranslateModule.forRoot(),
-    ],
-    providers: [],
-    schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(OrgUnitInputSuggestionsComponent, {
+      ],
+      providers: [],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(OrgUnitInputSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

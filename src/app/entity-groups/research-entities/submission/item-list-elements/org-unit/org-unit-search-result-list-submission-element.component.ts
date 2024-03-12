@@ -1,9 +1,18 @@
-import { Component, Inject, OnInit, } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { APP_CONFIG, AppConfig, } from '../../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
@@ -14,27 +23,21 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import {
-  listableObjectComponent
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import {
-  SearchResultListElementComponent
-} from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
-import { FormsModule } from '@angular/forms';
 import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-unit-input-suggestions.component';
-import { NgIf } from '@angular/common';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
-    selector: 'ds-person-search-result-list-submission-element',
-    styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
-    templateUrl: './org-unit-search-result-list-submission-element.component.html',
-    standalone: true,
-    imports: [NgIf, OrgUnitInputSuggestionsComponent, FormsModule]
+  selector: 'ds-person-search-result-list-submission-element',
+  styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
+  templateUrl: './org-unit-search-result-list-submission-element.component.html',
+  standalone: true,
+  imports: [NgIf, OrgUnitInputSuggestionsComponent, FormsModule],
 })
 
 /**

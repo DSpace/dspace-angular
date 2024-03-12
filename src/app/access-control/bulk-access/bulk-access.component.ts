@@ -3,6 +3,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,
@@ -15,7 +16,6 @@ import {
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
-import { TranslateModule } from '@ngx-translate/core';
 import { BulkAccessBrowseComponent } from './browse/bulk-access-browse.component';
 import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 
@@ -26,9 +26,9 @@ import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.com
   imports: [
     TranslateModule,
     BulkAccessSettingsComponent,
-    BulkAccessBrowseComponent
+    BulkAccessBrowseComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class BulkAccessComponent implements OnInit {
 

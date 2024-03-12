@@ -1,15 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators, } from '@angular/forms';
-import { BrowserModule, By, } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
-import { Observable, of as observableOf, } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
@@ -17,7 +40,10 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../../../core/data/dso-change-analyzer.service';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList, PaginatedList, } from '../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
@@ -27,23 +53,26 @@ import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { UUIDService } from '../../../core/shared/uuid.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { GroupMock, GroupMock2, } from '../../../shared/testing/group-mock';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../../../shared/testing/group-mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
 import { GroupFormComponent } from './group-form.component';
-import { ValidateGroupExists } from './validators/group-exists.validator';
-import { FormComponent } from '../../../shared/form/form.component';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { MembersListComponent } from './members-list/members-list.component';
 import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
+import { ValidateGroupExists } from './validators/group-exists.validator';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -197,14 +226,14 @@ describe('GroupFormComponent', () => {
     router = new RouterMock();
     notificationService = new NotificationsServiceStub();
     return TestBed.configureTestingModule({
-    imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }), GroupFormComponent],
-    providers: [
+      providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
@@ -219,22 +248,22 @@ describe('GroupFormComponent', () => {
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         {
-            provide: ActivatedRoute,
+          provide: ActivatedRoute,
           useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) },
         },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA],
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(GroupFormComponent, {
         remove: { imports: [
-            FormComponent,
-            AlertComponent,
-            ContextHelpDirective,
-            MembersListComponent,
-            SubgroupsListComponent
-          ]}
+          FormComponent,
+          AlertComponent,
+          ContextHelpDirective,
+          MembersListComponent,
+          SubgroupsListComponent,
+        ] },
       })
       .compileComponents();
   }));

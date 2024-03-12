@@ -17,8 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { RouterStub } from '../../../testing/router.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 
 describe('EditCollectionSelectorComponent', () => {
@@ -64,8 +64,8 @@ describe('EditCollectionSelectorComponent', () => {
     })
       .overrideComponent(EditCollectionSelectorComponent, {
         remove: {
-          imports: [DSOSelectorComponent]
-        }
+          imports: [DSOSelectorComponent],
+        },
       })
       .compileComponents();
 

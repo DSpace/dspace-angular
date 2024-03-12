@@ -1,31 +1,54 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { SectionModelComponent } from '../models/section.model';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SectionsService } from '../sections.service';
-import { SectionDataObject } from '../models/section-data.model';
-import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { filter, map, take, tap, } from 'rxjs/operators';
-
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-
 import {
-  getFirstCompletedRemoteData,
-  getPaginatedListPayload,
-  getRemoteDataPayload
-} from '../../../core/shared/operators';
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+} from '@angular/core';
+import {
+  NgbDropdown,
+  NgbDropdownModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+  tap,
+} from 'rxjs/operators';
+
 import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import {
   LdnService,
   LdnServiceByPattern,
 } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { LdnPattern } from './submission-coar-notify.config';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 /**
  * This component represents a section that contains the submission section-coar-notify form.
@@ -42,7 +65,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     TranslateModule,
     NgbDropdownModule,
     NgClass,
-    InfiniteScrollModule
+    InfiniteScrollModule,
   ],
   providers: [NgbDropdown],
 })

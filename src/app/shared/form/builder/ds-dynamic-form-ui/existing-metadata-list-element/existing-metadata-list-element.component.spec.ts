@@ -4,6 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -14,18 +15,15 @@ import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { SubmissionService } from '../../../../../submission/submission.service';
+import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
-import { getMockThemeService } from '../../../../mocks/theme-service.mock';
-import { ThemeService } from '../../../../theme-support/theme.service';
-import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
-import {
-  ItemSearchResultListElementComponent
-} from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import { SubmissionServiceStub } from '../../../../testing/submission-service.stub';
 import { TranslateLoaderMock } from '../../../../testing/translate-loader.mock';
+import { ThemeService } from '../../../../theme-support/theme.service';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 import {
@@ -86,26 +84,26 @@ describe('ExistingMetadataListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ExistingMetadataListElementComponent
-    ],
-    providers: [
+        ExistingMetadataListElementComponent,
+      ],
+      providers: [
         { provide: SelectableListService, useValue: selectionService },
         { provide: Store, useValue: store },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
-    ],
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .overrideComponent(ExistingMetadataListElementComponent, {
-        remove: { imports: [ItemSearchResultListElementComponent]}
+        remove: { imports: [ItemSearchResultListElementComponent] },
       })
       .compileComponents();
   }));

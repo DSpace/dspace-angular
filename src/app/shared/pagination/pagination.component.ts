@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -9,10 +15,26 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { Observable, of as observableOf, Subscription, } from 'rxjs';
-import { map, take, } from 'rxjs/operators';
+import {
+  NgbDropdownModule,
+  NgbPaginationModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -22,26 +44,23 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { hasValue } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { HostWindowState } from '../search/host-window.reducer';
-import { PaginationComponentOptions } from './pagination-component-options.model';
-import { EnumKeysPipe } from '../utils/enum-keys-pipe';
-import { TranslateModule } from '@ngx-translate/core';
 import { RSSComponent } from '../rss-feed/rss.component';
-import { NgbDropdownModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { HostWindowState } from '../search/host-window.reducer';
+import { EnumKeysPipe } from '../utils/enum-keys-pipe';
+import { PaginationComponentOptions } from './pagination-component-options.model';
 
 /**
  * The default pagination controls component.
  */
 @Component({
-    exportAs: 'paginationComponent',
-    selector: 'ds-pagination',
-    styleUrls: ['pagination.component.scss'],
-    templateUrl: 'pagination.component.html',
-    changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.Emulated,
-    standalone: true,
-    imports: [NgIf, NgbDropdownModule, NgFor, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe]
+  exportAs: 'paginationComponent',
+  selector: 'ds-pagination',
+  styleUrls: ['pagination.component.scss'],
+  templateUrl: 'pagination.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.Emulated,
+  standalone: true,
+  imports: [NgIf, NgbDropdownModule, NgFor, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe],
 })
 export class PaginationComponent implements OnDestroy, OnInit {
   /**

@@ -1,32 +1,33 @@
-import { MetadataRegistryComponent } from './metadata-registry/metadata-registry.component';
 import { Route } from '@angular/router';
-import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.component';
+
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { BITSTREAMFORMATS_MODULE_PATH } from './admin-registries-routing-paths';
+import { MetadataRegistryComponent } from './metadata-registry/metadata-registry.component';
+import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.component';
 
 export const ROUTES: Route[] = [
   {
     path: 'metadata',
-    resolve: {breadcrumb: I18nBreadcrumbResolver},
-    data: {title: 'admin.registries.metadata.title', breadcrumbKey: 'admin.registries.metadata'},
+    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    data: { title: 'admin.registries.metadata.title', breadcrumbKey: 'admin.registries.metadata' },
     children: [
       {
         path: '',
-        component: MetadataRegistryComponent
+        component: MetadataRegistryComponent,
       },
       {
         path: ':schemaName',
-        resolve: {breadcrumb: I18nBreadcrumbResolver},
+        resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: MetadataSchemaComponent,
-        data: {title: 'admin.registries.schema.title', breadcrumbKey: 'admin.registries.schema'}
-      }
-    ]
+        data: { title: 'admin.registries.schema.title', breadcrumbKey: 'admin.registries.schema' },
+      },
+    ],
   },
   {
     path: BITSTREAMFORMATS_MODULE_PATH,
-    resolve: {breadcrumb: I18nBreadcrumbResolver},
+    resolve: { breadcrumb: I18nBreadcrumbResolver },
     loadChildren: () => import('./bitstream-formats/bitstream-formats-routes')
       .then((m) => m.ROUTES),
-    data: {title: 'admin.registries.bitstream-formats.title', breadcrumbKey: 'admin.registries.bitstream-formats'}
+    data: { title: 'admin.registries.bitstream-formats.title', breadcrumbKey: 'admin.registries.bitstream-formats' },
   },
 ];

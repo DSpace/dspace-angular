@@ -6,13 +6,13 @@ import { ObjectNotFoundComponent } from './objectnotfound/objectnotfound.compone
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ObjectNotFoundComponent,
+  imports: [
+    CommonModule,
+    ObjectNotFoundComponent,
     ThemedObjectNotFoundComponent,
-    ],
-    providers: [
-        DsoRedirectService,
+  ],
+  providers: [
+    DsoRedirectService,
   ],
 })
 export class LookupIdModule {

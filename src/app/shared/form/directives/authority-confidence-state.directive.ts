@@ -37,8 +37,8 @@ import { FormFieldMetadataValueObject } from '../builder/models/form-field-metad
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
  */
 @Directive({
-    selector: '[dsAuthorityConfidenceState]',
-    standalone: true
+  selector: '[dsAuthorityConfidenceState]',
+  standalone: true,
 })
 export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
 

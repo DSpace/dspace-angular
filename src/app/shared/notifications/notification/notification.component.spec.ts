@@ -51,25 +51,25 @@ describe('NotificationComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         BrowserModule,
         BrowserAnimationsModule,
         StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        NotificationComponent
-    ],
-    providers: [
+        NotificationComponent,
+      ],
+      providers: [
         { provide: Store, useValue: store },
         ChangeDetectorRef,
         NotificationsService,
         TranslateService,
       ],
-}).compileComponents();  // compile template and css
+    }).compileComponents();  // compile template and css
 
   }));
 

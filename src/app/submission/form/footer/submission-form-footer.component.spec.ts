@@ -1,9 +1,26 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, SimpleChange, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NgbModal, NgbModule, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { cold, getTestScheduler, hot, } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -29,21 +46,21 @@ describe('SubmissionFormFooterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbModule,
         TranslateModule.forRoot(),
         SubmissionFormFooterComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SubmissionRestService, useClass: SubmissionRestServiceStub },
         ChangeDetectorRef,
         NgbModal,
         SubmissionFormFooterComponent,
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   describe('', () => {
@@ -243,10 +260,10 @@ describe('SubmissionFormFooterComponent', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [NgbModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

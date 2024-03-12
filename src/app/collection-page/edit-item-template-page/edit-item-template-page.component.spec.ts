@@ -1,32 +1,39 @@
-import { EditItemTemplatePageComponent } from './edit-item-template-page.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  ComponentFixture,
   TestBed,
+  TestBed,
+  waitForAsync,
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  RouterTestingModule,
+  RouterTestingModule,
+} from '@angular/router/testing';
+import {
+  TranslateModule,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
 import { Collection } from '../../core/shared/collection.model';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { SharedModule } from '../../shared/shared.module';
-import { getCollectionEditRoute } from '../collection-page-routing-paths';
-import { ThemeService } from '../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { EditItemTemplatePageComponent } from './edit-item-template-page.component';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { getCollectionEditRoute } from '../collection-page-routing-paths';
+import {
+  EditItemTemplatePageComponent,
+  EditItemTemplatePageComponent,
+} from './edit-item-template-page.component';
 
 describe('EditItemTemplatePageComponent', () => {
   let comp: EditItemTemplatePageComponent;

@@ -5,9 +5,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -24,6 +23,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ItemAlertsComponent } from './item-alerts.component';
 
@@ -46,17 +46,17 @@ describe('ItemAlertsComponent', () => {
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', ['openCreateWithdrawnReinstateModal']);
     correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  ['findByItem']);
     TestBed.configureTestingModule({
-    providers: [
-      { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-    imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
+      imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
         { provide: CorrectionTypeDataService, useValue: correctionTypeDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-})
+    })
       .compileComponents();
   }));
 

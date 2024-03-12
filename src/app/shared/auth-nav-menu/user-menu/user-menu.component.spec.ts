@@ -1,19 +1,36 @@
-import { DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Store, StoreModule, } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../testing/active-router.stub';
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
-import { authReducer, AuthState, } from '../../../core/auth/auth.reducer';
+import {
+  authReducer,
+  AuthState,
+} from '../../../core/auth/auth.reducer';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { UserMenuComponent } from './user-menu.component';
 
@@ -56,30 +73,30 @@ describe('UserMenuComponent', () => {
   beforeEach(waitForAsync(() => {
     serviceInit();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         StoreModule.forRoot(authReducer, {
-            runtimeChecks: {
-                strictStateImmutability: false,
+          runtimeChecks: {
+            strictStateImmutability: false,
             strictActionImmutability: false,
           },
         }),
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        UserMenuComponent
-    ],
-    providers: [
+        UserMenuComponent,
+      ],
+      providers: [
         { provide: AuthService, useValue: authService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-    ],
-    schemas: [
+      ],
+      schemas: [
         NO_ERRORS_SCHEMA,
       ],
-}).compileComponents();
+    }).compileComponents();
 
   }));
 

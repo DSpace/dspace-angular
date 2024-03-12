@@ -1,23 +1,37 @@
-import { Component, OnDestroy, OnInit, TemplateRef, } from '@angular/core';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 import { hasValue } from '../../shared/empty.util';
-import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
-import { RouterLink } from '@angular/router';
-import { AsyncPipe, DatePipe, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ProcessOverviewService, ProcessSortField } from './process-overview.service';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessStatus } from '../processes/process-status.model';
-import { ProcessOverviewTableComponent } from './table/process-overview-table.component';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import {
+  ProcessOverviewService,
+  ProcessSortField,
+} from './process-overview.service';
+import { ProcessOverviewTableComponent } from './table/process-overview-table.component';
 
 @Component({
   selector: 'ds-process-overview',
   templateUrl: './process-overview.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, PaginationComponent, NgFor, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent]
+  imports: [NgIf, RouterLink, PaginationComponent, NgFor, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent],
 })
 /**
  * Component displaying a list of all processes in a paginated table

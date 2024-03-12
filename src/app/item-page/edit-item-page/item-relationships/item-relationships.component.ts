@@ -1,13 +1,24 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
 } from '@angular/core';
 import {
   ActivatedRoute,
+  ActivatedRoute,
+  Router,
   Router,
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -32,9 +43,6 @@ import {
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
@@ -50,13 +58,15 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { EditRelationshipListComponent } from './edit-relationship-list/edit-relationship-list.component';
+import {
+  NotificationsService,
+  NotificationsService,
+} from '../../../shared/notifications/notifications.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { EditRelationshipListComponent } from './edit-relationship-list/edit-relationship-list.component';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -69,9 +79,9 @@ import { VarDirective } from '../../../shared/utils/var.directive';
     NgIf,
     EditRelationshipListComponent,
     NgForOf,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for displaying an item's relationships edit page

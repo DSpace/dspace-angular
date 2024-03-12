@@ -1,8 +1,10 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -13,10 +15,8 @@ import {
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Community } from '../../../core/shared/community.model';
-import { hasValue } from '../../../shared/empty.util';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe } from '@angular/common';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a community's curation tasks
@@ -27,9 +27,9 @@ import { AsyncPipe } from '@angular/common';
   imports: [
     CurationFormComponent,
     TranslateModule,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CommunityCurateComponent implements OnInit {
 

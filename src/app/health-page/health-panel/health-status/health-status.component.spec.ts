@@ -19,18 +19,18 @@ describe('HealthStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbTooltipModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        HealthStatusComponent
-    ],
-})
-    .compileComponents();
+        HealthStatusComponent,
+      ],
+    })
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -7,22 +13,33 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { NgbTooltip, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  NgbTooltip,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
-import { BehaviorSubject } from 'rxjs';
-import { Options } from 'sortablejs';
+import { SortablejsModule } from 'ngx-sortablejs';
+import {
+  BehaviorSubject,
+  BehaviorSubject,
+} from 'rxjs';
+import {
+  Options,
+  Options,
+} from 'sortablejs';
 
-import { DragService } from '../../../core/drag.service';
+import {
+  DragService,
+  DragService,
+} from '../../../core/drag.service';
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
-import { DragService } from '../../../core/drag.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Options } from 'sortablejs';
-import { BehaviorSubject } from 'rxjs';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
-import { SortablejsModule } from 'ngx-sortablejs';
-import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 
 @Component({
   selector: 'ds-chips',
@@ -36,9 +53,9 @@ import { AuthorityConfidenceStateDirective } from '../directives/authority-confi
     AsyncPipe,
     AuthorityConfidenceStateDirective,
     NgIf,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 
 export class ChipsComponent implements OnChanges {

@@ -1,5 +1,12 @@
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -37,19 +44,19 @@ describe('ItemCurateComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), ItemCurateComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), ItemCurateComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: DSONameService, useValue: dsoNameService },
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-})
-.overrideComponent(ItemCurateComponent, {
-  remove: {
-    imports: [CurationFormComponent]
-  }
-})
-.compileComponents();
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideComponent(ItemCurateComponent, {
+        remove: {
+          imports: [CurationFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

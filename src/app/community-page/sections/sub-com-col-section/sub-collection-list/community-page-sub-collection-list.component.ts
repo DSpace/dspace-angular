@@ -1,40 +1,52 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Subscription,
 } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import {
+  switchMap,
+  switchMap,
+} from 'rxjs/operators';
 
 import {
   SortDirection,
+  SortDirection,
+  SortOptions,
   SortOptions,
 } from '../../../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import {
+  CollectionDataService,
+  CollectionDataService,
+} from '../../../../core/data/collection-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
+import {
+  PaginationService,
+  PaginationService,
+} from '../../../../core/pagination/pagination.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { fadeIn } from '../../../../shared/animations/fade';
-import { hasValue } from '../../../../shared/empty.util';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { switchMap } from 'rxjs/operators';
-import { hasValue } from '../../../../shared/empty.util';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { ObjectCollectionComponent } from '../../../../shared/object-collection/object-collection.component';
+import {
+  hasValue,
+  hasValue,
+} from '../../../../shared/empty.util';
 import { ErrorComponent } from '../../../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../shared/object-collection/object-collection.component';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 
 @Component({
@@ -49,9 +61,9 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     NgIf,
     TranslateModule,
     AsyncPipe,
-    VarDirective
+    VarDirective,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CommunityPageSubCollectionListComponent implements OnInit, OnDestroy {
   @Input() community: Community;

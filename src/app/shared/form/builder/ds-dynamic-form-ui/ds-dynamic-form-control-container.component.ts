@@ -1,4 +1,11 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -18,12 +25,18 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormArray,
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormArray,
   UntypedFormGroup,
 } from '@angular/forms';
 import {
   NgbModal,
+  NgbModal,
   NgbModalRef,
+  NgbModalRef,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
@@ -41,17 +54,6 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import {
-  ExistingMetadataListElementComponent,
-  ReorderableRelationship
-} from './existing-metadata-list-element/existing-metadata-list-element.component';
-import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
-import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
-import { find, map, startWith, switchMap, take } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { SearchResult } from '../../../search/models/search-result.model';
 import {
   DynamicNGBootstrapCalendarComponent,
   DynamicNGBootstrapCheckboxComponent,
@@ -63,35 +65,50 @@ import {
   DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
+  combineLatest as observableCombineLatest,
   Observable,
+  Observable,
+  Subscription,
   Subscription,
 } from 'rxjs';
 import {
   find,
+  find,
+  map,
   map,
   startWith,
+  startWith,
   switchMap,
+  switchMap,
+  take,
   take,
 } from 'rxjs/operators';
 
 import {
   APP_CONFIG,
+  APP_CONFIG,
+  APP_DYNAMIC_FORM_CONTROL_FN,
   AppConfig,
+  AppConfig,
+  DynamicFormControlFn,
 } from '../../../../../config/app-config.interface';
 import { AppState } from '../../../../app.reducer';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
+import {
+  RelationshipDataService,
+  RelationshipDataService,
+} from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import {
@@ -111,38 +128,53 @@ import { paginatedRelationsToItems } from '../../../../item-page/simple/item-typ
 import { SubmissionService } from '../../../../submission/submission.service';
 import {
   hasNoValue,
+  hasNoValue,
+  hasValue,
   hasValue,
   isNotEmpty,
+  isNotEmpty,
+  isNotUndefined,
   isNotUndefined,
 } from '../../../empty.util';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { SearchResult } from '../../../search/models/search-result.model';
+import {
+  SelectableListService,
+  SelectableListService,
+} from '../../../object-list/selectable-list/selectable-list.service';
+import {
+  SearchResult,
+  SearchResult,
+} from '../../../search/models/search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { itemLinksToFollow } from '../../../utils/relation-query.utils';
+import {
+  itemLinksToFollow,
+  itemLinksToFollow,
+} from '../../../utils/relation-query.utils';
 import { FormService } from '../../form.service';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
-  APP_CONFIG,
-  APP_DYNAMIC_FORM_CONTROL_FN,
-  AppConfig,
-  DynamicFormControlFn
-} from '../../../../../config/app-config.interface';
-import { itemLinksToFollow } from '../../../utils/relation-query.utils';
-import { AsyncPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
-import {
-  ExistingRelationListElementComponent
-} from './existing-relation-list-element/existing-relation-list-element.component';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+  FormFieldMetadataValueObject,
+  FormFieldMetadataValueObject,
+} from '../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../models/relationship-options.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
-import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { ReorderableRelationship } from './existing-metadata-list-element/existing-metadata-list-element.component';
+import {
+  DsDynamicTypeBindRelationService,
+  DsDynamicTypeBindRelationService,
+} from './ds-dynamic-type-bind-relation.service';
+import {
+  ExistingMetadataListElementComponent,
+  ReorderableRelationship,
+  ReorderableRelationship,
+} from './existing-metadata-list-element/existing-metadata-list-element.component';
+import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH,
+  DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH,
+} from './models/custom-switch/custom-switch.model';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
@@ -162,7 +194,10 @@ import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdo
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
-import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import {
+  DsDynamicLookupRelationModalComponent,
+  DsDynamicLookupRelationModalComponent,
+} from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -244,9 +279,9 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
     FormsModule,
     NgbTooltipModule,
     NgTemplateOutlet,
-    ExistingRelationListElementComponent
+    ExistingRelationListElementComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;

@@ -7,10 +7,10 @@ import { HeaderNavbarWrapperComponent } from './header-navbar-wrapper.component'
  * Themed wrapper for {@link HeaderNavbarWrapperComponent}
  */
 @Component({
-    selector: 'ds-themed-header-navbar-wrapper',
-    styleUrls: [],
-    templateUrl: '../shared/theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-header-navbar-wrapper',
+  styleUrls: [],
+  templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedHeaderNavbarWrapperComponent extends ThemedComponent<HeaderNavbarWrapperComponent> {
   protected getComponentName(): string {

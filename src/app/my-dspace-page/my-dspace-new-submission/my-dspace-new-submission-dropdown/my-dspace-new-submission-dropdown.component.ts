@@ -1,21 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { map, mergeMap, take } from 'rxjs/operators';
-import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import {
-  CreateItemParentSelectorComponent
-} from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { hasValue } from '../../../shared/empty.util';
 import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 /**
@@ -31,9 +46,9 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     AsyncPipe,
     TranslateModule,
     BrowserOnlyPipe,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy {
 

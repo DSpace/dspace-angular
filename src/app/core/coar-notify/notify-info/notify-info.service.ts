@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
-import { map, Observable, } from 'rxjs';
+import {
+  map,
+  Observable,
+} from 'rxjs';
 
 import { ConfigurationDataService } from '../../data/configuration-data.service';
 import { AuthorizationDataService } from '../../data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../data/feature-authorization/feature-id';
 import { RemoteData } from '../../data/remote-data';
 import { ConfigurationProperty } from '../../shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
 
 /**
  * Service to check COAR availability and LDN services information for the COAR Notify functionalities

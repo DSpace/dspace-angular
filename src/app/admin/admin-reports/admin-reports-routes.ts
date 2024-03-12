@@ -1,28 +1,28 @@
+import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { FilteredCollectionsComponent } from './filtered-collections/filtered-collections.component';
 import { FilteredItemsComponent } from './filtered-items/filtered-items.component';
-import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 export const ROUTES = [
   {
     path: 'collections',
-    resolve: {breadcrumb: I18nBreadcrumbResolver},
-    data: {title: 'admin.reports.collections.title', breadcrumbKey: 'admin.reports.collections'},
+    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    data: { title: 'admin.reports.collections.title', breadcrumbKey: 'admin.reports.collections' },
     children: [
       {
         path: '',
-        component: FilteredCollectionsComponent
-      }
-    ]
+        component: FilteredCollectionsComponent,
+      },
+    ],
   },
   {
     path: 'queries',
-    resolve: {breadcrumb: I18nBreadcrumbResolver},
-    data: {title: 'admin.reports.items.title', breadcrumbKey: 'admin.reports.items'},
+    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    data: { title: 'admin.reports.items.title', breadcrumbKey: 'admin.reports.items' },
     children: [
       {
         path: '',
-        component: FilteredItemsComponent
-      }
-    ]
-  }
+        component: FilteredItemsComponent,
+      },
+    ],
+  },
 ];

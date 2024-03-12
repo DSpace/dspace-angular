@@ -1,18 +1,18 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
-import { MenuService } from '../menu/menu.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DSOEditMenuResolver } from './dso-edit-menu.resolver';
-import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -25,15 +25,24 @@ import {
 } from 'rxjs';
 import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontype-data.service';
 
-import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
+import {
+  AdminSidebarComponent,
+  AdminSidebarComponent,
+} from '../../admin/admin-sidebar/admin-sidebar.component';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import {
+  AuthorizationDataService,
+  AuthorizationDataService,
+} from '../../core/data/feature-authorization/authorization-data.service';
 import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
-import { MenuService } from '../menu/menu.service';
+import {
+  MenuService,
+  MenuService,
+} from '../menu/menu.service';
 import { MenuID } from '../menu/menu-id.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
@@ -44,8 +53,14 @@ import {
 } from '../remote-data.utils';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
-import { DSOEditMenuResolver } from './dso-edit-menu.resolver';
-import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
+import {
+  DSOEditMenuResolver,
+  DSOEditMenuResolver,
+} from './dso-edit-menu.resolver';
+import {
+  DsoVersioningModalService,
+  DsoVersioningModalService,
+} from './dso-versioning-modal-service/dso-versioning-modal.service';
 import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
 
 describe('DSOEditMenuResolver', () => {
@@ -169,8 +184,8 @@ describe('DSOEditMenuResolver', () => {
     });
     mockNgbModal = {
       open: jasmine.createSpy('open').and.returnValue(
-        { componentInstance: {}, closed: observableOf({})} as NgbModalRef
-      )
+        { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+      ),
     };
 
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', {
@@ -182,8 +197,8 @@ describe('DSOEditMenuResolver', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
+      providers: [
         { provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService },
         { provide: MenuService, useValue: menuService },
         { provide: AuthorizationDataService, useValue: authorizationService },
@@ -191,13 +206,13 @@ describe('DSOEditMenuResolver', () => {
         { provide: ResearcherProfileDataService, useValue: researcherProfileService },
         { provide: TranslateService, useValue: translate },
         { provide: NotificationsService, useValue: notificationsService },
-        {provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService},
+        { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
         { provide: CorrectionTypeDataService, useValue: correctionsDataService },
         {
-          provide: NgbModal, useValue: mockNgbModal }
-    ],
+          provide: NgbModal, useValue: mockNgbModal },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-});
+    });
     resolver = TestBed.inject(DSOEditMenuResolver);
 
     spyOn(menuService, 'addSection');

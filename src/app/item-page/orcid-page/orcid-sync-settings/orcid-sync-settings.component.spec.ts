@@ -1,10 +1,26 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
@@ -14,11 +30,13 @@ import { ResearcherProfileDataService } from '../../../core/profile/researcher-p
 import { Item } from '../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$, } from '../../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('OrcidSyncSettingsComponent test suite', () => {
   let comp: OrcidSyncSettingsComponent;
@@ -134,26 +152,26 @@ describe('OrcidSyncSettingsComponent test suite', () => {
     });
 
     void TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         NgbAccordionModule,
         ReactiveFormsModule,
         NoopAnimationsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         RouterTestingModule.withRoutes([]),
-        OrcidSyncSettingsComponent
-    ],
-    providers: [
+        OrcidSyncSettingsComponent,
+      ],
+      providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: ResearcherProfileDataService, useValue: researcherProfileService },
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).overrideComponent(OrcidSyncSettingsComponent, {
+    }).overrideComponent(OrcidSyncSettingsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));

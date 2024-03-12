@@ -1,21 +1,25 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   Inject,
   Injector,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { isEmpty } from '../../../shared/empty.util';
-import { MenuService } from '../../../shared/menu/menu.service';
-import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
-import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
-import { MenuSection } from '../../../shared/menu/menu-section.model';
-import { MenuID } from '../../../shared/menu/menu-id.model';
-import { isEmpty } from '../../../shared/empty.util';
-import { Router, RouterLink } from '@angular/router';
+import {
+  Router,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgClass } from '@angular/common';
+
+import {
+  isEmpty,
+  isEmpty,
+} from '../../../shared/empty.util';
+import { MenuService } from '../../../shared/menu/menu.service';
+import { MenuID } from '../../../shared/menu/menu-id.model';
+import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
+import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
 
 /**
@@ -26,7 +30,7 @@ import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-sec
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
   standalone: true,
-  imports: [NgClass, RouterLink, TranslateModule]
+  imports: [NgClass, RouterLink, TranslateModule],
 
 })
 export class AdminSidebarSectionComponent extends MenuSectionComponent implements OnInit {

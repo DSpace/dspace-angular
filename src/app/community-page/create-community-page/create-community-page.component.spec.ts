@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -7,21 +10,21 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouteService } from '../../core/services/route.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
-import { RouteService } from '../../core/services/route.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SharedModule } from '../../shared/shared.module';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { CreateCommunityPageComponent } from './create-community-page.component';
-import { AuthService } from '../../core/auth/auth.service';
+import {
+  RouteService,
+  RouteService,
+} from '../../core/services/route.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { CommunityFormComponent } from '../community-form/community-form.component';
+import { CreateCommunityPageComponent } from './create-community-page.component';
 
 describe('CreateCommunityPageComponent', () => {
   let comp: CreateCommunityPageComponent;
@@ -42,8 +45,8 @@ describe('CreateCommunityPageComponent', () => {
     })
       .overrideComponent(CreateCommunityPageComponent, {
         remove: {
-          imports: [CommunityFormComponent]
-        }
+          imports: [CommunityFormComponent],
+        },
       })
       .compileComponents();
   }));

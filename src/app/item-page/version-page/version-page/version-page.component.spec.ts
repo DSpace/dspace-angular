@@ -34,8 +34,8 @@ const mockVersion: Version = Object.assign(new Version(), {
 });
 
 @Component({
-    template: '',
-    standalone: true
+  template: '',
+  standalone: true,
 })
 class DummyComponent {
 }
@@ -55,13 +55,13 @@ describe('VersionPageComponent', () => {
       setRedirectUrl: {},
     });
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule.withRoutes([{ path: 'items/item-uuid', component: DummyComponent, pathMatch: 'full' }]), VersionPageComponent, DummyComponent],
-    providers: [
+      imports: [RouterTestingModule.withRoutes([{ path: 'items/item-uuid', component: DummyComponent, pathMatch: 'full' }]), VersionPageComponent, DummyComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: VersionDataService, useValue: {} },
         { provide: AuthService, useValue: authService },
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
 

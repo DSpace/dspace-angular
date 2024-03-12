@@ -19,6 +19,7 @@ import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
@@ -30,7 +31,6 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ItemMoveComponent } from './item-move.component';
-import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 
 describe('ItemMoveComponent', () => {
   let comp: ItemMoveComponent;
@@ -100,24 +100,24 @@ describe('ItemMoveComponent', () => {
     itemDataService = mockItemDataService;
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemMoveComponent],
-    providers: [
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemMoveComponent],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: SearchService, useValue: mockSearchService },
         { provide: RequestService, useValue: getMockRequestService() },
-    ], schemas: [
+      ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
-    ],
-})
-.overrideComponent(ItemMoveComponent, {
-  remove: {
-    imports: [AuthorizedCollectionSelectorComponent]
-  }
-})
-.compileComponents();
+      ],
+    })
+      .overrideComponent(ItemMoveComponent, {
+        remove: {
+          imports: [AuthorizedCollectionSelectorComponent],
+        },
+      })
+      .compileComponents();
     fixture = TestBed.createComponent(ItemMoveComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,7 +1,31 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, } from '@angular/router';
-import { Observable, Subscription, } from 'rxjs';
-import { distinctUntilChanged, map, take, tap, } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
@@ -9,29 +33,28 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getRemoteDataPayload, } from '../../../core/shared/operators';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import {
-  QualityAssuranceTopicsPageParams
-} from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { hasValue } from '../../../shared/empty.util';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
-import { AlertComponent } from '../../../shared/alert/alert.component';
 
 /**
  * Component to display the Quality Assurance topic list.
  */
 @Component({
-    selector: 'ds-quality-assurance-topic',
-    templateUrl: './quality-assurance-topics.component.html',
-    styleUrls: ['./quality-assurance-topics.component.scss'],
-    standalone: true,
-  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe]
+  selector: 'ds-quality-assurance-topic',
+  templateUrl: './quality-assurance-topics.component.html',
+  styleUrls: ['./quality-assurance-topics.component.scss'],
+  standalone: true,
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
 export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**

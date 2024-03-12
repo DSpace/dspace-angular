@@ -1,5 +1,17 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement, } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -7,7 +19,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { HostWindowService } from '../../../shared/host-window.service';
-import { mockSubmissionCollectionId, mockSubmissionId, } from '../../../shared/mocks/submission.mock';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../../shared/mocks/submission.mock';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
@@ -56,22 +71,22 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NgbModule,
         TranslateModule.forRoot(),
         SubmissionFormSectionAddComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: HostWindowService, useValue: window },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: Store, useValue: store },
         ChangeDetectorRef,
         SubmissionFormSectionAddComponent,
-    ],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   describe('', () => {
@@ -204,10 +219,10 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [NgbModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

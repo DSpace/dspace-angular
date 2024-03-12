@@ -1,4 +1,11 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
@@ -6,7 +13,11 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbTooltip,
+  NgbTooltip,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -23,10 +34,8 @@ import {
 
 import { ContextHelp } from '../context-help.model';
 import { ContextHelpService } from '../context-help.service';
-import { NgbTooltip, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { hasValueOperator } from '../empty.util';
 import { PlacementDir } from './placement-dir.model';
-import { NgFor, NgIf, NgClass, NgTemplateOutlet, AsyncPipe } from '@angular/common';
 
 type ParsedContent = (string | {href: string, text: string})[];
 
@@ -35,11 +44,11 @@ type ParsedContent = (string | {href: string, text: string})[];
  * produces a tooltip when clicked.
  */
 @Component({
-    selector: 'ds-context-help-wrapper',
-    templateUrl: './context-help-wrapper.component.html',
-    styleUrls: ['./context-help-wrapper.component.scss'],
-    standalone: true,
-    imports: [NgFor, NgIf, NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe]
+  selector: 'ds-context-help-wrapper',
+  templateUrl: './context-help-wrapper.component.html',
+  styleUrls: ['./context-help-wrapper.component.scss'],
+  standalone: true,
+  imports: [NgFor, NgIf, NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe],
 })
 export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**

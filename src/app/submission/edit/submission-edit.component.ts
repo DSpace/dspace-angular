@@ -1,8 +1,24 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router, } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Subscription, } from 'rxjs';
-import { debounceTime, filter, switchMap, } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  filter,
+  switchMap,
+} from 'rxjs/operators';
 
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -13,12 +29,17 @@ import { getAllSucceededRemoteData } from '../../core/shared/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { hasValue, isEmpty, isNotEmptyOperator, isNotNull, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmptyOperator,
+  isNotNull,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
-import { SubmissionFormComponent } from '../form/submission-form.component';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -29,8 +50,8 @@ import { SubmissionFormComponent } from '../form/submission-form.component';
   templateUrl: './submission-edit.component.html',
   standalone: true,
   imports: [
-    SubmissionFormComponent
-  ]
+    SubmissionFormComponent,
+  ],
 })
 export class SubmissionEditComponent implements OnDestroy, OnInit {
 

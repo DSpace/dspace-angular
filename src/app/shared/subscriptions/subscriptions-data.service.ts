@@ -11,11 +11,13 @@ import {
 } from 'rxjs/operators';
 import { sendRequest } from 'src/app/core/shared/request.operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  DSONameService,
+  DSONameService,
+} from '../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { RequestParam } from '../../core/cache/models/request-param.model';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { dataService } from '../../core/data/base/data-service.decorator';
 import { DeleteDataImpl } from '../../core/data/base/delete-data';
 import { FindAllData } from '../../core/data/base/find-all-data';
 import { IdentifiableDataService } from '../../core/data/base/identifiable-data.service';
@@ -31,8 +33,6 @@ import {
 import { RequestService } from '../../core/data/request.service';
 import { RestRequest } from '../../core/data/rest-request.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Subscription } from './models/subscription.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import {
@@ -41,8 +41,10 @@ import {
 } from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
-import { Subscription } from './models/subscription.model';
-import { SUBSCRIPTION } from './models/subscription.resource-type';
+import {
+  Subscription,
+  Subscription,
+} from './models/subscription.model';
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.

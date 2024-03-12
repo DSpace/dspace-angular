@@ -57,21 +57,21 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         SubmissionImportExternalPreviewComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: Router, useValue: new RouterStub() },
         { provide: SubmissionService, useValue: new SubmissionServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: NgbModal, useValue: ngbModal },
         { provide: NgbActiveModal, useValue: ngbActiveModal },
         SubmissionImportExternalPreviewComponent,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents().then();
+    }).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -169,9 +169,9 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

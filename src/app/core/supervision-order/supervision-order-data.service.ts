@@ -1,7 +1,10 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { first, map, } from 'rxjs/operators';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
 
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

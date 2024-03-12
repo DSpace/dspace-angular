@@ -1,18 +1,18 @@
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { FullFileSectionComponent as BaseComponent } from '../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component';
+import { ThemedFileDownloadLinkComponent } from '../../../../../../../app/shared/file-download-link/themed-file-download-link.component';
+import { MetadataFieldWrapperComponent } from '../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../../../../app/shared/pagination/pagination.component';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../../../../app/shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
-import {
-  ThemedFileDownloadLinkComponent
-} from '../../../../../../../app/shared/file-download-link/themed-file-download-link.component';
-import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pipe';
-import {
-  MetadataFieldWrapperComponent
-} from '../../../../../../../app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 @Component({
   selector: 'ds-item-page-full-file-section',
@@ -31,7 +31,7 @@ import {
     NgForOf,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
-    MetadataFieldWrapperComponent
+    MetadataFieldWrapperComponent,
   ],
 })
 export class FullFileSectionComponent extends BaseComponent {

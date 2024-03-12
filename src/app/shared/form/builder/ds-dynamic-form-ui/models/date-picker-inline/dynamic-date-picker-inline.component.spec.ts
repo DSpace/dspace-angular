@@ -34,14 +34,14 @@ describe('DsDatePickerInlineComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         ReactiveFormsModule,
         NoopAnimationsModule,
         NgbDatepickerModule,
         DynamicFormsCoreModule.forRoot(),
-        DsDatePickerInlineComponent
-    ]
-}).compileComponents().then(() => {
+        DsDatePickerInlineComponent,
+      ],
+    }).compileComponents().then(() => {
 
       fixture = TestBed.createComponent(DsDatePickerInlineComponent);
 

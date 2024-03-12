@@ -1,7 +1,13 @@
 import { DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
@@ -15,21 +21,21 @@ describe('PublisherPolicyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
+          loader: {
+            provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
         PublisherPolicyComponent,
-    ]
-})
-.overrideComponent(PublisherPolicyComponent, {
-  remove: {
-    imports: [ContentAccordionComponent]
-  }
-})
+      ],
+    })
+      .overrideComponent(PublisherPolicyComponent, {
+        remove: {
+          imports: [ContentAccordionComponent],
+        },
+      })
       .compileComponents();
   });
 

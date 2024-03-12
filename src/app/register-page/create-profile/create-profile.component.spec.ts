@@ -28,6 +28,7 @@ import {
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Registration } from '../../core/shared/registration.model';
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
@@ -37,9 +38,6 @@ import {
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { CreateProfileComponent } from './create-profile.component';
-import {
-  ProfilePageSecurityFormComponent
-} from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -142,8 +140,8 @@ describe('CreateProfileComponent', () => {
     });
 
     TestBed.configureTestingModule({
-    imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, CreateProfileComponent],
-    providers: [
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule, CreateProfileComponent],
+      providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
         { provide: Store, useValue: store },
@@ -151,11 +149,11 @@ describe('CreateProfileComponent', () => {
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-})
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
       .overrideComponent(CreateProfileComponent, {
-        remove: { imports: [ProfilePageSecurityFormComponent]}
+        remove: { imports: [ProfilePageSecurityFormComponent] },
       })
       .compileComponents();
   }));

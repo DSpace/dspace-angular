@@ -1,7 +1,22 @@
-import { Component, Input, OnInit, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest, Observable, } from 'rxjs';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -11,18 +26,19 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { Process } from '../../../process-page/processes/process.model';
-import { hasValue, isNotEmpty, } from '../../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
-    selector: 'ds-search-export-csv',
-    styleUrls: ['./search-export-csv.component.scss'],
-    templateUrl: './search-export-csv.component.html',
-    standalone: true,
-    imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule]
+  selector: 'ds-search-export-csv',
+  styleUrls: ['./search-export-csv.component.scss'],
+  templateUrl: './search-export-csv.component.html',
+  standalone: true,
+  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 /**
  * Display a button to export the current search results as csv

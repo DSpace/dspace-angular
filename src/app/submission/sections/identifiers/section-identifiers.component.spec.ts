@@ -1,7 +1,19 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
@@ -10,27 +22,28 @@ import { of as observableOf } from 'rxjs';
 
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Collection } from '../../../core/shared/collection.model';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { Item } from '../../../core/shared/item.model';
 import { License } from '../../../core/shared/license.model';
-import {
-  WorkspaceitemSectionIdentifiersObject
-} from '../../../core/submission/models/workspaceitem-section-identifiers.model';
+import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import { mockSubmissionCollectionId, mockSubmissionId, } from '../../../shared/mocks/submission.mock';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../../shared/mocks/submission.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
@@ -127,9 +140,9 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   const licenseText = 'License text';
@@ -148,7 +161,7 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -158,9 +171,9 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
         SubmissionSectionIdentifiersComponent,
         TestComponent,
         ObjNgFor,
-        VarDirective
-    ],
-    providers: [
+        VarDirective,
+      ],
+      providers: [
         { provide: CollectionDataService, useValue: getMockCollectionDataService() },
         { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: getMockFormService() },
@@ -177,9 +190,9 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionIdentifiersComponent,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents().then();
+    }).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -259,14 +272,14 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxPaginationModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule],
 })
 class TestComponent {
 

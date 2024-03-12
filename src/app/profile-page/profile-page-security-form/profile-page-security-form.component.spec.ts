@@ -1,5 +1,12 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -10,7 +17,6 @@ import { FormBuilderService } from '../../shared/form/builder/form-builder.servi
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ProfilePageSecurityFormComponent', () => {
   let component: ProfilePageSecurityFormComponent;
@@ -33,20 +39,20 @@ describe('ProfilePageSecurityFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
-      TranslateModule.forRoot(),
-      RouterTestingModule.withRoutes([]),
-      ProfilePageSecurityFormComponent,
-      VarDirective,
-      NoopAnimationsModule,
-    ],
-    providers: [
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        ProfilePageSecurityFormComponent,
+        VarDirective,
+        NoopAnimationsModule,
+      ],
+      providers: [
         { provide: EPersonDataService, useValue: epersonService },
         { provide: NotificationsService, useValue: notificationsService },
         FormBuilderService,
-    ],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-}).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

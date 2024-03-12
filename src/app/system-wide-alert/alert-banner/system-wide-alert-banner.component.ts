@@ -1,26 +1,48 @@
-import { AsyncPipe, isPlatformBrowser, NgIf } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, } from '@angular/core';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { zonedTimeToUtc } from 'date-fns-tz';
-import { BehaviorSubject, EMPTY, interval, Subscription, } from 'rxjs';
-import { filter, map, switchMap, } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  EMPTY,
+  interval,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { hasValue, isNotEmpty, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SystemWideAlert } from '../system-wide-alert.model';
-import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert
  */
 @Component({
-    selector: 'ds-system-wide-alert-banner',
-    styleUrls: ['./system-wide-alert-banner.component.scss'],
-    templateUrl: './system-wide-alert-banner.component.html',
-    standalone: true,
-    imports: [NgIf, AsyncPipe, TranslateModule]
+  selector: 'ds-system-wide-alert-banner',
+  styleUrls: ['./system-wide-alert-banner.component.scss'],
+  templateUrl: './system-wide-alert-banner.component.html',
+  standalone: true,
+  imports: [NgIf, AsyncPipe, TranslateModule],
 })
 export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 
