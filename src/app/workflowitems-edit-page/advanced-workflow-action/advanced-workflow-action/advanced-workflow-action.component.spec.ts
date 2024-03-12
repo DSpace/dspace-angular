@@ -1,27 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
-import { AdvancedWorkflowActionComponent } from './advanced-workflow-action.component';
 import { Component } from '@angular/core';
-import { MockComponent } from 'ng-mocks';
-import { DSOSelectorComponent } from '../../../shared/dso-selector/dso-selector/dso-selector.component';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { RouteService } from '../../../core/services/route.service';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { TranslateModule } from '@ngx-translate/core';
-import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
+import { MockComponent } from 'ng-mocks';
+import { of as observableOf } from 'rxjs';
+
+import { RequestService } from '../../../core/data/request.service';
+import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
+import { RouteService } from '../../../core/services/route.service';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { DSOSelectorComponent } from '../../../shared/dso-selector/dso-selector/dso-selector.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
+import { LocationStub } from '../../../shared/testing/location.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
+import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
 import { RequestService } from '../../../core/data/request.service';
 import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
 import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
+import { AdvancedWorkflowActionComponent } from './advanced-workflow-action.component';
 
 const workflowId = '1';
 

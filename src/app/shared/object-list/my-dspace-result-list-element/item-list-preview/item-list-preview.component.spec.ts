@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { Item } from '../../../../core/shared/item.model';
-import { ItemListPreviewComponent } from './item-list-preview.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { Item } from '../../../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { TruncatePipe } from '../../../utils/truncate.pipe';
+import { ItemListPreviewComponent } from './item-list-preview.component';
 import { ThumbnailComponent } from '../../../../thumbnail/thumbnail.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
@@ -31,16 +30,16 @@ const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -48,16 +47,16 @@ const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
-    ]
-  }
+        value: 'Article',
+      },
+    ],
+  },
 });
 const mockItemWithEntityType: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -65,28 +64,28 @@ const mockItemWithEntityType: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dspace.entity.type': [
       {
         language: null,
-        value: 'Publication'
-      }
-    ]
-  }
+        value: 'Publication',
+      },
+    ],
+  },
 });
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 describe('ItemListPreviewComponent', () => {
@@ -96,17 +95,17 @@ describe('ItemListPreviewComponent', () => {
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+            useClass: TranslateLoaderMock,
+          },
         }),
         NoopAnimationsModule,
         ItemListPreviewComponent, TruncatePipe
     ],
     providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(ItemListPreviewComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
       remove: {
@@ -208,17 +207,17 @@ describe('ItemListPreviewComponent', () => {
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+            useClass: TranslateLoaderMock,
+          },
         }),
         NoopAnimationsModule,
         ItemListPreviewComponent, TruncatePipe
     ],
     providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(ItemListPreviewComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
       remove: {

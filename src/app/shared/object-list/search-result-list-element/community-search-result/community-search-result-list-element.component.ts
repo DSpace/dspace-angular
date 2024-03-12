@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { SearchResultListElementComponent } from '../search-result-list-element.component';
+
 import { Community } from '../../../../core/shared/community.model';
-import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { RouterLink } from '@angular/router';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { NgIf, NgClass } from '@angular/common';
+import { SearchResultListElementComponent } from '../search-result-list-element.component';
 
 @Component({
     selector: 'ds-community-search-result-list-element',

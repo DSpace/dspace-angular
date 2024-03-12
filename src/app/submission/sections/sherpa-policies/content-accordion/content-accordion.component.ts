@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { PermittedVersions } from '../../../../core/submission/models/sherpa-policies-details.model';
 import { NgForOf, NgIf, TitleCasePipe } from '@angular/common';

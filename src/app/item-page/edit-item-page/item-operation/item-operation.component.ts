@@ -1,5 +1,9 @@
-import {Component, Input} from '@angular/core';
-import {ItemOperation} from './itemOperation.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { ItemOperation } from './itemOperation.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';

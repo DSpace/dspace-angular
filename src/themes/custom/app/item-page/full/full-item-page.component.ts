@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { fadeInOut } from '../../../../../app/shared/animations/fade';
+import { ChangeDetectionStrategy, Component, } from '@angular/core';
+
 import { FullItemPageComponent as BaseComponent } from '../../../../../app/item-page/full/full-item-page.component';
 import { ErrorComponent } from '../../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
@@ -21,6 +21,7 @@ import {
 import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
 import { ThemedItemAlertsComponent } from '../../../../../app/item-page/alerts/themed-item-alerts.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
+import { fadeInOut } from '../../../../../app/shared/animations/fade';
 
 /**
  * This component renders a full item page.

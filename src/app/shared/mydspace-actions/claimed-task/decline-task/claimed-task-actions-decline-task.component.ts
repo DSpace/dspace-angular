@@ -1,16 +1,19 @@
 import { Component, Injector } from '@angular/core';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 import { Router } from '@angular/router';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../../../core/shared/search/search.service';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { RemoteData } from 'src/app/core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import {
-  ClaimedDeclinedTaskTaskSearchResult
-} from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { ClaimedDeclinedTaskTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -45,7 +48,7 @@ export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAb
 
   convertReloadedObject(dso: DSpaceObject): DSpaceObject {
     return Object.assign(new ClaimedDeclinedTaskTaskSearchResult(), dso, {
-      indexableObject: dso
+      indexableObject: dso,
     });
   }
 

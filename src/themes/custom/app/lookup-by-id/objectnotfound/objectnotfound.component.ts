@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, } from '@angular/core';
+
 import {
   ObjectNotFoundComponent as BaseComponent
 } from '../../../../../app/lookup-by-id/objectnotfound/objectnotfound.component';

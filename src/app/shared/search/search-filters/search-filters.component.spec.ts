@@ -1,16 +1,17 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { SearchFiltersComponent } from './search-filters.component';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
+
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchFiltersComponent } from './search-filters.component';
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;
@@ -29,7 +30,7 @@ describe('SearchFiltersComponent', () => {
 
   const searchFiltersStub = {
     getSelectedValuesForFilter: (filter) =>
-      []
+      [],
   };
 
   beforeEach(waitForAsync(() => {
@@ -42,9 +43,9 @@ describe('SearchFiltersComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
 
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(SearchFiltersComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { BreadcrumbsComponent as BaseComponent } from '../../../../app/breadcrumbs/breadcrumbs.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 import { AsyncPipe, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';

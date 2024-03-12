@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { ThemedComponent } from '../theme-support/themed.component';
 import { ResultsBackButtonComponent } from './results-back-button.component';
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'ds-themed-results-back-button',

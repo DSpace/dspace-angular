@@ -1,11 +1,12 @@
-import {
-  RelatedEntitiesSearchComponent
-} from './simple/related-entities/related-entities-search/related-entities-search.component';
+import { CommonModule, NgOptimizedImage, } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { SearchModule } from '../shared/search/search.module';
-import { TranslateModule } from '@ngx-translate/core';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+
+import {
+  ItemWithdrawnReinstateModalComponent
+} from '../shared/correction-suggestion/withdrawn-reinstate-modal.component';
+import { SearchModule } from '../shared/search/search.module';
 import {
   TabbedRelatedEntitiesSearchComponent
 } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
@@ -19,24 +20,24 @@ import { MetadataValuesComponent } from './field-components/metadata-values/meta
 import {
   GenericItemPageFieldComponent
 } from './simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { ItemPageImgFieldComponent } from './simple/field-components/specific-field/img/item-page-img-field.component';
 import {
   MetadataRepresentationListComponent
 } from './simple/metadata-representation-list/metadata-representation-list.component';
-import { RelatedItemsComponent } from './simple/related-items/related-items-component';
 import {
   ThemedMetadataRepresentationListComponent
 } from './simple/metadata-representation-list/themed-metadata-representation-list.component';
 import {
-  ItemWithdrawnReinstateModalComponent
-} from '../shared/correction-suggestion/withdrawn-reinstate-modal.component';
-import { ItemPageImgFieldComponent } from './simple/field-components/specific-field/img/item-page-img-field.component';
+  RelatedEntitiesSearchComponent
+} from './simple/related-entities/related-entities-search/related-entities-search.component';
+import { RelatedItemsComponent } from './simple/related-items/related-items-component';
 
 import { dsDynamicFormControlMapFn } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 
 const ENTRY_COMPONENTS = [
   ItemVersionsDeleteModalComponent,
   ItemVersionsSummaryModalComponent,
-  ItemWithdrawnReinstateModalComponent
+  ItemWithdrawnReinstateModalComponent,
 
 ];
 
@@ -61,15 +62,15 @@ const COMPONENTS = [
     ...COMPONENTS
   ],
   exports: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   providers: [
     {
       provide: DYNAMIC_FORM_CONTROL_MAP_FN,
-      useValue: dsDynamicFormControlMapFn
+      useValue: dsDynamicFormControlMapFn,
     },
     ...ENTRY_COMPONENTS,
-  ]
+  ],
 })
 export class ItemSharedModule {
 }

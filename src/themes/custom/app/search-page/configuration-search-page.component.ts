@@ -17,6 +17,9 @@ import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/th
 import { SearchLabelsComponent } from '../../../../app/shared/search/search-labels/search-labels.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-page.component';
+import { ConfigurationSearchPageComponent as BaseComponent } from '../../../../app/search-page/configuration-search-page.component';
+import { pushInOut } from '../../../../app/shared/animations/push';
 
 @Component({
   selector: 'ds-configuration-search-page',

@@ -1,26 +1,27 @@
-import { Injectable, NgZone, Inject, InjectionToken } from '@angular/core';
-import { RequestService } from '../request.service';
+import { Inject, Injectable, InjectionToken, NgZone, } from '@angular/core';
+import { Observable, Subscription, } from 'rxjs';
+import { distinctUntilChanged, filter, find, switchMap, } from 'rxjs/operators';
+import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
+
+import { Process } from '../../../process-page/processes/process.model';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { Process } from '../../../process-page/processes/process.model';
-import { Observable, Subscription } from 'rxjs';
-import { switchMap, filter, distinctUntilChanged, find } from 'rxjs/operators';
-import { PaginatedList } from '../paginated-list.model';
 import { Bitstream } from '../../shared/bitstream.model';
-import { RemoteData } from '../remote-data';
-import { BitstreamDataService } from '../bitstream-data.service';
-import { IdentifiableDataService } from '../base/identifiable-data.service';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { FindAllData, FindAllDataImpl } from '../base/find-all-data';
-import { FindListOptions } from '../find-list-options.model';
-import { DeleteData, DeleteDataImpl } from '../base/delete-data';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NoContent } from '../../shared/NoContent.model';
 import { getAllCompletedRemoteData } from '../../shared/operators';
-import { ProcessStatus } from 'src/app/process-page/processes/process-status.model';
-import { hasValue } from '../../../shared/empty.util';
-import { SearchData, SearchDataImpl } from '../base/search-data';
+import { DeleteData, DeleteDataImpl, } from '../base/delete-data';
+import { FindAllData, FindAllDataImpl, } from '../base/find-all-data';
+import { IdentifiableDataService } from '../base/identifiable-data.service';
+import { SearchData, SearchDataImpl, } from '../base/search-data';
+import { BitstreamDataService } from '../bitstream-data.service';
+import { FindListOptions } from '../find-list-options.model';
+import { PaginatedList } from '../paginated-list.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
 
 /**
  * Create an InjectionToken for the default JS setTimeout function, purely so we can mock it during
@@ -28,7 +29,7 @@ import { SearchData, SearchDataImpl } from '../base/search-data';
  */
 export const TIMER_FACTORY = new InjectionToken<(callback: (...args: any[]) => void, ms?: number, ...args: any[]) => NodeJS.Timeout>('timer', {
   providedIn: 'root',
-  factory: () => setTimeout
+  factory: () => setTimeout,
 });
 
 @Injectable({ providedIn: 'root' })
@@ -47,7 +48,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     protected bitstreamDataService: BitstreamDataService,
     protected notificationsService: NotificationsService,
     protected zone: NgZone,
-    @Inject(TIMER_FACTORY) protected timer: (callback: (...args: any[]) => void, ms?: number, ...args: any[]) => NodeJS.Timeout
+    @Inject(TIMER_FACTORY) protected timer: (callback: (...args: any[]) => void, ms?: number, ...args: any[]) => NodeJS.Timeout,
   ) {
     super('processes', requestService, rdbService, objectCache, halService);
 
@@ -78,7 +79,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
    */
   getFilesEndpoint(processId: string): Observable<string> {
     return this.getBrowseEndpoint().pipe(
-      switchMap((href) => this.halService.getEndpoint('files', `${href}/${processId}`))
+      switchMap((href) => this.halService.getEndpoint('files', `${href}/${processId}`)),
     );
   }
 
@@ -140,13 +141,13 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
   autoRefreshingSearchBy(id: string, searchMethod: string, options?: FindListOptions, pollingIntervalInMs: number = 5000, ...linksToFollow: FollowLinkConfig<Process>[]): Observable<RemoteData<PaginatedList<Process>>> {
 
     const result$ = this.searchBy(searchMethod, options, true, true, ...linksToFollow).pipe(
-      getAllCompletedRemoteData()
+      getAllCompletedRemoteData(),
     );
 
     const sub = result$.pipe(
       filter(() =>
-        !this.activelyBeingPolled.has(id)
-      )
+        !this.activelyBeingPolled.has(id),
+      ),
     ).subscribe((processListRd: RemoteData<PaginatedList<Process>>) => {
       this.clearCurrentTimeout(id);
       const nextTimeout = this.timer(() => {
@@ -237,8 +238,8 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     const sub = process$.pipe(
       filter((processRD: RemoteData<Process>) =>
         !ProcessDataService.hasCompletedOrFailed(processRD.payload) &&
-        !this.activelyBeingPolled.has(processId)
-      )
+        !this.activelyBeingPolled.has(processId),
+      ),
     ).subscribe((processRD: RemoteData<Process>) => {
       this.clearCurrentTimeout(processId);
       if (processRD.hasSucceeded) {
@@ -257,7 +258,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     // observable) that unsubscribes the previous one, removes the processId from the list of
     // processes being polled and clears any running timeouts
     process$.pipe(
-      find((processRD: RemoteData<Process>) => ProcessDataService.hasCompletedOrFailed(processRD.payload))
+      find((processRD: RemoteData<Process>) => ProcessDataService.hasCompletedOrFailed(processRD.payload)),
     ).subscribe(() => {
       this.stopAutoRefreshing(processId);
     });
@@ -265,7 +266,7 @@ export class ProcessDataService extends IdentifiableDataService<Process> impleme
     return process$.pipe(
       distinctUntilChanged((previous: RemoteData<Process>, current: RemoteData<Process>) =>
         previous.payload?.processStatus === current.payload?.processStatus,
-      )
+      ),
     );
   }
 }

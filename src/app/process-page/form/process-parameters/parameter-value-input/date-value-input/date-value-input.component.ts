@@ -4,6 +4,18 @@ import { ControlContainer, NgForm, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
 import { controlContainerFactory } from '../../../process-form-factory';
+import {
+  Component,
+  Input,
+  Optional,
+} from '@angular/core';
+import {
+  ControlContainer,
+  NgForm,
+} from '@angular/forms';
+
+import { controlContainerFactory } from '../../../process-form.component';
+import { ValueInputComponent } from '../value-input.component';
 
 /**
  * Represents the user inputted value of a date parameter

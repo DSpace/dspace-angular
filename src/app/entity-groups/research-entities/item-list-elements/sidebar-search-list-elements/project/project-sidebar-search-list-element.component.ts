@@ -1,17 +1,19 @@
-import {
-  listableObjectComponent
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { Context } from '../../../../../core/shared/context.model';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { Component } from '@angular/core';
+import { Context } from '../../../../../core/shared/context.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import {
   SidebarSearchListElementComponent
 } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
-import { Item } from '../../../../../core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgClass, NgIf, AsyncPipe } from '@angular/common';
-import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import {
+  TruncatablePartComponent
+} from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  listableObjectComponent
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 
 @listableObjectComponent('ProjectSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('ProjectSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)

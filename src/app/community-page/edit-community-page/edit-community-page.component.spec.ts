@@ -1,12 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
-import { EditCommunityPageComponent } from './edit-community-page.component';
+import { of as observableOf } from 'rxjs';
+
 import { CommunityDataService } from '../../core/data/community-data.service';
+import { SharedModule } from '../../shared/shared.module';
+import { EditCommunityPageComponent } from './edit-community-page.component';
 
 describe('EditCommunityPageComponent', () => {
   let comp: EditCommunityPageComponent;
@@ -14,25 +24,25 @@ describe('EditCommunityPageComponent', () => {
 
   const routeStub = {
     data: observableOf({
-      dso: { payload: {} }
+      dso: { payload: {} },
     }),
     routeConfig: {
       children: [
         {
           path: 'mockUrl',
           data: {
-            hideReturnButton: false
-          }
-        }
-      ]
+            hideReturnButton: false,
+          },
+        },
+      ],
     },
     snapshot: {
       firstChild: {
         routeConfig: {
-          path: 'mockUrl'
-        }
-      }
-    }
+          path: 'mockUrl',
+        },
+      },
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -42,7 +52,7 @@ describe('EditCommunityPageComponent', () => {
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: routeStub },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).compileComponents();
   }));
 

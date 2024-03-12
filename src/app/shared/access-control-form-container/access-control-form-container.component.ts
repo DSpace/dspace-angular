@@ -1,16 +1,35 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, ViewChild } from '@angular/core';
-import { concatMap, Observable, shareReplay } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
-import { BulkAccessControlService } from './bulk-access-control.service';
-import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { map, take } from 'rxjs/operators';
+import {
+  concatMap,
+  Observable,
+  shareReplay,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
+import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Item } from '../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { AlertType } from '../alert/alert-type';
+import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
+import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
+import { BulkAccessControlService } from './bulk-access-control.service';
 import {
   ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
-  ItemAccessControlSelectBitstreamsModalComponent
+  ItemAccessControlSelectBitstreamsModalComponent,
 } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
@@ -67,7 +86,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
     private bulkAccessControlService: BulkAccessControlService,
     public selectableListService: SelectableListService,
     protected modalService: NgbModal,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   state = createAccessControlInitialFormState();
@@ -75,7 +94,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   dropdownData$: Observable<BulkAccessConditionOptions> = this.bulkAccessConfigService.findByName('default').pipe(
     getFirstCompletedRemoteData(),
     map((configRD: RemoteData<BulkAccessConditionOptions>) => configRD.hasSucceeded ? configRD.payload : null),
-    shareReplay(1)
+    shareReplay({ refCount: false, bufferSize: 1 }),
   );
 
   /**
@@ -85,12 +104,12 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
     console.log({
       bitstream: this.bitstreamAccessCmp.getValue(),
       item: this.itemAccessCmp.getValue(),
-      state: this.state
+      state: this.state,
     });
     return {
       bitstream: this.bitstreamAccessCmp.getValue(),
       item: this.itemAccessCmp.getValue(),
-      state: this.state
+      state: this.state,
     };
   }
 
@@ -115,12 +134,12 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
     const { file } = this.bulkAccessControlService.createPayloadFile({
       bitstreamAccess,
       itemAccess,
-      state: this.state
+      state: this.state,
     });
 
     this.bulkAccessControlService.executeScript(
       [ this.itemRD.payload.uuid ],
-      file
+      file,
     ).pipe(take(1)).subscribe((res) => {
       console.log('success', res);
     });
@@ -152,7 +171,7 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
 
     ref.closed.pipe(
       concatMap(() => this.selectableListService.getSelectableList(ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID)),
-      take(1)
+      take(1),
     ).subscribe((list) => {
       this.state.bitstream.selectedBitstreams = list?.selection || [];
       this.cdr.detectChanges();

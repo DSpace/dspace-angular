@@ -1,10 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { fadeIn } from '../../../shared/animations/fade';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { SuggestionEvidences } from '../../../core/notifications/models/suggestion.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
 import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
 
+import { fadeIn } from '../../../shared/animations/fade';
 
 /**
  * Show suggestion evidences such as score (authorScore, dateScore)

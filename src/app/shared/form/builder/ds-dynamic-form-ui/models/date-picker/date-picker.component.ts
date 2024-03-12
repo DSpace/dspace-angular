@@ -2,16 +2,30 @@ import { FormsModule, UntypedFormGroup } from '@angular/forms';
 import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { DynamicDsDatePickerModel } from './date-picker.model';
 import { hasValue } from '../../../../../empty.util';
+import { DOCUMENT } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  Renderer2,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { NgClass, NgIf } from '@angular/common';
 import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
 import { DOCUMENT } from '@angular/common';
 import isEqual from 'lodash/isEqual';
 
+import { hasValue } from '../../../../../empty.util';
+import { DynamicDsDatePickerModel } from './date-picker.model';
 
 export type DatePickerFieldType = '_year' | '_month' | '_day';
 
@@ -69,7 +83,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
               private renderer: Renderer2,
-              @Inject(DOCUMENT) private _document: Document
+              @Inject(DOCUMENT) private _document: Document,
   ) {
     super(layoutService, validationService);
   }
@@ -99,7 +113,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     }
 
     this.maxYear = now.getUTCFullYear() + 100;
-    }
+  }
 
   onBlur(event) {
     this.blur.emit();
@@ -196,7 +210,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     if (index < 0) {
       return;
     }
-    let fieldToFocusOn = index + 1;
+    const fieldToFocusOn = index + 1;
     if (fieldToFocusOn < this.fields.length) {
       this.focusInput(this.fields[fieldToFocusOn]);
     }
@@ -208,7 +222,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     const activeElement: Element = this._document.activeElement;
     (activeElement as any).blur();
     const index = this.selectedFieldIndex(activeElement);
-    let fieldToFocusOn = index - 1;
+    const fieldToFocusOn = index - 1;
     if (fieldToFocusOn >= 0) {
       this.focusInput(this.fields[fieldToFocusOn]);
     }

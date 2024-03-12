@@ -2,25 +2,26 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { JournalVolumeSearchResultListElementComponent } from './journal-volume-search-result-list-element.component';
-import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
-import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../../../../core/shared/item.model';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { JournalVolumeSearchResultListElementComponent } from './journal-volume-search-result-list-element.component';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
+import { ActivatedRoute } from '@angular/router';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
 import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import {
   TruncatablePartComponent
 } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 
 let journalVolumeListElementComponent: JournalVolumeSearchResultListElementComponent;
 let fixture: ComponentFixture<JournalVolumeSearchResultListElementComponent>;
@@ -34,23 +35,23 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'journal.title': [
           {
             language: 'en_US',
-            value: 'This is just another journal title'
-          }
+            value: 'This is just another journal title',
+          },
         ],
         'publicationvolume.volumeNumber': [
           {
             language: 'en_US',
-            value: '1234'
-          }
-        ]
-      }
-    })
+            value: '1234',
+          },
+        ],
+      },
+    }),
   });
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
@@ -61,23 +62,23 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
-        ]
-      }
-    })
+            value: 'This is just another title',
+          },
+        ],
+      },
+    }),
   });
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 describe('JournalVolumeSearchResultListElementComponent', () => {
@@ -91,9 +92,9 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
-      add: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -179,7 +180,7 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
       add: {changeDetection: ChangeDetectionStrategy.Default},
       remove: {

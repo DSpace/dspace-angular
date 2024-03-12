@@ -1,7 +1,15 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ExternalLinkMenuItemComponent } from './external-link-menu-item.component';
 
 describe('ExternalLinkMenuItemComponent', () => {
@@ -23,7 +31,7 @@ describe('ExternalLinkMenuItemComponent', () => {
     providers: [
         { provide: 'itemModelProvider', useValue: { text: text, href: link } },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 })
       .compileComponents();
   }));

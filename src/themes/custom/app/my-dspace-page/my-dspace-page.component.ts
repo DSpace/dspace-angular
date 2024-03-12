@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { pushInOut } from '../../../../app/shared/animations/push';
 import {
-  MyDSpacePageComponent as BaseComponent
+  MyDSpacePageComponent as BaseComponent,
+  SEARCH_CONFIG_SERVICE
 } from '../../../../app/my-dspace-page/my-dspace-page.component';
-import {
-    MyDSpaceConfigurationService,
-    SEARCH_CONFIG_SERVICE
-} from '../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { MyDSpaceConfigurationService } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
 import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
 import {
   MyDSpaceNewSubmissionComponent

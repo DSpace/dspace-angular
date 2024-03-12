@@ -1,17 +1,30 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Feedback } from './models/feedback.model';
 import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { Store } from '@ngrx/store';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import { dataService } from '../data/base/data-service.decorator';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { CreateData, CreateDataImpl } from '../data/base/create-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { Feedback } from './models/feedback.model';
+import { FEEDBACK } from './models/feedback.resource-type';
 
 /**
  * Service for checking and managing the feedback

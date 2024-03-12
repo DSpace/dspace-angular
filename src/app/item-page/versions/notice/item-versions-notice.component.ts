@@ -1,18 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+import {
+  map,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { Version } from '../../../core/shared/version.model';
-import { hasValue, hasValueOperator } from '../../../shared/empty.util';
+import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { Item } from '../../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { Version } from '../../../core/shared/version.model';
+import { VersionHistory } from '../../../core/shared/version-history.model';
 import { AlertType } from '../../../shared/alert/alert-type';
+import {
+  hasValue,
+  hasValueOperator,
+} from '../../../shared/empty.util';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { TranslateModule } from '@ngx-translate/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
@@ -78,12 +90,12 @@ export class ItemVersionsNoticeComponent implements OnInit {
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
         hasValueOperator(),
-        switchMap((version: Version) => version.versionhistory)
+        switchMap((version: Version) => version.versionhistory),
       );
 
       this.latestVersion$ = this.versionHistoryRD$.pipe(
         getFirstSucceededRemoteDataPayload(),
-        switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh))
+        switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh)),
       );
 
       this.showLatestVersionNotice$ = this.versionRD$.pipe(

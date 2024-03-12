@@ -1,19 +1,22 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { catchError, map } from 'rxjs/operators';
-import { RemoteData } from '../../../core/data/remote-data';
+import { catchError, map, } from 'rxjs/operators';
+
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
+import { RequestParam } from '../../../core/cache/models/request-param.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SplitPipe } from '../../../shared/utils/split.pipe';
+import { RemoteData } from '../../../core/data/remote-data';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import {
+  QualityAssuranceSourceDataService
+} from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-qa-event-notification',
@@ -52,11 +55,11 @@ export class QaEventNotificationComponent implements OnChanges {
   /**
     * Detect changes to the item input and update the sources$ observable.
    */
-   ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.item && changes.item.currentValue.uuid !== changes.item.previousValue?.uuid) {
       this.sources$ = this.getQualityAssuranceSources$();
     }
-   }
+  }
   /**
    * Returns an Observable of QualityAssuranceSourceObject[] for the current item.
    * @returns An Observable of QualityAssuranceSourceObject[] for the current item.
@@ -64,7 +67,7 @@ export class QaEventNotificationComponent implements OnChanges {
    */
   getQualityAssuranceSources$(): Observable<QualityAssuranceSourceObject[]> {
     const findListTopicOptions: FindListOptions = {
-      searchParams: [new RequestParam('target', this.item.uuid)]
+      searchParams: [new RequestParam('target', this.item.uuid)],
     };
     return this.qualityAssuranceSourceDataService.getSourcesByTarget(findListTopicOptions, false)
       .pipe(
@@ -75,7 +78,7 @@ export class QaEventNotificationComponent implements OnChanges {
           }
           return [];
         }),
-        catchError(() => [])
+        catchError(() => []),
       );
   }
 

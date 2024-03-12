@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
 import { Site } from '../../core/shared/site.model';
 import { switchMap } from 'rxjs/operators';
+
 import { TranslateModule } from '@ngx-translate/core';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

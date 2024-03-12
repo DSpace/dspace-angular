@@ -1,4 +1,7 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 
 /**
  * Pipe that allows to iterate over an object and to access to entry key and value :
@@ -14,6 +17,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ObjNgFor implements PipeTransform {
   transform(value: any, args: any[] = null): any {
-    return Object.keys(value).map((key) => Object.assign({ key }, {value: value[key]}));
+    return Object.keys(value).map((key) => Object.assign({ key }, { value: value[key] }));
   }
 }

@@ -1,21 +1,29 @@
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { NgbDatepickerModule, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import {
+  NgbDatepickerModule,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import { of } from 'rxjs';
-import { AccessControlFormContainerComponent } from './access-control-form-container.component';
-import { BulkAccessControlService } from './bulk-access-control.service';
+
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 import { Item } from '../../core/shared/item.model';
-import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
-import { CommonModule } from '@angular/common';
 import { SharedBrowseByModule } from '../browse-by/shared-browse-by.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
-import { UiSwitchModule } from 'ngx-ui-switch';
-import {
-  ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID
-} from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
+import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import { AccessControlFormModule } from './access-control-form.module';
+import { AccessControlFormContainerComponent } from './access-control-form-container.component';
+import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
+import { BulkAccessControlService } from './bulk-access-control.service';
+import { ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID} from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
 
 
 describe('AccessControlFormContainerComponent', () => {
@@ -23,7 +31,7 @@ describe('AccessControlFormContainerComponent', () => {
   let fixture: ComponentFixture<AccessControlFormContainerComponent<any>>;
 
 
-// Mock NgbModal
+  // Mock NgbModal
   @Component({
     selector: 'ds-ngb-modal', template: '',
     standalone: true,
@@ -36,25 +44,25 @@ describe('AccessControlFormContainerComponent', () => {
   class MockNgbModalComponent {
   }
 
-// Mock dependencies
+  // Mock dependencies
   const mockBulkAccessControlService = {
-    createPayloadFile: jasmine.createSpy('createPayloadFile').and.returnValue({file: 'mocked-file'}),
+    createPayloadFile: jasmine.createSpy('createPayloadFile').and.returnValue({ file: 'mocked-file' }),
     executeScript: jasmine.createSpy('executeScript').and.returnValue(of('success')),
   };
 
   const mockBulkAccessConfigDataService = {
-    findByName: jasmine.createSpy('findByName').and.returnValue(of({payload: {options: []}})),
+    findByName: jasmine.createSpy('findByName').and.returnValue(of({ payload: { options: [] } })),
   };
 
   const mockSelectableListService = {
-    getSelectableList: jasmine.createSpy('getSelectableList').and.returnValue(of({selection: []})),
+    getSelectableList: jasmine.createSpy('getSelectableList').and.returnValue(of({ selection: [] })),
     deselectAll: jasmine.createSpy('deselectAll'),
   };
 
   const mockNgbModal = {
     open: jasmine.createSpy('open').and.returnValue(
-      { componentInstance: {}, closed: of({})} as NgbModalRef
-    )
+      { componentInstance: {}, closed: of({}) } as NgbModalRef,
+    ),
   };
 
   beforeEach(async () => {
@@ -105,7 +113,7 @@ describe('AccessControlFormContainerComponent', () => {
     const itemAccess = 'itemAccess';
     component.bitstreamAccessCmp.getValue = jasmine.createSpy('getValue').and.returnValue(bitstreamAccess);
     component.itemAccessCmp.getValue = jasmine.createSpy('getValue').and.returnValue(itemAccess);
-    component.itemRD = {payload: {uuid: 'item-uuid'}} as any;
+    component.itemRD = { payload: { uuid: 'item-uuid' } } as any;
 
     component.submit();
 
@@ -149,7 +157,7 @@ describe('AccessControlFormContainerComponent', () => {
   it('should unsubscribe and deselect all on component destroy', () => {
     component.ngOnDestroy();
     expect(component.selectableListService.deselectAll).toHaveBeenCalledWith(
-      ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID
+      ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,
     );
   });
 });

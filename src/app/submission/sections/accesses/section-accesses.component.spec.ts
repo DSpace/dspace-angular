@@ -1,13 +1,3 @@
-import { FormService } from '../../../shared/form/form.service';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
-
-import { SubmissionSectionAccessesComponent } from './section-accesses.component';
-import { SectionsService } from '../sections.service';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import {
   getSubmissionAccessesConfigNotChangeDiscoverableService,
   getSubmissionAccessesConfigService
@@ -32,9 +22,14 @@ import {
   DynamicCheckboxModel,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+
 import { AppState } from '../../../app.reducer';
+import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormService } from '../../../shared/form/form.service';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
 import { accessConditionChangeEvent, checkboxChangeEvent } from '../../../shared/testing/form-event.stub';
@@ -50,6 +45,15 @@ import { CommonModule } from '@angular/common';
 import {
   dsDynamicFormControlMapFn
 } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SectionsService } from '../sections.service';
+import { SubmissionSectionAccessesComponent } from './section-accesses.component';
+import { TestBed } from '@angular/core/testing';
+
+ComponentFixture,
+  inject,
+  TestBed,
+} from '@angular/core/testing';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -88,12 +92,12 @@ describe('SubmissionSectionAccessesComponent', () => {
     enabled: true,
     data: {
       discoverable: true,
-      accessConditions: []
+      accessConditions: [],
     },
     errorsToShow: [],
     serverValidationErrors: [],
     isLoading: false,
-    isValid: true
+    isValid: true,
   };
 
   describe('First with canChangeDiscoverable true', () => {
@@ -125,7 +129,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
         FormBuilderService,
         provideMockStore({})
-    ]
+    ],
       })
         .compileComponents();
     });
@@ -168,8 +172,8 @@ describe('SubmissionSectionAccessesComponent', () => {
     });
 
     it('should have set maxStartDate and maxEndDate properly', () => {
-      const maxStartDate = {year: 2024, month: 12, day: 20};
-      const maxEndDate = {year: 2022, month: 6, day: 20};
+      const maxStartDate = { year: 2024, month: 12, day: 20 };
+      const maxEndDate = { year: 2022, month: 6, day: 20 };
 
       const startDateModel = formbuilderService.findById('startDate', component.formModel);
       expect(startDateModel.max).toEqual(maxStartDate);
@@ -222,7 +226,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         FormBuilderService,
         provideMockStore({})
 
-        ]
+        ],
       })
       .compileComponents();
     });

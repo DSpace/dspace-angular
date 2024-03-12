@@ -1,4 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Location } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import {
   AdvancedClaimedTaskActionSelectReviewerComponent
 } from './advanced-claimed-task-action-select-reviewer.component';
@@ -6,12 +12,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { NotificationsService } from '../../../notifications/notifications.service';
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { SearchService } from '../../../../core/shared/search/search.service';
+import { of as observableOf } from 'rxjs';
+
 import { RequestService } from '../../../../core/data/request.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -21,7 +32,14 @@ import {
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { of as observableOf } from 'rxjs';
+import { ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
+import { NotificationsService } from '../../../notifications/notifications.service';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { RouterStub } from '../../../testing/router.stub';
+import { SearchServiceStub } from '../../../testing/search-service.stub';
+import { AdvancedClaimedTaskActionSelectReviewerComponent } from './advanced-claimed-task-action-select-reviewer.component';
 
 const taskId = 'claimed-task-1';
 const workflowId = 'workflow-1';

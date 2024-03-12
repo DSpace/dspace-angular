@@ -1,6 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
+
 import { ModalBeforeDismiss } from '../../../shared/interfaces/modal-before-dismiss.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoadingComponent } from '../../../shared/loading/loading.component';

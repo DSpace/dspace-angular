@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { HostWindowService, WidthCategory, } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { ThemedNavbarComponent } from '../navbar/themed-navbar.component';
 import { ThemedHeaderComponent } from '../header/themed-header.component';
-import { NgClass, AsyncPipe } from '@angular/common';
-import { HostWindowService, WidthCategory } from '../shared/host-window.service';
+import { AsyncPipe, NgClass } from '@angular/common';
 
 /**
  * This component represents a wrapper for the horizontal navbar and the header

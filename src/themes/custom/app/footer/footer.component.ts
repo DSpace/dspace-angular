@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { FooterComponent as BaseComponent } from '../../../../app/footer/footer.component';
 import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';

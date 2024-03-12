@@ -1,35 +1,31 @@
-import { Component, Input, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
-import { ProcessStatus } from '../../processes/process-status.model';
-import { Observable, mergeMap, from as observableFrom, BehaviorSubject, Subscription } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Process } from '../../processes/process.model';
-import {
-  PaginationComponentOptions
-} from '../../../shared/pagination/pagination-component-options.model';
-import { ProcessOverviewService, ProcessSortField } from '../process-overview.service';
-import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getAllCompletedRemoteData
-} from '../../../core/shared/operators';
-import { map, switchMap, toArray, take, filter } from 'rxjs/operators';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { redirectOn4xx } from '../../../core/shared/authorized.operators';
-import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../../core/auth/auth.service';
 import { AsyncPipe, isPlatformBrowser, NgClass, NgForOf, NgIf } from '@angular/common';
+import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { BehaviorSubject, from as observableFrom, mergeMap, Observable, Subscription, } from 'rxjs';
+import { filter, map, switchMap, take, toArray, } from 'rxjs/operators';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
+
+import { AuthService } from '../../../core/auth/auth.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { RouteService } from '../../../core/services/route.service';
+import { redirectOn4xx } from '../../../core/shared/authorized.operators';
+import { getAllCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { Process } from '../../processes/process.model';
+import { ProcessStatus } from '../../processes/process-status.model';
+import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
+import { ProcessOverviewService, ProcessSortField, } from '../process-overview.service';
 
 const NEW_PROCESS_PARAM = 'new_process_id';
 
@@ -130,7 +126,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
               protected router: Router,
               protected auth: AuthService,
               @Inject(PLATFORM_ID) protected platformId: object,
-              ) {
+  ) {
   }
 
   ngOnInit() {
@@ -148,7 +144,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
     // increase the number of characters until the ids are distinct.
     this.paginationId = this.processStatus.toLowerCase().substring(0,2);
 
-    let defaultPaginationOptions = Object.assign(new PaginationComponentOptions(), {
+    const defaultPaginationOptions = Object.assign(new PaginationComponentOptions(), {
       id: this.paginationId,
       pageSize: 5,
     });
@@ -180,7 +176,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
         // Use the findListOptions to retrieve the relevant processes every interval
         switchMap((findListOptions: FindListOptions) =>
           this.processOverviewService.getProcessesByProcessStatus(
-            this.processStatus, findListOptions, this.useAutoRefreshingSearchBy ? this.autoRefreshInterval : null)
+            this.processStatus, findListOptions, this.useAutoRefreshingSearchBy ? this.autoRefreshInterval : null),
         ),
         // Redirect the user when he is logged out
         redirectOn4xx(this.router, this.auth),
@@ -227,7 +223,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
         if (!(processesRD.payload.totalElements > 0)) {
           this.isCollapsed = true;
         }
-      }
+      },
     ));
 
   }
@@ -264,4 +260,4 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
     this.processOverviewService.stopAutoRefreshing(this.processStatus);
   }
 
-  }
+}

@@ -1,25 +1,36 @@
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { AuthService } from '../../../core/auth/auth.service';
-import { Item } from '../../../core/shared/item.model';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  switchMap,
+} from 'rxjs';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RequestService } from '../../../core/data/request.service';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { AuthService } from '../../../core/auth/auth.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
 import { NgIf, AsyncPipe } from '@angular/common';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**
  * This component represents actions related to WorkspaceItem object.
@@ -72,7 +83,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
     protected requestService: RequestService,
     private authService: AuthService,
     public authorizationService: AuthorizationDataService,
-    ) {
+  ) {
     super(WorkspaceItem.type, injector, router, notificationsService, translate, searchService, requestService);
 
   }
@@ -92,7 +103,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
               this.handleActionResponse(response.hasSucceeded);
             });
         }
-      }
+      },
     );
   }
 
@@ -107,7 +118,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
           getRemoteDataPayload(),
           switchMap((item: Item) => {
             return this.authorizationService.isAuthorized(FeatureID.CanEditItem, item?._links?.self.href, eperson.uuid);
-          })
+          }),
         ) as Observable<boolean>;
       }));
   }

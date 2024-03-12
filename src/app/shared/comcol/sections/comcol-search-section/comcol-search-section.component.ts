@@ -1,12 +1,25 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Data } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../config/app-config.interface';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { Community } from '../../../../core/shared/community.model';
 import { Collection } from '../../../../core/shared/collection.model';
-import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
+import { Community } from '../../../../core/shared/community.model';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../empty.util';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';

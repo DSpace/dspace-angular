@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
-import { StatisticsModule } from '../statistics/statistics.module';
-import { SearchPageComponent } from './search-page.component';
-import { SearchFilterService } from '../core/shared/search/search-filter.service';
+import { NgModule } from '@angular/core';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { ThemedSearchPageComponent } from './themed-search-page.component';
+import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { SearchModule } from '../shared/search/search.module';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
+import { StatisticsModule } from '../statistics/statistics.module';
+import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
+import { SearchPageComponent } from './search-page.component';
+import { ThemedSearchPageComponent } from './themed-search-page.component';
 
 const components = [
   SearchPageComponent,
-  ThemedSearchPageComponent
+  ThemedSearchPageComponent,
 ];
 
 @NgModule({
@@ -25,9 +25,9 @@ const components = [
         SidebarService,
         SearchFilterService,
         ConfigurationSearchPageGuard,
-        SearchConfigurationService
+    SearchConfigurationService,
     ],
-    exports: components
+  exports: components,
 })
 
 /**

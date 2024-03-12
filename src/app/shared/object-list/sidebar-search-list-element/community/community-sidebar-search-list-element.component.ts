@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+
+import { Community } from '../../../../core/shared/community.model';
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
-import { Community } from '../../../../core/shared/community.model';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgClass, NgIf, AsyncPipe } from '@angular/common';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';

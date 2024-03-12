@@ -1,6 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
 import { CollectionPageComponent as BaseComponent } from '../../../../app/collection-page/collection-page.component';
-import { fadeIn, fadeInOut } from '../../../../app/shared/animations/fade';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../../app/shared/animations/fade';
 import {
   ComcolPageContentComponent
 } from '../../../../app/shared/comcol/comcol-page-content/comcol-page-content.component';

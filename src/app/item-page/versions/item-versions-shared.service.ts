@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+
 import { RemoteData } from '../../core/data/remote-data';
 import { Version } from '../../core/shared/version.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ItemVersionsSharedService {
 
@@ -28,7 +29,7 @@ export class ItemVersionsSharedService {
   public notifyCreateNewVersion(newVersionRD: RemoteData<Version>): void {
     const newVersionNumber = newVersionRD?.payload?.version;
     newVersionRD.hasSucceeded ?
-      this.notificationsService.success(null, this.translateService.get(ItemVersionsSharedService.msg('success'), {version: newVersionNumber})) :
+      this.notificationsService.success(null, this.translateService.get(ItemVersionsSharedService.msg('success'), { version: newVersionNumber })) :
       this.notificationsService.error(null, this.translateService.get(ItemVersionsSharedService.msg(newVersionRD?.statusCode === 422 ? 'inProgress' : 'failure')));
   }
 

@@ -1,19 +1,51 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   from as observableFrom,
   Observable,
-  Subscription
+  Subscription,
 } from 'rxjs';
+import {defaultIfEmpty,
+  map,
+  mergeMap,
+  startWith,
+  switchMap,
+  take,
+  tap,
+  toArray,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../config/app-config.interface';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
 import { RelationshipIdentifiable } from '../../../../core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
-import { defaultIfEmpty, map, mergeMap, startWith, switchMap, take, tap, toArray } from 'rxjs/operators';
-import { hasNoValue, hasValue, hasValueOperator } from '../../../../shared/empty.util';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import {
@@ -22,24 +54,19 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+} from '../../../../shared/empty.util';
 import {
   DsDynamicLookupRelationModalComponent
 } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { SearchResult } from '../../../../shared/search/models/search-result.model';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Collection } from '../../../../core/shared/collection.model';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
@@ -175,7 +202,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal,
     protected paginationService: PaginationService,
     protected selectableListService: SelectableListService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
   }
@@ -211,7 +238,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   openLookup() {
 
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
-      size: 'lg'
+      size: 'lg',
     });
     const modalComp: DsDynamicLookupRelationModalComponent = this.modalRef.componentInstance;
     modalComp.repeatable = true;
@@ -225,7 +252,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.isPending = false;
 
     this.item.owningCollection.pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     ).subscribe((collection: Collection) => {
       modalComp.collection = collection;
     });
@@ -282,15 +309,15 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         const relatedItem = searchResult.indexableObject;
         subscriptions.push(this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
           map((nameVariant) => {
-          const update = {
-            uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
-            nameVariant,
-            type: this.relationshipType,
-            relatedItem,
-          } as RelationshipIdentifiable;
-          this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
-          return update;
-        })
+            const update = {
+              uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
+              nameVariant,
+              type: this.relationshipType,
+              relatedItem,
+            } as RelationshipIdentifiable;
+            this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
+            return update;
+          }),
         ));
       });
 
@@ -307,9 +334,9 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
                 } as RelationshipIdentifiable;
                 this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
                 return update;
-              })
+              }),
             );
-          })
+          }),
         ));
       });
 
@@ -345,7 +372,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
             relationshipType: relatedEntityType.label,
             searchConfiguration: relatedEntityType.label.toLowerCase(),
             nameVariants: 'true',
-          }
+          },
         );
       });
 
@@ -359,21 +386,21 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         let apiCall;
         if (isLeft) {
           apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.leftwardType ,[relatedItem.id] ).pipe(
-                      getFirstSucceededRemoteData(),
-                      getRemoteDataPayload(),
-                    );
+            getFirstSucceededRemoteData(),
+            getRemoteDataPayload(),
+          );
         } else {
           apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.rightwardType ,[relatedItem.id] ).pipe(
-                      getFirstSucceededRemoteData(),
-                      getRemoteDataPayload(),
-                    );
+            getFirstSucceededRemoteData(),
+            getRemoteDataPayload(),
+          );
         }
 
         return apiCall.pipe(
-          map( (res: PaginatedList<Relationship>) => res.page[0])
+          map( (res: PaginatedList<Relationship>) => res.page[0]),
         );
-      }
-    ));
+      },
+      ));
   }
 
 
@@ -387,21 +414,21 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       take(1),
       map((updates) => Object.values(updates)
         .map((update) => update.field as RelationshipIdentifiable)
-        .filter((field) => field.relationship)
+        .filter((field) => field.relationship),
       ),
       mergeMap((identifiables) =>
         observableCombineLatest(
-          identifiables.map((identifiable) => this.getRelatedItem(identifiable.relationship))
+          identifiables.map((identifiable) => this.getRelatedItem(identifiable.relationship)),
         ).pipe(
           defaultIfEmpty([]),
           map((relatedItems) => {
             return identifiables.filter( (identifiable, index) => {
-                return relatedItems[index].uuid === relatedItem.uuid;
+              return relatedItems[index].uuid === relatedItem.uuid;
             });
-          }
+          },
           ),
-        )
-      )
+        ),
+      ),
     );
   }
 
@@ -421,7 +448,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
           const listOfRelatedItems = this.item.allMetadataValues( 'relation.' + this.relationshipType.rightwardType );
           return !!listOfRelatedItems.find( (uuid) => uuid === relatedItem.uuid );
         }
-      })
+      }),
     );
   }
 
@@ -450,13 +477,13 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
     this.relatedEntityType$ = this.relationshipLeftAndRightType$.pipe(
       map((relatedTypes: ItemType[]) => relatedTypes.find((relatedType) => relatedType.uuid !== this.itemType.uuid)),
-      hasValueOperator()
+      hasValueOperator(),
     );
 
     this.relatedEntityType$.pipe(
-      take(1)
+      take(1),
     ).subscribe(
-      (relatedEntityType) => this.listId = `edit-relationship-${this.itemType.id}-${relatedEntityType.id}`
+      (relatedEntityType) => this.listId = `edit-relationship-${this.itemType.id}-${relatedEntityType.id}`,
     );
 
     this.currentItemIsLeftItem$ = this.relationshipLeftAndRightType$.pipe(
@@ -472,7 +499,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         // should never happen...
         console.warn(`The item ${this.item.uuid} is not on the right or the left side of relationship type ${this.relationshipType.uuid}`);
         return undefined;
-      })
+      }),
     );
 
     this.getRelationshipMessageKey$ = observableCombineLatest(
@@ -503,13 +530,13 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     // get the pagination params from the route
     const currentPagination$ = this.paginationService.getCurrentPagination(
       this.paginationConfig.id,
-      this.paginationConfig
+      this.paginationConfig,
     ).pipe(
-      tap(() => this.loading$.next(true))
+      tap(() => this.loading$.next(true)),
     );
 
     // this adds thumbnail images when required by configuration
-    let linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(this.fetchThumbnail);
+    const linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(this.fetchThumbnail);
 
     this.subs.push(
       observableCombineLatest([
@@ -523,21 +550,21 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
             currentItemIsLeftItem ? this.relationshipType.leftwardType : this.relationshipType.rightwardType,
             {
               elementsPerPage: currentPagination.pageSize,
-              currentPage: currentPagination.currentPage
+              currentPage: currentPagination.currentPage,
             },
             false,
             true,
-            ...linksToFollow
+            ...linksToFollow,
           )),
       ).subscribe((rd: RemoteData<PaginatedList<Relationship>>) => {
         this.relationshipsRd$.next(rd);
-      })
+      }),
     );
 
     // keep isLastPage$ up to date based on relationshipsRd$
     this.subs.push(this.relationshipsRd$.pipe(
       hasValueOperator(),
-      getAllSucceededRemoteData()
+      getAllSucceededRemoteData(),
     ).subscribe((rd: RemoteData<PaginatedList<Relationship>>) => {
       this.isLastPage$.next(hasNoValue(rd.payload._links.next));
     }));
@@ -553,8 +580,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
             this.relationshipService.isLeftItem(relationship, this.item).pipe(
               // emit an array containing both the relationship and whether it's the left item,
               // as we'll need both
-              map((isLeftItem: boolean) => [relationship, isLeftItem])
-            )
+              map((isLeftItem: boolean) => [relationship, isLeftItem]),
+            ),
           ),
           map(([relationship, isLeftItem]: [Relationship, boolean]) => {
             // turn it into a RelationshipIdentifiable, an
@@ -570,8 +597,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
           // wait until all relationships have been processed, and emit them all as a single array
           toArray(),
           // if the pipe above completes without emitting anything, emit an empty array instead
-          defaultIfEmpty([])
-      )),
+          defaultIfEmpty([]),
+        )),
       switchMap((nextFields: RelationshipIdentifiable[]) => {
         // Get a list that contains the unsaved changes for the page, as well as the page of
         // RelationshipIdentifiables, as a single list of FieldUpdates

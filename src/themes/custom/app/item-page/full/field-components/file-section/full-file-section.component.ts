@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  FullFileSectionComponent as BaseComponent
-} from '../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component';
+
+import { FullFileSectionComponent as BaseComponent } from '../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component';
 import { PaginationComponent } from '../../../../../../../app/shared/pagination/pagination.component';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';

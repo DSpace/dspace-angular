@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, } from '@angular/core';
+
 import { Script } from '../../scripts/script.model';
 import { ScriptParameterType } from '../../scripts/script-parameter-type.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgFor, NgTemplateOutlet, NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgFor, NgSwitch, NgSwitchCase, NgTemplateOutlet } from '@angular/common';
 
 /**
  * Components that represents a help section for the script use and parameters

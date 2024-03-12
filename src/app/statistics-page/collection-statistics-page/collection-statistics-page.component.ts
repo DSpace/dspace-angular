@@ -6,6 +6,16 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { CommonModule } from '@angular/common';
 import { VarDirective } from '../../shared/utils/var.directive';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { Collection } from '../../core/shared/collection.model';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
 
 /**
  * Component representing the statistics page for a collection.

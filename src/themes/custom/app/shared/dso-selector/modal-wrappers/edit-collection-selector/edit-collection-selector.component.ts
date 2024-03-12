@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  EditCollectionSelectorComponent as BaseComponent
+
+ import { EditCollectionSelectorComponent as BaseComponent
 } from '../../../../../../../app/shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import { NgIf } from '@angular/common';
 import { DSOSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/dso-selector.component';

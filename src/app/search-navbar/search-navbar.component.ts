@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, ElementRef, ViewChild, } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { SearchService } from '../core/shared/search/search.service';
 import { expandSearchInput } from '../shared/animations/slide';
 import { BrowserOnlyPipe } from '../shared/utils/browser-only.pipe';
@@ -71,7 +72,7 @@ export class SearchNavbarComponent {
     this.searchForm.reset();
 
     this.router.navigate(linkToNavigateTo, {
-      queryParams: queryParams
+      queryParams: queryParams,
     });
   }
 }

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Community } from '../../../core/shared/community.model';
 import {
   AbstractListableElementComponent
 } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 

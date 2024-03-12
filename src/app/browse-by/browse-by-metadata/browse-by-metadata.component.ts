@@ -12,10 +12,46 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Item } from '../../core/shared/item.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
+import { Context } from '../../core/shared/context.model';
+import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -41,6 +77,14 @@ import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { Context } from '../../core/shared/context.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -201,7 +245,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
       observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
-        })
+        }),
       ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         this.browseId = params.id || this.defaultBrowseId;
         this.authority = params.authority;
@@ -321,9 +365,9 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
  * @returns BrowseEntrySearchOptions instance
  */
 export function getBrowseSearchOptions(defaultBrowseId: string,
-                                       paginationConfig: PaginationComponentOptions,
-                                       sortConfig: SortOptions,
-                                       fetchThumbnails?: boolean) {
+  paginationConfig: PaginationComponentOptions,
+  sortConfig: SortOptions,
+  fetchThumbnails?: boolean) {
   if (!hasValue(fetchThumbnails)) {
     fetchThumbnails = false;
   }
@@ -341,17 +385,17 @@ export function getBrowseSearchOptions(defaultBrowseId: string,
  * @param fetchThumbnail   Optional parameter for requesting thumbnail images
  */
 export function browseParamsToOptions(params: any,
-                                      scope: string,
-                                      paginationConfig: PaginationComponentOptions,
-                                      sortConfig: SortOptions,
-                                      metadata?: string,
-                                      fetchThumbnail?: boolean): BrowseEntrySearchOptions {
+  scope: string,
+  paginationConfig: PaginationComponentOptions,
+  sortConfig: SortOptions,
+  metadata?: string,
+  fetchThumbnail?: boolean): BrowseEntrySearchOptions {
   return new BrowseEntrySearchOptions(
     metadata,
     paginationConfig,
     sortConfig,
     params.startsWith,
     scope,
-    fetchThumbnail
+    fetchThumbnail,
   );
 }

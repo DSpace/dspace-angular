@@ -1,12 +1,12 @@
 /* eslint-disable max-classes-per-file */
-import { Component, Input } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input, } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
 
 import { MetadataFieldWrapperComponent } from './metadata-field-wrapper.component';
 
 @Component({
-    selector: 'ds-component-without-content',
-    template: '<ds-metadata-field-wrapper [hideIfNoTextContent]="hideIfNoTextContent" [label]="\'test label\'">\n' +
+  selector: 'ds-component-without-content',
+  template: '<ds-metadata-field-wrapper [hideIfNoTextContent]="hideIfNoTextContent" [label]="\'test label\'">\n' +
         '</ds-metadata-field-wrapper>',
     standalone: true,
     imports: [MetadataFieldWrapperComponent]
@@ -47,7 +47,7 @@ describe('MetadataFieldWrapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [MetadataFieldWrapperComponent, NoContentComponent, SpanContentComponent, TextContentComponent]
+    imports: [MetadataFieldWrapperComponent, NoContentComponent, SpanContentComponent, TextContentComponent],
 }).compileComponents();
   }));
 

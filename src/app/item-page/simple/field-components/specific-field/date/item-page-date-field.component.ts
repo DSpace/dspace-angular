@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemPageFieldComponent } from '../item-page-field.component';
@@ -35,7 +38,7 @@ export class ItemPageDateFieldComponent extends ItemPageFieldComponent {
      * In this component, we want to display values for metadata 'dc.date.issued'
      */
     fields: string[] = [
-        'dc.date.issued'
+      'dc.date.issued',
     ];
 
     /**

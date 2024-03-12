@@ -1,19 +1,19 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { MetadataFieldFormComponent } from './metadata-field-form.component';
-import { RegistryService } from '../../../../core/registry/registry.service';
-import { of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { RegistryService } from '../../../../core/registry/registry.service';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
+import { MetadataFieldFormComponent } from './metadata-field-form.component';
 
 describe('MetadataFieldFormComponent', () => {
   let component: MetadataFieldFormComponent;
@@ -23,7 +23,7 @@ describe('MetadataFieldFormComponent', () => {
   const metadataSchema = Object.assign(new MetadataSchema(), {
     id: 1,
     namespace: 'fake schema',
-    prefix: 'fake'
+    prefix: 'fake',
   });
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -35,7 +35,17 @@ describe('MetadataFieldFormComponent', () => {
     },
     cancelEditMetadataSchema: () => {
     },
-    clearMetadataFieldRequests: () => observableOf(undefined)
+    clearMetadataFieldRequests: () => observableOf(undefined),
+  };
+  const formBuilderServiceStub = {
+    createFormGroup: () => {
+      return {
+        patchValue: () => {
+        },
+        reset(_value?: any, _options?: { onlySelf?: boolean; emitEvent?: boolean; }): void {
+        },
+      };
+    },
   };
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
@@ -78,7 +88,7 @@ describe('MetadataFieldFormComponent', () => {
     const expected = Object.assign(new MetadataField(), {
       element: element,
       qualifier: qualifier,
-      scopeNote: scopeNote
+      scopeNote: scopeNote,
     });
 
     beforeEach(() => {
@@ -107,7 +117,7 @@ describe('MetadataFieldFormComponent', () => {
         schema: metadataSchema,
         element: element,
         qualifier: qualifier,
-        scopeNote: scopeNote
+        scopeNote: scopeNote,
       });
 
       beforeEach(() => {

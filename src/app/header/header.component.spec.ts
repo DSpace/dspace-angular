@@ -1,13 +1,12 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-
 import { of, of as observableOf } from 'rxjs';
 
 import { HeaderComponent } from './header.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
@@ -51,7 +50,7 @@ describe('HeaderComponent', () => {
         { provide: LocaleService, useValue: mockLocaleService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 })
       .overrideComponent(HeaderComponent, {
         remove: {imports: [ ThemedLangSwitchComponent, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent,]}

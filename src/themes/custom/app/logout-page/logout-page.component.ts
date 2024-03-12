@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { LogoutPageComponent as BaseComponent } from '../../../../app/logout-page/logout-page.component';
 import { LogOutComponent } from '../../../../app/shared/log-out/log-out.component';
 import { TranslateModule } from '@ngx-translate/core';

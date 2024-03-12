@@ -1,22 +1,23 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import { CommonModule } from '@angular/common';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+import { ItemDataService } from 'src/app/core/data/item-data.service';
+
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import {
   getMockNotificationsStateService,
   qualityAssuranceTopicObjectMoreAbstract,
-  qualityAssuranceTopicObjectMorePid
+  qualityAssuranceTopicObjectMorePid,
 } from '../../../shared/mocks/notifications.mock';
-import { QualityAssuranceTopicsComponent } from './quality-assurance-topics.component';
-import { NotificationsStateService } from '../../notifications-state.service';
-import { cold } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { NotificationsStateService } from '../../notifications-state.service';
+import { QualityAssuranceTopicsComponent } from './quality-assurance-topics.component';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
@@ -29,8 +30,8 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
   const activatedRouteParams = {
     qualityAssuranceTopicsParams: {
       currentPage: 0,
-      pageSize: 5
-    }
+      pageSize: 5,
+    },
   };
   const paginationService = new PaginationServiceStub();
 
@@ -47,14 +48,14 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
         { provide: ActivatedRoute, useValue: { data: observableOf(activatedRouteParams), snapshot: {
           params: {
             sourceId: 'openaire',
-            targetId: null
+            targetId: null,
                     },
                 } } },
         { provide: PaginationService, useValue: paginationService },
         { provide: ItemDataService, useValue: {} },
         QualityAssuranceTopicsComponent,
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 })
       .overrideComponent(QualityAssuranceTopicsComponent, {
         remove: {
@@ -68,7 +69,7 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
       .compileComponents().then(() => {
       mockNotificationsStateService.getQualityAssuranceTopics.and.returnValue(observableOf([
         qualityAssuranceTopicObjectMorePid,
-        qualityAssuranceTopicObjectMoreAbstract
+        qualityAssuranceTopicObjectMoreAbstract,
       ]));
       mockNotificationsStateService.getQualityAssuranceTopicsTotalPages.and.returnValue(observableOf(1));
       mockNotificationsStateService.getQualityAssuranceTopicsCurrentPage.and.returnValue(observableOf(0));
@@ -122,11 +123,11 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
       expect(comp.topics$).toBeObservable(cold('(a|)', {
         a: [
           qualityAssuranceTopicObjectMorePid,
-          qualityAssuranceTopicObjectMoreAbstract
-        ]
+          qualityAssuranceTopicObjectMoreAbstract,
+        ],
       }));
       expect(comp.totalElements$).toBeObservable(cold('(a|)', {
-        a: 2
+        a: 2,
       }));
     });
 
@@ -141,13 +142,13 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
 
     it(('isTopicsLoading should return FALSE'), () => {
       expect(comp.isTopicsLoading()).toBeObservable(cold('(a|)', {
-        a: false
+        a: false,
       }));
     });
 
     it(('isTopicsProcessing should return FALSE'), () => {
       expect(comp.isTopicsProcessing()).toBeObservable(cold('(a|)', {
-        a: false
+        a: false,
       }));
     });
 

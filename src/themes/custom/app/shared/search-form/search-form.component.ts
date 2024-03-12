@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SearchFormComponent as BaseComponent, } from '../../../../../app/shared/search-form/search-form.component';
+import { SearchFormComponent as BaseComponent } from '../../../../../app/shared/search-form/search-form.component';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';

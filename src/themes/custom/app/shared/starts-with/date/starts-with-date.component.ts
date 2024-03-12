@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+
 import {
   StartsWithDateComponent as BaseComponent
 } from '../../../../../../app/shared/starts-with/date/starts-with-date.component';
+import { StartsWithType, } from '../../../../../../app/shared/starts-with/starts-with-decorator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';

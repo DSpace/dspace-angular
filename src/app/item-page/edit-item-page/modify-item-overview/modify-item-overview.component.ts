@@ -1,6 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Item} from '../../../core/shared/item.model';
-import {MetadataMap} from '../../../core/shared/metadata.models';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+
+import { Item } from '../../../core/shared/item.model';
+import { MetadataMap } from '../../../core/shared/metadata.models';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgFor, KeyValuePipe } from '@angular/common';
 

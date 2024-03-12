@@ -11,6 +11,12 @@ import { ErrorComponent } from '../../../../../app/shared/error/error.component'
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileSizePipe } from '../../../../../app/shared/utils/file-size-pipe';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
+import { EditBitstreamPageComponent as BaseComponent } from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 
 @Component({
   selector: 'ds-edit-bitstream-page',

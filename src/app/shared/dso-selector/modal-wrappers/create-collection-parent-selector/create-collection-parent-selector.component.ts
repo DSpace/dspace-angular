@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 import {
-    getCollectionCreateRoute,
-    COLLECTION_PARENT_PARAMETER
-} from '../../../../collection-page/collection-page-routing-paths';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationExtras,
+  Router,
+} from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { environment } from '../../../../../environments/environment';
+import {
+  COLLECTION_PARENT_PARAMETER,
+  getCollectionCreateRoute,
+} from '../../../../collection-page/collection-page-routing-paths';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../core/cache/models/sort-options.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType,
+} from '../dso-selector-modal-wrapper.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { NgIf } from '@angular/common';
@@ -42,7 +56,7 @@ export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWra
     const navigationExtras: NavigationExtras = {
       queryParams: {
         [COLLECTION_PARENT_PARAMETER]: dso.uuid,
-      }
+      },
     };
     this.router.navigate([getCollectionCreateRoute()], navigationExtras);
   }

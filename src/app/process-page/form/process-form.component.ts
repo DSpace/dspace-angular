@@ -7,16 +7,15 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RequestService } from '../../core/data/request.service';
-import { Router, RouterLink, NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router, RouterLink } from '@angular/router';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
-import { getProcessListRoute } from '../process-page-routing.paths';
 import { isEmpty } from '../../shared/empty.util';
 import { NgFor, NgIf } from '@angular/common';
 import { ScriptHelpComponent } from './script-help/script-help.component';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
 import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
+import { getProcessListRoute } from '../process-page-routing.paths';
 
 /**
  * Component to create a new script
@@ -83,11 +82,11 @@ export class ProcessFormComponent implements OnInit {
     }
 
     const stringParameters: ProcessParameter[] = this.parameters.map((parameter: ProcessParameter) => {
-        return {
-          name: parameter.name,
-          value: this.checkValue(parameter)
-        };
-      }
+      return {
+        name: parameter.name,
+        value: this.checkValue(parameter),
+      };
+    },
     );
     this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)
       .pipe(getFirstCompletedRemoteData())

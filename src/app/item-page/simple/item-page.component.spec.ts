@@ -1,31 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
-import { ItemPageComponent } from './item-page.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { MetadataService } from '../../core/metadata/metadata.service';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { Item } from '../../core/shared/item.model';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID, } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute, Router, } from '@angular/router';
+import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { MetadataService } from '../../core/metadata/metadata.service';
+import { LinkDefinition, LinkHeadService, } from '../../core/services/link-head.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { Item } from '../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { AuthService } from '../../core/auth/auth.service';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
-import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
@@ -35,31 +34,33 @@ import {
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ItemPageComponent } from './item-page.component';
+import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
 });
 
 const mockWithdrawnItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable(),
-  isWithdrawn: true
+  isWithdrawn: true,
 });
 
 const mocklink = {
   href: 'http://test.org',
   rel: 'rel1',
-  type: 'type1'
+  type: 'type1',
 };
 
 const mocklink2 = {
   href: 'http://test2.org',
   rel: 'rel2',
-  type: undefined
+  type: undefined,
 };
 
 const mockSignpostingLinks: SignpostingLink[] = [mocklink, mocklink2];
@@ -77,11 +78,11 @@ describe('ItemPageComponent', () => {
   const mockMetadataService = {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     processRemoteData: () => {
-    }
+    },
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
+    data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
   });
 
   const getCoarLdnLocalInboxUrls = ['http://InboxUrls.org', 'http://InboxUrls2.org'];
@@ -89,7 +90,7 @@ describe('ItemPageComponent', () => {
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
       isAuthorized: observableOf(false),
@@ -117,8 +118,8 @@ describe('ItemPageComponent', () => {
     imports: [TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+                useClass: TranslateLoaderMock,
+            },
         }), BrowserAnimationsModule, ItemPageComponent, VarDirective],
     providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
@@ -130,10 +131,10 @@ describe('ItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: NotifyInfoService, useValue: notifyInfoService},
+        { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(ItemPageComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: { imports: [
@@ -207,7 +208,7 @@ describe('ItemPageComponent', () => {
       expect(linkHeadService.addTag).toHaveBeenCalledWith(expected);
       expected = {
         href: 'http://test2.org',
-        rel: 'rel2'
+        rel: 'rel2',
       };
       expect(linkHeadService.addTag).toHaveBeenCalledWith(expected);
     });

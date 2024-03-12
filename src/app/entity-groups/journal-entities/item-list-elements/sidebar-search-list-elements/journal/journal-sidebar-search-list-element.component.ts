@@ -5,14 +5,16 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { Component } from '@angular/core';
-import {
-  SidebarSearchListElementComponent
-} from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgClass, NgIf, AsyncPipe } from '@angular/common';
-import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import {
+  TruncatablePartComponent
+} from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  SidebarSearchListElementComponent
+} from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 
 @listableObjectComponent('JournalSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('JournalSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)

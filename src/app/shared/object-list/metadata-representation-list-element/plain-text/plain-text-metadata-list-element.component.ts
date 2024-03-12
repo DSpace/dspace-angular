@@ -20,9 +20,9 @@ export class PlainTextMetadataListElementComponent extends MetadataRepresentatio
    * expects 'startsWith' (eg browse by date) or 'value' (eg browse by title)
    */
   getQueryParams() {
-    let queryParams = {startsWith: this.mdRepresentation.getValue()};
+    const queryParams = { startsWith: this.mdRepresentation.getValue() };
     if (this.mdRepresentation.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
-      return {value: this.mdRepresentation.getValue()};
+      return { value: this.mdRepresentation.getValue() };
     }
     return queryParams;
   }

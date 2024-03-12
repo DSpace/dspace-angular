@@ -1,19 +1,17 @@
 import { Component, Inject, OnInit, } from '@angular/core';
-
+import { select, Store, } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
 
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-
-import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/selectors';
-import { NativeWindowRef, NativeWindowService } from '../../../../core/services/window.service';
-import { isEmpty, isNotNull } from '../../../empty.util';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
+import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import { isAuthenticated, isAuthenticationLoading, } from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core-state.model';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { NativeWindowRef, NativeWindowService, } from '../../../../core/services/window.service';
+import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
 import { TranslateModule } from '@ngx-translate/core';
+import { isEmpty, isNotNull, } from '../../../empty.util';
 
 @Component({
     selector: 'ds-log-in-external-provider',
@@ -63,7 +61,7 @@ export class LogInExternalProviderComponent implements OnInit {
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private authService: AuthService,
     private hardRedirectService: HardRedirectService,
-    private store: Store<CoreState>
+    private store: Store<CoreState>,
   ) {
     this.authMethod = injectedAuthMethodModel;
   }

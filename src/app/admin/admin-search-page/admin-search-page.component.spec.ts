@@ -1,10 +1,14 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { AdminSearchPageComponent } from './admin-search-page.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+
+import { AdminSearchPageComponent } from './admin-search-page.component';
 
 describe('AdminSearchPageComponent', () => {
   let component: AdminSearchPageComponent;

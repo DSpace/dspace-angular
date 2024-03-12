@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { Community } from '../../../core/shared/community.model';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import {
   AccessControlFormContainerComponent
@@ -28,7 +32,7 @@ export class CollectionAccessControlComponent  implements OnInit {
 
   ngOnInit(): void {
     this.itemRD$ = this.route.parent.parent.data.pipe(
-      map((data) => data.dso)
+      map((data) => data.dso),
     ).pipe(getFirstSucceededRemoteData()) as Observable<RemoteData<Community>>;
   }
 }

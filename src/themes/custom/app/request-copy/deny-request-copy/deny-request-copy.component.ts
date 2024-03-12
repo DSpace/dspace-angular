@@ -20,5 +20,5 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [VarDirective, NgIf, ThemedEmailRequestCopyComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule]
 })
 export class DenyRequestCopyComponent
-    extends BaseComponent {
+  extends BaseComponent {
 }

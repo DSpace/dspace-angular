@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -10,7 +9,7 @@ import { AlertComponent } from '../shared/alert/alert.component';
 import { HealthInfoComponent } from './health-info/health-info.component';
 import { HealthPanelComponent } from './health-panel/health-panel.component';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { AlertType } from '../shared/alert/alert-type';
 
 @Component({
@@ -59,7 +58,7 @@ export class HealthPageComponent implements OnInit {
       error: () => {
         this.healthResponse.next(null);
         this.healthResponseInitialised.next(true);
-      }
+      },
     });
 
     this.healthDataService.getInfo().pipe(take(1)).subscribe({
@@ -70,7 +69,7 @@ export class HealthPageComponent implements OnInit {
       error: () => {
         this.healthInfoResponse.next(null);
         this.healthInfoResponseInitialised.next(true);
-      }
+      },
     });
 
   }

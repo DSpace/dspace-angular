@@ -1,18 +1,22 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { Item } from '../../../core/shared/item.model';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
-import { getItemEditRoute } from '../../../item-page/item-page-routing-paths';
 import {
-  ITEM_EDIT_MOVE_PATH,
   ITEM_EDIT_DELETE_PATH,
-  ITEM_EDIT_PUBLIC_PATH,
+  ITEM_EDIT_MOVE_PATH,
   ITEM_EDIT_PRIVATE_PATH,
+  ITEM_EDIT_PUBLIC_PATH,
   ITEM_EDIT_REINSTATE_PATH,
-  ITEM_EDIT_WITHDRAW_PATH
+  ITEM_EDIT_WITHDRAW_PATH,
 } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
+import { getItemEditRoute } from '../../../item-page/item-page-routing-paths';
 
 @Component({
     selector: 'ds-item-admin-search-result-actions-element',

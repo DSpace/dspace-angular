@@ -1,4 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
@@ -6,12 +19,14 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
@@ -27,6 +42,11 @@ import {
   ListableObjectComponentLoaderComponent
 } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
+import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 
 @Component({
   selector: 'ds-bulk-access-browse',
@@ -77,7 +97,7 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
   paginationOptions$: BehaviorSubject<PaginationComponentOptions> = new BehaviorSubject<PaginationComponentOptions>(Object.assign(new PaginationComponentOptions(), {
     id: 'bas',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   }));
 
   /**
@@ -95,20 +115,20 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
     this.subs.push(
       this.selectableListService.getSelectableList(this.listId).pipe(
         distinctUntilChanged(),
-        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list))
-      ).subscribe(this.objectsSelected$)
+        map((list: SelectableListState) => this.generatePaginatedListBySelectedElements(list)),
+      ).subscribe(this.objectsSelected$),
     );
   }
 
   pageNext() {
     this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
-      currentPage: this.paginationOptions$.value.currentPage + 1
+      currentPage: this.paginationOptions$.value.currentPage + 1,
     }));
   }
 
   pagePrev() {
     this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
-      currentPage: this.paginationOptions$.value.currentPage - 1
+      currentPage: this.paginationOptions$.value.currentPage - 1,
     }));
   }
 
@@ -127,12 +147,12 @@ export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
       elementsPerPage: this.paginationOptions$.value.pageSize,
       totalElements: list?.selection.length,
       totalPages: this.calculatePageCount(this.paginationOptions$.value.pageSize, list?.selection.length),
-      currentPage: this.paginationOptions$.value.currentPage
+      currentPage: this.paginationOptions$.value.currentPage,
     });
     if (pageInfo.currentPage > pageInfo.totalPages) {
       pageInfo.currentPage = pageInfo.totalPages;
       this.paginationOptions$.next(Object.assign(new PaginationComponentOptions(), this.paginationOptions$.value, {
-        currentPage: pageInfo.currentPage
+        currentPage: pageInfo.currentPage,
       }));
     }
     return createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, list?.selection || []));

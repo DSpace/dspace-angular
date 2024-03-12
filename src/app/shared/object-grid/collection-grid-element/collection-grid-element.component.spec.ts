@@ -1,9 +1,13 @@
-import { CollectionGridElementComponent } from './collection-grid-element.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Collection } from '../../../core/shared/collection.model';
-import { LinkService } from '../../../core/cache/builders/link.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
@@ -13,6 +17,10 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { CollectionGridElementComponent } from './collection-grid-element.component';
+
 let collectionGridElementComponent: CollectionGridElementComponent;
 let fixture: ComponentFixture<CollectionGridElementComponent>;
 
@@ -21,10 +29,10 @@ const mockCollectionWithAbstract: Collection = Object.assign(new Collection(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }
+        value: 'Short description',
+      },
+    ],
+  },
 });
 
 const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection(), {
@@ -32,14 +40,14 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }
+        value: 'Test title',
+      },
+    ],
+  },
 });
 
 const linkService = jasmine.createSpyObj('linkService', {
-  resolveLink: mockCollectionWithAbstract
+  resolveLink: mockCollectionWithAbstract,
 });
 
 describe('CollectionGridElementComponent', () => {
@@ -57,9 +65,9 @@ describe('CollectionGridElementComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(CollectionGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

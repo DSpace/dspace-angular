@@ -5,24 +5,17 @@ import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
+import { AuthService } from '../core/auth/auth.service';
 import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
+import { FindListOptions } from '../core/data/find-list-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
-import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { AuthService } from '../core/auth/auth.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { Suggestion } from '../core/notifications/models/suggestion.model';
 import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
 import { SuggestionBulkResult, SuggestionsService } from '../notifications/suggestions.service';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 import {
+  SuggestionApproveAndImport,
   SuggestionListElementComponent
 } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
@@ -31,6 +24,14 @@ import { SuggestionActionsComponent } from '../notifications/suggestion-actions/
 import { LoadingComponent } from '../shared/loading/loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
+import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 @Component({
   selector: 'ds-suggestion-page',
@@ -62,7 +63,7 @@ export class SuggestionsPageComponent implements OnInit {
    */
   paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'sp',
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
 
   /**
@@ -73,7 +74,7 @@ export class SuggestionsPageComponent implements OnInit {
   /**
    * The FindListOptions object
    */
-  defaultConfig: FindListOptions = Object.assign(new FindListOptions(), {sort: this.paginationSortConfig});
+  defaultConfig: FindListOptions = Object.assign(new FindListOptions(), { sort: this.paginationSortConfig });
 
   /**
    * A boolean representing if results are loading
@@ -106,22 +107,22 @@ export class SuggestionsPageComponent implements OnInit {
     private suggestionService: SuggestionsService,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
     private translateService: TranslateService,
-    private workspaceItemService: WorkspaceitemDataService
+    private workspaceItemService: WorkspaceitemDataService,
   ) {
   }
 
   ngOnInit(): void {
     this.targetRD$ = this.route.data.pipe(
       map((data: Data) => data.suggestionTargets as RemoteData<SuggestionTarget>),
-      redirectOn4xx(this.router, this.authService)
+      redirectOn4xx(this.router, this.authService),
     );
 
     this.targetId$ = this.targetRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((target: SuggestionTarget) => target.id)
+      map((target: SuggestionTarget) => target.id),
     );
     this.targetRD$.pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     ).subscribe((suggestionTarget: SuggestionTarget) => {
       this.suggestionTarget = suggestionTarget;
       this.suggestionId = suggestionTarget.id;
@@ -150,7 +151,7 @@ export class SuggestionsPageComponent implements OnInit {
       this.paginationOptions.id,
       this.defaultConfig,
     ).pipe(
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
     combineLatest([this.targetId$, pageConfig$]).pipe(
       switchMap(([targetId, config]: [string, FindListOptions]) => {
@@ -158,10 +159,10 @@ export class SuggestionsPageComponent implements OnInit {
           targetId,
           config.elementsPerPage,
           config.currentPage,
-          config.sort
+          config.sort,
         );
       }),
-      take(1)
+      take(1),
     ).subscribe((results: PaginatedList<Suggestion>) => {
       this.processing$.next(false);
       this.suggestionsRD$.next(results);
@@ -196,12 +197,12 @@ export class SuggestionsPageComponent implements OnInit {
         if (results.success > 0) {
           this.notificationService.success(
             this.translateService.get('suggestion.ignoreSuggestion.bulk.success',
-              {count: results.success}));
+              { count: results.success }));
         }
         if (results.fails > 0) {
           this.notificationService.error(
             this.translateService.get('suggestion.ignoreSuggestion.bulk.error',
-              {count: results.fails}));
+              { count: results.fails }));
         }
       });
   }
@@ -214,7 +215,7 @@ export class SuggestionsPageComponent implements OnInit {
     this.suggestionService.approveAndImport(this.workspaceItemService, event.suggestion, event.collectionId)
       .subscribe((workspaceitem: WorkspaceItem) => {
         const content = this.translateService.instant('suggestion.approveAndImport.success', { url: getWorkspaceItemEditRoute(workspaceitem.id) });
-        this.notificationService.success('', content, {timeOut:0}, true);
+        this.notificationService.success('', content, { timeOut:0 }, true);
         this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
         this.updatePage();
       });
@@ -236,14 +237,14 @@ export class SuggestionsPageComponent implements OnInit {
         if (results.success > 0) {
           this.notificationService.success(
             this.translateService.get('suggestion.approveAndImport.bulk.success',
-              {count: results.success}));
+              { count: results.success }));
         }
         if (results.fails > 0) {
           this.notificationService.error(
             this.translateService.get('suggestion.approveAndImport.bulk.error',
-              {count: results.fails}));
+              { count: results.fails }));
         }
-    });
+      });
   }
 
   /**

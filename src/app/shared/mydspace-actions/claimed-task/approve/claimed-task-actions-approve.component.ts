@@ -4,15 +4,25 @@ import { Observable, of } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
-import { NotificationsService } from '../../../notifications/notifications.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../../../core/shared/search/search.service';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
 import {
   ClaimedApprovedTaskSearchResult
 } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { ClaimedApprovedTaskSearchResult } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
+import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
 
@@ -47,7 +57,7 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
 
   convertReloadedObject(dso: DSpaceObject): DSpaceObject {
     const reloadedObject = Object.assign(new ClaimedApprovedTaskSearchResult(), dso, {
-      indexableObject: dso
+      indexableObject: dso,
     });
     return reloadedObject;
   }

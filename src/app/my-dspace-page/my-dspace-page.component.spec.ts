@@ -1,18 +1,17 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync, } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync, } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 
-import { MyDSpacePageComponent,  } from './my-dspace-page.component';
-import { SearchService } from '../core/shared/search/search.service';
-import { MyDSpaceConfigurationService, SEARCH_CONFIG_SERVICE } from './my-dspace-configuration.service';
-import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
+import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE, } from './my-dspace-page.component';
 import { Context } from '../core/shared/context.model';
+import { SearchService } from '../core/shared/search/search.service';
+import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
+import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { RoleService } from '../core/roles/role.service';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
 import { RoleDirective } from '../shared/roles/role.directive';

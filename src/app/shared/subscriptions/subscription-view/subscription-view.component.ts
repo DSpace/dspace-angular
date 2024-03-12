@@ -1,18 +1,25 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Subscription } from '../models/subscription.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs/operators';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { hasValue } from '../../empty.util';
-import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
-import { getCommunityModuleRoute } from '../../../community-page/community-page-routing-paths';
 import { getCollectionModuleRoute } from '../../../collection-page/collection-page-routing-paths';
-import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
-import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
+import { getCommunityModuleRoute } from '../../../community-page/community-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
+import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
+import { hasValue } from '../../empty.util';
+import { Subscription } from '../models/subscription.model';
+import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
+import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';

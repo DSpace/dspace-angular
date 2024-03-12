@@ -1,20 +1,19 @@
 import { Component } from '@angular/core';
-
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
-import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { Item } from '../../../../core/shared/item.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { isNotUndefined } from '../../../empty.util';
-import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
+import { Context } from '../../../../core/shared/context.model';
+import { Item } from '../../../../core/shared/item.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { isNotUndefined } from '../../../empty.util';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { Context } from '../../../../core/shared/context.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 
@@ -44,7 +43,7 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
 
   constructor(
     public dsoNameService: DSONameService,
-    protected linkService: LinkService
+    protected linkService: LinkService,
   ) {
     super(dsoNameService);
   }
@@ -63,7 +62,7 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
    */
   initItem(item$: Observable<RemoteData<Item>>) {
     item$.pipe(
-      find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload))
+      find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload)),
     ).subscribe((rd: RemoteData<Item>) => {
       this.item = rd.payload;
     });

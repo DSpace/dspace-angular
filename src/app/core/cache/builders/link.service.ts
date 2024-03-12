@@ -1,17 +1,16 @@
 import { Inject, Injectable, InjectionToken, Injector } from '@angular/core';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { EMPTY, Observable, of, } from 'rxjs';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { HALDataService } from '../../data/base/hal-data-service.interface';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import { LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY, LinkDefinition, } from './build-decorators';
-import { RemoteData } from '../../data/remote-data';
-import { EMPTY, Observable, of } from 'rxjs';
-import { HALDataService } from '../../data/base/hal-data-service.interface';
-import { PaginatedList } from '../../data/paginated-list.model';
 import { lazyService } from '../../lazy-service';
 import { catchError, switchMap } from 'rxjs/operators';
 import { APP_DATA_SERVICES_MAP, LazyDataServicesMap } from '../../../../config/app-config.interface';
-
 
 /**
  * A Service to handle the resolving and removing

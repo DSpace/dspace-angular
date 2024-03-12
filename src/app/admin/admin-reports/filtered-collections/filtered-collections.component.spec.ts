@@ -1,14 +1,25 @@
-import { waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
-import { FormBuilder } from '@angular/forms';
-import { FilteredCollectionsComponent } from './filtered-collections.component';
-import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
-import { NgbAccordion, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
+import {
+  NgbAccordion,
+  NgbAccordionModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
+import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
+
+import { FilteredCollectionsComponent } from './filtered-collections.component';
 
 describe('FiltersComponent', () => {
   let component: FilteredCollectionsComponent;
@@ -19,11 +30,11 @@ describe('FiltersComponent', () => {
     payload: {
       collections: [],
       summary: {
-        label: 'Test'
-      }
+        label: 'Test',
+      },
     },
     statusCode: 200,
-    statusText: 'OK'
+    statusText: 'OK',
   } as RawRestResponse;
 
   beforeEach(waitForAsync(() => {
@@ -33,17 +44,17 @@ describe('FiltersComponent', () => {
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+            useClass: TranslateLoaderMock,
+          },
         }),
         HttpClientTestingModule,
         FilteredCollectionsComponent
     ],
     providers: [
         FormBuilder,
-        DspaceRestService
+        DspaceRestService,
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 });
   }));
 

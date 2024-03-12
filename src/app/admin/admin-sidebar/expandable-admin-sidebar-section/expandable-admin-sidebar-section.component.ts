@@ -1,14 +1,26 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { rotate } from '../../../shared/animations/rotate';
-import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
-import { slide } from '../../../shared/animations/slide';
-import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  combineLatest as combineLatestObservable,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { bgColor } from '../../../shared/animations/bgColor';
+import { rotate } from '../../../shared/animations/rotate';
+import { slide } from '../../../shared/animations/slide';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MenuID } from '../../../shared/menu/menu-id.model';
-import { Router } from '@angular/router';
+import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
+import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
+import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgClass, NgComponentOutlet, NgFor, NgIf } from '@angular/common';
 
@@ -70,7 +82,7 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     this.isSidebarCollapsed$ = this.menuService.isMenuCollapsed(this.menuID);
     this.isSidebarPreviewCollapsed$ = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.isExpanded$ = combineLatestObservable([this.active, this.isSidebarCollapsed$, this.isSidebarPreviewCollapsed$]).pipe(
-      map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed)))
+      map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed))),
     );
   }
 

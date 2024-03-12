@@ -1,15 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
-import { Collection } from '../../../../core/shared/collection.model';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { hasNoValue, hasValue } from '../../../empty.util';
-import { followLink } from '../../../utils/follow-link-config.model';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { Collection } from '../../../../core/shared/collection.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../empty.util';
+import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
@@ -34,7 +41,7 @@ export class CollectionSearchResultGridElementComponent extends SearchResultGrid
     public dsoNameService: DSONameService,
     private linkService: LinkService,
     protected truncatableService: TruncatableService,
-    protected bitstreamDataService: BitstreamDataService
+    protected bitstreamDataService: BitstreamDataService,
   ) {
     super(dsoNameService, truncatableService, bitstreamDataService);
   }
@@ -45,7 +52,7 @@ export class CollectionSearchResultGridElementComponent extends SearchResultGrid
     if (hasValue(this._dso) && hasNoValue(this._dso.logo)) {
       this.linkService.resolveLink<Collection>(
         this._dso,
-        followLink('logo')
+        followLink('logo'),
       );
     }
   }

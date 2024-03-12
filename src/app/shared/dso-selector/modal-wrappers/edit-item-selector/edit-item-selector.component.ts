@@ -1,14 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
-import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
+
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../../core/shared/item.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { NgIf } from '@angular/common';
+import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType,
+} from '../dso-selector-modal-wrapper.component';
 
 /**
  * Component to wrap a list of existing items inside a modal

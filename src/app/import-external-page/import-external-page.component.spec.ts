@@ -2,6 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ImportExternalPageComponent } from './import-external-page.component';
 import { ThemeService } from '../shared/theme-support/theme.service';
+
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
@@ -22,7 +23,7 @@ describe('ImportExternalPageComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       { provide: SearchConfigurationService, useValue: {}},
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 })
       .overrideComponent(ImportExternalPageComponent, {
           remove: {
@@ -30,7 +31,7 @@ describe('ImportExternalPageComponent', () => {
           }
         }
       )
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

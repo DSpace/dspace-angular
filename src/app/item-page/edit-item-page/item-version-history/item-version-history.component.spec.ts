@@ -22,9 +22,9 @@ describe('ItemVersionHistoryComponent', () => {
   const activatedRoute = {
     parent: {
       parent: {
-        data: observableOf({dso: createSuccessfulRemoteDataObject(item)})
-      }
-    }
+        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }),
+      },
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -36,9 +36,9 @@ describe('ItemVersionHistoryComponent', () => {
       VarDirective
     ],
     providers: [
-        { provide: ActivatedRoute, useValue: activatedRoute }
+        { provide: ActivatedRoute, useValue: activatedRoute },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 })
       .overrideComponent(ItemVersionHistoryComponent, {
         remove: {imports: [ItemVersionsComponent]},

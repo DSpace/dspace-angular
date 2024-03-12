@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
+
 import { hasValue } from '../../empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgFor } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StartsWithType, } from '../starts-with-decorator';
 
 /**
  * A switchable component rendering StartsWith options for the type "Date".
@@ -47,7 +49,7 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent impleme
       'september',
       'october',
       'november',
-      'december'
+      'december',
     ];
 
     super.ngOnInit();

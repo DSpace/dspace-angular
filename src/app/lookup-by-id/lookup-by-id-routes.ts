@@ -1,6 +1,6 @@
-import { LookupGuard } from './lookup-guard';
-import { Route, UrlSegment } from '@angular/router';
+import { Route, UrlSegment, } from '@angular/router';
 import { isNotEmpty } from '../shared/empty.util';
+import { LookupGuard } from './lookup-guard';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 
 export const ROUTES: Route[] = [
@@ -28,8 +28,8 @@ export function urlMatcher(url) {
       consumed: url,
       posParams: {
         idType: new UrlSegment(idType, {}),
-        id: new UrlSegment(id, {})
-      }
+        id: new UrlSegment(id, {}),
+      },
     };
   }
   return null;

@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
+import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   DynamicCheckboxModel,
   DynamicFormArrayModel,
@@ -8,12 +7,14 @@ import {
   DynamicFormControlModel,
   DynamicInputModel,
   DynamicSelectModel,
-  DynamicTextAreaModel
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { Router } from '@angular/router';
 import { hasValue, isEmpty } from '../../../../shared/empty.util';
-import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
+
 import { environment } from '../../../../../environments/environment';
+import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
+import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { NgIf } from '@angular/common';
 
@@ -45,9 +46,9 @@ export class FormatFormComponent implements OnInit {
   /**
    * The different supported support level of the bitstream format
    */
-  supportLevelOptions = [{label: BitstreamFormatSupportLevel.Known, value: BitstreamFormatSupportLevel.Known},
-    {label: BitstreamFormatSupportLevel.Unknown, value: BitstreamFormatSupportLevel.Unknown},
-    {label: BitstreamFormatSupportLevel.Supported, value: BitstreamFormatSupportLevel.Supported}];
+  supportLevelOptions = [{ label: BitstreamFormatSupportLevel.Known, value: BitstreamFormatSupportLevel.Known },
+    { label: BitstreamFormatSupportLevel.Unknown, value: BitstreamFormatSupportLevel.Unknown },
+    { label: BitstreamFormatSupportLevel.Supported, value: BitstreamFormatSupportLevel.Supported }];
 
   /**
    * Styling element for repeatable field
@@ -63,8 +64,8 @@ export class FormatFormComponent implements OnInit {
    */
   arrayInputElementLayout: DynamicFormControlLayout = {
     grid: {
-      host: 'col'
-    }
+      host: 'col',
+    },
   };
 
   /**
@@ -78,10 +79,10 @@ export class FormatFormComponent implements OnInit {
       hint: 'admin.registries.bitstream-formats.edit.shortDescription.hint',
       required: true,
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'Please enter a name for this bitstream format'
+        required: 'Please enter a name for this bitstream format',
       },
     }),
     new DynamicInputModel({
@@ -105,7 +106,7 @@ export class FormatFormComponent implements OnInit {
       options: this.supportLevelOptions,
       label: 'admin.registries.bitstream-formats.edit.supportLevel.label',
       hint: 'admin.registries.bitstream-formats.edit.supportLevel.hint',
-      value: this.supportLevelOptions[0].value
+      value: this.supportLevelOptions[0].value,
 
     }),
     new DynamicCheckboxModel({
@@ -122,8 +123,8 @@ export class FormatFormComponent implements OnInit {
         new DynamicInputModel({
           id: 'extension',
           placeholder: 'admin.registries.bitstream-formats.edit.extensions.placeholder',
-        }, this.arrayInputElementLayout)
-      ]
+        }, this.arrayInputElementLayout),
+      ],
     }, this.arrayElementLayout),
   ];
 
@@ -149,7 +150,7 @@ export class FormatFormComponent implements OnInit {
             for (let i = 0; i < extenstions.length; i++) {
               formArray.insertGroup(i).group[0] = new DynamicInputModel({
                 id: `extension-${i}`,
-                value: extenstions[i]
+                value: extenstions[i],
               }, this.arrayInputElementLayout);
             }
           }
@@ -168,7 +169,7 @@ export class FormatFormComponent implements OnInit {
   onSubmit() {
     const updatedBitstreamFormat = Object.assign(new BitstreamFormat(),
       {
-        id: this.bitstreamFormat.id
+        id: this.bitstreamFormat.id,
       });
 
     this.formModel.forEach(

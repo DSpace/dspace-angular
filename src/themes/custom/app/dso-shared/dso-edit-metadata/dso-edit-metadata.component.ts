@@ -22,6 +22,8 @@ import { AlertComponent } from '../../../../../app/shared/alert/alert.component'
 import { LoadingComponent } from '../../../../../app/shared/loading/loading.component';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { DsoEditMetadataComponent as BaseComponent } from '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
+
 @Component({
   selector: 'ds-dso-edit-metadata',
   // styleUrls: ['./dso-edit-metadata.component.scss'],

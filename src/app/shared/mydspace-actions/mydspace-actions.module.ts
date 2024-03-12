@@ -5,13 +5,17 @@
  *
  * http://www.dspace.org/license/
  */
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ClaimedTaskActionsApproveComponent } from './claimed-task/approve/claimed-task-actions-approve.component';
-import { ClaimedTaskActionsRejectComponent } from './claimed-task/reject/claimed-task-actions-reject.component';
-import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
-import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
 import { ClaimedTaskActionsComponent } from './claimed-task/claimed-task-actions.component';
+import {
+  ClaimedTaskActionsEditMetadataComponent
+} from './claimed-task/edit-metadata/claimed-task-actions-edit-metadata.component';
+import { ClaimedTaskActionsRejectComponent } from './claimed-task/reject/claimed-task-actions-reject.component';
+import {
+  ClaimedTaskActionsReturnToPoolComponent
+} from './claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ClaimedTaskActionsLoaderComponent } from './claimed-task/switcher/claimed-task-actions-loader.component';
 import { ItemActionsComponent } from './item/item-actions.component';
 import { PoolTaskActionsComponent } from './pool-task/pool-task-actions.component';

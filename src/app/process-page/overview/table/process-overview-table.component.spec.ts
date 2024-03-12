@@ -1,28 +1,35 @@
-import { ProcessOverviewTableComponent } from './process-overview-table.component';
-import { ComponentFixture, waitForAsync, TestBed } from '@angular/core/testing';
-import { ProcessDataService } from '../../../core/data/processes/process-data.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { Process } from '../../processes/process.model';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
-import { ProcessStatus } from '../../processes/process-status.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { BehaviorSubject } from 'rxjs';
-import { NgbModal, NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { PaginationService } from '../../../core/pagination/pagination.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
-import { RouteService } from '../../../core/services/route.service';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { ProcessOverviewService } from '../process-overview.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  NgbCollapse,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { AuthService } from '../../../core/auth/auth.service';
+import { ProcessDataService } from '../../../core/data/processes/process-data.service';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RouteService } from '../../../core/services/route.service';
+import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { Process } from '../../processes/process.model';
+import { ProcessStatus } from '../../processes/process-status.model';
+import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
+import { ProcessOverviewService } from '../process-overview.service';
+import { ProcessOverviewTableComponent } from './process-overview-table.component';
 
 describe('ProcessOverviewTableComponent', () => {
   let component: ProcessOverviewTableComponent;
@@ -47,21 +54,21 @@ describe('ProcessOverviewTableComponent', () => {
         scriptName: 'script-a',
         startTime: '2020-03-19 00:30:00',
         endTime: '2020-03-19 23:30:00',
-        processStatus: ProcessStatus.COMPLETED
+        processStatus: ProcessStatus.COMPLETED,
       }),
       Object.assign(new Process(), {
         processId: 2,
         scriptName: 'script-b',
         startTime: '2020-03-20 00:30:00',
         endTime: '2020-03-20 23:30:00',
-        processStatus: ProcessStatus.FAILED
+        processStatus: ProcessStatus.FAILED,
       }),
       Object.assign(new Process(), {
         processId: 3,
         scriptName: 'script-c',
         startTime: '2020-03-21 00:30:00',
         endTime: '2020-03-21 23:30:00',
-        processStatus: ProcessStatus.RUNNING
+        processStatus: ProcessStatus.RUNNING,
       }),
     ];
     ePerson = Object.assign(new EPerson(), {
@@ -69,30 +76,30 @@ describe('ProcessOverviewTableComponent', () => {
         'eperson.firstname': [
           {
             value: 'John',
-            language: null
-          }
+            language: null,
+          },
         ],
         'eperson.lastname': [
           {
             value: 'Doe',
-            language: null
-          }
-        ]
-      }
+            language: null,
+          },
+        ],
+      },
     });
     processOverviewService = jasmine.createSpyObj('processOverviewService', {
       getFindListOptions: {
         currentPage: 1,
         elementsPerPage: 5,
-        sort: 'creationTime'
+        sort: 'creationTime',
       },
-      getProcessesByProcessStatus: createSuccessfulRemoteDataObject$(createPaginatedList(processes)).pipe(take(1))
+      getProcessesByProcessStatus: createSuccessfulRemoteDataObject$(createPaginatedList(processes)).pipe(take(1)),
     });
     processService = jasmine.createSpyObj('processService', {
-      searchBy: createSuccessfulRemoteDataObject$(createPaginatedList(processes)).pipe(take(1))
+      searchBy: createSuccessfulRemoteDataObject$(createPaginatedList(processes)).pipe(take(1)),
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
-      findById: createSuccessfulRemoteDataObject$(ePerson)
+      findById: createSuccessfulRemoteDataObject$(ePerson),
     });
 
     paginationService = new PaginationServiceStub();
@@ -104,7 +111,7 @@ describe('ProcessOverviewTableComponent', () => {
       hasSelected: true,
       isToBeDeleted: true,
       toggleDelete: {},
-      getAmountOfSelectedProcesses: 5
+      getAmountOfSelectedProcesses: 5,
 
     });
 
@@ -113,7 +120,7 @@ describe('ProcessOverviewTableComponent', () => {
     });
 
     modalService = jasmine.createSpyObj('modalService', {
-      open: {}
+      open: {},
     });
 
     authService = new AuthServiceMock();
@@ -188,11 +195,11 @@ describe('ProcessOverviewTableComponent', () => {
 
     it('should display a delete button in the fifth column', () => {
       rowElements.forEach((rowElement, index) => {
-       const el = rowElement.query(By.css('td:nth-child(5)'));
-       expect(el.nativeElement.innerHTML).toContain('fas fa-trash');
+        const el = rowElement.query(By.css('td:nth-child(5)'));
+        expect(el.nativeElement.innerHTML).toContain('fas fa-trash');
 
-       el.query(By.css('button')).triggerEventHandler('click', null);
-       expect(processBulkDeleteService.toggleDelete).toHaveBeenCalledWith(processes[index].processId);
+        el.query(By.css('button')).triggerEventHandler('click', null);
+        expect(processBulkDeleteService.toggleDelete).toHaveBeenCalledWith(processes[index].processId);
       });
     });
 

@@ -1,8 +1,9 @@
-import { ServerResponseService } from '../core/services/server-response.service';
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, } from '@angular/core';
+
 import { AuthService } from '../core/auth/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
+import { ServerResponseService } from '../core/services/server-response.service';
 
 /**
  * This component representing the `PageNotFound` DSpace page.

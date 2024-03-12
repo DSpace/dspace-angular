@@ -16,5 +16,5 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [FormsModule, NgClass, NgIf, TranslateModule]
 })
 export class EmailRequestCopyComponent
-    extends BaseComponent {
+  extends BaseComponent {
 }

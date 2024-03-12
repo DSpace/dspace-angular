@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   RegisterEmailFormComponent,
   TYPE_REQUEST_FORGOT

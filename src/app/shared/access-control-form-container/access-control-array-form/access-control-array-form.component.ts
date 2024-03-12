@@ -1,7 +1,11 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,} from '@angular/core';
 import { NgForm, FormsModule } from '@angular/forms';
-import {AccessesConditionOption} from '../../../core/config/models/config-accesses-conditions-options.model';
-import {dateToISOFormat} from '../../date.util';
+import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
+import { dateToISOFormat } from '../../date.util';
 import { ToDatePipe } from './to-date.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,10 +24,10 @@ export class AccessControlArrayFormComponent implements OnInit {
   @Input() mode!: 'add' | 'replace';
   @Input() type!: 'item' | 'bitstream';
 
-  @ViewChild('ngForm', {static: true}) ngForm!: NgForm;
+  @ViewChild('ngForm', { static: true }) ngForm!: NgForm;
 
   form: { accessControls: AccessControlItem[] } = {
-    accessControls: [emptyAccessControlItem()] // Start with one empty access control item
+    accessControls: [emptyAccessControlItem()], // Start with one empty access control item
   };
 
   formDisabled = true;
@@ -49,7 +53,7 @@ export class AccessControlArrayFormComponent implements OnInit {
   addAccessControlItem(itemName: string = null) {
     this.form.accessControls = [
       ...this.form.accessControls,
-      {...emptyAccessControlItem(), itemName}
+      { ...emptyAccessControlItem(), itemName },
     ];
   }
 
@@ -73,7 +77,7 @@ export class AccessControlArrayFormComponent implements OnInit {
       .map(x => ({
         name: x.itemName,
         startDate: (x.startDate ? dateToISOFormat(x.startDate) : null),
-        endDate: (x.endDate ? dateToISOFormat(x.endDate) : null)
+        endDate: (x.endDate ? dateToISOFormat(x.endDate) : null),
       }));
   }
 

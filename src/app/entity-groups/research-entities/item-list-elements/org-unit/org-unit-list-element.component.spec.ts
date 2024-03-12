@@ -1,12 +1,10 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { OrgUnitListElementComponent } from './org-unit-list-element.component';
 import { of as observableOf } from 'rxjs';
-import { Item } from '../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
@@ -19,6 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { OrgUnitListElementComponent } from './org-unit-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -26,16 +27,16 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.description': [
       {
         language: 'en_US',
-        value: 'A description about the OrgUnit'
-      }
-    ]
-  }
+        value: 'A description about the OrgUnit',
+      },
+    ],
+  },
 });
 
 describe('OrgUnitListElementComponent', () => {
@@ -55,9 +56,9 @@ describe('OrgUnitListElementComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(OrgUnitListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

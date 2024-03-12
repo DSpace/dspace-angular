@@ -2,27 +2,26 @@ import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/co
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
-
+import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
+import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
+import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
+import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
-import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 
 let mockDataService: PoolTaskDataService;
@@ -45,28 +44,28 @@ const item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
+        value: 'Article',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
@@ -97,9 +96,9 @@ describe('PoolTaskActionsComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(PoolTaskActionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

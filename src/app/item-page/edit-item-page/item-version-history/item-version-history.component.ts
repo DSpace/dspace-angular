@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { ActivatedRoute } from '@angular/router';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ItemVersionsComponent } from '../../versions/item-versions.component';
 import { VarDirective } from '../../../shared/utils/var.directive';

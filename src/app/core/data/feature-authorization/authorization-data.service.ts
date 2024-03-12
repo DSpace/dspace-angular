@@ -1,17 +1,43 @@
-import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Authorization } from '../../shared/authorization.model';
 import { RequestService } from '../request.service';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { SiteDataService } from '../site-data.service';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { RemoteData } from '../remote-data';
-import { PaginatedList } from '../paginated-list.model';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { Authorization } from '../../shared/authorization.model';
+import { AUTHORIZATION } from '../../shared/authorization.resource-type';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
+import { BaseDataService } from '../base/base-data.service';
+import { dataService } from '../base/data-service.decorator';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../base/search-data';
+import { FindListOptions } from '../find-list-options.model';
+import { PaginatedList } from '../paginated-list.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { SiteDataService } from '../site-data.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
@@ -72,7 +98,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
         }
       }),
       catchError(() => observableOf([])),
-      oneAuthorizationMatchesFeature(featureId)
+      oneAuthorizationMatchesFeature(featureId),
     );
   }
 
@@ -97,7 +123,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
       switchMap((url) => {
         if (hasNoValue(url)) {
           return this.siteService.find().pipe(
-            map((site) => site.self)
+            map((site) => site.self),
           );
         } else {
           return observableOf(url);
@@ -109,7 +135,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
       map((url: string) => new AuthorizationSearchParams(url, ePersonUuid, featureId)),
       switchMap((params: AuthorizationSearchParams) => {
         return this.searchBy(this.searchByObjectPath, this.createSearchOptions(params.objectUrl, options, params.ePersonUuid, params.featureId), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-      })
+      }),
     );
 
     this.addDependency(out$, objectUrl$);

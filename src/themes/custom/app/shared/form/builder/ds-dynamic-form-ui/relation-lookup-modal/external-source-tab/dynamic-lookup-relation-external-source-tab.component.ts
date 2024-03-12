@@ -22,6 +22,14 @@ import { ErrorComponent } from '../../../../../../../../../app/shared/error/erro
 import { ThemedLoadingComponent } from '../../../../../../../../../app/shared/loading/themed-loading.component';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-configuration.service';
 
+import { SearchConfigurationService } from '../../../../../../../../../app/core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-page.component';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../../../../../../../app/shared/animations/fade';
+import { DsDynamicLookupRelationExternalSourceTabComponent as BaseComponent } from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
   // styleUrls: ['./dynamic-lookup-relation-external-source-tab.component.scss'],
@@ -31,8 +39,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
+      useClass: SearchConfigurationService,
+    },
   ],
   animations: [
     fadeIn,

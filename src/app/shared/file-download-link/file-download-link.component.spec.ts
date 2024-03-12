@@ -1,18 +1,19 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FileDownloadLinkComponent } from './file-download-link.component';
-import { Bitstream } from '../../core/shared/bitstream.model';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { TranslateModule } from '@ngx-translate/core';
+import { cold, getTestScheduler, } from 'jasmine-marbles';
+
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { cold, getTestScheduler } from 'jasmine-marbles';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
+import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
-import { TranslateModule } from '@ngx-translate/core';
+import { FileDownloadLinkComponent } from './file-download-link.component';
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -26,19 +27,19 @@ describe('FileDownloadLinkComponent', () => {
 
   function init() {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: cold('-a', { a: true })
+      isAuthorized: cold('-a', { a: true }),
     });
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
       _links: {
-        self: { href: 'obj-selflink' }
-      }
+        self: { href: 'obj-selflink' },
+      },
     });
     item = Object.assign(new Item(), {
       uuid: 'itemUuid',
       _links: {
-        self: { href: 'obj-selflink' }
-      }
+        self: { href: 'obj-selflink' },
+      },
     });
   }
 

@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
-import {
-  listableObjectComponent
-} from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
-import {
-  PersonComponent as BaseComponent
-} from '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component';
+
 import { Context } from '../../../../../../../app/core/shared/context.model';
 import { AsyncPipe, NgIf } from '@angular/common';
 import {
@@ -26,6 +20,13 @@ import {
   TabbedRelatedEntitiesSearchComponent
 } from 'src/app/item-page/simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
+import {
+  PersonComponent as BaseComponent
+} from '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component';
+import {
+  listableObjectComponent
+} from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 
 @listableObjectComponent('Person', ViewMode.StandalonePage, Context.Any, 'custom')
 @Component({

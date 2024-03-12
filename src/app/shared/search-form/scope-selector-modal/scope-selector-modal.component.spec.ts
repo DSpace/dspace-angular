@@ -1,14 +1,15 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import { ActivatedRoute, Router, } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ScopeSelectorModalComponent } from './scope-selector-modal.component';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { Community } from '../../../core/shared/community.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { RouterStub } from '../../testing/router.stub';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
+import { ScopeSelectorModalComponent } from './scope-selector-modal.component';
 
 describe('ScopeSelectorModalComponent', () => {
   let component: ScopeSelectorModalComponent;
@@ -20,8 +21,8 @@ describe('ScopeSelectorModalComponent', () => {
   community.metadata = {
     'dc.title': [Object.assign(new MetadataValue(), {
       value: 'Community title',
-      language: undefined
-    })]
+      language: undefined,
+    })],
   };
   const router = new RouterStub();
   const communityRD = createSuccessfulRemoteDataObject(community);

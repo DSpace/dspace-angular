@@ -1,7 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
 import {
-  AccessControlFormContainerComponent
-} from '../../../shared/access-control-form-container/access-control-form-container.component';
+  Component,
+  ViewChild,
+} from '@angular/core';
+
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';

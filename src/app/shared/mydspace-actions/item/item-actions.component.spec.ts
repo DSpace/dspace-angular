@@ -1,21 +1,31 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Router, RouterLink } from '@angular/router';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { ItemActionsComponent } from './item-actions.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { getMockSearchService } from '../../mocks/search-service.mock';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { SearchService } from '../../../core/shared/search/search.service';
+import { RouterStub } from '../../testing/router.stub';
+import { ItemActionsComponent } from './item-actions.component';
 
 let component: ItemActionsComponent;
 let fixture: ComponentFixture<ItemActionsComponent>;
@@ -30,28 +40,28 @@ mockObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
+        value: 'Article',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 
 const searchService = getMockSearchService();
@@ -76,12 +86,12 @@ describe('ItemActionsComponent', () => {
         { provide: ItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: SearchService, useValue: searchService },
-        { provide: RequestService, useValue: requestServce }
+        { provide: RequestService, useValue: requestServce },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(ItemActionsComponent, {
     remove: {imports: [RouterLink]},
-      add: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

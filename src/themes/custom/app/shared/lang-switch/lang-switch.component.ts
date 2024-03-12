@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { LangSwitchComponent as BaseComponent } from '../../../../../app/shared/lang-switch/lang-switch.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgForOf, NgIf } from '@angular/common';

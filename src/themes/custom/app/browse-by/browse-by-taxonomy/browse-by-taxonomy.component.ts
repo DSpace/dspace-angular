@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { BrowseByTaxonomyComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component';
+
 import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
 import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
+import { BrowseByTaxonomyComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component';
 import { Context } from '../../../../../app/core/shared/context.model';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { AsyncPipe, NgIf } from '@angular/common';

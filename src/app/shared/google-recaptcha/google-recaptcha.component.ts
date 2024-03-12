@@ -1,9 +1,19 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from 'src/app/core/services/window.service';
 
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { Observable } from 'rxjs';
-import { NativeWindowRef, NativeWindowService } from 'src/app/core/services/window.service';
 import { isNotEmpty } from '../empty.util';
 import { AsyncPipe } from '@angular/common';
 

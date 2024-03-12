@@ -1,17 +1,21 @@
 // eslint-disable-next-line max-classes-per-file
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowseByPageComponent } from './browse-by-page.component';
-import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
-import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { ThemeService } from '../../shared/theme-support/theme.service';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { Component } from '@angular/core';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+
+import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
+import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
+import { BrowseByPageComponent } from './browse-by-page.component';
 
 @rendersBrowseBy('BrowseByPageComponent' as BrowseByDataType)
 @Component({

@@ -2,9 +2,10 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ParameterSelectComponent } from './parameter-select.component';
 import { NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
-import { By } from '@angular/platform-browser';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 import { of as observableOf } from 'rxjs';
 
@@ -23,15 +24,15 @@ describe('ParameterSelectComponent', () => {
         new ScriptParameter(),
         {
           name: '-a',
-          type: ScriptParameterType.BOOLEAN
-        }
+          type: ScriptParameterType.BOOLEAN,
+        },
       ),
       Object.assign(
         new ScriptParameter(),
         {
           name: '-f',
-          type: ScriptParameterType.FILE
-        }
+          type: ScriptParameterType.FILE,
+        },
       ),
     ];
   }
@@ -39,7 +40,7 @@ describe('ParameterSelectComponent', () => {
     init();
     TestBed.configureTestingModule({
     imports: [FormsModule, ParameterSelectComponent],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 })
       .overrideComponent(ParameterSelectComponent, {
         remove: {

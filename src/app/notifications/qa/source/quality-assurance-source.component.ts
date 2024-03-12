@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, take } from 'rxjs/operators';
+import { Component, OnInit, } from '@angular/core';
+import { Observable, Subscription, } from 'rxjs';
+import { distinctUntilChanged, take, } from 'rxjs/operators';
+
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import {
+  QualityAssuranceSourcePageParams
+} from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import { hasValue } from '../../../shared/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import {
-  QualityAssuranceSourcePageParams
-} from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 
 /**
  * Component to display the Quality Assurance source list.
@@ -36,7 +37,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'btp',
     pageSize: 10,
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
   /**
    * The Quality Assurance source list sort options.
@@ -82,10 +83,10 @@ export class QualityAssuranceSourceComponent implements OnInit {
   ngAfterViewInit(): void {
     this.subs.push(
       this.notificationsStateService.isQualityAssuranceSourceLoaded().pipe(
-        take(1)
+        take(1),
       ).subscribe(() => {
         this.getQualityAssuranceSource();
-      })
+      }),
     );
   }
 
@@ -118,7 +119,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
     ).subscribe((options: PaginationComponentOptions) => {
       this.notificationsStateService.dispatchRetrieveQualityAssuranceSource(
         options.pageSize,
-        options.currentPage
+        options.currentPage,
       );
     });
   }

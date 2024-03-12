@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   WorkflowItemDeleteComponent as BaseComponent
 } from '../../../../../app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';

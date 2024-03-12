@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { Context } from '../../core/shared/context.model';
 import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
 

@@ -1,9 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { NotifyInfoComponent } from './notify-info.component';
 import { NotifyInfoService } from './notify-info.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
 
 describe('NotifyInfoComponent', () => {
   let component: NotifyInfoComponent;
@@ -16,8 +19,8 @@ describe('NotifyInfoComponent', () => {
     await TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), NotifyInfoComponent],
     providers: [
-        { provide: NotifyInfoService, useValue: notifyInfoServiceSpy }
-    ]
+        { provide: NotifyInfoService, useValue: notifyInfoServiceSpy },
+      ],
 })
     .compileComponents();
   });

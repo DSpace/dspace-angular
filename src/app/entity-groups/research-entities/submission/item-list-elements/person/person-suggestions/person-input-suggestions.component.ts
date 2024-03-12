@@ -1,7 +1,7 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, forwardRef, Input, OnInit, } from '@angular/core';
+import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputSuggestionsComponent } from '../../../../../../shared/input-suggestions/input-suggestions.component';
-import { NgClass, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor } from '@angular/common';
 import { DebounceDirective } from '../../../../../../shared/utils/debounce.directive';
 import { ClickOutsideDirective } from '../../../../../../shared/utils/click-outside.directive';
 import { TranslateModule } from '@ngx-translate/core';

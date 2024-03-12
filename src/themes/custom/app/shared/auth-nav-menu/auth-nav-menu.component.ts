@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   AuthNavMenuComponent as BaseComponent,
 } from '../../../../../app/shared/auth-nav-menu/auth-nav-menu.component';

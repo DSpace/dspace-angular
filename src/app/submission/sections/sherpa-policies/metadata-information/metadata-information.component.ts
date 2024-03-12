@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { Metadata } from '../../../../core/submission/models/sherpa-policies-details.model';
 import { DatePipe, NgIf } from '@angular/common';

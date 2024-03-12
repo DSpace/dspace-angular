@@ -1,9 +1,10 @@
-import { Component, Optional, Input } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { ValueInputComponent } from '../value-input.component';
-import { ControlContainer, NgForm, FormsModule } from '@angular/forms';
+import { ControlContainer, FormsModule, NgForm } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
-import { controlContainerFactory } from '../../../process-form-factory';
+
+import { controlContainerFactory } from '../../../process-form.component';
 
 /**
  * Represents the user inputted value of a string parameter

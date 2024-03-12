@@ -1,13 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { ObjectSelectService } from '../object-select.service';
-import { ObjectSelectComponent } from '../object-select/object-select.component';
-import { hasValueOperator, isNotEmpty } from '../../empty.util';
+import { Component, Input, } from '@angular/core';
 import { Observable } from 'rxjs';
-import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { map } from 'rxjs/operators';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
@@ -15,8 +9,15 @@ import { ErrorComponent } from '../../error/error.component';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from '../../pagination/pagination.component';
-import { NgIf, NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { VarDirective } from '../../utils/var.directive';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { hasValueOperator, isNotEmpty, } from '../../empty.util';
+import { ObjectSelectService } from '../object-select.service';
+import { ObjectSelectComponent } from '../object-select/object-select.component';
 
 @Component({
     selector: 'ds-item-select',
@@ -34,7 +35,7 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
    * Whether or not to hide the collection column
    */
   @Input()
-  hideCollection = false;
+    hideCollection = false;
 
   /**
    * The routes to the items their pages
@@ -65,7 +66,7 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> {
         const itemPageRoutes = {};
         items.page.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
         return itemPageRoutes;
-      })
+      }),
     );
   }
 

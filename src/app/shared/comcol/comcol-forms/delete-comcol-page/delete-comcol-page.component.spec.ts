@@ -1,18 +1,36 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CommunityDataService } from '../../../../core/data/community-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+
+import { ComColDataService } from '../../../../core/data/comcol-data.service';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { Community } from '../../../../core/shared/community.model';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DeleteComColPageComponent } from './delete-comcol-page.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
+} from '../../../remote-data.utils';
+import { SharedModule } from '../../../shared.module';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { getTestScheduler } from 'jasmine-marbles';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { createFailedRemoteDataObject$, createNoContentRemoteDataObject$ } from '../../../remote-data.utils';
+import { DeleteComColPageComponent } from './delete-comcol-page.component';
 
 describe('DeleteComColPageComponent', () => {
   let comp: DeleteComColPageComponent<any>;
@@ -40,16 +58,16 @@ describe('DeleteComColPageComponent', () => {
       uuid: 'a20da287-e174-466a-9926-f66b9300d347',
       metadata: [{
         key: 'dc.title',
-        value: 'test community'
-      }]
+        value: 'test community',
+      }],
     });
 
     newCommunity = Object.assign(new Community(), {
       uuid: '1ff59938-a69a-4e62-b9a4-718569c55d48',
       metadata: [{
         key: 'dc.title',
-        value: 'new community'
-      }]
+        value: 'new community',
+      }],
     });
 
     parentCommunity = Object.assign(new Community(), {
@@ -57,8 +75,8 @@ describe('DeleteComColPageComponent', () => {
       id: 'a20da287-e174-466a-9926-f66as300d399',
       metadata: [{
         key: 'dc.title',
-        value: 'parent community'
-      }]
+        value: 'parent community',
+      }],
     });
 
     dsoDataService = jasmine.createSpyObj(
@@ -69,15 +87,15 @@ describe('DeleteComColPageComponent', () => {
       });
 
     routerStub = {
-      navigate: (commands) => commands
+      navigate: (commands) => commands,
     };
 
     routeStub = {
-      data: observableOf(community)
+      data: observableOf(community),
     };
 
     translateServiceStub = jasmine.createSpyObj('TranslateService', {
-      instant: jasmine.createSpy('instant')
+      instant: jasmine.createSpy('instant'),
     });
 
   }
@@ -93,7 +111,7 @@ describe('DeleteComColPageComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -116,10 +134,10 @@ describe('DeleteComColPageComponent', () => {
           uuid: validUUID,
           metadata: [{
             key: 'dc.title',
-            value: 'test'
-          }]
+            value: 'test',
+          }],
         }),
-        _links: {}
+        _links: {},
       };
 
       data2 = {
@@ -127,20 +145,20 @@ describe('DeleteComColPageComponent', () => {
           uuid: invalidUUID,
           metadata: [{
             key: 'dc.title',
-            value: 'test'
-          }]
+            value: 'test',
+          }],
         }),
         _links: {},
         uploader: {
           options: {
-            url: ''
+            url: '',
           },
           queue: [],
           /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
           uploadAll: () => {
-          }
+          },
           /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-        }
+        },
       };
     });
 
@@ -177,8 +195,8 @@ describe('DeleteComColPageComponent', () => {
         uuid: validUUID,
         metadata: [{
           key: 'dc.title',
-          value: 'test'
-        }]
+          value: 'test',
+        }],
       });
     });
 

@@ -1,22 +1,19 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { of as observableOf } from 'rxjs';
 
-import { Item } from '../../../../core/shared/item.model';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { By } from '@angular/platform-browser';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Context } from '../../../../core/shared/context.model';
-import { ThemeService } from '../../../theme-support/theme.service';
-import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { Item } from '../../../../core/shared/item.model';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
 
 let component: ItemSearchResultListElementSubmissionComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementSubmissionComponent>;
@@ -30,28 +27,28 @@ mockResultObject.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
+        value: 'Article',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 
 describe('ItemMyDSpaceResultListElementComponent', () => {
@@ -64,7 +61,7 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: ThemeService, useValue: getMockThemeService() }
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(ItemSearchResultListElementSubmissionComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
@@ -86,7 +83,7 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
 
   it('should forward item-actions processComplete event to reloadObject event emitter', fakeAsync(() => {
     spyOn(component.reloadedObject, 'emit').and.callThrough();
-    const actionPayload: any = { reloadedObject: {}};
+    const actionPayload: any = { reloadedObject: {} };
 
     const actionsComponent = fixture.debugElement.query(By.css('ds-item-actions'));
     actionsComponent.triggerEventHandler('processCompleted', actionPayload);

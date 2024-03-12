@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   CreateProfileComponent as BaseComponent
 } from '../../../../../app/register-page/create-profile/create-profile.component';

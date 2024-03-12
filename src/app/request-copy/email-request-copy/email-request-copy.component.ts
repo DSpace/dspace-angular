@@ -3,6 +3,15 @@ import { RequestCopyEmail } from './request-copy-email.model';
 import { Location, NgClass, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+import { Location } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
+import { RequestCopyEmail } from './request-copy-email.model';
 
 @Component({
     selector: 'ds-email-request-copy',

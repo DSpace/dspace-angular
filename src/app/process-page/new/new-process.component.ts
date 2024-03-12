@@ -1,12 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { Process } from '../processes/process.model';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { LinkService } from '../../core/cache/builders/link.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { LinkService } from '../../core/cache/builders/link.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { Process } from '../processes/process.model';
 import { Script } from '../scripts/script.model';
 import { ProcessFormComponent } from '../form/process-form.component';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -45,7 +52,7 @@ export class NewProcessComponent implements OnInit {
       this.script$ = this.fromExisting$.pipe(
         map((process: Process) => this.linkService.resolveLink<Process>(process, followLink('script'))),
         switchMap((process: Process) => process.script),
-        getFirstSucceededRemoteDataPayload()
+        getFirstSucceededRemoteDataPayload(),
       );
     }
   }

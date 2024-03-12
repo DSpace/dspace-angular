@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import {
   listableObjectComponent

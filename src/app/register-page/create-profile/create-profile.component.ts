@@ -13,16 +13,33 @@ import {
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { LangConfig } from '../../../config/lang-config.interface';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
-import { isEmpty } from '../../shared/empty.util';
+import { AuthenticateAction } from '../../core/auth/auth.actions';
+import { CoreState } from '../../core/core-state.model';
 import { RemoteData } from '../../core/data/remote-data';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService
+  EndUserAgreementService,
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { CoreState } from '../../core/core-state.model';
@@ -30,6 +47,15 @@ import {
   ProfilePageSecurityFormComponent
 } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { Registration } from '../../core/shared/registration.model';
+import { isEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -73,7 +99,7 @@ export class CreateProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: UntypedFormBuilder,
     private notificationsService: NotificationsService,
-    private endUserAgreementService: EndUserAgreementService
+    private endUserAgreementService: EndUserAgreementService,
   ) {
 
   }
@@ -145,37 +171,37 @@ export class CreateProfileComponent implements OnInit {
         metadata: {
           'eperson.firstname': [
             {
-              value: this.firstName.value
-            }
+              value: this.firstName.value,
+            },
           ],
           'eperson.lastname': [
             {
-              value: this.lastName.value
+              value: this.lastName.value,
             },
           ],
           'eperson.phone': [
             {
-              value: this.contactPhone.value
-            }
+              value: this.contactPhone.value,
+            },
           ],
           'eperson.language': [
             {
-              value: this.language.value
-            }
-          ]
+              value: this.language.value,
+            },
+          ],
         },
         email: this.email,
         password: this.password,
         canLogIn: true,
-        requireCertificate: false
+        requireCertificate: false,
       };
 
       // If the End User Agreement cookie is accepted, add end-user agreement metadata to the user
       if (this.endUserAgreementService.isCookieAccepted()) {
         values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
           {
-            value: String(true)
-          }
+            value: String(true),
+          },
         ];
         this.endUserAgreementService.removeCookieAccepted();
       }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+
 import { Collection } from '../../../../core/shared/collection.model';
-import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from '../../../../core/shared/context.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgClass, NgIf, AsyncPipe } from '@angular/common';

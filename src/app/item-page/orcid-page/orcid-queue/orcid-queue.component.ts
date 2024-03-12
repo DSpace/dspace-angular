@@ -1,23 +1,22 @@
-import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-
+import { Component, Input, OnDestroy, OnInit, SimpleChanges, } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subscription, } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, tap, } from 'rxjs/operators';
 
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidHistory } from '../../../core/orcid/model/orcid-history.model';
 import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
 import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { AlertType } from '../../../shared/alert/alert-type';
-import { Item } from '../../../core/shared/item.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
@@ -50,7 +49,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
    */
   public paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'oqp',
-    pageSize: 5
+    pageSize: 5,
   });
 
   /**
@@ -104,12 +103,12 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         tap(() => this.processing$.next(true)),
         switchMap((config: PaginationComponentOptions) => this.orcidQueueService.searchByProfileItemId(this.item.id, config, false)),
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       ).subscribe((result: RemoteData<PaginatedList<OrcidQueue>>) => {
         this.processing$.next(false);
         this.list$.next(result);
         this.orcidQueueService.clearFindByProfileItemRequests();
-      })
+      }),
     );
   }
 
@@ -205,7 +204,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   discardEntry(orcidQueue: OrcidQueue) {
     this.processing$.next(true);
     this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
@@ -225,7 +224,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   send(orcidQueue: OrcidQueue) {
     this.processing$.next(true);
     this.subs.push(this.orcidHistoryService.sendToORCID(orcidQueue).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
       this.processing$.next(false);
       if (remoteData.isSuccess) {
@@ -247,8 +246,8 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     return this.orcidAuthService.getOrcidAuthorizeUrl(this.item).pipe(
       switchMap((authorizeUrl) => this.translateService.get(
         'person.page.orcid.sync-queue.send.unauthorized-error.content',
-        { orcid: authorizeUrl }
-      ))
+        { orcid: authorizeUrl },
+      )),
     );
   }
 

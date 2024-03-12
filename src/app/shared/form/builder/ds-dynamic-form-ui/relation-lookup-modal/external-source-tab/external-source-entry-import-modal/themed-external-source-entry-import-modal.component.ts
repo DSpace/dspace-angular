@@ -1,6 +1,7 @@
-import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal.component';
-import { ThemedComponent } from '../../../../../../theme-support/themed.component';
 import { Component } from '@angular/core';
+
+import { ThemedComponent } from '../../../../../../theme-support/themed.component';
+import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal.component';
 
 @Component({
     selector: 'ds-themed-external-source-entry-import-modal',

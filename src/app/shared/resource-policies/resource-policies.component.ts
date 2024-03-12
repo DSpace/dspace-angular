@@ -5,14 +5,14 @@ import { BehaviorSubject, from as observableFrom, Observable, Subscription } fro
 import { concatMap, distinctUntilChanged, filter, map, reduce, scan, take } from 'rxjs/operators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { getAllSucceededRemoteData } from '../../core/shared/operators';
-import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
-import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { RequestService } from '../../core/data/request.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
+import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import { hasValue, isEmpty, isNotEmpty, } from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { ResourcePolicyCheckboxEntry, ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
@@ -103,7 +103,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
     private resourcePolicyService: ResourcePolicyDataService,
     private route: ActivatedRoute,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
   }
 
@@ -125,7 +125,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
       filter((entry: ResourcePolicyCheckboxEntry) => entry.checked),
       reduce((acc: any, value: any) => [...acc, value], []),
       map((entries: ResourcePolicyCheckboxEntry[]) => isNotEmpty(entries)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -150,7 +150,7 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
           this.notificationsService.error(null, this.translate.get('resource-policies.delete.failure.content'));
         }
         this.processingDelete$.next(false);
-      })
+      }),
     );
   }
 
@@ -169,15 +169,15 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
   initResourcePolicyList() {
     this.subs.push(this.resourcePolicyService.searchByResource(
       this.resourceUUID, null, false, true,
-      followLink('eperson'), followLink('group')
+      followLink('eperson'), followLink('group'),
     ).pipe(
       filter(() => this.isActive),
-      getAllSucceededRemoteData()
+      getAllSucceededRemoteData(),
     ).subscribe((result) => {
       const entries = result.payload.page.map((policy: ResourcePolicy) => ({
         id: policy.id,
         policy: policy,
-        checked: false
+        checked: false,
       }));
       this.resourcePoliciesEntries$.next(entries);
       // TODO detectChanges still needed?
@@ -202,8 +202,8 @@ export class ResourcePoliciesComponent implements OnInit, OnDestroy {
       relativeTo: this.route,
       queryParams: {
         policyTargetId: this.resourceUUID,
-        targetType: this.resourceType
-      }
+        targetType: this.resourceType,
+      },
     });
   }
 

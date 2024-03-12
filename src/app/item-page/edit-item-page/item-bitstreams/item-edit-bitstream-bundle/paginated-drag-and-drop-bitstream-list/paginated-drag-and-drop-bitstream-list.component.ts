@@ -1,16 +1,12 @@
-import { AbstractPaginatedDragAndDropListComponent } from '../../../../../shared/pagination-drag-and-drop/abstract-paginated-drag-and-drop-list.component';
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { Bundle } from '../../../../../core/shared/bundle.model';
-import { Bitstream } from '../../../../../core/shared/bitstream.model';
-import { ObjectUpdatesService } from '../../../../../core/data/object-updates/object-updates.service';
-import { BundleDataService } from '../../../../../core/data/bundle-data.service';
+import { Component, ElementRef, Input, OnInit, } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../../../../shared/search/models/paginated-search-options.model';
-import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
-import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
+
+import { BundleDataService } from '../../../../../core/data/bundle-data.service';
+import { ObjectUpdatesService } from '../../../../../core/data/object-updates/object-updates.service';
 import { RequestService } from '../../../../../core/data/request.service';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
+import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { Bundle } from '../../../../../core/shared/bundle.model';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
 import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { PaginationComponent } from '../../../../../shared/pagination/pagination.component';
@@ -22,6 +18,13 @@ import {
 } from '../../item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 import { ThemedLoadingComponent } from '../../../../../shared/loading/themed-loading.component';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  AbstractPaginatedDragAndDropListComponent
+} from '../../../../../shared/pagination-drag-and-drop/abstract-paginated-drag-and-drop-list.component';
+import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { PaginatedSearchOptions } from '../../../../../shared/search/models/paginated-search-options.model';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
 
 @Component({
   selector: 'ds-paginated-drag-and-drop-bitstream-list',
@@ -80,16 +83,16 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
   initializeObjectsRD(): void {
     this.objectsRD$ = this.currentPage$.pipe(
       switchMap((page: PaginationComponentOptions) => {
-        const paginatedOptions = new PaginatedSearchOptions({pagination: Object.assign({}, page)});
+        const paginatedOptions = new PaginatedSearchOptions({ pagination: Object.assign({}, page) });
         return this.bundleService.getBitstreamsEndpoint(this.bundle.id, paginatedOptions).pipe(
           switchMap((href) => this.requestService.hasByHref$(href)),
           switchMap(() => this.bundleService.getBitstreams(
             this.bundle.id,
             paginatedOptions,
-            followLink('format')
-          ))
+            followLink('format'),
+          )),
         );
-      })
+      }),
     );
   }
 

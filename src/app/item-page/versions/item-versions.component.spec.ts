@@ -1,35 +1,36 @@
-import { ItemVersionsComponent } from './item-versions.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { CommonModule } from '@angular/common';
+import { DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, } from '@angular/forms';
+import { BrowserModule, By, } from '@angular/platform-browser';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { EMPTY, of, of as observableOf, } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { VersionDataService } from '../../core/data/version-data.service';
+import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { BrowserModule, By } from '@angular/platform-browser';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { EMPTY, of, of as observableOf } from 'rxjs';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ItemSharedModule } from '../item-shared.module';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { ItemVersionsComponent } from './item-versions.component';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -81,9 +82,9 @@ describe('ItemVersionsComponent', () => {
     version: createSuccessfulRemoteDataObject$(version1),
     _links: {
       self: {
-        href: '/items/item-identifier-1'
-      }
-    }
+        href: '/items/item-identifier-1',
+      },
+    },
   });
   const item2 = Object.assign(new Item(), {
     id: 'item-identifier-2',
@@ -92,9 +93,9 @@ describe('ItemVersionsComponent', () => {
     version: createSuccessfulRemoteDataObject$(version2),
     _links: {
       self: {
-        href: '/items/item-identifier-2'
-      }
-    }
+        href: '/items/item-identifier-2',
+      },
+    },
   });
   const items = [item1, item2];
   version1.item = createSuccessfulRemoteDataObject$(item1);
@@ -107,10 +108,10 @@ describe('ItemVersionsComponent', () => {
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
     isAuthenticated: observableOf(true),
-    setRedirectUrl: {}
+    setRedirectUrl: {},
   });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true)
+    isAuthorized: observableOf(true),
   });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,
@@ -152,7 +153,7 @@ describe('ItemVersionsComponent', () => {
       {provide: ConfigurationDataService, useValue: configurationServiceSpy},
       {provide: ActivatedRoute, useValue: new ActivatedRouteStub()},
     ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ItemVersionsComponent, {
         remove: {imports: [AlertComponent, PaginationComponent]}
@@ -224,20 +225,21 @@ describe('ItemVersionsComponent', () => {
       authorizationServiceSpy.isAuthorized.and.callFake(canDelete);
     }));
     it('should not disable the delete button', () => {
-      const deleteButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-delete`));
-      deleteButtons.forEach((btn) => {
+      const deleteButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-delete'));
+      expect(deleteButtons.length).not.toBe(0);
+      deleteButtons.forEach((btn: DebugElement) => {
         expect(btn.nativeElement.disabled).toBe(false);
       });
     });
-    it('should disable other buttons', () => {
-      const createButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
-      createButtons.forEach((btn) => {
-        expect(btn.nativeElement.disabled).toBe(true);
-      });
-      const editButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
-      editButtons.forEach((btn) => {
-        expect(btn.nativeElement.disabled).toBe(true);
-      });
+
+    it('should hide the create buttons', () => {
+      const createButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-create'));
+      expect(createButtons.length).toBe(0);
+    });
+
+    it('should hide the edit buttons', () => {
+      const editButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-edit'));
+      expect(editButtons.length).toBe(0);
     });
   });
 

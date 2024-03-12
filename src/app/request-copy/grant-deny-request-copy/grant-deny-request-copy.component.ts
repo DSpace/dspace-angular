@@ -3,22 +3,20 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { Observable } from 'rxjs';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
-} from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
+
 import { AuthService } from '../../core/auth/auth.service';
-import { getRequestCopyDenyRoute, getRequestCopyGrantRoute } from '../request-copy-routing-paths';
-import { Item } from '../../core/shared/item.model';
-import { ItemDataService } from '../../core/data/item-data.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { Item } from '../../core/shared/item.model';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { getRequestCopyDenyRoute, getRequestCopyGrantRoute, } from '../request-copy-routing-paths';
 
 @Component({
     selector: 'ds-grant-deny-request-copy',
@@ -92,11 +90,11 @@ export class GrantDenyRequestCopyComponent implements OnInit {
 
     this.denyRoute$ = this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((itemRequest: ItemRequest) => getRequestCopyDenyRoute(itemRequest.token))
+      map((itemRequest: ItemRequest) => getRequestCopyDenyRoute(itemRequest.token)),
     );
     this.grantRoute$ = this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((itemRequest: ItemRequest) => getRequestCopyGrantRoute(itemRequest.token))
+      map((itemRequest: ItemRequest) => getRequestCopyGrantRoute(itemRequest.token)),
     );
   }
 

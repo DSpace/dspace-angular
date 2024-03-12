@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
-import {
-  listableObjectComponent
-} from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
-import {
-  JournalIssueComponent as BaseComponent
-} from '../../../../../../../app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
+
 import { Context } from '../../../../../../../app/core/shared/context.model';
 import { AsyncPipe, NgIf } from '@angular/common';
 import {
@@ -25,6 +19,13 @@ import {
 import { RelatedItemsComponent } from '../../../../../../../app/item-page/simple/related-items/related-items-component';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
+import {
+  JournalIssueComponent as BaseComponent
+} from '../../../../../../../app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
+import {
+  listableObjectComponent
+} from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 
 @listableObjectComponent('JournalIssue', ViewMode.StandalonePage, Context.Any, 'custom')
 @Component({

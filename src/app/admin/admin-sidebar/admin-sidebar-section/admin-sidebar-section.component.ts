@@ -1,13 +1,22 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+
+import { isEmpty } from '../../../shared/empty.util';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
+import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { isEmpty } from '../../../shared/empty.util';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgClass } from '@angular/common';
+import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
 
 /**
  * Represents a non-expandable section in the admin sidebar

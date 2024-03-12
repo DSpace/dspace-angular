@@ -11,18 +11,19 @@ import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { LinkHeadService } from '../../../core/services/link-head.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { LinkHeadService } from '../../../core/services/link-head.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../testing/utils.test';
 
 describe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
@@ -38,14 +39,14 @@ describe('ItemSelectComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'This is just a title'
+          value: 'This is just a title',
         },
         {
           key: 'dc.type',
           language: null,
-          value: 'Article'
+          value: 'Article',
         }],
-      _links: { self: { href: 'selfId1' } }
+      _links: { self: { href: 'selfId1' } },
     }),
     Object.assign(new Item(), {
       id: 'id2',
@@ -54,21 +55,21 @@ describe('ItemSelectComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'This is just another title'
+          value: 'This is just another title',
         },
         {
           key: 'dc.type',
           language: null,
-          value: 'Article'
+          value: 'Article',
         }],
-      _links: { self: { href: 'selfId2' } }
-    })
+      _links: { self: { href: 'selfId2' } },
+    }),
   ];
   const mockItems = createSuccessfulRemoteDataObject$(createPaginatedList(mockItemList));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   paginationService = new PaginationServiceStub(mockPaginationOptions);
@@ -76,7 +77,7 @@ describe('ItemSelectComponent', () => {
   const authorizationDataService = new AuthorizationDataService(null, null, null, null, null);
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-    addTag: ''
+    addTag: '',
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -89,9 +90,9 @@ describe('ItemSelectComponent', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   beforeEach(waitForAsync(() => {
@@ -107,7 +108,7 @@ describe('ItemSelectComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).compileComponents();
   }));
 

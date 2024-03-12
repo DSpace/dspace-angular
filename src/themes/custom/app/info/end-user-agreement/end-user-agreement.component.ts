@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   EndUserAgreementComponent as BaseComponent
 } from '../../../../../app/info/end-user-agreement/end-user-agreement.component';

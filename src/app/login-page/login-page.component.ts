@@ -1,23 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { combineLatest as observableCombineLatest, Subscription, } from 'rxjs';
+import { filter, take, } from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
 import {
   AddAuthenticationMessageAction,
   AuthenticatedAction,
   AuthenticationSuccessAction,
-  ResetAuthenticationMessagesAction
+  ResetAuthenticationMessagesAction,
 } from '../core/auth/auth.actions';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '../core/auth/selectors';
 import { TranslateModule } from '@ngx-translate/core';
 import { LogInComponent } from '../shared/log-in/log-in.component';
 import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
+import { hasValue, isNotEmpty, } from '../shared/empty.util';
 
 /**
  * This component represents the login page
@@ -54,7 +53,7 @@ export class LoginPageComponent implements OnDestroy, OnInit {
     const authenticated = this.store.select(isAuthenticated);
     this.sub = observableCombineLatest(queryParamsObs, authenticated).pipe(
       filter(([params, auth]) => isNotEmpty(params.token) || isNotEmpty(params.expired)),
-      take(1)
+      take(1),
     ).subscribe(([params, auth]) => {
       const token = params.token;
       let authToken: AuthTokenInfo;

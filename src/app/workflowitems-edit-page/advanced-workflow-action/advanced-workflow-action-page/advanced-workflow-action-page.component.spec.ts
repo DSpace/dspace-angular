@@ -1,8 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action-page.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AdvancedWorkflowActionsLoaderComponent } from '../advanced-workflow-actions-loader/advanced-workflow-actions-loader.component';
+
+import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action-page.component';
 
 describe('AdvancedWorkflowActionPageComponent', () => {
   let component: AdvancedWorkflowActionPageComponent;

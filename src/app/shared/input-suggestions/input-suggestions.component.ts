@@ -8,12 +8,12 @@ import {
   QueryList,
   SimpleChanges,
   ViewChild,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { ControlValueAccessor, FormsModule } from '@angular/forms';
-import { NgClass, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor } from '@angular/common';
 import { DebounceDirective } from '../utils/debounce.directive';
 import { ClickOutsideDirective } from '../utils/click-outside.directive';
 import { TranslateModule } from '@ngx-translate/core';

@@ -1,7 +1,11 @@
+import { Injectable } from '@angular/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
-import { Observable, of as observableOf } from 'rxjs';
-import { Injectable } from '@angular/core';
 
 /**
  * The postfix for i18n breadcrumbs
@@ -12,7 +16,7 @@ export const BREADCRUMB_MESSAGE_POSTFIX = '.breadcrumbs';
  * Service to calculate i18n breadcrumbs for a single part of the route
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationBreadcrumbsService implements BreadcrumbsProviderService<string> {
 

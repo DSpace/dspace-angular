@@ -1,8 +1,9 @@
+import { Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+
 import {
   ResultsBackButtonComponent as BaseComponent
 } from '../../../../../app/shared/results-back-button/results-back-button.component';
-import { Component } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ds-results-back-button',

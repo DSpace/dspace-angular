@@ -1,12 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FeedbackComponent } from './feedback.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ThemedFeedbackFormComponent } from './feedback-form/themed-feedback-form.component';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { FeedbackComponent } from './feedback.component';
 
 describe('FeedbackComponent', () => {
   let component: FeedbackComponent;

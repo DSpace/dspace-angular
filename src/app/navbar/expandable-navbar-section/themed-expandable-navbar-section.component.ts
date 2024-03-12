@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+
+import { MenuID } from '../../shared/menu/menu-id.model';
+import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 

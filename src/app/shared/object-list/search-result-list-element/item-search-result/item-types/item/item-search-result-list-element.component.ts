@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
+import { Item } from '../../../../../../core/shared/item.model';
+import { ViewMode } from '../../../../../../core/shared/view-mode.model';
+import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
+import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import {
   listableObjectComponent
 } from '../../../../../object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../../core/shared/view-mode.model';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { SearchResultListElementComponent } from '../../../search-result-list-element.component';
-import { Item } from '../../../../../../core/shared/item.model';
-import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
 import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';
 import { ThumbnailComponent } from '../../../../../../thumbnail/thumbnail.component';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)

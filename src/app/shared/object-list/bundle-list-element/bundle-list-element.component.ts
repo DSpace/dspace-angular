@@ -3,8 +3,11 @@ import {
 } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Component } from '@angular/core';
-import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
+
+import { Bundle } from '../../../core/shared/bundle.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @Component({
     selector: 'ds-bundle-list-element',

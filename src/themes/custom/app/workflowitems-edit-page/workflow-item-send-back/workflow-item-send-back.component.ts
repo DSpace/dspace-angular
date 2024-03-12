@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   WorkflowItemSendBackComponent as BaseComponent
 } from '../../../../../app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';

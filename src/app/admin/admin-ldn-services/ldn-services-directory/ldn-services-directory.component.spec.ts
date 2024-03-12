@@ -1,19 +1,32 @@
-import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {ChangeDetectorRef, EventEmitter} from '@angular/core';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {NotificationsServiceStub} from '../../../shared/testing/notifications-service.stub';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {LdnServicesService} from '../ldn-services-data/ldn-services-data.service';
-import {PaginationService} from '../../../core/pagination/pagination.service';
-import {PaginationServiceStub} from '../../../shared/testing/pagination-service.stub';
-import {of} from 'rxjs';
-import {LdnService} from '../ldn-services-model/ldn-services.model';
-import {PaginatedList} from '../../../core/data/paginated-list.model';
-import {RemoteData} from '../../../core/data/remote-data';
-import {LdnServicesOverviewComponent} from './ldn-services-directory.component';
-import {createSuccessfulRemoteDataObject$} from '../../../shared/remote-data.utils';
-import {createPaginatedList} from '../../../shared/testing/utils.test';
+import {
+  ChangeDetectorRef,
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
+import { LdnService } from '../ldn-services-model/ldn-services.model';
+import { LdnServicesOverviewComponent } from './ldn-services-directory.component';
 
 describe('LdnServicesOverviewComponent', () => {
   let component: LdnServicesOverviewComponent;
@@ -21,37 +34,40 @@ describe('LdnServicesOverviewComponent', () => {
   let ldnServicesService;
   let paginationService;
   let modalService: NgbModal;
-  let notificationsService: NotificationsService;
-  let translateService: TranslateService;
 
   const translateServiceStub = {
     get: () => of('translated-text'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
     paginationService = new PaginationServiceStub();
-    ldnServicesService = jasmine.createSpyObj('LdnServicesService', ['findAll', 'delete', 'patch']);
+    ldnServicesService = jasmine.createSpyObj('ldnServicesService', {
+      'findAll': createSuccessfulRemoteDataObject$({}),
+      'delete': createSuccessfulRemoteDataObject$({}),
+      'patch': createSuccessfulRemoteDataObject$({}),
+    });
     await TestBed.configureTestingModule({
     imports: [TranslateModule.forRoot(), LdnServicesOverviewComponent],
     providers: [
         {
             provide: LdnServicesService,
-            useValue: ldnServicesService
+          useValue: ldnServicesService,
         },
         { provide: PaginationService, useValue: paginationService },
         {
             provide: NgbModal, useValue: {
                 open: () => {
-                }
-            }
+                },
+            },
         },
         { provide: ChangeDetectorRef, useValue: {} },
-        { provide: NotificationsService, useValue: NotificationsServiceStub },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
-    ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
 }).compileComponents();
   });
 
@@ -61,10 +77,8 @@ describe('LdnServicesOverviewComponent', () => {
     ldnServicesService = TestBed.inject(LdnServicesService);
     paginationService = TestBed.inject(PaginationService);
     modalService = TestBed.inject(NgbModal);
-    notificationsService = TestBed.inject(NotificationsService);
-    translateService = TestBed.inject(TranslateService);
-    component.modalRef = jasmine.createSpyObj({close: null});
-    component.isProcessingSub = jasmine.createSpyObj({unsubscribe: null});
+    component.modalRef = jasmine.createSpyObj({ close: null });
+    component.isProcessingSub = jasmine.createSpyObj({ unsubscribe: null });
     component.ldnServicesRD$ = of({} as RemoteData<PaginatedList<LdnService>>);
     fixture.detectChanges();
   });
@@ -84,9 +98,9 @@ describe('LdnServicesOverviewComponent', () => {
     it('should set ldnServicesRD$ with mock data', fakeAsync(() => {
       spyOn(component, 'setLdnServices').and.callThrough();
       const testData: LdnService[] = Object.assign([new LdnService()], [
-        {id: 1, name: 'Service 1', description: 'Description 1', enabled: true},
-        {id: 2, name: 'Service 2', description: 'Description 2', enabled: false},
-        {id: 3, name: 'Service 3', description: 'Description 3', enabled: true}]);
+        { id: 1, name: 'Service 1', description: 'Description 1', enabled: true },
+        { id: 2, name: 'Service 2', description: 'Description 2', enabled: false },
+        { id: 3, name: 'Service 3', description: 'Description 3', enabled: true }]);
 
       const mockLdnServicesRD = createPaginatedList(testData);
       component.ldnServicesRD$ = createSuccessfulRemoteDataObject$(mockLdnServicesRD);
@@ -140,4 +154,22 @@ describe('LdnServicesOverviewComponent', () => {
       expect(deleteSpy).toHaveBeenCalledWith(serviceId);
     }));
   });
+
+  describe('selectServiceToDelete', () => {
+    it('should set service to delete', fakeAsync(() => {
+      spyOn(component, 'openDeleteModal');
+      const serviceId = 123;
+      component.selectServiceToDelete(serviceId);
+      expect(component.selectedServiceId).toEqual(serviceId);
+      expect(component.openDeleteModal).toHaveBeenCalled();
+    }));
+  });
+
+  describe('toggleStatus', () => {
+    it('should toggle status', (() => {
+      component.toggleStatus({ enabled: false }, ldnServicesService);
+      expect(ldnServicesService.patch).toHaveBeenCalled();
+    }));
+  });
+
 });

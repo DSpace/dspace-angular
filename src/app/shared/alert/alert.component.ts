@@ -1,6 +1,17 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { trigger } from '@angular/animations';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 
+import {
+  fadeOutLeave,
+  fadeOutState,
+} from '../animations/fade';
 import { AlertType } from './alert-type';
 import { fadeOutLeave, fadeOutState } from '../animations/fade';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,7 +26,7 @@ import { NgIf } from '@angular/common';
     animations: [
         trigger('enterLeave', [
             fadeOutLeave, fadeOutState,
-        ])
+    ]),
     ],
     templateUrl: './alert.component.html',
     styleUrls: ['./alert.component.scss'],

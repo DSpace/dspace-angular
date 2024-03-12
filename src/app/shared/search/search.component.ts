@@ -1,17 +1,24 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output, OnDestroy } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
-
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { NavigationStart, Router, } from '@angular/router';
 import uniqueId from 'lodash/uniqueId';
+import { BehaviorSubject, combineLatest, Observable, Subscription, } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap, } from 'rxjs/operators';
 
+import { APP_CONFIG, AppConfig, } from '../../../config/app-config.interface';
+import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
+import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
+import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { pushInOut } from '../animations/push';
-import { HostWindowService } from '../host-window.service';
-import { SidebarService } from '../sidebar/sidebar.service';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../empty.util';
 import { RouteService } from '../../core/services/route.service';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchResult } from './models/search-result.model';
@@ -19,23 +26,14 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
 import { SearchService } from '../../core/shared/search/search.service';
 import { currentPath } from '../utils/route.utils';
 import { Context } from '../../core/shared/context.model';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
-import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { followLink } from '../utils/follow-link-config.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
-import { SearchObjects } from './models/search-objects.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { SelectionConfig } from './search-results/search-results.component';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
-import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
-import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
@@ -43,9 +41,19 @@ import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sid
 import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
-import { NgIf, NgTemplateOutlet, AsyncPipe } from '@angular/common';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
-import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import { AsyncPipe, NgIf, NgTemplateOutlet } from '@angular/common';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { pushInOut } from '../animations/push';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, } from '../empty.util';
+import { HostWindowService } from '../host-window.service';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { SidebarService } from '../sidebar/sidebar.service';
+import { followLink } from '../utils/follow-link-config.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchObjects } from './models/search-objects.model';
+import { SelectionConfig } from './search-results/search-results.component';
+import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 @Component({
     selector: 'ds-search',
@@ -335,14 +343,14 @@ export class SearchComponent implements OnDestroy, OnInit {
     const searchSortOptions$: Observable<SortOptions[]> = combineLatest([configuration$, this.currentScope$]).pipe(
       switchMap(([configuration, scope]: [string, string]) => this.searchConfigService.getConfigurationSearchConfig(configuration, scope)),
       map((searchConfig: SearchConfig) => this.searchConfigService.getConfigurationSortOptions(searchConfig)),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
     const sortOption$: Observable<SortOptions> = searchSortOptions$.pipe(
       switchMap((searchSortOptions: SortOptions[]) => {
         const defaultSort: SortOptions = searchSortOptions[0];
         return this.searchConfigService.getCurrentSort(this.paginationId, defaultSort);
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
     const searchOptions$: Observable<PaginatedSearchOptions> = this.getSearchOptions().pipe(distinctUntilChanged());
 
@@ -351,13 +359,13 @@ export class SearchComponent implements OnDestroy, OnInit {
         // filter for search options related to instanced paginated id
         return searchOptions.pagination.id === this.paginationId;
       }),
-      debounceTime(100)
+      debounceTime(100),
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,
         {
           configuration: searchOptions.configuration || configuration,
-          sort: sortOption || searchOptions.sort
+          sort: sortOption || searchOptions.sort,
         });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
@@ -459,7 +467,7 @@ export class SearchComponent implements OnDestroy, OnInit {
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
     this.lastSearchOptions = searchOptions;
-    let followLinks = [
+    const followLinks = [
       followLink<Item>('thumbnail', { isOptional: true }),
       followLink<SubmissionObject>('item', { isOptional: true }, followLink<Item>('thumbnail', { isOptional: true })) as any,
     ];
@@ -474,8 +482,8 @@ export class SearchComponent implements OnDestroy, OnInit {
       undefined,
       this.useCachedVersionIfAvailable,
       true,
-      ...followLinks
-      ).pipe(getFirstCompletedRemoteData())
+      ...followLinks,
+    ).pipe(getFirstCompletedRemoteData())
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {

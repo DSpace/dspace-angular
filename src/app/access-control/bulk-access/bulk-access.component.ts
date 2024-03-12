@@ -1,14 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-
-import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { BulkAccessBrowseComponent } from './browse/bulk-access-browse.component';
+import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 
 @Component({
   selector: 'ds-bulk-access',
@@ -45,7 +54,7 @@ export class BulkAccessComponent implements OnInit {
 
   constructor(
     private bulkAccessControlService: BulkAccessControlService,
-    private selectableListService: SelectableListService
+    private selectableListService: SelectableListService,
   ) {
   }
 
@@ -53,8 +62,8 @@ export class BulkAccessComponent implements OnInit {
     this.subs.push(
       this.selectableListService.getSelectableList(this.listId).pipe(
         distinctUntilChanged(),
-        map((list: SelectableListState) => this.generateIdListBySelectedElements(list))
-      ).subscribe(this.objectsSelected$)
+        map((list: SelectableListState) => this.generateIdListBySelectedElements(list)),
+      ).subscribe(this.objectsSelected$),
     );
   }
 
@@ -82,12 +91,12 @@ export class BulkAccessComponent implements OnInit {
     const { file } = this.bulkAccessControlService.createPayloadFile({
       bitstreamAccess,
       itemAccess,
-      state: settings.state
+      state: settings.state,
     });
 
     this.bulkAccessControlService.executeScript(
       this.objectsSelected$.value || [],
-      file
+      file,
     ).subscribe();
   }
 

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.component';
 import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-form.component';
@@ -47,9 +48,9 @@ export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
     providers: [
         {
             provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
-            useValue: ValidateEmailErrorStateMatcher
+      useValue: ValidateEmailErrorStateMatcher,
         },
-    ]
+  ],
 })
 /**
  * This module handles all components related to the access control pages

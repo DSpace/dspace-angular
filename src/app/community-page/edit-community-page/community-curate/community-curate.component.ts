@@ -1,10 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Community } from '../../../core/shared/community.model';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map, take } from 'rxjs/operators';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Observable } from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Community } from '../../../core/shared/community.model';
 import { hasValue } from '../../../shared/empty.util';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -44,7 +52,7 @@ export class CommunityCurateComponent implements OnInit {
       filter((rd: RemoteData<Community>) => hasValue(rd)),
       map((rd: RemoteData<Community>) => {
         return this.dsoNameService.getName(rd.payload);
-      })
+      }),
     );
   }
 

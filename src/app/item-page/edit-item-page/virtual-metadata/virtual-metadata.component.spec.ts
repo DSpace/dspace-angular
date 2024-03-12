@@ -1,17 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, TestBed, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { VirtualMetadataComponent } from './virtual-metadata.component';
-import { Item } from '../../../core/shared/item.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { VarDirective } from '../../../shared/utils/var.directive';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
-import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import {
+  ListableObjectComponentLoaderComponent
+} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { Item } from '../../../core/shared/item.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { VirtualMetadataComponent } from './virtual-metadata.component';
 
 describe('VirtualMetadataComponent', () => {
 
@@ -53,8 +56,8 @@ describe('VirtualMetadataComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: ThemeService, useValue: getMockThemeService() },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     })
       .overrideComponent(VirtualMetadataComponent, {
         remove: {
@@ -107,7 +110,7 @@ describe('VirtualMetadataComponent', () => {
         url,
         relationshipId,
         item.uuid,
-        true
+        true,
       );
     });
   });

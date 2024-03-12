@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output, QueryList } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input,
+  Output,
+  QueryList,
+} from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlComponent,
@@ -10,7 +13,7 @@ import {
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicTemplateDirective
+  DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 import { NgClass, NgForOf } from '@angular/common';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';

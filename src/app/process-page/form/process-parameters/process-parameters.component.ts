@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, Optional, Output, SimpleChanges } from '@angular/core';
-import { Script } from '../../scripts/script.model';
-import { ProcessParameter } from '../../processes/process-parameter.model';
+import { Component, EventEmitter, Input, OnChanges, Optional, Output, SimpleChanges, } from '@angular/core';
+import { ControlContainer, NgForm, } from '@angular/forms';
+
 import { hasValue } from '../../../shared/empty.util';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { ProcessParameter } from '../../processes/process-parameter.model';
+import { Script } from '../../scripts/script.model';
 import { ScriptParameter } from '../../scripts/script-parameter.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
-import { NgIf, NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { controlContainerFactory } from '../process-form-factory';
 
 /**
@@ -104,7 +105,7 @@ export class ProcessParametersComponent implements OnChanges {
       this.parameterValues = this.script.parameters
         .filter((param) => param.mandatory)
         .map(
-          (parameter: ScriptParameter) => Object.assign(new ProcessParameter(), { name: parameter.name })
+          (parameter: ScriptParameter) => Object.assign(new ProcessParameter(), { name: parameter.name }),
         );
     }
     this.addParameter();

@@ -12,14 +12,14 @@ import {
 import { of as observableOf } from 'rxjs';
 import { FileUploader, FileUploadModule } from 'ng2-file-upload';
 import uniqueId from 'lodash/uniqueId';
-
-import { UploaderOptions } from './uploader-options.model';
-import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
-import { UploaderProperties } from './uploader-properties.model';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.constants';
-import { CookieService } from '../../../core/services/cookie.service';
+
 import { DragService } from '../../../core/drag.service';
+import { CookieService } from '../../../core/services/cookie.service';
+import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER, } from '../../../core/xsrf/xsrf.constants';
+import { hasValue, isNotEmpty, isUndefined, } from '../../empty.util';
+import { UploaderOptions } from './uploader-options.model';
+import { UploaderProperties } from './uploader-properties.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 
@@ -105,7 +105,7 @@ export class UploaderComponent {
     private cdr: ChangeDetectorRef,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService
+    private cookieService: CookieService,
   ) {
   }
 

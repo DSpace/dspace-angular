@@ -1,9 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { LinkMenuItemModel } from './models/link.model';
-import { isNotEmpty } from '../../empty.util';
+import { Component, Inject, OnInit, } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { isNotEmpty } from '../../empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgClass } from '@angular/common';
+import { LinkMenuItemModel } from './models/link.model';
 
 /**
  * Component that renders a menu section of type LINK

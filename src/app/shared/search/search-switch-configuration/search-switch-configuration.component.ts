@@ -1,18 +1,17 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, } from '@angular/core';
+import { NavigationExtras, Router, } from '@angular/router';
+import findIndex from 'lodash/findIndex';
 import { Subscription } from 'rxjs';
 
 import { hasValue } from '../../empty.util';
+import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
-import { SearchConfigurationOption } from './search-configuration-option.model';
-import { SearchService } from '../../../core/shared/search/search.service';
 import { currentPath } from '../../utils/route.utils';
-import findIndex from 'lodash/findIndex';
+import { SearchConfigurationOption } from './search-configuration-option.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
@@ -65,7 +64,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.searchConfigService.getCurrentConfiguration(this.defaultConfiguration)
       .subscribe((currentConfiguration) => {
-        const index = findIndex(this.configurationList, {value: currentConfiguration });
+        const index = findIndex(this.configurationList, { value: currentConfiguration });
         this.selectedOption = this.configurationList[index];
       });
   }
@@ -75,7 +74,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
    */
   onSelect() {
     const navigationExtras: NavigationExtras = {
-      queryParams: {configuration: this.selectedOption.value},
+      queryParams: { configuration: this.selectedOption.value },
     };
 
     this.changeConfiguration.emit(this.selectedOption);

@@ -1,12 +1,28 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../core/cache/models/sort-options.model';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Community } from '../../../../core/shared/community.model';
 import { fadeIn } from '../../../../shared/animations/fade';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { hasValue } from '../../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
@@ -106,9 +122,9 @@ export class CommunityPageSubCommunityListComponent implements OnInit, OnDestroy
         return     this.cds.findByParent(this.community.id, {
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: { field: currentSort.field, direction: currentSort.direction }
+          sort: { field: currentSort.field, direction: currentSort.direction },
         });
-      })
+      }),
     ).subscribe((results) => {
       this.subCommunitiesRDObs.next(results);
     }));

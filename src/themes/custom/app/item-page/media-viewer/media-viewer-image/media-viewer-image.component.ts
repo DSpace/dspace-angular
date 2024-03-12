@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  MediaViewerImageComponent as BaseComponent
-} from '../../../../../../app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
+
+import { MediaViewerImageComponent as BaseComponent } from '../../../../../../app/item-page/media-viewer/media-viewer-image/media-viewer-image.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { AsyncPipe } from '@angular/common';
 

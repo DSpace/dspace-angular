@@ -1,22 +1,22 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
-import { SearchService } from '../../../core/shared/search/search.service';
+import { APP_CONFIG, AppConfig, } from 'src/config/app-config.interface';
+
 import { RemoteData } from '../../../core/data/remote-data';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
 
 @Component({
   selector: 'ds-search-filters',

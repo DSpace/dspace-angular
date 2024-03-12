@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { CreateProfileComponent } from './create-profile.component';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
+import { CreateProfileComponent } from './create-profile.component';
 
 /**
  * Themed wrapper for CreateProfileComponent

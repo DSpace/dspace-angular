@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 import { HealthResponse } from '../models/health-component.model';

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { fadeIn } from '../../../../../app/shared/animations/fade';
 import {
   SubmissionImportExternalComponent as BaseComponent

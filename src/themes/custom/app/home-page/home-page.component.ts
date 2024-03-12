@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { HomePageComponent as BaseComponent } from '../../../../app/home-page/home-page.component';
 import { ThemedHomeNewsComponent } from '../../../../app/home-page/home-news/themed-home-news.component';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';

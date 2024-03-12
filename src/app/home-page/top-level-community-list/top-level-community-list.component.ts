@@ -1,23 +1,22 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, } from '@angular/core';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription, } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { APP_CONFIG, AppConfig, } from 'src/config/app-config.interface';
 
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
 import { fadeInOut } from '../../shared/animations/fade';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { hasValue } from '../../shared/empty.util';
-import { switchMap } from 'rxjs/operators';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
@@ -62,7 +61,7 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private cds: CommunityDataService,
-    private paginationService: PaginationService
+    private paginationService: PaginationService,
   ) {
     this.config = new PaginationComponentOptions();
     this.config.id = this.pageId;
@@ -88,9 +87,9 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
         return this.cds.findTop({
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: {field: currentSort.field, direction: currentSort.direction}
+          sort: { field: currentSort.field, direction: currentSort.direction },
         });
-      })
+      }),
     ).subscribe((results) => {
       this.communitiesRD$.next(results);
     });

@@ -1,14 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowseByTaxonomyComponent } from './browse-by-taxonomy.component';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { createDataWithBrowseDefinition } from '../browse-by-switcher/browse-by-switcher.component.spec';
+
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
+import { createDataWithBrowseDefinition } from '../browse-by-switcher/browse-by-switcher.component.spec';
+import { BrowseByTaxonomyComponent } from './browse-by-taxonomy.component';
 
 describe('BrowseByTaxonomyComponent', () => {
   let component: BrowseByTaxonomyComponent;
@@ -19,7 +23,7 @@ describe('BrowseByTaxonomyComponent', () => {
 
   const data = new BehaviorSubject(createDataWithBrowseDefinition(new HierarchicalBrowseDefinition()));
   const activatedRouteStub = {
-    data
+    data,
   };
 
   beforeEach(async () => {
@@ -33,12 +37,12 @@ describe('BrowseByTaxonomyComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: ThemeService, useValue: themeService },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 })
       .overrideComponent(BrowseByTaxonomyPageComponent, {
         remove: { imports: [VocabularyTreeviewComponent]}
       })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,9 +1,9 @@
-import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, Input, OnInit, ViewChild, } from '@angular/core';
 
-import { SectionsDirective } from '../sections.directive';
-import { SectionDataObject } from '../models/section-data.model';
-import { rendersSectionType } from '../sections-decorator';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsDirective } from '../sections.directive';
+import { rendersSectionType } from '../sections-decorator';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AsyncPipe, NgClass, NgComponentOutlet, NgForOf, NgIf } from '@angular/common';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
@@ -84,7 +84,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
         { provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: [] },
         { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

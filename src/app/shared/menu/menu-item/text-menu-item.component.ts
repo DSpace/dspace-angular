@@ -1,6 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { TextMenuItemModel } from './models/text.model';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+
 import { TranslateModule } from '@ngx-translate/core';
+import { TextMenuItemModel } from './models/text.model';
 
 /**
  * Component that renders a menu section of type TEXT

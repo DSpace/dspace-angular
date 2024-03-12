@@ -1,12 +1,13 @@
-import { Component, Inject, Input } from '@angular/core';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { Component, Inject, Input, } from '@angular/core';
+
+import { SortDirection, SortOptions, } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
 import { FormsModule } from '@angular/forms';
 import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';
-import { NgIf, NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
@@ -46,7 +47,7 @@ export class SearchSettingsComponent {
     this.paginationService.updateRoute(this.searchConfigurationService.paginationID, {
       sortField: values[0],
       sortDirection: values[1] as SortDirection,
-      page: 1
+      page: 1,
     });
   }
 }

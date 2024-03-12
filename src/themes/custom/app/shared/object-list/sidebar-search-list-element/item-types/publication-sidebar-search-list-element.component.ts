@@ -3,6 +3,7 @@ import {
 } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
 import { Component } from '@angular/core';
+
 import { Context } from '../../../../../../../app/core/shared/context.model';
 import { ItemSearchResult } from '../../../../../../../app/shared/object-collection/shared/item-search-result.model';
 import {

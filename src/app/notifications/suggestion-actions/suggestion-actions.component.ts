@@ -1,15 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { Component, EventEmitter, Input, Output, } from '@angular/core';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { Collection } from '../../core/shared/collection.model';
 import { take } from 'rxjs/operators';
-import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+
 import { Suggestion } from '../../core/notifications/models/suggestion.model';
 import { EntityDropdownComponent } from '../../shared/entity-dropdown/entity-dropdown.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
 import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-approve-and-import';
+import { Collection } from '../../core/shared/collection.model';
+import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import {
+  CreateItemParentSelectorComponent
+} from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 
 /**
  * Show and trigger the actions to submit for a suggestion
@@ -69,7 +71,7 @@ export class SuggestionActionsComponent {
       .subscribe((collection: Collection) => {
         this.approveAndImport.emit({
           suggestion: this.isBulk ? undefined : this.object,
-          collectionId: collection.id
+          collectionId: collection.id,
         });
       });
   }
@@ -77,7 +79,7 @@ export class SuggestionActionsComponent {
   approveAndImportCollectionFixed() {
     this.approveAndImport.emit({
       suggestion: this.isBulk ? undefined : this.object,
-      collectionId: null
+      collectionId: null,
     });
   }
 

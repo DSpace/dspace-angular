@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
 
-import { LogOutAction } from '../../core/auth/auth.actions';
-import { getLogOutError, } from '../../core/auth/selectors';
 import { AppState } from '../../app.reducer';
+import { LogOutAction } from '../../core/auth/auth.actions';
+import { getLogOutError } from '../../core/auth/selectors';
 import { fadeOut } from '../animations/fade';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { TranslateModule } from '@ngx-translate/core';

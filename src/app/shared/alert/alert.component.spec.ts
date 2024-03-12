@@ -1,13 +1,26 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AlertComponent } from './alert.component';
 import { createTestComponent } from '../testing/utils.test';
+import { AlertComponent } from './alert.component';
 import { AlertType } from './alert-type';
 
 describe('AlertComponent test suite', () => {
@@ -23,13 +36,13 @@ describe('AlertComponent test suite', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         AlertComponent,
-        TestComponent
+        TestComponent,
     ],
     providers: [
         ChangeDetectorRef,
-        AlertComponent
+        AlertComponent,
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).compileComponents().then();
   }));
 

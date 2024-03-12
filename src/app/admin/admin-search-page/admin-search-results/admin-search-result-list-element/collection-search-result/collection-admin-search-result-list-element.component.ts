@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+
+import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
+import { Collection } from '../../../../../core/shared/collection.model';
+import { Context } from '../../../../../core/shared/context.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
   listableObjectComponent
@@ -13,6 +17,9 @@ import { getCollectionEditRoute } from '../../../../../collection-page/collectio
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
 import { CollectionSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.AdminSearch)
 @Component({

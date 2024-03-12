@@ -1,7 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
-import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { Item } from '../../../../../core/shared/item.model';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { SearchResult } from '../../../../search/models/search-result.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf, NgFor } from '@angular/common';

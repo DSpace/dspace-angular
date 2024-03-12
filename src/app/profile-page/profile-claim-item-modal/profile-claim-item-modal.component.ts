@@ -1,21 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output, } from '@angular/core';
+import { ActivatedRoute, Router, } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import {
   DSOSelectorModalWrapperComponent
 } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import {
   ListableObjectComponentLoaderComponent
 } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -82,7 +83,7 @@ export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperCompo
     this.profileClaimService.searchForSuggestions(this.dso as EPerson).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe(
-      (result: RemoteData<SearchObjects<DSpaceObject>>) => this.listEntries$.next(result)
+      (result: RemoteData<SearchObjects<DSpaceObject>>) => this.listEntries$.next(result),
     );
   }
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   ItemStatisticsPageComponent as BaseComponent
 } from '../../../../../app/statistics-page/item-statistics-page/item-statistics-page.component';

@@ -2,12 +2,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { BrowseByComponent } from './browse-by.component';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
+
+import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { StartsWithType } from '../starts-with/starts-with-type';
+import { StartsWithType } from '../starts-with/starts-with-decorator';
 
 /**
  * Themed wrapper for {@link BrowseByComponent}

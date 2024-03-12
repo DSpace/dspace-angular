@@ -2,30 +2,30 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, CUSTOM_ELEMENTS_
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormsCoreModule,
   DynamicFormValidationService,
-  DynamicInputModel
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { Store, StoreModule } from '@ngrx/store';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Store, StoreModule, } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { FormComponent } from './form.component';
-import { FormService } from './form.service';
-import { FormBuilderService } from './builder/form-builder.service';
-import { FormState } from './form.reducer';
-import { FormChangeAction, FormStatusChangeAction } from './form.actions';
-import { StoreMock } from '../testing/store.mock';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import { createTestComponent } from '../testing/utils.test';
 import { BehaviorSubject } from 'rxjs';
+
 import { storeModuleConfig } from '../../app.reducer';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import { StoreMock } from '../testing/store.mock';
+import { createTestComponent } from '../testing/utils.test';
+import { FormBuilderService } from './builder/form-builder.service';
+import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import { FormChangeAction, FormStatusChangeAction, } from './form.actions';
+import { FormComponent } from './form.component';
+import { FormState } from './form.reducer';
+import { FormService } from './form.service';
 
 let TEST_FORM_MODEL;
 
@@ -44,12 +44,12 @@ function init() {
         label: 'Title',
         placeholder: 'Title',
         validators: {
-          required: null
+          required: null,
         },
         errorMessages: {
-          required: 'You must enter a main title for this item.'
-        }
-      }
+          required: 'You must enter a main title for this item.',
+        },
+      },
     ),
 
     new DynamicInputModel(
@@ -57,7 +57,7 @@ function init() {
         id: 'dc_title_alternative',
         label: 'Other Titles',
         placeholder: 'Other Titles',
-      }
+      },
     ),
 
     new DynamicInputModel(
@@ -65,7 +65,7 @@ function init() {
         id: 'dc_publisher',
         label: 'Publisher',
         placeholder: 'Publisher',
-      }
+      },
     ),
 
     new DynamicInputModel(
@@ -73,7 +73,7 @@ function init() {
         id: 'dc_identifier_citation',
         label: 'Citation',
         placeholder: 'Citation',
-      }
+      },
     ),
 
     new DynamicInputModel(
@@ -81,7 +81,7 @@ function init() {
         id: 'dc_identifier_issn',
         label: 'Identifiers',
         placeholder: 'Identifiers',
-      }
+      },
     ),
   ];
 
@@ -96,19 +96,19 @@ function init() {
           new DynamicInputModel({
             id: 'bootstrapArrayGroupInput',
             placeholder: 'example array group input',
-            readOnly: false
-          })
+            readOnly: false,
+          }),
         ];
-      }
-    })
+      },
+    }),
   ];
   config = {
     form: {
       validatorMap: {
         required: 'required',
-        regex: 'pattern'
-      }
-    }
+        regex: 'pattern',
+      },
+    },
   } as any;
 
   formState = {
@@ -118,12 +118,12 @@ function init() {
         dc_title_alternative: null,
         dc_publisher: null,
         dc_identifier_citation: null,
-        dc_identifier_issn: null
+        dc_identifier_issn: null,
       },
       valid: false,
       errors: [],
-      touched: {}
-    }
+      touched: {},
+    },
   };
 
 }
@@ -156,7 +156,7 @@ describe('FormComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: Store, useClass: StoreMock }
+        { provide: Store, useClass: StoreMock },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -229,7 +229,7 @@ describe('FormComponent test suite', () => {
       const errors = [{
         fieldId: 'dc_title',
         fieldIndex: 0,
-        message: 'error.validation.required'
+        message: 'error.validation.required',
       }];
       formState.testForm.errors = errors;
       form.next(formState.testForm);
@@ -242,7 +242,7 @@ describe('FormComponent test suite', () => {
     it('should remove form errors when errors are empty in the state', () => {
       (formComp as any).formErrors = [{
         fieldId: 'dc_title',
-        message: 'error.validation.required'
+        message: 'error.validation.required',
       }];
       const errors = [];
 
@@ -261,7 +261,7 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'change'
+        type: 'change',
       } as DynamicFormControlEvent;
 
       spyOn(formComp.change, 'emit');
@@ -279,7 +279,7 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'change'
+        type: 'change',
       } as DynamicFormControlEvent;
 
       spyOn(formComp.change, 'emit');
@@ -296,7 +296,7 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'change'
+        type: 'change',
       } as DynamicFormControlEvent;
 
       formComp.emitChange = false;
@@ -314,7 +314,7 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'blur'
+        type: 'blur',
       } as DynamicFormControlEvent;
 
       spyOn(formComp.blur, 'emit');
@@ -331,7 +331,7 @@ describe('FormComponent test suite', () => {
         control: formComp.formGroup.get('dc_title'),
         group: formComp.formGroup,
         model: formComp.formModel[0],
-        type: 'focus'
+        type: 'focus',
       } as DynamicFormControlEvent;
 
       spyOn(formComp.focus, 'emit');

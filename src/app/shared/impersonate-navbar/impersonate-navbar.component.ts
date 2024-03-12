@@ -1,9 +1,20 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { AppState } from '../../app.reducer';
 import { AuthService } from '../../core/auth/auth.service';
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { isAuthenticated } from '../../core/auth/selectors';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';

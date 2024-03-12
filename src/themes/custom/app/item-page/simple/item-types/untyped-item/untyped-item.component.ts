@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, } from '@angular/core';
+
+import { Context } from '../../../../../../../app/core/shared/context.model';
 import { Item } from '../../../../../../../app/core/shared/item.model';
 import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
 import {
   listableObjectComponent
 } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
-import { Context } from '../../../../../../../app/core/shared/context.model';
 import {
   UntypedItemComponent as BaseComponent
 } from '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component';

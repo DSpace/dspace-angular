@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  EditItemTemplatePageComponent as BaseComponent
-} from '../../../../../app/collection-page/edit-item-template-page/edit-item-template-page.component';
+
+import { EditItemTemplatePageComponent as BaseComponent } from '../../../../../app/collection-page/edit-item-template-page/edit-item-template-page.component';
 import {
   ThemedDsoEditMetadataComponent
 } from '../../../../../app/dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  ItemPageTitleFieldComponent as BaseComponent
-} from '../../../../../../../../app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
+
+import { ItemPageTitleFieldComponent as BaseComponent } from '../../../../../../../../app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 

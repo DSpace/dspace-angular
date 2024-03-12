@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, } from '@angular/core';
 
-import { Item } from '../../../../../core/shared/item.model';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
+import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
     selector: 'ds-item-page-title-field',

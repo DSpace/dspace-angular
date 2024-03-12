@@ -1,9 +1,27 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
 import { FileUploader } from 'ng2-file-upload';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
+
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
@@ -13,11 +31,18 @@ import { RestRequestMethod } from '../../../../core/data/rest-request-method';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
-import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../../../../core/shared/metadata.models';
+import { NoContent } from '../../../../core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { ResourceType } from '../../../../core/shared/resource-type';
-import { hasValue, isNotEmpty } from '../../../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { Operation } from 'fast-json-patch';
 import { NoContent } from '../../../../core/shared/NoContent.model';
@@ -26,6 +51,7 @@ import { FormComponent } from '../../../form/form.component';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 import { VarDirective } from '../../../utils/var.directive';
+import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -88,7 +114,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * @type {UploaderOptions}
    */
   uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
-    autoUpload: false
+    autoUpload: false,
   });
 
   /**
@@ -146,7 +172,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       this.formModel.forEach(
         (fieldModel: DynamicInputModel) => {
           fieldModel.value = this.dso.firstMetadataValue(fieldModel.name);
-        }
+        },
       );
       this.formGroup = this.formService.createFormGroup(this.formModel);
 
@@ -160,7 +186,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
         this.subs.push(
           observableCombineLatest([
             this.dsoService.getLogoEndpoint(this.dso.id),
-            this.dso.logo
+            this.dso.logo,
           ]).subscribe(([href, logoRD]: [string, RemoteData<Bitstream>]) => {
             this.uploadFilesOptions.url = href;
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
@@ -169,7 +195,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
               this.uploadFilesOptions.method = RestRequestMethod.PUT;
             }
             this.initializedUploaderOptions.next(true);
-          })
+          }),
         );
       } else {
         // Set a placeholder URL to not break the uploader component. This will be replaced once the object is created.
@@ -186,17 +212,17 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   onSubmit() {
     if (this.markLogoForDeletion && hasValue(this.dso.id) && hasValue(this.dso._links.logo)) {
       this.dsoService.deleteLogo(this.dso).pipe(
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       ).subscribe((response: RemoteData<NoContent>) => {
         if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
-            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content'),
           );
         } else {
           this.notificationsService.error(
             this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
-            response.errorMessage
+            response.errorMessage,
           );
         }
         this.dso.logo = undefined;
@@ -209,7 +235,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {
         value: fieldModel.value as string,
-        language: null
+        language: null,
       } as any;
       if (formMetadata.hasOwnProperty(fieldModel.name)) {
         formMetadata[fieldModel.name].push(value);
@@ -221,9 +247,9 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     const updatedDSO = Object.assign({}, this.dso, {
       metadata: {
         ...this.dso.metadata,
-        ...formMetadata
+        ...formMetadata,
       },
-      type: Community.type
+      type: Community.type,
     });
 
     const operations: Operation[] = [];
@@ -261,7 +287,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
             fieldModel.errorMessages[key] = this.translate.instant(this.type.value + this.ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
           });
         }
-      }
+      },
     );
   }
 

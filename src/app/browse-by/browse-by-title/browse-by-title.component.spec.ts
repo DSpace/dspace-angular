@@ -4,21 +4,33 @@ import { Item } from '../../core/shared/item.model';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { of as observableOf } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
+import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
-import { BrowseByTitleComponent } from './browse-by-title.component';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { Community } from '../../core/shared/community.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { BrowseService } from '../../core/browse/browse.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { Community } from '../../core/shared/community.model';
+import { Item } from '../../core/shared/item.model';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
@@ -36,6 +48,10 @@ import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 
+import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
+import { BrowseByTitleComponent } from './browse-by-title.component';
 
 describe('BrowseByTitleComponent', () => {
   let comp: BrowseByTitleComponent;
@@ -48,9 +64,9 @@ describe('BrowseByTitleComponent', () => {
     metadata: [
       {
         key: 'dc.title',
-        value: 'test community'
-      }
-    ]
+        value: 'test community',
+      },
+    ],
   });
 
   const mockItems = [
@@ -59,24 +75,24 @@ describe('BrowseByTitleComponent', () => {
       metadata: [
         {
           key: 'dc.title',
-          value: 'Fake Title'
-        }
-      ]
-    })
+          value: 'Fake Title',
+        },
+      ],
+    }),
   ];
 
   const mockBrowseService = {
     getBrowseItemsFor: () => toRemoteData(mockItems),
-    getBrowseEntriesFor: () => toRemoteData([])
+    getBrowseEntriesFor: () => toRemoteData([]),
   };
 
   const mockDsoService = {
-    findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+    findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({}),
-    data: observableOf({ metadata: 'title' })
+    data: observableOf({ metadata: 'title' }),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -90,9 +106,9 @@ describe('BrowseByTitleComponent', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 })
       .overrideComponent(BrowseByTitlePageComponent, {
         remove: {imports: [

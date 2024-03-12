@@ -1,6 +1,15 @@
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, typedObject } from '../../cache/builders/build-decorators';
+
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { RemoteData } from '../../data/remote-data';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
@@ -9,7 +18,6 @@ import { ResourceType } from '../resource-type';
 import { ItemType } from './item-type.model';
 import { ITEM_TYPE } from './item-type.resource-type';
 import { RELATIONSHIP_TYPE } from './relationship-type.resource-type';
-import { CacheableObject } from '../../cache/cacheable-object.model';
 
 /**
  * Describes a type of Relationship between multiple possible Items
@@ -23,19 +31,19 @@ export class RelationshipType implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The label that describes this RelationshipType
    */
   @autoserialize
-  label: string;
+    label: string;
 
   /**
    * The identifier of this RelationshipType
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The universally unique identifier of this RelationshipType
@@ -43,49 +51,49 @@ export class RelationshipType implements CacheableObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer(RelationshipType.type.value), 'id')
-  uuid: string;
+    uuid: string;
 
   /**
    * The label that describes the Relation to the left of this RelationshipType
    */
   @autoserialize
-  leftwardType: string;
+    leftwardType: string;
 
   /**
    * The maximum amount of Relationships allowed to the left of this RelationshipType
    */
   @autoserialize
-  leftMaxCardinality: number;
+    leftMaxCardinality: number;
 
   /**
    * The minimum amount of Relationships allowed to the left of this RelationshipType
    */
   @autoserialize
-  leftMinCardinality: number;
+    leftMinCardinality: number;
 
   /**
    * The label that describes the Relation to the right of this RelationshipType
    */
   @autoserialize
-  rightwardType: string;
+    rightwardType: string;
 
   /**
    * The maximum amount of Relationships allowed to the right of this RelationshipType
    */
   @autoserialize
-  rightMaxCardinality: number;
+    rightMaxCardinality: number;
 
   /**
    * The minimum amount of Relationships allowed to the right of this RelationshipType
    */
   @autoserialize
-  rightMinCardinality: number;
+    rightMinCardinality: number;
 
   /**
    * The {@link HALLink}s for this RelationshipType
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     leftType: HALLink;
     rightType: HALLink;
@@ -96,12 +104,12 @@ export class RelationshipType implements CacheableObject {
    * Will be undefined unless the leftType {@link HALLink} has been resolved.
    */
   @link(ITEM_TYPE)
-  leftType?: Observable<RemoteData<ItemType>>;
+    leftType?: Observable<RemoteData<ItemType>>;
 
   /**
    * The type of Item found on the right side of this RelationshipType
    * Will be undefined unless the rightType {@link HALLink} has been resolved.
    */
   @link(ITEM_TYPE)
-  rightType?: Observable<RemoteData<ItemType>>;
+    rightType?: Observable<RemoteData<ItemType>>;
 }

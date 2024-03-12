@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   CommunityStatisticsPageComponent as BaseComponent
 } from '../../../../../app/statistics-page/community-statistics-page/community-statistics-page.component';

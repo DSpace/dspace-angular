@@ -1,16 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-
-import { SubscriptionViewComponent } from './subscription-view/subscription-view.component';
-import { SubscriptionModalComponent } from './subscription-modal/subscription-modal.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { SubscriptionModalComponent } from './subscription-modal/subscription-modal.component';
+import { SubscriptionViewComponent } from './subscription-view/subscription-view.component';
 
 const COMPONENTS = [
   SubscriptionViewComponent,
-  SubscriptionModalComponent
+  SubscriptionModalComponent,
 ];
 
 @NgModule({
@@ -23,8 +22,8 @@ const COMPONENTS = [
         ...COMPONENTS
     ],
     exports: [
-        ...COMPONENTS
-    ]
+    ...COMPONENTS,
+  ],
 })
 export class SubscriptionsModule {
 }

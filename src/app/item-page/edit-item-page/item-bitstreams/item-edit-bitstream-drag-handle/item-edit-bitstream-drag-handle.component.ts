@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -15,17 +21,21 @@ import { TranslateModule } from '@ngx-translate/core';
  * Creates an embedded view of the contents
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream-drag-handle element)
  */
-export class ItemEditBitstreamDragHandleComponent implements OnInit {
+export class ItemEditBitstreamDragHandleComponent implements OnInit, OnDestroy {
   /**
    * The view on the drag-handle
    */
-  @ViewChild('handleView', {static: true}) handleView;
+  @ViewChild('handleView', { static: true }) handleView;
 
   constructor(private viewContainerRef: ViewContainerRef) {
   }
 
   ngOnInit(): void {
     this.viewContainerRef.createEmbeddedView(this.handleView);
+  }
+
+  ngOnDestroy(): void {
+    this.viewContainerRef.clear();
   }
 
 }

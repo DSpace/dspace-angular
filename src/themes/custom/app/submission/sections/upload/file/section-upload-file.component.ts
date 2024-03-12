@@ -32,5 +32,5 @@ import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pi
   ],
 })
 export class SubmissionSectionUploadFileComponent
-    extends BaseComponent {
+  extends BaseComponent {
 }

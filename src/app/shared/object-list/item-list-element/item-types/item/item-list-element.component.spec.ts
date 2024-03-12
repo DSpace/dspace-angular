@@ -1,12 +1,16 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ItemListElementComponent } from './item-list-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { of as observableOf } from 'rxjs';
+
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
@@ -19,6 +23,9 @@ import { AuthService } from '../../../../../core/auth/auth.service';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
+import { ItemListElementComponent } from './item-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -26,34 +33,34 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.publisher': [
       {
         language: 'en_US',
-        value: 'a publisher'
-      }
+        value: 'a publisher',
+      },
     ],
     'dc.date.issued': [
       {
         language: 'en_US',
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'This is the abstract'
-      }
-    ]
-  }
+        value: 'This is the abstract',
+      },
+    ],
+  },
 });
 
 describe('ItemListElementComponent', () => {
@@ -72,9 +79,9 @@ describe('ItemListElementComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(ItemListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

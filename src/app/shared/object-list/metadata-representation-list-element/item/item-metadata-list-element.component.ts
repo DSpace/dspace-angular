@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import {
   ListableObjectComponentLoaderComponent
 } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
     selector: 'ds-item-metadata-list-element',

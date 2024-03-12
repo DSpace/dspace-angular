@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { FeedbackComponent as BaseComponent } from '../../../../../app/info/feedback/feedback.component';
 import {
   ThemedFeedbackFormComponent

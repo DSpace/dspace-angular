@@ -1,15 +1,16 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { OrgUnitItemMetadataListElementComponent } from './org-unit-item-metadata-list-element.component';
 import { Item } from '../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { RouterLink } from '@angular/router';
+import {
+  ItemMetadataRepresentation
+} from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { OrgUnitItemMetadataListElementComponent } from './org-unit-item-metadata-list-element.component';
 
 const description = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
 const organisation = 'Anonymous';
@@ -27,12 +28,12 @@ describe('OrgUnitItemMetadataListElementComponent', () => {
         NgbModule,
         OrgUnitItemMetadataListElementComponent
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrgUnitItemMetadataListElementComponent, {
       remove: {
         imports: [TruncatableComponent, RouterLink]
       },
-      add: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

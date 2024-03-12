@@ -23,8 +23,8 @@ export class ProjectItemMetadataListElementComponent extends ItemMetadataReprese
    * @param dsoNameService
    */
   constructor(
-    public dsoNameService: DSONameService
+    public dsoNameService: DSONameService,
   ) {
-      super();
+    super();
   }
 }

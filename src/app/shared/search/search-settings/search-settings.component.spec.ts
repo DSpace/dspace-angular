@@ -1,19 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SearchSettingsComponent } from './search-settings.component';
-import { of as observableOf } from 'rxjs';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { VarDirective } from '../../utils/var.directive';
 import { SidebarService } from '../../sidebar/sidebar.service';
 import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { SortDirection, SortOptions, } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
+import { SearchSettingsComponent } from './search-settings.component';
 
 describe('SearchSettingsComponent', () => {
 
@@ -70,7 +71,7 @@ describe('SearchSettingsComponent', () => {
             useValue: {
                 paginatedSearchOptions: observableOf(paginatedSearchOptions),
                 getCurrentScope: observableOf('test-id'),
-            }
+          },
         },
     ],
     schemas: [NO_ERRORS_SCHEMA]
@@ -84,7 +85,7 @@ describe('SearchSettingsComponent', () => {
     comp.sortOptionsList = [
       new SortOptions('score', SortDirection.DESC),
       new SortOptions('dc.title', SortDirection.ASC),
-      new SortOptions('dc.title', SortDirection.DESC)
+      new SortOptions('dc.title', SortDirection.DESC),
     ];
     comp.currentSortOption = new SortOptions('score', SortDirection.DESC);
 

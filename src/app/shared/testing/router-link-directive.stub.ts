@@ -1,4 +1,7 @@
-import { Directive, Input } from '@angular/core';
+import {
+  Directive,
+  Input,
+} from '@angular/core';
 
 /* eslint-disable @angular-eslint/directive-class-suffix */
 @Directive({

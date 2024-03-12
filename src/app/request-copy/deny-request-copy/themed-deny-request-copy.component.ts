@@ -13,15 +13,15 @@ import { DenyRequestCopyComponent } from './deny-request-copy.component';
     standalone: true
 })
 export class ThemedDenyRequestCopyComponent extends ThemedComponent<DenyRequestCopyComponent> {
-    protected getComponentName(): string {
-        return 'DenyRequestCopyComponent';
-    }
+  protected getComponentName(): string {
+    return 'DenyRequestCopyComponent';
+  }
 
-    protected importThemedComponent(themeName: string): Promise<any> {
-        return import(`../../../themes/${themeName}/app/request-copy/deny-request-copy/deny-request-copy.component`);
-    }
+  protected importThemedComponent(themeName: string): Promise<any> {
+    return import(`../../../themes/${themeName}/app/request-copy/deny-request-copy/deny-request-copy.component`);
+  }
 
-    protected importUnthemedComponent(): Promise<any> {
-        return import('./deny-request-copy.component');
-    }
+  protected importUnthemedComponent(): Promise<any> {
+    return import('./deny-request-copy.component');
+  }
 }

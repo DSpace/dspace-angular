@@ -1,10 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { take } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityListService } from '../community-list-service';
 import { CommunityListDatasource } from '../community-list-datasource';
 import { CdkTreeModule, FlatTreeControl } from '@angular/cdk/tree';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import { isEmpty } from '../../shared/empty.util';
+import { CommunityListDatasource } from '../community-list-datasource';
+import { CommunityListService } from '../community-list-service';
 import { FlatNode } from '../flat-node.model';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -35,7 +49,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   public loadingNode: FlatNode;
 
   treeControl = new FlatTreeControl<FlatNode>(
-    (node: FlatNode) => node.level, (node: FlatNode) => true
+    (node: FlatNode) => node.level, (node: FlatNode) => true,
   );
   dataSource: CommunityListDatasource;
   paginationConfig: FindListOptions;

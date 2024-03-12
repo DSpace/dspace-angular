@@ -1,46 +1,44 @@
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../core/auth/auth.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { ProcessDetailComponent } from './process-detail.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
-  waitForAsync,
   ComponentFixture,
   discardPeriodicTasks,
   fakeAsync,
   flush,
   flushMicrotasks,
   TestBed,
-  tick
+  tick,
+  waitForAsync,
 } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router, RouterLink, RouterModule, } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ProcessDetailFieldComponent } from './process-detail-field/process-detail-field.component';
 import { Process } from '../processes/process.model';
-import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { FileSizePipe } from '../../shared/utils/file-size-pipe';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$, } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { getProcessListRoute } from '../process-page-routing.paths';
-import {ProcessStatus} from '../processes/process-status.model';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RouterTestingModule } from '@angular/router/testing';
 import { RouterStub } from '../../shared/testing/router.stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProcessDetailComponent } from './process-detail.component';
 
 describe('ProcessDetailComponent', () => {
   let component: ProcessDetailComponent;
@@ -70,14 +68,14 @@ describe('ProcessDetailComponent', () => {
           'dc.title': [
             {
               value: fileName,
-              language: null
-            }
-          ]
+              language: null,
+            },
+          ],
         },
         _links: {
-          content: { href: 'file-selflink' }
-        }
-      })
+          content: { href: 'file-selflink' },
+        },
+      }),
     ];
     processOutput = 'Process Started';
     process = Object.assign(new Process(), {
@@ -87,49 +85,49 @@ describe('ProcessDetailComponent', () => {
       parameters: [
         {
           name: '-f',
-          value: 'file.xml'
+          value: 'file.xml',
         },
         {
           name: '-i',
-          value: 'identifier'
-        }
+          value: 'identifier',
+        },
       ],
       files: createSuccessfulRemoteDataObject$(Object.assign(new PaginatedList(), {
         page: files,
       })),
       _links: {
         self: {
-          href: 'https://rest.api/processes/1'
+          href: 'https://rest.api/processes/1',
         },
         output: {
-          href: 'https://rest.api/processes/1/output'
-        }
+          href: 'https://rest.api/processes/1/output',
+        },
       },
     });
     const logBitstream = Object.assign(new Bitstream(), {
       id: 'output.log',
       _links: {
-        content: { href: 'log-selflink' }
-      }
+        content: { href: 'log-selflink' },
+      },
     });
     processService = jasmine.createSpyObj('processService', {
       getFiles: createSuccessfulRemoteDataObject$(createPaginatedList(files)),
       delete: createSuccessfulRemoteDataObject$(null),
       findById: createSuccessfulRemoteDataObject$(process),
-      autoRefreshUntilCompletion: createSuccessfulRemoteDataObject$(process)
+      autoRefreshUntilCompletion: createSuccessfulRemoteDataObject$(process),
     });
     bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
-      findByHref: createSuccessfulRemoteDataObject$(logBitstream)
+      findByHref: createSuccessfulRemoteDataObject$(logBitstream),
     });
     nameService = jasmine.createSpyObj('nameService', {
-      getName: fileName
+      getName: fileName,
     });
     httpClient = jasmine.createSpyObj('httpClient', {
-      get: observableOf(processOutput)
+      get: observableOf(processOutput),
     });
 
     modalService = jasmine.createSpyObj('modalService', {
-      open: {}
+      open: {},
     });
 
     notificationsService = new NotificationsServiceStub();
@@ -151,7 +149,8 @@ describe('ProcessDetailComponent', () => {
       RouterTestingModule,
       RouterModule.forRoot([]),
       ProcessDetailComponent, ProcessDetailFieldComponent,
-      VarDirective, FileSizePipe],
+      VarDirective, FileSizePipe,
+        HasNoValuePipe,],
     providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: ProcessDataService, useValue: processService },
@@ -163,7 +162,7 @@ describe('ProcessDetailComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Router, useValue: router },
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
       .overrideComponent(ProcessDetailComponent, {
         remove: { imports: [
@@ -217,7 +216,7 @@ describe('ProcessDetailComponent', () => {
       const showOutputButton = fixture.debugElement.query(By.css('#showOutputButton'));
       showOutputButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
     }));
@@ -242,7 +241,7 @@ describe('ProcessDetailComponent', () => {
       const showOutputButton = fixture.debugElement.query(By.css('#showOutputButton'));
       showOutputButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

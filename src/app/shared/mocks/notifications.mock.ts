@@ -1,28 +1,19 @@
 import { of as observableOf } from 'rxjs';
-import { ResourceType } from '../../core/shared/resource-type';
-import {
-  QualityAssuranceTopicObject
-} from '../../core/notifications/qa/models/quality-assurance-topic.model';
-import {
-  QualityAssuranceEventObject
-} from '../../core/notifications/qa/models/quality-assurance-event.model';
-import {
-  QualityAssuranceTopicDataService
-} from '../../core/notifications/qa/topics/quality-assurance-topic-data.service';
-import {
-  QualityAssuranceEventDataService
-} from '../../core/notifications/qa/events/quality-assurance-event-data.service';
+
+import { QualityAssuranceEventDataService } from '../../core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceEventObject } from '../../core/notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceSourceObject } from '../../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from '../../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicDataService } from '../../core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
+import { ResourceType } from '../../core/shared/resource-type';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../remote-data.utils';
 import { SearchResult } from '../search/models/search-result.model';
-import {
-  QualityAssuranceSourceObject
-} from '../../core/notifications/qa/models/quality-assurance-source.model';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -40,8 +31,8 @@ const ItemMockPid1: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'ITEM4567-e89b-12d3-a456-426614174001',
     uuid: 'ITEM4567-e89b-12d3-a456-426614174001',
@@ -50,103 +41,103 @@ const ItemMockPid1: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'Index nominum et rerum'
-        }
+          value: 'Index nominum et rerum',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 const ItemMockPid2: Item = Object.assign(
@@ -159,8 +150,8 @@ const ItemMockPid2: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'ITEM4567-e89b-12d3-a456-426614174004',
     uuid: 'ITEM4567-e89b-12d3-a456-426614174004',
@@ -169,103 +160,103 @@ const ItemMockPid2: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'UNA NUOVA RILETTURA DELL\u0027 ARISTOTELE DI FRANZ BRENTANO ALLA LUCE DI ALCUNI INEDITI'
-        }
+          value: 'UNA NUOVA RILETTURA DELL\u0027 ARISTOTELE DI FRANZ BRENTANO ALLA LUCE DI ALCUNI INEDITI',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 const ItemMockPid3: Item = Object.assign(
@@ -278,8 +269,8 @@ const ItemMockPid3: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'ITEM4567-e89b-12d3-a456-426614174005',
     uuid: 'ITEM4567-e89b-12d3-a456-426614174005',
@@ -288,103 +279,103 @@ const ItemMockPid3: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'Sustainable development'
-        }
+          value: 'Sustainable development',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 const ItemMockPid4: Item = Object.assign(
@@ -397,8 +388,8 @@ const ItemMockPid4: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'ITEM4567-e89b-12d3-a456-426614174006',
     uuid: 'ITEM4567-e89b-12d3-a456-426614174006',
@@ -407,103 +398,103 @@ const ItemMockPid4: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'Reply to Critics'
-        }
+          value: 'Reply to Critics',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 const ItemMockPid5: Item = Object.assign(
@@ -516,8 +507,8 @@ const ItemMockPid5: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'ITEM4567-e89b-12d3-a456-426614174007',
     uuid: 'ITEM4567-e89b-12d3-a456-426614174007',
@@ -526,103 +517,103 @@ const ItemMockPid5: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'PROGETTAZIONE, SINTESI E VALUTAZIONE DELL\u0027ATTIVITA\u0027 ANTIMICOBATTERICA ED ANTIFUNGINA DI NUOVI DERIVATI ETEROCICLICI'
-        }
+          value: 'PROGETTAZIONE, SINTESI E VALUTAZIONE DELL\u0027ATTIVITA\u0027 ANTIMICOBATTERICA ED ANTIFUNGINA DI NUOVI DERIVATI ETEROCICLICI',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 const ItemMockPid6: Item = Object.assign(
@@ -635,8 +626,8 @@ const ItemMockPid6: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'ITEM4567-e89b-12d3-a456-426614174008',
     uuid: 'ITEM4567-e89b-12d3-a456-426614174008',
@@ -645,103 +636,103 @@ const ItemMockPid6: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'Donald Davidson'
-        }
+          value: 'Donald Davidson',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 const ItemMockPid7: Item = Object.assign(
@@ -754,8 +745,8 @@ const ItemMockPid7: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'ITEM4567-e89b-12d3-a456-426614174009',
     uuid: 'ITEM4567-e89b-12d3-a456-426614174009',
@@ -764,103 +755,103 @@ const ItemMockPid7: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'Missing abstract article'
-        }
+          value: 'Missing abstract article',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 export const ItemMockPid8: Item = Object.assign(
@@ -873,8 +864,8 @@ export const ItemMockPid8: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'ITEM4567-e89b-12d3-a456-426614174002',
     uuid: 'ITEM4567-e89b-12d3-a456-426614174002',
@@ -883,103 +874,103 @@ export const ItemMockPid8: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'Egypt, crossroad of translations and literary interweavings (3rd-6th centuries). A reconsideration of earlier Coptic literature'
-        }
+          value: 'Egypt, crossroad of translations and literary interweavings (3rd-6th centuries). A reconsideration of earlier Coptic literature',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 export const ItemMockPid9: Item = Object.assign(
@@ -992,8 +983,8 @@ export const ItemMockPid9: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'ITEM4567-e89b-12d3-a456-426614174003',
     uuid: 'ITEM4567-e89b-12d3-a456-426614174003',
@@ -1002,103 +993,103 @@ export const ItemMockPid9: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'Morocco, crossroad of translations and literary interweavings (3rd-6th centuries). A reconsideration of earlier Coptic literature'
-        }
+          value: 'Morocco, crossroad of translations and literary interweavings (3rd-6th centuries). A reconsideration of earlier Coptic literature',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 export const ItemMockPid10: Item = Object.assign(
@@ -1111,8 +1102,8 @@ export const ItemMockPid10: Item = Object.assign(
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'P23e4567-e89b-12d3-a456-426614174002',
     uuid: 'P23e4567-e89b-12d3-a456-426614174002',
@@ -1121,103 +1112,103 @@ export const ItemMockPid10: Item = Object.assign(
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'Tracking Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage'
-        }
+          value: 'Tracking Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 export const NotificationsMockDspaceObject: SearchResult<DSpaceObject> = Object.assign(
@@ -1230,8 +1221,8 @@ export const NotificationsMockDspaceObject: SearchResult<DSpaceObject> = Object.
     isWithdrawn: false,
     _links:{
       self: {
-        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357'
-      }
+        href: 'https://rest.api/rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
+      },
     },
     id: 'P23e4567-e89b-12d3-a456-426614174002',
     uuid: 'P23e4567-e89b-12d3-a456-426614174002',
@@ -1240,103 +1231,103 @@ export const NotificationsMockDspaceObject: SearchResult<DSpaceObject> = Object.
       'dc.creator': [
         {
           language: 'en_US',
-          value: 'Doe, Jane'
-        }
+          value: 'Doe, Jane',
+        },
       ],
       'dc.date.accessioned': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.available': [
         {
           language: null,
-          value: '1650-06-26T19:58:25Z'
-        }
+          value: '1650-06-26T19:58:25Z',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '1650-06-26'
-        }
+          value: '1650-06-26',
+        },
       ],
       'dc.identifier.issn': [
         {
           language: 'en_US',
-          value: '123456789'
-        }
+          value: '123456789',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'https://demo.dspace.org/handle/10673/6'
-        }
+          value: 'https://demo.dspace.org/handle/10673/6',
+        },
       ],
       'dc.description.abstract': [
         {
           language: 'en_US',
-          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!'
-        }
+          value: 'This is really just a sample abstract. If it was a real abstract it would contain useful information about this test document. Sorry though, nothing useful in this paragraph. You probably shouldn\'t have even bothered to read it!',
+        },
       ],
       'dc.description.provenance': [
         {
           language: 'en',
-          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)'
+          value: 'Made available in DSpace on 2012-06-26T19:58:25Z (GMT). No. of bitstreams: 2\r\ntest_ppt.ppt: 12707328 bytes, checksum: a353fc7d29b3c558c986f7463a41efd3 (MD5)\r\ntest_ppt.pptx: 12468572 bytes, checksum: 599305edb4ebee329667f2c35b14d1d6 (MD5)',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T09:17:34Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).'
+          value: 'Restored into DSpace on 2013-06-13T11:04:16Z (GMT).',
         },
         {
           language: 'en',
-          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).'
-        }
+          value: 'Restored into DSpace on 2017-04-24T19:44:08Z (GMT).',
+        },
       ],
       'dc.language': [
         {
           language: 'en_US',
-          value: 'en'
-        }
+          value: 'en',
+        },
       ],
       'dc.rights': [
         {
           language: 'en_US',
-          value: '© Jane Doe'
-        }
+          value: '© Jane Doe',
+        },
       ],
       'dc.subject': [
         {
           language: 'en_US',
-          value: 'keyword1'
+          value: 'keyword1',
         },
         {
           language: 'en_US',
-          value: 'keyword2'
+          value: 'keyword2',
         },
         {
           language: 'en_US',
-          value: 'keyword3'
-        }
+          value: 'keyword3',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'Tracking Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage'
-        }
+          value: 'Tracking Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage',
+        },
       ],
       'dc.type': [
         {
           language: 'en_US',
-          value: 'text'
-        }
-      ]
-    }
-  }
+          value: 'text',
+        },
+      ],
+    },
+  },
 );
 
 // Sources
@@ -1349,9 +1340,9 @@ export const qualityAssuranceSourceObjectMorePid: QualityAssuranceSourceObject =
   totalEvents: 33,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qasources/ENRICH!MORE!PID'
-    }
-  }
+      href: 'https://rest.api/rest/api/integration/qasources/ENRICH!MORE!PID',
+    },
+  },
 };
 
 export const qualityAssuranceSourceObjectMoreAbstract: QualityAssuranceSourceObject = {
@@ -1361,9 +1352,9 @@ export const qualityAssuranceSourceObjectMoreAbstract: QualityAssuranceSourceObj
   totalEvents: 5,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qasources/ENRICH!MORE!ABSTRACT'
-    }
-  }
+      href: 'https://rest.api/rest/api/integration/qasources/ENRICH!MORE!ABSTRACT',
+    },
+  },
 };
 
 export const qualityAssuranceSourceObjectMissingPid: QualityAssuranceSourceObject = {
@@ -1373,9 +1364,9 @@ export const qualityAssuranceSourceObjectMissingPid: QualityAssuranceSourceObjec
   totalEvents: 4,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qasources/ENRICH!MISSING!PID'
-    }
-  }
+      href: 'https://rest.api/rest/api/integration/qasources/ENRICH!MISSING!PID',
+    },
+  },
 };
 
 // Topics
@@ -1389,9 +1380,9 @@ export const qualityAssuranceTopicObjectMorePid: QualityAssuranceTopicObject = {
   totalEvents: 33,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MORE!PID'
-    }
-  }
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MORE!PID',
+    },
+  },
 };
 
 export const qualityAssuranceTopicObjectMoreAbstract: QualityAssuranceTopicObject = {
@@ -1402,9 +1393,9 @@ export const qualityAssuranceTopicObjectMoreAbstract: QualityAssuranceTopicObjec
   totalEvents: 5,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MORE!ABSTRACT'
-    }
-  }
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MORE!ABSTRACT',
+    },
+  },
 };
 
 export const qualityAssuranceTopicObjectMissingPid: QualityAssuranceTopicObject = {
@@ -1415,9 +1406,9 @@ export const qualityAssuranceTopicObjectMissingPid: QualityAssuranceTopicObject 
   totalEvents: 4,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!PID'
-    }
-  }
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!PID',
+    },
+  },
 };
 
 export const qualityAssuranceTopicObjectMissingAbstract: QualityAssuranceTopicObject = {
@@ -1428,9 +1419,9 @@ export const qualityAssuranceTopicObjectMissingAbstract: QualityAssuranceTopicOb
   totalEvents: 71,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!ABSTRACT'
-    }
-  }
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!ABSTRACT',
+    },
+  },
 };
 
 export const qualityAssuranceTopicObjectMissingAcm: QualityAssuranceTopicObject = {
@@ -1441,9 +1432,9 @@ export const qualityAssuranceTopicObjectMissingAcm: QualityAssuranceTopicObject 
   totalEvents: 18,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!SUBJECT!ACM'
-    }
-  }
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!SUBJECT!ACM',
+    },
+  },
 };
 
 export const qualityAssuranceTopicObjectMissingProject: QualityAssuranceTopicObject = {
@@ -1454,9 +1445,9 @@ export const qualityAssuranceTopicObjectMissingProject: QualityAssuranceTopicObj
   totalEvents: 6,
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!PROJECT'
-    }
-  }
+      href: 'https://rest.api/rest/api/integration/qatopics/ENRICH!MISSING!PROJECT',
+    },
+  },
 };
 
 // Events
@@ -1483,21 +1474,21 @@ export const qualityAssuranceEventObjectMissingPid: QualityAssuranceEventObject 
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
       href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174001',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174001/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174001/target',
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174001/related'
-    }
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174001/related',
+    },
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid1)),
-  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10)),
 };
 
 export const qualityAssuranceEventObjectMissingPid2: QualityAssuranceEventObject = {
@@ -1521,21 +1512,21 @@ export const qualityAssuranceEventObjectMissingPid2: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174004'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174004',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174004/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174004/target',
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174004/related'
-    }
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174004/related',
+    },
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid2)),
-  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10)),
 };
 
 export const qualityAssuranceEventObjectMissingPid3: QualityAssuranceEventObject = {
@@ -1559,21 +1550,21 @@ export const qualityAssuranceEventObjectMissingPid3: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174005'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174005',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174005/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174005/target',
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174005/related'
-    }
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174005/related',
+    },
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid3)),
-  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10)),
 };
 
 export const qualityAssuranceEventObjectMissingPid4: QualityAssuranceEventObject = {
@@ -1597,21 +1588,21 @@ export const qualityAssuranceEventObjectMissingPid4: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing DOI'
+    reason: 'Missing DOI',
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174006'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174006',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174006/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174006/target',
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174006/related'
-    }
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174006/related',
+    },
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid4)),
-  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10)),
 };
 
 export const qualityAssuranceEventObjectMissingPid5: QualityAssuranceEventObject = {
@@ -1635,21 +1626,21 @@ export const qualityAssuranceEventObjectMissingPid5: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174007'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174007',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174007/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174007/target',
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174007/related'
-    }
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174007/related',
+    },
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid5)),
-  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10)),
 };
 
 export const qualityAssuranceEventObjectMissingPid6: QualityAssuranceEventObject = {
@@ -1673,21 +1664,21 @@ export const qualityAssuranceEventObjectMissingPid6: QualityAssuranceEventObject
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing PID'
+    reason: 'Missing PID',
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174008'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174008',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174008/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174008/target',
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174008/related'
-    }
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174008/related',
+    },
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid6)),
-  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10)),
 };
 
 export const qualityAssuranceEventObjectMissingAbstract: QualityAssuranceEventObject = {
@@ -1711,21 +1702,21 @@ export const qualityAssuranceEventObjectMissingAbstract: QualityAssuranceEventOb
     fundingProgram: null,
     jurisdiction: null,
     title: null,
-    reason: 'Missing abstract'
+    reason: 'Missing abstract',
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174009'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174009',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174009/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174009/target',
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174009/related'
-    }
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174009/related',
+    },
   },
   target: observableOf(createSuccessfulRemoteDataObject(ItemMockPid7)),
-  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10))
+  related: observableOf(createSuccessfulRemoteDataObject(ItemMockPid10)),
 };
 
 export const qualityAssuranceEventObjectMissingProjectFound: QualityAssuranceEventObject = {
@@ -1749,21 +1740,21 @@ export const qualityAssuranceEventObjectMissingProjectFound: QualityAssuranceEve
     fundingProgram: 'H2020',
     jurisdiction: 'EU',
     reason: 'Project found',
-    title: 'Tracking Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage'
+    title: 'Tracking Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage',
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174002'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174002',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174002/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174002/target',
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174002/related'
-    }
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174002/related',
+    },
   },
   target: createSuccessfulRemoteDataObject$(ItemMockPid8),
-  related: createSuccessfulRemoteDataObject$(ItemMockPid10)
+  related: createSuccessfulRemoteDataObject$(ItemMockPid10),
 };
 
 export const qualityAssuranceEventObjectMissingProjectNotFound: QualityAssuranceEventObject = {
@@ -1787,21 +1778,21 @@ export const qualityAssuranceEventObjectMissingProjectNotFound: QualityAssurance
     fundingProgram: 'H2021',
     jurisdiction: 'EU',
     title: 'Tracking Unknown Papyrus and Parchment Paths: An Archaeological Atlas of Coptic Literature.\nLiterary Texts in their Geographical Context: Production, Copying, Usage, Dissemination and Storage',
-    reason: 'Project not found'
+    reason: 'Project not found',
   },
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174003'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174003',
     },
     target: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174003/target'
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174003/target',
     },
     related: {
-      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174003/related'
-    }
+      href: 'https://rest.api/rest/api/integration/qaevents/123e4567-e89b-12d3-a456-426614174003/related',
+    },
   },
   target: createSuccessfulRemoteDataObject$(ItemMockPid9),
-  related: createNoContentRemoteDataObject$()
+  related: createNoContentRemoteDataObject$(),
 };
 
 // Classes
@@ -1828,14 +1819,14 @@ export function getMockNotificationsStateService(): any {
     getQualityAssuranceSourceCurrentPage: jasmine.createSpy('getQualityAssuranceSourceCurrentPage'),
     getQualityAssuranceSourceTotals: jasmine.createSpy('getQualityAssuranceSourceTotals'),
     dispatchRetrieveQualityAssuranceSource: jasmine.createSpy('dispatchRetrieveQualityAssuranceSource'),
-    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction')
+    dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction'),
   });
 }
 
 /**
  * Mock for [[QualityAssuranceSourceDataService]]
  */
- export function getMockQualityAssuranceSourceRestService(): QualityAssuranceTopicDataService {
+export function getMockQualityAssuranceSourceRestService(): QualityAssuranceTopicDataService {
   return jasmine.createSpyObj('QualityAssuranceSourceDataService', {
     getSources: jasmine.createSpy('getSources'),
     getSource: jasmine.createSpy('getSource'),
@@ -1864,7 +1855,7 @@ export function getMockQualityAssuranceEventRestService(): QualityAssuranceEvent
     patchEvent: jasmine.createSpy('patchEvent'),
     boundProject: jasmine.createSpy('boundProject'),
     removeProject: jasmine.createSpy('removeProject'),
-    clearFindByTopicRequests: jasmine.createSpy('.clearFindByTopicRequests')
+    clearFindByTopicRequests: jasmine.createSpy('.clearFindByTopicRequests'),
   });
 }
 

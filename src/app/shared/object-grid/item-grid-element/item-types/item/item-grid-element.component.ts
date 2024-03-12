@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { focusShadow } from '../../../../animations/focus';
+
+import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import {
   listableObjectComponent
@@ -7,8 +8,10 @@ import {
 import {
   AbstractListableElementComponent
 } from '../../../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { ItemSearchResultGridElementComponent } from '../../../search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
+import {
+  ItemSearchResultGridElementComponent
+} from '../../../search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
+import { focusShadow } from '../../../../animations/focus';
 
 @listableObjectComponent('Publication', ViewMode.GridElement)
 @listableObjectComponent(Item, ViewMode.GridElement)

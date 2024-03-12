@@ -1,22 +1,23 @@
-import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { Component, EventEmitter, Input, OnChanges, Output, } from '@angular/core';
 import { Router } from '@angular/router';
-import { isNotEmpty, hasValue } from '../empty.util';
-import { SearchService } from '../../core/shared/search/search.service';
-import { currentPath } from '../utils/route.utils';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
-import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { take } from 'rxjs/operators';
+
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SearchService } from '../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { hasValue, isNotEmpty, } from '../empty.util';
+import { currentPath } from '../utils/route.utils';
+import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
 @Component({
     selector: 'ds-search-form',
@@ -43,7 +44,7 @@ export class SearchFormComponent implements OnChanges {
    * The currently selected scope object's UUID
    */
   @Input()
-  scope = '';
+    scope = '';
 
   /**
    * Hides the scope in the url, this can be useful when you hardcode the scope in another way
@@ -129,9 +130,9 @@ export class SearchFormComponent implements OnChanges {
 
     const queryParams = Object.assign(
       {
-        ...goToFirstPage
+        ...goToFirstPage,
       },
-      data
+      data,
     );
     if (hasValue(data.scope) && this.hideScopeInUrl) {
       delete queryParams.scope;
@@ -139,7 +140,7 @@ export class SearchFormComponent implements OnChanges {
 
     void this.router.navigate(this.getSearchLinkParts(), {
       queryParams: queryParams,
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
   }
 

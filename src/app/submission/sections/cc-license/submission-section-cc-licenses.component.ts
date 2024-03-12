@@ -1,26 +1,27 @@
-import { Component, Inject } from '@angular/core';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { Field, Option, SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
+import { Component, Inject, } from '@angular/core';
+import { NgbModal, NgbModalRef, } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, of as observableOf, Subscription, } from 'rxjs';
+import { distinctUntilChanged, filter, map, take, } from 'rxjs/operators';
+
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
-import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { SectionsType } from '../sections-type';
-import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsService } from '../sections.service';
+import { Field, Option, SubmissionCcLicence, } from '../../../core/submission/models/submission-cc-license.model';
 import {
   WorkspaceitemSectionCcLicenseObject
 } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { isNotEmpty } from '../../../shared/empty.util';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
+import { SectionsType } from '../sections-type';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { isNotEmpty } from '../../../shared/empty.util';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -111,7 +112,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     protected configService: ConfigurationDataService,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
-    @Inject('submissionIdProvider') public injectedSubmissionId: string
+    @Inject('submissionIdProvider') public injectedSubmissionId: string,
   ) {
     super(
       injectedCollectionId,
@@ -169,7 +170,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
       ccLicense: {
         id: ccLicense.id,
         fields: Object.assign({}, this.data.ccLicense.fields, {
-          [field.id]: option
+          [field.id]: option,
         }),
       },
       accepted: false,
@@ -203,7 +204,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    */
   getCcLicenseLink$(): Observable<string> {
 
-    if (!!this.storedCcLicenseLink) {
+    if (this.storedCcLicenseLink) {
       return observableOf(this.storedCcLicenseLink);
     }
     if (!this.getSelectedCcLicense() || this.getSelectedCcLicense().fields.some(
@@ -214,7 +215,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     return this.submissionCcLicenseUrlDataService.getCcLicenseLink(
       selectedCcLicense,
       new Map(selectedCcLicense.fields.map(
-        (field) => [field, this.getSelectedOption(selectedCcLicense, field)]
+        (field) => [field, this.getSelectedOption(selectedCcLicense, field)],
       )),
     );
   }
@@ -272,7 +273,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
             ).subscribe((link) => {
               this.operationsBuilder.add(path, link.toString(), false, true);
             });
-          } else if (!!this.data.uri) {
+          } else if (this.data.uri) {
             this.operationsBuilder.remove(path);
           }
         }
@@ -283,19 +284,19 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         getRemoteDataPayload(),
         map((list) => list.page),
       ).subscribe(
-        (licenses) => this.submissionCcLicenses = licenses
+        (licenses) => this.submissionCcLicenses = licenses,
       ),
       this.configService.findByPropertyName('cc.license.jurisdiction').pipe(
         getFirstCompletedRemoteData(),
-        getRemoteDataPayload()
+        getRemoteDataPayload(),
       ).subscribe((remoteData) => {
-          if (remoteData === undefined || remoteData.values.length === 0) {
-            // No value configured, use blank value (International jurisdiction)
-            this.defaultJurisdiction = '';
-          } else {
-            this.defaultJurisdiction = remoteData.values[0];
-          }
-      })
+        if (remoteData === undefined || remoteData.values.length === 0) {
+          // No value configured, use blank value (International jurisdiction)
+          this.defaultJurisdiction = '';
+        } else {
+          this.defaultJurisdiction = remoteData.values[0];
+        }
+      }),
     );
   }
 
@@ -305,7 +306,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    */
   setAccepted(accepted: boolean) {
     this.updateSectionData({
-      accepted
+      accepted,
     });
     this.updateSectionStatus();
   }

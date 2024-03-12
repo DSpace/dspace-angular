@@ -1,11 +1,19 @@
-import { ObjectCollectionComponent } from './object-collection.component';
-import { By } from '@angular/platform-browser';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { of as observableOf } from 'rxjs';
-import { RouterStub } from '../testing/router.stub';
+
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { RouterStub } from '../testing/router.stub';
+import { ObjectCollectionComponent } from './object-collection.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import { ThemeService } from '../theme-support/theme.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
@@ -22,8 +30,8 @@ describe('ObjectCollectionComponent', () => {
   const activatedRouteStub = {
     queryParams: observableOf({
       query: queryParam,
-      scope: scopeParam
-    })
+      scope: scopeParam,
+    }),
   };
   beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
@@ -34,7 +42,7 @@ describe('ObjectCollectionComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         provideMockStore()
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .overrideComponent(ObjectCollectionComponent, {
       remove: {

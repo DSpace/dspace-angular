@@ -1,20 +1,31 @@
-import { SearchResult } from '../../search/models/search-result.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 import { Component } from '@angular/core';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { Observable, of as observableOf } from 'rxjs';
-import { TruncatableService } from '../../truncatable/truncatable.service';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  find,
+  map,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
-import { find, map } from 'rxjs/operators';
-import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
-import { followLink } from '../../utils/follow-link-config.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
 import { Context } from '../../../core/shared/context.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgClass, NgIf, AsyncPipe } from '@angular/common';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { SearchResult } from '../../search/models/search-result.model';
+import { TruncatableService } from '../../truncatable/truncatable.service';
+import { followLink } from '../../utils/follow-link-config.model';
+import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 
 @Component({
     selector: 'ds-sidebar-search-list-element',
@@ -71,7 +82,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     return this.getParent().pipe(
       map((parentRD: RemoteData<DSpaceObject>) => {
         return hasValue(parentRD) && hasValue(parentRD.payload) ? this.dsoNameService.getName(parentRD.payload) : undefined;
-      })
+      }),
     );
   }
 
@@ -82,7 +93,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     if (typeof (this.dso as any).getParentLinkKey === 'function') {
       const propertyName = (this.dso as any).getParentLinkKey();
       return this.linkService.resolveLink(this.dso, followLink(propertyName))[propertyName].pipe(
-        find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204)
+        find((parentRD: RemoteData<ChildHALResource & DSpaceObject>) => parentRD.hasSucceeded || parentRD.statusCode === 204),
       );
     }
     return observableOf(undefined);

@@ -1,12 +1,10 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { JournalIssueListElementComponent } from './journal-issue-list-element.component';
 import { of as observableOf } from 'rxjs';
-import { Item } from '../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
@@ -19,6 +17,9 @@ import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stu
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { JournalIssueListElementComponent } from './journal-issue-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -26,22 +27,22 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'publicationvolume.volumeNumber': [
       {
         language: 'en_US',
-        value: '1234'
-      }
+        value: '1234',
+      },
     ],
     'publicationissue.issueNumber': [
       {
         language: 'en_US',
-        value: '5678'
-      }
-    ]
-  }
+        value: '5678',
+      },
+    ],
+  },
 });
 
 describe('JournalIssueListElementComponent', () => {
@@ -60,9 +61,9 @@ describe('JournalIssueListElementComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(JournalIssueListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

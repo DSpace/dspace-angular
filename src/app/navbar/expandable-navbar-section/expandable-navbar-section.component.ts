@@ -1,14 +1,21 @@
-import { Component, HostListener, Inject, Injector, OnInit } from '@angular/core';
-import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
-import { MenuService } from '../../shared/menu/menu.service';
-import { slide } from '../../shared/animations/slide';
+import {
+  Component,
+  HostListener,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
+
+import { slide } from '../../shared/animations/slide';
 import { HostWindowService } from '../../shared/host-window.service';
+import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { NgComponentOutlet, NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { RouterLinkActive } from '@angular/router';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { Observable } from 'rxjs';
+import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 
 /**
  * Represents an expandable section in the navbar
@@ -45,7 +52,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.isMobile$.pipe(
-      first()
+      first(),
     ).subscribe((isMobile) => {
       // When switching between desktop and mobile active sections should be deactivated
       if (isMobile !== this.wasMobile) {
@@ -59,7 +66,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   constructor(@Inject('sectionDataProvider') menuSection,
               protected menuService: MenuService,
               protected injector: Injector,
-              private windowService: HostWindowService
+              private windowService: HostWindowService,
   ) {
     super(menuSection, menuService, injector);
     this.isMobile$ = this.windowService.isMobile();
@@ -76,7 +83,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    */
   onMouseEnter($event: Event, isActive: boolean) {
     this.isMobile$.pipe(
-      first()
+      first(),
     ).subscribe((isMobile) => {
       if (!isMobile && !isActive && !this.mouseEntered) {
         this.activateSection($event);
@@ -92,7 +99,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    */
   onMouseLeave($event: Event, isActive: boolean) {
     this.isMobile$.pipe(
-      first()
+      first(),
     ).subscribe((isMobile) => {
       if (!isMobile && isActive && this.mouseEntered) {
         this.deactivateSection($event);

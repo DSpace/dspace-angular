@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ForbiddenComponent as BaseComponent } from '../../../../app/forbidden/forbidden.component';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';

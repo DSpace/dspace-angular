@@ -1,12 +1,20 @@
-import { CommunityListElementComponent } from './community-list-element.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Community } from '../../../core/shared/community.model';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { Community } from '../../../core/shared/community.model';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { CommunityListElementComponent } from './community-list-element.component';
 
 let communityListElementComponent: CommunityListElementComponent;
 let fixture: ComponentFixture<CommunityListElementComponent>;
@@ -16,10 +24,10 @@ const mockCommunityWithAbstract: Community = Object.assign(new Community(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }
+        value: 'Short description',
+      },
+    ],
+  },
 });
 
 const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
@@ -27,10 +35,10 @@ const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }
+        value: 'Test title',
+      },
+    ],
+  },
 });
 
 describe('CommunityListElementComponent', () => {
@@ -42,9 +50,9 @@ describe('CommunityListElementComponent', () => {
         { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() }
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(CommunityListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

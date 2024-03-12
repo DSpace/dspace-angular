@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  MediaViewerComponent as BaseComponent
-} from '../../../../../app/item-page/media-viewer/media-viewer.component';
+
+import { MediaViewerComponent as BaseComponent } from '../../../../../app/item-page/media-viewer/media-viewer.component';
 import {
   ThemedMediaViewerImageComponent
 } from '../../../../../app/item-page/media-viewer/media-viewer-image/themed-media-viewer-image.component';

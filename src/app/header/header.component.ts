@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { HostWindowService, WidthCategory, } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +14,6 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterLink } from '@angular/router';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { HostWindowService, WidthCategory } from '../shared/host-window.service';
 
 /**
  * Represents the header with the logo and simple navigation

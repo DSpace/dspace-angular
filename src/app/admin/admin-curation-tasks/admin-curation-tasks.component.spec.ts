@@ -1,8 +1,13 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AdminCurationTasksComponent } from './admin-curation-tasks.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CurationFormComponent } from '../../curation-form/curation-form.component';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { AdminCurationTasksComponent } from './admin-curation-tasks.component';
 
 describe('AdminCurationTasksComponent', () => {
   let comp: AdminCurationTasksComponent;

@@ -1,16 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { of } from 'rxjs';
-import { NgbAccordionModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  NgbAccordionModule,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { BulkAccessBrowseComponent } from './bulk-access-browse.component';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { SelectableObject } from '../../../shared/object-list/selectable-list/selectable-list.service.spec';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { BulkAccessBrowseComponent } from './bulk-access-browse.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
@@ -49,8 +55,8 @@ describe('BulkAccessBrowseComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     })
       .overrideComponent(BulkAccessBrowseComponent, {
         remove: {
@@ -96,7 +102,7 @@ describe('BulkAccessBrowseComponent', () => {
       'elementsPerPage': 5,
       'totalElements': 2,
       'totalPages': 1,
-      'currentPage': 1
+      'currentPage': 1,
     }), [selected1, selected2]);
     const rd = createSuccessfulRemoteDataObject(list);
 

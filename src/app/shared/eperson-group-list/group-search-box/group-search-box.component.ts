@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { Component, EventEmitter, Output, } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { isNotNull } from '../../empty.util';
@@ -58,7 +57,7 @@ export class GroupSearchBoxComponent {
   submit(data: any) {
     const event: SearchEvent = {
       scope: '',
-      query: isNotNull(data) ? data.query : ''
+      query: isNotNull(data) ? data.query : '',
     };
     this.search.emit(event);
   }

@@ -1,11 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  Component,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+} from '@angular/forms';
 import { NgbAccordion, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
 import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
 import { environment } from 'src/environments/environment';
+
 import { FiltersComponent } from '../filters-section/filters-section.component';
 import { FilteredCollections } from './filtered-collections.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -39,7 +46,7 @@ export class FilteredCollectionsComponent {
 
   ngOnInit() {
     this.queryForm = this.formBuilder.group({
-      filters: FiltersComponent.formGroup(this.formBuilder)
+      filters: FiltersComponent.formGroup(this.formBuilder),
     });
   }
 
@@ -58,22 +65,22 @@ export class FilteredCollectionsComponent {
         response => {
           this.results.deserialize(response.payload);
           this.accordionComponent.expand('collections');
-        }
+        },
       );
   }
 
   getFilteredCollections(): Observable<RawRestResponse> {
     let params = this.toQueryString();
     if (params.length > 0) {
-       params = `?${params}`;
+      params = `?${params}`;
     }
-    let scheme = environment.rest.ssl ? 'https' : 'http';
-    let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
+    const scheme = environment.rest.ssl ? 'https' : 'http';
+    const urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
     return this.restService.request(RestRequestMethod.GET, `${urlRestApp}/api/contentreport/filteredcollections${params}`);
   }
 
   private toQueryString(): string {
-    let params = FiltersComponent.toQueryString(this.queryForm.value.filters);
+    const params = FiltersComponent.toQueryString(this.queryForm.value.filters);
     return params;
   }
 

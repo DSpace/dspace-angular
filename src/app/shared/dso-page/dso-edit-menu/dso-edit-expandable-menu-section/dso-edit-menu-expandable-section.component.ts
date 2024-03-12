@@ -1,15 +1,24 @@
 import { Component, Inject, Injector } from '@angular/core';
 import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
 import { MenuService } from '../../../menu/menu.service';
+import {
+  Component,
+  Inject,
+  Injector,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuID } from 'src/app/shared/menu/menu-id.model';
-import { MenuSection } from 'src/app/shared/menu/menu-section.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MenuID } from 'src/app/shared/menu/menu-id.model';
+import { rendersSectionForMenu } from 'src/app/shared/menu/menu-section.decorator';
+import { MenuSection } from 'src/app/shared/menu/menu-section.model';
+import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
+
 import { hasValue } from '../../../empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgComponentOutlet, NgFor, NgIf } from '@angular/common';
 import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { MenuService } from '../../../menu/menu.service';
 
 /**
  * Represents an expandable section in the dso edit menus

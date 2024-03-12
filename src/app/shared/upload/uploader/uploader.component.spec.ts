@@ -1,17 +1,17 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HttpXsrfTokenExtractor } from '@angular/common/http';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { DragService } from '../../../core/drag.service';
-import { UploaderOptions } from './uploader-options.model';
-import { UploaderComponent } from './uploader.component';
-import { FileUploadModule } from 'ng2-file-upload';
-import { TranslateModule } from '@ngx-translate/core';
-import { createTestComponent } from '../../testing/utils.test';
-import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { CookieService } from '../../../core/services/cookie.service';
 import { CookieServiceMock } from '../../mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../mocks/http-xsrf-token-extractor.mock';
+import { createTestComponent } from '../../testing/utils.test';
+import { UploaderComponent } from './uploader.component';
+import { UploaderOptions } from './uploader-options.model';
 
 describe('Chips component', () => {
 
@@ -36,7 +36,7 @@ describe('Chips component', () => {
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
 });
 
   }));
@@ -71,7 +71,7 @@ class TestComponent {
     url: 'http://test',
     authToken: null,
     disableMultipart: false,
-    itemAlias: null
+    itemAlias: null,
   });
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */

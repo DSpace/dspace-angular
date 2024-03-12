@@ -6,26 +6,30 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { EMPTY, of as observableOf } from 'rxjs';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ItemDeleteComponent } from './item-delete.component';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { VarDirective } from '../../../shared/utils/var.directive';
+import { ActivatedRoute, Router, } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { getItemEditRoute } from '../../item-page-routing-paths';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { getItemEditRoute } from '../../item-page-routing-paths';
+import { ItemDeleteComponent } from './item-delete.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import {
@@ -64,9 +68,9 @@ describe('ItemDeleteComponent', () => {
       isWithdrawn: true,
       metadata: {
         'dspace.entity.type': [
-          { value: 'Person' }
-        ]
-      }
+          { value: 'Person' },
+        ],
+      },
     });
 
     itemType = Object.assign(new ItemType(), {
@@ -105,17 +109,17 @@ describe('ItemDeleteComponent', () => {
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}/edit`
+      url: `${itemPageUrl}/edit`,
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      delete: createSuccessfulRemoteDataObject$({})
+      delete: createSuccessfulRemoteDataObject$({}),
     });
 
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject(mockItem)
-      })
+        dso: createSuccessfulRemoteDataObject(mockItem),
+      }),
     };
 
     typesSelection = {
@@ -127,7 +131,7 @@ describe('ItemDeleteComponent', () => {
       {
         getEntityTypeByLabel: createSuccessfulRemoteDataObject$(itemType),
         getEntityTypeRelationships: createSuccessfulRemoteDataObject$(createPaginatedList(types)),
-      }
+      },
     );
 
     objectUpdatesServiceStub = {
@@ -140,13 +144,13 @@ describe('ItemDeleteComponent', () => {
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
         getItemRelationshipsArray: observableOf(relationships),
-      }
+      },
     );
 
     linkService = jasmine.createSpyObj('linkService',
       {
         resolveLinks: relationships[0],
-      }
+      },
     );
 
     notificationsServiceStub = new NotificationsServiceStub();
@@ -165,8 +169,8 @@ describe('ItemDeleteComponent', () => {
       {provide: LinkService, useValue: linkService},
       {provide: ThemeService, useValue: getMockThemeService()}
     ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     })
       .overrideComponent(ItemDeleteComponent, {
         remove: {imports: [ListableObjectComponentLoaderComponent, ModifyItemOverviewComponent,]}
@@ -220,7 +224,7 @@ describe('ItemDeleteComponent', () => {
         (comp as any).entityTypeService = jasmine.createSpyObj('entityTypeService',
           {
             getEntityTypeByLabel: EMPTY,
-          }
+          },
         );
       });
 

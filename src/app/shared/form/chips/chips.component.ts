@@ -1,8 +1,19 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { NgbTooltip, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
+import { BehaviorSubject } from 'rxjs';
+import { Options } from 'sortablejs';
 
+import { DragService } from '../../../core/drag.service';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
 import { DragService } from '../../../core/drag.service';
@@ -55,7 +66,7 @@ export class ChipsComponent implements OnChanges {
       chosenClass: 'm-0',
       dragClass: 'm-0',
       filter: '.chips-sort-ignore',
-      ghostClass: 'm-0'
+      ghostClass: 'm-0',
     };
   }
 
@@ -116,7 +127,7 @@ export class ChipsComponent implements OnChanges {
                   .subscribe((label) => {
                     textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
                   });
-            });
+              });
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);

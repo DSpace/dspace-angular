@@ -1,3 +1,4 @@
+import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.component';
@@ -8,10 +9,10 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../core/data/request.service';
 import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../../core/data/remote-data';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { CommonModule, Location } from '@angular/common';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
   ModifyItemOverviewComponent
@@ -53,7 +54,7 @@ export class WorkflowItemDeleteComponent extends WorkflowItemActionPageDirective
   sendRequest(id: string): Observable<boolean> {
     return this.workflowItemService.delete(id).pipe(
       getFirstCompletedRemoteData(),
-      map((response: RemoteData<NoContent>) => response.hasSucceeded)
+      map((response: RemoteData<NoContent>) => response.hasSucceeded),
     );
   }
 }

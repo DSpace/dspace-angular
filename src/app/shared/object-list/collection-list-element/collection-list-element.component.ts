@@ -8,6 +8,7 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @Component({
     selector: 'ds-collection-list-element',

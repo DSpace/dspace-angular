@@ -1,17 +1,17 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { APP_CONFIG, AppConfig, } from 'src/config/app-config.interface';
 
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { hasValue } from '../../../../shared/empty.util';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { APP_CONFIG, AppConfig } from 'src/config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { hasValue } from '../../../../shared/empty.util';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import {
   ThemedFileDownloadLinkComponent
 } from '../../../../shared/file-download-link/themed-file-download-link.component';
@@ -66,7 +66,7 @@ export class FileSectionComponent implements OnInit {
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
     public dsoNameService: DSONameService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     this.pageSize = this.appConfig.item.bitstream.pageSize;
   }
@@ -101,7 +101,7 @@ export class FileSectionComponent implements OnInit {
     }
     this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
       currentPage: this.currentPage,
-      elementsPerPage: this.pageSize
+      elementsPerPage: this.pageSize,
     }).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {

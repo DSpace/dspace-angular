@@ -1,26 +1,27 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import { ActivatedRoute, Router, } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule, TranslateService, } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { ItemRequestDataService } from '../../core/data/item-request-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { Item } from '../../core/shared/item.model';
+import { ItemRequest } from '../../core/shared/item-request.model';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Item } from '../../core/shared/item.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { GrantRequestCopyComponent } from './grant-request-copy.component';
-import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
@@ -45,20 +46,20 @@ describe('GrantRequestCopyComponent', () => {
   beforeEach(waitForAsync(() => {
     itemRequest = Object.assign(new ItemRequest(), {
       token: 'item-request-token',
-      requestName: 'requester name'
+      requestName: 'requester name',
     });
     user = Object.assign(new EPerson(), {
       metadata: {
         'eperson.firstname': [
           {
-            value: 'first'
-          }
+            value: 'first',
+          },
         ],
         'eperson.lastname': [
           {
-            value: 'last'
-          }
-        ]
+            value: 'last',
+          },
+        ],
       },
       email: 'user-email',
     });
@@ -69,15 +70,15 @@ describe('GrantRequestCopyComponent', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: itemUrl
-          }
+            value: itemUrl,
+          },
         ],
         'dc.title': [
           {
-            value: itemName
-          }
-        ]
-      }
+            value: itemName,
+          },
+        ],
+      },
     });
 
     router = jasmine.createSpyObj('router', {
@@ -112,7 +113,7 @@ describe('GrantRequestCopyComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ThemeService, useValue: getMockThemeService() },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).compileComponents();
   }));
 

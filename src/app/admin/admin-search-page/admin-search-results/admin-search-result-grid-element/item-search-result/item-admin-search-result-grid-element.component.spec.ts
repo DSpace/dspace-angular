@@ -1,32 +1,33 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { FileService } from '../../../../../core/shared/file.service';
 import { Item } from '../../../../../core/shared/item.model';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
-import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import {
   AccessStatusObject
 } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { AuthService } from '../../../../../core/auth/auth.service';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
-import { FileService } from '../../../../../core/shared/file.service';
-import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
-import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
+import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
 import { ListableModule } from '../../../../../core/shared/listable.module';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
@@ -38,13 +39,13 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    }
+    },
   };
 
   const mockAccessStatusDataService = {
     findAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
       return createSuccessfulRemoteDataObject$(new AccessStatusObject());
-    }
+    },
   };
 
   const mockThemeService = getMockThemeService();
@@ -76,7 +77,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
         { provide: FileService, useClass: FileServiceStub },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
 })
       .compileComponents();
   }));

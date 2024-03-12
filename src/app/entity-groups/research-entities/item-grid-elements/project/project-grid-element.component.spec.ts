@@ -1,16 +1,17 @@
 import { Item } from '../../../../core/shared/item.model';
 import { ProjectGridElementComponent } from './project-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { TestBed, waitForAsync, } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { waitForAsync, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
@@ -28,16 +29,16 @@ const mockItem = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.description': [
       {
         language: 'en_US',
-        value: 'The project description'
-      }
-    ]
-  }
+        value: 'The project description',
+      },
+    ],
+  },
 });
 
 describe('ProjectGridElementComponent', () => {
@@ -56,9 +57,9 @@ describe('ProjectGridElementComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(ProjectGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

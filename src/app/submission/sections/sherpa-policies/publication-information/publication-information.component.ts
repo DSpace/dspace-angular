@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, } from '@angular/core';
 
 import { Journal } from '../../../../core/submission/models/sherpa-policies-details.model';
 import { NgForOf, NgIf } from '@angular/common';

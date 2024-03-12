@@ -6,21 +6,21 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of, of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SubmissionEditComponent } from './submission-edit.component';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { SubmissionService } from '../submission.service';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 
 import { RouterStub } from '../../shared/testing/router.stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ItemDataService } from '../../core/data/item-data.service';
 import {
   SubmissionJsonPatchOperationsServiceStub
 } from '../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { SubmissionEditComponent } from './submission-edit.component';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { AuthService } from '../../core/auth/auth.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
@@ -79,7 +79,7 @@ describe('SubmissionEditComponent Component', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         provideMockStore()
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).compileComponents();
   }));
 
@@ -101,7 +101,7 @@ describe('SubmissionEditComponent Component', () => {
 
     route.testParams = { id: submissionId };
     submissionServiceStub.retrieveSubmission.and.returnValue(
-      createSuccessfulRemoteDataObject$(submissionObject)
+      createSuccessfulRemoteDataObject$(submissionObject),
     );
     submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionObject));
     submissionServiceStub.getSubmissionStatus.and.returnValue(observableOf(true));
@@ -120,7 +120,7 @@ describe('SubmissionEditComponent Component', () => {
   it('should redirect to mydspace when an empty SubmissionObject has been retrieved',() => {
 
     route.testParams = { id: submissionId };
-    submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$({})
+    submissionServiceStub.retrieveSubmission.and.returnValue(createSuccessfulRemoteDataObject$({}),
     );
 
     fixture.detectChanges();

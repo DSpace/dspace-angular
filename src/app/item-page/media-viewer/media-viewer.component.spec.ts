@@ -1,24 +1,25 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
+import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { of as observableOf } from 'rxjs';
-import { By } from '@angular/platform-browser';
-import { MediaViewerComponent } from './media-viewer.component';
-import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { MediaViewerComponent } from './media-viewer.component';
 
 describe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
@@ -55,13 +56,13 @@ describe('MediaViewerComponent', () => {
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
     findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(
-      createPaginatedList([mockBitstream])
+      createPaginatedList([mockBitstream]),
     ),
   });
 
   const mockMediaViewerItem: MediaViewerItem = Object.assign(
     new MediaViewerItem(),
-    { bitstream: mockBitstream, format: 'image', thumbnail: null }
+    { bitstream: mockBitstream, format: 'image', thumbnail: null },
   );
 
   beforeEach(waitForAsync(() => {
@@ -109,7 +110,7 @@ describe('MediaViewerComponent', () => {
       const mediaItem = comp.createMediaViewerItem(
         mockBitstream,
         MockBitstreamFormat1,
-        undefined
+        undefined,
       );
       expect(mediaItem).toBeTruthy();
       expect(mediaItem.thumbnail).toBe(null);
@@ -136,7 +137,7 @@ describe('MediaViewerComponent', () => {
       const mediaItem = comp.createMediaViewerItem(
         mockBitstream,
         MockBitstreamFormat1,
-        undefined
+        undefined,
       );
       expect(mediaItem).toBeTruthy();
       expect(mediaItem.thumbnail).toBe(null);
@@ -144,7 +145,7 @@ describe('MediaViewerComponent', () => {
 
     it('should display a default, thumbnail', () => {
       const defaultThumbnail = fixture.debugElement.query(
-        By.css('ds-themed-media-viewer-image')
+        By.css('ds-themed-media-viewer-image'),
       );
       expect(defaultThumbnail.nativeElement).toBeDefined();
     });

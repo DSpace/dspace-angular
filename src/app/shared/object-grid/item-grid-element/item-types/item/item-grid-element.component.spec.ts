@@ -1,17 +1,24 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ItemGridElementComponent } from './item-grid-element.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
-import { Item } from '../../../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
+
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
+import { ItemGridElementComponent } from './item-grid-element.component';
 
 
 
@@ -21,28 +28,28 @@ const mockItem = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'This is an abstract'
-      }
-    ]
-  }
+        value: 'This is an abstract',
+      },
+    ],
+  },
 });
 
 describe('ItemGridElementComponent', () => {
@@ -60,7 +67,7 @@ describe('ItemGridElementComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(ItemGridElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();

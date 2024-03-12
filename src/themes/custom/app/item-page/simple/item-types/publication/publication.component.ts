@@ -1,8 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
-import {
-  listableObjectComponent
-} from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ChangeDetectionStrategy, Component, } from '@angular/core';
 import { Context } from '../../../../../../../app/core/shared/context.model';
 import {
   PublicationComponent as BaseComponent
@@ -47,6 +43,10 @@ import {
   CollectionsComponent
 } from '../../../../../../../app/item-page/field-components/collections/collections.component';
 import { RouterLink } from '@angular/router';
+import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
+import {
+  listableObjectComponent
+} from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * Component that represents a publication Item page

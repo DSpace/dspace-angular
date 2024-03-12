@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  EditCommunitySelectorComponent as BaseComponent
+
+ import { EditCommunitySelectorComponent as BaseComponent
 } from '../../../../../../../app/shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { NgIf } from '@angular/common';
 import { DSOSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/dso-selector.component';

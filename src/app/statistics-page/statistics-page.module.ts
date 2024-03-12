@@ -1,17 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { StatisticsModule } from '../statistics/statistics.module';
+import { NgModule } from '@angular/core';
 import { UsageReportDataService } from '../core/statistics/usage-report-data.service';
-import { SiteStatisticsPageComponent } from './site-statistics-page/site-statistics-page.component';
-import { StatisticsTableComponent } from './statistics-table/statistics-table.component';
-import { ItemStatisticsPageComponent } from './item-statistics-page/item-statistics-page.component';
+import { StatisticsModule } from '../statistics/statistics.module';
 import { CollectionStatisticsPageComponent } from './collection-statistics-page/collection-statistics-page.component';
+import {
+  ThemedCollectionStatisticsPageComponent
+} from './collection-statistics-page/themed-collection-statistics-page.component';
 import { CommunityStatisticsPageComponent } from './community-statistics-page/community-statistics-page.component';
-import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
-import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
+import {
+  ThemedCommunityStatisticsPageComponent
+} from './community-statistics-page/themed-community-statistics-page.component';
+import { ItemStatisticsPageComponent } from './item-statistics-page/item-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
+import { SiteStatisticsPageComponent } from './site-statistics-page/site-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
+import { StatisticsTableComponent } from './statistics-table/statistics-table.component';
 
 const components = [
   StatisticsTableComponent,
@@ -22,7 +25,7 @@ const components = [
   ThemedCollectionStatisticsPageComponent,
   ThemedCommunityStatisticsPageComponent,
   ThemedItemStatisticsPageComponent,
-  ThemedSiteStatisticsPageComponent
+  ThemedSiteStatisticsPageComponent,
 ];
 
 @NgModule({
@@ -34,7 +37,7 @@ const components = [
     providers: [
         UsageReportDataService,
     ],
-    exports: components
+  exports: components,
 })
 
 /**

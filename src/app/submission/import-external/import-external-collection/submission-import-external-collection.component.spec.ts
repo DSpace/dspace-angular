@@ -1,11 +1,12 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
-import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { By } from '@angular/platform-browser';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 
@@ -27,7 +28,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
         SubmissionImportExternalCollectionComponent,
         {provide: ThemeService, useValue: themeService},
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -72,11 +73,11 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       const entry = {
         communities: [
           { id: 'community1' },
-          { id: 'community2' }
+          { id: 'community2' },
         ],
         collection: {
-          id: 'collection'
-        }
+          id: 'collection',
+        },
       } as CollectionListEntry;
       comp.selectObject(entry);
 

@@ -1,8 +1,11 @@
 import { importProvidersFrom, NgModule } from '@angular/core';
-import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
+import {
+  NoPreloading,
+  RouterModule,
+} from '@angular/router';
 
-import { AuthenticatedGuard } from './core/auth/authenticated.guard';
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
@@ -21,21 +24,16 @@ import {
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
-import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
-import { ReloadGuard } from './core/reload/reload.guard';
-import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
+import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
+import { AuthenticatedGuard } from './core/auth/authenticated.guard';
+import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
-import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
-import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
-import {
-  GroupAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import {
-  ThemedPageInternalServerErrorComponent
-} from './page-internal-server-error/themed-page-internal-server-error.component';
+import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
+import { ReloadGuard } from './core/reload/reload.guard';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
-import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
+import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
+import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { Action, StoreConfig, StoreModule } from '@ngrx/store';
@@ -45,6 +43,10 @@ import { submissionReducers, SubmissionState } from './submission/submission.red
 import { submissionEffects } from './submission/submission.effects';
 import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
+import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
+import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
+import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
+import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 
 @NgModule({
   imports: [
@@ -62,126 +64,126 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
             path: 'reload/:rnd',
             component: ThemedPageNotFoundComponent,
             pathMatch: 'full',
-            canActivate: [ReloadGuard]
+            canActivate: [ReloadGuard],
           },
           {
             path: 'home',
             loadChildren: () => import('./home-page/home-page-routes')
               .then((m) => m.ROUTES),
             data: {showBreadcrumbs: false},
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'community-list',
             loadChildren: () => import('./community-list-page/community-list-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'id',
             loadChildren: () => import('./lookup-by-id/lookup-by-id-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'handle',
             loadChildren: () => import('./lookup-by-id/lookup-by-id-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: REGISTER_PATH,
             loadChildren: () => import('./register-page/register-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [SiteRegisterGuard]
+            canActivate: [SiteRegisterGuard],
           },
           {
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard],
           },
           {
             path: COMMUNITY_MODULE_PATH,
             loadChildren: () => import('./community-page/community-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: COLLECTION_MODULE_PATH,
             loadChildren: () => import('./collection-page/collection-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: ITEM_MODULE_PATH,
             loadChildren: () => import('./item-page/item-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'entities/:entity-type',
             loadChildren: () => import('./item-page/item-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: LEGACY_BITSTREAM_MODULE_PATH,
             loadChildren: () => import('./bitstream-page/bitstream-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: BITSTREAM_MODULE_PATH,
             loadChildren: () => import('./bitstream-page/bitstream-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'mydspace',
             loadChildren: () => import('./my-dspace-page/my-dspace-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'search',
             loadChildren: () => import('./search-page/search-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'browse',
             loadChildren: () => import('./browse-by/browse-by-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: NOTIFICATIONS_MODULE_PATH,
             loadChildren: () => import('./admin/admin-notifications/admin-notifications-routes')
               .then((m) => m.ROUTES),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: NOTIFICATIONS_MODULE_PATH,
             loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages-routes')
               .then((m) => m.ROUTES),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'login',
             loadChildren: () => import('./login-page/login-page-routes')
-              .then((m) => m.ROUTES)
+              .then((m) => m.ROUTES),
           },
           {
             path: 'logout',
             loadChildren: () => import('./logout-page/logout-page-routes')
-              .then((m) => m.ROUTES)
+              .then((m) => m.ROUTES),
           },
           {
             path: 'submit',
@@ -192,13 +194,13 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
                 StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
                 EffectsModule.forFeature(submissionEffects),
               )],
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'import-external',
             loadChildren: () => import('./import-external-page/import-external-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'workspaceitems',
@@ -209,7 +211,7 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
                 StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
                 EffectsModule.forFeature(submissionEffects),
               )],
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: WORKFLOW_ITEM_MODULE_PATH,
@@ -220,38 +222,38 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
               )],
             loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: PROFILE_MODULE_PATH,
             loadChildren: () => import('./profile-page/profile-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: PROCESS_MODULE_PATH,
             loadChildren: () => import('./process-page/process-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: SUGGESTION_MODULE_PATH,
             loadChildren: () => import('./suggestions-page/suggestions-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: INFO_MODULE_PATH,
-            loadChildren: () => import('./info/info-routes').then((m) => m.ROUTES)
+            loadChildren: () => import('./info/info-routes').then((m) => m.ROUTES),
           },
           {
             path: REQUEST_COPY_MODULE_PATH,
             loadChildren: () => import('./request-copy/request-copy-routes').then((m) => m.ROUTES),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: FORBIDDEN_PATH,
-            component: ThemedForbiddenComponent
+            component: ThemedForbiddenComponent,
           },
           {
             path: 'statistics',
@@ -262,7 +264,7 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
           {
             path: HEALTH_PAGE_PATH,
             loadChildren: () => import('./health-page/health-page-routes')
-              .then((m) => m.ROUTES)
+              .then((m) => m.ROUTES),
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,
@@ -273,11 +275,11 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
             path: 'subscriptions',
             loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
               .then((m) => m.ROUTES),
-            canActivate: [AuthenticatedGuard]
+            canActivate: [AuthenticatedGuard],
           },
-          {path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent}
-        ]
-      }
+          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
+        ],
+      },
     ], {
       // enableTracing: true,
       useHash: false,
@@ -286,7 +288,7 @@ import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-    })
+    }),
   ],
   exports: [RouterModule],
 })

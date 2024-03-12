@@ -1,13 +1,14 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
-import { Item } from '../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
-import { ProjectListElementComponent } from './project-list-element.component';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { ProjectListElementComponent } from './project-list-element.component';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
@@ -26,10 +27,10 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
-  }
+  },
 });
 
 describe('ProjectListElementComponent', () => {
@@ -48,9 +49,9 @@ describe('ProjectListElementComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: AuthorizationDataService, useValue: {} },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(ProjectListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

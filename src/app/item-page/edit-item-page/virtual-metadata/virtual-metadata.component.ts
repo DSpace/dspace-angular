@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import {Observable} from 'rxjs';
-import {Item} from '../../../core/shared/item.model';
-import {MetadataValue} from '../../../core/shared/metadata.models';
-import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { APP_CONFIG, AppConfig, } from '../../../../config/app-config.interface';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 import { AsyncPipe, NgClass, NgForOf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
@@ -99,7 +100,7 @@ export class VirtualMetadataComponent implements OnInit {
               metadataField: key,
               metadataValue: metadata,
             };
-          })
+          }),
       )
       .reduce((previous, current) => previous.concat(current), []);
   }

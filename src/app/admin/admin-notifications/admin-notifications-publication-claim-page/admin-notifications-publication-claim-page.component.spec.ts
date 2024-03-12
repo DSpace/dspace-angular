@@ -1,11 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  NotificationsSuggestionTargetsPageComponent
-} from '../../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page.component';
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { NotificationsSuggestionTargetsPageComponent } from '../../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page.component';
 
 describe('NotificationsSuggestionTargetsPageComponent', () => {
   let component: NotificationsSuggestionTargetsPageComponent;
@@ -16,12 +18,12 @@ describe('NotificationsSuggestionTargetsPageComponent', () => {
     imports: [
         CommonModule,
         TranslateModule.forRoot(),
-        NotificationsSuggestionTargetsPageComponent
+        NotificationsSuggestionTargetsPageComponent,
     ],
     providers: [
-        NotificationsSuggestionTargetsPageComponent
+        NotificationsSuggestionTargetsPageComponent,
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 })
     .compileComponents();
   }));

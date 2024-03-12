@@ -1,15 +1,40 @@
-import { Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output, OnChanges } from '@angular/core';
-import { RemoteData } from '../../core/data/remote-data';
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { fadeIn, fadeInOut } from '../animations/fade';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { RouteService } from '../../core/services/route.service';
-import { map } from 'rxjs/operators';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../animations/fade';
 import { hasValue } from '../empty.util';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ErrorComponent } from '../error/error.component';
@@ -20,6 +45,9 @@ import { NgClass, NgComponentOutlet, NgIf, AsyncPipe } from '@angular/common';
 import { VarDirective } from '../utils/var.directive';
 import { StartsWithLoaderComponent } from '../starts-with/starts-with-loader.component';
 import { StartsWithType } from '../starts-with/starts-with-type';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { StartsWithType } from '../starts-with/starts-with-decorator';
 
 @Component({
     selector: 'ds-browse-by',
@@ -163,7 +191,7 @@ export class BrowseByComponent implements OnInit, OnChanges, OnDestroy {
     const value$ = this.routeService.getQueryParameterValue('value');
 
     this.shouldDisplayResetButton$ = observableCombineLatest([startsWith$, value$]).pipe(
-      map(([startsWith, value]) => hasValue(startsWith) || hasValue(value))
+      map(([startsWith, value]) => hasValue(startsWith) || hasValue(value)),
     );
   }
 

@@ -1,11 +1,16 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  Input,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { InputSuggestionsComponent } from '../input-suggestions.component';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
-import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { hasValue } from '../../empty.util';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
+import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { NgClass, NgFor, AsyncPipe } from '@angular/common';
 import { DebounceDirective } from '../../utils/debounce.directive';

@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
+import { Component, EventEmitter, Output, } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
+
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoadingComponent } from '../loading/loading.component';
 import { FormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
+import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
 
 @Component({
   selector: 'ds-item-withdrawn-reinstate-modal',

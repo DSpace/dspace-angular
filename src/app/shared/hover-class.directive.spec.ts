@@ -1,7 +1,14 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HoverClassDirective } from './hover-class.directive';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { HoverClassDirective } from './hover-class.directive';
 
 @Component({
     template: `<div dsHoverClass="ds-hover"></div>`,

@@ -4,10 +4,25 @@ import { SearchComponent } from '../shared/search/search.component';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+} from '@angular/core';
+import { Router } from '@angular/router';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
-import { Router } from '@angular/router';
-import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-page.component';
+import { pushInOut } from '../shared/animations/push';
+import { HostWindowService } from '../shared/host-window.service';
+import { SearchComponent } from '../shared/search/search.component';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { SearchLabelsComponent } from '../shared/search/search-labels/search-labels.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';

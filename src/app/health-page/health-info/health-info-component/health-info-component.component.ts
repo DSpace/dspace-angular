@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, } from '@angular/core';
 
-import { HealthInfoComponent } from '../../models/health-component.model';
 import { HealthComponentComponent } from '../../health-panel/health-component/health-component.component';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { HealthInfoComponent } from '../../models/health-component.model';
 
 /**
  * Shows a health info object

@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryModule, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { Observable } from 'rxjs';
+
 import { AuthService } from '../../../core/auth/auth.service';
 import { AsyncPipe } from '@angular/common';
 

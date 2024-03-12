@@ -1,8 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../core/shared/operators';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../../core/shared/operators';
 import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
@@ -13,7 +20,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
     NgIf,
     AsyncPipe
   ],
-  styleUrls: ['./ePerson-data.component.scss']
+  styleUrls: ['./ePerson-data.component.scss'],
 })
 /**
  * Represents the component for displaying ePerson data.
@@ -44,7 +51,7 @@ export class EPersonDataComponent {
     if (this.ePersonId) {
       return this.ePersonDataService.findById(this.ePersonId, true).pipe(
         getFirstCompletedRemoteData(),
-        getRemoteDataPayload()
+        getRemoteDataPayload(),
       );
     }
   }

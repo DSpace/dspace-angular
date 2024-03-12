@@ -1,19 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
+import { Location } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { RouteService } from '../../../core/services/route.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { map } from 'rxjs/operators';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
-import { RequestService } from '../../../core/data/request.service';
-import { Location } from '@angular/common';
+import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { WorkflowItemActionPageComponent } from '../../workflow-item-action-page.component';
 
 /**
  * Abstract component for rendering an advanced claimed task's workflow page

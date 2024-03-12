@@ -1,12 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ListableObject } from '../listable-object.model';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { map, skip, take } from 'rxjs/operators';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { VarDirective } from '../../../utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  map,
+  skip,
+  take,
+} from 'rxjs/operators';
+
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { ListableObject } from '../listable-object.model';
 
 @Component({
     selector: 'ds-selectable-list-item-control',
@@ -47,12 +58,12 @@ export class SelectableListItemControlComponent implements OnInit {
     this.selected$ = this.selectionService.isObjectSelected(this.selectionConfig.listId, this.object);
     this.selected$
       .pipe(skip(1)).subscribe((selected: boolean) => {
-      if (selected) {
-        this.selectObject.emit(this.object);
-      } else {
-        this.deselectObject.emit(this.object);
-      }
-    });
+        if (selected) {
+          this.selectObject.emit(this.object);
+        } else {
+          this.deselectObject.emit(this.object);
+        }
+      });
   }
 
   selectCheckbox(value: boolean) {
@@ -68,16 +79,16 @@ export class SelectableListItemControlComponent implements OnInit {
       const selected$ = this.selectionService.getSelectableList(this.selectionConfig.listId);
       selected$.pipe(
         take(1),
-        map((selected) => selected ? selected.selection : [])
+        map((selected) => selected ? selected.selection : []),
       ).subscribe((selection) => {
-          // First deselect any existing selections, this is a radio button
-          selection.forEach((selectedObject) => {
-            this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
-            this.deselectObject.emit(selectedObject);
-          });
-          this.selectionService.selectSingle(this.selectionConfig.listId, this.object);
-          this.selectObject.emit(this.object);
-        }
+        // First deselect any existing selections, this is a radio button
+        selection.forEach((selectedObject) => {
+          this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
+          this.deselectObject.emit(selectedObject);
+        });
+        this.selectionService.selectSingle(this.selectionConfig.listId, this.object);
+        this.selectObject.emit(this.object);
+      },
       );
     }
   }

@@ -1,7 +1,8 @@
 import { Component, Input, } from '@angular/core';
-import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
+
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getStartsWithComponent } from './starts-with-decorator';
+import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
 import { StartsWithAbstractComponent } from './starts-with-abstract.component';
 import { StartsWithType } from './starts-with-type';
 

@@ -5,17 +5,20 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { Component } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { Item } from '../../../../../core/shared/item.model';
+import { isNotEmpty } from '../../../../../shared/empty.util';
 import {
   SidebarSearchListElementComponent
 } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { isNotEmpty } from '../../../../../shared/empty.util';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { NgClass, NgIf, AsyncPipe } from '@angular/common';
-import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import {
+  TruncatablePartComponent
+} from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)

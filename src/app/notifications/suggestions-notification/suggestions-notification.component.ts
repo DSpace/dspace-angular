@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-
-import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
-import { SuggestionsService } from '../suggestions.service';
+import { Component, OnInit, } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
+import { SuggestionsService } from '../suggestions.service';
 
 /**
  * Show suggestions notification, used on myDSpace and Profile pages
@@ -22,7 +22,7 @@ import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
     NgIf,
     NgForOf
   ],
-  styleUrls: ['./suggestions-notification.component.scss']
+  styleUrls: ['./suggestions-notification.component.scss'],
 })
 export class SuggestionsNotificationComponent implements OnInit {
 
@@ -33,7 +33,7 @@ export class SuggestionsNotificationComponent implements OnInit {
 
   constructor(
     private suggestionTargetsStateService: SuggestionTargetsStateService,
-    private suggestionsService: SuggestionsService
+    private suggestionsService: SuggestionsService,
   ) { }
 
   ngOnInit() {

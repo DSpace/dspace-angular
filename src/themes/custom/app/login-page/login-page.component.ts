@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { LoginPageComponent as BaseComponent } from '../../../../app/login-page/login-page.component';
 import { LogInComponent } from '../../../../app/shared/log-in/log-in.component';
 import { TranslateModule } from '@ngx-translate/core';

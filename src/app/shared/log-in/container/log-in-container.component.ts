@@ -1,5 +1,6 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { AuthMethodTypeComponent, rendersAuthMethodType } from '../methods/log-in.methods-decorator';
+
 import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { NgComponentOutlet } from '@angular/common';
 
@@ -43,7 +44,7 @@ export class LogInContainerComponent implements OnInit {
         { provide: 'authMethodProvider', useFactory: () => (this.authMethod), deps: [] },
         { provide: 'isStandalonePage', useFactory: () => (this.isStandalonePage), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

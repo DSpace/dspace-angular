@@ -1,18 +1,41 @@
 /* eslint-disable max-classes-per-file */
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
+
 import { AppState } from '../../../../../app.reducer';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataRepresentation } from '../../../../../core/shared/metadata-representation/metadata-representation.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
-import { hasValue, isNotEmpty } from '../../../../empty.util';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../../../core/shared/operators';
+import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
+import { SubmissionService } from '../../../../../submission/submission.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../empty.util';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
@@ -73,7 +96,7 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
     public control: UntypedFormControl,
     public group: DynamicFormArrayGroupModel,
     oldIndex?: number,
-    newIndex?: number
+    newIndex?: number,
   ) {
     super(oldIndex, newIndex);
     this.metadataValue = metadataValue;
@@ -170,7 +193,7 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
   constructor(
     private selectableListService: SelectableListService,
     private store: Store<AppState>,
-    private submissionService: SubmissionService
+    private submissionService: SubmissionService,
   ) {
   }
 
@@ -188,7 +211,7 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
       this.subs.push(item$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
-        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
+        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
       ).subscribe((item: Item) => {
         this.relatedItem = item;
         const relationMD: MetadataValue = this.submissionItem.firstMetadata(this.relationshipOptions.metadataField, { value: this.relatedItem.uuid });
@@ -197,7 +220,7 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
 
           const nextValue = Object.assign(
             new ItemMetadataRepresentation(metadataRepresentationMD),
-            this.relatedItem
+            this.relatedItem,
           );
           this.metadataRepresentation$.next(nextValue);
         }

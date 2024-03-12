@@ -1,42 +1,60 @@
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { MenuService } from '../menu/menu.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { Injectable } from '@angular/core';
-import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
-import { Item } from '../../core/shared/item.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
 import {
-  getFirstCompletedRemoteData, getRemoteDataPayload,
-} from '../../core/shared/operators';
-import { map, switchMap } from 'rxjs/operators';
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { getDSORoute } from '../../app-routing-paths';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
+import { Item } from '../../core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
+import { MenuService } from '../menu/menu.service';
 import { MenuID } from '../menu/menu-id.model';
+import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
+import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
 import { MenuItemType } from '../menu/menu-item-type.model';
 import { MenuSection } from '../menu/menu-section.model';
-import { getDSORoute } from '../../app-routing-paths';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
 import { NotificationsService } from '../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { DsoWithdrawnReinstateModalService, REQUEST_REINSTATE, REQUEST_WITHDRAWN } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { RequestParam } from '../../core/cache/models/request-param.model';
-import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
-import { Community } from '../../core/shared/community.model';
-import { Collection } from '../../core/shared/collection.model';
+import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
+import {
+  DsoWithdrawnReinstateModalService,
+  REQUEST_REINSTATE,
+  REQUEST_WITHDRAWN,
+} from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
 
 /**
  * Creates the menus for the dspace object pages
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection[] }> {
 
@@ -50,8 +68,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
-    private auth: AuthService,
-    private correctionTypeDataService: CorrectionTypeDataService
+    private correctionTypeDataService: CorrectionTypeDataService,
   ) {
   }
 
@@ -79,14 +96,14 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               map((menus) => {
                 return {
                   ...route.data?.menu,
-                  [MenuID.DSO_EDIT]: menus
+                  [MenuID.DSO_EDIT]: menus,
                 };
-              })
+              }),
             );
           } else {
-            return observableOf({...route.data?.menu});
+            return observableOf({ ...route.data?.menu });
           }
-        })
+        }),
       );
     }
   }
@@ -98,7 +115,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
     return [
       this.getItemMenu(dso),
       this.getComColMenu(dso),
-      this.getCommonMenu(dso, state)
+      this.getCommonMenu(dso, state),
     ];
   }
 
@@ -118,13 +135,13 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
             model: {
               type: MenuItemType.LINK,
               text: this.getDsoType(dso) + '.page.edit',
-              link: new URLCombiner(getDSORoute(dso), 'edit', 'metadata').toString()
+              link: new URLCombiner(getDSORoute(dso), 'edit', 'metadata').toString(),
             } as LinkMenuItemModel,
             icon: 'pencil-alt',
-            index: 2
+            index: 2,
           },
         ];
-      })
+      }),
     );
   }
 
@@ -133,9 +150,6 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
    */
   protected getItemMenu(dso): Observable<MenuSection[]> {
     if (dso instanceof Item) {
-      const findListTopicOptions: FindListOptions = {
-        searchParams: [new RequestParam('target', dso.uuid)]
-      };
       return combineLatest([
         this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, dso.self),
         this.dsoVersioningModalService.isNewVersionButtonDisabled(dso),
@@ -144,7 +158,7 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
         this.authorizationService.isAuthorized(FeatureID.CanClaimItem, dso.self),
         this.correctionTypeDataService.findByItem(dso.uuid, false).pipe(
           getFirstCompletedRemoteData(),
-          getRemoteDataPayload())
+          getRemoteDataPayload()),
       ]).pipe(
         map(([canCreateVersion, disableVersioning, versionTooltip, canSynchronizeWithOrcid, canClaimItem, correction]) => {
           const isPerson = this.getDsoType(dso) === 'person';
@@ -156,10 +170,10 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
               model: {
                 type: MenuItemType.LINK,
                 text: 'item.page.orcid.tooltip',
-                link: new URLCombiner(getDSORoute(dso), 'orcid').toString()
+                link: new URLCombiner(getDSORoute(dso), 'orcid').toString(),
               } as LinkMenuItemModel,
               icon: 'orcid fab fa-lg',
-              index: 0
+              index: 0,
             },
             {
               id: 'version-dso',
@@ -171,10 +185,10 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 disabled: disableVersioning,
                 function: () => {
                   this.dsoVersioningModalService.openCreateVersionModal(dso);
-                }
+                },
               } as OnClickMenuItemModel,
               icon: 'code-branch',
-              index: 1
+              index: 1,
             },
             {
               id: 'claim-dso',
@@ -185,10 +199,10 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 text: 'item.page.claim.button',
                 function: () => {
                   this.claimResearcher(dso);
-                }
+                },
               } as OnClickMenuItemModel,
               icon: 'hand-paper',
-              index: 3
+              index: 3,
             },
             {
               id: 'withdrawn-item',
@@ -199,10 +213,10 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 text:'item.page.withdrawn',
                 function: () => {
                   this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-withdrawn', dso.isArchived);
-                }
+                },
               } as OnClickMenuItemModel,
               icon: 'eye-slash',
-              index: 4
+              index: 4,
             },
             {
               id: 'reinstate-item',
@@ -213,11 +227,11 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 text:'item.page.reinstate',
                 function: () => {
                   this.dsoWithdrawnReinstateModalService.openCreateWithdrawnReinstateModal(dso, 'request-reinstate', dso.isArchived);
-                }
+                },
               } as OnClickMenuItemModel,
               icon: 'eye',
-              index: 5
-            }
+              index: 5,
+            },
           ];
         }),
       );
@@ -246,13 +260,13 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
                 function: () => {
                   const modalRef = this.modalService.open(SubscriptionModalComponent);
                   modalRef.componentInstance.dso = dso;
-                }
+                },
               } as OnClickMenuItemModel,
               icon: 'bell',
-              index: 4
+              index: 4,
             },
           ];
-        })
+        }),
       );
     } else {
       return observableOf([]);
@@ -297,11 +311,11 @@ export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection
   protected addDsoUuidToMenuIDs(menus, dso) {
     return menus.map((menu) => {
       Object.assign(menu, {
-        id: menu.id + '-' + dso.uuid
+        id: menu.id + '-' + dso.uuid,
       });
       if (hasValue(menu.parentID)) {
         Object.assign(menu, {
-          parentID: menu.parentID + '-' + dso.uuid
+          parentID: menu.parentID + '-' + dso.uuid,
         });
       }
       return menu;

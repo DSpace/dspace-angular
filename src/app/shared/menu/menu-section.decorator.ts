@@ -1,6 +1,6 @@
+import { hasValue } from '../empty.util';
 import { DEFAULT_THEME } from '../object-collection/shared/listable-object/listable-object.decorator';
 import { MenuID } from './menu-id.model';
-import { hasValue } from '../empty.util';
 import {
   ExpandableAdminSidebarSectionComponent
 } from '../../admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
@@ -8,7 +8,9 @@ import {
   AdminSidebarSectionComponent
 } from '../../admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { NavbarSectionComponent } from '../../navbar/navbar-section/navbar-section.component';
-import { ExpandableNavbarSectionComponent } from 'src/app/navbar/expandable-navbar-section/expandable-navbar-section.component';
+import {
+  ExpandableNavbarSectionComponent
+} from 'src/app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import {
   DsoEditMenuSectionComponent
 } from '../dso-page/dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
@@ -50,7 +52,7 @@ export function rendersSectionForMenu(menuID: MenuID, expandable: boolean, theme
       menuComponentMap.set(menuID, new Map());
     }
     if (!menuComponentMap.get(menuID).get(expandable)) {
-        menuComponentMap.get(menuID).set(expandable, new Map());
+      menuComponentMap.get(menuID).set(expandable, new Map());
     }
     menuComponentMap.get(menuID).get(expandable).set(theme, menuSectionWrapperComponent);
   };

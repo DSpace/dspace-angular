@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThumbnailComponent as BaseComponent } from '../../../../app/thumbnail/thumbnail.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 import { CommonModule } from '@angular/common';

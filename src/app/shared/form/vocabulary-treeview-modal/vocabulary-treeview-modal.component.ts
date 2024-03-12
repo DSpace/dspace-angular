@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 
 @Component({
   selector: 'ds-vocabulary-treeview-modal',
@@ -41,6 +42,12 @@ export class VocabularyTreeviewModalComponent {
   @Input() multiSelect = false;
 
   /**
+   * An event fired when a vocabulary entry is selected.
+   * Event's payload equals to {@link VocabularyEntryDetail} selected.
+   */
+  @Output() select: EventEmitter<VocabularyEntryDetail> = new EventEmitter<VocabularyEntryDetail>(null);
+
+  /**
    * Initialize instance variables
    *
    * @param {NgbActiveModal} activeModal
@@ -53,6 +60,7 @@ export class VocabularyTreeviewModalComponent {
    * Method called on entry select
    */
   onSelect(item: VocabularyEntryDetail) {
+    this.select.emit(item);
     this.activeModal.close(item);
   }
 }

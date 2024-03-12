@@ -4,6 +4,7 @@ import {
   Input,
   type OnInit,
 } from '@angular/core';
+
 import { NotifyStatuses } from '../notify-requests-status.model';
 import { RequestStatusEnum } from '../notify-status.enum';
 import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';

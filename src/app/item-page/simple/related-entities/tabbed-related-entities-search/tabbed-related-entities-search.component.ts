@@ -1,13 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Input, OnInit, } from '@angular/core';
+import { ActivatedRoute, Router, } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+
+import { Item } from '../../../../core/shared/item.model';
 
 @Component({
     selector: 'ds-tabbed-related-entities-search',
@@ -62,7 +63,7 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
    */
   ngOnInit(): void {
     this.activeTab$ = this.route.queryParams.pipe(
-      map((params) => params.tab)
+      map((params) => params.tab),
     );
   }
 
@@ -74,9 +75,9 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: {
-        tab: event.nextId
+        tab: event.nextId,
       },
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
   }
 

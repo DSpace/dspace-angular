@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemPageFieldComponent } from '../item-page-field.component';
@@ -41,7 +44,7 @@ export class ItemPageAuthorFieldComponent extends ItemPageFieldComponent {
   fields: string[] = [
     'dc.contributor.author',
     'dc.creator',
-    'dc.contributor'
+    'dc.contributor',
   ];
 
   /**

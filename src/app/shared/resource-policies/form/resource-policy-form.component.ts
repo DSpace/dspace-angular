@@ -1,22 +1,34 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-
-import {
-  Observable,
-  of as observableOf,
-  combineLatest as observableCombineLatest,
-  Subscription,
-  BehaviorSubject
-} from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, } from '@angular/core';
+import { NgbModal, NgbNavChangeEvent, NgbNavModule, } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import { filter, map, take, } from 'rxjs/operators';
 
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
+import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { dateToISOFormat, stringToNgbDateStruct, } from '../../date.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, } from '../../empty.util';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { FormService } from '../../form/form.service';
 import {
   RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG,
   RESOURCE_POLICY_FORM_DATE_GROUP_CONFIG,
@@ -27,21 +39,8 @@ import {
   RESOURCE_POLICY_FORM_NAME_CONFIG,
   RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG,
   RESOURCE_POLICY_FORM_START_DATE_CONFIG,
-  RESOURCE_POLICY_FORM_START_DATE_LAYOUT
+  RESOURCE_POLICY_FORM_START_DATE_LAYOUT,
 } from './resource-policy-form.model';
-import { DsDynamicTextAreaModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { hasValue, isEmpty, isNotEmpty, hasValueOperator } from '../../empty.util';
-import { FormService } from '../../form/form.service';
-import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { RemoteData } from '../../../core/data/remote-data';
-import { dateToISOFormat, stringToNgbDateStruct } from '../../date.util';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { RequestService } from '../../../core/data/request.service';
-import { NgbModal, NgbNavChangeEvent, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormComponent } from '../../form/form.component';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -177,10 +176,10 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
 
     if (this.isBeingEdited()) {
       const epersonRD$ = this.ePersonService.findByHref(this.resourcePolicy._links.eperson.href, false).pipe(
-        getFirstSucceededRemoteData()
+        getFirstSucceededRemoteData(),
       );
       const groupRD$ = this.groupService.findByHref(this.resourcePolicy._links.group.href, false).pipe(
-        getFirstSucceededRemoteData()
+        getFirstSucceededRemoteData(),
       );
       const dsoRD$: Observable<RemoteData<DSpaceObject>> = observableCombineLatest([epersonRD$, groupRD$]).pipe(
         map((rdArr: RemoteData<DSpaceObject>[]) => {
@@ -195,7 +194,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
           this.resourcePolicyGrant = dsoRD.payload;
           this.navActiveId = String(dsoRD.payload.type);
           this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
-        })
+        }),
       );
     }
   }
@@ -207,7 +206,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
    */
   isFormValid(): Observable<boolean> {
     return this.formService.isValid(this.formId).pipe(
-      map((isValid: boolean) => isValid && isNotEmpty(this.resourcePolicyGrant))
+      map((isValid: boolean) => isValid && isNotEmpty(this.resourcePolicyGrant)),
     );
   }
 
@@ -223,16 +222,16 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
       new DsDynamicInputModel(RESOURCE_POLICY_FORM_NAME_CONFIG),
       new DsDynamicTextAreaModel(RESOURCE_POLICY_FORM_DESCRIPTION_CONFIG),
       new DynamicSelectModel(RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG),
-      new DynamicSelectModel(RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG)
+      new DynamicSelectModel(RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG),
     );
 
     const startDateModel = new DynamicDatePickerModel(
       RESOURCE_POLICY_FORM_START_DATE_CONFIG,
-      RESOURCE_POLICY_FORM_START_DATE_LAYOUT
+      RESOURCE_POLICY_FORM_START_DATE_LAYOUT,
     );
     const endDateModel = new DynamicDatePickerModel(
       RESOURCE_POLICY_FORM_END_DATE_CONFIG,
-      RESOURCE_POLICY_FORM_END_DATE_LAYOUT
+      RESOURCE_POLICY_FORM_END_DATE_LAYOUT,
     );
     const dateGroupConfig = Object.assign({}, RESOURCE_POLICY_FORM_DATE_GROUP_CONFIG, { group: [] });
     dateGroupConfig.group.push(startDateModel, endDateModel);
@@ -315,7 +314,7 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
         eventPayload.object = this.createResourcePolicyByFormData(data);
         eventPayload.target = {
           type: this.resourcePolicyGrantType,
-          uuid: this.resourcePolicyGrant.id
+          uuid: this.resourcePolicyGrant.id,
         };
         eventPayload.updateTarget = this.resourcePolicyTargetUpdated;
         this.submit.emit(eventPayload);

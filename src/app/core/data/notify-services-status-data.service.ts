@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
+import {
+  map,
+  Observable,
+  take,
+} from 'rxjs';
+
+import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
+import { NOTIFYREQUEST } from '../../item-page/simple/notify-requests-status/notify-requests-status.resource-type';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
-import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
-import { NOTIFYREQUEST} from '../../item-page/simple/notify-requests-status/notify-requests-status.resource-type';
-import { Observable, map, take } from 'rxjs';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RemoteData } from './remote-data';
 import { GetRequest } from './request.models';
-
+import { RequestService } from './request.service';
 
 @Injectable({providedIn: 'root'})
 @dataService(NOTIFYREQUEST)
@@ -21,7 +25,6 @@ export class NotifyRequestsStatusDataService extends IdentifiableDataService<Not
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected rdb: RemoteDataBuildService,
   ) {
     super('notifyrequests', requestService, rdbService, objectCache, halService);
   }
@@ -41,6 +44,6 @@ export class NotifyRequestsStatusDataService extends IdentifiableDataService<Not
       this.requestService.send(request, true);
     });
 
-    return this.rdb.buildFromHref(href$);
+    return this.rdbService.buildFromHref(href$);
   }
 }

@@ -1,10 +1,20 @@
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Params } from '@angular/router';
+import { combineLatest as observableCombineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
-  getBrowseSearchOptions
+  getBrowseSearchOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { map } from 'rxjs/operators';
@@ -25,6 +35,8 @@ import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-title',
@@ -62,7 +74,7 @@ export class BrowseByTitleComponent extends BrowseByMetadataComponent implements
       observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
-        })
+        }),
       ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         this.startsWith = +params.startsWith || params.startsWith;
         this.browseId = params.id || this.defaultBrowseId;

@@ -1,18 +1,35 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ComcolRoleComponent } from './comcol-role.component';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RequestService } from '../../../../../core/data/request.service';
 import { of as observableOf } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
+
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { RequestService } from '../../../../../core/data/request.service';
+import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
+import { NotificationsService } from '../../../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../remote-data.utils';
+import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
+import { ComcolModule } from '../../../comcol.module';
+import { ComcolRoleComponent } from './comcol-role.component';
 
 describe('ComcolRoleComponent', () => {
 
@@ -30,7 +47,7 @@ describe('ComcolRoleComponent', () => {
   const groupService = {
     findByHref: jasmine.createSpy('findByHref'),
     createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(observableOf({})),
-    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(observableOf({}))
+    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(observableOf({})),
   };
 
   beforeEach(waitForAsync(() => {
@@ -38,16 +55,16 @@ describe('ComcolRoleComponent', () => {
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupService },
         { provide: RequestService, useValue: requestService },
-        { provide: NotificationsService, useClass: NotificationsServiceStub }
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents().then(() => {
       groupService.findByHref.and.callFake((link) => {
         if (link === 'test role link') {
@@ -126,7 +143,7 @@ describe('ComcolRoleComponent', () => {
 
     beforeEach(() => {
       group = {
-        name: 'Anonymous'
+        name: 'Anonymous',
       };
       statusCode = 200;
       comp.comcolRole = comcolRole;
@@ -160,7 +177,7 @@ describe('ComcolRoleComponent', () => {
 
     beforeEach(() => {
       group = {
-        name: 'custom group name'
+        name: 'custom group name',
       };
       statusCode = 200;
       comp.comcolRole = comcolRole;

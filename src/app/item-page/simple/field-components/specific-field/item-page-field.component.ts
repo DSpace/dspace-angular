@@ -1,9 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
-import { map } from 'rxjs/operators';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { Observable } from 'rxjs';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { map } from 'rxjs/operators';
+
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { Item } from '../../../../core/shared/item.model';
 import { getRemoteDataPayload } from '../../../../core/shared/operators';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { AsyncPipe } from '@angular/common';
@@ -26,8 +30,8 @@ import { ImageField } from './image-field';
 })
 export class ItemPageFieldComponent {
 
-    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
-    }
+  constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
+  }
 
     /**
      * The item to display metadata for
@@ -72,7 +76,7 @@ export class ItemPageFieldComponent {
     get browseDefinition(): Observable<BrowseDefinition> {
       return this.browseDefinitionDataService.findByFields(this.fields).pipe(
         getRemoteDataPayload(),
-        map((def) => def)
+        map((def) => def),
       );
     }
 }

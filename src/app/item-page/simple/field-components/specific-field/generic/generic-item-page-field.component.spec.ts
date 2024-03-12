@@ -1,16 +1,17 @@
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
-import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
-import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
-import { GenericItemPageFieldComponent } from './generic-item-page-field.component';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
 import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
+import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
+import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
+import { GenericItemPageFieldComponent } from './generic-item-page-field.component';
 
 let comp: GenericItemPageFieldComponent;
 let fixture: ComponentFixture<GenericItemPageFieldComponent>;
@@ -26,17 +27,17 @@ describe('GenericItemPageFieldComponent', () => {
     imports: [TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+                useClass: TranslateLoaderMock,
+            },
         }), GenericItemPageFieldComponent, MetadataValuesComponent],
     providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 }).overrideComponent(GenericItemPageFieldComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

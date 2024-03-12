@@ -1,9 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import {
   getWorkflowItemDeleteRoute,
-  getWorkflowItemSendBackRoute
+  getWorkflowItemSendBackRoute,
 } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';

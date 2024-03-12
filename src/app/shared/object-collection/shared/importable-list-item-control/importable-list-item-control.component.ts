@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { ListableObject } from '../listable-object.model';
 import { TranslateModule } from '@ngx-translate/core';
 

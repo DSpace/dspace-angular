@@ -1,15 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
@@ -43,7 +52,7 @@ describe('AddBitstreamFormatComponent', () => {
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
       createBitstreamFormat: createSuccessfulRemoteDataObject$({}),
-      clearBitStreamFormatRequests: observableOf(null)
+      clearBitStreamFormatRequests: observableOf(null),
     });
 
     TestBed.configureTestingModule({
@@ -55,7 +64,7 @@ describe('AddBitstreamFormatComponent', () => {
         { provide: FormService, useValue: getMockFormService() },
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .overrideComponent(AddBitstreamFormatComponent, {
       remove: {
@@ -90,7 +99,7 @@ describe('AddBitstreamFormatComponent', () => {
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
         createBitstreamFormat: createFailedRemoteDataObject$('Error', 500),
-        clearBitStreamFormatRequests: observableOf(null)
+        clearBitStreamFormatRequests: observableOf(null),
       });
 
       TestBed.configureTestingModule({
@@ -102,7 +111,7 @@ describe('AddBitstreamFormatComponent', () => {
           { provide: FormService, useValue: getMockFormService() },
           { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       })
       .overrideComponent(AddBitstreamFormatComponent, {
         remove: {

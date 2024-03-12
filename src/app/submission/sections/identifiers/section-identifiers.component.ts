@@ -2,14 +2,15 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 
 import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../models/section-data.model';
-import { SubmissionService } from '../../submission.service';
-import { AlertType } from '../../../shared/alert/alert-type';
-import { SectionsService } from '../sections.service';
+
 import {
   WorkspaceitemSectionIdentifiersObject
 } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
+import { AlertType } from '../../../shared/alert/alert-type';
+import { SubmissionService } from '../../submission.service';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { VarDirective } from '../../../shared/utils/var.directive';
 
@@ -81,7 +82,7 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
   }
 
   ngOnInit() {
-      super.ngOnInit();
+    super.ngOnInit();
   }
 
   /**

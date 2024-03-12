@@ -1,21 +1,22 @@
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { FacetValue } from '../../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+import { Observable, Subscription, } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { FacetValue } from '../../../../models/facet-value.model';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import {
   RANGE_FILTER_MAX_SUFFIX,
-  RANGE_FILTER_MIN_SUFFIX
-} from '../../search-range-filter/search-range-filter-constants';
+  RANGE_FILTER_MIN_SUFFIX,
+} from '../../search-range-filter/search-range-filter.component';
 
 const rangeDelimiter = '-';
 
@@ -71,7 +72,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected paginationService: PaginationService,
   ) {
   }
 
@@ -114,7 +115,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
     this.changeQueryParams = {
       [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
       [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [max],
-      [page]: 1
+      [page]: 1,
     };
   }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  CreateCommunityParentSelectorComponent as BaseComponent
+
+ import { CreateCommunityParentSelectorComponent as BaseComponent
 } from '../../../../../../../app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import { DSOSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/dso-selector.component';
 import { TranslateModule } from '@ngx-translate/core';

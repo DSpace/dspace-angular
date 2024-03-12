@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import {
-  BrowseByTitleComponent as BaseComponent
-} from '../../../../../app/browse-by/browse-by-title/browse-by-title.component';
 import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
 import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
+import { BrowseByTitleComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-title/browse-by-title.component';
 import { Context } from '../../../../../app/core/shared/context.model';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { AsyncPipe, NgIf } from '@angular/common';

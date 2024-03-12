@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
+import { map, Observable, of, } from 'rxjs';
+
 import { NotifyInfoService } from './notify-info.service';
-import { Observable, map, of } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe } from '@angular/common';
@@ -42,7 +43,7 @@ export class NotifyInfoComponent implements OnInit {
         return urls.map(url => `
           <code><a href="${url}" target="_blank"><span class="api-url">${url}</span></a></code>
         `).join(',');
-      })
+      }),
     );
   }
 }

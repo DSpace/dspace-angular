@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  FileDownloadLinkComponent as BaseComponent
-} from '../../../../../app/shared/file-download-link/file-download-link.component';
+
+import { FileDownloadLinkComponent as BaseComponent } from '../../../../../app/shared/file-download-link/file-download-link.component';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';

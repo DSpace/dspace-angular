@@ -1,4 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 
 import { ItemAccessControlComponent } from './item-access-control.component';
 import { of } from 'rxjs';
@@ -38,7 +41,7 @@ describe('ItemAccessControlComponent', () => {
         imports: [AccessControlFormContainerComponent]
       }
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

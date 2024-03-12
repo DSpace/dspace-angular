@@ -1,12 +1,25 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../../core/shared/operators';
-import { Observable, of, tap } from 'rxjs';
-import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  Observable,
+  of,
+  tap,
+} from 'rxjs';
 import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
+
+import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
+import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
 
 @Component({
   selector: 'ds-my-dspace-qa-events-notifications',
@@ -42,16 +55,16 @@ export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
    */
   getSources() {
     this.sources$ = this.qualityAssuranceSourceDataService.getSources()
-    .pipe(
-      getFirstCompletedRemoteData(),
-      tap((rd) => {
-        if (rd.hasFailed) {
-          throw new Error('Can\'t retrieve Quality Assurance sources');
-        }
-      }),
-      getRemoteDataPayload(),
-      getPaginatedListPayload(),
-    );
+      .pipe(
+        getFirstCompletedRemoteData(),
+        tap((rd) => {
+          if (rd.hasFailed) {
+            throw new Error('Can\'t retrieve Quality Assurance sources');
+          }
+        }),
+        getRemoteDataPayload(),
+        getPaginatedListPayload(),
+      );
   }
 
   /**

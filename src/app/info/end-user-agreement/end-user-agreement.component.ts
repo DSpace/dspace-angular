@@ -1,10 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
-import { map, switchMap, take } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { AppState } from '../../app.reducer';
 import { LogOutAction } from '../../core/auth/auth.actions';
+import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -12,6 +25,7 @@ import { of as observableOf } from 'rxjs';
 import { isNotEmpty } from '../../shared/empty.util';
 import { FormsModule } from '@angular/forms';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
     selector: 'ds-end-user-agreement',
@@ -70,7 +84,7 @@ export class EndUserAgreementComponent implements OnInit {
           return observableOf(undefined);
         }
       }),
-      take(1)
+      take(1),
     ).subscribe((redirectUrl) => {
       if (isNotEmpty(redirectUrl)) {
         this.router.navigateByUrl(decodeURIComponent(redirectUrl));

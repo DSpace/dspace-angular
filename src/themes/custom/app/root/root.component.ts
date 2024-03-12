@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { slideSidebarPadding } from '../../../../app/shared/animations/slide';
+
 import { RootComponent as BaseComponent } from '../../../../app/root/root.component';
 import { ThemedAdminSidebarComponent } from '../../../../app/admin/admin-sidebar/themed-admin-sidebar.component';
 import {
@@ -17,6 +17,7 @@ import {
   NotificationsBoardComponent
 } from '../../../../app/shared/notifications/notifications-board/notifications-board.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { slideSidebarPadding } from '../../../../app/shared/animations/slide';
 
 @Component({
   selector: 'ds-root',

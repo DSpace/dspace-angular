@@ -1,14 +1,15 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Item } from '../../core/shared/item.model';
+import { AsyncPipe, isPlatformBrowser, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, PLATFORM_ID, } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl, } from '@angular/platform-browser';
+import { Observable, of, } from 'rxjs';
+import { map, take, } from 'rxjs/operators';
+
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { Observable, of } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { AsyncPipe, isPlatformBrowser, NgIf } from '@angular/common';
-import { MiradorViewerService } from './mirador-viewer.service';
-import { HostWindowService, WidthCategory } from '../../shared/host-window.service';
 import { BundleDataService } from '../../core/data/bundle-data.service';
+import { Item } from '../../core/shared/item.model';
+import { HostWindowService, WidthCategory, } from '../../shared/host-window.service';
+import { MiradorViewerService } from './mirador-viewer.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -112,10 +113,10 @@ export class MiradorViewerComponent implements OnInit {
       // menu by hiding it for smaller viewports. This will not be
       // responsive to resizing.
       this.hostWindowService.widthCategory
-          .pipe(take(1))
-          .subscribe((category: WidthCategory) => {
-            this.notMobile = !(category === WidthCategory.XS || category === WidthCategory.SM);
-          });
+        .pipe(take(1))
+        .subscribe((category: WidthCategory) => {
+          this.notMobile = !(category === WidthCategory.XS || category === WidthCategory.SM);
+        });
 
       // Set the multi property. The default mirador configuration adds a right
       // thumbnail navigation panel to the viewer when multi is 'true'.
@@ -127,7 +128,7 @@ export class MiradorViewerComponent implements OnInit {
         this.iframeViewerUrl = observable.pipe(
           map((val) => {
             return this.setURL();
-          })
+          }),
         );
       } else {
         // Set the multi property based on the image count in IIIF-eligible bundles.
@@ -141,7 +142,7 @@ export class MiradorViewerComponent implements OnInit {
               this.multi = true;
             }
             return this.setURL();
-          })
+          }),
         );
       }
     }

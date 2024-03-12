@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import { Component, OnDestroy, OnInit, TemplateRef, } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
+
 import { hasValue } from '../../shared/empty.util';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -11,6 +11,7 @@ import { AsyncPipe, DatePipe, NgFor, NgIf, NgTemplateOutlet } from '@angular/com
 import { ProcessOverviewService, ProcessSortField } from './process-overview.service';
 import { ProcessStatus } from '../processes/process-status.model';
 import { ProcessOverviewTableComponent } from './table/process-overview-table.component';
+import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 
 @Component({
   selector: 'ds-process-overview',
@@ -75,9 +76,9 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
     }
     this.isProcessingSub = this.processBulkDeleteService.isProcessing$()
       .subscribe((isProcessing) => {
-      if (!isProcessing) {
-        this.closeModal();
-      }
-    });
+        if (!isProcessing) {
+          this.closeModal();
+        }
+      });
   }
 }

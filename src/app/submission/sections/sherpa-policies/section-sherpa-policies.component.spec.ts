@@ -1,22 +1,21 @@
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
-
-import { SectionsService } from '../sections.service';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { BrowserModule, By } from '@angular/platform-browser';
-
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../app.reducer';
-import { SubmissionSectionSherpaPoliciesComponent } from './section-sherpa-policies.component';
-import { SubmissionService } from '../../submission.service';
 import { DebugElement } from '@angular/core';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { of as observableOf } from 'rxjs';
+import { ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { BrowserModule, By, } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Store } from '@ngrx/store';
+import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AppState } from '../../../app.reducer';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { SubmissionService } from '../../submission.service';
+import { SectionsService } from '../sections.service';
+import { SubmissionSectionSherpaPoliciesComponent } from './section-sherpa-policies.component';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
@@ -49,7 +48,7 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
     errorsToShow: [],
     serverValidationErrors: [],
     isLoading: false,
-    isValid: true
+    isValid: true,
   };
 
   describe('SubmissionSectionSherpaPoliciesComponent', () => {
@@ -62,8 +61,8 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+              useClass: TranslateLoaderMock,
+            },
         }),
         NgbCollapseModule,
         SubmissionSectionSherpaPoliciesComponent

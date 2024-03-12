@@ -5,19 +5,24 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-
-import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import difference from 'lodash/difference';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
 
-import { NotificationsService } from '../notifications.service';
+import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { AppState } from '../../../app.reducer';
-import { notificationsStateSelector } from '../selectors';
 import { INotification } from '../models/notification.model';
 import { NotificationsState } from '../notifications.reducers';
-import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { NotificationsService } from '../notifications.service';
+import { notificationsStateSelector } from '../selectors';
 import { NotificationComponent } from '../notification/notification.component';
 import { NgClass, NgFor } from '@angular/common';
 

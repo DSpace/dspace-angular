@@ -1,7 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-
-import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
 
 import { DynamicDisabledModel } from './dynamic-disabled.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -32,7 +40,7 @@ export class DsDynamicDisabledComponent extends DynamicFormControlComponent {
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }

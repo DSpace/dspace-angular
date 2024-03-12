@@ -1,4 +1,10 @@
-import { Directive, AfterViewInit, ElementRef, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  Input,
+} from '@angular/core';
+
 import { isNotEmpty } from '../empty.util';
 
 /**

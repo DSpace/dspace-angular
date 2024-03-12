@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { fadeIn, fadeInOut } from '../../../../../app/shared/animations/fade';
+
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../../../app/shared/animations/fade';
 import { BrowseByComponent as BaseComponent } from '../../../../../app/shared/browse-by/browse-by.component';
 import { VarDirective } from 'src/app/shared/utils/var.directive';
 import { AsyncPipe, NgClass, NgComponentOutlet, NgIf } from '@angular/common';

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import {
   RegisterEmailFormComponent as BaseComponent
 } from '../../../../app/register-email-form/register-email-form.component';

@@ -1,19 +1,20 @@
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { combineLatest as observableCombineLatest, Observable, Subscription, } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
     selector: 'ds-search-facet-option',
@@ -72,7 +73,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected paginationService: PaginationService,
   ) {
   }
 
@@ -114,7 +115,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
     const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
     this.addQueryParams = {
       [this.filterConfig.paramName]: [...selectedValues.map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)), this.getFacetValue()],
-      [page]: 1
+      [page]: 1,
     };
   }
 

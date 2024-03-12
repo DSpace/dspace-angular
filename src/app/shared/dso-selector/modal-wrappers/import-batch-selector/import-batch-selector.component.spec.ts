@@ -1,8 +1,13 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';
@@ -20,7 +25,7 @@ describe('ImportBatchSelectorComponent', () => {
     id: 'fake-id',
     uuid: 'fake-id',
     handle: 'fake/handle',
-    lastModified: '2018'
+    lastModified: '2018',
   });
   const mockCollection: Collection = Object.assign(new Collection(), {
     id: 'test-collection-1-1',
@@ -30,10 +35,10 @@ describe('ImportBatchSelectorComponent', () => {
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'fake/test-collection-1'
-        }
-      ]
-    }
+          value: 'fake/test-collection-1',
+        },
+      ],
+    },
   });
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   beforeEach(waitForAsync(() => {
@@ -45,7 +50,7 @@ describe('ImportBatchSelectorComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ThemeService, useValue: getMockThemeService() },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
 }).compileComponents();
   }));
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ObjectListComponent as BaseComponent } from '../../../../../app/shared/object-list/object-list.component';
 import { PaginationComponent } from '../../../../../app/shared/pagination/pagination.component';
 import { NgClass, NgFor, NgIf } from '@angular/common';

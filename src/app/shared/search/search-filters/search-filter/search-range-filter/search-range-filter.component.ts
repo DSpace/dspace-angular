@@ -1,24 +1,25 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe, isPlatformBrowser, NgFor, NgIf } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription, } from 'rxjs';
+import { map, startWith, } from 'rxjs/operators';
+import { yearFromString } from 'src/app/shared/date.util';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { RouteService } from '../../../../../core/services/route.service';
+import { SearchService } from '../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import {
   FILTER_CONFIG,
-  SCOPE,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
-  SearchFilterService
+  SCOPE,
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { Router } from '@angular/router';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { RouteService } from '../../../../../core/services/route.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../../empty.util';
-import { yearFromString } from 'src/app/shared/date.util';
 import {
   SearchFacetRangeOptionComponent
 } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
@@ -121,7 +122,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
         const minimum = hasValue(min) ? min : this.min;
         const maximum = hasValue(max) ? max : this.max;
         return [minimum, maximum];
-      })
+      }),
     ).subscribe((minmax) => this.range = minmax);
 
     // Default/base config for nouislider
@@ -148,9 +149,9 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       queryParams:
         {
           [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,
-          [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax
+          [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax,
         },
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
     this.filter = '';
   }

@@ -1,20 +1,24 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, } from '@angular/core';
+import { Context } from 'src/app/core/shared/context.model';
+import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 
+import { APP_CONFIG, AppConfig, } from '../../../../../config/app-config.interface';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
 import { SearchResult } from '../../../search/models/search-result.model';
-import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Context } from 'src/app/core/shared/context.model';
-import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
-import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import {
+  ItemCollectionComponent
+} from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
+import {
+  ItemSubmitterComponent
+} from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ThumbnailComponent } from '../../../../thumbnail/thumbnail.component';
-import { NgIf, NgClass, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
 
 /**
  * This component show metadata for the given item object in the list view.

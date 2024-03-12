@@ -1,4 +1,8 @@
-import { Component, Injectable, Input } from '@angular/core';
+import {
+  Component,
+  Injectable,
+  Input,
+} from '@angular/core';
 import { NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 

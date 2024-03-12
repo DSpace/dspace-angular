@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ProfilePageComponent as BaseComponent } from '../../../../app/profile-page/profile-page.component';
 import {
   ProfilePageMetadataFormComponent

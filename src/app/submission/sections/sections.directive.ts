@@ -1,15 +1,27 @@
-import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Directive,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import uniq from 'lodash/uniq';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { SectionsService } from './sections.service';
-import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
-import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { SubmissionService } from '../submission.service';
-import { SectionsType } from './sections-type';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '../../shared/empty.util';
 import { SubmissionSectionError } from '../objects/submission-section-error.model';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
+import { SectionsService } from './sections.service';
+import { SectionsType } from './sections-type';
 
 /**
  * Directive for handling generic section functionality
@@ -141,7 +153,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
               this.submissionService.dispatchSave(this.submissionId);
             }
           }
-        })
+        }),
     );
 
     this.enabled = this.sectionService.isSectionEnabled(this.submissionId, this.sectionId);

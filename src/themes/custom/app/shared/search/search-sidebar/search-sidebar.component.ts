@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 import {
   SearchSidebarComponent as BaseComponent,
 } from '../../../../../../app/shared/search/search-sidebar/search-sidebar.component';
+
 import { SearchConfigurationService } from '../../../../../../app/core/shared/search/search-configuration.service';
 import { NgIf } from '@angular/common';
 import { ViewModeSwitchComponent } from '../../../../../../app/shared/view-mode-switch/view-mode-switch.component';
@@ -34,8 +35,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-d
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
+      useClass: SearchConfigurationService,
+    },
   ],
   standalone: true,
   imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule]

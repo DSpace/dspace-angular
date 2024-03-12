@@ -5,6 +5,8 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SectionsService } from '../sections.service';
 import { SectionDataObject } from '../models/section-data.model';
+import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { filter, map, take, tap, } from 'rxjs/operators';
 
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 
@@ -16,11 +18,9 @@ import {
 import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import {
   LdnService,
-  LdnServiceByPattern
+  LdnServiceByPattern,
 } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
-import { filter, map, take, tap } from 'rxjs/operators';
-import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { LdnPattern } from './submission-coar-notify.config';
 import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
@@ -44,7 +44,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     NgClass,
     InfiniteScrollModule
   ],
-  providers: [NgbDropdown]
+  providers: [NgbDropdown],
 })
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
 
@@ -87,6 +87,8 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   protected subs: Subscription[] = [];
 
+  private filteredServicesByPattern = {};
+
   constructor(protected ldnServicesService: LdnServicesService,
               // protected formOperationsService: SectionFormOperationsService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
@@ -115,7 +117,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
   setCoarNotifyConfig() {
     this.subs.push(
       this.coarNotifyConfigDataService.findAll().pipe(
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       ).subscribe((data) => {
         if (data.hasSucceeded) {
           this.patterns = data.payload.page[0].patterns;
@@ -140,7 +142,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     if (!this.previousServices[pattern]) {
       this.previousServices[pattern] = {
         services: [],
-        allowsMultipleRequests: this.patterns.find(ldnPattern => ldnPattern.pattern === pattern)?.multipleRequest
+        allowsMultipleRequests: this.patterns.find(ldnPattern => ldnPattern.pattern === pattern)?.multipleRequest,
       };
     }
 
@@ -153,11 +155,14 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     if (hasPrevValueStored) {
       // when there is a previous value stored and it is different from the new one
       this.operationsBuilder.flushOperation(this.pathCombiner.getPath([pattern, '-']));
+      if (this.filteredServicesByPattern[pattern]?.includes(this.previousServices[pattern].services[index])){
+        this.operationsBuilder.remove(this.pathCombiner.getPath([pattern, index.toString()]));
+      }
     }
 
-    if (!hasPrevValueStored || (selectedService?.id && hasPrevValueStored) || (!hasValue(selectedService) && hasPrevValueStored)) {
+    if (!hasPrevValueStored || (selectedService?.id && hasPrevValueStored)) {
       // add the path when there is no previous value stored
-      this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), hasValue(selectedService) ? [selectedService.id] : [], false, true);
+      this.operationsBuilder.add(this.pathCombiner.getPath([pattern, '-']), [selectedService.id], false, true);
     }
     // set the previous value to the new value
     this.previousServices[pattern].services[index] = this.ldnServiceByPattern[pattern].services[index];
@@ -182,7 +187,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
               if (!this.ldnServiceByPattern[ldnPattern.pattern]) {
                 this.ldnServiceByPattern[ldnPattern.pattern] = {
                   services: [],
-                  allowsMultipleRequests: ldnPattern.multipleRequest
+                  allowsMultipleRequests: ldnPattern.multipleRequest,
                 };
               }
 
@@ -191,12 +196,12 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
                 this.addService(ldnPattern, selection);
                 return this.sectionData.data[ldnPattern.pattern].includes(service.uuid);
               });
-            })
+            }),
         );
       } else {
         this.ldnServiceByPattern[ldnPattern.pattern] = {
           services: [],
-          allowsMultipleRequests: ldnPattern.multipleRequest
+          allowsMultipleRequests: ldnPattern.multipleRequest,
         };
         this.addService(ldnPattern, null);
       }
@@ -214,7 +219,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
     if (!this.ldnServiceByPattern[ldnPattern.pattern]) {
       this.ldnServiceByPattern[ldnPattern.pattern] = {
         services: [],
-        allowsMultipleRequests: ldnPattern.multipleRequest
+        allowsMultipleRequests: ldnPattern.multipleRequest,
       };
     }
     this.ldnServiceByPattern[ldnPattern.pattern].services.push(newService);
@@ -253,12 +258,20 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
       filter((rd) => rd.hasSucceeded),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
+      tap(res => {
+        if (!this.filteredServicesByPattern[pattern]){
+          this.filteredServicesByPattern[pattern] = [];
+        }
+        if (this.filteredServicesByPattern[pattern].length === 0) {
+          this.filteredServicesByPattern[pattern].push(...res);
+        }
+      }),
       map((res: LdnService[]) => res.filter((service) => {
-          if (!this.hasSectionData){
-            this.hasSectionData = this.hasInboundPattern(service, pattern);
-          }
-          return this.hasInboundPattern(service, pattern);
-        }))
+        if (!this.hasSectionData){
+          this.hasSectionData = this.hasInboundPattern(service, pattern);
+        }
+        return this.hasInboundPattern(service, pattern);
+      })),
     );
   }
 
@@ -308,7 +321,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
             const path = `${pattern}/${index}`;
             return error.path.includes(path);
           });
-        })
+        }),
       );
   }
 
@@ -317,7 +330,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
    */
   protected getSectionStatus(): Observable<boolean> {
     return this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
-      map((validationErrors) => isEmpty(validationErrors)
+      map((validationErrors) => isEmpty(validationErrors),
       ));
   }
 
