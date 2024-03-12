@@ -1,15 +1,28 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { cloneDeep } from 'lodash';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import cloneDeep from 'lodash/cloneDeep';
 import { Observable } from 'rxjs';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../core/shared/operators';
-import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../../core/shared/operators';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 @Component({
   selector: 'ds-item-edit-bitstream',
@@ -21,12 +34,12 @@ import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
  * Creates an embedded view of the contents
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream element)
  */
-export class ItemEditBitstreamComponent implements OnChanges, OnInit {
+export class ItemEditBitstreamComponent implements OnChanges, OnDestroy, OnInit {
 
   /**
    * The view on the bitstream
    */
-  @ViewChild('bitstreamView', {static: true}) bitstreamView;
+  @ViewChild('bitstreamView', { static: true }) bitstreamView;
 
   /**
    * The current field, value and state of the bitstream
@@ -72,6 +85,10 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
     this.viewContainerRef.createEmbeddedView(this.bitstreamView);
   }
 
+  ngOnDestroy(): void {
+    this.viewContainerRef.clear();
+  }
+
   /**
    * Update the current bitstream and its format on changes
    * @param changes
@@ -82,7 +99,7 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
     this.bitstreamDownloadUrl = getBitstreamDownloadRoute(this.bitstream);
     this.format$ = this.bitstream.format.pipe(
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
   }
 

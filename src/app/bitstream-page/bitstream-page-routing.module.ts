@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { EditBitstreamPageComponent } from './edit-bitstream-page/edit-bitstream-page.component';
+
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { BitstreamPageResolver } from './bitstream-page.resolver';
-import { BitstreamDownloadPageComponent } from '../shared/bitstream-download-page/bitstream-download-page.component';
-import { ResourcePolicyTargetResolver } from '../shared/resource-policies/resolvers/resource-policy-target.resolver';
-import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
-import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
-import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
-import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
-import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 import { BitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-breadcrumb.resolver';
 import { BitstreamBreadcrumbsService } from '../core/breadcrumbs/bitstream-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
+import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
+import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
+import { ResourcePolicyTargetResolver } from '../shared/resource-policies/resolvers/resource-policy-target.resolver';
+import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
+import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
+import { BitstreamPageResolver } from './bitstream-page.resolver';
+import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
+import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -28,7 +29,7 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         path: 'handle/:prefix/:suffix/:filename',
         component: BitstreamDownloadPageComponent,
         resolve: {
-          bitstream: LegacyBitstreamUrlResolver
+          bitstream: LegacyBitstreamUrlResolver,
         },
       },
       {
@@ -36,7 +37,7 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         path: ':prefix/:suffix/:sequence_id/:filename',
         component: BitstreamDownloadPageComponent,
         resolve: {
-          bitstream: LegacyBitstreamUrlResolver
+          bitstream: LegacyBitstreamUrlResolver,
         },
       },
       {
@@ -44,17 +45,17 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         path: ':id/download',
         component: BitstreamDownloadPageComponent,
         resolve: {
-          bitstream: BitstreamPageResolver
+          bitstream: BitstreamPageResolver,
         },
       },
       {
         path: EDIT_BITSTREAM_PATH,
-        component: EditBitstreamPageComponent,
+        component: ThemedEditBitstreamPageComponent,
         resolve: {
           bitstream: BitstreamPageResolver,
           breadcrumb: BitstreamBreadcrumbResolver,
         },
-        canActivate: [AuthenticatedGuard]
+        canActivate: [AuthenticatedGuard],
       },
       {
         path: EDIT_BITSTREAM_AUTHORIZATIONS_PATH,
@@ -63,19 +64,19 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
           {
             path: 'create',
             resolve: {
-              resourcePolicyTarget: ResourcePolicyTargetResolver
+              resourcePolicyTarget: ResourcePolicyTargetResolver,
             },
             component: ResourcePolicyCreateComponent,
-            data: { title: 'resource-policies.create.page.title', showBreadcrumbs: true }
+            data: { title: 'resource-policies.create.page.title', showBreadcrumbs: true },
           },
           {
             path: 'edit',
             resolve: {
               breadcrumb: I18nBreadcrumbResolver,
-              resourcePolicy: ResourcePolicyResolver
+              resourcePolicy: ResourcePolicyResolver,
             },
             component: ResourcePolicyEditComponent,
-            data: { breadcrumbKey: 'item.edit', title: 'resource-policies.edit.page.title', showBreadcrumbs: true }
+            data: { breadcrumbKey: 'item.edit', title: 'resource-policies.edit.page.title', showBreadcrumbs: true },
           },
           {
             path: '',
@@ -84,17 +85,17 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
               breadcrumb: BitstreamBreadcrumbResolver,
             },
             component: BitstreamAuthorizationsComponent,
-            data: { title: 'bitstream.edit.authorizations.title', showBreadcrumbs: true }
-          }
-        ]
-      }
-    ])
+            data: { title: 'bitstream.edit.authorizations.title', showBreadcrumbs: true },
+          },
+        ],
+      },
+    ]),
   ],
   providers: [
     BitstreamPageResolver,
     BitstreamBreadcrumbResolver,
-    BitstreamBreadcrumbsService
-  ]
+    BitstreamBreadcrumbsService,
+  ],
 })
 export class BitstreamPageRoutingModule {
 }

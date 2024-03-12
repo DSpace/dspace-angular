@@ -3,6 +3,6 @@
    [queryParams]="changeQueryParams" queryParamsHandling="merge">
   <span class="filter-value px-1">{{filterValue.label}}</span>
   <span class="float-right filter-value-count ml-auto">
-                        <span class="badge badge-secondary badge-pill">{{filterValue.count}}</span>
-                    </span>
+    <span class="badge badge-secondary badge-pill">{{filterValue.count | dsShortNumber}}</span>
+  </span>
 </a>

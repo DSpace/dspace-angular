@@ -1,11 +1,19 @@
-import { Component, Input } from '@angular/core';
-import { Collection } from '../../../core/shared/collection.model';
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
-import { hasNoValue, hasValue } from '../../empty.util';
-import { followLink } from '../../utils/follow-link-config.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../empty.util';
+import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { followLink } from '../../utils/follow-link-config.model';
 
 /**
  * Component representing a grid element for collection
@@ -21,8 +29,11 @@ export class CollectionGridElementComponent extends AbstractListableElementCompo
 > {
   private _object: Collection;
 
-  constructor(private linkService: LinkService) {
-    super();
+  constructor(
+    public dsoNameService: DSONameService,
+    private linkService: LinkService,
+  ) {
+    super(dsoNameService);
   }
 
   // @ts-ignore
@@ -31,7 +42,7 @@ export class CollectionGridElementComponent extends AbstractListableElementCompo
     if (hasValue(this._object) && hasNoValue(this._object.logo)) {
       this.linkService.resolveLink<Collection>(
         this._object,
-        followLink('logo')
+        followLink('logo'),
       );
     }
   }

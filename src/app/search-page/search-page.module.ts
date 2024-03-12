@@ -1,24 +1,22 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { CoreModule } from '../core/core.module';
-import { SharedModule } from '../shared/shared.module';
-import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
-import { SearchTrackerComponent } from './search-tracker.component';
-import { StatisticsModule } from '../statistics/statistics.module';
-import { SearchPageComponent } from './search-page.component';
-import { SidebarFilterService } from '../shared/sidebar/filter/sidebar-filter.service';
-import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
-import { ThemedSearchPageComponent } from './themed-search-page.component';
 import { SearchModule } from '../shared/search/search.module';
+import { SharedModule } from '../shared/shared.module';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
+import { StatisticsModule } from '../statistics/statistics.module';
+import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
+import { SearchPageComponent } from './search-page.component';
+import { ThemedSearchPageComponent } from './themed-search-page.component';
 
 const components = [
   SearchPageComponent,
-  SearchTrackerComponent,
-  ThemedSearchPageComponent
+  ThemedSearchPageComponent,
 ];
 
 @NgModule({
@@ -29,17 +27,16 @@ const components = [
     CoreModule.forRoot(),
     StatisticsModule.forRoot(),
     JournalEntitiesModule.withEntryComponents(),
-    ResearchEntitiesModule.withEntryComponents()
+    ResearchEntitiesModule.withEntryComponents(),
   ],
   declarations: components,
   providers: [
     SidebarService,
-    SidebarFilterService,
     SearchFilterService,
     ConfigurationSearchPageGuard,
-    SearchConfigurationService
+    SearchConfigurationService,
   ],
-  exports: components
+  exports: components,
 })
 
 /**

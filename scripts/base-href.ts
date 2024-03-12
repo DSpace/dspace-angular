@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import { existsSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 import { AppConfig } from '../src/config/app-config.interface';
@@ -16,7 +16,7 @@ const appConfig: AppConfig = buildAppConfig();
 
 const angularJsonPath = join(process.cwd(), 'angular.json');
 
-if (!fs.existsSync(angularJsonPath)) {
+if (!existsSync(angularJsonPath)) {
   console.error(`Error:\n${angularJsonPath} does not exist\n`);
   process.exit(1);
 }
@@ -30,7 +30,7 @@ try {
 
   angularJson.projects['dspace-angular'].architect.build.options.baseHref = baseHref;
 
-  fs.writeFileSync(angularJsonPath, JSON.stringify(angularJson, null, 2) + '\n');
+  writeFileSync(angularJsonPath, JSON.stringify(angularJson, null, 2) + '\n');
 } catch (e) {
   console.error(e);
 }

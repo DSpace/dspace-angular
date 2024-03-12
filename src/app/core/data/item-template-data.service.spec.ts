@@ -1,22 +1,26 @@
-import { ItemTemplateDataService } from './item-template-data.service';
-import { RestResponse } from '../cache/response.models';
-import { RequestService } from './request.service';
-import { Observable, of as observableOf } from 'rxjs';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { BrowseService } from '../browse/browse.service';
 import { cold } from 'jasmine-marbles';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CollectionDataService } from './collection-data.service';
-import { RestRequestMethod } from './rest-request-method';
-import { Item } from '../shared/item.model';
-import { RestRequest } from './rest-request.model';
+import { BrowseService } from '../browse/browse.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core-state.model';
-import { RequestEntry } from './request-entry.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
 import { testCreateDataImplementation } from './base/create-data.spec';
-import { testPatchDataImplementation } from './base/patch-data.spec';
 import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { CollectionDataService } from './collection-data.service';
+import { ItemTemplateDataService } from './item-template-data.service';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
+import { RestRequest } from './rest-request.model';
+import { RestRequestMethod } from './rest-request-method';
 import createSpyObj = jasmine.createSpyObj;
 
 describe('ItemTemplateDataService', () => {
@@ -46,7 +50,7 @@ describe('ItemTemplateDataService', () => {
     },
     commit(method?: RestRequestMethod) {
       // Do nothing
-    }
+    },
   } as RequestService;
   const rdbService = {} as RemoteDataBuildService;
   const store = {} as Store<CoreState>;
@@ -62,18 +66,18 @@ describe('ItemTemplateDataService', () => {
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
       return cold('a', { a: itemEndpoint });
-    }
+    },
   } as HALEndpointService;
   const notificationsService = {} as NotificationsService;
   const comparator = {
     diff(first, second) {
       return [{}];
-    }
+    },
   } as any;
   const collectionService = {
     getIDHrefObs(id): Observable<string> {
       return observableOf(collectionEndpoint);
-    }
+    },
   } as CollectionDataService;
 
   function initTestService() {

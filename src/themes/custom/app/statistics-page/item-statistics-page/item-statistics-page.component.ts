@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ItemStatisticsPageComponent as BaseComponent } from '../../../../../app/statistics-page/item-statistics-page/item-statistics-page.component';
 
 @Component({
@@ -6,7 +7,7 @@ import { ItemStatisticsPageComponent as BaseComponent } from '../../../../../app
   // styleUrls: ['./item-statistics-page.component.scss'],
   styleUrls: ['../../../../../app/statistics-page/item-statistics-page/item-statistics-page.component.scss'],
   // templateUrl: './item-statistics-page.component.html',
-  templateUrl: '../../../../../app/statistics-page/statistics-page/statistics-page.component.html'
+  templateUrl: '../../../../../app/statistics-page/statistics-page/statistics-page.component.html',
 })
 
 /**

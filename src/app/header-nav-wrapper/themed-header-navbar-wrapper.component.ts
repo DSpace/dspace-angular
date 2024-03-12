@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { HeaderNavbarWrapperComponent } from './header-navbar-wrapper.component';
 
 /**
- * Themed wrapper for BreadcrumbsComponent
+ * Themed wrapper for {@link HeaderNavbarWrapperComponent}
  */
 @Component({
   selector: 'ds-themed-header-navbar-wrapper',
-  styleUrls: ['./themed-header-navbar-wrapper.component.scss'],
+  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
 })
 export class ThemedHeaderNavbarWrapperComponent extends ThemedComponent<HeaderNavbarWrapperComponent> {
@@ -20,6 +21,6 @@ export class ThemedHeaderNavbarWrapperComponent extends ThemedComponent<HeaderNa
   }
 
   protected importUnthemedComponent(): Promise<any> {
-    return import(`./header-navbar-wrapper.component`);
+    return import('./header-navbar-wrapper.component');
   }
 }

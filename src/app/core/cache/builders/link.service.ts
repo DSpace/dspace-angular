@@ -1,19 +1,31 @@
-import { Inject, Injectable, Injector } from '@angular/core';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
+import {
+  Inject,
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  EMPTY,
+  Observable,
+} from 'rxjs';
+
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
+import { HALDataService } from '../../data/base/hal-data-service.interface';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
-import { DATA_SERVICE_FACTORY } from '../../data/base/data-service.decorator';
+import { ResourceType } from '../../shared/resource-type';
 import {
   LINK_DEFINITION_FACTORY,
   LINK_DEFINITION_MAP_FACTORY,
   LinkDefinition,
 } from './build-decorators';
-import { RemoteData } from '../../data/remote-data';
-import { EMPTY, Observable } from 'rxjs';
-import { ResourceType } from '../../shared/resource-type';
-import { HALDataService } from '../../data/base/hal-data-service.interface';
-import { PaginatedList } from '../../data/paginated-list.model';
 
 /**
  * A Service to handle the resolving and removing
@@ -60,7 +72,7 @@ export class LinkService {
       const provider = this.getDataServiceFor(matchingLinkDef.resourceType);
 
       if (hasNoValue(provider)) {
-        throw new Error(`The @link() for ${linkToFollow.name} on ${model.constructor.name} models uses the resource type ${matchingLinkDef.resourceType.value.toUpperCase()}, but there is no service with an @dataService(${matchingLinkDef.resourceType.value.toUpperCase()}) annotation in order to retrieve it`);
+        throw new Error(`The @link() for ${String(linkToFollow.name)} on ${model.constructor.name} models uses the resource type ${matchingLinkDef.resourceType.value.toUpperCase()}, but there is no service with an @dataService(${matchingLinkDef.resourceType.value.toUpperCase()}) annotation in order to retrieve it`);
       }
 
       const service: HALDataService<any> = Injector.create({
@@ -79,12 +91,12 @@ export class LinkService {
             return service.findByHref(href, linkToFollow.useCachedVersionIfAvailable, linkToFollow.reRequestOnStale, ...linkToFollow.linksToFollow);
           }
         } catch (e) {
-          console.error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} at ${href}`);
+          console.error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${String(linkToFollow.name)} at ${href}`);
           throw e;
         }
       }
     } else if (!linkToFollow.isOptional) {
-      throw new Error(`followLink('${linkToFollow.name}') was used as a required link for a ${model.constructor.name}, but there is no property on ${model.constructor.name} models with an @link() for ${linkToFollow.name}`);
+      throw new Error(`followLink('${String(linkToFollow.name)}') was used as a required link for a ${model.constructor.name}, but there is no property on ${model.constructor.name} models with an @link() for ${String(linkToFollow.name)}`);
     }
 
     return EMPTY;

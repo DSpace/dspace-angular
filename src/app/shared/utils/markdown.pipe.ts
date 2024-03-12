@@ -1,14 +1,36 @@
-import { Inject, InjectionToken, Pipe, PipeTransform } from '@angular/core';
-import MarkdownIt from 'markdown-it';
-import * as sanitizeHtml from 'sanitize-html';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {
+  Inject,
+  InjectionToken,
+  Pipe,
+  PipeTransform,
+  SecurityContext,
+} from '@angular/core';
+import {
+  DomSanitizer,
+  SafeHtml,
+} from '@angular/platform-browser';
+
 import { environment } from '../../../environments/environment';
+
+const markdownItLoader = async () => (await import('markdown-it')).default;
+type LazyMarkdownIt = ReturnType<typeof markdownItLoader>;
+const MARKDOWN_IT = new InjectionToken<LazyMarkdownIt>(
+  'Lazily loaded MarkdownIt',
+  { providedIn: 'root', factory: markdownItLoader },
+);
 
 const mathjaxLoader = async () => (await import('markdown-it-mathjax3')).default;
 type Mathjax = ReturnType<typeof mathjaxLoader>;
 const MATHJAX = new InjectionToken<Mathjax>(
   'Lazily loaded mathjax',
-  { providedIn: 'root', factory: mathjaxLoader }
+  { providedIn: 'root', factory: mathjaxLoader },
+);
+
+const sanitizeHtmlLoader = async () => (await import('sanitize-html') as any).default;
+type SanitizeHtml = ReturnType<typeof sanitizeHtmlLoader>;
+const SANITIZE_HTML = new InjectionToken<SanitizeHtml>(
+  'Lazily loaded sanitize-html',
+  { providedIn: 'root', factory: sanitizeHtmlLoader },
 );
 
 /**
@@ -25,13 +47,15 @@ const MATHJAX = new InjectionToken<Mathjax>(
  *   </span>
  */
 @Pipe({
-  name: 'dsMarkdown'
+  name: 'dsMarkdown',
 })
 export class MarkdownPipe implements PipeTransform {
 
   constructor(
     protected sanitizer: DomSanitizer,
+    @Inject(MARKDOWN_IT) private markdownIt: LazyMarkdownIt,
     @Inject(MATHJAX) private mathjax: Mathjax,
+    @Inject(SANITIZE_HTML) private sanitizeHtml: SanitizeHtml,
   ) {
   }
 
@@ -39,45 +63,62 @@ export class MarkdownPipe implements PipeTransform {
     if (!environment.markdown.enabled) {
       return value;
     }
+    const MarkdownIt = await this.markdownIt;
     const md = new MarkdownIt({
       html: true,
       linkify: true,
     });
+
+    let html: string;
     if (environment.markdown.mathjax) {
       md.use(await this.mathjax);
-    }
-    return this.sanitizer.bypassSecurityTrustHtml(
-      sanitizeHtml(md.render(value), {
+      const sanitizeHtml = await this.sanitizeHtml;
+      html = sanitizeHtml(md.render(value), {
         // sanitize-html doesn't let through SVG by default, so we extend its allowlists to cover MathJax SVG
         allowedTags: [
           ...sanitizeHtml.defaults.allowedTags,
-          'mjx-container', 'svg', 'g', 'path', 'rect', 'text'
+          'mjx-container', 'svg', 'g', 'path', 'rect', 'text',
+          // Also let the mjx-assistive-mml tag (and it's children) through (for screen readers)
+          'mjx-assistive-mml', 'math', 'mrow', 'mi',
         ],
         allowedAttributes: {
           ...sanitizeHtml.defaults.allowedAttributes,
           'mjx-container': [
-            'class', 'style', 'jax'
+            'class', 'style', 'jax',
           ],
           svg: [
-            'xmlns', 'viewBox', 'style', 'width', 'height', 'role', 'focusable', 'alt', 'aria-label'
+            'xmlns', 'viewBox', 'style', 'width', 'height', 'role', 'focusable', 'alt', 'aria-label',
           ],
           g: [
-            'data-mml-node', 'style', 'stroke', 'fill', 'stroke-width', 'transform'
+            'data-mml-node', 'style', 'stroke', 'fill', 'stroke-width', 'transform',
           ],
           path: [
-            'd', 'style', 'transform'
+            'd', 'style', 'transform',
           ],
           rect: [
-            'width', 'height', 'x', 'y', 'transform', 'style'
+            'width', 'height', 'x', 'y', 'transform', 'style',
           ],
           text: [
-            'transform', 'font-size'
-          ]
+            'transform', 'font-size',
+          ],
+          'mjx-assistive-mml': [
+            'unselectable', 'display', 'style',
+          ],
+          math: [
+            'xmlns',
+          ],
+          mrow: [
+            'data-mjx-texclass',
+          ],
         },
         parser: {
           lowerCaseAttributeNames: false,
         },
-      })
-    );
+      });
+    } else {
+      html = this.sanitizer.sanitize(SecurityContext.HTML, md.render(value));
+    }
+
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 }

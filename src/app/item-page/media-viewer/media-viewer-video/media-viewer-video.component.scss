@@ -1,4 +1,10 @@
 video {
-  width: 340px;
-  height: 279px;
+  width: 100%;
+  height: auto;
+  max-width: 340px;
+}
+
+.buttons {
+  display: flex;
+  gap: .25rem;
 }

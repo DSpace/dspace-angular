@@ -1,8 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import {
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
 import { DynamicNGBootstrapCheckboxComponent } from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { DynamicCustomSwitchModel } from './custom-switch.model';
 
@@ -24,7 +31,7 @@ export class CustomSwitchComponent extends DynamicNGBootstrapCheckboxComponent {
   /**
    * The formgroup containing this component
    */
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
 
   /**
    * The model used for displaying the switch

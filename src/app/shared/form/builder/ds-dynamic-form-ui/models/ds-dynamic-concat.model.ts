@@ -1,12 +1,20 @@
-import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
-
+import {
+  DynamicFormControlLayout,
+  DynamicFormControlRelation,
+  DynamicFormGroupModel,
+  DynamicFormGroupModelConfig,
+  serializable,
+} from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { hasNoValue, isNotEmpty } from '../../../../empty.util';
-import { DsDynamicInputModel } from './ds-dynamic-input.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
 export const CONCAT_FIRST_INPUT_SUFFIX = '_CONCAT_FIRST_INPUT';
@@ -16,6 +24,7 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   separator: string;
   value?: any;
   hint?: string;
+  typeBindRelations?: DynamicFormControlRelation[];
   relationship?: RelationshipOptions;
   repeatable: boolean;
   required: boolean;
@@ -29,6 +38,8 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
 
   @serializable() separator: string;
   @serializable() hasLanguages = false;
+  @serializable() typeBindRelations: DynamicFormControlRelation[];
+  @serializable() typeBindHidden = false;
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
   @serializable() required?: boolean;
@@ -37,6 +48,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() submissionId: string;
   @serializable() hasSelectableMetadata: boolean;
   @serializable() metadataValue: MetadataValue;
+  @serializable() readOnly?: boolean;
 
   isCustomGroup = true;
   valueUpdates: Subject<string>;
@@ -55,6 +67,8 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.metadataValue = config.metadataValue;
     this.valueUpdates = new Subject<string>();
     this.valueUpdates.subscribe((value: string) => this.value = value);
+    this.typeBindRelations = config.typeBindRelations ? config.typeBindRelations : [];
+    this.readOnly = config.disabled;
   }
 
   get value() {
@@ -74,7 +88,6 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   }
 
   set value(value: string | FormFieldMetadataValueObject) {
-    let values;
     let tempValue: string;
 
     if (typeof value === 'string') {
@@ -85,15 +98,19 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     if (hasNoValue(tempValue)) {
       tempValue = '';
     }
-    values = [...tempValue.split(this.separator), null].map((v) =>
+
+    // todo: this used to be valid, but results in a type error now -- REMEMBER TO INVESTIGATE!
+    const values = [...tempValue.split(this.separator), null].map((v) =>
       Object.assign(new FormFieldMetadataValueObject(), value, { display: v, value: v }));
 
     if (values[0].value) {
+      // @ts-ignore
       (this.get(0) as DsDynamicInputModel).value = values[0];
     } else {
       (this.get(0) as DsDynamicInputModel).value = undefined;
     }
     if (values[1].value) {
+      // @ts-ignore
       (this.get(1) as DsDynamicInputModel).value = values[1];
     } else {
       (this.get(1) as DsDynamicInputModel).value = undefined;

@@ -1,17 +1,31 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
-import { FormGroup } from '@angular/forms';
-import { hasValue, isEmpty } from '../../shared/empty.util';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-profile-page-security-form',
-  templateUrl: './profile-page-security-form.component.html'
+  templateUrl: './profile-page-security-form.component.html',
 })
 /**
  * Component for a user to edit their security information
@@ -39,31 +53,33 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     new DynamicInputModel({
       id: 'password',
       name: 'password',
-      inputType: 'password'
+      inputType: 'password',
+      autoComplete: 'new-password',
     }),
     new DynamicInputModel({
       id: 'passwordrepeat',
       name: 'passwordrepeat',
-      inputType: 'password'
-    })
+      inputType: 'password',
+      autoComplete: 'new-password',
+    }),
   ];
 
   /**
    * The form group of this form
    */
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   /**
    * Indicates whether the "checkPasswordEmpty" needs to be added or not
    */
   @Input()
-  passwordCanBeEmpty = true;
+    passwordCanBeEmpty = true;
 
   /**
    * Prefix for the form's label messages of this component
    */
   @Input()
-  FORM_PREFIX: string;
+    FORM_PREFIX: string;
 
   private subs: Subscription[] = [];
 
@@ -79,7 +95,8 @@ export class ProfilePageSecurityFormComponent implements OnInit {
         id: 'current-password',
         name: 'current-password',
         inputType: 'password',
-        required: true
+        required: true,
+        autoComplete: 'current-password',
       }));
     }
     if (this.passwordCanBeEmpty) {
@@ -98,8 +115,8 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     this.subs.push(
       this.formGroup.statusChanges.pipe(
         debounceTime(300),
-        map((status: string) => status !== 'VALID')
-      ).subscribe((status) => this.isInvalid.emit(status))
+        map((status: string) => status !== 'VALID'),
+      ).subscribe((status) => this.isInvalid.emit(status)),
     );
 
     this.subs.push(this.formGroup.valueChanges.pipe(
@@ -119,7 +136,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     this.formModel.forEach(
       (fieldModel: DynamicInputModel) => {
         fieldModel.label = this.translate.instant(this.FORM_PREFIX + 'label.' + fieldModel.id);
-      }
+      },
     );
   }
 
@@ -127,7 +144,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    * Check if both password fields are filled in and equal
    * @param group The FormGroup to validate
    */
-  checkPasswordsEqual(group: FormGroup) {
+  checkPasswordsEqual(group: UntypedFormGroup) {
     const pass = group.get('password').value;
     const repeatPass = group.get('passwordrepeat').value;
 
@@ -138,7 +155,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    * Checks if the password is empty
    * @param group The FormGroup to validate
    */
-  checkPasswordEmpty(group: FormGroup) {
+  checkPasswordEmpty(group: UntypedFormGroup) {
     const pass = group.get('password').value;
     return isEmpty(pass) ? { emptyPassword: true } : null;
   }

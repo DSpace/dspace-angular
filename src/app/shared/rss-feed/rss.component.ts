@@ -3,21 +3,28 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { environment } from '../../../../src/environments/environment';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { environment } from '../../../../src/environments/environment';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 
 
 /**
@@ -29,17 +36,16 @@ import { RemoteData } from '../../core/data/remote-data';
   styleUrls: ['rss.component.scss'],
   templateUrl: 'rss.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 export class RSSComponent implements OnInit, OnDestroy  {
 
-  route$: BehaviorSubject<string>;
+  route$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   uuid: string;
   configuration$: Observable<string>;
-  sortOption$: Observable<SortOptions>;
 
   subs: Subscription[] = [];
 
@@ -85,23 +91,23 @@ export class RSSComponent implements OnInit, OnDestroy  {
       }),
       switchMap((openSearchUri: string) =>
         this.searchConfigurationService.paginatedSearchOptions.pipe(
-          map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions }))
-        )
+          map((searchOptions: PaginatedSearchOptions) => ({ openSearchUri,  searchOptions })),
+        ),
       ),
     ).subscribe(({ openSearchUri,  searchOptions }) => {
       if (!openSearchUri) {
         return null;
       }
       this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
-      const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.sort, searchOptions.query);
+      const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.query);
       this.addLinks(route);
       this.linkHeadService.addTag({
         href: environment.rest.baseUrl + '/' + openSearchUri + '/service',
         type: 'application/atom+xml',
         rel: 'search',
-        title: 'Dspace'
+        title: 'Dspace',
       });
-      this.route$ = new BehaviorSubject<string>(route);
+      this.route$.next(route);
     }));
   }
 
@@ -109,24 +115,20 @@ export class RSSComponent implements OnInit, OnDestroy  {
    * Function created a route given the different params available to opensearch
    * @param uuid The uuid if a scope is present
    * @param opensearch openSearch uri
-   * @param sort The sort options for the opensearch request
    * @param query The query string that was provided in the search
    * @returns The combine URL to opensearch
    */
-  formulateRoute(uuid: string, opensearch: string, sort: SortOptions, query: string): string {
-    let route = 'search?format=atom';
+  formulateRoute(uuid: string, opensearch: string, query: string): string {
+    let route = '?format=atom';
     if (uuid) {
       route += `&scope=${uuid}`;
-    }
-    if (sort && sort.direction && sort.field && sort.field !== 'id') {
-      route += `&sort=${sort.field}&sort_direction=${sort.direction}`;
     }
     if (query) {
       route += `&query=${query}`;
     } else {
       route += `&query=*`;
     }
-    route = '/' + opensearch + '/' + route;
+    route = '/' + opensearch + route;
     return route;
   }
 
@@ -150,14 +152,14 @@ export class RSSComponent implements OnInit, OnDestroy  {
       href: route,
       type: 'application/atom+xml',
       rel: 'alternate',
-      title: 'Sitewide Atom feed'
+      title: 'Sitewide Atom feed',
     });
     route = route.replace('format=atom', 'format=rss');
     this.linkHeadService.addTag({
       href: route,
       type: 'application/rss+xml',
       rel: 'alternate',
-      title: 'Sitewide RSS feed'
+      title: 'Sitewide RSS feed',
     });
   }
 }

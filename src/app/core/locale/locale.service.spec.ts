@@ -1,15 +1,25 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-
-import { CookieService } from '../services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { LANG_COOKIE, LANG_ORIGIN, LocaleService } from './locale.service';
-import { AuthService } from '../auth/auth.service';
-import { NativeWindowRef } from '../services/window.service';
-import { RouteService } from '../services/route.service';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { AuthService } from '../auth/auth.service';
+import { CookieService } from '../services/cookie.service';
+import { RouteService } from '../services/route.service';
+import { NativeWindowRef } from '../services/window.service';
+import {
+  LANG_COOKIE,
+  LANG_ORIGIN,
+  LocaleService,
+} from './locale.service';
 
 describe('LocaleService test suite', () => {
   let service: LocaleService;
@@ -25,10 +35,10 @@ describe('LocaleService test suite', () => {
 
   authService = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated'),
-    isAuthenticationLoaded: jasmine.createSpy('isAuthenticationLoaded')
+    isAuthenticationLoaded: jasmine.createSpy('isAuthenticationLoaded'),
   });
 
-  const langList = ['en', 'it', 'de'];
+  const langList = ['en', 'xx', 'de'];
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
@@ -36,8 +46,8 @@ describe('LocaleService test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       providers: [
@@ -45,7 +55,7 @@ describe('LocaleService test suite', () => {
         { provide: AuthService, userValue: authService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Document, useValue: document },
-      ]
+      ],
     });
   }));
 
@@ -62,25 +72,33 @@ describe('LocaleService test suite', () => {
   });
 
   describe('getCurrentLanguageCode', () => {
-    it('should return language saved on cookie', () => {
+    beforeEach(() => {
+      spyOn(translateService, 'getLangs').and.returnValue(langList);
+    });
+
+    it('should return the language saved on cookie if it\'s a valid & active language', () => {
       spyOnGet.and.returnValue('de');
       expect(service.getCurrentLanguageCode()).toBe('de');
     });
 
-    describe('', () => {
-      beforeEach(() => {
-        spyOn(translateService, 'getLangs').and.returnValue(langList);
-      });
+    it('should return the default language if the cookie language is disabled', () => {
+      spyOnGet.and.returnValue('disabled');
+      expect(service.getCurrentLanguageCode()).toBe('en');
+    });
 
-      it('should return language from browser setting', () => {
-        spyOn(translateService, 'getBrowserLang').and.returnValue('it');
-        expect(service.getCurrentLanguageCode()).toBe('it');
-      });
+    it('should return the default language if the cookie language does not exist', () => {
+      spyOnGet.and.returnValue('does-not-exist');
+      expect(service.getCurrentLanguageCode()).toBe('en');
+    });
 
-      it('should return default language from config', () => {
-        spyOn(translateService, 'getBrowserLang').and.returnValue('fr');
-        expect(service.getCurrentLanguageCode()).toBe('en');
-      });
+    it('should return language from browser setting', () => {
+      spyOn(translateService, 'getBrowserLang').and.returnValue('xx');
+      expect(service.getCurrentLanguageCode()).toBe('xx');
+    });
+
+    it('should return default language from config', () => {
+      spyOn(translateService, 'getBrowserLang').and.returnValue('fr');
+      expect(service.getCurrentLanguageCode()).toBe('en');
     });
   });
 
@@ -106,9 +124,9 @@ describe('LocaleService test suite', () => {
     });
 
     it('should set the given language', () => {
-      service.setCurrentLanguageCode('it');
-      expect(translateService.use).toHaveBeenCalledWith('it');
-      expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('it');
+      service.setCurrentLanguageCode('xx');
+      expect(translateService.use).toHaveBeenCalledWith('xx');
+      expect(service.saveLanguageCodeToCookie).toHaveBeenCalledWith('xx');
     });
 
     it('should set the current language', () => {
@@ -127,7 +145,7 @@ describe('LocaleService test suite', () => {
 
   describe('', () => {
     it('should set quality to current language list', () => {
-      const langListWithQuality = ['en;q=1', 'it;q=0.9', 'de;q=0.8'];
+      const langListWithQuality = ['en;q=1', 'xx;q=0.9', 'de;q=0.8'];
       spyOn(service, 'setQuality').and.returnValue(langListWithQuality);
       service.setQuality(langList, LANG_ORIGIN.BROWSER, false);
       expect(service.setQuality).toHaveBeenCalledWith(langList, LANG_ORIGIN.BROWSER, false);

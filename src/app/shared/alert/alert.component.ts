@@ -1,8 +1,18 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { trigger } from '@angular/animations';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 
-import { AlertType } from './aletr-type';
-import { fadeOutLeave, fadeOutState } from '../animations/fade';
+import {
+  fadeOutLeave,
+  fadeOutState,
+} from '../animations/fade';
+import { AlertType } from './alert-type';
 
 /**
  * This component allow to create div that uses the Bootstrap's Alerts component.
@@ -13,10 +23,10 @@ import { fadeOutLeave, fadeOutState } from '../animations/fade';
   animations: [
     trigger('enterLeave', [
       fadeOutLeave, fadeOutState,
-    ])
+    ]),
   ],
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+  styleUrls: ['./alert.component.scss'],
 })
 export class AlertComponent {
 

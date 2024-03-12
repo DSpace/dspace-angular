@@ -1,39 +1,54 @@
-import { Store, StoreModule } from '@ngrx/store';
-import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  AbstractControl,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
-
-import { FormService } from './form.service';
-import { FormBuilderService } from './builder/form-builder.service';
 import { AppState } from '../../app.reducer';
-import { formReducer } from './form.reducer';
 import { getMockFormBuilderService } from '../mocks/form-builder-service.mock';
+import { FormBuilderService } from './builder/form-builder.service';
+import { formReducer } from './form.reducer';
+import { FormService } from './form.service';
 
 describe('FormService test suite', () => {
   const config = {
     form: {
       validatorMap: {
         required: 'required',
-        regex: 'pattern'
-      }
-    }
+        regex: 'pattern',
+      },
+    },
   } as any;
   const formId = 'testForm';
   let service: FormService;
   let builderService: FormBuilderService;
-  let formGroup: FormGroup;
+  let formGroup: UntypedFormGroup;
 
   const formModel: DynamicFormControlModel[] = [
     new DynamicInputModel({ id: 'author', value: 'test' }),
     new DynamicInputModel({
       id: 'title',
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'Title is required'
-      }
+        required: 'Title is required',
+      },
     }),
     new DynamicInputModel({ id: 'date' }),
     new DynamicInputModel({ id: 'description' }),
@@ -45,21 +60,21 @@ describe('FormService test suite', () => {
 
           id: 'zipCode',
           label: 'Zip Code',
-          placeholder: 'ZIP'
+          placeholder: 'ZIP',
         }),
         new DynamicInputModel({
 
           id: 'state',
           label: 'State',
-          placeholder: 'State'
+          placeholder: 'State',
         }),
         new DynamicInputModel({
 
           id: 'city',
           label: 'City',
-          placeholder: 'City'
-        })
-      ]
+          placeholder: 'City',
+        }),
+      ],
     }),
   ];
 
@@ -73,16 +88,16 @@ describe('FormService test suite', () => {
     addressLocation: {
       zipCode: null,
       state: null,
-      city: null
-    }
+      city: null,
+    },
   };
   const formState = {
     testForm: {
       data: formData,
       valid: false,
       errors: [],
-      touched: {}
-    }
+      touched: {},
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -91,34 +106,34 @@ describe('FormService test suite', () => {
         StoreModule.forRoot({ formReducer }, {
           runtimeChecks: {
             strictStateImmutability: false,
-            strictActionImmutability: false
-          }
-        })
-      ]
+            strictActionImmutability: false,
+          },
+        }),
+      ],
     }).compileComponents();
   }));
 
   beforeEach(inject([Store], (store: Store<AppState>) => {
-      builderService = getMockFormBuilderService();
-      store
-        .subscribe((state) => {
-          state.forms = formState;
-        });
-      const author: AbstractControl = new FormControl('test');
-      const title: AbstractControl = new FormControl(undefined, Validators.required);
-      const date: AbstractControl = new FormControl(undefined);
-      const description: AbstractControl = new FormControl(undefined);
-
-      const addressLocation: FormGroup = new FormGroup({
-        zipCode: new FormControl(undefined),
-        state: new FormControl(undefined),
-        city: new FormControl(undefined),
+    builderService = getMockFormBuilderService();
+    store
+      .subscribe((state) => {
+        state.forms = formState;
       });
+    const author: AbstractControl = new UntypedFormControl('test');
+    const title: AbstractControl = new UntypedFormControl(undefined, Validators.required);
+    const date: AbstractControl = new UntypedFormControl(undefined);
+    const description: AbstractControl = new UntypedFormControl(undefined);
 
-      formGroup = new FormGroup({ author, title, date, description, addressLocation });
-      controls = { author, title, date, description , addressLocation };
-      service = new FormService(builderService, store);
-    })
+    const addressLocation: UntypedFormGroup = new UntypedFormGroup({
+      zipCode: new UntypedFormControl(undefined),
+      state: new UntypedFormControl(undefined),
+      city: new UntypedFormControl(undefined),
+    });
+
+    formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation });
+    controls = { author, title, date, description , addressLocation };
+    service = new FormService(builderService, store);
+  }),
   )
   ;
 

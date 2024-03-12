@@ -1,14 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  EMPTY,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 
-import { EMPTY, Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
-
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { isNotEmpty } from '../../../empty.util';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { isNotEmpty } from '../../../empty.util';
 import { followLink } from '../../../utils/follow-link-config.model';
 
 /**
@@ -17,7 +27,7 @@ import { followLink } from '../../../utils/follow-link-config.model';
 @Component({
   selector: 'ds-item-submitter',
   styleUrls: ['./item-submitter.component.scss'],
-  templateUrl: './item-submitter.component.html'
+  templateUrl: './item-submitter.component.html',
 })
 export class ItemSubmitterComponent implements OnInit {
 
@@ -31,8 +41,10 @@ export class ItemSubmitterComponent implements OnInit {
    */
   submitter$: Observable<EPerson>;
 
-  public constructor(protected linkService: LinkService) {
-
+  public constructor(
+    public dsoNameService: DSONameService,
+    protected linkService: LinkService,
+  ) {
   }
 
   /**
@@ -40,7 +52,7 @@ export class ItemSubmitterComponent implements OnInit {
    */
   ngOnInit() {
     this.linkService.resolveLinks(this.object, followLink('workflowitem', {},
-      followLink('submitter',{})
+      followLink('submitter',{}),
     ));
     this.submitter$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
       getFirstCompletedRemoteData(),
@@ -54,7 +66,7 @@ export class ItemSubmitterComponent implements OnInit {
               } else {
                 return null;
               }
-            })
+            }),
           );
         } else {
           return EMPTY;

@@ -1,9 +1,16 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListableObject } from '../listable-object.model';
-import { CollectionElementLinkType } from '../../collection-element-link.type';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Context } from '../../../../core/shared/context.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-abstract-object-element',
@@ -42,6 +49,11 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() showLabel = true;
 
   /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * The context we matched on to get this component
    */
   @Input() context: Context;
@@ -70,4 +82,10 @@ export class AbstractListableElementComponent<T extends ListableObject> {
    * The available contexts
    */
   contexts = Context;
+
+  constructor(
+    public dsoNameService: DSONameService,
+  ) {
+  }
+
 }

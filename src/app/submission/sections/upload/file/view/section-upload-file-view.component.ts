@@ -1,9 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../../../../../core/shared/metadata.models';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
-import { Metadata } from '../../../../../core/shared/metadata.utils';
-import { MetadataMap, MetadataValue } from '../../../../../core/shared/metadata.models';
 
 /**
  * This component allow to show bitstream's metadata
@@ -38,6 +45,13 @@ export class SubmissionSectionUploadFileViewComponent implements OnInit {
    */
   public fileDescrKey = 'Description';
 
+  public fileFormat!: string;
+
+  public fileCheckSum!: {
+    checkSumAlgorithm: string;
+    value: string;
+  };
+
   /**
    * Initialize instance variables
    */
@@ -46,6 +60,8 @@ export class SubmissionSectionUploadFileViewComponent implements OnInit {
       this.metadata[this.fileTitleKey] = Metadata.all(this.fileData.metadata, 'dc.title');
       this.metadata[this.fileDescrKey] = Metadata.all(this.fileData.metadata, 'dc.description');
     }
+    this.fileCheckSum = this.fileData.checkSum;
+    this.fileFormat = this.fileData.format.shortDescription;
   }
 
   /**

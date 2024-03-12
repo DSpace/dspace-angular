@@ -1,25 +1,48 @@
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TruncatePipe } from '../../shared/utils/truncate.pipe';
-import { FullItemPageComponent } from './full-item-page.component';
-import { MetadataService } from '../../core/metadata/metadata.service';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Item } from '../../core/shared/item.model';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { MetadataService } from '../../core/metadata/metadata.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { Item } from '../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { TruncatePipe } from '../../shared/utils/truncate.pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { FullItemPageComponent } from './full-item-page.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -27,23 +50,23 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'test item'
-      }
-    ]
-  }
+        value: 'test item',
+      },
+    ],
+  },
 });
 
 const mockWithdrawnItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable(),
-  isWithdrawn: true
+  isWithdrawn: true,
 });
 
 const metadataServiceStub = {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   processRemoteData: () => {
-  }
+  },
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };
 
@@ -55,13 +78,27 @@ describe('FullItemPageComponent', () => {
   let routeStub: ActivatedRouteStub;
   let routeData;
   let authorizationDataService: AuthorizationDataService;
+  let serverResponseService: jasmine.SpyObj<ServerResponseService>;
+  let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
+  let linkHeadService: jasmine.SpyObj<LinkHeadService>;
+  let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
 
+  const mocklink = {
+    href: 'http://test.org',
+    rel: 'test',
+    type: 'test',
+  };
 
+  const mocklink2 = {
+    href: 'http://test2.org',
+    rel: 'test',
+    type: 'test',
+  };
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
 
     routeData = {
@@ -69,19 +106,38 @@ describe('FullItemPageComponent', () => {
     };
 
     routeStub = Object.assign(new ActivatedRouteStub(), {
-      data: observableOf(routeData)
+      data: observableOf(routeData),
     });
 
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
       isAuthorized: observableOf(false),
     });
 
+    serverResponseService = jasmine.createSpyObj('ServerResponseService', {
+      setHeader: jasmine.createSpy('setHeader'),
+    });
+
+    signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
+      getLinks: observableOf([mocklink, mocklink2]),
+    });
+
+    linkHeadService = jasmine.createSpyObj('LinkHeadService', {
+      addTag: jasmine.createSpy('setHeader'),
+      removeTag: jasmine.createSpy('removeTag'),
+    });
+
+    notifyInfoService = jasmine.createSpyObj('NotifyInfoService', {
+      isCoarConfigEnabled: observableOf(true),
+      getCoarLdnLocalInboxUrls: observableOf(['http://test.org']),
+      getInboxRelationLink: observableOf('http://test.org'),
+    });
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
       declarations: [FullItemPageComponent, TruncatePipe, VarDirective],
       providers: [
@@ -90,11 +146,15 @@ describe('FullItemPageComponent', () => {
         { provide: MetadataService, useValue: metadataServiceStub },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: ServerResponseService, useValue: serverResponseService },
+        { provide: SignpostingDataService, useValue: signpostingDataService },
+        { provide: LinkHeadService, useValue: linkHeadService },
+        { provide: NotifyInfoService, useValue: notifyInfoService },
+        { provide: PLATFORM_ID, useValue: 'server' },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(FullItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -104,9 +164,13 @@ describe('FullItemPageComponent', () => {
     fixture.detectChanges();
   }));
 
+  afterEach(() => {
+    fixture.debugElement.nativeElement.remove();
+  });
+
   it('should display the item\'s metadata', () => {
     const table = fixture.debugElement.query(By.css('table'));
-    for (const metadatum of mockItem.allMetadata([])) {
+    for (const metadatum of mockItem.allMetadata(Object.keys(mockItem.metadata))) {
       expect(table.nativeElement.innerHTML).toContain(metadatum.value);
     }
   });
@@ -118,7 +182,7 @@ describe('FullItemPageComponent', () => {
   });
 
   it('should not show simple view button when originated from workflow', fakeAsync(() => {
-    routeData.wfi = createSuccessfulRemoteDataObject$({ id: 'wfiId'});
+    routeData.wfi = createSuccessfulRemoteDataObject$({ id: 'wfiId' });
     comp.ngOnInit();
     fixture.detectChanges();
     fixture.whenStable().then(() => {
@@ -137,7 +201,12 @@ describe('FullItemPageComponent', () => {
 
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
-      expect(objectLoader.nativeElement).toBeDefined();
+      expect(objectLoader.nativeElement).not.toBeNull();
+    });
+
+    it('should add the signposting links', () => {
+      expect(serverResponseService.setHeader).toHaveBeenCalled();
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(3);
     });
   });
   describe('when the item is withdrawn and the user is not an admin', () => {
@@ -161,7 +230,12 @@ describe('FullItemPageComponent', () => {
 
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
-      expect(objectLoader.nativeElement).toBeDefined();
+      expect(objectLoader).not.toBeNull();
+    });
+
+    it('should add the signposting links', () => {
+      expect(serverResponseService.setHeader).toHaveBeenCalled();
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(3);
     });
   });
 
@@ -173,7 +247,12 @@ describe('FullItemPageComponent', () => {
 
     it('should display the item', () => {
       const objectLoader = fixture.debugElement.query(By.css('.full-item-info'));
-      expect(objectLoader.nativeElement).toBeDefined();
+      expect(objectLoader).not.toBeNull();
+    });
+
+    it('should add the signposting links', () => {
+      expect(serverResponseService.setHeader).toHaveBeenCalled();
+      expect(linkHeadService.addTag).toHaveBeenCalledTimes(3);
     });
   });
 });

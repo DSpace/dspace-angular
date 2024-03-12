@@ -7,39 +7,60 @@ import {
   OnInit,
   Output,
   QueryList,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
-
+import { UntypedFormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
-import { debounceTime, map, startWith, switchMap, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  map,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
-import { SearchService } from '../../../core/shared/search/search.service';
-import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { Context } from '../../../core/shared/context.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../empty.util';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
-import { SearchResult } from '../../search/models/search-result.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Context } from '../../../core/shared/context.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../empty.util';
+import { NotificationType } from '../../notifications/models/notification-type';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ListableNotificationObject } from '../../object-list/listable-notification-object/listable-notification-object.model';
+import { LISTABLE_NOTIFICATION_OBJECT } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
+import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
+import { SearchResult } from '../../search/models/search-result.model';
 
 @Component({
   selector: 'ds-dso-selector',
   styleUrls: ['./dso-selector.component.scss'],
-  templateUrl: './dso-selector.component.html'
+  templateUrl: './dso-selector.component.html',
 })
 
 /**
@@ -61,6 +82,16 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    */
   @Input() types: DSpaceObjectType[];
 
+  /**
+   * The sorting options
+   */
+  @Input() sort: SortOptions;
+
+  /**
+   * The id that should be given to the input box, this is required for accessibility reasons
+   */
+  @Input() searchBoxId: string | null = null;
+
   // list of allowed selectable dsoTypes
   typesString: string;
 
@@ -72,7 +103,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   /**
    * Input form control to query the list
    */
-  public input: FormControl = new FormControl();
+  public input: UntypedFormControl = new UntypedFormControl();
 
   /**
    * Default pagination for this feature
@@ -82,7 +113,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
   /**
    * List with search results of DSpace objects for the current query
    */
-  listEntries$: BehaviorSubject<SearchResult<DSpaceObject>[]> = new BehaviorSubject(null);
+  listEntries$: BehaviorSubject<ListableObject[]> = new BehaviorSubject(null);
 
   /**
    * The current page to load
@@ -115,11 +146,6 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * The available link types
    */
   linkTypes = CollectionElementLinkType;
-
-  /**
-   * Track whether the element has the mouse over it
-   */
-  isMouseOver = false;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -156,9 +182,9 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
       this.input.valueChanges.pipe(
         debounceTime(this.debounceTime),
         startWith(''),
-        tap(() => this.currentPage$.next(1))
+        tap(() => this.currentPage$.next(1)),
       ),
-      this.currentPage$
+      this.currentPage$,
     ).pipe(
       switchMap(([currentDSOResult, query, page]: [PaginatedList<SearchResult<DSpaceObject>>, string, number]) => {
         this.loading = true;
@@ -173,31 +199,35 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
               // If no query is entered, filter out the current DSO from the results, as it'll be displayed at the start of the list already
               rd.payload.page = [
                 ...((isEmpty(query) && page === 1) ? currentDSOResult.page : []),
-                ...rd.payload.page.filter((result) => isNotEmpty(query) || result.indexableObject.id !== this.currentDSOId)
+                ...rd.payload.page.filter((result) => isNotEmpty(query) || result.indexableObject.id !== this.currentDSOId),
               ];
             } else if (rd.hasFailed) {
               this.notifcationsService.error(this.translate.instant('dso-selector.error.title', { type: this.typesString }), rd.errorMessage);
             }
             return rd;
-          })
+          }),
         );
-      })
-    ).subscribe((rd) => {
-      this.loading = false;
-      if (rd.hasSucceeded) {
-        const currentEntries = this.listEntries$.getValue();
-        if (hasNoValue(currentEntries)) {
-          this.listEntries$.next(rd.payload.page);
-        } else {
-          this.listEntries$.next([...currentEntries, ...rd.payload.page]);
-        }
-        // Check if there are more pages available after the current one
-        this.hasNextPage = rd.payload.totalElements > this.listEntries$.getValue().length;
-      } else {
-        this.listEntries$.next(null);
-        this.hasNextPage = false;
-      }
+      }),
+    ).subscribe((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
+      this.updateList(rd);
     }));
+  }
+
+  updateList(rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) {
+    this.loading = false;
+    const currentEntries = this.listEntries$.getValue();
+    if (rd.hasSucceeded) {
+      if (hasNoValue(currentEntries)) {
+        this.listEntries$.next(rd.payload.page);
+      } else {
+        this.listEntries$.next([...currentEntries, ...rd.payload.page]);
+      }
+      // Check if there are more pages available after the current one
+      this.hasNextPage = rd.payload.totalElements > this.listEntries$.getValue().length;
+    } else {
+      this.listEntries$.next([...(hasNoValue(currentEntries) ? [] : this.listEntries$.getValue()), new ListableNotificationObject(NotificationType.Error, 'dso-selector.results-could-not-be-retrieved', LISTABLE_NOTIFICATION_OBJECT.value)]);
+      this.hasNextPage = false;
+    }
   }
 
   /**
@@ -211,18 +241,24 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * Perform a search for the current query and page
    * @param query Query to search objects for
    * @param page  Page to retrieve
+   * @param useCache Whether or not to use the cache
    */
-  search(query: string, page: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+  search(query: string, page: number, useCache: boolean = true): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    // default sort is only used when there is not query
+    const efectiveSort = query ? null : this.sort;
     return this.searchService.search(
       new PaginatedSearchOptions({
         query: query,
         dsoTypes: this.types,
         pagination: Object.assign({}, this.defaultPagination, {
-          currentPage: page
-        })
-      })
+          currentPage: page,
+        }),
+        sort: efectiveSort,
+      }),
+      null,
+      useCache,
     ).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     );
   }
 
@@ -262,7 +298,28 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
-  getName(searchResult: SearchResult<DSpaceObject>): string {
-    return this.dsoNameService.getName(searchResult.indexableObject);
+  /**
+   * Handles the user clicks on the {@link ListableObject}s. When the {@link listableObject} is a
+   * {@link ListableObject} it will retry the error when the user clicks it. Otherwise it will emit the {@link onSelect}.
+   *
+   * @param listableObject The {@link ListableObject} to evaluate
+   */
+  onClick(listableObject: ListableObject): void {
+    if (hasValue((listableObject as SearchResult<DSpaceObject>).indexableObject)) {
+      this.onSelect.emit((listableObject as SearchResult<DSpaceObject>).indexableObject);
+    } else {
+      this.listEntries$.value.pop();
+      this.hasNextPage = true;
+      this.search(this.input.value ? this.input.value : '', this.currentPage$.value, false).pipe(
+        getFirstCompletedRemoteData(),
+      ).subscribe((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
+        this.updateList(rd);
+      });
+    }
+  }
+
+  getName(listableObject: ListableObject): string {
+    return hasValue((listableObject as SearchResult<DSpaceObject>).indexableObject) ?
+      this.dsoNameService.getName((listableObject as SearchResult<DSpaceObject>).indexableObject) : null;
   }
 }

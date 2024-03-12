@@ -1,14 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
 
-import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { AppState } from '../../../app.reducer';
-import { isAuthenticationLoading } from '../../../core/auth/selectors';
-import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
+import {
+  getProfileModuleRoute,
+  getSubscriptionsModuleRoute,
+} from '../../../app-routing-paths';
 import { AuthService } from '../../../core/auth/auth.service';
-import { getProfileModuleRoute } from '../../../app-routing-paths';
+import { isAuthenticationLoading } from '../../../core/auth/selectors';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 
 /**
  * This component represents the user nav menu.
@@ -16,9 +26,14 @@ import { getProfileModuleRoute } from '../../../app-routing-paths';
 @Component({
   selector: 'ds-user-menu',
   templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss']
+  styleUrls: ['./user-menu.component.scss'],
 })
 export class UserMenuComponent implements OnInit {
+
+  /**
+   * The input flag to show user details in navbar expandable menu
+   */
+  @Input() inExpandableNavbar = false;
 
   /**
    * True if the authentication is loading.
@@ -43,8 +58,16 @@ export class UserMenuComponent implements OnInit {
    */
   public profileRoute = getProfileModuleRoute();
 
-  constructor(private store: Store<AppState>,
-              private authService: AuthService) {
+  /**
+   * The profile page route
+   */
+  public subscriptionsRoute = getSubscriptionsModuleRoute();
+
+  constructor(
+    protected store: Store<AppState>,
+    protected authService: AuthService,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   /**

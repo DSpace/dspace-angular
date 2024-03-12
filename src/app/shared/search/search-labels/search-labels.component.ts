@@ -1,10 +1,17 @@
-import { Component, Inject, Input } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import {
+  Component,
+  Inject,
+  Input,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { Params, Router } from '@angular/router';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { map } from 'rxjs/operators';
-import { stripOperatorFromFilterValue } from '../search.utils';
+
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-search-labels',
@@ -37,10 +44,10 @@ export class SearchLabelsComponent {
         const labels = {};
         Object.keys(params)
           .forEach((key) => {
-            labels[key] = [...params[key].map((value) => stripOperatorFromFilterValue(value))];
+            labels[key] = [...params[key].map((value) => value)];
           });
         return labels;
-      })
+      }),
     );
   }
 }

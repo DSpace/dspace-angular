@@ -1,21 +1,20 @@
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
 import 'zone.js/testing';
+
 import { getTestBed } from '@angular/core/testing';
-import { MockStore } from '@ngrx/store/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-declare const require: any;
+import { MockStore } from '@ngrx/store/testing';
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting(),
-  { teardown: { destroyAfterEach: false } }
+  { teardown: { destroyAfterEach: false } },
 );
 
 jasmine.getEnv().afterEach(() => {
@@ -24,8 +23,3 @@ jasmine.getEnv().afterEach(() => {
   // Close any leftover modals
   getTestBed().inject(NgbModal, null)?.dismissAll?.();
 });
-
-// Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().map(context);

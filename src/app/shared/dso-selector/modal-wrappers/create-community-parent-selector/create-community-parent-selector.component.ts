@@ -1,17 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { hasValue } from '../../../empty.util';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationExtras,
+  Router,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { environment } from '../../../../../environments/environment';
+import {
+  COMMUNITY_PARENT_PARAMETER,
+  getCommunityCreateRoute,
+} from '../../../../community-page/community-page-routing-paths';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../core/cache/models/sort-options.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { hasValue } from '../../../empty.util';
 import {
   DSOSelectorModalWrapperComponent,
-  SelectorActionType
+  SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
-import {
-    getCommunityCreateRoute,
-    COMMUNITY_PARENT_PARAMETER
-} from '../../../../community-page/community-page-routing-paths';
 
 /**
  * Component to wrap a button - for top communities -
@@ -29,6 +42,7 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
   objectType = DSpaceObjectType.COMMUNITY;
   selectorTypes = [DSpaceObjectType.COMMUNITY];
   action = SelectorActionType.CREATE;
+  defaultSort = new SortOptions(environment.comcolSelectionSort.sortField, environment.comcolSelectionSort.sortDirection as SortDirection);
 
   constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
     super(activeModal, route);
@@ -43,7 +57,7 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
       navigationExtras = {
         queryParams: {
           [COMMUNITY_PARENT_PARAMETER]: dso.uuid,
-        }
+        },
       };
     }
     this.router.navigate([getCommunityCreateRoute()], navigationExtras);

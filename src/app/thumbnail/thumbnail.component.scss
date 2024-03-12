@@ -12,7 +12,7 @@ img {
     display: block;
     content: "";
     width: 100%;
-    padding-top: (297 / 210) * 100%;  // A4 ratio
+    padding-top: calc((297 / 210) * 100%);  // A4 ratio
   }
   > .inner {
     position: absolute;

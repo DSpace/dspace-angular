@@ -1,13 +1,21 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { of as observableOf } from 'rxjs';
+import { Context } from 'src/app/core/shared/context.model';
 
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
-import { ItemSearchResultDetailElementComponent } from './item-search-result-detail-element.component';
-import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { ItemSearchResultDetailElementComponent } from './item-search-result-detail-element.component';
 
 let component: ItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<ItemSearchResultDetailElementComponent>;
@@ -23,28 +31,28 @@ mockResultObject.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
+        value: 'Article',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 
 describe('ItemSearchResultDetailElementComponent', () => {
@@ -52,9 +60,12 @@ describe('ItemSearchResultDetailElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [ItemSearchResultDetailElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultDetailElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -68,7 +79,7 @@ describe('ItemSearchResultDetailElementComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should have properly status', () => {
-    expect(component.status).toEqual(MyDspaceItemStatusType.ARCHIVED);
+  it('should have the correct badge context', () => {
+    expect(component.badgeContext).toEqual(Context.MyDSpaceArchived);
   });
 });

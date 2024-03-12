@@ -1,50 +1,59 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { StartsWithTextComponent } from './starts-with-text.component';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { of as observableOf } from 'rxjs';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { RouterStub } from '../../testing/router.stub';
+import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
+import { StartsWithTextComponent } from './starts-with-text.component';
 
 describe('StartsWithTextComponent', () => {
   let comp: StartsWithTextComponent;
   let fixture: ComponentFixture<StartsWithTextComponent>;
-  let route: ActivatedRoute;
-  let router: Router;
+
+  let paginationService: PaginationServiceStub;
+  let route: ActivatedRouteStub;
+  let router: RouterStub;
 
   const options = ['0-9', 'A', 'B', 'C'];
 
-  const paginationService = new PaginationServiceStub();
+  beforeEach(waitForAsync(async () => {
+    paginationService = new PaginationServiceStub();
+    route = new ActivatedRouteStub();
+    router = new RouterStub();
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [StartsWithTextComponent, EnumKeysPipe],
       providers: [
-        { provide: 'startsWithOptions', useValue: options },
-        { provide: 'paginationId', useValue: 'page-id' },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: Router, useValue: router },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StartsWithTextComponent);
     comp = fixture.componentInstance;
+    comp.paginationId = 'page-id';
+    comp.startsWithOptions = options;
     fixture.detectChanges();
-    route = (comp as any).route;
-    router = (comp as any).router;
-    spyOn(router, 'navigate');
   });
 
   it('should create a FormGroup containing a startsWith FormControl', () => {
@@ -67,7 +76,7 @@ describe('StartsWithTextComponent', () => {
     });
 
     it('should add a startsWith query parameter', () => {
-      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', {page: 1}, {startsWith: expectedValue});
+      expect(paginationService.updateRoute).toHaveBeenCalledWith('page-id', { page: 1 }, { startsWith: expectedValue });
     });
   });
 

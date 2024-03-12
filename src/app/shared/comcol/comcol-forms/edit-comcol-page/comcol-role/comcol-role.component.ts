@@ -1,19 +1,38 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Group } from '../../../../../core/eperson/models/group.model';
-import { Community } from '../../../../../core/shared/community.model';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { GroupDataService } from '../../../../../core/eperson/group-data.service';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
-import { RequestService } from '../../../../../core/data/request.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { HALLink } from '../../../../../core/shared/hal-link.model';
-import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
-import { hasNoValue, hasValue } from '../../../../empty.util';
-import { NoContent } from '../../../../../core/shared/NoContent.model';
-import { NotificationsService } from '../../../../notifications/notifications.service';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { RequestService } from '../../../../../core/data/request.service';
+import { GroupDataService } from '../../../../../core/eperson/group-data.service';
+import { Group } from '../../../../../core/eperson/models/group.model';
+import { Collection } from '../../../../../core/shared/collection.model';
+import { Community } from '../../../../../core/shared/community.model';
+import { HALLink } from '../../../../../core/shared/hal-link.model';
+import { NoContent } from '../../../../../core/shared/NoContent.model';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../../../../../core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../../empty.util';
+import { NotificationsService } from '../../../../notifications/notifications.service';
 
 /**
  * Component for managing a community or collection role.
@@ -21,7 +40,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'ds-comcol-role',
   styleUrls: ['./comcol-role.component.scss'],
-  templateUrl: './comcol-role.component.html'
+  templateUrl: './comcol-role.component.html',
 })
 export class ComcolRoleComponent implements OnInit {
 
@@ -29,7 +48,7 @@ export class ComcolRoleComponent implements OnInit {
    * The community or collection to manage.
    */
   @Input()
-  dso: Community | Collection;
+    dso: Community | Collection;
 
   /**
    * The role to manage
@@ -76,6 +95,7 @@ export class ComcolRoleComponent implements OnInit {
     protected groupService: GroupDataService,
     protected notificationsService: NotificationsService,
     protected translateService: TranslateService,
+    public dsoNameService: DSONameService,
   ) {
   }
 
@@ -103,7 +123,7 @@ export class ComcolRoleComponent implements OnInit {
    */
   create() {
     this.groupService.createComcolGroup(this.dso, this.comcolRole.name, this.groupLink).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<Group>) => {
 
       if (rd.hasSucceeded) {
@@ -112,9 +132,9 @@ export class ComcolRoleComponent implements OnInit {
       } else {
         this.notificationsService.error(
           this.roleName$.pipe(
-            switchMap(role => this.translateService.get('comcol-role.edit.create.error.title', { role }))
+            switchMap(role => this.translateService.get('comcol-role.edit.create.error.title', { role })),
           ),
-          `${rd.statusCode} ${rd.errorMessage}`
+          `${rd.statusCode} ${rd.errorMessage}`,
         );
       }
     });
@@ -125,7 +145,7 @@ export class ComcolRoleComponent implements OnInit {
    */
   delete() {
     this.groupService.deleteComcolGroup(this.groupLink).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<NoContent>) => {
       if (rd.hasSucceeded) {
         this.groupService.clearGroupsRequests();
@@ -133,9 +153,9 @@ export class ComcolRoleComponent implements OnInit {
       } else {
         this.notificationsService.error(
           this.roleName$.pipe(
-            switchMap(role => this.translateService.get('comcol-role.edit.delete.error.title', { role }))
+            switchMap(role => this.translateService.get('comcol-role.edit.delete.error.title', { role })),
           ),
-          rd.errorMessage
+          rd.errorMessage,
         );
       }
     });
@@ -155,7 +175,7 @@ export class ComcolRoleComponent implements OnInit {
         } else {
           return undefined;
         }
-      })
+      }),
     );
 
     this.editGroupLink$ = this.group$.pipe(

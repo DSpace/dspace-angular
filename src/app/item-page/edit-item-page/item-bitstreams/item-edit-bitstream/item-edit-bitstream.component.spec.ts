@@ -1,18 +1,24 @@
-import { ItemEditBitstreamComponent } from './item-edit-bitstream.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { of as observableOf } from 'rxjs';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../../../../shared/utils/var.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { ItemEditBitstreamComponent } from './item-edit-bitstream.component';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -21,11 +27,11 @@ const columnSizes = new ResponsiveTableSizes([
   new ResponsiveColumnSizes(2, 2, 3, 4, 4),
   new ResponsiveColumnSizes(2, 3, 3, 3, 3),
   new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-  new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+  new ResponsiveColumnSizes(6, 5, 4, 3, 3),
 ]);
 
 const format = Object.assign(new BitstreamFormat(), {
-  shortDescription: 'PDF'
+  shortDescription: 'PDF',
 });
 const bitstream = Object.assign(new Bitstream(), {
   uuid: 'bitstreamUUID',
@@ -33,14 +39,14 @@ const bitstream = Object.assign(new Bitstream(), {
   bundleName: 'ORIGINAL',
   description: 'Description',
   _links: {
-    content: { href: 'content-link' }
+    content: { href: 'content-link' },
   },
 
-  format: createSuccessfulRemoteDataObject$(format)
+  format: createSuccessfulRemoteDataObject$(format),
 });
 const fieldUpdate = {
   field: bitstream,
-  changeType: undefined
+  changeType: undefined,
 };
 const date = new Date();
 const url = 'thisUrl';
@@ -67,22 +73,25 @@ describe('ItemEditBitstreamComponent', () => {
         getLastModified: observableOf(date),
         hasUpdates: observableOf(true),
         isReinstatable: observableOf(false),
-        isValidPage: observableOf(true)
-      }
+        isValidPage: observableOf(true),
+      },
     );
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+      ],
       declarations: [
         ItemEditBitstreamComponent,
         VarDirective,
         BrowserOnlyMockPipe,
       ],
       providers: [
-        { provide: ObjectUpdatesService, useValue: objectUpdatesService }
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
