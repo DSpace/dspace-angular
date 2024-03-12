@@ -12,7 +12,6 @@ import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   Router,
-  Router,
 } from '@angular/router';
 import {
   NgbModal,
@@ -27,10 +26,7 @@ import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { RequestService } from '../../../core/data/request.service';
-import {
-  EPerson,
-  EPerson,
-} from '../../../core/eperson/models/eperson.model';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';

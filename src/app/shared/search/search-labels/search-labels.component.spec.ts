@@ -15,7 +15,6 @@ import { of as observableOf } from 'rxjs';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchServiceStub } from '../../testing/search-service.stub';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
 import { SearchLabelComponent } from './search-label/search-label.component';

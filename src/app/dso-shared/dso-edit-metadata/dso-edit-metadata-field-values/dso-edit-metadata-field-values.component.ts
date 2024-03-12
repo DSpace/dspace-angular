@@ -1,8 +1,6 @@
 import {
   CdkDragDrop,
-  CdkDragDrop,
   CdkDropList,
-  moveItemInArray,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import {
@@ -19,7 +17,6 @@ import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {

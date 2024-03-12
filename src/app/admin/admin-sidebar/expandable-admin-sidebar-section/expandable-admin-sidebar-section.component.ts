@@ -15,14 +15,9 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as combineLatestObservable,
-  combineLatest as combineLatestObservable,
-  Observable,
   Observable,
 } from 'rxjs';
-import {
-  map,
-  map,
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { bgColor } from '../../../shared/animations/bgColor';
 import { rotate } from '../../../shared/animations/rotate';

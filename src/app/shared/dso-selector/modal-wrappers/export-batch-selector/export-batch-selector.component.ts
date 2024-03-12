@@ -24,41 +24,20 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../../core/breadcrumbs/dso-name.service';
-import {
-  AuthorizationDataService,
-  AuthorizationDataService,
-} from '../../../../core/data/feature-authorization/authorization-data.service';
-import {
-  FeatureID,
-  FeatureID,
-} from '../../../../core/data/feature-authorization/feature-id';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
 } from '../../../../core/data/processes/script-data.service';
-import {
-  RemoteData,
-  RemoteData,
-} from '../../../../core/data/remote-data';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../../../core/shared/operators';
-import {
-  getProcessDetailRoute,
-  getProcessDetailRoute,
-} from '../../../../process-page/process-page-routing.paths';
-import {
-  Process,
-  Process,
-} from '../../../../process-page/processes/process.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
+import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { isNotEmpty } from '../../../empty.util';
@@ -67,8 +46,6 @@ import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
-  DSOSelectorModalWrapperComponent,
-  SelectorActionType,
   SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
 

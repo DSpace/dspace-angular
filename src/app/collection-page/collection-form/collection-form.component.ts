@@ -21,16 +21,10 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
-import {
-  Observable,
-  Observable,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   hasNoValue,
-  hasNoValue,
-  isNotNull,
   isNotNull,
 } from 'src/app/shared/empty.util';
 
@@ -41,10 +35,7 @@ import { EntityTypeDataService } from '../../core/data/entity-type-data.service'
 import { RequestService } from '../../core/data/request.service';
 import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import {
-  NONE_ENTITY_TYPE,
-  NONE_ENTITY_TYPE,
-} from '../../core/shared/item-relationships/item-type.resource-type';
+import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
@@ -55,8 +46,6 @@ import { UploaderComponent } from '../../shared/upload/uploader/uploader.compone
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
   collectionFormEntityTypeSelectionConfig,
-  collectionFormEntityTypeSelectionConfig,
-  collectionFormModels,
   collectionFormModels,
 } from './collection-form.models';
 

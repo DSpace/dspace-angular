@@ -44,7 +44,6 @@ import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-p
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
 import {
   SupervisionOrderListEntry,
-  SupervisionOrderListEntry,
   SupervisionOrderStatusComponent,
 } from './supervision-order-status/supervision-order-status.component';
 

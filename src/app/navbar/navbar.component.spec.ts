@@ -23,10 +23,7 @@ import {
   AppState,
   storeModuleConfig,
 } from '../app.reducer';
-import {
-  BrowseByDataType,
-  BrowseByDataType,
-} from '../browse-by/browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../browse-by/browse-by-switcher/browse-by-data-type';
 import { authReducer } from '../core/auth/auth.reducer';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { BrowseService } from '../core/browse/browse.service';

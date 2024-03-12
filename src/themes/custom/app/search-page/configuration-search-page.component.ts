@@ -10,16 +10,9 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchConfigurationService } from '../../../../app/core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../app/my-dspace-page/my-dspace-page.component';
-import {
-  ConfigurationSearchPageComponent as BaseComponent,
-  ConfigurationSearchPageComponent as BaseComponent,
-} from '../../../../app/search-page/configuration-search-page.component';
-import {
-  pushInOut,
-  pushInOut,
-} from '../../../../app/shared/animations/push';
+import { ConfigurationSearchPageComponent as BaseComponent } from '../../../../app/search-page/configuration-search-page.component';
+import { pushInOut } from '../../../../app/shared/animations/push';
 import { SearchLabelsComponent } from '../../../../app/shared/search/search-labels/search-labels.component';
 import { ThemedSearchResultsComponent } from '../../../../app/shared/search/search-results/themed-search-results.component';
 import { ThemedSearchSidebarComponent } from '../../../../app/shared/search/search-sidebar/themed-search-sidebar.component';

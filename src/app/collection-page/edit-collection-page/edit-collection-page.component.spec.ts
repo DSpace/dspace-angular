@@ -8,15 +8,9 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of as observableOf,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
-import {
-  CollectionDataService,
-  CollectionDataService,
-} from '../../core/data/collection-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
 
 describe('EditCollectionPageComponent', () => {

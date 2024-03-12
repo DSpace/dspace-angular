@@ -5,27 +5,17 @@ import {
 } from '@angular/common';
 import {
   ChangeDetectorRef,
-  ChangeDetectorRef,
-  Component,
   Component,
   EventEmitter,
-  EventEmitter,
-  Input,
   Input,
   OnInit,
-  OnInit,
-  Output,
   Output,
 } from '@angular/core';
 import {
   AbstractControl,
-  AbstractControl,
   ReactiveFormsModule,
   UntypedFormGroup,
-  UntypedFormGroup,
   ValidationErrors,
-  ValidationErrors,
-  ValidatorFn,
   ValidatorFn,
 } from '@angular/forms';
 import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
@@ -37,26 +27,11 @@ import {
 } from '@ng-dynamic-forms/core';
 import findKey from 'lodash/findKey';
 
-import {
-  PaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../../../../core/shared/operators';
-import {
-  PageInfo,
-  PageInfo,
-} from '../../../../../../core/shared/page-info.model';
-import {
-  VocabularyEntry,
-  VocabularyEntry,
-} from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import {
-  VocabularyService,
-  VocabularyService,
-} from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import {
   hasValue,
   isNotEmpty,

@@ -11,24 +11,15 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
-import {
-  TranslateModule,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
-import {
-  LinkService,
-  LinkService,
-} from '../../../../core/cache/builders/link.service';
+import { LinkService } from '../../../../core/cache/builders/link.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import {
-  BitstreamFormatDataService,
-  BitstreamFormatDataService,
-} from '../../../../core/data/bitstream-format-data.service';
+import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';

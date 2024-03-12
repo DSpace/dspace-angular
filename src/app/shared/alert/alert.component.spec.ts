@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
-  ChangeDetectorRef,
   Component,
-  Component,
-  NO_ERRORS_SCHEMA,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -13,10 +10,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  By,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 

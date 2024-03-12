@@ -10,13 +10,9 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { Community } from '../../core/shared/community.model';
 import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';

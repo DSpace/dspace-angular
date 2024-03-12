@@ -24,10 +24,7 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  AuthorizationDataService,
-  AuthorizationDataService,
-} from '../../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,

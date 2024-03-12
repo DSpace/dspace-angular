@@ -8,25 +8,18 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
   RouterLink,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   first,
-  first,
   map,
-  map,
-  switchMap,
   switchMap,
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import {
-  ItemTemplateDataService,
-  ItemTemplateDataService,
-} from '../../core/data/item-template-data.service';
+import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
@@ -36,10 +29,7 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import {
-  getCollectionEditRoute,
-  getCollectionEditRoute,
-} from '../collection-page-routing-paths';
+import { getCollectionEditRoute } from '../collection-page-routing-paths';
 
 @Component({
   selector: 'ds-edit-item-template-page',

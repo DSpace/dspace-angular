@@ -12,7 +12,6 @@ import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   Router,
-  Router,
 } from '@angular/router';
 import {
   TranslateLoader,

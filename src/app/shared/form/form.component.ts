@@ -47,14 +47,9 @@ import {
 } from '../empty.util';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import {
-  FormFieldMetadataValueObject,
-  FormFieldMetadataValueObject,
-} from './builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import {
   FormEntry,
-  FormEntry,
-  FormError,
   FormError,
 } from './form.reducer';
 import { FormService } from './form.service';

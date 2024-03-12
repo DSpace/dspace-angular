@@ -4,27 +4,19 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
   Injector,
-  Injector,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
   UntypedFormBuilder,
-  UntypedFormBuilder,
   UntypedFormGroup,
-  UntypedFormGroup,
-  Validators,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   NgbModal,
-  NgbModal,
-  NgbModalRef,
   NgbModalRef,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -42,14 +34,8 @@ import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import {
-  ClaimedDeclinedTaskSearchResult,
-  ClaimedDeclinedTaskSearchResult,
-} from '../../../object-collection/shared/claimed-declined-task-search-result.model';
-import {
-  ClaimedTaskActionsAbstractComponent,
-  ClaimedTaskActionsAbstractComponent,
-} from '../abstract/claimed-task-actions-abstract.component';
+import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
 

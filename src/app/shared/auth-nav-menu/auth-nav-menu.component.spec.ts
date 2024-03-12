@@ -9,24 +9,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  NoopAnimationsModule,
-  NoopAnimationsModule,
-} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import {
-  NgbDropdownModule,
-  NgbDropdownModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   Store,
   StoreModule,
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AppState } from '../../app.reducer';
@@ -34,14 +25,8 @@ import {
   authReducer,
   AuthState,
 } from '../../core/auth/auth.reducer';
-import {
-  AuthService,
-  AuthService,
-} from '../../core/auth/auth.service';
-import {
-  AuthTokenInfo,
-  AuthTokenInfo,
-} from '../../core/auth/models/auth-token-info.model';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { HostWindowService } from '../host-window.service';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';

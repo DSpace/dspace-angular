@@ -13,10 +13,8 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import {
-  combineLatest as observableCombineLatest,
   combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
@@ -31,10 +29,7 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { ItemRequestDataService } from '../../core/data/item-request-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  redirectOn4xx,
-  redirectOn4xx,
-} from '../../core/shared/authorized.operators';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Item } from '../../core/shared/item.model';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import {
@@ -43,10 +38,7 @@ import {
 } from '../../core/shared/operators';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';

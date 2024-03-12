@@ -4,17 +4,12 @@ import {
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectionStrategy,
-  Component,
   Component,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  EditBitstreamPageComponent as BaseComponent,
-  EditBitstreamPageComponent as BaseComponent,
-} from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
+import { EditBitstreamPageComponent as BaseComponent } from '../../../../../app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { ErrorComponent } from '../../../../../app/shared/error/error.component';
 import { FormComponent } from '../../../../../app/shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';

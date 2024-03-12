@@ -5,23 +5,14 @@ import {
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  SearchConfigurationService,
-  SearchConfigurationService,
-} from '../../../../../../../../../app/core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '../../../../../../../../../app/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-page.component';
 import {
   fadeIn,
-  fadeIn,
-  fadeInOut,
   fadeInOut,
 } from '../../../../../../../../../app/shared/animations/fade';
 import { ErrorComponent } from '../../../../../../../../../app/shared/error/error.component';
-import {
-  DsDynamicLookupRelationExternalSourceTabComponent as BaseComponent,
-  DsDynamicLookupRelationExternalSourceTabComponent as BaseComponent,
-} from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { DsDynamicLookupRelationExternalSourceTabComponent as BaseComponent } from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { ThemedLoadingComponent } from '../../../../../../../../../app/shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../../../../../app/shared/object-collection/object-collection.component';
 import { PageSizeSelectorComponent } from '../../../../../../../../../app/shared/page-size-selector/page-size-selector.component';

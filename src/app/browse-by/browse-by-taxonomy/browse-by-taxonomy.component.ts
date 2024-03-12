@@ -4,51 +4,29 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
-  Input,
   Input,
   OnChanges,
-  OnChanges,
   OnDestroy,
-  OnDestroy,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Params,
   Params,
   RouterLink,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  BehaviorSubject,
   Observable,
-  Observable,
-  Subscription,
   Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  BrowseDefinition,
-  BrowseDefinition,
-} from '../../core/shared/browse-definition.model';
+import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { Context } from '../../core/shared/context.model';
-import {
-  HierarchicalBrowseDefinition,
-  HierarchicalBrowseDefinition,
-} from '../../core/shared/hierarchical-browse-definition.model';
-import {
-  VocabularyEntryDetail,
-  VocabularyEntryDetail,
-} from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import {
-  VocabularyOptions,
-  VocabularyOptions,
-} from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
@@ -61,10 +39,7 @@ import { hasValue } from '../../shared/empty.util';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import {
-  BrowseByDataType,
-  BrowseByDataType,
-} from '../browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',

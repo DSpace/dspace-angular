@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   Location,
-  Location,
   NgIf,
 } from '@angular/common';
 import {
@@ -26,7 +25,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import {
   TranslateModule,
-  TranslateService,
   TranslateService,
 } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';

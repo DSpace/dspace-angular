@@ -45,16 +45,10 @@ import {
 } from './core/services/window.service';
 import { distinctNext } from './core/shared/distinct-next';
 import { HostWindowResizeAction } from './shared/host-window.actions';
-import {
-  IdleModalComponent,
-  IdleModalComponent,
-} from './shared/idle-modal/idle-modal.component';
+import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
-import {
-  ThemeService,
-  ThemeService,
-} from './shared/theme-support/theme.service';
+import { ThemeService } from './shared/theme-support/theme.service';
 
 @Component({
   selector: 'ds-app',

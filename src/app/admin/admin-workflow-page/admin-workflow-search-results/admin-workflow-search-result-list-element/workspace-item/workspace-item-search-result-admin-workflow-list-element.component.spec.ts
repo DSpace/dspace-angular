@@ -14,10 +14,7 @@ import { AuthService } from '../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import {
-  DSpaceObject,
-  DSpaceObject,
-} from '../../../../../core/shared/dspace-object.model';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';

@@ -9,39 +9,21 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import {
-  ChangeDetectionStrategy,
-  Component,
-} from '@angular/core';
-import {
   ComponentFixture,
-  ComponentFixture,
-  TestBed,
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  Router,
-  Router,
-} from '@angular/router';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
-import {
-  DynamicComponentLoaderDirective,
-  DynamicComponentLoaderDirective,
-} from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import {
-  RouterStub,
-  RouterStub,
-} from '../../../shared/testing/router.stub';
-import {
-  AdvancedWorkflowActionsLoaderComponent,
-  AdvancedWorkflowActionsLoaderComponent,
-} from './advanced-workflow-actions-loader.component';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { AdvancedWorkflowActionsLoaderComponent } from './advanced-workflow-actions-loader.component';
 
 const ADVANCED_WORKFLOW_ACTION_TEST = 'testaction';
 

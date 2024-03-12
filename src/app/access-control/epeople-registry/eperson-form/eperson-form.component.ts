@@ -14,8 +14,6 @@ import {
 import { UntypedFormGroup } from '@angular/forms';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Router,
   Router,
   RouterLink,
 } from '@angular/router';
@@ -45,14 +43,8 @@ import {
 } from 'rxjs/operators';
 
 import { AuthService } from '../../../core/auth/auth.service';
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../core/breadcrumbs/dso-name.service';
-import {
-  EpersonRegistrationService,
-  EpersonRegistrationService,
-} from '../../../core/data/eperson-registration.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
@@ -70,14 +62,8 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import {
-  Registration,
-  Registration,
-} from '../../../core/shared/registration.model';
-import {
-  TYPE_REQUEST_FORGOT,
-  TYPE_REQUEST_FORGOT,
-} from '../../../register-email-form/register-email-form.component';
+import { Registration } from '../../../core/shared/registration.model';
+import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -88,10 +74,7 @@ import { PaginationComponent } from '../../../shared/pagination/pagination.compo
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
-import {
-  ValidateEmailNotTaken,
-  ValidateEmailNotTaken,
-} from './validators/email-taken.validator';
+import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
 @Component({
   selector: 'ds-eperson-form',

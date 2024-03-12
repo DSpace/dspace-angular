@@ -9,14 +9,8 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../core/breadcrumbs/dso-name.service';
-import {
-  LinkService,
-  LinkService,
-} from '../../../core/cache/builders/link.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../core/cache/builders/link.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
@@ -25,10 +19,7 @@ import {
   hasValue,
 } from '../../empty.util';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
-import {
-  AbstractListableElementComponent,
-  AbstractListableElementComponent,
-} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { followLink } from '../../utils/follow-link-config.model';
 
 /**

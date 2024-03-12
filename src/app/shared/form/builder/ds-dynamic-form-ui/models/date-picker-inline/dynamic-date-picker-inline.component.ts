@@ -4,25 +4,17 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
-  EventEmitter,
   EventEmitter,
   Input,
-  Input,
   Output,
-  Output,
-  ViewChild,
   ViewChild,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormGroup,
-  UntypedFormGroup,
 } from '@angular/forms';
 import {
   NgbDatepicker,
-  NgbDatepicker,
-  NgbDatepickerConfig,
   NgbDatepickerConfig,
   NgbDatepickerModule,
 } from '@ng-bootstrap/ng-bootstrap';

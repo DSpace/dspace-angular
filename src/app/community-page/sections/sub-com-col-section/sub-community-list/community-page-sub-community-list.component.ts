@@ -15,33 +15,19 @@ import {
   combineLatest as observableCombineLatest,
   Subscription,
 } from 'rxjs';
-import {
-  switchMap,
-  switchMap,
-} from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 import {
   SortDirection,
-  SortDirection,
-  SortOptions,
   SortOptions,
 } from '../../../../core/cache/models/sort-options.model';
-import {
-  CommunityDataService,
-  CommunityDataService,
-} from '../../../../core/data/community-data.service';
+import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import {
-  PaginationService,
-  PaginationService,
-} from '../../../../core/pagination/pagination.service';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Community } from '../../../../core/shared/community.model';
 import { fadeIn } from '../../../../shared/animations/fade';
-import {
-  hasValue,
-  hasValue,
-} from '../../../../shared/empty.util';
+import { hasValue } from '../../../../shared/empty.util';
 import { ErrorComponent } from '../../../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../shared/object-collection/object-collection.component';

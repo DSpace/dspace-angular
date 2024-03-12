@@ -18,7 +18,6 @@ import {
   FormsModule,
   ReactiveFormsModule,
   UntypedFormControl,
-  UntypedFormControl,
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';

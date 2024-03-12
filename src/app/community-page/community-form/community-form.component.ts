@@ -19,29 +19,13 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 
-import {
-  environment,
-  environment,
-} from '../../../environments/environment';
-import {
-  AuthService,
-  AuthService,
-} from '../../core/auth/auth.service';
-import {
-  ObjectCacheService,
-  ObjectCacheService,
-} from '../../core/cache/object-cache.service';
-import {
-  CommunityDataService,
-  CommunityDataService,
-} from '../../core/data/community-data.service';
-import {
-  RequestService,
-  RequestService,
-} from '../../core/data/request.service';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
+import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { RequestService } from '../../core/data/request.service';
 import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';

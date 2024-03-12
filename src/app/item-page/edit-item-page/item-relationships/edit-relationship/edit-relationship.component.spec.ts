@@ -3,17 +3,12 @@ import {
   Component,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
-  ComponentFixture,
   TestBed,
-  TestBed,
-  waitForAsync,
   waitForAsync,
 } from '@angular/core/testing';
 import {
-  NgbModal,
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -22,10 +17,7 @@ import { of as observableOf } from 'rxjs';
 
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import {
-  Item,
-  Item,
-} from '../../../../core/shared/item.model';
+import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
@@ -34,10 +26,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
-import {
-  EditRelationshipComponent,
-  EditRelationshipComponent,
-} from './edit-relationship.component';
+import { EditRelationshipComponent } from './edit-relationship.component';
 
 let objectUpdatesService;
 const url = 'http://test-url.com/test-url';

@@ -26,7 +26,6 @@ import { hasValue } from '../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownPipe as MarkdownPipe_1 } from '../../../shared/utils/markdown.pipe';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';
-import { ImageField } from '../../simple/field-components/specific-field/item-page-field.component';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.

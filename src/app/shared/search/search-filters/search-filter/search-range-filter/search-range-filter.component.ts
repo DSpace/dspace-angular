@@ -41,7 +41,6 @@ import {
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../../empty.util';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';

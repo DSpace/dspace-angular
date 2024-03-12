@@ -20,23 +20,13 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
 import { SortablejsModule } from 'ngx-sortablejs';
-import {
-  BehaviorSubject,
-  BehaviorSubject,
-} from 'rxjs';
-import {
-  Options,
-  Options,
-} from 'sortablejs';
+import { BehaviorSubject } from 'rxjs';
+import { Options } from 'sortablejs';
 
-import {
-  DragService,
-  DragService,
-} from '../../../core/drag.service';
+import { DragService } from '../../../core/drag.service';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';

@@ -35,14 +35,8 @@ import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
-import {
-  SubmissionObjectEntry,
-  SubmissionObjectEntry,
-} from '../../../../../submission/objects/submission-objects.reducer';
-import {
-  SubmissionService,
-  SubmissionService,
-} from '../../../../../submission/submission.service';
+import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
+import { SubmissionService } from '../../../../../submission/submission.service';
 import {
   hasValue,
   isNotEmpty,

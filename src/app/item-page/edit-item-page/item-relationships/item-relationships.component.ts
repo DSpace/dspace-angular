@@ -9,14 +9,11 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Router,
   Router,
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
-  TranslateService,
   TranslateService,
 } from '@ngx-translate/core';
 import {
@@ -59,10 +56,7 @@ import {
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';

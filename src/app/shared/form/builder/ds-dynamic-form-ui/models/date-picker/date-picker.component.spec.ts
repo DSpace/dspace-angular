@@ -18,10 +18,7 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import {
-  By,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,

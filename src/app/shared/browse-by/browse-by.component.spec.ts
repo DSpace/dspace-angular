@@ -32,16 +32,10 @@ import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { PageInfo } from '../../core/shared/page-info.model';
-import {
-  SearchConfigurationService,
-  SearchConfigurationService,
-} from '../../core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { HostWindowService } from '../host-window.service';
-import {
-  getMockThemeService,
-  getMockThemeService,
-} from '../mocks/theme-service.mock';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import {
   DEFAULT_CONTEXT,

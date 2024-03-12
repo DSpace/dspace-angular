@@ -17,14 +17,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {
   BehaviorSubject,
-  BehaviorSubject,
-  Subscription,
   Subscription,
 } from 'rxjs';
 import {
   distinctUntilChanged,
-  distinctUntilChanged,
-  map,
   map,
 } from 'rxjs/operators';
 
@@ -34,24 +30,14 @@ import {
 } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import {
-  SearchConfigurationService,
-  SearchConfigurationService,
-} from '../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../shared/empty.util';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import {
-  SelectableListState,
-  SelectableListState,
-} from '../../../shared/object-list/selectable-list/selectable-list.reducer';
-import {
-  SelectableListService,
-  SelectableListService,
-} from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';

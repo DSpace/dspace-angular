@@ -13,10 +13,7 @@ import {
   StoreModule,
 } from '@ngrx/store';
 
-import {
-  NOTIFICATIONS_MODULE_PATH,
-  NOTIFICATIONS_MODULE_PATH,
-} from './admin/admin-routing-paths';
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import { storeModuleConfig } from './app.reducer';
 import {
   ACCESS_CONTROL_MODULE_PATH,
@@ -36,19 +33,13 @@ import {
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import {
-  AuthBlockingGuard,
-  AuthBlockingGuard,
-} from './core/auth/auth-blocking.guard';
+import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { ReloadGuard } from './core/reload/reload.guard';
-import {
-  ForgotPasswordCheckGuard,
-  ForgotPasswordCheckGuard,
-} from './core/rest-property/forgot-password-check-guard.guard';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';

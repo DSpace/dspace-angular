@@ -6,42 +6,28 @@ import {
 } from '@angular/common';
 import {
   ChangeDetectorRef,
-  ChangeDetectorRef,
   Component,
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
-  ComponentFixture,
-  inject,
   inject,
   TestBed,
-  TestBed,
-  waitForAsync,
   waitForAsync,
 } from '@angular/core/testing';
 import {
   FormsModule,
-  FormsModule,
-  ReactiveFormsModule,
   ReactiveFormsModule,
   UntypedFormControl,
-  UntypedFormControl,
-  UntypedFormGroup,
   UntypedFormGroup,
 } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   NgbModule,
-  NgbModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
-  DynamicFormLayoutService,
-  DynamicFormValidationService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -53,25 +39,13 @@ import {
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import {
-  FormRowModel,
-  FormRowModel,
-} from '../../../../../../core/config/models/config-submission-form.model';
+import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
-import {
-  VocabularyService,
-  VocabularyService,
-} from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
-import {
-  createTestComponent,
-  createTestComponent,
-} from '../../../../../testing/utils.test';
-import {
-  VocabularyServiceStub,
-  VocabularyServiceStub,
-} from '../../../../../testing/vocabulary-service.stub';
+import { createTestComponent } from '../../../../../testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';

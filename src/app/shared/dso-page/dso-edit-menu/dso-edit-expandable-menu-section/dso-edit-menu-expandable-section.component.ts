@@ -6,10 +6,7 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
   Inject,
-  Inject,
-  Injector,
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -22,16 +19,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MenuID } from 'src/app/shared/menu/menu-id.model';
 import { MenuSection } from 'src/app/shared/menu/menu-section.model';
-import {
-  MenuSectionComponent,
-  MenuSectionComponent,
-} from 'src/app/shared/menu/menu-section/menu-section.component';
+import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
 
 import { hasValue } from '../../../empty.util';
-import {
-  MenuService,
-  MenuService,
-} from '../../../menu/menu.service';
+import { MenuService } from '../../../menu/menu.service';
 
 /**
  * Represents an expandable section in the dso edit menus

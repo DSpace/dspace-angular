@@ -15,7 +15,6 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { Subscription } from 'rxjs/internal/Subscription';
 import {
   filter,
   take,

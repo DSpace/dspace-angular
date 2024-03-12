@@ -18,35 +18,22 @@ import {
   combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
-import {
-  map,
-  map,
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
   APP_CONFIG,
-  APP_CONFIG,
-  AppConfig,
   AppConfig,
 } from '../../../config/app-config.interface';
-import {
-  DSONameService,
-  DSONameService,
-} from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import {
   SortDirection,
-  SortDirection,
-  SortOptions,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RemoteData } from '../../core/data/remote-data';
-import {
-  PaginationService,
-  PaginationService,
-} from '../../core/pagination/pagination.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
 import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
@@ -54,21 +41,14 @@ import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-cont
 import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import {
-  isValidDate,
-  isValidDate,
-} from '../../shared/date.util';
+import { isValidDate } from '../../shared/date.util';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import {
-  PaginationComponentOptions,
-  PaginationComponentOptions,
-} from '../../shared/pagination/pagination-component-options.model';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {

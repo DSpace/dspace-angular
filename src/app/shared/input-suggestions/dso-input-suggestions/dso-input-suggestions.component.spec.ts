@@ -14,10 +14,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  DSpaceObject,
-  DSpaceObject,
-} from '../../../core/shared/dspace-object.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../theme-support/theme.service';

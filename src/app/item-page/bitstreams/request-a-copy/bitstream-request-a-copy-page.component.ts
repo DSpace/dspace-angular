@@ -1,102 +1,62 @@
 import {
   AsyncPipe,
   Location,
-  Location,
   NgIf,
 } from '@angular/common';
 import {
   Component,
-  Component,
   OnDestroy,
-  OnDestroy,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormBuilder,
-  UntypedFormBuilder,
-  UntypedFormControl,
   UntypedFormControl,
   UntypedFormGroup,
-  UntypedFormGroup,
-  Validators,
   Validators,
 } from '@angular/forms';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Router,
   Router,
   RouterLink,
 } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
-  combineLatest as observableCombineLatest,
-  Observable,
   Observable,
   of as observableOf,
-  of as observableOf,
-  Subscription,
   Subscription,
 } from 'rxjs';
 import {
   filter,
-  filter,
-  map,
   map,
   switchMap,
-  switchMap,
-  take,
   take,
 } from 'rxjs/operators';
 
 import {
   getBitstreamDownloadRoute,
-  getBitstreamDownloadRoute,
-  getForbiddenRoute,
   getForbiddenRoute,
 } from '../../../app-routing-paths';
-import {
-  AuthService,
-  AuthService,
-} from '../../../core/auth/auth.service';
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../core/breadcrumbs/dso-name.service';
-import {
-  BitstreamDataService,
-  BitstreamDataService,
-} from '../../../core/data/bitstream-data.service';
+import { AuthService } from '../../../core/auth/auth.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
-import {
-  EPerson,
-  EPerson,
-} from '../../../core/eperson/models/eperson.model';
-import {
-  Bitstream,
-  Bitstream,
-} from '../../../core/shared/bitstream.model';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Item } from '../../../core/shared/item.model';
 import { ItemRequest } from '../../../core/shared/item-request.model';
 import {
   getFirstCompletedRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import {
   hasValue,
-  hasValue,
-  isNotEmpty,
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';

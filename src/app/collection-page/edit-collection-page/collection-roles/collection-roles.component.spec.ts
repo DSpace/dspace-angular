@@ -1,52 +1,30 @@
 import {
   DebugElement,
-  DebugElement,
-  NO_ERRORS_SCHEMA,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import {
-  By,
-  By,
-} from '@angular/platform-browser';
-import {
-  NoopAnimationsModule,
-  NoopAnimationsModule,
-} from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import {
-  RouterTestingModule,
-  RouterTestingModule,
-} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../core/data/request.service';
-import {
-  GroupDataService,
-  GroupDataService,
-} from '../../../core/eperson/group-data.service';
-import {
-  Collection,
-  Collection,
-} from '../../../core/shared/collection.model';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { Collection } from '../../../core/shared/collection.model';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import {
-  CollectionRolesComponent,
-  CollectionRolesComponent,
-} from './collection-roles.component';
+import { CollectionRolesComponent } from './collection-roles.component';
 
 describe('CollectionRolesComponent', () => {
 

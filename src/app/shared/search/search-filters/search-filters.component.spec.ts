@@ -16,7 +16,6 @@ import { environment } from 'src/environments/environment';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { SearchFiltersComponent } from './search-filters.component';
 

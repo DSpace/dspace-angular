@@ -21,8 +21,6 @@ import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';

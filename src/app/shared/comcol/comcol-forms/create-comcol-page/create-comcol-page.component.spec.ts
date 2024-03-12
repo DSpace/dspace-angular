@@ -1,21 +1,12 @@
-import {
-  CommonModule,
-  CommonModule,
-} from '@angular/common';
-import {
-  NO_ERRORS_SCHEMA,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import {
-  RouterTestingModule,
-  RouterTestingModule,
-} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';

@@ -12,8 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import {
   fadeOutLeave,
-  fadeOutLeave,
-  fadeOutState,
   fadeOutState,
 } from '../animations/fade';
 import { AlertType } from './alert-type';

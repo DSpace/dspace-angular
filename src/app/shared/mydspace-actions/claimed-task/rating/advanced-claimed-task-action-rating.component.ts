@@ -1,19 +1,14 @@
 import {
   Component,
-  Component,
-  Injector,
   Injector,
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Router,
   Router,
 } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
-  TranslateService,
   TranslateService,
 } from '@ngx-translate/core';
 
@@ -23,10 +18,7 @@ import {
   ADVANCED_WORKFLOW_ACTION_RATING,
   ADVANCED_WORKFLOW_TASK_OPTION_RATING,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../notifications/notifications.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
 
 /**

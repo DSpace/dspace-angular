@@ -1,7 +1,5 @@
 import {
   DebugElement,
-  DebugElement,
-  NO_ERRORS_SCHEMA,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -9,18 +7,11 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  By,
-  By,
-} from '@angular/platform-browser';
-import {
-  RouterTestingModule,
-  RouterTestingModule,
-} from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of,
   of,
 } from 'rxjs';
 import { MetadataField } from 'src/app/core/metadata/metadata-field.model';
@@ -35,50 +26,22 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 import { VocabularyServiceStub } from 'src/app/shared/testing/vocabulary-service.stub';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../core/breadcrumbs/dso-name.service';
-import {
-  ItemDataService,
-  ItemDataService,
-} from '../../../core/data/item-data.service';
-import {
-  RelationshipDataService,
-  RelationshipDataService,
-} from '../../../core/data/relationship-data.service';
-import {
-  Collection,
-  Collection,
-} from '../../../core/shared/collection.model';
-import {
-  DSpaceObject,
-  DSpaceObject,
-} from '../../../core/shared/dspace-object.model';
-import {
-  Item,
-  Item,
-} from '../../../core/shared/item.model';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { Item } from '../../../core/shared/item.model';
 import {
   MetadataValue,
-  MetadataValue,
-  VIRTUAL_METADATA_PREFIX,
   VIRTUAL_METADATA_PREFIX,
 } from '../../../core/shared/metadata.models';
-import {
-  ItemMetadataRepresentation,
-  ItemMetadataRepresentation,
-} from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
-import {
-  createSuccessfulRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   DsoEditMetadataChangeType,
-  DsoEditMetadataChangeType,
-  DsoEditMetadataValue,
   DsoEditMetadataValue,
 } from '../dso-edit-metadata-form';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';

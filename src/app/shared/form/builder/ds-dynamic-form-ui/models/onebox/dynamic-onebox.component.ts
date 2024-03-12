@@ -19,13 +19,9 @@ import {
 } from '@angular/forms';
 import {
   NgbModal,
-  NgbModal,
   NgbModalRef,
-  NgbModalRef,
-  NgbTypeahead,
   NgbTypeahead,
   NgbTypeaheadModule,
-  NgbTypeaheadSelectItemEvent,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -35,12 +31,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  Observable,
-  of as observableOf,
   of as observableOf,
   Subject,
-  Subject,
-  Subscription,
   Subscription,
 } from 'rxjs';
 import {

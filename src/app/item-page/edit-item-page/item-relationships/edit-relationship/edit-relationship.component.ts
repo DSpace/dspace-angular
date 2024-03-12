@@ -9,8 +9,6 @@ import {
 } from '@angular/core';
 import {
   NgbModal,
-  NgbModal,
-  NgbModalRef,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -26,14 +24,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  FieldChangeType,
-  FieldChangeType,
-} from '../../../../core/data/object-updates/field-change-type.model';
-import {
-  FieldUpdate,
-  FieldUpdate,
-} from '../../../../core/data/object-updates/field-update.model';
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
@@ -47,8 +39,6 @@ import {
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import {
   hasValue,
-  hasValue,
-  isNotEmpty,
   isNotEmpty,
 } from '../../../../shared/empty.util';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';

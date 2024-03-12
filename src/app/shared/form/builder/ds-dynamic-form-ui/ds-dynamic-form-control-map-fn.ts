@@ -50,6 +50,8 @@ import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
+  const datepickerModel = model as DynamicDatePickerModel;
+
   switch (model.type) {
     case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
       return DsDynamicFormArrayComponent;
@@ -61,8 +63,6 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
       return (model instanceof DynamicListCheckboxGroupModel) ? DsDynamicListComponent : DynamicNGBootstrapCheckboxGroupComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER:
-      const datepickerModel = model as DynamicDatePickerModel;
-
       return datepickerModel.inline ? DynamicNGBootstrapCalendarComponent : DsDatePickerInlineComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_GROUP:

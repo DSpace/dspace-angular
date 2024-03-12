@@ -6,10 +6,7 @@ import {
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  DsoEditMetadataComponent as BaseComponent,
-  DsoEditMetadataComponent as BaseComponent,
-} from '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
+import { DsoEditMetadataComponent as BaseComponent } from '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 import { DsoEditMetadataFieldValuesComponent } from '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
 import { DsoEditMetadataHeadersComponent } from '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata-headers/dso-edit-metadata-headers.component';
 import { DsoEditMetadataValueComponent } from '../../../../../app/dso-shared/dso-edit-metadata/dso-edit-metadata-value/dso-edit-metadata-value.component';

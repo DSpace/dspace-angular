@@ -14,7 +14,6 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { StartsWithType } from '../starts-with/starts-with-decorator';
 import { StartsWithType } from '../starts-with/starts-with-type';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { BrowseByComponent } from './browse-by.component';

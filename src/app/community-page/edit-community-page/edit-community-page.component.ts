@@ -7,8 +7,6 @@ import {
 import { Component } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Router,
   Router,
   RouterLink,
   RouterOutlet,

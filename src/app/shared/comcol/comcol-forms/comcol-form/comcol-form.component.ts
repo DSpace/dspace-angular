@@ -22,10 +22,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  Operation,
-  Operation,
-} from 'fast-json-patch';
+import { Operation } from 'fast-json-patch';
 import { FileUploader } from 'ng2-file-upload';
 import {
   BehaviorSubject,
@@ -46,14 +43,8 @@ import {
   MetadataMap,
   MetadataValue,
 } from '../../../../core/shared/metadata.models';
-import {
-  NoContent,
-  NoContent,
-} from '../../../../core/shared/NoContent.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../../../core/shared/operators';
+import { NoContent } from '../../../../core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { ResourceType } from '../../../../core/shared/resource-type';
 import {
   hasValue,

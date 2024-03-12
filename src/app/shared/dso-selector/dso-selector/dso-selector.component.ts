@@ -23,7 +23,6 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
@@ -41,10 +40,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import {
   buildPaginatedList,
@@ -69,18 +65,12 @@ import {
 import { HoverClassDirective } from '../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { NotificationType } from '../../notifications/models/notification-type';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../notifications/notifications.service';
+import { NotificationsService } from '../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ListableNotificationObject } from '../../object-list/listable-notification-object/listable-notification-object.model';
-import {
-  LISTABLE_NOTIFICATION_OBJECT,
-  LISTABLE_NOTIFICATION_OBJECT,
-} from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
+import { LISTABLE_NOTIFICATION_OBJECT } from '../../object-list/listable-notification-object/listable-notification-object.resource-type';
 import { PaginatedSearchOptions } from '../../search/models/paginated-search-options.model';
 import { SearchResult } from '../../search/models/search-result.model';
 

@@ -4,10 +4,6 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
   ComponentFixture,
   fakeAsync,
   TestBed,
@@ -16,15 +12,10 @@ import {
 import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
-  ActivatedRoute,
   ActivatedRouteSnapshot,
-  ActivatedRouteSnapshot,
-  CanActivate,
   CanActivate,
   RouterModule,
   RouterStateSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
   UrlTree,
 } from '@angular/router';
 import {

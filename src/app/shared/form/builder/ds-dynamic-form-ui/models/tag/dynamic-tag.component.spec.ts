@@ -31,31 +31,17 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  VocabularyEntry,
-  VocabularyEntry,
-} from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import {
   mockDynamicFormLayoutService,
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
   mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
-import {
-  createTestComponent,
-  createTestComponent,
-} from '../../../../../testing/utils.test';
+import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
-import {
-  Chips,
-  Chips,
-} from '../../../../chips/models/chips.model';
-import {
-  FormFieldMetadataValueObject,
-  FormFieldMetadataValueObject,
-} from '../../../models/form-field-metadata-value.model';
+import { Chips } from '../../../../chips/models/chips.model';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicTagComponent } from './dynamic-tag.component';
 import { DynamicTagModel } from './dynamic-tag.model';
 

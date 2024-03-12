@@ -17,24 +17,17 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
   combineLatest as observableCombineLatest,
   Observable,
-  Observable,
-  Subscription,
   Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
   SortDirection,
-  SortDirection,
-  SortOptions,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -44,24 +37,15 @@ import { RouteService } from '../../core/services/route.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import {
   fadeIn,
-  fadeIn,
-  fadeInOut,
   fadeInOut,
 } from '../animations/fade';
 import { hasValue } from '../empty.util';
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../object-collection/object-collection.component';
-import {
-  ListableObject,
-  ListableObject,
-} from '../object-collection/shared/listable-object.model';
-import {
-  PaginationComponentOptions,
-  PaginationComponentOptions,
-} from '../pagination/pagination-component-options.model';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ThemedResultsBackButtonComponent } from '../results-back-button/themed-results-back-button.component';
-import { StartsWithType } from '../starts-with/starts-with-decorator';
 import { StartsWithLoaderComponent } from '../starts-with/starts-with-loader.component';
 import { StartsWithType } from '../starts-with/starts-with-type';
 import { VarDirective } from '../utils/var.directive';

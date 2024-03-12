@@ -15,20 +15,14 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   switchMap,
-  switchMap,
-  take,
   take,
 } from 'rxjs/operators';
 
-import {
-  ItemDataService,
-  ItemDataService,
-} from '../../../../../../../core/data/item-data.service';
+import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
@@ -40,33 +34,16 @@ import { MetadataValue } from '../../../../../../../core/shared/metadata.models'
 import { Metadata } from '../../../../../../../core/shared/metadata.utils';
 import {
   getFirstSucceededRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../../../../../core/shared/operators';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../../../../notifications/notifications.service';
+import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
-import {
-  ItemSearchResult,
-  ItemSearchResult,
-} from '../../../../../../object-collection/shared/item-search-result.model';
-import {
-  ListableObject,
-  ListableObject,
-} from '../../../../../../object-collection/shared/listable-object.model';
-import {
-  SelectableListService,
-  SelectableListService,
-} from '../../../../../../object-list/selectable-list/selectable-list.service';
-import {
-  PaginationComponentOptions,
-  PaginationComponentOptions,
-} from '../../../../../../pagination/pagination-component-options.model';
+import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
+import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
+import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../../../../search/models/paginated-search-options.model';
 import { SearchResult } from '../../../../../../search/models/search-result.model';
 import { SearchResultsComponent } from '../../../../../../search/search-results/search-results.component';

@@ -17,10 +17,7 @@ import {
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import {
-  Item,
-  Item,
-} from '../../../core/shared/item.model';
+import { Item } from '../../../core/shared/item.model';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { hasValue } from '../../../shared/empty.util';
 

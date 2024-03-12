@@ -5,76 +5,40 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
   OnDestroy,
-  OnDestroy,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
-  Router,
   Router,
   RouterLink,
 } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
-  combineLatest as observableCombineLatest,
-  Observable,
   Observable,
 } from 'rxjs';
 import {
   map,
-  map,
-  mergeMap,
   mergeMap,
   switchMap,
-  switchMap,
   take,
-  take,
-  toArray,
   toArray,
 } from 'rxjs/operators';
 
-import {
-  BitstreamFormatDataService,
-  BitstreamFormatDataService,
-} from '../../../core/data/bitstream-format-data.service';
+import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
-import {
-  PaginatedList,
-  PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import {
-  RemoteData,
-  RemoteData,
-} from '../../../core/data/remote-data';
-import {
-  PaginationService,
-  PaginationService,
-} from '../../../core/pagination/pagination.service';
-import {
-  BitstreamFormat,
-  BitstreamFormat,
-} from '../../../core/shared/bitstream-format.model';
-import {
-  NoContent,
-  NoContent,
-} from '../../../core/shared/NoContent.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import {
-  PaginationComponentOptions,
-  PaginationComponentOptions,
-} from '../../../shared/pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 /**
  * This component renders a list of bitstream formats

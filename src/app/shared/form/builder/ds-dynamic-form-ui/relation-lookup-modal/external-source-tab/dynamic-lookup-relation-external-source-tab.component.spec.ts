@@ -1,7 +1,5 @@
 import {
   EventEmitter,
-  EventEmitter,
-  NO_ERRORS_SCHEMA,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -11,16 +9,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  RouterTestingModule,
-  RouterTestingModule,
-} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
-  EMPTY,
-  of as observableOf,
   of as observableOf,
 } from 'rxjs';
 
@@ -31,10 +24,7 @@ import { ExternalSource } from '../../../../../../core/shared/external-source.mo
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
 import { Item } from '../../../../../../core/shared/item.model';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
-import {
-  SearchConfigurationService,
-  SearchConfigurationService,
-} from '../../../../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
@@ -45,10 +35,7 @@ import {
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../../remote-data.utils';
-import {
-  PaginatedSearchOptions,
-  PaginatedSearchOptions,
-} from '../../../../../search/models/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../../testing/utils.test';

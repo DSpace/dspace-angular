@@ -30,8 +30,6 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable } from 'rxjs/internal/Observable';
 import {
   debounceTime,
   distinctUntilChanged,

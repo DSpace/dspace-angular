@@ -39,11 +39,7 @@ import { EPersonMock } from '../testing/eperson.mock';
 import { GroupMock } from '../testing/group-mock';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { createTestComponent } from '../testing/utils.test';
-import {
-  EpersonGroupListComponent,
-  EpersonGroupListComponent,
-  SearchEvent,
-} from './eperson-group-list.component';
+import { EpersonGroupListComponent } from './eperson-group-list.component';
 import { SearchEvent } from './eperson-group-list-event-type';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';

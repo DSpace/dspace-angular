@@ -21,10 +21,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../../remote-data.utils';
-import {
-  NotificationsServiceStub,
-  NotificationsServiceStub,
-} from '../../../../testing/notifications-service.stub';
+import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {

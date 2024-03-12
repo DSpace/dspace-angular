@@ -11,7 +11,6 @@ import { RouterLink } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -24,10 +23,7 @@ import {
 } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestService } from '../../../../../core/data/request.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';

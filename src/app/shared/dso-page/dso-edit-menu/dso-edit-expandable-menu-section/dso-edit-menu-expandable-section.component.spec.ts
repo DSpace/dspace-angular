@@ -4,16 +4,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  By,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
-import { MenuItemType } from '../../../../shared/menu/menu-item-type.model';
 import { MenuService } from '../../../menu/menu.service';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';

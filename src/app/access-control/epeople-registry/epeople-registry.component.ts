@@ -17,10 +17,7 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
-import {
-  NgbModal,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -37,55 +34,26 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../core/breadcrumbs/dso-name.service';
-import {
-  AuthorizationDataService,
-  AuthorizationDataService,
-} from '../../core/data/feature-authorization/authorization-data.service';
-import {
-  FeatureID,
-  FeatureID,
-} from '../../core/data/feature-authorization/feature-id';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import {
-  RequestService,
-  RequestService,
-} from '../../core/data/request.service';
+import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  EpersonDtoModel,
-  EpersonDtoModel,
-} from '../../core/eperson/models/eperson-dto.model';
-import {
-  PaginationService,
-  PaginationService,
-} from '../../core/pagination/pagination.service';
-import {
-  NoContent,
-  NoContent,
-} from '../../core/shared/NoContent.model';
+import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { NoContent } from '../../core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
   getFirstCompletedRemoteData,
 } from '../../core/shared/operators';
-import {
-  PageInfo,
-  PageInfo,
-} from '../../core/shared/page-info.model';
-import {
-  ConfirmationModalComponent,
-  ConfirmationModalComponent,
-} from '../../shared/confirmation-modal/confirmation-modal.component';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -93,8 +61,6 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   getEPersonEditRoute,
-  getEPersonEditRoute,
-  getEPersonsRoute,
   getEPersonsRoute,
 } from '../access-control-routing-paths';
 import { EPersonFormComponent } from './eperson-form/eperson-form.component';

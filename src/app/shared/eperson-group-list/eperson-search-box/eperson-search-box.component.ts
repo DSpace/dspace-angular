@@ -12,7 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 import { isNotNull } from '../../empty.util';
-import { SearchEvent } from '../eperson-group-list.component';
 import { SearchEvent } from '../eperson-group-list-event-type';
 
 /**

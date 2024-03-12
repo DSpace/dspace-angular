@@ -23,10 +23,7 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedDeclinedTaskTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-task-search-result.model';
-import {
-  ClaimedTaskActionsAbstractComponent,
-  ClaimedTaskActionsAbstractComponent,
-} from '../abstract/claimed-task-actions-abstract.component';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
 

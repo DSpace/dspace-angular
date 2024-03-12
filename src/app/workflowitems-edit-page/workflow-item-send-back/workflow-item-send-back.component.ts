@@ -1,7 +1,6 @@
 import {
   CommonModule,
   Location,
-  Location,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -11,14 +10,10 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import {
-  RequestService,
-  RequestService,
-} from '../../core/data/request.service';
+import { RequestService } from '../../core/data/request.service';
 import { RouteService } from '../../core/services/route.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';

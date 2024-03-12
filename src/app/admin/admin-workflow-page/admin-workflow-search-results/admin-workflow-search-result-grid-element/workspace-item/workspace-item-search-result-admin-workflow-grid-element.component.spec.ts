@@ -13,18 +13,12 @@ import { AuthService } from '../../../../../core/auth/auth.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import {
-  DSpaceObject,
-  DSpaceObject,
-} from '../../../../../core/shared/dspace-object.model';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import {
-  SupervisionOrderDataService,
-  SupervisionOrderDataService,
-} from '../../../../../core/supervision-order/supervision-order-data.service';
+import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';

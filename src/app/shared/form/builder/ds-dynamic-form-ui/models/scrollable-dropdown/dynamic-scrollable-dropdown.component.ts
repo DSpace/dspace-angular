@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -6,20 +11,19 @@ import {
   Input,
   OnInit,
   Output,
-  ViewChild
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
-import { NgbDropdown, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdown,
+  NgbDropdownModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
   of as observableOf,
@@ -31,14 +35,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { isEmpty } from '../../../../../empty.util';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -49,9 +45,6 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { isEmpty } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { TranslateModule } from '@ngx-translate/core';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 
@@ -68,9 +61,9 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
     AsyncPipe,
     InfiniteScrollModule,
     NgForOf,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit {
   @ViewChild('dropdownMenu', { read: ElementRef }) dropdownMenu: ElementRef;

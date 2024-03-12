@@ -15,7 +15,6 @@ import {
 } from '@angular/core';
 import {
   NgbTooltip,
-  NgbTooltip,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';

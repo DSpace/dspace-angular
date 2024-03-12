@@ -11,45 +11,25 @@ import { BehaviorSubject } from 'rxjs';
 
 import {
   APP_CONFIG,
-  APP_CONFIG,
-  AppConfig,
   AppConfig,
 } from '../../../../../config/app-config.interface';
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
-import {
-  Context,
-  Context,
-} from '../../../../core/shared/context.model';
+import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload,
-} from '../../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
-import {
-  CollectionElementLinkType,
-  CollectionElementLinkType,
-} from '../../../object-collection/collection-element-link.type';
-import {
-  ItemSearchResult,
-  ItemSearchResult,
-} from '../../../object-collection/shared/item-search-result.model';
+import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
+import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
-import {
-  SearchResultListElementComponent,
-  SearchResultListElementComponent,
-} from '../../search-result-list-element/search-result-list-element.component';
+import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 /**
  * This component renders workflowitem object for the search result in the list view.

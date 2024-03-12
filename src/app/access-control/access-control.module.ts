@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import {
-  AbstractControl,
-  AbstractControl,
-} from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {

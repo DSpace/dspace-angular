@@ -12,20 +12,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  RouterLinkWithHref,
-  RouterLinkWithHref,
-} from '@angular/router';
+import { RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import {
-  v4 as uuidv4,
-  v4 as uuidv4,
-} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Collection } from '../../core/shared/collection.model';

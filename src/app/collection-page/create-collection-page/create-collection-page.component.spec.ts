@@ -12,16 +12,10 @@ import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import {
-  CollectionDataService,
-  CollectionDataService,
-} from '../../core/data/collection-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
-import {
-  RouteService,
-  RouteService,
-} from '../../core/services/route.service';
+import { RouteService } from '../../core/services/route.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

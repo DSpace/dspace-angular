@@ -18,12 +18,8 @@ import {
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
-import {
-  SearchConfigurationService,
-  SearchConfigurationService,
-} from '../../../../core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../empty.util';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
 

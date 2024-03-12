@@ -2,10 +2,7 @@ import {
   AsyncPipe,
   NgIf,
 } from '@angular/common';
-import {
-  HttpClient,
-  HttpClient,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   Component,
   Input,
@@ -14,7 +11,6 @@ import {
 } from '@angular/core';
 import {
   TranslateModule,
-  TranslateService,
   TranslateService,
 } from '@ngx-translate/core';
 import {
@@ -29,35 +25,20 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  BitstreamDataService,
-  BitstreamDataService,
-} from '../../../../core/data/bitstream-data.service';
-import {
-  CollectionDataService,
-  CollectionDataService,
-} from '../../../../core/data/collection-data.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
 import { RequestService } from '../../../../core/data/request.service';
-import {
-  Collection,
-  Collection,
-} from '../../../../core/shared/collection.model';
+import { Collection } from '../../../../core/shared/collection.model';
 import { ContentSource } from '../../../../core/shared/content-source.model';
-import {
-  ContentSourceSetSerializer,
-  ContentSourceSetSerializer,
-} from '../../../../core/shared/content-source-set-serializer';
+import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import {
-  Process,
-  Process,
-} from '../../../../process-page/processes/process.model';
+import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';

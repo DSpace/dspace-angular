@@ -7,22 +7,11 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
-  ChangeDetectorRef,
-  ElementRef,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
   ComponentFixture,
   TestBed,
-  TestBed,
-  waitForAsync,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  ActivatedRoute,
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -48,10 +37,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { MockElementRef } from '../../shared/testing/element-ref.mock';
-import {
-  createPaginatedList,
-  createPaginatedList,
-} from '../../shared/testing/utils.test';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CollectionSelectorComponent } from './collection-selector.component';
 

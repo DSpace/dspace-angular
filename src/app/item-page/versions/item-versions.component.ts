@@ -14,20 +14,14 @@ import {
 import {
   FormsModule,
   UntypedFormBuilder,
-  UntypedFormBuilder,
 } from '@angular/forms';
 import {
   Router,
-  Router,
   RouterLink,
 } from '@angular/router';
-import {
-  NgbModal,
-  NgbModal,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
-  TranslateService,
   TranslateService,
 } from '@ngx-translate/core';
 import {
@@ -47,24 +41,12 @@ import {
 } from 'rxjs/operators';
 
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import {
-  AuthorizationDataService,
-  AuthorizationDataService,
-} from '../../core/data/feature-authorization/authorization-data.service';
-import {
-  FeatureID,
-  FeatureID,
-} from '../../core/data/feature-authorization/feature-id';
-import {
-  ItemDataService,
-  ItemDataService,
-} from '../../core/data/item-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import {
-  VersionDataService,
-  VersionDataService,
-} from '../../core/data/version-data.service';
+import { VersionDataService } from '../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
@@ -87,10 +69,7 @@ import {
   hasValue,
   hasValueOperator,
 } from '../../shared/empty.util';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -103,10 +82,7 @@ import {
 } from '../item-page-routing-paths';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
-import {
-  ItemVersionsSummaryModalComponent,
-  ItemVersionsSummaryModalComponent,
-} from './item-versions-summary-modal/item-versions-summary-modal.component';
+import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 
 @Component({
   selector: 'ds-item-versions',

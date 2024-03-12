@@ -9,18 +9,13 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
   NavigationEnd,
-  NavigationEnd,
-  Router,
   Router,
   RouterLink,
-  Scroll,
   Scroll,
 } from '@angular/router';
 import {
   TranslateModule,
-  TranslateService,
   TranslateService,
 } from '@ngx-translate/core';
 import {
@@ -29,8 +24,6 @@ import {
 } from 'rxjs';
 import {
   map,
-  map,
-  switchMap,
   switchMap,
 } from 'rxjs/operators';
 
@@ -39,23 +32,15 @@ import { ItemTemplateDataService } from '../../../core/data/item-template-data.s
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
-import {
-  Item,
-  Item,
-} from '../../../core/shared/item.model';
+import { Item } from '../../../core/shared/item.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { hasValue } from '../../../shared/empty.util';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { CollectionFormComponent } from '../../collection-form/collection-form.component';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';

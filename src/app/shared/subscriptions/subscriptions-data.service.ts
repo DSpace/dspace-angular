@@ -11,10 +11,7 @@ import {
 } from 'rxjs/operators';
 import { sendRequest } from 'src/app/core/shared/request.operators';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { RequestParam } from '../../core/cache/models/request-param.model';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
@@ -41,10 +38,7 @@ import {
 } from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
-import {
-  Subscription,
-  Subscription,
-} from './models/subscription.model';
+import { Subscription } from './models/subscription.model';
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.

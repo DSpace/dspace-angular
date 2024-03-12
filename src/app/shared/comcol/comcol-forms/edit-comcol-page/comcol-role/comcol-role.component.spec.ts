@@ -8,14 +8,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  NoopAnimationsModule,
-  NoopAnimationsModule,
-} from '@angular/platform-browser/animations';
-import {
-  RouterTestingModule,
-  RouterTestingModule,
-} from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -23,20 +17,12 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { RequestService } from '../../../../../core/data/request.service';
 import { GroupDataService } from '../../../../../core/eperson/group-data.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../../notifications/notifications.service';
+import { NotificationsService } from '../../../../notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../../remote-data.utils';
-import {
-  NotificationsServiceStub,
-  NotificationsServiceStub,
-} from '../../../../testing/notifications-service.stub';
+import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolRoleComponent } from './comcol-role.component';
 
 describe('ComcolRoleComponent', () => {

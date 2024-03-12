@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
   NgbModule,
-  NgbModule,
-  NgbTooltipModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,10 +15,7 @@ import { ObjectValuesPipe } from '../../shared/utils/object-values-pipe';
 import { ItemVersionsModule } from '../versions/item-versions.module';
 import { AbstractItemUpdateComponent } from './abstract-item-update/abstract-item-update.component';
 import { EditItemPageComponent } from './edit-item-page.component';
-import {
-  ItemAccessControlComponent,
-  ItemAccessControlComponent,
-} from './item-access-control/item-access-control.component';
+import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemEditBitstreamComponent } from './item-bitstreams/item-edit-bitstream/item-edit-bitstream.component';

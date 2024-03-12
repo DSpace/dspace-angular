@@ -1,7 +1,4 @@
-import {
-  CommonModule,
-  CommonModule,
-} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { DebugElement } from '@angular/core';
 import {
   ComponentFixture,
@@ -20,10 +17,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Community } from '../../core/shared/community.model';
-import {
-  UsageReport,
-  UsageReport,
-} from '../../core/statistics/models/usage-report.model';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';

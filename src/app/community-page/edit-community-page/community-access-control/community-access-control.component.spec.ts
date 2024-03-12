@@ -2,13 +2,9 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  ActivatedRoute,
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   of as observableOf,
-  of,
   of,
 } from 'rxjs';
 
@@ -20,21 +16,7 @@ import { CommunityAccessControlComponent } from './community-access-control.comp
 describe('CommunityAccessControlComponent', () => {
   let component: CommunityAccessControlComponent;
   let fixture: ComponentFixture<CommunityAccessControlComponent>;
-  let routeStub = {
-    parent: {
-      parent: {
-        data: {
-          pipe: () => {
-            return {
-              pipe: () => {
-                return of({});
-              },
-            };
-          },
-        },
-      },
-    },
-  };
+
   const testCommunity = Object.assign(new Community(),
     {
       type: 'community',

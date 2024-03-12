@@ -13,10 +13,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  cold,
-  cold,
-} from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 import {
   Observable,
   of as observableOf,
@@ -30,10 +27,7 @@ import { SelectableListService } from 'src/app/shared/object-list/selectable-lis
 import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import {
-  APP_CONFIG,
-  APP_CONFIG,
-} from '../../../config/app-config.interface';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';

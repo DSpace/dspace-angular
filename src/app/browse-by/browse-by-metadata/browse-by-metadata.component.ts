@@ -4,84 +4,45 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
-  Inject,
   Inject,
   Input,
-  Input,
-  OnChanges,
   OnChanges,
   OnDestroy,
-  OnDestroy,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
   Params,
-  Params,
-  Router,
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
   combineLatest as observableCombineLatest,
   Observable,
-  Observable,
   of as observableOf,
-  of as observableOf,
-  Subscription,
   Subscription,
 } from 'rxjs';
-import {
-  map,
-  map,
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
   APP_CONFIG,
-  APP_CONFIG,
-  AppConfig,
   AppConfig,
 } from '../../../config/app-config.interface';
-import {
-  DSONameService,
-  DSONameService,
-} from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import {
   SortDirection,
-  SortDirection,
-  SortOptions,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
-import {
-  DSpaceObjectDataService,
-  DSpaceObjectDataService,
-} from '../../core/data/dspace-object-data.service';
-import {
-  PaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
-import {
-  RemoteData,
-  RemoteData,
-} from '../../core/data/remote-data';
-import {
-  PaginationService,
-  PaginationService,
-} from '../../core/pagination/pagination.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import {
-  Context,
-  Context,
-} from '../../core/shared/context.model';
+import { Context } from '../../core/shared/context.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
@@ -93,22 +54,13 @@ import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/co
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import {
   hasValue,
-  hasValue,
-  isNotEmpty,
   isNotEmpty,
 } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import {
-  PaginationComponentOptions,
-  PaginationComponentOptions,
-} from '../../shared/pagination/pagination-component-options.model';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import { VarDirective } from '../../shared/utils/var.directive';
-import {
-  BrowseByDataType,
-  BrowseByDataType,
-} from '../browse-by-switcher/browse-by-data-type';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 export const BBM_PAGINATION_ID = 'bbm';
 

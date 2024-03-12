@@ -1,58 +1,37 @@
 import { NgIf } from '@angular/common';
 import {
   Component,
-  Component,
   Inject,
-  Inject,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
   UntypedFormBuilder,
-  UntypedFormBuilder,
-  Validators,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { getHomePageRoute } from '../../../app-routing-paths';
 import { AuthService } from '../../../core/auth/auth.service';
-import {
-  RemoteData,
-  RemoteData,
-} from '../../../core/data/remote-data';
+import { RemoteData } from '../../../core/data/remote-data';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-import {
-  FeedbackDataService,
-  FeedbackDataService,
-} from '../../../core/feedback/feedback-data.service';
-import {
-  RouteService,
-  RouteService,
-} from '../../../core/services/route.service';
+import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
+import { RouteService } from '../../../core/services/route.service';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from '../../../core/services/window.service';
-import {
-  NoContent,
-  NoContent,
-} from '../../../core/shared/NoContent.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { ErrorComponent } from '../../../shared/error/error.component';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-feedback-form',

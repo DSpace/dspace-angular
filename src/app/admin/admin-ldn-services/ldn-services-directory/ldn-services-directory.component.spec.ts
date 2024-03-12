@@ -60,6 +60,7 @@ describe('LdnServicesOverviewComponent', () => {
         {
           provide: NgbModal, useValue: {
             open: () => {
+              //
             },
           },
         },

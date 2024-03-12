@@ -25,7 +25,6 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';

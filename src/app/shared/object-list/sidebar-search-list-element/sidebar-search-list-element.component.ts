@@ -14,10 +14,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';

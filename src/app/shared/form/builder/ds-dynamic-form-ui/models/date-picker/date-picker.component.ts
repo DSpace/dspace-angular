@@ -1,30 +1,20 @@
 import {
   DOCUMENT,
-  DOCUMENT,
   NgClass,
   NgIf,
 } from '@angular/common';
 import {
   Component,
-  Component,
-  EventEmitter,
   EventEmitter,
   HostListener,
-  HostListener,
-  Inject,
   Inject,
   Input,
-  Input,
-  OnInit,
   OnInit,
   Output,
-  Output,
-  Renderer2,
   Renderer2,
 } from '@angular/core';
 import {
   FormsModule,
-  UntypedFormGroup,
   UntypedFormGroup,
 } from '@angular/forms';
 import {
@@ -34,15 +24,9 @@ import {
 } from '@ng-dynamic-forms/core';
 import isEqual from 'lodash/isEqual';
 
-import {
-  hasValue,
-  hasValue,
-} from '../../../../../empty.util';
+import { hasValue } from '../../../../../empty.util';
 import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
-import {
-  DynamicDsDatePickerModel,
-  DynamicDsDatePickerModel,
-} from './date-picker.model';
+import { DynamicDsDatePickerModel } from './date-picker.model';
 
 export type DatePickerFieldType = '_year' | '_month' | '_day';
 

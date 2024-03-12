@@ -27,67 +27,36 @@ import { NgxMaskModule } from 'ngx-mask';
 
 import {
   APP_CONFIG,
-  APP_CONFIG,
-  AppConfig,
   AppConfig,
 } from '../config/app-config.interface';
-import {
-  StoreDevModules,
-  StoreDevModules,
-} from '../config/store/devtools';
-import {
-  environment,
-  environment,
-} from '../environments/environment';
-import {
-  EagerThemesModule,
-  EagerThemesModule,
-} from '../themes/eager-themes.module';
+import { StoreDevModules } from '../config/store/devtools';
+import { environment } from '../environments/environment';
+import { EagerThemesModule } from '../themes/eager-themes.module';
 import { AppComponent } from './app.component';
 import { appEffects } from './app.effects';
 import {
   appMetaReducers,
-  appMetaReducers,
-  debugMetaReducers,
   debugMetaReducers,
 } from './app.metareducers';
 import {
   appReducers,
-  appReducers,
   AppState,
-  AppState,
-  storeModuleConfig,
   storeModuleConfig,
 } from './app.reducer';
 import { AppRoutingModule } from './app-routing.module';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
-import {
-  AuthInterceptor,
-  AuthInterceptor,
-} from './core/auth/auth.interceptor';
-import {
-  LocaleInterceptor,
-  LocaleInterceptor,
-} from './core/locale/locale.interceptor';
-import {
-  LogInterceptor,
-  LogInterceptor,
-} from './core/log/log.interceptor';
+import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { LocaleInterceptor } from './core/locale/locale.interceptor';
+import { LogInterceptor } from './core/log/log.interceptor';
 import {
   models,
   provideCore,
 } from './core/provide-core';
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { ListableModule } from './core/shared/listable.module';
-import {
-  XsrfInterceptor,
-  XsrfInterceptor,
-} from './core/xsrf/xsrf.interceptor';
+import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { NavbarModule } from './navbar/navbar.module';
-import {
-  RootModule,
-  RootModule,
-} from './root.module';
+import { RootModule } from './root.module';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
 import { METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP } from './shared/metadata-representation/metadata-representation.decorator';

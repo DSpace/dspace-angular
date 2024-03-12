@@ -4,8 +4,6 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
-  Input,
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -23,16 +21,10 @@ import {
 
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import {
-  Item,
-  Item,
-} from '../../core/shared/item.model';
+import { Item } from '../../core/shared/item.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
-import {
-  AlertType,
-  AlertType,
-} from '../../shared/alert/alert-type';
+import { AlertType } from '../../shared/alert/alert-type';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,

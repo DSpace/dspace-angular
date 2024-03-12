@@ -8,10 +8,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  Observable,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { VarDirective } from '../shared/utils/var.directive';
 import { Breadcrumb } from './breadcrumb/breadcrumb.model';

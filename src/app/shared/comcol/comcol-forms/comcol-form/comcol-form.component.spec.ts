@@ -17,10 +17,7 @@ import {
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Operation,
-  Operation,
-} from 'fast-json-patch';
+import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
@@ -34,8 +31,6 @@ import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';

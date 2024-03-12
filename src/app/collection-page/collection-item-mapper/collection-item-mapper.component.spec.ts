@@ -25,10 +25,7 @@ import {
 } from '../../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import {
-  AuthorizationDataService,
-  AuthorizationDataService,
-} from '../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { GroupDataService } from '../../core/eperson/group-data.service';
@@ -38,7 +35,6 @@ import { Collection } from '../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';
@@ -61,10 +57,7 @@ import { ObjectSelectServiceStub } from '../../shared/testing/object-select-serv
 import { RouterStub } from '../../shared/testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../shared/testing/search-service.stub';
-import {
-  createPaginatedList,
-  createPaginatedList,
-} from '../../shared/testing/utils.test';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { CollectionItemMapperComponent } from './collection-item-mapper.component';

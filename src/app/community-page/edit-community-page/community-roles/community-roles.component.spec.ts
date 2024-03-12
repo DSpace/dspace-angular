@@ -7,15 +7,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  NoopAnimationsModule,
-  NoopAnimationsModule,
-} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import {
-  RouterTestingModule,
-  RouterTestingModule,
-} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -27,8 +21,6 @@ import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock'
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';

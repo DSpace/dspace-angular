@@ -23,32 +23,17 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  BulkAccessConfigDataService,
-  BulkAccessConfigDataService,
-} from '../../core/config/bulk-access-config-data.service';
-import {
-  BulkAccessConditionOptions,
-  BulkAccessConditionOptions,
-} from '../../core/config/models/bulk-access-condition-options.model';
+import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
+import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { AlertComponent } from '../alert/alert.component';
-import {
-  AlertType,
-  AlertType,
-} from '../alert/alert-type';
+import { AlertType } from '../alert/alert-type';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
-import {
-  createAccessControlInitialFormState,
-  createAccessControlInitialFormState,
-} from './access-control-form-container-intial-state';
+import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';
 import {
   ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID,

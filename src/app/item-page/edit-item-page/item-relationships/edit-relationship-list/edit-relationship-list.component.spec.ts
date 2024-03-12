@@ -11,7 +11,6 @@ import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   Router,
-  Router,
 } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
@@ -23,10 +22,7 @@ import { HardRedirectService } from 'src/app/core/services/hard-redirect.service
 import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 import { AuthRequestServiceStub } from 'src/app/shared/testing/auth-request-service.stub';
 
-import {
-  APP_CONFIG,
-  APP_CONFIG,
-} from '../../../../../config/app-config.interface';
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
@@ -34,52 +30,25 @@ import { ObjectUpdatesService } from '../../../../core/data/object-updates/objec
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import {
-  PaginationService,
-  PaginationService,
-} from '../../../../core/pagination/pagination.service';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../../../core/services/link-head.service';
-import {
-  ConfigurationProperty,
-  ConfigurationProperty,
-} from '../../../../core/shared/configuration-property.model';
-import {
-  Item,
-  Item,
-} from '../../../../core/shared/item.model';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
-import {
-  RouterMock,
-  RouterMock,
-} from '../../../../shared/mocks/router.mock';
-import {
-  SelectableListService,
-  SelectableListService,
-} from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import {
-  createSuccessfulRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
-import {
-  PaginationServiceStub,
-  PaginationServiceStub,
-} from '../../../../shared/testing/pagination-service.stub';
+import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
-import {
-  createPaginatedList,
-  createPaginatedList,
-} from '../../../../shared/testing/utils.test';
-import {
-  EditRelationshipListComponent,
-  EditRelationshipListComponent,
-} from './edit-relationship-list.component';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { EditRelationshipListComponent } from './edit-relationship-list.component';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;

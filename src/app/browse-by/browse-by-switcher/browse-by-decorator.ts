@@ -2,14 +2,9 @@ import { Component } from '@angular/core';
 
 import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import {
-  hasNoValue,
-  hasNoValue,
-} from '../../shared/empty.util';
+import { hasNoValue } from '../../shared/empty.util';
 import {
   DEFAULT_THEME,
-  DEFAULT_THEME,
-  resolveTheme,
   resolveTheme,
 } from '../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { BrowseByDateComponent } from '../browse-by-date/browse-by-date.component';

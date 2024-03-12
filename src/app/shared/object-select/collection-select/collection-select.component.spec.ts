@@ -1,16 +1,10 @@
-import {
-  NO_ERRORS_SCHEMA,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  By,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -18,51 +12,21 @@ import { of as observableOf } from 'rxjs';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import {
-  PaginationService,
-  PaginationService,
-} from '../../../core/pagination/pagination.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../../core/services/link-head.service';
-import {
-  Collection,
-  Collection,
-} from '../../../core/shared/collection.model';
+import { Collection } from '../../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import {
-  HostWindowService,
-  HostWindowService,
-} from '../../host-window.service';
+import { HostWindowService } from '../../host-window.service';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import {
-  createSuccessfulRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../remote-data.utils';
-import {
-  HostWindowServiceStub,
-  HostWindowServiceStub,
-} from '../../testing/host-window-service.stub';
-import {
-  ObjectSelectServiceStub,
-  ObjectSelectServiceStub,
-} from '../../testing/object-select-service.stub';
-import {
-  PaginationServiceStub,
-  PaginationServiceStub,
-} from '../../testing/pagination-service.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
+import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import {
-  createPaginatedList,
-  createPaginatedList,
-} from '../../testing/utils.test';
-import {
-  ObjectSelectService,
-  ObjectSelectService,
-} from '../object-select.service';
-import {
-  CollectionSelectComponent,
-  CollectionSelectComponent,
-} from './collection-select.component';
+import { createPaginatedList } from '../../testing/utils.test';
+import { ObjectSelectService } from '../object-select.service';
+import { CollectionSelectComponent } from './collection-select.component';
 
 describe('CollectionSelectComponent', () => {
   let comp: CollectionSelectComponent;

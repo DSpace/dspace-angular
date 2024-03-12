@@ -1,26 +1,18 @@
 import {
   Location,
-  Location,
   NgClass,
   NgIf,
 } from '@angular/common';
 import {
   Component,
-  Component,
-  EventEmitter,
   EventEmitter,
   Input,
-  Input,
-  Output,
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  RequestCopyEmail,
-  RequestCopyEmail,
-} from './request-copy-email.model';
+import { RequestCopyEmail } from './request-copy-email.model';
 
 
 @Component({

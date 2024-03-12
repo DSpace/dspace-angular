@@ -6,10 +6,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Community } from '../../../core/shared/community.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
-import {
-  AbstractListableElementComponent,
-  AbstractListableElementComponent,
-} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @Component({
   selector: 'ds-community-list-element',

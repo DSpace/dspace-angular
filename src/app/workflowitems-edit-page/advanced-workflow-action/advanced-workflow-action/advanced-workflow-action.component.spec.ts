@@ -10,10 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 import { of as observableOf } from 'rxjs';
 
-import {
-  RequestService,
-  RequestService,
-} from '../../../core/data/request.service';
+import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { RouteService } from '../../../core/services/route.service';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
@@ -23,10 +20,7 @@ import { DSOSelectorComponent } from '../../../shared/dso-selector/dso-selector/
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import {
-  RequestServiceStub,
-  RequestServiceStub,
-} from '../../../shared/testing/request-service.stub';
+import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';

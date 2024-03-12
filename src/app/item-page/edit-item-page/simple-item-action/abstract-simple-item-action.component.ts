@@ -18,27 +18,13 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  ItemDataService,
-  ItemDataService,
-} from '../../../core/data/item-data.service';
-import {
-  RemoteData,
-  RemoteData,
-} from '../../../core/data/remote-data';
-import {
-  Item,
-  Item,
-} from '../../../core/shared/item.model';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   getItemEditRoute,
-  getItemEditRoute,
-  getItemPageRoute,
   getItemPageRoute,
 } from '../../item-page-routing-paths';
 import { findSuccessfulAccordingTo } from '../edit-item-operators';

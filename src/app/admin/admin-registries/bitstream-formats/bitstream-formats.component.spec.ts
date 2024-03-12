@@ -5,10 +5,7 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  ComponentFixture,
   TestBed,
-  TestBed,
-  waitForAsync,
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -22,7 +19,6 @@ import {
   hot,
 } from 'jasmine-marbles';
 import {
-  of as observableOf,
   of as observableOf,
   of,
 } from 'rxjs';
@@ -49,10 +45,7 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
-import {
-  BitstreamFormatsComponent,
-  BitstreamFormatsComponent,
-} from './bitstream-formats.component';
+import { BitstreamFormatsComponent } from './bitstream-formats.component';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;

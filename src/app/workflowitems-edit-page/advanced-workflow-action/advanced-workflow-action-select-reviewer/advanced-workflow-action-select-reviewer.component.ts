@@ -1,14 +1,10 @@
 import {
   CommonModule,
   Location,
-  Location,
 } from '@angular/common';
 import {
   Component,
-  Component,
   OnDestroy,
-  OnDestroy,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
@@ -19,38 +15,22 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 import { EPersonListActionConfig } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { RequestService } from '../../../core/data/request.service';
-import {
-  WorkflowActionDataService,
-  WorkflowActionDataService,
-} from '../../../core/data/workflow-action-data.service';
+import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { RouteService } from '../../../core/services/route.service';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import {
-  SelectReviewerAdvancedWorkflowInfo,
-  SelectReviewerAdvancedWorkflowInfo,
-} from '../../../core/tasks/models/select-reviewer-advanced-workflow-info.model';
-import {
-  WorkflowAction,
-  WorkflowAction,
-} from '../../../core/tasks/models/workflow-action-object.model';
+import { SelectReviewerAdvancedWorkflowInfo } from '../../../core/tasks/models/select-reviewer-advanced-workflow-info.model';
+import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { hasValue } from '../../../shared/empty.util';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../shared/notifications/notifications.service';
-import {
-  AdvancedWorkflowActionComponent,
-  AdvancedWorkflowActionComponent,
-} from '../advanced-workflow-action/advanced-workflow-action.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';

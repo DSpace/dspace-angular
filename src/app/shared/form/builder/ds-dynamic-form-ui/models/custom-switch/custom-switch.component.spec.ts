@@ -1,7 +1,4 @@
-import {
-  DebugElement,
-  DebugElement,
-} from '@angular/core';
+import { DebugElement } from '@angular/core';
 import {
   ComponentFixture,
   inject,

@@ -16,12 +16,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { createTestComponent } from '../../testing/utils.test';
-import { SearchEvent } from '../eperson-group-list.component';
 import { SearchEvent } from '../eperson-group-list-event-type';
-import {
-  EpersonSearchBoxComponent,
-  EpersonSearchBoxComponent,
-} from './eperson-search-box.component';
+import { EpersonSearchBoxComponent } from './eperson-search-box.component';
 
 describe('EpersonSearchBoxComponent test suite', () => {
   let comp: EpersonSearchBoxComponent;

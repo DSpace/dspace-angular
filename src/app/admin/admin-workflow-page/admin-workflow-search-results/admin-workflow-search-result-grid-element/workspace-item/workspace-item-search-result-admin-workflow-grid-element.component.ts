@@ -10,18 +10,12 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  BehaviorSubject,
-  Observable,
   Observable,
 } from 'rxjs';
 import {
   map,
-  map,
-  mergeMap,
   mergeMap,
   take,
-  take,
-  tap,
   tap,
 } from 'rxjs/operators';
 
@@ -33,19 +27,13 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import {
-  Item,
-  Item,
-} from '../../../../../core/shared/item.model';
+import { Item } from '../../../../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
-import {
-  ViewMode,
-  ViewMode,
-} from '../../../../../core/shared/view-mode.model';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';

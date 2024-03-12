@@ -4,21 +4,14 @@ import {
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   ChangeDetectorRef,
   Component,
-  Component,
   OnDestroy,
-  OnDestroy,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Router,
   Router,
   RouterLink,
 } from '@angular/router';
@@ -44,48 +37,23 @@ import {
 } from 'rxjs';
 import {
   filter,
-  filter,
-  map,
   map,
   switchMap,
-  switchMap,
-  tap,
   tap,
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import {
-  BitstreamFormatDataService,
-  BitstreamFormatDataService,
-} from '../../core/data/bitstream-format-data.service';
-import {
-  PaginatedList,
-  PaginatedList,
-} from '../../core/data/paginated-list.model';
+import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
-import {
-  RemoteData,
-  RemoteData,
-} from '../../core/data/remote-data';
-import {
-  Bitstream,
-  Bitstream,
-} from '../../core/shared/bitstream.model';
-import {
-  BitstreamFormat,
-  BitstreamFormat,
-} from '../../core/shared/bitstream-format.model';
-import {
-  BitstreamFormatSupportLevel,
-  BitstreamFormatSupportLevel,
-} from '../../core/shared/bitstream-format-support-level';
+import { RemoteData } from '../../core/data/remote-data';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { Bundle } from '../../core/shared/bundle.model';
 import { Item } from '../../core/shared/item.model';
-import {
-  Metadata,
-  Metadata,
-} from '../../core/shared/metadata.utils';
+import { Metadata } from '../../core/shared/metadata.utils';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
@@ -96,12 +64,8 @@ import {
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import {
   hasValue,
-  hasValue,
-  hasValueOperator,
   hasValueOperator,
   isEmpty,
-  isEmpty,
-  isNotEmpty,
   isNotEmpty,
 } from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
@@ -110,10 +74,7 @@ import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-u
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { FormComponent } from '../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';

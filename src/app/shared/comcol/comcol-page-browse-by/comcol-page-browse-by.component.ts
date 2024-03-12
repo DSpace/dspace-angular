@@ -12,37 +12,25 @@ import {
 import { FormsModule } from '@angular/forms';
 import {
   EventType,
-  EventType,
-  Router,
   Router,
   RouterLink,
   RouterLinkActive,
-  Scroll,
   Scroll,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  BehaviorSubject,
-  combineLatest,
   combineLatest,
   Observable,
-  Observable,
-  Subscription,
   Subscription,
 } from 'rxjs';
 import {
   map,
-  map,
-  take,
   take,
 } from 'rxjs/operators';
 
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
-import {
-  getCommunityPageRoute,
-  getCommunityPageRoute,
-} from '../../../community-page/community-page-routing-paths';
+import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';

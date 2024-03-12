@@ -6,22 +6,14 @@ import {
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectionStrategy,
-  Component,
   Component,
   Injector,
-  Injector,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  CanActivate,
   CanActivate,
   Route,
-  Route,
-  Router,
   Router,
   RouterLink,
   RouterOutlet,
@@ -36,15 +28,10 @@ import {
 import { map } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
-import {
-  GenericConstructor,
-  GenericConstructor,
-} from '../../core/shared/generic-constructor';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
 import {
   fadeIn,
-  fadeIn,
-  fadeInOut,
   fadeInOut,
 } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';

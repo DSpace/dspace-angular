@@ -1,18 +1,13 @@
 import {
   Location,
-  Location,
   NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  Router,
-  Router,
-} from '@angular/router';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
-  TranslateService,
   TranslateService,
 } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
@@ -21,8 +16,6 @@ import { take } from 'rxjs/operators';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import {
   BATCH_IMPORT_SCRIPT_NAME,
-  BATCH_IMPORT_SCRIPT_NAME,
-  ScriptDataService,
   ScriptDataService,
 } from '../../core/data/processes/script-data.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -30,19 +23,13 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { Process } from '../../process-page/processes/process.model';
-import {
-  ProcessParameter,
-  ProcessParameter,
-} from '../../process-page/processes/process-parameter.model';
+import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { ImportBatchSelectorComponent } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import {
   isEmpty,
   isNotEmpty,
 } from '../../shared/empty.util';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../shared/notifications/notifications.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({

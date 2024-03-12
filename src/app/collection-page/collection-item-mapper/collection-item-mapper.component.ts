@@ -17,7 +17,6 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -34,37 +33,17 @@ import {
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
-  SortDirection,
-  SortOptions,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
-import {
-  CollectionDataService,
-  CollectionDataService,
-} from '../../core/data/collection-data.service';
-import {
-  FeatureID,
-  FeatureID,
-} from '../../core/data/feature-authorization/feature-id';
-import {
-  ItemDataService,
-  ItemDataService,
-} from '../../core/data/item-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
-import {
-  DSpaceObject,
-  DSpaceObject,
-} from '../../core/shared/dspace-object.model';
-import {
-  DSpaceObjectType,
-  DSpaceObjectType,
-} from '../../core/shared/dspace-object-type.model';
-import {
-  NoContent,
-  NoContent,
-} from '../../core/shared/NoContent.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { NoContent } from '../../core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
@@ -74,20 +53,13 @@ import {
 } from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
-import {
-  isNotEmpty,
-  isNotEmpty,
-} from '../../shared/empty.util';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../shared/notifications/notifications.service';
+import { isNotEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';

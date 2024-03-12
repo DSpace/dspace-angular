@@ -30,26 +30,17 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import {
-  AuthorizationDataService,
-  AuthorizationDataService,
-} from '../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import {
-  RequestService,
-  RequestService,
-} from '../../core/data/request.service';
+import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  PaginationService,
-  PaginationService,
-} from '../../core/pagination/pagination.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
@@ -158,7 +149,7 @@ describe('EPeopleRegistryComponent', () => {
     builderService = getMockFormBuilderService();
 
     paginationService = new PaginationServiceStub();
-    awaitTestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(), EPeopleRegistryComponent],
       providers: [

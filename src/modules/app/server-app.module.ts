@@ -1,7 +1,4 @@
-import {
-  XhrFactory,
-  XhrFactory,
-} from '@angular/common';
+import { XhrFactory } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import {
@@ -44,20 +41,11 @@ import { LocaleService } from '../../app/core/locale/locale.service';
 import { ServerLocaleService } from '../../app/core/locale/server-locale.service';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
-import {
-  ReferrerService,
-  ReferrerService,
-} from '../../app/core/services/referrer.service';
-import {
-  ServerReferrerService,
-  ServerReferrerService,
-} from '../../app/core/services/server.referrer.service';
+import { ReferrerService } from '../../app/core/services/referrer.service';
+import { ServerReferrerService } from '../../app/core/services/server.referrer.service';
 import { ServerCookieService } from '../../app/core/services/server-cookie.service';
 import { ServerHardRedirectService } from '../../app/core/services/server-hard-redirect.service';
-import {
-  ServerXhrService,
-  ServerXhrService,
-} from '../../app/core/services/server-xhr.service';
+import { ServerXhrService } from '../../app/core/services/server-xhr.service';
 import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';

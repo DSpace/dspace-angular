@@ -4,32 +4,21 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
-  ComponentRef,
   ComponentRef,
   EventEmitter,
-  EventEmitter,
-  Input,
   Input,
   OnDestroy,
-  OnDestroy,
   OnInit,
-  OnInit,
-  Output,
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   NgbModal,
-  NgbModal,
-  NgbModalRef,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  Observable,
-  Subscription,
   Subscription,
 } from 'rxjs';
 import {
@@ -41,34 +30,15 @@ import {
 import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
-import {
-  PaginationService,
-  PaginationService,
-} from '../../../../../../core/pagination/pagination.service';
-import {
-  Collection,
-  Collection,
-} from '../../../../../../core/shared/collection.model';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { Collection } from '../../../../../../core/shared/collection.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
-import {
-  Item,
-  Item,
-} from '../../../../../../core/shared/item.model';
-import {
-  ItemType,
-  ItemType,
-} from '../../../../../../core/shared/item-relationships/item-type.model';
-import {
-  getFirstCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '../../../../../../core/shared/operators';
-import {
-  SearchConfigurationService,
-  SearchConfigurationService,
-} from '../../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
+import { Item } from '../../../../../../core/shared/item.model';
+import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
+import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
 import {
   fadeIn,
@@ -76,32 +46,21 @@ import {
 } from '../../../../../animations/fade';
 import {
   hasValue,
-  hasValue,
-  hasValueOperator,
   hasValueOperator,
 } from '../../../../../empty.util';
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
-import {
-  SelectableListService,
-  SelectableListService,
-} from '../../../../../object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
-import {
-  ExternalSourceEntryImportModalComponent,
-  ExternalSourceEntryImportModalComponent,
-} from './external-source-entry-import-modal/external-source-entry-import-modal.component';
-import {
-  ThemedExternalSourceEntryImportModalComponent,
-  ThemedExternalSourceEntryImportModalComponent,
-} from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',

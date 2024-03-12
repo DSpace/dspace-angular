@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  NO_ERRORS_SCHEMA,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -16,10 +13,7 @@ import { of as observableOf } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
-import {
-  RouteService,
-  RouteService,
-} from '../../core/services/route.service';
+import { RouteService } from '../../core/services/route.service';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';

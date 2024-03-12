@@ -37,10 +37,7 @@ import { coreEffects } from '../../app/core/core.effects';
 import { coreReducers } from '../../app/core/core.reducers';
 import { CoreState } from '../../app/core/core-state.model';
 import { LocaleService } from '../../app/core/locale/locale.service';
-import {
-  BrowserReferrerService,
-  BrowserReferrerService,
-} from '../../app/core/services/browser.referrer.service';
+import { BrowserReferrerService } from '../../app/core/services/browser.referrer.service';
 import {
   BrowserHardRedirectService,
   locationProvider,
@@ -49,10 +46,7 @@ import {
 import { ClientCookieService } from '../../app/core/services/client-cookie.service';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
-import {
-  ReferrerService,
-  ReferrerService,
-} from '../../app/core/services/referrer.service';
+import { ReferrerService } from '../../app/core/services/referrer.service';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';

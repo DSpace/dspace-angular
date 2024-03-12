@@ -4,14 +4,11 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Router,
   Router,
 } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
-  TranslateService,
   TranslateService,
 } from '@ngx-translate/core';
 
@@ -21,14 +18,8 @@ import {
   ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER,
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
 } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
-import {
-  NotificationsService,
-  NotificationsService,
-} from '../../../notifications/notifications.service';
-import {
-  AdvancedClaimedTaskActionsAbstractComponent,
-  AdvancedClaimedTaskActionsAbstractComponent,
-} from '../abstract/advanced-claimed-task-actions-abstract.component';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
 
 /**
  * Advanced Workflow button that redirect to the {@link AdvancedWorkflowActionSelectReviewerComponent}

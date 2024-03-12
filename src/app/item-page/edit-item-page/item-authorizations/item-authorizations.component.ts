@@ -28,22 +28,13 @@ import {
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import {
-  LinkService,
-  LinkService,
-} from '../../../core/cache/builders/link.service';
+import { LinkService } from '../../../core/cache/builders/link.service';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../core/data/paginated-list.model';
-import {
-  Bitstream,
-  Bitstream,
-} from '../../../core/shared/bitstream.model';
-import {
-  Bundle,
-  Bundle,
-} from '../../../core/shared/bundle.model';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
 import {
   getFirstSucceededRemoteDataPayload,
@@ -52,8 +43,6 @@ import {
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
   hasValue,
-  hasValue,
-  isNotEmpty,
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { NgForTrackByIdDirective } from '../../../shared/ng-for-track-by-id.directive';

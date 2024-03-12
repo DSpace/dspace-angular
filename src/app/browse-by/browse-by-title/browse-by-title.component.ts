@@ -9,15 +9,10 @@ import {
 import { Params } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import {
-  map,
-  map,
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import {
   SortDirection,
-  SortDirection,
-  SortOptions,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
@@ -29,10 +24,7 @@ import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-heade
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
-import {
-  PaginationComponentOptions,
-  PaginationComponentOptions,
-} from '../../shared/pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,

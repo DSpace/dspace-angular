@@ -36,8 +36,6 @@ import { AccessConditionOption } from '../../../../../core/config/models/config-
 import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionUploadObject } from '../../../../../core/submission/models/workspaceitem-section-upload.model';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';

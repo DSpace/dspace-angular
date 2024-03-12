@@ -11,32 +11,22 @@ import {
 } from '@angular/core';
 import {
   FormBuilder,
-  FormBuilder,
   FormControl,
-  FormControl,
-  FormGroup,
   FormGroup,
   ReactiveFormsModule,
-  Validators,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   APP_CONFIG,
-  APP_CONFIG,
-  AppConfig,
   AppConfig,
 } from 'src/config/app-config.interface';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import {
-  slide,
-  slide,
-} from '../../animations/slide';
+import { slide } from '../../animations/slide';
 import { BrowserOnlyPipe } from '../../utils/browser-only.pipe';
 
 @Component({

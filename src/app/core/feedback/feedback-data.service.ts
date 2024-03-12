@@ -4,32 +4,21 @@ import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import {
-  RequestParam,
-  RequestParam,
-} from '../cache/models/request-param.model';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import {
   CreateData,
-  CreateData,
-  CreateDataImpl,
   CreateDataImpl,
 } from '../data/base/create-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
-import {
-  RequestService,
-  RequestService,
-} from '../data/request.service';
+import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
-import {
-  Feedback,
-  Feedback,
-} from './models/feedback.model';
+import { Feedback } from './models/feedback.model';
 
 /**
  * Service for checking and managing the feedback

@@ -46,10 +46,7 @@ import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
 import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
-import {
-  SuggestionApproveAndImport,
-  SuggestionListElementComponent,
-} from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 import {
   SuggestionBulkResult,

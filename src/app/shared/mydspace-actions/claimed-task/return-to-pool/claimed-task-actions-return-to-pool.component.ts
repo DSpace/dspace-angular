@@ -12,10 +12,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import {
-  Observable,
-  Observable,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -24,10 +21,7 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import {
-  ClaimedTaskActionsAbstractComponent,
-  ClaimedTaskActionsAbstractComponent,
-} from '../abstract/claimed-task-actions-abstract.component';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
 

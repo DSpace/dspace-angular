@@ -2,13 +2,9 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import {
-  ActivatedRoute,
-  ActivatedRoute,
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   of as observableOf,
-  of,
   of,
 } from 'rxjs';
 
@@ -45,22 +41,6 @@ describe('CollectionAccessControlComponent', () => {
       },
     },
   };
-  let routeStub = {
-    parent: {
-      parent: {
-        data: {
-          pipe: () => {
-            return {
-              pipe: () => {
-                return of({});
-              },
-            };
-          },
-        },
-      },
-    },
-  };
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CollectionAccessControlComponent],

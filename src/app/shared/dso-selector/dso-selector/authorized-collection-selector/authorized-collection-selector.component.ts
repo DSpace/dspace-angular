@@ -15,30 +15,20 @@ import {
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import {
-  FindListOptions,
-  FindListOptions,
-} from '../../../../core/data/find-list-options.model';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
 } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
-import {
-  Collection,
-  Collection,
-} from '../../../../core/shared/collection.model';
+import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';

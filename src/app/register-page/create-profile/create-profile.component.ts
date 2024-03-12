@@ -5,72 +5,43 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormBuilder,
-  UntypedFormBuilder,
-  UntypedFormControl,
   UntypedFormControl,
   UntypedFormGroup,
-  UntypedFormGroup,
-  Validators,
   Validators,
 } from '@angular/forms';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Router,
   Router,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
-import {
-  Observable,
-  Observable,
-} from 'rxjs';
-import {
-  map,
-  map,
-} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
 import { AuthenticateAction } from '../../core/auth/auth.actions';
-import {
-  CoreState,
-  CoreState,
-} from '../../core/core-state.model';
+import { CoreState } from '../../core/core-state.model';
 import { RemoteData } from '../../core/data/remote-data';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
 } from '../../core/end-user-agreement/end-user-agreement.service';
-import {
-  EPersonDataService,
-  EPersonDataService,
-} from '../../core/eperson/eperson-data.service';
-import {
-  EPerson,
-  EPerson,
-} from '../../core/eperson/models/eperson.model';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import {
   getFirstCompletedRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
-import {
-  Registration,
-  Registration,
-} from '../../core/shared/registration.model';
+import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

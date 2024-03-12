@@ -16,27 +16,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 import {
   map,
-  map,
-  Observable,
   Observable,
   switchMap,
-  switchMap,
-  take,
   take,
 } from 'rxjs';
 
-import {
-  RemoteData,
-  RemoteData,
-} from '../../core/data/remote-data';
-import {
-  RouteService,
-  RouteService,
-} from '../../core/services/route.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import {

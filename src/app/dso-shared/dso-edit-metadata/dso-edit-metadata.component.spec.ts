@@ -1,10 +1,7 @@
 import {
   ChangeDetectionStrategy,
   DebugElement,
-  DebugElement,
   Injectable,
-  Injectable,
-  NO_ERRORS_SCHEMA,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -13,10 +10,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  RouterTestingModule,
-  RouterTestingModule,
-} from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';

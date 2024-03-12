@@ -10,56 +10,27 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  By,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import {
-  ActivatedRoute,
-  ActivatedRoute,
-} from '@angular/router';
-import {
-  RouterTestingModule,
-  RouterTestingModule,
-} from '@angular/router/testing';
-import {
-  NgbModal,
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of as observableOf,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
-import {
-  AuthService,
-  AuthService,
-} from '../../core/auth/auth.service';
-import {
-  AuthorizationDataService,
-  AuthorizationDataService,
-} from '../../core/data/feature-authorization/authorization-data.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import {
-  Item,
-  Item,
-} from '../../core/shared/item.model';
+import { Item } from '../../core/shared/item.model';
 import { MenuService } from '../../shared/menu/menu.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
-import {
-  AuthServiceStub,
-  AuthServiceStub,
-} from '../../shared/testing/auth-service.stub';
+import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service.stub';
-import createSpy = jasmine.createSpy;
 import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { AdminSidebarComponent } from './admin-sidebar.component';

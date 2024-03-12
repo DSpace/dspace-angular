@@ -4,24 +4,16 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Component,
-  EventEmitter,
   EventEmitter,
   Input,
-  Input,
-  OnDestroy,
   OnDestroy,
   OnInit,
-  OnInit,
-  Output,
   Output,
 } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  BehaviorSubject,
-  Observable,
   Observable,
 } from 'rxjs';
 import {
@@ -33,10 +25,7 @@ import {
 } from 'rxjs/operators';
 
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
-import {
-  PaginatedList,
-  PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
+import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { Context } from '../../../../../../core/shared/context.model';
@@ -49,34 +38,18 @@ import {
   getRemoteDataPayload,
 } from '../../../../../../core/shared/operators';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
-import {
-  SearchConfigurationService,
-  SearchConfigurationService,
-} from '../../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
 import { hasValue } from '../../../../../empty.util';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
-import {
-  ListableObject,
-  ListableObject,
-} from '../../../../../object-collection/shared/listable-object.model';
+import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import {
-  PaginationComponentOptions,
-  PaginationComponentOptions,
-} from '../../../../../pagination/pagination-component-options.model';
+import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
-import {
-  SearchResult,
-  SearchResult,
-} from '../../../../../search/models/search-result.model';
+import { SearchResult } from '../../../../../search/models/search-result.model';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
-import {
-  RelationshipOptions,
-  RelationshipOptions,
-} from '../../../models/relationship-options.model';
+import { RelationshipOptions } from '../../../models/relationship-options.model';
 
 
 @Component({

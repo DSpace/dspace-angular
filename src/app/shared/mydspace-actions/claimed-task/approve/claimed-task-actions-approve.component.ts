@@ -14,30 +14,16 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  Observable,
-  of,
   of,
 } from 'rxjs';
 
-import {
-  RemoteData,
-  RemoteData,
-} from '../../../../core/data/remote-data';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { RequestService } from '../../../../core/data/request.service';
-import {
-  DSpaceObject,
-  DSpaceObject,
-} from '../../../../core/shared/dspace-object.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import {
-  ClaimedApprovedTaskSearchResult,
-  ClaimedApprovedTaskSearchResult,
-} from '../../../object-collection/shared/claimed-approved-task-search-result.model';
-import {
-  ClaimedTaskActionsAbstractComponent,
-  ClaimedTaskActionsAbstractComponent,
-} from '../abstract/claimed-task-actions-abstract.component';
+import { ClaimedApprovedTaskSearchResult } from '../../../object-collection/shared/claimed-approved-task-search-result.model';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
 

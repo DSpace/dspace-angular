@@ -47,7 +47,6 @@ import {
   SortConfig,
 } from '../../core/shared/search/search-filters/search-config.model';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
 import { HostWindowService } from '../host-window.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import {

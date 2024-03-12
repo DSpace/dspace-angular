@@ -1,21 +1,12 @@
-import {
-  CommonModule,
-  CommonModule,
-} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RootModule } from '../../app/root.module';
-import {
-  SharedBrowseByModule,
-  SharedBrowseByModule,
-} from '../../app/shared/browse-by/shared-browse-by.module';
-import {
-  DsoPageModule,
-  DsoPageModule,
-} from '../../app/shared/dso-page/dso-page.module';
+import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
 import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
 import { JournalIssueComponent } from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
@@ -23,21 +14,12 @@ import { PersonComponent } from './app/entity-groups/research-entities/item-page
 import { FooterComponent } from './app/footer/footer.component';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
-import {
-  HomeNewsComponent,
-  HomeNewsComponent,
-} from './app/home-page/home-news/home-news.component';
+import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
 import { TopLevelCommunityListComponent } from './app/home-page/top-level-community-list/top-level-community-list.component';
 import { PublicationComponent } from './app/item-page/simple/item-types/publication/publication.component';
 import { UntypedItemComponent } from './app/item-page/simple/item-types/untyped-item/untyped-item.component';
-import {
-  NavbarComponent,
-  NavbarComponent,
-} from './app/navbar/navbar.component';
-import {
-  SearchNavbarComponent,
-  SearchNavbarComponent,
-} from './app/search-navbar/search-navbar.component';
+import { NavbarComponent } from './app/navbar/navbar.component';
+import { SearchNavbarComponent } from './app/search-navbar/search-navbar.component';
 import { CollectionDropdownComponent } from './app/shared/collection-dropdown/collection-dropdown.component';
 import { CreateCollectionParentSelectorComponent } from './app/shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import { CreateCommunityParentSelectorComponent } from './app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';

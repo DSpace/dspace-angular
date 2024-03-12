@@ -25,10 +25,7 @@ import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import {
-  TruncatableService,
-  TruncatableService,
-} from '../../../../../shared/truncatable/truncatable.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CommunityAdminSearchResultGridElementComponent } from './community-admin-search-result-grid-element.component';
 
 describe('CommunityAdminSearchResultGridElementComponent', () => {

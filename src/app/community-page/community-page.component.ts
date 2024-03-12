@@ -4,16 +4,11 @@ import {
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectionStrategy,
   Component,
-  Component,
-  OnInit,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
-  ActivatedRoute,
-  Router,
   Router,
   RouterModule,
   RouterOutlet,
@@ -22,25 +17,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
-  filter,
   map,
-  map,
-  mergeMap,
   mergeMap,
 } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth/auth.service';
-import {
-  DSONameService,
-  DSONameService,
-} from '../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
-import {
-  redirectOn4xx,
-  redirectOn4xx,
-} from '../core/shared/authorized.operators';
+import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { Community } from '../core/shared/community.model';
 import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';

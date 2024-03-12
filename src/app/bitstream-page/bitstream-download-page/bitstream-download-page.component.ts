@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   isPlatformServer,
-  isPlatformServer,
-  Location,
   Location,
 } from '@angular/common';
 import {
@@ -30,24 +28,15 @@ import {
 
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
-import {
-  DSONameService,
-  DSONameService,
-} from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import {
-  SignpostingLink,
-  SignpostingLink,
-} from '../../core/data/signposting-links.model';
+import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
-import {
-  redirectOn4xx,
-  redirectOn4xx,
-} from '../../core/shared/authorized.operators';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { FileService } from '../../core/shared/file.service';
 import { getRemoteDataPayload } from '../../core/shared/operators';

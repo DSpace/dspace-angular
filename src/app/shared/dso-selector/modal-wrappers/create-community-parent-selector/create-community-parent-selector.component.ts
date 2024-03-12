@@ -10,20 +10,13 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  environment,
-  environment,
-} from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import {
   COMMUNITY_PARENT_PARAMETER,
-  COMMUNITY_PARENT_PARAMETER,
-  getCommunityCreateRoute,
   getCommunityCreateRoute,
 } from '../../../../community-page/community-page-routing-paths';
 import {
   SortDirection,
-  SortDirection,
-  SortOptions,
   SortOptions,
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';

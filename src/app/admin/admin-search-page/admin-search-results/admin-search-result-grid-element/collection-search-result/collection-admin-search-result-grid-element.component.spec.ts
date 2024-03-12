@@ -6,10 +6,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  TranslateModule,
-  TranslateModule,
-} from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
 import { AuthService } from '../../../../../core/auth/auth.service';
@@ -27,14 +24,8 @@ import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import {
-  TruncatableService,
-  TruncatableService,
-} from '../../../../../shared/truncatable/truncatable.service';
-import {
-  CollectionAdminSearchResultGridElementComponent,
-  CollectionAdminSearchResultGridElementComponent,
-} from './collection-admin-search-result-grid-element.component';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { CollectionAdminSearchResultGridElementComponent } from './collection-admin-search-result-grid-element.component';
 
 describe('CollectionAdminSearchResultGridElementComponent', () => {
   let component: CollectionAdminSearchResultGridElementComponent;

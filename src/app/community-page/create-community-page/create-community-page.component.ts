@@ -7,18 +7,11 @@ import { Router } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
-  TranslateService,
 } from '@ngx-translate/core';
 
-import {
-  DSONameService,
-  DSONameService,
-} from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import {
-  RequestService,
-  RequestService,
-} from '../../core/data/request.service';
+import { RequestService } from '../../core/data/request.service';
 import { RouteService } from '../../core/services/route.service';
 import { Community } from '../../core/shared/community.model';
 import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/create-comcol-page/create-comcol-page.component';

@@ -4,18 +4,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  By,
-  By,
-} from '@angular/platform-browser';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   of,
-  of,
 } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
