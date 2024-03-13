@@ -8,7 +8,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  EMPTY,
+  Observable,
+  of,
+} from 'rxjs';
 import {
   map,
   startWith,
@@ -20,7 +24,7 @@ import { VersionHistoryDataService } from '../../../core/data/version-history-da
 import { Item } from '../../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { Version } from '../../../core/shared/version.model';
@@ -97,14 +101,27 @@ export class ItemVersionsNoticeComponent implements OnInit {
       );
 
       this.latestVersion$ = this.versionHistoryRD$.pipe(
-        getFirstSucceededRemoteDataPayload(),
-        switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh)),
+        getFirstCompletedRemoteData(),
+        switchMap((vhRD: RemoteData<VersionHistory>) => {
+          if (vhRD.hasSucceeded) {
+            return this.versionHistoryService.getLatestVersionFromHistory$(vhRD.payload);
+          } else {
+            return EMPTY;
+          }
+        }),
       );
 
       this.showLatestVersionNotice$ = this.versionRD$.pipe(
-        getFirstSucceededRemoteDataPayload(),
-        switchMap((version) => this.versionHistoryService.isLatest$(version)),
-        map((isLatest) => isLatest != null && !isLatest),
+        getFirstCompletedRemoteData(),
+        switchMap((versionRD: RemoteData<Version>) => {
+          if (versionRD.hasSucceeded) {
+            return this.versionHistoryService.isLatest$(versionRD.payload).pipe(
+              map((isLatest) => isLatest != null && !isLatest),
+            );
+          } else {
+            return of(false);
+          }
+        }),
         startWith(false),
       );
     }

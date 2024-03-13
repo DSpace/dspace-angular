@@ -12,8 +12,6 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { IdlePreloadModule } from 'angular-idle-preload';
 
 import { AppModule } from '../../app/app.module';
-import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
-import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RegisterEmailFormModule } from '../../app/register-email-form/register-email-form.module';
 import { RootModule } from '../../app/root.module';
@@ -35,8 +33,6 @@ const DECLARATIONS = [
     RootModule,
     CommonModule,
     DragDropModule,
-    EditItemPageModule,
-    ItemVersionsModule,
     FormsModule,
     HttpClientModule,
     IdlePreloadModule,
