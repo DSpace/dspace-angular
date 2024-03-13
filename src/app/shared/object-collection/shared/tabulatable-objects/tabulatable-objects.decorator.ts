@@ -22,7 +22,7 @@ export const TABUTABLE_DECORATOR_MAP =
   new Map<string | GenericConstructor<ListableObject>, Map<ViewMode, Map<Context, Map<string, TabulatableComponentType>>>>([
     [AdminNotifySearchResult, new Map([
       [ViewMode.Table, new Map([
-        [Context.CoarNotify, new Map([[DEFAULT_THEME, TabulatableResultListElementsComponent as any]])]
+        [Context.CoarNotify, new Map([[DEFAULT_THEME, TabulatableResultListElementsComponent as any]])],
       ])],
     ])],
   ]);
