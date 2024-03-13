@@ -5,6 +5,8 @@ import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qu
 import { DynamicOneboxModel } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FieldParser } from './field-parser';
+import { OneboxFieldParser } from './onebox-field-parser';
+import { ParserOptions } from './parser-options';
 
 describe('OneboxFieldParser test suite', () => {
   let field1: FormFieldModel;
