@@ -49,6 +49,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { VarDirective } from '../../../utils/var.directive';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
@@ -61,7 +62,7 @@ import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './pool-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ThemedItemListPreviewComponent, NgClass, PoolTaskActionsComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, ThemedItemListPreviewComponent, NgClass, PoolTaskActionsComponent, AsyncPipe, TranslateModule, VarDirective],
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.ListElement)

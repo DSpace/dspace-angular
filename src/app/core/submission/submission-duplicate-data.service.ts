@@ -34,7 +34,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
  * or the workflow pooled/claimed task page.
  *
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(DUPLICATE)
 export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> implements SearchData<Duplicate> {
 

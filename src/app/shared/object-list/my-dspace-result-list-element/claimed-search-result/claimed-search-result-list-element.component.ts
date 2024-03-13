@@ -49,6 +49,7 @@ import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claim
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { VarDirective } from '../../../utils/var.directive';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
@@ -58,7 +59,7 @@ import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './claimed-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ThemedItemListPreviewComponent, NgClass, ClaimedTaskActionsComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, ThemedItemListPreviewComponent, NgClass, ClaimedTaskActionsComponent, AsyncPipe, TranslateModule, VarDirective],
 })
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit, OnDestroy {

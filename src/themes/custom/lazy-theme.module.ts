@@ -17,7 +17,6 @@ import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
-import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RegisterEmailFormModule } from '../../app/register-email-form/register-email-form.module';
 import { RootModule } from '../../app/root.module';
@@ -230,7 +229,6 @@ const DECLARATIONS = [
     StoreRouterConnectingModule,
     TranslateModule,
     SubmissionModule,
-    MyDSpacePageModule,
     SearchModule,
     FormsModule,
     ResourcePoliciesModule,

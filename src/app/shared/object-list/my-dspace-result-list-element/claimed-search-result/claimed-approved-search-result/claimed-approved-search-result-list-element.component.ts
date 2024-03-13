@@ -25,6 +25,7 @@ import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/cl
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { followLink } from '../../../../utils/follow-link-config.model';
+import { VarDirective } from '../../../../utils/var.directive';
 import { SearchResultListElementComponent } from '../../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-item-list-preview.component';
 
@@ -36,7 +37,7 @@ import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-i
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './claimed-approved-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ThemedItemListPreviewComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, ThemedItemListPreviewComponent, AsyncPipe, TranslateModule, VarDirective],
 })
 @listableObjectComponent(ClaimedApprovedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedApprovedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
