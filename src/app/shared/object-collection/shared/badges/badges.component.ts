@@ -1,5 +1,9 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { Context } from 'src/app/core/shared/context.model';
+
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 
 /**
@@ -12,7 +16,7 @@ const MY_DSPACE_STATUS_CONTEXTS = [
   Context.MyDSpaceDeclined,
   Context.MyDSpaceApproved,
   Context.MyDSpaceWaitingController,
-  Context.MyDSpaceValidation
+  Context.MyDSpaceValidation,
 ];
 
 /**
@@ -21,7 +25,7 @@ const MY_DSPACE_STATUS_CONTEXTS = [
 @Component({
   selector: 'ds-badges',
   templateUrl: './badges.component.html',
-  styleUrls: ['./badges.component.scss']
+  styleUrls: ['./badges.component.scss'],
 })
 export class BadgesComponent {
   /**

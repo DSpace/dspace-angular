@@ -1,14 +1,20 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { AuthService } from '../core/auth/auth.service';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+
+import { AuthService } from '../core/auth/auth.service';
+import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * A guard responsible for redirecting to 4xx pages upon retrieving a Registration object

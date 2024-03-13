@@ -47,7 +47,7 @@
           </table>
         </div>
       </ds-pagination>
-      <div *ngIf="(bitstreamFormats | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
+      <div *ngIf="(bitstreamFormats | async)?.payload?.totalElements === 0" class="alert alert-info" role="alert">
         {{'admin.registries.bitstream-formats.no-items' | translate}}
       </div>
 

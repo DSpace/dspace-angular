@@ -1,15 +1,29 @@
-import { Component, OnInit, OnChanges, OnDestroy, Input } from '@angular/core';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { ActivatedRoute, Params } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+
+import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { Context } from '../../core/shared/context.model';
+import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
 import { hasValue } from '../../shared/empty.util';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
@@ -93,7 +107,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
     this.browseDefinition$ = this.route.data.pipe(
       map((data: { browseDefinition: BrowseDefinition }) => {
         return data.browseDefinition;
-      })
+      }),
     );
     this.subs.push(this.browseDefinition$.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
       this.facetType = browseDefinition.facetType;
@@ -142,7 +156,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
    */
   updateQueryParams(): void {
     this.queryParams = {
-      ['f.' + this.facetType]: this.filterValues
+      ['f.' + this.facetType]: this.filterValues,
     };
     if (hasValue(this.scope)) {
       this.queryParams.scope = this.scope;

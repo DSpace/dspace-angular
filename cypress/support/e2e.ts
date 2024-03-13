@@ -21,7 +21,6 @@ import './commands';
 import 'cypress-axe';
 import { DSPACE_XSRF_COOKIE } from 'src/app/core/xsrf/xsrf.constants';
 
-
 // Runs once before all tests
 before(() => {
   // Cypress doesn't have access to the running application in Node.js.

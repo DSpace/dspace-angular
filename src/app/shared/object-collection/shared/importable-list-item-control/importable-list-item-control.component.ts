@@ -1,9 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-importable-list-item-control',
-  templateUrl: './importable-list-item-control.component.html'
+  templateUrl: './importable-list-item-control.component.html',
 })
 /**
  * Component adding an import button to a list item

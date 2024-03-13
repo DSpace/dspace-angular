@@ -1,13 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, take } from 'rxjs/operators';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  take,
+} from 'rxjs/operators';
+
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import { hasValue } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import { AdminQualityAssuranceSourcePageParams } from '../../../admin/admin-notifications/admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
-import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component to display the Quality Assurance source list.
@@ -15,18 +25,18 @@ import { hasValue } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-quality-assurance-source',
   templateUrl: './quality-assurance-source.component.html',
-  styleUrls: ['./quality-assurance-source.component.scss']
+  styleUrls: ['./quality-assurance-source.component.scss'],
 })
 export class QualityAssuranceSourceComponent implements OnInit {
 
- /**
+  /**
   * The pagination system configuration for HTML listing.
   * @type {PaginationComponentOptions}
   */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'btp',
     pageSize: 10,
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
   /**
    * The Quality Assurance source list sort options.
@@ -71,10 +81,10 @@ export class QualityAssuranceSourceComponent implements OnInit {
   ngAfterViewInit(): void {
     this.subs.push(
       this.notificationsStateService.isQualityAssuranceSourceLoaded().pipe(
-        take(1)
+        take(1),
       ).subscribe(() => {
         this.getQualityAssuranceSource();
-      })
+      }),
     );
   }
 
@@ -107,7 +117,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
     ).subscribe((options: PaginationComponentOptions) => {
       this.notificationsStateService.dispatchRetrieveQualityAssuranceSource(
         options.pageSize,
-        options.currentPage
+        options.currentPage,
       );
     });
   }
@@ -117,7 +127,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
    *
    * @param eventsRouteParams
    */
-  protected updatePaginationFromRouteParams(eventsRouteParams: AdminQualityAssuranceSourcePageParams) {
+  protected updatePaginationFromRouteParams(eventsRouteParams: QualityAssuranceSourcePageParams) {
     if (eventsRouteParams.currentPage) {
       this.paginationConfig.currentPage = eventsRouteParams.currentPage;
     }

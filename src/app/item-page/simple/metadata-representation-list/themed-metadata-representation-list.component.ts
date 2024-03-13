@@ -1,7 +1,11 @@
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { Item } from '../../../core/shared/item.model';
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
-import { Component, Input } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-themed-metadata-representation-list',

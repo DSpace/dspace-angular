@@ -1,24 +1,28 @@
 import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { PageInfo } from '../shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { HrefOnlyDataService } from '../data/href-only-data.service';
-import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
-import { Store } from '@ngrx/store';
 import { RestResponse } from '../cache/response.models';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { Item } from '../shared/item.model';
-import { WorkflowItemDataService } from './workflowitem-data.service';
-import { WorkflowItem } from './models/workflowitem.model';
 import { CoreState } from '../core-state.model';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
+import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { PageInfo } from '../shared/page-info.model';
+import { WorkflowItem } from './models/workflowitem.model';
+import { WorkflowItemDataService } from './workflowitem-data.service';
 
 describe('WorkflowItemDataService test', () => {
   let scheduler: TestScheduler;
@@ -38,28 +42,28 @@ describe('WorkflowItemDataService test', () => {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
+          value: 'Article',
+        },
       ],
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
+          value: '2015-06-26',
+        },
+      ],
+    },
   });
   const itemRD = createSuccessfulRemoteDataObject(item);
   const wsi = Object.assign(new WorkflowItem(), { item: observableOf(itemRD), id: '1234', uuid: '1234' });
@@ -96,7 +100,7 @@ describe('WorkflowItemDataService test', () => {
       scheduler = getTestScheduler();
 
       halService = jasmine.createSpyObj('halService', {
-        getEndpoint: cold('a', { a: endpointURL })
+        getEndpoint: cold('a', { a: endpointURL }),
       });
       responseCacheEntry = new RequestEntry();
       responseCacheEntry.request = { href: 'https://rest.api/' } as any;
@@ -111,8 +115,8 @@ describe('WorkflowItemDataService test', () => {
       });
       rdbService = jasmine.createSpyObj('rdbService', {
         buildSingle: hot('a|', {
-          a: wsiRD
-        })
+          a: wsiRD,
+        }),
       });
 
       service = initTestService();
@@ -136,7 +140,7 @@ describe('WorkflowItemDataService test', () => {
       it('should return a RemoteData<WorkspaceItem> for the search', () => {
         const result = service.findByItem('1234-1234', true, true, pageInfo);
         const expected = cold('a|', {
-          a: wsiRD
+          a: wsiRD,
         });
         expect(result).toBeObservable(expected);
       });

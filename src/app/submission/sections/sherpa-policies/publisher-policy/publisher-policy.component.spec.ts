@@ -1,11 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PublisherPolicyComponent } from './publisher-policy.component';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { PublisherPolicyComponent } from './publisher-policy.component';
 
 describe('PublisherPolicyComponent', () => {
   let component: PublisherPolicyComponent;
@@ -18,8 +24,8 @@ describe('PublisherPolicyComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [PublisherPolicyComponent],

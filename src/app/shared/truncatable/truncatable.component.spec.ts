@@ -1,9 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { mockTruncatableService } from '../mocks/mock-trucatable.service';
 import { TruncatableComponent } from './truncatable.component';
 import { TruncatableService } from './truncatable.service';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TruncatableComponent', () => {
   let comp: TruncatableComponent;
@@ -17,9 +25,9 @@ describe('TruncatableComponent', () => {
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(TruncatableComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
   beforeEach(() => {

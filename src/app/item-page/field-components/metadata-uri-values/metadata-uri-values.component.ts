@@ -1,7 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
-import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component as a link.
@@ -13,7 +16,7 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 @Component({
   selector: 'ds-metadata-uri-values',
   styleUrls: ['./metadata-uri-values.component.scss'],
-  templateUrl: './metadata-uri-values.component.html'
+  templateUrl: './metadata-uri-values.component.html',
 })
 export class MetadataUriValuesComponent extends MetadataValuesComponent {
 

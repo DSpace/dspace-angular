@@ -1,30 +1,36 @@
 import {
-    Component,
-    Input,
-    OnChanges,
-    OnDestroy,
-    OnInit,
-    SimpleChanges,
-    ViewChild
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
-
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { SectionUploadService } from '../section-upload.service';
-import { hasValue, isNotUndefined } from '../../../../shared/empty.util';
-import { FormService } from '../../../../shared/form/form.service';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
-import { SubmissionService } from '../../../submission.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { filter } from 'rxjs/operators';
+
+import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
+import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import {
+  hasValue,
+  isNotUndefined,
+} from '../../../../shared/empty.util';
+import { FormService } from '../../../../shared/form/form.service';
+import { SubmissionService } from '../../../submission.service';
+import { SectionUploadService } from '../section-upload.service';
+import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -146,11 +152,11 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   protected pathCombiner: JsonPatchOperationPathCombiner;
 
-    /**
+  /**
    * The [JsonPatchOperationPathCombiner] object
    * @type {JsonPatchOperationPathCombiner}
    */
-    protected primaryBitstreamPathCombiner: JsonPatchOperationPathCombiner;
+  protected primaryBitstreamPathCombiner: JsonPatchOperationPathCombiner;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -198,9 +204,9 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           .getFileData(this.submissionId, this.sectionId, this.fileId)
           .pipe(filter((bitstream) => isNotUndefined(bitstream)))
           .subscribe((bitstream) => {
-              this.fileData = bitstream;
-            }
-          )
+            this.fileData = bitstream;
+          },
+          ),
       );
     }
   }
@@ -225,7 +231,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           this.processingDelete$.next(true);
           this.deleteFile();
         }
-      }
+      },
     );
   }
 
@@ -236,7 +242,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   public getBitstream(): Bitstream {
     return Object.assign(new Bitstream(), {
-      uuid: this.fileData.uuid
+      uuid: this.fileData.uuid,
     });
   }
 
@@ -284,7 +290,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           this.formMetadata.push(metadatum.metadata);
         });
       });
-    }
+    },
     );
   }
 

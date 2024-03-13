@@ -1,9 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { languageHelper } from './language-helper';
-import { CaptionInfo } from './caption-info';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { CaptionInfo } from './caption-info';
+import { languageHelper } from './language-helper';
 
 /**
  * This component renders a video viewer and playlist for the media viewer
@@ -48,7 +52,7 @@ export class MediaViewerVideoComponent {
       .filter((media: Bitstream) => media.name.substring(0, (media.name.length - 7)).toLowerCase() === name.toLowerCase());
 
     for (const media of filteredCapMedias) {
-      let srclang: string = media.name.slice(-6, -4).toLowerCase();
+      const srclang: string = media.name.slice(-6, -4).toLowerCase();
       capInfos.push(new CaptionInfo(
         media._links.content.href,
         srclang,

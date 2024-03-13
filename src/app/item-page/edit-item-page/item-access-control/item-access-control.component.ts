@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { ActivatedRoute } from '@angular/router';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-access-control',
@@ -19,7 +23,7 @@ export class ItemAccessControlComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemRD$ = this.route.parent.parent.data.pipe(
-      map((data) => data.dso)
+      map((data) => data.dso),
     ).pipe(getFirstSucceededRemoteData()) as Observable<RemoteData<Item>>;
   }
 

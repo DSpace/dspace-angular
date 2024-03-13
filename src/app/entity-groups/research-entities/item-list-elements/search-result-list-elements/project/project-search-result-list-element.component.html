@@ -1,7 +1,7 @@
 <div class="row">
   <div *ngIf="showThumbnails" class="col-3 col-md-2">
-    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-       [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+    <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+       [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
        [routerLink]="[itemPageRoute]" class="dont-break-out">
       <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
                     [defaultImage]="'assets/images/project-placeholder.svg'"
@@ -9,7 +9,7 @@
                     [placeholder]="'thumbnail.project.placeholder'">
       </ds-thumbnail>
     </a>
-    <span *ngIf="linkType == linkTypes.None" class="dont-break-out">
+    <span *ngIf="linkType === linkTypes.None" class="dont-break-out">
       <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
                     [defaultImage]="'assets/images/project-placeholder.svg'"
                     [alt]="'thumbnail.project.alt'"
@@ -20,11 +20,11 @@
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
     <ds-truncatable [id]="dso.id">
       <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-themed-badges>
-      <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-         [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+      <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
+         [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
          [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
          [innerHTML]="dsoTitle"></a>
-      <span *ngIf="linkType == linkTypes.None"
+      <span *ngIf="linkType === linkTypes.None"
             class="lead item-list-title dont-break-out"
             [innerHTML]="dsoTitle"></span>
       <!--<span class="text-muted">-->

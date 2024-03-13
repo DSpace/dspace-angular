@@ -131,12 +131,16 @@ submission:
     # NOTE: after how many time (milliseconds) submission is saved automatically
     # eg. timer: 5 * (1000 * 60); // 5 minutes
     timer: 0
+  # Always show the duplicate detection section if enabled, even if there are no potential duplicates detected
+  # (a message will be displayed to indicate no matches were found)
+  duplicateDetection:
+    alwaysShowSection: false
   icons:
     metadata:
       # NOTE: example of configuration
       #   # NOTE: metadata name
       # - name: dc.author
-      #   # NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
+      #   # NOTE: fontawesome (v6.x) icon classes and bootstrap utility classes can be used
       #   style: fas fa-user
       - name: dc.author
         style: fas fa-user
@@ -147,18 +151,40 @@ submission:
       confidence:
         # NOTE: example of configuration
         #   # NOTE: confidence value
-        # - name: dc.author
-        #   # NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
-        #   style: fa-user
+        # - value: 600
+        #   # NOTE: fontawesome (v6.x) icon classes and bootstrap utility classes can be used
+        #   style: text-success
+        #   icon: fa-circle-check
+        #   # NOTE: the class configured in property style is used by default, the icon property could be used in component
+        #           configured to use a 'icon mode' display (mainly in edit-item page)
         - value: 600
           style: text-success
+          icon: fa-circle-check
         - value: 500
           style: text-info
+          icon: fa-gear
         - value: 400
           style: text-warning
+          icon: fa-circle-question
+        - value: 300
+          style: text-muted
+          icon: fa-thumbs-down
+        - value: 200
+          style: text-muted
+          icon: fa-circle-exclamation
+        - value: 100
+          style: text-muted
+          icon: fa-circle-stop
+        - value: 0
+          style: text-muted
+          icon: fa-ban
+        - value: -1
+          style: text-muted
+          icon: fa-circle-xmark
         # default configuration
         - value: default
           style: text-muted
+          icon: fa-circle-xmark
 
 #  Default Language in which the UI will be rendered if the user's browser language is not an active language
 defaultLanguage: en
@@ -272,6 +298,8 @@ homePage:
     # No. of communities to list per page on the home page
     # This will always round to the nearest number from the list of page sizes. e.g. if you set it to 7 it'll use 10
     pageSize: 5
+  # Enable or disable the Discover filters on the homepage
+  showDiscoverFilters: false
 
 # Item Config
 item:
@@ -400,3 +428,70 @@ comcolSelectionSort:
 # suggestion:
   # - collectionId: 8f7df5ca-f9c2-47a4-81ec-8a6393d6e5af
     # source: "openaire"
+
+
+# Search settings
+search:
+  # Settings to enable/disable or configure advanced search filters.
+  advancedFilters:
+    enabled: false
+    # List of filters to enable in "Advanced Search" dropdown
+    filter: [ 'title', 'author', 'subject', 'entityType' ]
+
+
+# Notify metrics
+# Configuration for Notify Admin Dashboard for metrics visualization
+notifyMetrics:
+  # Configuration for received messages
+- title: 'admin-notify-dashboard.received-ldn'
+  boxes:
+  - color: '#B8DAFF'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.accepted'
+    config: 'NOTIFY.incoming.accepted'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description'
+  - color: '#D4EDDA'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.processed'
+    config: 'NOTIFY.incoming.processed'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description'
+  - color: '#FDBBC7'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.failure'
+    config: 'NOTIFY.incoming.failure'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description'
+  - color: '#FDBBC7'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.untrusted'
+    config: 'NOTIFY.incoming.untrusted'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description'
+  - color: '#43515F'
+    title: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems'
+    textColor: '#fff'
+    config: 'NOTIFY.incoming.involvedItems'
+    description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description'
+# Configuration for outgoing messages
+- title: 'admin-notify-dashboard.generated-ldn'
+  boxes:
+  - color: '#B8DAFF'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.queued'
+    config: 'NOTIFY.outgoing.queued'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description'
+  - color: '#FDEEBB'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry'
+    config: 'NOTIFY.outgoing.queued_for_retry'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description'
+  - color: '#FDBBC7'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.failure'
+    config: 'NOTIFY.outgoing.failure'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description'
+  - color: '#43515F'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems'
+    textColor: '#fff'
+    config: 'NOTIFY.outgoing.involvedItems'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description'
+  - color: '#D4EDDA'
+    title: 'admin-notify-dashboard.NOTIFY.outgoing.delivered'
+    config: 'NOTIFY.outgoing.delivered'
+    description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description'
+
+
+
+
+

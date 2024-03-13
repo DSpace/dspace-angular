@@ -1,19 +1,26 @@
-import { Component, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
-  DynamicTextAreaModel
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
+
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
+import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { RequestService } from '../../core/data/request.service';
 import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
-import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { RequestService } from '../../core/data/request.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { environment } from '../../../environments/environment';
 
 /**
  * Form used for creating and editing communities
@@ -21,7 +28,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'ds-community-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
 })
 export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges {
   /**
@@ -44,10 +51,10 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
       name: 'dc.title',
       required: true,
       validators: {
-        required: null
+        required: null,
       },
       errorMessages: {
-        required: 'Please enter a name for this title'
+        required: 'Please enter a name for this title',
       },
     }),
     new DynamicTextAreaModel({
@@ -85,7 +92,7 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
   ngOnChanges(changes: SimpleChanges) {
     const dsoChange: SimpleChange = changes.dso;
     if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
-       super.ngOnInit();
+      super.ngOnInit();
     }
   }
 }

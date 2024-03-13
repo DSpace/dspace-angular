@@ -17,7 +17,7 @@
     (scrolled)="onScrollDown()">
     <ng-container *ngIf="listEntries$ | async">
       <button class="list-group-item list-group-item-action border-0 disabled"
-              *ngIf="(listEntries$ | async).length == 0">
+              *ngIf="(listEntries$ | async).length === 0">
         {{'dso-selector.no-results' | translate: { type: typesString } }}
       </button>
       <button *ngFor="let listEntry of (listEntries$ | async)"

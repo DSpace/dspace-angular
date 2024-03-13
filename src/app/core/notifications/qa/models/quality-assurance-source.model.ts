@@ -1,11 +1,14 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
 
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { ResourceType } from '../../../shared/resource-type';
-import { HALLink } from '../../../shared/hal-link.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { HALLink } from '../../../shared/hal-link.model';
+import { ResourceType } from '../../../shared/resource-type';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { QUALITY_ASSURANCE_SOURCE_OBJECT } from './quality-assurance-source-object.resource-type';
-import {CacheableObject} from '../../../cache/cacheable-object.model';
 
 /**
  * The interface representing the Quality Assurance source model
@@ -21,32 +24,32 @@ export class QualityAssuranceSourceObject implements CacheableObject {
    * The Quality Assurance source id
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The date of the last udate from Notifications
    */
   @autoserialize
-  lastEvent: string;
+    lastEvent: string;
 
   /**
    * The total number of suggestions provided by Notifications for this source
    */
   @autoserialize
-  totalEvents: number;
+    totalEvents: number;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
   };
 }

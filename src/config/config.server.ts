@@ -1,15 +1,26 @@
-import { red, blue, green, bold } from 'colors';
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'fs';
+import {
+  blue,
+  bold,
+  green,
+  red,
+} from 'colors';
+import {
+  existsSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from 'fs';
 import { load } from 'js-yaml';
 import { join } from 'path';
 
+import { isNotEmpty } from '../app/shared/empty.util';
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
-import { DefaultAppConfig } from './default-app-config';
-import { ServerConfig } from './server-config.interface';
 import { mergeConfig } from './config.util';
-import { isNotEmpty } from '../app/shared/empty.util';
+import { DefaultAppConfig } from './default-app-config';
 import { LanguageHashesConfig } from './languageHashes-config.interface';
+import { ServerConfig } from './server-config.interface';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 
@@ -156,7 +167,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
     config.ssl ? 'https://' : 'http://',
     config.host,
     config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : '',
-    config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`
+    config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`,
   ].join('');
 };
 
@@ -248,7 +259,7 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
       if (match && appConfig.languageHashes.filter(((languageHashConfig) => languageHashConfig.lang === match[1])).length === 0) {
         const languageConfig: LanguageHashesConfig = {
           lang: match[1],
-          md5: match[2]
+          md5: match[2],
         };
         appConfig.languageHashes.push(languageConfig);
       }

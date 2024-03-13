@@ -1,11 +1,10 @@
-import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
 import { Component } from '@angular/core';
+
 import { Context } from '../../../../../../../app/core/shared/context.model';
+import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
 import { ItemSearchResult } from '../../../../../../../app/shared/object-collection/shared/item-search-result.model';
-import {
-  PublicationSidebarSearchListElementComponent as BaseComponent
-} from '../../../../../../../app/shared/object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';
+import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
+import { PublicationSidebarSearchListElementComponent as BaseComponent } from '../../../../../../../app/shared/object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModal, 'custom')
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent, 'custom')

@@ -1,12 +1,13 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { ProcessDetailComponent } from './detail/process-detail.component';
 import { NewProcessComponent } from './new/new-process.component';
 import { ProcessOverviewComponent } from './overview/process-overview.component';
-import { ProcessPageResolver } from './process-page.resolver';
-import { ProcessDetailComponent } from './detail/process-detail.component';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { ProcessPageResolver } from './process-page.resolver';
 
 @NgModule({
   imports: [
@@ -26,24 +27,24 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
             path: 'new',
             component: NewProcessComponent,
             resolve: { breadcrumb: I18nBreadcrumbResolver },
-            data: { title: 'process.new.title', breadcrumbKey: 'process.new' }
+            data: { title: 'process.new.title', breadcrumbKey: 'process.new' },
           },
           {
             path: ':id',
             component: ProcessDetailComponent,
             resolve: {
               process: ProcessPageResolver,
-              breadcrumb: ProcessBreadcrumbResolver
-            }
-          }
-        ]
+              breadcrumb: ProcessBreadcrumbResolver,
+            },
+          },
+        ],
       },
 
-    ])
+    ]),
   ],
   providers: [
-    ProcessPageResolver
-  ]
+    ProcessPageResolver,
+  ],
 })
 export class ProcessPageRoutingModule {
 
