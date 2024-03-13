@@ -31,12 +31,14 @@ import {
   DynamicTextAreaModel,
   DynamicTimePickerModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { getMockTranslateService } from '../../mocks/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
@@ -55,15 +57,6 @@ import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.mod
 import { FormBuilderService } from './form-builder.service';
 import { FormFieldModel } from './models/form-field.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
-import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
-import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
-import {createSuccessfulRemoteDataObject$} from '../../remote-data.utils';
-import {ConfigurationProperty} from '../../../core/shared/configuration-property.model';
-import { getMockTranslateService } from '../../mocks/translate.service.mock';
-import { TranslateService } from '@ngx-translate/core';
 
 describe('FormBuilderService test suite', () => {
 
@@ -104,7 +97,7 @@ describe('FormBuilderService test suite', () => {
         { provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true },
         { provide: ConfigurationDataService, useValue: configSpy },
         { provide: TranslateService, useValue: translateService },
-      ]
+      ],
     });
 
     const vocabularyOptions: VocabularyOptions = {

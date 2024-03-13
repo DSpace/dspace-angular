@@ -8,6 +8,7 @@ import {
   MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
@@ -35,9 +36,6 @@ import { VisibilityType } from './../../../../submission/sections/visibility-typ
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { isNgbDateStruct } from '../../../date.util';
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
-import { TranslateService } from '@ngx-translate/core';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -64,7 +62,7 @@ export abstract class FieldParser {
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
-    protected translate: TranslateService
+    protected translate: TranslateService,
   ) {
   }
 

@@ -1,5 +1,6 @@
 import { Inject } from '@angular/core';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { isNotEmpty } from '../../../empty.util';
 import {
@@ -16,7 +17,6 @@ import {
   SUBMISSION_ID,
 } from './field-parser';
 import { ParserOptions } from './parser-options';
-import { TranslateService } from '@ngx-translate/core';
 
 export class DropdownFieldParser extends FieldParser {
 
@@ -25,7 +25,7 @@ export class DropdownFieldParser extends FieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
-    translate: TranslateService
+      translate: TranslateService,
   ) {
     super(submissionId, configData, initFormValues, parserOptions, translate);
   }

@@ -1,10 +1,11 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ListFieldParser } from './list-field-parser';
 import { ParserOptions } from './parser-options';
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
 describe('ListFieldParser test suite', () => {
   let field: FormFieldModel;

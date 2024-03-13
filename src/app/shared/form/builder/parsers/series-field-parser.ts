@@ -1,6 +1,6 @@
 import { Inject } from '@angular/core';
-
 import { TranslateService } from '@ngx-translate/core';
+
 import { FormFieldModel } from '../models/form-field.model';
 import { ConcatFieldParser } from './concat-field-parser';
 import {
@@ -18,7 +18,7 @@ export class SeriesFieldParser extends ConcatFieldParser {
     @Inject(CONFIG_DATA) configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
-    translate: TranslateService
+      translate: TranslateService,
   ) {
     super(submissionId, configData, initFormValues, parserOptions, translate, ';');
   }

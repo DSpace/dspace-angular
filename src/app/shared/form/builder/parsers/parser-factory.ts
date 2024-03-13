@@ -1,4 +1,5 @@
 import { StaticProvider } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { DateFieldParser } from './date-field-parser';
 import { DisabledFieldParser } from './disabled-field-parser';
@@ -20,14 +21,13 @@ import { RelationGroupFieldParser } from './relation-group-field-parser';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
-import { TranslateService } from '@ngx-translate/core';
 
 const fieldParserDeps = [
   SUBMISSION_ID,
   CONFIG_DATA,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
-  TranslateService
+  TranslateService,
 ];
 
 /**

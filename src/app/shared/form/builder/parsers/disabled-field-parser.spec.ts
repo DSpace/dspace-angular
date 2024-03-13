@@ -1,8 +1,8 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
 import { DynamicDisabledModel } from '../ds-dynamic-form-ui/models/disabled/dynamic-disabled.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { DisabledFieldParser } from './disabled-field-parser';
-import { DynamicDisabledModel } from '../ds-dynamic-form-ui/models/disabled/dynamic-disabled.model';
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 import { ParserOptions } from './parser-options';
 
 describe('DisabledFieldParser test suite', () => {

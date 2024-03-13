@@ -1,9 +1,10 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
 import { DynamicLookupNameModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
 import { ParserOptions } from './parser-options';
-import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
 
 describe('LookupNameFieldParser test suite', () => {
   let field: FormFieldModel;
