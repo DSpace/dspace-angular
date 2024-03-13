@@ -13,7 +13,6 @@ import { IdlePreloadModule } from 'angular-idle-preload';
 import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
 
 import { AppModule } from '../../app/app.module';
-import { BrowseByPageModule } from '../../app/browse-by/browse-by-page.module';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
@@ -36,7 +35,6 @@ const DECLARATIONS = [
   imports: [
     AppModule,
     RootModule,
-    BrowseByPageModule,
     CommonModule,
     DragDropModule,
     ItemSharedModule,
