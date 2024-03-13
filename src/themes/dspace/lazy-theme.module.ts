@@ -10,11 +10,9 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { IdlePreloadModule } from 'angular-idle-preload';
-import { ItemSharedModule } from 'src/app/item-page/item-shared.module';
 
 import { AppModule } from '../../app/app.module';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
-import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RegisterEmailFormModule } from '../../app/register-email-form/register-email-form.module';
@@ -37,8 +35,6 @@ const DECLARATIONS = [
     RootModule,
     CommonModule,
     DragDropModule,
-    ItemSharedModule,
-    ItemPageModule,
     EditItemPageModule,
     ItemVersionsModule,
     FormsModule,

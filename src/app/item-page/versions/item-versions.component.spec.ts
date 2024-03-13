@@ -50,7 +50,6 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ItemSharedModule } from '../item-shared.module';
 import { ItemVersionsComponent } from './item-versions.component';
 
 describe('ItemVersionsComponent', () => {
@@ -159,7 +158,7 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule, ItemVersionsComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemVersionsComponent, VarDirective],
       providers: [
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
