@@ -195,7 +195,7 @@ languages:
   - code: en
     label: English
     active: true
- - code: ar
+  - code: ar
     label: العربية
     active: true
   - code: ca
