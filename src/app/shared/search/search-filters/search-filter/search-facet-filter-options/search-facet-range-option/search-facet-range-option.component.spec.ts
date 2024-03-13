@@ -32,7 +32,7 @@ import { SearchFilterConfig } from '../../../../models/search-filter-config.mode
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
-} from '../../search-range-filter/search-range-filter.component';
+} from '../../search-range-filter/search-range-filter-constants';
 import { SearchFacetRangeOptionComponent } from './search-facet-range-option.component';
 
 describe('SearchFacetRangeOptionComponent', () => {

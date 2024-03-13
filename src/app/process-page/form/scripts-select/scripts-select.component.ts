@@ -46,7 +46,7 @@ import {
   hasValue,
 } from '../../../shared/empty.util';
 import { Script } from '../../scripts/script.model';
-import { controlContainerFactory } from '../process-form.component';
+import { controlContainerFactory } from '../process-form-factory';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
 

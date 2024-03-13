@@ -44,6 +44,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../empty.util';
+import { HasValuePipe } from '../../utils/has-value.pipe';
 
 export interface ResourcePolicyCheckboxEntry {
   id: string;
@@ -60,6 +61,7 @@ export interface ResourcePolicyCheckboxEntry {
     TranslateModule,
     FormsModule,
     NgIf,
+    HasValuePipe,
   ],
   standalone: true,
 })

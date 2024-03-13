@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ProcessParameter } from '../../../processes/process-parameter.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { controlContainerFactory } from '../../process-form.component';
+import { controlContainerFactory } from '../../process-form-factory';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 
 /**

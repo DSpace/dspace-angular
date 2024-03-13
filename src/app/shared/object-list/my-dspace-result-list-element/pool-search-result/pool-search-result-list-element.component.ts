@@ -9,6 +9,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -60,7 +61,7 @@ import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './pool-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ThemedItemListPreviewComponent, NgClass, PoolTaskActionsComponent, AsyncPipe],
+  imports: [NgIf, ThemedItemListPreviewComponent, NgClass, PoolTaskActionsComponent, AsyncPipe, TranslateModule],
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.ListElement)

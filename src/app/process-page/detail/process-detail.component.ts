@@ -64,6 +64,7 @@ import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { HasNoValuePipe } from '../../shared/utils/has-no-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { PROCESS_PAGE_FOLLOW_LINKS } from '../process-page.resolver';
 import { getProcessListRoute } from '../process-page-routing.paths';
@@ -75,7 +76,7 @@ import { ProcessDetailFieldComponent } from './process-detail-field/process-deta
   selector: 'ds-process-detail',
   templateUrl: './process-detail.component.html',
   standalone: true,
-  imports: [NgIf, ProcessDetailFieldComponent, NgFor, VarDirective, ThemedFileDownloadLinkComponent, ThemedLoadingComponent, RouterLink, AsyncPipe, DatePipe, FileSizePipe, TranslateModule],
+  imports: [NgIf, ProcessDetailFieldComponent, NgFor, VarDirective, ThemedFileDownloadLinkComponent, ThemedLoadingComponent, RouterLink, AsyncPipe, DatePipe, FileSizePipe, TranslateModule, HasNoValuePipe],
 })
 /**
  * A component displaying detailed information about a DSpace Process

@@ -6,10 +6,8 @@ import {
 
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
-import {
-  ImageField,
-  ItemPageFieldComponent,
-} from '../item-page-field.component';
+import { ImageField } from '../image-field';
+import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
   selector: 'ds-item-page-img-field',

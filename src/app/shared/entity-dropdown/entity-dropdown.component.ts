@@ -6,6 +6,7 @@ import {
 import {
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
@@ -102,6 +103,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    *
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {EntityTypeDataService} entityTypeService
+   * @param el
    */
   constructor(
     private changeDetectorRef: ChangeDetectorRef,

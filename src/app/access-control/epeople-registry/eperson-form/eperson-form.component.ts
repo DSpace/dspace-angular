@@ -73,6 +73,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 
@@ -88,6 +89,7 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     ThemedLoadingComponent,
     PaginationComponent,
     RouterLink,
+    HasNoValuePipe,
   ],
   standalone: true,
 })

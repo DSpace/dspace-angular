@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FileValueAccessorDirective } from '../../../../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../../../../shared/utils/require-file.validator';
-import { controlContainerFactory } from '../../../process-form.component';
+import { controlContainerFactory } from '../../../process-form-factory';
 import { ValueInputComponent } from '../value-input.component';
 
 /**

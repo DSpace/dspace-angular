@@ -38,6 +38,7 @@ import { isEmpty } from '../empty.util';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
+import { ObjectTableComponent } from '../object-table/object-table.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { setPlaceHolderAttributes } from '../utils/object-list-utils';
 import { CollectionElementLinkType } from './collection-element-link.type';
@@ -51,7 +52,7 @@ import { ListableObject } from './shared/listable-object.model';
   styleUrls: ['./object-collection.component.scss'],
   templateUrl: './object-collection.component.html',
   standalone: true,
-  imports: [NgIf, ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe],
+  imports: [NgIf, ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent],
 })
 export class ObjectCollectionComponent implements OnInit {
   /**

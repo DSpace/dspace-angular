@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 
 import { SearchPageModule } from '../../search-page/search-page.module';
 import { SearchModule } from '../../shared/search/search.module';
-import { SharedModule } from '../../shared/shared.module';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyDashboardRoutingModule } from './admin-notify-dashboard-routing.module';
 import { AdminNotifyDetailModalComponent } from './admin-notify-detail-modal/admin-notify-detail-modal.component';
@@ -25,7 +24,6 @@ const ENTRY_COMPONENTS = [
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule,
     AdminNotifyDashboardRoutingModule,
     SearchModule,
     SearchPageModule,

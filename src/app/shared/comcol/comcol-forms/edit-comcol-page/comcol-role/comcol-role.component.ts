@@ -43,6 +43,7 @@ import {
 } from '../../../../empty.util';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../../notifications/notifications.service';
+import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';
 import { VarDirective } from '../../../../utils/var.directive';
 
 /**
@@ -60,6 +61,7 @@ import { VarDirective } from '../../../../utils/var.directive';
     NgIf,
     RouterLink,
     VarDirective,
+    HasNoValuePipe,
   ],
   standalone: true,
 })

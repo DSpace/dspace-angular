@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { controlContainerFactory } from '../../../process-form.component';
+import { controlContainerFactory } from '../../../process-form-factory';
 import { ValueInputComponent } from '../value-input.component';
 
 /**

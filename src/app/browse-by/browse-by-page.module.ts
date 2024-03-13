@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { BrowseService } from '../core/browse/browse.service';
 import { ItemDataService } from '../core/data/item-data.service';
 import { SharedBrowseByModule } from '../shared/browse-by/shared-browse-by.module';
 import { BrowseByGuard } from './browse-by-guard';
