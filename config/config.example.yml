@@ -176,6 +176,9 @@ languages:
   - code: en
     label: English
     active: true
+  - code: ar
+    label: العربية
+    active: true
   - code: ca
     label: Català
     active: true
