@@ -55,7 +55,6 @@ import {
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { ListableModule } from './core/shared/listable.module';
 import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
-import { NavbarModule } from './navbar/navbar.module';
 import { RootModule } from './root.module';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
@@ -83,7 +82,6 @@ export function getMetaReducers(appConfig: AppConfig): MetaReducer<AppState>[] {
 
 const IMPORTS = [
   CommonModule,
-  NavbarModule,
   HttpClientModule,
   AppRoutingModule,
   ScrollToModule.forRoot(),

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RootModule } from '../../app/root.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
@@ -81,7 +80,6 @@ const DECLARATIONS = [
   imports: [
     CommonModule,
     RootModule,
-    NavbarModule,
     SharedBrowseByModule,
     DsoPageModule,
     ...DECLARATIONS,

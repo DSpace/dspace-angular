@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RootModule } from '../../app/root.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { HeaderComponent } from './app/header/header.component';
@@ -28,7 +27,6 @@ const DECLARATIONS = [
     CommonModule,
     SharedBrowseByModule,
     RootModule,
-    NavbarModule,
     ...DECLARATIONS,
   ],
   providers: [

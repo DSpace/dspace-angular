@@ -17,7 +17,6 @@ import { HeaderComponent } from './header/header.component';
 import { ThemedHeaderComponent } from './header/themed-header.component';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 import { ThemedHeaderNavbarWrapperComponent } from './header-nav-wrapper/themed-header-navbar-wrapper.component';
-import { NavbarModule } from './navbar/navbar.module';
 import { PageErrorComponent } from './page-error/page-error.component';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { PageInternalServerErrorComponent } from './page-internal-server-error/page-internal-server-error.component';
@@ -33,7 +32,6 @@ import { SystemWideAlertModule } from './system-wide-alert/system-wide-alert.mod
 
 const IMPORTS = [
   CommonModule,
-  NavbarModule,
   SystemWideAlertModule,
   NgbModule,
 ];

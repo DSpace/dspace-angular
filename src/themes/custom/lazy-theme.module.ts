@@ -13,7 +13,6 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { IdlePreloadModule } from 'angular-idle-preload';
 
 import { AppModule } from '../../app/app.module';
-import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RegisterEmailFormModule } from '../../app/register-email-form/register-email-form.module';
 import { RootModule } from '../../app/root.module';
 import { SearchPageModule } from '../../app/search-page/search-page.module';
@@ -208,7 +207,6 @@ const DECLARATIONS = [
     IdlePreloadModule,
     MenuModule,
     DsoPageModule,
-    NavbarModule,
     NgbModule,
     RegisterEmailFormModule,
     RouterModule,
