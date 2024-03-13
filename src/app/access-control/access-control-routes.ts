@@ -1,4 +1,9 @@
+import { AbstractControl } from '@angular/forms';
 import { Route } from '@angular/router';
+import {
+  DYNAMIC_ERROR_MESSAGES_MATCHER,
+  DynamicErrorMessagesMatcher,
+} from '@ng-dynamic-forms/core';
 
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { GroupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
@@ -15,6 +20,20 @@ import { GroupFormComponent } from './group-registry/group-form/group-form.compo
 import { GroupPageGuard } from './group-registry/group-page.guard';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 
+/**
+ * Condition for displaying error messages on email form field
+ */
+export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
+  (control: AbstractControl, model: any, hasFocus: boolean) => {
+    return (control.touched && !hasFocus) || (control.errors?.emailTaken && hasFocus);
+  };
+
+const providers = [
+  {
+    provide: DYNAMIC_ERROR_MESSAGES_MATCHER,
+    useValue: ValidateEmailErrorStateMatcher,
+  },
+];
 export const ROUTES: Route[] = [
   {
     path: EPERSON_PATH,
@@ -22,6 +41,7 @@ export const ROUTES: Route[] = [
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
     },
+    providers,
     data: { title: 'admin.access-control.epeople.title', breadcrumbKey: 'admin.access-control.epeople' },
     canActivate: [SiteAdministratorGuard],
   },
@@ -31,6 +51,7 @@ export const ROUTES: Route[] = [
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
     },
+    providers,
     data: { title: 'admin.access-control.epeople.add.title', breadcrumbKey: 'admin.access-control.epeople.add' },
     canActivate: [SiteAdministratorGuard],
   },
@@ -41,6 +62,7 @@ export const ROUTES: Route[] = [
       breadcrumb: I18nBreadcrumbResolver,
       ePerson: EPersonResolver,
     },
+    providers,
     data: { title: 'admin.access-control.epeople.edit.title', breadcrumbKey: 'admin.access-control.epeople.edit' },
     canActivate: [SiteAdministratorGuard],
   },
@@ -50,6 +72,7 @@ export const ROUTES: Route[] = [
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
     },
+    providers,
     data: { title: 'admin.access-control.groups.title', breadcrumbKey: 'admin.access-control.groups' },
     canActivate: [GroupAdministratorGuard],
   },
@@ -59,7 +82,11 @@ export const ROUTES: Route[] = [
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
     },
-    data: { title: 'admin.access-control.groups.title.addGroup', breadcrumbKey: 'admin.access-control.groups.addGroup' },
+    providers,
+    data: {
+      title: 'admin.access-control.groups.title.addGroup',
+      breadcrumbKey: 'admin.access-control.groups.addGroup',
+    },
     canActivate: [GroupAdministratorGuard],
   },
   {
@@ -68,6 +95,7 @@ export const ROUTES: Route[] = [
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
     },
+    providers,
     data: {
       title: 'admin.access-control.groups.title.singleGroup',
       breadcrumbKey: 'admin.access-control.groups.singleGroup',
