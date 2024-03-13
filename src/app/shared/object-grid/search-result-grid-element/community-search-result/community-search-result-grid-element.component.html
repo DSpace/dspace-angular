@@ -1,9 +1,9 @@
 <div class="card">
-    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/', dso.id]" class="card-img-top" [attr.title]="'search.results.view-result' | translate">
+    <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/', dso.id]" class="card-img-top" [attr.title]="'search.results.view-result' | translate">
         <ds-themed-thumbnail [thumbnail]="(dso.logo | async)?.payload" [limitWidth]="false">
         </ds-themed-thumbnail>
     </a>
-    <span *ngIf="linkType == linkTypes.None" class="card-img-top">
+    <span *ngIf="linkType === linkTypes.None" class="card-img-top">
     <ds-themed-thumbnail [thumbnail]="(dso.logo | async)?.payload" [limitWidth]="false">
     </ds-themed-thumbnail>
   </span>
@@ -11,8 +11,8 @@
         <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-themed-badges>
         <h4 class="card-title">{{ dsoNameService.getName(dso) }}</h4>
         <p *ngIf="dso.shortDescription" class="card-text">{{dso.shortDescription}}</p>
-        <div *ngIf="linkType != linkTypes.None" class="text-center">
-            <a [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/', dso.id]" class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
+        <div *ngIf="linkType !== linkTypes.None" class="text-center">
+            <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/', dso.id]" class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
         </div>
     </div>
     <ng-content></ng-content>

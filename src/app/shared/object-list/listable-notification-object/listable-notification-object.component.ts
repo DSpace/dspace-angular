@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import {
-  AbstractListableElementComponent
-} from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { ListableNotificationObject } from './listable-notification-object.model';
-import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
+
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { ListableNotificationObject } from './listable-notification-object.model';
 import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.resource-type';
 
 /**

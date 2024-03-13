@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
-import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
-import { ObjectSelectionListState, ObjectSelectionsState, ObjectSelectionState } from './object-select.reducer';
+import {
+  createSelector,
+  MemoizedSelector,
+  Store,
+} from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { AppState } from '../../app.reducer';
+import { hasValue } from '../empty.util';
 import {
   ObjectSelectionDeselectAction,
   ObjectSelectionInitialDeselectAction,
-  ObjectSelectionInitialSelectAction, ObjectSelectionResetAction,
-  ObjectSelectionSelectAction, ObjectSelectionSwitchAction
+  ObjectSelectionInitialSelectAction,
+  ObjectSelectionResetAction,
+  ObjectSelectionSelectAction,
+  ObjectSelectionSwitchAction,
 } from './object-select.actions';
-import { Observable } from 'rxjs';
-import { hasValue } from '../empty.util';
-import { map } from 'rxjs/operators';
-import { AppState } from '../../app.reducer';
+import {
+  ObjectSelectionListState,
+  ObjectSelectionsState,
+  ObjectSelectionState,
+} from './object-select.reducer';
 
 const objectSelectionsStateSelector = (state: ObjectSelectionListState) => state.objectSelection;
 const objectSelectionListStateSelector = (state: AppState) => state.objectSelection;
@@ -23,7 +34,7 @@ export class ObjectSelectService {
 
   constructor(
     private store: Store<ObjectSelectionListState>,
-    private appStore: Store<AppState>
+    private appStore: Store<AppState>,
   ) {
   }
 
@@ -41,7 +52,7 @@ export class ObjectSelectService {
         } else {
           return false;
         }
-      })
+      }),
     );
   }
 
@@ -57,7 +68,7 @@ export class ObjectSelectService {
         } else {
           return [];
         }
-      })
+      }),
     );
   }
 

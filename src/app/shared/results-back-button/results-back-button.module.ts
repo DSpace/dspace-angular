@@ -1,21 +1,22 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+
 import { ResultsBackButtonComponent } from './results-back-button.component';
 import { ThemedResultsBackButtonComponent } from './themed-results-back-button.component';
 
 @NgModule({
   declarations: [
     ResultsBackButtonComponent,
-    ThemedResultsBackButtonComponent
+    ThemedResultsBackButtonComponent,
   ],
   imports: [
     CommonModule,
-    TranslateModule
+    TranslateModule,
   ],
   exports: [
-    ThemedResultsBackButtonComponent
-  ]
+    ThemedResultsBackButtonComponent,
+  ],
 })
 export class ResultsBackButtonModule {
 

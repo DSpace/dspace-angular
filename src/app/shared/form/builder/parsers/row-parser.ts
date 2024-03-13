@@ -1,25 +1,39 @@
-import { SubmissionFieldScopeType } from './../../../../core/submission/submission-field-scope-type';
-import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
-import { Injectable, Injector } from '@angular/core';
-
-import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core';
+import {
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
+  DynamicFormGroupModelConfig,
+} from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { isEmpty, isNotEmpty } from '../../../empty.util';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../../empty.util';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormFieldModel } from '../models/form-field.model';
-import { CONFIG_DATA, FieldParser, INIT_FORM_VALUES, PARSER_OPTIONS, SUBMISSION_ID } from './field-parser';
+import { SubmissionFieldScopeType } from './../../../../core/submission/submission-field-scope-type';
+import { SectionVisibility } from './../../../../submission/objects/section-visibility.model';
+import {
+  CONFIG_DATA,
+  FieldParser,
+  INIT_FORM_VALUES,
+  PARSER_OPTIONS,
+  SUBMISSION_ID,
+} from './field-parser';
+import { setLayout } from './parser.utils';
 import { ParserFactory } from './parser-factory';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { setLayout } from './parser.utils';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 /**
@@ -30,12 +44,12 @@ export class RowParser {
   }
 
   public parse(submissionId: string,
-               rowData,
-               scopeUUID,
-               initFormValues: any,
-               submissionScope,
-               readOnly: boolean,
-               typeField: string): DynamicRowGroupModel {
+    rowData,
+    scopeUUID,
+    initFormValues: any,
+    submissionScope,
+    readOnly: boolean,
+    typeField: string): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
@@ -52,7 +66,7 @@ export class RowParser {
       readOnly: readOnly,
       submissionScope: submissionScope,
       collectionUUID: scopeUUID,
-      typeField: typeField
+      typeField: typeField,
     };
 
     // Iterate over row's fields
@@ -67,14 +81,14 @@ export class RowParser {
             { provide: SUBMISSION_ID, useValue: submissionId },
             { provide: CONFIG_DATA, useValue: fieldData },
             { provide: INIT_FORM_VALUES, useValue: initFormValues },
-            { provide: PARSER_OPTIONS, useValue: parserOptions }
+            { provide: PARSER_OPTIONS, useValue: parserOptions },
           ],
-          parent: this.parentInjector
+          parent: this.parentInjector,
         });
 
         fieldModel = fieldInjector.get(FieldParser).parse();
       } else {
-        throw new Error(`unknown form control model type "${fieldData.input.type}" defined for Input field with label "${fieldData.label}".`,);
+        throw new Error(`unknown form control model type "${fieldData.input.type}" defined for Input field with label "${fieldData.label}".`);
       }
 
       if (fieldModel) {
@@ -109,7 +123,7 @@ export class RowParser {
       const clsGroup = {
         element: {
           control: 'form-row',
-        }
+        },
       };
       const groupModel = new DynamicRowGroupModel(config, clsGroup);
       if (Array.isArray(parsedResult)) {

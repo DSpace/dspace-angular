@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { AlertType } from '../shared/alert/alert-type';
 import { HealthService } from './health.service';
-import { HealthInfoResponse, HealthResponse } from './models/health-component.model';
+import {
+  HealthInfoResponse,
+  HealthResponse,
+} from './models/health-component.model';
 
 @Component({
   selector: 'ds-health-page',
   templateUrl: './health-page.component.html',
-  styleUrls: ['./health-page.component.scss']
+  styleUrls: ['./health-page.component.scss'],
 })
 export class HealthPageComponent implements OnInit {
 
@@ -33,6 +39,8 @@ export class HealthPageComponent implements OnInit {
    */
   healthInfoResponseInitialised: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  readonly AlertType = AlertType;
+
   constructor(private healthDataService: HealthService) {
   }
 
@@ -48,7 +56,7 @@ export class HealthPageComponent implements OnInit {
       error: () => {
         this.healthResponse.next(null);
         this.healthResponseInitialised.next(true);
-      }
+      },
     });
 
     this.healthDataService.getInfo().pipe(take(1)).subscribe({
@@ -59,7 +67,7 @@ export class HealthPageComponent implements OnInit {
       error: () => {
         this.healthInfoResponse.next(null);
         this.healthInfoResponseInitialised.next(true);
-      }
+      },
     });
 
   }

@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { ActivatedRoute } from '@angular/router';
 import { AlertType } from '../../../shared/alert/alert-type';
 
 @Component({
   selector: 'ds-item-version-history',
-  templateUrl: './item-version-history.component.html'
+  templateUrl: './item-version-history.component.html',
 })
 /**
  * Component for listing and managing an item's version history

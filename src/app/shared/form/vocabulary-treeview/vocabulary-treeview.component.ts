@@ -1,22 +1,43 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
 
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
-import { VocabularyTreeviewService } from './vocabulary-treeview.service';
-import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { CoreState } from '../../../core/core-state.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
-import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
-import { CoreState } from '../../../core/core-state.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { AlertType } from '../../alert/alert-type';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../empty.util';
+import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
+import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
+import { VocabularyTreeviewService } from './vocabulary-treeview.service';
+import {
+  LOAD_MORE,
+  LOAD_MORE_ROOT,
+  TreeviewFlatNode,
+  TreeviewNode,
+} from './vocabulary-treeview-node.model';
 
 /**
  * Component that shows a hierarchical vocabulary in a tree view
@@ -24,7 +45,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operato
 @Component({
   selector: 'ds-vocabulary-treeview',
   templateUrl: './vocabulary-treeview.component.html',
-  styleUrls: ['./vocabulary-treeview.component.scss']
+  styleUrls: ['./vocabulary-treeview.component.scss'],
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {
 
@@ -105,6 +126,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
    */
   private subs: Subscription[] = [];
 
+  readonly AlertType = AlertType;
+
   /**
    * Initialize instance variables
    *
@@ -117,7 +140,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
     private vocabularyTreeviewService: VocabularyTreeviewService,
     private vocabularyService: VocabularyService,
     private store: Store<CoreState>,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
@@ -154,7 +177,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
       node.loadMoreParentItem,
       node.isSearchNode,
       node.isInInitValueHierarchy,
-      node.isSelected
+      node.isSelected,
     );
     this.nodeMap.set(node.item.id, newNode);
 
@@ -206,7 +229,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
     this.subs.push(
       this.vocabularyTreeviewService.getData().subscribe((data) => {
         this.dataSource.data = data;
-      })
+      }),
     );
 
     this.loading = this.vocabularyTreeviewService.isLoading();

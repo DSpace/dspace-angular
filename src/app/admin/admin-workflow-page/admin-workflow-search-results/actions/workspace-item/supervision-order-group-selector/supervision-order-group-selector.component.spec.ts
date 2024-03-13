@@ -1,13 +1,21 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector.component';
-import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
-import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { Group } from '../../../../../../core/eperson/models/group.model';
 import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
-import { of } from 'rxjs';
+import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
+import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
+import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector.component';
 
 describe('SupervisionOrderGroupSelectorComponent', () => {
   let component: SupervisionOrderGroupSelectorComponent;
@@ -17,7 +25,7 @@ describe('SupervisionOrderGroupSelectorComponent', () => {
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
 
   const supervisionOrderDataService: any = jasmine.createSpyObj('supervisionOrderDataService', {
-    create: of(new SupervisionOrder())
+    create: of(new SupervisionOrder()),
   });
 
   const selectedOrderType = 'NONE';
@@ -38,7 +46,7 @@ describe('SupervisionOrderGroupSelectorComponent', () => {
         { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
         { provide: NotificationsService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));

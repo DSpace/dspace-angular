@@ -2,20 +2,23 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivateChild,
+  NavigationStart,
   Router,
   RouterStateSnapshot,
   UrlTree,
-  NavigationStart
 } from '@angular/router';
-
 import { Observable } from 'rxjs';
-import { take, map, filter } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { RootDataService } from '../data/root-data.service';
 import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
+import { RootDataService } from '../data/root-data.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * A guard that checks if root api endpoint is reachable.
@@ -30,7 +33,7 @@ export class ServerCheckGuard implements CanActivateChild {
    */
   canActivateChild(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Observable<boolean | UrlTree> {
 
     return this.rootDataService.checkServerAvailability().pipe(
@@ -41,7 +44,7 @@ export class ServerCheckGuard implements CanActivateChild {
         } else {
           return true;
         }
-      })
+      }),
     );
   }
 
@@ -53,10 +56,8 @@ export class ServerCheckGuard implements CanActivateChild {
    */
   listenForRouteChanges(): void {
     // we'll always be too late for the first NavigationStart event with the router subscribe below,
-    // so this statement is for the very first route operation. A `find` without using the cache,
-    // rather than an invalidateRootCache, because invalidating as the app is bootstrapping can
-    // break other features
-    this.rootDataService.findRoot(false);
+    // so this statement is for the very first route operation.
+    this.rootDataService.invalidateRootCache();
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationStart),
