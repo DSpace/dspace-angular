@@ -13,11 +13,9 @@ import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 import { BrowseByPageComponent } from './browse-by-page.component';
 
-@rendersBrowseBy('BrowseByPageComponent' as BrowseByDataType)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',

@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowseByMetadataComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-metadata/browse-by-metadata.component';
-import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
-import { Context } from '../../../../../app/core/shared/context.model';
 import { BrowseByComponent } from '../../../../../app/shared/browse-by/browse-by.component';
 import { ThemedBrowseByComponent } from '../../../../../app/shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
@@ -43,6 +40,5 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
     ThemedBrowseByComponent,
   ],
 })
-@rendersBrowseBy(BrowseByDataType.Metadata, Context.Any, 'custom')
 export class BrowseByMetadataComponent extends BaseComponent {
 }

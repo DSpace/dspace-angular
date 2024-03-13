@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowseByDateComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-date/browse-by-date.component';
-import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';
-import { Context } from '../../../../../app/core/shared/context.model';
 import { BrowseByComponent } from '../../../../../app/shared/browse-by/browse-by.component';
 import { ThemedBrowseByComponent } from '../../../../../app/shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
@@ -43,6 +40,5 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
     ThemedBrowseByComponent,
   ],
 })
-@rendersBrowseBy(BrowseByDataType.Date, Context.Any, 'custom')
 export class BrowseByDateComponent extends BaseComponent {
 }
