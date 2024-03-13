@@ -16,7 +16,7 @@ describe('ObjectTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ObjectTableComponent ],
+      imports: [ObjectTableComponent],
     })
       .compileComponents();
 

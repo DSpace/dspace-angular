@@ -30,7 +30,7 @@ describe('AdminNotifyLogsResultComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifyLogsResultComponent ],
+      declarations: [AdminNotifyLogsResultComponent],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },

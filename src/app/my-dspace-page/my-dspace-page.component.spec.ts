@@ -20,13 +20,13 @@ import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';
 import { ThemeService } from '../shared/theme-support/theme.service';
-import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
+import {
+  MyDSpaceConfigurationService,
+  SEARCH_CONFIG_SERVICE,
+} from './my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
-import {
-  MyDSpacePageComponent,
-  SEARCH_CONFIG_SERVICE,
-} from './my-dspace-page.component';
+import { MyDSpacePageComponent } from './my-dspace-page.component';
 import SpyObj = jasmine.SpyObj;
 
 describe('MyDSpacePageComponent', () => {

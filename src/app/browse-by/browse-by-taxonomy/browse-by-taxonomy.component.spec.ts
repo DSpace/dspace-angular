@@ -39,7 +39,7 @@ describe('BrowseByTaxonomyComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(BrowseByTaxonomyPageComponent, {
+      .overrideComponent(BrowseByTaxonomyComponent, {
         remove: { imports: [VocabularyTreeviewComponent] },
       })
       .compileComponents();

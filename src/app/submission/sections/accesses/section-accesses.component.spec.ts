@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { inject } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -21,7 +20,6 @@ import {
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
-import { AppState } from '../../../app.reducer';
 import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
@@ -132,7 +130,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         .compileComponents();
     });
 
-    beforeEach(inject([Store], (store: Store<AppState>) => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
       component = fixture.componentInstance;
       formService = TestBed.inject(FormService);
@@ -141,7 +139,7 @@ describe('SubmissionSectionAccessesComponent', () => {
       formService.isValid.and.returnValue(observableOf(true));
       formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
       fixture.detectChanges();
-    }));
+    });
 
     it('should create', () => {
       expect(component).toBeTruthy();

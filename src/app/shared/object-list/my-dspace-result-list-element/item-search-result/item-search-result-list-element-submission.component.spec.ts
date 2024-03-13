@@ -12,6 +12,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
@@ -21,6 +22,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
 

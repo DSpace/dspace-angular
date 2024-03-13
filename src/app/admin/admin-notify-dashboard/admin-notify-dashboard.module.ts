@@ -27,12 +27,6 @@ const ENTRY_COMPONENTS = [
     AdminNotifyDashboardRoutingModule,
     SearchModule,
     SearchPageModule,
-  ],
-  providers: [
-    AdminNotifyMessagesService,
-    DatePipe,
-  ],
-  declarations: [
     ...ENTRY_COMPONENTS,
     AdminNotifyDashboardComponent,
     AdminNotifyMetricsComponent,
@@ -41,6 +35,10 @@ const ENTRY_COMPONENTS = [
     AdminNotifyDetailModalComponent,
     AdminNotifySearchResultComponent,
     AdminNotifyLogsResultComponent,
+  ],
+  providers: [
+    AdminNotifyMessagesService,
+    DatePipe,
   ],
 })
 export class AdminNotifyDashboardModule {

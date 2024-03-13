@@ -1,11 +1,18 @@
-import { DatePipe } from '@angular/common';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,
@@ -18,6 +25,8 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { tabulatableObjectsComponent } from '../../../shared/object-collection/shared/tabulatable-objects/tabulatable-objects.decorator';
 import { TabulatableResultListElementsComponent } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
 import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
@@ -32,6 +41,17 @@ import { AdminNotifyMessagesService } from '../services/admin-notify-messages.se
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService,
     },
+  ],
+  standalone: true,
+  imports: [
+    TranslateModule,
+    NgForOf,
+    NgIf,
+    DatePipe,
+    AsyncPipe,
+    TruncatableComponent,
+    TruncatablePartComponent,
+    RouterLink,
   ],
 })
 /**

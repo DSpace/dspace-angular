@@ -14,6 +14,7 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
+import { SearchFilterService } from 'src/app/core/shared/search/search-filter.service';
 
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SequenceService } from '../../../../core/shared/sequence.service';

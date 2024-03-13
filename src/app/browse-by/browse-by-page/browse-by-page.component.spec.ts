@@ -44,8 +44,7 @@ describe('BrowseByPageComponent', () => {
     themeService = getMockThemeService();
 
     await TestBed.configureTestingModule({
-      imports: [BrowseBySwitcherComponent, BrowseByPageComponent],
-      declarations: [DynamicComponentLoaderDirective],
+      imports: [BrowseBySwitcherComponent, BrowseByPageComponent, DynamicComponentLoaderDirective],
       providers: [
         BrowseByTestComponent,
         { provide: ActivatedRoute, useValue: activatedRoute },

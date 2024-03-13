@@ -149,8 +149,6 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
         NgxPaginationModule,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionDuplicatesComponent,
         TestComponent,
         ObjNgFor,
@@ -255,6 +253,12 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [BrowserModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule],
 })
 class TestComponent {
 

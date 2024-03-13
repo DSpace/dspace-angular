@@ -23,7 +23,7 @@ describe('NotificationBoxComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ NotificationBoxComponent ],
+      declarations: [NotificationBoxComponent],
     })
       .compileComponents();
 

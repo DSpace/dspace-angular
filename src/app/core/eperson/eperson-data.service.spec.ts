@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   fakeAsync,
   TestBed,
@@ -97,7 +98,6 @@ describe('EPersonDataService', () => {
         { provide: DSOChangeAnalyzer, useClass: DummyChangeAnalyzer },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
       ],
-      providers: [],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 

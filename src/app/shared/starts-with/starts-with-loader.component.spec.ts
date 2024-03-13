@@ -44,8 +44,8 @@ describe('StartsWithLoaderComponent', () => {
         TranslateModule.forRoot(),
         StartsWithTextComponent,
         StartsWithLoaderComponent,
+        DynamicComponentLoaderDirective,
       ],
-      declarations: [DynamicComponentLoaderDirective],
       providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: ActivatedRoute, useValue: route },

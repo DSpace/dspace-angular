@@ -1,7 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   forkJoin,
   Observable,
@@ -17,6 +23,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configurat
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
+import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 import {
   AdminNotifyMetricsBox,
   AdminNotifyMetricsRow,
@@ -30,6 +37,14 @@ import {
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService,
     },
+  ],
+  standalone: true,
+  imports: [
+    AdminNotifyMetricsComponent,
+    RouterLink,
+    NgIf,
+    TranslateModule,
+    AsyncPipe,
   ],
 })
 

@@ -40,7 +40,7 @@ describe('AdminNotifyDashboardComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NgbNavModule],
-      declarations: [ AdminNotifyDashboardComponent ],
+      declarations: [AdminNotifyDashboardComponent],
       providers: [{ provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } }],
     })
       .compileComponents();

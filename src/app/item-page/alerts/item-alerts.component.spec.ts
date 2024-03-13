@@ -46,11 +46,9 @@ describe('ItemAlertsComponent', () => {
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', ['openCreateWithdrawnReinstateModal']);
     correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  ['findByItem']);
     TestBed.configureTestingModule({
-      providers: [
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-      ],
       imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
       providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
         { provide: CorrectionTypeDataService, useValue: correctionTypeDataService },

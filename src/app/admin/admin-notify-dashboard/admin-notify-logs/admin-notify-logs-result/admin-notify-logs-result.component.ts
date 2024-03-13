@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Inject,
@@ -10,6 +14,7 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -17,6 +22,8 @@ import { Context } from '../../../../core/shared/context.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
+import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 
 @Component({
   selector: 'ds-admin-notify-logs-result',
@@ -26,6 +33,14 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-conf
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService,
     },
+  ],
+  standalone: true,
+  imports: [
+    SearchLabelsComponent,
+    ThemedSearchComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
   ],
 })
 

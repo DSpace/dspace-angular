@@ -129,7 +129,7 @@ describe('AdminNotifySearchResultComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifySearchResultComponent, AdminNotifyDetailModalComponent ],
+      declarations: [AdminNotifySearchResultComponent, AdminNotifyDetailModalComponent],
       providers: [
         { provide: AdminNotifyMessagesService, useValue: adminNotifyMessageService },
         { provide: RouteService, useValue: routeServiceStub },

@@ -150,7 +150,7 @@ describe('BrowseByMetadataComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .overrideComponent(BrowseByMetadataPageComponent, {
+      .overrideComponent(BrowseByMetadataComponent, {
         remove: {
           imports: [ThemedLoadingComponent, DsoEditMenuComponent],
         },

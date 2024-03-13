@@ -126,7 +126,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     init();
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [TruncatePipe, PersonSearchResultListSubmissionElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
