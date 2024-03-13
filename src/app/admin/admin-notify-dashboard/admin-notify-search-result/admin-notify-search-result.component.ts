@@ -19,11 +19,8 @@ import {
 } from 'rxjs';
 
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Context } from '../../../core/shared/context.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { tabulatableObjectsComponent } from '../../../shared/object-collection/shared/tabulatable-objects/tabulatable-objects.decorator';
 import { TabulatableResultListElementsComponent } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
@@ -32,7 +29,6 @@ import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
 import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
 
-@tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
 @Component({
   selector: 'ds-admin-notify-search-result',
   templateUrl: './admin-notify-search-result.component.html',
@@ -57,8 +53,6 @@ import { AdminNotifyMessagesService } from '../services/admin-notify-messages.se
 /**
  * Component for visualization in table format of the search results related to the AdminNotifyDashboardComponent
  */
-
-
 export class AdminNotifySearchResultComponent extends TabulatableResultListElementsComponent<PaginatedList<AdminNotifySearchResult>, AdminNotifySearchResult> implements OnInit, OnDestroy{
   public messagesSubject$: BehaviorSubject<AdminNotifyMessage[]> = new BehaviorSubject([]);
   public reprocessStatus = 'QUEUE_STATUS_QUEUED_FOR_RETRY';
