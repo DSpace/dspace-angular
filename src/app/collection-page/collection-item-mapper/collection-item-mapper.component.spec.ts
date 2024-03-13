@@ -35,7 +35,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { LoadingComponent } from '../../shared/loading/loading.component';

@@ -39,7 +39,7 @@ import { Item } from '../../../../../../core/shared/item.model';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,

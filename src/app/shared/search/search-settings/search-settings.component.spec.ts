@@ -5,6 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -14,10 +15,14 @@ import {
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { SidebarService } from '../../sidebar/sidebar.service';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { SearchServiceStub } from '../../testing/search-service.stub';
 import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { VarDirective } from '../../utils/var.directive';
@@ -59,8 +64,8 @@ describe('SearchSettingsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), SearchSettingsComponent, EnumKeysPipe, VarDirective],
       providers: [
-        { provide: SearchService, useValue: searchServiceStub },
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: SearchService, useValue: new SearchServiceStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         {
           provide: SidebarService,
           useValue: SidebarServiceStub,

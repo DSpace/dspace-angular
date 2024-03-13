@@ -49,6 +49,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   hasValue,
   isNotEmpty,
@@ -68,7 +69,6 @@ import {
 } from './relationship.actions';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',

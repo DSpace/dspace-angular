@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
 import { Context } from '../../../../core/shared/context.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 
 @Component({
   selector: 'ds-admin-notify-logs-result',

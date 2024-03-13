@@ -20,7 +20,7 @@ import { RouteService } from '../../../core/services/route.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';

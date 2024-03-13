@@ -21,7 +21,7 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { Context } from '../../../../../../core/shared/context.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.utils';

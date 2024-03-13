@@ -15,7 +15,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Context } from '../../../core/shared/context.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ViewMode } from '../../../core/shared/view-mode.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { tabulatableObjectsComponent } from '../../../shared/object-collection/shared/tabulatable-objects/tabulatable-objects.decorator';
 import { TabulatableResultListElementsComponent } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';

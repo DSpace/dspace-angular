@@ -25,7 +25,7 @@ import {
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../animations/slide';
 import { BrowserOnlyPipe } from '../../utils/browser-only.pipe';
 

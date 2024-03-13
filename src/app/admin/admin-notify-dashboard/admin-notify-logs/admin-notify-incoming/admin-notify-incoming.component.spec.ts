@@ -11,7 +11,7 @@ import { RequestService } from '../../../../core/data/request.service';
 import { RouteService } from '../../../../core/services/route.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
 import { getMockRemoteDataBuildService } from '../../../../shared/mocks/remote-data-build.service.mock';
 import { routeServiceStub } from '../../../../shared/testing/route-service.stub';

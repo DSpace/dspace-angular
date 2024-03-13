@@ -7,12 +7,12 @@ import {
   Component,
 } from '@angular/core';
 
-import { MyDSpaceConfigurationService } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
-import { MyDSpaceNewSubmissionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
 import {
-  MyDSpacePageComponent as BaseComponent,
+  MyDSpaceConfigurationService,
   SEARCH_CONFIG_SERVICE,
-} from '../../../../app/my-dspace-page/my-dspace-page.component';
+} from '../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { MyDSpaceNewSubmissionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
+import { MyDSpacePageComponent as BaseComponent } from '../../../../app/my-dspace-page/my-dspace-page.component';
 import { MyDspaceQaEventsNotificationsComponent } from '../../../../app/my-dspace-page/my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions-notification/suggestions-notification.component';
 import { pushInOut } from '../../../../app/shared/animations/push';
