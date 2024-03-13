@@ -1,14 +1,22 @@
-import { HostWindowService } from '../shared/host-window.service';
-import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { SearchComponent } from '../shared/search/search.component';
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { pushInOut } from '../shared/animations/push';
-import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+} from '@angular/core';
+import { Router } from '@angular/router';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
-import { Router } from '@angular/router';
-import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-page.component';
+import { pushInOut } from '../shared/animations/push';
+import { HostWindowService } from '../shared/host-window.service';
+import { SearchComponent } from '../shared/search/search.component';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 
 /**
  * This component renders a search page using a configuration as input.
@@ -22,9 +30,9 @@ import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {

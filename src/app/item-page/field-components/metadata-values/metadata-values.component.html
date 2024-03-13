@@ -3,7 +3,7 @@
       <!--
       Choose a template. Priority: markdown, link, browse link.
       -->
-      <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : (hasLink(mdValue) ? (img != null ? linkImg : link) : (hasBrowseDefinition() ? browselink : simple)));
+      <ng-container *ngTemplateOutlet="(renderMarkdown ? markdown : (hasLink(mdValue) ? (hasValue(img) ? linkImg : link) : (hasBrowseDefinition() ? browselink : simple)));
         context: {value: mdValue.value, img}">
       </ng-container>
       <span class="separator" *ngIf="!last" [innerHTML]="separator"></span>

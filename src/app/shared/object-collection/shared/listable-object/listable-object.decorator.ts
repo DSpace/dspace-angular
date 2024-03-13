@@ -1,11 +1,16 @@
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { Context } from '../../../../core/shared/context.model';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ListableObject } from '../listable-object.model';
-import { environment } from '../../../../../environments/environment';
-import { ThemeConfig } from '../../../../../config/theme.config';
 import { InjectionToken } from '@angular/core';
+
+import { ThemeConfig } from '../../../../../config/theme.config';
+import { environment } from '../../../../../environments/environment';
+import { Context } from '../../../../core/shared/context.model';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
+import { ListableObject } from '../listable-object.model';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
 export const DEFAULT_CONTEXT = Context.Any;
@@ -63,7 +68,7 @@ export class MatchRelevancy {
  */
 export const GET_THEME_CONFIG_FOR_FACTORY = new InjectionToken<(str) => ThemeConfig>('getThemeConfigFor', {
   providedIn: 'root',
-  factory: () => getThemeConfigFor
+  factory: () => getThemeConfigFor,
 });
 
 const map = new Map();

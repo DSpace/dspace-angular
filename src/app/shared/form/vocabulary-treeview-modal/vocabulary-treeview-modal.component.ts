@@ -1,12 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 
 @Component({
   selector: 'ds-vocabulary-treeview-modal',
   templateUrl: './vocabulary-treeview-modal.component.html',
-  styleUrls: ['./vocabulary-treeview-modal.component.scss']
+  styleUrls: ['./vocabulary-treeview-modal.component.scss'],
 })
 /**
  * Component that contains a modal to display a VocabularyTreeviewComponent

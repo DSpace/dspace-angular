@@ -1,16 +1,22 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { MissingTranslationHelper } from '../../../shared/translate/missing-translation.helper';
+
 import { fadeIn } from '../../../shared/animations/fade';
+import { MissingTranslationHelper } from '../../../shared/translate/missing-translation.helper';
+import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 
 @Component({
   selector: 'ds-admin-notify-detail-modal',
   templateUrl: './admin-notify-detail-modal.component.html',
   animations: [
-    fadeIn
-  ]
+    fadeIn,
+  ],
 })
 /**
  * Component for detailed view of LDN messages displayed in search result in AdminNotifyDashboardComponent
@@ -24,7 +30,7 @@ export class AdminNotifyDetailModalComponent {
    * An event fired when the modal is closed
    */
   @Output()
-  response = new EventEmitter<boolean>();
+    response = new EventEmitter<boolean>();
 
   public isCoarMessageVisible = false;
 

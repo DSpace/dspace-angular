@@ -1,9 +1,14 @@
-import { ResourceType } from '../../../core/shared/resource-type';
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { autoserialize, deserialize, deserializeAs, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+  inheritSerialization,
+} from 'cerialize';
 
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../core/cache/cacheable-object.model';
+import { ResourceType } from '../../../core/shared/resource-type';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from './section-coar-notify-service.resource-type';
 
 export  interface LdnPattern {
@@ -18,19 +23,19 @@ export class SubmissionCoarNotifyConfig extends CacheableObject {
 
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   @autoserialize
-  id: string;
+    id: string;
 
   @deserializeAs('id')
-  uuid: string;
+    uuid: string;
 
   @autoserialize
-  patterns: LdnPattern[];
+    patterns: LdnPattern[];
 
   @deserialize
-  _links: {
+    _links: {
     self: {
       href: string;
     };

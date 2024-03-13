@@ -3,7 +3,7 @@
      [attr.aria-label]="'menu.header.nav.description' | translate"
      [ngClass]="{'expanded': sidebarOpen, 'collapsed': sidebarClosed, 'transitioning': sidebarTransitioning}"
      [@slideSidebar]="{
-      value: (!(sidebarExpanded | async) ? 'collapsed' : 'expanded'),
+      value: ((sidebarExpanded | async) !== true ? 'collapsed' : 'expanded'),
       params: { collapsedWidth: (collapsedSidebarWidth$ | async), expandedWidth: (expandedSidebarWidth$ | async) }
      }" (@slideSidebar.done)="finishSlide($event)" (@slideSidebar.start)="startSlide($event)"
      *ngIf="menuVisible | async"
@@ -49,7 +49,7 @@
       <div class="sidebar-fixed-element-wrapper">
         <i *ngIf="(menuCollapsed | async)" class="fas fa-fw fa-angle-double-right"
            [title]="'menu.section.icon.pin' | translate"></i>
-        <i *ngIf="!(menuCollapsed | async)" class="fas fa-fw fa-angle-double-left"
+                <i *ngIf="(menuCollapsed | async) !== true" class="fas fa-fw fa-angle-double-left"
            [title]="'menu.section.icon.unpin' | translate"></i>
       </div>
       <div class="sidebar-collapsible-element-outer-wrapper">

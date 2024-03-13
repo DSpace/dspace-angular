@@ -1,15 +1,30 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationExtras, Router } from '@angular/router';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  NavigationExtras,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-
-import { SearchNavbarComponent } from './search-navbar.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserOnlyMockPipe } from '../shared/testing/browser-only-mock.pipe';
+import { SearchNavbarComponent } from './search-navbar.component';
 
 describe('SearchNavbarComponent', () => {
   let component: SearchNavbarComponent;
@@ -21,7 +36,7 @@ describe('SearchNavbarComponent', () => {
     mockSearchService = {
       getSearchLink() {
         return '/search';
-      }
+      },
     };
 
     TestBed.configureTestingModule({
@@ -33,16 +48,16 @@ describe('SearchNavbarComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         })],
       declarations: [
         SearchNavbarComponent,
         BrowserOnlyMockPipe,
       ],
       providers: [
-        { provide: SearchService, useValue: mockSearchService }
-      ]
+        { provide: SearchService, useValue: mockSearchService },
+      ],
     })
       .compileComponents();
   }));
@@ -66,7 +81,7 @@ describe('SearchNavbarComponent', () => {
       const searchIcon = fixture.debugElement.query(By.css('form .submit-icon'));
       searchIcon.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -82,7 +97,7 @@ describe('SearchNavbarComponent', () => {
           const searchIcon = fixture.debugElement.query(By.css('form .submit-icon'));
           searchIcon.triggerEventHandler('click', {
             preventDefault: () => {/**/
-            }
+            },
           });
           tick();
           fixture.detectChanges();

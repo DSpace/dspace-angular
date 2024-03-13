@@ -40,7 +40,8 @@
       "node",
       "jasmine"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "useUnknownInCatchVariables": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

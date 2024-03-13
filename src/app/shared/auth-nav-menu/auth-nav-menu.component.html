@@ -1,5 +1,5 @@
-<div class="navbar-nav mr-auto" *ngIf="!(isMobile$ | async); else mobileButtons" data-test="auth-nav">
-  <div *ngIf="!(isAuthenticated | async) && (showAuth | async)"
+<div class="navbar-nav mr-auto" *ngIf="(isMobile$ | async) !== true; else mobileButtons" data-test="auth-nav">
+  <div *ngIf="(isAuthenticated | async) !== true && (showAuth | async)"
       class="nav-item"
       (click)="$event.stopPropagation();">
     <div ngbDropdown #loginDrop="ngbDropdown" display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
@@ -39,7 +39,7 @@
 
 <ng-template #mobileButtons>
   <div data-test="auth-nav">
-    <a *ngIf="!(isAuthenticated | async)" routerLink="/login" routerLinkActive="active" class="loginLink px-0.5" role="button">
+    <a *ngIf="(isAuthenticated | async) !== true" routerLink="/login" routerLinkActive="active" class="loginLink px-0.5" role="button">
       {{ 'nav.login' | translate }}<span class="sr-only">(current)</span>
     </a>
     <a *ngIf="(isAuthenticated | async)" role="button" [attr.aria-label]="'nav.logout' |translate" [title]="'nav.logout' | translate" routerLink="/logout" routerLinkActive="active" class="logoutLink px-1">

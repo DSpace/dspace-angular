@@ -1,8 +1,19 @@
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-
-import { Observable, Subscription } from 'rxjs';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
   DynamicFormControlEvent,
@@ -10,14 +21,30 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import findIndex from 'lodash/findIndex';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
 
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNull,
+} from '../empty.util';
 import { FormBuilderService } from './builder/form-builder.service';
-import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
-import { FormService } from './form.service';
-import { FormEntry, FormError } from './form.reducer';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import {
+  FormEntry,
+  FormError,
+} from './form.reducer';
+import { FormService } from './form.service';
 
 /**
  * The default form component.
@@ -26,7 +53,7 @@ import { FormFieldMetadataValueObject } from './builder/models/form-field-metada
   exportAs: 'formComponent',
   selector: 'ds-form',
   styleUrls: ['form.component.scss'],
-  templateUrl: 'form.component.html'
+  templateUrl: 'form.component.html',
 })
 export class FormComponent implements OnDestroy, OnInit {
 
@@ -123,7 +150,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }*/
 
   private getFormGroup(): UntypedFormGroup {
-    if (!!this.parentFormModel) {
+    if (this.parentFormModel) {
       return this.formGroup.parent as UntypedFormGroup;
     }
 
@@ -177,13 +204,13 @@ export class FormComponent implements OnDestroy, OnInit {
           errors
             .filter((error: FormError) => findIndex(this.formErrors, {
               fieldId: error.fieldId,
-              fieldIndex: error.fieldIndex
+              fieldIndex: error.fieldIndex,
             }) === -1)
             .forEach((error: FormError) => {
               const { fieldId } = error;
               const { fieldIndex } = error;
               let field: AbstractControl;
-              if (!!this.parentFormModel) {
+              if (this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as UntypedFormGroup, formModel, fieldIndex);
               } else {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel, fieldIndex);
@@ -200,13 +227,13 @@ export class FormComponent implements OnDestroy, OnInit {
           this.formErrors
             .filter((error: FormError) => findIndex(errors, {
               fieldId: error.fieldId,
-              fieldIndex: error.fieldIndex
+              fieldIndex: error.fieldIndex,
             }) === -1)
             .forEach((error: FormError) => {
               const { fieldId } = error;
               const { fieldIndex } = error;
               let field: AbstractControl;
-              if (!!this.parentFormModel) {
+              if (this.parentFormModel) {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup.parent as UntypedFormGroup, formModel, fieldIndex);
               } else {
                 field = this.formBuilderService.getFormControlById(fieldId, formGroup, formModel, fieldIndex);
@@ -219,7 +246,7 @@ export class FormComponent implements OnDestroy, OnInit {
             });
           this.formErrors = errors;
           this.changeDetectorRef.detectChanges();
-        })
+        }),
     );
   }
 

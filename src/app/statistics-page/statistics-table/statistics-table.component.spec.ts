@@ -1,12 +1,16 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { StatisticsTableComponent } from './statistics-table.component';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
+import { StatisticsTableComponent } from './statistics-table.component';
 
 describe('StatisticsTableComponent', () => {
 
@@ -27,7 +31,7 @@ describe('StatisticsTableComponent', () => {
         { provide: DSONameService, useValue: {} },
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -69,8 +73,8 @@ describe('StatisticsTableComponent', () => {
               views: 8,
               downloads: 8,
             },
-          }
-        ]
+          },
+        ],
       });
       component.ngOnInit();
       fixture.detectChanges();

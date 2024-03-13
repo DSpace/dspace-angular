@@ -1,16 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { environment } from '../../../../../environments/environment';
+import { RouteService } from '../../../../core/services/route.service';
 import { Item } from '../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
-import { RouteService } from '../../../../core/services/route.service';
-import { Observable } from 'rxjs';
-import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
-import { map, take } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import {
+  getDSpaceQuery,
+  isIiifEnabled,
+  isIiifSearchEnabled,
+} from './item-iiif-utils';
 
 @Component({
   selector: 'ds-item',
-  template: ''
+  template: '',
 })
 /**
  * A generic component for displaying metadata and relations of an item
@@ -61,12 +73,12 @@ export class ItemComponent implements OnInit {
    */
   back = () => {
     this.routeService.getPreviousUrl().pipe(
-          take(1)
-        ).subscribe(
-          (url => {
-            this.router.navigateByUrl(url);
-          })
-        );
+      take(1),
+    ).subscribe(
+      (url => {
+        this.router.navigateByUrl(url);
+      }),
+    );
   };
 
   ngOnInit(): void {

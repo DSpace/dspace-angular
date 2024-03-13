@@ -5,11 +5,12 @@
  *
  * http://www.dspace.org/license/
  */
-import { VocabularyDataService } from './vocabulary.data.service';
+import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+
+import { RequestParam } from '../../cache/models/request-param.model';
 import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
 import { FindListOptions } from '../../data/find-list-options.model';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import { VocabularyDataService } from './vocabulary.data.service';
 
 describe('VocabularyDataService', () => {
   let service: VocabularyDataService;
@@ -33,7 +34,7 @@ describe('VocabularyDataService', () => {
       service.getVocabularyByMetadataAndCollection('dc.contributor.author', '1234-1234');
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('metadata', encodeURIComponent('dc.contributor.author'))),
-                       Object.assign(new RequestParam('collection', encodeURIComponent('1234-1234')))]
+          Object.assign(new RequestParam('collection', encodeURIComponent('1234-1234')))],
       });
       expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byMetadataAndCollection', options);
       expect(service.findByHref).toHaveBeenCalledWith(vocabularyByMetadataAndCollectionEndpoint, true, true);

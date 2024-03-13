@@ -1,4 +1,4 @@
-<div *ngIf="currentPageState == undefined || currentPageState == (currentPage$|async)" [id]="'p-' + id">
+<div *ngIf="currentPageState === undefined || currentPageState === (currentPage$|async)" [id]="'p-' + id">
   <div *ngIf="(!hidePaginationDetail && collectionSize > 0) || !hideGear" class="pagination-masked clearfix top">
     <div class="row">
       <div *ngIf="!hidePaginationDetail && collectionSize > 0" class="col-auto pagination-info">
@@ -19,7 +19,7 @@
                 </li>
               </ul>
             </li>
-            <li *ngIf="!hideSortOptions" role="menuitem">
+            <li *ngIf="hideSortOptions === false" role="menuitem">
               <span class="dropdown-header" id="pagination-control_sort-direction" role="heading">{{ 'pagination.sort-direction' | translate}}</span>
               <ul aria-labelledby="pagination-control_sort-direction" class="list-unstyled" role="listbox">
                 <li *ngFor="let direction of (sortDirections | dsKeys)" [attr.aria-selected]="direction.value === (sortDirection$ | async)" role="option">

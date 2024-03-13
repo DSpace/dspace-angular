@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { SiteDataService } from '../core/data/site-data.service';
-import { Site } from '../core/shared/site.model';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+
+import { SiteDataService } from '../core/data/site-data.service';
+import { Site } from '../core/shared/site.model';
 
 /**
  * The class that resolve the Site object for a route

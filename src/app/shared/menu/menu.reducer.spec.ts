@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
+
+import { initialMenusState } from './initial-menus-state';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -9,17 +11,17 @@ import {
   ExpandMenuAction,
   ExpandMenuPreviewAction,
   HideMenuAction,
-  HideMenuSectionAction, ReinitMenuAction,
+  HideMenuSectionAction,
+  ReinitMenuAction,
   RemoveMenuSectionAction,
   ShowMenuAction,
   ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
-  ToggleMenuAction
+  ToggleMenuAction,
 } from './menu.actions';
 import { menusReducer } from './menu.reducer';
-import { initialMenusState} from './initial-menus-state';
-import { MenuSectionIndex } from './menu-section-Index.model';
 import { MenuID } from './menu-id.model';
+import { MenuSectionIndex } from './menu-section-Index.model';
 
 let visibleSection1;
 let dummyState;
@@ -57,10 +59,10 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 0,
-              text: 'menu.section.new'
+              text: 'menu.section.new',
             },
             icon: 'plus-circle',
-            index: 0
+            index: 0,
           },
           new_item: {
             id: 'new_item',
@@ -70,8 +72,8 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.new_item',
-              link: '/items/submission'
-            }
+              link: '/items/submission',
+            },
           },
           new_community: {
             id: 'new_community',
@@ -81,8 +83,8 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.new_community',
-              link: '/communities/submission'
-            }
+              link: '/communities/submission',
+            },
           },
           access_control: {
             id: 'access_control',
@@ -90,10 +92,10 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 0,
-              text: 'menu.section.access_control'
+              text: 'menu.section.access_control',
             },
             icon: 'key',
-            index: 4
+            index: 4,
           },
           access_control_people: {
             id: 'access_control_people',
@@ -103,8 +105,8 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.access_control_people',
-              link: '#'
-            }
+              link: '#',
+            },
           },
           access_control_groups: {
             id: 'access_control_groups',
@@ -114,8 +116,8 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.access_control_groups',
-              link: '#'
-            }
+              link: '#',
+            },
           },
           new_collection: {
             id: 'new_collection',
@@ -125,9 +127,9 @@ describe('menusReducer', () => {
             model: {
               type: 1,
               text: 'menu.section.new_collection',
-              link: '/collections/submission'
-            }
-          }
+              link: '/collections/submission',
+            },
+          },
         },
         sectionToSubsectionIndex: {
           access_control: [
@@ -137,10 +139,10 @@ describe('menusReducer', () => {
           new: [
             'new_collection',
             'new_item',
-            'new_community'
-          ]
-        }
-      }
+            'new_community',
+          ],
+        },
+      },
     };
   });
 

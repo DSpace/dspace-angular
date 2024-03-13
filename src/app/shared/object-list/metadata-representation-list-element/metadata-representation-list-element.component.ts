@@ -1,10 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { Context } from '../../../core/shared/context.model';
+import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
 
 @Component({
   selector: 'ds-metadata-representation-list-element',
-  template: ''
+  template: '',
 })
 /**
  * An abstract class for displaying a single MetadataRepresentation

@@ -1,13 +1,17 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowseLinkMetadataListElementComponent } from './browse-link-metadata-list-element.component';
 import {
-  MetadatumRepresentation
-} from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
-  MetadataRepresentationType
-} from '../../../../core/shared/metadata-representation/metadata-representation.model';
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+
+import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ValueListBrowseDefinition } from '../../../../core/shared/value-list-browse-definition.model';
+import { BrowseLinkMetadataListElementComponent } from './browse-link-metadata-list-element.component';
 
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type'), {
   key: 'dc.contributor.author',
@@ -33,9 +37,9 @@ describe('BrowseLinkMetadataListElementComponent', () => {
     void TestBed.configureTestingModule({
       imports: [],
       declarations: [BrowseLinkMetadataListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(BrowseLinkMetadataListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

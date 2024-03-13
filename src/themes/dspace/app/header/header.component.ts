@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { HeaderComponent as BaseComponent } from '../../../../app/header/header.component';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { HeaderComponent as BaseComponent } from '../../../../app/header/header.component';
 
 /**
  * Represents the header with the logo and simple navigation

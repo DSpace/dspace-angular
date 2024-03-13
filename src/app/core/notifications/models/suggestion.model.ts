@@ -1,12 +1,19 @@
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
 
-import { SUGGESTION } from './suggestion-objects.resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { HALLink } from '../../shared/hal-link.model';
 import { typedObject } from '../../cache/builders/build-decorators';
-import { MetadataMap, MetadataMapSerializer } from '../../shared/metadata.models';
-import {CacheableObject} from '../../cache/cacheable-object.model';
+import { CacheableObject } from '../../cache/cacheable-object.model';
+import { HALLink } from '../../shared/hal-link.model';
+import {
+  MetadataMap,
+  MetadataMapSerializer,
+} from '../../shared/metadata.models';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { SUGGESTION } from './suggestion-objects.resource-type';
 
 /**
  * The interface representing Suggestion Evidences such as scores (authorScore, datescore)
@@ -31,57 +38,57 @@ export class Suggestion implements CacheableObject {
    * The Suggestion id
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The Suggestion name to display
    */
   @autoserialize
-  display: string;
+    display: string;
 
   /**
    * The Suggestion source to display
    */
   @autoserialize
-  source: string;
+    source: string;
 
   /**
    * The Suggestion external source uri
    */
   @autoserialize
-  externalSourceUri: string;
+    externalSourceUri: string;
 
   /**
    * The Total Score of the suggestion
    */
   @autoserialize
-  score: string;
+    score: string;
 
   /**
    * The total number of suggestions provided by Suggestion Target for
    */
   @autoserialize
-  evidences: SuggestionEvidences;
+    evidences: SuggestionEvidences;
 
   /**
    * All metadata of this suggestion object
    */
   @excludeFromEquals
   @autoserializeAs(MetadataMapSerializer)
-  metadata: MetadataMap;
+    metadata: MetadataMap;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
     target: HALLink
   };

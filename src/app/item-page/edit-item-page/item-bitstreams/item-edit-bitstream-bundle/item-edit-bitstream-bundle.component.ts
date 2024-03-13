@@ -1,10 +1,20 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -21,7 +31,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   /**
    * The view on the bundle information and bitstreams
    */
-  @ViewChild('bundleView', {static: true}) bundleView;
+  @ViewChild('bundleView', { static: true }) bundleView;
 
   /**
    * The bundle to display bitstreams for

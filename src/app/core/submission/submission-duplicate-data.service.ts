@@ -1,26 +1,29 @@
 /* eslint-disable max-classes-per-file */
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.model';
+import { DUPLICATE } from '../../shared/object-list/duplicate-data/duplicate.resource-type';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { BaseDataService } from '../data/base/base-data.service';
+import { dataService } from '../data/base/data-service.decorator';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RemoteData } from '../data/remote-data';
 import { GetRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { RestRequest } from '../data/rest-request.model';
+import { SearchResponseParsingService } from '../data/search-response-parsing.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { SearchResponseParsingService } from '../data/search-response-parsing.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RestRequest } from '../data/rest-request.model';
-import { BaseDataService } from '../data/base/base-data.service';
-import { FindListOptions } from '../data/find-list-options.model';
-import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { DUPLICATE } from '../../shared/object-list/duplicate-data/duplicate.resource-type';
-import { dataService } from '../data/base/data-service.decorator';
-
 
 /**
  * Service that handles search requests for potential duplicate items.

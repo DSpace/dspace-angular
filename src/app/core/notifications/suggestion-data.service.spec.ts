@@ -1,25 +1,32 @@
-import { TestScheduler } from 'rxjs/testing';
-import { SuggestionDataServiceImpl, SuggestionsDataService } from './suggestions-data.service';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { Suggestion } from './models/suggestion.model';
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { RequestEntry } from '../data/request-entry.model';
-import { RestResponse } from '../cache/response.models';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
 import { RequestEntryState } from '../data/request-entry-state.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Suggestion } from './models/suggestion.model';
 import { SuggestionSource } from './models/suggestion-source.model';
 import { SuggestionTarget } from './models/suggestion-target.model';
 import { SuggestionSourceDataService } from './source/suggestion-source-data.service';
+import {
+  SuggestionDataServiceImpl,
+  SuggestionsDataService,
+} from './suggestions-data.service';
 import { SuggestionTargetDataService } from './target/suggestion-target-data.service';
-import { RequestParam } from '../cache/models/request-param.model';
 
 describe('SuggestionDataService test', () => {
   let scheduler: TestScheduler;
@@ -57,7 +64,7 @@ describe('SuggestionDataService test', () => {
       http,
       comparatorSuggestion,
       comparatorSuggestionSource,
-      comparatorSuggestionTarget
+      comparatorSuggestionTarget,
     );
   }
 
@@ -80,16 +87,16 @@ describe('SuggestionDataService test', () => {
       removeByHrefSubstring: {},
       getByHref: observableOf(responseCacheEntry),
       getByUUID: observableOf(responseCacheEntry),
-      setStaleByHrefSubstring: observableOf(true)
+      setStaleByHrefSubstring: observableOf(true),
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: observableOf(endpointURL)
+      getEndpoint: observableOf(endpointURL),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: createSuccessfulRemoteDataObject$({}, 500),
-      buildList: cold('a', { a: remoteDataMocks.Success })
+      buildList: cold('a', { a: remoteDataMocks.Success }),
     });
 
 
@@ -121,7 +128,7 @@ describe('SuggestionDataService test', () => {
   describe('Suggestion targets service', () => {
     it('should call suggestionSourcesDataService.getTargets', () => {
       const options = {
-        searchParams: [new RequestParam('source', testSource)]
+        searchParams: [new RequestParam('source', testSource)],
       };
       service.getTargets(testSource);
       expect(suggestionTargetsDataService.getTargets).toHaveBeenCalledWith('findBySource', options);
@@ -129,7 +136,7 @@ describe('SuggestionDataService test', () => {
 
     it('should call suggestionSourcesDataService.getTargetsByUser', () => {
       const options = {
-        searchParams: [new RequestParam('target', testUserId)]
+        searchParams: [new RequestParam('target', testUserId)],
       };
       service.getTargetsByUser(testUserId);
       expect(suggestionTargetsDataService.getTargetsByUser).toHaveBeenCalledWith(testUserId, options);
@@ -152,7 +159,7 @@ describe('SuggestionDataService test', () => {
   describe('Suggestion service', () => {
     it('should call suggestionsDataService.searchBy', () => {
       const options = {
-        searchParams: [new RequestParam('target', testUserId), new RequestParam('source', testSource)]
+        searchParams: [new RequestParam('target', testUserId), new RequestParam('source', testSource)],
       };
       service.getSuggestionsByTargetAndSource(testUserId, testSource);
       expect(suggestionsDataService.searchBy).toHaveBeenCalledWith('findByTargetAndSource', options, false, true);

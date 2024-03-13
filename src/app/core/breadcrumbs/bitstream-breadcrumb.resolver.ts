@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Bitstream } from '../shared/bitstream.model';
-import { BitstreamDataService } from '../data/bitstream-data.service';
 import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../../bitstream-page/bitstream-page.resolver';
-import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { BitstreamDataService } from '../data/bitstream-data.service';
+import { Bitstream } from '../shared/bitstream.model';
 import { BitstreamBreadcrumbsService } from './bitstream-breadcrumbs.service';
+import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 
 /**
  * The class that resolves the BreadcrumbConfig object for an Item
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BitstreamBreadcrumbResolver extends DSOBreadcrumbResolver<Bitstream> {
   constructor(

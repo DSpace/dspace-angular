@@ -1,17 +1,32 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
-import { AlertType } from '../../shared/alert/alert-type';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import {
+  combineLatest,
+  map,
+  Observable,
+} from 'rxjs';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
+
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Observable, combineLatest, map } from 'rxjs';
-import { DsoWithdrawnReinstateModalService, REQUEST_REINSTATE } from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import { Item } from '../../core/shared/item.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
-import { getFirstCompletedRemoteData, getPaginatedListPayload, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import { AlertType } from '../../shared/alert/alert-type';
+import {
+  DsoWithdrawnReinstateModalService,
+  REQUEST_REINSTATE,
+} from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
 
 @Component({
   selector: 'ds-item-alerts',
   templateUrl: './item-alerts.component.html',
-  styleUrls: ['./item-alerts.component.scss']
+  styleUrls: ['./item-alerts.component.scss'],
 })
 /**
  * Component displaying alerts for an item
@@ -31,7 +46,7 @@ export class ItemAlertsComponent {
   constructor(
     private authService: AuthorizationDataService,
     private dsoWithdrawnReinstateModalService: DsoWithdrawnReinstateModalService,
-    private correctionTypeDataService: CorrectionTypeDataService
+    private correctionTypeDataService: CorrectionTypeDataService,
   ) {
   }
 
@@ -41,17 +56,17 @@ export class ItemAlertsComponent {
    * @returns An Observable that emits a boolean value indicating whether to show the reinstate button.
    */
   showReinstateButton$(): Observable<boolean>  {
-   const correction$ = this.correctionTypeDataService.findByItem(this.item.uuid, true).pipe(
+    const correction$ = this.correctionTypeDataService.findByItem(this.item.uuid, true).pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
-      getPaginatedListPayload()
-      );
+      getPaginatedListPayload(),
+    );
     const isAdmin$ = this.authService.isAuthorized(FeatureID.AdministratorOf);
     return combineLatest([isAdmin$, correction$]).pipe(
       map(([isAdmin, correction]) => {
         return !isAdmin && correction.some((correctionType) => correctionType.topic === REQUEST_REINSTATE);
-      }
-    ));
+      },
+      ));
   }
 
   /**

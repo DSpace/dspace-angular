@@ -1,4 +1,11 @@
-import { animate, group, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  group,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 export const slide = trigger('slide', [
   state('expanded', style({ height: '*' })),
@@ -7,7 +14,7 @@ export const slide = trigger('slide', [
   state('*', style({ height: '*' })),
   transition(':enter', [animate('200ms')]),
   transition(':leave', [animate('200ms')]),
-  transition('expanded <=> collapsed', animate(250))
+  transition('expanded <=> collapsed', animate(250)),
 ]);
 
 export const slideMobileNav = trigger('slideMobileNav', [
@@ -16,7 +23,7 @@ export const slideMobileNav = trigger('slideMobileNav', [
 
   state('collapsed', style({ height: 0, minHeight: 0 })),
 
-  transition('expanded <=> collapsed', animate('300ms'))
+  transition('expanded <=> collapsed', animate('300ms')),
 ]);
 
 const collapsedSidebarStyle = style({ maxWidth: '{{collapsedWidth}}' });
@@ -46,26 +53,26 @@ export const slideSidebarPadding = trigger('slideSidebarPadding', [
 export const expandSearchInput = trigger('toggleAnimation', [
   state('collapsed', style({
     width: '0',
-    opacity: '0'
+    opacity: '0',
   })),
   state('expanded', style({
     width: '250px',
-    opacity: '1'
+    opacity: '1',
   })),
   transition('* => collapsed', group([
     animate('300ms ease-in-out', style({
-      width: '30px'
+      width: '30px',
     })),
     animate('300ms ease-in', style({
-      opacity: '0'
-    }))
+      opacity: '0',
+    })),
   ])),
   transition('* => expanded', group([
     animate('300ms ease-out', style({
-      opacity: '1'
+      opacity: '1',
     })),
     animate('300ms ease-in-out', style({
-      width: '250px'
-    }))
-  ]))
+      width: '250px',
+    })),
+  ])),
 ]);

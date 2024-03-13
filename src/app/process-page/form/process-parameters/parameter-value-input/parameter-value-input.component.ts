@@ -1,7 +1,17 @@
-import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
-import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Optional,
+  Output,
+} from '@angular/core';
+import {
+  ControlContainer,
+  NgForm,
+} from '@angular/forms';
+
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
 import { controlContainerFactory } from '../../process-form.component';
 
 /**
@@ -13,7 +23,7 @@ import { controlContainerFactory } from '../../process-form.component';
   styleUrls: ['./parameter-value-input.component.scss'],
   viewProviders: [ { provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] } ]
+    deps: [[new Optional(), NgForm]] } ],
 })
 export class ParameterValueInputComponent {
   @Input() index: number;

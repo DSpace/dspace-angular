@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
 import { EmailRequestCopyComponent } from './email-request-copy.component';

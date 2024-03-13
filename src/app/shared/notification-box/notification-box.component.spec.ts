@@ -1,10 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NotificationBoxComponent } from './notification-box.component';
-import { TranslateModule } from '@ngx-translate/core';
 import {
-  AdminNotifyMetricsBox
-} from '../../admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { AdminNotifyMetricsBox } from '../../admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+import { NotificationBoxComponent } from './notification-box.component';
 
 describe('NotificationBoxComponent', () => {
   let component: NotificationBoxComponent;
@@ -17,14 +18,14 @@ describe('NotificationBoxComponent', () => {
       'title': 'admin-notify-dashboard.delivered',
       'config': 'NOTIFY.outgoing.delivered',
       'count': 79,
-      'description': 'box description'
+      'description': 'box description',
     };
 
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [ NotificationBoxComponent ]
+      declarations: [ NotificationBoxComponent ],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(NotificationBoxComponent);
     component = fixture.componentInstance;

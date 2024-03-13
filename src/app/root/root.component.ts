@@ -1,17 +1,30 @@
-import { first, map, skipWhile, startWith } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  combineLatest as combineLatestObservable,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  first,
+  map,
+  skipWhile,
+  startWith,
+} from 'rxjs/operators';
+import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
 
-import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
-import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
-import { MenuService } from '../shared/menu/menu.service';
-import { HostWindowService } from '../shared/host-window.service';
 import { ThemeConfig } from '../../config/theme.config';
 import { environment } from '../../environments/environment';
-import { slideSidebarPadding } from '../shared/animations/slide';
-import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
-import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
+import { slideSidebarPadding } from '../shared/animations/slide';
+import { HostWindowService } from '../shared/host-window.service';
+import { MenuService } from '../shared/menu/menu.service';
+import { MenuID } from '../shared/menu/menu-id.model';
+import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 
 @Component({
   selector: 'ds-root',
@@ -42,7 +55,7 @@ export class RootComponent implements OnInit {
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
   ) {
     this.notificationOptions = environment.notifications;
   }
