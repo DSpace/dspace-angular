@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getRemoteDataPayload } from '../../../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 /**
  * Interface that encapsulate Image configuration for this component.
@@ -85,8 +85,8 @@ export class ItemPageFieldComponent {
      */
     get browseDefinition(): Observable<BrowseDefinition> {
       return this.browseDefinitionDataService.findByFields(this.fields).pipe(
-        getRemoteDataPayload(),
-        map((def) => def),
+        getFirstCompletedRemoteData(),
+        map((def) => def.payload),
       );
     }
 }
