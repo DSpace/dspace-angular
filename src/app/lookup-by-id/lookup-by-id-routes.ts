@@ -3,7 +3,6 @@ import {
   UrlSegment,
 } from '@angular/router';
 
-import { DsoRedirectService } from '../core/data/dso-redirect.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { LookupGuard } from './lookup-guard';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
@@ -13,7 +12,6 @@ export const ROUTES: Route[] = [
     matcher: urlMatcher,
     providers: [
       LookupGuard,
-      DsoRedirectService,
     ],
     canActivate: [LookupGuard],
     component: ThemedObjectNotFoundComponent,
