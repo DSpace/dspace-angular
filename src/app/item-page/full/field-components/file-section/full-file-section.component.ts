@@ -67,9 +67,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
 
   initialize(): void {
     this.originals$ = this.paginationService.getCurrentPagination(this.originalOptions.id, this.originalOptions).pipe(
-      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
-        this.item,
+      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.showableByItem(
+        this.item.uuid,
         'ORIGINAL',
+        [],
         {elementsPerPage: options.pageSize, currentPage: options.currentPage},
         true,
         true,
@@ -85,9 +86,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     );
 
     this.licenses$ = this.paginationService.getCurrentPagination(this.licenseOptions.id, this.licenseOptions).pipe(
-      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
-        this.item,
+      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.showableByItem(
+        this.item.uuid,
         'LICENSE',
+        [],
         {elementsPerPage: options.pageSize, currentPage: options.currentPage},
         true,
         true,
