@@ -32,13 +32,13 @@ import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import { ADMIN_NOTIFY_MESSAGE } from '../models/admin-notify-message.resource-type';
 
 /**
- * Injectable service responsible for fetching/sending data from/to the REST API on the messages endpoint.
+ * Injectable service responsible for fetching/sending data from/to the REST API on the messages' endpoint.
  *
  * @export
  * @class AdminNotifyMessagesService
  * @extends {IdentifiableDataService<AdminNotifyMessage>}
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 @dataService(ADMIN_NOTIFY_MESSAGE)
 export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNotifyMessage> {
 

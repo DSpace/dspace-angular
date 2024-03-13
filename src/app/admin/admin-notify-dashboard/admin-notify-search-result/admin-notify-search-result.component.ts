@@ -33,6 +33,7 @@ import { AdminNotifyMessagesService } from '../services/admin-notify-messages.se
   selector: 'ds-admin-notify-search-result',
   templateUrl: './admin-notify-search-result.component.html',
   providers: [
+    DatePipe,
     {
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService,

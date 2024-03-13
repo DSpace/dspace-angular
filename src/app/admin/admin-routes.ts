@@ -8,6 +8,7 @@ import { MetadataImportPageComponent } from './admin-import-metadata-page/metada
 import {
   LDN_PATH,
   NOTIFICATIONS_MODULE_PATH,
+  NOTIFY_DASHBOARD_MODULE_PATH,
   REGISTRIES_MODULE_PATH,
   REPORTS_MODULE_PATH,
 } from './admin-routing-paths';
@@ -88,6 +89,11 @@ export const ROUTES: Route[] = [
   {
     path: REPORTS_MODULE_PATH,
     loadChildren: () => import('./admin-reports/admin-reports-routes')
+      .then((m) => m.ROUTES),
+  },
+  {
+    path: NOTIFY_DASHBOARD_MODULE_PATH,
+    loadChildren: () => import('./admin-notify-dashboard/admin-notify-dashboard-routes')
       .then((m) => m.ROUTES),
   },
 ];

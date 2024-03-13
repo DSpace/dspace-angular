@@ -1,3 +1,4 @@
+import { AdminNotifySearchResultComponent } from '../../../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component';
 import { AdminNotifySearchResult } from '../../../../admin/admin-notify-dashboard/models/admin-notify-message-search-result.model';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
@@ -22,7 +23,7 @@ export const TABUTABLE_DECORATOR_MAP =
   new Map<string | GenericConstructor<ListableObject>, Map<ViewMode, Map<Context, Map<string, TabulatableComponentType>>>>([
     [AdminNotifySearchResult, new Map([
       [ViewMode.Table, new Map([
-        [Context.CoarNotify, new Map([[DEFAULT_THEME, TabulatableResultListElementsComponent as any]])],
+        [Context.CoarNotify, new Map([[DEFAULT_THEME, AdminNotifySearchResultComponent as any]])],
       ])],
     ])],
   ]);

@@ -1,8 +1,10 @@
+import { Route } from '@angular/router';
+
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { FilteredCollectionsComponent } from './filtered-collections/filtered-collections.component';
 import { FilteredItemsComponent } from './filtered-items/filtered-items.component';
 
-export const ROUTES = [
+export const ROUTES: Route[] = [
   {
     path: 'collections',
     resolve: { breadcrumb: I18nBreadcrumbResolver },
