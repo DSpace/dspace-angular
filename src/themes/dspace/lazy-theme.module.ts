@@ -13,7 +13,6 @@ import { IdlePreloadModule } from 'angular-idle-preload';
 
 import { AppModule } from '../../app/app.module';
 import { RootModule } from '../../app/root.module';
-import { SubmissionModule } from '../../app/submission/submission.module';
 
 const DECLARATIONS = [
 ];
@@ -33,7 +32,6 @@ const DECLARATIONS = [
     StoreModule,
     StoreRouterConnectingModule,
     TranslateModule,
-    SubmissionModule,
     FormsModule,
   ],
   declarations: DECLARATIONS,
