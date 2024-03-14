@@ -13,9 +13,6 @@ import { IdlePreloadModule } from 'angular-idle-preload';
 
 import { AppModule } from '../../app/app.module';
 import { RootModule } from '../../app/root.module';
-import { MenuModule } from '../../app/shared/menu/menu.module';
-import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
-import { SearchModule } from '../../app/shared/search/search.module';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
 import { SubmissionModule } from '../../app/submission/submission.module';
@@ -32,7 +29,6 @@ const DECLARATIONS = [
     FormsModule,
     HttpClientModule,
     IdlePreloadModule,
-    MenuModule,
     NgbModule,
     RouterModule,
     ScrollToModule,
@@ -42,9 +38,7 @@ const DECLARATIONS = [
     StoreRouterConnectingModule,
     TranslateModule,
     SubmissionModule,
-    SearchModule,
     FormsModule,
-    ResourcePoliciesModule,
   ],
   declarations: DECLARATIONS,
 })

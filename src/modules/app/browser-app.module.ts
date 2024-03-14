@@ -18,6 +18,7 @@ import {
 } from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import {
+  MissingTranslationHandler,
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
@@ -54,6 +55,7 @@ import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
+import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -86,6 +88,8 @@ export function getRequest(transferState: TransferState): any {
         useFactory: (createTranslateLoader),
         deps: [TransferState, HttpClient],
       },
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+      useDefaultLang: true,
     }),
     AppModule,
   ],
