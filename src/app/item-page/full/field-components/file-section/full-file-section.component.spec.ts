@@ -22,6 +22,7 @@ import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
+import {Item} from '../../../../core/shared/item.model';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;
@@ -55,7 +56,7 @@ describe('FullFileSectionComponent', () => {
     });
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
-    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([mockBitstream, mockBitstream, mockBitstream]))
+    showableByItem: createSuccessfulRemoteDataObject$(createPaginatedList([mockBitstream, mockBitstream, mockBitstream])),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -85,6 +86,7 @@ describe('FullFileSectionComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(FullFileSectionComponent);
     comp = fixture.componentInstance;
+    comp.item = new Item();
     fixture.detectChanges();
   }));
 
