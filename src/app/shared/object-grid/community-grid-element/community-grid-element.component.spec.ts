@@ -15,6 +15,7 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { Community } from '../../../core/shared/community.model';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { CommunityGridElementComponent } from './community-grid-element.component';
+import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
 
 let communityGridElementComponent: CommunityGridElementComponent;
 let fixture: ComponentFixture<CommunityGridElementComponent>;
@@ -60,6 +61,9 @@ describe('CommunityGridElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CommunityGridElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ThemedThumbnailComponent],
+      },
     }).compileComponents();
   }));
 

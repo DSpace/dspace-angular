@@ -5,6 +5,8 @@ import {
 } from '@angular/core/testing';
 
 import { QualityAssuranceSourcePageComponent } from './quality-assurance-source-page.component';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { ActivatedRoute } from '@angular/router';
 
 describe('QualityAssuranceSourcePageComponent', () => {
   let component: QualityAssuranceSourcePageComponent;
@@ -13,6 +15,9 @@ describe('QualityAssuranceSourcePageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [QualityAssuranceSourcePageComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
