@@ -18,6 +18,7 @@ import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mo
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { JournalIssueSearchResultGridElementComponent } from '../search-result-grid-elements/journal-issue/journal-issue-search-result-grid-element.component';
 import { JournalIssueGridElementComponent } from './journal-issue-grid-element.component';
 
 
@@ -64,6 +65,9 @@ describe('JournalIssueGridElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalIssueGridElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [JournalIssueSearchResultGridElementComponent],
+      },
     }).compileComponents();
   }));
 

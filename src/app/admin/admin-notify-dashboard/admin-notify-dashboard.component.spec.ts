@@ -2,12 +2,14 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMessage } from './models/admin-notify-message.model';
 import { AdminNotifySearchResult } from './models/admin-notify-message-search-result.model';
@@ -40,7 +42,10 @@ describe('AdminNotifyDashboardComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NgbNavModule, AdminNotifyDashboardComponent],
-      providers: [{ provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } }],
+      providers: [
+        { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
     })
       .compileComponents();
 

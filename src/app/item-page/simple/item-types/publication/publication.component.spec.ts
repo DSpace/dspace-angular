@@ -22,7 +22,10 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
@@ -115,6 +118,7 @@ describe('PublicationComponent', () => {
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {}  },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PublicationComponent, {

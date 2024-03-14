@@ -31,6 +31,7 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import {
@@ -168,7 +169,7 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         { provide: PaginationService, useValue: paginationService },
         ChangeDetectorRef,
-        FormBuilderService,
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();

@@ -23,6 +23,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';
 import { MetadataImportPageComponent } from './metadata-import-page.component';
@@ -67,7 +68,13 @@ describe('MetadataImportPageComponent', () => {
         { provide: Location, useValue: locationStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(MetadataImportPageComponent, {
+        remove: {
+          imports: [FileDropzoneNoUploaderComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

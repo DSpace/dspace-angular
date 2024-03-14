@@ -1,5 +1,6 @@
 import { SubmissionSectionAccessesComponent } from './accesses/section-accesses.component';
 import { SubmissionSectionCcLicensesComponent } from './cc-license/submission-section-cc-licenses.component';
+import { SubmissionSectionDuplicatesComponent } from './duplicates/section-duplicates.component';
 import { SubmissionSectionFormComponent } from './form/section-form.component';
 import { SubmissionSectionIdentifiersComponent } from './identifiers/section-identifiers.component';
 import { SubmissionSectionLicenseComponent } from './license/section-license.component';
@@ -18,6 +19,7 @@ submissionSectionsMap.set(SectionsType.Upload, SubmissionSectionUploadComponent)
 submissionSectionsMap.set(SectionsType.SubmissionForm, SubmissionSectionFormComponent);
 submissionSectionsMap.set(SectionsType.Identifiers, SubmissionSectionIdentifiersComponent);
 submissionSectionsMap.set(SectionsType.CoarNotify, SubmissionSectionCoarNotifyComponent);
+submissionSectionsMap.set(SectionsType.Duplicates, SubmissionSectionDuplicatesComponent);
 
 /**
  * @deprecated
