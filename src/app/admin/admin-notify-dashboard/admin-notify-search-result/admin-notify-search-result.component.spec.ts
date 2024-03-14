@@ -128,9 +128,8 @@ describe('AdminNotifySearchResultComponent', () => {
 
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [AdminNotifySearchResultComponent, AdminNotifyDetailModalComponent],
-      providers: [
+    imports: [TranslateModule.forRoot(), AdminNotifySearchResultComponent, AdminNotifyDetailModalComponent],
+    providers: [
         { provide: AdminNotifyMessagesService, useValue: adminNotifyMessageService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: ActivatedRoute, useValue: new RouterStub() },
@@ -140,9 +139,9 @@ describe('AdminNotifySearchResultComponent', () => {
         { provide: RemoteDataBuildService, useValue: rdbService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
         DatePipe,
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    })
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
+})
       .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifySearchResultComponent);

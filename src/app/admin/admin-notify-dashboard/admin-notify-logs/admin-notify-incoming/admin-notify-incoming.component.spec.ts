@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { RouteService } from '../../../../core/services/route.service';
@@ -44,6 +45,7 @@ describe('AdminNotifyIncomingComponent', () => {
         { provide: HALEndpointService, useValue: halService },
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: rdbService },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         provideMockStore({}),
       ],
     })
