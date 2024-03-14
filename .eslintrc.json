@@ -24,7 +24,8 @@
       "parserOptions": {
         "project": [
           "./tsconfig.json",
-          "./cypress/tsconfig.json"
+          "./cypress/tsconfig.json",
+          "./lint/tsconfig.json"
         ],
         "createDefaultProgram": true
       },
