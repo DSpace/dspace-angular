@@ -15,6 +15,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-conf
 import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
 import { getMockRemoteDataBuildService } from '../../../../shared/mocks/remote-data-build.service.mock';
 import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
+import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admin-notify-logs-result.component';
 import { AdminNotifyOutgoingComponent } from './admin-notify-outgoing.component';
 
 describe('AdminNotifyOutgoingComponent', () => {
@@ -46,6 +47,9 @@ describe('AdminNotifyOutgoingComponent', () => {
         provideMockStore({}),
       ],
     })
+      .overrideComponent(AdminNotifyOutgoingComponent, {
+        remove: { imports: [AdminNotifyLogsResultComponent] },
+      })
       .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifyOutgoingComponent);
