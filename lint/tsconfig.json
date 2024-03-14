@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+  ],
+  "exclude": [
+    "dist",
+    "test/fixture"
+  ]
+}
