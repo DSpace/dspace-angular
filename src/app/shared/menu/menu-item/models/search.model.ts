@@ -1,5 +1,5 @@
-import { MenuItemModel } from './menu-item.model';
 import { MenuItemType } from '../../menu-item-type.model';
+import { MenuItemModel } from './menu-item.model';
 
 /**
  * Model representing an Search Bar Menu Section

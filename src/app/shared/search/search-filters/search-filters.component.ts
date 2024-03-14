@@ -1,17 +1,32 @@
-import { Component, Inject, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
-
-import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
-import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
+import { currentPath } from '../../utils/route.utils';
 import { AppliedFilter } from '../models/applied-filter.model';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
 
 @Component({
   selector: 'ds-search-filters',
@@ -28,7 +43,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * An observable containing configuration about which filters are shown and how they are shown
    */
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
-
+  @Input() searchOptions: PaginatedSearchOptions;
   /**
    * List of all filters that are currently active with their value set to null.
    * Used to reset all filters at once
@@ -68,6 +83,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   searchLink: string;
 
   subs = [];
+  filterLabel = 'search';
 
   /**
    * Initialize instance variables
@@ -77,12 +93,16 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * @param {SearchConfigurationService} searchConfigService
    */
   constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private searchService: SearchService,
     private router: Router,
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
   }
 
   ngOnInit(): void {
+    if (!this.inPlaceSearch) {
+      this.filterLabel = 'discover';
+    }
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;

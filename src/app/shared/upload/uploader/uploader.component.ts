@@ -1,24 +1,40 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
-
-import { of as observableOf } from 'rxjs';
-import { FileUploader } from 'ng2-file-upload';
-import uniqueId from 'lodash/uniqueId';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-
-import { UploaderOptions } from './uploader-options.model';
-import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
-import { UploaderProperties } from './uploader-properties.model';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.constants';
-import { CookieService } from '../../../core/services/cookie.service';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import uniqueId from 'lodash/uniqueId';
+import { FileUploader } from 'ng2-file-upload';
+import { of as observableOf } from 'rxjs';
+
 import { DragService } from '../../../core/drag.service';
+import { CookieService } from '../../../core/services/cookie.service';
+import {
+  XSRF_COOKIE,
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+} from '../../../core/xsrf/xsrf.constants';
+import {
+  hasValue,
+  isNotEmpty,
+  isUndefined,
+} from '../../empty.util';
+import { UploaderOptions } from './uploader-options.model';
+import { UploaderProperties } from './uploader-properties.model';
 
 @Component({
   selector: 'ds-uploader',
   templateUrl: 'uploader.component.html',
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
 })
 
 export class UploaderComponent {
@@ -95,7 +111,7 @@ export class UploaderComponent {
     private scrollToService: ScrollToService,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService
+    private cookieService: CookieService,
   ) {
   }
 

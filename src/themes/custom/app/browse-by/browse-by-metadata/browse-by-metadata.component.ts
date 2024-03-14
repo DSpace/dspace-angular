@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { BrowseByMetadataComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-metadata/browse-by-metadata.component';
 import { BrowseByDataType } from '../../../../../app/browse-by/browse-by-switcher/browse-by-data-type';
 import { rendersBrowseBy } from '../../../../../app/browse-by/browse-by-switcher/browse-by-decorator';

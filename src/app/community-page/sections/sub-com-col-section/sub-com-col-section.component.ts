@@ -1,9 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { Community } from '../../../core/shared/community.model';
-import { ActivatedRoute, Data } from '@angular/router';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-sub-com-col-section',
@@ -20,7 +27,7 @@ export class SubComColSectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.community$ = this.route.data.pipe(
+    this.community$ = this.route.parent.data.pipe(
       map((data: Data) => (data.dso as RemoteData<Community>).payload),
     );
   }

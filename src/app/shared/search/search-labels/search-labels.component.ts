@@ -1,4 +1,8 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { AppliedFilter } from '../models/applied-filter.model';
 
 @Component({

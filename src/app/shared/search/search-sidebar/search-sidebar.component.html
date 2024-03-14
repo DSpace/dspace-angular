@@ -25,8 +25,10 @@
                                [inPlaceSearch]="inPlaceSearch"
                                (changeAppliedFilters)="changeAppliedFilters.emit($event)">
             </ds-themed-search-filters>
-            <ds-themed-search-settings [currentSortOption]="currentSortOption"
-                                       [sortOptionsList]="sortOptionsList"></ds-themed-search-settings>
+            <ds-themed-search-settings *ngIf="inPlaceSearch"
+                                       [currentSortOption]="currentSortOption"
+                                       [sortOptionsList]="sortOptionsList">
+            </ds-themed-search-settings>
         </div>
     </div>
 </div>

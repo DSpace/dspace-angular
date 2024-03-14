@@ -1,11 +1,14 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
 
-import { QUALITY_ASSURANCE_TOPIC_OBJECT } from './quality-assurance-topic-object.resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { ResourceType } from '../../../shared/resource-type';
-import { HALLink } from '../../../shared/hal-link.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
-import {CacheableObject} from '../../../cache/cacheable-object.model';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { HALLink } from '../../../shared/hal-link.model';
+import { ResourceType } from '../../../shared/resource-type';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { QUALITY_ASSURANCE_TOPIC_OBJECT } from './quality-assurance-topic-object.resource-type';
 
 /**
  * The interface representing the Quality Assurance topic model
@@ -21,38 +24,38 @@ export class QualityAssuranceTopicObject implements CacheableObject {
    * The Quality Assurance topic id
    */
   @autoserialize
-  id: string;
+    id: string;
 
   /**
    * The Quality Assurance topic name to display
    */
   @autoserialize
-  name: string;
+    name: string;
 
   /**
    * The date of the last udate from Notifications
    */
   @autoserialize
-  lastEvent: string;
+    lastEvent: string;
 
   /**
    * The total number of suggestions provided by Notifications for this topic
    */
   @autoserialize
-  totalEvents: number;
+    totalEvents: number;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
   };
 }

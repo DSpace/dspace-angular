@@ -3,9 +3,9 @@ import { autoserialize } from 'cerialize';
 export class SearchResultSorting {
 
   @autoserialize
-  by: string;
+    by: string;
 
   @autoserialize
-  order: string;
+    order: string;
 
 }

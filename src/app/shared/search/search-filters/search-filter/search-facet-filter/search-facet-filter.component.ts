@@ -1,28 +1,72 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Inject, OnDestroy, OnInit, EventEmitter } from '@angular/core';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../../empty.util';
-import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
-import { FacetValue } from '../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import {
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../../../core/shared/operators';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SCOPE, SearchFilterService, CHANGE_APPLIED_FILTERS } from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
-import { SearchOptions } from '../../../models/search-options.model';
+import {
+  CHANGE_APPLIED_FILTERS,
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  REFRESH_FILTER,
+  SCOPE,
+  SearchFilterService,
+} from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../../empty.util';
+import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
+import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
 import { currentPath } from '../../../../utils/route.utils';
-import { getFacetValueForType, stripOperatorFromFilterValue, addOperatorToFilterValue } from '../../../search.utils';
-import { FacetValues } from '../../../models/facet-values.model';
 import { AppliedFilter } from '../../../models/applied-filter.model';
+import { FacetValue } from '../../../models/facet-value.model';
+import { FacetValues } from '../../../models/facet-values.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchOptions } from '../../../models/search-options.model';
+import {
+  addOperatorToFilterValue,
+  getFacetValueForType,
+  stripOperatorFromFilterValue,
+} from '../../../search.utils';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -115,8 +159,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         filter((toRefresh: boolean) => toRefresh),
         // NOTE This is a workaround, otherwise retrieving filter values returns tha old cached response
         debounceTime((100)),
-        mergeMap(() => this.retrieveFilterValues(false))
-      ).subscribe()
+        mergeMap(() => this.retrieveFilterValues(false)),
+      ).subscribe(),
     );
     this.retrieveFilterValues().subscribe();
   }
@@ -222,12 +266,12 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                     return {
                       displayValue: this.getDisplayValue(facet, data),
                       query: this.getFacetValue(facet),
-                      value: stripOperatorFromFilterValue(this.getFacetValue(facet))
+                      value: stripOperatorFromFilterValue(this.getFacetValue(facet)),
                     };
                   });
-                }
+                },
               ));
-        }
+        },
       );
     } else {
       this.filterSearchResults = observableOf([]);
@@ -247,10 +291,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               {
                 [this.filterConfig.paramName]: [
                   ...selectedValues.map((appliedFilter: AppliedFilter) => addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator)),
-                  data
-                ]
+                  data,
+                ],
               },
-            queryParamsHandling: 'merge'
+            queryParamsHandling: 'merge',
           });
           this.filter = '';
         }
@@ -294,7 +338,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         this.setAppliedFilter(allFacetValues);
         this.animationState = 'ready';
         this.facetValues$.next(allFacetValues);
-      })
+      }),
     );
   }
 

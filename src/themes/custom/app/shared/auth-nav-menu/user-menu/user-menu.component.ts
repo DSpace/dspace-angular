@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { UserMenuComponent as BaseComponent } from '../../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component';
 
 /**

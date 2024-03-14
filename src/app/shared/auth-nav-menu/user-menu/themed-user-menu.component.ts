@@ -1,6 +1,10 @@
-import {Component, Input} from '@angular/core';
-import {ThemedComponent} from '../../theme-support/themed.component';
-import {UserMenuComponent} from './user-menu.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { ThemedComponent } from '../../theme-support/themed.component';
+import { UserMenuComponent } from './user-menu.component';
 
 /**
  * This component represents the user nav menu.
@@ -8,7 +12,7 @@ import {UserMenuComponent} from './user-menu.component';
 @Component({
   selector: 'ds-themed-user-menu',
   templateUrl: './../../theme-support/themed.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class ThemedUserMenuComponent extends ThemedComponent<UserMenuComponent>{
 

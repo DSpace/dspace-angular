@@ -3,15 +3,15 @@ import { autoserialize } from 'cerialize';
 export class AppliedFilter {
 
   @autoserialize
-  filter: string;
+    filter: string;
 
   @autoserialize
-  operator: string;
+    operator: string;
 
   @autoserialize
-  value: string;
+    value: string;
 
   @autoserialize
-  label: string;
+    label: string;
 
 }

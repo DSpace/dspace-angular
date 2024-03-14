@@ -1,15 +1,23 @@
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
-import { Params, Router } from '@angular/router';
+
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { currentPath } from '../../../../../utils/route.utils';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-search-facet-option',
@@ -57,7 +65,7 @@ export class SearchFacetOptionComponent implements OnInit {
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected paginationService: PaginationService,
   ) {
   }
 

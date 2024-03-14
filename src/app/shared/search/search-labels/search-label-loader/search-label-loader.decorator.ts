@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 
 export const map: Map<string, GenericConstructor<Component>> = new Map();

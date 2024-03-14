@@ -1,8 +1,12 @@
-import { EndUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
-import { EndUserAgreementService } from './end-user-agreement.service';
-import { Router, UrlTree } from '@angular/router';
+import {
+  Router,
+  UrlTree,
+} from '@angular/router';
 import { of as observableOf } from 'rxjs';
+
 import { environment } from '../../../environments/environment.test';
+import { EndUserAgreementService } from './end-user-agreement.service';
+import { EndUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
 
 describe('EndUserAgreementGuard', () => {
   let guard: EndUserAgreementCurrentUserGuard;
@@ -12,12 +16,12 @@ describe('EndUserAgreementGuard', () => {
 
   beforeEach(() => {
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
-      hasCurrentUserAcceptedAgreement: observableOf(true)
+      hasCurrentUserAcceptedAgreement: observableOf(true),
     });
     router = jasmine.createSpyObj('router', {
       navigateByUrl: {},
       parseUrl: new UrlTree(),
-      createUrlTree: new UrlTree()
+      createUrlTree: new UrlTree(),
     });
 
     guard = new EndUserAgreementCurrentUserGuard(endUserAgreementService, router);

@@ -1,10 +1,16 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ThemedComponent } from '../../theme-support/themed.component';
-import { SearchFiltersComponent } from './search-filters.component';
-import { Observable } from 'rxjs/internal/Observable';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { RemoteData } from '../../../core/data/remote-data';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { ThemedComponent } from '../../theme-support/themed.component';
 import { AppliedFilter } from '../models/applied-filter.model';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchFiltersComponent } from './search-filters.component';
 
 /**
  * Themed wrapper for SearchFiltersComponent
@@ -18,7 +24,7 @@ export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersC
   @Input() currentConfiguration: string;
   @Input() currentScope: string;
   @Input() inPlaceSearch: boolean;
-  @Input() refreshFilters: Observable<any>;
+  @Input() refreshFilters: Observable<boolean>;
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
   @Output() changeAppliedFilters: EventEmitter<Map<string, AppliedFilter[]>> = new EventEmitter();
 

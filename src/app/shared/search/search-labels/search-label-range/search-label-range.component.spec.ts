@@ -1,20 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Params,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Params, ActivatedRoute } from '@angular/router';
-import { SearchLabelRangeComponent } from './search-label-range.component';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
+import { of as observableOf } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { addOperatorToFilterValue } from '../../search.utils';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
-import { take } from 'rxjs/operators';
-import { of as observableOf } from 'rxjs';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { SearchLabelRangeComponent } from './search-label-range.component';
 
 describe('SearchLabelRangeComponent', () => {
   let comp: SearchLabelRangeComponent;

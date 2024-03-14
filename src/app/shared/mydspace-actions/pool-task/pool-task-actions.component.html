@@ -3,7 +3,7 @@
   (click)="claim()">
   <span *ngIf="(processing$ | async)"><i class='fas fa-circle-notch fa-spin'></i>
     {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-  <span *ngIf="!(processing$ | async)"><i class="fas fa-hand-paper"></i> {{'submission.workflow.tasks.pool.claim' |
+  <span *ngIf="(processing$ | async) !== true"><i class="fas fa-hand-paper"></i> {{'submission.workflow.tasks.pool.claim' |
     translate}}</span>
 </button>
 <button class="btn btn-primary workflow-view ml-1 mt-1 mb-3" data-test="view-btn"

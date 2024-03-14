@@ -8,7 +8,7 @@
         <span class="fa fa-chevron-right"></span>
       </span>
       <div class="align-middle pt-2">
-        <button *ngIf="!(dataSource.loading$ | async)" (click)="getNextPage(node)"
+        <button *ngIf="(dataSource.loading$ | async) !== true" (click)="getNextPage(node)"
            class="btn btn-outline-primary btn-sm" role="button">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
         </button>
@@ -33,7 +33,7 @@
         <span class="sr-only">{{ (node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) } }}</span>
       </button>
       <!--Don't render the button when non-expandable otherwise it's still accessible, instead render this placeholder-->
-      <span *ngIf="!(hasChild(null, node) | async)" aria-hidden="true" class="btn btn-default invisible">
+      <span *ngIf="(hasChild(null, node) | async) !== true" aria-hidden="true" class="btn btn-default invisible">
         <span class="fa fa-chevron-right"></span>
       </span>
       <div class="d-flex flex-row">

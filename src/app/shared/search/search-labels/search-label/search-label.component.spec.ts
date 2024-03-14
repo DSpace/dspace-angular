@@ -1,20 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { Params, ActivatedRoute } from '@angular/router';
-import { SearchLabelComponent } from './search-label.component';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { AppliedFilter } from '../../models/applied-filter.model';
-import { addOperatorToFilterValue } from '../../search.utils';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Params,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
+
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../testing/search-service.stub';
+import { AppliedFilter } from '../../models/applied-filter.model';
+import { addOperatorToFilterValue } from '../../search.utils';
+import { SearchLabelComponent } from './search-label.component';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;

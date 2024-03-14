@@ -1,8 +1,14 @@
-import { Component, OnChanges, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
 import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
-import { getSearchLabelByOperator } from './search-label-loader.decorator';
-import { AppliedFilter } from '../../models/applied-filter.model';
+
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
+import { AppliedFilter } from '../../models/applied-filter.model';
+import { getSearchLabelByOperator } from './search-label-loader.decorator';
 
 @Component({
   selector: 'ds-search-label-loader',

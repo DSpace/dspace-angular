@@ -1,13 +1,21 @@
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { Component, Input, OnInit } from '@angular/core';
-import { Params, Router } from '@angular/router';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+import { map } from 'rxjs/operators';
+
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { currentPath } from '../../../../../utils/route.utils';
 import { AppliedFilter } from '../../../../models/applied-filter.model';
-import { map } from 'rxjs/operators';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 
 @Component({
   selector: 'ds-search-facet-selected-option',

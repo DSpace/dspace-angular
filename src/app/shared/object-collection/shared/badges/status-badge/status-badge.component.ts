@@ -1,10 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { hasValue } from '../../../../empty.util';
 
 @Component({
   selector: 'ds-status-badge',
-  templateUrl: './status-badge.component.html'
+  templateUrl: './status-badge.component.html',
 })
 /**
  * Component rendering the status of an item as a badge

@@ -1,21 +1,30 @@
-import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  DebugElement,
+  Injectable,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, Injectable, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
+import { Observable } from 'rxjs';
+
+import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
+import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
+import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
-import { MetadataValue } from '../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { By } from '@angular/platform-browser';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 import { ITEM } from '../../core/shared/item.resource-type';
-import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
-import { Operation } from 'fast-json-patch';
-import { RemoteData } from '../../core/data/remote-data';
-import { Observable } from 'rxjs/internal/Observable';
+import { MetadataValue } from '../../core/shared/metadata.models';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
 
 const ADD_BTN = 'add';
 const REINSTATE_BTN = 'reinstate';
@@ -79,7 +88,7 @@ describe('DsoEditMetadataComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         ArrayMoveChangeAnalyzer,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

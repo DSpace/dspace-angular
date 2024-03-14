@@ -1,5 +1,9 @@
-import { BehaviorSubject, of as observableOf, Observable } from 'rxjs';
 import { Params } from '@angular/router';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 export class SearchConfigurationServiceStub {
 
@@ -29,7 +33,7 @@ export class SearchConfigurationServiceStub {
   }
 
   getAvailableConfigurationOptions() {
-    return observableOf([{value: 'test', label: 'test'}]);
+    return observableOf([{ value: 'test', label: 'test' }]);
   }
 
   unselectAppliedFilterParams(_filterName: string, _value: string, _operator?: string): Observable<Params> {

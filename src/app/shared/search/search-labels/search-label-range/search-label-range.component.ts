@@ -1,13 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { Params, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { map } from 'rxjs/operators';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 /**
  * Component that represents the label containing the currently active filters

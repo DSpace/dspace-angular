@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
 import { ServerResponseService } from '../core/services/server-response.service';
 
 /**
@@ -8,7 +12,7 @@ import { ServerResponseService } from '../core/services/server-response.service'
   selector: 'ds-page-internal-server-error',
   styleUrls: ['./page-internal-server-error.component.scss'],
   templateUrl: './page-internal-server-error.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class PageInternalServerErrorComponent {
 

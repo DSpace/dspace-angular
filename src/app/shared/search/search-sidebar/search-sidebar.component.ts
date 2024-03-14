@@ -1,13 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
-import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 import { AppliedFilter } from '../models/applied-filter.model';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
 
 /**
  * This component renders a simple item page.

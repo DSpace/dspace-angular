@@ -1,17 +1,17 @@
 import {
-  isRequestPending,
-  isError,
-  isSuccess,
-  isErrorStale,
-  isSuccessStale,
-  isResponsePending,
-  isResponsePendingStale,
-  isLoading,
-  isStale,
+  hasCompleted,
   hasFailed,
   hasSucceeded,
-  hasCompleted,
-  RequestEntryState
+  isError,
+  isErrorStale,
+  isLoading,
+  isRequestPending,
+  isResponsePending,
+  isResponsePendingStale,
+  isStale,
+  isSuccess,
+  isSuccessStale,
+  RequestEntryState,
 } from './request-entry-state.model';
 
 describe(`isRequestPending`, () => {

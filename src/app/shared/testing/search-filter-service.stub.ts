@@ -1,8 +1,15 @@
-import { Observable, of as observableOf } from 'rxjs';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
-import { SearchFilterConfig } from '../search/models/search-filter-config.model';
 import { Params } from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { SearchFilterConfig } from '../search/models/search-filter-config.model';
 
 /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
 export class SearchFilterServiceStub {

@@ -3,7 +3,7 @@
         <div class="col-12">
             <h1 class="border-bottom">{{'item.edit.head' | translate}}</h1>
             <div class="pt-2">
-                <ul class="nav nav-tabs justify-content-start" role="tablist">
+              <ul *ngIf="pages.length > 0" class="nav nav-tabs justify-content-start" role="tablist">
                     <li *ngFor="let page of pages" class="nav-item" role="presentation">
                         <a *ngIf="(page.enabled | async)"
                            [attr.aria-selected]="page.page === currentPage"
@@ -15,7 +15,7 @@
                             {{'item.edit.tabs.' + page.page + '.head' | translate}}
                         </a>
                         <span [ngbTooltip]="'item.edit.tabs.disabled.tooltip' | translate">
-                            <button *ngIf="!(page.enabled | async)"
+                            <button *ngIf="(page.enabled | async) !== true"
                                  class="nav-link disabled">
                                 {{'item.edit.tabs.' + page.page + '.head' | translate}}
                             </button>
