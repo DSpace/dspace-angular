@@ -18,6 +18,7 @@ import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { CommunitySearchResult } from '../../../../../shared/object-collection/shared/community-search-result.model';
+import { CommunitySearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CommunityAdminSearchResultListElementComponent } from './community-admin-search-result-list-element.component';
 
@@ -49,6 +50,11 @@ describe('CommunityAdminSearchResultListElementComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(CommunityAdminSearchResultListElementComponent, {
+        remove: {
+          imports: [CommunitySearchResultListElementComponent],
+        },
+      })
       .compileComponents();
   }));
 

@@ -48,7 +48,13 @@ describe('ComcolBrowseByComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: ThemeService, useValue: themeService },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ComcolBrowseByComponent, {
+        remove: {
+          imports: [BrowseBySwitcherComponent],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(ComcolBrowseByComponent);
     component = fixture.componentInstance;
