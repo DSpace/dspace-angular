@@ -28,11 +28,9 @@ import { ThemedRootComponent } from './root/themed-root.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
-import { SystemWideAlertModule } from './system-wide-alert/system-wide-alert.module';
 
 const IMPORTS = [
   CommonModule,
-  SystemWideAlertModule,
   NgbModule,
 ];
 
