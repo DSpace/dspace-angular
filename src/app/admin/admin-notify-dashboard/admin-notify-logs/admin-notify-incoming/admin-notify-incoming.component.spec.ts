@@ -36,8 +36,7 @@ describe('AdminNotifyIncomingComponent', () => {
       'send': '',
     });
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [AdminNotifyIncomingComponent],
+      imports: [TranslateModule.forRoot(), AdminNotifyIncomingComponent],
       providers: [
         { provide: SEARCH_CONFIG_SERVICE, useValue: SearchConfigurationService },
         { provide: RouteService, useValue: routeServiceStub },

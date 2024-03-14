@@ -48,7 +48,13 @@ describe('BrowseByPageComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: ThemeService, useValue: themeService },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(BrowseByPageComponent, {
+        remove: {
+          imports: [BrowseBySwitcherComponent],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(BrowseByPageComponent);
     component = fixture.componentInstance;

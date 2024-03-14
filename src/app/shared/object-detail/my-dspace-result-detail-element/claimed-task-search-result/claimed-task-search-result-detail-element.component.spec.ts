@@ -23,9 +23,11 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { VarDirective } from '../../../utils/var.directive';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { ClaimedTaskSearchResultDetailElementComponent } from './claimed-task-search-result-detail-element.component';
 
 let component: ClaimedTaskSearchResultDetailElementComponent;
@@ -86,6 +88,9 @@ describe('ClaimedTaskSearchResultDetailElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskSearchResultDetailElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ItemDetailPreviewComponent, ClaimedTaskActionsComponent],
+      },
     }).compileComponents();
   }));
 

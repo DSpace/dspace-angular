@@ -18,6 +18,7 @@ import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mo
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { PersonSearchResultGridElementComponent } from '../search-result-grid-elements/person/person-search-result-grid-element.component';
 import { PersonGridElementComponent } from './person-grid-element.component';
 
 const mockItem = Object.assign(new Item(), {
@@ -62,6 +63,7 @@ describe('PersonGridElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PersonGridElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [PersonSearchResultGridElementComponent] },
     }).compileComponents();
   }));
 

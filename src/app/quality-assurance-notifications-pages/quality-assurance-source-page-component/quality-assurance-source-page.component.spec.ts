@@ -3,10 +3,11 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-
-import { QualityAssuranceSourcePageComponent } from './quality-assurance-source-page.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ActivatedRoute } from '@angular/router';
+
+import { QualityAssuranceSourceComponent } from '../../notifications/qa/source/quality-assurance-source.component';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { QualityAssuranceSourcePageComponent } from './quality-assurance-source-page.component';
 
 describe('QualityAssuranceSourcePageComponent', () => {
   let component: QualityAssuranceSourcePageComponent;
@@ -20,6 +21,11 @@ describe('QualityAssuranceSourcePageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(QualityAssuranceSourcePageComponent, {
+        remove: {
+          imports: [QualityAssuranceSourceComponent],
+        },
+      })
       .compileComponents();
   });
 

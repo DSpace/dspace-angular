@@ -45,6 +45,9 @@ import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;
@@ -129,6 +132,9 @@ describe('ClaimedSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ThemedItemListPreviewComponent, ClaimedTaskActionsComponent],
+      },
     }).compileComponents();
   }));
 
