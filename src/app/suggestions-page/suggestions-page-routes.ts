@@ -19,7 +19,6 @@ export const ROUTES: Route[] = [
       showBreadcrumbsFluid: false,
     },
     providers: [
-      SuggestionsPageResolver,
       PublicationClaimBreadcrumbResolver,
       provideSuggestionNotifications(),
     ],

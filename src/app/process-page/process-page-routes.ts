@@ -11,9 +11,6 @@ import { ProcessPageResolver } from './process-page.resolver';
 export const ROUTES: Route[] = [
   {
     path: '',
-    providers: [
-      ProcessPageResolver,
-    ],
     resolve: { breadcrumb: I18nBreadcrumbResolver },
     data: { breadcrumbKey: 'process.overview' },
     canActivate: [AuthenticatedGuard],

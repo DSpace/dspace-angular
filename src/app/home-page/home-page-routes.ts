@@ -11,7 +11,6 @@ export const ROUTES: Route[] = [
     path: '',
     component: ThemedHomePageComponent,
     providers: [
-      HomePageResolver,
       provideSuggestionNotifications(),
     ],
     pathMatch: 'full',

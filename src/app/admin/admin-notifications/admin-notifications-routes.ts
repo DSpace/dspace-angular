@@ -26,9 +26,7 @@ import {
 const providers = [
   I18nBreadcrumbResolver,
   I18nBreadcrumbsService,
-  SourceDataResolver,
   QualityAssuranceTopicsPageResolver,
-  QualityAssuranceEventsPageResolver,
   QualityAssuranceSourcePageResolver,
   QualityAssuranceBreadcrumbResolver,
   QualityAssuranceBreadcrumbService,

@@ -22,7 +22,6 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
  */
 
 const providers = [
-  BitstreamPageResolver,
   BitstreamBreadcrumbResolver,
   BitstreamBreadcrumbsService,
 ];

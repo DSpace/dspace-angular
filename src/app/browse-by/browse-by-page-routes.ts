@@ -13,10 +13,6 @@ export const ROUTES: Route[] = [
       breadcrumb: BrowseByDSOBreadcrumbResolver,
       menu: DSOEditMenuResolver,
     },
-    providers: [
-      BrowseByI18nBreadcrumbResolver,
-      BrowseByDSOBreadcrumbResolver,
-    ],
     children: [
       {
         path: ':id',

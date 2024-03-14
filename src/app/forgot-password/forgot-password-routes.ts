@@ -10,16 +10,10 @@ export const ROUTES: Route[] = [
     path: '',
     component: ThemedForgotEmailComponent,
     data: { title: 'forgot-password.title' },
-    providers: [
-      ItemPageResolver,
-    ],
   },
   {
     path: ':token',
     component: ThemedForgotPasswordFormComponent,
     canActivate: [RegistrationGuard],
-    providers: [
-      ItemPageResolver,
-    ],
   },
 ];

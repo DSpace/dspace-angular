@@ -11,17 +11,11 @@ export const ROUTES: Route[] = [
   {
     path: '',
     component: ThemedRegisterEmailComponent,
-    providers: [
-      ItemPageResolver,
-    ],
     data: { title: 'register-email.title' },
   },
   {
     path: ':token',
     component: ThemedCreateProfileComponent,
-    providers: [
-      ItemPageResolver,
-    ],
     canActivate: [
       RegistrationGuard,
       EndUserAgreementCookieGuard,

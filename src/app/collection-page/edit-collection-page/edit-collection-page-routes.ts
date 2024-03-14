@@ -25,10 +25,6 @@ export const ROUTES: Route[] = [
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
     },
-    providers: [
-      ResourcePolicyResolver,
-      ResourcePolicyTargetResolver,
-    ],
     data: { breadcrumbKey: 'collection.edit' },
     component: EditCollectionPageComponent,
     canActivate: [CollectionAdministratorGuard],

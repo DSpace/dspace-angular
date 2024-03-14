@@ -31,7 +31,7 @@ export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
 /**
  * This class represents a resolver that requests a specific collection before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CollectionPageResolver implements Resolve<RemoteData<Collection>> {
   constructor(
     private collectionService: CollectionDataService,

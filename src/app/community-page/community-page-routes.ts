@@ -30,7 +30,6 @@ export const ROUTES: Route[] = [
     component: CreateCommunityPageComponent,
     canActivate: [AuthenticatedGuard, CreateCommunityPageGuard],
     providers: [
-      CommunityPageResolver,
       CommunityBreadcrumbResolver,
       DSOBreadcrumbsService,
       LinkService,
@@ -46,7 +45,6 @@ export const ROUTES: Route[] = [
       menu: DSOEditMenuResolver,
     },
     providers: [
-      CommunityPageResolver,
       CommunityBreadcrumbResolver,
       DSOBreadcrumbsService,
       LinkService,

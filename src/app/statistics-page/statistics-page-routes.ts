@@ -14,9 +14,6 @@ import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed
 const providers = [
   I18nBreadcrumbResolver,
   I18nBreadcrumbsService,
-  CollectionPageResolver,
-  CommunityPageResolver,
-  ItemResolver,
 ];
 
 export const ROUTES: Route[] = [

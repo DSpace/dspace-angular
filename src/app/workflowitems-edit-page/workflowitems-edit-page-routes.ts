@@ -22,7 +22,7 @@ export const ROUTES: Routes = [
   {
     path: ':id',
     resolve: { wfi: WorkflowItemPageResolver },
-    providers: [WorkflowItemPageResolver, ItemFromWorkflowResolver, provideSubmission()],
+    providers: [provideSubmission()],
     children: [
       {
         canActivate: [AuthenticatedGuard],

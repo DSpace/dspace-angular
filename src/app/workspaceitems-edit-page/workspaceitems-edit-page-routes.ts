@@ -11,8 +11,6 @@ import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/workspaceitems-delete-page.component';
 
 const providers = [
-  WorkspaceItemPageResolver,
-  ItemFromWorkspaceResolver,
   provideSubmission(),
 ];
 

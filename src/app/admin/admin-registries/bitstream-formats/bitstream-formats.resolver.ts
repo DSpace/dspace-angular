@@ -14,7 +14,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 /**
  * This class represents a resolver that requests a specific bitstreamFormat before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BitstreamFormatsResolver implements Resolve<RemoteData<BitstreamFormat>> {
   constructor(private bitstreamFormatDataService: BitstreamFormatDataService) {
   }

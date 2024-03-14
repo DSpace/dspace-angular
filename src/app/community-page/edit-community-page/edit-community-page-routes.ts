@@ -23,10 +23,6 @@ export const ROUTES: Route[] = [
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
     },
-    providers: [
-      ResourcePolicyResolver,
-      ResourcePolicyTargetResolver,
-    ],
     data: { breadcrumbKey: 'community.edit' },
     component: EditCommunityPageComponent,
     canActivate: [CommunityAdministratorGuard],

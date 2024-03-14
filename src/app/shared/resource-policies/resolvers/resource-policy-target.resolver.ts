@@ -21,7 +21,7 @@ import { isEmpty } from '../../empty.util';
 /**
  * This class represents a resolver that requests a specific item before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ResourcePolicyTargetResolver implements Resolve<RemoteData<DSpaceObject>> {
   /**
    * The data service used to make request.

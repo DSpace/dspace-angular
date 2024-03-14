@@ -9,7 +9,7 @@ import { EditBitstreamFormatComponent } from './edit-bitstream-format/edit-bitst
 const BITSTREAMFORMAT_EDIT_PATH = ':id/edit';
 const BITSTREAMFORMAT_ADD_PATH = 'add';
 
-const providers = [BitstreamFormatsResolver];
+const providers = [];
 
 export const ROUTES: Route[] = [
   {

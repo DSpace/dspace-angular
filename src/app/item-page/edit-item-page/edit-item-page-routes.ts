@@ -59,8 +59,6 @@ export const ROUTES: Route[] = [
     providers: [
       I18nBreadcrumbResolver,
       I18nBreadcrumbsService,
-      ResourcePolicyResolver,
-      ResourcePolicyTargetResolver,
       ItemPageReinstateGuard,
       ItemPageWithdrawGuard,
       ItemPageAdministratorGuard,

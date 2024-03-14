@@ -34,8 +34,6 @@ export const ROUTES: Route[] = [
     component: CreateCollectionPageComponent,
     canActivate: [AuthenticatedGuard, CreateCollectionPageGuard],
     providers: [
-      CollectionPageResolver,
-      ItemTemplatePageResolver,
       CollectionBreadcrumbResolver,
       DSOBreadcrumbsService,
       LinkService,
@@ -52,8 +50,6 @@ export const ROUTES: Route[] = [
       menu: DSOEditMenuResolver,
     },
     providers: [
-      CollectionPageResolver,
-      ItemTemplatePageResolver,
       CollectionBreadcrumbResolver,
       DSOBreadcrumbsService,
       LinkService,
