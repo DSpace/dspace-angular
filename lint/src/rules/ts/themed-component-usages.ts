@@ -98,7 +98,20 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     // ignore tests and non-routing modules
     if (context.getFilename()?.endsWith('.spec.ts')) {
       return {
-        [`CallExpression[callee.object.name = "By"][callee.property.name = "css"] > Literal[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`](node: any) {
+        [`CallExpression[callee.object.name = "By"][callee.property.name = "css"] > Literal:first-child[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`](node: any) {
+          context.report({
+            node,
+            messageId: 'mustUseThemedWrapper',
+            fix(fixer: any){
+              const newSelector = fixSelectors(node.raw);
+              return fixer.replaceText(node, newSelector);
+            }
+          });
+        },
+      };
+    } else if (context.getFilename()?.endsWith('.cy.ts')) {
+      return {
+        [`CallExpression[callee.object.name = "cy"][callee.property.name = "get"] > Literal:first-child[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`](node: any) {
           context.report({
             node,
             messageId: 'mustUseThemedWrapper',

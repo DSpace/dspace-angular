@@ -55,6 +55,13 @@ By.css('ds-themeable');
 By.Css('#test > ds-themeable > #nest');
         `,
       },
+      {
+        name: fixture('src/app/test/test.component.cy.ts'),
+        code: `
+By.css('ds-themeable');
+By.Css('#test > ds-themeable > #nest');
+        `,
+      },
     ],
     invalid: [
       {
@@ -121,6 +128,44 @@ By.css('#test > ds-base-themeable > #nest');
         output: `
 By.css('ds-themeable');
 By.css('#test > ds-themeable > #nest');
+        `,
+      },
+      {
+        filename: fixture('src/app/test/test.component.cy.ts'),
+        code: `
+cy.get('ds-themed-themeable');
+cy.get('#test > ds-themed-themeable > #nest');
+        `,
+        errors: [
+          {
+            messageId: 'mustUseThemedWrapper',
+          },
+          {
+            messageId: 'mustUseThemedWrapper',
+          },
+        ],
+        output: `
+cy.get('ds-themeable');
+cy.get('#test > ds-themeable > #nest');
+        `,
+      },
+      {
+        filename: fixture('src/app/test/test.component.cy.ts'),
+        code: `
+cy.get('ds-base-themeable');
+cy.get('#test > ds-base-themeable > #nest');
+        `,
+        errors: [
+          {
+            messageId: 'mustUseThemedWrapper',
+          },
+          {
+            messageId: 'mustUseThemedWrapper',
+          },
+        ],
+        output: `
+cy.get('ds-themeable');
+cy.get('#test > ds-themeable > #nest');
         `,
       },
     ],
