@@ -13,9 +13,6 @@ import { IdlePreloadModule } from 'angular-idle-preload';
 
 import { AppModule } from '../../app/app.module';
 import { RootModule } from '../../app/root.module';
-import { StatisticsModule } from '../../app/statistics/statistics.module';
-import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
-import { SubmissionModule } from '../../app/submission/submission.module';
 
 const DECLARATIONS = [
 ];
@@ -32,12 +29,9 @@ const DECLARATIONS = [
     NgbModule,
     RouterModule,
     ScrollToModule,
-    StatisticsModule,
-    StatisticsPageModule,
     StoreModule,
     StoreRouterConnectingModule,
     TranslateModule,
-    SubmissionModule,
     FormsModule,
   ],
   declarations: DECLARATIONS,

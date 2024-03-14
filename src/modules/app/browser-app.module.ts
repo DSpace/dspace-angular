@@ -50,12 +50,11 @@ import { HardRedirectService } from '../../app/core/services/hard-redirect.servi
 import { ReferrerService } from '../../app/core/services/referrer.service';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
-import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -76,7 +75,6 @@ export function getRequest(transferState: TransferState): any {
     HttpClientModule,
     // forRoot ensures the providers are only created once
     IdlePreloadModule.forRoot(),
-    StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,
     StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
