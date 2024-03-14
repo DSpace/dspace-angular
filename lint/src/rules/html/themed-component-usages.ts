@@ -20,6 +20,11 @@ export default {
     }
   },
   create(context: any) {
+    if (context.getFilename().includes('.spec.ts')) {
+      // skip inline templates in unit tests
+      return {};
+    }
+
     return {
       [`Element$1[name = /^${DISALLOWED_THEME_SELECTORS}/]`](node: any) {
         context.report({

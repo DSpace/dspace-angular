@@ -137,6 +137,36 @@ describe('themed-component-usages (HTML)', () => {
 <ds-test-themeable [test]="something"></ds-test-themeable>
         `,
       },
+      {
+        name: fixture('src/test.ts'),
+        code: `
+@Component({
+  template: '<ds-test-themeable></ds-test-themeable>'
+})
+class Test {
+}
+        `,
+      },
+      {
+        name: fixture('src/test.spec.ts'),
+        code: `
+@Component({
+  template: '<ds-test-themeable></ds-test-themeable>'
+})
+class Test {
+}
+        `,
+      },
+      {
+        filename: fixture('src/test.spec.ts'),
+        code: `
+@Component({
+  template: '<ds-base-test-themeable></ds-base-test-themeable>'
+})
+class Test {
+}
+        `,
+      },
     ],
     invalid: [
       {
