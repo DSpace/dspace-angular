@@ -27,6 +27,7 @@ import {
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
@@ -35,7 +36,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-  APP_DYNAMIC_FORM_CONTROL_FN,
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
@@ -182,7 +182,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
+        { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })

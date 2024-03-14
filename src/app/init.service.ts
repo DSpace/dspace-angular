@@ -30,7 +30,6 @@ import {
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-  APP_DYNAMIC_FORM_CONTROL_FN,
   AppConfig,
 } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
@@ -46,6 +45,7 @@ import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form
 import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 
 /**
  * Performs the initialization of the app.
@@ -117,7 +117,7 @@ export abstract class InitService {
         useValue: LAZY_DATA_SERVICES,
       },
       {
-        provide: APP_DYNAMIC_FORM_CONTROL_FN,
+        provide: DYNAMIC_FORM_CONTROL_MAP_FN,
         useValue: dsDynamicFormControlMapFn,
       },
     ];

@@ -20,6 +20,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
   DynamicColorPickerModel,
@@ -60,7 +61,6 @@ import { of as observableOf } from 'rxjs';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-  APP_DYNAMIC_FORM_CONTROL_FN,
 } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { ItemDataService } from '../../../../core/data/item-data.service';
@@ -252,7 +252,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: NgZone, useValue: new NgZone({}) },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
+        { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents().then(() => {

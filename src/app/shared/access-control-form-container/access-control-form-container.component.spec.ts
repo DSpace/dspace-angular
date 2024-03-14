@@ -17,13 +17,11 @@ import { of } from 'rxjs';
 
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 import { Item } from '../../core/shared/item.model';
-import { SharedBrowseByModule } from '../browse-by/shared-browse-by.module';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';
 import { ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
-
 
 describe('AccessControlFormContainerComponent', () => {
   let component: AccessControlFormContainerComponent<any>;
@@ -36,7 +34,6 @@ describe('AccessControlFormContainerComponent', () => {
     standalone: true,
     imports: [CommonModule,
       FormsModule,
-      SharedBrowseByModule,
       NgbDatepickerModule,
       UiSwitchModule],
   })
@@ -69,7 +66,6 @@ describe('AccessControlFormContainerComponent', () => {
       imports: [
         CommonModule,
         FormsModule,
-        SharedBrowseByModule,
         TranslateModule.forRoot(),
         NgbDatepickerModule,
         UiSwitchModule,

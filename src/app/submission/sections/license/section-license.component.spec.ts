@@ -15,6 +15,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
   DynamicFormControlEvent,
   DynamicFormControlEventType,
@@ -27,7 +28,6 @@ import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-  APP_DYNAMIC_FORM_CONTROL_FN,
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
@@ -37,6 +37,7 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
@@ -48,9 +49,13 @@ import {
   mockLicenseParsedErrors,
   mockSubmissionCollectionId,
   mockSubmissionId,
+  mockSubmissionObject,
 } from '../../../shared/mocks/submission.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
@@ -179,7 +184,13 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
+        { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+        {
+          provide: SubmissionObjectDataService,
+          useValue: {
+            findById: () => observableOf(createSuccessfulRemoteDataObject(mockSubmissionObject)),
+          },
+        },
         SubmissionSectionLicenseComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],

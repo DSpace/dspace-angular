@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { FormModule } from '../form/form.module';
 import { ResourcePolicyCreateComponent } from './create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from './edit/resource-policy-edit.component';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';
@@ -29,7 +28,6 @@ const PROVIDERS = [
   imports: [
     NgbModule,
     CommonModule,
-    FormModule,
     TranslateModule,
     ...COMPONENTS,
   ],

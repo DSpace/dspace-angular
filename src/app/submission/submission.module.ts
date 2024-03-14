@@ -19,7 +19,6 @@ import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-dat
 import { storeModuleConfig } from '../app.reducer';
 import { SubmissionAccessesConfigDataService } from '../core/config/submission-accesses-config-data.service';
 import { SubmissionUploadsConfigDataService } from '../core/config/submission-uploads-config-data.service';
-import { FormModule } from '../shared/form/form.module';
 import { UploadModule } from '../shared/upload/upload.module';
 import { SubmissionEditComponent } from './edit/submission-edit.component';
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
@@ -115,7 +114,6 @@ const DECLARATIONS = [
     StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
     EffectsModule.forFeature(),
     EffectsModule.forFeature(submissionEffects),
-    FormModule,
     NgbModalModule,
     NgbCollapseModule,
     NgbAccordionModule,
@@ -125,7 +123,6 @@ const DECLARATIONS = [
   ],
   exports: [
     ...DECLARATIONS,
-    FormModule,
   ],
   providers: [
     SectionUploadService,

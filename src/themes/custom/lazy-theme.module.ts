@@ -13,12 +13,7 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { IdlePreloadModule } from 'angular-idle-preload';
 
 import { AppModule } from '../../app/app.module';
-import { RegisterEmailFormModule } from '../../app/register-email-form/register-email-form.module';
 import { RootModule } from '../../app/root.module';
-import { SearchPageModule } from '../../app/search-page/search-page.module';
-import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
-import { FormModule } from '../../app/shared/form/form.module';
 import { MenuModule } from '../../app/shared/menu/menu.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { SearchModule } from '../../app/shared/search/search.module';
@@ -206,13 +201,9 @@ const DECLARATIONS = [
     HttpClientModule,
     IdlePreloadModule,
     MenuModule,
-    DsoPageModule,
     NgbModule,
-    RegisterEmailFormModule,
     RouterModule,
     ScrollToModule,
-    SearchPageModule,
-    SharedBrowseByModule,
     StatisticsModule,
     StatisticsPageModule,
     StoreModule,
@@ -224,7 +215,6 @@ const DECLARATIONS = [
     ResourcePoliciesModule,
     SystemWideAlertModule,
     NgxGalleryModule,
-    FormModule,
     ...DECLARATIONS,
   ],
 })

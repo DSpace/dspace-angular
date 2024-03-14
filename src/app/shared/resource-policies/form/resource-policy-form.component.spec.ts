@@ -30,7 +30,6 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-  APP_DYNAMIC_FORM_CONTROL_FN,
 } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment.test';
 
@@ -68,6 +67,7 @@ import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,
 } from './resource-policy-form.component';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 
 export const mockResourcePolicyFormData = {
   name: [
@@ -233,7 +233,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
+        { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
         provideMockStore({}),
       ],
       schemas: [
