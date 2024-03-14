@@ -23,6 +23,10 @@ import { ThemeService } from '../../../../../shared/theme-support/theme.service'
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { ProjectSearchResultListElementComponent } from './project-search-result-list-element.component';
+import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { NgClass } from '@angular/common';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 
 let projectListElementComponent: ProjectSearchResultListElementComponent;
 let fixture: ComponentFixture<ProjectSearchResultListElementComponent>;
@@ -91,6 +95,7 @@ describe('ProjectSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [ThumbnailComponent, TruncatableComponent, ThemedBadgesComponent] },
     }).compileComponents();
   }));
 

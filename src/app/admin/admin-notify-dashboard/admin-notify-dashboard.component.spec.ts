@@ -39,8 +39,7 @@ describe('AdminNotifyDashboardComponent', () => {
     results = buildPaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NgbNavModule],
-      declarations: [AdminNotifyDashboardComponent],
+      imports: [TranslateModule.forRoot(), NgbNavModule, AdminNotifyDashboardComponent],
       providers: [{ provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } }],
     })
       .compileComponents();

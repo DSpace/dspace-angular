@@ -19,6 +19,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { ProcessOverviewComponent } from './process-overview.component';
 import { ProcessOverviewService } from './process-overview.service';
+import { ProcessOverviewTableComponent } from './table/process-overview-table.component';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -66,7 +67,10 @@ describe('ProcessOverviewComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ProcessOverviewComponent, {
-        remove: { imports: [PaginationComponent] },
+        remove: { imports: [
+          PaginationComponent,
+          ProcessOverviewTableComponent,
+        ] },
       })
       .compileComponents();
   }));

@@ -18,6 +18,8 @@ import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock'
 import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { AdminNotifyLogsResultComponent } from './admin-notify-logs-result.component';
+import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
+import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 
 describe('AdminNotifyLogsResultComponent', () => {
   let component: AdminNotifyLogsResultComponent;
@@ -29,8 +31,7 @@ describe('AdminNotifyLogsResultComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [AdminNotifyLogsResultComponent],
+      imports: [TranslateModule.forRoot(), AdminNotifyLogsResultComponent],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
@@ -42,6 +43,14 @@ describe('AdminNotifyLogsResultComponent', () => {
         provideMockStore({}),
       ],
     })
+      .overrideComponent(AdminNotifyLogsResultComponent, {
+        remove: {
+          imports: [
+            SearchLabelsComponent,
+            ThemedSearchComponent,
+          ],
+        },
+      })
       .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifyLogsResultComponent);

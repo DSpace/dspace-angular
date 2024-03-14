@@ -17,8 +17,10 @@ import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { WorkspaceItemSearchResultDetailElementComponent } from './workspace-item-search-result-detail-element.component';
 
 let component: WorkspaceItemSearchResultDetailElementComponent;
@@ -75,6 +77,12 @@ describe('WorkspaceItemSearchResultDetailElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(WorkspaceItemSearchResultDetailElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [
+          ItemDetailPreviewComponent,
+          WorkspaceitemActionsComponent,
+        ],
+      },
     }).compileComponents();
   }));
 

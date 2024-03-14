@@ -21,7 +21,6 @@ import {
   CreateData,
   CreateDataImpl,
 } from '../../../data/base/create-data';
-import { dataService } from '../../../data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -48,13 +47,11 @@ import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NoContent } from '../../../shared/NoContent.model';
 import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
-import { QUALITY_ASSURANCE_EVENT_OBJECT } from '../models/quality-assurance-event-object.resource-type';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
 @Injectable({ providedIn: 'root' })
-@dataService(QUALITY_ASSURANCE_EVENT_OBJECT)
 export class QualityAssuranceEventDataService extends IdentifiableDataService<QualityAssuranceEventObject> {
 
   private createData: CreateData<QualityAssuranceEventObject>;
