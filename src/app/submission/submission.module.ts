@@ -19,7 +19,6 @@ import { LdnServicesService } from '../admin/admin-ldn-services/ldn-services-dat
 import { storeModuleConfig } from '../app.reducer';
 import { SubmissionAccessesConfigDataService } from '../core/config/submission-accesses-config-data.service';
 import { SubmissionUploadsConfigDataService } from '../core/config/submission-uploads-config-data.service';
-import { UploadModule } from '../shared/upload/upload.module';
 import { SubmissionEditComponent } from './edit/submission-edit.component';
 import { ThemedSubmissionEditComponent } from './edit/themed-submission-edit.component';
 import { SubmissionFormCollectionComponent } from './form/collection/submission-form-collection.component';
@@ -117,7 +116,6 @@ const DECLARATIONS = [
     NgbModalModule,
     NgbCollapseModule,
     NgbAccordionModule,
-    UploadModule,
     NgOptimizedImage,
     ...DECLARATIONS,
   ],
