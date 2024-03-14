@@ -3,13 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Duplicate } from '../../shared/object-list/duplicate-data/duplicate.model';
-import { DUPLICATE } from '../../shared/object-list/duplicate-data/duplicate.resource-type';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { BaseDataService } from '../data/base/base-data.service';
-import { dataService } from '../data/base/data-service.decorator';
 import {
   SearchData,
   SearchDataImpl,
@@ -35,7 +33,6 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
  *
  */
 @Injectable({ providedIn: 'root' })
-@dataService(DUPLICATE)
 export class SubmissionDuplicateDataService extends BaseDataService<Duplicate> implements SearchData<Duplicate> {
 
   /**

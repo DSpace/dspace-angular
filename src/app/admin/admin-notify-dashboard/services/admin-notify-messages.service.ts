@@ -15,7 +15,6 @@ import {
 
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { dataService } from '../../../core/data/base/data-service.decorator';
 import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { PostRequest } from '../../../core/data/request.models';
@@ -29,7 +28,6 @@ import {
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { LdnServicesService } from '../../admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { AdminNotifyMessage } from '../models/admin-notify-message.model';
-import { ADMIN_NOTIFY_MESSAGE } from '../models/admin-notify-message.resource-type';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the messages' endpoint.
@@ -39,7 +37,6 @@ import { ADMIN_NOTIFY_MESSAGE } from '../models/admin-notify-message.resource-ty
  * @extends {IdentifiableDataService<AdminNotifyMessage>}
  */
 @Injectable({ providedIn: 'root' })
-@dataService(ADMIN_NOTIFY_MESSAGE)
 export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNotifyMessage> {
 
   protected reprocessEndpoint = 'enqueueretry';
