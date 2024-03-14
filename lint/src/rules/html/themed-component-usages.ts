@@ -17,7 +17,7 @@ export default {
     schema: [],
     messages: {
       mustUseThemedWrapperSelector: 'Themeable components should be used via their ThemedComponent wrapper\'s selector',
-    }
+    },
   },
   create(context: any) {
     if (context.getFilename().includes('.spec.ts')) {
@@ -36,7 +36,7 @@ export default {
 
             const openTagRange = [
               node.startSourceSpan.start.offset + 1,
-              node.startSourceSpan.start.offset + 1 + oldSelector.length
+              node.startSourceSpan.start.offset + 1 + oldSelector.length,
             ];
 
             const ops = [
@@ -47,15 +47,15 @@ export default {
             if (node.startSourceSpan.end.offset !== node.endSourceSpan.end.offset) {
               const closeTagRange = [
                 node.endSourceSpan.start.offset + 2,
-                node.endSourceSpan.end.offset - 1
+                node.endSourceSpan.end.offset - 1,
               ];
               ops.push(fixer.replaceTextRange(closeTagRange, newSelector));
             }
 
             return ops;
-          }
+          },
         });
       },
     };
-  }
+  },
 };

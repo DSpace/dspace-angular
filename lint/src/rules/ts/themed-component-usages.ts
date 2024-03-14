@@ -6,6 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
+
 import { findUsages } from '../../util/misc';
 import {
   allThemeableComponents,
@@ -50,7 +51,14 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     }
 
     function handleThemedSelectorQueriesInTests(node: any) {
-
+      context.report({
+        node,
+        messageId: 'mustUseThemedWrapper',
+        fix(fixer: any){
+          const newSelector = fixSelectors(node.raw);
+          return fixer.replaceText(node, newSelector);
+        },
+      });
     }
 
     function handleUnthemedImportsInTypescript(specifierNode: any) {
@@ -98,29 +106,11 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     // ignore tests and non-routing modules
     if (context.getFilename()?.endsWith('.spec.ts')) {
       return {
-        [`CallExpression[callee.object.name = "By"][callee.property.name = "css"] > Literal:first-child[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`](node: any) {
-          context.report({
-            node,
-            messageId: 'mustUseThemedWrapper',
-            fix(fixer: any){
-              const newSelector = fixSelectors(node.raw);
-              return fixer.replaceText(node, newSelector);
-            }
-          });
-        },
+        [`CallExpression[callee.object.name = "By"][callee.property.name = "css"] > Literal:first-child[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`]: handleThemedSelectorQueriesInTests,
       };
     } else if (context.getFilename()?.endsWith('.cy.ts')) {
       return {
-        [`CallExpression[callee.object.name = "cy"][callee.property.name = "get"] > Literal:first-child[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`](node: any) {
-          context.report({
-            node,
-            messageId: 'mustUseThemedWrapper',
-            fix(fixer: any){
-              const newSelector = fixSelectors(node.raw);
-              return fixer.replaceText(node, newSelector);
-            }
-          });
-        },
+        [`CallExpression[callee.object.name = "cy"][callee.property.name = "get"] > Literal:first-child[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`]: handleThemedSelectorQueriesInTests,
       };
     } else if (
       context.getFilename()?.match(/(?!routing).module.ts$/)

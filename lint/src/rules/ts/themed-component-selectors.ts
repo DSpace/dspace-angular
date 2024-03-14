@@ -6,6 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { ESLintUtils } from '@typescript-eslint/utils';
+
 import { getComponentSelectorNode } from '../../util/angular';
 import { stringLiteral } from '../../util/misc';
 import {
@@ -23,7 +24,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       wrongSelectorUnthemedComponent: 'Unthemed version of themeable components should have a selector starting with \'ds-base-\'',
       wrongSelectorThemedComponentWrapper: 'Themed component wrapper of themeable components shouldn\'t have a selector starting with \'ds-themed-\'',
       wrongSelectorThemedComponentOverride: 'Theme override of themeable component should have a selector starting with \'ds-themed-\'',
-    }
+    },
   },
   defaultOptions: [],
   create(context: any): any {
@@ -86,7 +87,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         } else if (isThemeableComponent(className)) {
           enforceBaseSelector(selectorNode);
         }
-      }
+      },
     };
-  }
+  },
 });

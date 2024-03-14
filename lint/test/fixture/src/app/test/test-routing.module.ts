@@ -10,5 +10,5 @@ import { ThemedTestThemeableComponent } from './themed-test-themeable.component'
 export const ROUTES = [
   {
     component: ThemedTestThemeableComponent,
-  }
+  },
 ];

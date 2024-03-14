@@ -7,12 +7,13 @@
  */
 // @ts-ignore
 import { NgModule } from '@angular/core';
+
 import { TestThemeableComponent } from './app/test/test-themeable.component';
 
 @NgModule({
   declarations: [
     TestThemeableComponent,
-  ]
+  ],
 })
 export class TestModule {
 

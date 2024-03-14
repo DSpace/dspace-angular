@@ -6,13 +6,13 @@
  * http://www.dspace.org/license/
  */
 
+import htmlRule from '../../src/rules/html/themed-component-usages';
+import tsRule from '../../src/rules/ts/themed-component-usages';
 import {
   fixture,
   htmlRuleTester,
   tsRuleTester,
 } from '../testing';
-import tsRule from '../../src/rules/ts/themed-component-usages';
-import htmlRule from '../../src/rules/html/themed-component-usages';
 
 describe('themed-component-usages (TypeScript)', () => {
   tsRuleTester.run('themed-component-usages', tsRule as any, {
@@ -90,7 +90,7 @@ const config = {
   a: ThemedTestThemeableComponent,
   b: TestComponent,
 }
-        `
+        `,
       },
       {
         filename: fixture('src/app/test/test.component.spec.ts'),
@@ -260,6 +260,6 @@ class Test {
 <ds-test-themeable [test]="something"></ds-test-themeable>
         `,
       },
-    ]
+    ],
   });
 });

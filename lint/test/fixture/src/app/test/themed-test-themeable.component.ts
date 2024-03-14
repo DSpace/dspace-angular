@@ -6,6 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../../../../../src/app/shared/theme-support/themed.component';
 import { TestThemeableComponent } from './test-themeable.component';
 

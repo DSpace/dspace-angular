@@ -9,6 +9,7 @@
 import { readFileSync } from 'fs';
 import { basename } from 'path';
 import ts from 'typescript';
+
 import {
   isClassDeclaration,
   isPartOfTypeExpression,
@@ -134,7 +135,7 @@ function resolveLocalPath(path: string, relativeTo: string) {
     const parts = relativeTo.split('/');
     return [
       ...parts.slice(0, parts.length - 1),
-      path.replace(/^.\//, '')
+      path.replace(/^.\//, ''),
     ].join('/') + '.ts';
   } else {
     throw new Error(`Unsupported local path: ${path}`);

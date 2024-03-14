@@ -7,8 +7,9 @@
  */
 // @ts-ignore
 import { NgModule } from '@angular/core';
-import { TestThemeableComponent } from './test-themeable.component';
+
 import { TestComponent } from './test.component';
+import { TestThemeableComponent } from './test-themeable.component';
 import { ThemedTestThemeableComponent } from './themed-test-themeable.component';
 
 @NgModule({
@@ -16,7 +17,7 @@ import { ThemedTestThemeableComponent } from './themed-test-themeable.component'
     TestComponent,
     TestThemeableComponent,
     ThemedTestThemeableComponent,
-  ]
+  ],
 })
 export class TestModule {
 

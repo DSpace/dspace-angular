@@ -7,11 +7,11 @@
  */
 
 
+import rule from '../../src/rules/ts/themed-component-selectors';
 import {
   fixture,
   tsRuleTester,
 } from '../testing';
-import rule from '../../src/rules/ts/themed-component-selectors';
 
 describe('themed-component-selectors', () => {
   tsRuleTester.run('themed-component-selectors', rule as any, {

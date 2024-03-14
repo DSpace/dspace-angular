@@ -6,6 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { Component } from '@angular/core';
+
 import { TestThemeableComponent as BaseComponent } from '../../../../app/test/test-themeable.component';
 
 @Component({

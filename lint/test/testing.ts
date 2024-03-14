@@ -6,8 +6,9 @@
  * http://www.dspace.org/license/
  */
 
-import { RuleTester } from 'eslint';
 import { RuleTester as TypeScriptRuleTester } from '@typescript-eslint/rule-tester';
+import { RuleTester } from 'eslint';
+
 import { themeableComponents } from '../src/util/theme-support';
 
 const FIXTURE = 'lint/test/fixture/';
@@ -29,7 +30,7 @@ export const tsRuleTester = new TypeScriptRuleTester({
   },
   parserOptions: {
     project: fixture('tsconfig.json'),
-  }
+  },
 });
 
 class HtmlRuleTester extends RuleTester {
