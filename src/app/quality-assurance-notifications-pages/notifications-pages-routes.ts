@@ -3,7 +3,6 @@ import { Route } from '@angular/router';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { QualityAssuranceBreadcrumbResolver } from '../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
-import { provideSuggestionNotifications } from '../notifications/provide-suggestion-notifications';
 import {
   NOTIFICATIONS_RECITER_SUGGESTION_PATH,
   QUALITY_ASSURANCE_EDIT_PATH,
@@ -18,17 +17,12 @@ import { QualityAssuranceSourcePageResolver } from './quality-assurance-source-p
 import { QualityAssuranceTopicsPageComponent } from './quality-assurance-topics-page/quality-assurance-topics-page.component';
 import { QualityAssuranceTopicsPageResolver } from './quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 
-const providers = [
-  provideSuggestionNotifications(),
-];
-
 export const ROUTES: Route[] = [
   {
     canActivate: [AuthenticatedGuard],
     path: `${NOTIFICATIONS_RECITER_SUGGESTION_PATH}`,
     component: NotificationsSuggestionTargetsPageComponent,
     pathMatch: 'full',
-    providers,
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
       reciterSuggestionTargetParams: AdminNotificationsPublicationClaimPageResolver,
@@ -44,7 +38,6 @@ export const ROUTES: Route[] = [
     path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId`,
     component: QualityAssuranceTopicsPageComponent,
     pathMatch: 'full',
-    providers,
     resolve: {
       breadcrumb: QualityAssuranceBreadcrumbResolver,
       openaireQualityAssuranceTopicsParams: QualityAssuranceTopicsPageResolver,
@@ -60,7 +53,6 @@ export const ROUTES: Route[] = [
     path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/target/:targetId`,
     component: QualityAssuranceTopicsPageComponent,
     pathMatch: 'full',
-    providers,
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
       openaireQualityAssuranceTopicsParams: QualityAssuranceTopicsPageResolver,
@@ -76,7 +68,6 @@ export const ROUTES: Route[] = [
     path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
     component: QualityAssuranceSourcePageComponent,
     pathMatch: 'full',
-    providers,
     resolve: {
       breadcrumb: I18nBreadcrumbResolver,
       openaireQualityAssuranceSourceParams: QualityAssuranceSourcePageResolver,
@@ -93,7 +84,6 @@ export const ROUTES: Route[] = [
     path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/:topicId`,
     component: QualityAssuranceEventsPageComponent,
     pathMatch: 'full',
-    providers,
     resolve: {
       breadcrumb: QualityAssuranceBreadcrumbResolver,
       openaireQualityAssuranceEventsParams: QualityAssuranceEventsPageResolver,

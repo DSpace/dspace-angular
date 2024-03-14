@@ -1,4 +1,5 @@
 import {
+  EnvironmentProviders,
   importProvidersFrom,
   makeEnvironmentProviders,
 } from '@angular/core';
@@ -16,7 +17,7 @@ import {
 } from './notifications.reducer';
 import { notificationsEffects } from './notifications-effects';
 
-export const provideSuggestionNotifications = () => {
+export const provideSuggestionNotificationsState = (): EnvironmentProviders => {
   return makeEnvironmentProviders([
     importProvidersFrom(
       StoreModule.forFeature('suggestionNotifications', suggestionNotificationsReducers, storeModuleConfig as StoreConfig<SuggestionNotificationsState, Action>),

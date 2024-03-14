@@ -1,4 +1,5 @@
 import {
+  EnvironmentProviders,
   importProvidersFrom,
   makeEnvironmentProviders,
 } from '@angular/core';
@@ -16,7 +17,7 @@ import {
   SubmissionState,
 } from './submission.reducers';
 
-export const provideSubmission = () => {
+export const provideSubmissionState = (): EnvironmentProviders => {
   return makeEnvironmentProviders([
     importProvidersFrom(
       StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
@@ -24,3 +25,4 @@ export const provideSubmission = () => {
     ),
   ]);
 };
+

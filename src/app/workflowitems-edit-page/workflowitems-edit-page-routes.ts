@@ -4,7 +4,6 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
-import { provideSubmission } from '../submission/provide-submission';
 import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
 import { ItemFromWorkflowResolver } from './item-from-workflow.resolver';
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
@@ -22,7 +21,6 @@ export const ROUTES: Routes = [
   {
     path: ':id',
     resolve: { wfi: WorkflowItemPageResolver },
-    providers: [provideSubmission()],
     children: [
       {
         canActivate: [AuthenticatedGuard],

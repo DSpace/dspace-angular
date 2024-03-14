@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
 
-import { provideSuggestionNotifications } from '../notifications/provide-suggestion-notifications';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { HomePageResolver } from './home-page.resolver';
@@ -10,9 +9,6 @@ export const ROUTES: Route[] = [
   {
     path: '',
     component: ThemedHomePageComponent,
-    providers: [
-      provideSuggestionNotifications(),
-    ],
     pathMatch: 'full',
     data: {
       title: 'home.title',

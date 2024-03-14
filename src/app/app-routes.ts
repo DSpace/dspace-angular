@@ -1,18 +1,10 @@
-import { importProvidersFrom } from '@angular/core';
 import {
   ExtraOptions,
   NoPreloading,
   Route,
 } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
-import {
-  Action,
-  StoreConfig,
-  StoreModule,
-} from '@ngrx/store';
 
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
-import { storeModuleConfig } from './app.reducer';
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
@@ -42,15 +34,12 @@ import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
+import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
-import { submissionEffects } from './submission/submission.effects';
-import {
-  submissionReducers,
-  SubmissionState,
-} from './submission/submission.reducers';
+import { provideSubmissionState } from './submission/provide-submission-state';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 
 export const APP_ROUTES: Route[] = [
@@ -74,6 +63,7 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./home-page/home-page-routes')
           .then((m) => m.ROUTES),
         data: { showBreadcrumbs: false },
+        providers: [provideSuggestionNotificationsState()],
         canActivate: [EndUserAgreementCurrentUserGuard],
       },
       {
@@ -146,6 +136,7 @@ export const APP_ROUTES: Route[] = [
         path: 'mydspace',
         loadChildren: () => import('./my-dspace-page/my-dspace-page-routes')
           .then((m) => m.ROUTES),
+        providers: [provideSuggestionNotificationsState()],
         canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
       },
       {
@@ -170,12 +161,14 @@ export const APP_ROUTES: Route[] = [
         path: NOTIFICATIONS_MODULE_PATH,
         loadChildren: () => import('./admin/admin-notifications/admin-notifications-routes')
           .then((m) => m.ROUTES),
+        providers: [provideSuggestionNotificationsState()],
         canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
       },
       {
         path: NOTIFICATIONS_MODULE_PATH,
         loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages-routes')
           .then((m) => m.ROUTES),
+        providers: [provideSuggestionNotificationsState()],
         canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
       },
       {
@@ -192,11 +185,7 @@ export const APP_ROUTES: Route[] = [
         path: 'submit',
         loadChildren: () => import('./submit-page/submit-page-routes')
           .then((m) => m.ROUTES),
-        providers: [
-          importProvidersFrom(
-            StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-            EffectsModule.forFeature(submissionEffects),
-          )],
+        providers: [provideSubmissionState()],
         canActivate: [EndUserAgreementCurrentUserGuard],
       },
       {
@@ -209,20 +198,12 @@ export const APP_ROUTES: Route[] = [
         path: 'workspaceitems',
         loadChildren: () => import('./workspaceitems-edit-page/workspaceitems-edit-page-routes')
           .then((m) => m.ROUTES),
-        providers: [
-          importProvidersFrom(
-            StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-            EffectsModule.forFeature(submissionEffects),
-          )],
+        providers: [provideSubmissionState()],
         canActivate: [EndUserAgreementCurrentUserGuard],
       },
       {
         path: WORKFLOW_ITEM_MODULE_PATH,
-        providers: [
-          importProvidersFrom(
-            StoreModule.forFeature('submission', submissionReducers, storeModuleConfig as StoreConfig<SubmissionState, Action>),
-            EffectsModule.forFeature(submissionEffects),
-          )],
+        providers: [provideSubmissionState()],
         loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page-routes')
           .then((m) => m.ROUTES),
         canActivate: [EndUserAgreementCurrentUserGuard],
@@ -231,6 +212,7 @@ export const APP_ROUTES: Route[] = [
         path: PROFILE_MODULE_PATH,
         loadChildren: () => import('./profile-page/profile-page-routes')
           .then((m) => m.ROUTES),
+        providers: [provideSuggestionNotificationsState()],
         canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
       },
       {
@@ -243,6 +225,7 @@ export const APP_ROUTES: Route[] = [
         path: SUGGESTION_MODULE_PATH,
         loadChildren: () => import('./suggestions-page/suggestions-page-routes')
           .then((m) => m.ROUTES),
+        providers: [provideSuggestionNotificationsState()],
         canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
       },
       {
