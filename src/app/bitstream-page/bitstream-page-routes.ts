@@ -2,7 +2,6 @@ import { Route } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { BitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-breadcrumb.resolver';
-import { BitstreamBreadcrumbsService } from '../core/breadcrumbs/bitstream-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
@@ -20,18 +19,11 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
 /**
  * Routing module to help navigate Bitstream pages
  */
-
-const providers = [
-  BitstreamBreadcrumbResolver,
-  BitstreamBreadcrumbsService,
-];
-
 export const ROUTES: Route[] = [
   {
     // Resolve XMLUI bitstream download URLs
     path: 'handle/:prefix/:suffix/:filename',
     component: BitstreamDownloadPageComponent,
-    providers,
     resolve: {
       bitstream: LegacyBitstreamUrlResolver,
     },
@@ -40,7 +32,6 @@ export const ROUTES: Route[] = [
     // Resolve JSPUI bitstream download URLs
     path: ':prefix/:suffix/:sequence_id/:filename',
     component: BitstreamDownloadPageComponent,
-    providers,
     resolve: {
       bitstream: LegacyBitstreamUrlResolver,
     },
@@ -49,7 +40,6 @@ export const ROUTES: Route[] = [
     // Resolve angular bitstream download URLs
     path: ':id/download',
     component: BitstreamDownloadPageComponent,
-    providers,
     resolve: {
       bitstream: BitstreamPageResolver,
     },
@@ -57,7 +47,6 @@ export const ROUTES: Route[] = [
   {
     path: EDIT_BITSTREAM_PATH,
     component: ThemedEditBitstreamPageComponent,
-    providers,
     resolve: {
       bitstream: BitstreamPageResolver,
       breadcrumb: BitstreamBreadcrumbResolver,
@@ -66,7 +55,6 @@ export const ROUTES: Route[] = [
   },
   {
     path: EDIT_BITSTREAM_AUTHORIZATIONS_PATH,
-    providers,
     children: [
       {
         path: 'create',

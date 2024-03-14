@@ -5,9 +5,7 @@ import {
 
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
 import { QualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
-import { QualityAssuranceBreadcrumbService } from '../../core/breadcrumbs/quality-assurance-breadcrumb.service';
 import { provideSuggestionNotifications } from '../../notifications/provide-suggestion-notifications';
 import { AdminNotificationsPublicationClaimPageResolver } from '../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
 import { QualityAssuranceEventsPageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.component';
@@ -24,12 +22,6 @@ import {
 } from './admin-notifications-routing-paths';
 
 const providers = [
-  I18nBreadcrumbResolver,
-  I18nBreadcrumbsService,
-  QualityAssuranceTopicsPageResolver,
-  QualityAssuranceSourcePageResolver,
-  QualityAssuranceBreadcrumbResolver,
-  QualityAssuranceBreadcrumbService,
   provideSuggestionNotifications(),
 ];
 

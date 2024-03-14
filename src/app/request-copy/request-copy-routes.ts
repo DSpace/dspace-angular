@@ -12,9 +12,6 @@ import {
 export const ROUTES: Route[] = [
   {
     path: ':token',
-    providers: [
-      GrantDenyRequestCopyComponent,
-    ],
     resolve: {
       request: RequestCopyResolver,
     },

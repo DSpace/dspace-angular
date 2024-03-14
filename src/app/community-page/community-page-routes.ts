@@ -4,9 +4,7 @@ import { BrowseByGuard } from '../browse-by/browse-by-guard';
 import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
-import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { LinkService } from '../core/cache/builders/link.service';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
@@ -29,13 +27,6 @@ export const ROUTES: Route[] = [
     path: COMMUNITY_CREATE_PATH,
     component: CreateCommunityPageComponent,
     canActivate: [AuthenticatedGuard, CreateCommunityPageGuard],
-    providers: [
-      CommunityBreadcrumbResolver,
-      DSOBreadcrumbsService,
-      LinkService,
-      CreateCommunityPageGuard,
-      CommunityPageAdministratorGuard,
-    ],
   },
   {
     path: ':id',
@@ -44,13 +35,6 @@ export const ROUTES: Route[] = [
       breadcrumb: CommunityBreadcrumbResolver,
       menu: DSOEditMenuResolver,
     },
-    providers: [
-      CommunityBreadcrumbResolver,
-      DSOBreadcrumbsService,
-      LinkService,
-      CreateCommunityPageGuard,
-      CommunityPageAdministratorGuard,
-    ],
     runGuardsAndResolvers: 'always',
     children: [
       {

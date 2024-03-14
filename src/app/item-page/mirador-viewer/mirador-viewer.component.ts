@@ -40,7 +40,6 @@ import { MiradorViewerService } from './mirador-viewer.service';
   styleUrls: ['./mirador-viewer.component.scss'],
   templateUrl: './mirador-viewer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [MiradorViewerService],
   imports: [
     TranslateModule,
     AsyncPipe,

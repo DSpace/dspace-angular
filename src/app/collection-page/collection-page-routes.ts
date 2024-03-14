@@ -4,10 +4,7 @@ import { BrowseByGuard } from '../browse-by/browse-by-guard';
 import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { CollectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
-import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { LinkService } from '../core/cache/builders/link.service';
-import { SearchService } from '../core/shared/search/search.service';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
@@ -33,14 +30,6 @@ export const ROUTES: Route[] = [
     path: COLLECTION_CREATE_PATH,
     component: CreateCollectionPageComponent,
     canActivate: [AuthenticatedGuard, CreateCollectionPageGuard],
-    providers: [
-      CollectionBreadcrumbResolver,
-      DSOBreadcrumbsService,
-      LinkService,
-      CreateCollectionPageGuard,
-      CollectionPageAdministratorGuard,
-      SearchService,
-    ],
   },
   {
     path: ':id',
@@ -49,14 +38,6 @@ export const ROUTES: Route[] = [
       breadcrumb: CollectionBreadcrumbResolver,
       menu: DSOEditMenuResolver,
     },
-    providers: [
-      CollectionBreadcrumbResolver,
-      DSOBreadcrumbsService,
-      LinkService,
-      CreateCollectionPageGuard,
-      CollectionPageAdministratorGuard,
-      SearchService,
-    ],
     runGuardsAndResolvers: 'always',
     children: [
       {

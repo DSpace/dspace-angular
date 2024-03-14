@@ -10,9 +10,6 @@ import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnot
 export const ROUTES: Route[] = [
   {
     matcher: urlMatcher,
-    providers: [
-      LookupGuard,
-    ],
     canActivate: [LookupGuard],
     component: ThemedObjectNotFoundComponent,
   },

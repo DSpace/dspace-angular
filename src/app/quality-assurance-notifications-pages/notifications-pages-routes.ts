@@ -2,9 +2,7 @@ import { Route } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { QualityAssuranceBreadcrumbResolver } from '../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
-import { QualityAssuranceBreadcrumbService } from '../core/breadcrumbs/quality-assurance-breadcrumb.service';
 import { provideSuggestionNotifications } from '../notifications/provide-suggestion-notifications';
 import {
   NOTIFICATIONS_RECITER_SUGGESTION_PATH,
@@ -21,14 +19,6 @@ import { QualityAssuranceTopicsPageComponent } from './quality-assurance-topics-
 import { QualityAssuranceTopicsPageResolver } from './quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 
 const providers = [
-  I18nBreadcrumbResolver,
-  I18nBreadcrumbsService,
-  AdminNotificationsPublicationClaimPageResolver,
-  QualityAssuranceSourcePageResolver,
-  QualityAssuranceTopicsPageResolver,
-  QualityAssuranceSourcePageResolver,
-  QualityAssuranceBreadcrumbResolver,
-  QualityAssuranceBreadcrumbService,
   provideSuggestionNotifications(),
 ];
 
