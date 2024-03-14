@@ -21,9 +21,9 @@ describe('AdminNotifyMetricsComponent', () => {
 
 
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), AdminNotifyMetricsComponent],
-    providers: [{ provide: Router, useValue: router }]
-})
+      imports: [TranslateModule.forRoot(), AdminNotifyMetricsComponent],
+      providers: [{ provide: Router, useValue: router }],
+    })
       .compileComponents();
 
 

@@ -66,7 +66,7 @@ describe('JournalIssueGridElementComponent', () => {
     }).overrideComponent(JournalIssueGridElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
-        providers: [JournalIssueSearchResultGridElementComponent],
+        imports: [JournalIssueSearchResultGridElementComponent],
       },
     }).compileComponents();
   }));
