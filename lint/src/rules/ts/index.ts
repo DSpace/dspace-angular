@@ -1,9 +1,15 @@
-import themedComponentSelectors from './themed-component-selectors';
-import themedComponentUsages from './themed-component-usages';
+import {
+  bundle,
+  RuleExports,
+} from '../../util/structure';
+import * as themedComponentUsages from './themed-component-usages';
+import * as themedComponentSelectors from './themed-component-selectors';
+
+const index = [
+  themedComponentUsages,
+  themedComponentSelectors,
+] as unknown as RuleExports[];
 
 export = {
-  rules: {
-    'themed-component-selectors': themedComponentSelectors,
-    'themed-component-usages': themedComponentUsages,
-  },
+  ...bundle('dspace-angular-ts', 'TypeScript',  index),
 };

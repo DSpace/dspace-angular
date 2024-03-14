@@ -8,19 +8,18 @@
 
 import { RuleTester as TypeScriptRuleTester } from '@typescript-eslint/rule-tester';
 import { RuleTester } from 'eslint';
+import {
+  FIXTURE,
+  fixture,
+} from './fixture';
 
 import { themeableComponents } from '../src/util/theme-support';
 
-const FIXTURE = 'lint/test/fixture/';
 
 // Register themed components from test fixture
 themeableComponents.initialize(FIXTURE);
 
 TypeScriptRuleTester.itOnly = fit;
-
-export function fixture(path: string): string {
-  return FIXTURE + path;
-}
 
 export const tsRuleTester = new TypeScriptRuleTester({
   parser: '@typescript-eslint/parser',

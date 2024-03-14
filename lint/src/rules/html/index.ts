@@ -6,11 +6,17 @@
  * http://www.dspace.org/license/
  */
 
-import themedComponentUsages from './themed-component-usages';
+import {
+  bundle,
+  RuleExports,
+} from '../../util/structure';
+import * as themedComponentUsages from './themed-component-usages';
+
+const index = [
+  themedComponentUsages,
+] as unknown as RuleExports[];
 
 export = {
-  rules: {
-    'themed-component-usages': themedComponentUsages,
-  },
   parser: require('@angular-eslint/template-parser'),
+  ...bundle('dspace-angular-html', 'HTML', index),
 };

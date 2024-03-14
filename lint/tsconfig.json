@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "target": "ES2021",
+    "lib": [
+      "es2021"
+    ],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "noImplicitReturns": true,
@@ -7,14 +11,14 @@
     "strict": true,
     "outDir": "./dist",
     "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
     "types": [
       "jasmine",
       "node"
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
+    "**/*.ts",
   ],
   "exclude": [
     "dist",

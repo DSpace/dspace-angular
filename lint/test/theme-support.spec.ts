@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 
-import { themeableComponents } from '../../src/util/theme-support';
+import { themeableComponents } from '../src/util/theme-support';
 
 describe('theme-support', () => {
   describe('themeable component registry', () => {

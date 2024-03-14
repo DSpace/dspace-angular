@@ -1,12 +1,19 @@
-# ESLint plugins
+# DSpace ESLint plugins
 
 Custom ESLint rules for DSpace Angular peculiarities.
 
-## Overview
+## Documentation
 
-- Different file types must be handled by separate plugins. We support:
-  - [TypeScript](./src/ts)
-  - [HTML](./src/html)
+The rules are split up into plugins by language:
+- [TypeScript rules](./docs/ts/index.md)
+- [HTML rules](./docs/html/index.md)
+
+> Run `yarn docs:lint` to generate this documentation!
+
+## Developing
+
+### Overview
+
 - All rules are written in TypeScript and compiled into [`dist`](./dist)
   - The plugins are linked into the main project dependencies from here
   - These directories already contain the necessary `package.json` files to mark them as ESLint plugins
@@ -16,7 +23,7 @@ Custom ESLint rules for DSpace Angular peculiarities.
   - [Custom rules in typescript-eslint](https://typescript-eslint.io/developers/custom-rules)
   - [Angular ESLint](https://github.com/angular-eslint/angular-eslint)
 
-## Parsing project metadata in advance ~ TypeScript AST
+### Parsing project metadata in advance ~ TypeScript AST
 
 While it is possible to retain persistent state between files during the linting process, it becomes quite complicated if the content of one file determines how we want to lint another file.
 Because the two files may be linted out of order, we may not know whether the first file is wrong before we pass by the second. This means that we cannot report or fix the issue, because the first file is already detached from the linting context.

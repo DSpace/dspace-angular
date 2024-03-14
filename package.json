@@ -26,6 +26,7 @@
     "lint": "yarn build:lint && yarn lint:nobuild",
     "lint:nobuild": "ng lint",
     "lint-fix": "yarn build:lint && ng lint --fix=true",
+    "docs:lint": "ts-node --project ./lint/tsconfig.json ./lint/generate-docs.ts",
     "e2e": "cross-env NODE_ENV=production ng e2e",
     "clean:dev:config": "rimraf src/assets/config.json",
     "clean:coverage": "rimraf coverage",
