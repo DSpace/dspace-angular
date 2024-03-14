@@ -9,6 +9,10 @@ import {
 } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {
+  provideRouter,
+  withRouterConfig,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
@@ -43,7 +47,10 @@ import {
   AppState,
   storeModuleConfig,
 } from './app.reducer';
-import { AppRoutingModule } from './app-routing.module';
+import {
+  APP_ROUTES,
+  APP_ROUTING_CONF,
+} from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { LocaleInterceptor } from './core/locale/locale.interceptor';
@@ -83,7 +90,6 @@ export function getMetaReducers(appConfig: AppConfig): MetaReducer<AppState>[] {
 const IMPORTS = [
   CommonModule,
   HttpClientModule,
-  AppRoutingModule,
   ScrollToModule.forRoot(),
   NgbModule,
   TranslateModule.forRoot(),
@@ -97,6 +103,7 @@ const IMPORTS = [
 ];
 
 const PROVIDERS = [
+  provideRouter(APP_ROUTES, withRouterConfig(APP_ROUTING_CONF)),
   {
     provide: APP_BASE_HREF,
     useFactory: getBaseHref,
