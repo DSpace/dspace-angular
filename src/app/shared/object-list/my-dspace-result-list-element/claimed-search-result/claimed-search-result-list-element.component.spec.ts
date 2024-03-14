@@ -32,6 +32,7 @@ import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import {
@@ -44,10 +45,8 @@ import { createPaginatedList } from '../../../testing/utils.test';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
-import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
+import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;

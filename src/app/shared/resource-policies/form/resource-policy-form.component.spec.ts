@@ -20,6 +20,7 @@ import {
   Router,
 } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -67,7 +68,6 @@ import {
   ResourcePolicyEvent,
   ResourcePolicyFormComponent,
 } from './resource-policy-form.component';
-import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 
 export const mockResourcePolicyFormData = {
   name: [

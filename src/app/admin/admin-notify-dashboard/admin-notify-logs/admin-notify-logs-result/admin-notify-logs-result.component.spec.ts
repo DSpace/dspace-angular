@@ -9,17 +9,18 @@ import {
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../core/data/request.service';
 import { RouteService } from '../../../../core/services/route.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
+import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
+import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { AdminNotifyLogsResultComponent } from './admin-notify-logs-result.component';
-import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
-import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 
 describe('AdminNotifyLogsResultComponent', () => {
   let component: AdminNotifyLogsResultComponent;
@@ -39,6 +40,7 @@ describe('AdminNotifyLogsResultComponent', () => {
         { provide: HALEndpointService, useValue: halService },
         { provide: ObjectCacheService, useValue: objectCache },
         { provide: RequestService, useValue: requestService },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         provideMockStore({}),
       ],

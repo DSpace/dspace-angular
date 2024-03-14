@@ -28,6 +28,7 @@ import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import {
   createSuccessfulRemoteDataObject,
@@ -37,6 +38,7 @@ import { createPaginatedList } from '../../../testing/utils.test';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 import { PoolSearchResultListElementComponent } from './pool-search-result-list-element.component';
 
 let component: PoolSearchResultListElementComponent;
@@ -123,6 +125,9 @@ describe('PoolSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PoolSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ThemedItemListPreviewComponent, PoolTaskActionsComponent],
+      },
     }).compileComponents();
   }));
 

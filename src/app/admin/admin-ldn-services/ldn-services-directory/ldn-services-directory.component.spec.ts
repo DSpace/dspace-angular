@@ -9,6 +9,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -22,6 +23,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
@@ -30,8 +32,6 @@ import { TruncatablePartComponent } from '../../../shared/truncatable/truncatabl
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 import { LdnServicesOverviewComponent } from './ldn-services-directory.component';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 
 describe('LdnServicesOverviewComponent', () => {
   let component: LdnServicesOverviewComponent;

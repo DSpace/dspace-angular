@@ -28,6 +28,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
@@ -126,11 +127,14 @@ describe('ProfilePageComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ProfilePageComponent, {
-        remove: { imports: [
-          ProfilePageMetadataFormComponent,
-          ProfilePageSecurityFormComponent,
-          ProfilePageResearcherFormComponent,
-        ] },
+        remove: {
+          imports: [
+            ProfilePageMetadataFormComponent,
+            ProfilePageSecurityFormComponent,
+            ProfilePageResearcherFormComponent,
+            SuggestionsNotificationComponent,
+          ],
+        },
       })
       .compileComponents();
   }));

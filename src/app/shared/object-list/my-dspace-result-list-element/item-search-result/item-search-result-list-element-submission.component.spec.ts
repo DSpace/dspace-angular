@@ -21,9 +21,11 @@ import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
 
 let component: ItemSearchResultListElementSubmissionComponent;
@@ -75,6 +77,9 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementSubmissionComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ThemedItemListPreviewComponent, ItemActionsComponent],
+      },
     }).compileComponents();
   }));
 

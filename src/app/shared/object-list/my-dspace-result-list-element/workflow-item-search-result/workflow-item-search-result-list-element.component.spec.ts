@@ -21,9 +21,12 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
@@ -92,6 +95,9 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(WorkflowItemSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ListableObjectComponentLoaderComponent, WorkflowitemActionsComponent, ThemedLoadingComponent],
+      },
     }).compileComponents();
   }));
 
