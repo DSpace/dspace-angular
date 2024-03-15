@@ -1,15 +1,39 @@
-import { AsyncPipe, NgClass, NgForOf, NgIf, } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Injector, OnInit, } from '@angular/core';
-import { ActivatedRoute, CanActivateFn, Route, Router, RouterLink, RouterOutlet, } from '@angular/router';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  CanActivateFn,
+  Route,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { RemoteData } from '../../core/data/remote-data';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
 import { getItemPageRoute } from '../item-page-routing-paths';
 
@@ -67,7 +91,7 @@ export class EditItemPageComponent implements OnInit {
           enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<{
     canActivate: CanActivateFn;
 }>) => {
-              const guard: {
+            const guard: {
     canActivate: CanActivateFn;
 } = this.injector.get<{
     canActivate: CanActivateFn;

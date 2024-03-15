@@ -10,7 +10,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, UrlTree ,
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  RouterModule,
+  RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
 import {
   TranslateLoader,

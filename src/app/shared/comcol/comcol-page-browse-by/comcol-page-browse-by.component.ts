@@ -11,7 +11,8 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
-  EventType, NavigationEnd,
+  EventType,
+  NavigationEnd,
   Router,
   RouterLink,
   RouterLinkActive,

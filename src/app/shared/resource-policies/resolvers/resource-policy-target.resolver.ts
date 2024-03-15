@@ -1,7 +1,9 @@
 import {
   Injectable,
-  Injector,} from '@angular/core';
-import { ActivatedRouteSnapshot,
+  Injector,
+} from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';

@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, NavigationStart, Router, RouterStateSnapshot, UrlTree, } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  NavigationStart,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map, take, } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { getPageInternalServerErrorRoute } from '../../app-routing-paths';
 import { RootDataService } from '../data/root-data.service';

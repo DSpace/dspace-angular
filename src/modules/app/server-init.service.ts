@@ -5,7 +5,10 @@
  *
  * http://www.dspace.org/license/
  */
-import { Inject, Injectable, } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { TransferState } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,7 +23,11 @@ import { InitService } from '../../app/init.service';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
-import { APP_CONFIG, APP_CONFIG_STATE, AppConfig, } from '../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { environment } from '../../environments/environment';
 
 /**

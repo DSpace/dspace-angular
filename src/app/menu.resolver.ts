@@ -1,8 +1,20 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, combineLatest as observableCombineLatest, Observable, } from 'rxjs';
-import { filter, find, map, take, } from 'rxjs/operators';
+import {
+  combineLatest,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  find,
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 import { BrowseService } from './core/browse/browse.service';
@@ -19,30 +31,14 @@ import { RemoteData } from './core/data/remote-data';
 import { BrowseDefinition } from './core/shared/browse-definition.model';
 import { ConfigurationProperty } from './core/shared/configuration-property.model';
 import { getFirstCompletedRemoteData } from './core/shared/operators';
-import {
-  ThemedCreateCollectionParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
-import {
-  ThemedCreateCommunityParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
-import {
-  ThemedCreateItemParentSelectorComponent
-} from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
-import {
-  ThemedEditCollectionSelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
-import {
-  ThemedEditCommunitySelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
-import {
-  ThemedEditItemSelectorComponent
-} from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
-import {
-  ExportBatchSelectorComponent
-} from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
-import {
-  ExportMetadataSelectorComponent
-} from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
+import { ThemedCreateCollectionParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
+import { ThemedCreateCommunityParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
+import { ThemedCreateItemParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import { ThemedEditCollectionSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-collection-selector/themed-edit-collection-selector.component';
+import { ThemedEditCommunitySelectorComponent } from './shared/dso-selector/modal-wrappers/edit-community-selector/themed-edit-community-selector.component';
+import { ThemedEditItemSelectorComponent } from './shared/dso-selector/modal-wrappers/edit-item-selector/themed-edit-item-selector.component';
+import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { hasValue } from './shared/empty.util';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/menu-id.model';

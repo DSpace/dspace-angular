@@ -5,27 +5,45 @@
  *
  * http://www.dspace.org/license/
  */
-import { select, Store } from '@ngrx/store';
-import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
-import { CorrelationIdService } from './correlation-id/correlation-id.service';
-import { APP_INITIALIZER, Inject, makeStateKey, Provider, TransferState, Type } from '@angular/core';
-import { APP_CONFIG, APP_DATA_SERVICES_MAP, AppConfig, } from '../config/app-config.interface';
+import {
+  APP_INITIALIZER,
+  Inject,
+  makeStateKey,
+  Provider,
+  TransferState,
+  Type,
+} from '@angular/core';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import isEqual from 'lodash/isEqual';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  find,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  AppConfig,
+} from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
+import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticationBlocking } from './core/auth/selectors';
 import { LAZY_DATA_SERVICES } from './core/data-services-map';
 import { LocaleService } from './core/locale/locale.service';
 import { MetadataService } from './core/metadata/metadata.service';
+import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
-import isEqual from 'lodash/isEqual';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, find, } from 'rxjs/operators';
 
 
 /**

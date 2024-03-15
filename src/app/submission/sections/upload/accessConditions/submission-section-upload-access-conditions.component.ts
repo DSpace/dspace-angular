@@ -1,5 +1,12 @@
-import { NgForOf, NgIf, } from '@angular/common';
-import { Component, Input, OnInit, } from '@angular/core';
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { find } from 'rxjs/operators';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';

@@ -1,9 +1,15 @@
 import { TransferState } from '@angular/platform-browser';
 import { TranslateLoader } from '@ngx-translate/core';
 import { readFileSync } from 'fs';
-import { Observable, of as observableOf, } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { NGX_TRANSLATE_STATE, NgxTranslateState, } from './ngx-translate-state';
+import {
+  NGX_TRANSLATE_STATE,
+  NgxTranslateState,
+} from './ngx-translate-state';
 
 /**
  * A TranslateLoader for ngx-translate to parse json5 files server-side, and store them in the

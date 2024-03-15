@@ -1,11 +1,19 @@
-import { ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot, } from '@angular/router';
-import { Observable, of as observableOf, } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { AuthorizationDataService } from '../authorization-data.service';
-import { RemoteData } from '../../remote-data';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { AuthService } from '../../../auth/auth.service';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { RemoteData } from '../../remote-data';
+import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { DsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
 

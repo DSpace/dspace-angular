@@ -1,6 +1,17 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';

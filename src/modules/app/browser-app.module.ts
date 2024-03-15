@@ -1,12 +1,30 @@
-import { HttpClient, HttpClientModule, } from '@angular/common/http';
-import { APP_ID, makeStateKey, NgModule, TransferState } from '@angular/core';
+import {
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
+import {
+  APP_ID,
+  makeStateKey,
+  NgModule,
+  TransferState,
+} from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
-import { Action, StoreConfig, StoreModule, } from '@ngrx/store';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { MissingTranslationHandler, TranslateLoader, TranslateModule, } from '@ngx-translate/core';
-import { Angulartics2GoogleTagManager, Angulartics2RouterlessModule, } from 'angulartics2';
-import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
+import {
+  MissingTranslationHandler,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Angulartics2GoogleTagManager,
+  Angulartics2RouterlessModule,
+} from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 import { AppModule } from '../../app/app.module';
@@ -33,6 +51,7 @@ import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { SubmissionService } from '../../app/submission/submission.service';
+import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
@@ -67,7 +86,7 @@ export function getRequest(transferState: TransferState): any {
   ],
   providers: [
     ...BrowserInitService.providers(),
-    {provide: APP_ID, useValue: 'dspace-angular'},
+    { provide: APP_ID, useValue: 'dspace-angular' },
     {
       provide: REQUEST,
       useFactory: getRequest,

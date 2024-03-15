@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { PublicationClaimBreadcrumbService } from './publication-claim-breadcrumb.service';

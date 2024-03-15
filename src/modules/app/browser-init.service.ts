@@ -8,8 +8,8 @@
 import {
   Inject,
   Injectable,
+  TransferState,
 } from '@angular/core';
-import { TransferState } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {

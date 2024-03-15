@@ -1,4 +1,5 @@
-import { ActivatedRouteSnapshot,
+import {
+  ActivatedRouteSnapshot,
   Router,
   RouterStateSnapshot,
   UrlTree,

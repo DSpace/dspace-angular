@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { combineLatest, Observable, of as observableOf, } from 'rxjs';
-import { map, switchMap, } from 'rxjs/operators';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { getDSORoute } from '../../app-routing-paths';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -13,10 +23,17 @@ import { ResearcherProfileDataService } from '../../core/profile/researcher-prof
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getRemoteDataPayload, } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasNoValue, hasValue, isNotEmpty, } from '../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 import { MenuService } from '../menu/menu.service';
 import { MenuID } from '../menu/menu-id.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';

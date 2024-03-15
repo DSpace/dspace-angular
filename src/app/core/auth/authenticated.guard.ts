@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree ,
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
 import {
   select,

@@ -1,13 +1,21 @@
-import { ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot, } from '@angular/router';
-import { RemoteData } from '../../remote-data';
-import { AuthorizationDataService } from '../authorization-data.service';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasNoValue, hasValue, } from '../../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../../shared/empty.util';
 import { AuthService } from '../../../auth/auth.service';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
+import { RemoteData } from '../../remote-data';
+import { AuthorizationDataService } from '../authorization-data.service';
 import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guard';
 
 /**

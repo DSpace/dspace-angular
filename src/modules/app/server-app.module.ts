@@ -1,13 +1,30 @@
 import { XhrFactory } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { APP_ID, NgModule, TransferState } from '@angular/core';
+import {
+  APP_ID,
+  NgModule,
+  TransferState,
+} from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ServerModule, ServerTransferStateModule, } from '@angular/platform-server';
+import {
+  ServerModule,
+  ServerTransferStateModule,
+} from '@angular/platform-server';
 import { EffectsModule } from '@ngrx/effects';
-import { Action, StoreConfig, StoreModule, } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
-
-import { Angulartics2, Angulartics2GoogleAnalytics, Angulartics2GoogleGlobalSiteTag, } from 'angulartics2';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Angulartics2,
+  Angulartics2GoogleAnalytics,
+  Angulartics2GoogleGlobalSiteTag,
+} from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 import { AppModule } from '../../app/app.module';
@@ -60,7 +77,7 @@ export function createTranslateLoader(transferState: TransferState) {
   ],
   providers: [
     ...ServerInitService.providers(),
-    {provide: APP_ID, useValue: 'dspace-angular'},
+    { provide: APP_ID, useValue: 'dspace-angular' },
     {
       provide: Angulartics2,
       useClass: Angulartics2Mock,

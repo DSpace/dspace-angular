@@ -1,40 +1,73 @@
-import { APP_BASE_HREF, CommonModule, DOCUMENT, } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule, } from '@angular/common/http';
-import { APP_ID, NgModule } from '@angular/core';
-import { provideRouter, withRouterConfig, } from '@angular/router';
-
+import {
+  APP_BASE_HREF,
+  CommonModule,
+  DOCUMENT,
+} from '@angular/common';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+} from '@angular/common/http';
+import {
+  APP_ID,
+  NgModule,
+} from '@angular/core';
+import {
+  provideRouter,
+  withRouterConfig,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
-import { RouterStateSerializer, StoreRouterConnectingModule, } from '@ngrx/router-store';
-import { MetaReducer, StoreModule, USER_PROVIDED_META_REDUCERS, } from '@ngrx/store';
+import {
+  RouterStateSerializer,
+  StoreRouterConnectingModule,
+} from '@ngrx/router-store';
+import {
+  MetaReducer,
+  StoreModule,
+  USER_PROVIDED_META_REDUCERS,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { NgxMaskModule } from 'ngx-mask';
 
-import { APP_CONFIG, AppConfig, } from '../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../config/app-config.interface';
 import { StoreDevModules } from '../config/store/devtools';
 import { environment } from '../environments/environment';
 import { EagerThemesModule } from '../themes/eager-themes.module';
 import { AppComponent } from './app.component';
 import { appEffects } from './app.effects';
-import { appMetaReducers, debugMetaReducers, } from './app.metareducers';
-import { appReducers, AppState, storeModuleConfig, } from './app.reducer';
-import { APP_ROUTES, APP_ROUTING_CONF, } from './app-routes';
+import {
+  appMetaReducers,
+  debugMetaReducers,
+} from './app.metareducers';
+import {
+  appReducers,
+  AppState,
+  storeModuleConfig,
+} from './app.reducer';
+import {
+  APP_ROUTES,
+  APP_ROUTING_CONF,
+} from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { LocaleInterceptor } from './core/locale/locale.interceptor';
 import { LogInterceptor } from './core/log/log.interceptor';
-import { models, provideCore, } from './core/provide-core';
+import {
+  models,
+  provideCore,
+} from './core/provide-core';
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { ListableModule } from './core/shared/listable.module';
 import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
 import { RootModule } from './root.module';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
-import {
-  METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP
-} from './shared/metadata-representation/metadata-representation.decorator';
+import { METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP } from './shared/metadata-representation/metadata-representation.decorator';
 import {
   ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP,
   WORKFLOW_TASK_OPTION_DECORATOR_MAP,
@@ -128,7 +161,7 @@ const PROVIDERS = [
   ],
   providers: [
     ...PROVIDERS,
-    {provide: APP_ID, useValue: 'dspace-angular'},
+    { provide: APP_ID, useValue: 'dspace-angular' },
     provideCore(),
   ],
   bootstrap: [AppComponent],

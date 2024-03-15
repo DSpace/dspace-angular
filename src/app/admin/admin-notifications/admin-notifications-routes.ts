@@ -3,34 +3,19 @@ import { Route } from '@angular/router';
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { QualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
+import { AdminNotificationsPublicationClaimPageResolver } from '../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
+import { QualityAssuranceEventsPageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.component';
+import { QualityAssuranceEventsPageResolver } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.resolver';
+import { SourceDataResolver } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-data.resolver';
+import { QualityAssuranceSourcePageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page.component';
+import { QualityAssuranceSourcePageResolver } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import { QualityAssuranceTopicsPageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page.component';
+import { QualityAssuranceTopicsPageResolver } from '../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
 import {
-  AdminNotificationsPublicationClaimPageResolver
-} from '../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
-import {
-  QualityAssuranceEventsPageComponent
-} from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.component';
-import {
-  QualityAssuranceEventsPageResolver
-} from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.resolver';
-import {
-  SourceDataResolver
-} from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-data.resolver';
-import {
-  QualityAssuranceSourcePageComponent
-} from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page.component';
-import {
-  QualityAssuranceSourcePageResolver
-} from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
-import {
-  QualityAssuranceTopicsPageComponent
-} from '../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page.component';
-import {
-  QualityAssuranceTopicsPageResolver
-} from '../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
-import {
-  AdminNotificationsPublicationClaimPageComponent
-} from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
-import { PUBLICATION_CLAIMS_PATH, QUALITY_ASSURANCE_EDIT_PATH, } from './admin-notifications-routing-paths';
+  PUBLICATION_CLAIMS_PATH,
+  QUALITY_ASSURANCE_EDIT_PATH,
+} from './admin-notifications-routing-paths';
 
 export const ROUTES: Route[] = [
   {

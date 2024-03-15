@@ -1,4 +1,5 @@
-import { ActivatedRouteSnapshot,
+import {
+  ActivatedRouteSnapshot,
   Router,
   RouterStateSnapshot,
   UrlTree,
@@ -7,6 +8,7 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
+
 import { environment } from '../../../environments/environment';
 import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/authorized.operators';
 

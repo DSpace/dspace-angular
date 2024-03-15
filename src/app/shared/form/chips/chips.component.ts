@@ -1,7 +1,26 @@
-import { AsyncPipe, NgClass, NgForOf, NgIf, } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-import { NgbTooltip, NgbTooltipModule, } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  NgbTooltip,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
 
