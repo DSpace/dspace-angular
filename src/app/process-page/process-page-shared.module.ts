@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { SharedModule } from '../shared/shared.module';
 import { NewProcessComponent } from './new/new-process.component';
 import { ScriptsSelectComponent } from './form/scripts-select/scripts-select.component';
@@ -20,6 +22,7 @@ import { ProcessFormComponent } from './form/process-form.component';
 @NgModule({
   imports: [
     SharedModule,
+    NgbDropdownModule,
   ],
   declarations: [
     NewProcessComponent,
