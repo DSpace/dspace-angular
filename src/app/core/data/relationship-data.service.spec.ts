@@ -23,6 +23,13 @@ import { FindListOptions } from './find-list-options.model';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { MetadataValue } from '../shared/metadata.models';
 import { MetadataRepresentationType } from '../shared/metadata-representation/metadata-representation.model';
+import { TestBed } from '@angular/core/testing';
+import { ItemDataService } from './item-data.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;
@@ -128,18 +135,6 @@ describe('RelationshipDataService', () => {
     findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
   });
 
-  function initTestService() {
-    return new RelationshipDataService(
-      requestService,
-      rdbService,
-      halService,
-      objectCache,
-      itemService,
-      null,
-      jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),
-    );
-  }
-
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, payload: relationships } as any
@@ -148,11 +143,25 @@ describe('RelationshipDataService', () => {
 
   beforeEach(() => {
     requestService = getMockRequestService(getRequestEntry$(true));
-    service = initTestService();
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: RequestService, useValue: requestService },
+        { provide: RemoteDataBuildService, useValue: rdbService },
+        { provide: HALEndpointService, useValue: halService },
+        { provide: ObjectCacheService, useValue: objectCache },
+        { provide: ItemDataService, useValue: itemService },
+        { provide: RequestService, useValue: requestService },
+        { provide: PAGINATED_RELATIONS_TO_ITEMS_OPERATOR, useValue: jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v) },
+        { provide: Store, useValue: provideMockStore() },
+        RelationshipDataService,
+      ],
+    });
+    service = TestBed.inject(RelationshipDataService);
   });
 
   describe('composition', () => {
-    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null);
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, null);
 
     testSearchDataImplementation(initService);
   });

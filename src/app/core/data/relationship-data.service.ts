@@ -51,6 +51,7 @@ import { MetadataRepresentation } from '../shared/metadata-representation/metada
 import { MetadatumRepresentation } from '../shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { MetadataService } from '../metadata/metadata.service';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -89,6 +90,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
+    protected metadataService: MetadataService,
     protected itemService: ItemDataService,
     protected appStore: Store<AppState>,
     @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
@@ -563,8 +565,8 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param itemType    The type of item this metadata value represents (will only be used when no related item can be found, as a fallback)
    */
   resolveMetadataRepresentation(metadatum: MetadataValue, parentItem: DSpaceObject, itemType: string): Observable<MetadataRepresentation> {
-    if (metadatum.isVirtual) {
-      return this.findById(metadatum.virtualValue, true, false, followLink('leftItem'), followLink('rightItem')).pipe(
+    if (this.metadataService.isVirtual(metadatum)) {
+      return this.findById(this.metadataService.virtualValue(metadatum), true, false, followLink('leftItem'), followLink('rightItem')).pipe(
         getFirstSucceededRemoteData(),
         switchMap((relRD: RemoteData<Relationship>) =>
           observableCombineLatest(relRD.payload.leftItem, relRD.payload.rightItem).pipe(

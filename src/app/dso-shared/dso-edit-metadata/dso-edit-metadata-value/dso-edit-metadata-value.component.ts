@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { EMPTY } from 'rxjs/internal/observable/empty';
+import { MetadataService } from '../../../core/metadata/metadata.service';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -97,8 +98,11 @@ export class DsoEditMetadataValueComponent implements OnInit {
    */
   mdRepresentationName$: Observable<string | null>;
 
-  constructor(protected relationshipService: RelationshipDataService,
-              protected dsoNameService: DSONameService) {
+  constructor(
+    protected relationshipService: RelationshipDataService,
+    protected dsoNameService: DSONameService,
+    protected metadataService: MetadataService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -109,7 +113,7 @@ export class DsoEditMetadataValueComponent implements OnInit {
    * Initialise potential properties of a virtual metadata value
    */
   initVirtualProperties(): void {
-    this.mdRepresentation$ = this.mdValue.newValue.isVirtual ?
+    this.mdRepresentation$ = this.metadataService.isVirtual(this.mdValue.newValue) ?
       this.relationshipService.resolveMetadataRepresentation(this.mdValue.newValue, this.dso, 'Item')
         .pipe(
           map((mdRepresentation: MetadataRepresentation) =>

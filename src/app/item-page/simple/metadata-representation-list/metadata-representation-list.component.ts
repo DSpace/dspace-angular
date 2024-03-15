@@ -15,6 +15,7 @@ import {
 } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
+import { MetadataService } from '../../../core/metadata/metadata.service';
 
 @Component({
   selector: 'ds-metadata-representation-list',
@@ -62,6 +63,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
   constructor(
     public relationshipService: RelationshipDataService,
     protected browseDefinitionDataService: BrowseDefinitionDataService,
+    protected metadataService: MetadataService,
   ) {
     super();
   }
@@ -87,7 +89,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
         .slice((this.objects.length * this.incrementBy), (this.objects.length * this.incrementBy) + this.incrementBy)
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
-          if (metadatum.isVirtual) {
+          if (this.metadataService.isVirtual(metadatum)) {
             return this.relationshipService.resolveMetadataRepresentation(metadatum, this.parentItem, this.itemType);
           } else {
             // Check for a configured browse link and return a standard metadata representation
