@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -11,6 +12,7 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
+import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 import { AdminNotifyMessage } from './models/admin-notify-message.model';
 import { AdminNotifySearchResult } from './models/admin-notify-message-search-result.model';
 
@@ -46,6 +48,11 @@ describe('AdminNotifyDashboardComponent', () => {
         { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(AdminNotifyDashboardComponent, {
+      remove: {
+        imports: [AdminNotifyMetricsComponent],
+      },
     })
       .compileComponents();
 
