@@ -16,7 +16,7 @@ import { Inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
-import { MetadataService } from '../../app/core/metadata/metadata.service';
+import { HeadTagService } from '../../app/core/metadata/head-tag.service';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { take } from 'rxjs/operators';
@@ -35,7 +35,7 @@ export class ServerInitService extends InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    protected metadata: MetadataService,
+    protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService
@@ -47,7 +47,7 @@ export class ServerInitService extends InitService {
       translate,
       localeService,
       angulartics2DSpace,
-      metadata,
+      headTagService,
       breadcrumbsService,
       themeService,
       menuService,

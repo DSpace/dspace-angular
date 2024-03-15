@@ -1,20 +1,12 @@
 import { map, startWith } from 'rxjs/operators';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-
-import { MetadataService } from '../core/metadata/metadata.service';
-import { HostWindowState } from '../shared/search/host-window.reducer';
-import { NativeWindowRef, NativeWindowService } from '../core/services/window.service';
-import { AuthService } from '../core/auth/auth.service';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemeConfig } from '../../config/theme.model';
-import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
 import { slideSidebarPadding } from '../shared/animations/slide';
 import { MenuID } from '../shared/menu/menu-id.model';
@@ -47,12 +39,6 @@ export class RootComponent implements OnInit {
   @Input() shouldShowRouteLoader: boolean;
 
   constructor(
-    @Inject(NativeWindowService) private _window: NativeWindowRef,
-    private translate: TranslateService,
-    private store: Store<HostWindowState>,
-    private metadata: MetadataService,
-    private angulartics2DSpace: Angulartics2DSpace,
-    private authService: AuthService,
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,

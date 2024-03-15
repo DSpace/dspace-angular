@@ -17,7 +17,7 @@ import isEqual from 'lodash/isEqual';
 import { TranslateService } from '@ngx-translate/core';
 import { LocaleService } from './core/locale/locale.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { MetadataService } from './core/metadata/metadata.service';
+import { HeadTagService } from './core/metadata/head-tag.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
@@ -49,7 +49,7 @@ export abstract class InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    protected metadata: MetadataService,
+    protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
@@ -178,13 +178,13 @@ export abstract class InitService {
 
   /**
    * Start route-listening subscriptions
-   * - {@link MetadataService.listenForRouteChange}
+   * - {@link HeadTagService.listenForRouteChange}
    * - {@link BreadcrumbsService.listenForRouteChanges}
    * - {@link ThemeService.listenForRouteChanges}
    * @protected
    */
   protected initRouteListeners(): void {
-    this.metadata.listenForRouteChange();
+    this.headTagService.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
     this.menuService.listenForRouteChanges();

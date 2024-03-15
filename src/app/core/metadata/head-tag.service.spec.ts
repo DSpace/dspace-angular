@@ -19,7 +19,7 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { MetadataValue } from '../shared/metadata.models';
 
-import { MetadataService } from './metadata.service';
+import { HeadTagService } from './head-tag.service';
 import { RootDataService } from '../data/root-data.service';
 import { Bundle } from '../shared/bundle.model';
 import { createPaginatedList } from '../../shared/testing/utils.test';
@@ -31,8 +31,8 @@ import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { AppConfig } from '../../../config/app-config.interface';
 
-describe('MetadataService', () => {
-  let metadataService: MetadataService;
+describe('HeadTagService', () => {
+  let headTagService: HeadTagService;
 
   let meta: Meta;
 
@@ -41,7 +41,6 @@ describe('MetadataService', () => {
   let dsoNameService: DSONameService;
 
   let bundleDataService;
-  let bitstreamDataService;
   let rootService: RootDataService;
   let translateService: TranslateService;
   let hardRedirectService: HardRedirectService;
@@ -58,9 +57,6 @@ describe('MetadataService', () => {
   beforeEach(() => {
     rootService = jasmine.createSpyObj({
       findRoot: createSuccessfulRemoteDataObject$({ dspaceVersion: 'mock-dspace-version' })
-    });
-    bitstreamDataService = jasmine.createSpyObj({
-      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([MockBitstream3])),
     });
     bundleDataService = jasmine.createSpyObj({
       findByItemAndName: mockBundleRD$([MockBitstream3])
@@ -102,15 +98,13 @@ describe('MetadataService', () => {
       }
     } as any;
 
-    metadataService = new MetadataService(
+    headTagService = new HeadTagService(
       router,
       translateService,
       meta,
       title,
       dsoNameService,
       bundleDataService,
-      bitstreamDataService,
-      undefined,
       rootService,
       store,
       hardRedirectService,
@@ -120,7 +114,7 @@ describe('MetadataService', () => {
   });
 
   it('items page should set meta tags', fakeAsync(() => {
-    (metadataService as any).processRouteChange({
+    (headTagService as any).processRouteChange({
       data: {
         value: {
           dso: createSuccessfulRemoteDataObject(ItemMock),
@@ -147,7 +141,7 @@ describe('MetadataService', () => {
   }));
 
   it('items page should set meta tags as published Thesis', fakeAsync(() => {
-    (metadataService as any).processRouteChange({
+    (headTagService as any).processRouteChange({
       data: {
         value: {
           dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Thesis'))),
@@ -166,7 +160,7 @@ describe('MetadataService', () => {
   }));
 
   it('items page should set meta tags as published Technical Report', fakeAsync(() => {
-    (metadataService as any).processRouteChange({
+    (headTagService as any).processRouteChange({
       data: {
         value: {
           dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Technical Report'))),
@@ -182,7 +176,7 @@ describe('MetadataService', () => {
 
   it('route titles should overwrite dso titles', fakeAsync(() => {
     (translateService.get as jasmine.Spy).and.returnValues(of('DSpace :: '), of('Translated Route Title'));
-    (metadataService as any).processRouteChange({
+    (headTagService as any).processRouteChange({
       data: {
         value: {
           dso: createSuccessfulRemoteDataObject(ItemMock),
@@ -198,7 +192,7 @@ describe('MetadataService', () => {
 
   it('other navigation should add title and description', fakeAsync(() => {
     (translateService.get as jasmine.Spy).and.returnValues(of('DSpace :: '), of('Dummy Title'), of('This is a dummy item component for testing!'));
-    (metadataService as any).processRouteChange({
+    (headTagService as any).processRouteChange({
       data: {
         value: {
           title: 'Dummy Title',
@@ -220,14 +214,14 @@ describe('MetadataService', () => {
 
   describe(`listenForRouteChange`, () => {
     it(`should call processRouteChange`, fakeAsync(() => {
-      spyOn(metadataService as any, 'processRouteChange').and.callFake(() => undefined);
-      metadataService.listenForRouteChange();
+      spyOn(headTagService as any, 'processRouteChange').and.callFake(() => undefined);
+      headTagService.listenForRouteChange();
       tick();
-      expect((metadataService as any).processRouteChange).toHaveBeenCalled();
+      expect((headTagService as any).processRouteChange).toHaveBeenCalled();
     }));
     it(`should add Generator`, fakeAsync(() => {
-      spyOn(metadataService as any, 'processRouteChange').and.callFake(() => undefined);
-      metadataService.listenForRouteChange();
+      spyOn(headTagService as any, 'processRouteChange').and.callFake(() => undefined);
+      headTagService.listenForRouteChange();
       tick();
       expect(meta.addTag).toHaveBeenCalledWith({
         name: 'Generator',
@@ -238,7 +232,7 @@ describe('MetadataService', () => {
 
   describe('citation_abstract_html_url', () => {
     it('should use dc.identifier.uri if available', fakeAsync(() => {
-      (metadataService as any).processRouteChange({
+      (headTagService as any).processRouteChange({
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockUri(ItemMock, 'https://ddg.gg')),
@@ -253,7 +247,7 @@ describe('MetadataService', () => {
     }));
 
     it('should use current route as fallback', fakeAsync(() => {
-      (metadataService as any).processRouteChange({
+      (headTagService as any).processRouteChange({
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockUri(ItemMock)),
@@ -270,7 +264,7 @@ describe('MetadataService', () => {
 
   describe('citation_*_institution / citation_publisher', () => {
     it('should use citation_dissertation_institution tag for dissertations', fakeAsync(() => {
-      (metadataService as any).processRouteChange({
+      (headTagService as any).processRouteChange({
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Thesis'))),
@@ -287,7 +281,7 @@ describe('MetadataService', () => {
     }));
 
     it('should use citation_tech_report_institution tag for tech reports', fakeAsync(() => {
-      (metadataService as any).processRouteChange({
+      (headTagService as any).processRouteChange({
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Technical Report'))),
@@ -304,7 +298,7 @@ describe('MetadataService', () => {
     }));
 
     it('should use citation_publisher for other item types', fakeAsync(() => {
-      (metadataService as any).processRouteChange({
+      (headTagService as any).processRouteChange({
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(mockPublisher(mockType(ItemMock, 'Some Other Type'))),
@@ -325,7 +319,7 @@ describe('MetadataService', () => {
     it('should link to primary Bitstream URL regardless of format', fakeAsync(() => {
       (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$([], MockBitstream3));
 
-      (metadataService as any).processRouteChange({
+      (headTagService as any).processRouteChange({
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(ItemMock),
@@ -344,7 +338,7 @@ describe('MetadataService', () => {
         (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$([MockBitstream3]));
         (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
 
-        (metadataService as any).processRouteChange({
+        (headTagService as any).processRouteChange({
           data: {
             value: {
               dso: createSuccessfulRemoteDataObject(ItemMock),
@@ -361,7 +355,7 @@ describe('MetadataService', () => {
       it('should link to first and only Bitstream regardless of format', fakeAsync(() => {
         (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$([MockBitstream3]));
 
-        (metadataService as any).processRouteChange({
+        (headTagService as any).processRouteChange({
           data: {
             value: {
               dso: createSuccessfulRemoteDataObject(ItemMock),
@@ -381,13 +375,10 @@ describe('MetadataService', () => {
         beforeEach(() => {
           bitstreams = [MockBitstream2, MockBitstream3, MockBitstream1];
           (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$(bitstreams));
-          (bitstreamDataService.findListByHref as jasmine.Spy).and.returnValues(
-            ...mockBitstreamPages$(bitstreams).map(bp => createSuccessfulRemoteDataObject$(bp)),
-          );
         });
 
         it('should link to first Bitstream with allowed format', fakeAsync(() => {
-          (metadataService as any).processRouteChange({
+          (headTagService as any).processRouteChange({
             data: {
               value: {
                 dso: createSuccessfulRemoteDataObject(ItemMock),
@@ -412,13 +403,10 @@ describe('MetadataService', () => {
     beforeEach(() => {
       bitstreams = [MockBitstream1, MockBitstream3, MockBitstream2];
       (bundleDataService.findByItemAndName as jasmine.Spy).and.returnValue(mockBundleRD$(bitstreams));
-      (bitstreamDataService.findListByHref as jasmine.Spy).and.returnValues(
-        ...mockBitstreamPages$(bitstreams).map(bp => createSuccessfulRemoteDataObject$(bp)),
-      );
     });
 
     it(`shouldn't add a citation_pdf_url meta tag`, fakeAsync(() => {
-      (metadataService as any).processRouteChange({
+      (headTagService as any).processRouteChange({
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(ItemMock),
@@ -437,7 +425,7 @@ describe('MetadataService', () => {
 
   describe('tagstore', () => {
     beforeEach(fakeAsync(() => {
-      (metadataService as any).processRouteChange({
+      (headTagService as any).processRouteChange({
         data: {
           value: {
             dso: createSuccessfulRemoteDataObject(ItemMock),

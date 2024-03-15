@@ -2,7 +2,7 @@ import { InitService } from './init.service';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { APP_INITIALIZER, Injectable } from '@angular/core';
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { MetadataService } from './core/metadata/metadata.service';
+import { HeadTagService } from './core/metadata/head-tag.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { CommonModule } from '@angular/common';
 import { Store, StoreModule } from '@ngrx/store';
@@ -31,6 +31,7 @@ import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 import { getTestScheduler } from 'jasmine-marbles';
+import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
 
 let spy: SpyObj<any>;
 
@@ -121,7 +122,7 @@ describe('InitService', () => {
     let correlationIdServiceSpy;
     let dspaceTransferStateSpy;
     let transferStateSpy;
-    let metadataServiceSpy;
+    let headTagService: HeadTagServiceMock;
     let breadcrumbsServiceSpy;
     let menuServiceSpy;
 
@@ -147,9 +148,7 @@ describe('InitService', () => {
       breadcrumbsServiceSpy = jasmine.createSpyObj('breadcrumbsServiceSpy', [
         'listenForRouteChanges',
       ]);
-      metadataServiceSpy = jasmine.createSpyObj('metadataService', [
-        'listenForRouteChange',
-      ]);
+      headTagService = new HeadTagServiceMock();
       menuServiceSpy = jasmine.createSpyObj('menuServiceSpy', [
         'listenForRouteChanges',
       ]);
@@ -173,7 +172,7 @@ describe('InitService', () => {
           { provide: APP_CONFIG, useValue: environment },
           { provide: LocaleService, useValue: getMockLocaleService() },
           { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
-          { provide: MetadataService, useValue: metadataServiceSpy },
+          { provide: HeadTagService, useValue: headTagService },
           { provide: BreadcrumbsService, useValue: breadcrumbsServiceSpy },
           { provide: AuthService, useValue: new AuthServiceMock() },
           { provide: Router, useValue: new RouterMock() },
@@ -189,9 +188,9 @@ describe('InitService', () => {
 
     describe('initRouteListeners', () => {
       it('should call listenForRouteChanges', inject([InitService], (service) => {
-        // @ts-ignore
+        spyOn(headTagService, 'listenForRouteChange');
         service.initRouteListeners();
-        expect(metadataServiceSpy.listenForRouteChange).toHaveBeenCalledTimes(1);
+        expect(headTagService.listenForRouteChange).toHaveBeenCalledTimes(1);
         expect(breadcrumbsServiceSpy.listenForRouteChanges).toHaveBeenCalledTimes(1);
         expect(breadcrumbsServiceSpy.listenForRouteChanges).toHaveBeenCalledTimes(1);
       }));

@@ -5,7 +5,7 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { FullItemPageComponent } from './full-item-page.component';
-import { MetadataService } from '../../core/metadata/metadata.service';
+import { HeadTagService } from '../../core/metadata/head-tag.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -116,7 +116,7 @@ describe('FullItemPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: metadataServiceStub },
+        { provide: HeadTagService, useValue: metadataServiceStub },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },

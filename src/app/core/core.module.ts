@@ -64,7 +64,7 @@ import { Group } from './eperson/models/group.model';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { MetadataField } from './metadata/metadata-field.model';
 import { MetadataSchema } from './metadata/metadata-schema.model';
-import { MetadataService } from './metadata/metadata.service';
+import { HeadTagService } from './metadata/head-tag.service';
 import { RegistryService } from './registry/registry.service';
 import { RoleService } from './roles/role.service';
 import { FeedbackDataService } from './feedback/feedback-data.service';
@@ -218,7 +218,7 @@ const PROVIDERS = [
   HALEndpointService,
   HostWindowService,
   ItemDataService,
-  MetadataService,
+  HeadTagService,
   ObjectCacheService,
   PaginationComponentOptions,
   ResourcePolicyDataService,

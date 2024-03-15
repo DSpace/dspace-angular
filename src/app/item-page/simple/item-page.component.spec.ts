@@ -6,7 +6,6 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular
 import { ItemPageComponent } from './item-page.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { MetadataService } from '../../core/metadata/metadata.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { Item } from '../../core/shared/item.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -63,12 +62,6 @@ describe('ItemPageComponent', () => {
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
 
-  const mockMetadataService = {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    processRemoteData: () => {
-    }
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) })
   });
@@ -105,7 +98,6 @@ describe('ItemPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },

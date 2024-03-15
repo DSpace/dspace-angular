@@ -17,8 +17,6 @@ import { filter, map, switchMap, take, mergeMap } from 'rxjs/operators';
 
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
 
 import { RemoteData } from '../data/remote-data';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -64,7 +62,7 @@ const tagsInUseSelector =
   );
 
 @Injectable()
-export class MetadataService {
+export class HeadTagService {
 
   private currentObject: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
 
@@ -84,19 +82,17 @@ export class MetadataService {
   ];
 
   constructor(
-    private router: Router,
-    private translate: TranslateService,
-    private meta: Meta,
-    private title: Title,
-    private dsoNameService: DSONameService,
-    private bundleDataService: BundleDataService,
-    private bitstreamDataService: BitstreamDataService,
-    private bitstreamFormatDataService: BitstreamFormatDataService,
-    private rootService: RootDataService,
-    private store: Store<CoreState>,
-    private hardRedirectService: HardRedirectService,
-    @Inject(APP_CONFIG) private appConfig: AppConfig,
-    private authorizationService: AuthorizationDataService
+    protected router: Router,
+    protected translate: TranslateService,
+    protected meta: Meta,
+    protected title: Title,
+    protected dsoNameService: DSONameService,
+    protected bundleDataService: BundleDataService,
+    protected rootService: RootDataService,
+    protected store: Store<CoreState>,
+    protected hardRedirectService: HardRedirectService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    protected authorizationService: AuthorizationDataService
   ) {
   }
 
@@ -115,7 +111,7 @@ export class MetadataService {
     });
   }
 
-  private processRouteChange(routeInfo: any): void {
+  protected processRouteChange(routeInfo: any): void {
     this.clearMetaTags();
 
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
@@ -138,14 +134,14 @@ export class MetadataService {
     }
   }
 
-  private getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
+  protected getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
     while (route.firstChild) {
       route = route.firstChild;
     }
     return route;
   }
 
-  private setDSOMetaTags(): void {
+  protected setDSOMetaTags(): void {
 
     this.setTitleTag();
     this.setDescriptionTag();
@@ -187,7 +183,7 @@ export class MetadataService {
   /**
    * Add <meta name="title" ... >  to the <head>
    */
-  private setTitleTag(): void {
+  protected setTitleTag(): void {
     const value = this.dsoNameService.getName(this.currentObject.getValue());
     this.addMetaTag('title', value);
     this.title.setTitle(value);
@@ -196,7 +192,7 @@ export class MetadataService {
   /**
    * Add <meta name="description" ... >  to the <head>
    */
-  private setDescriptionTag(): void {
+  protected setDescriptionTag(): void {
     // TODO: truncate abstract
     const value = this.getMetaTagValue('dc.description.abstract');
     this.addMetaTag('description', value);
@@ -205,7 +201,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_title" ... >  to the <head>
    */
-  private setCitationTitleTag(): void {
+  protected setCitationTitleTag(): void {
     const value = this.getMetaTagValue('dc.title');
     this.addMetaTag('citation_title', value);
   }
@@ -213,7 +209,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_author" ... >  to the <head>
    */
-  private setCitationAuthorTags(): void {
+  protected setCitationAuthorTags(): void {
     const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator']);
     this.addMetaTags('citation_author', values);
   }
@@ -221,7 +217,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_publication_date" ... >  to the <head>
    */
-  private setCitationPublicationDateTag(): void {
+  protected setCitationPublicationDateTag(): void {
     const value = this.getFirstMetaTagValue(['dc.date.copyright', 'dc.date.issued', 'dc.date.available', 'dc.date.accessioned']);
     this.addMetaTag('citation_publication_date', value);
   }
@@ -229,7 +225,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_issn" ... >  to the <head>
    */
-  private setCitationISSNTag(): void {
+  protected setCitationISSNTag(): void {
     const value = this.getMetaTagValue('dc.identifier.issn');
     this.addMetaTag('citation_issn', value);
   }
@@ -237,7 +233,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_isbn" ... >  to the <head>
    */
-  private setCitationISBNTag(): void {
+  protected setCitationISBNTag(): void {
     const value = this.getMetaTagValue('dc.identifier.isbn');
     this.addMetaTag('citation_isbn', value);
   }
@@ -245,7 +241,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_language" ... >  to the <head>
    */
-  private setCitationLanguageTag(): void {
+  protected setCitationLanguageTag(): void {
     const value = this.getFirstMetaTagValue(['dc.language', 'dc.language.iso']);
     this.addMetaTag('citation_language', value);
   }
@@ -253,7 +249,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_dissertation_name" ... >  to the <head>
    */
-  private setCitationDissertationNameTag(): void {
+  protected setCitationDissertationNameTag(): void {
     const value = this.getMetaTagValue('dc.title');
     this.addMetaTag('citation_dissertation_name', value);
   }
@@ -261,7 +257,7 @@ export class MetadataService {
   /**
    * Add dc.publisher to the <head>. The tag name depends on the item type.
    */
-  private setCitationPublisherTag(): void {
+  protected setCitationPublisherTag(): void {
     const value = this.getMetaTagValue('dc.publisher');
     if (this.isDissertation()) {
       this.addMetaTag('citation_dissertation_institution', value);
@@ -275,7 +271,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_keywords" ... >  to the <head>
    */
-  private setCitationKeywordsTag(): void {
+  protected setCitationKeywordsTag(): void {
     const value = this.getMetaTagValuesAndCombine('dc.subject');
     this.addMetaTag('citation_keywords', value);
   }
@@ -283,7 +279,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_abstract_html_url" ... >  to the <head>
    */
-  private setCitationAbstractUrlTag(): void {
+  protected setCitationAbstractUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
       let url = this.getMetaTagValue('dc.identifier.uri');
       if (hasNoValue(url)) {
@@ -296,7 +292,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_pdf_url" ... >  to the <head>
    */
-  private setCitationPdfUrlTag(): void {
+  protected setCitationPdfUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
 
@@ -389,7 +385,7 @@ export class MetadataService {
    * @param bitstreamRd
    * @private
    */
-  private getFirstAllowedFormatBitstreamLink(bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
+  protected getFirstAllowedFormatBitstreamLink(bitstreamRd: RemoteData<PaginatedList<Bitstream>>): Observable<string> {
     if (hasValue(bitstreamRd.payload) && isNotEmpty(bitstreamRd.payload.page)) {
       // Retrieve the formats of all bitstreams in the page sequentially
       return observableConcat(
@@ -422,13 +418,13 @@ export class MetadataService {
   /**
    * Add <meta name="Generator" ... >  to the <head> containing the current DSpace version
    */
-  private setGenerator(): void {
+  protected setGenerator(): void {
     this.rootService.findRoot().pipe(getFirstSucceededRemoteDataPayload()).subscribe((root) => {
       this.meta.addTag({ name: 'Generator', content: root.dspaceVersion });
     });
   }
 
-  private hasType(value: string): boolean {
+  protected hasType(value: string): boolean {
     return this.currentObject.value.hasMetadata('dc.type', { value: value, ignoreCase: true });
   }
 
@@ -438,7 +434,7 @@ export class MetadataService {
    * @returns {boolean}
    *      true if this._item has a dc.type equal to 'Thesis'
    */
-  private isDissertation(): boolean {
+  protected isDissertation(): boolean {
     return this.hasType('thesis');
   }
 
@@ -448,27 +444,27 @@ export class MetadataService {
    * @returns {boolean}
    *      true if this._item has a dc.type equal to 'Technical Report'
    */
-  private isTechReport(): boolean {
+  protected isTechReport(): boolean {
     return this.hasType('technical report');
   }
 
-  private getMetaTagValue(key: string): string {
+  protected getMetaTagValue(key: string): string {
     return this.currentObject.value.firstMetadataValue(key);
   }
 
-  private getFirstMetaTagValue(keys: string[]): string {
+  protected getFirstMetaTagValue(keys: string[]): string {
     return this.currentObject.value.firstMetadataValue(keys);
   }
 
-  private getMetaTagValuesAndCombine(key: string): string {
+  protected getMetaTagValuesAndCombine(key: string): string {
     return this.getMetaTagValues([key]).join('; ');
   }
 
-  private getMetaTagValues(keys: string[]): string[] {
+  protected getMetaTagValues(keys: string[]): string[] {
     return this.currentObject.value.allMetadataValues(keys);
   }
 
-  private addMetaTag(name: string, content: string): void {
+  protected addMetaTag(name: string, content: string): void {
     if (content) {
       const tag = { name, content } as MetaDefinition;
       this.meta.addTag(tag);
@@ -476,17 +472,17 @@ export class MetadataService {
     }
   }
 
-  private addMetaTags(name: string, content: string[]): void {
+  protected addMetaTags(name: string, content: string[]): void {
     for (const value of content) {
       this.addMetaTag(name, value);
     }
   }
 
-  private storeTag(key: string): void {
+  protected storeTag(key: string): void {
     this.store.dispatch(new AddMetaTagAction(key));
   }
 
-  public clearMetaTags() {
+  protected clearMetaTags(): void {
     this.store.pipe(
       select(tagsInUseSelector),
       take(1)

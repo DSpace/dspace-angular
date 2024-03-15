@@ -9,11 +9,11 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { HostWindowResizeAction } from './shared/host-window.actions';
-import { MetadataService } from './core/metadata/metadata.service';
+import { HeadTagService } from './core/metadata/head-tag.service';
 
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
 import { TranslateLoaderMock } from './shared/mocks/translate-loader.mock';
-import { MetadataServiceMock } from './shared/mocks/metadata-service.mock';
+import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
 import { AngularticsProviderMock } from './shared/mocks/angulartics-provider.service.mock';
 import { AuthServiceMock } from './shared/mocks/auth.service.mock';
 import { AuthService } from './core/auth/auth.service';
@@ -71,7 +71,7 @@ describe('App component', () => {
       declarations: [AppComponent], // declare the test component
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
-        { provide: MetadataService, useValue: new MetadataServiceMock() },
+        { provide: HeadTagService, useValue: new HeadTagServiceMock() },
         { provide: Angulartics2DSpace, useValue: new AngularticsProviderMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: Router, useValue: new RouterMock() },
