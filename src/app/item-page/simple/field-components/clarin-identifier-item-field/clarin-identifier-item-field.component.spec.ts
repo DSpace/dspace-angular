@@ -6,6 +6,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-dat
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Item } from '../../../../core/shared/item.model';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { DOI_METADATA_FIELD } from '../clarin-generic-item-field/clarin-generic-item-field.component';
 
 describe('ClarinIdentifierItemFieldComponent', () => {
   let component: ClarinIdentifierItemFieldComponent;
@@ -47,6 +48,7 @@ describe('ClarinIdentifierItemFieldComponent', () => {
     fixture = TestBed.createComponent(ClarinIdentifierItemFieldComponent);
     component = fixture.componentInstance;
     component.item = mockItem;
+    component.fields = [DOI_METADATA_FIELD];
     fixture.detectChanges();
   });
 

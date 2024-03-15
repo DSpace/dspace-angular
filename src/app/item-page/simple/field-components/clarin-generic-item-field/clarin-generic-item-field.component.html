@@ -1,4 +1,4 @@
-<div class="row clarin-item-page-field justify-content-start" *ngIf="hasMetadataValue()">
+<div class="row clarin-item-page-field justify-content-start" *ngIf="showMetadataValue | async">
   <div class="col-lg-3 col-2-5 d-flex">
     <div><i [class]="'fas ' + iconName + ' fa-xs'"></i></div>
     <div class="pl-1"><b>{{label | translate}}</b></div>
