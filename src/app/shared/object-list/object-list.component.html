@@ -19,7 +19,8 @@
       <div *ngIf="context === 'search'">
         <ds-clarin-item-box-view
           *ngFor="let object of objects?.payload?.page; let i = index; let last = last"
-          [object]="object">
+          [object]="object"
+          [isSearchResult]="true">
         </ds-clarin-item-box-view>
       </div>
       <div *ngIf="context !== 'search'">

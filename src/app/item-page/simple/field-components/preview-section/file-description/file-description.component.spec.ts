@@ -6,17 +6,16 @@ import { FileDescriptionComponent } from './file-description.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
 import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
-import { getMockTranslateService } from '../../../../../shared/mocks/translate.service.mock';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
+import { FileSizePipe } from '../../../../../shared/utils/file-size-pipe';
 
 describe('FileDescriptionComponent', () => {
   let component: FileDescriptionComponent;
   let fixture: ComponentFixture<FileDescriptionComponent>;
-  let translateService: TranslateService;
   let halService: HALEndpointService;
 
   beforeEach(async () => {
@@ -33,7 +32,6 @@ describe('FileDescriptionComponent', () => {
       getRootHref: 'root url',
     });
 
-    translateService = getMockTranslateService();
     await TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot({
           loader: {
@@ -41,7 +39,7 @@ describe('FileDescriptionComponent', () => {
             useClass: TranslateLoaderMock
           }
         }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
-      declarations: [FileDescriptionComponent],
+      declarations: [FileDescriptionComponent, FileSizePipe],
       providers: [
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: HALEndpointService, useValue: halService }
@@ -58,7 +56,7 @@ describe('FileDescriptionComponent', () => {
     fileInput.id = 123;
     fileInput.name = 'testFile';
     fileInput.description = 'test description';
-    fileInput.fileSize = '5MB';
+    fileInput.fileSize = 2048;
     fileInput.checksum = 'abc';
     fileInput.type = new ResourceType('item');
     fileInput.fileInfo = [];

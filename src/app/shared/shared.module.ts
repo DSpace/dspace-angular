@@ -294,6 +294,7 @@ import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-men
 import { HtmlContentService } from './html-content.service';
 import { ClarinSafeHtmlPipe } from './utils/clarin-safehtml.pipe';
 import { ReplacePipe } from './utils/replace.pipe';
+import { ClarinDateService } from './clarin-date.service';
 
 const MODULES = [
   CommonModule,
@@ -493,7 +494,8 @@ const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
   AbstractTrackableComponent,
-  HtmlContentService
+  HtmlContentService,
+  ClarinDateService
 ];
 
 const DIRECTIVES = [

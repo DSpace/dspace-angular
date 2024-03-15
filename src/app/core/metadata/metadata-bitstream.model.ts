@@ -49,7 +49,7 @@ export class MetadataBitstream extends ListableObject implements HALResource {
    * The fileSize of this bitstream
    */
   @autoserialize
-  fileSize: string;
+  fileSize: number;
 
   /**
    * The checksum of this bitstream

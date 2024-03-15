@@ -44,7 +44,7 @@ export class ClarinFilesSectionComponent implements OnInit {
   /**
    * total size of list of files uploaded by users to this item
    */
-  totalFileSizes: string;
+  totalFileSizes: number;
 
   /**
    * list of files uploaded by users to this item
@@ -96,30 +96,10 @@ export class ClarinFilesSectionComponent implements OnInit {
   }
 
   sumFileSizes() {
-    const sizeUnits = {
-      B: 1,
-      KB: 1000,
-      MB: 1000 * 1000,
-      GB: 1000 * 1000 * 1000,
-      TB: 1000 * 1000 * 1000 * 1000,
-    };
-
-    let totalBytes = this.listOfFiles.reduce((total, file) => {
-      const [valueStr, unit] = file.fileSize.split(' ');
-      const value = parseFloat(valueStr);
-      const bytes = value * sizeUnits[unit.toUpperCase()];
-      return total + bytes;
-    }, 0);
-
-    let finalUnit = 'B';
-    for (const unit of ['KB', 'MB', 'GB', 'TB']) {
-      if (totalBytes < 1000) {
-        break;
-      }
-      totalBytes /= 1000;
-      finalUnit = unit;
-    }
-
-    this.totalFileSizes = totalBytes.toFixed(2) + ' ' + finalUnit;
+    let totalBytes = 0;
+    this.listOfFiles.forEach((file) => {
+      totalBytes += file.fileSize;
+    });
+    this.totalFileSizes = totalBytes;
   }
 }

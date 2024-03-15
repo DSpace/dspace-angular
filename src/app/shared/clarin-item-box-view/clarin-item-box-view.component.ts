@@ -29,6 +29,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { FindListOptions } from '../../core/data/find-list-options.model';
+import { ClarinDateService } from '../clarin-date.service';
 
 /**
  * Show item on the Home/Search page in the customized box with Item's information.
@@ -47,6 +48,11 @@ export class ClarinItemBoxViewComponent implements OnInit {
    * Show information of this item.
    */
   @Input() object: Item|ListableObject = null;
+
+  /**
+   * This component is composed differently if it is used in the search result.
+   */
+  @Input() isSearchResult = false;
 
   item: Item = null;
 
@@ -86,7 +92,18 @@ export class ClarinItemBoxViewComponent implements OnInit {
    * How many files the Item has.
    */
   itemCountOfFiles: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
-
+  /**
+   * The publisher of current Item
+   */
+  itemPublisher: string;
+  /**
+   * Redirect the user after clicking on the Publisher link.
+   */
+  publisherRedirectLink: string;
+  /**
+   * Composed date of the Item.
+   */
+  itemDate: string;
   /**
    * Current License Label e.g. `PUB`
    */
@@ -109,7 +126,8 @@ export class ClarinItemBoxViewComponent implements OnInit {
               protected dsoNameService: DSONameService,
               protected configurationService: ConfigurationDataService,
               private clarinLicenseService: ClarinLicenseDataService,
-              private sanitizer: DomSanitizer) { }
+              private sanitizer: DomSanitizer,
+              private clarinDateService: ClarinDateService) { }
 
   async ngOnInit(): Promise<void> {
     if (this.object instanceof Item) {
@@ -121,10 +139,13 @@ export class ClarinItemBoxViewComponent implements OnInit {
     }
 
     // Load Items metadata
-    this.itemType = this.item?.metadata?.['dc.type']?.[0]?.value;
-    this.itemName = this.item?.metadata?.['dc.title']?.[0]?.value;
+    this.itemType = this.item?.firstMetadataValue('dc.type');
+    this.itemName = this.item?.firstMetadataValue('dc.title');
     this.itemUri = getItemPageRoute(this.item);
-    this.itemDescription = this.item?.metadata?.['dc.description']?.[0]?.value;
+    this.itemDescription = this.item?.firstMetadataValue('dc.description');
+    this.itemPublisher = this.item?.firstMetadataValue('dc.publisher');
+    this.publisherRedirectLink = this.baseUrl + '/search?f.publisher=' + this.itemPublisher + ',equals';
+    this.itemDate = this.clarinDateService.composeItemDate(this.item);
 
     await this.assignBaseUrl();
     this.getItemCommunity();
@@ -215,7 +236,7 @@ export class ClarinItemBoxViewComponent implements OnInit {
       .subscribe(clarinLicense => {
         let iconsList = [];
         clarinLicense.extendedClarinLicenseLabels.forEach(extendedCll => {
-          iconsList.push(extendedCll?.icon);
+          iconsList.push(extendedCll);
         });
         this.licenseLabelIcons.next(iconsList);
       });

@@ -111,9 +111,9 @@ export class HomePageComponent implements OnInit {
     });
 
     const sortConfiguration = new SortOptions('dc.date.accessioned', SortDirection.DESC);
-
     this.searchService.search(
       new PaginatedSearchOptions({
+        configuration: 'homepage',
         pagination: paginationOptions,
         sort: sortConfiguration,
         dsoTypes: [DSpaceObjectType.ITEM]

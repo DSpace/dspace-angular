@@ -182,7 +182,7 @@ jobs:
         run: |
           result=$(wget -O- -q http://127.0.0.1:4000/home)
           echo "$result"
-          echo "$result" | grep -oE "<meta name=\"title\" [^>]*>" | grep DSpace
+          echo "$result" | grep -oE "<meta name=\"title\" [^>]*>" | grep Home
 
       - name: Stop running app
         run: kill -9 $(lsof -t -i:4000)

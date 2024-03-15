@@ -17,7 +17,7 @@
       <a *ngIf="canDownloadAllFiles" class="btn btn-download" id="download-all-button" (click)="downloadFiles()"
          style="visibility: visible">
         <i style="display: block" class="fa fa-download fa-3x">&nbsp;</i>
-        {{'item.page.download.button.all.files.zip' | translate}} ({{ totalFileSizes }})
+        {{'item.page.download.button.all.files.zip' | translate}} ({{ totalFileSizes | dsFileSize }})
       </a>
     </span>
   </div>
