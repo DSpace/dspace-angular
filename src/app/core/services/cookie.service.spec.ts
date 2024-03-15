@@ -2,7 +2,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { REQUEST } from '../../../express.tokens';
 
 import {
   CookieService,

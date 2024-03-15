@@ -13,7 +13,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { REQUEST } from '../../../../../../express.tokens';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,

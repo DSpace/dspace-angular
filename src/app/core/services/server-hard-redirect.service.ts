@@ -5,7 +5,7 @@ import {
 import {
   REQUEST,
   RESPONSE,
-} from '@nguniversal/express-engine/tokens';
+} from '../../../express.tokens';
 import {
   Request,
   Response,

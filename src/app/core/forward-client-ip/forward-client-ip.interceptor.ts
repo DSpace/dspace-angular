@@ -8,7 +8,7 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { REQUEST } from '../../../express.tokens';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

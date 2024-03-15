@@ -12,7 +12,7 @@ import {
 import {
   REQUEST,
   RESPONSE,
-} from '@nguniversal/express-engine/tokens';
+} from '../../../express.tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieAttributes } from 'js-cookie';
 import {

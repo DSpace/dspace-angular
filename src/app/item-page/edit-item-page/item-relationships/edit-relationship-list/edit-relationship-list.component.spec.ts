@@ -13,7 +13,7 @@ import {
   Router,
 } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { REQUEST } from '../../../../../express.tokens';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
