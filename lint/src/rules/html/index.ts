@@ -5,7 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-
+/* eslint-disable import/no-namespace */
 import {
   bundle,
   RuleExports,

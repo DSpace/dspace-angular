@@ -5,9 +5,13 @@
  *
  * http://www.dspace.org/license/
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import {
+  ESLintUtils,
+  TSESLint,
+  TSESTree,
+} from '@typescript-eslint/utils';
+
 import { fixture } from '../../../test/fixture';
-import { findUsages } from '../../util/misc';
 import { DSpaceESLintRuleInfo } from '../../util/structure';
 import {
   allThemeableComponents,
@@ -17,6 +21,10 @@ import {
   inThemedComponentFile,
   isAllowedUnthemedUsage,
 } from '../../util/theme-support';
+import {
+  findUsages,
+  getFilename,
+} from '../../util/typescript';
 
 export enum Message {
   WRONG_CLASS = 'mustUseThemedWrapperClass',
@@ -52,8 +60,10 @@ There are a few exceptions where the base class can still be used:
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
-  create(context: any, options: any): any {
-    function handleUnthemedUsagesInTypescript(node: any) {
+  create(context: TSESLint.RuleContext<Message, unknown[]>) {
+    const filename = getFilename(context);
+
+    function handleUnthemedUsagesInTypescript(node: TSESTree.Identifier) {
       if (isAllowedUnthemedUsage(node)) {
         return;
       }
@@ -68,24 +78,24 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
       context.report({
         messageId: Message.WRONG_CLASS,
         node: node,
-        fix(fixer: any) {
+        fix(fixer) {
           return fixer.replaceText(node, entry.wrapperClass);
         },
       });
     }
 
-    function handleThemedSelectorQueriesInTests(node: any) {
+    function handleThemedSelectorQueriesInTests(node: TSESTree.Literal) {
       context.report({
         node,
         messageId: Message.WRONG_SELECTOR,
-        fix(fixer: any){
+        fix(fixer){
           const newSelector = fixSelectors(node.raw);
           return fixer.replaceText(node, newSelector);
         },
       });
     }
 
-    function handleUnthemedImportsInTypescript(specifierNode: any) {
+    function handleUnthemedImportsInTypescript(specifierNode: TSESTree.ImportSpecifier) {
       const allUsages = findUsages(context, specifierNode.local);
       const badUsages = allUsages.filter(usage => !isAllowedUnthemedUsage(usage));
 
@@ -94,7 +104,7 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
       }
 
       const importedNode = specifierNode.imported;
-      const declarationNode = specifierNode.parent;
+      const declarationNode = specifierNode.parent as TSESTree.ImportDeclaration;
 
       const entry = getThemeableComponentByBaseClass(importedNode.name);
       if (entry === undefined) {
@@ -105,7 +115,7 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
       context.report({
         messageId: Message.WRONG_IMPORT,
         node: importedNode,
-        fix(fixer: any) {
+        fix(fixer) {
           const ops = [];
 
           const oldImportSource = declarationNode.source.value;
@@ -128,17 +138,17 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
     }
 
     // ignore tests and non-routing modules
-    if (context.getFilename()?.endsWith('.spec.ts')) {
+    if (filename.endsWith('.spec.ts')) {
       return {
         [`CallExpression[callee.object.name = "By"][callee.property.name = "css"] > Literal:first-child[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`]: handleThemedSelectorQueriesInTests,
       };
-    } else if (context.getFilename()?.endsWith('.cy.ts')) {
+    } else if (filename.endsWith('.cy.ts')) {
       return {
         [`CallExpression[callee.object.name = "cy"][callee.property.name = "get"] > Literal:first-child[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`]: handleThemedSelectorQueriesInTests,
       };
     } else if (
-      context.getFilename()?.match(/(?!routing).module.ts$/)
-      || context.getFilename()?.match(/themed-.+\.component\.ts$/)
+      filename.match(/(?!routing).module.ts$/)
+      || filename.match(/themed-.+\.component\.ts$/)
       || inThemedComponentFile(context)
     ) {
       // do nothing

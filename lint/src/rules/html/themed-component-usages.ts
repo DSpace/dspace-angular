@@ -5,12 +5,23 @@
  *
  * http://www.dspace.org/license/
  */
+import { TmplAstElement } from '@angular-eslint/bundled-angular-compiler';
+import { getTemplateParserServices } from '@angular-eslint/utils';
+import {
+  ESLintUtils,
+  TSESLint,
+} from '@typescript-eslint/utils';
+
 import { fixture } from '../../../test/fixture';
-import { DSpaceESLintRuleInfo } from '../../util/structure';
+import {
+  DSpaceESLintRuleInfo,
+  NamedTests,
+} from '../../util/structure';
 import {
   DISALLOWED_THEME_SELECTORS,
   fixSelectors,
 } from '../../util/theme-support';
+import { getFilename } from '../../util/typescript';
 
 export enum Message {
   WRONG_SELECTOR = 'mustUseThemedWrapperSelector',
@@ -36,39 +47,38 @@ The only exception to this rule are unit tests, where we may want to use the bas
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 
-export const rule = {
+export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
-  create(context: any) {
-    if (context.getFilename().includes('.spec.ts')) {
+  create(context: TSESLint.RuleContext<Message, unknown[]>) {
+    if (getFilename(context).includes('.spec.ts')) {
       // skip inline templates in unit tests
       return {};
     }
 
+    const parserServices = getTemplateParserServices(context as any);
+
     return {
-      [`Element$1[name = /^${DISALLOWED_THEME_SELECTORS}/]`](node: any) {
+      [`Element$1[name = /^${DISALLOWED_THEME_SELECTORS}/]`](node: TmplAstElement) {
+        const { startSourceSpan, endSourceSpan } = node;
+        const openStart = startSourceSpan.start.offset as number;
+
         context.report({
           messageId: Message.WRONG_SELECTOR,
-          node,
-          fix(fixer: any) {
+          loc: parserServices.convertNodeSourceSpanToLoc(startSourceSpan),
+          fix(fixer) {
             const oldSelector = node.name;
             const newSelector = fixSelectors(oldSelector);
 
-            const openTagRange = [
-              node.startSourceSpan.start.offset + 1,
-              node.startSourceSpan.start.offset + 1 + oldSelector.length,
-            ];
-
             const ops = [
-              fixer.replaceTextRange(openTagRange, newSelector),
+              fixer.replaceTextRange([openStart + 1, openStart + 1 + oldSelector.length], newSelector),
             ];
 
             // make sure we don't mangle self-closing tags
-            if (node.startSourceSpan.end.offset !== node.endSourceSpan.end.offset) {
-              const closeTagRange = [
-                node.endSourceSpan.start.offset + 2,
-                node.endSourceSpan.end.offset - 1,
-              ];
-              ops.push(fixer.replaceTextRange(closeTagRange, newSelector));
+            if (endSourceSpan !== null && startSourceSpan.end.offset !== endSourceSpan.end.offset) {
+              const closeStart = endSourceSpan.start.offset as number;
+              const closeEnd = endSourceSpan.end.offset as number;
+
+              ops.push(fixer.replaceTextRange([closeStart + 2, closeEnd - 1], newSelector));
             }
 
             return ops;
@@ -77,7 +87,7 @@ export const rule = {
       },
     };
   },
-};
+});
 
 export const tests = {
   plugin: info.name,
@@ -167,6 +177,6 @@ class Test {
         `,
     },
   ],
-};
+} as NamedTests;
 
 export default rule;

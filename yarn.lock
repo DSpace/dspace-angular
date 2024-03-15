@@ -291,6 +291,11 @@
   resolved "https://registry.npmjs.org/@angular-eslint/bundled-angular-compiler/-/bundled-angular-compiler-15.2.1.tgz"
   integrity sha512-LO7Am8eVCr7oh6a0VmKSL7K03CnQEQhFO7Wt/YtbfYOxVjrbwmYLwJn+wZPOT7A02t/BttOD/WXuDrOWtSMQ/Q==
 
+"@angular-eslint/bundled-angular-compiler@^17.2.1":
+  version "17.2.1"
+  resolved "https://registry.yarnpkg.com/@angular-eslint/bundled-angular-compiler/-/bundled-angular-compiler-17.2.1.tgz#d849b0845371b41856b9f598af81ce5bf799bca0"
+  integrity sha512-puC0itsZv2QlrDOCcWtq1KZH+DvfrpV+mV78HHhi6+h25R5iIhr8ARKcl3EQxFjvrFq34jhG8pSupxKvFbHVfA==
+
 "@angular-eslint/eslint-plugin-template@15.2.1":
   version "15.2.1"
   resolved "https://registry.npmjs.org/@angular-eslint/eslint-plugin-template/-/eslint-plugin-template-15.2.1.tgz"

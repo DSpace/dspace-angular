@@ -15,7 +15,7 @@ import {
 
 describe('TypeScript rules', () => {
   for (const { info, rule, tests } of tsPlugin.index) {
-    tsRuleTester.run(info.name, rule, tests);
+    tsRuleTester.run(info.name, rule, tests as any);
   }
 });
 

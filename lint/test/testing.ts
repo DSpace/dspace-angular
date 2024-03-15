@@ -8,12 +8,12 @@
 
 import { RuleTester as TypeScriptRuleTester } from '@typescript-eslint/rule-tester';
 import { RuleTester } from 'eslint';
+
+import { themeableComponents } from '../src/util/theme-support';
 import {
   FIXTURE,
   fixture,
 } from './fixture';
-
-import { themeableComponents } from '../src/util/theme-support';
 
 
 // Register themed components from test fixture

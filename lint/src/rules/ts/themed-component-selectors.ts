@@ -5,9 +5,13 @@
  *
  * http://www.dspace.org/license/
  */
-import { ESLintUtils } from '@typescript-eslint/utils';
-import { fixture } from '../../../test/fixture';
+import {
+  ESLintUtils,
+  TSESLint,
+  TSESTree,
+} from '@typescript-eslint/utils';
 
+import { fixture } from '../../../test/fixture';
 import { getComponentSelectorNode } from '../../util/angular';
 import { stringLiteral } from '../../util/misc';
 import { DSpaceESLintRuleInfo } from '../../util/structure';
@@ -16,6 +20,7 @@ import {
   isThemeableComponent,
   isThemedComponentWrapper,
 } from '../../util/theme-support';
+import { getFilename } from '../../util/typescript';
 
 export enum Message {
   BASE = 'wrongSelectorUnthemedComponent',
@@ -53,41 +58,43 @@ Unit tests are exempt from this rule, because they may redefine components using
 
 export const rule = ESLintUtils.RuleCreator.withoutDocs({
   ...info,
-  create(context: any): any {
-    if (context.getFilename()?.endsWith('.spec.ts')) {
+  create(context: TSESLint.RuleContext<Message, unknown[]>) {
+    const filename = getFilename(context);
+
+    if (filename.endsWith('.spec.ts')) {
       return {};
     }
 
-    function enforceWrapperSelector(selectorNode: any) {
+    function enforceWrapperSelector(selectorNode: TSESTree.StringLiteral) {
       if (selectorNode?.value.startsWith('ds-themed-')) {
         context.report({
           messageId: Message.WRAPPER,
           node: selectorNode,
-          fix(fixer: any) {
+          fix(fixer) {
             return fixer.replaceText(selectorNode, stringLiteral(selectorNode.value.replace('ds-themed-', 'ds-')));
           },
         });
       }
     }
 
-    function enforceBaseSelector(selectorNode: any) {
+    function enforceBaseSelector(selectorNode: TSESTree.StringLiteral) {
       if (!selectorNode?.value.startsWith('ds-base-')) {
         context.report({
           messageId: Message.BASE,
           node: selectorNode,
-          fix(fixer: any) {
+          fix(fixer) {
             return fixer.replaceText(selectorNode, stringLiteral(selectorNode.value.replace('ds-', 'ds-base-')));
           },
         });
       }
     }
 
-    function enforceThemedSelector(selectorNode: any) {
+    function enforceThemedSelector(selectorNode: TSESTree.StringLiteral) {
       if (!selectorNode?.value.startsWith('ds-themed-')) {
         context.report({
           messageId: Message.THEMED,
           node: selectorNode,
-          fix(fixer: any) {
+          fix(fixer) {
             return fixer.replaceText(selectorNode, stringLiteral(selectorNode.value.replace('ds-', 'ds-themed-')));
           },
         });
@@ -95,11 +102,15 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
     }
 
     return {
-      'ClassDeclaration > Decorator[expression.callee.name = "Component"]'(node: any) {
-        // keep track of all @Component nodes by their selector
+      'ClassDeclaration > Decorator[expression.callee.name = "Component"]'(node: TSESTree.Decorator) {
         const selectorNode = getComponentSelectorNode(node);
+
+        if (selectorNode === undefined) {
+          return;
+        }
+
         const selector = selectorNode?.value;
-        const classNode = node.parent;
+        const classNode = node.parent as TSESTree.ClassDeclaration;
         const className = classNode.id?.name;
 
         if (selector === undefined || className === undefined) {
@@ -108,7 +119,7 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
 
         if (isThemedComponentWrapper(node)) {
           enforceWrapperSelector(selectorNode);
-        } else if (inThemedComponentOverrideFile(context)) {
+        } else if (inThemedComponentOverrideFile(filename)) {
           enforceThemedSelector(selectorNode);
         } else if (isThemeableComponent(className)) {
           enforceBaseSelector(selectorNode);
@@ -124,11 +135,11 @@ export const tests = {
     {
       name: 'Regular non-themeable component selector',
       code: `
-        @Component({
-          selector: 'ds-something',
-        })
-        class Something {
-        }
+@Component({
+  selector: 'ds-something',
+})
+class Something {
+}
       `,
     },
     {
