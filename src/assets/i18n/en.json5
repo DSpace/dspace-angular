@@ -2725,6 +2725,8 @@
 
   "item.page.uri": "Item identifier",
 
+  "item.page.doi": "DOI",
+
   "item.page.bitstreams.view-more": "Show more",
 
   "item.page.bitstreams.collapse": "Collapse",

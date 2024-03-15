@@ -5,6 +5,13 @@ import { ConfigurationProperty } from '../../../../core/shared/configuration-pro
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { convertMetadataFieldIntoSearchType, getBaseUrl } from '../../../../shared/clarin-shared-util';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { map } from 'rxjs/operators';
+
+export const DOI_METADATA_FIELD = 'dc.identifier.doi';
+const SHOW_HANDLE_AND_DOI_PROPERTY_NAME = 'item-page.show-handle-and-doi';
+const HANDLE_METADATA_FIELD = 'dc.identifier.uri';
 
 @Component({
   selector: 'ds-clarin-generic-item-field',
@@ -56,12 +63,21 @@ export class ClarinGenericItemFieldComponent implements OnInit {
    */
   baseUrl = '';
 
+  /**
+   * Show or hide the metadata value. The default value is `true`.
+   */
+  showMetadataValue: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
-  // tslint:disable-next-line:no-empty
+  /**
+   * Enable or disable showing both the handle and DOI identifiers in the item page. The default value is `false` to
+   * show only the DOI identifier if it exists in the Item. If there is no DOI identifier,
+   * the handle identifier is shown.
+   */
+  showHandleAndDOI = 'false';
+
   constructor(protected dsoNameService: DSONameService,
               protected configurationService: ConfigurationDataService) { }
 
-  // tslint:disable-next-line:no-empty
   async ngOnInit(): Promise<void> {
     await this.assignBaseUrl();
     if (isEmpty(this.separator)) {
@@ -72,6 +88,9 @@ export class ClarinGenericItemFieldComponent implements OnInit {
     if (isEmpty(this.replaceCharacter)) {
       this.replaceCharacter = [';', ' '];
     }
+
+    // Do not show metadata value if some conditions are met
+    await this.shouldShowMetadataValue();
   }
 
   /**
@@ -79,6 +98,38 @@ export class ClarinGenericItemFieldComponent implements OnInit {
    */
   public hasMetadataValue() {
     return isNotUndefined(this.item.firstMetadataValue(this.fields));
+  }
+
+  /**
+   * The method disable showing the metadata value if one of the following conditions is met:
+   * - The metadata value is empty
+   * - The metadata field is not allowed to be shown by the configuration
+   */
+  public async shouldShowMetadataValue() {
+    // Do not show metadata value if it is empty
+    if (!this.hasMetadataValue()) {
+      this.showMetadataValue.next(false);
+      return;
+    }
+
+    // Do not show DOI and Item Identifier (handle) if it is not allowed by the configuration
+    await this.shouldShowBothIdentifiers();
+  }
+
+  /**
+   * Do not show DOI and Item Identifier (handle) if it is not allowed by the configuration property
+   * `item-page.show-handle-and-doi`.
+   * @private
+   */
+  private async shouldShowBothIdentifiers() {
+    // If the metadata field is Handle and the Item contains DOI identifier, do not show the handle identifier if the
+    // configuration is set to show only the DOI identifier.
+    if (this.fields.includes(HANDLE_METADATA_FIELD) && this.item.allMetadata(DOI_METADATA_FIELD)?.length > 0){
+      await this.loadShowHandleAndDoiConfiguration();
+      if (this.showHandleAndDOI === 'false') {
+        this.showMetadataValue.next(false);
+      }
+    }
   }
 
   /**
@@ -128,5 +179,17 @@ export class ClarinGenericItemFieldComponent implements OnInit {
       .then((baseUrlResponse: ConfigurationProperty) => {
         return baseUrlResponse?.values?.[0];
       });
+  }
+
+  /**
+   * Load the configuration value for showing both the handle and DOI identifiers
+   * @private
+   */
+  private async loadShowHandleAndDoiConfiguration() {
+    // Get the configuration value for showing both the handle and DOI identifiers
+    this.showHandleAndDOI = await firstValueFrom(this.configurationService.findByPropertyName(SHOW_HANDLE_AND_DOI_PROPERTY_NAME)
+      .pipe(
+        getFirstSucceededRemoteDataPayload(),
+        map((cfgValues) => cfgValues?.values?.[0])));
   }
 }
