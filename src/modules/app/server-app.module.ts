@@ -8,7 +8,6 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ServerModule,
-  ServerTransferStateModule,
 } from '@angular/platform-server';
 import { EffectsModule } from '@ngrx/effects';
 import {
@@ -62,7 +61,6 @@ export function createTranslateLoader(transferState: TransferState) {
   bootstrap: [AppComponent],
   imports: [
     NoopAnimationsModule,
-    ServerTransferStateModule,
     StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
     EffectsModule.forFeature(coreEffects),
     TranslateModule.forRoot({
