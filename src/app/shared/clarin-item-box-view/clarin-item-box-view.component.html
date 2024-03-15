@@ -3,15 +3,18 @@
     <div class="card-body pt-0 pb-0">
       <div *ngVar="hasItemType() as nonEmptyItemType" [ngClass]="{'row': true, 'justify-content-between': nonEmptyItemType, 'justify-content-end': !nonEmptyItemType}">
         <span *ngIf="nonEmptyItemType" class="item-type">{{ itemType }}</span>
-        <span class="item-community label"><a class="pt-2" [href]="communitySearchRedirect | async">{{ (itemCommunity | async)?.name }}</a></span>
+        <span class="label item-community"><a class="pt-2" [href]="communitySearchRedirect | async">{{ (itemCommunity | async)?.name }}</a></span>
       </div>
       <div class="pl-3">
         <div class="row pt-3 justify-content-between">
           <div class="col-10 pl-0">
             <div><a [routerLink]="itemUri" class="item-name">{{ itemName }}</a></div>
-            <div class="pt-1"><strong>{{'item.view.box.author.message' | translate}}</strong></div>
+            <div *ngIf="isSearchResult" class="pt-1">
+              <div class="font-weight-bold">{{ 'item.view.box.publisher.message' | translate }}</div>
+              <span>(<span *ngIf="itemPublisher != null"><a [href]="publisherRedirectLink">{{itemPublisher}}</a> / </span>{{itemDate}})</span>
+            </div>
           </div>
-          <div class="col-2">
+          <div class="col-2 d-flex justify-content-end">
             <img class="artifact-icon"
                  [src]="ITEM_TYPE_IMAGES_PATH + itemType + '.png'"
                  (error)="handleImageError($event)">
@@ -20,7 +23,7 @@
         <div class="row">
           <ds-clarin-item-author-preview [item]="item"></ds-clarin-item-author-preview>
         </div>
-        <div class="row d-block pt-1">
+        <div *ngIf="isSearchResult === false && itemDescription != null" class="row d-block pt-1">
           <div><strong>{{'item.view.box.description.message' | translate}}</strong></div>
           <div class="clarin-item-description pr-3">{{itemDescription}}</div>
         </div>
@@ -37,8 +40,13 @@
           <span>
             {{licenseType }}
           </span>
-          <div class="d-inline" *ngFor="let icon of (licenseLabelIcons | async)">
-            <img [ngClass]="{'clarin-license-icon-mr':licenseLabelIcons.value.length > 1}" [src]="secureImageData(icon)" alt="" width="16px">
+          <div class="d-inline" *ngFor="let lli of (licenseLabelIcons | async)">
+            <img [ngClass]="{'clarin-license-icon-mr':licenseLabelIcons.value.length > 1}"
+                 [src]="secureImageData(lli?.icon)"
+                 [ngbTooltip]="lli?.title"
+                 triggers="mouseenter:mouseleave"
+                 placement="bottom"
+                 alt="" width="16px">
           </div>
         </div>
       </div>

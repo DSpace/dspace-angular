@@ -21,7 +21,7 @@ import { ClarinSearchComponent } from './clarin-search/clarin-search.component';
 export class ThemedSearchComponent extends ThemedComponent<ClarinSearchComponent> {
   protected inAndOutputNames: (keyof ClarinSearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'useCachedVersionIfAvailable', 'inPlaceSearch', 'linkType', 'paginationId', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCsvExport', 'showSidebar', 'showThumbnails', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'resultFound', 'deselectObject', 'selectObject', 'trackStatistics', 'query'];
 
-  @Input() configurationList: SearchConfigurationOption[];
+  @Input() configurationList: SearchConfigurationOption[] = null;
 
   @Input() context: Context;
 
@@ -53,7 +53,7 @@ export class ThemedSearchComponent extends ThemedComponent<ClarinSearchComponent
 
   @Input() showThumbnails;
 
-  @Input() showViewModes: boolean;
+  @Input() showViewModes = false;
 
   @Input() useUniquePageId: boolean;
 

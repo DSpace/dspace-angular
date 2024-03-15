@@ -88,7 +88,7 @@ export class ClarinLicenseInfoComponent implements OnInit {
       .subscribe(clarinLicense => {
           let iconsList = [];
           clarinLicense.extendedClarinLicenseLabels.forEach(extendedCll => {
-            iconsList.push(extendedCll?.icon);
+            iconsList.push(extendedCll);
           });
           this.licenseLabelIcons.next(iconsList);
         });

@@ -36,13 +36,14 @@ describe('My DSpace page', () => {
 
         cy.get('ds-my-dspace-page').should('be.visible');
 
-        // Click button in sidebar to display detailed view
-        cy.get('ds-search-sidebar [data-test="detail-view"]').click();
-
         // CLARIN
+        // This test was commented out because there are no options for a detailed view in the CLARIN-search component
+        // it is e.g., `Grid` or `List` view
+        // Click button in sidebar to display detailed view
+        // cy.get('ds-search-sidebar [data-test="detail-view"]').click();
+
         // CLARIN-search component show only Items, so there are no records in the /mydspace page
         // cy.get('ds-object-detail').should('be.visible');
-        // CLARIN
 
         // Analyze <ds-search-page> for accessibility issues
         // CLARIN

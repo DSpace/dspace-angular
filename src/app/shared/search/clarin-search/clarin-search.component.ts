@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { pushInOut } from '../../animations/push';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import uniqueId from 'lodash/uniqueId';
-import { hasValue } from '../../empty.util';
+import { hasValue, isUndefined } from '../../empty.util';
 import { combineLatest, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
@@ -92,7 +92,11 @@ export class ClarinSearchComponent extends SearchComponent implements OnInit {
       debounceTime(100)
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption]: [string, SortOptions[], PaginatedSearchOptions, SortOptions]) => {
       // CLARIN update - search only items in the search page
-      searchOptions.dsoTypes = [DSpaceObjectType.ITEM];
+      if (isUndefined(searchOptions.configuration)) {
+        // If no configuration is set, search only items - it happens only in the search page
+        // On /mydspace page is e.g., `workspace` configuration
+        searchOptions.dsoTypes = [DSpaceObjectType.ITEM];
+      }
       // Build the PaginatedSearchOptions object
       const combinedOptions = Object.assign({}, searchOptions,
         {

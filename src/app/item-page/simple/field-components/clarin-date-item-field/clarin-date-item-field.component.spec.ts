@@ -5,10 +5,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Item } from '../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { ClarinDateService } from '../../../../shared/clarin-date.service';
 
 describe('ClarinDateItemFieldComponent', () => {
   let component: ClarinDateItemFieldComponent;
   let fixture: ComponentFixture<ClarinDateItemFieldComponent>;
+  let clarinDateService: ClarinDateService;
 
   const mockItem: Item = Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -23,9 +25,15 @@ describe('ClarinDateItemFieldComponent', () => {
   });
 
   beforeEach(async () => {
+    clarinDateService = jasmine.createSpyObj('clarinDateService', {
+      composeItemDate: '2020-01-01' });
+
     await TestBed.configureTestingModule({
       imports: [ TranslateModule.forRoot() ],
-      declarations: [ ClarinDateItemFieldComponent ]
+      declarations: [ ClarinDateItemFieldComponent ],
+      providers: [
+        { provide: ClarinDateService, useValue: clarinDateService }
+      ]
     })
     .compileComponents();
 

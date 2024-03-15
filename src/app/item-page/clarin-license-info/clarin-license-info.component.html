@@ -10,8 +10,14 @@
     <div [ngClass]="isCsLocale() ? 'd-inline-flex': ''">
       <a [href]="licenseURI" class="pl-1">{{license}}</a>
     </div>
-    <div class="d-inline" *ngFor="let icon of (licenseLabelIcons | async)">
-      <img class="mr-1" [src]="secureImageData(icon)" alt="" width="24px">
+    <div>
+      <img class="mr-1"
+           *ngFor="let lli of (licenseLabelIcons | async)"
+           [src]="secureImageData(lli.icon)"
+           [ngbTooltip]="lli?.title"
+           placement="bottom"
+           triggers="mouseenter:mouseleave"
+           alt="" width="24px">
     </div>
   </div>
 </div>
