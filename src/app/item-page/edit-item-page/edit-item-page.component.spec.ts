@@ -1,14 +1,30 @@
 /* eslint-disable max-classes-per-file */
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { EditItemPageComponent } from './edit-item-page.component';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { ActivatedRoute, ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, UrlTree ,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { Item } from '../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { EditItemPageComponent } from './edit-item-page.component';
 
 describe('ItemPageComponent', () => {
   let comp: EditItemPageComponent;
@@ -32,57 +48,57 @@ describe('ItemPageComponent', () => {
     snapshot: {
       firstChild: {
         routeConfig: {
-          path: accesiblePages[0]
-        }
+          path: accesiblePages[0],
+        },
       },
       routerState: {
-        snapshot: undefined
-      }
+        snapshot: undefined,
+      },
     },
     routeConfig: {
       children: [
         {
           path: accesiblePages[0],
-          canActivate: [AcceptAllGuard]
+          canActivate: [AcceptAllGuard],
         }, {
           path: inaccesiblePages[0],
-          canActivate: [AcceptNoneGuard]
+          canActivate: [AcceptNoneGuard],
         }, {
           path: inaccesiblePages[1],
-          canActivate: [AcceptAllGuard, AcceptNoneGuard]
+          canActivate: [AcceptAllGuard, AcceptNoneGuard],
         },
-      ]
+      ],
     },
-    data: observableOf({dso: createSuccessfulRemoteDataObject(new Item())})
+    data: observableOf({ dso: createSuccessfulRemoteDataObject(new Item()) }),
   };
 
   const mockRouter = {
     routerState: {
-      snapshot: undefined
+      snapshot: undefined,
     },
-    events: observableOf(undefined)
+    events: observableOf(undefined),
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
-      RouterModule.forRoot([]),
-      TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+      imports: [
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-      EditItemPageComponent
-    ],
-    providers: [
+        EditItemPageComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         AcceptAllGuard,
         AcceptNoneGuard,
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(EditItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(EditItemPageComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

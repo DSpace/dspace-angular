@@ -1,19 +1,24 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
+import {
+  METADATA_IMPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../core/data/processes/script-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
+import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Process } from '../../process-page/processes/process.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
-import { FormsModule } from '@angular/forms';
-import {
-  FileDropzoneNoUploaderComponent
-} from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
+import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
   selector: 'ds-metadata-import-page',
@@ -21,9 +26,9 @@ import {
   imports: [
     TranslateModule,
     FormsModule,
-    FileDropzoneNoUploaderComponent
+    FileDropzoneNoUploaderComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 
 /**

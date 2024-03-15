@@ -1,20 +1,27 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 import { isNotNull } from '../../empty.util';
-import { TranslateModule } from '@ngx-translate/core';
 import { SearchEvent } from '../eperson-group-list-event-type';
 
 /**
  * A component used to show a search box for groups.
  */
 @Component({
-    selector: 'ds-group-search-box',
-    templateUrl: './group-search-box.component.html',
-    standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
+  selector: 'ds-group-search-box',
+  templateUrl: './group-search-box.component.html',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
 })
 export class GroupSearchBoxComponent {
 
@@ -58,7 +65,7 @@ export class GroupSearchBoxComponent {
   submit(data: any) {
     const event: SearchEvent = {
       scope: '',
-      query: isNotNull(data) ? data.query : ''
+      query: isNotNull(data) ? data.query : '',
     };
     this.search.emit(event);
   }

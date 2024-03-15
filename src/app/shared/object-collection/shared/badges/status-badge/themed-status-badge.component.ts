@@ -1,16 +1,20 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { StatusBadgeComponent } from './status-badge.component';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 
 /**
  * Themed wrapper for StatusBadgeComponent
  */
 @Component({
-    selector: 'ds-themed-status-badge',
-    styleUrls: [],
-    templateUrl: '../../../../theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-status-badge',
+  styleUrls: [],
+  templateUrl: '../../../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedStatusBadgeComponent extends ThemedComponent<StatusBadgeComponent> {
   @Input() object: DSpaceObject;

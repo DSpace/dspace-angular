@@ -82,6 +82,12 @@
         </li>
       </ul>
     </div>
+    <div class="notify-enabled text-white" [hidden]="!coarLdnEnabled">
+      <a class="coar-notify-support-route" routerLink="info/coar-notify-support">
+        <img class="n-coar" src="assets/images/n-coar.png" [attr.alt]="'menu.header.image.logo' | translate" />
+        COAR Notify
+      </a>
+    </div>
   </div>
   <!-- Copyright -->
 </footer>

@@ -1,17 +1,30 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ObjectDetailComponent } from './object-detail.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { PaginationComponent } from '../pagination/pagination.component';
+import { PageInfo } from '../../core/shared/page-info.model';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { ObjectDetailComponent } from './object-detail.component';
 
 describe('ObjectDetailComponent', () => {
   let comp: ObjectDetailComponent;
@@ -34,7 +47,7 @@ describe('ObjectDetailComponent', () => {
     elementsPerPage: 1,
     totalElements: 10,
     totalPages: 10,
-    currentPage: 1
+    currentPage: 1,
   });
   const mockRD = createSuccessfulRemoteDataObject(buildPaginatedList(pageInfo, testObjects));
 

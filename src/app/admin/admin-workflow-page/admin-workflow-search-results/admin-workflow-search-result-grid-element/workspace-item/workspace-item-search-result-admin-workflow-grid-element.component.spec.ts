@@ -1,44 +1,42 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { of as observableOf } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import {
-  WorkspaceItemSearchResultAdminWorkflowGridElementComponent
-} from './workspace-item-search-result-admin-workflow-grid-element.component';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { AuthService } from '../../../../../core/auth/auth.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
-import { Item } from '../../../../../core/shared/item.model';
-import {
-  ListableObjectDirective
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
-import {
-  WorkflowItemSearchResult
-} from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { ListableModule } from '../../../../../core/shared/listable.module';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
-import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
+import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
 import {
   supervisionOrderPaginatedListRD,
-  supervisionOrderPaginatedListRD$
+  supervisionOrderPaginatedListRD$,
 } from '../../../../../shared/testing/supervision-order.mock';
-import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
-import { AuthService } from '../../../../../core/auth/auth.service';
-import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
-import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import { ListableModule } from '../../../../../core/shared/listable.module';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkspaceItemSearchResultAdminWorkflowGridElementComponent } from './workspace-item-search-result-admin-workflow-grid-element.component';
 
 describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
   let component: WorkspaceItemSearchResultAdminWorkflowGridElementComponent;
@@ -48,7 +46,7 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
   let itemRD$;
   let linkService;
   let object;
-  let themeService;
+  let themeService: ThemeService;
   let supervisionOrderDataService;
 
   function init() {
@@ -71,20 +69,22 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
     TestBed.configureTestingModule(
       {
         imports: [
+          WorkspaceItemSearchResultAdminWorkflowGridElementComponent,
+          ItemGridElementComponent,
+          DynamicComponentLoaderDirective,
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
           ListableModule,
-          ListableObjectDirective
+          WorkspaceItemSearchResultAdminWorkflowGridElementComponent,
         ],
-        declarations: [WorkspaceItemSearchResultAdminWorkflowGridElementComponent],
         providers: [
           { provide: LinkService, useValue: linkService },
           { provide: ThemeService, useValue: themeService },
           {
             provide: TruncatableService, useValue: {
               isCollapsed: () => observableOf(true),
-            }
+            },
           },
           { provide: BitstreamDataService, useValue: {} },
           { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
@@ -92,7 +92,7 @@ describe('WorkspaceItemSearchResultAdminWorkflowGridElementComponent', () => {
           { provide: AuthService, useValue: new AuthServiceMock() },
           { provide: AuthorizationDataService, useValue: {} },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       })
       .compileComponents();
   }));

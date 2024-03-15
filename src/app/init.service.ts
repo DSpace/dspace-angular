@@ -8,29 +8,25 @@
 import { select, Store } from '@ngrx/store';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
-import { APP_INITIALIZER, Inject, Provider, Type } from '@angular/core';
-import { makeStateKey, TransferState } from '@angular/core';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-  APP_DYNAMIC_FORM_CONTROL_FN,
-  AppConfig
-} from '../config/app-config.interface';
+import { APP_INITIALIZER, Inject, makeStateKey, Provider, TransferState, Type } from '@angular/core';
+import { APP_CONFIG, APP_DATA_SERVICES_MAP, AppConfig, } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
-import isEqual from 'lodash/isEqual';
-import { TranslateService } from '@ngx-translate/core';
-import { LocaleService } from './core/locale/locale.service';
-import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { MetadataService } from './core/metadata/metadata.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { ThemeService } from './shared/theme-support/theme.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { distinctUntilChanged, find } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { MenuService } from './shared/menu/menu.service';
 import { LAZY_DATA_SERVICES } from './core/data-services-map';
+import { LocaleService } from './core/locale/locale.service';
+import { MetadataService } from './core/metadata/metadata.service';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import { MenuService } from './shared/menu/menu.service';
+import { ThemeService } from './shared/theme-support/theme.service';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
+import isEqual from 'lodash/isEqual';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged, find, } from 'rxjs/operators';
+
 
 /**
  * Performs the initialization of the app.
@@ -75,7 +71,7 @@ export abstract class InitService {
   public static providers(): Provider[] {
     if (!InitService.isPrototypeOf(this)) {
       throw new Error(
-        'Initalization providers should only be generated from concrete subclasses of InitService'
+        'Initalization providers should only be generated from concrete subclasses of InitService',
       );
     }
     return [
@@ -89,7 +85,7 @@ export abstract class InitService {
           this.resolveAppConfig(transferState);
           return environment;
         },
-        deps: [ TransferState ]
+        deps: [ TransferState ],
       },
       {
         provide: APP_INITIALIZER,
@@ -102,7 +98,7 @@ export abstract class InitService {
         useValue: LAZY_DATA_SERVICES,
       },
       {
-        provide: APP_DYNAMIC_FORM_CONTROL_FN,
+        provide: DYNAMIC_FORM_CONTROL_MAP_FN,
         useValue: dsDynamicFormControlMapFn,
       },
     ];
@@ -118,7 +114,7 @@ export abstract class InitService {
    * @protected
    */
   protected static resolveAppConfig(
-    transferState: TransferState
+    transferState: TransferState,
   ): void {
     // overriden in subclasses if applicable
   }
@@ -173,8 +169,8 @@ export abstract class InitService {
     // Load all the languages that are defined as active from the config file
     this.translate.addLangs(
       environment.languages
-                 .filter((LangConfig) => LangConfig.active === true)
-                 .map((a) => a.code)
+        .filter((LangConfig) => LangConfig.active === true)
+        .map((a) => a.code),
     );
 
     // Load the default language from the config file
@@ -213,7 +209,7 @@ export abstract class InitService {
     return this.store.pipe(
       select(isAuthenticationBlocking),
       distinctUntilChanged(),
-      find((b: boolean) => b === false)
+      find((b: boolean) => b === false),
     );
   }
 }

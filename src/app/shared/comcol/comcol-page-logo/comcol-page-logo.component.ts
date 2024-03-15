@@ -1,14 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { Bitstream } from '../../../core/shared/bitstream.model';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'ds-comcol-page-logo',
   styleUrls: ['./comcol-page-logo.component.scss'],
   templateUrl: './comcol-page-logo.component.html',
   imports: [NgIf],
-  standalone: true
+  standalone: true,
 })
 export class ComcolPageLogoComponent {
   @Input() logo: Bitstream;

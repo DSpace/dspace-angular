@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
-import { AsyncPipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-collection-authorizations',
@@ -17,9 +25,9 @@ import { TranslateModule } from '@ngx-translate/core';
     ResourcePoliciesComponent,
     AsyncPipe,
     TranslateModule,
-    RouterLink
+    RouterLink,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component that handles the Collection Authorizations
@@ -37,7 +45,7 @@ export class BitstreamAuthorizationsComponent<TDomain extends DSpaceObject> impl
    * @param {ActivatedRoute} route
    */
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
   }
 

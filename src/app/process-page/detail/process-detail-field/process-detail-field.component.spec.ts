@@ -1,10 +1,15 @@
-import { ProcessDetailFieldComponent } from './process-detail-field.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { VarDirective } from '../../../shared/utils/var.directive';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
+
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { ProcessDetailFieldComponent } from './process-detail-field.component';
 
 describe('ProcessDetailFieldComponent', () => {
   let component: ProcessDetailFieldComponent;
@@ -16,10 +21,10 @@ describe('ProcessDetailFieldComponent', () => {
     title = 'fake.title.message';
 
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProcessDetailFieldComponent, VarDirective],
-    providers: [],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProcessDetailFieldComponent, VarDirective],
+      providers: [],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

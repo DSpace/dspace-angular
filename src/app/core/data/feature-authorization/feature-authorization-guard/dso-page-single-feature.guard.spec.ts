@@ -1,12 +1,13 @@
+import { ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot, } from '@angular/router';
+import { Observable, of as observableOf, } from 'rxjs';
+
 import { AuthorizationDataService } from '../authorization-data.service';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, ResolveFn } from '@angular/router';
 import { RemoteData } from '../../remote-data';
-import { Observable, of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { DsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
-import { FeatureID } from '../feature-id';
 import { AuthService } from '../../../auth/auth.service';
+import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { FeatureID } from '../feature-id';
+import { DsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
 
 /**
  * Test implementation of abstract class DsoPageSingleFeatureGuard
@@ -41,30 +42,30 @@ describe('DsoPageSingleFeatureGuard', () => {
 
   function init() {
     object = {
-      self: 'test-selflink'
+      self: 'test-selflink',
     } as DSpaceObject;
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     router = jasmine.createSpyObj('router', {
-      parseUrl: {}
+      parseUrl: {},
     });
     resolver = jasmine.createSpyObj('resolver', {
-      resolve: createSuccessfulRemoteDataObject$(object)
+      resolve: createSuccessfulRemoteDataObject$(object),
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
     });
     parentRoute = {
       params: {
-        id: '3e1a5327-dabb-41ff-af93-e6cab9d032f0'
-      }
+        id: '3e1a5327-dabb-41ff-af93-e6cab9d032f0',
+      },
     };
     route = {
       params: {
       },
-      parent: parentRoute
+      parent: parentRoute,
     };
     guard = new DsoPageSingleFeatureGuardImpl(resolver, authorizationService, router, authService, undefined);
   }

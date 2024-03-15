@@ -1,10 +1,11 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { IdentifierType } from '../core/data/request.models';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { RemoteData } from '../core/data/remote-data';
+
 import { DsoRedirectService } from '../core/data/dso-redirect.service';
+import { RemoteData } from '../core/data/remote-data';
+import { IdentifierType } from '../core/data/request.models';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 
 interface LookupParams {
@@ -12,7 +13,9 @@ interface LookupParams {
   id: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class LookupGuard  {
 
   constructor(private dsoService: DsoRedirectService) {
@@ -21,7 +24,7 @@ export class LookupGuard  {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>  {
     const params = this.getLookupParams(route);
     return this.dsoService.findByIdAndIDType(params.id, params.type).pipe(
-      map((response: RemoteData<DSpaceObject>) => response.hasFailed)
+      map((response: RemoteData<DSpaceObject>) => response.hasFailed),
     );
   }
 
@@ -47,7 +50,7 @@ export class LookupGuard  {
     }
     return {
       type: type,
-      id: id
+      id: id,
     };
   }
 }

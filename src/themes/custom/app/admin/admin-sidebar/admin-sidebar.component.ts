@@ -1,8 +1,15 @@
+import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { AdminSidebarComponent as BaseComponent } from '../../../../../app/admin/admin-sidebar/admin-sidebar.component';
-import { AsyncPipe, NgClass, NgComponentOutlet, NgFor, NgIf } from '@angular/common';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { AdminSidebarComponent as BaseComponent } from '../../../../../app/admin/admin-sidebar/admin-sidebar.component';
 
 /**
  * Component representing the admin sidebar
@@ -14,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
   // styleUrls: ['./admin-sidebar.component.scss']
   styleUrls: ['../../../../../app/admin/admin-sidebar/admin-sidebar.component.scss'],
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule]
+  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
 })
 export class AdminSidebarComponent extends BaseComponent {
 }

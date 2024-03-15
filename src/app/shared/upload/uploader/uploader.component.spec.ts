@@ -1,17 +1,26 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { HttpXsrfTokenExtractor } from '@angular/common/http';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { DragService } from '../../../core/drag.service';
-import { UploaderOptions } from './uploader-options.model';
-import { UploaderComponent } from './uploader.component';
-import { FileUploadModule } from 'ng2-file-upload';
-import { TranslateModule } from '@ngx-translate/core';
-import { createTestComponent } from '../../testing/utils.test';
-import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { CookieService } from '../../../core/services/cookie.service';
 import { CookieServiceMock } from '../../mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../mocks/http-xsrf-token-extractor.mock';
+import { createTestComponent } from '../../testing/utils.test';
+import { UploaderComponent } from './uploader.component';
+import { UploaderOptions } from './uploader-options.model';
 
 describe('Chips component', () => {
 
@@ -23,21 +32,21 @@ describe('Chips component', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FileUploadModule,
         TranslateModule.forRoot(),
         UploaderComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         ChangeDetectorRef,
         UploaderComponent,
         DragService,
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock('mock-token') },
         { provide: CookieService, useValue: new CookieServiceMock() },
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-});
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    });
 
   }));
 
@@ -61,17 +70,17 @@ describe('Chips component', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [FileUploadModule, UploaderComponent]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [FileUploadModule, UploaderComponent],
 })
 class TestComponent {
   public uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
     url: 'http://test',
     authToken: null,
     disableMultipart: false,
-    itemAlias: null
+    itemAlias: null,
   });
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */

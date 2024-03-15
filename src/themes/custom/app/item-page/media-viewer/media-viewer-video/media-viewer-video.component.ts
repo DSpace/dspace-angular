@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
 import {
-  MediaViewerVideoComponent as BaseComponent
-} from '../../../../../../app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
-import { NgForOf, NgIf } from '@angular/common';
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import { Component } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { MediaViewerVideoComponent as BaseComponent } from '../../../../../../app/item-page/media-viewer/media-viewer-video/media-viewer-video.component';
 
 @Component({
   selector: 'ds-media-viewer-video',
@@ -17,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
     NgForOf,
     NgbDropdownModule,
     TranslateModule,
-    NgIf
+    NgIf,
   ],
 })
 export class MediaViewerVideoComponent extends BaseComponent {

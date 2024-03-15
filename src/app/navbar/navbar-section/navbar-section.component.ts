@@ -1,8 +1,17 @@
-import { Component, Inject, Injector, OnInit } from '@angular/core';
-import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-section.component';
+import {
+  AsyncPipe,
+  NgComponentOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
+
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { AsyncPipe, NgComponentOutlet } from '@angular/common';
+import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-section.component';
 
 /**
  * Represents a non-expandable section in the navbar
@@ -12,7 +21,7 @@ import { AsyncPipe, NgComponentOutlet } from '@angular/common';
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss'],
   standalone: true,
-  imports: [NgComponentOutlet, AsyncPipe]
+  imports: [NgComponentOutlet, AsyncPipe],
 })
 export class NavbarSectionComponent extends MenuSectionComponent implements OnInit {
   /**
@@ -22,7 +31,7 @@ export class NavbarSectionComponent extends MenuSectionComponent implements OnIn
 
   constructor(@Inject('sectionDataProvider') menuSection,
               protected menuService: MenuService,
-              protected injector: Injector
+              protected injector: Injector,
   ) {
     super(menuSection, menuService, injector);
   }

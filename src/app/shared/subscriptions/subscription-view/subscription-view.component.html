@@ -14,7 +14,7 @@
 <td class="subscription-parameters">
   <ng-container *ngIf="!!subscription">
 		<span *ngFor="let parameterList of subscription.subscriptionParameterList; let i = index">
-			{{ 'subscriptions.frequency.' + parameterList.value  | translate}}<span
+			{{ 'subscriptions.frequency.' + parameterList.value | translate}}<span
       *ngIf="i < subscription.subscriptionParameterList.length-1 ">,</span>
 		</span>
   </ng-container>

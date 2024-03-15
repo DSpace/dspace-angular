@@ -1,36 +1,34 @@
+import {
+  ADVANCED_WORKFLOW_TASK_OPTION_RATING,
+  AdvancedWorkflowActionRatingComponent,
+} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import {
+  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
+  AdvancedWorkflowActionSelectReviewerComponent,
+} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 import { hasNoValue } from '../../../empty.util';
 import {
   ClaimedTaskActionsApproveComponent,
-  WORKFLOW_TASK_OPTION_APPROVE
+  WORKFLOW_TASK_OPTION_APPROVE,
 } from '../approve/claimed-task-actions-approve.component';
 import {
   ClaimedTaskActionsDeclineTaskComponent,
-  WORKFLOW_TASK_OPTION_DECLINE_TASK
+  WORKFLOW_TASK_OPTION_DECLINE_TASK,
 } from '../decline-task/claimed-task-actions-decline-task.component';
 import {
   ClaimedTaskActionsEditMetadataComponent,
-  WORKFLOW_TASK_OPTION_EDIT_METADATA
+  WORKFLOW_TASK_OPTION_EDIT_METADATA,
 } from '../edit-metadata/claimed-task-actions-edit-metadata.component';
-import {
-  ADVANCED_WORKFLOW_TASK_OPTION_RATING,
-  AdvancedWorkflowActionRatingComponent
-} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { AdvancedClaimedTaskActionRatingComponent } from '../rating/advanced-claimed-task-action-rating.component';
 import {
   ClaimedTaskActionsRejectComponent,
-  WORKFLOW_TASK_OPTION_REJECT
+  WORKFLOW_TASK_OPTION_REJECT,
 } from '../reject/claimed-task-actions-reject.component';
 import {
   ClaimedTaskActionsReturnToPoolComponent,
-  WORKFLOW_TASK_OPTION_RETURN_TO_POOL
+  WORKFLOW_TASK_OPTION_RETURN_TO_POOL,
 } from '../return-to-pool/claimed-task-actions-return-to-pool.component';
-import {
-  ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
-  AdvancedWorkflowActionSelectReviewerComponent
-} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
-import {
-  AdvancedClaimedTaskActionSelectReviewerComponent
-} from '../select-reviewer/advanced-claimed-task-action-select-reviewer.component';
+import { AdvancedClaimedTaskActionSelectReviewerComponent } from '../select-reviewer/advanced-claimed-task-action-select-reviewer.component';
 
 export type WorkflowTaskOptionComponent =
   typeof ClaimedTaskActionsApproveComponent |
@@ -52,12 +50,12 @@ export const WORKFLOW_TASK_OPTION_DECORATOR_MAP = new Map<string, WorkflowTaskOp
   [ADVANCED_WORKFLOW_TASK_OPTION_RATING, AdvancedClaimedTaskActionRatingComponent],
   [WORKFLOW_TASK_OPTION_REJECT, ClaimedTaskActionsRejectComponent],
   [WORKFLOW_TASK_OPTION_RETURN_TO_POOL, ClaimedTaskActionsReturnToPoolComponent],
-  [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER, AdvancedClaimedTaskActionSelectReviewerComponent]
+  [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER, AdvancedClaimedTaskActionSelectReviewerComponent],
 ]);
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_DECORATOR_MAP = new Map<string, AdvancedWorkflowTaskOptionComponent>([
   [ADVANCED_WORKFLOW_TASK_OPTION_RATING, AdvancedWorkflowActionRatingComponent],
-  [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER, AdvancedWorkflowActionSelectReviewerComponent]
+  [ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER, AdvancedWorkflowActionSelectReviewerComponent],
 ]);
 
 /**

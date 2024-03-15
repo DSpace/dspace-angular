@@ -1,36 +1,49 @@
-import { NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { of, of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TestScheduler } from 'rxjs/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../../core/auth/auth.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { OrcidPageComponent } from './orcid-page.component';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '../../core/orcid/orcid-queue-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { Item } from '../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { Item } from '../../core/shared/item.model';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { OrcidQueueDataService } from '../../core/orcid/orcid-queue-data.service';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { OrcidPageComponent } from './orcid-page.component';
 
 describe('OrcidPageComponent test suite', () => {
   let comp: OrcidPageComponent;
@@ -51,12 +64,12 @@ describe('OrcidPageComponent test suite', () => {
     type: 'profile',
     _links: {
       item: {
-        href: 'https://rest.api/rest/api/profiles/test-id/item'
+        href: 'https://rest.api/rest/api/profiles/test-id/item',
       },
       self: {
-        href: 'https://rest.api/rest/api/profiles/test-id'
+        href: 'https://rest.api/rest/api/profiles/test-id',
       },
-    }
+    },
   });
   const mockItem: Item = Object.assign(new Item(), {
     id: 'test-id',
@@ -65,10 +78,10 @@ describe('OrcidPageComponent test suite', () => {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'test item'
-        }
-      ]
-    }
+          value: 'test item',
+        },
+      ],
+    },
   });
   const mockItemLinkedToOrcid: Item = Object.assign(new Item(), {
     id: 'test-id',
@@ -76,21 +89,21 @@ describe('OrcidPageComponent test suite', () => {
     metadata: {
       'dc.title': [
         {
-          value: 'test item'
-        }
+          value: 'test item',
+        },
       ],
       'dspace.orcid.authenticated': [
         {
-          value: 'true'
-        }
-      ]
-    }
+          value: 'true',
+        },
+      ],
+    },
   });
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: jasmine.createSpy('isAuthenticated'),
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
 
     routeData = {
@@ -122,22 +135,22 @@ describe('OrcidPageComponent test suite', () => {
     });
 
     itemDataService = jasmine.createSpyObj('ItemDataService', {
-      findById: jasmine.createSpy('findById')
+      findById: jasmine.createSpy('findById'),
     });
 
     void TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         RouterTestingModule.withRoutes([]),
         OrcidPageComponent,
         NoopAnimationsModule,
-    ],
-    providers: [
+      ],
+      providers: [
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: OrcidAuthService, useValue: orcidAuthService },
@@ -148,9 +161,9 @@ describe('OrcidPageComponent test suite', () => {
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: PLATFORM_ID, useValue: 'browser' },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
@@ -195,7 +208,7 @@ describe('OrcidPageComponent test suite', () => {
     beforeEach(waitForAsync(() => {
       spyOn(comp, 'updateItem').and.callThrough();
       routeStub.testParams = {
-        code: 'orcid-code'
+        code: 'orcid-code',
       };
     }));
 

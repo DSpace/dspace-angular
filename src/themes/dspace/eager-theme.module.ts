@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
-import { NavbarComponent } from './app/navbar/navbar.component';
+import { NgModule } from '@angular/core';
+
+import { RootModule } from '../../app/root.module';
 import { HeaderComponent } from './app/header/header.component';
 import { HeaderNavbarWrapperComponent } from './app/header-nav-wrapper/header-navbar-wrapper.component';
-import { RootModule } from '../../app/root.module';
-import { NavbarModule } from '../../app/navbar/navbar.module';
-import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
+import { HomeNewsComponent } from './app/home-page/home-news/home-news.component';
+import { NavbarComponent } from './app/navbar/navbar.component';
 
 /**
  * Add components that use a custom decorator to ENTRY_COMPONENTS as well as DECLARATIONS.
@@ -23,16 +22,14 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [
+  imports: [
     CommonModule,
-    SharedBrowseByModule,
     RootModule,
-    NavbarModule,
-    ...DECLARATIONS
-],
-    providers: [
-        ...ENTRY_COMPONENTS.map((component) => ({ provide: component }))
-    ]
+    ...DECLARATIONS,
+  ],
+  providers: [
+    ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
+  ],
 })
 /**
  * This module is included in the main bundle that gets downloaded at first page load. So it should

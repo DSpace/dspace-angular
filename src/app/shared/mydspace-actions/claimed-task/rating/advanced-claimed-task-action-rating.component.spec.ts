@@ -1,25 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdvancedClaimedTaskActionRatingComponent } from './advanced-claimed-task-action-rating.component';
+import { Location } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { RequestService } from '../../../../core/data/request.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { Location } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ADVANCED_WORKFLOW_ACTION_RATING
-} from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
-import { of as observableOf } from 'rxjs';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { AdvancedClaimedTaskActionRatingComponent } from './advanced-claimed-task-action-rating.component';
 
 const taskId = 'claimed-task-1';
 const workflowId = 'workflow-1';
@@ -48,11 +53,11 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
     searchService = new SearchServiceStub();
 
     await TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
-        AdvancedClaimedTaskActionRatingComponent
-    ],
-    providers: [
+        AdvancedClaimedTaskActionRatingComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
         { provide: NotificationsService, useValue: notificationService },
@@ -60,9 +65,9 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
         { provide: Router, useValue: router },
         { provide: SearchService, useValue: searchService },
         Location,
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   });
 
   beforeEach(() => {

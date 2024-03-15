@@ -1,18 +1,25 @@
 
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component representing the `PageNotFound` DSpace page.
  */
 @Component({
-    selector: 'ds-objnotfound',
-    styleUrls: ['./objectnotfound.component.scss'],
-    templateUrl: './objectnotfound.component.html',
-    changeDetection: ChangeDetectionStrategy.Default,
-    standalone: true,
-    imports: [RouterLink, TranslateModule]
+  selector: 'ds-objnotfound',
+  styleUrls: ['./objectnotfound.component.scss'],
+  templateUrl: './objectnotfound.component.html',
+  changeDetection: ChangeDetectionStrategy.Default,
+  standalone: true,
+  imports: [RouterLink, TranslateModule],
 })
 export class ObjectNotFoundComponent implements OnInit {
 

@@ -1,25 +1,30 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../core/data/remote-data';
-import { ItemDataService } from '../core/data/item-data.service';
-import { Item } from '../core/shared/item.model';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { ItemDataService } from '../core/data/item-data.service';
+import { RemoteData } from '../core/data/remote-data';
+import { Item } from '../core/shared/item.model';
 import { hasValue } from '../shared/empty.util';
-import { getItemPageRoute } from './item-page-routing-paths';
 import { ItemResolver } from './item.resolver';
+import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated and will redirect to the
  * entity page
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemPageResolver extends ItemResolver {
   constructor(
     protected itemService: ItemDataService,
     protected store: Store<any>,
-    protected router: Router
+    protected router: Router,
   ) {
     super(itemService, store, router);
   }
@@ -50,7 +55,7 @@ export class ItemPageResolver extends ItemResolver {
           }
         }
         return rd;
-      })
+      }),
     );
   }
 }

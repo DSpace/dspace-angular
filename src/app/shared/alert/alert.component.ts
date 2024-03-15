@@ -1,26 +1,36 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { trigger } from '@angular/animations';
-
-import { AlertType } from './alert-type';
-import { fadeOutLeave, fadeOutState } from '../animations/fade';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+
+import {
+  fadeOutLeave,
+  fadeOutState,
+} from '../animations/fade';
+import { AlertType } from './alert-type';
 
 /**
  * This component allow to create div that uses the Bootstrap's Alerts component.
  */
 @Component({
-    selector: 'ds-alert',
-    encapsulation: ViewEncapsulation.None,
-    animations: [
-        trigger('enterLeave', [
-            fadeOutLeave, fadeOutState,
-        ])
-    ],
-    templateUrl: './alert.component.html',
-    styleUrls: ['./alert.component.scss'],
-    standalone: true,
-    imports: [NgIf, TranslateModule]
+  selector: 'ds-alert',
+  encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('enterLeave', [
+      fadeOutLeave, fadeOutState,
+    ]),
+  ],
+  templateUrl: './alert.component.html',
+  styleUrls: ['./alert.component.scss'],
+  standalone: true,
+  imports: [NgIf, TranslateModule],
 })
 export class AlertComponent {
 

@@ -1,17 +1,27 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { Store, StoreModule } from '@ngrx/store';
-
-import { authReducer } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson.mock';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { AppState } from '../../app.reducer';
-import { LogOutComponent } from './log-out.component';
+import { authReducer } from '../../core/auth/auth.reducer';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { EPersonMock } from '../testing/eperson.mock';
 import { RouterStub } from '../testing/router.stub';
+import { LogOutComponent } from './log-out.component';
 
 describe('LogOutComponent', () => {
 
@@ -34,25 +44,25 @@ describe('LogOutComponent', () => {
   beforeEach(waitForAsync(() => {
     // refine the test module by declaring the test component
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer, {
-            runtimeChecks: {
-                strictStateImmutability: false,
-                strictActionImmutability: false
-            }
+          runtimeChecks: {
+            strictStateImmutability: false,
+            strictActionImmutability: false,
+          },
         }),
         TranslateModule.forRoot(),
-        LogOutComponent
-    ],
-    providers: [
+        LogOutComponent,
+      ],
+      providers: [
         { provide: Router, useValue: routerStub },
-    ],
-    schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-    ]
-})
+      ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
+    })
       .compileComponents();
 
   }));

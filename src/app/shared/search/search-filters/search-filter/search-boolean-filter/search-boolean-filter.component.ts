@@ -1,21 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+
 import {
-  SearchFacetOptionComponent
-} from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
-import {
-  SearchFacetSelectedOptionComponent
-} from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+  facetLoad,
+  SearchFacetFilterComponent,
+} from '../search-facet-filter/search-facet-filter.component';
+import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
+import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
 
 @Component({
-    selector: 'ds-search-boolean-filter',
-    styleUrls: ['./search-boolean-filter.component.scss'],
-    templateUrl: './search-boolean-filter.component.html',
-    animations: [facetLoad],
-    standalone: true,
-    imports: [NgFor, SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, NgIf, AsyncPipe, TranslateModule]
+  selector: 'ds-search-boolean-filter',
+  styleUrls: ['./search-boolean-filter.component.scss'],
+  templateUrl: './search-boolean-filter.component.html',
+  animations: [facetLoad],
+  standalone: true,
+  imports: [NgFor, SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, NgIf, AsyncPipe, TranslateModule],
 })
 
 /**

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
 
 @Injectable({ providedIn: 'root' })
 /**

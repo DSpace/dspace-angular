@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { CurationFormComponent } from '../../curation-form/curation-form.component';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { CurationFormComponent } from '../../curation-form/curation-form.component';
 
 /**
  * Component responsible for rendering the system wide Curation Task UI
@@ -10,9 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './admin-curation-tasks.component.html',
   imports: [
     CurationFormComponent,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class AdminCurationTasksComponent {
 

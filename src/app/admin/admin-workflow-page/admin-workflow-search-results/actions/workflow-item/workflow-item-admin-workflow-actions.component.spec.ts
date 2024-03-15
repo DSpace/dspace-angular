@@ -1,20 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
-import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin-workflow-actions.component';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import {
-  getWorkflowItemDeleteRoute,
-  getWorkflowItemSendBackRoute
-} from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { Item } from '../../../../../core/shared/item.model';
+
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
+import {
+  getWorkflowItemDeleteRoute,
+  getWorkflowItemSendBackRoute,
+} from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin-workflow-actions.component';
 
 describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   let component: WorkflowItemAdminWorkflowActionsComponent;
@@ -35,13 +39,13 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        WorkflowItemAdminWorkflowActionsComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+        WorkflowItemAdminWorkflowActionsComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   }));
 

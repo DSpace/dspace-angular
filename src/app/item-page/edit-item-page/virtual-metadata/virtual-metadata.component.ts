@@ -1,15 +1,28 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import {Observable} from 'rxjs';
-import {Item} from '../../../core/shared/item.model';
-import {MetadataValue} from '../../../core/shared/metadata.models';
-import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
-import { AsyncPipe, NgClass, NgForOf } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import {
-  ListableObjectComponentLoaderComponent
-} from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-virtual-metadata',
@@ -20,9 +33,9 @@ import {
     NgForOf,
     VarDirective,
     AsyncPipe,
-    ListableObjectComponentLoaderComponent
+    ListableObjectComponentLoaderComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component that lists both items of a relationship, along with their virtual metadata of the relationship.
@@ -99,7 +112,7 @@ export class VirtualMetadataComponent implements OnInit {
               metadataField: key,
               metadataValue: metadata,
             };
-          })
+          }),
       )
       .reduce((previous, current) => previous.concat(current), []);
   }

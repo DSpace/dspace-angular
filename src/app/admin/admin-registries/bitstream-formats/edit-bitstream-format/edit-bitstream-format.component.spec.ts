@@ -1,25 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { RouterStub } from '../../../../shared/testing/router.stub';
-import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../../shared/testing/router.stub';
 import { FormatFormComponent } from '../format-form/format-form.component';
+import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
 
 describe('EditBitstreamFormatComponent', () => {
   let comp: EditBitstreamFormatComponent;
@@ -37,8 +45,8 @@ describe('EditBitstreamFormatComponent', () => {
 
   const routeStub = {
     data: observableOf({
-      bitstreamFormat: createSuccessfulRemoteDataObject(bitstreamFormat)
-    })
+      bitstreamFormat: createSuccessfulRemoteDataObject(bitstreamFormat),
+    }),
   };
 
   let router;
@@ -49,7 +57,7 @@ describe('EditBitstreamFormatComponent', () => {
     router = new RouterStub();
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-      updateBitstreamFormat: createSuccessfulRemoteDataObject$({})
+      updateBitstreamFormat: createSuccessfulRemoteDataObject$({}),
     });
 
     TestBed.configureTestingModule({
@@ -61,12 +69,12 @@ describe('EditBitstreamFormatComponent', () => {
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
 
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideComponent(EditBitstreamFormatComponent, {
         remove: {
-          imports: [FormatFormComponent]
-        }
+          imports: [FormatFormComponent],
+        },
       })
       .compileComponents();
   };
@@ -106,7 +114,7 @@ describe('EditBitstreamFormatComponent', () => {
       router = new RouterStub();
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
-        updateBitstreamFormat: createFailedRemoteDataObject$('Error', 500)
+        updateBitstreamFormat: createFailedRemoteDataObject$('Error', 500),
       });
 
       TestBed.configureTestingModule({
@@ -117,12 +125,12 @@ describe('EditBitstreamFormatComponent', () => {
           { provide: NotificationsService, useValue: notificationService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
         ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       })
         .overrideComponent(EditBitstreamFormatComponent, {
           remove: {
-            imports: [FormatFormComponent]
-          }
+            imports: [FormatFormComponent],
+          },
         })
         .compileComponents();
     }));

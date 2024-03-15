@@ -1,17 +1,19 @@
-import { Component, Input } from '@angular/core';
-
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-
 import { Subscription } from 'rxjs';
-import { AlertType } from '../alert/alert-type';
+
 import { AlertComponent } from '../alert/alert.component';
+import { AlertType } from '../alert/alert-type';
 
 @Component({
-    selector: 'ds-error',
-    styleUrls: ['./error.component.scss'],
-    templateUrl: './error.component.html',
-    standalone: true,
-    imports: [AlertComponent]
+  selector: 'ds-error',
+  styleUrls: ['./error.component.scss'],
+  templateUrl: './error.component.html',
+  standalone: true,
+  imports: [AlertComponent],
 })
 export class ErrorComponent {
 

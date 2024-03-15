@@ -12,7 +12,7 @@
     <div *ngIf="reload$.value.sourceId !== ''" class="col-md-12">
       <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
         <h2 *ngIf="entriesRD && entriesRD?.payload?.page?.length !== 0">{{ 'submission.sections.describe.relationship-lookup.selection-tab.title' | translate}}</h2>
-        <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !(isLoading$ | async) && entriesRD?.payload?.page?.length > 0" @fadeIn
+        <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && (isLoading$ | async) !== true && entriesRD?.payload?.page?.length > 0" @fadeIn
                                 [objects]="entriesRD"
                                 [selectionConfig]="{ repeatable: repeatable, listId: listId }"
                                 [config]="initialPagination"
@@ -24,10 +24,10 @@
         </ds-viewable-collection>
         <ds-themed-loading *ngIf="(isLoading$ | async)"
                     message="{{'loading.search-results' | translate}}"></ds-themed-loading>
-        <div *ngIf="!(isLoading$ | async) && entriesRD?.payload?.page?.length === 0" data-test="empty-external-entry-list">
+        <div *ngIf="(isLoading$ | async) !== true && entriesRD?.payload?.page?.length === 0" data-test="empty-external-entry-list">
           <ds-alert [type]="AlertType.Info">{{ 'search.results.empty' | translate }}</ds-alert>
         </div>
-        <div *ngIf="!(isLoading$ | async) && entriesRD.statusCode === 500" data-test="empty-external-error-500">
+        <div *ngIf="(isLoading$ | async) !== true && entriesRD.statusCode === 500" data-test="empty-external-error-500">
           <ds-alert [type]="AlertType.Info">{{ 'search.results.response.500' | translate }}</ds-alert>
         </div>
       </ng-container>

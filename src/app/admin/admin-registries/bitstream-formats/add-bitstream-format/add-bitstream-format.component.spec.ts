@@ -1,24 +1,32 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
 import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormService } from '../../../../shared/form/form.service';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
-import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { FormService } from '../../../../shared/form/form.service';
-import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormatFormComponent } from '../format-form/format-form.component';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { AddBitstreamFormatComponent } from './add-bitstream-format.component';
 
 describe('AddBitstreamFormatComponent', () => {
   let comp: AddBitstreamFormatComponent;
@@ -43,7 +51,7 @@ describe('AddBitstreamFormatComponent', () => {
     notificationService = new NotificationsServiceStub();
     bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
       createBitstreamFormat: createSuccessfulRemoteDataObject$({}),
-      clearBitStreamFormatRequests: observableOf(null)
+      clearBitStreamFormatRequests: observableOf(null),
     });
 
     TestBed.configureTestingModule({
@@ -55,14 +63,14 @@ describe('AddBitstreamFormatComponent', () => {
         { provide: FormService, useValue: getMockFormService() },
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .overrideComponent(AddBitstreamFormatComponent, {
-      remove: {
-        imports: [FormatFormComponent]
-      }
-    })
-    .compileComponents();
+      .overrideComponent(AddBitstreamFormatComponent, {
+        remove: {
+          imports: [FormatFormComponent],
+        },
+      })
+      .compileComponents();
   };
 
   const initBeforeEach = () => {
@@ -90,7 +98,7 @@ describe('AddBitstreamFormatComponent', () => {
       notificationService = new NotificationsServiceStub();
       bitstreamFormatDataService = jasmine.createSpyObj('bitstreamFormatDataService', {
         createBitstreamFormat: createFailedRemoteDataObject$('Error', 500),
-        clearBitStreamFormatRequests: observableOf(null)
+        clearBitStreamFormatRequests: observableOf(null),
       });
 
       TestBed.configureTestingModule({
@@ -102,14 +110,14 @@ describe('AddBitstreamFormatComponent', () => {
           { provide: FormService, useValue: getMockFormService() },
           { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
       })
-      .overrideComponent(AddBitstreamFormatComponent, {
-        remove: {
-          imports: [FormatFormComponent]
-        }
-      })
-      .compileComponents();
+        .overrideComponent(AddBitstreamFormatComponent, {
+          remove: {
+            imports: [FormatFormComponent],
+          },
+        })
+        .compileComponents();
     }));
     beforeEach(initBeforeEach);
     it('should send the updated form to the service, show a notification and navigate to ', () => {

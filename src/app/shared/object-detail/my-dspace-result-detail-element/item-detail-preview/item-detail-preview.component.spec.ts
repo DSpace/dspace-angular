@@ -1,48 +1,57 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
+import { AuthService } from '../../../../core/auth/auth.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
+import { FindListOptions } from '../../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service.stub';
+import { createPaginatedList } from '../../../testing/utils.test';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { FollowLinkConfig } from '../../../utils/follow-link-config.model';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { VarDirective } from '../../../utils/var.directive';
-import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';
-import { createPaginatedList } from '../../../testing/utils.test';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
-import { ThemeService } from '../../../../shared/theme-support/theme.service';
-import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
+import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
     downloadFile: jasmine.createSpy('downloadFile'),
-    getFileNameFromResponseContentDisposition: jasmine.createSpy('getFileNameFromResponseContentDisposition')
+    getFileNameFromResponseContentDisposition: jasmine.createSpy('getFileNameFromResponseContentDisposition'),
   });
 }
 
@@ -55,28 +64,28 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
-    ]
-  }
+        value: 'Article',
+      },
+    ],
+  },
 });
 
 describe('ItemDetailPreviewComponent', () => {
@@ -90,17 +99,17 @@ describe('ItemDetailPreviewComponent', () => {
   };
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective
-    ],
-    providers: [
+        ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective,
+      ],
+      providers: [
         { provide: FileService, useValue: getMockFileService() },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: ObjectCacheService, useValue: {} },
@@ -117,10 +126,10 @@ describe('ItemDetailPreviewComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: SearchService, useValue: new SearchServiceStub() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ItemDetailPreviewComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ItemDetailPreviewComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

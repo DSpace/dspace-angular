@@ -1,16 +1,14 @@
-import { HomePageResolver } from './home-page.resolver';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { ThemedHomePageComponent } from './themed-home-page.component';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { Route } from '@angular/router';
+
+import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
+import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { HomePageResolver } from './home-page.resolver';
+import { ThemedHomePageComponent } from './themed-home-page.component';
 
 export const ROUTES: Route[] = [
   {
     path: '',
     component: ThemedHomePageComponent,
-    providers: [
-      HomePageResolver
-    ],
     pathMatch: 'full',
     data: {
       title: 'home.title',
@@ -29,7 +27,7 @@ export const ROUTES: Route[] = [
       },
     },
     resolve: {
-      site: HomePageResolver
-    }
-  }
+      site: HomePageResolver,
+    },
+  },
 ];

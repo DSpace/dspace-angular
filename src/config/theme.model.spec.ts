@@ -1,17 +1,23 @@
-import { HandleTheme, RegExTheme, Theme, UUIDTheme } from '../app/shared/theme-support/theme.model';
+import { TestBed } from '@angular/core/testing';
+
+import { getCollectionModuleRoute } from '../app/collection-page/collection-page-routing-paths';
 import { getCommunityModuleRoute } from '../app/community-page/community-page-routing-paths';
+import { ConfigurationDataService } from '../app/core/data/configuration-data.service';
+import { Collection } from '../app/core/shared/collection.model';
+import { COLLECTION } from '../app/core/shared/collection.resource-type';
 import { Community } from '../app/core/shared/community.model';
 import { COMMUNITY } from '../app/core/shared/community.resource-type';
-import { getCollectionModuleRoute } from '../app/collection-page/collection-page-routing-paths';
-import { COLLECTION } from '../app/core/shared/collection.resource-type';
-import { Collection } from '../app/core/shared/collection.model';
 import { Item } from '../app/core/shared/item.model';
 import { ITEM } from '../app/core/shared/item.resource-type';
 import { getItemModuleRoute } from '../app/item-page/item-page-routing-paths';
 import { HandleService } from '../app/shared/handle.service';
-import { TestBed } from '@angular/core/testing';
-import { ConfigurationDataService } from '../app/core/data/configuration-data.service';
 import { ConfigurationDataServiceStub } from '../app/shared/testing/configuration-data.service.stub';
+import {
+  HandleTheme,
+  RegExTheme,
+  Theme,
+  UUIDTheme,
+} from '../app/shared/theme-support/theme.model';
 
 describe('Theme Models', () => {
   let theme: Theme;

@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { RemoteData } from '../core/data/remote-data';
+import { ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { Process } from './processes/process.model';
-import { followLink } from '../shared/utils/follow-link-config.model';
+
 import { ProcessDataService } from '../core/data/processes/process-data.service';
+import { RemoteData } from '../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { followLink } from '../shared/utils/follow-link-config.model';
+import { Process } from './processes/process.model';
+
+export const PROCESS_PAGE_FOLLOW_LINKS = [
+  followLink('files'),
+];
 
 /**
  * This class represents a resolver that requests a specific process before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProcessPageResolver  {
   constructor(private processService: ProcessDataService) {
   }
@@ -23,7 +30,7 @@ export class ProcessPageResolver  {
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Process>> {
-    return this.processService.findById(route.params.id, false, true, followLink('script')).pipe(
+    return this.processService.findById(route.params.id, false, true, ...PROCESS_PAGE_FOLLOW_LINKS).pipe(
       getFirstCompletedRemoteData(),
     );
   }

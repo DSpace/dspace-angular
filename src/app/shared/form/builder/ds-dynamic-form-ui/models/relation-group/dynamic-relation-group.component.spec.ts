@@ -1,35 +1,65 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-
-import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
-import { DynamicRelationGroupModel, DynamicRelationGroupModelConfig } from './dynamic-relation-group.model';
-import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
-import { FormFieldModel } from '../../../models/form-field.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { FormService } from '../../../../form.service';
-import { FormComponent } from '../../../../form.component';
-import { Chips } from '../../../../chips/models/chips.model';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { DsDynamicInputModel } from '../ds-dynamic-input.model';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
-import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
-import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';
-import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
-import { SubmissionService } from '../../../../../../submission/submission.service';
-import { APP_CONFIG, APP_DATA_SERVICES_MAP, APP_DYNAMIC_FORM_CONTROL_FN } from 'src/config/app-config.interface';
-import { environment } from 'src/environments/environment.test';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import {
+  NgbModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
+
+import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
+import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { createTestComponent } from '../../../../../testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+import { Chips } from '../../../../chips/models/chips.model';
+import { FormComponent } from '../../../../form.component';
+import { FormService } from '../../../../form.service';
+import { FormBuilderService } from '../../../form-builder.service';
+import { FormFieldModel } from '../../../models/form-field.model';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
+import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';
+import { DsDynamicInputModel } from '../ds-dynamic-input.model';
+import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
+import {
+  DynamicRelationGroupModel,
+  DynamicRelationGroupModelConfig,
+} from './dynamic-relation-group.model';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -49,7 +79,7 @@ const initialState: any = {
     'json/patch': {},
     'metaTag': {},
     'route': {},
-  }
+  },
 };
 function init() {
   FORM_GROUP_TEST_MODEL_CONFIG = {
@@ -67,9 +97,9 @@ function init() {
         selectableMetadata: [{
           controlledVocabulary: 'RPAuthority',
           closed: false,
-          metadata: 'dc.contributor.author'
+          metadata: 'dc.contributor.author',
         }],
-      } as FormFieldModel]
+      } as FormFieldModel],
     } as FormRowModel, {
       fields: [{
         hints: 'Enter the affiliation of the author.',
@@ -81,9 +111,9 @@ function init() {
         selectableMetadata: [{
           controlledVocabulary: 'OUAuthority',
           closed: false,
-          metadata: 'local.contributor.affiliation'
-        }]
-      } as FormFieldModel]
+          metadata: 'local.contributor.affiliation',
+        }],
+      } as FormFieldModel],
     } as FormRowModel],
     submissionId,
     id: 'dc_contributor_author',
@@ -99,7 +129,7 @@ function init() {
     validators: { required: null },
     repeatable: false,
     metadataFields: [],
-    hasSelectableMetadata: false
+    hasSelectableMetadata: false,
   } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new UntypedFormGroup({
@@ -127,7 +157,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
     vocabularyServiceStub = new VocabularyServiceStub();
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
@@ -136,8 +166,8 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormComponent,
         DsDynamicRelationGroupComponent,
         TestComponent,
-    ],
-    providers: [
+      ],
+      providers: [
         ChangeDetectorRef,
         DsDynamicRelationGroupComponent,
         DynamicFormValidationService,
@@ -145,18 +175,18 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        provideMockStore({initialState}),
+        provideMockStore({ initialState }),
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
-        { provide: SubmissionObjectDataService, useValue: {}},
-        { provide: SubmissionService, useValue: {}},
+        { provide: SubmissionObjectDataService, useValue: {} },
+        { provide: SubmissionService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        { provide: APP_DYNAMIC_FORM_CONTROL_FN, useValue: dsDynamicFormControlMapFn },
-    ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
 
   }));
 
@@ -224,7 +254,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       (model2 as any).value = new FormFieldMetadataValueObject('test affiliation');
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }];
       groupFixture.detectChanges();
 
@@ -268,7 +298,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }];
       groupComp.model.value = modelValue;
       groupFixture.detectChanges();
@@ -303,7 +333,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author modify'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }];
       groupFixture.detectChanges();
 
@@ -337,17 +367,17 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [
-      DsDynamicRelationGroupComponent,
-      NgIf,
-      AsyncPipe,
-      NgbTooltipModule,
-      TranslateModule,
-      NgClass,
-    ]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [
+    DsDynamicRelationGroupComponent,
+    NgIf,
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+    NgClass,
+  ],
 })
 class TestComponent {
 

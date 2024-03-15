@@ -1,18 +1,23 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { pushInOut } from '../../../../app/shared/animations/push';
 import {
-  MyDSpacePageComponent as BaseComponent
-} from '../../../../app/my-dspace-page/my-dspace-page.component';
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
-    MyDSpaceConfigurationService,
-    SEARCH_CONFIG_SERVICE
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
+import {
+  MyDSpaceConfigurationService,
+  SEARCH_CONFIG_SERVICE,
 } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
-import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
-import {
-  MyDSpaceNewSubmissionComponent
-} from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { MyDSpaceNewSubmissionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
+import { MyDSpacePageComponent as BaseComponent } from '../../../../app/my-dspace-page/my-dspace-page.component';
+import { MyDspaceQaEventsNotificationsComponent } from '../../../../app/my-dspace-page/my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
+import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions-notification/suggestions-notification.component';
+import { pushInOut } from '../../../../app/shared/animations/push';
 import { RoleDirective } from '../../../../app/shared/roles/role.directive';
+import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
 
 /**
  * This component represents the whole mydspace page
@@ -28,16 +33,18 @@ import { RoleDirective } from '../../../../app/shared/roles/role.directive';
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: MyDSpaceConfigurationService
-    }
+      useClass: MyDSpaceConfigurationService,
+    },
   ],
   standalone: true,
   imports: [
     ThemedSearchComponent,
     MyDSpaceNewSubmissionComponent,
+    MyDspaceQaEventsNotificationsComponent,
+    SuggestionsNotificationComponent,
     AsyncPipe,
     RoleDirective,
-    NgIf
+    NgIf,
   ],
 })
 export class MyDSpacePageComponent extends BaseComponent {

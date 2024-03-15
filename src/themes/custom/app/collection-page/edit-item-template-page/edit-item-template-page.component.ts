@@ -1,16 +1,16 @@
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  EditItemTemplatePageComponent as BaseComponent
-} from '../../../../../app/collection-page/edit-item-template-page/edit-item-template-page.component';
-import {
-  ThemedDsoEditMetadataComponent
-} from '../../../../../app/dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
+
+import { EditItemTemplatePageComponent as BaseComponent } from '../../../../../app/collection-page/edit-item-template-page/edit-item-template-page.component';
+import { ThemedDsoEditMetadataComponent } from '../../../../../app/dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { AlertComponent } from '../../../../../app/shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
+import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 
 @Component({
   selector: 'ds-edit-item-template-page',
@@ -26,8 +26,8 @@ import { AlertComponent } from '../../../../../app/shared/alert/alert.component'
     NgIf,
     TranslateModule,
     ThemedLoadingComponent,
-    AlertComponent
-  ]
+    AlertComponent,
+  ],
 })
 /**
  * Component for editing the item template of a collection

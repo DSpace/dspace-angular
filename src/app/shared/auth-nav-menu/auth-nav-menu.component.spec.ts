@@ -1,23 +1,38 @@
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Store, StoreModule } from '@ngrx/store';
-
-import { authReducer, AuthState } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson.mock';
-import { TranslateModule } from '@ngx-translate/core';
-import { AppState } from '../../app.reducer';
-import { AuthNavMenuComponent } from './auth-nav-menu.component';
-import { HostWindowServiceStub } from '../testing/host-window-service.stub';
-import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { AuthService } from '../../core/auth/auth.service';
-import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import { AppState } from '../../app.reducer';
+import {
+  authReducer,
+  AuthState,
+} from '../../core/auth/auth.reducer';
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
+import { HostWindowService } from '../host-window.service';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
+import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
+import { EPersonMock } from '../testing/eperson.mock';
+import { HostWindowServiceStub } from '../testing/host-window-service.stub';
+import { AuthNavMenuComponent } from './auth-nav-menu.component';
 
 describe('AuthNavMenuComponent', () => {
 
@@ -32,13 +47,13 @@ describe('AuthNavMenuComponent', () => {
   let authService: AuthService;
 
   let routerState = {
-    url: '/home'
+    url: '/home',
   };
 
   function serviceInit() {
     authService = jasmine.createSpyObj('authService', {
       getAuthenticatedUserFromStore: of(EPersonMock),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
   }
 
@@ -48,7 +63,7 @@ describe('AuthNavMenuComponent', () => {
       loaded: false,
       blocking: false,
       loading: false,
-      idle: false
+      idle: false,
     };
     authState = {
       authenticated: true,
@@ -57,7 +72,7 @@ describe('AuthNavMenuComponent', () => {
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
       userId: EPersonMock.id,
-      idle: false
+      idle: false,
     };
   }
 
@@ -74,11 +89,13 @@ describe('AuthNavMenuComponent', () => {
           StoreModule.forRoot(authReducer, {
             runtimeChecks: {
               strictStateImmutability: false,
-              strictActionImmutability: false
-            }
+              strictActionImmutability: false,
+            },
           }),
           TranslateModule.forRoot(),
-          AuthNavMenuComponent
+          AuthNavMenuComponent,
+          NgbDropdownModule,
+          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
@@ -87,8 +104,8 @@ describe('AuthNavMenuComponent', () => {
           { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         ],
         schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
+          CUSTOM_ELEMENTS_SCHEMA,
+        ],
       })
         .compileComponents();
     }));
@@ -99,7 +116,7 @@ describe('AuthNavMenuComponent', () => {
     describe('when route is /login and user is not authenticated', () => {
       beforeEach(inject([Store], (store: Store<AppState>) => {
         routerState = {
-          url: '/login'
+          url: '/login',
         };
         store
           .subscribe((state) => {
@@ -117,10 +134,10 @@ describe('AuthNavMenuComponent', () => {
 
         fixture.detectChanges();
 
-        const navMenuSelector = '.navbar-nav';
+        const navMenuSelector = '[data-test="auth-nav"]';
         deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
 
-        const navMenuItemSelector = 'li';
+        const navMenuItemSelector = '.nav-item';
         deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
       }));
       afterEach(() => {
@@ -137,7 +154,7 @@ describe('AuthNavMenuComponent', () => {
     describe('when route is /logout and user is authenticated', () => {
       beforeEach(inject([Store], (store: Store<AppState>) => {
         routerState = {
-          url: '/logout'
+          url: '/logout',
         };
         store
           .subscribe((state) => {
@@ -155,10 +172,10 @@ describe('AuthNavMenuComponent', () => {
 
         fixture.detectChanges();
 
-        const navMenuSelector = '.navbar-nav';
+        const navMenuSelector = '[data-test="auth-nav"]';
         deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
 
-        const navMenuItemSelector = 'li';
+        const navMenuItemSelector = '.nav-item';
         deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
       }));
 
@@ -179,7 +196,7 @@ describe('AuthNavMenuComponent', () => {
 
         beforeEach(inject([Store], (store: Store<AppState>) => {
           routerState = {
-            url: '/home'
+            url: '/home',
           };
           store
             .subscribe((state) => {
@@ -197,10 +214,10 @@ describe('AuthNavMenuComponent', () => {
 
           fixture.detectChanges();
 
-          const navMenuSelector = '.navbar-nav';
+          const navMenuSelector = '[data-test="auth-nav"]';
           deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
 
-          const navMenuItemSelector = 'li';
+          const navMenuItemSelector = '.nav-item';
           deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
         }));
 
@@ -210,7 +227,7 @@ describe('AuthNavMenuComponent', () => {
         });
 
         it('should render login dropdown menu', () => {
-          const loginDropdownMenu = deNavMenuItem.query(By.css('div.loginDropdownMenu'));
+          const loginDropdownMenu = deNavMenuItem.query(By.css('div#loginDropdownMenu'));
           expect(loginDropdownMenu.nativeElement).toBeDefined();
         });
       });
@@ -218,7 +235,7 @@ describe('AuthNavMenuComponent', () => {
       describe('when user is authenticated', () => {
         beforeEach(inject([Store], (store: Store<AppState>) => {
           routerState = {
-            url: '/home'
+            url: '/home',
           };
           store
             .subscribe((state) => {
@@ -236,10 +253,10 @@ describe('AuthNavMenuComponent', () => {
 
           fixture.detectChanges();
 
-          const navMenuSelector = '.navbar-nav';
+          const navMenuSelector = '[data-test="auth-nav"]';
           deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
 
-          const navMenuItemSelector = 'li';
+          const navMenuItemSelector = '.nav-item';
           deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
         }));
 
@@ -267,11 +284,11 @@ describe('AuthNavMenuComponent', () => {
           StoreModule.forRoot(authReducer, {
             runtimeChecks: {
               strictStateImmutability: false,
-              strictActionImmutability: false
-            }
+              strictActionImmutability: false,
+            },
           }),
           TranslateModule.forRoot(),
-          AuthNavMenuComponent
+          AuthNavMenuComponent,
         ],
         providers: [
           { provide: HostWindowService, useValue: window },
@@ -279,8 +296,8 @@ describe('AuthNavMenuComponent', () => {
           { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         ],
         schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
-        ]
+          CUSTOM_ELEMENTS_SCHEMA,
+        ],
       })
         .compileComponents();
 
@@ -308,11 +325,8 @@ describe('AuthNavMenuComponent', () => {
 
         fixture.detectChanges();
 
-        const navMenuSelector = '.navbar-nav';
+        const navMenuSelector = '[data-test="auth-nav"]';
         deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
-
-        const navMenuItemSelector = 'li';
-        deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
       }));
 
       afterEach(() => {
@@ -321,7 +335,7 @@ describe('AuthNavMenuComponent', () => {
       });
 
       it('should render login link', () => {
-        const loginDropdownMenu = deNavMenuItem.query(By.css('.loginLink'));
+        const loginDropdownMenu = deNavMenu.query(By.css('.loginLink'));
         expect(loginDropdownMenu.nativeElement).toBeDefined();
       });
     });
@@ -344,11 +358,8 @@ describe('AuthNavMenuComponent', () => {
 
         fixture.detectChanges();
 
-        const navMenuSelector = '.navbar-nav';
+        const navMenuSelector = '[data-test="auth-nav"]';
         deNavMenu = fixture.debugElement.query(By.css(navMenuSelector));
-
-        const navMenuItemSelector = 'li';
-        deNavMenuItem = deNavMenu.query(By.css(navMenuItemSelector));
       }));
 
       afterEach(() => {
@@ -357,7 +368,7 @@ describe('AuthNavMenuComponent', () => {
       });
 
       it('should render logout link', inject([Store], (store: Store<AppState>) => {
-        const logoutDropdownMenu = deNavMenuItem.query(By.css('a.logoutLink'));
+        const logoutDropdownMenu = deNavMenu.query(By.css('a.logoutLink'));
         expect(logoutDropdownMenu.nativeElement).toBeDefined();
       }));
     });

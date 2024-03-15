@@ -1,6 +1,8 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,39 +10,55 @@ import {
   Input,
   OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-
-import { RemoteData } from '../../core/data/remote-data';
-import { fadeIn } from '../animations/fade';
-import { hasNoValue, hasValue } from '../empty.util';
-import { HostWindowService, WidthCategory } from '../host-window.service';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { Context } from '../../core/shared/context.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+} from 'rxjs/operators';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Context } from '../../core/shared/context.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { fadeIn } from '../animations/fade';
+import {
+  hasNoValue,
+  hasValue,
+} from '../empty.util';
 import { ErrorComponent } from '../error/error.component';
+import {
+  HostWindowService,
+  WidthCategory,
+} from '../host-window.service';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
-    encapsulation: ViewEncapsulation.Emulated,
-    selector: 'ds-object-grid',
-    styleUrls: ['./object-grid.component.scss'],
-    templateUrl: './object-grid.component.html',
-    animations: [fadeIn],
-    standalone: true,
-    imports: [PaginationComponent, NgIf, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe]
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.Emulated,
+  selector: 'ds-object-grid',
+  styleUrls: ['./object-grid.component.scss'],
+  templateUrl: './object-grid.component.html',
+  animations: [fadeIn],
+  standalone: true,
+  imports: [PaginationComponent, NgIf, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 
 export class ObjectGridComponent implements OnInit {
@@ -192,7 +210,7 @@ export class ObjectGridComponent implements OnInit {
           }
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     ).pipe(startWith(3));
 
     this.columns$ = observableCombineLatest(
@@ -260,14 +278,14 @@ export class ObjectGridComponent implements OnInit {
    * Go to the previous page
    */
   goPrev() {
-      this.prev.emit(true);
+    this.prev.emit(true);
   }
 
- /**
+  /**
   * Go to the next page
   */
   goNext() {
-      this.next.emit(true);
+    this.next.emit(true);
   }
 
 }

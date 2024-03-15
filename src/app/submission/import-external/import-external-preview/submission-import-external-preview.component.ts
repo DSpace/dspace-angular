@@ -1,16 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { mergeMap } from 'rxjs/operators';
+
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { mergeMap } from 'rxjs/operators';
-import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SubmissionService } from '../../submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component display a preview of an external source item.
@@ -20,9 +29,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./submission-import-external-preview.component.scss'],
   templateUrl: './submission-import-external-preview.component.html',
   imports: [
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
@@ -55,7 +64,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     private submissionService: SubmissionService,
     private modalService: NgbModal,
     private router: Router,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
   ) { }
 
   /**
@@ -67,7 +76,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     metadataKeys.forEach((key) => {
       this.metadataList.push({
         key: key,
-        value: Metadata.first(this.externalSourceEntry.metadata, key)
+        value: Metadata.first(this.externalSourceEntry.metadata, key),
       });
     });
   }
@@ -92,7 +101,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     this.modalRef.componentInstance.selectedEvent.pipe(
       mergeMap((collectionListEntry: CollectionListEntry) => {
         return this.submissionService.createSubmissionFromExternalSource(this.externalSourceEntry._links.self.href, collectionListEntry.collection.id);
-      })
+      }),
     ).subscribe((submissionObjects: SubmissionObject[]) => {
       let isValid = false;
       if (submissionObjects.length === 1) {

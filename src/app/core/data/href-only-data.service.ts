@@ -1,20 +1,21 @@
-import { RequestService } from './request.service';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Injectable } from '@angular/core';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { RemoteData } from './remote-data';
-import { Observable } from 'rxjs';
-import { PaginatedList } from './paginated-list.model';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { FindListOptions } from './find-list-options.model';
 import { BaseDataService } from './base/base-data.service';
 import { HALDataService } from './base/hal-data-service.interface';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
 
 /**
- * A DataService with only findByHref methods. Its purpose is to be used for resources that don't
- * need to be retrieved by ID, or have any way to update them, but require a DataService in order
+ * A UpdateDataServiceImpl with only findByHref methods. Its purpose is to be used for resources that don't
+ * need to be retrieved by ID, or have any way to update them, but require a UpdateDataServiceImpl in order
  * for their links to be resolved by the LinkService.
  *
  * an @dataService annotation can be added for any number of these resource types
@@ -28,7 +29,7 @@ import { HALDataService } from './base/hal-data-service.interface';
  * ```
  * This means we cannot extend from {@link BaseDataService} directly because the method signatures would not match.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class HrefOnlyDataService implements HALDataService<any> {
   /**
    * Works with a {@link BaseDataService} internally, but only exposes two of its methods

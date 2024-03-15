@@ -1,9 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
+
+import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal.component';
 
 describe('ItemVersionsSummaryModalComponent', () => {
   let component: ItemVersionsSummaryModalComponent;
@@ -11,11 +14,11 @@ describe('ItemVersionsSummaryModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsSummaryModalComponent],
-    providers: [
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsSummaryModalComponent],
+      providers: [
         { provide: NgbActiveModal },
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

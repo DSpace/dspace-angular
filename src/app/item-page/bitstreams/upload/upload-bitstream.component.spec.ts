@@ -1,31 +1,42 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { UploadBitstreamComponent } from './upload-bitstream.component';
-import { AuthService } from '../../../core/auth/auth.service';
-import { Item } from '../../../core/shared/item.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { RequestService } from '../../../core/data/request.service';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
+
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../core/auth/auth.service';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { RequestService } from '../../../core/data/request.service';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Bundle } from '../../../core/shared/bundle.model';
+import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { UploadBitstreamComponent } from './upload-bitstream.component';
 
 describe('UploadBitstreamComponent', () => {
   let comp: UploadBitstreamComponent;
@@ -40,13 +51,13 @@ describe('UploadBitstreamComponent', () => {
       'dc.title': [
         {
           value: customName,
-          language: null
-        }
-      ]
+          language: null,
+        },
+      ],
     },
     _links: {
-      self: { href: 'bundle-selflink' }
-    }
+      self: { href: 'bundle-selflink' },
+    },
   });
   const customCreatedName = 'customCreatedBundleName';
   const createdBundle = Object.assign(new Bundle(), {
@@ -57,13 +68,13 @@ describe('UploadBitstreamComponent', () => {
       'dc.title': [
         {
           value: customCreatedName,
-          language: null
-        }
-      ]
+          language: null,
+        },
+      ],
     },
     _links: {
-      self: { href: 'created-bundle-selflink' }
-    }
+      self: { href: 'created-bundle-selflink' },
+    },
   });
   const itemName = 'fake-name';
   const mockItem = Object.assign(new Item(), {
@@ -73,11 +84,11 @@ describe('UploadBitstreamComponent', () => {
       'dc.title': [
         {
           language: null,
-          value: itemName
-        }
-      ]
+          value: itemName,
+        },
+      ],
     },
-    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
   });
   const standardBundleSuggestions = environment.bundle.standardBundles;
   let routeStub;
@@ -90,16 +101,16 @@ describe('UploadBitstreamComponent', () => {
   });
   const bundleService = jasmine.createSpyObj('bundleService', {
     getBitstreamsEndpoint: observableOf(restEndpoint),
-    findById: createSuccessfulRemoteDataObject$(bundle)
+    findById: createSuccessfulRemoteDataObject$(bundle),
   });
   const authToken = 'fake-auth-token';
   const authServiceStub = Object.assign(new AuthServiceStub(), {
-    buildAuthHeader: () => authToken
+    buildAuthHeader: () => authToken,
   });
   const notificationsServiceStub = new NotificationsServiceStub();
   const uploaderComponent = jasmine.createSpyObj('uploaderComponent', ['ngOnInit', 'ngAfterViewInit']);
   const requestService = jasmine.createSpyObj('requestService', {
-    removeByHrefSubstring: {}
+    removeByHrefSubstring: {},
   });
 
   describe('when a file is uploaded', () => {
@@ -123,7 +134,7 @@ describe('UploadBitstreamComponent', () => {
 
     describe('and it succeeds, calling onCompleteItem', () => {
       const createdBitstream = Object.assign(new Bitstream(), {
-        id: 'fake-bitstream'
+        id: 'fake-bitstream',
       });
 
       beforeEach(() => {
@@ -139,7 +150,7 @@ describe('UploadBitstreamComponent', () => {
   describe('when a bundle url parameter is present', () => {
     beforeEach(waitForAsync(() => {
       createUploadBitstreamTestingModule({
-        bundle: bundle.id
+        bundle: bundle.id,
       });
     }));
 
@@ -210,7 +221,7 @@ describe('UploadBitstreamComponent', () => {
   describe('when item has no bundles yet', () => {
     beforeEach(waitForAsync(() => {
       createUploadBitstreamTestingModule({
-        bundle: bundle.id
+        bundle: bundle.id,
       });
       jasmine.getEnv().allowRespy(true);
       mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
@@ -229,7 +240,7 @@ describe('UploadBitstreamComponent', () => {
   describe('when item has a custom bundle', () => {
     beforeEach(waitForAsync(() => {
       createUploadBitstreamTestingModule({
-        bundle: bundle.id
+        bundle: bundle.id,
       });
       jasmine.getEnv().allowRespy(true);
       mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [bundle])));
@@ -253,7 +264,7 @@ describe('UploadBitstreamComponent', () => {
       expect(standardBundleSuggestions.length).toBeGreaterThan(0);
       clonedBundle.name = standardBundleSuggestions[0];
       createUploadBitstreamTestingModule({
-        bundle: clonedBundle.id
+        bundle: clonedBundle.id,
       });
       jasmine.getEnv().allowRespy(true);
       mockItemDataService.getBundles.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [clonedBundle])));
@@ -277,15 +288,15 @@ describe('UploadBitstreamComponent', () => {
   function createUploadBitstreamTestingModule(queryParams) {
     routeStub = {
       data: observableOf({
-        dso: createSuccessfulRemoteDataObject(mockItem)
+        dso: createSuccessfulRemoteDataObject(mockItem),
       }),
       queryParams: observableOf(queryParams),
       snapshot: {
         queryParams: queryParams,
         params: {
-          id: mockItem.id
-        }
-      }
+          id: mockItem.id,
+        },
+      },
     };
 
     TestBed.configureTestingModule({
@@ -297,15 +308,15 @@ describe('UploadBitstreamComponent', () => {
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: AuthService, useValue: authServiceStub },
         { provide: BundleDataService, useValue: bundleService },
-        { provide: RequestService, useValue: requestService }
+        { provide: RequestService, useValue: requestService },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     })
       .overrideComponent(UploadBitstreamComponent, {
         remove: {
-          imports: [UploaderComponent, DsoInputSuggestionsComponent]
-        }
+          imports: [UploaderComponent, DsoInputSuggestionsComponent],
+        },
       })
       .compileComponents();
   }

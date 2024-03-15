@@ -1,9 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { Item } from '../../../../../core/shared/item.model';
-import { ItemPageFieldComponent } from '../item-page-field.component';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
-import { AsyncPipe } from '@angular/common';
+import { ItemPageFieldComponent } from '../item-page-field.component';
 
 @Component({
   selector: 'ds-item-page-author-field',
@@ -11,7 +14,7 @@ import { AsyncPipe } from '@angular/common';
   standalone: true,
   imports: [
     MetadataValuesComponent,
-    AsyncPipe
+    AsyncPipe,
   ],
 })
 /**
@@ -41,7 +44,7 @@ export class ItemPageAuthorFieldComponent extends ItemPageFieldComponent {
   fields: string[] = [
     'dc.contributor.author',
     'dc.creator',
-    'dc.contributor'
+    'dc.contributor',
   ];
 
   /**

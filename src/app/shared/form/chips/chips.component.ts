@@ -1,15 +1,14 @@
+import { AsyncPipe, NgClass, NgForOf, NgIf, } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-
-import { NgbTooltip, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltip, NgbTooltipModule, } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService, } from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
+import { BehaviorSubject } from 'rxjs';
 
+import { DragService } from '../../../core/drag.service';
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
-import { DragService } from '../../../core/drag.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject } from 'rxjs';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
-import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 
 @Component({
   selector: 'ds-chips',
@@ -22,9 +21,9 @@ import { AuthorityConfidenceStateDirective } from '../directives/authority-confi
     AsyncPipe,
     AuthorityConfidenceStateDirective,
     NgIf,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 
 export class ChipsComponent implements OnChanges {
@@ -45,7 +44,6 @@ export class ChipsComponent implements OnChanges {
     private cdr: ChangeDetectorRef,
     private dragService: DragService,
     private translate: TranslateService) {
-
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -105,7 +103,7 @@ export class ChipsComponent implements OnChanges {
                   .subscribe((label) => {
                     textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
                   });
-            });
+              });
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);

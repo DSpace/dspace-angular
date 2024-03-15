@@ -48,7 +48,7 @@
           </div>
         </ds-pagination>
 
-        <div *ngIf="fields?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+        <div *ngIf="fields?.totalElements === 0" class="alert alert-info w-100 mb-2" role="alert">
           {{'admin.registries.schema.fields.no-items' | translate}}
         </div>
 

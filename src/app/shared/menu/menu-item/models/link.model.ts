@@ -1,6 +1,7 @@
-import { MenuItemModel } from './menu-item.model';
-import { MenuItemType } from '../../menu-item-type.model';
 import { Params } from '@angular/router';
+
+import { MenuItemType } from '../../menu-item-type.model';
+import { MenuItemModel } from './menu-item.model';
 
 /**
  * Model representing an Link Menu Section

@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { Community } from '../../../core/shared/community.model';
-import { ActivatedRoute } from '@angular/router';
-import { filter, map, take } from 'rxjs/operators';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Observable } from 'rxjs';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { hasValue } from '../../../shared/empty.util';
-import { CurationFormComponent } from '../../../curation-form/curation-form.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Community } from '../../../core/shared/community.model';
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a community's curation tasks
@@ -19,9 +27,9 @@ import { AsyncPipe } from '@angular/common';
   imports: [
     CurationFormComponent,
     TranslateModule,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CommunityCurateComponent implements OnInit {
 
@@ -44,7 +52,7 @@ export class CommunityCurateComponent implements OnInit {
       filter((rd: RemoteData<Community>) => hasValue(rd)),
       map((rd: RemoteData<Community>) => {
         return this.dsoNameService.getName(rd.payload);
-      })
+      }),
     );
   }
 

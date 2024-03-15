@@ -1,34 +1,36 @@
+import { NgForOf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
   ContentChildren,
-  EventEmitter, forwardRef,
+  EventEmitter,
+  forwardRef,
   Input,
   Output,
   QueryList,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormComponent,
+  DynamicFormComponentService,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormLayout,
-  DynamicFormComponentService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
+
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
-import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'ds-dynamic-form',
   templateUrl: './ds-dynamic-form.component.html',
   imports: [
     forwardRef(() => DsDynamicFormControlContainerComponent),
-    NgForOf
+    NgForOf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicFormComponent extends DynamicFormComponent {
 

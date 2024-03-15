@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import {
-  AdvancedWorkflowActionsLoaderComponent
-} from '../advanced-workflow-actions-loader/advanced-workflow-actions-loader.component';
+  Component,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { AdvancedWorkflowActionsLoaderComponent } from '../advanced-workflow-actions-loader/advanced-workflow-actions-loader.component';
 
 /**
  * The Advanced Workflow page containing the correct {@link AdvancedWorkflowActionComponent}
@@ -15,9 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./advanced-workflow-action-page.component.scss'],
   imports: [
     AdvancedWorkflowActionsLoaderComponent,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 export class AdvancedWorkflowActionPageComponent implements OnInit {
 

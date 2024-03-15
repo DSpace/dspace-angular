@@ -1,24 +1,27 @@
 import { HttpClient } from '@angular/common/http';
-
-import { TestScheduler } from 'rxjs/testing';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
 
-import { RequestService } from '../../../data/request.service';
-import { buildPaginatedList } from '../../../data/paginated-list.model';
+import {
+  qualityAssuranceTopicObjectMoreAbstract,
+  qualityAssuranceTopicObjectMorePid,
+} from '../../../../shared/mocks/notifications.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { RestResponse } from '../../../cache/response.models';
-import { PageInfo } from '../../../shared/page-info.model';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
-import { QualityAssuranceTopicDataService } from './quality-assurance-topic-data.service';
-import {
-  qualityAssuranceTopicObjectMoreAbstract,
-  qualityAssuranceTopicObjectMorePid
-} from '../../../../shared/mocks/notifications.mock';
+import { buildPaginatedList } from '../../../data/paginated-list.model';
+import { RequestService } from '../../../data/request.service';
 import { RequestEntry } from '../../../data/request-entry.model';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { PageInfo } from '../../../shared/page-info.model';
+import { QualityAssuranceTopicDataService } from './quality-assurance-topic-data.service';
 
 describe('QualityAssuranceTopicDataService', () => {
   let scheduler: TestScheduler;
@@ -26,7 +29,7 @@ describe('QualityAssuranceTopicDataService', () => {
   let responseCacheEntry: RequestEntry;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
+  let objectCache: ObjectCacheServiceStub;
   let halService: HALEndpointService;
   let notificationsService: NotificationsService;
   let http: HttpClient;
@@ -56,16 +59,16 @@ describe('QualityAssuranceTopicDataService', () => {
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
-        a: qaTopicObjectRD
+        a: qaTopicObjectRD,
       }),
       buildList: cold('(a)', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }),
     });
 
-    objectCache = {} as ObjectCacheService;
+    objectCache = new ObjectCacheServiceStub();
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a|', { a: endpointURL })
+      getEndpoint: cold('a|', { a: endpointURL }),
     });
 
     notificationsService = {} as NotificationsService;
@@ -75,29 +78,36 @@ describe('QualityAssuranceTopicDataService', () => {
     service = new QualityAssuranceTopicDataService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
-      notificationsService
+      notificationsService,
     );
 
     spyOn((service as any).findAllData, 'findAll').and.callThrough();
     spyOn((service as any), 'findById').and.callThrough();
+    spyOn((service as any).searchData, 'searchBy').and.callThrough();
   });
 
-  describe('getTopics', () => {
-    it('should call findListByHref', (done) => {
-      service.getTopics().subscribe(
-        (res) => {
-          expect((service as any).findAllData.findAll).toHaveBeenCalledWith({}, true, true);
-        }
+  describe('searchTopicsByTarget', () => {
+    it('should call searchData.searchBy with the correct parameters', () => {
+      const options = { elementsPerPage: 10 };
+      const useCachedVersionIfAvailable = true;
+      const reRequestOnStale = true;
+
+      service.searchTopicsByTarget(options, useCachedVersionIfAvailable, reRequestOnStale);
+
+      expect((service as any).searchData.searchBy).toHaveBeenCalledWith(
+        'byTarget',
+        options,
+        useCachedVersionIfAvailable,
+        reRequestOnStale,
       );
-      done();
     });
 
     it('should return a RemoteData<PaginatedList<QualityAssuranceTopicObject>> for the object with the given URL', () => {
-      const result = service.getTopics();
+      const result = service.searchTopicsByTarget();
       const expected = cold('(a)', {
-        a: paginatedListRD
+        a: paginatedListRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -108,7 +118,7 @@ describe('QualityAssuranceTopicDataService', () => {
       service.getTopic(qualityAssuranceTopicObjectMorePid.id).subscribe(
         (res) => {
           expect((service as any).findById).toHaveBeenCalledWith(qualityAssuranceTopicObjectMorePid.id, true, true);
-        }
+        },
       );
       done();
     });
@@ -116,7 +126,7 @@ describe('QualityAssuranceTopicDataService', () => {
     it('should return a RemoteData<QualityAssuranceTopicObject> for the object with the given URL', () => {
       const result = service.getTopic(qualityAssuranceTopicObjectMorePid.id);
       const expected = cold('(a)', {
-        a: qaTopicObjectRD
+        a: qaTopicObjectRD,
       });
       expect(result).toBeObservable(expected);
     });

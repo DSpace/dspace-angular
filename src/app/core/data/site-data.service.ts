@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstSucceededRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
+import { BaseDataService } from './base/base-data.service';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
+import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { BaseDataService } from './base/base-data.service';
-import { FindAllData, FindAllDataImpl } from './base/find-all-data';
-import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
-import { FindListOptions } from './find-list-options.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
 
 /**
  * Service responsible for handling requests related to the Site object

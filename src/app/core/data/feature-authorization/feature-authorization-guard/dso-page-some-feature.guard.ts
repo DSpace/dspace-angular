@@ -1,12 +1,13 @@
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, ResolveFn } from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot, } from '@angular/router';
 import { RemoteData } from '../../remote-data';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { Observable } from 'rxjs';
-import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
 import { map } from 'rxjs/operators';
-import { DSpaceObject } from '../../../shared/dspace-object.model';
+
+import { hasNoValue, hasValue, } from '../../../../shared/empty.util';
 import { AuthService } from '../../../auth/auth.service';
-import { hasNoValue, hasValue } from '../../../../shared/empty.util';
+import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
 import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guard';
 
 /**
@@ -30,7 +31,7 @@ export abstract class DsoPageSomeFeatureGuard<T extends DSpaceObject> extends So
     const routeWithObjectID = this.getRouteWithDSOId(route);
     return (this.resolver.resolve(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
       getAllSucceededRemoteDataPayload(),
-      map((dso) => dso.self)
+      map((dso) => dso.self),
     );
   }
 

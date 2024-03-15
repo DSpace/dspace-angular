@@ -1,20 +1,38 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { ChangeDetectorRef, DebugElement } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
 
-import { Store, StoreModule } from '@ngrx/store';
-
-import { NotificationComponent } from './notification.component';
-import { NotificationsService } from '../notifications.service';
+import { storeModuleConfig } from '../../../app.reducer';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { Notification } from '../models/notification.model';
+import { NotificationOptions } from '../models/notification-options.model';
 import { NotificationType } from '../models/notification-type';
 import { notificationsReducer } from '../notifications.reducers';
-import { NotificationOptions } from '../models/notification-options.model';
-import { Notification } from '../models/notification.model';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { storeModuleConfig } from '../../../app.reducer';
-import { BehaviorSubject } from 'rxjs';
+import { NotificationsService } from '../notifications.service';
+import { NotificationComponent } from './notification.component';
 
 describe('NotificationComponent', () => {
 
@@ -29,29 +47,29 @@ describe('NotificationComponent', () => {
   beforeEach(waitForAsync(() => {
     const store: Store<Notification> = jasmine.createSpyObj('store', {
       /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
-      notifications: []
+      notifications: [],
     });
 
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         BrowserModule,
         BrowserAnimationsModule,
         StoreModule.forRoot({ notificationsReducer }, storeModuleConfig),
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        NotificationComponent
-    ],
-    providers: [
+        NotificationComponent,
+      ],
+      providers: [
         { provide: Store, useValue: store },
         ChangeDetectorRef,
         NotificationsService,
         TranslateService,
-    ]
-}).compileComponents();  // compile template and css
+      ],
+    }).compileComponents();  // compile template and css
 
   }));
 
@@ -63,7 +81,7 @@ describe('NotificationComponent', () => {
       type: NotificationType.Info,
       title: 'Notif. title',
       content: 'Notif. content',
-      options: new NotificationOptions()
+      options: new NotificationOptions(),
     };
 
     fixture.detectChanges();
@@ -106,7 +124,7 @@ describe('NotificationComponent', () => {
       title: 'Notif. title',
       content: htmlContent,
       options: new NotificationOptions(),
-      html: true
+      html: true,
     };
 
     fixture.detectChanges();
@@ -130,9 +148,9 @@ describe('NotificationComponent', () => {
         content: 'test',
         options: Object.assign(
           new NotificationOptions(),
-          { timeout: TIMEOUT }
+          { timeout: TIMEOUT },
         ),
-        html: true
+        html: true,
       };
     });
 

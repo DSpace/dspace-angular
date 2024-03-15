@@ -1,3 +1,4 @@
+import { Type } from '@angular/core';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
@@ -11,10 +12,8 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
   DynamicDatePickerModel,
   DynamicFormControl,
-  DynamicFormControlModel
+  DynamicFormControlModel,
 } from '@ng-dynamic-forms/core';
-import { Type } from '@angular/core';
-import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import {
   DynamicNGBootstrapCalendarComponent,
   DynamicNGBootstrapCheckboxComponent,
@@ -23,36 +22,36 @@ import {
   DynamicNGBootstrapRadioGroupComponent,
   DynamicNGBootstrapSelectComponent,
   DynamicNGBootstrapTextAreaComponent,
-  DynamicNGBootstrapTimePickerComponent
+  DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
-import { DsDynamicListComponent } from './models/list/dynamic-list.component';
-import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
-import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
-import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN
-} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import {
-  DsDynamicScrollableDropdownComponent
-} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
-import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
+
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
-import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
-import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
-import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
-import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
-import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
+import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
+import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
+import { DsDynamicListComponent } from './models/list/dynamic-list.component';
+import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
+import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
+import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
+import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
+  const datepickerModel = model as DynamicDatePickerModel;
+
   switch (model.type) {
     case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
       return DsDynamicFormArrayComponent;
@@ -64,8 +63,6 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
       return (model instanceof DynamicListCheckboxGroupModel) ? DsDynamicListComponent : DynamicNGBootstrapCheckboxGroupComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER:
-      const datepickerModel = model as DynamicDatePickerModel;
-
       return datepickerModel.inline ? DynamicNGBootstrapCalendarComponent : DsDatePickerInlineComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_GROUP:

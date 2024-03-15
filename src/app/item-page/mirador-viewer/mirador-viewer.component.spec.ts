@@ -1,25 +1,33 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MiradorViewerComponent } from './mirador-viewer.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MetadataMap } from '../../core/shared/metadata.models';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { BundleDataService } from '../../core/data/bundle-data.service';
 import { Item } from '../../core/shared/item.model';
+import { MetadataMap } from '../../core/shared/metadata.models';
+import { HostWindowService } from '../../shared/host-window.service';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
-import { of as observableOf } from 'rxjs';
+import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { MiradorViewerComponent } from './mirador-viewer.component';
 import { MiradorViewerService } from './mirador-viewer.service';
-import { HostWindowService } from '../../shared/host-window.service';
-import { BundleDataService } from '../../core/data/bundle-data.service';
 
 
 function getItem(metadata: MetadataMap) {
   return Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: metadata,
-    relationships: createRelationshipsObservable()
+    relationships: createRelationshipsObservable(),
   });
 }
 
@@ -38,24 +46,24 @@ describe('MiradorViewerComponent with search', () => {
   beforeEach(waitForAsync(() => {
     viewerService.showEmbeddedViewer.and.returnValue(true);
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), MiradorViewerComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), MiradorViewerComponent],
+      providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
-        { provide: HostWindowService, useValue: mockHostWindowService }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(MiradorViewerComponent, {
+        { provide: HostWindowService, useValue: mockHostWindowService },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(MiradorViewerComponent, {
       set: {
         providers: [
-          { provide: MiradorViewerService, useValue: viewerService }
-        ]
-      }
+          { provide: MiradorViewerService, useValue: viewerService },
+        ],
+      },
     }).compileComponents();
   }));
   describe('searchable item', () => {
@@ -100,24 +108,24 @@ describe('MiradorViewerComponent with multiple images', () => {
     viewerService.showEmbeddedViewer.and.returnValue(true);
     viewerService.getImageCount.and.returnValue(observableOf(2));
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), MiradorViewerComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), MiradorViewerComponent],
+      providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
-        { provide: HostWindowService, useValue: mockHostWindowService }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(MiradorViewerComponent, {
+        { provide: HostWindowService, useValue: mockHostWindowService  },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(MiradorViewerComponent, {
       set: {
         providers: [
-          { provide: MiradorViewerService, useValue: viewerService }
-          ]
-      }
+          { provide: MiradorViewerService, useValue: viewerService },
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -159,24 +167,24 @@ describe('MiradorViewerComponent with a single image', () => {
     viewerService.showEmbeddedViewer.and.returnValue(true);
     viewerService.getImageCount.and.returnValue(observableOf(1));
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), MiradorViewerComponent],
-    providers: [
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), MiradorViewerComponent],
+      providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
-        { provide: HostWindowService, useValue: mockHostWindowService }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(MiradorViewerComponent, {
+        { provide: HostWindowService, useValue: mockHostWindowService },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(MiradorViewerComponent, {
       set: {
         providers: [
-          { provide: MiradorViewerService, useValue: viewerService }
-        ]
-      }
+          { provide: MiradorViewerService, useValue: viewerService },
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -211,24 +219,24 @@ describe('MiradorViewerComponent in development mode', () => {
     viewerService.showEmbeddedViewer.and.returnValue(false);
     viewerService.getImageCount.and.returnValue(observableOf(1));
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }), MiradorViewerComponent],
-    providers: [
-        { provide: BitstreamDataService, useValue: {} }
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(MiradorViewerComponent, {
+      imports: [TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateLoaderMock,
+        },
+      }), MiradorViewerComponent],
+      providers: [
+        { provide: BitstreamDataService, useValue: {} },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(MiradorViewerComponent, {
       set: {
         providers: [
           { provide: MiradorViewerService, useValue: viewerService },
           { provide: BundleDataService, useValue: {} },
-          { provide: HostWindowService, useValue: mockHostWindowService  }
-        ]
-      }
+          { provide: HostWindowService, useValue: mockHostWindowService  },
+        ],
+      },
     }).compileComponents();
   }));
 

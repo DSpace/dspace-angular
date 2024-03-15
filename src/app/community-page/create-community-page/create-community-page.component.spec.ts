@@ -1,19 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouteService } from '../../core/services/route.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { CreateCommunityPageComponent } from './create-community-page.component';
+import { RequestService } from '../../core/data/request.service';
+import { RouteService } from '../../core/services/route.service';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { RequestService } from '../../core/data/request.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { CommunityFormComponent } from '../community-form/community-form.component';
+import { CreateCommunityPageComponent } from './create-community-page.component';
 
 describe('CreateCommunityPageComponent', () => {
   let comp: CreateCommunityPageComponent;
@@ -30,12 +35,12 @@ describe('CreateCommunityPageComponent', () => {
         { provide: RequestService, useValue: {} },
         { provide: AuthService, useValue: new AuthServiceMock() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(CreateCommunityPageComponent, {
         remove: {
-          imports: [CommunityFormComponent]
-        }
+          imports: [CommunityFormComponent],
+        },
       })
       .compileComponents();
   }));

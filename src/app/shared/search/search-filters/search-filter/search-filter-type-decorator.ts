@@ -1,9 +1,9 @@
 import { FilterType } from '../../models/filter-type.model';
-import { SearchTextFilterComponent } from './search-text-filter/search-text-filter.component';
 import { SearchAuthorityFilterComponent } from './search-authority-filter/search-authority-filter.component';
 import { SearchBooleanFilterComponent } from './search-boolean-filter/search-boolean-filter.component';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter/search-hierarchy-filter.component';
 import { SearchRangeFilterComponent } from './search-range-filter/search-range-filter.component';
+import { SearchTextFilterComponent } from './search-text-filter/search-text-filter.component';
 
 /**
  * Contains the mapping between a facet component and a FilterType

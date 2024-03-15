@@ -1,11 +1,26 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { of as observableOf } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import {
   mockSectionsData,
   mockSubmissionCollectionId,
@@ -13,21 +28,19 @@ import {
   mockSubmissionObject,
   mockUploadResponse1ParsedErrors,
   mockUploadResponse2Errors,
-  mockUploadResponse2ParsedErrors
+  mockUploadResponse2ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../submission.service';
-
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-import { SectionsService } from '../../sections/sections.service';
-import { SubmissionUploadFilesComponent } from './submission-upload-files.component';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { cold, hot } from 'jasmine-marbles';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
+import { SectionsService } from '../../sections/sections.service';
+import { SubmissionService } from '../../submission.service';
+import { SubmissionUploadFilesComponent } from './submission-upload-files.component';
 
 describe('SubmissionUploadFilesComponent Component', () => {
 
@@ -46,17 +59,17 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
+    select: jasmine.createSpy('select'),
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         SubmissionUploadFilesComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SectionsService, useClass: SectionsServiceStub },
@@ -64,10 +77,10 @@ describe('SubmissionUploadFilesComponent Component', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: Store, useValue: store },
         ChangeDetectorRef,
-        SubmissionUploadFilesComponent
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
-}).compileComponents();
+        SubmissionUploadFilesComponent,
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
   }));
 
   describe('', () => {
@@ -112,7 +125,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
         url: '',
         authToken: null,
         disableMultipart: false,
-        itemAlias: null
+        itemAlias: null,
       });
 
     });
@@ -130,12 +143,12 @@ describe('SubmissionUploadFilesComponent Component', () => {
     it('should init uploadEnabled properly', () => {
       sectionsServiceStub.isSectionTypeAvailable.and.returnValue(hot('-a-b', {
         a: false,
-        b: true
+        b: true,
       }));
 
       const expected = cold('-c-d', {
         c: false,
-        d: true
+        d: true,
       });
 
       comp.ngOnChanges();
@@ -161,8 +174,8 @@ describe('SubmissionUploadFilesComponent Component', () => {
             submissionId,
             sectionId,
             mockSectionsData[sectionId],
-          expectedErrors[sectionId],
-            expectedErrors[sectionId]
+            expectedErrors[sectionId],
+            expectedErrors[sectionId],
           );
         });
 
@@ -177,7 +190,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
         comp.onCompleteItem(Object.assign({}, uploadRestResponse, {
           sections: mockSectionsData,
-          errors: responseErrors.errors
+          errors: responseErrors.errors,
         }));
 
         Object.keys(mockSectionsData).forEach((sectionId) => {
@@ -185,8 +198,8 @@ describe('SubmissionUploadFilesComponent Component', () => {
             submissionId,
             sectionId,
             mockSectionsData[sectionId],
-          expectedErrors[sectionId],
-            expectedErrors[sectionId]
+            expectedErrors[sectionId],
+            expectedErrors[sectionId],
           );
         });
 
@@ -199,9 +212,9 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 
@@ -211,7 +224,7 @@ class TestComponent {
     url: '',
     authToken: null,
     disableMultipart: false,
-    itemAlias: null
+    itemAlias: null,
   });
 
 }

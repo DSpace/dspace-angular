@@ -1,23 +1,35 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';
+import { RequestService } from '../../../../core/data/request.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
+import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { getMockRequestService } from '../../../mocks/request.service.mock';
+import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
-import { of } from 'rxjs';
+import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';
 
 let component: ClaimedTaskActionsReturnToPoolComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsReturnToPoolComponent>;
@@ -31,22 +43,22 @@ let mockPoolTaskDataService: PoolTaskDataService;
 describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    returnToPoolTask: of(new ProcessTaskResponse(true))
+    returnToPoolTask: of(new ProcessTaskResponse(true)),
   });
 
   beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock,
-            },
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        ClaimedTaskActionsReturnToPoolComponent
-    ],
-    providers: [
+        ClaimedTaskActionsReturnToPoolComponent,
+      ],
+      providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -54,10 +66,10 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).overrideComponent(ClaimedTaskActionsReturnToPoolComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ClaimedTaskActionsReturnToPoolComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

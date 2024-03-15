@@ -1,12 +1,21 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ParameterSelectComponent } from './parameter-select.component';
-import { NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { of as observableOf } from 'rxjs';
+
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
 import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
-import { By } from '@angular/platform-browser';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
-import { of as observableOf } from 'rxjs';
+import { ParameterSelectComponent } from './parameter-select.component';
 
 describe('ParameterSelectComponent', () => {
   let component: ParameterSelectComponent;
@@ -14,7 +23,7 @@ describe('ParameterSelectComponent', () => {
   let scriptParams: ScriptParameter[];
 
   const translateServiceStub = {
-    get: () => observableOf('---')
+    get: () => observableOf('---'),
   };
 
   function init() {
@@ -23,31 +32,31 @@ describe('ParameterSelectComponent', () => {
         new ScriptParameter(),
         {
           name: '-a',
-          type: ScriptParameterType.BOOLEAN
-        }
+          type: ScriptParameterType.BOOLEAN,
+        },
       ),
       Object.assign(
         new ScriptParameter(),
         {
           name: '-f',
-          type: ScriptParameterType.FILE
-        }
+          type: ScriptParameterType.FILE,
+        },
       ),
     ];
   }
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [FormsModule, ParameterSelectComponent],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+      imports: [FormsModule, ParameterSelectComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(ParameterSelectComponent, {
         remove: {
-          imports: [ParameterValueInputComponent]
+          imports: [ParameterValueInputComponent],
         },
         add: {
-          imports: [MockTranslatePipe]
-        }
+          imports: [MockTranslatePipe],
+        },
       })
       .compileComponents();
   }));
@@ -85,7 +94,7 @@ describe('ParameterSelectComponent', () => {
 @Pipe({
   // eslint-disable-next-line @angular-eslint/pipe-prefix
   name: 'translate',
-  standalone: true
+  standalone: true,
 })
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {

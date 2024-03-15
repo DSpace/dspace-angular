@@ -1,34 +1,27 @@
-import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
-import { hasNoValue, hasValue } from '../empty.util';
-import { Context } from '../../core/shared/context.model';
 import { InjectionToken } from '@angular/core';
+
+import { Context } from '../../core/shared/context.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
+import { OrgUnitItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/org-unit/org-unit-item-metadata-list-element.component';
+import { PersonItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/person/person-item-metadata-list-element.component';
+import { ProjectItemMetadataListElementComponent } from '../../entity-groups/research-entities/metadata-representations/project/project-item-metadata-list-element.component';
 import {
+  hasNoValue,
+  hasValue,
+} from '../empty.util';
+import {
+  DEFAULT_CONTEXT,
+  DEFAULT_THEME,
   resolveTheme,
-  DEFAULT_THEME, DEFAULT_CONTEXT
 } from '../object-collection/shared/listable-object/listable-object.decorator';
-import {
-  PlainTextMetadataListElementComponent
-} from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
-import {
-  BrowseLinkMetadataListElementComponent
-} from '../object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
-import {
-  ItemMetadataListElementComponent
-} from '../object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
-import {
-  OrgUnitItemMetadataListElementComponent
-} from '../../entity-groups/research-entities/metadata-representations/org-unit/org-unit-item-metadata-list-element.component';
-import {
-  PersonItemMetadataListElementComponent
-} from '../../entity-groups/research-entities/metadata-representations/person/person-item-metadata-list-element.component';
-import {
-  ProjectItemMetadataListElementComponent
-} from '../../entity-groups/research-entities/metadata-representations/project/project-item-metadata-list-element.component';
+import { BrowseLinkMetadataListElementComponent } from '../object-list/metadata-representation-list-element/browse-link/browse-link-metadata-list-element.component';
+import { ItemMetadataListElementComponent } from '../object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
+import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 
 export const METADATA_REPRESENTATION_COMPONENT_FACTORY = new InjectionToken<(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context, theme: string) => GenericConstructor<any>>('getMetadataRepresentationComponent', {
   providedIn: 'root',
-  factory: () => getMetadataRepresentationComponent
+  factory: () => getMetadataRepresentationComponent,
 });
 
 
@@ -45,29 +38,29 @@ export type MetadataRepresentationComponent =
 
 export const METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP =
   new Map<string, Map<MetadataRepresentationType, Map<Context, Map<string, MetadataRepresentationComponent>>>>([
-  ['Publication', new Map([
-    [MetadataRepresentationType.PlainText, new Map([
-      [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, PlainTextMetadataListElementComponent as any]])]])],
-    [MetadataRepresentationType.AuthorityControlled, new Map([
-      [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, PlainTextMetadataListElementComponent]])]])],
-    [MetadataRepresentationType.BrowseLink, new Map([
-      [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, BrowseLinkMetadataListElementComponent]])]])],
-    [MetadataRepresentationType.Item, new Map([
-      [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, ItemMetadataListElementComponent]])]])],
+    ['Publication', new Map([
+      [MetadataRepresentationType.PlainText, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, PlainTextMetadataListElementComponent as any]])]])],
+      [MetadataRepresentationType.AuthorityControlled, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, PlainTextMetadataListElementComponent]])]])],
+      [MetadataRepresentationType.BrowseLink, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, BrowseLinkMetadataListElementComponent]])]])],
+      [MetadataRepresentationType.Item, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, ItemMetadataListElementComponent]])]])],
     ])],
-  ['Person', new Map([
-    [MetadataRepresentationType.Item, new Map([
-      [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, PersonItemMetadataListElementComponent]])]])],
+    ['Person', new Map([
+      [MetadataRepresentationType.Item, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, PersonItemMetadataListElementComponent]])]])],
     ])],
-  ['OrgUnit', new Map([
-    [MetadataRepresentationType.Item, new Map([
-      [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, OrgUnitItemMetadataListElementComponent]])]])],
+    ['OrgUnit', new Map([
+      [MetadataRepresentationType.Item, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, OrgUnitItemMetadataListElementComponent]])]])],
     ])],
-  ['Project', new Map([
-    [MetadataRepresentationType.Item, new Map([
-      [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, ProjectItemMetadataListElementComponent]])]])],
+    ['Project', new Map([
+      [MetadataRepresentationType.Item, new Map([
+        [DEFAULT_CONTEXT, new Map([[DEFAULT_THEME, ProjectItemMetadataListElementComponent]])]])],
     ])],
-]);
+  ]);
 /**
  * Decorator function to store metadata representation mapping
  * @param entityType The entity type the component represents

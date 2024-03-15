@@ -1,13 +1,23 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { createTestComponent } from '../../testing/utils.test';
-import { EpersonSearchBoxComponent } from './eperson-search-box.component';
-
 import { SearchEvent } from '../eperson-group-list-event-type';
+import { EpersonSearchBoxComponent } from './eperson-search-box.component';
 
 describe('EpersonSearchBoxComponent test suite', () => {
   let comp: EpersonSearchBoxComponent;
@@ -18,21 +28,21 @@ describe('EpersonSearchBoxComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         EpersonSearchBoxComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         UntypedFormBuilder,
-        EpersonSearchBoxComponent
-    ],
-    schemas: [
-        NO_ERRORS_SCHEMA
-    ]
-}).compileComponents();
+        EpersonSearchBoxComponent,
+      ],
+      schemas: [
+        NO_ERRORS_SCHEMA,
+      ],
+    }).compileComponents();
   }));
 
   describe('', () => {
@@ -88,12 +98,12 @@ describe('EpersonSearchBoxComponent test suite', () => {
     it('should emit new search event', () => {
       const data = {
         scope: 'metadata',
-        query: 'test'
+        query: 'test',
       };
 
       const event: SearchEvent = {
         scope: 'metadata',
-        query: 'test'
+        query: 'test',
       };
       spyOn(comp.search, 'emit');
 
@@ -106,11 +116,11 @@ describe('EpersonSearchBoxComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [FormsModule,
-        ReactiveFormsModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule],
 })
 class TestComponent {
 

@@ -1,17 +1,17 @@
-import {
-  SearchResultsComponent as BaseComponent
-} from '../../../../../../app/shared/search/search-results/search-results.component';
-import { Component } from '@angular/core';
-import { fadeIn, fadeInOut } from '../../../../../../app/shared/animations/fade';
 import { NgIf } from '@angular/common';
-import {
-  SearchExportCsvComponent
-} from '../../../../../../app/shared/search/search-export-csv/search-export-csv.component';
-import { ObjectCollectionComponent } from '../../../../../../app/shared/object-collection/object-collection.component';
-import { ThemedLoadingComponent } from '../../../../../../app/shared/loading/themed-loading.component';
-import { ErrorComponent } from '../../../../../../app/shared/error/error.component';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../../../../app/shared/animations/fade';
+import { ErrorComponent } from '../../../../../../app/shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../../../app/shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../../../app/shared/object-collection/object-collection.component';
+import { SearchExportCsvComponent } from '../../../../../../app/shared/search/search-export-csv/search-export-csv.component';
+import { SearchResultsComponent as BaseComponent } from '../../../../../../app/shared/search/search-results/search-results.component';
 
 @Component({
   selector: 'ds-search-results',
@@ -20,10 +20,10 @@ import { TranslateModule } from '@ngx-translate/core';
   // styleUrls: ['./search-results.component.scss'],
   animations: [
     fadeIn,
-    fadeInOut
+    fadeInOut,
   ],
   standalone: true,
-  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, RouterLink, TranslateModule]
+  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, RouterLink, TranslateModule],
 })
 export class SearchResultsComponent extends BaseComponent {
 

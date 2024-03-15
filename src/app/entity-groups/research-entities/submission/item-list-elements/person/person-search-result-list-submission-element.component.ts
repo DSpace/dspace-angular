@@ -1,30 +1,45 @@
-import { Component, Inject, OnInit } from '@angular/core';
 import {
-  SearchResultListElementComponent
-} from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
-  listableObjectComponent
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { Context } from '../../../../../core/shared/context.model';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { take } from 'rxjs/operators';
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import { take } from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { Context } from '../../../../../core/shared/context.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
+import { PersonInputSuggestionsComponent } from './person-suggestions/person-input-suggestions.component';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
-    selector: 'ds-person-search-result-list-submission-element',
-    styleUrls: ['./person-search-result-list-submission-element.component.scss'],
-    templateUrl: './person-search-result-list-submission-element.component.html',
+  selector: 'ds-person-search-result-list-submission-element',
+  styleUrls: ['./person-search-result-list-submission-element.component.scss'],
+  templateUrl: './person-search-result-list-submission-element.component.html',
+  standalone: true,
+  imports: [NgIf, ThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, NgFor, AsyncPipe],
 })
 
 /**
@@ -46,7 +61,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
               private itemDataService: ItemDataService,
               private selectableListService: SelectableListService,
               public dsoNameService: DSONameService,
-              @Inject(APP_CONFIG) protected appConfig: AppConfig
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }
@@ -61,7 +76,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
       .pipe(take(1))
       .subscribe((nameVariant: string) => {
         this.selectedName = nameVariant || defaultValue;
-        }
+      },
       );
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
@@ -82,25 +97,25 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
       this.openModal(value)
         .then(() => {
           // user clicked ok: store the name variant in the item
-            const newName: MetadataValue = new MetadataValue();
-            newName.value = value;
+          const newName: MetadataValue = new MetadataValue();
+          newName.value = value;
 
-            const existingNames: MetadataValue[] = this.dso.metadata[this.alternativeField] || [];
-            const alternativeNames = { [this.alternativeField]: [...existingNames, newName] };
-            const updatedItem =
+          const existingNames: MetadataValue[] = this.dso.metadata[this.alternativeField] || [];
+          const alternativeNames = { [this.alternativeField]: [...existingNames, newName] };
+          const updatedItem =
               Object.assign({}, this.dso, {
                 metadata: {
                   ...this.dso.metadata,
-                  ...alternativeNames
+                  ...alternativeNames,
                 },
               });
-            this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();
-            this.itemDataService.commitUpdates();
-      }).catch(() => {
+          this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();
+          this.itemDataService.commitUpdates();
+        }).catch(() => {
         // user clicked cancel: use the name variant only for this relation, no further action required
-      }).finally(() => {
-        this.select(value);
-      });
+        }).finally(() => {
+          this.select(value);
+        });
     }
   }
 
