@@ -20,9 +20,13 @@ import { Item } from '../../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
 import { JournalSearchResultListElementComponent } from './journal-search-result-list-element.component';
 
 let journalListElementComponent: JournalSearchResultListElementComponent;
@@ -93,6 +97,14 @@ describe('JournalSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [
+          ThumbnailComponent,
+          ThemedBadgesComponent,
+          TruncatableComponent,
+          TruncatablePartComponent,
+        ],
+      },
     }).compileComponents();
   }));
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { isEmpty } from 'rxjs/operators';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import {
   followLink,
   FollowLinkConfig,
@@ -102,7 +103,9 @@ describe('LinkService', () => {
             propertyName: 'successor',
           },
         ]),
-      }],
+      },
+      { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+      ],
     });
     service = TestBed.inject(LinkService);
   });
