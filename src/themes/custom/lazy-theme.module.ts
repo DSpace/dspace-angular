@@ -120,6 +120,7 @@ import { BadgesComponent } from './app/shared/object-collection/shared/badges/ba
 import { MyDSpaceStatusBadgeComponent } from './app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 import { StatusBadgeComponent } from './app/shared/object-collection/shared/badges/status-badge/status-badge.component';
 import { TypeBadgeComponent } from './app/shared/object-collection/shared/badges/type-badge/type-badge.component';
+import { ItemDetailPreviewFieldComponent } from './app/shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import { ItemListPreviewComponent } from './app/shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
 import { ObjectListComponent } from './app/shared/object-list/object-list.component';
 import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
@@ -229,6 +230,7 @@ const DECLARATIONS = [
   SearchComponent,
   ItemListPreviewComponent,
   MetadataImportPageComponent,
+  ItemDetailPreviewFieldComponent,
 ];
 
 @NgModule({

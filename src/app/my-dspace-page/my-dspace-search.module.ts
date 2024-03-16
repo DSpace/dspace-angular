@@ -9,6 +9,7 @@ import { ItemSubmitterComponent } from '../shared/object-collection/shared/mydsp
 import { ClaimedTaskSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/claimed-task-search-result/claimed-task-search-result-detail-element.component';
 import { ItemDetailPreviewComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
 import { ItemDetailPreviewFieldComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import { ThemedItemDetailPreviewFieldComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/themed-item-detail-preview-field.component';
 import { ItemSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-search-result/item-search-result-detail-element.component';
 import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 import { WorkflowItemSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workflow-item-search-result/workflow-item-search-result-detail-element.component';
@@ -48,6 +49,7 @@ const DECLARATIONS = [
   ItemCollectionComponent,
   ItemDetailPreviewComponent,
   ItemDetailPreviewFieldComponent,
+  ThemedItemDetailPreviewFieldComponent,
   ItemListPreviewComponent,
   ThemedItemListPreviewComponent,
 ];
