@@ -1,5 +1,10 @@
 <div [className]="'float-left w-100 ' + wrapperClass">
   <div role="list" class="nav nav-pills d-flex flex-column flex-sm-row" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDrop($event)">
+    <ng-template #tipContent>
+      <p class="text-left p-0 m-0" *ngFor="let tip of tipText">
+        {{tip}}
+      </p>
+    </ng-template>
     <div role="listitem" class="nav-item mr-2 mb-1"
            *ngFor="let c of chips.getChips(); let i = index"
            #t="ngbTooltip"
@@ -7,11 +12,6 @@
            [ngbTooltip]="tipContent"
            (mouseover)="showTooltip(t, i)"
            (mouseout)="t.close()">
-        <ng-template #tipContent>
-          <p class="text-left p-0 m-0" *ngFor="let tip of tipText">
-            {{tip}}
-          </p>
-        </ng-template>
         <a class="flex-sm-fill text-sm-center nav-link active bg-info"
            cdkDrag
            (cdkDragStarted)="onDrag($event)"
@@ -19,7 +19,7 @@
            [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged === i}"
            (click)="chipsSelected($event, i);">
           <span>
-            <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true"></i>
+            <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true">&nbsp;</i>
             <ng-container *ngIf="showIcons && c.hasVisibleIcons()">
               <i *ngFor="let icon of c.icons; let l = last"
                  [ngbTooltip]="tipContent"
