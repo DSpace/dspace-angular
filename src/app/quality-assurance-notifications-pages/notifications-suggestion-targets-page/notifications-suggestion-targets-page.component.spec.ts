@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,7 +17,7 @@ describe('NotificationsSuggestionTargetsPageComponent', () => {
   let component: NotificationsSuggestionTargetsPageComponent;
   let fixture: ComponentFixture<NotificationsSuggestionTargetsPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -32,7 +32,7 @@ describe('NotificationsSuggestionTargetsPageComponent', () => {
     })
       .overrideComponent(NotificationsSuggestionTargetsPageComponent, {
         remove: {
-          providers: [PublicationClaimComponent],
+          imports: [PublicationClaimComponent],
         },
       })
       .compileComponents();

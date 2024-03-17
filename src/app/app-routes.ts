@@ -159,13 +159,6 @@ export const APP_ROUTES: Route[] = [
       },
       {
         path: NOTIFICATIONS_MODULE_PATH,
-        loadChildren: () => import('./admin/admin-notifications/admin-notifications-routes')
-          .then((m) => m.ROUTES),
-        providers: [provideSuggestionNotificationsState()],
-        canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
-      },
-      {
-        path: NOTIFICATIONS_MODULE_PATH,
         loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages-routes')
           .then((m) => m.ROUTES),
         providers: [provideSuggestionNotificationsState()],

@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
@@ -22,6 +23,19 @@ import { BrowseByPageComponent } from './browse-by-page.component';
   template: '<span id="BrowseByTestComponent"></span>',
 })
 class BrowseByTestComponent {
+}
+
+@Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'ds-browse-by-switcher',
+  template: `<ng-template #DynamicComponentLoader dsDynamicComponentLoader></ng-template>`,
+  standalone: true,
+  imports: [DynamicComponentLoaderDirective],
+})
+class TestBrowseBySwitcherComponent extends BrowseBySwitcherComponent {
+  getComponent(): GenericConstructor<Component> {
+    return BrowseByTestComponent;
+  }
 }
 
 class TestBrowseByPageBrowseDefinition extends BrowseDefinition {
@@ -42,7 +56,7 @@ describe('BrowseByPageComponent', () => {
     themeService = getMockThemeService();
 
     await TestBed.configureTestingModule({
-      imports: [BrowseBySwitcherComponent, BrowseByPageComponent, DynamicComponentLoaderDirective],
+      imports: [TestBrowseBySwitcherComponent, BrowseByPageComponent, DynamicComponentLoaderDirective],
       providers: [
         BrowseByTestComponent,
         { provide: ActivatedRoute, useValue: activatedRoute },
@@ -52,6 +66,9 @@ describe('BrowseByPageComponent', () => {
       .overrideComponent(BrowseByPageComponent, {
         remove: {
           imports: [BrowseBySwitcherComponent],
+        },
+        add: {
+          imports: [TestBrowseBySwitcherComponent],
         },
       })
       .compileComponents();

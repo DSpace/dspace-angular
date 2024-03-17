@@ -1,5 +1,8 @@
 // eslint-disable-next-line max-classes-per-file
-import { Component } from '@angular/core';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -10,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
@@ -24,6 +28,18 @@ import { ComcolBrowseByComponent } from './comcol-browse-by.component';
 class BrowseByTestComponent {
 }
 
+@Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'ds-browse-by-switcher',
+  template: `<ng-template #DynamicComponentLoader dsDynamicComponentLoader></ng-template>`,
+  standalone: true,
+  imports: [DynamicComponentLoaderDirective],
+})
+class TestBrowseBySwitcherComponent extends BrowseBySwitcherComponent {
+  getComponent(): GenericConstructor<Component> {
+    return BrowseByTestComponent;
+  }
+}
 class TestBrowseByPageBrowseDefinition extends BrowseDefinition {
   getRenderType(): BrowseByDataType {
     return 'ComcolBrowseByComponent' as BrowseByDataType;
@@ -42,16 +58,20 @@ describe('ComcolBrowseByComponent', () => {
     themeService = getMockThemeService();
 
     await TestBed.configureTestingModule({
-      imports: [BrowseBySwitcherComponent, ComcolBrowseByComponent, DynamicComponentLoaderDirective],
+      imports: [TestBrowseBySwitcherComponent, ComcolBrowseByComponent, DynamicComponentLoaderDirective],
       providers: [
         BrowseByTestComponent,
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: ThemeService, useValue: themeService },
       ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ComcolBrowseByComponent, {
         remove: {
           imports: [BrowseBySwitcherComponent],
+        },
+        add: {
+          imports: [TestBrowseBySwitcherComponent],
         },
       })
       .compileComponents();
