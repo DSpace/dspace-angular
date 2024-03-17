@@ -1,4 +1,11 @@
 import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragStart,
+  CdkDropList,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
   AsyncPipe,
   NgClass,
   NgForOf,
@@ -24,7 +31,6 @@ import {
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
 
-import { DragService } from '../../../core/drag.service';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
@@ -41,6 +47,8 @@ import { ChipsItem } from './models/chips-item.model';
     AuthorityConfidenceStateDirective,
     NgIf,
     TranslateModule,
+    CdkDrag,
+    CdkDropList,
   ],
   standalone: true,
 })
@@ -61,7 +69,6 @@ export class ChipsComponent implements OnChanges {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private dragService: DragService,
     private translate: TranslateService) {
   }
 
@@ -94,21 +101,19 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
-  onDragStart(index) {
+  onDrag(event: CdkDragStart<ChipsItem[]>) {
     this.isDragging.next(true);
-    this.dragService.overrideDragOverPage();
-    this.dragged = index;
   }
-
-  onDragEnd(event) {
-    this.dragService.allowDragOverPage();
-    this.dragged = -1;
+  onDrop(event: CdkDragDrop<ChipsItem[]>) {
+    moveItemInArray(this.chips.chipsItems.getValue(), event.previousIndex, event.currentIndex);
     this.chips.updateOrder();
     this.isDragging.next(false);
   }
-
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
+    if (this.isDragging.value) {
+      return;
+    }
     const chipsItem = this.chips.getChipByIndex(index);
     const textToDisplay: string[] = [];
     if (!chipsItem.editMode && this.dragged === -1) {
@@ -139,5 +144,4 @@ export class ChipsComponent implements OnChanges {
 
     }
   }
-
 }
