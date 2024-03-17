@@ -6,9 +6,7 @@ import {
   TransferState,
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  ServerModule,
-} from '@angular/platform-server';
+import { ServerModule } from '@angular/platform-server';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,

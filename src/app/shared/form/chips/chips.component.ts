@@ -1,4 +1,11 @@
 import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragStart,
+  CdkDropList,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
   AsyncPipe,
   NgClass,
   NgForOf,
@@ -24,11 +31,9 @@ import {
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
 
-import { DragService } from '../../../core/drag.service';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
-import {CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'ds-chips',
@@ -43,7 +48,7 @@ import {CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList, moveItemInArray} from '
     NgIf,
     TranslateModule,
     CdkDrag,
-    CdkDropList
+    CdkDropList,
   ],
   standalone: true,
 })
