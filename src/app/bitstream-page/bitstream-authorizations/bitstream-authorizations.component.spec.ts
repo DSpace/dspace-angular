@@ -1,18 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
+import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
 
 describe('BitstreamAuthorizationsComponent', () => {
   let comp: BitstreamAuthorizationsComponent<DSpaceObject>;
@@ -24,44 +33,44 @@ describe('BitstreamAuthorizationsComponent', () => {
       'dc.title': [
         {
           value: 'file name',
-          language: null
-        }
-      ]
+          language: null,
+        },
+      ],
     },
     _links: {
-      content: { href: 'file-selflink' }
-    }
+      content: { href: 'file-selflink' },
+    },
   });
 
   const bitstreamRD = createSuccessfulRemoteDataObject(bitstream);
 
   const routeStub = {
     data: observableOf({
-      bitstream: bitstreamRD
-    })
+      bitstream: bitstreamRD,
+    }),
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        BitstreamAuthorizationsComponent
-    ],
-    providers: [
+        BitstreamAuthorizationsComponent,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         ChangeDetectorRef,
         BitstreamAuthorizationsComponent,
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(BitstreamAuthorizationsComponent, {
-        remove: { imports: [ResourcePoliciesComponent]}
+        remove: { imports: [ResourcePoliciesComponent] },
       })
       .compileComponents();
   }));

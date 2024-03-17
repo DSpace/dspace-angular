@@ -1,18 +1,30 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { hasNoValue, hasValue } from '../shared/empty.util';
-import { RemoteData } from '../core/data/remote-data';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { AuthService } from '../core/auth/auth.service';
-import { FileService } from '../core/shared/file.service';
-import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
-import { VarDirective } from '../shared/utils/var.directive';
 import { CommonModule } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { RemoteData } from '../core/data/remote-data';
+import { Bitstream } from '../core/shared/bitstream.model';
+import { FileService } from '../core/shared/file.service';
+import {
+  hasNoValue,
+  hasValue,
+} from '../shared/empty.util';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
+import { VarDirective } from '../shared/utils/var.directive';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -24,7 +36,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
   standalone: true,
-  imports: [VarDirective, CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe]
+  imports: [VarDirective, CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
 })
 export class ThumbnailComponent implements OnChanges {
   /**
@@ -141,7 +153,7 @@ export class ThumbnailComponent implements OnChanges {
           } else {
             return observableOf(null);
           }
-        })
+        }),
       ).subscribe((url: string) => {
         if (hasValue(url)) {
           // If we got a URL, try to load it

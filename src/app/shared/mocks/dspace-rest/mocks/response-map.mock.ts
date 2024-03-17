@@ -7,7 +7,7 @@ export class ResponseMapMock extends Map<string, any> {}
 
 export const MOCK_RESPONSE_MAP: InjectionToken<ResponseMapMock> = new InjectionToken<ResponseMapMock>('mockResponseMap', {
   providedIn: 'root',
-  factory: () => mockResponseMap
+  factory: () => mockResponseMap,
 });
 
 /**

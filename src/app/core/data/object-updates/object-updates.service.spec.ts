@@ -1,21 +1,22 @@
+import { Injector } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ObjectUpdatesService } from './object-updates.service';
+import { of as observableOf } from 'rxjs';
+
+import { Notification } from '../../../shared/notifications/models/notification.model';
+import { NotificationType } from '../../../shared/notifications/models/notification-type';
+import { CoreState } from '../../core-state.model';
+import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { FieldChangeType } from './field-change-type.model';
 import {
   DiscardObjectUpdatesAction,
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
   SelectVirtualMetadataAction,
-  SetEditableFieldUpdateAction
+  SetEditableFieldUpdateAction,
 } from './object-updates.actions';
-import { of as observableOf } from 'rxjs';
-import { Notification } from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { OBJECT_UPDATES_TRASH_PATH } from './object-updates.reducer';
-import { Relationship } from '../../shared/item-relationships/relationship.model';
-import { Injector } from '@angular/core';
-import { FieldChangeType } from './field-change-type.model';
-import { CoreState } from '../../core-state.model';
+import { ObjectUpdatesService } from './object-updates.service';
 
 describe('ObjectUpdatesService', () => {
   let service: ObjectUpdatesService;
@@ -31,7 +32,7 @@ describe('ObjectUpdatesService', () => {
 
   const fieldUpdates = {
     [identifiable1.uuid]: { field: identifiable1Updated, changeType: FieldChangeType.UPDATE },
-    [identifiable3.uuid]: { field: identifiable3, changeType: FieldChangeType.ADD }
+    [identifiable3.uuid]: { field: identifiable3, changeType: FieldChangeType.ADD },
   };
 
   const modDate = new Date(2010, 2, 11);
@@ -46,15 +47,15 @@ describe('ObjectUpdatesService', () => {
     };
 
     patchOperationService = jasmine.createSpyObj('patchOperationService', {
-      fieldUpdatesToPatchOperations: []
+      fieldUpdatesToPatchOperations: [],
     });
     const objectEntry = {
-      fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, patchOperationService
+      fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, patchOperationService,
     };
     store = new Store<CoreState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
     injector = jasmine.createSpyObj('injector', {
-      get: patchOperationService
+      get: patchOperationService,
     });
     service = new ObjectUpdatesService(store, injector);
 
@@ -80,7 +81,7 @@ describe('ObjectUpdatesService', () => {
       const expectedResult = {
         [identifiable1.uuid]: { field: identifiable1Updated, changeType: FieldChangeType.UPDATE },
         [identifiable2.uuid]: { field: identifiable2, changeType: undefined },
-        [identifiable3.uuid]: { field: identifiable3, changeType: FieldChangeType.ADD }
+        [identifiable3.uuid]: { field: identifiable3, changeType: FieldChangeType.ADD },
       };
 
       result$.subscribe((result) => {
@@ -96,7 +97,7 @@ describe('ObjectUpdatesService', () => {
 
       const expectedResult = {
         [identifiable1.uuid]: { field: identifiable1Updated, changeType: FieldChangeType.UPDATE },
-        [identifiable2.uuid]: { field: identifiable2, changeType: undefined }
+        [identifiable2.uuid]: { field: identifiable2, changeType: undefined },
       };
 
       result$.subscribe((result) => {

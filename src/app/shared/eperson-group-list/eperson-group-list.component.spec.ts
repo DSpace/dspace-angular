@@ -1,36 +1,48 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, Component, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { of as observableOf } from 'rxjs';
+import {
+  ChangeDetectorRef,
+  Component,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
-
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
-import { createTestComponent } from '../testing/utils.test';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { EpersonGroupListComponent } from './eperson-group-list.component';
-import { EPersonMock } from '../testing/eperson.mock';
-import { GroupMock } from '../testing/group-mock';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
-import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
-import { PaginationComponent } from '../pagination/pagination.component';
+import { of as observableOf } from 'rxjs';
 import { DSONameService } from 'src/app/core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
+import {
+  dataService,
+  getDataServiceFor,
+} from 'src/app/core/data/base/data-service.decorator';
 import { EPERSON } from 'src/app/core/eperson/models/eperson.resource-type';
 import { GROUP } from 'src/app/core/eperson/models/group.resource-type';
 import { ResourceType } from 'src/app/core/shared/resource-type';
-import { dataService, getDataServiceFor } from 'src/app/core/data/base/data-service.decorator';
+
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { RequestService } from '../../core/data/request.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../core/eperson/group-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { EPersonMock } from '../testing/eperson.mock';
+import { GroupMock } from '../testing/group-mock';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { createTestComponent } from '../testing/utils.test';
+import { EpersonGroupListComponent } from './eperson-group-list.component';
 import { SearchEvent } from './eperson-group-list-event-type';
+import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
+import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
 
 describe('EpersonGroupListComponent test suite', () => {
   let comp: EpersonGroupListComponent;
@@ -53,8 +65,8 @@ describe('EpersonGroupListComponent test suite', () => {
       searchByScope: jasmine.createSpy('searchByScope'),
     },
     {
-      linkPath: 'epersons'
-    }
+      linkPath: 'epersons',
+    },
   );
 
   const mockGroupService = jasmine.createSpyObj('groupService',
@@ -65,8 +77,8 @@ describe('EpersonGroupListComponent test suite', () => {
       searchGroups: jasmine.createSpy('searchGroups'),
     },
     {
-      linkPath: 'groups'
-    }
+      linkPath: 'groups',
+    },
   );
 
   const epersonPaginatedList = buildPaginatedList(new PageInfo(), [EPersonMock, EPersonMock]);
@@ -85,8 +97,8 @@ describe('EpersonGroupListComponent test suite', () => {
         EpersonGroupListComponent,
         TestComponent,
         EpersonSearchBoxComponent,
-            GroupSearchBoxComponent,
-            PaginationComponent,
+        GroupSearchBoxComponent,
+        PaginationComponent,
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
@@ -184,7 +196,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
       expect(compAsAny.list$.value).toEqual(epersonPaginatedListRD);
       expect(comp.getList()).toBeObservable(cold('a', {
-        a: epersonPaginatedListRD
+        a: epersonPaginatedListRD,
       }));
     });
 
@@ -200,7 +212,7 @@ describe('EpersonGroupListComponent test suite', () => {
       compAsAny.entrySelectedId.next(EPersonMock.id);
 
       expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: true
+        a: true,
       }));
     });
 
@@ -208,7 +220,7 @@ describe('EpersonGroupListComponent test suite', () => {
       compAsAny.entrySelectedId.next('');
 
       expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: false
+        a: false,
       }));
     });
   });
@@ -259,7 +271,7 @@ describe('EpersonGroupListComponent test suite', () => {
 
       expect(compAsAny.list$.value).toEqual(groupPaginatedListRD);
       expect(comp.getList()).toBeObservable(cold('a', {
-        a: groupPaginatedListRD
+        a: groupPaginatedListRD,
       }));
     });
 
@@ -275,7 +287,7 @@ describe('EpersonGroupListComponent test suite', () => {
       compAsAny.entrySelectedId.next(EPersonMock.id);
 
       expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: true
+        a: true,
       }));
     });
 
@@ -283,7 +295,7 @@ describe('EpersonGroupListComponent test suite', () => {
       compAsAny.entrySelectedId.next('');
 
       expect(comp.isSelected(EPersonMock)).toBeObservable(cold('a', {
-        a: false
+        a: false,
       }));
     });
 
@@ -291,7 +303,7 @@ describe('EpersonGroupListComponent test suite', () => {
       const options: PaginationComponentOptions = comp.paginationOptions;
       const event: SearchEvent = {
         scope: 'metadata',
-        query: 'test'
+        query: 'test',
       };
       spyOn(comp, 'updateList');
       comp.onSearch(event);
@@ -303,9 +315,9 @@ describe('EpersonGroupListComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

@@ -1,18 +1,38 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
-  DynamicInputModel
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { switchMap, take, tap } from 'rxjs/operators';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, combineLatest } from 'rxjs';
-import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
-import { AsyncPipe, NgIf } from '@angular/common';
 import { FormComponent } from '../../../../shared/form/form.component';
 
 @Component({
@@ -22,9 +42,9 @@ import { FormComponent } from '../../../../shared/form/form.component';
     NgIf,
     AsyncPipe,
     TranslateModule,
-    FormComponent
+    FormComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * A form used for creating and editing metadata schemas
@@ -62,14 +82,14 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
   formLayout: DynamicFormLayout = {
     name: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
+        host: 'col col-sm-6 d-inline-block',
+      },
     },
     namespace: {
       grid: {
-        host: 'col col-sm-6 d-inline-block'
-      }
-    }
+        host: 'col col-sm-6 d-inline-block',
+      },
+    },
   };
 
   /**
@@ -88,42 +108,42 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     combineLatest([
       this.translateService.get(`${this.messagePrefix}.name`),
-      this.translateService.get(`${this.messagePrefix}.namespace`)
+      this.translateService.get(`${this.messagePrefix}.namespace`),
     ]).subscribe(([name, namespace]) => {
       this.name = new DynamicInputModel({
-          id: 'name',
-          label: name,
-          name: 'name',
-          validators: {
-            required: null,
-            pattern: '^[^. ,]*$',
-            maxLength: 32,
-          },
-          required: true,
-          errorMessages: {
-            pattern: 'error.validation.metadata.name.invalid-pattern',
-            maxLength: 'error.validation.metadata.name.max-length',
-          },
-        });
+        id: 'name',
+        label: name,
+        name: 'name',
+        validators: {
+          required: null,
+          pattern: '^[^. ,]*$',
+          maxLength: 32,
+        },
+        required: true,
+        errorMessages: {
+          pattern: 'error.validation.metadata.name.invalid-pattern',
+          maxLength: 'error.validation.metadata.name.max-length',
+        },
+      });
       this.namespace = new DynamicInputModel({
-          id: 'namespace',
-          label: namespace,
-          name: 'namespace',
-          validators: {
-            required: null,
-            maxLength: 256,
-          },
-          required: true,
-          errorMessages: {
-            maxLength: 'error.validation.metadata.namespace.max-length',
-          },
-        });
+        id: 'namespace',
+        label: namespace,
+        name: 'namespace',
+        validators: {
+          required: null,
+          maxLength: 256,
+        },
+        required: true,
+        errorMessages: {
+          maxLength: 'error.validation.metadata.namespace.max-length',
+        },
+      });
       this.formModel = [
         new DynamicFormGroupModel(
           {
             id: 'metadatadataschemagroup',
-            group:[this.namespace, this.name]
-          })
+            group:[this.namespace, this.name],
+          }),
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.registryService.getActiveMetadataSchema().subscribe((schema: MetadataSchema) => {
@@ -156,48 +176,48 @@ export class MetadataSchemaFormComponent implements OnInit, OnDestroy {
    * Emit the updated/created schema using the EventEmitter submitForm
    */
   onSubmit(): void {
-        this.registryService
-          .getActiveMetadataSchema()
-          .pipe(
-            take(1),
-            switchMap((schema: MetadataSchema) => {
-              const metadataValues = {
-                prefix: this.name.value,
-                namespace: this.namespace.value,
-              };
+    this.registryService
+      .getActiveMetadataSchema()
+      .pipe(
+        take(1),
+        switchMap((schema: MetadataSchema) => {
+          const metadataValues = {
+            prefix: this.name.value,
+            namespace: this.namespace.value,
+          };
 
-              let createOrUpdate$: Observable<MetadataSchema>;
+          let createOrUpdate$: Observable<MetadataSchema>;
 
-              if (schema == null) {
-                createOrUpdate$ =
+          if (schema == null) {
+            createOrUpdate$ =
                   this.registryService.createOrUpdateMetadataSchema(
-                    Object.assign(new MetadataSchema(), metadataValues)
+                    Object.assign(new MetadataSchema(), metadataValues),
                   );
-              } else {
-                const updatedSchema = Object.assign(
-                  new MetadataSchema(),
-                  schema,
-                  {
-                    namespace: metadataValues.namespace,
-                  }
-                );
-                createOrUpdate$ =
+          } else {
+            const updatedSchema = Object.assign(
+              new MetadataSchema(),
+              schema,
+              {
+                namespace: metadataValues.namespace,
+              },
+            );
+            createOrUpdate$ =
                   this.registryService.createOrUpdateMetadataSchema(
-                    updatedSchema
+                    updatedSchema,
                   );
-              }
+          }
 
-              return createOrUpdate$;
-            }),
-            tap(() => {
-              this.registryService.clearMetadataSchemaRequests().subscribe();
-            })
-          )
-          .subscribe((updatedOrCreatedSchema: MetadataSchema) => {
-            this.submitForm.emit(updatedOrCreatedSchema);
-            this.clearFields();
-            this.registryService.cancelEditMetadataSchema();
-          });
+          return createOrUpdate$;
+        }),
+        tap(() => {
+          this.registryService.clearMetadataSchemaRequests().subscribe();
+        }),
+      )
+      .subscribe((updatedOrCreatedSchema: MetadataSchema) => {
+        this.submitForm.emit(updatedOrCreatedSchema);
+        this.clearFields();
+        this.registryService.cancelEditMetadataSchema();
+      });
   }
 
   /**

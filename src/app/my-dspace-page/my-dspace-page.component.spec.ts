@@ -1,25 +1,35 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync, } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { of as observableOf } from 'rxjs';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 
-import { MyDSpacePageComponent,  } from './my-dspace-page.component';
-import { SearchService } from '../core/shared/search/search.service';
-import { MyDSpaceConfigurationService, SEARCH_CONFIG_SERVICE } from './my-dspace-configuration.service';
-import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
-import { Context } from '../core/shared/context.model';
 import { RoleService } from '../core/roles/role.service';
-import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
-import { RoleDirective } from '../shared/roles/role.directive';
-import { ThemeService } from '../shared/theme-support/theme.service';
+import { Context } from '../core/shared/context.model';
+import { SearchService } from '../core/shared/search/search.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
+import { RoleDirective } from '../shared/roles/role.directive';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';
+import { ThemeService } from '../shared/theme-support/theme.service';
+import {
+  MyDSpaceConfigurationService,
+  SEARCH_CONFIG_SERVICE,
+} from './my-dspace-configuration.service';
+import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
+import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
+import { MyDSpacePageComponent } from './my-dspace-page.component';
 import SpyObj = jasmine.SpyObj;
+import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -30,13 +40,13 @@ describe('MyDSpacePageComponent', () => {
     'SearchService',
     {
       setServiceOptions: jasmine.createSpy('setServiceOptions'),
-    }
+    },
   );
 
   const myDSpaceConfigurationServiceStub: SpyObj<MyDSpaceConfigurationService> =
     jasmine.createSpyObj('MyDSpaceConfigurationService', {
       getAvailableConfigurationOptions: jasmine.createSpy(
-        'getAvailableConfigurationOptions'
+        'getAvailableConfigurationOptions',
       ),
     });
 
@@ -55,7 +65,7 @@ describe('MyDSpacePageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     roleService = jasmine.createSpyObj('roleService', {
-      checkRole: ()=> observableOf(true)
+      checkRole: ()=> observableOf(true),
     });
     TestBed.configureTestingModule({
       imports: [
@@ -64,7 +74,7 @@ describe('MyDSpacePageComponent', () => {
         NoopAnimationsModule,
         NgbCollapseModule,
         MyDSpacePageComponent,
-        RoleDirective
+        RoleDirective,
       ],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
@@ -89,7 +99,12 @@ describe('MyDSpacePageComponent', () => {
       })
       .overrideComponent(MyDSpacePageComponent, {
         remove: {
-          imports: [ThemedSearchComponent, MyDSpaceNewSubmissionComponent],
+          imports: [
+            ThemedSearchComponent,
+            MyDSpaceNewSubmissionComponent,
+            SuggestionsNotificationComponent,
+            MyDspaceQaEventsNotificationsComponent,
+          ],
         },
       })
       .compileComponents();
@@ -99,7 +114,7 @@ describe('MyDSpacePageComponent', () => {
     fixture = TestBed.createComponent(MyDSpacePageComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     myDSpaceConfigurationServiceStub.getAvailableConfigurationOptions.and.returnValue(
-      observableOf(configurationList)
+      observableOf(configurationList),
     );
 
     fixture.detectChanges();
@@ -113,7 +128,7 @@ describe('MyDSpacePageComponent', () => {
     expect(comp.configurationList$).toBeObservable(
       cold('(a|)', {
         a: configurationList,
-      })
+      }),
     );
 
     flush();

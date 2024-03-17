@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { ItemPageResolver } from './item-page.resolver';
-import { Item } from '../core/shared/item.model';
-import { DsoPageSingleFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
-import { Observable, of as observableOf } from 'rxjs';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { DsoPageSingleFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { Item } from '../core/shared/item.model';
+import { ItemPageResolver } from './item-page.resolver';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring administrator rights

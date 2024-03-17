@@ -1,4 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { ComcolPageHandleComponent } from './comcol-page-handle.component';
 
@@ -6,19 +10,19 @@ import { ComcolPageHandleComponent } from './comcol-page-handle.component';
  * Themed wrapper for BreadcrumbsComponent
  */
 @Component({
-    selector: 'ds-themed-comcol-page-handle',
-    styleUrls: [],
-    templateUrl: '../../theme-support/themed.component.html',
-    standalone: true
+  selector: 'ds-themed-comcol-page-handle',
+  styleUrls: [],
+  templateUrl: '../../theme-support/themed.component.html',
+  standalone: true,
 })
 
 
 export class ThemedComcolPageHandleComponent extends ThemedComponent<ComcolPageHandleComponent> {
 
-// Optional title
+  // Optional title
   @Input() title: string;
 
-// The value of "handle"
+  // The value of "handle"
   @Input() content: string;
 
   inAndOutputNames: (keyof ComcolPageHandleComponent & keyof this)[] = ['title', 'content'];

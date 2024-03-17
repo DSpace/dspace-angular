@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 
@@ -9,7 +10,7 @@ import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.co
   selector: 'ds-themed-expandable-navbar-section',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
-  standalone: true
+  standalone: true,
 })
 export class ThemedExpandableNavbarSectionComponent  extends ThemedComponent<ExpandableNavbarSectionComponent> {
   protected getComponentName(): string {

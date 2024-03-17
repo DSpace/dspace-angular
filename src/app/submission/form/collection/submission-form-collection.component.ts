@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,34 +8,40 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  find,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import { find, map, mergeMap } from 'rxjs/operators';
-
-import { Collection } from '../../../core/shared/collection.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionService } from '../../submission.service';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import {
-  SubmissionJsonPatchOperationsService
-} from '../../../core/submission/submission-json-patch-operations.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { SectionsService } from '../../sections/sections.service';
+import { Collection } from '../../../core/shared/collection.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { SectionsType } from '../../sections/sections-type';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import {
-  ThemedCollectionDropdownComponent
-} from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { SectionsService } from '../../sections/sections.service';
+import { SectionsType } from '../../sections/sections-type';
+import { SubmissionService } from '../../submission.service';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.
@@ -48,8 +55,8 @@ import {
     CommonModule,
     TranslateModule,
     NgbDropdownModule,
-    ThemedCollectionDropdownComponent
-  ]
+    ThemedCollectionDropdownComponent,
+  ],
 })
 export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
@@ -149,7 +156,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
       this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
         find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
-        map((collectionRD: RemoteData<Collection>) => this.dsoNameService.getName(collectionRD.payload))
+        map((collectionRD: RemoteData<Collection>) => this.dsoNameService.getName(collectionRD.payload)),
       );
     }
   }
@@ -183,20 +190,20 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       this.submissionId,
       'sections',
       'collection').pipe(
-        mergeMap((submissionObject: SubmissionObject[]) => {
-          // retrieve the full submission object with embeds
-          return this.submissionService.retrieveSubmission(submissionObject[0].id).pipe(
-            getFirstSucceededRemoteDataPayload()
-          );
-        })
-      ).subscribe((submissionObject: SubmissionObject) => {
-        this.selectedCollectionId = event.collection.id;
-        this.selectedCollectionName$ = observableOf(event.collection.name);
-        this.collectionChange.emit(submissionObject);
-        this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
-        this.processingChange$.next(false);
-        this.cdr.detectChanges();
-      })
+      mergeMap((submissionObject: SubmissionObject[]) => {
+        // retrieve the full submission object with embeds
+        return this.submissionService.retrieveSubmission(submissionObject[0].id).pipe(
+          getFirstSucceededRemoteDataPayload(),
+        );
+      }),
+    ).subscribe((submissionObject: SubmissionObject) => {
+      this.selectedCollectionId = event.collection.id;
+      this.selectedCollectionName$ = observableOf(event.collection.name);
+      this.collectionChange.emit(submissionObject);
+      this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
+      this.processingChange$.next(false);
+      this.cdr.detectChanges();
+    }),
     );
   }
 

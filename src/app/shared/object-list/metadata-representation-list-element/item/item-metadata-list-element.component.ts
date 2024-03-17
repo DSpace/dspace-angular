@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
+
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import {
-  ListableObjectComponentLoaderComponent
-} from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
-    selector: 'ds-item-metadata-list-element',
-    templateUrl: './item-metadata-list-element.component.html',
-    standalone: true,
-    imports: [ListableObjectComponentLoaderComponent]
+  selector: 'ds-item-metadata-list-element',
+  templateUrl: './item-metadata-list-element.component.html',
+  standalone: true,
+  imports: [ListableObjectComponentLoaderComponent],
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of items

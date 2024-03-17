@@ -1,8 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 
 @Pipe({
-    name: 'dsConsole',
-    standalone: true
+  name: 'dsConsole',
+  standalone: true,
 })
 export class ConsolePipe implements PipeTransform {
   transform(value: any): string {

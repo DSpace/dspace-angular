@@ -1,9 +1,14 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { PrivacyComponent } from './privacy.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { PrivacyComponent } from './privacy.component';
 
 describe('PrivacyComponent', () => {
   let component: PrivacyComponent;
@@ -11,12 +16,12 @@ describe('PrivacyComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot(), PrivacyComponent],
-    providers: [
-      { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      imports: [TranslateModule.forRoot(), PrivacyComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

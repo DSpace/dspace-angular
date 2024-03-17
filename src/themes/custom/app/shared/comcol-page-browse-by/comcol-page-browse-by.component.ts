@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
 import {
-  ComcolPageBrowseByComponent as BaseComponent
-} from '../../../../../app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AsyncPipe, NgForOf } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { ComcolPageBrowseByComponent as BaseComponent } from '../../../../../app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
 
 /**
  * A component to display the "Browse By" section of a Community or Collection page
@@ -24,7 +29,7 @@ import { TranslateModule } from '@ngx-translate/core';
     RouterLink,
     RouterLinkActive,
     TranslateModule,
-    AsyncPipe
+    AsyncPipe,
   ],
 })
 export class ComcolPageBrowseByComponent extends BaseComponent {}

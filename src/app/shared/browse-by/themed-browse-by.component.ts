@@ -1,13 +1,22 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { BrowseByComponent } from './browse-by.component';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { StartsWithType } from '../starts-with/starts-with-decorator';
+import { StartsWithType } from '../starts-with/starts-with-type';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { BrowseByComponent } from './browse-by.component';
 
 /**
  * Themed wrapper for {@link BrowseByComponent}
@@ -16,13 +25,13 @@ import { StartsWithType } from '../starts-with/starts-with-decorator';
   selector: 'ds-themed-browse-by',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone: true
+  standalone: true,
 })
 export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> {
 
   @Input() title: string;
 
-  @Input() parentname: string;
+  @Input() displayTitle: boolean;
 
   @Input() objects$: Observable<RemoteData<PaginatedList<ListableObject>>>;
 
@@ -32,7 +41,7 @@ export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> 
 
   @Input() type: StartsWithType;
 
-  @Input() startsWithOptions: number[];
+  @Input() startsWithOptions: (string | number)[];
 
   @Input() showPaginator: boolean;
 
@@ -48,7 +57,7 @@ export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> 
 
   protected inAndOutputNames: (keyof BrowseByComponent & keyof this)[] = [
     'title',
-    'parentname',
+    'displayTitle',
     'objects$',
     'paginationConfig',
     'sortConfig',

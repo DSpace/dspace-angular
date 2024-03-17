@@ -1,9 +1,13 @@
-import {Component, Input} from '@angular/core';
-import {ItemOperation} from './itemOperation.model';
-import { TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ItemOperation } from './itemOperation.model';
 
 @Component({
   selector: 'ds-item-operation',
@@ -12,9 +16,9 @@ import { NgIf } from '@angular/common';
     TranslateModule,
     RouterLink,
     NgbTooltipModule,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Operation that can be performed on an item

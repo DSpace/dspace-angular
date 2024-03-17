@@ -1,15 +1,33 @@
-import { Component, OnInit, Predicate } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Item } from '../../../core/shared/item.model';
-import { RemoteData } from '../../../core/data/remote-data';
+import {
+  Component,
+  OnInit,
+  Predicate,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
+
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { first, map } from 'rxjs/operators';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  getItemEditRoute,
+  getItemPageRoute,
+} from '../../item-page-routing-paths';
 import { findSuccessfulAccordingTo } from '../edit-item-operators';
-import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 
 /**
@@ -22,9 +40,9 @@ import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item
   imports: [
     ModifyItemOverviewComponent,
     TranslateModule,
-    RouterLink
+    RouterLink,
   ],
-  standalone: true
+  standalone: true,
 })
 export class AbstractSimpleItemActionComponent implements OnInit {
 
@@ -54,13 +72,13 @@ export class AbstractSimpleItemActionComponent implements OnInit {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso),
-      getFirstSucceededRemoteData()
+      getFirstSucceededRemoteData(),
     )as Observable<RemoteData<Item>>;
 
     this.itemRD$.pipe(first()).subscribe((rd) => {
-        this.item = rd.payload;
-        this.itemPageRoute = getItemPageRoute(this.item);
-      }
+      this.item = rd.payload;
+      this.itemPageRoute = getItemPageRoute(this.item);
+    },
     );
 
     this.confirmMessage = 'item.edit.' + this.messageKey + '.confirm';
@@ -82,7 +100,8 @@ export class AbstractSimpleItemActionComponent implements OnInit {
   processRestResponse(response: RemoteData<any>) {
     if (response.hasSucceeded) {
       this.itemDataService.findById(this.item.id).pipe(
-        findSuccessfulAccordingTo(this.predicate)).subscribe(() => {
+        findSuccessfulAccordingTo((itemRd: RemoteData<Item>) => this.predicate(itemRd)),
+      ).subscribe(() => {
         this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
         this.router.navigate([getItemEditRoute(this.item)]);
       });

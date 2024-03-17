@@ -1,15 +1,32 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { hasValue, isEmpty } from '../../shared/empty.util';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { map } from 'rxjs/operators';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { debounceTimeWorkaround as debounceTime } from '../../core/shared/operators';
-import { FormComponent } from '../../shared/form/form.component';
 import { AlertComponent } from '../../shared/alert/alert.component';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
+import { FormComponent } from '../../shared/form/form.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-profile-page-security-form',
@@ -17,9 +34,9 @@ import { AlertComponent } from '../../shared/alert/alert.component';
   imports: [
     FormComponent,
     AlertComponent,
-    TranslateModule
+    TranslateModule,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for a user to edit their security information
@@ -55,7 +72,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
       name: 'passwordrepeat',
       inputType: 'password',
       autoComplete: 'new-password',
-    })
+    }),
   ];
 
   /**
@@ -67,13 +84,13 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    * Indicates whether the "checkPasswordEmpty" needs to be added or not
    */
   @Input()
-  passwordCanBeEmpty = true;
+    passwordCanBeEmpty = true;
 
   /**
    * Prefix for the form's label messages of this component
    */
   @Input()
-  FORM_PREFIX: string;
+    FORM_PREFIX: string;
 
   private subs: Subscription[] = [];
 
@@ -109,8 +126,8 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     this.subs.push(
       this.formGroup.statusChanges.pipe(
         debounceTime(300),
-        map((status: string) => status !== 'VALID')
-      ).subscribe((status) => this.isInvalid.emit(status))
+        map((status: string) => status !== 'VALID'),
+      ).subscribe((status) => this.isInvalid.emit(status)),
     );
 
     this.subs.push(this.formGroup.valueChanges.pipe(
@@ -130,7 +147,7 @@ export class ProfilePageSecurityFormComponent implements OnInit {
     this.formModel.forEach(
       (fieldModel: DynamicInputModel) => {
         fieldModel.label = this.translate.instant(this.FORM_PREFIX + 'label.' + fieldModel.id);
-      }
+      },
     );
   }
 

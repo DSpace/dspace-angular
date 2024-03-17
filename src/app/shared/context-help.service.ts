@@ -1,36 +1,46 @@
 import { Injectable } from '@angular/core';
-import { ContextHelp } from './context-help.model';
-import { Store, createFeatureSelector, createSelector, select, MemoizedSelector } from '@ngrx/store';
-import { ContextHelpState, ContextHelpModels } from './context-help.reducer';
 import {
-  ContextHelpToggleIconsAction,
-  ContextHelpAddAction,
-  ContextHelpRemoveAction,
-  ContextHelpShowTooltipAction,
-  ContextHelpHideTooltipAction,
-  ContextHelpToggleTooltipAction
-} from './context-help.actions';
+  createFeatureSelector,
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import {
+  ContextHelpAddAction,
+  ContextHelpHideTooltipAction,
+  ContextHelpRemoveAction,
+  ContextHelpShowTooltipAction,
+  ContextHelpToggleIconsAction,
+  ContextHelpToggleTooltipAction,
+} from './context-help.actions';
+import { ContextHelp } from './context-help.model';
+import {
+  ContextHelpModels,
+  ContextHelpState,
+} from './context-help.reducer';
 
 const contextHelpStateSelector =
   createFeatureSelector<ContextHelpState>('contextHelp');
 const allIconsVisibleSelector = createSelector(
   contextHelpStateSelector,
-  (state: ContextHelpState): boolean => state.allIconsVisible
+  (state: ContextHelpState): boolean => state.allIconsVisible,
 );
 const contextHelpSelector =
   (id: string): MemoizedSelector<ContextHelpState, ContextHelp> => createSelector(
     contextHelpStateSelector,
-    (state: ContextHelpState) => state.models[id]
+    (state: ContextHelpState) => state.models[id],
   );
 const allContextHelpSelector = createSelector(
   contextHelpStateSelector,
-  ((state: ContextHelpState) => state.models)
+  ((state: ContextHelpState) => state.models),
 );
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ContextHelpService {
   constructor(private store: Store<ContextHelpState>) { }

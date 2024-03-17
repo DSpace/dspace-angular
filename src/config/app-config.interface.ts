@@ -1,30 +1,38 @@
-import { InjectionToken, Type } from '@angular/core';
-import { makeStateKey } from '@angular/core';
-import { Config } from './config.interface';
-import { ServerConfig } from './server-config.interface';
-import { CacheConfig } from './cache-config.interface';
-import { INotificationBoardOptions } from './notifications-config.interfaces';
-import { SubmissionConfig } from './submission-config.interface';
-import { FormConfig } from './form-config.interfaces';
-import { LangConfig } from './lang-config.interface';
-import { ItemConfig } from './item-config.interface';
-import { CollectionPageConfig } from './collection-page-config.interface';
-import { ThemeConfig } from './theme.config';
+import {
+  InjectionToken,
+  makeStateKey,
+  Type,
+} from '@angular/core';
+import { DynamicFormControl } from '@ng-dynamic-forms/core/lib/component/dynamic-form-control-interface';
+
+import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
+import { ActuatorsConfig } from './actuators.config';
 import { AuthConfig } from './auth-config.interfaces';
-import { UIServerConfig } from './ui-server-config.interface';
-import { MediaViewerConfig } from './media-viewer-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
-import { ActuatorsConfig } from './actuators.config';
-import { InfoConfig } from './info-config.interface';
+import { CacheConfig } from './cache-config.interface';
+import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
-import { HomeConfig } from './homepage-config.interface';
-import { MarkdownConfig } from './markdown-config.interface';
-import { FilterVocabularyConfig } from './filter-vocabulary-config';
+import { CommunityPageConfig } from './community-page-config.interface';
+import { Config } from './config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
+import { FilterVocabularyConfig } from './filter-vocabulary-config';
+import { FormConfig } from './form-config.interfaces';
+import { HomeConfig } from './homepage-config.interface';
+import { InfoConfig } from './info-config.interface';
+import { ItemConfig } from './item-config.interface';
+import { LangConfig } from './lang-config.interface';
+import { MarkdownConfig } from './markdown-config.interface';
+import { MediaViewerConfig } from './media-viewer-config.interface';
+import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
-import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
-import { DynamicFormControl } from '@ng-dynamic-forms/core/lib/component/dynamic-form-control-interface';
+import { SearchConfig } from './search-page-config.interface';
+import { ServerConfig } from './server-config.interface';
+import { SubmissionConfig } from './submission-config.interface';
+import { SuggestionConfig } from './suggestion-config.interfaces';
+import { ThemeConfig } from './theme.config';
+import { UIServerConfig } from './ui-server-config.interface';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -42,9 +50,11 @@ interface AppConfig extends Config {
   communityList: CommunityListConfig;
   homePage: HomeConfig;
   item: ItemConfig;
+  community: CommunityPageConfig;
   collection: CollectionPageConfig;
   themes: ThemeConfig[];
   mediaViewer: MediaViewerConfig;
+  suggestion: SuggestionConfig[];
   bundle: BundleConfig;
   actuators: ActuatorsConfig
   info: InfoConfig;
@@ -52,6 +62,8 @@ interface AppConfig extends Config {
   vocabularies: FilterVocabularyConfig[];
   comcolSelectionSort: DiscoverySortConfig;
   qualityAssuranceConfig: QualityAssuranceConfig;
+  search: SearchConfig;
+  notifyMetrics: AdminNotifyMetricsRow[];
 }
 
 /**
@@ -72,7 +84,7 @@ export const APP_DATA_SERVICES_MAP: InjectionToken<LazyDataServicesMap> = new In
 export const APP_DYNAMIC_FORM_CONTROL_FN: InjectionToken<DynamicFormControlFn> = new InjectionToken<DynamicFormControlFn>('APP_DYNAMIC_FORM_CONTROL_FN');
 
 export {
-  AppConfig,
   APP_CONFIG,
-  APP_CONFIG_STATE
+  APP_CONFIG_STATE,
+  AppConfig,
 };

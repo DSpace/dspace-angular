@@ -1,17 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf, BehaviorSubject } from 'rxjs';
-import { ContextHelpWrapperComponent } from './context-help-wrapper.component';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { ContextHelpService } from '../context-help.service';
-import { ContextHelp } from '../context-help.model';
-import { Component, Input, DebugElement } from '@angular/core';
-import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
-import { PlacementDir } from './placement-dir.model';
+import {
+  Component,
+  DebugElement,
+  Input,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
+import { ContextHelp } from '../context-help.model';
+import { ContextHelpService } from '../context-help.service';
+import { ContextHelpWrapperComponent } from './context-help-wrapper.component';
+import { PlacementDir } from './placement-dir.model';
 
 @Component({
-    template: `
+  template: `
     <ng-template #div>template</ng-template>
     <ds-context-help-wrapper
       #chwrapper
@@ -24,8 +36,8 @@ import { By } from '@angular/platform-browser';
     >
     </ds-context-help-wrapper>
   `,
-    standalone: true,
-  imports: [NgbTooltipModule, ContextHelpWrapperComponent]
+  standalone: true,
+  imports: [NgbTooltipModule, ContextHelpWrapperComponent],
 })
 class TemplateComponent {
   @Input() content: string;
@@ -37,11 +49,11 @@ class TemplateComponent {
 
 const messages = {
   lorem: 'lorem ipsum dolor sit amet',
-  linkTest: 'This is text, [this](https://dspace.lyrasis.org/) is a link, and [so is this](https://google.com/)'
+  linkTest: 'This is text, [this](https://dspace.lyrasis.org/) is a link, and [so is this](https://google.com/)',
 };
 const exampleContextHelp: ContextHelp = {
   id: 'test-tooltip',
-  isTooltipVisible: false
+  isTooltipVisible: false,
 };
 
 describe('ContextHelpWrapperComponent', () => {
@@ -70,16 +82,16 @@ describe('ContextHelpWrapperComponent', () => {
       'toggleIcons',
       'toggleTooltip',
       'showTooltip',
-      'hideTooltip'
+      'hideTooltip',
     ]);
 
     TestBed.configureTestingModule({
-    imports: [NgbTooltipModule, TemplateComponent, ContextHelpWrapperComponent],
-    providers: [
+      imports: [NgbTooltipModule, TemplateComponent, ContextHelpWrapperComponent],
+      providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -146,7 +158,7 @@ describe('ContextHelpWrapperComponent', () => {
 
       it('should display the tooltip', () => {
         expect(contextHelpService.toggleTooltip).toHaveBeenCalledWith('test-tooltip');
-        getContextHelp$.next({...exampleContextHelp, isTooltipVisible: true});
+        getContextHelp$.next({ ...exampleContextHelp, isTooltipVisible: true });
         fixture.detectChanges();
         expect(wrapperComponent.tooltip.open).toHaveBeenCalled();
         expect(wrapperComponent.tooltip.close).toHaveBeenCalledTimes(0);
@@ -156,7 +168,7 @@ describe('ContextHelpWrapperComponent', () => {
 
       it('should correctly display links', () => {
         templateComponent.content = 'linkTest';
-        getContextHelp$.next({...exampleContextHelp, isTooltipVisible: true});
+        getContextHelp$.next({ ...exampleContextHelp, isTooltipVisible: true });
         fixture.detectChanges();
         const nodeList: NodeList = fixture.debugElement.query(By.css('.ds-context-help-content'))
           .nativeElement
@@ -184,7 +196,7 @@ describe('ContextHelpWrapperComponent', () => {
       it('should not display links if specified not to', () => {
         templateComponent.dontParseLinks = true;
         templateComponent.content = 'linkTest';
-        getContextHelp$.next({...exampleContextHelp, isTooltipVisible: true});
+        getContextHelp$.next({ ...exampleContextHelp, isTooltipVisible: true });
         fixture.detectChanges();
 
 
@@ -210,7 +222,7 @@ describe('ContextHelpWrapperComponent', () => {
 
         it('should close the tooltip', () => {
           expect(contextHelpService.toggleTooltip).toHaveBeenCalledWith('test-tooltip');
-          getContextHelp$.next({...exampleContextHelp, isTooltipVisible: false});
+          getContextHelp$.next({ ...exampleContextHelp, isTooltipVisible: false });
           fixture.detectChanges();
           expect(wrapperComponent.tooltip.close).toHaveBeenCalled();
         });

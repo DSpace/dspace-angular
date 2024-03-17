@@ -1,14 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { find } from 'rxjs/operators';
 
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { Group } from '../../../../core/eperson/models/group.model';
 import { ResourcePolicy } from '../../../../core/resource-policy/models/resource-policy.model';
 import { isEmpty } from '../../../../shared/empty.util';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { NgForOf, NgIf } from '@angular/common';
 
 /**
  * This component represents a badge that describe an access condition
@@ -18,9 +24,9 @@ import { NgForOf, NgIf } from '@angular/common';
   templateUrl: './submission-section-upload-access-conditions.component.html',
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 export class SubmissionSectionUploadAccessConditionsComponent implements OnInit {
 

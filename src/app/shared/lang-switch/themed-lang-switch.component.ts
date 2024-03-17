@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../theme-support/themed.component';
 import { LangSwitchComponent } from './lang-switch.component';
 
@@ -9,7 +10,7 @@ import { LangSwitchComponent } from './lang-switch.component';
   selector: 'ds-themed-lang-switch',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
-  standalone: true
+  standalone: true,
 })
 export class ThemedLangSwitchComponent extends ThemedComponent<LangSwitchComponent> {
 

@@ -1,20 +1,31 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { ContextHelpService } from '../../shared/context-help.service';
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgIf, AsyncPipe } from '@angular/common';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { ContextHelpService } from '../../shared/context-help.service';
 
 /**
  * Renders a "context help toggle" button that toggles the visibility of tooltip buttons on the page.
  * If there are no tooltip buttons available on the current page, the toggle is unclickable.
  */
 @Component({
-    selector: 'ds-context-help-toggle',
-    templateUrl: './context-help-toggle.component.html',
-    styleUrls: ['./context-help-toggle.component.scss'],
-    standalone: true,
-    imports: [NgIf, AsyncPipe, TranslateModule]
+  selector: 'ds-context-help-toggle',
+  templateUrl: './context-help-toggle.component.html',
+  styleUrls: ['./context-help-toggle.component.scss'],
+  standalone: true,
+  imports: [NgIf, AsyncPipe, TranslateModule],
 })
 export class ContextHelpToggleComponent implements OnInit {
   buttonVisible$: Observable<boolean>;

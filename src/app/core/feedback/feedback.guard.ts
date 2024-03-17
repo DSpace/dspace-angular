@@ -1,13 +1,18 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../data/feature-authorization/feature-id';
-import { Injectable } from '@angular/core';
 
 /**
  * An guard for redirecting users to the feedback page if user is authorized
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FeedbackGuard  {
 
   constructor(private authorizationService: AuthorizationDataService) {

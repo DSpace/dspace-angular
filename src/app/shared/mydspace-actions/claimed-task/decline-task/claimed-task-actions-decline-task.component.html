@@ -6,7 +6,7 @@
   <span *ngIf="processing$ | async">
     <i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}
   </span>
-  <span *ngIf="!(processing$ | async)">
+  <span *ngIf="(processing$ | async) !== true">
     <i class="fa fa-ban"></i> {{'submission.workflow.tasks.claimed.decline' | translate}}
   </span>
 </button>

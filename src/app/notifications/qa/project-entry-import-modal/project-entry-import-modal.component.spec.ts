@@ -1,30 +1,42 @@
 import { CommonModule } from '@angular/common';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  inject,
+  TestBed,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { Item } from '../../../core/shared/item.model';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { ImportType, ProjectEntryImportModalComponent } from './project-entry-import-modal.component';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
-import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
 import {
   ItemMockPid10,
+  NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
-  NotificationsMockDspaceObject
 } from '../../../shared/mocks/notifications.mock';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
+import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import {
+  ImportType,
+  ProjectEntryImportModalComponent,
+} from './project-entry-import-modal.component';
 
 const eventData = {
   event: qualityAssuranceEventObjectMissingProjectFound,
@@ -35,28 +47,28 @@ const eventData = {
   projectId: ItemMockPid10.id,
   handle: ItemMockPid10.handle,
   reason: null,
-  isRunning: false
+  isRunning: false,
 };
 
 const searchString = 'Test project to search';
 const pagination = Object.assign(
   new PaginationComponentOptions(), {
     id: 'notifications-project-bound',
-    pageSize: 3
-  }
+    pageSize: 3,
+  },
 );
 const searchOptions = Object.assign(new PaginatedSearchOptions(
   {
     configuration: 'funding',
     query: searchString,
-    pagination: pagination
-  }
+    pagination: pagination,
+  },
 ));
 const pageInfo = new PageInfo({
   elementsPerPage: 3,
   totalElements: 1,
   totalPages: 1,
-  currentPage: 1
+  currentPage: 1,
 });
 const array = [
   NotificationsMockDspaceObject,
@@ -76,29 +88,29 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
   beforeEach(async (() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         TranslateModule.forRoot(),
         ProjectEntryImportModalComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: SearchService, useValue: searchServiceStub },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub()},
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: SelectableListService, useValue: jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']) },
-        ProjectEntryImportModalComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+        ProjectEntryImportModalComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .overrideComponent(ProjectEntryImportModalComponent, {
         remove: {
           imports: [
             LoadingComponent,
             ThemedSearchResultsComponent,
-            AlertComponent
-          ]
-        }
+            AlertComponent,
+          ],
+        },
       })
       .compileComponents().then();
   }));
@@ -216,10 +228,10 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [CommonModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   eventData = eventData;

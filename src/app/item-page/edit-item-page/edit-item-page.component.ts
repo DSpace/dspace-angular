@@ -1,16 +1,41 @@
-import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { ChangeDetectionStrategy, Component, Injector, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router, RouterLink, RouterOutlet, CanActivateFn } from '@angular/router';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  CanActivateFn,
+  Route,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { RemoteData } from '../../core/data/remote-data';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { Item } from '../../core/shared/item.model';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
 import { getItemPageRoute } from '../item-page-routing-paths';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-edit-item-page',
@@ -18,7 +43,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
+    fadeInOut,
   ],
   imports: [
     TranslateModule,
@@ -28,9 +53,9 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     AsyncPipe,
     NgbTooltipModule,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Page component for editing an item
@@ -66,15 +91,15 @@ export class EditItemPageComponent implements OnInit {
           enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<{
     canActivate: CanActivateFn;
 }>) => {
-              const guard: {
+            const guard: {
     canActivate: CanActivateFn;
 } = this.injector.get<{
     canActivate: CanActivateFn;
 }>(guardConstructor);
-              return guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
-            })
+            return guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
+          }),
           ).pipe(
-            map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true))
+            map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true)),
           );
         }
         return { page: child.path, enabled: enabled };

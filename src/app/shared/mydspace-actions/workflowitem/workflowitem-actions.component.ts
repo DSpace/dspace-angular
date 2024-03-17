@@ -1,26 +1,35 @@
-import { Component, Injector, Input } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import {
+  Component,
+  Injector,
+  Input,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-
-import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { RequestService } from '../../../core/data/request.service';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { MyDSpaceActionsComponent } from '../mydspace-actions';
 
 /**
  * This component represents actions related to WorkflowItem object.
  */
 @Component({
-    selector: 'ds-workflowitem-actions',
-    styleUrls: ['./workflowitem-actions.component.scss'],
-    templateUrl: './workflowitem-actions.component.html',
-    standalone: true,
-    imports: [NgbTooltipModule, RouterLink, TranslateModule]
+  selector: 'ds-workflowitem-actions',
+  styleUrls: ['./workflowitem-actions.component.scss'],
+  templateUrl: './workflowitem-actions.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, RouterLink, TranslateModule],
 })
 export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<WorkflowItem, WorkflowItemDataService> {
 

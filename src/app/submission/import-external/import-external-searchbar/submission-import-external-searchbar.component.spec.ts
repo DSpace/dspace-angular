@@ -1,29 +1,42 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
 import {
-  SourceElement,
-  SubmissionImportExternalSearchbarComponent
-} from './submission-import-external-searchbar.component';
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 import { ExternalSourceDataService } from '../../../core/data/external-source-data.service';
-import { createTestComponent } from '../../../shared/testing/utils.test';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
+import { ExternalSource } from '../../../core/shared/external-source.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { HostWindowService } from '../../../shared/host-window.service';
 import {
   externalSourceCiencia,
   externalSourceMyStaffDb,
   externalSourceOrcid,
-  getMockExternalSourceService
+  getMockExternalSourceService,
 } from '../../../shared/mocks/external-source.service.mock';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { ExternalSource } from '../../../core/shared/external-source.model';
-import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
-import { getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import {
+  SourceElement,
+  SubmissionImportExternalSearchbarComponent,
+} from './submission-import-external-searchbar.component';
 
 describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   let comp: SubmissionImportExternalSearchbarComponent;
@@ -40,19 +53,19 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot(),
         SubmissionImportExternalSearchbarComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         ChangeDetectorRef,
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        SubmissionImportExternalSearchbarComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents().then();
+        SubmissionImportExternalSearchbarComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -89,9 +102,9 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
       paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
       compAsAny.externalService.searchBy.and.returnValue(observableOf(paginatedListRD));
       sourceList = [
-        {id: 'orcid', name: 'orcid'},
-        {id: 'ciencia', name: 'ciencia'},
-        {id: 'my_staff_db', name: 'my_staff_db'},
+        { id: 'orcid', name: 'orcid' },
+        { id: 'ciencia', name: 'ciencia' },
+        { id: 'my_staff_db', name: 'my_staff_db' },
       ];
     });
 
@@ -122,7 +135,7 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
     });
 
     it('Variable \'selectedElement\' should be assigned', () => {
-      const selectedElement = {id: 'orcid', name: 'orcid'};
+      const selectedElement = { id: 'orcid', name: 'orcid' };
       comp.makeSourceSelection(selectedElement);
       expect(comp.selectedElement).toEqual(selectedElement);
     });
@@ -134,14 +147,14 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
         elementsPerPage: 3,
         totalElements: 6,
         totalPages: 2,
-        currentPage: 0
+        currentPage: 0,
       });
       compAsAny.findListOptions = Object.assign({}, new FindListOptions(), {
         elementsPerPage: 3,
         currentPage: 0,
         searchParams: [
-          new RequestParam('entityType', 'Publication')
-        ]
+          new RequestParam('entityType', 'Publication'),
+        ],
       });
       comp.sourceList = sourceList;
       const expected = sourceList.concat(sourceList);
@@ -167,9 +180,9 @@ describe('SubmissionImportExternalSearchbarComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
   initExternalSourceData = { entity: 'Publication', query: 'dummy', sourceId: 'ciencia' };

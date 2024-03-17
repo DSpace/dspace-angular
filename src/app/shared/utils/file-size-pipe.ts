@@ -1,4 +1,7 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 // eslint-disable-next-line import/no-namespace
 import * as fileSize from 'filesize';
 
@@ -13,8 +16,8 @@ import * as fileSize from 'filesize';
  */
 
 @Pipe({
-    name: 'dsFileSize',
-    standalone: true
+  name: 'dsFileSize',
+  standalone: true,
 })
 export class FileSizePipe implements PipeTransform {
   transform(bytes: number = 0, precision: number = 2): string {

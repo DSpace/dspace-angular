@@ -1,5 +1,10 @@
-import { Inject, Pipe, PipeTransform, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  Inject,
+  Pipe,
+  PipeTransform,
+  PLATFORM_ID,
+} from '@angular/core';
 
 /**
  * A pipe that only returns its input when run in the browser.
@@ -17,8 +22,8 @@ import { isPlatformBrowser } from '@angular/common';
  * until such components are fully interactive before trying to interact with them.
  */
 @Pipe({
-    name: 'dsBrowserOnly',
-    standalone: true
+  name: 'dsBrowserOnly',
+  standalone: true,
 })
 export class BrowserOnlyPipe implements PipeTransform {
   constructor(

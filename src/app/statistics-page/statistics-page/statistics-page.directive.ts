@@ -1,18 +1,32 @@
-import { Directive, inject, OnInit } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { map, switchMap } from 'rxjs/operators';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { RemoteData } from '../../core/data/remote-data';
 import {
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData
-} from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+  Directive,
+  inject,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 
 @Directive()
 /**
@@ -48,7 +62,7 @@ export abstract class StatisticsPageDirective<T extends DSpaceObject> implements
     this.reports$ = this.getReports$();
     this.hasData$ = this.reports$.pipe(
       map((reports) => reports.some(
-        (report) => report.points.length > 0
+        (report) => report.points.length > 0,
       )),
     );
   }
@@ -72,7 +86,7 @@ export abstract class StatisticsPageDirective<T extends DSpaceObject> implements
     return this.scope$.pipe(
       switchMap((scope) =>
         combineLatest(
-          this.types.map((type) => this.usageReportService.getStatistic(scope.id, type))
+          this.types.map((type) => this.usageReportService.getStatistic(scope.id, type)),
         ),
       ),
     );

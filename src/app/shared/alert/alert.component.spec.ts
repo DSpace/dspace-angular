@@ -1,13 +1,21 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AlertComponent } from './alert.component';
 import { createTestComponent } from '../testing/utils.test';
+import { AlertComponent } from './alert.component';
 import { AlertType } from './alert-type';
 
 describe('AlertComponent test suite', () => {
@@ -18,19 +26,19 @@ describe('AlertComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         CommonModule,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         AlertComponent,
-        TestComponent
-    ],
-    providers: [
+        TestComponent,
+      ],
+      providers: [
         ChangeDetectorRef,
-        AlertComponent
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents().then();
+        AlertComponent,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents().then();
   }));
 
   describe('', () => {
@@ -100,10 +108,10 @@ describe('AlertComponent test suite', () => {
 
 // declare a test component
 @Component({
-    selector: 'ds-test-cmp',
-    template: ``,
-    standalone: true,
-    imports: [CommonModule]
+  selector: 'ds-test-cmp',
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
 

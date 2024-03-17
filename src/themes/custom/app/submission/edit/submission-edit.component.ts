@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { SubmissionEditComponent as BaseComponent } from '../../../../../app/submission/edit/submission-edit.component';
 import { SubmissionFormComponent } from '../../../../../app/submission/form/submission-form.component';
 
@@ -13,8 +14,8 @@ import { SubmissionFormComponent } from '../../../../../app/submission/form/subm
   templateUrl: '../../../../../app/submission/edit/submission-edit.component.html',
   standalone: true,
   imports: [
-    SubmissionFormComponent
-  ]
+    SubmissionFormComponent,
+  ],
 })
 export class SubmissionEditComponent extends BaseComponent {
 }

@@ -1,16 +1,27 @@
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
+import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { ItemPageDateFieldComponent } from './item-page-date-field.component';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
-import { environment } from '../../../../../../environments/environment';
-import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
-import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/browse-definition-data-service.stub';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 
 let comp: ItemPageDateFieldComponent;
 let fixture: ComponentFixture<ItemPageDateFieldComponent>;
@@ -24,8 +35,8 @@ describe('ItemPageDateFieldComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }), ItemPageDateFieldComponent, MetadataValuesComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
@@ -33,9 +44,9 @@ describe('ItemPageDateFieldComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
 
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageDateFieldComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

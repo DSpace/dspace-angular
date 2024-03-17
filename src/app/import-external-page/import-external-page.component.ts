@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  ThemedSubmissionImportExternalComponent
-} from '../submission/import-external/themed-submission-import-external.component';
+
+import { ThemedSubmissionImportExternalComponent } from '../submission/import-external/themed-submission-import-external.component';
 
 /**
  * Component representing the external import page of the submission.
@@ -11,9 +10,9 @@ import {
   templateUrl: './import-external-page.component.html',
   styleUrls: ['./import-external-page.component.scss'],
   imports: [
-    ThemedSubmissionImportExternalComponent
+    ThemedSubmissionImportExternalComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class ImportExternalPageComponent {
 

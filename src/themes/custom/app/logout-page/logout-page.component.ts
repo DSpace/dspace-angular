@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { LogoutPageComponent as BaseComponent } from '../../../../app/logout-page/logout-page.component';
 import { LogOutComponent } from '../../../../app/shared/log-out/log-out.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-logout-page',
@@ -10,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
   // templateUrl: './logout-page.component.html'
   templateUrl: '../../../../app/logout-page/logout-page.component.html',
   standalone: true,
-  imports: [LogOutComponent, TranslateModule]
+  imports: [LogOutComponent, TranslateModule],
 })
 export class LogoutPageComponent extends BaseComponent {
 }

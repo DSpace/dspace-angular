@@ -1,8 +1,13 @@
-import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
+import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   let component: ExternalSourceEntryListSubmissionElementComponent;
@@ -16,18 +21,17 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
     metadata: {
       'dc.identifier.uri': [
         {
-          value: uri
-        }
-      ]
-    }
+          value: uri,
+        },
+      ],
+    },
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [TranslateModule.forRoot()],
-    declarations: [ExternalSourceEntryListSubmissionElementComponent],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      imports: [TranslateModule.forRoot(), ExternalSourceEntryListSubmissionElementComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
-import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list-browse-definition.resource-type';
-import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list-browse-definition.resource-type';
+import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
-    selector: 'ds-plain-text-metadata-list-element',
-    templateUrl: './plain-text-metadata-list-element.component.html',
-    standalone: true,
-    imports: [NgIf, RouterLink]
+  selector: 'ds-plain-text-metadata-list-element',
+  templateUrl: './plain-text-metadata-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink],
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of plain text
@@ -20,9 +21,9 @@ export class PlainTextMetadataListElementComponent extends MetadataRepresentatio
    * expects 'startsWith' (eg browse by date) or 'value' (eg browse by title)
    */
   getQueryParams() {
-    let queryParams = {startsWith: this.mdRepresentation.getValue()};
+    const queryParams = { startsWith: this.mdRepresentation.getValue() };
     if (this.mdRepresentation.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
-      return {value: this.mdRepresentation.getValue()};
+      return { value: this.mdRepresentation.getValue() };
     }
     return queryParams;
   }

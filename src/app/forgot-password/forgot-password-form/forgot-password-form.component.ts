@@ -1,21 +1,32 @@
-import { Component } from '@angular/core';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { Observable } from 'rxjs';
-import { Registration } from '../../core/shared/registration.model';
-import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { Store } from '@ngrx/store';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
-import { CoreState } from '../../core/core-state.model';
 import {
-  ProfilePageSecurityFormComponent
-} from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import { Component } from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { AuthenticateAction } from '../../core/auth/auth.actions';
+import { CoreState } from '../../core/core-state.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { Registration } from '../../core/shared/registration.model';
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 @Component({
@@ -27,9 +38,9 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
     BrowserOnlyPipe,
     ProfilePageSecurityFormComponent,
     AsyncPipe,
-    NgIf
+    NgIf,
   ],
-  standalone: true
+  standalone: true,
 })
 /**
  * Component for a user to enter a new password for a forgot token.
@@ -86,18 +97,18 @@ export class ForgotPasswordFormComponent {
   submit() {
     if (!this.isInValid) {
       this.ePersonDataService.patchPasswordWithToken(this.user, this.token, this.password).pipe(
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       ).subscribe((response: RemoteData<EPerson>) => {
         if (response.hasSucceeded) {
           this.notificationsService.success(
             this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.title'),
-            this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.content')
+            this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.success.content'),
           );
           this.store.dispatch(new AuthenticateAction(this.email, this.password));
           this.router.navigate(['/home']);
         } else {
           this.notificationsService.error(
-            this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.error.title'), response.errorMessage
+            this.translateService.instant(this.NOTIFICATIONS_PREFIX + '.error.title'), response.errorMessage,
           );
         }
       });

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ConfigDataService } from './config-data.service';
 
 /**

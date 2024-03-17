@@ -1,23 +1,26 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { hasValue } from '../../../shared/empty.util';
 import {
-  getAdvancedComponentByWorkflowTaskOption
-} from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { AdvancedWorkflowActionsDirective } from './advanced-workflow-actions.directive';
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { AbstractComponentLoaderComponent } from 'src/app/shared/abstract-component-loader/abstract-component-loader.component';
+
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
+import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { hasValue } from '../../../shared/empty.util';
+import { getAdvancedComponentByWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 
 /**
  * Component for loading a {@link AdvancedWorkflowActionComponent} depending on the "{@link type}" input
  */
 @Component({
-    selector: 'ds-advanced-workflow-actions-loader',
-    templateUrl: './advanced-workflow-actions-loader.component.html',
-    styleUrls: ['./advanced-workflow-actions-loader.component.scss'],
-    standalone: true,
-    imports: [AdvancedWorkflowActionsDirective]
+  selector: 'ds-advanced-workflow-actions-loader',
+  templateUrl: '../../../shared/abstract-component-loader/abstract-component-loader.component.html',
+  standalone: true,
 })
-export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
+export class AdvancedWorkflowActionsLoaderComponent extends AbstractComponentLoaderComponent<Component> implements OnInit {
 
   /**
    * The name of the type to render
@@ -25,32 +28,28 @@ export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
    */
   @Input() type: string;
 
-  /**
-   * Directive to determine where the dynamic child component is located
-   */
-  @ViewChild(AdvancedWorkflowActionsDirective, { static: true }) claimedTaskActionsDirective: AdvancedWorkflowActionsDirective;
+  protected inputNames: (keyof this & string)[] = [
+    ...this.inputNames,
+    'type',
+  ];
 
   constructor(
+    protected themeService: ThemeService,
     private router: Router,
   ) {
+    super(themeService);
   }
 
-  /**
-   * Fetch, create and initialize the relevant component
-   */
   ngOnInit(): void {
-    const comp = this.getComponentByWorkflowTaskOption(this.type);
-    if (hasValue(comp)) {
-      const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
-      viewContainerRef.clear();
-      viewContainerRef.createComponent(comp);
+    if (hasValue(this.getComponent())) {
+      super.ngOnInit();
     } else {
       void this.router.navigate([PAGE_NOT_FOUND_PATH]);
     }
   }
 
-  getComponentByWorkflowTaskOption(type: string): any {
-    return getAdvancedComponentByWorkflowTaskOption(type);
+  public getComponent(): GenericConstructor<Component> {
+    return getAdvancedComponentByWorkflowTaskOption(this.type) as GenericConstructor<Component>;
   }
 
 }

@@ -1,19 +1,32 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  tap,
+} from 'rxjs/operators';
 
-import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
-import { map, tap } from 'rxjs/operators';
-import { Observable, of as observableOf } from 'rxjs';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../shared/empty.util';
 
 /**
  * Prevent creation of a community with an invalid parent community provided
  * @class CreateCommunityPageGuard
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CreateCommunityPageGuard  {
   public constructor(private router: Router, private communityService: CommunityDataService) {
   }
@@ -37,8 +50,8 @@ export class CreateCommunityPageGuard  {
           if (!isValid) {
             this.router.navigate(['/404']);
           }
-        }
-      )
-    );
+        },
+        ),
+      );
   }
 }

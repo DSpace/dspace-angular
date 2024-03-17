@@ -1,19 +1,26 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ParameterValueInputComponent } from './parameter-value-input.component';
-import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
-import { By } from '@angular/platform-browser';
-import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';
-import { StringValueInputComponent } from './string-value-input/string-value-input.component';
-import { FileValueInputComponent } from './file-value-input/file-value-input.component';
-import { DateValueInputComponent } from './date-value-input/date-value-input.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { FileValueAccessorDirective } from '../../../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../../../shared/utils/require-file.validator';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { ScriptParameter } from '../../../scripts/script-parameter.model';
+import { ScriptParameterType } from '../../../scripts/script-parameter-type.model';
+import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';
+import { DateValueInputComponent } from './date-value-input/date-value-input.component';
+import { FileValueInputComponent } from './file-value-input/file-value-input.component';
+import { ParameterValueInputComponent } from './parameter-value-input.component';
+import { StringValueInputComponent } from './string-value-input/string-value-input.component';
 
 describe('ParameterValueInputComponent', () => {
   let component: ParameterValueInputComponent;
@@ -35,13 +42,13 @@ describe('ParameterValueInputComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         ParameterValueInputComponent,
         BooleanValueInputComponent,
@@ -49,10 +56,10 @@ describe('ParameterValueInputComponent', () => {
         FileValueInputComponent,
         DateValueInputComponent,
         FileValueAccessorDirective,
-        FileValidator
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-})
+        FileValidator,
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
       .compileComponents();
   }));
 

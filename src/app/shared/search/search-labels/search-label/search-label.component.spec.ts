@@ -1,21 +1,37 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { Observable, of as observableOf } from 'rxjs';
-import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { SearchLabelComponent } from './search-label.component';
-import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../testing/search-service.stub';
+import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
+import { SearchLabelComponent } from './search-label.component';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;
@@ -35,7 +51,7 @@ describe('SearchLabelComponent', () => {
   const filter2 = [key2, value2];
   const mockFilters = [
     filter1,
-    filter2
+    filter2,
   ];
 
   const pagination = Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 });
@@ -52,12 +68,12 @@ describe('SearchLabelComponent', () => {
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchLabelComponent, {
       remove: {
-        imports: [RouterLink]
+        imports: [RouterLink],
       },
-      add: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

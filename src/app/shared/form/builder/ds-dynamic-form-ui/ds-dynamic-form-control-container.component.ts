@@ -1,4 +1,11 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -16,11 +23,21 @@ import {
   SimpleChanges,
   Type,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
-
 import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormArray,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  NgbModal,
+  NgbModalRef,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
   DynamicFormArrayGroupModel,
   DynamicFormArrayModel,
@@ -36,60 +53,77 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngrx/store';
 import {
-  ExistingMetadataListElementComponent,
-  ReorderableRelationship
-} from './existing-metadata-list-element/existing-metadata-list-element.component';
-import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
-import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
-import { find, map, startWith, switchMap, take } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  find,
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+  DynamicFormControlFn,
+} from '../../../../../config/app-config.interface';
+import { AppState } from '../../../../app.reducer';
+import { ItemDataService } from '../../../../core/data/item-data.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Collection } from '../../../../core/shared/collection.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { Item } from '../../../../core/shared/item.model';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import {
+  MetadataValue,
+  VIRTUAL_METADATA_PREFIX,
+} from '../../../../core/shared/metadata.models';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Item } from '../../../../core/shared/item.model';
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../app.reducer';
-import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
-import { FormService } from '../../form.service';
-import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
-import { SubmissionService } from '../../../../submission/submission.service';
-import { followLink } from '../../../utils/follow-link-config.model';
+import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
-import { RelationshipOptions } from '../models/relationship-options.model';
+import { SubmissionService } from '../../../../submission/submission.service';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../../empty.util';
+import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { SearchResult } from '../../../search/models/search-result.model';
+import { followLink } from '../../../utils/follow-link-config.model';
+import { itemLinksToFollow } from '../../../utils/relation-query.utils';
+import { FormService } from '../../form.service';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { RelationshipOptions } from '../models/relationship-options.model';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import {
-  APP_CONFIG,
-  APP_DYNAMIC_FORM_CONTROL_FN,
-  AppConfig,
-  DynamicFormControlFn
-} from '../../../../../config/app-config.interface';
-import { itemLinksToFollow } from '../../../utils/relation-query.utils';
-import { AsyncPipe, NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
-import {
-  ExistingRelationListElementComponent
-} from './existing-relation-list-element/existing-relation-list-element.component';
+  ExistingMetadataListElementComponent,
+  ReorderableRelationship,
+} from './existing-metadata-list-element/existing-metadata-list-element.component';
+import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 
 @Component({
   selector: 'ds-dynamic-form-control-container',
@@ -107,9 +141,9 @@ import {
     FormsModule,
     NgbTooltipModule,
     NgTemplateOutlet,
-    ExistingRelationListElementComponent
+    ExistingRelationListElementComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
@@ -180,7 +214,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     public formBuilderService: FormBuilderService,
     private submissionService: SubmissionService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    @Inject(APP_DYNAMIC_FORM_CONTROL_FN) protected dynamicFormControlFn: DynamicFormControlFn,
+    @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlFn,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -211,11 +245,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               true,
               followLink('leftItem'),
               followLink('rightItem'),
-              followLink('relationshipType')
+              followLink('relationshipType'),
             );
             relationshipsRD$.pipe(
               getFirstSucceededRemoteDataPayload(),
-              getPaginatedListPayload()
+              getPaginatedListPayload(),
             ).subscribe((relationships: Relationship[]) => {
               // set initial namevariants for pre-existing relationships
               relationships.forEach((relationship: Relationship) => {
@@ -232,7 +266,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               getFirstSucceededRemoteData(),
               map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((i) => Object.assign(new ItemSearchResult(), { indexableObject: i }))),
             );
-          })
+          }),
         ).subscribe((relatedItems: SearchResult<Item>[]) => this.selectableListService.select(this.listId, relatedItems));
         this.subs.push(subscription);
       }
@@ -248,8 +282,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           true,
           true,
           ... itemLinksToFollow(this.fetchThumbnail)).pipe(
-            getAllSucceededRemoteData(),
-            getRemoteDataPayload());
+          getAllSucceededRemoteData(),
+          getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(
           switchMap(([item, relationship]: [Item, Relationship]) =>
             relationship.leftItem.pipe(
@@ -258,9 +292,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               map((leftItem: Item) => {
                 return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.store, this.model.submissionId);
               }),
-            )
+            ),
           ),
-          startWith(undefined)
+          startWith(undefined),
         );
       }
     }
@@ -344,7 +378,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   openLookup() {
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
-      size: 'lg'
+      size: 'lg',
     });
 
     if (hasValue(this.model.value)) {
@@ -353,7 +387,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         context: this.context,
         control: this.control,
         model: this.model,
-        type: DynamicFormControlEventType.Focus
+        type: DynamicFormControlEventType.Focus,
       } as DynamicFormControlEvent);
 
       this.change.emit({
@@ -361,7 +395,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         context: this.context,
         control: this.control,
         model: this.model,
-        type: DynamicFormControlEventType.Change
+        type: DynamicFormControlEventType.Change,
       } as DynamicFormControlEvent);
     }
 
@@ -421,7 +455,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     const submissionObject$ = this.submissionObjectService
       .findById(this.model.submissionId, true, true, followLink('item'), followLink('collection')).pipe(
         getAllSucceededRemoteData(),
-        getRemoteDataPayload()
+        getRemoteDataPayload(),
       );
 
     this.item$ = submissionObject$.pipe(switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));

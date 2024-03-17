@@ -1,13 +1,14 @@
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  CreateProfileComponent as BaseComponent
-} from '../../../../../app/register-page/create-profile/create-profile.component';
-import {
-  ProfilePageSecurityFormComponent
-} from '../../../../../app/profile-page/profile-page-security-form/profile-page-security-form.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ProfilePageSecurityFormComponent } from '../../../../../app/profile-page/profile-page-security-form/profile-page-security-form.component';
+import { CreateProfileComponent as BaseComponent } from '../../../../../app/register-page/create-profile/create-profile.component';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
@@ -25,7 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgIf,
     AsyncPipe,
     ReactiveFormsModule,
-    NgForOf
+    NgForOf,
   ],
 })
 export class CreateProfileComponent extends BaseComponent {

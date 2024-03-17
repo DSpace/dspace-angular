@@ -16,7 +16,7 @@
            cdkDrag
            (cdkDragStarted)="onDrag($event)"
            href="javascript:void(0);"
-           [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged == i}"
+           [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged === i}"
            (click)="chipsSelected($event, i);">
           <span>
             <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true"></i>

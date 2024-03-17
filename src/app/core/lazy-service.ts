@@ -1,5 +1,11 @@
-import { Injector, Type } from '@angular/core';
-import { defer, Observable } from 'rxjs';
+import {
+  Injector,
+  Type,
+} from '@angular/core';
+import {
+  defer,
+  Observable,
+} from 'rxjs';
 
 /**
  * Loads a service lazily. The service is loaded when the observable is subscribed to.
@@ -17,7 +23,7 @@ import { defer, Observable } from 'rxjs';
  */
 export function lazyService<T>(
   loader: () => Promise<Type<T>> | Promise<{ default: Type<T> }>,
-  injector: Injector
+  injector: Injector,
 ): Observable<T> {
   return defer(() => {
     return loader()

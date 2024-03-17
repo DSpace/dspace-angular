@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import {
-  RegisterEmailComponent as BaseComponent
-} from '../../../../../app/register-page/register-email/register-email.component';
-import { RegisterEmailFormComponent } from '../../../../../app/register-email-form/register-email-form.component';
 import { ThemedRegisterEmailFormComponent } from 'src/app/register-email-form/themed-registry-email-form.component';
+
+import { RegisterEmailFormComponent } from '../../../../../app/register-email-form/register-email-form.component';
+import { RegisterEmailComponent as BaseComponent } from '../../../../../app/register-page/register-email/register-email.component';
 
 @Component({
   selector: 'ds-register-email',
@@ -14,7 +13,7 @@ import { ThemedRegisterEmailFormComponent } from 'src/app/register-email-form/th
   standalone: true,
   imports: [
     RegisterEmailFormComponent,
-    ThemedRegisterEmailFormComponent
+    ThemedRegisterEmailFormComponent,
   ],
 })
 /**

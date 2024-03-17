@@ -1,18 +1,30 @@
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { SearchService } from '../../core/shared/search/search.service';
-import { ViewModeSwitchComponent } from './view-mode-switch.component';
-import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { SearchServiceStub } from '../testing/search-service.stub';
+import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
 @Component({
-    template: '',
-    standalone: true
+  template: '',
+  standalone: true,
 })
 class DummyComponent {
 }
@@ -26,24 +38,24 @@ describe('ViewModeSwitchComponent', () => {
   let detailButton: HTMLElement;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
         RouterTestingModule.withRoutes([
-            { path: 'search', component: DummyComponent, pathMatch: 'full' },
+          { path: 'search', component: DummyComponent, pathMatch: 'full' },
         ]),
         ViewModeSwitchComponent,
-        DummyComponent
-    ],
-    providers: [
+        DummyComponent,
+      ],
+      providers: [
         { provide: SearchService, useValue: searchService },
-    ]
-}).overrideComponent(ViewModeSwitchComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      ],
+    }).overrideComponent(ViewModeSwitchComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -1,16 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { HALLink } from '../../../core/shared/hal-link.model';
-import { hasValue } from '../../../shared/empty.util';
 import {
-  ComcolRoleComponent
-} from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
-import { AsyncPipe, NgForOf } from '@angular/common';
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * Component for managing a collection's roles
@@ -21,9 +32,9 @@ import { AsyncPipe, NgForOf } from '@angular/common';
   imports: [
     ComcolRoleComponent,
     NgForOf,
-    AsyncPipe
+    AsyncPipe,
   ],
-  standalone: true
+  standalone: true,
 })
 export class CollectionRolesComponent implements OnInit {
 

@@ -1,6 +1,6 @@
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
-import { LogInPasswordComponent } from './password/log-in-password.component';
 import { LogInExternalProviderComponent } from './log-in-external-provider/log-in-external-provider.component';
+import { LogInPasswordComponent } from './password/log-in-password.component';
 
 export type AuthMethodTypeComponent =
   typeof LogInPasswordComponent |
@@ -10,7 +10,7 @@ export const AUTH_METHOD_FOR_DECORATOR_MAP = new Map<AuthMethodType, AuthMethodT
   [AuthMethodType.Password, LogInPasswordComponent],
   [AuthMethodType.Shibboleth, LogInExternalProviderComponent],
   [AuthMethodType.Oidc, LogInExternalProviderComponent],
-  [AuthMethodType.Orcid, LogInExternalProviderComponent]
+  [AuthMethodType.Orcid, LogInExternalProviderComponent],
 ]);
 
 /**

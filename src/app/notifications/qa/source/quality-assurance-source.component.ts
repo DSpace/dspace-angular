@@ -1,40 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, take } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  take,
+} from 'rxjs/operators';
+
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { hasValue } from '../../../shared/empty.util';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-import { AdminQualityAssuranceSourcePageParams } from '../../../admin/admin-notifications/admin-quality-assurance-source-page-component/admin-quality-assurance-source-page-resolver.service';
-import { hasValue } from '../../../shared/empty.util';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
-import { AlertComponent } from '../../../shared/alert/alert.component';
 
 /**
  * Component to display the Quality Assurance source list.
  */
 @Component({
-    selector: 'ds-quality-assurance-source',
-    templateUrl: './quality-assurance-source.component.html',
-    styleUrls: ['./quality-assurance-source.component.scss'],
-    standalone: true,
-    imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule]
+  selector: 'ds-quality-assurance-source',
+  templateUrl: './quality-assurance-source.component.html',
+  styleUrls: ['./quality-assurance-source.component.scss'],
+  standalone: true,
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
 export class QualityAssuranceSourceComponent implements OnInit {
 
- /**
-  * The pagination system configuration for HTML listing.
-  * @type {PaginationComponentOptions}
-  */
+  /**
+   * The pagination system configuration for HTML listing.
+   * @type {PaginationComponentOptions}
+   */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'btp',
     pageSize: 10,
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
   /**
    * The Quality Assurance source list sort options.
@@ -63,7 +78,8 @@ export class QualityAssuranceSourceComponent implements OnInit {
   constructor(
     private paginationService: PaginationService,
     private notificationsStateService: NotificationsStateService,
-  ) { }
+  ) {
+  }
 
   /**
    * Component initialization.
@@ -79,10 +95,10 @@ export class QualityAssuranceSourceComponent implements OnInit {
   ngAfterViewInit(): void {
     this.subs.push(
       this.notificationsStateService.isQualityAssuranceSourceLoaded().pipe(
-        take(1)
+        take(1),
       ).subscribe(() => {
         this.getQualityAssuranceSource();
-      })
+      }),
     );
   }
 
@@ -115,7 +131,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
     ).subscribe((options: PaginationComponentOptions) => {
       this.notificationsStateService.dispatchRetrieveQualityAssuranceSource(
         options.pageSize,
-        options.currentPage
+        options.currentPage,
       );
     });
   }
@@ -125,7 +141,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
    *
    * @param eventsRouteParams
    */
-  protected updatePaginationFromRouteParams(eventsRouteParams: AdminQualityAssuranceSourcePageParams) {
+  protected updatePaginationFromRouteParams(eventsRouteParams: QualityAssuranceSourcePageParams) {
     if (eventsRouteParams.currentPage) {
       this.paginationConfig.currentPage = eventsRouteParams.currentPage;
     }

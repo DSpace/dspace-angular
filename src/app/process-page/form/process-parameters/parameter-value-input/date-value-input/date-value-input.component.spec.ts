@@ -1,10 +1,19 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-
-import { DateValueInputComponent } from './date-value-input.component';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { DateValueInputComponent } from './date-value-input.component';
 
 describe('DateValueInputComponent', () => {
   let component: DateValueInputComponent;
@@ -12,17 +21,17 @@ describe('DateValueInputComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         FormsModule,
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        DateValueInputComponent
-    ]
-})
+        DateValueInputComponent,
+      ],
+    })
       .compileComponents();
   }));
 

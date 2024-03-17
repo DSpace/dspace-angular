@@ -1,4 +1,7 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
@@ -7,8 +10,8 @@ import { DomSanitizer } from '@angular/platform-browser';
  */
 
 @Pipe({
-    name: 'dsSafeUrl',
-    standalone: true
+  name: 'dsSafeUrl',
+  standalone: true,
 })
 export class SafeUrlPipe implements PipeTransform {
   constructor(private domSanitizer: DomSanitizer) { }

@@ -1,20 +1,29 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import {
+  NavigationExtras,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { SearchSwitchConfigurationComponent } from './search-switch-configuration.component';
-import { NavigationExtras, Router } from '@angular/router';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { RouterStub } from '../../testing/router.stub';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
-import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Context } from '../../../core/shared/context.model';
+import { SearchService } from '../../../core/shared/search/search.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
+import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { RouterStub } from '../../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { SearchSwitchConfigurationComponent } from './search-switch-configuration.component';
 
 describe('SearchSwitchConfigurationComponent', () => {
 
@@ -24,39 +33,39 @@ describe('SearchSwitchConfigurationComponent', () => {
   let select: any;
 
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
-    getSearchLink: jasmine.createSpy('getSearchLink')
+    getSearchLink: jasmine.createSpy('getSearchLink'),
   });
 
   const configurationList = [
     {
       value: MyDSpaceConfigurationValueType.Workspace,
       label: 'workspace',
-      context: Context.Workspace
+      context: Context.Workspace,
     },
     {
       value: MyDSpaceConfigurationValueType.Workflow,
       label: 'workflow',
-      context: Context.Workflow
+      context: Context.Workflow,
     },
   ];
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
         }),
-        SearchSwitchConfigurationComponent
-    ],
-    providers: [
+        SearchSwitchConfigurationComponent,
+      ],
+      providers: [
         { provide: Router, useValue: new RouterStub() },
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-    ],
-    schemas: [NO_ERRORS_SCHEMA]
-}).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

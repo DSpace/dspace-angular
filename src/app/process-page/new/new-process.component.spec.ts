@@ -1,24 +1,32 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { FormsModule } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NewProcessComponent } from './new-process.component';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { ScriptParameter } from '../scripts/script-parameter.model';
-import { Script } from '../scripts/script.model';
-import { ProcessParameter } from '../processes/process-parameter.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { of as observableOf } from 'rxjs';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { RequestService } from '../../core/data/request.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { LinkService } from '../../core/cache/builders/link.service';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import { RequestService } from '../../core/data/request.service';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { HasValuePipe } from '../../shared/utils/has-value.pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';
+import { ProcessParameter } from '../processes/process-parameter.model';
+import { Script } from '../scripts/script.model';
+import { ScriptParameter } from '../scripts/script-parameter.model';
+import { NewProcessComponent } from './new-process.component';
 
 describe('NewProcessComponent', () => {
   let component: NewProcessComponent;
@@ -42,11 +50,11 @@ describe('NewProcessComponent', () => {
         invoke: observableOf({
           response:
           {
-            isSuccessful: true
-          }
+            isSuccessful: true,
+          },
         }),
         findAll: createSuccessfulRemoteDataObject$(script),
-      }
+      },
     );
   }
 
@@ -58,10 +66,12 @@ describe('NewProcessComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         NewProcessComponent, VarDirective
+        ,
+        HasValuePipe,
       ],
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
@@ -71,12 +81,12 @@ describe('NewProcessComponent', () => {
         { provide: LinkService, useValue: {} },
         { provide: ProcessDataService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(NewProcessComponent, {
         remove: {
-          imports: [ProcessFormComponent]
-        }
+          imports: [ProcessFormComponent],
+        },
       })
       .compileComponents();
   }));
