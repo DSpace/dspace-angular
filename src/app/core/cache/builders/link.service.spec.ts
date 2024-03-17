@@ -1,18 +1,13 @@
 /* eslint-disable max-classes-per-file */
-import { Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
 import {
   isEmpty,
   take,
 } from 'rxjs/operators';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../../shared/utils/follow-link-config.model';
-import { FindListOptions } from '../../data/find-list-options.model';
+import { TestDataService } from '../../../shared/testing/test-data-service.mock';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
@@ -42,19 +37,8 @@ class TestModel implements HALResource {
   successor?: TestModel;
 }
 
-@Injectable()
-export class TestDataService {
-  findListByHref(href: string, findListOptions: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
-    return of('findListByHref');
-  }
-
-  findByHref(href: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<any>[]) {
-    return of('findByHref');
-  }
-}
-
 const mockDataServiceMap: any = {
-  [TEST_MODEL.value]: () => import('./link.service.spec').then(m => m.TestDataService),
+  [TEST_MODEL.value]: () => import('../../../shared/testing/test-data-service.mock').then(m => m.TestDataService),
 };
 
 let testDataService: TestDataService;
