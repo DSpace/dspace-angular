@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { ChangeAnalyzer } from '../data/change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { FindListOptions } from '../data/find-list-options.model';
@@ -21,7 +21,6 @@ import { UpdateDataServiceImpl } from '../data/update-data.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { Suggestion } from './models/suggestion.model';
-import { SUGGESTION } from './models/suggestion-objects.resource-type';
 import { SuggestionSource } from './models/suggestion-source.model';
 import { SuggestionTarget } from './models/suggestion-target.model';
 import { SuggestionSourceDataService } from './source/suggestion-source-data.service';
@@ -65,8 +64,7 @@ export class SuggestionDataServiceImpl extends UpdateDataServiceImpl<Suggestion>
  * The service handling all Suggestion Target REST requests.
  */
 @Injectable({ providedIn: 'root' })
-@dataService(SUGGESTION)
-export class SuggestionsDataService {
+export class SuggestionsDataService extends IdentifiableDataService<Suggestion>  {
   protected searchFindBySourceMethod = 'findBySource';
   protected searchFindByTargetAndSourceMethod = 'findByTargetAndSource';
 
@@ -85,12 +83,11 @@ export class SuggestionsDataService {
    */
   private suggestionTargetsDataService: SuggestionTargetDataService;
 
-  private responseMsToLive = 10 * 1000;
-
   /**
    * Initialize service variables
    * @param {RequestService} requestService
    * @param {RemoteDataBuildService} rdbService
+   * @param {Store} store
    * @param {ObjectCacheService} objectCache
    * @param {HALEndpointService} halService
    * @param {NotificationsService} notificationsService
@@ -102,6 +99,7 @@ export class SuggestionsDataService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
@@ -110,6 +108,7 @@ export class SuggestionsDataService {
     protected comparatorSources: DefaultChangeAnalyzer<SuggestionSource>,
     protected comparatorTargets: DefaultChangeAnalyzer<SuggestionTarget>,
   ) {
+    super('suggestions', requestService, rdbService, objectCache, halService);
     this.suggestionsDataService = new SuggestionDataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorSuggestions, this.responseMsToLive);
     this.suggestionSourcesDataService = new SuggestionSourceDataService(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorSources);
     this.suggestionTargetsDataService = new SuggestionTargetDataService(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparatorTargets);
