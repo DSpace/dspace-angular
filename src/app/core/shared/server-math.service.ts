@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
+  BehaviorSubject,
   Observable,
-  ReplaySubject,
   Subject,
 } from 'rxjs';
 
@@ -15,7 +15,7 @@ import {
 })
 export class ServerMathService extends MathService {
 
-  protected signal: Subject<boolean>;
+  protected isReady$: Subject<boolean>;
 
   protected mathJaxOptions = {};
 
@@ -31,8 +31,8 @@ export class ServerMathService extends MathService {
   constructor() {
     super();
 
-    this.signal = new ReplaySubject<boolean>(1);
-    this.signal.next(true);
+    this.isReady$ = new BehaviorSubject<boolean>(false);
+    this.isReady$.next(true);
   }
 
   protected async registerMathJaxAsync(config: MathJaxConfig): Promise<any> {
@@ -40,7 +40,7 @@ export class ServerMathService extends MathService {
   }
 
   ready(): Observable<boolean> {
-    return this.signal;
+    return this.isReady$;
   }
 
   render(element: HTMLElement) {

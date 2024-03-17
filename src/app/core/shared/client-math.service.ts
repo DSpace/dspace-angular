@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
+  BehaviorSubject,
   Observable,
-  ReplaySubject,
   Subject,
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -42,7 +42,7 @@ export class ClientMathService extends MathService {
   constructor() {
     super();
 
-    this.isReady$ = new ReplaySubject<boolean>(1);
+    this.isReady$ = new BehaviorSubject<boolean>(false);
 
     void this.registerMathJaxAsync(this.mathJax)
       .then(() => this.isReady$.next(true))
