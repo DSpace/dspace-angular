@@ -295,6 +295,7 @@ import { HtmlContentService } from './html-content.service';
 import { ClarinSafeHtmlPipe } from './utils/clarin-safehtml.pipe';
 import { ReplacePipe } from './utils/replace.pipe';
 import { ClarinDateService } from './clarin-date.service';
+import { ItemIdentifierService } from './item-identifier.service';
 
 const MODULES = [
   CommonModule,
@@ -495,7 +496,8 @@ const PROVIDERS = [
   MockAdminGuard,
   AbstractTrackableComponent,
   HtmlContentService,
-  ClarinDateService
+  ClarinDateService,
+  ItemIdentifierService
 ];
 
 const DIRECTIVES = [

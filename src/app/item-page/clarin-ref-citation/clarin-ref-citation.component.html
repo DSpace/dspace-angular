@@ -15,7 +15,7 @@
         <span>{{citationText + ', '}}</span>
         <span><i>{{itemNameText + ', '}}</i></span>
         <span>{{repositoryNameText + ', '}}</span>
-        <span><a [href]="identifierURI">{{identifierURI}}</a></span>
+        <span><a [href]="identifierURI">{{prettifiedIdentifier | async}}</a></span>
       </div>
       <div class="clarin-ref-box-copy-wrapper" placement="bottom" [ngbTooltip]="'Copied!'" #tooltip="ngbTooltip"
            (click)="copyText()">
