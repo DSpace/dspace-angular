@@ -50,18 +50,14 @@ export function convertMetadataFieldIntoSearchType(field: string[]) {
  * @param item current Item
  * @param itemAuthors BehaviourSubject (async) of Authors with search links
  * @param baseUrl e.g. localhost:8080
+ * @param fields metadata fields where authors are stored
  */
-export function loadItemAuthors(item, itemAuthors, baseUrl) {
+export function loadItemAuthors(item, itemAuthors, baseUrl, fields) {
   if (isNull(item) || isNull(itemAuthors) || isNull(baseUrl)) {
     return;
   }
 
-  let authorsMV: MetadataValue[] = item?.metadata?.['dc.contributor.author'];
-  // Harvested Items has authors in the metadata field `dc.creator`.
-  if (isUndefined(authorsMV)) {
-    authorsMV = item?.metadata?.['dc.creator'];
-  }
-
+  let authorsMV: MetadataValue[] = item?.allMetadata(fields);
   if (isUndefined(authorsMV)) {
     return null;
   }

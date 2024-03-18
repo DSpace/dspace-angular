@@ -6,7 +6,7 @@
   <div class="col-lg-9">
     <div>
       <div *ngIf="type === 'author'" class="d-inline">
-        <ds-clarin-item-author-preview [item]="item"></ds-clarin-item-author-preview>
+        <ds-clarin-item-author-preview [item]="item" [fields]="fields"></ds-clarin-item-author-preview>
       </div>
       <div *ngIf="type === 'sponsor'">
         <ds-clarin-sponsor-item-field [item]="item"></ds-clarin-sponsor-item-field>
