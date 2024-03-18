@@ -26,9 +26,11 @@ pushd ../..
 echo "====="
 #docker compose --env-file $ENVFILE -p $PROJECT -f docker/matomo-w-db.yml pull
 #docker compose --env-file $ENVFILE -p $PROJECT -f docker/matomo-w-db.yml up -d --no-build
-docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/cli.yml run --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en -o dataquest
-docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/cli.yml run --rm dspace-cli user --add -m user@test.edu -g meno -s priezvisko -l en -p user -o dataquest
-docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/cli.yml run --rm dspace-cli version
+
+# docker-compose-rest.yml must be last, since it specifies network in more detail. If it is not last, there is "root must be a mapping" error.
+docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/cli.yml run -f docker/docker-compose-rest.yml --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en -o dataquest
+docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/cli.yml run -f docker/docker-compose-rest.yml --rm dspace-cli user --add -m user@test.edu -g meno -s priezvisko -l en -p user -o dataquest
+docker compose --env-file $ENVFILE -p $PROJECT -f docker/docker-compose.yml -f docker/cli.yml run -f docker/docker-compose-rest.yml --rm dspace-cli version
 
 echo "====="
 echo "Logs"

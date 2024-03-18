@@ -13,6 +13,8 @@
 version: '3.7'
 networks:
   dspacenet:
+    # Due to the following specification, THIS FILE (docker-compose-rest.yml) must be last (if using several YMLs),
+    # since it specifies network in more detail. If it is not last, there is "root must be a mapping" error.
     ipam:
       config:
         # Define a custom subnet for our DSpace network, so that we can easily trust requests from host to container.
