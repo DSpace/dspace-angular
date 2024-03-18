@@ -781,6 +781,7 @@
   "chips.remove": "Remove chip",
 
 
+  "collection.create.breadcrumbs": "Create collection",
 
   "collection.create.head": "Create a Collection",
 
@@ -1052,6 +1053,8 @@
   "communityList.showMore": "Show More",
 
 
+
+  "community.create.breadcrumbs": "Create Community",
 
   "community.create.head": "Create a Community",
 

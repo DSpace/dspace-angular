@@ -21,14 +21,32 @@ import { CollectionPageAdministratorGuard } from './collection-page-administrato
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: COLLECTION_CREATE_PATH,
-        component: CreateCollectionPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
+        children: [
+          {
+            path: '',
+            component: CreateCollectionPageComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'collection.create',
+            },
+          },
+        ],
+        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard],
+        data: {
+          breadcrumbQueryParam: 'parent',
+        },
+        resolve: {
+          breadcrumb: CommunityBreadcrumbResolver,
+        },
       },
       {
         path: ':id',
@@ -90,7 +108,8 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
     DSOBreadcrumbsService,
     LinkService,
     CreateCollectionPageGuard,
-    CollectionPageAdministratorGuard
+    CollectionPageAdministratorGuard,
+    CommunityBreadcrumbResolver,
   ]
 })
 export class CollectionPageRoutingModule {
