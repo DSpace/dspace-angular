@@ -11,7 +11,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getProcessListRoute } from '../process-page-routing.paths';
-import { isEmpty } from '../../shared/empty.util';
+import { hasNoValue, isEmpty } from '../../shared/empty.util';
 
 /**
  * Component to create a new script
@@ -52,6 +52,16 @@ export class ProcessFormComponent implements OnInit {
    */
   public missingParameters = [];
 
+  /**
+   * Custom set name for a process
+   */
+  customName: string;
+
+  /**
+   * The current process name displayed
+   */
+  processName: string;
+
   constructor(
     private scriptService: ScriptDataService,
     private notificationsService: NotificationsService,
@@ -82,7 +92,7 @@ export class ProcessFormComponent implements OnInit {
         };
       }
     );
-    this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)
+    this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files, this.customName)
       .pipe(getFirstCompletedRemoteData())
       .subscribe((rd: RemoteData<Process>) => {
         if (rd.hasSucceeded) {
@@ -152,6 +162,34 @@ export class ProcessFormComponent implements OnInit {
       queryParams: { new_process_id: newProcess.processId },
     };
     void this.router.navigate([getProcessListRoute()], extras);
+  }
+
+  updateScript($event: Script) {
+    this.selectedScript = $event;
+    this.parameters = undefined;
+    this.updateName();
+  }
+
+  updateName(): void {
+    if (isEmpty(this.customName)) {
+
+      const paramsString = this.parameters?.map((p: ProcessParameter) => hasNoValue(p.value) ? p.name : `${p.name} ${this.parseValue(p.value)}`).join(' ') || '';
+      this.processName = `${this.selectedScript.name} ${paramsString}`;
+    } else {
+      this.processName = this.customName;
+    }
+  }
+
+  private parseValue(value: any) {
+    if (value instanceof File) {
+      return value.name;
+    }
+    return value.toString();
+  }
+
+  updateParameters($event: ProcessParameter[]) {
+    this.parameters = $event;
+    this.updateName();
   }
 }
 

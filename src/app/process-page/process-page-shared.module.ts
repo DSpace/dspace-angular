@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { SharedModule } from '../shared/shared.module';
 import { NewProcessComponent } from './new/new-process.component';
 import { ScriptsSelectComponent } from './form/scripts-select/scripts-select.component';
@@ -24,6 +26,7 @@ import { DatePipe } from '@angular/common';
   imports: [
     SharedModule,
     NgbCollapseModule,
+    NgbDropdownModule,
   ],
   declarations: [
     NewProcessComponent,

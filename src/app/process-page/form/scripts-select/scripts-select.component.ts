@@ -35,6 +35,8 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
   private _selectedScript: Script;
   private routeSub: Subscription;
 
+  touched: boolean = false;
+
   constructor(
     private scriptService: ScriptDataService,
     private router: Router,
@@ -102,5 +104,10 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
     if (hasValue(this.routeSub)) {
       this.routeSub.unsubscribe();
     }
+  }
+
+  setScript(script: string) {
+    this.touched = true;
+    this.selectedScript = script;
   }
 }

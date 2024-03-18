@@ -69,7 +69,7 @@ export class MenuResolver implements Resolve<boolean> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return combineLatest([
-      this.createPublicMenu$(),
+      //this.createPublicMenu$(),
       this.createAdminMenu$(),
     ]).pipe(
       map((menusDone: boolean[]) => menusDone.every(Boolean)),
