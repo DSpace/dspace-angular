@@ -10,7 +10,7 @@
     </nav>
 
     <ng-template #breadcrumb let-text="text" let-url="url">
-        <li class="breadcrumb-item"><div class="breadcrumb-item-limiter"><a [routerLink]="url" class="text-truncate" [ngbTooltip]="text | translate" placement="bottom" >{{text | translate}}</a></div></li>
+        <li class="breadcrumb-item"><div class="breadcrumb-item-limiter"><a [routerLink]="url" class="text-truncate" [ngbTooltip]="text | translate" placement="bottom" triggers="mouseenter:mouseleave">{{text | translate}}</a></div></li>
     </ng-template>
 
     <ng-template #activeBreadcrumb let-text="text">

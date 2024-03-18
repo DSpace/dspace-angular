@@ -20,6 +20,9 @@
                  (error)="handleImageError($event)">
           </div>
         </div>
+        <div class="row pt-1">
+          <strong>{{'item.view.box.author.message' | translate}}</strong>
+        </div>
         <div class="row">
           <ds-clarin-item-author-preview [item]="item" [fields]="AUTHOR_METADATA_FIELDS"></ds-clarin-item-author-preview>
         </div>

@@ -2792,7 +2792,7 @@
 
   "item.view.box.author.message": "Author(s):",
 
-  "item.view.box.publisher.message": "Publisher",
+  "item.view.box.publisher.message": "Publisher:",
 
   "item.view.box.files.message": ["This item contains", "files"],
 
