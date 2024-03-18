@@ -1,5 +1,7 @@
 import {
+  Inject,
   Injectable,
+  InjectionToken,
   Injector,
 } from '@angular/core';
 import {
@@ -8,10 +10,15 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import { getDataServiceFor } from '../../../core/data/base/data-service.decorator';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '../../../../config/app-config.interface';
 import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { lazyService } from '../../../core/lazy-service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
@@ -21,13 +28,12 @@ import { isEmpty } from '../../empty.util';
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class ResourcePolicyTargetResolver  {
-  /**
-   * The data service used to make request.
-   */
-  private dataService: IdentifiableDataService<DSpaceObject>;
+export class ResourcePolicyTargetResolver {
 
-  constructor(private parentInjector: Injector, private router: Router) {
+  constructor(
+    private parentInjector: Injector,
+    private router: Router,
+    @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: InjectionToken<LazyDataServicesMap>) {
   }
 
   /**
@@ -45,13 +51,13 @@ export class ResourcePolicyTargetResolver  {
       this.router.navigateByUrl('/404', { skipLocationChange: true });
     }
 
-    const provider = getDataServiceFor(new ResourceType(targetType));
-    this.dataService = Injector.create({
-      providers: [],
-      parent: this.parentInjector,
-    }).get(provider);
+    const resourceType: ResourceType = new ResourceType(targetType);
+    const lazyProvider$: Observable<IdentifiableDataService<DSpaceObject>> = lazyService(this.dataServiceMap[resourceType.value], this.parentInjector);
 
-    return this.dataService.findById(policyTargetId).pipe(
+    return lazyProvider$.pipe(
+      switchMap((dataService: IdentifiableDataService<DSpaceObject>) => {
+        return dataService.findById(policyTargetId);
+      }),
       getFirstCompletedRemoteData(),
     );
   }

@@ -27,6 +27,7 @@ import { WORKSPACEITEM } from './eperson/models/workspaceitem.resource-type';
 import { FEEDBACK } from './feedback/models/feedback.resource-type';
 import { METADATA_FIELD } from './metadata/metadata-field.resource-type';
 import { METADATA_SCHEMA } from './metadata/metadata-schema.resource-type';
+import { SUGGESTION } from './notifications/models/suggestion-objects.resource-type';
 import { SUGGESTION_SOURCE } from './notifications/models/suggestion-source-object.resource-type';
 import { SUGGESTION_TARGET } from './notifications/models/suggestion-target-object.resource-type';
 import { QUALITY_ASSURANCE_EVENT_OBJECT } from './notifications/qa/models/quality-assurance-event-object.resource-type';
@@ -130,6 +131,7 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = {
   [QUALITY_ASSURANCE_EVENT_OBJECT.value]: () => import('./notifications/qa/events/quality-assurance-event-data.service').then(m => m.QualityAssuranceEventDataService),
   [QUALITY_ASSURANCE_SOURCE_OBJECT.value]: () => import('./notifications/qa/source/quality-assurance-source-data.service').then(m => m.QualityAssuranceSourceDataService),
   [QUALITY_ASSURANCE_TOPIC_OBJECT.value]: () => import('./notifications/qa/topics/quality-assurance-topic-data.service').then(m => m.QualityAssuranceTopicDataService),
+  [SUGGESTION.value]: () => import('./notifications/suggestions-data.service').then(m => m.SuggestionsDataService),
   [SUGGESTION_SOURCE.value]: () => import('./notifications/source/suggestion-source-data.service').then(m => m.SuggestionSourceDataService),
   [SUGGESTION_TARGET.value]: () => import('./notifications/target/suggestion-target-data.service').then(m => m.SuggestionTargetDataService),
   [DUPLICATE.value]: () => import('./submission/submission-duplicate-data.service').then(m => m.SubmissionDuplicateDataService),

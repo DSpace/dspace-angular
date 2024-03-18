@@ -1,7 +1,6 @@
+import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   DebugElement,
-  Injectable,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -9,15 +8,15 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Operation } from 'fast-json-patch';
-import { Observable } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
-import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
-import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { ITEM } from '../../core/shared/item.resource-type';
@@ -25,7 +24,7 @@ import { MetadataValue } from '../../core/shared/metadata.models';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { LoadingComponent } from '../../shared/loading/loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { TestDataService } from '../../shared/testing/test-data-service.mock';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
@@ -39,12 +38,9 @@ const REINSTATE_BTN = 'reinstate';
 const SAVE_BTN = 'save';
 const DISCARD_BTN = 'discard';
 
-@Injectable()
-class TestDataService {
-  patch(object: Item, operations: Operation[]): Observable<RemoteData<Item>> {
-    return createSuccessfulRemoteDataObject$(object);
-  }
-}
+const mockDataServiceMap: any = {
+  [ITEM.value]: () => import('../../shared/testing/test-data-service.mock').then(m => m.TestDataService),
+};
 
 describe('DsoEditMetadataComponent', () => {
   let component: DsoEditMetadataComponent;
@@ -92,21 +88,18 @@ describe('DsoEditMetadataComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        CommonModule,
+        BrowserModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
         DsoEditMetadataComponent,
         VarDirective,
       ],
       providers: [
-        TestDataService,
-        {
-          provide: DATA_SERVICE_FACTORY,
-          useValue: jasmine
-            .createSpy('getDataServiceFor')
-            .and.returnValue(TestDataService),
-        },
+        { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
         { provide: NotificationsService, useValue: notificationsService },
         ArrayMoveChangeAnalyzer,
+        TestDataService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -122,19 +115,16 @@ describe('DsoEditMetadataComponent', () => {
             LoadingComponent,
           ],
         },
-        add: {
-          changeDetection: ChangeDetectionStrategy.Default,
-        },
       })
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(DsoEditMetadataComponent);
     component = fixture.componentInstance;
     component.dso = dso;
     fixture.detectChanges();
-  });
+  }));
 
   describe('when no changes have been made', () => {
     assertButton(ADD_BTN, true, false);
