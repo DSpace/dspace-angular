@@ -13,7 +13,15 @@ import { AuthorNameLink } from '../clarin-item-box-view/clarin-author-name-link.
 })
 export class ClarinItemAuthorPreviewComponent implements OnInit {
 
+  /**
+   * The item to display authors for.
+   */
   @Input() item: Item;
+
+  /**
+   * Metadata fields where are stored authors.
+   */
+  @Input() fields = [];
 
   /**
    * Authors of the Item.
@@ -34,7 +42,7 @@ export class ClarinItemAuthorPreviewComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.assignBaseUrl();
-    loadItemAuthors(this.item, this.itemAuthors, this.baseUrl);
+    loadItemAuthors(this.item, this.itemAuthors, this.baseUrl, this.fields);
   }
   toggleShowEveryAuthor() {
     this.showEveryAuthor.next(!this.showEveryAuthor.value);

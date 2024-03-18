@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="row">
-          <ds-clarin-item-author-preview [item]="item"></ds-clarin-item-author-preview>
+          <ds-clarin-item-author-preview [item]="item" [fields]="AUTHOR_METADATA_FIELDS"></ds-clarin-item-author-preview>
         </div>
         <div *ngIf="isSearchResult === false && itemDescription != null" class="row d-block pt-1">
           <div><strong>{{'item.view.box.description.message' | translate}}</strong></div>

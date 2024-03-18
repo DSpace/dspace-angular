@@ -30,6 +30,7 @@ import { ItemSearchResult } from '../object-collection/shared/item-search-result
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { ClarinDateService } from '../clarin-date.service';
+import { AUTHOR_METADATA_FIELDS } from '../../core/shared/clarin/constants';
 
 /**
  * Show item on the Home/Search page in the customized box with Item's information.
@@ -40,6 +41,8 @@ import { ClarinDateService } from '../clarin-date.service';
   styleUrls: ['./clarin-item-box-view.component.scss']
 })
 export class ClarinItemBoxViewComponent implements OnInit {
+
+  protected readonly AUTHOR_METADATA_FIELDS = AUTHOR_METADATA_FIELDS;
 
   ITEM_TYPE_IMAGES_PATH = '/assets/images/item-types/';
   ITEM_TYPE_DEFAULT_IMAGE_NAME = 'application-x-zerosize.png';
