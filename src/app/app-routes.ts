@@ -26,6 +26,7 @@ import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-p
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { ReloadGuard } from './core/reload/reload.guard';
@@ -155,7 +156,7 @@ export const APP_ROUTES: Route[] = [
         path: ADMIN_MODULE_PATH,
         loadChildren: () => import('./admin/admin-routes')
           .then((m) => m.ROUTES),
-        canActivate: [EndUserAgreementCurrentUserGuard],
+        canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard],
       },
       {
         path: NOTIFICATIONS_MODULE_PATH,
