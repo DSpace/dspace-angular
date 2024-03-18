@@ -32,7 +32,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           cd tools/create_bitstreams
-          python create_bitstreams.py
+          python3 create_bitstreams.py
 
   import-5:
     if: inputs.INSTANCE == '5'
@@ -45,7 +45,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           cd tools/create_bitstreams
-          python create_bitstreams.py
+          python3 create_bitstreams.py
 
   import-6:
     if: inputs.INSTANCE == '6'
@@ -58,7 +58,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           cd tools/create_bitstreams
-          python create_bitstreams.py
+          python3 create_bitstreams.py
 
   import-8:
     if: inputs.INSTANCE == '8'
@@ -71,4 +71,4 @@ jobs:
         run: |
           pip install -r requirements.txt
           cd tools/create_bitstreams
-          python create_bitstreams.py          
+          python3 create_bitstreams.py
