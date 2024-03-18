@@ -3134,6 +3134,8 @@
 
   "process.new.cancel": "Cancel",
 
+  "process.new.process-name": "Process name",
+
   "process.new.submit": "Save",
 
   "process.new.select-script": "Script",

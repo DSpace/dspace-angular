@@ -103,6 +103,7 @@ export class ProcessParametersComponent implements OnChanges {
         );
     }
     this.addParameter();
+    this.updateParameters.emit(this.parameterValues.filter((param: ProcessParameter) => hasValue(param.name)));
   }
 
   /**

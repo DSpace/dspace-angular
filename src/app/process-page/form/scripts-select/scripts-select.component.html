@@ -1,11 +1,23 @@
 <div class="form-group" *ngIf="scripts$ | async">
     <label for="process-script">{{'process.new.select-script' | translate}}</label>
     <div class="btn-group w-100" ngbDropdown>
-        <button class="btn btn-outline-primary form-control" ngbDropdownToggle id="process-script" type="button" data-toggle="dropdown">{{'process.new.select-script.placeholder' | translate}}<span class="caret"></span></button>
-        <div ngbDropdownMenu class="w-100">
+        <button class="btn border border-dark form-control d-flex align-items-center"
+                ngbDropdownToggle id="process-script"
+                type="button"
+                data-toggle="dropdown">
+            <span *ngIf="selectedScript" class="flex-grow-1 text-left">{{selectedScript}}</span>
+            <span *ngIf="!selectedScript"  class="flex-grow-1">{{'process.new.select-script.placeholder' | translate}}</span>
+            <span class="caret"></span>
+        </button>
+        <div ngbDropdownMenu
+             class="w-100">
             <button *ngFor="let script of scripts$ | async"
-                    (click)="setScript(script)" class="text-wrap" ngbDropdownItem type="button">
-                <div><span class="font-weight-bold">{{script.name}}</span></div>
+                    (click)="setScript(script.id)"
+                    class="text-wrap"
+                    ngbDropdownItem
+                    [class.bg-light]="selectedScript === script.id"
+                    type="button">
+                <div><span class="font-weight-bold">{{script.id}}</span></div>
                 <div><span class="font-italic">{{script.description}}</span></div>
             </button>
         </div>
