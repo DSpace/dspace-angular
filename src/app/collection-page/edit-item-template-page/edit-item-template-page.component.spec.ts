@@ -12,6 +12,8 @@ import { of as observableOf } from 'rxjs';
 
 import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
 import { Collection } from '../../core/shared/collection.model';
+import { DsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/dso-edit-metadata.component';
+import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
@@ -47,6 +49,10 @@ describe('EditItemTemplatePageComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(EditItemTemplatePageComponent, {
+      remove: {
+        imports: [ThemedDsoEditMetadataComponent, DsoEditMetadataComponent],
+      },
     }).compileComponents();
   }));
 
