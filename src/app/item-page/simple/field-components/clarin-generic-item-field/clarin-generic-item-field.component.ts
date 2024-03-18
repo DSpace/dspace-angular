@@ -10,8 +10,8 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/oper
 import { map } from 'rxjs/operators';
 
 export const DOI_METADATA_FIELD = 'dc.identifier.doi';
+export const HANDLE_METADATA_FIELD = 'dc.identifier.uri';
 const SHOW_HANDLE_AND_DOI_PROPERTY_NAME = 'item-page.show-handle-and-doi';
-const HANDLE_METADATA_FIELD = 'dc.identifier.uri';
 
 @Component({
   selector: 'ds-clarin-generic-item-field',

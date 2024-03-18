@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ClarinIdentifierItemFieldComponent } from './clarin-identifier-item-field.component';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Item } from '../../../../core/shared/item.model';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { DOI_METADATA_FIELD } from '../clarin-generic-item-field/clarin-generic-item-field.component';
+import { ItemIdentifierService } from '../../../../shared/item-identifier.service';
 
 describe('ClarinIdentifierItemFieldComponent', () => {
   let component: ClarinIdentifierItemFieldComponent;
   let fixture: ComponentFixture<ClarinIdentifierItemFieldComponent>;
+  let itemIdentifierService: ItemIdentifierService;
 
   const mockItem: Item = Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -25,13 +25,8 @@ describe('ClarinIdentifierItemFieldComponent', () => {
   });
 
   beforeEach(async () => {
-    const configurationServiceSpy = jasmine.createSpyObj('configurationService', {
-      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
-        name: 'test',
-        values: [
-          true
-        ]
-      })),
+    itemIdentifierService = jasmine.createSpyObj('itemIdentifierService', {
+      prettifyIdentifier: new Promise((res, rej) => { return 'awesome identifier'; }),
     });
 
     await TestBed.configureTestingModule({
@@ -40,7 +35,7 @@ describe('ClarinIdentifierItemFieldComponent', () => {
       ],
       declarations: [ ClarinIdentifierItemFieldComponent ],
       providers: [
-        { provide: ConfigurationDataService, useValue: configurationServiceSpy }
+        { provide: ItemIdentifierService, useValue: itemIdentifierService }
       ]
     })
     .compileComponents();

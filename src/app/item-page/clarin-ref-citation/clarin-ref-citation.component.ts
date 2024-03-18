@@ -10,6 +10,11 @@ import { GetRequest } from '../../core/data/request.models';
 import { RequestService } from '../../core/data/request.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { BehaviorSubject } from 'rxjs';
+import {
+  DOI_METADATA_FIELD, HANDLE_METADATA_FIELD,
+} from '../simple/field-components/clarin-generic-item-field/clarin-generic-item-field.component';
+import { ItemIdentifierService } from '../../shared/item-identifier.service';
 
 /**
  * If the item has more authors do not add all authors to the citation but add there a shortcut.
@@ -57,6 +62,14 @@ export class ClarinRefCitationComponent implements OnInit {
    * The nam of the organization which provides the repository
    */
   repositoryNameText: string;
+  /**
+   * BehaviorSubject to store the prettified identifier.
+   */
+  prettifiedIdentifier: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  /**
+   * The item has DOI or not.
+   */
+  hasDoi = false;
 
   constructor(private configurationService: ConfigurationDataService,
               private clipboard: Clipboard,
@@ -64,7 +77,8 @@ export class ClarinRefCitationComponent implements OnInit {
               private modalService: NgbModal,
               private requestService: RequestService,
               protected rdbService: RemoteDataBuildService,
-              protected halService: HALEndpointService,) {
+              protected halService: HALEndpointService,
+              private itemIdentifierService: ItemIdentifierService) {
     // Configure the tooltip to show on click - `Copied` message
     config.triggers = 'click';
   }
@@ -79,10 +93,15 @@ export class ClarinRefCitationComponent implements OnInit {
       return textValue !== null;
     });
 
+    this.hasDoi = this.hasItemDoi();
     this.citationText = citationArray.join(', ');
     this.itemNameText = this.getTitle();
-    this.identifierURI = this.getIdentifierUri();
-    this.getRepositoryName().then(res => {
+    this.identifierURI = this.getIdentifierUri(this.whichIdentifierMetadataField());
+    void this.itemIdentifierService.prettifyIdentifier(this.identifierURI, [this.whichIdentifierMetadataField()])
+      .then((value: string) => {
+        this.prettifiedIdentifier.next(value);
+      });
+    void this.getRepositoryName().then(res => {
       this.repositoryNameText = res?.payload?.values?.[0];
     });
   }
@@ -104,18 +123,30 @@ export class ClarinRefCitationComponent implements OnInit {
       .pipe(getFirstSucceededRemoteData()).toPromise();
   }
 
-  getIdentifierUri() {
-    const handleMetadata = this.item.metadata['dc.identifier.uri'];
-    if (isUndefined(handleMetadata) || isNull(handleMetadata)) {
-      return null;
-    }
+  /**
+   * Get the identifier URI from the item metadata. If the item has DOI, return the DOI, otherwise return the handle.
+   */
+  getIdentifierUri(identifierMetadataField) {
+    return this.item.firstMetadataValue(identifierMetadataField);
+  }
 
-    return handleMetadata?.[0]?.value;
+  /**
+   * Check if the item has DOI.
+   */
+  hasItemDoi() {
+    return this.item?.allMetadata(DOI_METADATA_FIELD)?.length > 0;
+  }
+
+  /**
+   * If the item has DOI, return the DOI metadata field, otherwise return the handle metadata field.
+   */
+  whichIdentifierMetadataField() {
+    return this.hasDoi ? DOI_METADATA_FIELD : HANDLE_METADATA_FIELD;
   }
 
   getHandle() {
     // Separate the handle from the full URI
-    const fullUri = this.getIdentifierUri();
+    const fullUri = this.getIdentifierUri(this.whichIdentifierMetadataField());
     const handleWord = 'handle/';
     const startHandleIndex = fullUri.indexOf('handle/') + handleWord.length;
     return fullUri.substr(startHandleIndex);
