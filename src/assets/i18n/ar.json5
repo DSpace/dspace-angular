@@ -24,7 +24,7 @@
 
   "404.page-not-found": "لم يتم العثور على الصفحة",
 
- "error-page.description.401": "بدون تصريح",
+  "error-page.description.401": "بدون تصريح",
 
   "error-page.description.403": "ممنوع",
 
@@ -33,8 +33,8 @@
   "error-page.description.404": "لم يتم العثور على الصفحة",
 
   "error-page.orcid.generic-error": "حدث خطأ أثناء تسجيل الدخول عبر أوركيد. يرجى التأكد من أنك قمت بمشاركة عنوان البريد الإلكتروني الخاص بحساب أوركيد الخاص بك مع دي سبيس. إذا استمر الخطأ، فاتصل بالمسؤول",
- 
- "access-status.embargo.listelement.badge": "حظر",
+
+  "access-status.embargo.listelement.badge": "حظر",
 
   "access-status.metadata.only.listelement.badge": "ميتاداتا فقط",
 
@@ -724,7 +724,7 @@
 
   "bitstream.edit.form.newFormat.label": "وصف التنسيق الجديد",
 
-  "bitstream.edit.form.newFormat.hint": 'التطبيق الذي قمت باستخدامه لإنشاء الملف، ورقم الإصدار (على سبيل المثال: "<i>ACMESoft SuperApp الإصدار 1.5</i>").',
+  "bitstream.edit.form.newFormat.hint": "التطبيق الذي قمت باستخدامه لإنشاء الملف، ورقم الإصدار (على سبيل المثال: \"<i>ACMESoft SuperApp الإصدار 1.5</i>\").",
 
   "bitstream.edit.form.primaryBitstream.label": "تدفق البت الرئيسي",
 
@@ -1290,7 +1290,7 @@
 
   "comcol-role.edit.collection-admin.name": "المسؤولون",
 
- "comcol-role.edit.community-admin.description": "يمكن لمديري المجتمع إنشاء مجتمعات فرعية أو حاويات، وإدارة أو تعيين الإدارة لتلك المجتمعات الفرعية أو الحاويات. بالإضافة إلى ذلك، يقومون بتقرير من يمكنه تقديم المواد إلى أي حاويات فرعية، وتحرير ميتاداتا المادة (بعد التقديم)، وإضافة (تخطيط) المواد الحالية من الحاويات الأخرى (تخضع للتصريح).",
+  "comcol-role.edit.community-admin.description": "يمكن لمديري المجتمع إنشاء مجتمعات فرعية أو حاويات، وإدارة أو تعيين الإدارة لتلك المجتمعات الفرعية أو الحاويات. بالإضافة إلى ذلك، يقومون بتقرير من يمكنه تقديم المواد إلى أي حاويات فرعية، وتحرير ميتاداتا المادة (بعد التقديم)، وإضافة (تخطيط) المواد الحالية من الحاويات الأخرى (تخضع للتصريح).",
 
   "comcol-role.edit.collection-admin.description": "يقرر مديري الحاوية من يمكنه تقديم المواد إلى الحاوية، وتحريرميتاداتا المادة (بعد التقديم)، وإضافة (تخطيط) المواد الحاوية من الحاويات الأخرى إلى هذه الحاوية (تخضع للتصريح لتلك الحاوية).",
 
@@ -1462,7 +1462,7 @@
 
   "curation.form.handle.hint": "تلميح: قم بإدخال [your-handle-prefix]/0 لتشغيل مهمة عبر الموقع بأكمله (قد لا تدعم جميع المهام هذه الإمكانية)",
 
-  "deny-request-copy.email.message": 'عزيزي {{ recipientName }},\nردًا على طلبك، يؤسفني إبلاغك أنه لا يمكن إرسال نسخة من الملف الذي قمت بطلبه، فيما يتعلق بالوثيقة: "{{ itemUrl }}" ({{ itemName }}), والتي قمت بتأليفها.\n\nمع أطيب التحيات,\n{{ authorName }} <{{ authorEmail }}>',
+  "deny-request-copy.email.message": "عزيزي {{ recipientName }},\nردًا على طلبك، يؤسفني إبلاغك أنه لا يمكن إرسال نسخة من الملف الذي قمت بطلبه، فيما يتعلق بالوثيقة: \"{{ itemUrl }}\" ({{ itemName }}), والتي قمت بتأليفها.\n\nمع أطيب التحيات,\n{{ authorName }} <{{ authorEmail }}>",
 
   "deny-request-copy.email.subject": "طلب نسخة من وثيقة",
 
@@ -2700,11 +2700,11 @@
 
   "itemtemplate.edit.metadata.edit.buttons.remove": "إزالة",
 
-   "itemtemplate.edit.metadata.edit.buttons.undo": "تراجع عن التغييرات" ,
+  "itemtemplate.edit.metadata.edit.buttons.undo": "تراجع عن التغييرات" ,
 
-   "itemtemplate.edit.metadata.edit.buttons.unedit": "إيقاف التحرير" ,
+  "itemtemplate.edit.metadata.edit.buttons.unedit": "إيقاف التحرير" ,
 
-   "itemtemplate.edit.metadata.empty": "قالب العنصر حاليًا لا يحتوي على أي ميتاداتا. انقر فوق إضافة لبدء إضافة قيمة ميتاداتا.",
+  "itemtemplate.edit.metadata.empty": "قالب العنصر حاليًا لا يحتوي على أي ميتاداتا. انقر فوق إضافة لبدء إضافة قيمة ميتاداتا.",
 
   "itemtemplate.edit.metadata.headers.edit": "تحرير",
 
@@ -2726,9 +2726,9 @@
 
   "itemtemplate.edit.metadata.notifications.error.title": "حدث خطأ",
 
-   "itemtemplate.edit.metadata.notifications.invalid.content": "لم يتم حفظ التغييرات. يرجى التأكد من أن جميع الحقول صالحة قبل الحفظ.",
+  "itemtemplate.edit.metadata.notifications.invalid.content": "لم يتم حفظ التغييرات. يرجى التأكد من أن جميع الحقول صالحة قبل الحفظ.",
 
-   "itemtemplate.edit.metadata.notifications.invalid.title": "الميتاداتا غير صالحة",
+  "itemtemplate.edit.metadata.notifications.invalid.title": "الميتاداتا غير صالحة",
 
   "itemtemplate.edit.metadata.notifications.outdated.content": "تم تغيير قالب المادة الذي تعمل عليه حالياً بواسطة مستخدم آخر. تم تجاهل التغييرات الحالية لمنع التعارضات",
 
@@ -4926,7 +4926,7 @@
 
   "submission.workflow.tasks.claimed.reject.submit": "رفض",
 
-  "submission.workflow.tasks.claimed.reject_help": 'إذا قمت بمراجعة المادة ووجدتها <strong>غير</strong> ملائمة للإدراج في الحاوية، اختر "رفض". سيُطلب منك إدخال رسالة لتوضيح سبب عدم ملاءمة المادة، وما إذا كان يجب على المقدم إجراء بعض التغييرات وإعادة التقديم.',
+  "submission.workflow.tasks.claimed.reject_help": "إذا قمت بمراجعة المادة ووجدتها <strong>غير</strong> ملائمة للإدراج في الحاوية، اختر \"رفض\". سيُطلب منك إدخال رسالة لتوضيح سبب عدم ملاءمة المادة، وما إذا كان يجب على المقدم إجراء بعض التغييرات وإعادة التقديم.",
 
   "submission.workflow.tasks.claimed.return": "إعادة إلى الصحن",
 
@@ -4994,17 +4994,17 @@
 
   "subscriptions.modal.new-subscription-form.processing": "جاري المعالجة...",
 
-   "subscriptions.modal.create.success": "تم الاشتراك في {{type}} بنجاح.",
+  "subscriptions.modal.create.success": "تم الاشتراك في {{type}} بنجاح.",
 
-   "subscriptions.modal.delete.success": "تم حذف الاشتراك بنجاح",
+  "subscriptions.modal.delete.success": "تم حذف الاشتراك بنجاح",
 
-   "subscriptions.modal.update.success": "تم تحديث الاشتراك في {{type}} بنجاح",
+  "subscriptions.modal.update.success": "تم تحديث الاشتراك في {{type}} بنجاح",
 
-   "subscriptions.modal.create.error": "حدث خطأ أثناء إنشاء الاشتراك" ,
+  "subscriptions.modal.create.error": "حدث خطأ أثناء إنشاء الاشتراك" ,
 
-   "subscriptions.modal.delete.error": "حدث خطأ أثناء حذف الاشتراك",
+  "subscriptions.modal.delete.error": "حدث خطأ أثناء حذف الاشتراك",
 
-   "subscriptions.modal.update.error": "حدث خطأ أثناء تحديث الاشتراك" ,
+  "subscriptions.modal.update.error": "حدث خطأ أثناء تحديث الاشتراك" ,
 
   "subscriptions.table.dso": "الموضوع",
 
