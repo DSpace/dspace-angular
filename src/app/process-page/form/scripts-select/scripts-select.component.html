@@ -6,7 +6,7 @@
                 type="button"
                 data-toggle="dropdown">
             <span *ngIf="selectedScript" class="flex-grow-1 text-left">{{selectedScript}}</span>
-            <span *ngIf="!selectedScript"  class="flex-grow-1">{{'process.new.select-script.placeholder' | translate}}</span>
+            <span *ngIf="!selectedScript"  class="flex-grow-1 text-left">{{'process.new.select-script.placeholder' | translate}}</span>
             <span class="caret"></span>
         </button>
         <div ngbDropdownMenu

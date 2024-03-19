@@ -35,7 +35,10 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
   private _selectedScript: Script;
   private routeSub: Subscription;
 
-  touched: boolean = false;
+  /**
+   * Whether or not this field was set previously
+   */
+  touched = false;
 
   constructor(
     private scriptService: ScriptDataService,

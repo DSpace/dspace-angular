@@ -95,7 +95,31 @@ describe('ProcessFormComponent', () => {
 
     it('should invoke the script with an empty array of parameters', () => {
       component.submitForm({ controls: {} } as any);
-      expect(scriptService.invoke).toHaveBeenCalledWith(script.id, [], jasmine.anything());
+      expect(scriptService.invoke).toHaveBeenCalledWith(script.id, [], jasmine.anything(), (component as any).customName);
     });
   });
+  describe('updateName', () => {
+    describe('when a customName is set', () => {
+      beforeEach(() => {
+        component.customName = 'Test value';
+      });
+
+      it('should use the customName as the processName', () => {
+        component.updateName();
+        expect(component.processName).toEqual(component.customName);
+      });
+    });
+
+    describe('when no customName is set', () => {
+      beforeEach(() => {
+        component.customName = undefined;
+      });
+
+      it('should use the customName as the processName', () => {
+        component.updateName();
+        expect(component.processName).toEqual(component.generatedProcessName);
+      });
+    });
+  });
+
 });

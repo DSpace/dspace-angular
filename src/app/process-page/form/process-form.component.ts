@@ -7,11 +7,11 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getProcessListRoute } from '../process-page-routing.paths';
-import { hasNoValue, isEmpty } from '../../shared/empty.util';
+import { isEmpty } from '../../shared/empty.util';
 
 /**
  * Component to create a new script
@@ -172,19 +172,28 @@ export class ProcessFormComponent implements OnInit {
 
   updateName(): void {
     if (isEmpty(this.customName)) {
-
-      const paramsString = this.parameters?.map((p: ProcessParameter) => hasNoValue(p.value) ? p.name : `${p.name} ${this.parseValue(p.value)}`).join(' ') || '';
-      this.processName = `${this.selectedScript.name} ${paramsString}`;
+      this.processName = this.generatedProcessName;
     } else {
       this.processName = this.customName;
     }
   }
 
+  private get generatedProcessName() {
+    const paramsString = this.parameters?.map((p: ProcessParameter) => {
+      const value = this.parseValue(p.value);
+      return isEmpty(value) ? p.name : `${p.name} ${value}`;
+    }).join(' ') || '';
+    return isEmpty(paramsString) ? this.selectedScript.name : `${this.selectedScript.name} ${paramsString}`;
+  }
+
   private parseValue(value: any) {
+    if (typeof value === 'boolean') {
+      return undefined;
+    }
     if (value instanceof File) {
       return value.name;
     }
-    return value.toString();
+    return value?.toString();
   }
 
   updateParameters($event: ProcessParameter[]) {

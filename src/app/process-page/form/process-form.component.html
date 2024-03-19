@@ -3,7 +3,7 @@
         <h2 class="col-12">
             {{headerKey | translate}}
         </h2>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-4 mb-md-0">
             <form #form="ngForm" (ngSubmit)="submitForm(form)">
                 <div *ngIf="selectedScript" class="form-group">
                     <label for="processName">{{'process.new.process-name' | translate}}</label>
