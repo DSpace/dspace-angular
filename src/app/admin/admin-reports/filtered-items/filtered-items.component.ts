@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -59,6 +60,7 @@ import { QueryPredicate } from './query-predicate.model';
     NgbAccordionModule,
     TranslateModule,
     AsyncPipe,
+    NgIf,
     NgForOf,
     FiltersComponent,
   ],

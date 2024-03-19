@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -26,6 +27,7 @@ import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-
   templateUrl: './suggestion-list-element.component.html',
   animations: [fadeIn],
   imports: [
+    NgIf,
     TranslateModule,
     ItemSearchResultListElementComponent,
     SuggestionActionsComponent,

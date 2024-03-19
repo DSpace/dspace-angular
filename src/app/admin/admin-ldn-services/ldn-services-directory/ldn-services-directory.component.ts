@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
   NgIf,
 } from '@angular/common';
 import {
@@ -54,6 +55,7 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     NgIf,
+    NgFor,
     TranslateModule,
     AsyncPipe,
     PaginationComponent,
