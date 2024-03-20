@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
