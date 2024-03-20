@@ -1,6 +1,7 @@
 import {
   Component,
   Input,
+  OnInit,
   Optional,
 } from '@angular/core';
 import {
@@ -22,7 +23,7 @@ import { ValueInputComponent } from '../value-input.component';
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] } ],
 })
-export class StringValueInputComponent extends ValueInputComponent<string> {
+export class StringValueInputComponent extends ValueInputComponent<string> implements OnInit {
   /**
    * The current value of the string
    */
@@ -33,7 +34,7 @@ export class StringValueInputComponent extends ValueInputComponent<string> {
    */
   @Input() initialValue;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.value = this.initialValue;
   }
 
