@@ -1,6 +1,8 @@
 import {
   Component,
   Input,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 import {
   Observable,
@@ -28,7 +30,7 @@ import { AccessStatusObject } from './access-status.model';
 /**
  * Component rendering the access status of an item as a badge
  */
-export class AccessStatusBadgeComponent {
+export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
 
   @Input() object: DSpaceObject;
   accessStatus$: Observable<string>;
