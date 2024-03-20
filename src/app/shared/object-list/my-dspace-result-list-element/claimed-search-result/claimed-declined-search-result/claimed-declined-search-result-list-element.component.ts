@@ -1,6 +1,7 @@
 import {
   Component,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -31,7 +32,7 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
   templateUrl: './claimed-declined-search-result-list-element.component.html',
 })
 @listableObjectComponent(ClaimedDeclinedTaskSearchResult, ViewMode.ListElement)
-export class ClaimedDeclinedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
+export class ClaimedDeclinedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit {
 
   /**
    * A boolean representing if to show submitter information
@@ -60,7 +61,7 @@ export class ClaimedDeclinedSearchResultListElementComponent extends SearchResul
   /**
    * Initialize all instance variables
    */
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.linkService.resolveLinks(this.dso,
       followLink('workflowitem',
