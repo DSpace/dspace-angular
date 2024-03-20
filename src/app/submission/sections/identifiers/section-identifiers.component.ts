@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -33,7 +34,7 @@ import { SectionsType } from '../sections-type';
 })
 
 @renderSectionFor(SectionsType.Identifiers)
-export class SubmissionSectionIdentifiersComponent extends SectionModelComponent {
+export class SubmissionSectionIdentifiersComponent extends SectionModelComponent implements OnInit {
   /**
    * The Alert categories.
    * @type {AlertType}
@@ -79,7 +80,7 @@ export class SubmissionSectionIdentifiersComponent extends SectionModelComponent
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
   }
 
