@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Optional,
   Output,
   SimpleChanges,
@@ -31,7 +32,7 @@ import { controlContainerFactory } from '../process-form.component';
     deps: [[new Optional(), NgForm]],
   }],
 })
-export class ProcessParametersComponent implements OnChanges {
+export class ProcessParametersComponent implements OnChanges, OnInit {
   /**
    * The currently selected script
    */
@@ -51,7 +52,7 @@ export class ProcessParametersComponent implements OnChanges {
    */
   parameterValues: ProcessParameter[];
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (hasValue(this.initialParams)) {
       this.parameterValues = this.initialParams;
     }
