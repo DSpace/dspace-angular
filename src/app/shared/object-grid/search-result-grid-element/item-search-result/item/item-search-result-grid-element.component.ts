@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
