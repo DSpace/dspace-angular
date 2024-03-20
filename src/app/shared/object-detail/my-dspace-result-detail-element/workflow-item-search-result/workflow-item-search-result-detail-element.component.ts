@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 import { Context } from 'src/app/core/shared/context.model';
