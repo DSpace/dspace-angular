@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -42,7 +43,7 @@ import { PaginatedSearchOptions } from '../../../../../search/models/paginated-s
 /**
  * Tab for inside the lookup model that represents the currently selected relationships
  */
-export class DsDynamicLookupRelationSelectionTabComponent {
+export class DsDynamicLookupRelationSelectionTabComponent implements OnInit {
   /**
    * A string that describes the type of relationship
    */
@@ -105,7 +106,7 @@ export class DsDynamicLookupRelationSelectionTabComponent {
   /**
    * Set up the selection and pagination on load
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.resetRoute();
     this.selectionRD$ = this.searchConfigService.paginatedSearchOptions
       .pipe(
