@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -16,7 +16,7 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
 /**
  * A component used to select collections from a specific list and returning the UUIDs of the selected collections
  */
-export class CollectionSelectComponent extends ObjectSelectComponent<Collection> {
+export class CollectionSelectComponent extends ObjectSelectComponent<Collection> implements OnInit {
 
   constructor(
     protected objectSelectService: ObjectSelectService,
