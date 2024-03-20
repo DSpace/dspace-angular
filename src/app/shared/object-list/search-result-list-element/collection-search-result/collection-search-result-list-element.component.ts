@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 
 import { Collection } from '../../../../core/shared/collection.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
