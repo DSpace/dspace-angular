@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 
 import { Community } from '../../../../core/shared/community.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
