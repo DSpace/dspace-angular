@@ -7,12 +7,12 @@ import {
   select,
   Store,
 } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
 import {
   isAuthenticated,
   isAuthenticationLoading,
@@ -28,16 +28,14 @@ import {
   isEmpty,
   isNotNull,
 } from '../../../empty.util';
-import { renderAuthMethodFor } from '../log-in.methods-decorator';
 
 @Component({
   selector: 'ds-log-in-external-provider',
   templateUrl: './log-in-external-provider.component.html',
   styleUrls: ['./log-in-external-provider.component.scss'],
+  standalone: true,
+  imports: [TranslateModule],
 })
-@renderAuthMethodFor(AuthMethodType.Oidc)
-@renderAuthMethodFor(AuthMethodType.Shibboleth)
-@renderAuthMethodFor(AuthMethodType.Orcid)
 export class LogInExternalProviderComponent implements OnInit {
 
   /**

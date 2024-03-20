@@ -1,13 +1,19 @@
 import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
   Output,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { getCollectionModuleRoute } from '../../../collection-page/collection-page-routing-paths';
@@ -17,6 +23,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../empty.util';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
@@ -26,6 +33,8 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   selector: '[ds-subscription-view]',
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss'],
+  standalone: true,
+  imports: [NgIf, ThemedTypeBadgeComponent, RouterLink, NgFor, TranslateModule],
 })
 /**
  * Table row representing a subscription that displays all information and action buttons to manage it

@@ -1,9 +1,17 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -14,15 +22,15 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
 
-@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_RETURN_TO_POOL)
 @Component({
   selector: 'ds-claimed-task-actions-return-to-pool',
   styleUrls: ['./claimed-task-actions-return-to-pool.component.scss'],
   templateUrl: './claimed-task-actions-return-to-pool.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying and processing the return to pool action on a workflow task item

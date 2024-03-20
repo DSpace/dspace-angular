@@ -12,6 +12,8 @@ import { HoverClassDirective } from './hover-class.directive';
 
 @Component({
   template: `<div dsHoverClass="ds-hover"></div>`,
+  standalone: true,
+  imports: [HoverClassDirective],
 })
 class TestComponent {
 }
@@ -23,7 +25,7 @@ describe('HoverClassDirective', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [TestComponent, HoverClassDirective],
+      imports: [TestComponent, HoverClassDirective],
     }).createComponent(TestComponent);
 
     fixture.detectChanges();

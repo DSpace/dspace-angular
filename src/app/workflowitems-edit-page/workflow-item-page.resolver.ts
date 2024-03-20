@@ -15,7 +15,7 @@ import { followLink } from '../shared/utils/follow-link-config.model';
 /**
  * This class represents a resolver that requests a specific workflow item before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class WorkflowItemPageResolver implements Resolve<RemoteData<WorkflowItem>> {
   constructor(private workflowItemService: WorkflowItemDataService) {
   }

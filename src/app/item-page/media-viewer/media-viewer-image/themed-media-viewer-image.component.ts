@@ -14,6 +14,7 @@ import { MediaViewerImageComponent } from './media-viewer-image.component';
   selector: 'ds-themed-media-viewer-image',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedMediaViewerImageComponent extends ThemedComponent<MediaViewerImageComponent> {
 

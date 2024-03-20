@@ -34,7 +34,7 @@ import { SubmissionResponse } from './submission-response.model';
 /**
  * The service handling all submission REST requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SubmissionRestService {
   protected linkPath = 'workspaceitems';
 

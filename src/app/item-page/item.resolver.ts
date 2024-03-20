@@ -35,7 +35,7 @@ export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
 /**
  * This class represents a resolver that requests a specific item before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemResolver implements Resolve<RemoteData<Item>> {
   constructor(
     protected itemService: ItemDataService,

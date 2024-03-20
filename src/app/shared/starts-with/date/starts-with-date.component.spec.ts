@@ -37,8 +37,7 @@ describe('StartsWithDateComponent', () => {
     paginationService = new PaginationServiceStub();
 
     await TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [StartsWithDateComponent, EnumKeysPipe],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, StartsWithDateComponent, EnumKeysPipe],
       providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: PaginationService, useValue: paginationService },

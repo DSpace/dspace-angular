@@ -1,12 +1,21 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   first,
@@ -22,11 +31,21 @@ import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
 import { getItemPageRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 
 @Component({
   selector: 'ds-item-register-doi',
   templateUrl: './item-register-doi-component.html',
+  imports: [
+    ModifyItemOverviewComponent,
+    RouterLink,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NgForOf,
+  ],
+  standalone: true,
 })
 /**
  * Component responsible for rendering the Item Register DOI page

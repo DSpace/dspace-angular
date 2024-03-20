@@ -62,8 +62,7 @@ describe('MetadataFieldSelectorComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
 
     TestBed.configureTestingModule({
-      declarations: [MetadataFieldSelectorComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), MetadataFieldSelectorComponent, VarDirective],
       providers: [
         { provide: RegistryService, useValue: registryService },
         { provide: NotificationsService, useValue: notificationsService },

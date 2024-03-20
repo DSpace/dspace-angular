@@ -28,6 +28,7 @@ export interface ContextHelpDirectiveInput {
  */
 @Directive({
   selector: '[dsContextHelp]',
+  standalone: true,
 })
 export class ContextHelpDirective implements OnChanges, OnDestroy {
   /**

@@ -23,7 +23,6 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { RouterStub } from '../../shared/testing/router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { SystemWideAlert } from '../system-wide-alert.model';
-import { SystemWideAlertModule } from '../system-wide-alert.module';
 import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';
 
 describe('SystemWideAlertFormComponent', () => {
@@ -63,8 +62,7 @@ describe('SystemWideAlertFormComponent', () => {
     router = new RouterStub();
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, SystemWideAlertModule, UiSwitchModule, TranslateModule.forRoot()],
-      declarations: [SystemWideAlertFormComponent],
+      imports: [FormsModule, UiSwitchModule, TranslateModule.forRoot(), SystemWideAlertFormComponent],
       providers: [
         { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
         { provide: NotificationsService, useValue: notificationsService },

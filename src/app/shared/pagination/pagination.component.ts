@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -9,6 +15,12 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  NgbDropdownModule,
+  NgbPaginationModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -32,7 +44,9 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { hasValue } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { RSSComponent } from '../rss-feed/rss.component';
 import { HostWindowState } from '../search/host-window.reducer';
+import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 
 /**
@@ -45,6 +59,8 @@ import { PaginationComponentOptions } from './pagination-component-options.model
   templateUrl: 'pagination.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
+  standalone: true,
+  imports: [NgIf, NgbDropdownModule, NgFor, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe],
 })
 export class PaginationComponent implements OnDestroy, OnInit {
   /**

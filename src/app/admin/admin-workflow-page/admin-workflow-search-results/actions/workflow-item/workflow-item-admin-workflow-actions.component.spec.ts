@@ -42,8 +42,8 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        WorkflowItemAdminWorkflowActionsComponent,
       ],
-      declarations: [WorkflowItemAdminWorkflowActionsComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();

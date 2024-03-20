@@ -20,6 +20,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
   DynamicColorPickerModel,
@@ -57,7 +58,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
 import { of as observableOf } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
@@ -68,13 +72,10 @@ import { VocabularyOptions } from '../../../../core/submission/vocabularies/mode
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { SharedModule } from '../../../shared.module';
 import { FormService } from '../../form.service';
 import { FormBuilderService } from '../form-builder.service';
-import {
-  DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn,
-} from './ds-dynamic-form-control-container.component';
+import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
+import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
@@ -226,7 +227,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         ReactiveFormsModule,
         NgbModule,
         DynamicFormsCoreModule.forRoot(),
-        SharedModule,
         TranslateModule.forRoot(),
         NgxMaskModule.forRoot(),
       ],
@@ -251,6 +251,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         },
         { provide: NgZone, useValue: new NgZone({}) },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents().then(() => {
@@ -258,6 +260,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       fixture = TestBed.createComponent(DsDynamicFormControlContainerComponent);
 
       const ngZone = TestBed.inject(NgZone);
+
 
       // eslint-disable-next-line @typescript-eslint/ban-types
       spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());

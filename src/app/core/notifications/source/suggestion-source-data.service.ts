@@ -8,7 +8,6 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { CoreState } from '../../core-state.model';
-import { dataService } from '../../data/base/data-service.decorator';
 import {
   FindAllData,
   FindAllDataImpl,
@@ -21,13 +20,11 @@ import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { SuggestionSource } from '../models/suggestion-source.model';
-import { SUGGESTION_SOURCE } from '../models/suggestion-source-object.resource-type';
 
 /**
  * Service that retrieves Suggestion Source data
  */
-@Injectable()
-@dataService(SUGGESTION_SOURCE)
+@Injectable({ providedIn: 'root' })
 export class SuggestionSourceDataService extends IdentifiableDataService<SuggestionSource> {
 
   protected linkPath = 'suggestionsources';

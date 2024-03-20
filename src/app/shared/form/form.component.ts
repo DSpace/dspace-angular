@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -9,6 +13,7 @@ import {
 } from '@angular/core';
 import {
   AbstractControl,
+  ReactiveFormsModule,
   UntypedFormArray,
   UntypedFormControl,
   UntypedFormGroup,
@@ -20,7 +25,9 @@ import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
+  DynamicFormsCoreModule,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import {
   Observable,
@@ -38,6 +45,7 @@ import {
   isNotNull,
   isNull,
 } from '../empty.util';
+import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import {
@@ -54,6 +62,15 @@ import { FormService } from './form.service';
   selector: 'ds-form',
   styleUrls: ['form.component.scss'],
   templateUrl: 'form.component.html',
+  imports: [
+    DsDynamicFormComponent,
+    ReactiveFormsModule,
+    TranslateModule,
+    DynamicFormsCoreModule,
+    NgIf,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class FormComponent implements OnDestroy, OnInit {
 

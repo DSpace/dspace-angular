@@ -26,7 +26,6 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
@@ -50,11 +49,8 @@ describe('SubmissionFormFooterComponent', () => {
       imports: [
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionFormFooterComponent,
         TestComponent,
-        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: SubmissionService, useValue: submissionServiceStub },
@@ -266,6 +262,8 @@ describe('SubmissionFormFooterComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

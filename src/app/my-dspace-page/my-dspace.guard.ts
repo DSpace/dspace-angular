@@ -21,7 +21,7 @@ import { MYDSPACE_ROUTE } from './my-dspace-page.component';
  * Prevent unauthorized activating and loading of mydspace configuration
  * @class MyDSpaceGuard
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MyDSpaceGuard implements CanActivate {
 
   /**

@@ -13,10 +13,7 @@ describe('BooleanValueInputComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-      ],
-      declarations: [BooleanValueInputComponent],
+      imports: [BooleanValueInputComponent, TranslateModule.forRoot()],
     })
       .compileComponents();
   }));

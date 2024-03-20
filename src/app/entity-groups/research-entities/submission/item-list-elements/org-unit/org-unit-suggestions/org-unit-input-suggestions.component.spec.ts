@@ -27,13 +27,12 @@ describe('OrgUnitInputSuggestionsComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [OrgUnitInputSuggestionsComponent],
       imports: [
         FormsModule,
+        OrgUnitInputSuggestionsComponent,
         TranslateModule.forRoot(),
       ],
-      providers: [
-      ],
+      providers: [],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrgUnitInputSuggestionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

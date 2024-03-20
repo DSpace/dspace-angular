@@ -11,6 +11,7 @@ import { ResultsBackButtonComponent } from './results-back-button.component';
   selector: 'ds-themed-results-back-button',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedResultsBackButtonComponent extends ThemedComponent<ResultsBackButtonComponent> {
 

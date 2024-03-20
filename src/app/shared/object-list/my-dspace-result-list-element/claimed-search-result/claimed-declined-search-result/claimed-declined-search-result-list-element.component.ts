@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import {
@@ -21,7 +26,9 @@ import { ClaimedTaskSearchResult } from '../../../../object-collection/shared/cl
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { followLink } from '../../../../utils/follow-link-config.model';
+import { VarDirective } from '../../../../utils/var.directive';
 import { SearchResultListElementComponent } from '../../../search-result-list-element/search-result-list-element.component';
+import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-item-list-preview.component';
 
 /**
  * This component renders claimed task declined object for the search result in the list view.
@@ -30,6 +37,8 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
   selector: 'ds-claimed-declined-search-result-list-element',
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './claimed-declined-search-result-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, ThemedItemListPreviewComponent, AsyncPipe, TranslateModule, VarDirective],
 })
 @listableObjectComponent(ClaimedDeclinedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedDeclinedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit {

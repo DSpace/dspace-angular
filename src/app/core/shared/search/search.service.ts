@@ -77,7 +77,7 @@ class SearchDataService extends BaseDataService<any> {
 /**
  * Service that performs all general actions that have to do with the search page
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchService implements OnDestroy {
 
   /**

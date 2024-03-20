@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Item } from 'src/app/core/shared/item.model';
@@ -14,6 +19,12 @@ import { IdentifierData } from './identifier-data.model';
 @Component({
   selector: 'ds-identifier-data',
   templateUrl: './identifier-data.component.html',
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 /**
  * Component rendering an identifier, eg. DOI or handle

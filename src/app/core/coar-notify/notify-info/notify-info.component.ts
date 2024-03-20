@@ -1,7 +1,10 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   map,
   Observable,
@@ -14,6 +17,12 @@ import { NotifyInfoService } from './notify-info.service';
   selector: 'ds-notify-info',
   templateUrl: './notify-info.component.html',
   styleUrls: ['./notify-info.component.scss'],
+  imports: [
+    RouterLink,
+    TranslateModule,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 /**
  * Component for displaying COAR notification information.

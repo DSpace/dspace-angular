@@ -10,8 +10,15 @@ import {
   TransferState,
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import {
+  MissingTranslationHandler,
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
@@ -23,9 +30,13 @@ import {
 
 import { AppComponent } from '../../app/app.component';
 import { AppModule } from '../../app/app.module';
+import { storeModuleConfig } from '../../app/app.reducer';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
+import { coreEffects } from '../../app/core/core.effects';
+import { coreReducers } from '../../app/core/core.reducers';
+import { CoreState } from '../../app/core/core-state.model';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { BrowserReferrerService } from '../../app/core/services/browser.referrer.service';
 import {
@@ -39,8 +50,8 @@ import { HardRedirectService } from '../../app/core/services/hard-redirect.servi
 import { ReferrerService } from '../../app/core/services/referrer.service';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
@@ -64,9 +75,10 @@ export function getRequest(transferState: TransferState): any {
     HttpClientModule,
     // forRoot ensures the providers are only created once
     IdlePreloadModule.forRoot(),
-    StatisticsModule.forRoot(),
     Angulartics2RouterlessModule.forRoot(),
     BrowserAnimationsModule,
+    StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
+    EffectsModule.forFeature(coreEffects),
     BrowserTransferStateModule,
     TranslateModule.forRoot({
       loader: {
@@ -74,6 +86,8 @@ export function getRequest(transferState: TransferState): any {
         useFactory: (createTranslateLoader),
         deps: [TransferState, HttpClient],
       },
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+      useDefaultLang: true,
     }),
     AppModule,
   ],

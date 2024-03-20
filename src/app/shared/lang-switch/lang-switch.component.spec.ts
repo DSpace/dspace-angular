@@ -83,12 +83,9 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, TranslateModule.forRoot(
-          {
-            loader: { provide: TranslateLoader, useClass: CustomLoader },
-          },
-        )],
-        declarations: [LangSwitchComponent],
+        imports: [HttpClientTestingModule, TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: CustomLoader },
+        }), LangSwitchComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,
@@ -169,12 +166,9 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, TranslateModule.forRoot(
-          {
-            loader: { provide: TranslateLoader, useClass: CustomLoader },
-          },
-        )],
-        declarations: [LangSwitchComponent],
+        imports: [HttpClientTestingModule, TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: CustomLoader },
+        }), LangSwitchComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,

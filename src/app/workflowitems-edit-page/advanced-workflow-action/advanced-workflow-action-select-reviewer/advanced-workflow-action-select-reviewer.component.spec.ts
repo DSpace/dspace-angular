@@ -68,8 +68,6 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdvancedWorkflowActionSelectReviewerComponent,
       ],
       providers: [
