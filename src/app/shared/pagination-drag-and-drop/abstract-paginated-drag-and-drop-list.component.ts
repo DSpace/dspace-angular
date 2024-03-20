@@ -6,8 +6,8 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  OnInit,
   OnDestroy,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
