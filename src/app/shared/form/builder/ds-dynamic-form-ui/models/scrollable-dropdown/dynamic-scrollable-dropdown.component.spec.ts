@@ -92,11 +92,9 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         ReactiveFormsModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         DsDynamicScrollableDropdownComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         DsDynamicScrollableDropdownComponent,
@@ -240,6 +238,13 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    InfiniteScrollModule,
+    ReactiveFormsModule,
+    NgbModule],
 })
 class TestComponent {
 

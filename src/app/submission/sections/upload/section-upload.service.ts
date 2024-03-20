@@ -28,7 +28,7 @@ import { SubmissionState } from '../../submission.reducers';
 /**
  * A service that provides methods to handle submission's bitstream state.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SectionUploadService {
 
   /**

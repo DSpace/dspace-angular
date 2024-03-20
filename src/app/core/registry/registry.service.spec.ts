@@ -41,7 +41,11 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { NoContent } from '../shared/NoContent.model';
 import { RegistryService } from './registry.service';
 
-@Component({ template: '' })
+@Component({
+  template: '',
+  standalone: true,
+  imports: [CommonModule],
+})
 class DummyComponent {
 }
 
@@ -154,9 +158,7 @@ describe('RegistryService', () => {
   beforeEach(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot()],
-      declarations: [
-        DummyComponent,
+      imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot(), DummyComponent,
       ],
       providers: [
         { provide: Store, useClass: StoreMock },

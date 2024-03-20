@@ -18,7 +18,7 @@ import { hasValue } from '../../../shared/empty.util';
 /**
  * The service handling all Quality Assurance topic requests to the REST service.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class QualityAssuranceTopicsService {
 
   /**

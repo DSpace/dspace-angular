@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -14,7 +18,10 @@ import {
   DynamicInputModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { combineLatest } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -22,10 +29,18 @@ import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../../shared/form/form.component';
 
 @Component({
   selector: 'ds-metadata-field-form',
   templateUrl: './metadata-field-form.component.html',
+  imports: [
+    NgIf,
+    FormComponent,
+    TranslateModule,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 /**
  * A form used for creating and editing metadata fields

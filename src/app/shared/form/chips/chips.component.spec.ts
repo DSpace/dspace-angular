@@ -42,12 +42,10 @@ describe('ChipsComponent test suite', () => {
         NgbModule,
         SortablejsModule.forRoot({ animation: 150 }),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ChipsComponent,
         TestComponent,
         AuthorityConfidenceStateDirective,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         ChipsComponent,
@@ -191,6 +189,8 @@ describe('ChipsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

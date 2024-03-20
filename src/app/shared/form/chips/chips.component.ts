@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -7,13 +13,21 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  NgbTooltip,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
+import { SortablejsModule } from 'ngx-sortablejs';
 import { BehaviorSubject } from 'rxjs';
 import { Options } from 'sortablejs';
 
 import { DragService } from '../../../core/drag.service';
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
 
@@ -21,6 +35,17 @@ import { ChipsItem } from './models/chips-item.model';
   selector: 'ds-chips',
   styleUrls: ['./chips.component.scss'],
   templateUrl: './chips.component.html',
+  imports: [
+    NgbTooltipModule,
+    NgClass,
+    NgForOf,
+    SortablejsModule,
+    AsyncPipe,
+    AuthorityConfidenceStateDirective,
+    NgIf,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 
 export class ChipsComponent implements OnChanges {

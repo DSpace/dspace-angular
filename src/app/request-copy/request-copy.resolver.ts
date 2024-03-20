@@ -14,7 +14,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
 /**
  * Resolves an {@link ItemRequest} from the token found in the route's parameters
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RequestCopyResolver implements Resolve<RemoteData<ItemRequest>> {
 
   constructor(

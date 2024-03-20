@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgComponentOutlet,
+} from '@angular/common';
+import {
   Component,
   Inject,
   Injector,
@@ -7,7 +11,6 @@ import {
 
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { rendersSectionForMenu } from '../../shared/menu/menu-section.decorator';
 import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-section.component';
 
 /**
@@ -17,8 +20,9 @@ import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-sectio
   selector: 'ds-navbar-section',
   templateUrl: './navbar-section.component.html',
   styleUrls: ['./navbar-section.component.scss'],
+  standalone: true,
+  imports: [NgComponentOutlet, AsyncPipe],
 })
-@rendersSectionForMenu(MenuID.PUBLIC, false)
 export class NavbarSectionComponent extends MenuSectionComponent implements OnInit {
   /**
    * This section resides in the Public Navbar

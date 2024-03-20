@@ -69,7 +69,7 @@ function virtualMetadataSourceSelector(url: string, source: string): MemoizedSel
 /**
  * Service that dispatches and reads from the ObjectUpdates' state in the store
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ObjectUpdatesService {
   constructor(private store: Store<CoreState>,
               private injector: Injector) {

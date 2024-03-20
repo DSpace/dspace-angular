@@ -1,9 +1,15 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -21,6 +27,8 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { hasValue } from '../../../shared/empty.util';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 /**
  * This component represents the 'Import metadata from external source' dropdown menu
@@ -29,6 +37,15 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-my-dspace-new-external-dropdown',
   styleUrls: ['./my-dspace-new-external-dropdown.component.scss'],
   templateUrl: './my-dspace-new-external-dropdown.component.html',
+  imports: [
+    EntityDropdownComponent,
+    NgbDropdownModule,
+    AsyncPipe,
+    TranslateModule,
+    BrowserOnlyPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
 

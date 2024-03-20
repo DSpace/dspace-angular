@@ -19,8 +19,7 @@ describe('TextMenuItemComponent', () => {
   const text = 'HELLO';
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [TextMenuItemComponent],
+      imports: [TranslateModule.forRoot(), TextMenuItemComponent],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text } },
       ],

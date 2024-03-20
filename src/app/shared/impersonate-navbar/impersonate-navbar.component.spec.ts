@@ -52,11 +52,11 @@ describe('ImpersonateNavbarComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ImpersonateNavbarComponent, VarDirective],
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
+        ImpersonateNavbarComponent, VarDirective,
       ],
       providers: [
         { provide: AuthService, useValue: authService },

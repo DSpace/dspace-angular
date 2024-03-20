@@ -19,7 +19,6 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
 import { SearchServiceStub } from '../testing/search-service.stub';
@@ -42,17 +41,13 @@ describe('SearchFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot()],
+      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), SearchFormComponent],
       providers: [
         { provide: Router, useValue: router },
         { provide: SearchService, useValue: searchService },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
-      ],
-      declarations: [
-        SearchFormComponent,
-        BrowserOnlyMockPipe,
       ],
     }).compileComponents();
   }));

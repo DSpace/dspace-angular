@@ -12,7 +12,6 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { dataService } from '../../data/base/data-service.decorator';
 import {
   FindAllData,
   FindAllDataImpl,
@@ -24,14 +23,12 @@ import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { VOCABULARY } from './models/vocabularies.resource-type';
 import { Vocabulary } from './models/vocabulary.model';
 
 /**
  * Data service to retrieve vocabularies from the REST server.
  */
-@Injectable()
-@dataService(VOCABULARY)
+@Injectable({ providedIn: 'root' })
 export class VocabularyDataService extends IdentifiableDataService<Vocabulary> implements FindAllData<Vocabulary> {
   protected searchByMetadataAndCollectionPath = 'byMetadataAndCollection';
 

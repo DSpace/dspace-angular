@@ -31,7 +31,7 @@ export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
 /**
  * This class represents a resolver that requests a specific community before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
   constructor(
     private communityService: CommunityDataService,

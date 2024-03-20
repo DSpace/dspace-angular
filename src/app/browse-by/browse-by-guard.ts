@@ -26,7 +26,7 @@ import {
   hasValue,
 } from '../shared/empty.util';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 /**
  * A guard taking care of the correct route.data being set for the Browse-By components
  */

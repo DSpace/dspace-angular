@@ -10,6 +10,7 @@ import { AuthNavMenuComponent } from './auth-nav-menu.component';
   selector: 'ds-themed-auth-nav-menu',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedAuthNavMenuComponent extends ThemedComponent<AuthNavMenuComponent> {
   protected getComponentName(): string {

@@ -6,24 +6,32 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../config/app-config.interface';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { FileSectionComponent } from './file-section.component';
@@ -72,16 +80,26 @@ describe('FileSectionComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule],
-      declarations: [FileSectionComponent, VarDirective, FileSizePipe, MetadataFieldWrapperComponent],
+      }), BrowserAnimationsModule, FileSectionComponent, VarDirective, FileSizePipe],
       providers: [
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        provideMockStore(),
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(FileSectionComponent, {
+        remove: {
+          imports: [
+            MetadataFieldWrapperComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

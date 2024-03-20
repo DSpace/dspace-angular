@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
@@ -16,6 +17,8 @@ import { hasValue } from '../empty.util';
 @Component({
   selector: 'ds-idle-modal',
   templateUrl: 'idle-modal.component.html',
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class IdleModalComponent implements OnInit {
 

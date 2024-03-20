@@ -17,10 +17,8 @@ describe('DsoEditMetadataHeadersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataHeadersComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
-      ],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoEditMetadataHeadersComponent, VarDirective],
+      providers: [],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));

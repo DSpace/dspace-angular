@@ -1,11 +1,17 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -24,6 +30,8 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   getRequestCopyDenyRoute,
   getRequestCopyGrantRoute,
@@ -33,6 +41,8 @@ import {
   selector: 'ds-grant-deny-request-copy',
   styleUrls: ['./grant-deny-request-copy.component.scss'],
   templateUrl: './grant-deny-request-copy.component.html',
+  standalone: true,
+  imports: [VarDirective, NgIf, RouterLink, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component for an author to decide to grant or deny an item request

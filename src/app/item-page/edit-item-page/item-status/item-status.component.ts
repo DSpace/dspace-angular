@@ -1,9 +1,19 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -44,6 +54,7 @@ import {
   getItemEditRoute,
   getItemPageRoute,
 } from '../../item-page-routing-paths';
+import { ItemOperationComponent } from '../item-operation/item-operation.component';
 import { ItemOperation } from '../item-operation/itemOperation.model';
 
 @Component({
@@ -54,6 +65,16 @@ import { ItemOperation } from '../item-operation/itemOperation.model';
     fadeIn,
     fadeInOut,
   ],
+  imports: [
+    TranslateModule,
+    NgForOf,
+    AsyncPipe,
+    NgIf,
+    RouterLink,
+    ItemOperationComponent,
+    NgClass,
+  ],
+  standalone: true,
 })
 /**
  * Component for displaying an item's status

@@ -39,6 +39,7 @@ import { MenuSectionComponent } from './menu-section/menu-section.component';
 @Component({
   selector: 'ds-menu',
   template: '',
+  standalone: true,
 })
 export class MenuComponent implements OnInit, OnDestroy {
   /**

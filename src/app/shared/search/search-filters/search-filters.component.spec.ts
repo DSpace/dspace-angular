@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { SearchFiltersComponent } from './search-filters.component';
 
@@ -41,8 +41,7 @@ describe('SearchFiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
-      declarations: [SearchFiltersComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchFiltersComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },

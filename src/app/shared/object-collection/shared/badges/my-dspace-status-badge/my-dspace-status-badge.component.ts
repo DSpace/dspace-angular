@@ -3,6 +3,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Context } from 'src/app/core/shared/context.model';
 
 /**
@@ -12,6 +13,8 @@ import { Context } from 'src/app/core/shared/context.model';
   selector: 'ds-my-dspace-status-badge',
   styleUrls: ['./my-dspace-status-badge.component.scss'],
   templateUrl: './my-dspace-status-badge.component.html',
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class MyDSpaceStatusBadgeComponent implements OnInit {
 

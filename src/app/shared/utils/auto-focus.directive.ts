@@ -12,6 +12,7 @@ import { isNotEmpty } from '../empty.util';
  */
 @Directive({
   selector: '[dsAutoFocus]',
+  standalone: true,
 })
 export class AutoFocusDirective implements AfterViewInit {
 

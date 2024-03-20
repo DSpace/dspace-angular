@@ -54,7 +54,7 @@ export interface SuggestionBulkResult {
 /**
  * The service handling all Suggestion Target  requests to the REST service.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SuggestionsService {
 
   /**
@@ -171,7 +171,7 @@ export class SuggestionsService {
         if (isNotEmpty(profile) && profile.hasSucceeded && isNotEmpty(profile.payload)) {
           return this.researcherProfileService.findRelatedItemId(profile.payload).pipe(
             mergeMap((itemId: string) => {
-              return this.suggestionsDataService.getTargetsByUser(itemId).pipe(
+              return this.suggestionTargetDataService.getTargetsByUser(itemId).pipe(
                 getFirstSucceededRemoteListPayload(),
               );
             }),
