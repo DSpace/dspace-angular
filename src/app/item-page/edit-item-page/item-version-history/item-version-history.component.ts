@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { AlertType } from '../../../shared/alert/alert-type';
 /**
  * Component for listing and managing an item's version history
  */
-export class ItemVersionHistoryComponent {
+export class ItemVersionHistoryComponent implements OnInit {
   /**
    * The item to display the version history for
    */
