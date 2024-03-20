@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -22,7 +22,7 @@ import { SearchResultGridElementComponent } from '../../search-result-grid-eleme
 /**
  * The component for displaying a grid element for an item search result of the type Publication
  */
-export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
+export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> implements OnInit {
   /**
    * Route to the item's page
    */
