@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import {
@@ -19,7 +19,7 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-collection-curate',
   templateUrl: './collection-curate.component.html',
 })
-export class CollectionCurateComponent {
+export class CollectionCurateComponent implements OnInit {
   dsoRD$: Observable<RemoteData<Collection>>;
   collectionName$: Observable<string>;
 
