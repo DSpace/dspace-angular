@@ -12,6 +12,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import {
   EventType,
+  NavigationEnd,
   Router,
   RouterLink,
   RouterLinkActive,
@@ -129,7 +130,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
       this.router.events.pipe(
         startWith(this.router),
         filter((next: Router|Scroll) => (isNotEmpty((next as Router)?.url) || (next as Scroll)?.type === EventType.Scroll)),
-        map((next: Router|Scroll) => (next as Router)?.url || (next as Scroll).routerEvent.urlAfterRedirects),
+        map((next: Router|Scroll) => (next as Router)?.url || ((next as Scroll).routerEvent as NavigationEnd).urlAfterRedirects),
         distinctUntilChanged(),
       ),
     ]).subscribe(([navOptions, url]: [ComColPageNavOption[], string]) => {
