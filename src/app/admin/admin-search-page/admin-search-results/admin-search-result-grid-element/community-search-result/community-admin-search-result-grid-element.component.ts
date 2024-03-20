@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
 import { Community } from '../../../../../core/shared/community.model';
