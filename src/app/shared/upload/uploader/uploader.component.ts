@@ -1,11 +1,13 @@
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
   HostListener,
   Input,
+  OnInit,
   Output,
   ViewEncapsulation,
 } from '@angular/core';
@@ -37,7 +39,7 @@ import { UploaderProperties } from './uploader-properties.model';
   encapsulation: ViewEncapsulation.Emulated,
 })
 
-export class UploaderComponent {
+export class UploaderComponent implements OnInit, AfterViewInit {
 
   /**
    * The message to show when drag files on the drop zone
@@ -118,7 +120,7 @@ export class UploaderComponent {
   /**
    * Method provided by Angular. Invoked after the constructor.
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.uploaderId = 'ds-drag-and-drop-uploader' + uniqueId();
     this.checkConfig(this.uploadFilesOptions);
     this.uploader = new FileUploader({
@@ -143,7 +145,7 @@ export class UploaderComponent {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.uploader.onAfterAddingAll = ((items) => {
       this.onFileSelected.emit(items);
     });
