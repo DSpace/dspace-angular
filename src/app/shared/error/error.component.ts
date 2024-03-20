@@ -1,6 +1,8 @@
 import {
   Component,
   Input,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -12,7 +14,7 @@ import { AlertType } from '../alert/alert-type';
   styleUrls: ['./error.component.scss'],
   templateUrl: './error.component.html',
 })
-export class ErrorComponent {
+export class ErrorComponent implements OnDestroy, OnInit {
 
   @Input() message = 'Error...';
 
@@ -28,7 +30,7 @@ export class ErrorComponent {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.message === undefined) {
       this.subscription = this.translate.get('error.default').subscribe((message: string) => {
         this.message = message;
@@ -36,7 +38,7 @@ export class ErrorComponent {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.subscription !== undefined) {
       this.subscription.unsubscribe();
     }
