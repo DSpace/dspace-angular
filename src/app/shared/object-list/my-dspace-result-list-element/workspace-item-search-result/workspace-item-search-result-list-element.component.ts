@@ -1,6 +1,7 @@
 import {
   Component,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -33,7 +34,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
 })
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement)
-export class  WorkspaceItemSearchResultListElementComponent extends SearchResultListElementComponent<WorkspaceItemSearchResult, WorkspaceItem> {
+export class  WorkspaceItemSearchResultListElementComponent extends SearchResultListElementComponent<WorkspaceItemSearchResult, WorkspaceItem> implements OnInit {
   LinkTypes = CollectionElementLinkType;
 
   ViewModes = ViewMode;
@@ -65,7 +66,7 @@ export class  WorkspaceItemSearchResultListElementComponent extends SearchResult
   /**
    * Initialize all instance variables
    */
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.deriveSearchResult();
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
