@@ -10,6 +10,7 @@ import {
   ElementRef,
   Inject,
   Input,
+  OnInit,
   PLATFORM_ID,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -43,7 +44,7 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
  * This component is used for displaying relations between items
  * It expects a parent item and relationship type, as well as a label to display on top
  */
-export class RelatedItemsComponent extends AbstractIncrementalListComponent<Observable<RemoteData<PaginatedList<Item>>>> {
+export class RelatedItemsComponent extends AbstractIncrementalListComponent<Observable<RemoteData<PaginatedList<Item>>>> implements OnInit {
 
   /**
    * The parent of the list of related items to display
