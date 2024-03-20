@@ -10,7 +10,11 @@ import {
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
+  NoPreloading,
   provideRouter,
+  withEnabledBlockingInitialNavigation,
+  withInMemoryScrolling,
+  withPreloading,
   withRouterConfig,
 } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -50,6 +54,7 @@ import {
 import {
   APP_ROUTES,
   APP_ROUTING_CONF,
+  APP_ROUTING_SCROLL_CONF,
 } from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
@@ -103,7 +108,13 @@ const IMPORTS = [
 ];
 
 const PROVIDERS = [
-  provideRouter(APP_ROUTES, withRouterConfig(APP_ROUTING_CONF)),
+  provideRouter(
+    APP_ROUTES,
+    withRouterConfig(APP_ROUTING_CONF),
+    withInMemoryScrolling(APP_ROUTING_SCROLL_CONF),
+    withEnabledBlockingInitialNavigation(),
+    withPreloading(NoPreloading),
+  ),
   {
     provide: APP_BASE_HREF,
     useFactory: getBaseHref,
