@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
 import { Collection } from '../../../../../core/shared/collection.model';
