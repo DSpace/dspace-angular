@@ -2,6 +2,7 @@ import {
   Component,
   Inject,
   Injector,
+  OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -23,7 +24,7 @@ import { MenuService } from '../../../menu/menu.service';
   styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],
 })
 @rendersSectionForMenu(MenuID.DSO_EDIT, true)
-export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent {
+export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent implements OnInit {
 
   menuID: MenuID = MenuID.DSO_EDIT;
   itemModel;
