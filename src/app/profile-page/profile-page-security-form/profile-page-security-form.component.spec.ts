@@ -13,7 +13,9 @@ import { of as observableOf } from 'rxjs';
 
 import { RestResponse } from '../../core/cache/response.models';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
@@ -52,6 +54,8 @@ describe('ProfilePageSecurityFormComponent', () => {
         FormBuilderService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ProfilePageSecurityFormComponent, {
+      remove: { imports: [ FormComponent, AlertComponent ] },
     }).compileComponents();
   }));
 
