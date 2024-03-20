@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  NgFor,
   NgIf,
 } from '@angular/common';
 import {
@@ -21,6 +22,7 @@ import {
   standalone: true,
   imports: [
     NgIf,
+    NgFor,
     AsyncPipe,
   ],
   styleUrls: ['./ePerson-data.component.scss'],

@@ -1,4 +1,7 @@
-import { NgIf } from '@angular/common';
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -20,6 +23,7 @@ import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
   imports: [
     TranslateModule,
     NgIf,
+    NgFor,
     ObjectKeysPipe,
   ],
   standalone: true,

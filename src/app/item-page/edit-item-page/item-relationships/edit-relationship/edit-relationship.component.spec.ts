@@ -166,7 +166,7 @@ describe('EditRelationshipComponent', () => {
     comp.url = url;
     comp.fieldUpdate = fieldUpdate1;
     comp.editItem = item;
-    comp.relatedItem$ = observableOf(relatedItem);
+    comp.relatedItem$.next(relatedItem);
 
     fixture.detectChanges();
   });
