@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
-
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { Context } from '../../../../../core/shared/context.model';
@@ -21,10 +23,10 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
 /**
  * The component for displaying a list element for a collection search result on the admin search page
  */
-export class CollectionAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<CollectionSearchResult, Collection> {
+export class CollectionAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<CollectionSearchResult, Collection> implements OnInit {
   editPath: string;
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.editPath = getCollectionEditRoute(this.dso.uuid);
   }
