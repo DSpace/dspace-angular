@@ -12,21 +12,12 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { RequestEntry } from '../data/request-entry.model';
 import { RequestEntryState } from '../data/request-entry-state.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Suggestion } from './models/suggestion.model';
-import { SuggestionSource } from './models/suggestion-source.model';
-import { SuggestionTarget } from './models/suggestion-target.model';
-import { SuggestionSourceDataService } from './source/suggestion-source-data.service';
-import {
-  SuggestionDataServiceImpl,
-  SuggestionsDataService,
-} from './suggestions-data.service';
-import { SuggestionTargetDataService } from './target/suggestion-target-data.service';
+import { SuggestionsDataService } from './suggestions-data.service';
 
 describe('SuggestionDataService test', () => {
   let scheduler: TestScheduler;
@@ -37,12 +28,6 @@ describe('SuggestionDataService test', () => {
   let halService: HALEndpointService;
   let notificationsService: NotificationsService;
   let http: HttpClient;
-  let comparatorSuggestion: DefaultChangeAnalyzer<Suggestion>;
-  let comparatorSuggestionSource: DefaultChangeAnalyzer<SuggestionSource>;
-  let comparatorSuggestionTarget: DefaultChangeAnalyzer<SuggestionTarget>;
-  let suggestionSourcesDataService: SuggestionSourceDataService;
-  let suggestionTargetsDataService: SuggestionTargetDataService;
-  let suggestionsDataService: SuggestionDataServiceImpl;
   let responseCacheEntry: RequestEntry;
 
 
@@ -62,9 +47,6 @@ describe('SuggestionDataService test', () => {
       halService,
       notificationsService,
       http,
-      comparatorSuggestion,
-      comparatorSuggestionSource,
-      comparatorSuggestionTarget,
     );
   }
 
@@ -74,9 +56,6 @@ describe('SuggestionDataService test', () => {
     objectCache = {} as ObjectCacheService;
     http = {} as HttpClient;
     notificationsService = {} as NotificationsService;
-    comparatorSuggestion = {} as DefaultChangeAnalyzer<Suggestion>;
-    comparatorSuggestionTarget = {} as DefaultChangeAnalyzer<SuggestionTarget>;
-    comparatorSuggestionSource = {} as DefaultChangeAnalyzer<SuggestionSource>;
     responseCacheEntry = new RequestEntry();
     responseCacheEntry.request = { href: 'https://rest.api/' } as any;
     responseCacheEntry.response = new RestResponse(true, 200, 'Success');
@@ -99,75 +78,23 @@ describe('SuggestionDataService test', () => {
       buildList: cold('a', { a: remoteDataMocks.Success }),
     });
 
-
-    suggestionSourcesDataService = jasmine.createSpyObj('suggestionSourcesDataService', {
-      getSources: observableOf(null),
-    });
-
-    suggestionTargetsDataService = jasmine.createSpyObj('suggestionTargetsDataService', {
-      getTargets: observableOf(null),
-      getTargetsByUser: observableOf(null),
-      findById: observableOf(null),
-    });
-
-    suggestionsDataService = jasmine.createSpyObj('suggestionsDataService', {
-      searchBy: observableOf(null),
-      delete: observableOf(null),
-    });
-
-
     service = initTestService();
-    /* eslint-disable-next-line @typescript-eslint/dot-notation */
-    service['suggestionSourcesDataService'] = suggestionSourcesDataService;
-    /* eslint-disable-next-line @typescript-eslint/dot-notation */
-    service['suggestionTargetsDataService'] = suggestionTargetsDataService;
-    /* eslint-disable-next-line @typescript-eslint/dot-notation */
-    service['suggestionsDataService'] = suggestionsDataService;
-  });
-
-  describe('Suggestion targets service', () => {
-    it('should call suggestionSourcesDataService.getTargets', () => {
-      const options = {
-        searchParams: [new RequestParam('source', testSource)],
-      };
-      service.getTargets(testSource);
-      expect(suggestionTargetsDataService.getTargets).toHaveBeenCalledWith('findBySource', options);
-    });
-
-    it('should call suggestionSourcesDataService.getTargetsByUser', () => {
-      const options = {
-        searchParams: [new RequestParam('target', testUserId)],
-      };
-      service.getTargetsByUser(testUserId);
-      expect(suggestionTargetsDataService.getTargetsByUser).toHaveBeenCalledWith(testUserId, options);
-    });
-
-    it('should call suggestionSourcesDataService.getTargetById', () => {
-      service.getTargetById('1');
-      expect(suggestionTargetsDataService.findById).toHaveBeenCalledWith('1');
-    });
-  });
-
-
-  describe('Suggestion sources service', () => {
-    it('should call suggestionSourcesDataService.getSources', () => {
-      service.getSources();
-      expect(suggestionSourcesDataService.getSources).toHaveBeenCalled();
-    });
   });
 
   describe('Suggestion service', () => {
     it('should call suggestionsDataService.searchBy', () => {
+      spyOn((service as any).searchData, 'searchBy').and.returnValue(observableOf(null));
       const options = {
         searchParams: [new RequestParam('target', testUserId), new RequestParam('source', testSource)],
       };
       service.getSuggestionsByTargetAndSource(testUserId, testSource);
-      expect(suggestionsDataService.searchBy).toHaveBeenCalledWith('findByTargetAndSource', options, false, true);
+      expect((service as any).searchData.searchBy).toHaveBeenCalledWith('findByTargetAndSource', options, false, true);
     });
 
     it('should call suggestionsDataService.delete', () => {
+      spyOn((service as any).deleteData, 'delete').and.returnValue(observableOf(null));
       service.deleteSuggestion('1');
-      expect(suggestionsDataService.delete).toHaveBeenCalledWith('1');
+      expect((service as any).deleteData.delete).toHaveBeenCalledWith('1');
     });
   });
 

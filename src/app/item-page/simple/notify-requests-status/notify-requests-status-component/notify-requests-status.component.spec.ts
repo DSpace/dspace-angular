@@ -3,6 +3,7 @@ import {
   fakeAsync,
   TestBed,
   tick,
+  waitForAsync,
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NotifyRequestsStatusDataService } from 'src/app/core/data/notify-services-status-data.service';
@@ -10,6 +11,7 @@ import { NotifyRequestsStatusDataService } from 'src/app/core/data/notify-servic
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { NotifyRequestsStatus } from '../notify-requests-status.model';
 import { RequestStatusEnum } from '../notify-status.enum';
+import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 import { NotifyRequestsStatusComponent } from './notify-requests-status.component';
 
 describe('NotifyRequestsStatusComponent', () => {
@@ -22,7 +24,7 @@ describe('NotifyRequestsStatusComponent', () => {
     itemuuid: 'testUuid',
   });
 
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     notifyInfoServiceSpy = {
       getNotifyRequestsStatus:() => createSuccessfulRemoteDataObject$(mock),
     };
@@ -31,8 +33,12 @@ describe('NotifyRequestsStatusComponent', () => {
       providers: [
         { provide: NotifyRequestsStatusDataService, useValue: notifyInfoServiceSpy },
       ],
+    }).overrideComponent(NotifyRequestsStatusComponent, {
+      remove: {
+        imports: [RequestStatusAlertBoxComponent],
+      },
     });
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NotifyRequestsStatusComponent);

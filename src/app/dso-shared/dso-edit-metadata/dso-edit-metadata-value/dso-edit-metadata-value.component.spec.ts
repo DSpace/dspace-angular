@@ -37,6 +37,8 @@ import {
   VIRTUAL_METADATA_PREFIX,
 } from '../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
+import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
@@ -202,7 +204,7 @@ describe('DsoEditMetadataValueComponent', () => {
     })
       .overrideComponent(DsoEditMetadataValueComponent, {
         remove: {
-          imports: [ThemedTypeBadgeComponent],
+          imports: [DsDynamicOneboxComponent, DsDynamicScrollableDropdownComponent, ThemedTypeBadgeComponent],
         },
       })
       .compileComponents();
@@ -464,22 +466,30 @@ describe('DsoEditMetadataValueComponent', () => {
         expect(component.onChangeEditingAuthorityStatus).toHaveBeenCalledWith(true);
       });
 
-      it('should disable the input when editingAuthority is false', () => {
+      it('should disable the input when editingAuthority is false', (done) => {
         component.editingAuthority = false;
 
         fixture.detectChanges();
 
-        const inputElement = fixture.nativeElement.querySelector('input');
-        expect(inputElement.disabled).toBe(true);
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          const inputElement = fixture.nativeElement.querySelector('input[data-test="authority-input"]');
+          expect(inputElement.disabled).toBeTruthy();
+          done();
+        });
       });
 
-      it('should enable the input when editingAuthority is true', () => {
+      it('should enable the input when editingAuthority is true', (done) => {
         component.editingAuthority = true;
 
         fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          const inputElement = fixture.nativeElement.querySelector('input[data-test="authority-input"]');
+          expect(inputElement.disabled).toBeFalsy();
+          done();
+        });
 
-        const inputElement = fixture.nativeElement.querySelector('input');
-        expect(inputElement.disabled).toBe(false);
+
       });
 
       it('should update mdValue.newValue properties when authority is present', () => {

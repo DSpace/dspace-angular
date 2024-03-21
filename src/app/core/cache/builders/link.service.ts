@@ -7,7 +7,6 @@ import {
 import {
   EMPTY,
   Observable,
-  of,
 } from 'rxjs';
 import {
   catchError,
@@ -93,7 +92,7 @@ export class LinkService {
             }
           }
 
-          return of(null);
+          return EMPTY;
         }),
         catchError((err: unknown) => {
           throw new Error(`The @link() for ${String(linkToFollow.name)} on ${model.constructor.name} models uses the resource type ${matchingLinkDef.resourceType.value.toUpperCase()}, but there is no service with an @dataService(${matchingLinkDef.resourceType.value.toUpperCase()}) annotation in order to retrieve it`);

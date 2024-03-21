@@ -31,7 +31,6 @@ import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
-  getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
@@ -63,7 +62,7 @@ export class WorkspaceItemSearchResultAdminWorkflowListElementComponent extends 
   /**
    * The item linked to the workflow item
    */
-  public item$: Observable<Item>;
+  public item$: BehaviorSubject<Item> = new BehaviorSubject<Item>(undefined);
 
   /**
    * The id of the item linked to the workflow item
@@ -90,11 +89,14 @@ export class WorkspaceItemSearchResultAdminWorkflowListElementComponent extends 
   ngOnInit(): void {
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
-    this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
+    const item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getFirstCompletedRemoteData(), getRemoteDataPayload());
 
-    this.item$.pipe(
+    item$.pipe(
       take(1),
-      tap((item: Item) => this.itemId = item.id),
+      tap((item: Item) => {
+        this.item$.next(item);
+        this.itemId = item.id;
+      }),
       mergeMap((item: Item) => this.retrieveSupervisorOrders(item.id)),
     ).subscribe((supervisionOrderList: SupervisionOrder[]) => {
       this.supervisionOrder$.next(supervisionOrderList);

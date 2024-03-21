@@ -24,6 +24,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { DsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
@@ -36,6 +37,7 @@ import { getCollectionEditRoute } from '../collection-page-routing-paths';
   templateUrl: './edit-item-template-page.component.html',
   imports: [
     ThemedDsoEditMetadataComponent,
+    DsoEditMetadataComponent,
     RouterLink,
     AsyncPipe,
     VarDirective,

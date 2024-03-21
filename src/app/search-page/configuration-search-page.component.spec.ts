@@ -14,6 +14,7 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { configureSearchComponentTestingModule } from '../shared/search/search.component.spec';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import createSpy = jasmine.createSpy;
+import { of } from 'rxjs';
 
 const CONFIGURATION = 'test-configuration';
 const QUERY = 'test query';
@@ -52,6 +53,7 @@ describe('ConfigurationSearchPageComponent', () => {
 
     routeService = TestBed.inject(RouteService);
     routeService.setParameter = createSpy('setParameter');
+    routeService.getRouteParameterValue = createSpy('getRouteParameterValue').and.returnValue(of(CONFIGURATION));
 
     fixture.detectChanges();
 

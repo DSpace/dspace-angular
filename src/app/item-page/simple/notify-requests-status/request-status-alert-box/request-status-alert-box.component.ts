@@ -1,6 +1,7 @@
 import {
   NgClass,
   NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -22,6 +23,7 @@ import { RequestStatusEnum } from '../notify-status.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
+    NgIf,
     TruncatablePartComponent,
     TruncatableComponent,
     NgForOf,

@@ -8,7 +8,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
 import {
   APP_CONFIG,
@@ -20,7 +23,7 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { Context } from '../../../../../core/shared/context.model';
 import { Item } from '../../../../../core/shared/item.model';
 import {
-  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../../core/shared/operators';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
@@ -49,7 +52,7 @@ export class WorkflowItemSearchResultAdminWorkflowListElementComponent extends S
   /**
    * The item linked to the workflow item
    */
-  public item$: Observable<Item>;
+  public item$: BehaviorSubject<Item> = new BehaviorSubject<Item>(undefined);
 
   constructor(private linkService: LinkService,
               protected truncatableService: TruncatableService,
@@ -65,6 +68,11 @@ export class WorkflowItemSearchResultAdminWorkflowListElementComponent extends S
   ngOnInit(): void {
     super.ngOnInit();
     this.dso = this.linkService.resolveLink(this.dso, followLink('item'));
-    this.item$ = (this.dso.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload());
+    (this.dso.item as Observable<RemoteData<Item>>).pipe(
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload())
+      .subscribe((item: Item) => {
+        this.item$.next(item);
+      });
   }
 }

@@ -4,6 +4,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { isNotEmpty } from '../../empty.util';
@@ -17,7 +18,7 @@ import { ExternalLinkMenuItemModel } from './models/external-link.model';
   styleUrls: ['./menu-item.component.scss'],
   templateUrl: './external-link-menu-item.component.html',
   standalone: true,
-  imports: [NgClass, TranslateModule],
+  imports: [NgClass, TranslateModule, RouterLinkActive],
 })
 export class ExternalLinkMenuItemComponent implements OnInit {
   item: ExternalLinkMenuItemModel;

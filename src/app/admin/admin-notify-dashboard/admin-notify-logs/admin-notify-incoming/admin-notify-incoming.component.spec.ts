@@ -16,6 +16,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-conf
 import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
 import { getMockRemoteDataBuildService } from '../../../../shared/mocks/remote-data-build.service.mock';
 import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
+import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admin-notify-logs-result.component';
 import { AdminNotifyIncomingComponent } from './admin-notify-incoming.component';
 
 describe('AdminNotifyIncomingComponent', () => {
@@ -48,6 +49,8 @@ describe('AdminNotifyIncomingComponent', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         provideMockStore({}),
       ],
+    }).overrideComponent(AdminNotifyIncomingComponent, {
+      remove: { imports: [AdminNotifyLogsResultComponent] },
     })
       .compileComponents();
 
