@@ -54,6 +54,7 @@ export function findUsages(context: AnyRuleContext, localNode: TSESTree.Identifi
   for (const token of source.ast.tokens) {
     if (token.type === 'Identifier' && token.value === localNode.name && !match(token.range, localNode.range)) {
       const node = source.getNodeByRangeIndex(token.range[0]);
+      // todo: in some cases, the resulting node can actually be the whole program (!)
       if (node !== null) {
         usages.push(node as TSESTree.Identifier);
       }
@@ -64,12 +65,9 @@ export function findUsages(context: AnyRuleContext, localNode: TSESTree.Identifi
 }
 
 export function isPartOfTypeExpression(node: TSESTree.Identifier): boolean {
-  return node.parent.type.startsWith('TSType');
+  return node.parent?.type?.startsWith('TSType');
 }
 
 export function isPartOfClassDeclaration(node: TSESTree.Identifier): boolean {
-  if (node.parent === undefined) {
-    return false;
-  }
-  return node.parent.type === 'ClassDeclaration';
+  return node.parent?.type === 'ClassDeclaration';
 }

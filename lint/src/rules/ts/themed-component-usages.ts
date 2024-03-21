@@ -335,6 +335,69 @@ cy.get('ds-themeable');
 cy.get('#test > ds-themeable > #nest');
         `,
     },
+    {
+      name: 'edge case: unable to find usage node through usage token, but import is still flagged and fixed',
+      code: `
+import { Component } from '@angular/core';
+
+import { Context } from '../../core/shared/context.model';
+import { TestThemeableComponent } from '../test/test-themeable.component.ts';
+
+@Component({
+  selector: 'ds-admin-search-page',
+  templateUrl: './admin-search-page.component.html',
+  styleUrls: ['./admin-search-page.component.scss'],
+  standalone: true,
+  imports: [
+    TestThemeableComponent
+  ],
+})
+
+/**
+ * Component that represents a search page for administrators
+ */
+export class AdminSearchPageComponent {
+  /**
+   * The context of this page
+   */
+  context: Context = Context.AdminSearch;
+}
+      `,
+      errors: [
+        {
+          messageId: Message.WRONG_IMPORT,
+        },
+        {
+          messageId: Message.WRONG_CLASS,
+        },
+      ],
+      output: `
+import { Component } from '@angular/core';
+
+import { Context } from '../../core/shared/context.model';
+import { ThemedTestThemeableComponent } from '../test/themed-test-themeable.component.ts';
+
+@Component({
+  selector: 'ds-admin-search-page',
+  templateUrl: './admin-search-page.component.html',
+  styleUrls: ['./admin-search-page.component.scss'],
+  standalone: true,
+  imports: [
+    ThemedTestThemeableComponent
+  ],
+})
+
+/**
+ * Component that represents a search page for administrators
+ */
+export class AdminSearchPageComponent {
+  /**
+   * The context of this page
+   */
+  context: Context = Context.AdminSearch;
+}
+      `,
+    },
   ],
 };
 
