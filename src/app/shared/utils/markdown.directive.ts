@@ -14,6 +14,7 @@ import {
 } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import {
+  filter,
   take,
   takeUntil,
 } from 'rxjs/operators';
@@ -41,8 +42,8 @@ export class MarkdownDirective implements OnInit, OnDestroy {
   el: HTMLElement;
 
   constructor(
-    protected sanitizer: DomSanitizer,
     @Inject(MARKDOWN_IT) private markdownIt: LazyMarkdownIt,
+    protected sanitizer: DomSanitizer,
     private mathService: MathService,
     private elementRef: ElementRef) {
     this.el = elementRef.nativeElement;
@@ -72,6 +73,7 @@ export class MarkdownDirective implements OnInit, OnDestroy {
 
   private renderMathjax() {
     this.mathService.ready().pipe(
+      filter((ready) => ready),
       take(1),
       takeUntil(this.alive$),
     ).subscribe(() => {

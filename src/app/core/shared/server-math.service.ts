@@ -13,6 +13,9 @@ import {
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Provide the MathService for SSR
+ */
 export class ServerMathService extends MathService {
 
   protected isReady$: Subject<boolean>;

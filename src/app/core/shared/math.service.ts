@@ -5,6 +5,9 @@ export interface MathJaxConfig {
   id: string;
 }
 
+/**
+ * This service is used to provide the MathJax library with the ability to render markdown code
+ */
 export abstract class MathService {
   protected abstract mathJaxOptions: any;
   protected abstract mathJax: MathJaxConfig;
