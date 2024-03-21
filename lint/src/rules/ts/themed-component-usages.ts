@@ -12,6 +12,10 @@ import {
 } from '@typescript-eslint/utils';
 
 import { fixture } from '../../../test/fixture';
+import {
+  removeWithCommas,
+  replaceOrRemoveArrayIdentifier,
+} from '../../util/fix';
 import { DSpaceESLintRuleInfo } from '../../util/structure';
 import {
   allThemeableComponents,
@@ -22,14 +26,18 @@ import {
   isAllowedUnthemedUsage,
 } from '../../util/theme-support';
 import {
+  findImportSpecifier,
   findUsages,
+  findUsagesByName,
   getFilename,
+  relativePath,
 } from '../../util/typescript';
 
 export enum Message {
   WRONG_CLASS = 'mustUseThemedWrapperClass',
   WRONG_IMPORT = 'mustImportThemedWrapper',
   WRONG_SELECTOR = 'mustUseThemedWrapperSelector',
+  BASE_IN_MODULE = 'baseComponentNotNeededInModule',
 }
 
 export const info = {
@@ -53,6 +61,7 @@ There are a few exceptions where the base class can still be used:
       [Message.WRONG_CLASS]: 'Themeable components should be used via their ThemedComponent wrapper',
       [Message.WRONG_IMPORT]: 'Themeable components should be used via their ThemedComponent wrapper',
       [Message.WRONG_SELECTOR]: 'Themeable components should be used via their ThemedComponent wrapper',
+      [Message.BASE_IN_MODULE]: 'Base themeable components shouldn\'t be declared in modules',
     },
   },
   defaultOptions: [],
@@ -79,7 +88,11 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
         messageId: Message.WRONG_CLASS,
         node: node,
         fix(fixer) {
-          return fixer.replaceText(node, entry.wrapperClass);
+          if (node.parent.type === TSESTree.AST_NODE_TYPES.ArrayExpression) {
+            return replaceOrRemoveArrayIdentifier(context, fixer, node, entry.wrapperClass);
+          } else {
+            return fixer.replaceText(node, entry.wrapperClass);
+          }
         },
       });
     }
@@ -118,18 +131,36 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
         fix(fixer) {
           const ops = [];
 
-          const oldImportSource = declarationNode.source.value;
-          const newImportLine = `import { ${entry.wrapperClass} } from '${oldImportSource.replace(entry.baseFileName, entry.wrapperFileName)}';`;
+          const wrapperImport = findImportSpecifier(context, entry.wrapperClass);
 
-          if (declarationNode.specifiers.length === 1) {
-            if (allUsages.length === badUsages.length) {
-              ops.push(fixer.replaceText(declarationNode, newImportLine));
+          if (findUsagesByName(context, entry.wrapperClass).length === 0) {
+            // Wrapper is not present in this file, safe to add import
+
+            const newImportLine = `import { ${entry.wrapperClass} } from '${relativePath(filename, entry.wrapperPath)}';`;
+
+            if (declarationNode.specifiers.length === 1) {
+              if (allUsages.length === badUsages.length) {
+                ops.push(fixer.replaceText(declarationNode, newImportLine));
+              } else if (wrapperImport === undefined) {
+                ops.push(fixer.insertTextAfter(declarationNode, '\n' + newImportLine));
+              }
             } else {
-              ops.push(fixer.insertTextAfter(declarationNode, newImportLine));
+              ops.push(...removeWithCommas(context, fixer, specifierNode));
+              if (wrapperImport === undefined) {
+                ops.push(fixer.insertTextAfter(declarationNode, '\n' + newImportLine));
+              }
             }
           } else {
-            ops.push(fixer.replaceText(specifierNode, entry.wrapperClass));
-            ops.push(fixer.insertTextAfter(declarationNode, newImportLine));
+            // Wrapper already present in the file, remove import instead
+
+            if (allUsages.length === badUsages.length) {
+              if (declarationNode.specifiers.length === 1) {
+                // Make sure we remove the newline as well
+                ops.push(fixer.removeRange([declarationNode.range[0], declarationNode.range[1] + 1]));
+              } else {
+                ops.push(...removeWithCommas(context, fixer, specifierNode));
+              }
+            }
           }
 
           return ops;
@@ -147,9 +178,8 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
         [`CallExpression[callee.object.name = "cy"][callee.property.name = "get"] > Literal:first-child[value = /.*${DISALLOWED_THEME_SELECTORS}.*/]`]: handleThemedSelectorQueriesInTests,
       };
     } else if (
-      filename.match(/(?!routing).module.ts$/)
+      filename.match(/(?!src\/themes\/).*(?!routing).module.ts$/)
       || filename.match(/themed-.+\.component\.ts$/)
-      || inThemedComponentFile(context)
     ) {
       // do nothing
       return {};
@@ -174,7 +204,7 @@ export const tests = {
     {
       name: 'allow wrapper class usages',
       code: `
-import { ThemedTestThemeableComponent } from '../test/themed-test-themeable.component.ts';
+import { ThemedTestThemeableComponent } from './app/test/themed-test-themeable.component';
 
 const config = {
   a: ThemedTestThemeableComponent,
@@ -192,7 +222,7 @@ export class TestThemeableComponent {
     {
       name: 'allow inheriting from base class',
       code: `
-import { TestThemeableComponent } from '../test/test-themeable.component.ts';
+import { TestThemeableComponent } from './app/test/test-themeable.component';
 
 export class ThemedAdminSidebarComponent extends ThemedComponent<TestThemeableComponent> {
 }
@@ -201,7 +231,7 @@ export class ThemedAdminSidebarComponent extends ThemedComponent<TestThemeableCo
     {
       name: 'allow base class in ViewChild',
       code: `
-import { TestThemeableComponent } from '../test/test-themeable.component.ts';
+import { TestThemeableComponent } from './app/test/test-themeable.component';
 
 export class Something {
   @ViewChild(TestThemeableComponent) test: TestThemeableComponent;
@@ -229,8 +259,8 @@ By.Css('#test > ds-themeable > #nest');
     {
       name: 'disallow direct usages of base class',
       code: `
-import { TestThemeableComponent } from '../test/test-themeable.component.ts';
-import { TestComponent } from '../test/test.component.ts';
+import { TestThemeableComponent } from './app/test/test-themeable.component';
+import { TestComponent } from './app/test/test.component';
 
 const config = {
   a: TestThemeableComponent,
@@ -246,13 +276,68 @@ const config = {
         },
       ],
       output: `
-import { ThemedTestThemeableComponent } from '../test/themed-test-themeable.component.ts';
-import { TestComponent } from '../test/test.component.ts';
+import { ThemedTestThemeableComponent } from './app/test/themed-test-themeable.component';
+import { TestComponent } from './app/test/test.component';
 
 const config = {
   a: ThemedTestThemeableComponent,
   b: TestComponent,
 }
+        `,
+    },
+    {
+      name: 'disallow direct usages of base class, keep other imports',
+      code: `
+import { Something, TestThemeableComponent } from './app/test/test-themeable.component';
+import { TestComponent } from './app/test/test.component';
+
+const config = {
+  a: TestThemeableComponent,
+  b: TestComponent,
+  c: Something,
+}
+        `,
+      errors: [
+        {
+          messageId: Message.WRONG_IMPORT,
+        },
+        {
+          messageId: Message.WRONG_CLASS,
+        },
+      ],
+      output: `
+import { Something } from './app/test/test-themeable.component';
+import { ThemedTestThemeableComponent } from './app/test/themed-test-themeable.component';
+import { TestComponent } from './app/test/test.component';
+
+const config = {
+  a: ThemedTestThemeableComponent,
+  b: TestComponent,
+  c: Something,
+}
+        `,
+    },
+    {
+      name: 'handle array replacements correctly',
+      code: `
+const DECLARATIONS = [
+  Something,
+  TestThemeableComponent,
+  Something,
+  ThemedTestThemeableComponent,
+];
+        `,
+      errors: [
+        {
+          messageId: Message.WRONG_CLASS,
+        },
+      ],
+      output: `
+const DECLARATIONS = [
+  Something,
+  Something,
+  ThemedTestThemeableComponent,
+];
         `,
     },
     {
@@ -337,30 +422,18 @@ cy.get('#test > ds-themeable > #nest');
     },
     {
       name: 'edge case: unable to find usage node through usage token, but import is still flagged and fixed',
+      filename: fixture('src/themes/test/app/test/other-themeable.component.ts'),
       code: `
 import { Component } from '@angular/core';
 
-import { Context } from '../../core/shared/context.model';
-import { TestThemeableComponent } from '../test/test-themeable.component.ts';
+import { Context } from './app/core/shared/context.model';
+import { TestThemeableComponent } from '../../../../app/test/test-themeable.component';
 
 @Component({
-  selector: 'ds-admin-search-page',
-  templateUrl: './admin-search-page.component.html',
-  styleUrls: ['./admin-search-page.component.scss'],
   standalone: true,
-  imports: [
-    TestThemeableComponent
-  ],
+  imports: [TestThemeableComponent],
 })
-
-/**
- * Component that represents a search page for administrators
- */
-export class AdminSearchPageComponent {
-  /**
-   * The context of this page
-   */
-  context: Context = Context.AdminSearch;
+export class UsageComponent {
 }
       `,
       errors: [
@@ -374,27 +447,53 @@ export class AdminSearchPageComponent {
       output: `
 import { Component } from '@angular/core';
 
-import { Context } from '../../core/shared/context.model';
-import { ThemedTestThemeableComponent } from '../test/themed-test-themeable.component.ts';
+import { Context } from './app/core/shared/context.model';
+import { ThemedTestThemeableComponent } from '../../../../app/test/themed-test-themeable.component';
 
 @Component({
-  selector: 'ds-admin-search-page',
-  templateUrl: './admin-search-page.component.html',
-  styleUrls: ['./admin-search-page.component.scss'],
   standalone: true,
-  imports: [
-    ThemedTestThemeableComponent
-  ],
+  imports: [ThemedTestThemeableComponent],
 })
+export class UsageComponent {
+}
+      `,
+    },
+    {
+      name: 'edge case edge case: both are imported, only wrapper is retained',
+      filename: fixture('src/themes/test/app/test/other-themeable.component.ts'),
+      code: `
+import { Component } from '@angular/core';
 
-/**
- * Component that represents a search page for administrators
- */
-export class AdminSearchPageComponent {
-  /**
-   * The context of this page
-   */
-  context: Context = Context.AdminSearch;
+import { Context } from './app/core/shared/context.model';
+import { TestThemeableComponent } from '../../../../app/test/test-themeable.component';
+import { ThemedTestThemeableComponent } from '../../../../app/test/themed-test-themeable.component';
+
+@Component({
+  standalone: true,
+  imports: [TestThemeableComponent, ThemedTestThemeableComponent],
+})
+export class UsageComponent {
+}
+      `,
+      errors: [
+        {
+          messageId: Message.WRONG_IMPORT,
+        },
+        {
+          messageId: Message.WRONG_CLASS,
+        },
+      ],
+      output: `
+import { Component } from '@angular/core';
+
+import { Context } from './app/core/shared/context.model';
+import { ThemedTestThemeableComponent } from '../../../../app/test/themed-test-themeable.component';
+
+@Component({
+  standalone: true,
+  imports: [ThemedTestThemeableComponent],
+})
+export class UsageComponent {
 }
       `,
     },

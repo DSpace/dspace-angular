@@ -8,11 +8,13 @@
 // @ts-ignore
 import { NgModule } from '@angular/core';
 
+import { OtherThemeableComponent } from './app/test/other-themeable.component';
 import { TestThemeableComponent } from './app/test/test-themeable.component';
 
 @NgModule({
   declarations: [
     TestThemeableComponent,
+    OtherThemeableComponent,
   ],
 })
 export class TestModule {

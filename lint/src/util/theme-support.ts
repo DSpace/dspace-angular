@@ -11,7 +11,10 @@ import { readFileSync } from 'fs';
 import { basename } from 'path';
 import ts, { Identifier } from 'typescript';
 
-import { isPartOfViewChild } from './angular';
+import {
+  getComponentClassName,
+  isPartOfViewChild,
+} from './angular';
 import {
   AnyRuleContext,
   getFilename,
@@ -74,12 +77,14 @@ function findImportDeclaration(source: ts.SourceFile, identifierName: string): t
 class ThemeableComponentRegistry {
   public readonly entries: Set<ThemeableComponentRegistryEntry>;
   public readonly byBaseClass: Map<string, ThemeableComponentRegistryEntry>;
+  public readonly byWrapperClass: Map<string, ThemeableComponentRegistryEntry>;
   public readonly byBasePath: Map<string, ThemeableComponentRegistryEntry>;
   public readonly byWrapperPath: Map<string, ThemeableComponentRegistryEntry>;
 
   constructor() {
     this.entries = new Set();
     this.byBaseClass = new Map();
+    this.byWrapperClass = new Map();
     this.byBasePath = new Map();
     this.byWrapperPath = new Map();
   }
@@ -157,6 +162,7 @@ class ThemeableComponentRegistry {
   private add(entry: ThemeableComponentRegistryEntry) {
     this.entries.add(entry);
     this.byBaseClass.set(entry.baseClass, entry);
+    this.byWrapperClass.set(entry.wrapperClass, entry);
     this.byBasePath.set(entry.basePath, entry);
     this.byWrapperPath.set(entry.wrapperPath, entry);
   }
@@ -204,6 +210,23 @@ export function isThemedComponentWrapper(decoratorNode: TSESTree.Decorator): boo
   }
 
   return (decoratorNode.parent.superClass as any)?.name === 'ThemedComponent';
+}
+
+export function getBaseComponentClassName(decoratorNode: TSESTree.Decorator): string | undefined {
+  const wrapperClass = getComponentClassName(decoratorNode);
+
+  if (wrapperClass === undefined) {
+    return;
+  }
+
+  themeableComponents.initialize();
+  const entry = themeableComponents.byWrapperClass.get(wrapperClass);
+
+  if (entry === undefined) {
+    return undefined;
+  }
+
+  return entry.baseClass;
 }
 
 export function isThemeableComponent(className: string): boolean {

@@ -20,6 +20,7 @@ import {
 themeableComponents.initialize(FIXTURE);
 
 TypeScriptRuleTester.itOnly = fit;
+TypeScriptRuleTester.itSkip = xit;
 
 export const tsRuleTester = new TypeScriptRuleTester({
   parser: '@typescript-eslint/parser',

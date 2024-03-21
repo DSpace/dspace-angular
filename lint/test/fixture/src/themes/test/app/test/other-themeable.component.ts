@@ -8,9 +8,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ds-base-test-themeable',
+  selector: 'ds-themed-test-themeable',
   template: '',
-  standalone: true,
 })
-export class TestThemeableComponent {
+export class OtherThemeableComponent {
+
 }

@@ -13,6 +13,8 @@ import { TestThemeableComponent } from './test-themeable.component';
 @Component({
   selector: 'ds-test-themeable',
   template: '',
+  standalone: true,
+  imports: [TestThemeableComponent],
 })
 export class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
   protected getComponentName(): string {

@@ -64,10 +64,84 @@ export function findUsages(context: AnyRuleContext, localNode: TSESTree.Identifi
   return usages;
 }
 
+export function findUsagesByName(context: AnyRuleContext, identifier: string): TSESTree.Identifier[] {
+  const source = getSourceCode(context);
+
+  const usages: TSESTree.Identifier[] = [];
+
+  for (const token of source.ast.tokens) {
+    if (token.type === 'Identifier' && token.value === identifier) {
+      const node = source.getNodeByRangeIndex(token.range[0]);
+      // todo: in some cases, the resulting node can actually be the whole program (!)
+      if (node !== null) {
+        usages.push(node as TSESTree.Identifier);
+      }
+    }
+  }
+
+  return usages;
+}
+
 export function isPartOfTypeExpression(node: TSESTree.Identifier): boolean {
   return node.parent?.type?.startsWith('TSType');
 }
 
 export function isPartOfClassDeclaration(node: TSESTree.Identifier): boolean {
   return node.parent?.type === 'ClassDeclaration';
+}
+
+function fromSrc(path: string): string {
+  const m = path.match(/^.*(src\/.+)(\.(ts|json|js)?)$/);
+
+  if (m) {
+    return m[1];
+  } else {
+    throw new Error(`Can't infer project-absolute TS/resource path from: ${path}`);
+  }
+}
+
+
+export function relativePath(thisFile: string, importFile: string): string {
+  const fromParts = fromSrc(thisFile).split('/');
+  const toParts = fromSrc(importFile).split('/');
+
+  let lastCommon = 0;
+  for (let i = 0; i < fromParts.length - 1; i++) {
+    if (fromParts[i] === toParts[i]) {
+      lastCommon++;
+    } else {
+      break;
+    }
+  }
+
+  const path = toParts.slice(lastCommon, toParts.length).join('/');
+  const backtrack = fromParts.length - lastCommon - 1;
+
+  let prefix: string;
+  if (backtrack > 0) {
+    prefix = '../'.repeat(backtrack);
+  } else {
+    prefix = './';
+  }
+
+  return prefix + path;
+}
+
+
+export function findImportSpecifier(context: AnyRuleContext, identifier: string): TSESTree.ImportSpecifier | undefined {
+  const source = getSourceCode(context);
+
+  const usages: TSESTree.Identifier[] = [];
+
+  for (const token of source.ast.tokens) {
+    if (token.type === 'Identifier' && token.value === identifier) {
+      const node = source.getNodeByRangeIndex(token.range[0]);
+      // todo: in some cases, the resulting node can actually be the whole program (!)
+      if (node && node.parent && node.parent.type === TSESTree.AST_NODE_TYPES.ImportSpecifier) {
+        return node.parent;
+      }
+    }
+  }
+
+  return undefined;
 }

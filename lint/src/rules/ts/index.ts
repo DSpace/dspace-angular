@@ -10,12 +10,14 @@ import {
   RuleExports,
 } from '../../util/structure';
 /* eslint-disable import/no-namespace */
+import * as themedComponentClasses from './themed-component-classes';
 import * as themedComponentSelectors from './themed-component-selectors';
 import * as themedComponentUsages from './themed-component-usages';
 
 const index = [
-  themedComponentUsages,
+  themedComponentClasses,
   themedComponentSelectors,
+  themedComponentUsages,
 ] as unknown as RuleExports[];
 
 export = {
