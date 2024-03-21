@@ -8,12 +8,20 @@ import {
   OnInit,
   SecurityContext
 } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {
+  DomSanitizer,
+  SafeHtml,
+} from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import {
+  filter,
+  take,
+  takeUntil,
+} from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
 import { MathService } from '../../core/shared/math.service';
 import { isEmpty } from '../empty.util';
-import { environment } from '../../../environments/environment';
-import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
 
 const markdownItLoader = async () => (await import('markdown-it')).default;
 type LazyMarkdownIt = ReturnType<typeof markdownItLoader>;
@@ -33,8 +41,8 @@ export class MarkdownDirective implements OnInit, OnDestroy {
   el: HTMLElement;
 
   constructor(
-    protected sanitizer: DomSanitizer,
     @Inject(MARKDOWN_IT) private markdownIt: LazyMarkdownIt,
+    protected sanitizer: DomSanitizer,
     private mathService: MathService,
     private elementRef: ElementRef) {
     this.el = elementRef.nativeElement;
@@ -66,6 +74,7 @@ export class MarkdownDirective implements OnInit, OnDestroy {
 
   private renderMathjax() {
     this.mathService.ready().pipe(
+      filter((ready) => ready),
       take(1),
       takeUntil(this.alive$)
     ).subscribe(() => {

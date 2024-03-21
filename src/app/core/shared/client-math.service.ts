@@ -1,11 +1,21 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { MathJaxConfig, MathService } from './math.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';import { MathJaxConfig, MathService } from './math.service';
 
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Provide the MathService for CSR
+ */
 export class ClientMathService extends MathService {
 
   protected isReady$: Subject<boolean>;
@@ -31,7 +41,10 @@ export class ClientMathService extends MathService {
     id: 'MathJaxBackupScript'
   };
 
-  constructor() {
+  constructor(
+    @Inject(DOCUMENT) private _document: Document,
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
+  ) {
     super();
 
     this.isReady$ = new ReplaySubject<boolean>();
@@ -44,16 +57,21 @@ export class ClientMathService extends MathService {
       });
   }
 
+  /**
+   * Register the specified MathJax script in the document
+   *
+   * @param config The configuration object for the script
+   */
   protected async registerMathJaxAsync(config: MathJaxConfig): Promise<any> {
     if (environment.markdown.mathjax) {
       return new Promise<void>((resolve, reject) => {
 
-        const optionsScript: HTMLScriptElement = document.createElement('script');
+        const optionsScript: HTMLScriptElement = this._document.createElement('script');
         optionsScript.type = 'text/javascript';
         optionsScript.text = `MathJax = ${JSON.stringify(this.mathJaxOptions)};`;
-        document.head.appendChild(optionsScript);
+        this._document.head.appendChild(optionsScript);
 
-        const script: HTMLScriptElement = document.createElement('script');
+        const script: HTMLScriptElement = this._document.createElement('script');
         script.id = config.id;
         script.type = 'text/javascript';
         script.src = config.source;
@@ -61,19 +79,27 @@ export class ClientMathService extends MathService {
         script.async = true;
         script.onload = () => resolve();
         script.onerror = error => reject(error);
-        document.head.appendChild(script);
+        this._document.head.appendChild(script);
       });
     }
     return Promise.resolve();
   }
 
+  /**
+   * Return the status of the script registration
+   */
   ready(): Observable<boolean> {
     return this.isReady$;
   }
 
+  /**
+   * Render the specified element using the MathJax JavaScript
+   *
+   * @param element The element to render with MathJax
+   */
   render(element: HTMLElement) {
     if (environment.markdown.mathjax) {
-      (window as any).MathJax.typesetPromise([element]);
+      this._window.nativeWindow.MathJax.typesetPromise([element]);
     }
   }
 }
