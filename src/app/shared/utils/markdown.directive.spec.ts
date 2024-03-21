@@ -14,6 +14,8 @@ import { MarkdownDirective } from './markdown.directive';
 
 @Component({
   template: `<div dsMarkdown="test"></div>`,
+  standalone: true,
+  imports: [ MarkdownDirective ],
 })
 class TestComponent {}
 
@@ -24,7 +26,6 @@ describe('MarkdownDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TestComponent, MarkdownDirective ],
       providers: [
         { provide: MathService, useClass: MockMathService },
       ],
