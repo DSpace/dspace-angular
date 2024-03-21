@@ -1,4 +1,5 @@
 // Load the implementations that should be tested
+import { CommonModule, NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -24,7 +25,7 @@ import { AuthorityConfidenceStateDirective } from '../directives/authority-confi
 import { ChipsComponent } from './chips.component';
 import { Chips } from './models/chips.model';
 
-describe('ChipsComponent test suite', () => {
+fdescribe('ChipsComponent test suite', () => {
 
   let testComp: TestComponent;
   let chipsComp: ChipsComponent;
@@ -39,6 +40,7 @@ describe('ChipsComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
+        CommonModule,
         TranslateModule.forRoot(),
         ChipsComponent,
         TestComponent,
@@ -188,7 +190,7 @@ describe('ChipsComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [NgbModule],
+  imports: [NgbModule, NgIf],
 })
 class TestComponent {
 

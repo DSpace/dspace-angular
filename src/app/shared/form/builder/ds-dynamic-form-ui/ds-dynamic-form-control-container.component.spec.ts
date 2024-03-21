@@ -213,13 +213,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   testWSI.item = observableOf(createSuccessfulRemoteDataObject(testItem));
   beforeEach(waitForAsync(() => {
 
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-
-      set: {
-        entryComponents: [DynamicNGBootstrapInputComponent],
-      },
-    });
-
     TestBed.configureTestingModule({
 
       imports: [

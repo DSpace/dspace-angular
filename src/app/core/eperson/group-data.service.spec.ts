@@ -51,6 +51,7 @@ import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Item } from '../shared/item.model';
 import { GroupDataService } from './group-data.service';
+import { createMockStore } from '@ngrx/store/testing';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;
@@ -104,7 +105,7 @@ describe('GroupDataService', () => {
   beforeEach(() => {
     init();
     requestService = getMockRequestService(createRequestEntry$(groups));
-    store = new Store<CoreState>(undefined, undefined, undefined);
+    store = createMockStore({});
     service = initTestService();
     spyOn(store, 'dispatch');
     spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();

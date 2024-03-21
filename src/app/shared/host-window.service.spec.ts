@@ -11,10 +11,12 @@ import {
   WidthCategory,
 } from './host-window.service';
 import { CSSVariableServiceStub } from './testing/css-variable-service.stub';
+import { createMockStore } from '@ngrx/store/testing';
+import { MockStore } from '@ngrx/store/testing/mock_store';
 
 describe('HostWindowService', () => {
   let service: HostWindowService;
-  let store: Store<AppState>;
+  let store: MockStore<any>;
 
   enum GridBreakpoint {
     SM_MIN = 576,
@@ -25,8 +27,8 @@ describe('HostWindowService', () => {
 
   describe('', () => {
     beforeEach(() => {
-      const _initialState = { hostWindow: { width: 1600, height: 770 } };
-      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      const _initialState: Partial<AppState> = { hostWindow: { width: 1600, height: 770 } };
+      store = createMockStore({ initialState: _initialState });
       service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
@@ -61,8 +63,8 @@ describe('HostWindowService', () => {
 
   describe('', () => {
     beforeEach(() => {
-      const _initialState = { hostWindow: { width: 1100, height: 770 } };
-      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      const _initialState: Partial<AppState> = { hostWindow: { width: 1100, height: 770 } };
+      store = createMockStore({ initialState: _initialState });
       service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
@@ -98,7 +100,7 @@ describe('HostWindowService', () => {
   describe('', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 800, height: 770 } };
-      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      store = createMockStore({ initialState: _initialState });
       service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
@@ -134,7 +136,7 @@ describe('HostWindowService', () => {
   describe('', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 600, height: 770 } };
-      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      store = createMockStore({ initialState: _initialState });
       service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
@@ -170,7 +172,7 @@ describe('HostWindowService', () => {
   describe('', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 400, height: 770 } };
-      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      store = createMockStore({ initialState: _initialState });
       service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
