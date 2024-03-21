@@ -1,7 +1,6 @@
 import {
   CdkDrag,
   CdkDragDrop,
-  CdkDragStart,
   CdkDropList,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
@@ -101,14 +100,18 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
-  onDrag(event: CdkDragStart<ChipsItem[]>) {
+  onDrag(index) {
     this.isDragging.next(true);
+    this.dragged = index;
   }
+
   onDrop(event: CdkDragDrop<ChipsItem[]>) {
+    console.log('onDrop', event);
     moveItemInArray(this.chips.chipsItems.getValue(), event.previousIndex, event.currentIndex);
     this.chips.updateOrder();
     this.isDragging.next(false);
   }
+
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
     if (this.isDragging.value) {
