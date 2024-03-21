@@ -46,6 +46,8 @@ import { ClientCookieService } from '../../app/core/services/client-cookie.servi
 import { CookieService } from '../../app/core/services/cookie.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
+import { ClientMathService } from '../../app/core/shared/client-math.service';
+import { MathService } from '../../app/core/shared/math.service';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
@@ -135,6 +137,10 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: LocationToken,
       useFactory: locationProvider,
+    },
+    {
+      provide: MathService,
+      useClass: ClientMathService,
     },
   ],
 })
