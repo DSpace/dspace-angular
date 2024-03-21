@@ -10,6 +10,7 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import { createMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -45,7 +46,6 @@ import {
   ClearMetaTagAction,
 } from './meta-tag.actions';
 import { MetadataService } from './metadata.service';
-import { createMockStore } from '@ngrx/store/testing';
 
 describe('MetadataService', () => {
   let metadataService: MetadataService;

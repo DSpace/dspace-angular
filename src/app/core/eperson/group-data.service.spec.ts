@@ -6,6 +6,7 @@ import {
   Store,
   StoreModule,
 } from '@ngrx/store';
+import { createMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -51,7 +52,6 @@ import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Item } from '../shared/item.model';
 import { GroupDataService } from './group-data.service';
-import { createMockStore } from '@ngrx/store/testing';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;

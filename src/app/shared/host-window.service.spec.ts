@@ -1,9 +1,10 @@
 import { Store } from '@ngrx/store';
+import { createMockStore } from '@ngrx/store/testing';
+import { MockStore } from '@ngrx/store/testing/mock_store';
 import {
   cold,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
 
 import { AppState } from '../app.reducer';
 import {
@@ -11,8 +12,6 @@ import {
   WidthCategory,
 } from './host-window.service';
 import { CSSVariableServiceStub } from './testing/css-variable-service.stub';
-import { createMockStore } from '@ngrx/store/testing';
-import { MockStore } from '@ngrx/store/testing/mock_store';
 
 describe('HostWindowService', () => {
   let service: HostWindowService;
