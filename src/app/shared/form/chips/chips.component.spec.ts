@@ -1,5 +1,8 @@
 // Load the implementations that should be tested
-import { CommonModule, NgIf } from '@angular/common';
+import {
+  CommonModule,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -25,7 +28,7 @@ import { AuthorityConfidenceStateDirective } from '../directives/authority-confi
 import { ChipsComponent } from './chips.component';
 import { Chips } from './models/chips.model';
 
-fdescribe('ChipsComponent test suite', () => {
+describe('ChipsComponent test suite', () => {
 
   let testComp: TestComponent;
   let chipsComp: ChipsComponent;
