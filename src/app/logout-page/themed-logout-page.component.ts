@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { LogoutPageComponent } from './logout-page.component';
 
@@ -8,7 +9,8 @@ import { LogoutPageComponent } from './logout-page.component';
 @Component({
   selector: 'ds-themed-logout-page',
   styleUrls: [],
-  templateUrl: './../shared/theme-support/themed.component.html'
+  templateUrl: './../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedLogoutPageComponent extends ThemedComponent<LogoutPageComponent> {
   protected getComponentName(): string {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ProfilePageComponent } from './profile-page.component';
 
@@ -8,7 +9,8 @@ import { ProfilePageComponent } from './profile-page.component';
 @Component({
   selector: 'ds-themed-profile-page',
   styleUrls: [],
-  templateUrl: './../shared/theme-support/themed.component.html'
+  templateUrl: './../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedProfilePageComponent extends ThemedComponent<ProfilePageComponent> {
   protected getComponentName(): string {

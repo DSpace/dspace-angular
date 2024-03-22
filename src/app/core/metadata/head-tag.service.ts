@@ -1,55 +1,82 @@
-import { Injectable, Inject } from '@angular/core';
-
-import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  Meta,
+  MetaDefinition,
+  Title,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-
 import {
   BehaviorSubject,
   combineLatest,
+  concat as observableConcat,
+  EMPTY,
   Observable,
   of as observableOf,
-  concat as observableConcat,
-  EMPTY
 } from 'rxjs';
-import { filter, map, switchMap, take, mergeMap } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
-
+import { coreSelector } from '../core.selectors';
+import { CoreState } from '../core-state.model';
+import { BundleDataService } from '../data/bundle-data.service';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { RootDataService } from '../data/root-data.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
 import { Bitstream } from '../shared/bitstream.model';
+import { getDownloadableBitstream } from '../shared/bitstream.operators';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { Bundle } from '../shared/bundle.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import {
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload,
 } from '../shared/operators';
-import { RootDataService } from '../data/root-data.service';
-import { getBitstreamDownloadRoute } from '../../app-routing-paths';
-import { BundleDataService } from '../data/bundle-data.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { Bundle } from '../shared/bundle.model';
-import { PaginatedList } from '../data/paginated-list.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { HardRedirectService } from '../services/hard-redirect.service';
+import {
+  AddMetaTagAction,
+  ClearMetaTagAction,
+} from './meta-tag.actions';
 import { MetaTagState } from './meta-tag.reducer';
-import { createSelector, select, Store } from '@ngrx/store';
-import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
-import { coreSelector } from '../core.selectors';
-import { CoreState } from '../core-state.model';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { getDownloadableBitstream } from '../shared/bitstream.operators';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 /**
  * The base selector function to select the metaTag section in the store
  */
 const metaTagSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state.metaTag
+  (state: CoreState) => state.metaTag,
 );
 
 /**
@@ -61,7 +88,9 @@ const tagsInUseSelector =
     (state: MetaTagState) => state.tagsInUse,
   );
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class HeadTagService {
 
   private currentObject: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);
@@ -92,7 +121,7 @@ export class HeadTagService {
     protected store: Store<CoreState>,
     protected hardRedirectService: HardRedirectService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    protected authorizationService: AuthorizationDataService
+    protected authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -304,11 +333,11 @@ export class HeadTagService {
         true,
         followLink('primaryBitstream'),
         followLink('bitstreams', {
-            findListOptions: {
-              // limit the number of bitstreams used to find the citation pdf url to the number
-              // shown by default on an item page
-              elementsPerPage: this.appConfig.item.bitstream.pageSize
-            }
+          findListOptions: {
+            // limit the number of bitstreams used to find the citation pdf url to the number
+            // shown by default on an item page
+            elementsPerPage: this.appConfig.item.bitstream.pageSize,
+          },
         }, followLink('format')),
       ).pipe(
         getFirstSucceededRemoteDataPayload(),
@@ -325,8 +354,8 @@ export class HeadTagService {
             }),
             getDownloadableBitstream(this.authorizationService),
             // return the bundle as well so we can use it again if there's no primary bitstream
-            map((bitstream: Bitstream) => [bundle, bitstream])
-          )
+            map((bitstream: Bitstream) => [bundle, bitstream]),
+          ),
         ),
         switchMap(([bundle, primaryBitstream]: [Bundle, Bitstream]) => {
           if (hasValue(primaryBitstream)) {
@@ -344,16 +373,16 @@ export class HeadTagService {
                   // Otherwise check all bitstreams to see if one matches the format whitelist
                   return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
                 }
-              })
+              }),
             );
           }
         }),
-        take(1)
+        take(1),
       ).subscribe((link: string) => {
         // Use the found link to set the <meta> tag
         this.addMetaTag(
           'citation_pdf_url',
-          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
+          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
         );
       });
     }
@@ -369,7 +398,7 @@ export class HeadTagService {
           // Otherwise check all bitstreams to see if one matches the format whitelist
           return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
         }
-      })
+      }),
     );
   }
 
@@ -393,13 +422,13 @@ export class HeadTagService {
           getFirstSucceededRemoteDataPayload(),
           // Keep the original bitstream, because it, not the format, is what we'll need
           // for the link at the end
-          map((format: BitstreamFormat) => [bitstream, format])
-        ))
+          map((format: BitstreamFormat) => [bitstream, format]),
+        )),
       ).pipe(
         // Verify that the bitstream is downloadable
         mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
           getDownloadableBitstream(this.authorizationService),
-          map((bit: Bitstream) => [bit, format])
+          map((bit: Bitstream) => [bit, format]),
         )),
         // Filter out only pairs with whitelisted formats and non-null bitstreams, null from download check
         filter(([bitstream, format]: [Bitstream, BitstreamFormat]) =>
@@ -408,7 +437,7 @@ export class HeadTagService {
         take(1),
         // Emit the link of the match
         // tap((v) => console.log('result', v)),
-        map(([bitstream, ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream))
+        map(([bitstream, format]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream)),
       );
     } else {
       return EMPTY;
@@ -485,7 +514,7 @@ export class HeadTagService {
   protected clearMetaTags(): void {
     this.store.pipe(
       select(tagsInUseSelector),
-      take(1)
+      take(1),
     ).subscribe((tagsInUse: string[]) => {
       for (const name of tagsInUse) {
         this.meta.removeTag('name=\'' + name + '\'');

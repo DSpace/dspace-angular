@@ -1,16 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { HealthComponentComponent } from './health-component.component';
-import { HealthComponentOne, HealthComponentTwo } from '../../../shared/mocks/health-endpoint.mocks';
-import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  HealthComponentOne,
+  HealthComponentTwo,
+} from '../../../shared/mocks/health-endpoint.mocks';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
+import { HealthComponentComponent } from './health-component.component';
 
 describe('HealthComponentComponent', () => {
   let component: HealthComponentComponent;
@@ -25,17 +33,15 @@ describe('HealthComponentComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [
+            useClass: TranslateLoaderMock,
+          },
+        }),
         HealthComponentComponent,
-        ObjNgFor
+        ObjNgFor,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

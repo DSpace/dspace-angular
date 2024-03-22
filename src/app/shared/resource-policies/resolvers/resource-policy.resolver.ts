@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { isEmpty } from '../../empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { followLink } from '../../utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { isEmpty } from '../../empty.util';
+import { followLink } from '../../utils/follow-link-config.model';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ResourcePolicyResolver implements Resolve<RemoteData<ResourcePolicy>> {
 
   constructor(private resourcePolicyService: ResourcePolicyDataService, private router: Router) {

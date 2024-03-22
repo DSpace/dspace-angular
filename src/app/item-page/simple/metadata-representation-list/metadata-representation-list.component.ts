@@ -1,25 +1,39 @@
-import { Component, Input } from '@angular/core';
-import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  zip as observableZip
+  zip as observableZip,
 } from 'rxjs';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { Item } from '../../../core/shared/item.model';
-import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 import { map } from 'rxjs/operators';
-import { getRemoteDataPayload } from '../../../core/shared/operators';
-import {
-  MetadatumRepresentation
-} from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+
 import { BrowseService } from '../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { MetadataService } from '../../../core/metadata/metadata.service';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { getRemoteDataPayload } from '../../../core/shared/operators';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
   selector: 'ds-metadata-representation-list',
-  templateUrl: './metadata-representation-list.component.html'
+  templateUrl: './metadata-representation-list.component.html',
+  standalone: true,
+  imports: [MetadataFieldWrapperComponent, NgFor, VarDirective, MetadataRepresentationLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * This component is used for displaying metadata
@@ -99,7 +113,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
             });
             return this.browseDefinitionDataService.findByFields(this.metadataFields).pipe(
               getRemoteDataPayload(),
-              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def), metadatum))
+              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def), metadatum)),
             );
           }
         }),

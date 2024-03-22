@@ -1,29 +1,49 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  DebugElement,
+  NgZone,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, NgZone, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf, Subscription } from 'rxjs';
-import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
-import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
+import {
+  NgbActiveModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { Item } from '../../../../../core/shared/item.model';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { RelationshipOptions } from '../../models/relationship-options.model';
-import { AddRelationshipAction, RemoveRelationshipAction } from './relationship.actions';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../../../../search/models/paginated-search-options.model';
-import { ExternalSource } from '../../../../../core/shared/external-source.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { createPaginatedList } from '../../../../testing/utils.test';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+
+import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Collection } from '../../../../../core/shared/collection.model';
-import { By } from '@angular/platform-browser';
+import { ExternalSource } from '../../../../../core/shared/external-source.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { PaginatedSearchOptions } from '../../../../search/models/paginated-search-options.model';
+import { createPaginatedList } from '../../../../testing/utils.test';
+import { RelationshipOptions } from '../../models/relationship-options.model';
+import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
+import {
+  AddRelationshipAction,
+  RemoveRelationshipAction,
+} from './relationship.actions';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -51,13 +71,13 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     Object.assign(new ExternalSource(), {
       id: 'orcidV2',
       name: 'orcidV2',
-      hierarchical: false
+      hierarchical: false,
     }),
     Object.assign(new ExternalSource(), {
       id: 'sherpaPublisher',
       name: 'sherpaPublisher',
-      hierarchical: false
-    })
+      hierarchical: false,
+    }),
   ];
   const totalLocal = 10;
   const totalExternal = 8;
@@ -81,21 +101,21 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       relationshipType: 'isAuthorOfPublication',
       nameVariants: true,
       searchConfiguration: 'personConfig',
-      externalSources: ['orcidV2', 'sherpaPublisher']
+      externalSources: ['orcidV2', 'sherpaPublisher'],
     });
     nameVariant = 'Doe, J.';
     metadataField = 'dc.contributor.author';
     pSearchOptions = new PaginatedSearchOptions({});
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(externalSources)),
-      findById: createSuccessfulRemoteDataObject$(externalSources[0])
+      findById: createSuccessfulRemoteDataObject$(externalSources[0]),
     });
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
       getTotalLocalResults: observableOf(totalLocal),
-      getTotalExternalResults: observableOf(totalExternal)
+      getTotalExternalResults: observableOf(totalExternal),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      aggregate: createSuccessfulRemoteDataObject$(externalSources)
+      aggregate: createSuccessfulRemoteDataObject$(externalSources),
     });
     submissionId = '1234';
   }
@@ -103,21 +123,20 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
-          }
+            paginatedSearchOptions: observableOf(pSearchOptions),
+          },
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },
         { provide: LookupRelationService, useValue: lookupRelationService },
         {
-          provide: SelectableListService, useValue: selectableListService
+          provide: SelectableListService, useValue: selectableListService,
         },
         {
-          provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) }
+          provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) },
         },
         { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
@@ -125,13 +144,15 @@ describe('DsDynamicLookupRelationModalComponent', () => {
           provide: Store, useValue: {
             // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function
             dispatch: () => {
-            }
-          }
+            },
+          },
         },
         { provide: NgZone, useValue: new NgZone({}) },
-        NgbActiveModal
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        NgbActiveModal,
+        provideMockStore(),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));

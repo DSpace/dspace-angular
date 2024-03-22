@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { RemoteData } from '../core/data/remote-data';
-import { followLink } from '../shared/utils/follow-link-config.model';
-import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
-import { WorkflowItem } from '../core/submission/models/workflowitem.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { WorkflowItem } from '../core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
+import { followLink } from '../shared/utils/follow-link-config.model';
 
 /**
  * This class represents a resolver that requests a specific workflow item before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class WorkflowItemPageResolver implements Resolve<RemoteData<WorkflowItem>> {
   constructor(private workflowItemService: WorkflowItemDataService) {
   }

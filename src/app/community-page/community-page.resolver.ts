@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../core/data/remote-data';
-import { Community } from '../core/shared/community.model';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { ResolvedAction } from '../core/resolving/resolver.actions';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { CommunityDataService } from '../core/data/community-data.service';
+import { RemoteData } from '../core/data/remote-data';
+import { ResolvedAction } from '../core/resolving/resolver.actions';
+import { Community } from '../core/shared/community.model';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/utils/follow-link-config.model';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future
@@ -17,17 +25,17 @@ export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
   followLink('logo'),
   followLink('subcommunities'),
   followLink('collections'),
-  followLink('parentCommunity')
+  followLink('parentCommunity'),
 ];
 
 /**
  * This class represents a resolver that requests a specific community before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
   constructor(
     private communityService: CommunityDataService,
-    private store: Store<any>
+    private store: Store<any>,
   ) {
   }
 
@@ -43,7 +51,7 @@ export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
       route.params.id,
       true,
       false,
-      ...COMMUNITY_PAGE_LINKS_TO_FOLLOW
+      ...COMMUNITY_PAGE_LINKS_TO_FOLLOW,
     ).pipe(
       getFirstCompletedRemoteData(),
     );

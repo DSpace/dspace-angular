@@ -1,11 +1,16 @@
-import { autoserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { HALResource } from '../../shared/hal-resource.model';
-import { USAGE_REPORT } from './usage-report.resource-type';
 import { HALLink } from '../../shared/hal-link.model';
-import { deserialize, autoserializeAs } from 'cerialize';
+import { HALResource } from '../../shared/hal-resource.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { USAGE_REPORT } from './usage-report.resource-type';
 
 /**
  * A usage report.
@@ -21,19 +26,19 @@ export class UsageReport extends HALResource {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   @autoserialize
-  id: string;
+    id: string;
 
   @autoserializeAs('report-type')
-  reportType: string;
+    reportType: string;
 
   @autoserialize
-  points: Point[];
+    points: Point[];
 
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
   };
 }

@@ -1,10 +1,18 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { filter, map, take } from 'rxjs/operators';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { hasValue } from '../../../shared/empty.util';
 
 /**
@@ -13,6 +21,12 @@ import { hasValue } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-collection-curate',
   templateUrl: './collection-curate.component.html',
+  imports: [
+    CurationFormComponent,
+    TranslateModule,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class CollectionCurateComponent {
   dsoRD$: Observable<RemoteData<Collection>>;
@@ -34,7 +48,7 @@ export class CollectionCurateComponent {
       filter((rd: RemoteData<Collection>) => hasValue(rd)),
       map((rd: RemoteData<Collection>) => {
         return this.dsoNameService.getName(rd.payload);
-      })
+      }),
     );
   }
 }

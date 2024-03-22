@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Context } from '../core/shared/context.model';
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
-import { Observable } from 'rxjs';
-import { Context } from '../core/shared/context.model';
 
 /**
  * Themed wrapper for ConfigurationSearchPageComponent
@@ -11,6 +15,7 @@ import { Context } from '../core/shared/context.model';
   selector: 'ds-themed-configuration-search-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedConfigurationSearchPageComponent extends ThemedComponent<ConfigurationSearchPageComponent> {
   /**
@@ -39,19 +44,19 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
    * The width of the sidebar (bootstrap columns)
    */
   @Input()
-  sideBarWidth: number;
+    sideBarWidth: number;
 
   /**
    * The currently applied configuration (determines title of search)
    */
   @Input()
-  configuration$: Observable<string>;
+    configuration$: Observable<string>;
 
   /**
    * The current context
    */
   @Input()
-  context: Context;
+    context: Context;
 
   protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] =
     ['context', 'configuration', 'fixedFilterQuery', 'inPlaceSearch', 'searchEnabled', 'sideBarWidth'];

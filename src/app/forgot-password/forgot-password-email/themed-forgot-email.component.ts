@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ForgotEmailComponent } from './forgot-email.component';
 
@@ -8,7 +9,8 @@ import { ForgotEmailComponent } from './forgot-email.component';
 @Component({
   selector: 'ds-themed-forgot-email',
   styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+  templateUrl: './../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedForgotEmailComponent extends ThemedComponent<ForgotEmailComponent> {
   protected getComponentName(): string {

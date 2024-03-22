@@ -1,13 +1,26 @@
-import { Inject, Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 
 /**
  * A guard redirecting the user to the URL provided in the route's query params
  * When no redirect url is found, the user is redirected to the homepage
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ReloadGuard implements CanActivate {
   constructor(
     private router: Router,

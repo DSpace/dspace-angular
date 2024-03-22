@@ -1,19 +1,51 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  NgbTooltip,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
+import { SortablejsModule } from 'ngx-sortablejs';
+import { BehaviorSubject } from 'rxjs';
+import { Options } from 'sortablejs';
 
+import { DragService } from '../../../core/drag.service';
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
-import { DragService } from '../../../core/drag.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Options } from 'sortablejs';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-chips',
   styleUrls: ['./chips.component.scss'],
   templateUrl: './chips.component.html',
+  imports: [
+    NgbTooltipModule,
+    NgClass,
+    NgForOf,
+    SortablejsModule,
+    AsyncPipe,
+    AuthorityConfidenceStateDirective,
+    NgIf,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 
 export class ChipsComponent implements OnChanges {
@@ -41,7 +73,7 @@ export class ChipsComponent implements OnChanges {
       chosenClass: 'm-0',
       dragClass: 'm-0',
       filter: '.chips-sort-ignore',
-      ghostClass: 'm-0'
+      ghostClass: 'm-0',
     };
   }
 
@@ -102,7 +134,7 @@ export class ChipsComponent implements OnChanges {
                   .subscribe((label) => {
                     textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
                   });
-            });
+              });
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);

@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
-import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { Observable } from 'rxjs';
-import { followLink } from '../../shared/utils/follow-link-config.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 /**
  * This class represents a resolver that requests a specific collection's item template before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemTemplatePageResolver implements Resolve<RemoteData<Item>> {
   constructor(
     public dsoNameService: DSONameService,

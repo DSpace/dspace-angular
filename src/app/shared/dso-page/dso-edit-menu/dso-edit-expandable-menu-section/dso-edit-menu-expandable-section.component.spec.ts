@@ -1,16 +1,21 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MenuServiceStub } from '../../../testing/menu-service.stub';
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
+
 import { MenuService } from '../../../menu/menu.service';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
-import { Router } from '@angular/router';
+import { MenuServiceStub } from '../../../testing/menu-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
-import { of as observableOf } from 'rxjs';
-import { Component } from '@angular/core';
 import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';
-import { By } from '@angular/platform-browser';
-import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
 describe('DsoEditMenuExpandableSectionComponent', () => {
   let component: DsoEditMenuExpandableSectionComponent;
@@ -25,25 +30,24 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
     model: {
       type: MenuItemType.TEXT,
       disabled: false,
-      text: 'text'
+      text: 'text',
     },
-    icon: iconString
+    icon: iconString,
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [DsoEditMenuExpandableSectionComponent, TestComponent],
+      imports: [TranslateModule.forRoot(), DsoEditMenuExpandableSectionComponent, TestComponent],
       providers: [
-        {provide: 'sectionDataProvider', useValue: dummySection},
-        {provide: MenuService, useValue: menuService},
-        {provide: CSSVariableService, useClass: CSSVariableServiceStub},
-        {provide: Router, useValue: new RouterStub()},
-      ]
+        { provide: 'sectionDataProvider', useValue: dummySection },
+        { provide: MenuService, useValue: menuService },
+        { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+        { provide: Router, useValue: new RouterStub() },
+      ],
     }).overrideComponent(DsoEditMenuExpandableSectionComponent, {
       set: {
-        entryComponents: [TestComponent]
-      }
+        entryComponents: [TestComponent],
+      },
     })
       .compileComponents();
   }));
@@ -69,7 +73,8 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 }

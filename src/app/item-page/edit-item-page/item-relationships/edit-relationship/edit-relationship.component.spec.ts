@@ -1,16 +1,32 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+// eslint-disable-next-line max-classes-per-file
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
-import { EditRelationshipComponent } from './edit-relationship.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
+import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
+import { EditRelationshipComponent } from './edit-relationship.component';
 
 let objectUpdatesService;
 const url = 'http://test-url.com/test-url';
@@ -23,6 +39,7 @@ let fieldUpdate1;
 let fieldUpdate2;
 let relationships;
 let relationshipType;
+let mockNgbModal;
 
 let fixture: ComponentFixture<EditRelationshipComponent>;
 let comp: EditRelationshipComponent;
@@ -37,18 +54,18 @@ describe('EditRelationshipComponent', () => {
       id: '1',
       uuid: '1',
       leftwardType: 'isAuthorOfPublication',
-      rightwardType: 'isPublicationOfAuthor'
+      rightwardType: 'isPublicationOfAuthor',
     });
 
     item = Object.assign(new Item(), {
       _links: {
         self: {
-          href: 'fake-item-url/publication'
-        }
+          href: 'fake-item-url/publication',
+        },
       },
       id: 'publication',
       uuid: 'publication',
-      relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships))
+      relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
     });
 
     relatedItem = Object.assign(new Item(), {
@@ -58,7 +75,7 @@ describe('EditRelationshipComponent', () => {
     relationships = [
       Object.assign(new Relationship(), {
         _links: {
-          self: { href: url + '/2' }
+          self: { href: url + '/2' },
         },
         id: '2',
         uuid: '2',
@@ -70,23 +87,23 @@ describe('EditRelationshipComponent', () => {
       }),
       Object.assign(new Relationship(), {
         _links: {
-          self: { href: url + '/3' }
+          self: { href: url + '/3' },
         },
         id: '3',
         uuid: '3',
         leftId: 'author2',
         rightId: 'publication',
-        relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
-      })
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
+      }),
     ];
 
     author1 = Object.assign(new Item(), {
       id: 'author1',
-      uuid: 'author1'
+      uuid: 'author1',
     });
     author2 = Object.assign(new Item(), {
       id: 'author2',
-      uuid: 'author2'
+      uuid: 'author2',
     });
 
     fieldUpdate1 = {
@@ -94,14 +111,14 @@ describe('EditRelationshipComponent', () => {
         uuid: relationships[0].uuid,
         relationship: relationships[0],
       },
-      changeType: undefined
+      changeType: undefined,
     };
     fieldUpdate2 = {
       field: {
         uuid: relationships[1].uuid,
         relationship: relationships[1],
       },
-      changeType: FieldChangeType.REMOVE
+      changeType: FieldChangeType.REMOVE,
     };
 
     const itemSelection = {};
@@ -114,23 +131,29 @@ describe('EditRelationshipComponent', () => {
       saveRemoveFieldUpdate: jasmine.createSpy('saveRemoveFieldUpdate'),
     };
 
+    mockNgbModal = {
+      open: jasmine.createSpy('open').and.returnValue(
+        { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+      ),
+    };
+
     spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => observableOf(itemSelection[uuid]));
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EditRelationshipComponent],
+      imports: [TranslateModule.forRoot(), EditRelationshipComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            }
-          },
-        },
+        { provide: NgbModal, useValue: mockNgbModal },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+        NO_ERRORS_SCHEMA,
+      ],
+    })
+      .overrideComponent(EditRelationshipComponent, {
+        remove: { imports: [ VirtualMetadataComponent, ListableObjectComponentLoaderComponent ] },
+        add: { imports: [ MockVirtualMetadataComponent, MockListableObjectComponentLoaderComponent ] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -143,7 +166,7 @@ describe('EditRelationshipComponent', () => {
     comp.url = url;
     comp.fieldUpdate = fieldUpdate1;
     comp.editItem = item;
-    comp.relatedItem$ = observableOf(relatedItem);
+    comp.relatedItem$.next(relatedItem);
 
     fixture.detectChanges();
   });
@@ -214,3 +237,17 @@ describe('EditRelationshipComponent', () => {
     });
   });
 });
+
+@Component({
+  selector: 'ds-virtual-metadata',
+  template: ``,
+  standalone: true,
+})
+class MockVirtualMetadataComponent {}
+
+@Component({
+  selector: 'ds-listable-object-component-loader',
+  template: ``,
+  standalone: true,
+})
+export class MockListableObjectComponentLoaderComponent {}

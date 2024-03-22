@@ -1,21 +1,34 @@
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Item } from '../../../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { ItemPageFieldComponent } from './item-page-field.component';
-import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
-import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../../shared/testing/utils.test';
-import { environment } from '../../../../../environments/environment';
-import { MarkdownPipe } from '../../../../shared/utils/markdown.pipe';
-import { SharedModule } from '../../../../shared/shared.module';
-import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
+import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
+import { Item } from '../../../../core/shared/item.model';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../../../../core/shared/metadata.models';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
+import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { MarkdownPipe } from '../../../../shared/utils/markdown.pipe';
+import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import { ItemPageFieldComponent } from './item-page-field.component';
 
 let comp: ItemPageFieldComponent;
 let fixture: ComponentFixture<ItemPageFieldComponent>;
@@ -34,29 +47,28 @@ describe('ItemPageFieldComponent', () => {
     markdown: {
       enabled: false,
       mathjax: false,
-    }
+    },
   });
 
-  const buildTestEnvironment = async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    void TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        SharedModule,
+        ItemPageFieldComponent, MetadataValuesComponent,
       ],
       providers: [
         { provide: APP_CONFIG, useValue: appConfig },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
-      declarations: [ItemPageFieldComponent, MetadataValuesComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageFieldComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
     markdownSpy = spyOn(MarkdownPipe.prototype, 'transform');
     fixture = TestBed.createComponent(ItemPageFieldComponent);
@@ -65,19 +77,16 @@ describe('ItemPageFieldComponent', () => {
     comp.fields = mockFields;
     comp.label = mockLabel;
     fixture.detectChanges();
-  };
-
-  it('should display display the correct metadata value', waitForAsync(async () => {
-    await buildTestEnvironment();
-    expect(fixture.nativeElement.innerHTML).toContain(mockValue);
   }));
 
-  describe('when markdown is disabled in the environment config', () => {
+  it('should display display the correct metadata value', () => {
+    expect(fixture.nativeElement.innerHTML).toContain(mockValue);
+  });
 
-    beforeEach(waitForAsync(async () => {
+  describe('when markdown is disabled in the environment config', () => {
+    beforeEach( () => {
       appConfig.markdown.enabled = false;
-      await buildTestEnvironment();
-    }));
+    });
 
     describe('and markdown is disabled in this component', () => {
 
@@ -105,11 +114,9 @@ describe('ItemPageFieldComponent', () => {
   });
 
   describe('when markdown is enabled in the environment config', () => {
-
-    beforeEach(waitForAsync(async () => {
+    beforeEach(() => {
       appConfig.markdown.enabled = true;
-      await buildTestEnvironment();
-    }));
+    });
 
     describe('and markdown is disabled in this component', () => {
 
@@ -139,12 +146,13 @@ describe('ItemPageFieldComponent', () => {
 
   describe('test rendering of configured browse links', () => {
     beforeEach(() => {
+      appConfig.markdown.enabled = false;
+      comp.enableMarkdown = true;
       fixture.detectChanges();
     });
-    waitForAsync(() => {
-      it('should have a browse link', () => {
-        expect(fixture.debugElement.query(By.css('a.ds-browse-link')).nativeElement.innerHTML).toContain(mockValue);
-      });
+
+    it('should have a browse link', async () => {
+      expect(fixture.debugElement.query(By.css('a.ds-browse-link')).nativeElement.innerHTML).toContain(mockValue);
     });
   });
 
@@ -153,10 +161,9 @@ describe('ItemPageFieldComponent', () => {
       comp.urlRegex = '^test';
       fixture.detectChanges();
     });
-    waitForAsync(() => {
-      it('should have a rendered (non-browse) link since the value matches ^test', () => {
-        expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link')).nativeElement.innerHTML).toContain(mockValue);
-      });
+
+    it('should have a rendered (non-browse) link since the value matches ^test', () => {
+      expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link')).nativeElement.innerHTML).toContain(mockValue);
     });
   });
 
@@ -165,25 +172,22 @@ describe('ItemPageFieldComponent', () => {
       comp.urlRegex = '^nope';
       fixture.detectChanges();
     });
-    beforeEach(waitForAsync(() => {
-      it('should NOT have a rendered (non-browse) link since the value matches ^test', () => {
-        expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link'))).toBeNull();
-      });
-    }));
+
+    it('should NOT have a rendered (non-browse) link since the value matches ^test', () => {
+      expect(fixture.debugElement.query(By.css('a.ds-simple-metadata-link'))).toBeNull();
+    });
   });
-
-
 });
 
 export function mockItemWithMetadataFieldsAndValue(fields: string[], value: string): Item {
   const item = Object.assign(new Item(), {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-    metadata: new MetadataMap()
+    metadata: new MetadataMap(),
   });
   fields.forEach((field: string) => {
     item.metadata[field] = [{
       language: 'en_US',
-      value: value
+      value: value,
     }] as MetadataValue[];
   });
   return item;

@@ -1,12 +1,27 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
+
 import { ModalBeforeDismiss } from '../../../shared/interfaces/modal-before-dismiss.interface';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
 
 @Component({
   selector: 'ds-item-versions-summary-modal',
   templateUrl: './item-versions-summary-modal.component.html',
-  styleUrls: ['./item-versions-summary-modal.component.scss']
+  styleUrls: ['./item-versions-summary-modal.component.scss'],
+  standalone: true,
+  imports: [NgIf, FormsModule, LoadingComponent, AsyncPipe, TranslateModule],
 })
 export class ItemVersionsSummaryModalComponent implements OnInit, ModalBeforeDismiss {
 

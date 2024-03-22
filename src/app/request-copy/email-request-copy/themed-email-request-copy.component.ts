@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
 import { EmailRequestCopyComponent } from './email-request-copy.component';
@@ -11,6 +16,7 @@ import { RequestCopyEmail } from './request-copy-email.model';
   selector: 'ds-themed-email-request-copy',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailRequestCopyComponent> {
   /**

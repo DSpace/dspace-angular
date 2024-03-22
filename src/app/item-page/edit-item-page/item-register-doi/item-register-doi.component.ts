@@ -1,23 +1,48 @@
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
 
-import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { first, map } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
-import { Observable } from 'rxjs';
-import { getItemPageRoute } from '../../item-page-routing-paths';
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
+import { getItemPageRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
+import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 
 @Component({
   selector: 'ds-item-register-doi',
-  templateUrl: './item-register-doi-component.html'
+  templateUrl: './item-register-doi-component.html',
+  imports: [
+    ModifyItemOverviewComponent,
+    RouterLink,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NgForOf,
+  ],
+  standalone: true,
 })
 /**
  * Component responsible for rendering the Item Register DOI page
@@ -44,22 +69,22 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso),
-      getFirstSucceededRemoteData()
+      getFirstSucceededRemoteData(),
     )as Observable<RemoteData<Item>>;
 
     this.itemRD$.pipe(first()).subscribe((rd) => {
-        this.item = rd.payload;
-        this.itemPageRoute = getItemPageRoute(this.item);
-        this.identifiers$ = this.identifierDataService.getIdentifierDataFor(this.item).pipe(
-          map((identifierRD) => {
-            if (identifierRD.statusCode !== 401 && hasValue(identifierRD.payload)) {
-              return identifierRD.payload.identifiers;
-            } else {
-              return null;
-            }
-          }),
-        );
-      }
+      this.item = rd.payload;
+      this.itemPageRoute = getItemPageRoute(this.item);
+      this.identifiers$ = this.identifierDataService.getIdentifierDataFor(this.item).pipe(
+        map((identifierRD) => {
+          if (identifierRD.statusCode !== 401 && hasValue(identifierRD.payload)) {
+            return identifierRD.payload.identifiers;
+          } else {
+            return null;
+          }
+        }),
+      );
+    },
     );
 
     this.confirmMessage = 'item.edit.' + this.messageKey + '.confirm';
@@ -88,7 +113,7 @@ export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent 
           this.processing = false;
           this.processRestResponse(response);
         }
-      }
+      },
     );
   }
 

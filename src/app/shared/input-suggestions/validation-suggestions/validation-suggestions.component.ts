@@ -1,7 +1,28 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+} from '@angular/common';
+import {
+  Component,
+  forwardRef,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
+import { ClickOutsideDirective } from '../../utils/click-outside.directive';
+import { DebounceDirective } from '../../utils/debounce.directive';
 import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { InputSuggestion } from '../input-suggestions.model';
@@ -16,9 +37,11 @@ import { InputSuggestion } from '../input-suggestions.model';
       // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
       // eslint-disable-next-line @angular-eslint/no-forward-ref
       useExisting: forwardRef(() => ValidationSuggestionsComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule],
 })
 
 /**
@@ -55,8 +78,8 @@ export class ValidationSuggestionsComponent extends InputSuggestionsComponent im
     this.form = new UntypedFormGroup({
       metadataNameField: new UntypedFormControl(this._value, {
         asyncValidators: [this.metadataFieldValidator.validate.bind(this.metadataFieldValidator)],
-        validators: [Validators.required]
-      })
+        validators: [Validators.required],
+      }),
     });
   }
 

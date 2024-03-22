@@ -4,22 +4,34 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree
+  UrlTree,
 } from '@angular/router';
-
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, find, switchMap } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
+import {
+  find,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
-import { isAuthenticated, isAuthenticationLoading } from './selectors';
-import { AuthService, LOGIN_ROUTE } from './auth.service';
 import { CoreState } from '../core-state.model';
+import {
+  AuthService,
+  LOGIN_ROUTE,
+} from './auth.service';
+import {
+  isAuthenticated,
+  isAuthenticationLoading,
+} from './selectors';
 
 /**
  * Prevent unauthorized activating and loading of routes
  * @class AuthenticatedGuard
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthenticatedGuard implements CanActivate {
 
   /**
@@ -59,7 +71,7 @@ export class AuthenticatedGuard implements CanActivate {
           this.authService.removeToken();
           return this.router.createUrlTree([LOGIN_ROUTE]);
         }
-      })
+      }),
     );
   }
 }

@@ -1,29 +1,34 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
-import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { RouterTestingModule } from '@angular/router/testing';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import {
-  WorkflowItemSearchResultAdminWorkflowListElementComponent
-} from './workflow-item-search-result-admin-workflow-list-element.component';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
-import { Item } from '../../../../../core/shared/item.model';
-import {
-  WorkflowItemSearchResult
-} from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
-import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../../../../core/shared/item.model';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './workflow-item-search-result-admin-workflow-list-element.component';
 
 describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowListElementComponent;
@@ -48,19 +53,22 @@ describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [WorkflowItemSearchResultAdminWorkflowListElementComponent],
         imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
+          WorkflowItemSearchResultAdminWorkflowListElementComponent,
         ],
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: LinkService, useValue: linkService },
           { provide: DSONameService, useClass: DSONameServiceMock },
-          { provide: APP_CONFIG, useValue: environment }
+          { provide: APP_CONFIG, useValue: environment },
+          { provide: ThemeService, useValue: getMockThemeService() },
+          { provide: AuthService, useValue: new AuthServiceMock() },
+          { provide: AuthorizationDataService, useValue: {} },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       })
       .compileComponents();
   }));

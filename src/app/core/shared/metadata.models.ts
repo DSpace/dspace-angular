@@ -1,6 +1,10 @@
 /* eslint-disable max-classes-per-file */
+import {
+  autoserialize,
+  Deserialize,
+  Serialize,
+} from 'cerialize';
 import { v4 as uuidv4 } from 'uuid';
-import { autoserialize, Serialize, Deserialize } from 'cerialize';
 
 export const VIRTUAL_METADATA_PREFIX = 'virtual::';
 
@@ -31,26 +35,26 @@ export class MetadataValue implements MetadataValueInterface {
 
   /** The language. */
   @autoserialize
-  language: string;
+    language: string;
 
   /** The string value. */
   @autoserialize
-  value: string;
+    value: string;
 
   /**
    * The place of this MetadataValue within its list of metadata
    * This is used to render metadata in a specific custom order
    */
   @autoserialize
-  place: number;
+    place: number;
 
   /** The authority key used for authority-controlled metadata */
   @autoserialize
-  authority: string;
+    authority: string;
 
   /** The authority confidence value */
   @autoserialize
-  confidence: number;
+    confidence: number;
 
 }
 
@@ -117,5 +121,5 @@ export const MetadataMapSerializer = {
       metadataMap[key] = Deserialize(json[key], MetadataValue);
     });
     return metadataMap;
-  }
+  },
 };

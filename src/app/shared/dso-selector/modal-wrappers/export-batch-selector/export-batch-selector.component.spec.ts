@@ -1,39 +1,61 @@
-import { of as observableOf } from 'rxjs';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  NgModule,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BATCH_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import {
+  NgbActiveModal,
+  NgbModal,
+  NgbModalModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import {
+  BATCH_EXPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../../../core/data/processes/script-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Item } from '../../../../core/shared/item.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
+import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
-    imports: [NgbModalModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }),
-    ],
-    exports: [],
-    declarations: [ConfirmationModalComponent],
-    providers: []
+  imports: [NgbModalModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: TranslateLoaderMock,
+      },
+    }), ConfirmationModalComponent],
+  exports: [],
+  providers: [],
 })
 class ModelTestModule {
 }
@@ -53,7 +75,7 @@ describe('ExportBatchSelectorComponent', () => {
     id: 'fake-id',
     uuid: 'fake-id',
     handle: 'fake/handle',
-    lastModified: '2018'
+    lastModified: '2018',
   });
 
   const mockCollection: Collection = Object.assign(new Collection(), {
@@ -64,10 +86,10 @@ describe('ExportBatchSelectorComponent', () => {
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'fake/test-collection-1'
-        }
-      ]
-    }
+          value: 'fake/test-collection-1',
+        },
+      ],
+    },
   });
   const itemRD = createSuccessfulRemoteDataObject(mockItem);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
@@ -75,24 +97,24 @@ describe('ExportBatchSelectorComponent', () => {
   beforeEach(waitForAsync(() => {
     notificationService = new NotificationsServiceStub();
     router = jasmine.createSpyObj('router', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
-      }
+        invoke: createSuccessfulRemoteDataObject$({ processId: '45' }),
+      },
     );
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
-      declarations: [ExportBatchSelectorComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportBatchSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: SearchService, useValue:  new SearchServiceStub() },
         {
           provide: ActivatedRoute,
           useValue: {
@@ -102,14 +124,14 @@ describe('ExportBatchSelectorComponent', () => {
                   dso: itemRD,
                 },
               },
-            }
+            },
           },
         },
         {
-          provide: Router, useValue: router
-        }
+          provide: Router, useValue: router,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -178,9 +200,9 @@ describe('ExportBatchSelectorComponent', () => {
     it('should invoke the Batch-export script with option --id uuid without option', () => {
       const parameterValues: ProcessParameter[] = [
         Object.assign(new ProcessParameter(), { name: '--id', value: mockCollection.uuid }),
-        Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' })
+        Object.assign(new ProcessParameter(), { name: '--type', value: 'COLLECTION' }),
       ];
-        expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_EXPORT_SCRIPT_NAME, parameterValues, []);
+      expect(scriptService.invoke).toHaveBeenCalledWith(BATCH_EXPORT_SCRIPT_NAME, parameterValues, []);
     });
     it('success notification is shown', () => {
       expect(scriptRequestSucceeded).toBeTrue();

@@ -1,4 +1,5 @@
 import { first } from 'rxjs/operators';
+
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { ItemFromWorkspaceResolver } from './item-from-workspace.resolver';
@@ -11,13 +12,13 @@ describe('ItemFromWorkspaceResolver', () => {
     const itemUuid = '8888-8888-8888-8888';
     const wfi = {
       id: uuid,
-      item: createSuccessfulRemoteDataObject$({ id: itemUuid })
+      item: createSuccessfulRemoteDataObject$({ id: itemUuid }),
     };
 
 
     beforeEach(() => {
       wfiService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$(wfi)
+        findById: (id: string) => createSuccessfulRemoteDataObject$(wfi),
       } as any;
       resolver = new ItemFromWorkspaceResolver(wfiService, null);
     });
@@ -29,7 +30,7 @@ describe('ItemFromWorkspaceResolver', () => {
           (resolved) => {
             expect(resolved.payload.id).toEqual(itemUuid);
             done();
-          }
+          },
         );
     });
   });

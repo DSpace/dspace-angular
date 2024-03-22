@@ -1,36 +1,48 @@
 import {
-  DsDynamicLookupRelationExternalSourceTabComponent
-} from './dynamic-lookup-relation-external-source-tab.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../../../../utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  EMPTY,
+  of as observableOf,
+} from 'rxjs';
+
+import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { Collection } from '../../../../../../core/shared/collection.model';
+import { ExternalSource } from '../../../../../../core/shared/external-source.model';
+import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
+import { Item } from '../../../../../../core/shared/item.model';
+import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { of as observableOf, EMPTY } from 'rxjs';
+import { ErrorComponent } from '../../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
+import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../../remote-data.utils';
-import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
-import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { By } from '@angular/platform-browser';
-import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { Item } from '../../../../../../core/shared/item.model';
-import { Collection } from '../../../../../../core/shared/collection.model';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
-import { createPaginatedList } from '../../../../../testing/utils.test';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
+import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
-import {
-  ThemedExternalSourceEntryImportModalComponent
-} from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
+import { createPaginatedList } from '../../../../../testing/utils.test';
+import { VarDirective } from '../../../../../utils/var.directive';
+import { RelationshipOptions } from '../../../models/relationship-options.model';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
+import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;
@@ -45,7 +57,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     id: 'orcidV2',
     name: 'orcidV2',
     hierarchical: false,
-    entityTypes: createSuccessfulRemoteDataObject$(createPaginatedList([itemType]))
+    entityTypes: createSuccessfulRemoteDataObject$(createPaginatedList([itemType])),
   } as ExternalSource;
   const externalEntries = [
     Object.assign({
@@ -55,10 +67,10 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: 'https://orcid.org/0001-0001-0001-0001'
-          }
-        ]
-      }
+            value: 'https://orcid.org/0001-0001-0001-0001',
+          },
+        ],
+      },
     }),
     Object.assign({
       id: '0001-0001-0001-0002',
@@ -67,10 +79,10 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: 'https://orcid.org/0001-0001-0001-0002'
-          }
-        ]
-      }
+            value: 'https://orcid.org/0001-0001-0001-0002',
+          },
+        ],
+      },
     }),
     Object.assign({
       id: '0001-0001-0001-0003',
@@ -79,11 +91,11 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: 'https://orcid.org/0001-0001-0001-0003'
-          }
-        ]
-      }
-    })
+            value: 'https://orcid.org/0001-0001-0001-0003',
+          },
+        ],
+      },
+    }),
   ] as ExternalSourceEntry[];
   const item = Object.assign(new Item(), { id: 'submission-item' });
   const collection = Object.assign(new Collection(), { id: 'submission-collection' });
@@ -92,10 +104,10 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
 
   function init() {
     pSearchOptions = new PaginatedSearchOptions({
-      query: 'test'
+      query: 'test',
     });
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
-      getExternalSourceEntries: createSuccessfulRemoteDataObject$(createPaginatedList(externalEntries))
+      getExternalSourceEntries: createSuccessfulRemoteDataObject$(createPaginatedList(externalEntries)),
     });
     selectableListService = jasmine.createSpyObj('selectableListService', ['selectSingle']);
   }
@@ -103,20 +115,32 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, BrowserAnimationsModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule,
+        BrowserAnimationsModule, DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions)
-          }
+            paginatedSearchOptions: observableOf(pSearchOptions),
+          },
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },
         { provide: SelectableListService, useValue: selectableListService },
-        { provide: PaginationService, useValue: new PaginationServiceStub() }
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(DsDynamicLookupRelationExternalSourceTabComponent, {
+        remove: {
+          imports: [
+            ThemedSearchFormComponent,
+            PageSizeSelectorComponent,
+            ObjectCollectionComponent,
+            ErrorComponent,
+            ThemedLoadingComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

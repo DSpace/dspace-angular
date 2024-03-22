@@ -1,15 +1,27 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { SidebarService } from './sidebar.service';
-import { HostWindowService } from '../host-window.service';
+import {
+  AsyncPipe,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import { Observable } from 'rxjs';
-import { pushInOut } from '../animations/push';
 import { map } from 'rxjs/operators';
+
+import { pushInOut } from '../animations/push';
+import { HostWindowService } from '../host-window.service';
+import { SidebarService } from './sidebar.service';
 
 @Component({
   selector: 'ds-page-with-sidebar',
   styleUrls: ['./page-with-sidebar.component.scss'],
   templateUrl: './page-with-sidebar.component.html',
   animations: [pushInOut],
+  standalone: true,
+  imports: [NgTemplateOutlet, AsyncPipe],
 })
 /**
  * This component takes care of displaying the sidebar properly on all viewports. It does not
@@ -30,7 +42,7 @@ export class PageWithSidebarComponent implements OnInit {
    * The width of the sidebar (bootstrap columns)
    */
   @Input()
-  sideBarWidth = 3;
+    sideBarWidth = 3;
 
   /**
    * Observable for whether or not the sidebar is currently collapsed
@@ -48,7 +60,7 @@ export class PageWithSidebarComponent implements OnInit {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
     this.sidebarClasses = this.isSidebarCollapsed$.pipe(
-      map((isCollapsed) => isCollapsed ? '' : 'active')
+      map((isCollapsed) => isCollapsed ? '' : 'active'),
     );
   }
 

@@ -1,43 +1,78 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../../../core/data/dso-change-analyzer.service';
 import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Group } from '../../../core/eperson/models/group.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { UUIDService } from '../../../core/shared/uuid.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { GroupMock, GroupMock2 } from '../../../shared/testing/group-mock';
-import { GroupFormComponent } from './group-form.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
-import { RouterMock } from '../../../shared/mocks/router.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { Operation } from 'fast-json-patch';
-import { ValidateGroupExists } from './validators/group-exists.validator';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { FormComponent } from '../../../shared/form/form.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { RouterMock } from '../../../shared/mocks/router.mock';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../../../shared/testing/group-mock';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
+import { GroupFormComponent } from './group-form.component';
+import { MembersListComponent } from './members-list/members-list.component';
+import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
+import { ValidateGroupExists } from './validators/group-exists.validator';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -65,8 +100,8 @@ describe('GroupFormComponent', () => {
       metadata: {
         'dc.description': [
           {
-            value: groupDescription
-          }
+            value: groupDescription,
+          },
         ],
       },
     });
@@ -105,7 +140,7 @@ describe('GroupFormComponent', () => {
       create(group: Group): Observable<RemoteData<Group>> {
         this.allGroups = [...this.allGroups, group];
         this.createdGroup = Object.assign({}, group, {
-          _links: { self: { href: 'group-selflink' } }
+          _links: { self: { href: 'group-selflink' } },
         });
         return createSuccessfulRemoteDataObject$(this.createdGroup);
       },
@@ -114,78 +149,78 @@ describe('GroupFormComponent', () => {
       },
       getGroupEditPageRouterLinkWithID(id: string) {
         return `group-edit-page-for-${id}`;
-      }
+      },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     dsoDataServiceStub = {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
         return null;
-      }
+      },
     };
     builderService = Object.assign(getMockFormBuilderService(),{
       createFormGroup(formModel, options = null) {
         const controls = {};
         formModel.forEach( model => {
-            model.parent = parent;
-            const controlModel = model;
-            const controlState = { value: controlModel.value, disabled: controlModel.disabled };
-            const controlOptions = this.createAbstractControlOptions(controlModel.validators, controlModel.asyncValidators, controlModel.updateOn);
-            controls[model.id] = new UntypedFormControl(controlState, controlOptions);
+          model.parent = parent;
+          const controlModel = model;
+          const controlState = { value: controlModel.value, disabled: controlModel.disabled };
+          const controlOptions = this.createAbstractControlOptions(controlModel.validators, controlModel.asyncValidators, controlModel.updateOn);
+          controls[model.id] = new UntypedFormControl(controlState, controlOptions);
         });
         return new UntypedFormGroup(controls, options);
       },
       createAbstractControlOptions(validatorsConfig = null, asyncValidatorsConfig = null, updateOn = null) {
         return {
-            validators: validatorsConfig !== null ? this.getValidators(validatorsConfig) : null,
+          validators: validatorsConfig !== null ? this.getValidators(validatorsConfig) : null,
         };
       },
       getValidators(validatorsConfig) {
-          return this.getValidatorFns(validatorsConfig);
+        return this.getValidatorFns(validatorsConfig);
       },
       getValidatorFns(validatorsConfig, validatorsToken = this._NG_VALIDATORS) {
         let validatorFns = [];
         if (this.isObject(validatorsConfig)) {
-            validatorFns = Object.keys(validatorsConfig).map(validatorConfigKey => {
-                const validatorConfigValue = validatorsConfig[validatorConfigKey];
-                if (this.isValidatorDescriptor(validatorConfigValue)) {
-                    const descriptor = validatorConfigValue;
-                    return this.getValidatorFn(descriptor.name, descriptor.args, validatorsToken);
-                }
-                return this.getValidatorFn(validatorConfigKey, validatorConfigValue, validatorsToken);
-            });
+          validatorFns = Object.keys(validatorsConfig).map(validatorConfigKey => {
+            const validatorConfigValue = validatorsConfig[validatorConfigKey];
+            if (this.isValidatorDescriptor(validatorConfigValue)) {
+              const descriptor = validatorConfigValue;
+              return this.getValidatorFn(descriptor.name, descriptor.args, validatorsToken);
+            }
+            return this.getValidatorFn(validatorConfigKey, validatorConfigValue, validatorsToken);
+          });
         }
         return validatorFns;
       },
       getValidatorFn(validatorName, validatorArgs = null, validatorsToken = this._NG_VALIDATORS) {
         let validatorFn;
         if (Validators.hasOwnProperty(validatorName)) { // Built-in Angular Validators
-            validatorFn = Validators[validatorName];
+          validatorFn = Validators[validatorName];
         } else { // Custom Validators
-            if (this._DYNAMIC_VALIDATORS && this._DYNAMIC_VALIDATORS.has(validatorName)) {
-                validatorFn = this._DYNAMIC_VALIDATORS.get(validatorName);
-            } else if (validatorsToken) {
-                validatorFn = validatorsToken.find(validator => validator.name === validatorName);
-            }
+          if (this._DYNAMIC_VALIDATORS && this._DYNAMIC_VALIDATORS.has(validatorName)) {
+            validatorFn = this._DYNAMIC_VALIDATORS.get(validatorName);
+          } else if (validatorsToken) {
+            validatorFn = validatorsToken.find(validator => validator.name === validatorName);
+          }
         }
         if (validatorFn === undefined) { // throw when no validator could be resolved
-            throw new Error(`validator '${validatorName}' is not provided via NG_VALIDATORS, NG_ASYNC_VALIDATORS or DYNAMIC_FORM_VALIDATORS`);
+          throw new Error(`validator '${validatorName}' is not provided via NG_VALIDATORS, NG_ASYNC_VALIDATORS or DYNAMIC_FORM_VALIDATORS`);
         }
         if (validatorArgs !== null) {
-            return validatorFn(validatorArgs);
+          return validatorFn(validatorArgs);
         }
         return validatorFn;
-    },
+      },
       isValidatorDescriptor(value) {
-          if (this.isObject(value)) {
-              return value.hasOwnProperty('name') && value.hasOwnProperty('args');
-          }
-          return false;
+        if (this.isObject(value)) {
+          return value.hasOwnProperty('name') && value.hasOwnProperty('args');
+        }
+        return false;
       },
       isObject(value) {
         return typeof value === 'object' && value !== null;
-      }
+      },
     });
     translateService = getMockTranslateService();
     router = new RouterMock();
@@ -195,11 +230,9 @@ describe('GroupFormComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [GroupFormComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }), GroupFormComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
@@ -216,13 +249,23 @@ describe('GroupFormComponent', () => {
         { provide: HALEndpointService, useValue: {} },
         {
           provide: ActivatedRoute,
-          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) }
+          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) },
         },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(GroupFormComponent, {
+        remove: { imports: [
+          FormComponent,
+          AlertComponent,
+          ContextHelpDirective,
+          MembersListComponent,
+          SubgroupsListComponent,
+        ] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -257,8 +300,8 @@ describe('GroupFormComponent', () => {
           metadata: {
             'dc.description': [
               {
-                value: groupDescription
-              }
+                value: groupDescription,
+              },
             ],
           },
         });
@@ -273,11 +316,11 @@ describe('GroupFormComponent', () => {
         const operations = [{
           op: 'add',
           path: '/metadata/dc.description',
-          value: 'testDescription'
+          value: 'testDescription',
         }, {
           op: 'replace',
           path: '/name',
-          value: 'newGroupName'
+          value: 'newGroupName',
         }];
         expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
       });
@@ -289,7 +332,7 @@ describe('GroupFormComponent', () => {
         const operations = [{
           op: 'add',
           path: '/metadata/dc.description',
-          value: 'testDescription'
+          value: 'testDescription',
         }];
         expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
       });
@@ -301,7 +344,7 @@ describe('GroupFormComponent', () => {
         const operations = [{
           op: 'replace',
           path: '/name',
-          value: 'newGroupName'
+          value: 'newGroupName',
         }];
         expect(groupsDataServiceStub.patch).toHaveBeenCalledWith(expected, operations);
       });
@@ -338,8 +381,8 @@ describe('GroupFormComponent', () => {
         metadata: {
           'dc.description': [
             {
-              value: groupDescription
-            }
+              value: groupDescription,
+            },
           ],
         },
       });
@@ -376,7 +419,7 @@ describe('GroupFormComponent', () => {
         const groupsDataServiceStubWithGroup = Object.assign(groupsDataServiceStub,{
           searchGroups(query: string): Observable<RemoteData<PaginatedList<Group>>> {
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [expected]));
-          }
+          },
         });
         component.formGroup.controls.groupName.setValue('testName');
         component.formGroup.controls.groupName.setAsyncValidators(ValidateGroupExists.createValidator(groupsDataServiceStubWithGroup));
@@ -400,7 +443,7 @@ describe('GroupFormComponent', () => {
 
       component.canEdit$ = observableOf(true);
       component.groupBeingEdited = {
-        permanent: false
+        permanent: false,
       } as Group;
 
       fixture.detectChanges();

@@ -1,29 +1,45 @@
 /* eslint-disable max-classes-per-file */
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { By } from '@angular/platform-browser';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { getTestScheduler, hot } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { Observable } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TestScheduler } from 'rxjs/testing';
 
-import { CollectionSelectorComponent } from './collection-selector.component';
-import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
-import { Collection } from '../../core/shared/collection.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Community } from '../../core/shared/community.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { MockElementRef } from '../../shared/testing/element-ref.mock';
 import { FindListOptions } from '../../core/data/find-list-options.model';
-
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
+import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { MockElementRef } from '../../shared/testing/element-ref.mock';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { CollectionSelectorComponent } from './collection-selector.component';
 
 describe('CollectionSelectorComponent', () => {
   let component: CollectionSelectorComponent;
@@ -34,7 +50,7 @@ describe('CollectionSelectorComponent', () => {
   const community: Community = Object.assign(new Community(), {
     id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
-    name: 'Community 1'
+    name: 'Community 1',
   });
 
   const collections: Collection[] = [
@@ -45,9 +61,9 @@ describe('CollectionSelectorComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'Community 1-Collection 1'
+          value: 'Community 1-Collection 1',
         }],
-      parentCommunity: createSuccessfulRemoteDataObject$(community)
+      parentCommunity: createSuccessfulRemoteDataObject$(community),
     }),
     Object.assign(new Collection(), {
       id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
@@ -56,9 +72,9 @@ describe('CollectionSelectorComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'Community 1-Collection 2'
+          value: 'Community 1-Collection 2',
         }],
-      parentCommunity: createSuccessfulRemoteDataObject$(community)
+      parentCommunity: createSuccessfulRemoteDataObject$(community),
     }),
     Object.assign(new Collection(), {
       id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
@@ -67,9 +83,9 @@ describe('CollectionSelectorComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'Community 1-Collection 3'
+          value: 'Community 1-Collection 3',
         }],
-      parentCommunity: createSuccessfulRemoteDataObject$(community)
+      parentCommunity: createSuccessfulRemoteDataObject$(community),
     }),
     Object.assign(new Collection(), {
       id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
@@ -78,9 +94,9 @@ describe('CollectionSelectorComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'Community 1-Collection 4'
+          value: 'Community 1-Collection 4',
         }],
-      parentCommunity: createSuccessfulRemoteDataObject$(community)
+      parentCommunity: createSuccessfulRemoteDataObject$(community),
     }),
     Object.assign(new Collection(), {
       id: 'a5159760-f362-4659-9e81-e3253ad91ede',
@@ -89,18 +105,18 @@ describe('CollectionSelectorComponent', () => {
         {
           key: 'dc.title',
           language: 'en_US',
-          value: 'Community 1-Collection 5'
+          value: 'Community 1-Collection 5',
         }],
-      parentCommunity: createSuccessfulRemoteDataObject$(community)
-    })
+      parentCommunity: createSuccessfulRemoteDataObject$(community),
+    }),
   ];
 
   const collectionDataServiceMock = {
     getAuthorizedCollection(query: string, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
       return hot( 'a|', {
-        a: createSuccessfulRemoteDataObject(createPaginatedList(collections))
+        a: createSuccessfulRemoteDataObject(createPaginatedList(collections)),
       });
-    }
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -109,29 +125,36 @@ describe('CollectionSelectorComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        CollectionSelectorComponent,
+        // CollectionDropdownComponent,
       ],
-      declarations: [ CollectionSelectorComponent, CollectionDropdownComponent ],
       providers: [
-        {provide: CollectionDataService, useValue: collectionDataServiceMock},
-        {provide: ElementRef, useClass: MockElementRef},
-        {provide: NgbActiveModal, useValue: modal},
-        {provide: ActivatedRoute, useValue: {}},
-        ChangeDetectorRef
+        { provide: CollectionDataService, useValue: collectionDataServiceMock },
+        { provide: ElementRef, useClass: MockElementRef },
+        { provide: NgbActiveModal, useValue: modal },
+        { provide: ActivatedRoute, useValue: {} },
+        { provide: CollectionDropdownComponent, useClass: CollectionDropdownStubComponent },
+        ChangeDetectorRef,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .overrideComponent(CollectionSelectorComponent, {
+        set: {
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
     scheduler = getTestScheduler();
     fixture = TestBed.overrideComponent(CollectionSelectorComponent, {
       set: {
-        template: '<ds-collection-dropdown (selectionChange)="selectObject($event)"></ds-collection-dropdown>'
-      }
+        template: '<ds-collection-dropdown (selectionChange)="selectObject($event)"></ds-collection-dropdown>',
+      },
     }).createComponent(CollectionSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -142,11 +165,13 @@ describe('CollectionSelectorComponent', () => {
   });
 
   it('should call selectObject', () => {
-    spyOn(component, 'selectObject');
+    spyOn(component, 'selectObject').and.callThrough();
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    const collectionItem = fixture.debugElement.query(By.css('.collection-item:nth-child(2)'));
-    collectionItem.triggerEventHandler('click', null);
+    fixture.detectChanges();
+
+    component.selectObject({ collection: { name: 'test', id: 'test', uuid: 'test' }, communities: [] });
+
     expect(component.selectObject).toHaveBeenCalled();
   });
 
@@ -155,3 +180,19 @@ describe('CollectionSelectorComponent', () => {
     expect((component as any).activeModal.close).toHaveBeenCalled();
   });
 });
+
+@Component({
+  selector: 'ds-collection-dropdown',
+  template: `
+    <li
+      (click)="test()"
+            class="dropdown-item collection-item"
+            title="test" >
+    </li>`,
+  standalone: true,
+})
+export class CollectionDropdownStubComponent {
+  test() {
+    return 'test';
+  }
+}

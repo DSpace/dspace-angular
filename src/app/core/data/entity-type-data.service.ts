@@ -1,26 +1,41 @@
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { RemoteData } from './remote-data';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { PaginatedList } from './paginated-list.model';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { RelationshipTypeDataService } from './relationship-type-data.service';
-import { FindListOptions } from './find-list-options.model';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
 import { BaseDataService } from './base/base-data.service';
-import { SearchData, SearchDataImpl } from './base/search-data';
-import { FindAllData, FindAllDataImpl } from './base/find-all-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { RelationshipTypeDataService } from './relationship-type-data.service';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
 
 /**
  * Service handling all ItemType requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EntityTypeDataService extends BaseDataService<ItemType> implements FindAllData<ItemType>, SearchData<ItemType> {
   private findAllData: FindAllData<ItemType>;
   private searchData: SearchDataImpl<ItemType>;
@@ -48,7 +63,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
    */
   getRelationshipTypesEndpoint(entityTypeId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((href) => this.halService.getEndpoint('relationshiptypes', `${href}/${entityTypeId}`))
+      switchMap((href) => this.halService.getEndpoint('relationshiptypes', `${href}/${entityTypeId}`)),
     );
   }
 
@@ -84,7 +99,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
   hasMoreThanOneAuthorized(): Observable<boolean> {
     const findListOptions: FindListOptions = {
       elementsPerPage: 2,
-      currentPage: 1
+      currentPage: 1,
     };
     return this.getAllAuthorizedRelationshipType(findListOptions).pipe(
       map((result: RemoteData<PaginatedList<ItemType>>) => {
@@ -95,7 +110,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
           output = false;
         }
         return output;
-      })
+      }),
     );
   }
 
@@ -118,7 +133,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
   hasMoreThanOneAuthorizedImport(): Observable<boolean> {
     const findListOptions: FindListOptions = {
       elementsPerPage: 2,
-      currentPage: 1
+      currentPage: 1,
     };
     return this.getAllAuthorizedRelationshipTypeImport(findListOptions).pipe(
       map((result: RemoteData<PaginatedList<ItemType>>) => {
@@ -129,7 +144,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
           output = false;
         }
         return output;
-      })
+      }),
     );
   }
 

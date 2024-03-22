@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { AppState } from '../../app.reducer';
 import { isAuthenticationBlocking } from './selectors';
 
@@ -12,7 +21,7 @@ import { isAuthenticationBlocking } from './selectors';
  * To ensure all rest requests get the correct auth header.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthBlockingGuard implements CanActivate {
 

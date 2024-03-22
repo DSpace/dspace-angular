@@ -1,8 +1,9 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-import { type } from '../../../shared/ngrx/type';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { type } from '../../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
@@ -24,7 +25,7 @@ export const MetadataRegistryActionTypes = {
   CANCEL_EDIT_FIELD: type('dspace/metadata-registry/CANCEL_FIELD'),
   SELECT_FIELD: type('dspace/metadata-registry/SELECT_FIELD'),
   DESELECT_FIELD: type('dspace/metadata-registry/DESELECT_FIELD'),
-  DESELECT_ALL_FIELD: type('dspace/metadata-registry/DESELECT_ALL_FIELD')
+  DESELECT_ALL_FIELD: type('dspace/metadata-registry/DESELECT_ALL_FIELD'),
 };
 
 /**
