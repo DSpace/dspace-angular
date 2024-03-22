@@ -12,5 +12,5 @@ export interface UniversalConfig extends Config {
    * this option can be disabled to boost server performance at the expense of
    * loading smoothness.
    */
-  inlineCriticalCss?;
+  inlineCriticalCss?: boolean;
 }
