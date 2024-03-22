@@ -11,15 +11,14 @@ import {
   REQUIRED_MATCHER_PROVIDER,
 } from '@ng-dynamic-forms/core';
 
-import {
-  mockInputWithTypeBindModel, MockRelationModel
-} from '../../../mocks/form-models.mock';
+import { mockInputWithTypeBindModel, MockRelationModel } from '../../../mocks/form-models.mock';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import {UntypedFormControl, ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { FormBuilderService } from '../form-builder.service';
 import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
 import { Injector } from '@angular/core';
+import { VocabularyEntryDetail } from '../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 describe('DSDynamicTypeBindRelationService test suite', () => {
   let service: DsDynamicTypeBindRelationService;
@@ -40,25 +39,38 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
 
   beforeEach(inject([DsDynamicTypeBindRelationService, DynamicFormRelationService],
     (relationService: DsDynamicTypeBindRelationService,
-     formRelationService: DynamicFormRelationService,
+     formRelationService: DynamicFormRelationService
     ) => {
-    service = relationService;
-    dynamicFormRelationService = formRelationService;
-  }));
+      service = relationService;
+      dynamicFormRelationService = formRelationService;
+    }));
 
   describe('Test getTypeBindValue method', () => {
     it('Should get type bind "boundType" from the given metadata object value', () => {
-        const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
-          'boundType', null, null, null,'Bound Type'
-        );
-        const bindType = service.getTypeBindValue(mockMetadataValueObject);
-        expect(bindType).toBe('boundType');
+      const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
+        'boundType', null, null, null, 'Bound Type'
+      );
+      const bindType = service.getTypeBindValue(mockMetadataValueObject);
+      expect(bindType).toBe('boundType');
     });
     it('Should get type authority key "bound-auth-key" from the given metadata object value', () => {
       const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
         'boundType', null, null, 'bound-auth-key', 'Bound Type'
       );
       const bindType = service.getTypeBindValue(mockMetadataValueObject);
+      expect(bindType).toBe('bound-auth-key');
+    });
+    it('Should get type bind "boundType" from the given vocabulary entry object value', () => {
+      const vocabularyEntry = new VocabularyEntryDetail();
+      vocabularyEntry.value = vocabularyEntry.display = 'boundType';
+      const bindType = service.getTypeBindValue(vocabularyEntry);
+      expect(bindType).toBe('boundType');
+    });
+    it('Should get type authority key "bound-auth-key" from the given vocabulary entry object value', () => {
+      const vocabularyEntry = new VocabularyEntryDetail();
+      vocabularyEntry.id = vocabularyEntry.authority = 'bound-auth-key';
+      vocabularyEntry.value = vocabularyEntry.display = 'boundType';
+      const bindType = service.getTypeBindValue(vocabularyEntry);
       expect(bindType).toBe('bound-auth-key');
     });
     it('Should get passed string returned directly as string passed instead of metadata', () => {

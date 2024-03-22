@@ -21,6 +21,8 @@ import {
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import {
   hasNoValue,
@@ -50,7 +52,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
 
-  private typeBindModel: DynamicFormControlModel;
+  private typeBindModel: BehaviorSubject<DynamicFormControlModel> = new BehaviorSubject<DynamicFormControlModel>(null);
 
   /**
    * This map contains the active forms model
@@ -92,11 +94,21 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   getTypeBindModel() {
-    return this.typeBindModel;
+    return this.typeBindModel.getValue();
+  }
+
+  getTypeBindModelUpdates(): Observable<any> {
+    return this.typeBindModel.pipe(
+      distinctUntilChanged(),
+      switchMap((bindModel: any) => {
+        return (bindModel.type === 'CHECKBOX_GROUP' ? bindModel.valueUpdates : bindModel.valueChanges);
+      }),
+      distinctUntilChanged()
+    );
   }
 
   setTypeBindModel(model: DynamicFormControlModel) {
-    this.typeBindModel = model;
+    this.typeBindModel.next(model);
   }
 
   findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
