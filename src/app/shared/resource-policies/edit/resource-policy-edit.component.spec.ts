@@ -38,7 +38,10 @@ import { GroupMock } from '../../testing/group-mock';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { createTestComponent } from '../../testing/utils.test';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
 import { ResourcePolicyEditComponent } from './resource-policy-edit.component';
 
@@ -91,8 +94,6 @@ describe('ResourcePolicyEditComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ResourcePolicyEditComponent,
         TestComponent,
       ],
@@ -109,7 +110,11 @@ describe('ResourcePolicyEditComponent test suite', () => {
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ResourcePolicyEditComponent, {
+        remove: { imports: [ResourcePolicyFormComponent] },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -233,6 +238,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

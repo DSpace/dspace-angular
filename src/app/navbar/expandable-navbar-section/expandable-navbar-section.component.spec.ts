@@ -23,8 +23,7 @@ describe('ExpandableNavbarSectionComponent', () => {
   describe('on larger screens', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+        imports: [NoopAnimationsModule, ExpandableNavbarSectionComponent, TestComponent, VarDirective],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
@@ -190,8 +189,7 @@ describe('ExpandableNavbarSectionComponent', () => {
   describe('on smaller, mobile screens', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+        imports: [NoopAnimationsModule, ExpandableNavbarSectionComponent, TestComponent, VarDirective],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
@@ -266,6 +264,7 @@ describe('ExpandableNavbarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 }

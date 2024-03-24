@@ -20,7 +20,10 @@ import {
   BrowserModule,
   By,
 } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -45,13 +48,16 @@ import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import {
   EPersonMock,
   EPersonMock2,
@@ -155,9 +161,7 @@ describe('MembersListComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        }),
-      ],
-      declarations: [MembersListComponent],
+        }), MembersListComponent],
       providers: [MembersListComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
@@ -166,9 +170,16 @@ describe('MembersListComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(MembersListComponent, {
+        remove: {
+          imports: [PaginationComponent, ContextHelpDirective],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

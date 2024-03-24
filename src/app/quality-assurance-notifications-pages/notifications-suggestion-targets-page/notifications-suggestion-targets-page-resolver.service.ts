@@ -18,7 +18,7 @@ export interface AdminNotificationsPublicationClaimPageParams {
 /**
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 
 export class AdminNotificationsPublicationClaimPageResolver implements Resolve<AdminNotificationsPublicationClaimPageParams> {
 

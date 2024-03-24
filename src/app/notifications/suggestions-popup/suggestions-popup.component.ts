@@ -1,9 +1,16 @@
 import { trigger } from '@angular/animations';
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -33,6 +40,14 @@ import { SuggestionsService } from '../suggestions.service';
       fromTopEnter,
     ]),
   ],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    RouterLink,
+    NgIf,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 

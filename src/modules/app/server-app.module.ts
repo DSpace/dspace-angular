@@ -10,6 +10,12 @@ import {
   ServerModule,
   ServerTransferStateModule,
 } from '@angular/platform-server';
+import { EffectsModule } from '@ngrx/effects';
+import {
+  Action,
+  StoreConfig,
+  StoreModule,
+} from '@ngrx/store';
 import {
   TranslateLoader,
   TranslateModule,
@@ -22,10 +28,14 @@ import {
 
 import { AppComponent } from '../../app/app.component';
 import { AppModule } from '../../app/app.module';
+import { storeModuleConfig } from '../../app/app.reducer';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 import { ServerAuthRequestService } from '../../app/core/auth/server-auth-request.service';
+import { coreEffects } from '../../app/core/core.effects';
+import { coreReducers } from '../../app/core/core.reducers';
+import { CoreState } from '../../app/core/core-state.model';
 import { ForwardClientIpInterceptor } from '../../app/core/forward-client-ip/forward-client-ip.interceptor';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { ServerLocaleService } from '../../app/core/locale/server-locale.service';
@@ -56,6 +66,8 @@ export function createTranslateLoader(transferState: TransferState) {
     }),
     NoopAnimationsModule,
     ServerTransferStateModule,
+    StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
+    EffectsModule.forFeature(coreEffects),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

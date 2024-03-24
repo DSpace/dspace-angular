@@ -39,7 +39,7 @@ describe('TabulatableObjectsLoaderComponent', () => {
       getThemeName: 'dspace',
     });
     await TestBed.configureTestingModule({
-      declarations: [ TabulatableObjectsLoaderComponent, TabulatableObjectsDirective ],
+      imports: [TabulatableObjectsLoaderComponent, TabulatableObjectsDirective],
       providers: [
         provideMockStore({}),
         { provide: ThemeService, useValue: themeService },

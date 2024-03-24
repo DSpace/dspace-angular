@@ -18,11 +18,12 @@ import { AuthorizationDataService } from '../../../../core/data/feature-authoriz
 import { Context } from '../../../../core/shared/context.model';
 import { FileService } from '../../../../core/shared/file.service';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ListableModule } from '../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { ItemSearchResultListElementComponent } from '../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
 import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { AuthServiceStub } from '../../../testing/auth-service.stub';
@@ -41,6 +42,12 @@ const testViewMode = ViewMode.StandalonePage;
 export class TestType extends ListableObject {
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [testType];
+  }
+  firstMetadataValue(): string {
+    return '';
+  }
+  allMetadata() {
+    return [];
   }
 }
 
@@ -64,10 +71,11 @@ describe('ListableObjectComponentLoaderComponent', () => {
     truncatableService = new TruncatableServiceStub();
 
     void TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [
-        ItemSearchResultListElementComponent,
+      imports: [
+        TranslateModule.forRoot(),
         ListableObjectComponentLoaderComponent,
+        ListableModule,
+        ItemListElementComponent,
         DynamicComponentLoaderDirective,
       ],
       providers: [
@@ -90,7 +98,6 @@ describe('ListableObjectComponentLoaderComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ListableObjectComponentLoaderComponent);
     comp = fixture.componentInstance;
-
     comp.object = new TestType();
     comp.viewMode = testViewMode;
     comp.context = testContext;

@@ -35,7 +35,7 @@ import { RequestService } from './request.service';
 /**
  * Service handling all ItemType requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EntityTypeDataService extends BaseDataService<ItemType> implements FindAllData<ItemType>, SearchData<ItemType> {
   private findAllData: FindAllData<ItemType>;
   private searchData: SearchDataImpl<ItemType>;

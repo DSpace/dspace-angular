@@ -17,7 +17,9 @@ interface LookupParams {
   id: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class LookupGuard implements CanActivate {
 
   constructor(private dsoService: DsoRedirectService) {

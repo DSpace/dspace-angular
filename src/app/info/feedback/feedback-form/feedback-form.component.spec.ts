@@ -45,8 +45,7 @@ describe('FeedbackFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [FeedbackFormComponent],
+      imports: [TranslateModule.forRoot(), FeedbackFormComponent],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },

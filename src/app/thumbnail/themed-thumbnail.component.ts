@@ -12,6 +12,7 @@ import { ThumbnailComponent } from './thumbnail.component';
   selector: 'ds-themed-thumbnail',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedThumbnailComponent extends ThemedComponent<ThumbnailComponent> {
 

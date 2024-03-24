@@ -1,13 +1,29 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  FormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -47,15 +63,18 @@ import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {
   hasValue,
   hasValueOperator,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   getItemEditVersionhistoryRoute,
   getItemPageRoute,
@@ -69,6 +88,8 @@ import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
   styleUrls: ['./item-versions.component.scss'],
+  standalone: true,
+  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule],
 })
 
 /**

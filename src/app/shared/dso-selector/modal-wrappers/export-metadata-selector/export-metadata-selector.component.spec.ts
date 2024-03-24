@@ -42,6 +42,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
@@ -52,10 +53,8 @@ import { ExportMetadataSelectorComponent } from './export-metadata-selector.comp
         provide: TranslateLoader,
         useClass: TranslateLoaderMock,
       },
-    }),
-  ],
+    }), ConfirmationModalComponent],
   exports: [],
-  declarations: [ConfirmationModalComponent],
   providers: [],
 })
 class ModelTestModule {
@@ -123,8 +122,7 @@ describe('ExportMetadataSelectorComponent', () => {
       isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
-      declarations: [ExportMetadataSelectorComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportMetadataSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
@@ -147,7 +145,11 @@ describe('ExportMetadataSelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ExportMetadataSelectorComponent, {
+        remove: { imports: [DSOSelectorComponent] },
+      })
+      .compileComponents();
 
   }));
 

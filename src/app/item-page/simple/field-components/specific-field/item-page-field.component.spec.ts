@@ -24,7 +24,6 @@ import {
 } from '../../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { SharedModule } from '../../../../shared/shared.module';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { MarkdownPipe } from '../../../../shared/utils/markdown.pipe';
@@ -61,13 +60,12 @@ describe('ItemPageFieldComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        SharedModule,
+        ItemPageFieldComponent, MetadataValuesComponent,
       ],
       providers: [
         { provide: APP_CONFIG, useValue: appConfig },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
-      declarations: [ItemPageFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

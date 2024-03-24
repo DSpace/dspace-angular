@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -10,7 +11,10 @@ import {
   NgbActiveModal,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -40,6 +44,7 @@ import { ConfirmationModalComponent } from '../../../confirmation-modal/confirma
 import { isNotEmpty } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -52,6 +57,8 @@ import {
 @Component({
   selector: 'ds-export-metadata-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;

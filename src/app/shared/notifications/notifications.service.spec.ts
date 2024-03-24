@@ -44,8 +44,8 @@ describe('NotificationsService test', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        NotificationComponent, NotificationsBoardComponent,
       ],
-      declarations: [NotificationComponent, NotificationsBoardComponent],
       providers: [
         { provide: Store, useValue: store },
         NotificationsService,

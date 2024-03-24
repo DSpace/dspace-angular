@@ -10,7 +10,7 @@ import { WorkflowItemDataService } from '../core/submission/workflowitem-data.se
 /**
  * This class represents a resolver that requests a specific item before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemFromWorkflowResolver extends SubmissionObjectResolver<Item> implements Resolve<RemoteData<Item>>  {
   constructor(
     private workflowItemService: WorkflowItemDataService,

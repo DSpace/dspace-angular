@@ -22,6 +22,7 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
 @Component({
   selector: 'ds-themed-search',
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 

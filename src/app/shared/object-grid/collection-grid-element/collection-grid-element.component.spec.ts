@@ -8,10 +8,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { AuthService } from '../../../core/auth/auth.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { Collection } from '../../../core/shared/collection.model';
+import { AuthServiceMock } from '../../mocks/auth.service.mock';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { ThemeService } from '../../theme-support/theme.service';
 import { CollectionGridElementComponent } from './collection-grid-element.component';
 
 let collectionGridElementComponent: CollectionGridElementComponent;
@@ -48,13 +55,16 @@ describe('CollectionGridElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        CollectionGridElementComponent,
       ],
-      declarations: [CollectionGridElementComponent],
       providers: [
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
         { provide: LinkService, useValue: linkService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

@@ -1,7 +1,14 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Optional,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -15,6 +22,8 @@ import { hasValue } from '../shared/empty.util';
   selector: 'ds-footer',
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe, DatePipe, TranslateModule],
 })
 export class FooterComponent {
   dateObj: number = Date.now();

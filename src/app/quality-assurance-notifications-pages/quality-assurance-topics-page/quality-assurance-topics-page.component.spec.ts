@@ -4,7 +4,10 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 
+import { QualityAssuranceTopicsComponent } from '../../notifications/qa/topics/quality-assurance-topics.component';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { QualityAssuranceTopicsPageComponent } from './quality-assurance-topics-page.component';
 
 describe('QualityAssuranceTopicsPageComponent', () => {
@@ -13,9 +16,17 @@ describe('QualityAssuranceTopicsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QualityAssuranceTopicsPageComponent ],
+      imports: [QualityAssuranceTopicsPageComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(QualityAssuranceTopicsPageComponent, {
+        remove: {
+          imports: [QualityAssuranceTopicsComponent],
+        },
+      })
       .compileComponents();
   }));
 

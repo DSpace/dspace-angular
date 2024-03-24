@@ -12,19 +12,18 @@ import { of as observableOf } from 'rxjs';
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment.test';
 import { AuthService } from '../../../../../core/auth/auth.service';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import { FileService } from '../../../../../core/shared/file.service';
 import { Item } from '../../../../../core/shared/item.model';
-import { DynamicComponentLoaderDirective } from '../../../../abstract-component-loader/dynamic-component-loader.directive';
+import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
-import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { AuthServiceStub } from '../../../../testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../../testing/authorization-service.stub';
-import { FileServiceStub } from '../../../../testing/file-service.stub';
 import { TruncatableServiceStub } from '../../../../testing/truncatable-service.stub';
 import { ThemeService } from '../../../../theme-support/theme.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemListElementComponent } from './item-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -70,7 +69,6 @@ describe('ItemListElementComponent', () => {
   let activatedRoute: ActivatedRouteStub;
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataServiceStub;
-  let fileService: FileServiceStub;
   let themeService: ThemeService;
   let truncatableService: TruncatableServiceStub;
 
@@ -78,25 +76,22 @@ describe('ItemListElementComponent', () => {
     activatedRoute = new ActivatedRouteStub();
     authService = new AuthServiceStub();
     authorizationService = new AuthorizationDataServiceStub();
-    fileService = new FileServiceStub();
     themeService = getMockThemeService();
     truncatableService = new TruncatableServiceStub();
 
     void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        TruncatePipe,
       ],
       declarations: [
-        ItemListElementComponent,
-        ListableObjectComponentLoaderComponent,
-        DynamicComponentLoaderDirective,
       ],
       providers: [
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: APP_CONFIG, useValue: environment },
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: FileService, useValue: fileService },
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
       ],

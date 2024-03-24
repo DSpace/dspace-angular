@@ -28,7 +28,7 @@ import {
   SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
@@ -106,8 +106,7 @@ describe('SearchRangeFilterComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchRangeFilterComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchRangeFilterComponent],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
