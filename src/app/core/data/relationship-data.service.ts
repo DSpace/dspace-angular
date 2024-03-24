@@ -531,40 +531,18 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param arrayOfItemIds The uuid of the items to be found on the other side of returned relationships
    */
   searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<RemoteData<PaginatedList<Relationship>>> {
-
-    const searchParams = [
-      {
-        fieldName: 'typeId',
-        fieldValue: typeId,
-      },
-      {
-        fieldName: 'focusItem',
-        fieldValue: itemUuid,
-      },
-      {
-        fieldName: 'relationshipLabel',
-        fieldValue: relationshipLabel,
-      },
-      {
-        fieldName: 'size',
-        fieldValue: arrayOfItemIds.length,
-      },
-      {
-        fieldName: 'embed',
-        fieldValue: 'leftItem',
-      },
-      {
-        fieldName: 'embed',
-        fieldValue: 'rightItem',
-      },
+    const searchParams: RequestParam[] = [
+      new RequestParam('typeId', typeId),
+      new RequestParam('focusItem', itemUuid),
+      new RequestParam('relationshipLabel', relationshipLabel),
+      new RequestParam('size', arrayOfItemIds.length),
+      new RequestParam('embed', 'leftItem'),
+      new RequestParam('embed', 'rightItem'),
     ];
 
     arrayOfItemIds.forEach( (itemId) => {
       searchParams.push(
-        {
-          fieldName: 'relatedItem',
-          fieldValue: itemId,
-        },
+        new RequestParam('relatedItem', itemId),
       );
     });
 
