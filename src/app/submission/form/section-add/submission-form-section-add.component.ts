@@ -1,8 +1,11 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -16,8 +19,10 @@ import { SubmissionService } from '../../submission.service';
  */
 @Component({
   selector: 'ds-submission-form-section-add',
-  styleUrls: [ './submission-form-section-add.component.scss' ],
+  styleUrls: ['./submission-form-section-add.component.scss'],
   templateUrl: './submission-form-section-add.component.html',
+  standalone: true,
+  imports: [CommonModule, TranslateModule, NgbDropdownModule],
 })
 export class SubmissionFormSectionAddComponent implements OnInit {
 

@@ -1,4 +1,8 @@
-import { isPlatformServer } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformServer,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,6 +15,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -41,7 +46,17 @@ import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { getItemPageRoute } from '../item-page-routing-paths';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
 /**
  * This component renders a simple item page.
@@ -54,6 +69,22 @@ import { getItemPageRoute } from '../item-page-routing-paths';
   templateUrl: './item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
+  standalone: true,
+  imports: [
+    VarDirective,
+    ThemedItemAlertsComponent,
+    ItemVersionsNoticeComponent,
+    ViewTrackerComponent,
+    ListableObjectComponentLoaderComponent,
+    ItemVersionsComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NotifyRequestsStatusComponent,
+    QaEventNotificationComponent,
+  ],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
 

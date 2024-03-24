@@ -1,3 +1,4 @@
+import { NgFor } from '@angular/common';
 import {
   Component,
   Input,
@@ -9,6 +10,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { mergeMap } from 'rxjs/operators';
 
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
@@ -27,6 +29,11 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
   selector: 'ds-submission-import-external-preview',
   styleUrls: ['./submission-import-external-preview.component.scss'],
   templateUrl: './submission-import-external-preview.component.html',
+  imports: [
+    NgFor,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**

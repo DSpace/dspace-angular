@@ -14,6 +14,7 @@ import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.com
 @Component({
   selector: 'ds-themed-item-detail-preview-field',
   templateUrl: '../../../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedItemDetailPreviewFieldComponent  extends ThemedComponent<ItemDetailPreviewFieldComponent> {
 

@@ -1,11 +1,19 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   BehaviorSubject,
   Observable,
@@ -32,12 +40,21 @@ import { ConfirmationModalComponent } from '../../shared/confirmation-modal/conf
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/profile-claim-item-modal.component';
 
 @Component({
   selector: 'ds-profile-page-researcher-form',
   templateUrl: './profile-page-researcher-form.component.html',
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    UiSwitchModule,
+    VarDirective,
+  ],
+  standalone: true,
 })
 /**
  * Component for a user to create/delete or change their researcher profile.

@@ -10,6 +10,7 @@ import {
 import { By } from '@angular/platform-browser';
 
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ItemMetadataListElementComponent } from './item-metadata-list-element.component';
 
 const mockItemMetadataRepresentation = new ItemMetadataRepresentation(Object.assign({}));
@@ -20,11 +21,11 @@ describe('ItemMetadataListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [ItemMetadataListElementComponent],
+      imports: [ItemMetadataListElementComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemMetadataListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [ListableObjectComponentLoaderComponent] },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

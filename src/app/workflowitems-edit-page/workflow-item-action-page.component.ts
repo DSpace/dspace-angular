@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import {
-  Component,
+  Directive,
   OnInit,
 } from '@angular/core';
 import {
@@ -36,11 +36,12 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 /**
  * Abstract component representing a page to perform an action on a workflow item
  */
-@Component({
+@Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'ds-workflowitem-action-page',
-  template: '',
+  standalone: true,
 })
-export abstract class WorkflowItemActionPageComponent implements OnInit {
+export abstract class WorkflowItemActionPageDirective implements OnInit {
   public type;
   public wfi$: Observable<WorkflowItem>;
   public item$: Observable<Item>;
@@ -64,7 +65,7 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
     this.type = this.getType();
     this.wfi$ = this.route.data.pipe(map((data: Data) => data.wfi as RemoteData<WorkflowItem>), getRemoteDataPayload());
     this.item$ = this.wfi$.pipe(switchMap((wfi: WorkflowItem) => (wfi.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
-    this.previousQueryParameters = (this.location.getState() as { [key: string]: any }).previousQueryParams;
+    this.previousQueryParameters = (this.location.getState() as { [key: string]: any })?.previousQueryParams;
   }
 
   /**

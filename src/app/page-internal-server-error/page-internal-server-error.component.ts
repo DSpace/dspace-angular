@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ServerResponseService } from '../core/services/server-response.service';
 
@@ -13,6 +14,8 @@ import { ServerResponseService } from '../core/services/server-response.service'
   styleUrls: ['./page-internal-server-error.component.scss'],
   templateUrl: './page-internal-server-error.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class PageInternalServerErrorComponent {
 

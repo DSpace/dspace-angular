@@ -39,7 +39,6 @@ import {
 import { environment } from '../environments/environment';
 import { AuthService } from './core/auth/auth.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { models } from './core/core.module';
 import {
   NativeWindowRef,
   NativeWindowService,
@@ -95,9 +94,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private modalConfig: NgbModalConfig,
   ) {
     this.notificationOptions = environment.notifications;
-
-    /* Use models object so all decorators are actually called */
-    this.models = models;
 
     if (isPlatformBrowser(this.platformId)) {
       this.trackIdleModal();

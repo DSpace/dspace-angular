@@ -1,20 +1,34 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  NgbDatepickerModule,
+  NgbDateStruct,
+  NgbTimepickerModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   utcToZonedTime,
   zonedTimeToUtc,
 } from 'date-fns-tz';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import {
   BehaviorSubject,
   Observable,
@@ -44,6 +58,8 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   selector: 'ds-system-wide-alert-form',
   styleUrls: ['./system-wide-alert-form.component.scss'],
   templateUrl: './system-wide-alert-form.component.html',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule],
 })
 export class SystemWideAlertFormComponent implements OnInit {
 

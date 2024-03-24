@@ -9,8 +9,9 @@ import { MetadataImportPageComponent } from './metadata-import-page.component';
 @Component({
   selector: 'ds-themed-metadata-import-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
-export class ThemedMetadataImportPageComponent extends ThemedComponent<MetadataImportPageComponent>{
+export class ThemedMetadataImportPageComponent extends ThemedComponent<MetadataImportPageComponent> {
   protected getComponentName(): string {
     return 'MetadataImportPageComponent';
   }

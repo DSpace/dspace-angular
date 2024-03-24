@@ -29,10 +29,10 @@ describe('ObjectNotFoundComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           TranslateModule.forRoot(),
+          ObjectNotFoundComponent,
         ], providers: [
           { provide: ActivatedRoute, useValue: activatedRouteStub },
         ],
-        declarations: [ObjectNotFoundComponent],
         schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));
@@ -59,10 +59,10 @@ describe('ObjectNotFoundComponent', () => {
       TestBed.configureTestingModule({
         imports: [
           TranslateModule.forRoot(),
+          ObjectNotFoundComponent,
         ], providers: [
           { provide: ActivatedRoute, useValue: activatedRouteStubHandle },
         ],
-        declarations: [ObjectNotFoundComponent],
         schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));

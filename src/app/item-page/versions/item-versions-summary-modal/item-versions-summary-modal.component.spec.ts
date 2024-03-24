@@ -14,8 +14,7 @@ describe('ItemVersionsSummaryModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemVersionsSummaryModalComponent ],
-      imports: [ TranslateModule.forRoot(), RouterTestingModule.withRoutes([]) ],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsSummaryModalComponent],
       providers: [
         { provide: NgbActiveModal },
       ],

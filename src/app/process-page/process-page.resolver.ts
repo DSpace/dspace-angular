@@ -19,7 +19,7 @@ export const PROCESS_PAGE_FOLLOW_LINKS = [
 /**
  * This class represents a resolver that requests a specific process before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProcessPageResolver implements Resolve<RemoteData<Process>> {
   constructor(private processService: ProcessDataService) {
   }

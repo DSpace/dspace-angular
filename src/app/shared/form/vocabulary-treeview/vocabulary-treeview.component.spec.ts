@@ -11,6 +11,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -90,10 +91,9 @@ describe('VocabularyTreeviewComponent test suite', () => {
         CdkTreeModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         VocabularyTreeviewComponent,
         TestComponent,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
@@ -296,6 +296,8 @@ describe('VocabularyTreeviewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CdkTreeModule],
 })
 class TestComponent {
 

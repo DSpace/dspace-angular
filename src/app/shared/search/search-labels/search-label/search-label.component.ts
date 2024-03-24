@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -6,7 +7,9 @@ import {
 import {
   Params,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -23,6 +26,8 @@ import { stripOperatorFromFilterValue } from '../../search.utils';
 @Component({
   selector: 'ds-search-label',
   templateUrl: './search-label.component.html',
+  standalone: true,
+  imports: [RouterLink, AsyncPipe, TranslateModule],
 })
 
 /**

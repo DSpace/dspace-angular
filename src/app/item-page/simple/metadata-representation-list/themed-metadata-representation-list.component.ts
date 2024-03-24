@@ -11,6 +11,7 @@ import { MetadataRepresentationListComponent } from './metadata-representation-l
   selector: 'ds-themed-metadata-representation-list',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedMetadataRepresentationListComponent extends ThemedComponent<MetadataRepresentationListComponent> {
   protected inAndOutputNames: (keyof MetadataRepresentationListComponent & keyof this)[] = ['parentItem', 'itemType', 'metadataFields', 'label', 'incrementBy'];

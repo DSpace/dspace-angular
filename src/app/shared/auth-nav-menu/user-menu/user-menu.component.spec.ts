@@ -9,6 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import {
   Store,
   StoreModule,
@@ -20,6 +21,7 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
 import {
   authReducer,
@@ -28,6 +30,7 @@ import {
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { UserMenuComponent } from './user-menu.component';
 
@@ -83,12 +86,12 @@ describe('UserMenuComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        UserMenuComponent,
       ],
       providers: [
         { provide: AuthService, useValue: authService },
-      ],
-      declarations: [
-        UserMenuComponent,
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
@@ -134,8 +137,8 @@ describe('UserMenuComponent', () => {
       expect(component.user$).toBeObservable(cold('(c|)', {
         c: EPersonMock,
       }));
-
-      expect(deUserMenu).toBeNull();
+      const span = deUserMenu.query(By.css('.dropdown-item-text'));
+      expect(span).toBeNull();
     });
 
   });

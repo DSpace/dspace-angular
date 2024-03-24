@@ -27,7 +27,7 @@ import {
  * Prevent creation of a community with an invalid parent community provided
  * @class CreateCommunityPageGuard
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CreateCommunityPageGuard implements CanActivate {
   public constructor(private router: Router, private communityService: CommunityDataService) {
   }

@@ -13,6 +13,7 @@ import {
   of,
 } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -20,9 +21,11 @@ import { RouteService } from '../../../core/services/route.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
 import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
@@ -128,8 +131,7 @@ describe('AdminNotifySearchResultComponent', () => {
 
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifySearchResultComponent, AdminNotifyDetailModalComponent ],
+      imports: [TranslateModule.forRoot(), AdminNotifySearchResultComponent, AdminNotifyDetailModalComponent],
       providers: [
         { provide: AdminNotifyMessagesService, useValue: adminNotifyMessageService },
         { provide: RouteService, useValue: routeServiceStub },
@@ -139,10 +141,19 @@ describe('AdminNotifySearchResultComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: rdbService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         DatePipe,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(AdminNotifySearchResultComponent, {
+        remove: {
+          imports: [
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ],
+        },
+      })
       .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifySearchResultComponent);

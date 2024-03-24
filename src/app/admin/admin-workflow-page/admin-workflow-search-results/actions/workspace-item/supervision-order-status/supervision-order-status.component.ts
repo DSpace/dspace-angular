@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -6,6 +11,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   from,
@@ -23,6 +30,7 @@ import { Group } from '../../../../../../core/eperson/models/group.model';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
 import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
 import { isNotEmpty } from '../../../../../../shared/empty.util';
+import { VarDirective } from '../../../../../../shared/utils/var.directive';
 
 export interface SupervisionOrderListEntry {
   supervisionOrder: SupervisionOrder;
@@ -33,6 +41,8 @@ export interface SupervisionOrderListEntry {
   selector: 'ds-supervision-order-status',
   templateUrl: './supervision-order-status.component.html',
   styleUrls: ['./supervision-order-status.component.scss'],
+  standalone: true,
+  imports: [VarDirective, NgIf, NgFor, NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 export class SupervisionOrderStatusComponent implements OnChanges {
 

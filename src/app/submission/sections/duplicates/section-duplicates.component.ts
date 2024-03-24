@@ -1,9 +1,17 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Inject,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -15,12 +23,11 @@ import { WorkspaceitemSectionDuplicatesObject } from '../../../core/submission/m
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 
 /**
  * Detect duplicates step
@@ -31,9 +38,16 @@ import { SectionsType } from '../sections-type';
   selector: 'ds-submission-section-duplicates',
   templateUrl: './section-duplicates.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    VarDirective,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 
-@renderSectionFor(SectionsType.Duplicates)
 export class SubmissionSectionDuplicatesComponent extends SectionModelComponent {
   protected readonly Metadata = Metadata;
   /**

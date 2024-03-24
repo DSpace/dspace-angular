@@ -20,8 +20,7 @@
         <div *ngIf="hasAnonymousGroup$ | async">
           {{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.anonymous-group' | translate}}
         </div>
-        <a *ngIf="hasCustomGroup$ | async"
-           routerLink="{{editGroupLink$ | async}}">
+        <a *ngIf="hasCustomGroup$ | async" [routerLink]="editGroupLink$ | async">
           {{ dsoNameService.getName(group) }}
         </a>
       </div>
