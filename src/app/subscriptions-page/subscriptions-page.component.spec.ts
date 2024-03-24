@@ -25,8 +25,11 @@ import { AuthService } from '../core/auth/auth.service';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { PageInfo } from '../core/shared/page-info.model';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
 import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
@@ -77,8 +80,8 @@ describe('SubscriptionsPageComponent', () => {
           },
         }),
         NoopAnimationsModule,
+        SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective,
       ],
-      declarations: [SubscriptionsPageComponent, SubscriptionViewComponent, VarDirective],
       providers: [
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
@@ -87,6 +90,11 @@ describe('SubscriptionsPageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(SubscriptionsPageComponent, {
+        remove: {
+          imports: [ThemedLoadingComponent, PaginationComponent, AlertComponent],
+        },
+      })
       .compileComponents();
   }));
 

@@ -104,8 +104,7 @@ describe('CollectionSourceControlsComponent', () => {
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [CollectionSourceControlsComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, CollectionSourceControlsComponent, VarDirective],
       providers: [
         { provide: ScriptDataService, useValue: scriptDataService },
         { provide: ProcessDataService, useValue: processDataService },

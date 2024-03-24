@@ -64,13 +64,11 @@ describe('ItemDetailPreviewFieldComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ItemDetailPreviewFieldComponent, TruncatePipe,
       ],
-      declarations: [ItemDetailPreviewFieldComponent, TruncatePipe],
       providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
-
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemDetailPreviewFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

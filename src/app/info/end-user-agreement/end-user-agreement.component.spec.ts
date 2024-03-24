@@ -19,6 +19,7 @@ import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
+import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;
@@ -56,8 +57,7 @@ describe('EndUserAgreementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EndUserAgreementComponent],
+      imports: [TranslateModule.forRoot(), EndUserAgreementComponent],
       providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },
@@ -67,7 +67,13 @@ describe('EndUserAgreementComponent', () => {
         { provide: ActivatedRoute, useValue: route },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(EndUserAgreementComponent, {
+        remove: {
+          imports: [EndUserAgreementContentComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

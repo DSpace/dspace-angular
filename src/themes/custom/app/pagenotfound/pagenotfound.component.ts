@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { PageNotFoundComponent as BaseComponent } from '../../../../app/pagenotfound/pagenotfound.component';
 
@@ -12,6 +14,8 @@ import { PageNotFoundComponent as BaseComponent } from '../../../../app/pagenotf
   // templateUrl: './pagenotfound.component.html'
   templateUrl: '../../../../app/pagenotfound/pagenotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  standalone: true,
+  imports: [RouterLink, TranslateModule],
 })
 
 /**

@@ -5,7 +5,10 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -42,6 +45,7 @@ describe('MenuResolver', () => {
   let browseService;
   let authorizationService;
   let scriptService;
+  let mockNgbModal;
   let configurationDataService;
 
   beforeEach(waitForAsync(() => {
@@ -58,13 +62,17 @@ describe('MenuResolver', () => {
     scriptService = jasmine.createSpyObj('scriptService', {
       scriptWithNameExistsAndCanExecute: observableOf(true),
     });
+    mockNgbModal = {
+      open: jasmine.createSpy('open').and.returnValue(
+        { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+      ),
+    };
 
     configurationDataService = new ConfigurationDataServiceStub();
     spyOn(configurationDataService, 'findByPropertyName').and.returnValue(observableOf(true));
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [AdminSidebarComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
       providers: [
         { provide: MenuService, useValue: menuService },
         { provide: BrowseService, useValue: browseService },
@@ -72,11 +80,7 @@ describe('MenuResolver', () => {
         { provide: ScriptDataService, useValue: scriptService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            },
-          },
-        },
+          provide: NgbModal, useValue: mockNgbModal },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });

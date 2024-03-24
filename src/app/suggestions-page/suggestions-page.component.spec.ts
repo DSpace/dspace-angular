@@ -23,11 +23,9 @@ import { TestScheduler } from 'rxjs/testing';
 import { AuthService } from '../core/auth/auth.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 import { SuggestionEvidencesComponent } from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
-import {
-  SuggestionApproveAndImport,
-  SuggestionListElementComponent,
-} from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../notifications/suggestions.service';
 import {
@@ -78,8 +76,6 @@ describe('SuggestionPageComponent', () => {
         BrowserModule,
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SuggestionEvidencesComponent,
         SuggestionListElementComponent,
         SuggestionsPageComponent,

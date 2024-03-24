@@ -9,7 +9,6 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -26,6 +25,7 @@ import { NotificationsServiceStub } from '../../../testing/notifications-service
 import { RouterStub } from '../../../testing/router.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { AdvancedClaimedTaskActionSelectReviewerComponent } from './advanced-claimed-task-action-select-reviewer.component';
+
 
 const taskId = 'claimed-task-1';
 const workflowId = 'workflow-1';
@@ -56,10 +56,7 @@ describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdvancedClaimedTaskActionSelectReviewerComponent,
-        NgbTooltip,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: route },

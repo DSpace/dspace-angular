@@ -18,6 +18,7 @@ import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mo
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { JournalSearchResultGridElementComponent } from '../search-result-grid-elements/journal/journal-search-result-grid-element.component';
 import { JournalGridElementComponent } from './journal-grid-element.component';
 
 const mockItem = Object.assign(new Item(), {
@@ -60,15 +61,17 @@ describe('JournalGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [JournalGridElementComponent, TruncatePipe],
+      imports: [NoopAnimationsModule, TruncatePipe, JournalGridElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [JournalSearchResultGridElementComponent],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

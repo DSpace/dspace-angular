@@ -37,7 +37,6 @@ import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { ITEM } from '../shared/item.resource-type';
 import { MetadataMap } from '../shared/metadata.models';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
@@ -46,7 +45,6 @@ import {
   CreateData,
   CreateDataImpl,
 } from './base/create-data';
-import { dataService } from './base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -432,8 +430,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
 /**
  * A service for CRUD operations on Items
  */
-@Injectable()
-@dataService(ITEM)
+@Injectable({ providedIn: 'root' })
 export class ItemDataService extends BaseItemDataService {
   constructor(
     protected requestService: RequestService,

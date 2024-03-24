@@ -18,6 +18,9 @@ import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';
 import { BrowseDefinitionDataServiceStub } from '../../../shared/testing/browse-definition-data-service.stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataRepresentationListComponent } from './metadata-representation-list.component';
@@ -111,15 +114,15 @@ describe('MetadataRepresentationListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [MetadataRepresentationListComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), MetadataRepresentationListComponent, VarDirective],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataRepresentationListComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [MetadataFieldWrapperComponent, MetadataRepresentationLoaderComponent, ThemedLoadingComponent] },
     }).compileComponents();
   }));
 

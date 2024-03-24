@@ -1,12 +1,27 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -31,7 +46,9 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { getEPersonEditRoute } from '../../../access-control-routing-paths';
 
@@ -78,6 +95,18 @@ export interface EPersonListActionConfig {
 @Component({
   selector: 'ds-members-list',
   templateUrl: './members-list.component.html',
+  imports: [
+    TranslateModule,
+    ContextHelpDirective,
+    ReactiveFormsModule,
+    PaginationComponent,
+    NgIf,
+    AsyncPipe,
+    RouterLink,
+    NgClass,
+    NgForOf,
+  ],
+  standalone: true,
 })
 /**
  * The list of members in the edit group page

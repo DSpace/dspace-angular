@@ -14,6 +14,7 @@ import { AdminSidebarComponent } from './admin-sidebar.component';
   selector: 'ds-themed-admin-sidebar',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedAdminSidebarComponent extends ThemedComponent<AdminSidebarComponent> {
 

@@ -7,11 +7,22 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
+import { AuthService } from '../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../../core/shared/item.model';
+import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { JournalIssueListElementComponent } from './journal-issue-list-element.component';
@@ -44,16 +55,17 @@ describe('JournalIssueListElementComponent', () => {
   let comp;
   let fixture;
 
-  const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
-  };
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JournalIssueListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, TranslateModule.forRoot(), JournalIssueListElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalIssueListElementComponent, {

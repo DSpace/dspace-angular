@@ -77,8 +77,7 @@ describe('ProfilePageResearcherFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageResearcherFormComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProfilePageResearcherFormComponent, VarDirective],
       providers: [
         NgbModal,
         { provide: ResearcherProfileDataService, useValue: researcherProfileService },

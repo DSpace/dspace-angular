@@ -9,7 +9,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -32,6 +35,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { VarDirective } from '../../utils/var.directive';
@@ -115,12 +119,13 @@ describe('ClaimedTaskActionsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ClaimedTaskActionsComponent, VarDirective,
       ],
-      declarations: [ClaimedTaskActionsComponent, VarDirective],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ClaimedTaskDataService, useValue: mockDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },

@@ -41,8 +41,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemEditBitstreamBundleComponent],
+      imports: [TranslateModule.forRoot(), ItemEditBitstreamBundleComponent],
       schemas: [
         NO_ERRORS_SCHEMA,
       ],

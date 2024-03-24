@@ -34,8 +34,7 @@ describe('ValidationSuggestionsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, ReactiveFormsModule],
-      declarations: [ValidationSuggestionsComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, ReactiveFormsModule, ValidationSuggestionsComponent],
       providers: [FormsModule,
         ReactiveFormsModule,
         { provide: MetadataFieldDataService, useValue: {} },

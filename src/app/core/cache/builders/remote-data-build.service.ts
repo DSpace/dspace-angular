@@ -50,7 +50,7 @@ import { ObjectCacheService } from '../object-cache.service';
 import { getClassForType } from './build-decorators';
 import { LinkService } from './link.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RemoteDataBuildService {
   constructor(protected objectCache: ObjectCacheService,
               protected linkService: LinkService,

@@ -1,10 +1,15 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 
@@ -13,6 +18,8 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Group } from '../../../../../../core/eperson/models/group.model';
 import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
 import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
+import { EpersonGroupListComponent } from '../../../../../../shared/eperson-group-list/eperson-group-list.component';
+import { ErrorComponent } from '../../../../../../shared/error/error.component';
 
 /**
  * Component to wrap a dropdown - for type of order -
@@ -25,6 +32,8 @@ import { SupervisionOrderDataService } from '../../../../../../core/supervision-
   selector: 'ds-supervision-group-selector',
   styleUrls: ['./supervision-order-group-selector.component.scss'],
   templateUrl: './supervision-order-group-selector.component.html',
+  standalone: true,
+  imports: [FormsModule, NgIf, ErrorComponent, EpersonGroupListComponent, TranslateModule],
 })
 export class SupervisionOrderGroupSelectorComponent {
 

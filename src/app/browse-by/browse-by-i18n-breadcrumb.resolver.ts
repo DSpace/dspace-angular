@@ -12,7 +12,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
  * This class resolves a BreadcrumbConfig object with an i18n key string for a route
  * It adds the metadata field of the current browse-by page
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowseByI18nBreadcrumbResolver extends I18nBreadcrumbResolver {
   constructor(protected breadcrumbService: I18nBreadcrumbsService) {
     super(breadcrumbService);

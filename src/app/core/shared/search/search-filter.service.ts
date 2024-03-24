@@ -54,7 +54,7 @@ export const SCOPE: InjectionToken<string> = new InjectionToken<string>('scope')
 /**
  * Service that performs all actions that have to do with search filters and facets
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchFilterService {
 
   constructor(private store: Store<SearchFiltersState>,

@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -16,6 +20,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 
 /**
  * Component for managing a community's roles
@@ -23,6 +28,12 @@ import {
 @Component({
   selector: 'ds-community-roles',
   templateUrl: './community-roles.component.html',
+  imports: [
+    ComcolRoleComponent,
+    AsyncPipe,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class CommunityRolesComponent implements OnInit {
 

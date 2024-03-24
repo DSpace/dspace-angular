@@ -70,8 +70,6 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdvancedWorkflowActionRatingComponent,
         VarDirective,
       ],

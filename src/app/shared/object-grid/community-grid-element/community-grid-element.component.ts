@@ -1,12 +1,19 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { Community } from '../../../core/shared/community.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
 import {
   hasNoValue,
   hasValue,
@@ -22,6 +29,8 @@ import { followLink } from '../../utils/follow-link-config.model';
   selector: 'ds-community-grid-element',
   styleUrls: ['./community-grid-element.component.scss'],
   templateUrl: './community-grid-element.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, AsyncPipe, TranslateModule],
 })
 
 @listableObjectComponent(Community, ViewMode.GridElement)

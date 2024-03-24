@@ -8,6 +8,8 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { RegisterEmailFormComponent } from '../../register-email-form/register-email-form.component';
+import { ThemedRegisterEmailFormComponent } from '../../register-email-form/themed-registry-email-form.component';
 import { ForgotEmailComponent } from './forgot-email.component';
 
 describe('ForgotEmailComponent', () => {
@@ -16,10 +18,15 @@ describe('ForgotEmailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [ForgotEmailComponent],
+      imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule, ForgotEmailComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ForgotEmailComponent, {
+        remove: {
+          imports: [RegisterEmailFormComponent, ThemedRegisterEmailFormComponent],
+        },
+      })
+      .compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(ForgotEmailComponent);

@@ -10,6 +10,7 @@ import { HeaderNavbarWrapperComponent } from './header-navbar-wrapper.component'
   selector: 'ds-themed-header-navbar-wrapper',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedHeaderNavbarWrapperComponent extends ThemedComponent<HeaderNavbarWrapperComponent> {
   protected getComponentName(): string {

@@ -6,13 +6,16 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { RestResponse } from '../../core/cache/response.models';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form.component';
@@ -38,14 +41,21 @@ describe('ProfilePageSecurityFormComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageSecurityFormComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        ProfilePageSecurityFormComponent,
+        VarDirective,
+        NoopAnimationsModule,
+      ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
         { provide: NotificationsService, useValue: notificationsService },
         FormBuilderService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ProfilePageSecurityFormComponent, {
+      remove: { imports: [ FormComponent, AlertComponent ] },
     }).compileComponents();
   }));
 

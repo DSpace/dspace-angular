@@ -170,13 +170,11 @@ describe('Dynamic Lookup component', () => {
         ReactiveFormsModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         DsDynamicLookupComponent,
         TestComponent,
         AuthorityConfidenceStateDirective,
         ObjNgFor,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         DsDynamicLookupComponent,
@@ -583,6 +581,13 @@ describe('Dynamic Lookup component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    InfiniteScrollModule,
+    ReactiveFormsModule,
+    NgbModule],
 })
 class TestComponent {
 

@@ -39,6 +39,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
 @Component({
   selector: 'ds-abstract-item-update',
   template: '',
+  standalone: true,
 })
 /**
  * Abstract component for managing object updates of an item

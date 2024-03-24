@@ -13,7 +13,7 @@ import { Site } from '../core/shared/site.model';
 /**
  * The class that resolve the Site object for a route
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HomePageResolver implements Resolve<Site> {
   constructor(private siteService: SiteDataService) {
   }

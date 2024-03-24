@@ -12,7 +12,7 @@ import { Process } from './processes/process.model';
 /**
  * Service to calculate process breadcrumbs for a single part of the route
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProcessBreadcrumbsService implements BreadcrumbsProviderService<Process> {
 
   /**

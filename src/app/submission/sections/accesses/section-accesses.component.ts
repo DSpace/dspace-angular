@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Inject,
@@ -53,8 +54,6 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import {
   ACCESS_CONDITION_GROUP_CONFIG,
   ACCESS_CONDITION_GROUP_LAYOUT,
@@ -78,8 +77,12 @@ import { SectionAccessesService } from './section-accesses.service';
   selector: 'ds-section-accesses',
   templateUrl: './section-accesses.component.html',
   styleUrls: ['./section-accesses.component.scss'],
+  imports: [
+    FormComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.AccessesCondition)
 export class SubmissionSectionAccessesComponent extends SectionModelComponent {
 
   /**

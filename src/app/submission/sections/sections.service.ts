@@ -63,7 +63,7 @@ import { SectionsType } from './sections-type';
 /**
  * A service that provides methods used in submission process.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SectionsService {
 
   /**

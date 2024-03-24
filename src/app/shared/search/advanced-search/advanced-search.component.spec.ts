@@ -20,9 +20,9 @@ import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { FormBuilderService } from '../../form/builder/form-builder.service';
+import { getMockFormBuilderService } from '../../mocks/form-builder-service.mock';
 import { BrowserOnlyMockPipe } from '../../testing/browser-only-mock.pipe';
 import { RouterStub } from '../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
@@ -45,8 +45,7 @@ describe('AdvancedSearchComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdvancedSearchComponent, BrowserOnlyMockPipe],
-      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), BrowserAnimationsModule, ReactiveFormsModule],
+      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), BrowserAnimationsModule, ReactiveFormsModule, BrowserOnlyMockPipe, AdvancedSearchComponent],
       providers: [
         FormBuilder,
         { provide: APP_CONFIG, useValue: environment },

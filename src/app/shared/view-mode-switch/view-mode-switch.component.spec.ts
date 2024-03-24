@@ -19,11 +19,13 @@ import {
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
-import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 import { SearchServiceStub } from '../testing/search-service.stub';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
-@Component({ template: '' })
+@Component({
+  template: '',
+  standalone: true,
+})
 class DummyComponent {
 }
 
@@ -46,11 +48,8 @@ describe('ViewModeSwitchComponent', () => {
         RouterTestingModule.withRoutes([
           { path: 'search', component: DummyComponent, pathMatch: 'full' },
         ]),
-      ],
-      declarations: [
         ViewModeSwitchComponent,
         DummyComponent,
-        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: SearchService, useValue: searchService },

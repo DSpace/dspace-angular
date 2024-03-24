@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   DebugElement,
@@ -49,8 +50,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [TestComponent, MockComponent(DSOSelectorComponent)],
+      imports: [TranslateModule.forRoot(), TestComponent, MockComponent(DSOSelectorComponent)],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -162,6 +162,12 @@ describe('DSOSelectorModalWrapperComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   templateUrl: './dso-selector-modal-wrapper.component.html',
+  imports: [
+    DSOSelectorComponent,
+    NgIf,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 class TestComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

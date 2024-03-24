@@ -8,22 +8,34 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 import { BrowseByPageComponent } from './browse-by-page.component';
 
-@rendersBrowseBy('BrowseByPageComponent' as BrowseByDataType)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '<span id="BrowseByTestComponent"></span>',
 })
 class BrowseByTestComponent {
+}
+
+@Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'ds-browse-by-switcher',
+  template: `<ng-template #DynamicComponentLoader dsDynamicComponentLoader></ng-template>`,
+  standalone: true,
+  imports: [DynamicComponentLoaderDirective],
+})
+class TestBrowseBySwitcherComponent extends BrowseBySwitcherComponent {
+  getComponent(): GenericConstructor<Component> {
+    return BrowseByTestComponent;
+  }
 }
 
 class TestBrowseByPageBrowseDefinition extends BrowseDefinition {
@@ -44,17 +56,22 @@ describe('BrowseByPageComponent', () => {
     themeService = getMockThemeService();
 
     await TestBed.configureTestingModule({
-      declarations: [
-        BrowseByPageComponent,
-        BrowseBySwitcherComponent,
-        DynamicComponentLoaderDirective,
-      ],
+      imports: [TestBrowseBySwitcherComponent, BrowseByPageComponent, DynamicComponentLoaderDirective],
       providers: [
         BrowseByTestComponent,
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: ThemeService, useValue: themeService },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(BrowseByPageComponent, {
+        remove: {
+          imports: [BrowseBySwitcherComponent],
+        },
+        add: {
+          imports: [TestBrowseBySwitcherComponent],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(BrowseByPageComponent);
     component = fixture.componentInstance;

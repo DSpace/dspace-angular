@@ -46,9 +46,12 @@ import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
@@ -231,8 +234,6 @@ describe('EPersonFormComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-      ],
-      declarations: [
         EPersonFormComponent,
         HasNoValuePipe,
       ],
@@ -251,7 +252,11 @@ describe('EPersonFormComponent', () => {
         EPeopleRegistryComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(EPersonFormComponent, {
+        remove: { imports: [    ThemedLoadingComponent, PaginationComponent,FormComponent] },
+      })
+      .compileComponents();
   }));
 
   epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {

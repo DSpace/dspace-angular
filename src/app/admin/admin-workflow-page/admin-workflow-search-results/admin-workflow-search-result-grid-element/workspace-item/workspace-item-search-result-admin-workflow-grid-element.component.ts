@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ComponentRef,
@@ -6,6 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -46,12 +48,15 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/workspace-item/workspace-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
   selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
   styleUrls: ['./workspace-item-search-result-admin-workflow-grid-element.component.scss'],
   templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html',
+  standalone: true,
+  imports: [WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule, DynamicComponentLoaderDirective],
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page

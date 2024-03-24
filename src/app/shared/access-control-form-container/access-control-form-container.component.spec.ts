@@ -17,14 +17,11 @@ import { of } from 'rxjs';
 
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 import { Item } from '../../core/shared/item.model';
-import { SharedBrowseByModule } from '../browse-by/shared-browse-by.module';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
-import { AccessControlFormModule } from './access-control-form.module';
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';
 import { ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID } from './item-access-control-select-bitstreams-modal/item-access-control-select-bitstreams-modal.component';
-
 
 describe('AccessControlFormContainerComponent', () => {
   let component: AccessControlFormContainerComponent<any>;
@@ -32,7 +29,14 @@ describe('AccessControlFormContainerComponent', () => {
 
 
   // Mock NgbModal
-  @Component({ selector: 'ds-ngb-modal', template: '' })
+  @Component({
+    selector: 'ds-ngb-modal', template: '',
+    standalone: true,
+    imports: [CommonModule,
+      FormsModule,
+      NgbDatepickerModule,
+      UiSwitchModule],
+  })
   class MockNgbModalComponent {
   }
 
@@ -59,15 +63,13 @@ describe('AccessControlFormContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AccessControlFormContainerComponent, MockNgbModalComponent],
       imports: [
         CommonModule,
         FormsModule,
-        SharedBrowseByModule,
-        AccessControlFormModule,
         TranslateModule.forRoot(),
         NgbDatepickerModule,
         UiSwitchModule,
+        AccessControlFormContainerComponent, MockNgbModalComponent,
       ],
       providers: [
         { provide: BulkAccessControlService, useValue: mockBulkAccessControlService },

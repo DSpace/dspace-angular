@@ -14,10 +14,8 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
-import { BUNDLE } from '../shared/bundle.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PatchData,
@@ -35,10 +33,7 @@ import { RestRequestMethod } from './rest-request-method';
 /**
  * A service to retrieve {@link Bundle}s from the REST API
  */
-@Injectable(
-  { providedIn: 'root' },
-)
-@dataService(BUNDLE)
+@Injectable({ providedIn: 'root' })
 export class BundleDataService extends IdentifiableDataService<Bundle> implements PatchData<Bundle> {
   private bitstreamsEndpoint = 'bitstreams';
 

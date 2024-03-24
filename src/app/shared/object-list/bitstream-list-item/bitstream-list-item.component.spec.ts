@@ -8,7 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
-import { SharedModule } from '../../shared.module';
 import { BitstreamListItemComponent } from './bitstream-list-item.component';
 
 describe('BitstreamListItemComponent', () => {
@@ -17,8 +16,7 @@ describe('BitstreamListItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BitstreamListItemComponent ],
-      imports: [ CommonModule, SharedModule, TranslateModule, RouterTestingModule ],
+      imports: [CommonModule, TranslateModule, RouterTestingModule, BitstreamListItemComponent],
       providers: [{ provide: DSONameService, useValue: new DSONameServiceMock() }],
     })
       .compileComponents();

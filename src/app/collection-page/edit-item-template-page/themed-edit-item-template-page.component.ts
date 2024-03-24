@@ -7,6 +7,7 @@ import { EditItemTemplatePageComponent } from './edit-item-template-page.compone
   selector: 'ds-themed-edit-item-template-page',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 /**
  * Component for editing the item template of a collection

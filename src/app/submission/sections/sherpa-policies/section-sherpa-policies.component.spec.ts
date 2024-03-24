@@ -17,15 +17,19 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AppState } from '../../../app.reducer';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
-import { SharedModule } from '../../../shared/shared.module';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../../submission.service';
 import { SectionsService } from '../sections.service';
+import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
+import { PublicationInformationComponent } from './publication-information/publication-information.component';
+import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
 import { SubmissionSectionSherpaPoliciesComponent } from './section-sherpa-policies.component';
 
 describe('SubmissionSectionSherpaPoliciesComponent', () => {
@@ -71,9 +75,8 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
             },
           }),
           NgbCollapseModule,
-          SharedModule,
+          SubmissionSectionSherpaPoliciesComponent,
         ],
-        declarations: [SubmissionSectionSherpaPoliciesComponent],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
@@ -81,8 +84,17 @@ describe('SubmissionSectionSherpaPoliciesComponent', () => {
           { provide: Store, useValue: storeStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ],
       })
+        .overrideComponent(SubmissionSectionSherpaPoliciesComponent, {
+          remove: { imports: [
+            MetadataInformationComponent,
+            AlertComponent,
+            PublisherPolicyComponent,
+            PublicationInformationComponent,
+          ] },
+        })
         .compileComponents();
     });
 

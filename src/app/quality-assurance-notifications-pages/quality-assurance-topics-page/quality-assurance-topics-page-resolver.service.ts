@@ -17,7 +17,7 @@ export interface QualityAssuranceTopicsPageParams {
 /**
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class QualityAssuranceTopicsPageResolver implements Resolve<QualityAssuranceTopicsPageParams> {
 
   /**

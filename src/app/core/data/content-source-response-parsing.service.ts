@@ -8,7 +8,7 @@ import { MetadataConfig } from '../shared/metadata-config.model';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 /**
  * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a ContentSource object
  */

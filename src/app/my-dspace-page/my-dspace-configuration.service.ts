@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import {
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   combineLatest,
@@ -32,11 +35,12 @@ export const MyDSpaceConfigurationToContextMap = new Map([
   [MyDSpaceConfigurationValueType.Workflow, Context.Workflow],
 ]);
 
+export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
 
 /**
  * Service that performs all actions that have to do with the current mydspace configuration
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MyDSpaceConfigurationService extends SearchConfigurationService {
   /**
    * Default pagination settings

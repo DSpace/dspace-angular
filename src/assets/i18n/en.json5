@@ -4470,6 +4470,12 @@
 
   "search.filters.entityType.OrgUnit": "Organizational Unit",
 
+  "search.filters.entityType.Person": "Person",
+
+  "search.filters.entityType.Project": "Project",
+
+  "search.filters.entityType.Publication": "Publication",
+
   "search.filters.has_content_in_original_bundle.true": "Yes",
 
   "search.filters.has_content_in_original_bundle.false": "No",

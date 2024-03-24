@@ -1,10 +1,15 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -21,8 +26,10 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { Context } from '../../../../../../core/shared/context.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../../../remote-data.utils';
 import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
@@ -37,6 +44,14 @@ import { PaginatedSearchOptions } from '../../../../../search/models/paginated-s
       useClass: SearchConfigurationService,
     },
   ],
+  imports: [
+    PageSizeSelectorComponent,
+    ObjectCollectionComponent,
+    AsyncPipe,
+    NgIf,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 
 /**

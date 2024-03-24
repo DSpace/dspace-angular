@@ -59,8 +59,7 @@ describe('WorkflowItemDeleteComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [WorkflowItemDeleteComponent, VarDirective],
+      }), WorkflowItemDeleteComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },

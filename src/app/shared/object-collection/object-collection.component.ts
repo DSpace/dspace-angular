@@ -1,4 +1,9 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -30,6 +35,10 @@ import { Context } from '../../core/shared/context.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../empty.util';
+import { ObjectDetailComponent } from '../object-detail/object-detail.component';
+import { ObjectGridComponent } from '../object-grid/object-grid.component';
+import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
+import { ObjectTableComponent } from '../object-table/object-table.component';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { setPlaceHolderAttributes } from '../utils/object-list-utils';
 import { CollectionElementLinkType } from './collection-element-link.type';
@@ -42,6 +51,8 @@ import { ListableObject } from './shared/listable-object.model';
   selector: 'ds-viewable-collection',
   styleUrls: ['./object-collection.component.scss'],
   templateUrl: './object-collection.component.html',
+  standalone: true,
+  imports: [NgIf, ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent],
 })
 export class ObjectCollectionComponent implements OnInit {
   /**

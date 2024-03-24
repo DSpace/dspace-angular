@@ -10,6 +10,7 @@ import { SiteStatisticsPageComponent } from './site-statistics-page.component';
   selector: 'ds-themed-site-statistics-page',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSiteStatisticsPageComponent extends ThemedComponent<SiteStatisticsPageComponent> {
   protected getComponentName(): string {

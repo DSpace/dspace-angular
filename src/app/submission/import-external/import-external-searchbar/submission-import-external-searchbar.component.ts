@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,6 +8,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   Observable,
   of as observableOf,
@@ -59,6 +64,14 @@ export interface ExternalSourceData {
   selector: 'ds-submission-import-external-searchbar',
   styleUrls: ['./submission-import-external-searchbar.component.scss'],
   templateUrl: './submission-import-external-searchbar.component.html',
+  imports: [
+    CommonModule,
+    TranslateModule,
+    InfiniteScrollModule,
+    NgbDropdownModule,
+    FormsModule,
+  ],
+  standalone: true,
 })
 export class SubmissionImportExternalSearchbarComponent implements OnInit, OnDestroy {
   /**

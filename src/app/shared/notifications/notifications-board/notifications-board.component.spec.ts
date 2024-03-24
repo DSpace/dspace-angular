@@ -43,11 +43,13 @@ describe('NotificationsBoardComponent', () => {
             strictStateImmutability: false,
             strictActionImmutability: false,
           },
-        })],
-      declarations: [NotificationsBoardComponent, NotificationComponent], // declare the test component
+        }),
+        NotificationsBoardComponent, NotificationComponent,
+      ],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
-        ChangeDetectorRef],
+        ChangeDetectorRef,
+      ],
     }).compileComponents();  // compile template and css
   }));
 

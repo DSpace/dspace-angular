@@ -2,6 +2,8 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthService } from '../core/auth/auth.service';
 import { ServerResponseService } from '../core/services/server-response.service';
@@ -13,6 +15,8 @@ import { ServerResponseService } from '../core/services/server-response.service'
   selector: 'ds-forbidden',
   templateUrl: './forbidden.component.html',
   styleUrls: ['./forbidden.component.scss'],
+  standalone: true,
+  imports: [RouterLink, TranslateModule],
 })
 export class ForbiddenComponent implements OnInit {
 

@@ -1,18 +1,28 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+} from '@angular/common';
+import {
   Component,
   forwardRef,
   Input,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
   NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
+import { ClickOutsideDirective } from '../../utils/click-outside.directive';
+import { DebounceDirective } from '../../utils/debounce.directive';
 import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { InputSuggestion } from '../input-suggestions.model';
@@ -30,6 +40,8 @@ import { InputSuggestion } from '../input-suggestions.model';
       multi: true,
     },
   ],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule],
 })
 
 /**

@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -13,6 +17,9 @@ import { LinkService } from '../../core/cache/builders/link.service';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { HasValuePipe } from '../../shared/utils/has-value.pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProcessFormComponent } from '../form/process-form.component';
 import { Process } from '../processes/process.model';
 import { Script } from '../scripts/script.model';
 
@@ -23,6 +30,8 @@ import { Script } from '../scripts/script.model';
   selector: 'ds-new-process',
   templateUrl: './new-process.component.html',
   styleUrls: ['./new-process.component.scss'],
+  standalone: true,
+  imports: [NgIf, VarDirective, ProcessFormComponent, AsyncPipe, HasValuePipe],
 })
 export class NewProcessComponent implements OnInit {
   /**

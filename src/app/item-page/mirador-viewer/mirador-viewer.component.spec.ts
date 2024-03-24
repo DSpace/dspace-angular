@@ -51,8 +51,7 @@ describe('MiradorViewerComponent with search', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [MiradorViewerComponent],
+      }), MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
@@ -114,8 +113,7 @@ describe('MiradorViewerComponent with multiple images', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [MiradorViewerComponent],
+      }), MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
@@ -174,8 +172,7 @@ describe('MiradorViewerComponent with a single image', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [MiradorViewerComponent],
+      }), MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
         { provide: BundleDataService, useValue: {} },
@@ -227,8 +224,7 @@ describe('MiradorViewerComponent in development mode', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [MiradorViewerComponent],
+      }), MiradorViewerComponent],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
       ],

@@ -55,8 +55,6 @@ describe('AdvancedClaimedTaskActionRatingComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdvancedClaimedTaskActionRatingComponent,
       ],
       providers: [

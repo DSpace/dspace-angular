@@ -150,7 +150,6 @@ describe('AuthService test', () => {
             },
           }),
         ],
-        declarations: [],
         providers: [
           { provide: AuthRequestService, useValue: authRequest },
           { provide: NativeWindowService, useValue: window },

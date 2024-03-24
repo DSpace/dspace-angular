@@ -1,10 +1,21 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -26,6 +37,7 @@ import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 /**
@@ -34,6 +46,15 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 @Component({
   selector: 'ds-bitstream-formats',
   templateUrl: './bitstream-formats.component.html',
+  imports: [
+    NgIf,
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+    PaginationComponent,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 

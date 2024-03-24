@@ -16,8 +16,7 @@ describe('ComcolPageHandleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ComcolPageHandleComponent],
+      imports: [TranslateModule.forRoot(), ComcolPageHandleComponent],
     })
       .compileComponents();
   }));

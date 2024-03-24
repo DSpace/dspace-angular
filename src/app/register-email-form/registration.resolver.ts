@@ -11,7 +11,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { Registration } from '../core/shared/registration.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 /**
  * Resolver to resolve a Registration object based on the provided token
  */

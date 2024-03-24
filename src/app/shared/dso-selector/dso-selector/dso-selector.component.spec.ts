@@ -19,6 +19,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { hasValue } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -81,14 +82,17 @@ describe('DSOSelectorComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [DSOSelectorComponent],
+      imports: [TranslateModule.forRoot(), DSOSelectorComponent],
       providers: [
         { provide: SearchService, useValue: searchService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(DSOSelectorComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent] },
+      })
+      .compileComponents();
 
   }));
 

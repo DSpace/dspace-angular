@@ -20,8 +20,7 @@ describe('NavbarSectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [NavbarSectionComponent, TestComponent],
+      imports: [NoopAnimationsModule, NavbarSectionComponent, TestComponent],
       providers: [
         { provide: 'sectionDataProvider', useValue: {} },
         { provide: MenuService, useValue: menuService },
@@ -53,6 +52,7 @@ describe('NavbarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 }

@@ -1,4 +1,7 @@
-import { Location } from '@angular/common';
+import {
+  CommonModule,
+  Location,
+} from '@angular/common';
 import {
   Component,
   NO_ERRORS_SCHEMA,
@@ -27,6 +30,7 @@ import { RequestService } from '../core/data/request.service';
 import { RouteService } from '../core/services/route.service';
 import { WorkflowItem } from '../core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
+import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import {
@@ -39,12 +43,12 @@ import { NotificationsServiceStub } from '../shared/testing/notifications-servic
 import { RequestServiceStub } from '../shared/testing/request-service.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { VarDirective } from '../shared/utils/var.directive';
-import { WorkflowItemActionPageComponent } from './workflow-item-action-page.component';
+import { WorkflowItemActionPageDirective } from './workflow-item-action-page.component';
 
 const type = 'testType';
 describe('WorkflowItemActionPageComponent', () => {
-  let component: WorkflowItemActionPageComponent;
-  let fixture: ComponentFixture<WorkflowItemActionPageComponent>;
+  let component: WorkflowItemActionPageDirective;
+  let fixture: ComponentFixture<WorkflowItemActionPageDirective>;
   let wfiService;
   let wfi;
   let itemRD$;
@@ -68,8 +72,7 @@ describe('WorkflowItemActionPageComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [TestComponent, VarDirective],
+      }), TestComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },
@@ -128,9 +131,10 @@ describe('WorkflowItemActionPageComponent', () => {
 @Component({
   selector: 'ds-workflow-item-test-action-page',
   templateUrl: 'workflow-item-action-page.component.html',
-},
-)
-class TestComponent extends WorkflowItemActionPageComponent {
+  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],
+  standalone: true,
+})
+class TestComponent extends WorkflowItemActionPageDirective {
   constructor(protected route: ActivatedRoute,
               protected workflowItemService: WorkflowItemDataService,
               protected router: Router,

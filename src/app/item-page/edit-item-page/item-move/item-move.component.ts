@@ -1,12 +1,22 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -27,6 +37,7 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
@@ -37,6 +48,16 @@ import {
 @Component({
   selector: 'ds-item-move',
   templateUrl: './item-move.component.html',
+  imports: [
+    TranslateModule,
+    NgbModule,
+    FormsModule,
+    RouterLink,
+    AsyncPipe,
+    AuthorizedCollectionSelectorComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
 /**
  * Component that handles the moving of an item to a different collection

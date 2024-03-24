@@ -1,9 +1,15 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Injector,
   OnInit,
 } from '@angular/core';
 import {
+  FormsModule,
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
@@ -12,8 +18,12 @@ import { Router } from '@angular/router';
 import {
   NgbModal,
   NgbModalRef,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of,
@@ -26,15 +36,15 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedDeclinedTaskSearchResult } from '../../../object-collection/shared/claimed-declined-task-search-result.model';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
 
 export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
 
-@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_REJECT)
 @Component({
   selector: 'ds-claimed-task-actions-reject',
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, NgIf, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying and processing the reject action on a workflow task item

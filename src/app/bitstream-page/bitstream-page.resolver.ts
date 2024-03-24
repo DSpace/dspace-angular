@@ -27,7 +27,7 @@ export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
 /**
  * This class represents a resolver that requests a specific bitstream before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
   constructor(private bitstreamService: BitstreamDataService) {
   }

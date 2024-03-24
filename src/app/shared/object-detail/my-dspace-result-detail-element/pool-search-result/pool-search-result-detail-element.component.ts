@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
@@ -27,9 +31,11 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../empty.util';
+import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 
 /**
@@ -39,6 +45,8 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   selector: 'ds-pool-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './pool-search-result-detail-element.component.html',
+  standalone: true,
+  imports: [NgIf, ItemDetailPreviewComponent, PoolTaskActionsComponent, AsyncPipe],
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.DetailedListElement)

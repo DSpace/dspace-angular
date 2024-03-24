@@ -1,10 +1,18 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   Component,
   Inject,
   Input,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   APP_CONFIG,
@@ -15,7 +23,9 @@ import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
 import { hasValue } from '../../../shared/empty.util';
-import { ImageField } from '../../simple/field-components/specific-field/item-page-field.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MarkdownPipe as MarkdownPipe_1 } from '../../../shared/utils/markdown.pipe';
+import { ImageField } from '../../simple/field-components/specific-field/image-field';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -25,6 +35,8 @@ import { ImageField } from '../../simple/field-components/specific-field/item-pa
   selector: 'ds-metadata-values',
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
+  standalone: true,
+  imports: [MetadataFieldWrapperComponent, NgFor, NgTemplateOutlet, NgIf, RouterLink, AsyncPipe, MarkdownPipe_1, TranslateModule],
 })
 export class MetadataValuesComponent implements OnChanges {
 

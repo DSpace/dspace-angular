@@ -12,6 +12,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
@@ -23,19 +24,28 @@ import { ConfigurationDataService } from '../../../../core/data/configuration-da
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
+import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-task/claimed-task-actions.component';
+import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { createPaginatedList } from '../../../testing/utils.test';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
 
 let component: ClaimedSearchResultListElementComponent;
@@ -100,10 +110,17 @@ const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
 describe('ClaimedSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [ClaimedSearchResultListElementComponent, VarDirective],
+      imports: [
+        TranslateModule.forRoot(),
+        NoopAnimationsModule,
+        VarDirective,
+        ClaimedSearchResultListElementComponent,
+      ],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: SearchService, useValue: new SearchServiceStub() },
         { provide: LinkService, useValue: linkService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
@@ -113,7 +130,10 @@ describe('ClaimedSearchResultListElementComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ThemedItemListPreviewComponent, ClaimedTaskActionsComponent],
+      },
     }).compileComponents();
   }));
 

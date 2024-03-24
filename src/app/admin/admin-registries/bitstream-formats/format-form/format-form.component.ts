@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -11,12 +12,10 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlLayout,
   DynamicFormControlModel,
-  DynamicFormService,
   DynamicInputModel,
   DynamicSelectModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
@@ -25,6 +24,7 @@ import {
   hasValue,
   isEmpty,
 } from '../../../../shared/empty.util';
+import { FormComponent } from '../../../../shared/form/form.component';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 
 /**
@@ -33,6 +33,11 @@ import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-p
 @Component({
   selector: 'ds-bitstream-format-form',
   templateUrl: './format-form.component.html',
+  imports: [
+    FormComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class FormatFormComponent implements OnInit {
 
@@ -132,9 +137,7 @@ export class FormatFormComponent implements OnInit {
     }, this.arrayElementLayout),
   ];
 
-  constructor(private dynamicFormService: DynamicFormService,
-              private translateService: TranslateService,
-              private router: Router) {
+  constructor(private router: Router) {
 
   }
 

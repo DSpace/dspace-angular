@@ -21,7 +21,6 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../../remote-data.utils';
-import { SharedModule } from '../../../../shared.module';
 import { NotificationsServiceStub } from '../../../../testing/notifications-service.stub';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
@@ -79,7 +78,7 @@ describe('ComColMetadataComponent', () => {
   beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule],
       providers: [
         { provide: ComColDataService, useValue: communityDataServiceStub },
         { provide: Router, useValue: routerStub },

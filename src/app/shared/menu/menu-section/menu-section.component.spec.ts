@@ -31,8 +31,7 @@ describe('MenuSectionComponent', () => {
       active: false,
     } as any;
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [MenuSectionComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, MenuSectionComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: MenuService, useClass: MenuServiceStub },

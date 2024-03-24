@@ -90,7 +90,7 @@ const tagsInUseSelector =
     (state: MetaTagState) => state.tagsInUse,
   );
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MetadataService {
 
   private currentObject: BehaviorSubject<DSpaceObject> = new BehaviorSubject<DSpaceObject>(undefined);

@@ -16,7 +16,9 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { storeModuleConfig } from '../app.reducer';
+import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
 import { authReducer } from '../core/auth/auth.reducer';
 import { AuthService } from '../core/auth/auth.service';
 import { LocaleService } from '../core/locale/locale.service';
@@ -26,7 +28,10 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '../core/services/window.service';
+import { ThemedFooterComponent } from '../footer/themed-footer.component';
+import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { HostWindowService } from '../shared/host-window.service';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { AngularticsProviderMock } from '../shared/mocks/angulartics-provider.service.mock';
@@ -34,11 +39,13 @@ import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { MetadataServiceMock } from '../shared/mocks/metadata-service.mock';
 import { RouterMock } from '../shared/mocks/router.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { NotificationsBoardComponent } from '../shared/notifications/notifications-board/notifications-board.component';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../shared/testing/css-variable-service.stub';
 import { HostWindowServiceStub } from '../shared/testing/host-window-service.stub';
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
+import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 import { RootComponent } from './root.component';
 
 describe('RootComponent', () => {
@@ -57,8 +64,8 @@ describe('RootComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        RootComponent,
       ],
-      declarations: [RootComponent], // declare the test component
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MetadataServiceMock() },
@@ -75,7 +82,21 @@ describe('RootComponent', () => {
         RouteService,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(RootComponent, {
+        remove: {
+          imports: [
+            ThemedAdminSidebarComponent,
+            SystemWideAlertBannerComponent,
+            ThemedHeaderNavbarWrapperComponent,
+            ThemedBreadcrumbsComponent,
+            ThemedLoadingComponent,
+            ThemedFooterComponent,
+            NotificationsBoardComponent,
+          ],
+        },
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {

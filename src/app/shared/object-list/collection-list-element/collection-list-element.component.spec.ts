@@ -8,10 +8,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { CollectionListElementComponent } from './collection-list-element.component';
 
 let collectionListElementComponent: CollectionListElementComponent;
@@ -65,12 +67,12 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
 describe('CollectionListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CollectionListElementComponent],
+      imports: [CollectionListElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

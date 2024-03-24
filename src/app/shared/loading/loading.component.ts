@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
@@ -13,6 +14,8 @@ import { hasValue } from '../empty.util';
   selector: 'ds-loading',
   styleUrls: ['./loading.component.scss'],
   templateUrl: './loading.component.html',
+  standalone: true,
+  imports: [NgIf],
 })
 export class LoadingComponent implements OnDestroy, OnInit {
 

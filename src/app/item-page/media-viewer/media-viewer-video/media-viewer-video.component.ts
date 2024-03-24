@@ -1,7 +1,13 @@
 import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -16,6 +22,13 @@ import { languageHelper } from './language-helper';
   selector: 'ds-media-viewer-video',
   templateUrl: './media-viewer-video.component.html',
   styleUrls: ['./media-viewer-video.component.scss'],
+  imports: [
+    NgForOf,
+    NgbDropdownModule,
+    TranslateModule,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class MediaViewerVideoComponent {
   @Input() medias: MediaViewerItem[];

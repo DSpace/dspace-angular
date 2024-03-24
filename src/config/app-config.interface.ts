@@ -1,7 +1,12 @@
-import { InjectionToken } from '@angular/core';
+import {
+  InjectionToken,
+  Type,
+} from '@angular/core';
 import { makeStateKey } from '@angular/platform-browser';
+import { DynamicFormControl } from '@ng-dynamic-forms/core/lib/component/dynamic-form-control-interface';
 
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -68,6 +73,15 @@ interface AppConfig extends Config {
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
+
+export interface LazyDataServicesMap {
+  [type: string]: () => Promise<Type<HALDataService<any>>>
+}
+
+export type  DynamicFormControlFn = (model: string) => Type<DynamicFormControl>;
+export const APP_DATA_SERVICES_MAP: InjectionToken<LazyDataServicesMap> = new InjectionToken<LazyDataServicesMap>('APP_DATA_SERVICES_MAP');
+
+export const APP_DYNAMIC_FORM_CONTROL_FN: InjectionToken<DynamicFormControlFn> = new InjectionToken<DynamicFormControlFn>('APP_DYNAMIC_FORM_CONTROL_FN');
 
 export {
   APP_CONFIG,

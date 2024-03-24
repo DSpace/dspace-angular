@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
@@ -15,6 +16,8 @@ import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.res
   selector: 'ds-listable-notification-object',
   templateUrl: './listable-notification-object.component.html',
   styleUrls: ['./listable-notification-object.component.scss'],
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class ListableNotificationObjectComponent extends AbstractListableElementComponent<ListableNotificationObject> {
 }

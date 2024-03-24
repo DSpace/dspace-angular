@@ -21,7 +21,7 @@ import { SearchObjects } from '../../shared/search/models/search-objects.model';
 /**
  * Service that handle profiles claim.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProfileClaimService {
 
   constructor(private searchService: SearchService) {

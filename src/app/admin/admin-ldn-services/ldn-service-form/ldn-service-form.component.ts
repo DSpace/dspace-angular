@@ -6,6 +6,11 @@ import {
   trigger,
 } from '@angular/animations';
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   OnDestroy,
@@ -17,14 +22,21 @@ import {
   FormArray,
   FormBuilder,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatestWith,
@@ -54,12 +66,21 @@ import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patter
   selector: 'ds-ldn-service-form',
   templateUrl: './ldn-service-form.component.html',
   styleUrls: ['./ldn-service-form.component.scss'],
+  standalone: true,
   animations: [
     trigger('toggleAnimation', [
       state('true', style({})),
       state('false', style({})),
       transition('true <=> false', animate('300ms ease-in')),
     ]),
+  ],
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    NgIf,
+    NgbDropdownModule,
+    NgForOf,
+    AsyncPipe,
   ],
 })
 export class LdnServiceFormComponent implements OnInit, OnDestroy {

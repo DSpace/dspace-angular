@@ -8,6 +8,7 @@ import {
 import {
   BehaviorSubject,
   combineLatest,
+  EMPTY,
   Observable,
   of,
 } from 'rxjs';
@@ -15,6 +16,7 @@ import {
   map,
   switchMap,
   take,
+  tap,
 } from 'rxjs/operators';
 
 import { isNotEmpty } from '../../shared/empty.util';
@@ -34,7 +36,7 @@ export const CAPTCHA_NAME = 'google-recaptcha';
 /**
  * A GoogleRecaptchaService used to send action and get a token from REST
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GoogleRecaptchaService {
 
   private renderer: Renderer2;
@@ -84,14 +86,12 @@ export class GoogleRecaptchaService {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
       }),
     );
-    registrationVerification$.subscribe(registrationVerification => {
-      if (registrationVerification) {
-        this.loadRecaptchaProperties();
-      }
-    });
+    registrationVerification$.pipe(
+      switchMap((registrationVerification: boolean) => registrationVerification ? this.loadRecaptchaProperties() : EMPTY),
+    ).subscribe();
   }
 
-  loadRecaptchaProperties() {
+  loadRecaptchaProperties(): Observable<any> {
     const recaptchaKeyRD$ = this.configService.findByPropertyName('google.recaptcha.key.site').pipe(
       getFirstCompletedRemoteData(),
     );
@@ -101,40 +101,42 @@ export class GoogleRecaptchaService {
     const recaptchaModeRD$ = this.configService.findByPropertyName('google.recaptcha.mode').pipe(
       getFirstCompletedRemoteData(),
     );
-    combineLatest([recaptchaVersionRD$, recaptchaModeRD$, recaptchaKeyRD$]).subscribe(([recaptchaVersionRD, recaptchaModeRD, recaptchaKeyRD]) => {
+    return combineLatest([recaptchaVersionRD$, recaptchaModeRD$, recaptchaKeyRD$]).pipe(
+      tap(([recaptchaVersionRD, recaptchaModeRD, recaptchaKeyRD]) => {
 
-      if (
-        this.cookieService.get('klaro-anonymous') && this.cookieService.get('klaro-anonymous')[CAPTCHA_NAME] &&
-        recaptchaKeyRD.hasSucceeded && recaptchaVersionRD.hasSucceeded &&
-        isNotEmpty(recaptchaVersionRD.payload?.values) && isNotEmpty(recaptchaKeyRD.payload?.values)
-      ) {
-        const key = recaptchaKeyRD.payload?.values[0];
-        const version = recaptchaVersionRD.payload?.values[0];
-        this.captchaKeySubject$.next(key);
-        this.captchaVersionSubject$.next(version);
+        if (
+          this.cookieService.get('klaro-anonymous') && this.cookieService.get('klaro-anonymous')[CAPTCHA_NAME] &&
+          recaptchaKeyRD.hasSucceeded && recaptchaVersionRD.hasSucceeded &&
+          isNotEmpty(recaptchaVersionRD.payload?.values) && isNotEmpty(recaptchaKeyRD.payload?.values)
+        ) {
+          const key = recaptchaKeyRD.payload?.values[0];
+          const version = recaptchaVersionRD.payload?.values[0];
+          this.captchaKeySubject$.next(key);
+          this.captchaVersionSubject$.next(version);
 
-        let captchaUrl;
-        switch (version) {
-          case 'v3':
-            if (recaptchaKeyRD.hasSucceeded && isNotEmpty(recaptchaKeyRD.payload?.values)) {
-              captchaUrl = this.buildCaptchaUrl(key);
-              this.captchaModeSubject$.next('invisible');
-            }
-            break;
-          case 'v2':
-            if (recaptchaModeRD.hasSucceeded && isNotEmpty(recaptchaModeRD.payload?.values)) {
-              captchaUrl = this.buildCaptchaUrl();
-              this.captchaModeSubject$.next(recaptchaModeRD.payload?.values[0]);
-            }
-            break;
-          default:
-          // TODO handle error
+          let captchaUrl;
+          switch (version) {
+            case 'v3':
+              if (recaptchaKeyRD.hasSucceeded && isNotEmpty(recaptchaKeyRD.payload?.values)) {
+                captchaUrl = this.buildCaptchaUrl(key);
+                this.captchaModeSubject$.next('invisible');
+              }
+              break;
+            case 'v2':
+              if (recaptchaModeRD.hasSucceeded && isNotEmpty(recaptchaModeRD.payload?.values)) {
+                captchaUrl = this.buildCaptchaUrl();
+                this.captchaModeSubject$.next(recaptchaModeRD.payload?.values[0]);
+              }
+              break;
+            default:
+            // TODO handle error
+          }
+          if (captchaUrl) {
+            this.loadScript(captchaUrl);
+          }
         }
-        if (captchaUrl) {
-          this.loadScript(captchaUrl);
-        }
-      }
-    });
+      }),
+    );
   }
 
   /**
@@ -188,7 +190,7 @@ export class GoogleRecaptchaService {
   }
 
   refreshCaptchaScript = () => {
-    this.loadRecaptchaProperties();
+    this.loadRecaptchaProperties().subscribe();
   };
 
 }

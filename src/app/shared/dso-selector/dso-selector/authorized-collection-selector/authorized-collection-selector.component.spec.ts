@@ -11,7 +11,9 @@ import { CollectionDataService } from '../../../../core/data/collection-data.ser
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { createPaginatedList } from '../../../testing/utils.test';
 import { VarDirective } from '../../../utils/var.directive';
@@ -36,15 +38,18 @@ describe('AuthorizedCollectionSelectorComponent', () => {
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['error']);
     TestBed.configureTestingModule({
-      declarations: [AuthorizedCollectionSelectorComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), AuthorizedCollectionSelectorComponent, VarDirective],
       providers: [
         { provide: SearchService, useValue: {} },
         { provide: CollectionDataService, useValue: collectionService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(AuthorizedCollectionSelectorComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent, ThemedLoadingComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

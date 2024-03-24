@@ -20,7 +20,7 @@ import { isNotEmpty } from '../../shared/empty.util';
  * A guard redirecting the user to the URL provided in the route's query params
  * When no redirect url is found, the user is redirected to the homepage
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ReloadGuard implements CanActivate {
   constructor(
     private router: Router,

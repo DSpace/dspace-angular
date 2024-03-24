@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -9,10 +10,14 @@ import {
 } from '@angular/core';
 import {
   ControlValueAccessor,
+  FormsModule,
   NG_VALUE_ACCESSOR,
   UntypedFormBuilder,
 } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { isEmpty } from '../../empty.util';
 
@@ -23,6 +28,12 @@ import { isEmpty } from '../../empty.util';
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: NumberPickerComponent, multi: true },
   ],
+  imports: [
+    NgClass,
+    FormsModule,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 
 export class NumberPickerComponent implements OnInit, ControlValueAccessor {

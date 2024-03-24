@@ -10,7 +10,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -29,7 +32,7 @@ import { SearchFilterConfig } from '../../../../models/search-filter-config.mode
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
-} from '../../search-range-filter/search-range-filter.component';
+} from '../../search-range-filter/search-range-filter-constants';
 import { SearchFacetRangeOptionComponent } from './search-facet-range-option.component';
 
 describe('SearchFacetRangeOptionComponent', () => {
@@ -71,8 +74,7 @@ describe('SearchFacetRangeOptionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetRangeOptionComponent, ShortNumberPipe],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetRangeOptionComponent, ShortNumberPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
@@ -98,7 +100,10 @@ describe('SearchFacetRangeOptionComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetRangeOptionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [RouterLink],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

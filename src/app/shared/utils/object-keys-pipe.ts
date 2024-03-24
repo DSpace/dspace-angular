@@ -3,7 +3,10 @@ import {
   PipeTransform,
 } from '@angular/core';
 
-@Pipe({ name: 'dsObjectKeys' })
+@Pipe({
+  name: 'dsObjectKeys',
+  standalone: true,
+})
 /**
  * Pipe for parsing all keys of an object to an array of key-value pairs
  */

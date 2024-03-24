@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   NgZone,
@@ -7,8 +12,12 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -40,22 +49,26 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   hasValue,
   isNotEmpty,
 } from '../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { SelectableListState } from '../../../../object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { SearchResult } from '../../../../search/models/search-result.model';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
+import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
+import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
+import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -67,6 +80,18 @@ import {
       useClass: SearchConfigurationService,
     },
   ],
+  imports: [
+    ThemedDynamicLookupRelationExternalSourceTabComponent,
+    TranslateModule,
+    ThemedLoadingComponent,
+    NgIf,
+    NgbNavModule,
+    ThemedDynamicLookupRelationSearchTabComponent,
+    AsyncPipe,
+    NgForOf,
+    DsDynamicLookupRelationSelectionTabComponent,
+  ],
+  standalone: true,
 })
 
 /**

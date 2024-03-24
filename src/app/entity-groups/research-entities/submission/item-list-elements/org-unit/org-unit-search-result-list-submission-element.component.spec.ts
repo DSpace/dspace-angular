@@ -35,6 +35,7 @@ import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.serv
 import { Item } from '../../../../../core/shared/item.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
@@ -111,9 +112,9 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
       },
     };
     TestBed.configureTestingModule({
-      declarations: [OrgUnitSearchResultListSubmissionElementComponent, TruncatePipe],
+      imports: [TruncatePipe, OrgUnitSearchResultListSubmissionElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: RelationshipDataService, useValue: mockRelationshipService },
         { provide: NotificationsService, useValue: {} },
         { provide: TranslateService, useValue: {} },
@@ -133,10 +134,9 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(OrgUnitSearchResultListSubmissionElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

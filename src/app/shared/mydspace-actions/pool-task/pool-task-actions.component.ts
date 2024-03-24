@@ -1,11 +1,22 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Injector,
   Input,
   OnDestroy,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   switchMap,
@@ -33,6 +44,8 @@ import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actio
   selector: 'ds-pool-task-actions',
   styleUrls: ['./pool-task-actions.component.scss'],
   templateUrl: './pool-task-actions.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, NgIf, RouterLink, AsyncPipe, TranslateModule],
 })
 export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent<PoolTask, PoolTaskDataService> implements OnDestroy {
 

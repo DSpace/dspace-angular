@@ -12,6 +12,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -24,6 +25,7 @@ import { storeModuleConfig } from '../app.reducer';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
 // Load the implementations that should be tested
 import { FooterComponent } from './footer.component';
@@ -46,12 +48,12 @@ describe('Footer component', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [FooterComponent], // declare the test component
+      }), FooterComponent],
       providers: [
         FooterComponent,
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: NotifyInfoService, useValue: notifyInfoService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });

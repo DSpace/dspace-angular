@@ -5,7 +5,10 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
@@ -56,6 +59,7 @@ describe('DSOEditMenuResolver', () => {
   let researcherProfileService;
   let notificationsService;
   let translate;
+  let mockNgbModal;
   let dsoWithdrawnReinstateModalService;
   let correctionsDataService;
 
@@ -159,6 +163,11 @@ describe('DSOEditMenuResolver', () => {
       success: {},
       error: {},
     });
+    mockNgbModal = {
+      open: jasmine.createSpy('open').and.returnValue(
+        { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+      ),
+    };
 
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', {
       openCreateWithdrawnReinstateModal: {},
@@ -169,8 +178,7 @@ describe('DSOEditMenuResolver', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [AdminSidebarComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
       providers: [
         { provide: DSpaceObjectDataService, useValue: dSpaceObjectDataService },
         { provide: MenuService, useValue: menuService },
@@ -182,11 +190,7 @@ describe('DSOEditMenuResolver', () => {
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
         { provide: CorrectionTypeDataService, useValue: correctionsDataService },
         {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            },
-          },
-        },
+          provide: NgbModal, useValue: mockNgbModal },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });

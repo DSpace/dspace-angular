@@ -44,7 +44,6 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { SharedModule } from '../../../shared/shared.module';
 import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
@@ -231,8 +230,7 @@ describe('ItemRelationshipsComponent', () => {
 
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
-      imports: [SharedModule, TranslateModule.forRoot()],
-      declarations: [ItemRelationshipsComponent],
+      imports: [TranslateModule.forRoot(), ItemRelationshipsComponent],
       providers: [
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: ItemDataService, useValue: itemService },

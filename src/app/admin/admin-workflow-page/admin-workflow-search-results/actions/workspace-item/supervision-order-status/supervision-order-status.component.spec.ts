@@ -32,8 +32,8 @@ describe('SupervisionOrderStatusComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        SupervisionOrderStatusComponent, VarDirective,
       ],
-      declarations: [ SupervisionOrderStatusComponent, VarDirective ],
       schemas: [
         NO_ERRORS_SCHEMA,
       ],

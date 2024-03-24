@@ -13,6 +13,7 @@ import { CreateItemParentSelectorComponent } from './create-item-parent-selector
   selector: 'ds-themed-create-item-parent-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCreateItemParentSelectorComponent
   extends ThemedComponent<CreateItemParentSelectorComponent> {

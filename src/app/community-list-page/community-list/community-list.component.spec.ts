@@ -29,8 +29,11 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
 import {
   CommunityListService,
   showMoreFlatNode,
@@ -216,12 +219,21 @@ describe('CommunityListComponent', () => {
         }),
         CdkTreeModule,
         RouterTestingModule,
-        RouterLinkWithHref],
-      declarations: [CommunityListComponent],
+        RouterLinkWithHref,
+        CommunityListComponent,
+      ],
       providers: [CommunityListComponent,
         { provide: CommunityListService, useValue: communityListServiceStub }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
+      .overrideComponent(CommunityListComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ] },
+      })
       .compileComponents();
   }));
 

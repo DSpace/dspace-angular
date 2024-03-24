@@ -15,12 +15,14 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
@@ -121,8 +123,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
@@ -147,7 +148,9 @@ describe('DsDynamicLookupRelationModalComponent', () => {
           },
         },
         { provide: NgZone, useValue: new NgZone({}) },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         NgbActiveModal,
+        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

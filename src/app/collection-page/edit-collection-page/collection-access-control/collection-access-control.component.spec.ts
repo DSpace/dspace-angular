@@ -9,6 +9,7 @@ import {
 } from 'rxjs';
 
 import { Community } from '../../../core/shared/community.model';
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CollectionAccessControlComponent } from './collection-access-control.component';
 
@@ -40,12 +41,18 @@ describe('CollectionAccessControlComponent', () => {
       },
     },
   };
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CollectionAccessControlComponent ],
-      providers: [{ provide: ActivatedRoute, useValue: routeStub }],
+      imports: [CollectionAccessControlComponent],
+      providers: [{
+        provide: ActivatedRoute, useValue: routeStub,
+      }],
     })
+      .overrideComponent(CollectionAccessControlComponent, {
+        remove: {
+          imports: [AccessControlFormContainerComponent],
+        },
+      })
       .compileComponents();
   });
 

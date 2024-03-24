@@ -43,8 +43,9 @@ describe('ScriptHelpComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [ ScriptHelpComponent ],
+        }),
+        ScriptHelpComponent,
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();

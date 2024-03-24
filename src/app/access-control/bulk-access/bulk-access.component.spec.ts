@@ -9,12 +9,15 @@ import { of } from 'rxjs';
 
 import { Process } from '../../process-page/processes/process.model';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BulkAccessComponent } from './bulk-access.component';
+import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 
 describe('BulkAccessComponent', () => {
   let component: BulkAccessComponent;
@@ -74,15 +77,23 @@ describe('BulkAccessComponent', () => {
       imports: [
         RouterTestingModule,
         TranslateModule.forRoot(),
+        BulkAccessComponent,
       ],
-      declarations: [ BulkAccessComponent ],
       providers: [
         { provide: BulkAccessControlService, useValue: bulkAccessControlServiceMock },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SelectableListService, useValue: selectableListServiceMock },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(BulkAccessComponent, {
+        remove: {
+          imports: [
+            BulkAccessSettingsComponent,
+          ],
+        },
+      })
       .compileComponents();
   });
 

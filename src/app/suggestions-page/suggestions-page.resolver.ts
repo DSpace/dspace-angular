@@ -15,7 +15,7 @@ import { hasValue } from '../shared/empty.util';
 /**
  * This class represents a resolver that requests a specific collection before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SuggestionsPageResolver implements Resolve<RemoteData<SuggestionTarget>> {
   constructor(private suggestionsDataService: SuggestionTargetDataService) {
   }

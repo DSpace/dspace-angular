@@ -1,4 +1,10 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -7,7 +13,12 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   from as observableFrom,
@@ -38,7 +49,10 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { Process } from '../../processes/process.model';
 import { ProcessStatus } from '../../processes/process-status.model';
 import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
@@ -63,6 +77,19 @@ export interface ProcessOverviewTableEntry {
   selector: 'ds-process-overview-table',
   styleUrls: ['./process-overview-table.component.scss'],
   templateUrl: './process-overview-table.component.html',
+  standalone: true,
+  imports: [
+    NgClass,
+    NgbCollapseModule,
+    AsyncPipe,
+    TranslateModule,
+    PaginationComponent,
+    RouterLink,
+    NgForOf,
+    NgIf,
+    ThemedLoadingComponent,
+    VarDirective,
+  ],
 })
 export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
 

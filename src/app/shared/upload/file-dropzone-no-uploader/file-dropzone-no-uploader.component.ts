@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -6,13 +7,19 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
-import { FileUploader } from 'ng2-file-upload';
+import {
+  FileUploader,
+  FileUploadModule,
+} from 'ng2-file-upload';
 import {
   Observable,
   of as observableOf,
 } from 'rxjs';
 
+import { FileValidator } from '../../utils/require-file.validator';
 import { UploaderOptions } from '../uploader/uploader-options.model';
 
 /**
@@ -26,6 +33,14 @@ import { UploaderOptions } from '../uploader/uploader-options.model';
   selector: 'ds-file-dropzone-no-uploader',
   templateUrl: './file-dropzone-no-uploader.component.html',
   styleUrls: ['./file-dropzone-no-uploader.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    FileUploadModule,
+    FileValidator,
+  ],
+  standalone: true,
 })
 export class FileDropzoneNoUploaderComponent implements OnInit {
 

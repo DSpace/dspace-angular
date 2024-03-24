@@ -13,7 +13,6 @@ import {
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
-import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
@@ -24,7 +23,6 @@ import { Item } from '../shared/item.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
 import { BaseDataService } from './base/base-data.service';
-import { dataService } from './base/data-service.decorator';
 import { ConfigurationDataService } from './configuration-data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { RemoteData } from './remote-data';
@@ -37,8 +35,7 @@ import { RestRequest } from './rest-request.model';
  * from the /identifiers endpoint, as well as the backend configuration that controls whether a 'Register DOI'
  * button appears for admins in the item status page
  */
-@Injectable()
-@dataService(IDENTIFIERS)
+@Injectable({ providedIn: 'root' })
 export class IdentifierDataService extends BaseDataService<IdentifierData> {
 
   constructor(

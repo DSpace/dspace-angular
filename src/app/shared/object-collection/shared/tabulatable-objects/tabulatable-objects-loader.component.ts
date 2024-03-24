@@ -37,6 +37,10 @@ import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
 @Component({
   selector: 'ds-tabulatable-objects-loader',
   templateUrl: './tabulatable-objects-loader.component.html',
+  imports: [
+    TabulatableObjectsDirective,
+  ],
+  standalone: true,
 })
 /**
  * Component to load the matching component flagged by the tabulatableObjectsComponent decorator.

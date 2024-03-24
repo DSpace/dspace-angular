@@ -15,8 +15,6 @@ describe('DsSelectComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         DsSelectComponent,
       ],
     })

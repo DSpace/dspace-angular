@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 
@@ -11,6 +14,12 @@ import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.
   selector: 'ds-themed-workspace-items-delete',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [
+    ModifyItemOverviewComponent,
+    TranslateModule,
+    CommonModule,
+  ],
 })
 export class ThemedWorkspaceItemsDeletePageComponent extends ThemedComponent<WorkspaceItemsDeletePageComponent> {
   protected getComponentName(): string {

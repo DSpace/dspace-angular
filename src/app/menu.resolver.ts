@@ -794,6 +794,7 @@ export class MenuResolver implements Resolve<boolean> {
   createReportMenuSections() {
     observableCombineLatest([
       this.configurationDataService.findByPropertyName('contentreport.enable').pipe(
+        getFirstCompletedRemoteData(),
         map((res: RemoteData<ConfigurationProperty>) => res.hasSucceeded && res.payload && res.payload.values[0] === 'true'),
       ),
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),

@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Inject,
@@ -8,7 +13,10 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -24,12 +32,21 @@ import {
 } from '../../../core/services/window.service';
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-orcid-auth',
   templateUrl: './orcid-auth.component.html',
   styleUrls: ['./orcid-auth.component.scss'],
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NgForOf,
+    AlertComponent,
+  ],
+  standalone: true,
 })
 export class OrcidAuthComponent implements OnInit, OnChanges {
 

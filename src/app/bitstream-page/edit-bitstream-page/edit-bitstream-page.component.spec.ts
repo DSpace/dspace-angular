@@ -215,8 +215,7 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
           { provide: NotificationsService, useValue: notificationsService },
           { provide: DynamicFormService, useValue: formService },
@@ -504,8 +503,7 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
           { provide: NotificationsService, useValue: notificationsService },
           { provide: DynamicFormService, useValue: formService },
@@ -629,8 +627,7 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot(), RouterTestingModule],
-        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        imports: [TranslateModule.forRoot(), RouterTestingModule, EditBitstreamPageComponent, FileSizePipe, VarDirective],
         providers: [
           { provide: NotificationsService, useValue: notificationsService },
           { provide: DynamicFormService, useValue: formService },

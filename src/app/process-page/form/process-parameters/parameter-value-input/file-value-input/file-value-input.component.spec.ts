@@ -29,10 +29,10 @@ describe('FileValueInputComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [FileValueInputComponent, FileValueAccessorDirective, FileValidator],
+        }),
+        FileValueInputComponent, FileValueAccessorDirective, FileValidator,
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-
     })
       .compileComponents();
   }));

@@ -38,6 +38,7 @@ import { FormFieldMetadataValueObject } from '../builder/models/form-field-metad
  */
 @Directive({
   selector: '[dsAuthorityConfidenceState]',
+  standalone: true,
 })
 export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
 

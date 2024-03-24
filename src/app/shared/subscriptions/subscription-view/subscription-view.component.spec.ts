@@ -24,6 +24,7 @@ import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 // Import mocks
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 // Import utils
@@ -34,6 +35,7 @@ import {
   findByEPersonAndDsoResEmpty,
   subscriptionMock,
 } from '../../testing/subscriptions-data.mock';
+import { ThemeService } from '../../theme-support/theme.service';
 import { Subscription } from '../models/subscription.model';
 import { SubscriptionsDataService } from '../subscriptions-data.service';
 import { SubscriptionViewComponent } from './subscription-view.component';
@@ -77,12 +79,13 @@ describe('SubscriptionViewComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        SubscriptionViewComponent,
       ],
-      declarations: [ SubscriptionViewComponent ],
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

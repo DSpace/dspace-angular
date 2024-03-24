@@ -3,6 +3,8 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthService } from '../core/auth/auth.service';
 import { ServerResponseService } from '../core/services/server-response.service';
@@ -15,6 +17,8 @@ import { ServerResponseService } from '../core/services/server-response.service'
   styleUrls: ['./pagenotfound.component.scss'],
   templateUrl: './pagenotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  standalone: true,
+  imports: [RouterLink, TranslateModule],
 })
 export class PageNotFoundComponent implements OnInit {
 

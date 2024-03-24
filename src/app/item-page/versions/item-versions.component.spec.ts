@@ -17,7 +17,10 @@ import {
   BrowserModule,
   By,
 } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterModule,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -38,13 +41,15 @@ import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { ItemSharedModule } from '../item-shared.module';
 import { ItemVersionsComponent } from './item-versions.component';
 
 describe('ItemVersionsComponent', () => {
@@ -153,8 +158,7 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ItemVersionsComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule],
+      imports: [TranslateModule.forRoot(), RouterModule.forRoot([]), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemVersionsComponent, VarDirective],
       providers: [
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
@@ -167,10 +171,14 @@ describe('ItemVersionsComponent', () => {
         { provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy },
         { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
         { provide: ConfigurationDataService, useValue: configurationServiceSpy },
-        { provide: Router, useValue: routerSpy },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ItemVersionsComponent, {
+        remove: { imports: [AlertComponent, PaginationComponent] },
+      })
+      .compileComponents();
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
     authenticationService = TestBed.inject(AuthService);

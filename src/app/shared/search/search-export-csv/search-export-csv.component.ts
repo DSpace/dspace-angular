@@ -1,10 +1,18 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -29,6 +37,8 @@ import { PaginatedSearchOptions } from '../models/paginated-search-options.model
   selector: 'ds-search-export-csv',
   styleUrls: ['./search-export-csv.component.scss'],
   templateUrl: './search-export-csv.component.html',
+  standalone: true,
+  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 /**
  * Display a button to export the current search results as csv

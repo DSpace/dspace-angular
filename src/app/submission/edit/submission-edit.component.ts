@@ -36,6 +36,7 @@ import {
   isNotNull,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
@@ -47,6 +48,10 @@ import parseSectionErrors from '../utils/parseSectionErrors';
   selector: 'ds-submission-edit',
   styleUrls: ['./submission-edit.component.scss'],
   templateUrl: './submission-edit.component.html',
+  standalone: true,
+  imports: [
+    SubmissionFormComponent,
+  ],
 })
 export class SubmissionEditComponent implements OnDestroy, OnInit {
 

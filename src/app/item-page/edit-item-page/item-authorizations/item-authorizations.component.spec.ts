@@ -18,11 +18,13 @@ import { LinkService } from '../../../core/cache/builders/link.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockLinkService } from '../../../shared/mocks/link-service.mock';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import {
   createPaginatedList,
   createTestComponent,
@@ -91,8 +93,6 @@ describe('ItemAuthorizationsComponent test suite', () => {
       imports: [
         NoopAnimationsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ItemAuthorizationsComponent,
         TestComponent,
       ],
@@ -104,7 +104,14 @@ describe('ItemAuthorizationsComponent test suite', () => {
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ItemAuthorizationsComponent, {
+        remove: { imports: [
+          ResourcePoliciesComponent,
+          AlertComponent,
+        ] },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -184,6 +191,7 @@ describe('ItemAuthorizationsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

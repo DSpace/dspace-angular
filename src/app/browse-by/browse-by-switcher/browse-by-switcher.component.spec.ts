@@ -15,10 +15,8 @@ import { DynamicComponentLoaderDirective } from '../../shared/abstract-component
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowseByDataType } from './browse-by-data-type';
-import { rendersBrowseBy } from './browse-by-decorator';
 import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 
-@rendersBrowseBy('BrowseBySwitcherComponent' as BrowseByDataType)
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
@@ -66,7 +64,7 @@ describe('BrowseBySwitcherComponent', () => {
     themeService = getMockThemeService(themeName);
 
     void TestBed.configureTestingModule({
-      declarations: [
+      imports: [
         BrowseBySwitcherComponent,
         DynamicComponentLoaderDirective,
       ],

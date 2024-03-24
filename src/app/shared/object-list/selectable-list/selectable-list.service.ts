@@ -34,7 +34,7 @@ const menuByIDSelector = (id: string): MemoizedSelector<AppState, SelectableList
   return keySelector<SelectableListState>(id, selectableListsStateSelector);
 };
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SelectableListService {
 
   constructor(private store: Store<AppState>) {

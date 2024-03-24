@@ -19,7 +19,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppState } from '../../app.reducer';
 import { authReducer } from '../../core/auth/auth.reducer';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 import { EPersonMock } from '../testing/eperson.mock';
 import { RouterStub } from '../testing/router.stub';
 import { LogOutComponent } from './log-out.component';
@@ -55,10 +54,7 @@ describe('LogOutComponent', () => {
           },
         }),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         LogOutComponent,
-        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: Router, useValue: routerStub },

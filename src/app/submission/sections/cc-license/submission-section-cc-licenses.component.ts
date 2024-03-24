@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
 } from '@angular/core';
@@ -6,6 +11,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -34,11 +40,13 @@ import {
 import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
+import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 
 /**
@@ -48,8 +56,17 @@ import { SectionsType } from '../sections-type';
   selector: 'ds-submission-section-cc-licenses',
   templateUrl: './submission-section-cc-licenses.component.html',
   styleUrls: ['./submission-section-cc-licenses.component.scss'],
+  imports: [
+    TranslateModule,
+    NgIf,
+    ThemedLoadingComponent,
+    AsyncPipe,
+    VarDirective,
+    NgForOf,
+    DsSelectComponent,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.CcLicense)
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent {
 
   /**

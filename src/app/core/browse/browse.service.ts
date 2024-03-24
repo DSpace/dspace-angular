@@ -45,7 +45,7 @@ export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
 /**
  * The service handling all browse requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowseService {
   protected linkPath = 'browses';
 

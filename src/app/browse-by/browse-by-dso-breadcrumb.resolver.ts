@@ -21,7 +21,7 @@ import { hasValue } from '../shared/empty.util';
 /**
  * The class that resolves the BreadcrumbConfig object for a DSpaceObject on a browse by page
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowseByDSOBreadcrumbResolver {
   constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: DSpaceObjectDataService) {
   }

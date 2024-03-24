@@ -5,17 +5,25 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
+import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
 
-describe('AdminSearchPageComponent', () => {
+describe('AdminWorkflowPageComponent', () => {
   let component: AdminWorkflowPageComponent;
   let fixture: ComponentFixture<AdminWorkflowPageComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AdminWorkflowPageComponent],
+      imports: [AdminWorkflowPageComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(AdminWorkflowPageComponent, {
+        remove: {
+          imports: [
+            ThemedConfigurationSearchPageComponent,
+          ],
+        },
+      })
       .compileComponents();
   }));
 

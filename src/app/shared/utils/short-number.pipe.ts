@@ -8,6 +8,7 @@ import { isEmpty } from '../empty.util';
 
 @Pipe({
   name: 'dsShortNumber',
+  standalone: true,
 })
 export class ShortNumberPipe implements PipeTransform {
 

@@ -16,6 +16,7 @@ import { SearchFiltersComponent } from './search-filters.component';
   selector: 'ds-themed-search-filters',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersComponent> {
 

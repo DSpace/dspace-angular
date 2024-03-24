@@ -56,6 +56,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ClaimedTaskActionsReturnToPoolComponent,
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
@@ -66,7 +67,6 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
       ],
-      declarations: [ClaimedTaskActionsReturnToPoolComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsReturnToPoolComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

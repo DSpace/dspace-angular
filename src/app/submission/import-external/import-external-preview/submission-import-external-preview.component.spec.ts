@@ -59,8 +59,6 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionImportExternalPreviewComponent,
         TestComponent,
       ],
@@ -173,6 +171,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

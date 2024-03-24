@@ -60,8 +60,9 @@ describe('NotificationComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [NotificationComponent], // declare the test component
+        }),
+        NotificationComponent,
+      ],
       providers: [
         { provide: Store, useValue: store },
         ChangeDetectorRef,

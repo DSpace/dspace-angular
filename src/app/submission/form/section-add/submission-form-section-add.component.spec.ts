@@ -74,8 +74,6 @@ describe('SubmissionFormSectionAddComponent Component', () => {
       imports: [
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionFormSectionAddComponent,
         TestComponent,
       ],
@@ -223,6 +221,8 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

@@ -152,7 +152,6 @@
           }
         ],
         "@angular-eslint/no-attribute-decorator": "error",
-        "@angular-eslint/no-forward-ref": "error",
         "@angular-eslint/no-output-native": "warn",
         "@angular-eslint/no-output-on-prefix": "warn",
         "@angular-eslint/no-conflicting-lifecycle": "warn",

@@ -14,7 +14,10 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -60,6 +63,12 @@ describe('AdminSidebarComponent', () => {
     children: [],
   };
 
+  const mockNgbModal = {
+    open: jasmine.createSpy('open').and.returnValue(
+      { componentInstance: {}, closed: observableOf({}) } as NgbModalRef,
+    ),
+  };
+
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -67,8 +76,7 @@ describe('AdminSidebarComponent', () => {
     });
     scriptService = jasmine.createSpyObj('scriptService', { scriptWithNameExistsAndCanExecute: observableOf(true) });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [AdminSidebarComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, AdminSidebarComponent],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
@@ -79,12 +87,7 @@ describe('AdminSidebarComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: ActivatedRoute, useValue: routeStub },
-        {
-          provide: NgbModal, useValue: {
-            open: () => {/*comment*/
-            },
-          },
-        },
+        { provide: NgbModal, useValue: mockNgbModal },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(AdminSidebarComponent, {

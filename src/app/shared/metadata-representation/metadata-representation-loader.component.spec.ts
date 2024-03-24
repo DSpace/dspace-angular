@@ -47,8 +47,7 @@ describe('MetadataRepresentationLoaderComponent', () => {
   beforeEach(waitForAsync(() => {
     themeService = getMockThemeService(themeName);
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [
+      imports: [
         MetadataRepresentationLoaderComponent,
         PlainTextMetadataListElementComponent,
         DynamicComponentLoaderDirective,

@@ -28,7 +28,7 @@ import { JsonPatchOperationPathObject } from './json-patch-operation-path-combin
 /**
  * Provides methods to dispatch JsonPatch Operations Actions
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class JsonPatchOperationsBuilder {
 
   constructor(private store: Store<CoreState>) {

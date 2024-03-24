@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -27,6 +28,7 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { CollectionsComponent } from './collections.component';
 
 const createMockCollection = (id: string) => Object.assign(new Collection(), {
@@ -59,15 +61,14 @@ describe('CollectionsComponent', () => {
     mockCollection4 = createMockCollection('c4');
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ CollectionsComponent ],
+      imports: [TranslateModule.forRoot(), CollectionsComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: RemoteDataBuildService, useValue: getMockRemoteDataBuildService() },
         { provide: CollectionDataService, useValue: collectionDataService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
-      schemas: [ NO_ERRORS_SCHEMA ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();

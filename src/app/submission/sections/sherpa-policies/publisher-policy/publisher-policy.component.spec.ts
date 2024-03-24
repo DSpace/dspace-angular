@@ -11,6 +11,7 @@ import {
 
 import { SherpaDataResponse } from '../../../../shared/mocks/section-sherpa-policies.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { ContentAccordionComponent } from '../content-accordion/content-accordion.component';
 import { PublisherPolicyComponent } from './publisher-policy.component';
 
 describe('PublisherPolicyComponent', () => {
@@ -27,9 +28,14 @@ describe('PublisherPolicyComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        PublisherPolicyComponent,
       ],
-      declarations: [PublisherPolicyComponent],
     })
+      .overrideComponent(PublisherPolicyComponent, {
+        remove: {
+          imports: [ContentAccordionComponent],
+        },
+      })
       .compileComponents();
   });
 

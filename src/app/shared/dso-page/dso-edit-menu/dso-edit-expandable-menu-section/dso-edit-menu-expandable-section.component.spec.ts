@@ -37,8 +37,7 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [DsoEditMenuExpandableSectionComponent, TestComponent],
+      imports: [TranslateModule.forRoot(), DsoEditMenuExpandableSectionComponent, TestComponent],
       providers: [
         { provide: 'sectionDataProvider', useValue: dummySection },
         { provide: MenuService, useValue: menuService },
@@ -75,6 +74,7 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 }

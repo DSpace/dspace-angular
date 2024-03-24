@@ -1,4 +1,4 @@
-<ds-alert *ngIf="showLatestVersionNotice$ && (showLatestVersionNotice$ | async)"
+<ds-alert *ngIf="(showLatestVersionNotice$ | async) === true"
           [content]="('item.version.notice' | translate:{ destination: getItemPage(((latestVersion$ | async)?.item | async)?.payload) })"
           [dismissible]="false"
           [type]="AlertTypeEnum.Warning">

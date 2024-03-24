@@ -32,6 +32,9 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import {
   createSuccessfulRemoteDataObject,
@@ -39,9 +42,17 @@ import {
 } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { CollectionsComponent } from '../field-components/collections/collections.component';
+import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
 import { FullItemPageComponent } from './full-item-page.component';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -138,8 +149,7 @@ describe('FullItemPageComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
-      declarations: [FullItemPageComponent, TruncatePipe, VarDirective],
+      }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule, FullItemPageComponent, TruncatePipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
@@ -151,11 +161,26 @@ describe('FullItemPageComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(FullItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
-    }).compileComponents();
+    })
+      .overrideComponent(FullItemPageComponent, {
+        remove: {
+          imports: [
+            ItemVersionsComponent,
+            ItemVersionsNoticeComponent,
+            ThemedLoadingComponent,
+            ThemedItemPageTitleFieldComponent,
+            DsoEditMenuComponent,
+            ViewTrackerComponent,
+            ThemedItemAlertsComponent,
+            CollectionsComponent,
+            ThemedFullFileSectionComponent,
+          ],
+        },
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+      }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

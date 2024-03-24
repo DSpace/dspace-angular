@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Input,
@@ -9,7 +14,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   from as observableFrom,
@@ -40,12 +48,23 @@ import {
 } from '../empty.util';
 import { NotificationsService } from '../notifications/notifications.service';
 import { followLink } from '../utils/follow-link-config.model';
-import { ResourcePolicyCheckboxEntry } from './entry/resource-policy-entry.component';
+import {
+  ResourcePolicyCheckboxEntry,
+  ResourcePolicyEntryComponent,
+} from './entry/resource-policy-entry.component';
 
 @Component({
   selector: 'ds-resource-policies',
   styleUrls: ['./resource-policies.component.scss'],
   templateUrl: './resource-policies.component.html',
+  imports: [
+    ResourcePolicyEntryComponent,
+    TranslateModule,
+    NgIf,
+    AsyncPipe,
+    NgForOf,
+  ],
+  standalone: true,
 })
 /**
  * Component that shows the policies for given resource

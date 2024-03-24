@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
 } from '@angular/core';
@@ -7,7 +12,10 @@ import {
   Router,
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -47,14 +55,27 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { EditRelationshipListComponent } from './edit-relationship-list/edit-relationship-list.component';
 
 @Component({
   selector: 'ds-item-relationships',
   styleUrls: ['./item-relationships.component.scss'],
   templateUrl: './item-relationships.component.html',
+  imports: [
+    ThemedLoadingComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+    EditRelationshipListComponent,
+    NgForOf,
+    VarDirective,
+  ],
+  standalone: true,
 })
 /**
  * Component for displaying an item's relationships edit page

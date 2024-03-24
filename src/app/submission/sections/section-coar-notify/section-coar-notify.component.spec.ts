@@ -66,8 +66,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [SubmissionSectionCoarNotifyComponent],
+      imports: [TranslateModule.forRoot(), SubmissionSectionCoarNotifyComponent],
       providers: [
         { provide: LdnServicesService, useValue: ldnServicesService },
         { provide: CoarNotifyConfigDataService, useValue: coarNotifyConfigDataService },

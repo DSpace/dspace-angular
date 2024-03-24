@@ -22,8 +22,6 @@ describe('StatisticsTableComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         StatisticsTableComponent,
       ],
       providers: [

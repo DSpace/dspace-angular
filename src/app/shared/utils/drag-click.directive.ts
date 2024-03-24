@@ -7,6 +7,7 @@ import {
 
 @Directive({
   selector: '[dsDragClick]',
+  standalone: true,
 })
 
 /**

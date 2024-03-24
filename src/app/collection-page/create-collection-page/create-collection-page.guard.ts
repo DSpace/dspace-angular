@@ -27,7 +27,7 @@ import {
  * Prevent creation of a collection without a parent community provided
  * @class CreateCollectionPageGuard
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CreateCollectionPageGuard implements CanActivate {
   public constructor(private router: Router, private communityService: CommunityDataService) {
   }

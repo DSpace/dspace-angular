@@ -22,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
 import { isEmpty } from '../../../../shared/empty.util';
+import { FormComponent } from '../../../../shared/form/form.component';
 import { RouterStub } from '../../../../shared/testing/router.stub';
 import { FormatFormComponent } from './format-form.component';
 
@@ -52,13 +53,24 @@ describe('FormatFormComponent', () => {
 
   const initAsync = () => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule, FormsModule, TranslateModule.forRoot(), NgbModule],
-      declarations: [FormatFormComponent],
-      providers: [
-        { provide: Router, useValue: router },
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        ReactiveFormsModule,
+        FormsModule,
+        TranslateModule.forRoot(),
+        NgbModule,
+        FormatFormComponent,
       ],
+      providers: [{ provide: Router, useValue: router }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(FormatFormComponent, {
+        remove: {
+          imports: [FormComponent],
+        },
+      })
+      .compileComponents();
   };
 
   const initBeforeEach = () => {

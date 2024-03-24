@@ -9,8 +9,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
+import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { Item } from '../../core/shared/item.model';
 import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
+import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
+import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
 import { SuggestionListElementComponent } from './suggestion-list-element.component';
 
 describe('SuggestionListElementComponent', () => {
@@ -23,13 +26,23 @@ describe('SuggestionListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        SuggestionListElementComponent,
       ],
-      declarations: [SuggestionListElementComponent],
       providers: [
         NgbModal,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    })
+      .overrideComponent(SuggestionListElementComponent, {
+        remove: {
+          imports: [
+            ItemSearchResultListElementComponent,
+            SuggestionActionsComponent,
+            SuggestionEvidencesComponent,
+          ],
+        },
+      })
+      .compileComponents().then();
   }));
 
   beforeEach(() => {

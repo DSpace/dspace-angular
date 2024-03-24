@@ -6,18 +6,15 @@ import {
 } from 'rxjs';
 
 import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
-import { NOTIFYREQUEST } from '../../item-page/simple/notify-requests-status/notify-requests-status.resource-type';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RemoteData } from './remote-data';
 import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 
-@Injectable()
-@dataService(NOTIFYREQUEST)
+@Injectable({ providedIn: 'root' })
 export class NotifyRequestsStatusDataService extends IdentifiableDataService<NotifyRequestsStatus> {
 
   constructor(

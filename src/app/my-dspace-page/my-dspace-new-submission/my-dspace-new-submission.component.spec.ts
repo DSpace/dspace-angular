@@ -60,8 +60,6 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
         }),
         NgbModule,
         RouterTestingModule,
-      ],
-      declarations: [
         MyDSpaceNewSubmissionComponent,
         TestComponent,
       ],
@@ -133,6 +131,9 @@ describe('MyDSpaceNewSubmissionComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [NgbModule,
+    RouterTestingModule],
 })
 class TestComponent {
 

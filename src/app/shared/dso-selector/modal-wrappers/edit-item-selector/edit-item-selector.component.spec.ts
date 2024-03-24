@@ -18,6 +18,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { EditItemSelectorComponent } from './edit-item-selector.component';
 
 describe('EditItemSelectorComponent', () => {
@@ -27,16 +28,22 @@ describe('EditItemSelectorComponent', () => {
 
   const item = new Item();
   item.uuid = '1234-1234-1234-1234';
-  item.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Item title', language: undefined })] };
+  item.metadata = {
+    'dc.title': [
+      Object.assign(new MetadataValue(), {
+        value: 'Item title',
+        language: undefined,
+      }),
+    ],
+  };
   const router = new RouterStub();
   const itemRD = createSuccessfulRemoteDataObject(item);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const editPath = '/items/1234-1234-1234-1234/edit';
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EditItemSelectorComponent],
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), EditItemSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -52,12 +59,18 @@ describe('EditItemSelectorComponent', () => {
           },
         },
         {
-          provide: Router, useValue: router,
+          provide: Router,
+          useValue: router,
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
-
+    })
+      .overrideComponent(EditItemSelectorComponent, {
+        remove: {
+          imports: [DSOSelectorComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -75,5 +88,4 @@ describe('EditItemSelectorComponent', () => {
     component.navigate(item);
     expect(router.navigate).toHaveBeenCalledWith([editPath]);
   });
-
 });

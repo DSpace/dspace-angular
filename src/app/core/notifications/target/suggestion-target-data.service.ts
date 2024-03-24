@@ -9,7 +9,6 @@ import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.s
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { CoreState } from '../../core-state.model';
-import { dataService } from '../../data/base/data-service.decorator';
 import {
   FindAllData,
   FindAllDataImpl,
@@ -26,10 +25,8 @@ import { RemoteData } from '../../data/remote-data';
 import { RequestService } from '../../data/request.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { SuggestionTarget } from '../models/suggestion-target.model';
-import { SUGGESTION_TARGET } from '../models/suggestion-target-object.resource-type';
 
-@Injectable()
-@dataService(SUGGESTION_TARGET)
+@Injectable({ providedIn: 'root' })
 export class SuggestionTargetDataService extends IdentifiableDataService<SuggestionTarget> {
 
   protected linkPath = 'suggestiontargets';

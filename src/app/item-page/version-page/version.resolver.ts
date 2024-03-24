@@ -29,7 +29,7 @@ export const VERSION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Version>[] = [
 /**
  * This class represents a resolver that requests a specific version before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class VersionResolver implements Resolve<RemoteData<Version>> {
   constructor(
     protected versionService: VersionDataService,

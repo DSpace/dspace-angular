@@ -4,7 +4,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -25,6 +29,8 @@ import { getFacetValueForType } from '../../../../search.utils';
   selector: 'ds-search-facet-selected-option',
   styleUrls: ['./search-facet-selected-option.component.scss'],
   templateUrl: './search-facet-selected-option.component.html',
+  standalone: true,
+  imports: [RouterLink, TranslateModule],
 })
 
 /**

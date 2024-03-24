@@ -32,7 +32,6 @@ import {
   CreateData,
   CreateDataImpl,
 } from '../data/base/create-data';
-import { dataService } from '../data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -60,13 +59,11 @@ import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
-import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
 
 /**
  * A service that provides methods to make REST requests with researcher profile endpoint.
  */
-@Injectable()
-@dataService(RESEARCHER_PROFILE)
+@Injectable({ providedIn: 'root' })
 export class ResearcherProfileDataService extends IdentifiableDataService<ResearcherProfile> implements CreateData<ResearcherProfile>, SearchData<ResearcherProfile>, PatchData<ResearcherProfile>, DeleteData<ResearcherProfile> {
   private createData: CreateDataImpl<ResearcherProfile>;
   private searchData: SearchDataImpl<ResearcherProfile>;

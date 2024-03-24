@@ -12,6 +12,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
@@ -19,8 +20,12 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Context } from '../../../../core/shared/context.model';
 import { Item } from '../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
+import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { ThemeService } from '../../../theme-support/theme.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 import { ItemSearchResultListElementSubmissionComponent } from './item-search-result-list-element-submission.component';
 
 let component: ItemSearchResultListElementSubmissionComponent;
@@ -62,16 +67,19 @@ mockResultObject.indexableObject = Object.assign(new Item(), {
 describe('ItemMyDSpaceResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [ItemSearchResultListElementSubmissionComponent],
+      imports: [NoopAnimationsModule, ItemSearchResultListElementSubmissionComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementSubmissionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ThemedItemListPreviewComponent, ItemActionsComponent],
+      },
     }).compileComponents();
   }));
 

@@ -9,11 +9,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Community } from '../../../core/shared/community.model';
+import { ErrorComponent } from '../../error/error.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
+import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { createFailedRemoteDataObject } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
+import { ThemeService } from '../../theme-support/theme.service';
+import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsComponent } from './search-results.component';
 
 describe('SearchResultsComponent', () => {
@@ -24,12 +32,29 @@ describe('SearchResultsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
+      imports: [
+        TranslateModule.forRoot(),
+        NoopAnimationsModule,
         SearchResultsComponent,
-        QueryParamsDirectiveStub],
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(SearchResultsComponent, {
+        remove: {
+          imports: [
+            SearchExportCsvComponent,
+            ObjectCollectionComponent,
+            ThemedLoadingComponent,
+            ErrorComponent,
+          ],
+        },
+        add: { imports: [QueryParamsDirectiveStub] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

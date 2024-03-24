@@ -5,7 +5,13 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
+import { ErrorComponent } from '../error/error.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { TabulatableObjectsLoaderComponent } from '../object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { ObjectTableComponent } from './object-table.component';
 
 describe('ObjectTableComponent', () => {
@@ -16,8 +22,21 @@ describe('ObjectTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ObjectTableComponent ],
+      imports: [ObjectTableComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
     })
+      .overrideComponent(ObjectTableComponent, {
+        remove: {
+          imports: [
+            PaginationComponent,
+            ThemedLoadingComponent,
+            ErrorComponent,
+            TabulatableObjectsLoaderComponent,
+          ],
+        },
+      })
       .compileComponents();
 
     fixture = TestBed.createComponent(ObjectTableComponent);

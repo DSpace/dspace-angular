@@ -10,6 +10,7 @@ import { EditCommunitySelectorComponent } from './edit-community-selector.compon
   selector: 'ds-themed-edit-community-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedEditCommunitySelectorComponent
   extends ThemedComponent<EditCommunitySelectorComponent> {

@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { CurationFormComponent } from '../../curation-form/curation-form.component';
 import { AdminCurationTasksComponent } from './admin-curation-tasks.component';
 
 describe('AdminCurationTasksComponent', () => {
@@ -14,10 +15,15 @@ describe('AdminCurationTasksComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [AdminCurationTasksComponent],
+      imports: [TranslateModule.forRoot(), AdminCurationTasksComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(AdminCurationTasksComponent, {
+        remove: {
+          imports: [CurationFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

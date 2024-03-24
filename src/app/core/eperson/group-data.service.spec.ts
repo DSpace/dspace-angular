@@ -83,7 +83,6 @@ describe('GroupDataService', () => {
           },
         }),
       ],
-      declarations: [],
       providers: [],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });

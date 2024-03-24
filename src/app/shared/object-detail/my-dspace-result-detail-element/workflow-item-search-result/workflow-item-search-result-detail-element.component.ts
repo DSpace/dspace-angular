@@ -10,9 +10,11 @@ import { Item } from '../../../../core/shared/item.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { isNotUndefined } from '../../../empty.util';
+import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
 import { SearchResultDetailElementComponent } from '../search-result-detail-element.component';
 
 /**
@@ -22,6 +24,8 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   selector: 'ds-workflow-item-search-result-detail-element',
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './workflow-item-search-result-detail-element.component.html',
+  standalone: true,
+  imports: [ItemDetailPreviewComponent, WorkflowitemActionsComponent],
 })
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.DetailedListElement)

@@ -43,7 +43,10 @@ import {
   createPaginatedList,
   createTestComponent,
 } from '../../testing/utils.test';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
 import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
 import { ResourcePolicyCreateComponent } from './resource-policy-create.component';
 
@@ -109,8 +112,6 @@ describe('ResourcePolicyCreateComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ResourcePolicyCreateComponent,
         TestComponent,
       ],
@@ -127,7 +128,13 @@ describe('ResourcePolicyCreateComponent test suite', () => {
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ResourcePolicyCreateComponent, {
+        remove: {
+          imports: [ResourcePolicyFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -281,6 +288,7 @@ describe('ResourcePolicyCreateComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

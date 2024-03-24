@@ -9,6 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -29,10 +30,15 @@ import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.serv
 import { Item } from '../../../../../core/shared/item.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { NotificationsService } from '../../../../notifications/notifications.service';
+import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
+import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
 
@@ -227,8 +233,9 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
+          TruncatePipe,
+          component,
         ],
-        declarations: [component, TruncatePipe],
         providers: [
           { provide: TruncatableService, useValue: truncatableServiceStub },
           { provide: ObjectCacheService, useValue: {} },
@@ -242,10 +249,16 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         ],
         schemas: [NO_ERRORS_SCHEMA],
       }).overrideComponent(component, {
-        set: { changeDetection: ChangeDetectionStrategy.Default },
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+        remove: {
+          imports: [
+            ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent,
+          ],
+        },
       }).compileComponents();
     }));
 

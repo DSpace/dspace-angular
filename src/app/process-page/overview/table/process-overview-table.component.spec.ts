@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -19,7 +20,9 @@ import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RouteService } from '../../../core/services/route.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
@@ -131,8 +134,8 @@ describe('ProcessOverviewTableComponent', () => {
     init();
 
     void TestBed.configureTestingModule({
-      declarations: [ProcessOverviewTableComponent, VarDirective, NgbCollapse],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      declarations: [NgbCollapse],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, ProcessOverviewTableComponent],
       providers: [
         { provide: ProcessOverviewService, useValue: processOverviewService },
         { provide: ProcessDataService, useValue: processService },
@@ -143,6 +146,11 @@ describe('ProcessOverviewTableComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: RouteService, useValue: routeService },
       ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(ProcessOverviewTableComponent, {
+      remove: {
+        imports: [ PaginationComponent, ThemedLoadingComponent ],
+      },
     }).compileComponents();
   }));
 

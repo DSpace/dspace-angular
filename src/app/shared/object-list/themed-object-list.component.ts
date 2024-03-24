@@ -25,6 +25,7 @@ import { ObjectListComponent } from './object-list.component';
   selector: 'ds-themed-object-list',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
 

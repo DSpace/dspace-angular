@@ -10,25 +10,36 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
 import { RestResponse } from '../../../core/cache/response.models';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RegistryService } from '../../../core/registry/registry.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { FormService } from '../../../shared/form/form.service';
 import { HostWindowService } from '../../../shared/host-window.service';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service.stub';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { MetadataRegistryComponent } from './metadata-registry.component';
+import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-schema-form.component';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -76,20 +87,67 @@ describe('MetadataRegistryComponent', () => {
 
   paginationService = new PaginationServiceStub();
 
+  const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'test',
+      values: [
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
+  });
+
+  const mockGroupService = jasmine.createSpyObj('groupService',
+    {
+    // findByHref: jasmine.createSpy('findByHref'),
+    // findAll: jasmine.createSpy('findAll'),
+    // searchGroups: jasmine.createSpy('searchGroups'),
+      getUUIDFromString: jasmine.createSpy('getUUIDFromString'),
+    },
+    {
+      linkPath: 'groups',
+    },
+  );
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [MetadataRegistryComponent, PaginationComponent, EnumKeysPipe],
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbModule,
+        MetadataRegistryComponent,
+        PaginationComponent,
+        EnumKeysPipe,
+      ],
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        {
+          provide: NotificationsService,
+          useValue: new NotificationsServiceStub(),
+        },
+        { provide: FormService, useValue: getMockFormService() },
+        { provide: GroupDataService, useValue: mockGroupService },
+        {
+          provide: ConfigurationDataService,
+          useValue: configurationDataService,
+        },
+        {
+          provide: SearchConfigurationService,
+          useValue: new SearchConfigurationServiceStub(),
+        },
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(MetadataRegistryComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
-    }).compileComponents();
+    })
+      .overrideComponent(MetadataRegistryComponent, {
+        remove: {
+          imports: [MetadataSchemaFormComponent, RouterLink],
+        },
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

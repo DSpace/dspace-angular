@@ -129,14 +129,8 @@ describe('MenuComponent', () => {
       isAuthorized: observableOf(false),
     });
 
-    void TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        NoopAnimationsModule,
-        RouterTestingModule,
-        StoreModule.forRoot(authReducer, storeModuleConfig),
-      ],
-      declarations: [MenuComponent],
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, MenuComponent, StoreModule.forRoot(authReducer, storeModuleConfig)],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },

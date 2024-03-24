@@ -19,7 +19,10 @@ import {
   BrowserModule,
   By,
 } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -43,13 +46,16 @@ import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import {
   GroupMock,
   GroupMock2,
@@ -119,7 +125,9 @@ describe('SubgroupsListComponent', () => {
         if (query === '') {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), groupNonMembers));
         }
-        return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
+        return createSuccessfulRemoteDataObject$(
+          buildPaginatedList(new PageInfo(), []),
+        );
       },
       addSubGroupToGroup(parentGroup, subgroupToAdd: Group): Observable<RestResponse> {
         // Add group to list of subgroups
@@ -153,28 +161,44 @@ describe('SubgroupsListComponent', () => {
     routerStub = new RouterMock();
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
-
     paginationService = new PaginationServiceStub();
     return TestBed.configureTestingModule({
-      imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
+      imports: [
+        CommonModule,
+        NgbModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserModule,
+        // ContextHelpDirective,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
+        SubgroupsListComponent,
       ],
-      declarations: [SubgroupsListComponent],
-      providers: [SubgroupsListComponent,
+      providers: [
+        SubgroupsListComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        {
+          provide: NotificationsService,
+          useValue: new NotificationsServiceStub(),
+        },
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: routerStub },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(SubgroupsListComponent, {
+        remove: {
+          imports: [ContextHelpDirective, PaginationComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

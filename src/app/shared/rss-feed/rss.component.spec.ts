@@ -80,6 +80,7 @@ describe('RssComponent', () => {
       paginatedSearchOptions: mockSearchOptions,
     };
     TestBed.configureTestingModule({
+      imports: [RSSComponent],
       providers: [
         { provide: GroupDataService, useValue: groupDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
@@ -88,7 +89,6 @@ describe('RssComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
       ],
-      declarations: [RSSComponent],
     }).compileComponents();
   }));
 

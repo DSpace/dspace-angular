@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
@@ -9,9 +10,12 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
-import { FileUploader } from 'ng2-file-upload';
+import {
+  FileUploader,
+  FileUploadModule,
+} from 'ng2-file-upload';
 import { of as observableOf } from 'rxjs';
 
 import { DragService } from '../../../core/drag.service';
@@ -35,8 +39,9 @@ import { UploaderProperties } from './uploader-properties.model';
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
+  standalone: true,
+  imports: [TranslateModule, FileUploadModule, CommonModule],
 })
-
 export class UploaderComponent {
 
   /**
@@ -108,7 +113,6 @@ export class UploaderComponent {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private scrollToService: ScrollToService,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
     private cookieService: CookieService,

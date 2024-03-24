@@ -59,8 +59,7 @@ describe('WorkflowItemSendBackComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [WorkflowItemSendBackComponent, VarDirective],
+      }), WorkflowItemSendBackComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },

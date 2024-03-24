@@ -1,9 +1,17 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of,
@@ -29,6 +37,8 @@ import { isEmpty } from '../../shared/empty.util';
   selector: 'ds-statistics-table',
   templateUrl: './statistics-table.component.html',
   styleUrls: ['./statistics-table.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgFor, AsyncPipe, TranslateModule],
 })
 export class StatisticsTableComponent implements OnInit {
 

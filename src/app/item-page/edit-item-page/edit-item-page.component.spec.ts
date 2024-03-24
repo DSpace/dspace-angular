@@ -14,7 +14,7 @@ import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
   CanActivate,
-  Router,
+  RouterModule,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -87,20 +87,21 @@ describe('ItemPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useClass: TranslateLoaderMock,
-        },
-      })],
-      declarations: [EditItemPageComponent],
+      imports: [
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        EditItemPageComponent,
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
-        { provide: Router, useValue: mockRouter },
         AcceptAllGuard,
         AcceptNoneGuard,
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(EditItemPageComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

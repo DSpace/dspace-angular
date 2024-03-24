@@ -10,7 +10,6 @@ import {
   CreateData,
   CreateDataImpl,
 } from '../data/base/create-data';
-import { dataService } from '../data/base/data-service.decorator';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
@@ -20,13 +19,11 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { Feedback } from './models/feedback.model';
-import { FEEDBACK } from './models/feedback.resource-type';
 
 /**
  * Service for checking and managing the feedback
  */
-@Injectable()
-@dataService(FEEDBACK)
+@Injectable({ providedIn: 'root' })
 export class FeedbackDataService extends IdentifiableDataService<Feedback> implements CreateData<Feedback> {
   private createData: CreateDataImpl<Feedback>;
 

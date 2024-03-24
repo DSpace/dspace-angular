@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -6,19 +7,16 @@ import {
   Output,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Suggestion } from 'src/app/core/notifications/models/suggestion.model';
 
+import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { Item } from '../../core/shared/item.model';
 import { fadeIn } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
-
-/**
- * A simple interface to unite a specific suggestion and the id of the chosen collection
- */
-export interface SuggestionApproveAndImport {
-  suggestion: Suggestion;
-  collectionId: string;
-}
+import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
+import { SuggestionApproveAndImport } from './suggestion-approve-and-import';
+import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
 
 /**
  * Show all the suggestions by researcher
@@ -28,6 +26,14 @@ export interface SuggestionApproveAndImport {
   styleUrls: ['./suggestion-list-element.component.scss'],
   templateUrl: './suggestion-list-element.component.html',
   animations: [fadeIn],
+  imports: [
+    NgIf,
+    TranslateModule,
+    ItemSearchResultListElementComponent,
+    SuggestionActionsComponent,
+    SuggestionEvidencesComponent,
+  ],
+  standalone: true,
 })
 export class SuggestionListElementComponent implements OnInit {
 

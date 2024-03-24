@@ -15,6 +15,8 @@ import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../../shared/form/form.component';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { MetadataFieldFormComponent } from './metadata-field-form.component';
 
@@ -54,14 +56,17 @@ describe('MetadataFieldFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [MetadataFieldFormComponent, EnumKeysPipe],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataFieldFormComponent, EnumKeysPipe],
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
-        { provide: FormBuilderService, useValue: formBuilderServiceStub },
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(MetadataFieldFormComponent, {
+        remove: { imports: [FormComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

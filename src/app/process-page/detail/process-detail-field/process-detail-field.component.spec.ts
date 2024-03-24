@@ -21,10 +21,8 @@ describe('ProcessDetailFieldComponent', () => {
     title = 'fake.title.message';
 
     TestBed.configureTestingModule({
-      declarations: [ProcessDetailFieldComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
-      ],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProcessDetailFieldComponent, VarDirective],
+      providers: [],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));

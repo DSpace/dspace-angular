@@ -15,6 +15,7 @@ import {
   selector: 'ds-themed-collection-dropdown',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCollectionDropdownComponent extends ThemedComponent<CollectionDropdownComponent> {
 

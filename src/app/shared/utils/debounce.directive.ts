@@ -16,6 +16,7 @@ import {
 
 @Directive({
   selector: '[ngModel][dsDebounce]',
+  standalone: true,
 })
 /**
  * Directive for setting a debounce time on an input field

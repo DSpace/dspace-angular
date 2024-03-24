@@ -19,12 +19,12 @@ import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-res
 import { DSOSelectorComponent } from '../../../shared/dso-selector/dso-selector/dso-selector.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
-import { LocationStub } from '../../../shared/testing/location.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
 import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
 import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
+import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 import { AdvancedWorkflowActionComponent } from './advanced-workflow-action.component';
 
 const workflowId = '1';
@@ -34,25 +34,24 @@ describe('AdvancedWorkflowActionComponent', () => {
   let fixture: ComponentFixture<AdvancedWorkflowActionComponent>;
 
   let claimedTaskDataService: ClaimedTaskDataServiceStub;
-  let location: LocationStub;
   let notificationService: NotificationsServiceStub;
   let workflowActionDataService: WorkflowActionDataServiceStub;
   let workflowItemDataService: WorkflowItemDataServiceStub;
+  let mockLocation;
 
   beforeEach(async () => {
     claimedTaskDataService = new ClaimedTaskDataServiceStub();
-    location = new LocationStub();
     notificationService = new NotificationsServiceStub();
     workflowActionDataService = new WorkflowActionDataServiceStub();
     workflowItemDataService = new WorkflowItemDataServiceStub();
+    mockLocation = jasmine.createSpyObj(['getState']);
 
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule,
-      ],
-      declarations: [
         TestComponent,
+        WorkflowItemActionPageDirective,
         MockComponent(DSOSelectorComponent),
       ],
       providers: [
@@ -70,14 +69,15 @@ describe('AdvancedWorkflowActionComponent', () => {
           },
         },
         { provide: ClaimedTaskDataService, useValue: claimedTaskDataService },
-        { provide: Location, useValue: location },
+        { provide: Location, useValue: mockLocation },
         { provide: NotificationsService, useValue: notificationService },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: WorkflowActionDataService, useValue: workflowActionDataService },
         { provide: WorkflowItemDataService, useValue: workflowItemDataService },
         { provide: RequestService, useClass: RequestServiceStub },
       ],
-    }).compileComponents();
+    })
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -122,6 +122,8 @@ describe('AdvancedWorkflowActionComponent', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '',
+  standalone: true,
+  imports: [RouterTestingModule],
 })
 class TestComponent extends AdvancedWorkflowActionComponent {
 

@@ -5,10 +5,19 @@
  *
  * https://www.atmire.com/software-license/
  */
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchConfigurationService } from '../../../../../../app/core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { AdvancedSearchComponent } from '../../../../../../app/shared/search/advanced-search/advanced-search.component';
+import { SearchFilterComponent } from '../../../../../../app/shared/search/search-filters/search-filter/search-filter.component';
 import { SearchFiltersComponent as BaseComponent } from '../../../../../../app/shared/search/search-filters/search-filters.component';
 
 
@@ -24,7 +33,8 @@ import { SearchFiltersComponent as BaseComponent } from '../../../../../../app/s
       useClass: SearchConfigurationService,
     },
   ],
-
+  standalone: true,
+  imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule, AdvancedSearchComponent],
 })
 
 export class SearchFiltersComponent extends BaseComponent {

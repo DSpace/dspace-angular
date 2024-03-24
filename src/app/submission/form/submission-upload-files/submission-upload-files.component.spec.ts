@@ -32,7 +32,6 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SharedModule } from '../../../shared/shared.module';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
@@ -66,10 +65,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionUploadFilesComponent,
         TestComponent,
       ],
@@ -218,6 +214,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

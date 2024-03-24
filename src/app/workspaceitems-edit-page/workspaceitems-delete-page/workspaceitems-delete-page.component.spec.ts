@@ -57,17 +57,15 @@ describe('WorkspaceitemsDeletePageComponent', () => {
       imports: [
         NgbModalModule,
         TranslateModule.forRoot(),
+        WorkspaceItemsDeletePageComponent,
       ],
-      declarations: [WorkspaceItemsDeletePageComponent],
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: new ActivatedRouteStub(
-            {},
-            {
-              wsi: createSuccessfulRemoteDataObject(wsi),
-              dso: createSuccessfulRemoteDataObject(dso),
-            },
+          useValue: new ActivatedRouteStub({}, {
+            wsi: createSuccessfulRemoteDataObject(wsi),
+            dso: createSuccessfulRemoteDataObject(dso),
+          },
           ),
         },
         { provide: Router, useValue: new RouterMock() },

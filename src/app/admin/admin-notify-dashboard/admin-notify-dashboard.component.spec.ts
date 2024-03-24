@@ -1,14 +1,18 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
+import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 import { AdminNotifyMessage } from './models/admin-notify-message.model';
 import { AdminNotifySearchResult } from './models/admin-notify-message-search-result.model';
 
@@ -39,9 +43,16 @@ describe('AdminNotifyDashboardComponent', () => {
     results = buildPaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NgbNavModule],
-      declarations: [ AdminNotifyDashboardComponent ],
-      providers: [{ provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } }],
+      imports: [TranslateModule.forRoot(), NgbNavModule, AdminNotifyDashboardComponent],
+      providers: [
+        { provide: SearchService, useValue: { search: () => createSuccessfulRemoteDataObject$(results) } },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(AdminNotifyDashboardComponent, {
+      remove: {
+        imports: [AdminNotifyMetricsComponent],
+      },
     })
       .compileComponents();
 

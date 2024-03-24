@@ -19,6 +19,7 @@ import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
@@ -99,8 +100,7 @@ describe('ItemMoveComponent', () => {
     itemDataService = mockItemDataService;
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemMoveComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemMoveComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
@@ -111,7 +111,13 @@ describe('ItemMoveComponent', () => {
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(ItemMoveComponent, {
+        remove: {
+          imports: [AuthorizedCollectionSelectorComponent],
+        },
+      })
+      .compileComponents();
     fixture = TestBed.createComponent(ItemMoveComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();

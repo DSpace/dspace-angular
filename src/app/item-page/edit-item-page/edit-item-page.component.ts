@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Injector,
@@ -9,7 +15,11 @@ import {
   CanActivate,
   Route,
   Router,
+  RouterLink,
+  RouterOutlet,
 } from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -35,6 +45,17 @@ import { getItemPageRoute } from '../item-page-routing-paths';
     fadeIn,
     fadeInOut,
   ],
+  imports: [
+    TranslateModule,
+    NgClass,
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+    NgbTooltipModule,
+    RouterLink,
+    RouterOutlet,
+  ],
+  standalone: true,
 })
 /**
  * Page component for editing an item

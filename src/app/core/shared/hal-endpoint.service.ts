@@ -24,7 +24,7 @@ import { RequestService } from '../data/request.service';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { getFirstCompletedRemoteData } from './operators';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HALEndpointService {
 
   constructor(

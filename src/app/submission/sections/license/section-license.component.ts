@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  AfterViewChecked,
   ChangeDetectorRef,
   Component,
   Inject,
@@ -47,8 +52,6 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import {
   SECTION_LICENSE_FORM_LAYOUT,
   SECTION_LICENSE_FORM_MODEL,
@@ -61,9 +64,15 @@ import {
   selector: 'ds-submission-section-license',
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
+  providers: [],
+  imports: [
+    FormComponent,
+    NgIf,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.License)
-export class SubmissionSectionLicenseComponent extends SectionModelComponent {
+export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {
 
   /**
    * The form id
@@ -153,7 +162,9 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
     const model = this.formBuilderService.findById('granted', this.formModel);
 
     // Translate checkbox label
-    model.label = this.translateService.instant(model.label);
+    if (model.label) {
+      model.label = this.translateService.instant(model.label);
+    }
 
     // Retrieve license accepted status
     (model as DynamicCheckboxModel).value = (this.sectionData.data as WorkspaceitemSectionLicenseObject).granted;
@@ -204,9 +215,12 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
             // Remove any section's errors
             this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
           }
-          this.changeDetectorRef.detectChanges();
         }),
     );
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
   }
 
   /**

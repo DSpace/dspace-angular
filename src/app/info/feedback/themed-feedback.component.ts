@@ -10,6 +10,7 @@ import { FeedbackComponent } from './feedback.component';
   selector: 'ds-themed-feedback',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedFeedbackComponent extends ThemedComponent<FeedbackComponent> {
   protected getComponentName(): string {

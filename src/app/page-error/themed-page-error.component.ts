@@ -10,6 +10,7 @@ import { PageErrorComponent } from './page-error.component';
   selector: 'ds-themed-page-error',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedPageErrorComponent extends ThemedComponent<PageErrorComponent> {
 

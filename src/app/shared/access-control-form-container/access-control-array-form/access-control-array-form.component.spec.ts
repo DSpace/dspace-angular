@@ -9,7 +9,6 @@ import { By } from '@angular/platform-browser';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SharedBrowseByModule } from '../../browse-by/shared-browse-by.module';
 import { AccessControlArrayFormComponent } from './access-control-array-form.component';
 import { ToDatePipe } from './to-date.pipe';
 
@@ -19,8 +18,7 @@ describe('AccessControlArrayFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ CommonModule, FormsModule, SharedBrowseByModule, TranslateModule.forRoot(), NgbDatepickerModule ],
-      declarations: [ AccessControlArrayFormComponent, ToDatePipe  ],
+      imports: [CommonModule, FormsModule, TranslateModule.forRoot(), NgbDatepickerModule, AccessControlArrayFormComponent, ToDatePipe],
     })
       .compileComponents();
   });

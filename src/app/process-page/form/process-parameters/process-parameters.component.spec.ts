@@ -44,8 +44,9 @@ describe('ProcessParametersComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [ProcessParametersComponent, ParameterSelectComponent],
+        }),
+        ProcessParametersComponent, ParameterSelectComponent,
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();

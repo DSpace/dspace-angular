@@ -58,6 +58,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ClaimedTaskActionsApproveComponent,
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
@@ -68,7 +69,6 @@ describe('ClaimedTaskActionsApproveComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
       ],
-      declarations: [ClaimedTaskActionsApproveComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsApproveComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

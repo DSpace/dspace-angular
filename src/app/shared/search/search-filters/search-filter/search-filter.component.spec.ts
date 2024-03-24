@@ -14,15 +14,15 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
+import { SearchFilterService } from 'src/app/core/shared/search/search-filter.service';
 
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { SequenceService } from '../../../../core/shared/sequence.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
-import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { FilterType } from '../../models/filter-type.model';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
+import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SearchFilterComponent } from './search-filter.component';
 
 describe('SearchFilterComponent', () => {
@@ -72,11 +72,7 @@ describe('SearchFilterComponent', () => {
     sequenceService = jasmine.createSpyObj('sequenceService', { next: 17 });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
-      declarations: [
-        SearchFilterComponent,
-        BrowserOnlyMockPipe,
-      ],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchFilterComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {
@@ -88,7 +84,8 @@ describe('SearchFilterComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFilterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [SearchFacetFilterWrapperComponent] },
     }).compileComponents();
   }));
 

@@ -25,8 +25,7 @@ describe('OnClickMenuItemComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [OnClickMenuItemComponent],
+      imports: [TranslateModule.forRoot(), OnClickMenuItemComponent],
       providers: [
         { provide: 'itemModelProvider', useValue: item },
       ],

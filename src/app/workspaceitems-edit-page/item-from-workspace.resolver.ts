@@ -10,7 +10,7 @@ import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.
 /**
  * This class represents a resolver that requests a specific item before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemFromWorkspaceResolver extends SubmissionObjectResolver<Item> implements Resolve<RemoteData<Item>>  {
   constructor(
         private workspaceItemService: WorkspaceitemDataService,

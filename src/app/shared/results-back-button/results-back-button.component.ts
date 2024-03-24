@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,6 +13,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./results-back-button.component.scss'],
   templateUrl: './results-back-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [AsyncPipe],
 })
 /**
  * Component for creating a back to result list button.

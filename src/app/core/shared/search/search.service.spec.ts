@@ -37,7 +37,11 @@ import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
 
-@Component({ template: '' })
+@Component({
+  template: '',
+  standalone: true,
+  imports: [CommonModule],
+})
 class DummyComponent {
 }
 
@@ -54,8 +58,6 @@ describe('SearchService', () => {
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
           ]),
-        ],
-        declarations: [
           DummyComponent,
         ],
         providers: [
@@ -123,8 +125,6 @@ describe('SearchService', () => {
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
           ]),
-        ],
-        declarations: [
           DummyComponent,
         ],
         providers: [

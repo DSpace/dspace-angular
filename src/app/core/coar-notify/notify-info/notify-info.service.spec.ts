@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { ConfigurationDataService } from '../../data/configuration-data.service';
 import { AuthorizationDataService } from '../../data/feature-authorization/authorization-data.service';
 import { NotifyInfoService } from './notify-info.service';
@@ -22,6 +24,7 @@ describe('NotifyInfoService', () => {
         NotifyInfoService,
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
     });
     service = TestBed.inject(NotifyInfoService);

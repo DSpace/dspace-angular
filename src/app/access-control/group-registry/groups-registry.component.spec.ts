@@ -16,8 +16,12 @@ import {
   BrowserModule,
   By,
 } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -25,9 +29,12 @@ import {
 import {
   Observable,
   of as observableOf,
+  of,
 } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -53,6 +60,7 @@ import {
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import {
   EPersonMock,
   EPersonMock2,
@@ -74,6 +82,7 @@ describe('GroupsRegistryComponent', () => {
   let groupsDataServiceStub: any;
   let dsoDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
+  let configurationDataService: jasmine.SpyObj<ConfigurationDataService>;
 
   let mockGroups;
   let mockEPeople;
@@ -191,6 +200,10 @@ describe('GroupsRegistryComponent', () => {
       },
     };
 
+    configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+      findByPropertyName: of({ payload: { value: 'test' } }),
+    });
+
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
     setIsAuthorized(true, true);
     paginationService = new PaginationServiceStub();
@@ -201,20 +214,22 @@ describe('GroupsRegistryComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        }),
-      ],
-      declarations: [GroupsRegistryComponent],
+        }), GroupsRegistryComponent],
       providers: [GroupsRegistryComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: DSpaceObjectDataService, useValue: dsoDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: RouteService, useValue: routeServiceStub },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

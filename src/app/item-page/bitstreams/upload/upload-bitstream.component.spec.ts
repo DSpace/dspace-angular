@@ -24,6 +24,7 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
@@ -33,6 +34,7 @@ import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { UploadBitstreamComponent } from './upload-bitstream.component';
 
@@ -298,8 +300,7 @@ describe('UploadBitstreamComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [UploadBitstreamComponent, VarDirective],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, UploadBitstreamComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
@@ -311,7 +312,13 @@ describe('UploadBitstreamComponent', () => {
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(UploadBitstreamComponent, {
+        remove: {
+          imports: [UploaderComponent, DsoInputSuggestionsComponent],
+        },
+      })
+      .compileComponents();
   }
 
   /**

@@ -20,7 +20,6 @@ import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { MenuServiceStub } from '../../testing/menu-service.stub';
 import { ThemeService } from '../../theme-support/theme.service';
-import { DsoPageModule } from '../dso-page.module';
 import { DsoEditMenuComponent } from './dso-edit-menu.component';
 
 describe('DsoEditMenuComponent', () => {
@@ -52,8 +51,7 @@ describe('DsoEditMenuComponent', () => {
     });
     spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([section]));
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule, DsoPageModule],
-      declarations: [DsoEditMenuComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, DsoEditMenuComponent],
       providers: [
         Injector,
         { provide: MenuService, useValue: menuService },

@@ -12,14 +12,18 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { MediaViewerComponent } from './media-viewer.component';
@@ -78,8 +82,6 @@ describe('MediaViewerComponent', () => {
           },
         }),
         BrowserAnimationsModule,
-      ],
-      declarations: [
         MediaViewerComponent,
         VarDirective,
         FileSizePipe,
@@ -87,8 +89,9 @@ describe('MediaViewerComponent', () => {
       ],
       providers: [
         { provide: BitstreamDataService, useValue: bitstreamDataService },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));

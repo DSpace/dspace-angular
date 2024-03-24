@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -15,6 +16,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RouteService } from '../../../core/services/route.service';
 import { BrowseEntry } from '../../../core/shared/browse-entry.model';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { TruncatePipe } from '../../utils/truncate.pipe';
 import { BrowseEntryListElementComponent } from './browse-entry-list-element.component';
 
@@ -43,14 +45,14 @@ describe('BrowseEntryListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [BrowseEntryListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, BrowseEntryListElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: 'objectElementProvider', useValue: { mockValue } },
         { provide: PaginationService, useValue: paginationService },
         { provide: RouteService, useValue: routeService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(BrowseEntryListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -8,11 +9,17 @@ import { map } from 'rxjs/operators';
 
 import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 
 @Component({
   selector: 'ds-browse-by-page',
   templateUrl: './browse-by-page.component.html',
   styleUrls: ['./browse-by-page.component.scss'],
+  imports: [
+    BrowseBySwitcherComponent,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class BrowseByPageComponent implements OnInit {
 

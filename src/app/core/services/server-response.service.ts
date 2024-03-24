@@ -9,7 +9,7 @@ import { Response } from 'express';
 /**
  * Service responsible to provide method to manage the response object
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerResponseService {
   private response: Response;
 

@@ -11,6 +11,7 @@ import { MetadataRepresentationListElementComponent } from '../metadata-represen
 @Component({
   selector: 'ds-item-metadata-representation-list-element',
   template: '',
+  standalone: true,
 })
 /**
  * An abstract class for displaying a single ItemMetadataRepresentation

@@ -73,7 +73,7 @@ class DsoByIdOrUUIDDataService extends IdentifiableDataService<DSpaceObject> {
  * A service to handle redirects from identifier paths to DSO path
  * e.g.: redirect from /handle/... to /items/...
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DsoRedirectService {
   private dataService: DsoByIdOrUUIDDataService;
 

@@ -22,7 +22,6 @@ import { AuthMethod } from '../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
-import { SharedModule } from '../../shared.module';
 import { AuthServiceStub } from '../../testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
 import { createTestComponent } from '../../testing/utils.test';
@@ -48,11 +47,8 @@ describe('LogInContainerComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer),
-        SharedModule,
         TranslateModule.forRoot(),
         RouterTestingModule,
-      ],
-      declarations: [
         TestComponent,
       ],
       providers: [
@@ -125,6 +121,10 @@ describe('LogInContainerComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    RouterTestingModule],
 })
 class TestComponent {
 

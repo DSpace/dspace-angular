@@ -7,6 +7,7 @@ import { ExternalSourceEntryImportModalComponent } from './external-source-entry
   selector: 'ds-themed-external-source-entry-import-modal',
   styleUrls: [],
   templateUrl: '../../../../../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedExternalSourceEntryImportModalComponent extends ThemedComponent<ExternalSourceEntryImportModalComponent> {
   protected getComponentName(): string {

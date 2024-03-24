@@ -70,8 +70,8 @@ describe('ClaimedTaskActionsRejectComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ClaimedTaskActionsRejectComponent,
       ],
-      declarations: [ClaimedTaskActionsRejectComponent],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
         Injector,

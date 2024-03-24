@@ -27,8 +27,7 @@ describe('ExternalLinkMenuItemComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ExternalLinkMenuItemComponent],
+      imports: [TranslateModule.forRoot(), ExternalLinkMenuItemComponent],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, href: link } },
       ],

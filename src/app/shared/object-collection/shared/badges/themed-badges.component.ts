@@ -15,6 +15,7 @@ import { BadgesComponent } from './badges.component';
   selector: 'ds-themed-badges',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedBadgesComponent extends ThemedComponent<BadgesComponent> {
   @Input() object: DSpaceObject;

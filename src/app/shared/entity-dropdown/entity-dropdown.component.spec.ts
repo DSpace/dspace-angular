@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   NO_ERRORS_SCHEMA,
@@ -10,17 +11,23 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TestScheduler } from 'rxjs/testing';
 
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
 import { EntityDropdownComponent } from './entity-dropdown.component';
 
-// eslint-disable-next-line @angular-eslint/pipe-prefix
-@Pipe({ name: 'translate' })
+@Pipe({
+  // eslint-disable-next-line @angular-eslint/pipe-prefix
+  name: 'translate',
+  standalone: true,
+})
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
     return value;
@@ -82,14 +89,25 @@ describe('EntityDropdownComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [EntityDropdownComponent, MockTranslatePipe],
+      imports: [
+        EntityDropdownComponent,
+        MockTranslatePipe,
+        InfiniteScrollModule,
+        ThemedLoadingComponent,
+        AsyncPipe,
+        TranslateModule.forRoot(),
+      ],
       providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
         ChangeDetectorRef,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(EntityDropdownComponent, {
+        add: {
+          imports: [MockTranslatePipe],
+        },
+      })
       .compileComponents();
   }));
 

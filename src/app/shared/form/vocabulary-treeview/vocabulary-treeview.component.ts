@@ -1,4 +1,11 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
+import {
+  CdkTreeModule,
+  FlatTreeControl,
+} from '@angular/cdk/tree';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -9,8 +16,13 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
@@ -23,12 +35,14 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
 import {
   hasValue,
   isEmpty,
   isNotEmpty,
 } from '../../empty.util';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
@@ -46,6 +60,17 @@ import {
   selector: 'ds-vocabulary-treeview',
   templateUrl: './vocabulary-treeview.component.html',
   styleUrls: ['./vocabulary-treeview.component.scss'],
+  imports: [
+    FormsModule,
+    NgbTooltipModule,
+    NgIf,
+    CdkTreeModule,
+    TranslateModule,
+    AsyncPipe,
+    ThemedLoadingComponent,
+    AlertComponent,
+  ],
+  standalone: true,
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {
 

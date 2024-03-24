@@ -20,7 +20,6 @@ import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucata
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
@@ -52,9 +51,8 @@ describe('CollectionAdminSearchResultGridElementComponent', () => {
         NoopAnimationsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
-        SharedModule,
+        CollectionAdminSearchResultGridElementComponent,
       ],
-      declarations: [CollectionAdminSearchResultGridElementComponent],
       providers: [
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: BitstreamDataService, useValue: {} },

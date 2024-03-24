@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -55,6 +56,7 @@ import { FormBuilderService } from '../../../shared/form/builder/form-builder.se
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { difference } from '../../../shared/object.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -64,8 +66,6 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { SectionFormOperationsService } from './section-form-operations.service';
 
 /**
@@ -75,8 +75,13 @@ import { SectionFormOperationsService } from './section-form-operations.service'
   selector: 'ds-submission-section-form',
   styleUrls: ['./section-form.component.scss'],
   templateUrl: './section-form.component.html',
+  imports: [
+    FormComponent,
+    ThemedLoadingComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.SubmissionForm)
 export class SubmissionSectionFormComponent extends SectionModelComponent {
 
   /**

@@ -11,7 +11,7 @@ import { EndUserAgreementService } from './end-user-agreement.service';
 /**
  * A guard redirecting users to the end agreement page when the user agreement cookie hasn't been accepted
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EndUserAgreementCookieGuard extends AbstractEndUserAgreementGuard {
 
   constructor(protected endUserAgreementService: EndUserAgreementService,

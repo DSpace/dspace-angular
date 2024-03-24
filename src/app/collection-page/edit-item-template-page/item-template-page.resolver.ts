@@ -16,7 +16,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
 /**
  * This class represents a resolver that requests a specific collection's item template before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemTemplatePageResolver implements Resolve<RemoteData<Item>> {
   constructor(
     public dsoNameService: DSONameService,

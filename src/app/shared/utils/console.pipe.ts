@@ -5,6 +5,7 @@ import {
 
 @Pipe({
   name: 'dsConsole',
+  standalone: true,
 })
 export class ConsolePipe implements PipeTransform {
   transform(value: any): string {

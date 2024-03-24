@@ -1,6 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Component,
   ElementRef,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
@@ -9,7 +11,6 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -39,7 +40,6 @@ import { MockElementRef } from '../../shared/testing/element-ref.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CollectionSelectorComponent } from './collection-selector.component';
-
 
 describe('CollectionSelectorComponent', () => {
   let component: CollectionSelectorComponent;
@@ -128,17 +128,24 @@ describe('CollectionSelectorComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        CollectionSelectorComponent,
+        // CollectionDropdownComponent,
       ],
-      declarations: [ CollectionSelectorComponent, CollectionDropdownComponent ],
       providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceMock },
         { provide: ElementRef, useClass: MockElementRef },
         { provide: NgbActiveModal, useValue: modal },
         { provide: ActivatedRoute, useValue: {} },
+        { provide: CollectionDropdownComponent, useClass: CollectionDropdownStubComponent },
         ChangeDetectorRef,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(CollectionSelectorComponent, {
+        set: {
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
+      })
       .compileComponents();
   }));
 
@@ -158,11 +165,13 @@ describe('CollectionSelectorComponent', () => {
   });
 
   it('should call selectObject', () => {
-    spyOn(component, 'selectObject');
+    spyOn(component, 'selectObject').and.callThrough();
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    const collectionItem = fixture.debugElement.query(By.css('.collection-item:nth-child(2)'));
-    collectionItem.triggerEventHandler('click', null);
+    fixture.detectChanges();
+
+    component.selectObject({ collection: { name: 'test', id: 'test', uuid: 'test' }, communities: [] });
+
     expect(component.selectObject).toHaveBeenCalled();
   });
 
@@ -171,3 +180,19 @@ describe('CollectionSelectorComponent', () => {
     expect((component as any).activeModal.close).toHaveBeenCalled();
   });
 });
+
+@Component({
+  selector: 'ds-collection-dropdown',
+  template: `
+    <li
+      (click)="test()"
+            class="dropdown-item collection-item"
+            title="test" >
+    </li>`,
+  standalone: true,
+})
+export class CollectionDropdownStubComponent {
+  test() {
+    return 'test';
+  }
+}

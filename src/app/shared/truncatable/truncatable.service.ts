@@ -24,7 +24,7 @@ const truncatableStateSelector = (state: TruncatablesState) => state.truncatable
 /**
  * Service responsible for truncating/clamping text and performing actions on truncatable elements
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TruncatableService {
 
   constructor(private store: Store<TruncatablesState>) {

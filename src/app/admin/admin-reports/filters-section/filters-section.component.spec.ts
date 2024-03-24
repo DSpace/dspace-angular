@@ -20,7 +20,6 @@ describe('FiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [FiltersComponent],
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -28,6 +27,7 @@ describe('FiltersComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        FiltersComponent,
       ],
       providers: [
         FormBuilder,

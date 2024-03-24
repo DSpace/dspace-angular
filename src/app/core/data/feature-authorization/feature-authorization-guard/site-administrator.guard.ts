@@ -18,9 +18,7 @@ import { SingleFeatureAuthorizationGuard } from './single-feature-authorization.
  * Prevent unauthorized activating and loading of routes when the current authenticated user doesn't have administrator
  * rights to the {@link Site}
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class SiteAdministratorGuard extends SingleFeatureAuthorizationGuard {
   constructor(protected authorizationService: AuthorizationDataService, protected router: Router, protected authService: AuthService) {
     super(authorizationService, router, authService);

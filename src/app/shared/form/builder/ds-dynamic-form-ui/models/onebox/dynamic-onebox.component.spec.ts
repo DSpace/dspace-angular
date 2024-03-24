@@ -156,14 +156,12 @@ describe('DsDynamicOneboxComponent test suite', () => {
         ReactiveFormsModule,
         TranslateModule.forRoot(),
         CdkTreeModule,
-      ],
-      declarations: [
         DsDynamicOneboxComponent,
         TestComponent,
         AuthorityConfidenceStateDirective,
         ObjNgFor,
         VocabularyTreeviewComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         DsDynamicOneboxComponent,
@@ -475,6 +473,13 @@ describe('DsDynamicOneboxComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule,
+    CdkTreeModule],
 })
 class TestComponent {
 

@@ -28,6 +28,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
@@ -40,6 +41,9 @@ import {
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageComponent } from './profile-page.component';
+import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -106,11 +110,11 @@ describe('ProfilePageComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageComponent, VarDirective],
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        ProfilePageComponent, VarDirective,
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
@@ -121,7 +125,18 @@ describe('ProfilePageComponent', () => {
         provideMockStore({ initialState }),
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ProfilePageComponent, {
+        remove: {
+          imports: [
+            ProfilePageMetadataFormComponent,
+            ProfilePageSecurityFormComponent,
+            ProfilePageResearcherFormComponent,
+            SuggestionsNotificationComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Inject,
@@ -6,6 +11,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import {
@@ -15,10 +21,21 @@ import {
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-virtual-metadata',
   templateUrl: './virtual-metadata.component.html',
+  imports: [
+    NgClass,
+    TranslateModule,
+    NgForOf,
+    VarDirective,
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component that lists both items of a relationship, along with their virtual metadata of the relationship.

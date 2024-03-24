@@ -18,7 +18,7 @@ import { Process } from './processes/process.model';
 /**
  * This class represents a resolver that requests a specific process before the route is activated
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProcessBreadcrumbResolver implements Resolve<BreadcrumbConfig<Process>> {
   constructor(protected breadcrumbService: ProcessBreadcrumbsService, private processService: ProcessDataService) {
   }

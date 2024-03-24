@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Subscription,
@@ -27,6 +28,8 @@ import {
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
+import { LogInComponent } from '../shared/log-in/log-in.component';
+import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 
 /**
  * This component represents the login page
@@ -35,6 +38,8 @@ import {
   selector: 'ds-login-page',
   styleUrls: ['./login-page.component.scss'],
   templateUrl: './login-page.component.html',
+  standalone: true,
+  imports: [LogInComponent, ThemedLogInComponent, TranslateModule],
 })
 export class LoginPageComponent implements OnDestroy, OnInit {
 

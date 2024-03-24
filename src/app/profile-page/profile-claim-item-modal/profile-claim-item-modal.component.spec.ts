@@ -16,6 +16,7 @@ import { of } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { RouterStub } from '../../shared/testing/router.stub';
@@ -111,8 +112,7 @@ describe('ProfileClaimItemModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ProfileClaimItemModalComponent],
+      imports: [TranslateModule.forRoot(), ProfileClaimItemModalComponent],
       providers: [
         { provide: NgbActiveModal, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
@@ -121,6 +121,9 @@ describe('ProfileClaimItemModalComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(ProfileClaimItemModalComponent, {
+        remove: { imports: [ListableObjectComponentLoaderComponent] },
+      })
       .compileComponents();
   }));
 

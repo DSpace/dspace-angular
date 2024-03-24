@@ -17,14 +17,12 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../core/data/request.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { Community } from '../../../core/shared/community.model';
-import { ComcolModule } from '../../../shared/comcol/comcol.module';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { SharedModule } from '../../../shared/shared.module';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommunityRolesComponent } from './community-roles.component';
 
@@ -65,13 +63,9 @@ describe('CommunityRolesComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ComcolModule,
-        SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule,
-      ],
-      declarations: [
         CommunityRolesComponent,
       ],
       providers: [

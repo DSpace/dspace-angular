@@ -1,9 +1,15 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -38,12 +44,15 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../empty.util';
+import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { followLink } from '../../../utils/follow-link-config.model';
+import { VarDirective } from '../../../utils/var.directive';
 import { Duplicate } from '../../duplicate-data/duplicate.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 
 /**
  * This component renders pool task object for the search result in the list view.
@@ -52,6 +61,8 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   selector: 'ds-pool-search-result-list-element',
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './pool-search-result-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, ThemedItemListPreviewComponent, NgClass, PoolTaskActionsComponent, AsyncPipe, TranslateModule, VarDirective],
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.ListElement)

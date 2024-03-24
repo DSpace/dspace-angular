@@ -19,6 +19,7 @@ import { isNotEmpty } from '../../../empty.util';
 @Component({
   selector: 'ds-edit-comcol',
   template: '',
+  standalone: true,
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**
