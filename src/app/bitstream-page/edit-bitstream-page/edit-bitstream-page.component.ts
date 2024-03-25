@@ -26,6 +26,10 @@ import { Item } from '../../core/shared/item.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
+import {VocabularyService} from '../../core/submission/vocabularies/vocabulary.service';
+import {VocabularyOptions} from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import {PageInfo} from '../../core/shared/page-info.model';
+import {VocabularyEntry} from '../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -254,6 +258,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     }
   });
 
+  hideModel: DynamicSelectModel<string>;
+
   /**
    * All input models in a simple array for easier iterations
    */
@@ -322,6 +328,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       }
     },
     fileType: {
+      grid: {
+        host: 'col-12 d-inline-block'
+      }
+    },
+    hide: {
       grid: {
         host: 'col-12 d-inline-block'
       }
@@ -405,6 +416,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private primaryBitstreamService: PrimaryBitstreamService,
+              private vocabularyService: VocabularyService
               ) {
   }
 
@@ -446,15 +458,24 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       switchMap((bundle: Bundle) => bundle.item),
       getFirstSucceededRemoteDataPayload(),
     );
+    const vocabularyOptions = new VocabularyOptions(
+      'truefalse',
+      'bitstream.hide',
+    );
+    const pageInfo = new PageInfo();
+    const hide$: Observable<VocabularyEntry[]> = this.vocabularyService.getVocabularyEntries(vocabularyOptions, pageInfo).pipe(
+      getFirstCompletedRemoteData(),
+      map((rq)=> rq.hasSucceeded ? rq.payload.page : []),
+    );
     this.subs.push(
-      observableCombineLatest(
+      observableCombineLatest([
         bitstream$,
         allFormats$,
         bundle$,
         primaryBitstream$,
         item$,
-      ).pipe()
-        .subscribe(([bitstream, allFormats, bundle, primaryBitstream, item]) => {
+        hide$,
+      ]).subscribe(([bitstream, allFormats, bundle, primaryBitstream, item,entries]) => {
           this.bitstream = bitstream as Bitstream;
           this.formats = allFormats.page;
           this.bundle = bundle;
@@ -462,6 +483,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
           // be a success response, but empty
           this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
           this.itemId = item.uuid;
+          this.handleHideBitstream(entries);
           this.setIiifStatus(this.bitstream);
         })
     );
@@ -472,6 +494,26 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
           this.updateFieldTranslations();
         })
     );
+  }
+  handleHideBitstream(entries: VocabularyEntry[]) {
+    if (isEmpty(entries)) {
+      return;
+    }
+    const options = entries.map((entry) => ({label: entry.display, value: entry.value}));
+    let hideModel = new DynamicSelectModel({
+      id: 'hide',
+      name: 'hide',
+      options: options
+    });
+    this.hideModel = hideModel;
+    this.inputModels.push(this.hideModel);
+    const groupModel = new DynamicFormGroupModel({
+      id: 'hideContainer',
+      group: [
+        hideModel
+      ]
+    });
+    this.formModel.push(groupModel);
   }
 
   /**
@@ -499,6 +541,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       },
       fileTypeContainer: {
         fileType: bitstream.firstMetadataValue('dc.type')
+      },
+      hideContainer: {
+        hide: bitstream.firstMetadataValue('bitstream.hide')
       },
       formatContainer: {
         newFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined
@@ -710,6 +755,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       delete newMetadata['dc.type'];
     } else {
       Metadata.setFirstValue(newMetadata, 'dc.type', rawForm.fileTypeContainer.fileType);
+    }
+    if (isEmpty(rawForm.hideContainer.hide)) {
+      delete newMetadata['bitstream.hide'];
+    } else {
+      Metadata.setFirstValue(newMetadata, 'bitstream.hide', rawForm.hideContainer.hide);
     }
     if (this.isIIIF) {
       // It's helpful to remove these metadata elements entirely when the form value is empty.
