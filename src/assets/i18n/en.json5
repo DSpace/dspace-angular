@@ -1468,6 +1468,10 @@
 
   "deny-request-copy.success": "Successfully denied item request",
 
+  "dropdown.clear": "Clear selection",
+
+  "dropdown.clear.tooltip": "Clear the selected option",
+
   "dso.name.untitled": "Untitled",
 
   "dso.name.unnamed": "Unnamed",
