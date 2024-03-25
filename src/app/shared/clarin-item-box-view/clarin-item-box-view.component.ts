@@ -188,7 +188,7 @@ export class ClarinItemBoxViewComponent implements OnInit {
     this.collectionService.findByHref(this.item?._links?.owningCollection?.href, true, true, followLink('parentCommunity'))
       .pipe(getFirstSucceededRemoteDataPayload())
       .subscribe((collection: Collection) => {
-        collection.parentCommunity
+        collection?.parentCommunity
           .pipe(getFirstSucceededRemoteDataPayload())
           .subscribe((community: Community) => {
             this.itemCommunity.next(community);

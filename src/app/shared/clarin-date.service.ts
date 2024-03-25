@@ -23,7 +23,6 @@ export class ClarinDateService {
       if (dateValue.length !== 0) {
         return dateValue[0];
       } else {
-        console.error('There is no date value for the item');
         return '';
       }
     }
