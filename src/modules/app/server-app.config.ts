@@ -1,12 +1,18 @@
 import { XhrFactory } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import {
   APP_ID,
-  NgModule,
+  ApplicationConfig,
+  importProvidersFrom,
+  mergeApplicationConfig,
   TransferState,
 } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ServerModule } from '@angular/platform-server';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideServerRendering } from '@angular/platform-server';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -23,8 +29,7 @@ import {
   Angulartics2GoogleGlobalSiteTag,
 } from 'angulartics2';
 
-import { AppComponent } from '../../app/app.component';
-import { AppModule } from '../../app/app.module';
+import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
@@ -57,23 +62,22 @@ export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
 }
 
-@NgModule({
-  bootstrap: [AppComponent],
-  imports: [
-    NoopAnimationsModule,
-    StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
-    EffectsModule.forFeature(coreEffects),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [TransferState],
-      },
-    }),
-    AppModule,
-    ServerModule,
-  ],
+export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
   providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAnimations(),
+    provideServerRendering(),
+    importProvidersFrom(
+      StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
+      EffectsModule.forFeature(coreEffects),
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: (createTranslateLoader),
+          deps: [TransferState],
+        },
+      }),
+    ),
     ...ServerInitService.providers(),
     { provide: APP_ID, useValue: 'dspace-angular' },
     {
@@ -135,6 +139,4 @@ export function createTranslateLoader(transferState: TransferState) {
       useClass: ServerMathService,
     },
   ],
-})
-export class ServerAppModule {
-}
+}, commonAppConfig);
