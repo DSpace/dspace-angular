@@ -1,5 +1,5 @@
 options:
-  runs-on: ubuntu-latest
+  runs-on: self.hosted
 
 definitions:
   steps:
