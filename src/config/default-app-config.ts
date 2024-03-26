@@ -17,6 +17,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { LanguageHashesConfig } from './languageHashes-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
@@ -281,6 +282,8 @@ export class DefaultAppConfig implements AppConfig {
     { code: 'sr-cyr', label: 'Српски', active: true },
     { code: 'uk', label: 'Yкраї́нська', active: true },
   ];
+
+  languageHashes: LanguageHashesConfig[] = [];
 
   // Browse-By Pages
   browseBy: BrowseByConfig = {
