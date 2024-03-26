@@ -73,13 +73,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
       map((rd: RemoteData<Item>) => rd.payload),
       filter((item: Item) => hasValue(item)),
       map((item: Item) => item.metadata),
-      tap((metadataMap: MetadataMap) => {
-        const metadataMapLimit: Map<string, number> = new Map<string, number>();
-        Object.keys(metadataMap).forEach((key: string) => {
-          metadataMapLimit.set(key, this.limitSize);
-        });
-        this.metadataMapLimit$.next(metadataMapLimit);
-      })
+      tap((metadataMap: MetadataMap) => this.nextMetadataMapLimit(metadataMap))
      );
 
     this.subs.push(this.route.data.subscribe((data: Data) => {
@@ -99,9 +93,17 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
-  increaseLimit(key: string) {
-    const tmpMap: Map<string, number> = this.metadataMapLimit$.value;
-    tmpMap.set(key, tmpMap.get(key) + this.limitSize);
-    this.metadataMapLimit$.next(tmpMap);
+  protected increaseLimit(metadataKey: string) {
+    const newMetadataMap: Map<string, number> = new Map(this.metadataMapLimit$.value);
+    const newMetadataSize = newMetadataMap.get(metadataKey) + this.limitSize;
+    newMetadataMap.set(metadataKey, newMetadataSize);
+    this.metadataMapLimit$.next(newMetadataMap);
   }
+
+  protected nextMetadataMapLimit(metadataMap: MetadataMap) {
+    const metadataMapLimit: Map<string, number> = new Map(this.metadataMapLimit$.value);
+    Object.keys(metadataMap).forEach((key: string) => metadataMapLimit.set(key, this.limitSize));
+    this.metadataMapLimit$.next(metadataMapLimit);
+  }
+
 }
