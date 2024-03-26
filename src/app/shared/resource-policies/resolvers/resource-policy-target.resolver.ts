@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -29,7 +28,7 @@ import { isEmpty } from '../../empty.util';
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class ResourcePolicyTargetResolver implements Resolve<RemoteData<DSpaceObject>> {
+export class ResourcePolicyTargetResolver {
 
   constructor(
     private parentInjector: Injector,

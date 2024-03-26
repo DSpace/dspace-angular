@@ -1,5 +1,9 @@
 // Load the implementations that should be tested
 import {
+  CommonModule,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
@@ -15,7 +19,6 @@ import {
 import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { SortablejsModule } from 'ngx-sortablejs';
 
 import { environment } from '../../../../environments/environment';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
@@ -40,7 +43,7 @@ describe('ChipsComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        SortablejsModule.forRoot({ animation: 150 }),
+        CommonModule,
         TranslateModule.forRoot(),
         ChipsComponent,
         TestComponent,
@@ -131,18 +134,18 @@ describe('ChipsComponent test suite', () => {
     }));
 
     it('should save chips item index when drag and drop start', fakeAsync(() => {
-      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('a'));
 
-      de.triggerEventHandler('dragstart', null);
+      de.triggerEventHandler('cdkDragStarted', null);
 
       expect(chipsComp.dragged).toBe(0);
     }));
 
     it('should update chips item order when drag and drop end', fakeAsync(() => {
       spyOn(chipsComp.chips, 'updateOrder');
-      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div[role="list"]'));
 
-      de.triggerEventHandler('dragend', null);
+      de.triggerEventHandler('cdkDropListDropped', { previousIndex: 0, currentIndex: 1 });
 
       expect(chipsComp.dragged).toBe(-1);
       expect(chipsComp.chips.updateOrder).toHaveBeenCalled();
@@ -190,7 +193,7 @@ describe('ChipsComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [NgbModule],
+  imports: [NgbModule, NgIf],
 })
 class TestComponent {
 

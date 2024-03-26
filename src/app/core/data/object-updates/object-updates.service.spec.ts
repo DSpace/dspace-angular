@@ -1,5 +1,6 @@
 import { Injector } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { createMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
 import { Notification } from '../../../shared/notifications/models/notification.model';
@@ -52,7 +53,7 @@ describe('ObjectUpdatesService', () => {
     const objectEntry = {
       fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}, patchOperationService,
     };
-    store = new Store<CoreState>(undefined, undefined, undefined);
+    store = createMockStore({});
     spyOn(store, 'dispatch');
     injector = jasmine.createSpyObj('injector', {
       get: patchOperationService,

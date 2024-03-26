@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { TransferState } from '@angular/platform-browser';
+import { TransferState } from '@angular/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import {
   Observable,

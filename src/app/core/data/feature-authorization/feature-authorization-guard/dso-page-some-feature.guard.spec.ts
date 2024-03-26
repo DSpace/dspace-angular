@@ -1,6 +1,6 @@
 import {
   ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -21,7 +21,9 @@ import { DsoPageSomeFeatureGuard } from './dso-page-some-feature.guard';
  * Test implementation of abstract class DsoPageSomeFeatureGuard
  */
 class DsoPageSomeFeatureGuardImpl extends DsoPageSomeFeatureGuard<any> {
-  constructor(protected resolver: Resolve<RemoteData<any>>,
+  constructor(protected resolver: {
+    resolve: ResolveFn<RemoteData<any>>;
+},
               protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService,
@@ -39,7 +41,9 @@ describe('DsoPageSomeFeatureGuard', () => {
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
-  let resolver: Resolve<RemoteData<any>>;
+  let resolver: {
+    resolve: ResolveFn<RemoteData<any>>;
+};
   let object: DSpaceObject;
   let route;
   let parentRoute;

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -21,7 +20,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
  * The guard also adds the resulting RemoteData<Registration> object to the route's data for further usage in components
  * The reason this is a guard and not a resolver, is because it has to run before the EndUserAgreementCookieGuard
  */
-export class RegistrationGuard implements CanActivate {
+export class RegistrationGuard  {
   constructor(private epersonRegistrationService: EpersonRegistrationService,
               private router: Router,
               private authService: AuthService) {

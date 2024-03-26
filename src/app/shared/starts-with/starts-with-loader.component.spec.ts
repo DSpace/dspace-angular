@@ -56,7 +56,6 @@ describe('StartsWithLoaderComponent', () => {
     }).overrideComponent(StartsWithLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [StartsWithTextComponent],
       },
     }).compileComponents();
   }));

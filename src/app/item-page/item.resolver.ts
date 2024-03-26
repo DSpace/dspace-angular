@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -36,7 +35,7 @@ export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class ItemResolver implements Resolve<RemoteData<Item>> {
+export class ItemResolver  {
   constructor(
     protected itemService: ItemDataService,
     protected store: Store<any>,

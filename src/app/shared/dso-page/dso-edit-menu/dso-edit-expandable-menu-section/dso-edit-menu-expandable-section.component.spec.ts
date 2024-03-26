@@ -44,12 +44,7 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },
       ],
-    }).overrideComponent(DsoEditMenuExpandableSectionComponent, {
-      set: {
-        entryComponents: [TestComponent],
-      },
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

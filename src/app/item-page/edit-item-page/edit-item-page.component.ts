@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
-  CanActivate,
+  CanActivateFn,
   Route,
   Router,
   RouterLink,
@@ -88,8 +88,14 @@ export class EditItemPageComponent implements OnInit {
       .map((child: Route) => {
         let enabled = observableOf(true);
         if (isNotEmpty(child.canActivate)) {
-          enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<CanActivate>) => {
-            const guard: CanActivate = this.injector.get<CanActivate>(guardConstructor);
+          enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<{
+    canActivate: CanActivateFn;
+}>) => {
+            const guard: {
+    canActivate: CanActivateFn;
+} = this.injector.get<{
+    canActivate: CanActivateFn;
+}>(guardConstructor);
             return guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
           }),
           ).pipe(

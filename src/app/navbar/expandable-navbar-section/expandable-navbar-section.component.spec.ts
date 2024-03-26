@@ -29,12 +29,7 @@ describe('ExpandableNavbarSectionComponent', () => {
           { provide: MenuService, useValue: menuService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
         ],
-      }).overrideComponent(ExpandableNavbarSectionComponent, {
-        set: {
-          entryComponents: [TestComponent],
-        },
-      })
-        .compileComponents();
+      }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -195,12 +190,7 @@ describe('ExpandableNavbarSectionComponent', () => {
           { provide: MenuService, useValue: menuService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(300) },
         ],
-      }).overrideComponent(ExpandableNavbarSectionComponent, {
-        set: {
-          entryComponents: [TestComponent],
-        },
-      })
-        .compileComponents();
+      }).compileComponents();
     }));
 
     beforeEach(() => {

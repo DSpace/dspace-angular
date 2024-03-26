@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -19,7 +18,7 @@ import { Process } from './processes/process.model';
  * This class represents a resolver that requests a specific process before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class ProcessBreadcrumbResolver implements Resolve<BreadcrumbConfig<Process>> {
+export class ProcessBreadcrumbResolver  {
   constructor(protected breadcrumbService: ProcessBreadcrumbsService, private processService: ProcessDataService) {
   }
 

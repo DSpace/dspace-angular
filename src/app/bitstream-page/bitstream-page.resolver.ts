@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -28,7 +27,7 @@ export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
  * This class represents a resolver that requests a specific bitstream before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
+export class BitstreamPageResolver  {
   constructor(private bitstreamService: BitstreamDataService) {
   }
 

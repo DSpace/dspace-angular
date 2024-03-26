@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivateChild,
   NavigationStart,
   Router,
   RouterStateSnapshot,
@@ -24,7 +23,7 @@ import { RootDataService } from '../data/root-data.service';
  * A guard that checks if root api endpoint is reachable.
  * If not redirect to 500 error page
  */
-export class ServerCheckGuard implements CanActivateChild {
+export class ServerCheckGuard  {
   constructor(private router: Router, private rootDataService: RootDataService) {
   }
 

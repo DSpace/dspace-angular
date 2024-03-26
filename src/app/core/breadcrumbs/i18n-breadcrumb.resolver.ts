@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 
@@ -16,7 +15,7 @@ import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
 @Injectable({
   providedIn: 'root',
 })
-export class I18nBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>> {
+export class I18nBreadcrumbResolver  {
   constructor(protected breadcrumbService: I18nBreadcrumbsService) {
   }
 

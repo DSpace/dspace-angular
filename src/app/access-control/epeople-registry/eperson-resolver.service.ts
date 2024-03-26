@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -27,7 +26,7 @@ export const EPERSON_EDIT_FOLLOW_LINKS: FollowLinkConfig<EPerson>[] = [
 @Injectable({
   providedIn: 'root',
 })
-export class EPersonResolver implements Resolve<RemoteData<EPerson>> {
+export class EPersonResolver  {
 
   constructor(
     protected ePersonService: EPersonDataService,

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 
@@ -11,7 +10,7 @@ import { PublicationClaimBreadcrumbService } from './publication-claim-breadcrum
 @Injectable({
   providedIn: 'root',
 })
-export class PublicationClaimBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>>  {
+export class PublicationClaimBreadcrumbResolver  {
   constructor(protected breadcrumbService: PublicationClaimBreadcrumbService) {
   }
 

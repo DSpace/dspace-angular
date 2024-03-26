@@ -100,7 +100,6 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
     }).overrideComponent(ClaimedTaskActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [ClaimedTaskActionsEditMetadataComponent],
       },
     }).compileComponents();
   }));

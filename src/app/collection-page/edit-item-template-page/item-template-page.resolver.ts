@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -17,7 +16,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
  * This class represents a resolver that requests a specific collection's item template before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class ItemTemplatePageResolver implements Resolve<RemoteData<Item>> {
+export class ItemTemplatePageResolver  {
   constructor(
     public dsoNameService: DSONameService,
     private itemTemplateService: ItemTemplateDataService,

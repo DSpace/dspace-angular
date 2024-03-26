@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -30,7 +29,7 @@ export const VERSION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Version>[] = [
  * This class represents a resolver that requests a specific version before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class VersionResolver implements Resolve<RemoteData<Version>> {
+export class VersionResolver  {
   constructor(
     protected versionService: VersionDataService,
     protected store: Store<any>,

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -32,7 +31,7 @@ export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
  * This class represents a resolver that requests a specific collection before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class CollectionPageResolver implements Resolve<RemoteData<Collection>> {
+export class CollectionPageResolver  {
   constructor(
     private collectionService: CollectionDataService,
     private store: Store<any>,

@@ -66,7 +66,6 @@ describe('MetadataRepresentationLoaderComponent', () => {
     }).overrideComponent(MetadataRepresentationLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [PlainTextMetadataListElementComponent],
       },
     }).compileComponents();
   }));

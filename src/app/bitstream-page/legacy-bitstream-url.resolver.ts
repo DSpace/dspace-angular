@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -18,7 +17,7 @@ import { hasNoValue } from '../shared/empty.util';
 @Injectable({
   providedIn: 'root',
 })
-export class LegacyBitstreamUrlResolver implements Resolve<RemoteData<Bitstream>> {
+export class LegacyBitstreamUrlResolver  {
   constructor(protected bitstreamDataService: BitstreamDataService) {
   }
 

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -12,7 +11,7 @@ import { Observable } from 'rxjs';
  * The format of the key will be "{configuration}.search.title" with:
  * - configuration: The current configuration stored in route.params
  */
-export class ConfigurationSearchPageGuard implements CanActivate {
+export class ConfigurationSearchPageGuard  {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -17,7 +16,7 @@ import { QualityAssuranceSourceService } from '../../notifications/qa/source/qua
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
 @Injectable({ providedIn: 'root' })
-export class SourceDataResolver implements Resolve<Observable<QualityAssuranceSourceObject[]>> {
+export class SourceDataResolver  {
   private  pageSize = environment.qualityAssuranceConfig.pageSize;
   /**
    * Initialize the effect class variables.

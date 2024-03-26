@@ -31,12 +31,7 @@ describe('AdminSidebarSectionComponent', () => {
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         ],
-      }).overrideComponent(AdminSidebarSectionComponent, {
-        set: {
-          entryComponents: [TestComponent],
-        },
-      })
-        .compileComponents();
+      }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -70,12 +65,7 @@ describe('AdminSidebarSectionComponent', () => {
           { provide: MenuService, useValue: menuService },
           { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         ],
-      }).overrideComponent(AdminSidebarSectionComponent, {
-        set: {
-          entryComponents: [TestComponent],
-        },
-      })
-        .compileComponents();
+      }).compileComponents();
     }));
 
     beforeEach(() => {

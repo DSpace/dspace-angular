@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   NavigationExtras,
   Router,
   RouterStateSnapshot,
@@ -22,7 +21,7 @@ import { MYDSPACE_ROUTE } from './my-dspace-page.component';
  * @class MyDSpaceGuard
  */
 @Injectable({ providedIn: 'root' })
-export class MyDSpaceGuard implements CanActivate {
+export class MyDSpaceGuard  {
 
   /**
    * @constructor

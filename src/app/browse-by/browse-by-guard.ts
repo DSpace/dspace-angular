@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   Data,
   Router,
   RouterStateSnapshot,
@@ -30,7 +29,7 @@ import {
 /**
  * A guard taking care of the correct route.data being set for the Browse-By components
  */
-export class BrowseByGuard implements CanActivate {
+export class BrowseByGuard  {
 
   constructor(
     protected translate: TranslateService,

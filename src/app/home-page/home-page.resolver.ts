@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,7 +13,7 @@ import { Site } from '../core/shared/site.model';
  * The class that resolve the Site object for a route
  */
 @Injectable({ providedIn: 'root' })
-export class HomePageResolver implements Resolve<Site> {
+export class HomePageResolver  {
   constructor(private siteService: SiteDataService) {
   }
 

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
 import {
   select,
   Store,
@@ -23,7 +22,7 @@ import { isAuthenticationBlocking } from './selectors';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthBlockingGuard implements CanActivate {
+export class AuthBlockingGuard  {
 
   constructor(private store: Store<AppState>) {
   }

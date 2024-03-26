@@ -7,14 +7,13 @@ import 'reflect-metadata';
  */
 import '@angular/localize/init';
 
-import { enableProdMode } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 
-import { environment } from './environments/environment';
+import { AppComponent } from './app/app.component';
+import { serverAppConfig } from './modules/app/server-app.config';
 
-if (environment.production) {
-  enableProdMode();
-}
+const bootstrap = () => bootstrapApplication(AppComponent, serverAppConfig);
 
-export { ServerAppModule } from './modules/app/server-app.module';
-export { renderModuleFactory } from '@angular/platform-server';
+export { renderModule } from '@angular/platform-server';
 export { ngExpressEngine } from '@nguniversal/express-engine';
+export default bootstrap;

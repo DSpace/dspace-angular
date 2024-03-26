@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -28,7 +27,7 @@ import {
  * @class CreateCommunityPageGuard
  */
 @Injectable({ providedIn: 'root' })
-export class CreateCommunityPageGuard implements CanActivate {
+export class CreateCommunityPageGuard  {
   public constructor(private router: Router, private communityService: CommunityDataService) {
   }
 

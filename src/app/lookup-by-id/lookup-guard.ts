@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -20,7 +19,7 @@ interface LookupParams {
 @Injectable({
   providedIn: 'root',
 })
-export class LookupGuard implements CanActivate {
+export class LookupGuard  {
 
   constructor(private dsoService: DsoRedirectService) {
   }

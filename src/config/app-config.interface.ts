@@ -1,8 +1,8 @@
 import {
   InjectionToken,
+  makeStateKey,
   Type,
 } from '@angular/core';
-import { makeStateKey } from '@angular/platform-browser';
 import { DynamicFormControl } from '@ng-dynamic-forms/core/lib/component/dynamic-form-control-interface';
 
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -16,7 +15,7 @@ import { hasValue } from '../shared/empty.util';
  * This class represents a resolver that requests a specific collection before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class SuggestionsPageResolver implements Resolve<RemoteData<SuggestionTarget>> {
+export class SuggestionsPageResolver {
   constructor(private suggestionsDataService: SuggestionTargetDataService) {
   }
 

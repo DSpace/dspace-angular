@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -15,7 +14,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
  * Resolves an {@link ItemRequest} from the token found in the route's parameters
  */
 @Injectable({ providedIn: 'root' })
-export class RequestCopyResolver implements Resolve<RemoteData<ItemRequest>> {
+export class RequestCopyResolver  {
 
   constructor(
     private itemRequestDataService: ItemRequestDataService,

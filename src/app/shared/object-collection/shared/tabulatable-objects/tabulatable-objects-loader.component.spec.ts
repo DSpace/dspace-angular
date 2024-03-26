@@ -47,7 +47,6 @@ describe('TabulatableObjectsLoaderComponent', () => {
     }).overrideComponent(TabulatableObjectsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [TabulatableResultListElementsComponent],
       },
     }).compileComponents();
 

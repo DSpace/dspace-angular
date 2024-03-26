@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -25,7 +24,7 @@ import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 @Injectable({
   providedIn: 'root',
 })
-export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject> implements Resolve<BreadcrumbConfig<T>> {
+export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceObject>  {
   protected constructor(
     protected breadcrumbService: DSOBreadcrumbsService,
     protected dataService: IdentifiableDataService<T>,

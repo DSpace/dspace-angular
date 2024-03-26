@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -14,7 +13,7 @@ import { FeatureID } from '../data/feature-authorization/feature-id';
  * An guard for redirecting users to the feedback page if user is authorized
  */
 @Injectable({ providedIn: 'root' })
-export class FeedbackGuard implements CanActivate {
+export class FeedbackGuard  {
 
   constructor(private authorizationService: AuthorizationDataService) {
   }

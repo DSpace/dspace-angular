@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -56,7 +55,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class DSOEditMenuResolver implements Resolve<{ [key: string]: MenuSection[] }> {
+export class DSOEditMenuResolver  {
 
   constructor(
     protected dSpaceObjectDataService: DSpaceObjectDataService,

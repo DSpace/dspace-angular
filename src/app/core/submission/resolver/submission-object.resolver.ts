@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -17,7 +16,7 @@ import { getFirstCompletedRemoteData } from '../../shared/operators';
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class SubmissionObjectResolver<T> implements Resolve<RemoteData<T>> {
+export class SubmissionObjectResolver<T>  {
   constructor(
       protected dataService: IdentifiableDataService<any>,
       protected store: Store<any>,

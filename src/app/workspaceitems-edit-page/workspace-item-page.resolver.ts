@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -16,7 +15,7 @@ import { followLink } from '../shared/utils/follow-link-config.model';
  * This class represents a resolver that requests a specific workflow item before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class WorkspaceItemPageResolver implements Resolve<RemoteData<WorkflowItem>> {
+export class WorkspaceItemPageResolver  {
   constructor(private workspaceItemService: WorkspaceitemDataService) {
   }
 

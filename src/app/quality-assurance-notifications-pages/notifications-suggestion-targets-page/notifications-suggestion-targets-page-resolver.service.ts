@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 
@@ -20,7 +19,7 @@ export interface AdminNotificationsPublicationClaimPageParams {
  */
 @Injectable({ providedIn: 'root' })
 
-export class AdminNotificationsPublicationClaimPageResolver implements Resolve<AdminNotificationsPublicationClaimPageParams> {
+export class AdminNotificationsPublicationClaimPageResolver {
 
   /**
    * Method for resolving the parameters in the current route.

@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   Router,
   RouterStateSnapshot,
   UrlTree,
@@ -21,7 +20,7 @@ import { isNotEmpty } from '../../shared/empty.util';
  * When no redirect url is found, the user is redirected to the homepage
  */
 @Injectable({ providedIn: 'root' })
-export class ReloadGuard implements CanActivate {
+export class ReloadGuard  {
   constructor(
     private router: Router,
     @Inject(APP_CONFIG) private appConfig: AppConfig,

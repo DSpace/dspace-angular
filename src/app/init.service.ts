@@ -8,13 +8,11 @@
 import {
   APP_INITIALIZER,
   Inject,
+  makeStateKey,
   Provider,
+  TransferState,
   Type,
 } from '@angular/core';
-import {
-  makeStateKey,
-  TransferState,
-} from '@angular/platform-browser';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import {
   select,
@@ -46,6 +44,7 @@ import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form
 import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+
 
 /**
  * Performs the initialization of the app.

@@ -13,7 +13,6 @@ import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
-  CanActivate,
   RouterModule,
   RouterStateSnapshot,
   UrlTree,
@@ -36,13 +35,13 @@ describe('ItemPageComponent', () => {
   let comp: EditItemPageComponent;
   let fixture: ComponentFixture<EditItemPageComponent>;
 
-  class AcceptAllGuard implements CanActivate {
+  class AcceptAllGuard  {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return observableOf(true);
     }
   }
 
-  class AcceptNoneGuard implements CanActivate {
+  class AcceptNoneGuard  {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return observableOf(false);
     }

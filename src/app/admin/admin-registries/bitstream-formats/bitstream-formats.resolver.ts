@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -15,7 +14,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
  * This class represents a resolver that requests a specific bitstreamFormat before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class BitstreamFormatsResolver implements Resolve<RemoteData<BitstreamFormat>> {
+export class BitstreamFormatsResolver  {
   constructor(private bitstreamFormatDataService: BitstreamFormatDataService) {
   }
 

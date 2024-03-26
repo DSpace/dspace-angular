@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -18,7 +17,7 @@ import { followLink } from '../../utils/follow-link-config.model';
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class ResourcePolicyResolver implements Resolve<RemoteData<ResourcePolicy>> {
+export class ResourcePolicyResolver  {
 
   constructor(private resourcePolicyService: ResourcePolicyDataService, private router: Router) {
   }
