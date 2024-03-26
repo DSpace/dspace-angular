@@ -1,18 +1,21 @@
-options:
-  runs-on: ubuntu-latest
+#options:
+#  runs-on: ubuntu-latest
 
 definitions:
   services:
-    docker: # can only be used with a self-hosted runner
+    node-image:
+      type: docker
       image:
         name: cypress/browsers:node18.12.0-chrome107
         run-as-user: 1000
+
   steps:
     - step: &unittest-code-checks
         name: test-code-checks
-        runs-on: self.hosted
+        runs-on:
+          - 'self.hosted'
         services:
-          - docker
+          - node-image
         size: 2x
         caches:
           - node
