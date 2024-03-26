@@ -62,7 +62,8 @@ $navbar-light-toggler-icon-bg: url("data:image/svg+xml;charset=utf8,<svg+viewBox
 
 $ds-home-news-link-color: $link-color !default;
 $ds-home-news-link-hover-color: darken($ds-home-news-link-color, 15%) !default;
-$ds-breadcrumb-link-color: $link-color !default;
+$ds-breadcrumb-link-color: #003333 !default;
+$ds-breadcrumb-link-active-color: #040D11 !default;
 
 $ds-header-navbar-border-top-color: #fff !default;
 $ds-header-navbar-border-bottom-color: #ced4da !default;
