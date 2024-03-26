@@ -5,10 +5,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
-import { ConfigurationSearchPageComponent } from '../../search-page/configuration-search-page.component';
+import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
 
-describe('AdminSearchPageComponent', () => {
+describe('AdminWorkflowPageComponent', () => {
   let component: AdminWorkflowPageComponent;
   let fixture: ComponentFixture<AdminWorkflowPageComponent>;
 
@@ -20,7 +20,7 @@ describe('AdminSearchPageComponent', () => {
       .overrideComponent(AdminWorkflowPageComponent, {
         remove: {
           imports: [
-            ConfigurationSearchPageComponent,
+            ThemedConfigurationSearchPageComponent,
           ],
         },
       })

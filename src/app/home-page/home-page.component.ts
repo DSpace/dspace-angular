@@ -14,8 +14,9 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  EMPTY,
   Observable,
+  of as observableOf,
+  Subscription,
 } from 'rxjs';
 import {
   map,
@@ -26,7 +27,6 @@ import {
   AppConfig,
 } from 'src/config/app-config.interface';
 
-import { environment } from '../../environments/environment';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
 import {
   LinkDefinition,
@@ -36,8 +36,12 @@ import { ServerResponseService } from '../core/services/server-response.service'
 import { Site } from '../core/shared/site.model';
 import { SuggestionsPopupComponent } from '../notifications/suggestions-popup/suggestions-popup.component';
 import { ConfigurationSearchPageComponent } from '../search-page/configuration-search-page.component';
+import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { isNotEmpty } from '../shared/empty.util';
+import { HostWindowService } from '../shared/host-window.service';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
+import { PageWithSidebarComponent } from '../shared/sidebar/page-with-sidebar.component';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 import { RecentItemListComponent } from './recent-item-list/recent-item-list.component';
@@ -48,47 +52,49 @@ import { ThemedTopLevelCommunityListComponent } from './top-level-community-list
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
   standalone: true,
-  imports: [ThemedHomeNewsComponent, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, ConfigurationSearchPageComponent, SuggestionsPopupComponent],
+  imports: [ThemedHomeNewsComponent, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, ConfigurationSearchPageComponent, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent],
 })
 export class HomePageComponent implements OnInit, OnDestroy {
 
   site$: Observable<Site>;
+  isXsOrSm$: Observable<boolean>;
   recentSubmissionspageSize: number;
+  showDiscoverFilters: boolean;
   /**
    * An array of LinkDefinition objects representing inbox links for the home page.
    */
   inboxLinks: LinkDefinition[] = [];
 
+  subs: Subscription[] = [];
+
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    private route: ActivatedRoute,
-    private responseService: ServerResponseService,
-    private notifyInfoService: NotifyInfoService,
+    protected route: ActivatedRoute,
+    protected responseService: ServerResponseService,
+    protected notifyInfoService: NotifyInfoService,
     protected linkHeadService: LinkHeadService,
-    @Inject(PLATFORM_ID) private platformId: string,
+    protected sidebarService: SidebarService,
+    protected windowService: HostWindowService,
+    @Inject(PLATFORM_ID) protected platformId: string,
   ) {
-    this.recentSubmissionspageSize = environment.homePage.recentSubmissions.pageSize;
-    // Get COAR REST API URLs from REST configuration
-    // only if COAR configuration is enabled
-    this.notifyInfoService.isCoarConfigEnabled().pipe(
-      switchMap((coarLdnEnabled: boolean) => coarLdnEnabled ? this.notifyInfoService.getCoarLdnLocalInboxUrls() : EMPTY, /*{
-        if (coarLdnEnabled) {
-          return this.notifyInfoService.getCoarLdnLocalInboxUrls();
-        } else {
-          return of([]);
-        }
-      }*/),
-    ).subscribe((coarRestApiUrls: string[]) => {
-      if (coarRestApiUrls?.length > 0) {
-        this.initPageLinks(coarRestApiUrls);
-      }
-    });
+    this.recentSubmissionspageSize = this.appConfig.homePage.recentSubmissions.pageSize;
+    this.showDiscoverFilters = this.appConfig.homePage.showDiscoverFilters;
   }
 
   ngOnInit(): void {
+    this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.site$ = this.route.data.pipe(
       map((data) => data.site as Site),
     );
+    // Get COAR REST API URLs from REST configuration
+    // only if COAR configuration is enabled
+    this.subs.push(this.notifyInfoService.isCoarConfigEnabled().pipe(
+      switchMap((coarLdnEnabled: boolean) => coarLdnEnabled ? this.notifyInfoService.getCoarLdnLocalInboxUrls() : observableOf([])),
+    ).subscribe((coarRestApiUrls: string[]) => {
+      if (coarRestApiUrls.length > 0) {
+        this.initPageLinks(coarRestApiUrls);
+      }
+    }));
   }
 
   /**
@@ -120,6 +126,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
    * It removes the inbox links from the head of the html.
    */
   ngOnDestroy(): void {
+    this.subs.forEach((sub: Subscription) => sub.unsubscribe());
     this.inboxLinks.forEach((link: LinkDefinition) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });

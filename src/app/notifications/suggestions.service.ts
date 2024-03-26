@@ -38,6 +38,7 @@ import {
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import {
+  hasNoValue,
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
@@ -165,6 +166,9 @@ export class SuggestionsService {
    *   The EPerson id for which to retrieve suggestion targets
    */
   public retrieveCurrentUserSuggestions(userUuid: string): Observable<SuggestionTarget[]> {
+    if (hasNoValue(userUuid)) {
+      return of([]);
+    }
     return this.researcherProfileService.findById(userUuid, true).pipe(
       getFirstCompletedRemoteData(),
       mergeMap((profile: RemoteData<ResearcherProfile> ) => {
