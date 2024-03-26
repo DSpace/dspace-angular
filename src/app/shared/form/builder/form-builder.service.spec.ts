@@ -31,12 +31,14 @@ import {
   DynamicTextAreaModel,
   DynamicTimePickerModel,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { getMockTranslateService } from '../../mocks/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
@@ -85,6 +87,7 @@ describe('FormBuilderService test suite', () => {
 
   beforeEach(() => {
     configSpy = createConfigSuccessSpy(typeFieldTestValue);
+    let translateService = getMockTranslateService();
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
@@ -93,6 +96,7 @@ describe('FormBuilderService test suite', () => {
         { provide: NG_VALIDATORS, useValue: testValidator, multi: true },
         { provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true },
         { provide: ConfigurationDataService, useValue: configSpy },
+        { provide: TranslateService, useValue: translateService },
       ],
     });
 

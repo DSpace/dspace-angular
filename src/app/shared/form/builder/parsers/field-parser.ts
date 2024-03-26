@@ -8,6 +8,7 @@ import {
   MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
@@ -61,6 +62,7 @@ export abstract class FieldParser {
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
+    protected translate: TranslateService,
   ) {
   }
 
@@ -405,11 +407,14 @@ export abstract class FieldParser {
     } else {
       regex = new RegExp(this.configData.input.regex);
     }
+    const baseTranslationKey = 'error.validation.pattern';
+    const fieldranslationKey = `${baseTranslationKey}.${controlModel.id}`;
+    const fieldTranslationExists = this.translate.instant(fieldranslationKey) !== fieldranslationKey;
     controlModel.validators = Object.assign({}, controlModel.validators, { pattern: regex });
     controlModel.errorMessages = Object.assign(
       {},
       controlModel.errorMessages,
-      { pattern: 'error.validation.pattern' });
+      { pattern: fieldTranslationExists ? fieldranslationKey : baseTranslationKey });
   }
 
   protected markAsRequired(controlModel) {

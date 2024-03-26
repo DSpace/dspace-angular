@@ -1,3 +1,5 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -9,6 +11,7 @@ describe('NameFieldParser test suite', () => {
   let field2: FormFieldModel;
   let field3: FormFieldModel;
   let initFormValues: any = {};
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {
@@ -71,13 +74,13 @@ describe('NameFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new NameFieldParser(submissionId, field1, initFormValues, parserOptions);
+    const parser = new NameFieldParser(submissionId, field1, initFormValues, parserOptions, translateService);
 
     expect(parser instanceof NameFieldParser).toBe(true);
   });
 
   it('should return a DynamicConcatModel object when repeatable option is false', () => {
-    const parser = new NameFieldParser(submissionId, field2, initFormValues, parserOptions);
+    const parser = new NameFieldParser(submissionId, field2, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -85,7 +88,7 @@ describe('NameFieldParser test suite', () => {
   });
 
   it('should return a DynamicConcatModel object with the correct separator', () => {
-    const parser = new NameFieldParser(submissionId, field2, initFormValues, parserOptions);
+    const parser = new NameFieldParser(submissionId, field2, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -98,7 +101,7 @@ describe('NameFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test, name', undefined, undefined, 'test');
 
-    const parser = new NameFieldParser(submissionId, field1, initFormValues, parserOptions);
+    const parser = new NameFieldParser(submissionId, field1, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
