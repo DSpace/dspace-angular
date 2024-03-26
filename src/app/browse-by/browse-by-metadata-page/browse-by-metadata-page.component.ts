@@ -167,6 +167,8 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
 
         if (typeof params.startsWith === 'string'){
             this.startsWith = params.startsWith.trim();
+          } else {
+            this.startsWith = '';
           }
 
           if (isNotEmpty(this.value)) {
