@@ -9,7 +9,8 @@ import { MenuItemType } from '../menu-item-type.model';
  */
 @Component({
   selector: 'ds-external-link-menu-item',
-  templateUrl: './external-link-menu-item.component.html'
+  styleUrls: ['./menu-item.component.scss'],
+  templateUrl: './external-link-menu-item.component.html',
 })
 @rendersMenuItemForType(MenuItemType.EXTERNAL)
 export class ExternalLinkMenuItemComponent implements OnInit {

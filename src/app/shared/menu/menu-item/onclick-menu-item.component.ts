@@ -8,7 +8,7 @@ import { MenuItemType } from '../menu-item-type.model';
  */
 @Component({
   selector: 'ds-onclick-menu-item',
-  styleUrls: ['./onclick-menu-item.component.scss'],
+  styleUrls: ['./menu-item.component.scss', './onclick-menu-item.component.scss'],
   templateUrl: './onclick-menu-item.component.html'
 })
 @rendersMenuItemForType(MenuItemType.ONCLICK)

@@ -45,7 +45,7 @@ describe('OnClickMenuItemComponent', () => {
   });
 
   it('should call the function on the item when clicked', () => {
-    debugElement.query(By.css('a.nav-link')).triggerEventHandler('click', new Event(('click')));
+    debugElement.query(By.css('a.ds-menu-item')).triggerEventHandler('click', new Event(('click')));
     expect(item.function).toHaveBeenCalled();
   });
 });

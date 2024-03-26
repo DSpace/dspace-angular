@@ -1,47 +1,24 @@
-.expandable-navbar-section {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.btn.nav-link {
-  text-align: left;
-  border: none;
-
-  &:active, &:focus {
-    box-shadow: none !important;
+:host {
+  .ds-menu-item-wrapper {
+    position: relative; // align dropdown menu with respect to this element
   }
-}
 
-.dropdown-menu {
-    background-color: var(--ds-expandable-navbar-bg);
+  .dropdown-menu {
     overflow: hidden;
-    min-width: 100%;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    ::ng-deep a.nav-link {
-        color: var(--ds-expandable-navbar-link-color) !important;
-        padding-right: var(--bs-spacer);
-        padding-left: var(--bs-spacer);
-        white-space: nowrap;
-
-        &:hover, &:focus {
-          color: var(--ds-expandable-navbar-link-color-hover) !important;
-        }
+    @include media-breakpoint-down(sm) {
+      border: 0;
+      background-color: var(--ds-expandable-navbar-bg);
     }
-}
-
-/** Mobile menu styling **/
-@media screen and (max-width: map-get($grid-breakpoints, md)) {
-    .dropdown-toggle {
-        &:after {
-            float: right;
-            margin-top: calc(var(--bs-spacer) / 2);
-        }
+    @include media-breakpoint-up(md) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      background-color: var(--ds-navbar-dropdown-bg);
     }
-    .dropdown-menu {
-        border: 0;
+  }
 
+  .toggle-menu-icon {
+    &, &:hover {
+      text-decoration: none;
     }
+  }
 }

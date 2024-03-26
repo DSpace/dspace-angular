@@ -53,6 +53,9 @@ export class MenuServiceStub {
   deactivateSection(): void { /***/
   }
 
+  toggleSection(): void { /***/
+  }
+
   addSection(menuID: MenuID, section: MenuSection): void { /***/
   }
 

@@ -52,4 +52,12 @@ export class AdminSidebarSectionComponent extends MenuSectionComponent implement
       this.router.navigate(this.itemModel.link);
     }
   }
+
+  adminMenuSectionId(sectionId: string) {
+    return `admin-menu-section-${sectionId}`;
+  }
+
+  adminMenuSectionTitleId(sectionId: string) {
+    return `admin-menu-section-${sectionId}-title`;
+  }
 }
