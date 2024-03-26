@@ -1,11 +1,10 @@
-#options:
-#  runs-on: ubuntu-latest
+options:
+  runs-on: self.hosted
 
 definitions:
   steps:
     - step: &unittest-code-checks
         name: test-code-checks
-        runs-on: self.hosted
         image:
           name: cypress/browsers:node18.12.0-chrome107
           run-as-user: 1000
