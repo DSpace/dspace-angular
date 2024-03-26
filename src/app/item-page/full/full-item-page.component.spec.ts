@@ -23,6 +23,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -145,6 +146,12 @@ describe('FullItemPageComponent', () => {
     type: 'test'
   };
 
+  const appConfig = {
+    item: {
+      metadataLimit: 20
+    }
+  };
+
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
@@ -193,7 +200,8 @@ describe('FullItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: PLATFORM_ID, useValue: 'server' }
+        { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: APP_CONFIG, useValue: appConfig },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FullItemPageComponent, {

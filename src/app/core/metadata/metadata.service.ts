@@ -243,7 +243,8 @@ export class MetadataService {
    */
   private setCitationAuthorTags(): void {
     // limit author to first 20 entries to avoid issue with item page rendering
-    const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator']).slice(0, 20);
+    const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator'])
+      .slice(0, this.appConfig.item.metatagLimit);
     this.addMetaTags('citation_author', values);
   }
 
