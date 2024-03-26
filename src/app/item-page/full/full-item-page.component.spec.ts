@@ -28,12 +28,13 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { MetadataService } from '../../core/metadata/metadata.service';
+import { HeadTagService } from '../../core/metadata/head-tag.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import {
@@ -74,13 +75,6 @@ const mockWithdrawnItem: Item = Object.assign(new Item(), {
   isWithdrawn: true,
 });
 
-const metadataServiceStub = {
-  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-  processRemoteData: () => {
-  },
-  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-};
-
 describe('FullItemPageComponent', () => {
   let comp: FullItemPageComponent;
   let fixture: ComponentFixture<FullItemPageComponent>;
@@ -93,6 +87,7 @@ describe('FullItemPageComponent', () => {
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
+  let headTagService: HeadTagServiceMock;
 
   const mocklink = {
     href: 'http://test.org',
@@ -143,6 +138,8 @@ describe('FullItemPageComponent', () => {
       getInboxRelationLink: observableOf('http://test.org'),
     });
 
+    headTagService = new HeadTagServiceMock();
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
@@ -153,7 +150,7 @@ describe('FullItemPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: metadataServiceStub },
+        { provide: HeadTagService, useValue: headTagService },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },

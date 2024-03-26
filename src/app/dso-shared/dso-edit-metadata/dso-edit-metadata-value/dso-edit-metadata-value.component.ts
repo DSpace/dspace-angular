@@ -45,6 +45,7 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { MetadataService } from '../../../core/metadata/metadata.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -212,14 +213,17 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   private isScrollableVocabulary$: Observable<boolean>;
   private isSuggesterVocabulary$: Observable<boolean>;
 
-  constructor(protected relationshipService: RelationshipDataService,
-              protected dsoNameService: DSONameService,
-              protected vocabularyService: VocabularyService,
-              protected itemService: ItemDataService,
-              protected cdr: ChangeDetectorRef,
-              protected registryService: RegistryService,
-              protected notificationsService: NotificationsService,
-              protected translate: TranslateService) {
+  constructor(
+    protected relationshipService: RelationshipDataService,
+    protected dsoNameService: DSONameService,
+    protected vocabularyService: VocabularyService,
+    protected itemService: ItemDataService,
+    protected cdr: ChangeDetectorRef,
+    protected registryService: RegistryService,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected metadataService: MetadataService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -231,7 +235,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * Initialise potential properties of a virtual metadata value
    */
   initVirtualProperties(): void {
-    this.mdRepresentation$ = this.mdValue.newValue.isVirtual ?
+    this.mdRepresentation$ = this.metadataService.isVirtual(this.mdValue.newValue) ?
       this.relationshipService.resolveMetadataRepresentation(this.mdValue.newValue, this.dso, 'Item')
         .pipe(
           map((mdRepresentation: MetadataRepresentation) =>

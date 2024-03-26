@@ -17,7 +17,7 @@ import { take } from 'rxjs/operators';
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
-import { MetadataService } from '../../app/core/metadata/metadata.service';
+import { HeadTagService } from '../../app/core/metadata/head-tag.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { MenuService } from '../../app/shared/menu/menu.service';
@@ -43,7 +43,7 @@ export class ServerInitService extends InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    protected metadata: MetadataService,
+    protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
@@ -55,7 +55,7 @@ export class ServerInitService extends InitService {
       translate,
       localeService,
       angulartics2DSpace,
-      metadata,
+      headTagService,
       breadcrumbsService,
       themeService,
       menuService,
