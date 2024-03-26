@@ -38,6 +38,7 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 
 describe('GroupFormComponent', () => {
   let component: GroupFormComponent;
@@ -211,6 +212,7 @@ describe('GroupFormComponent', () => {
         { provide: HttpClient, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },

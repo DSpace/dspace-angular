@@ -66,10 +66,8 @@ export class XsrfInterceptor implements HttpInterceptor {
         // Get root URL of configured REST API
         const restUrl = new RESTURLCombiner('/').toString().toLowerCase();
 
-        // Skip any non-mutating request. This is because our REST API does NOT
-        // require CSRF verification for read-only requests like GET or HEAD
-        // Also skip any request which is NOT to our trusted/configured REST API
-        if (req.method !== 'GET' && req.method !== 'HEAD' && reqUrl.startsWith(restUrl)) {
+        // Only add the XSRF token to requests to dspace's configured REST API
+        if (reqUrl.startsWith(restUrl)) {
             // parse token from XSRF-TOKEN (client-side) cookie
             const token = this.tokenExtractor.getToken() as string;
 
