@@ -78,8 +78,8 @@ export class VocabularyDataService extends IdentifiableDataService<Vocabulary> i
    */
   public getVocabularyByMetadataAndCollection(metadataField: string, collectionUUID: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<Vocabulary>> {
     const findListOptions = new FindListOptions();
-    findListOptions.searchParams = [new RequestParam('metadata', encodeURIComponent(metadataField)),
-      new RequestParam('collection', encodeURIComponent(collectionUUID))];
+    findListOptions.searchParams = [new RequestParam('metadata', metadataField),
+      new RequestParam('collection', collectionUUID)];
     const href$ = this.searchData.getSearchByHref(this.searchByMetadataAndCollectionPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }

@@ -16,6 +16,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
 import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { RestResponse } from '../../../cache/response.models';
 import { FindListOptions } from '../../../data/find-list-options.model';
@@ -131,10 +132,7 @@ describe('QualityAssuranceEventDataService', () => {
     it('should proxy the call to searchData.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
-          {
-            fieldName: 'topic',
-            fieldValue: topic,
-          },
+          new RequestParam('topic', topic),
         ],
       };
       service.getEventsByTopic(topic);

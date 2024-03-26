@@ -114,7 +114,7 @@ describe('EPersonDataService', () => {
     it('search by default scope (byMetadata) and no query', () => {
       service.searchByScope(null, '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))],
+        searchParams: [Object.assign(new RequestParam('query', ''))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -122,7 +122,7 @@ describe('EPersonDataService', () => {
     it('search metadata scope and no query', () => {
       service.searchByScope('metadata', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('')))],
+        searchParams: [Object.assign(new RequestParam('query', ''))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -130,7 +130,7 @@ describe('EPersonDataService', () => {
     it('search metadata scope and with query', () => {
       service.searchByScope('metadata', 'test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', encodeURIComponent('test')))],
+        searchParams: [Object.assign(new RequestParam('query', 'test'))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -140,7 +140,7 @@ describe('EPersonDataService', () => {
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(null));
       service.searchByScope('email', '');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent('')))],
+        searchParams: [Object.assign(new RequestParam('email', ''))],
       });
       expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
@@ -151,7 +151,7 @@ describe('EPersonDataService', () => {
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMock));
       service.searchByScope('email', EPersonMock.email);
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('email', encodeURIComponent(EPersonMock.email)))],
+        searchParams: [Object.assign(new RequestParam('email', EPersonMock.email))],
       });
       expect((service as any).searchData.getSearchByHref).toHaveBeenCalledWith('byEmail', options);
       expect(service.findByHref).toHaveBeenCalledWith(epersonsEndpoint, true, true);
