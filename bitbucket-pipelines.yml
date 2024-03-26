@@ -2,20 +2,13 @@
 #  runs-on: ubuntu-latest
 
 definitions:
-  services:
-    node-image:
-      type: docker
-      image:
-        name: cypress/browsers:node18.12.0-chrome107
-        run-as-user: 1000
-
   steps:
     - step: &unittest-code-checks
         name: test-code-checks
-        runs-on:
-          - 'self.hosted'
-        services:
-          - node-image
+        runs-on: self.hosted
+        image:
+          name: cypress/browsers:node18.12.0-chrome107
+          run-as-user: 1000
         size: 2x
         caches:
           - node
