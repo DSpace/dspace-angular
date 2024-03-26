@@ -32,7 +32,7 @@
 
     <section class="comcol-page-browse-section">
     <div class="browse-by-metadata w-100">
-    <ds-themed-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
+    <ds-themed-browse-by *ngIf="!(loading$ | async)" class="col-xs-12 w-100"
       title="{{'browse.title' | translate:
       {
         collection: dsoNameService.getName((parent$ | async)?.payload),
@@ -49,7 +49,7 @@
       (prev)="goPrev()"
       (next)="goNext()">
     </ds-themed-browse-by>
-    <ds-themed-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-themed-loading>
+    <ds-themed-loading *ngIf="loading$ | async" message="{{'loading.browse-by-page' | translate}}"></ds-themed-loading>
   </div>
   </section>
   <ng-container *ngVar="(parent$ | async) as parent">
