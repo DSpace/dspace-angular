@@ -15,11 +15,17 @@ import {
   DOI_METADATA_FIELD, HANDLE_METADATA_FIELD,
 } from '../simple/field-components/clarin-generic-item-field/clarin-generic-item-field.component';
 import { ItemIdentifierService } from '../../shared/item-identifier.service';
+import { AUTHOR_METADATA_FIELDS } from '../../core/shared/clarin/constants';
 
 /**
  * If the item has more authors do not add all authors to the citation but add there a shortcut.
  */
 export const ET_AL_TEXT = 'et al.';
+
+/**
+ * If the author is unknown, the citation should not contain the author.
+ */
+export const UNKNOWN_AUTHOR_MV = '(:unav) Unknown author';
 
 /**
  * The citation part in the ref-box component.
@@ -71,6 +77,11 @@ export class ClarinRefCitationComponent implements OnInit {
    */
   hasDoi = false;
 
+  /**
+   * The authors of the item. Fetched from the metadata.
+   */
+  authors: string[] = [];
+
   constructor(private configurationService: ConfigurationDataService,
               private clipboard: Clipboard,
               public config: NgbTooltipConfig,
@@ -84,10 +95,15 @@ export class ClarinRefCitationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authors = this.item.allMetadataValues(AUTHOR_METADATA_FIELDS);
     const author = this.getAuthors();
     const year = this.getYear();
 
     let citationArray = [author, year];
+    // Do not show author if it is unknown
+    if (this.isUnknownAuthor()) {
+      citationArray = [year];
+    }
     // Filter null values
     citationArray = citationArray.filter(textValue => {
       return textValue !== null;
@@ -111,7 +127,12 @@ export class ClarinRefCitationComponent implements OnInit {
    */
   copyText() {
     const tabChar = '  ';
-    this.clipboard.copy(this.citationText + ',\n' + tabChar + this.itemNameText + ', ' +
+    let authorWithItemName = this.citationText + ',\n' + tabChar + this.itemNameText;
+    if (this.isUnknownAuthor()) {
+      // If the author is unknown, do not add the author to the citation
+      authorWithItemName = this.itemNameText + ', ' + this.citationText;
+    }
+    this.clipboard.copy(authorWithItemName + ', ' +
       this.repositoryNameText + ', \n' + tabChar + this.identifierURI);
     setTimeout(() => {
       this.tooltipRef.close();
@@ -152,19 +173,45 @@ export class ClarinRefCitationComponent implements OnInit {
     return fullUri.substr(startHandleIndex);
   }
 
+  /**
+   * Check if the author is unknown.
+   * @param authorMetadata
+   */
+  isUnknownAuthor(authorMetadata: string[] = []) {
+    if (authorMetadata.length === 0) {
+      authorMetadata = this.authors;
+    }
+    return authorMetadata?.[0] === UNKNOWN_AUTHOR_MV;
+  }
+
   getAuthors() {
     let authorText = '';
-    const authorMetadata = this.item.metadata['dc.contributor.author'];
+    const authorMetadata = this.authors;
     if (isUndefined(authorMetadata) || isNull(authorMetadata)) {
       return null;
     }
 
-    authorText = authorMetadata[0]?.value;
-    // There are more authors for the item
-    if (authorMetadata.length > 1) {
-      authorText = authorText + '; ' + ET_AL_TEXT;
+    // If metadata value is `(:unav) Unknown author` return null
+    if (this.isUnknownAuthor(authorMetadata)) {
+      return null;
     }
 
+    // If there is only one author
+    if (authorMetadata.length === 1) {
+      return authorMetadata[0];
+    }
+
+    // If there are less than 5 authors
+    if (authorMetadata.length <= 5) {
+      let authors_list = authorMetadata.join('; ');
+      // Replace last `;` with `and`
+      authors_list = authors_list.replace(/;([^;]*)$/, ' and$1');
+      return authors_list;
+    }
+
+    // If there are more than 5 authors
+    // Get only first author and add `et al.` at the end
+    authorText = authorMetadata[0] + '; ' + ET_AL_TEXT;
     return authorText;
   }
 
