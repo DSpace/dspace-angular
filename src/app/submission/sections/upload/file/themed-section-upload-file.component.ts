@@ -79,19 +79,6 @@ export class ThemedSubmissionSectionUploadFileComponent
    */
   @Input() submissionId: string;
 
-  protected inAndOutputNames: (keyof SubmissionSectionUploadFileComponent & keyof this)[] = [
-    'availableAccessConditionOptions',
-    'isPrimary',
-    'collectionId',
-    'collectionPolicyType',
-    'configMetadataForm',
-    'fileId',
-    'fileIndex',
-    'fileName',
-    'sectionId',
-    'submissionId',
-  ];
-
   protected getComponentName(): string {
     return 'SubmissionSectionUploadFileComponent';
   }

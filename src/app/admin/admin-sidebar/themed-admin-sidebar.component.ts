@@ -28,8 +28,6 @@ export class ThemedAdminSidebarComponent extends ThemedComponent<AdminSidebarCom
    */
   @Input() collapsedSidebarWidth$: Observable<string>;
 
-  protected inAndOutputNames: (keyof AdminSidebarComponent & keyof this)[] = ['collapsedSidebarWidth$', 'expandedSidebarWidth$'];
-
   protected getComponentName(): string {
     return 'AdminSidebarComponent';
   }

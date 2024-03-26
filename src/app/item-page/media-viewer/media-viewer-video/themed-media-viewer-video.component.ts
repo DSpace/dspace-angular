@@ -23,11 +23,6 @@ export class ThemedMediaViewerVideoComponent extends ThemedComponent<MediaViewer
 
   @Input() captions: Bitstream[];
 
-  protected inAndOutputNames: (keyof MediaViewerVideoComponent & keyof this)[] = [
-    'medias',
-    'captions',
-  ];
-
   protected getComponentName(): string {
     return 'MediaViewerVideoComponent';
   }

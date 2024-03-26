@@ -21,8 +21,6 @@ import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-loo
   standalone: true,
 })
 export class ThemedDynamicLookupRelationExternalSourceTabComponent extends ThemedComponent<DsDynamicLookupRelationExternalSourceTabComponent> {
-  protected inAndOutputNames: (keyof DsDynamicLookupRelationExternalSourceTabComponent & keyof this)[] = ['label', 'listId',
-    'item', 'collection', 'relationship', 'context', 'query', 'repeatable', 'importedObject', 'externalSource'];
 
   @Input() label: string;
 

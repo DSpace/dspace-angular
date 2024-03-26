@@ -1,10 +1,8 @@
 import {
-  ChangeDetectorRef,
   Component,
   Input,
 } from '@angular/core';
 
-import { ThemeService } from '../theme-support/theme.service';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { LoadingComponent } from './loading.component';
 
@@ -22,15 +20,6 @@ export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
   @Input() message: string;
   @Input() showMessage: boolean;
   @Input() spinner: boolean;
-
-  protected inAndOutputNames: (keyof LoadingComponent & keyof this)[] = ['message', 'showMessage', 'spinner'];
-
-  constructor(
-    protected cdr: ChangeDetectorRef,
-    protected themeService: ThemeService,
-  ) {
-    super(cdr, themeService);
-  }
 
   protected getComponentName(): string {
     return 'LoadingComponent';

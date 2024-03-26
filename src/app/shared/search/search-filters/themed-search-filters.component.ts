@@ -26,9 +26,6 @@ export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersC
   @Input() refreshFilters: Observable<any>;
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
 
-  protected inAndOutputNames: (keyof SearchFiltersComponent & keyof this)[] = [
-    'filters', 'currentConfiguration', 'currentScope', 'inPlaceSearch', 'refreshFilters'];
-
   protected getComponentName(): string {
     return 'SearchFiltersComponent';
   }

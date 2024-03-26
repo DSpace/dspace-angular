@@ -14,7 +14,6 @@ import { MetadataRepresentationListComponent } from './metadata-representation-l
   standalone: true,
 })
 export class ThemedMetadataRepresentationListComponent extends ThemedComponent<MetadataRepresentationListComponent> {
-  protected inAndOutputNames: (keyof MetadataRepresentationListComponent & keyof this)[] = ['parentItem', 'itemType', 'metadataFields', 'label', 'incrementBy'];
 
   @Input() parentItem: Item;
 
