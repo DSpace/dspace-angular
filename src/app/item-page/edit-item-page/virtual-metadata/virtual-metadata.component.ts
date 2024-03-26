@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import {Observable} from 'rxjs';
-import {Item} from '../../../core/shared/item.model';
-import {MetadataValue} from '../../../core/shared/metadata.models';
-import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
+import { Observable } from 'rxjs';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
@@ -37,6 +37,11 @@ export class VirtualMetadataComponent implements OnInit {
   @Input() rightItem: Item;
 
   /**
+   * Whether to show the thumbnail preview
+   */
+  @Input() showThumbnails;
+
+  /**
    * Emits when the close button is pressed.
    */
   @Output() close = new EventEmitter();
@@ -45,12 +50,6 @@ export class VirtualMetadataComponent implements OnInit {
    * Emits when the save button is pressed.
    */
   @Output() save = new EventEmitter();
-
-  /**
-   * Indicates when thumbnails are required by configuration and therefore
-   * need to be hidden in the modal layout.
-   */
-  showThumbnails: boolean;
 
   /**
    * Get an array of the left and the right item of the relationship to be deleted.
@@ -65,7 +64,7 @@ export class VirtualMetadataComponent implements OnInit {
     protected objectUpdatesService: ObjectUpdatesService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
+    this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
   }
 
   /**

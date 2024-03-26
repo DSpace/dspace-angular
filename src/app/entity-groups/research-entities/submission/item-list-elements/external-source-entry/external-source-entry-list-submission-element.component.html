@@ -40,7 +40,10 @@
       <div class="card p-1">
         <ng-container
           *ngFor="let match of object.matchObjects | slice: (pageConfig.currentPage-1) * pageConfig.pageSize : pageConfig.currentPage * pageConfig.pageSize">
-          <ds-themed-item-list-preview [item]="match" [object]="itemPreviewObject" [metadataList]="metadataList">
+          <ds-themed-item-list-preview [item]="match"
+                                       [object]="itemPreviewObject"
+                                       [metadataList]="metadataList"
+                                       [showThumbnails]="showThumbnails">
           </ds-themed-item-list-preview>
           <div class="offset-2">
             <a class="btn btn-primary mt-1" ngbTooltip="{{'submission.workflow.generic.view-help' | translate}}"

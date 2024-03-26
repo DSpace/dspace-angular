@@ -49,7 +49,7 @@ describe('MetricDimensionsComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should render badge div', () => {
-    const div = fixture.debugElement.queryAll(By.css('div'))[2];
+    const div = fixture.debugElement.queryAll(By.css('div'))[1];
     expect(div.nativeElement.className).toEqual('__dimensions_badge_embed__');
     expect(div.nativeElement.dataset.doi).toEqual('10.1056/Test');
     expect(div.nativeElement.dataset.style).toEqual('small_rectangle');

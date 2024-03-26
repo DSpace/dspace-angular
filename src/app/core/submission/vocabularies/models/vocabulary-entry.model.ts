@@ -50,8 +50,6 @@ export class VocabularyEntry extends ListableObject {
   @autoserialize
   securityLevel: number;
 
-
-
   /**
    * A string representing the kind of vocabulary entry
    */

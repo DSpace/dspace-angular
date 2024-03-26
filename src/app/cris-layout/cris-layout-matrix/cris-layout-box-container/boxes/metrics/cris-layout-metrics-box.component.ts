@@ -67,15 +67,18 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent i
     if (isPlatformBrowser(this.platformId)) {
       this.metricsBoxConfiguration = this.box.configuration as MetricsBoxConfiguration;
       this.subs.push(
-        this.itemService.getMetrics(this.item.uuid).pipe(getFirstSucceededRemoteDataPayload())
-          .subscribe((result) => {
-            const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
-              result.page,
-              this.metricsBoxConfiguration.maxColumns,
-              this.metricsBoxConfiguration.metrics
-            );
-            this.metricRows.next(matchingMetrics);
-          }));
+        this.itemService.getMetrics(this.item.uuid).pipe(
+          getFirstSucceededRemoteDataPayload(),
+        ).subscribe((result) => {
+          const matchingMetrics = this.metricsComponentService.getMatchingMetrics(
+            result.page,
+            this.metricsBoxConfiguration.maxColumns,
+            this.metricsBoxConfiguration.metrics,
+          );
+          this.metricRows.next(matchingMetrics);
+          },
+        ),
+      );
     }
   }
 

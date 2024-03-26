@@ -41,6 +41,7 @@ import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { dataService } from '../data/base/data-service.decorator';
 import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
+import { isNotEmpty } from '../../shared/empty.util';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -56,7 +57,7 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
   public subgroupsEndpoint = 'subgroups';
 
   private createData: CreateData<Group>;
-  private searchData: SearchData<Group>;
+  private searchData: SearchDataImpl<Group>;
   private patchData: PatchData<Group>;
   private deleteData: DeleteData<Group>;
 
@@ -91,9 +92,9 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('groupName', groupName)];
 
-    return this.searchBy(searchHref, options).pipe(
+    return this.findByHref(this.searchData.getSearchByHref(searchHref, options)).pipe(
       getRemoteDataPayload(),
-      map((groups: PaginatedList<Group>) => groups.totalElements > 0),
+      map((group: Group) => isNotEmpty(group)),
       catchError(() => observableOf(false)),
     );
   }

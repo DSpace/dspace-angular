@@ -1,15 +1,20 @@
-import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import {
+  listableObjectComponent
+} from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Context } from '../../../../../core/shared/context.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { Component } from '@angular/core';
-import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
+import { Component, Inject } from '@angular/core';
+import {
+  SidebarSearchListElementComponent
+} from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { LinkService } from '../../../../../core/cache/builders/link.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
@@ -22,12 +27,13 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
  * a sidebar search modal
  */
 export class PersonSidebarSearchListElementComponent extends SidebarSearchListElementComponent<ItemSearchResult, Item> {
-  constructor(protected truncatableService: TruncatableService,
+  constructor(@Inject(APP_CONFIG) protected appConfig: AppConfig,
+              protected truncatableService: TruncatableService,
               protected linkService: LinkService,
               protected translateService: TranslateService,
               public dsoNameService: DSONameService,
   ) {
-    super(truncatableService, linkService, dsoNameService);
+    super(appConfig, truncatableService, linkService, dsoNameService);
   }
 
   /**

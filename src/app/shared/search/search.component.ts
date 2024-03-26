@@ -562,13 +562,22 @@ export class SearchComponent implements OnInit, OnDestroy {
   private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
     this.lastSearchOptions = searchOptions;
-    let followLinks = [
-      followLink<Item>('thumbnail', { isOptional: true }),
-      followLink<SubmissionObject>('item', { isOptional: true },
+    let followLinks;
+    if (this.showThumbnails) {
+      followLinks = [
         followLink<Item>('thumbnail', { isOptional: true }),
-        followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
-      ) as any
-    ];
+        followLink<SubmissionObject>('item', { isOptional: true },
+          followLink<Item>('thumbnail', { isOptional: true }),
+          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+        ) as any
+      ];
+    } else {
+      followLinks = [
+        followLink<SubmissionObject>('item', { isOptional: true },
+          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: environment.item.showAccessStatuses })
+        ) as any
+      ];
+    }
 
     if (this.configuration === 'supervision') {
       followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
