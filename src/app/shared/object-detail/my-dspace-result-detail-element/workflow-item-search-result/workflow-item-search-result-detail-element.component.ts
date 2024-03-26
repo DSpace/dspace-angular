@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 import { Context } from 'src/app/core/shared/context.model';
@@ -29,7 +32,7 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
 })
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.DetailedListElement)
-export class WorkflowItemSearchResultDetailElementComponent extends SearchResultDetailElementComponent<WorkflowItemSearchResult, WorkflowItem> {
+export class WorkflowItemSearchResultDetailElementComponent extends SearchResultDetailElementComponent<WorkflowItemSearchResult, WorkflowItem> implements OnInit {
 
   /**
    * The item object that belonging to the result object
@@ -51,7 +54,7 @@ export class WorkflowItemSearchResultDetailElementComponent extends SearchResult
   /**
    * Initialize all instance variables
    */
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
     this.linkService.resolveLink(this.dso, followLink('item'));
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);

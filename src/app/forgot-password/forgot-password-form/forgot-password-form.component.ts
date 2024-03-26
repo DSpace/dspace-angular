@@ -2,7 +2,10 @@ import {
   AsyncPipe,
   NgIf,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   ActivatedRoute,
   Router,
@@ -45,7 +48,7 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 /**
  * Component for a user to enter a new password for a forgot token.
  */
-export class ForgotPasswordFormComponent {
+export class ForgotPasswordFormComponent implements OnInit {
 
   registration$: Observable<Registration>;
 

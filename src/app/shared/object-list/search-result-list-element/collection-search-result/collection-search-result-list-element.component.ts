@@ -2,7 +2,10 @@ import {
   NgClass,
   NgIf,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Collection } from '../../../../core/shared/collection.model';
@@ -23,7 +26,7 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
  * Component representing a collection search result in list view
  */
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement)
-export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {
+export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> implements OnInit {
 
   /**
    * Display thumbnails if required by configuration

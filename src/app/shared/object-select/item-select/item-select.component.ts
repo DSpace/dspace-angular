@@ -7,6 +7,7 @@ import {
 import {
   Component,
   Input,
+  OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -40,7 +41,7 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
 /**
  * A component used to select items from a specific list and returning the UUIDs of the selected items
  */
-export class ItemSelectComponent extends ObjectSelectComponent<Item> {
+export class ItemSelectComponent extends ObjectSelectComponent<Item> implements OnInit {
 
   /**
    * Whether or not to hide the collection column
