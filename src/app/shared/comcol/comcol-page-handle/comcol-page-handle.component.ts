@@ -1,7 +1,6 @@
 import { NgIf } from '@angular/common';
 import {
   Component,
-  Injectable,
   Input,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,8 +16,6 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [NgIf, TranslateModule],
   standalone: true,
 })
-
-@Injectable()
 export class ComcolPageHandleComponent {
 
   // Optional title

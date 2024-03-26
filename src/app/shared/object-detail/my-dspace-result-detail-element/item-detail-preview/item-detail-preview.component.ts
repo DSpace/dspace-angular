@@ -28,7 +28,7 @@ import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspa
 import { SearchResult } from '../../../search/models/search-result.model';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { VarDirective } from '../../../utils/var.directive';
-import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
+import { ThemedItemDetailPreviewFieldComponent } from './item-detail-preview-field/themed-item-detail-preview-field.component';
 
 /**
  * This component show metadata for the given item object in the detail view.
@@ -39,7 +39,7 @@ import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/ite
   templateUrl: './item-detail-preview.component.html',
   animations: [fadeInOut],
   standalone: true,
-  imports: [NgIf, ThemedBadgesComponent, ThemedItemPageTitleFieldComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, VarDirective, NgFor, ItemDetailPreviewFieldComponent, ItemSubmitterComponent, AsyncPipe, FileSizePipe, TranslateModule],
+  imports: [NgIf, ThemedBadgesComponent, ThemedItemPageTitleFieldComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, VarDirective, NgFor, ThemedItemDetailPreviewFieldComponent, ItemSubmitterComponent, AsyncPipe, FileSizePipe, TranslateModule],
 })
 export class ItemDetailPreviewComponent {
   /**
