@@ -187,6 +187,8 @@ export class CollectionItemMapperComponent implements OnInit {
           this.shouldUpdate$.next(false);
         }
         return this.itemDataService.findListByHref(collectionRD.payload._links.mappedItems.href, Object.assign(options, {
+          currentPage: options.pagination.currentPage,
+          elementsPerPage: options.pagination.pageSize,
           sort: this.defaultSortOptions,
         }),!shouldUpdate, false, followLink('owningCollection')).pipe(
           getAllSucceededRemoteData(),
