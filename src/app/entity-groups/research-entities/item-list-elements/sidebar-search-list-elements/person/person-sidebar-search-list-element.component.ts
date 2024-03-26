@@ -23,6 +23,8 @@ import { TruncatablePartComponent } from '../../../../../shared/truncatable/trun
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
+@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.ScopeSelectorModal)
+@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
 @Component({
   selector: 'ds-person-sidebar-search-list-element',
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',

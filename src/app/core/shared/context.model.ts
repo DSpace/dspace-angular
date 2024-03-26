@@ -29,6 +29,9 @@ export enum Context {
   SideBarSearchModal = 'sideBarSearchModal',
   SideBarSearchModalCurrent = 'sideBarSearchModalCurrent',
 
+  ScopeSelectorModal = 'scopeSelectorModal',
+  ScopeSelectorModalCurrent = 'scopeSelectorModalCurrent',
+
   /** The MyDSpace* Context values below are used for badge display in MyDSpace. */
   MyDSpaceArchived = 'mydspaceArchived',
   MyDSpaceWorkspace = 'mydspaceWorkspace',
