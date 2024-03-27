@@ -617,7 +617,7 @@ export class DefaultAppConfig implements AppConfig {
   layout: LayoutConfig = {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
-      showCommunityCollection: false,
+      showCommunityCollection: true,
     }
   };
 
