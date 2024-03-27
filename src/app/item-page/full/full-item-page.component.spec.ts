@@ -23,6 +23,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -31,6 +32,77 @@ const mockItem: Item = Object.assign(new Item(), {
       {
         language: 'en_US',
         value: 'test item'
+      }
+    ],
+    'dc.contributor.author': [
+      {
+        value: 'author1'
+      },
+      {
+        value: 'author2'
+      },
+      {
+        value: 'author3'
+      },
+      {
+        value: 'author4'
+      },
+      {
+        value: 'author5'
+      },
+      {
+        value: 'author6'
+      },
+      {
+        value: 'author7'
+      },
+      {
+        value: 'author8'
+      },
+      {
+        value: 'author9'
+      },
+      {
+        value: 'author10'
+      },
+      {
+        value: 'author11'
+      },
+      {
+        value: 'author12'
+      },
+      {
+        value: 'author13'
+      },
+      {
+        value: 'author14'
+      },
+      {
+        value: 'author15'
+      },
+      {
+        value: 'author16'
+      },
+      {
+        value: 'author17'
+      },
+      {
+        value: 'author18'
+      },
+      {
+        value: 'author19'
+      },
+      {
+        value: 'author20'
+      },
+      {
+        value: 'author21'
+      },
+      {
+        value: 'author22'
+      },
+      {
+        value: 'author23'
       }
     ]
   }
@@ -72,6 +144,12 @@ describe('FullItemPageComponent', () => {
     href: 'http://test2.org',
     rel: 'test',
     type: 'test'
+  };
+
+  const appConfig = {
+    item: {
+      metadataLimit: 20
+    }
   };
 
   beforeEach(waitForAsync(() => {
@@ -122,7 +200,8 @@ describe('FullItemPageComponent', () => {
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
-        { provide: PLATFORM_ID, useValue: 'server' }
+        { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: APP_CONFIG, useValue: appConfig },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(FullItemPageComponent, {
@@ -142,7 +221,7 @@ describe('FullItemPageComponent', () => {
 
   it('should display the item\'s metadata', () => {
     const table = fixture.debugElement.query(By.css('table'));
-    for (const metadatum of mockItem.allMetadata(Object.keys(mockItem.metadata))) {
+    for (const metadatum of mockItem.allMetadata('dc.title')) {
       expect(table.nativeElement.innerHTML).toContain(metadatum.value);
     }
   });
@@ -225,6 +304,30 @@ describe('FullItemPageComponent', () => {
     it('should add the signposting links', () => {
       expect(serverResponseService.setHeader).toHaveBeenCalled();
       expect(linkHeadService.addTag).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('when the item has many metadata values', () => {
+    beforeEach(() => {
+      comp.itemRD$ = new BehaviorSubject<RemoteData<Item>>(createSuccessfulRemoteDataObject(mockItem));
+      fixture.detectChanges();
+    });
+
+    it('should not display all the item\'s metadata', () => {
+      const table = fixture.debugElement.query(By.css('table'));
+      const visibleValues = mockItem.allMetadata('dc.contributor.author').slice(0, 20);
+      const hiddenValues = mockItem.allMetadata('dc.contributor.author').slice(20, 40);
+      for (const metadatum of visibleValues) {
+        expect(table.nativeElement.innerHTML).toContain(metadatum.value);
+      }
+      for (const metadatum of hiddenValues) {
+        expect(table.nativeElement.innerHTML).not.toContain(metadatum.value);
+      }
+    });
+
+    it('should display show more button', () => {
+      const btn = fixture.debugElement.query(By.css('button[data-test="btn-more"]'));
+      expect(btn).not.toBeNull();
     });
   });
 });

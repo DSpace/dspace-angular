@@ -6900,6 +6900,8 @@
 
   "person.page.orcid.funding-preferences": "Funding preferences",
 
+  "person.page.orcid.products-preferences": "Product preferences",
+
   "person.page.orcid.publications-preferences": "Publication preferences",
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
@@ -6929,6 +6931,14 @@
   "person.page.orcid.sync-publications.my_selected": "Selected publications",
 
   "person.page.orcid.sync-publications.disabled": "Disabled",
+
+  "person.page.orcid.sync-products.all": "All products",
+
+  "person.page.orcid.sync-products.mine": "My products",
+
+  "person.page.orcid.sync-products.my_selected": "Selected products",
+
+  "person.page.orcid.sync-products.disabled": "Disabled",
 
   "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
 
@@ -6967,6 +6977,8 @@
   "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
 
   "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+
+  "person.page.orcid.sync-queue.tooltip.product": "Product",
 
   "person.page.orcid.sync-queue.tooltip.project": "Project",
 
@@ -7049,6 +7061,8 @@
   "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
 
   "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+
+  "person.page.orcid.synchronization-mode-product-message": "Select whether to send your linked Product entities to your ORCID record's list of works.",
 
   "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
 
