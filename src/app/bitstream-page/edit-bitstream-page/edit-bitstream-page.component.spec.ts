@@ -51,7 +51,7 @@ let bundle;
 let comp: EditBitstreamPageComponent;
 let fixture: ComponentFixture<EditBitstreamPageComponent>;
 
-fdescribe('EditBitstreamPageComponent', () => {
+describe('EditBitstreamPageComponent', () => {
 
   const entries = [
     Object.assign(new VocabularyEntry(), {display: 'true', value: 'true' }),
