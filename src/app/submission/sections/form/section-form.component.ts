@@ -322,10 +322,8 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   /**
    * Update form model
    *
-   * @param sectionData
-   *    the section data retrieved from the server
-   * @param errors
-   *    the section errors retrieved from the server
+   * @param sectionState
+   *    the section state retrieved from the server
    */
   updateForm(sectionState: SubmissionSectionObject): void {
 
