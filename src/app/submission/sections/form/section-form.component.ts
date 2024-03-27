@@ -328,7 +328,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
   updateForm(sectionState: SubmissionSectionObject): void {
 
     const sectionData = sectionState.data as WorkspaceitemSectionFormObject;
-    const errors = sectionState.errorsToShow
+    const errors = sectionState.errorsToShow;
 
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
