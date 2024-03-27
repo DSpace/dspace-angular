@@ -1,14 +1,18 @@
 import {
   HttpClient,
-  HttpClientModule,
+  provideHttpClient,
+  withInterceptorsFromDi,
 } from '@angular/common/http';
 import {
   APP_ID,
+  ApplicationConfig,
+  importProvidersFrom,
   makeStateKey,
-  NgModule,
+  mergeApplicationConfig,
   TransferState,
 } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -26,8 +30,7 @@ import {
   Angulartics2RouterlessModule,
 } from 'angulartics2';
 
-import { AppComponent } from '../../app/app.component';
-import { AppModule } from '../../app/app.module';
+import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
@@ -66,27 +69,26 @@ export function getRequest(transferState: TransferState): any {
   return transferState.get<any>(REQ_KEY, {});
 }
 
-@NgModule({
-  bootstrap: [AppComponent],
-  imports: [
-    HttpClientModule,
-    // forRoot ensures the providers are only created once
-    Angulartics2RouterlessModule.forRoot(),
-    BrowserAnimationsModule,
-    StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
-    EffectsModule.forFeature(coreEffects),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [TransferState, HttpClient],
-      },
-      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-      useDefaultLang: true,
-    }),
-    AppModule,
-  ],
+export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
   providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAnimations(),
+    provideClientHydration(),
+    importProvidersFrom(
+      // forRoot ensures the providers are only created once
+      Angulartics2RouterlessModule.forRoot(),
+      StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
+      EffectsModule.forFeature(coreEffects),
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: (createTranslateLoader),
+          deps: [TransferState, HttpClient],
+        },
+        missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+        useDefaultLang: true,
+      }),
+    ),
     ...BrowserInitService.providers(),
     { provide: APP_ID, useValue: 'dspace-angular' },
     {
@@ -143,6 +145,4 @@ export function getRequest(transferState: TransferState): any {
       useClass: ClientMathService,
     },
   ],
-})
-export class BrowserAppModule {
-}
+}, commonAppConfig);

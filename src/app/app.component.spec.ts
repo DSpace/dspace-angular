@@ -35,6 +35,7 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from './core/services/window.service';
+import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -84,7 +85,6 @@ describe('App component', () => {
           },
         }),
       ],
-      declarations: [AppComponent], // declare the test component
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MetadataServiceMock() },
@@ -109,7 +109,13 @@ describe('App component', () => {
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
-    return TestBed.configureTestingModule(getDefaultTestBedConf());
+    return TestBed.configureTestingModule(getDefaultTestBedConf()).overrideComponent(
+      AppComponent, {
+        remove: {
+          imports: [ ThemedRootComponent ],
+        },
+      },
+    );
   }));
 
   // synchronous beforeEach

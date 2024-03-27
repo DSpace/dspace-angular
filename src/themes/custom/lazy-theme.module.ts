@@ -11,7 +11,6 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
-import { AppModule } from '../../app/app.module';
 import { RootModule } from '../../app/root.module';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
@@ -185,7 +184,6 @@ const DECLARATIONS = [
 
 @NgModule({
   imports: [
-    AppModule,
     RootModule,
     CommonModule,
     DragDropModule,
