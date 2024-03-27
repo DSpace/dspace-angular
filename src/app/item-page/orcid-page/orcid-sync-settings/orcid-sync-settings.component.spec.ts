@@ -117,6 +117,13 @@ describe('OrcidSyncSettingsComponent test suite', () => {
         'confidence': -1,
         'place': 0
       }],
+      'dspace.orcid.sync-patents': [{
+        'value': 'DISABLED',
+        'language': null,
+        'authority': null,
+        'confidence': -1,
+        'place': 0
+      }],
       'person.identifier.orcid': [{
         'value': 'orcid-id',
         'language': null,
@@ -167,6 +174,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
 
   it('should create cards properly', () => {
     const modes = fixture.debugElement.query(By.css('[data-test="sync-mode"]'));
+    const patent = fixture.debugElement.query(By.css('[data-test="sync-mode-patent"]'));
     const publication = fixture.debugElement.query(By.css('[data-test="sync-mode-publication"]'));
     const product = fixture.debugElement.query(By.css('[data-test="sync-mode-product"]'));
     const funding = fixture.debugElement.query(By.css('[data-test="sync-mode-funding"]'));
@@ -174,6 +182,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
     expect(modes).toBeTruthy();
     expect(publication).toBeTruthy();
     expect(product).toBeTruthy();
+    expect(patent).toBeTruthy();
     expect(funding).toBeTruthy();
     expect(preferences).toBeTruthy();
   });
@@ -183,6 +192,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
     expect(comp.currentSyncPublications).toBe('ALL');
     expect(comp.currentSyncProduct).toBe('DISABLED');
     expect(comp.currentSyncFunding).toBe('DISABLED');
+    expect(comp.currentSyncPatent).toBe('DISABLED');
   });
 
   describe('form submit', () => {
@@ -193,6 +203,7 @@ describe('OrcidSyncSettingsComponent test suite', () => {
         syncMode: new UntypedFormControl('MANUAL'),
         syncFundings: new UntypedFormControl('ALL'),
         syncProducts: new UntypedFormControl('ALL'),
+        syncPatents: new UntypedFormControl('ALL'),
         syncPublications: new UntypedFormControl('ALL'),
         syncProfile_BIOGRAPHICAL: new UntypedFormControl(true),
         syncProfile_IDENTIFIERS: new UntypedFormControl(true),
@@ -208,6 +219,10 @@ describe('OrcidSyncSettingsComponent test suite', () => {
           path: '/orcid/mode',
           op: 'replace',
           value: 'MANUAL'
+        }, {
+          path: '/orcid/patents',
+          op: 'replace',
+          value: 'ALL'
         }, {
           path: '/orcid/publications',
           op: 'replace',
