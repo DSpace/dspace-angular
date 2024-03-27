@@ -70,8 +70,9 @@ export class LuckySearchComponent implements OnInit, OnDestroy {
     this.searchOptions$ = this.getSearchOptions();
     this.handleBitstreamResults();
     this.readResult();
-    const { queryParams } = this.router.parseUrl(this.router.url);
-    if (isNotEmpty(queryParams)) {
+    const urlTree = this.router.parseUrl(this.router.url);
+    if (isNotEmpty(urlTree?.queryParams)) {
+      const { queryParams } = urlTree;
       Object.keys(queryParams).forEach((key) => {
         if (key && key === 'index') {
           this.currentFilter.identifier = queryParams[key];

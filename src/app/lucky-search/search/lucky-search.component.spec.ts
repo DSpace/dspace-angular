@@ -16,8 +16,6 @@ import { By } from '@angular/platform-browser';
 import { SearchResult } from '../../shared/search/models/search-result.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { BitstreamDataService, MetadataFilter } from '../../core/data/bitstream-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
@@ -190,16 +188,11 @@ describe('SearchComponent', () => {
       const data = createSuccessfulRemoteDataObject(createPaginatedList([firstSearchResult]));
       const metadataFilters = [{ metadataName: 'dc.title', metadataValue: 'test.pdf' }] as MetadataFilter[];
       component.bitstreamFilters = metadataFilters;
-      bitstreamDataService.findByItem.withArgs(itemUUID, 'ORIGINAL', metadataFilters, {}).and.returnValue(observableOf({
-        state: 'Success',
-        payload: { page: [bitstream] },
-        get hasSucceeded(): boolean {
-          return true;
-        }
-      } as RemoteData<PaginatedList<Bitstream>>));
+      bitstreamDataService.findByItem.withArgs(itemUUID, 'ORIGINAL', metadataFilters, {})
+        .and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream])));
 
       spyOn(component, 'redirect');
-      spyOn(component.bitstreams$, 'next');
+      spyOn(component.bitstreams$, 'next').and.callThrough();
       spyOn(routerStub, 'parseUrl').and.returnValue(bitstreamSearchTree);
 
       component.resultsRD$.next(data as any);
@@ -212,7 +205,7 @@ describe('SearchComponent', () => {
     });
 
     it('should redirect to bitstream', () => {
-      expect(component.redirect).toHaveBeenCalledWith('/bitstreams/fa272dbf-e458-4ad2-868b-b4a27c6eac15/download');
+      expect(component.redirect).toHaveBeenCalledWith(`/bitstreams/${bitstream.uuid}/download`);
     });
 
     it('should return bitstream filename', () => {
