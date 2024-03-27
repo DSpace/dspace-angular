@@ -12,7 +12,7 @@ import { RouteService } from '../services/route.service';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { of as observableOf } from 'rxjs';
 
-fdescribe('LocaleService test suite', () => {
+describe('LocaleService test suite', () => {
   let service: LocaleService;
   let serviceAsAny: any;
   let cookieService: CookieService;
