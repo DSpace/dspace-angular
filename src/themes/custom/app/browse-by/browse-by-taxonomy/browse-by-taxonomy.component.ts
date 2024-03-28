@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowseByTaxonomyComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component';
-import { BrowseByComponent } from '../../../../../app/shared/browse-by/browse-by.component';
 import { ThemedBrowseByComponent } from '../../../../../app/shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from '../../../../../app/shared/comcol/comcol-page-content/comcol-page-content.component';
@@ -38,7 +37,6 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
     VocabularyTreeviewComponent,
-    BrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,

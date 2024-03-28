@@ -8,7 +8,7 @@ import { CommunityStatisticsPageComponent as BaseComponent } from '../../../../.
 import { StatisticsTableComponent } from '../../../../../app/statistics-page/statistics-table/statistics-table.component';
 
 @Component({
-  selector: 'ds-collection-statistics-page',
+  selector: 'ds-themed-collection-statistics-page',
   // styleUrls: ['./community-statistics-page.component.scss'],
   styleUrls: ['../../../../../app/statistics-page/community-statistics-page/community-statistics-page.component.scss'],
   // templateUrl: './community-statistics-page.component.html',

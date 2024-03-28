@@ -13,7 +13,7 @@ import { MetadataRepresentationLoaderComponent } from '../../../../../../app/sha
 import { VarDirective } from '../../../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-metadata-representation-list',
+  selector: 'ds-themed-metadata-representation-list',
   // templateUrl: './metadata-representation-list.component.html'
   templateUrl: '../../../../../../app/item-page/simple/metadata-representation-list/metadata-representation-list.component.html',
   standalone: true,

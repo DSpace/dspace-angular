@@ -36,7 +36,7 @@ import {
  */
 
 @Component({
-  selector: 'ds-create-community-parent-selector',
+  selector: 'ds-base-create-community-parent-selector',
   styleUrls: ['./create-community-parent-selector.component.scss'],
   templateUrl: './create-community-parent-selector.component.html',
   standalone: true,

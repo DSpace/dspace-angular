@@ -20,7 +20,7 @@ import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
  * This componenet render an image gallery for the image viewer
  */
 @Component({
-  selector: 'ds-media-viewer-image',
+  selector: 'ds-base-media-viewer-image',
   templateUrl: './media-viewer-image.component.html',
   styleUrls: ['./media-viewer-image.component.scss'],
   imports: [

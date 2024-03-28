@@ -19,7 +19,7 @@ import { KlaroService } from '../shared/cookies/klaro.service';
 import { hasValue } from '../shared/empty.util';
 
 @Component({
-  selector: 'ds-footer',
+  selector: 'ds-base-footer',
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html',
   standalone: true,

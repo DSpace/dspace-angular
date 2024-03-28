@@ -1,4 +1,4 @@
-<ds-themed-object-list [ngClass]="placeholderFontClass"
+<ds-object-list [ngClass]="placeholderFontClass"
                 [config]="config"
                 [sortConfig]="sortConfig"
                 [objects]="objects"
@@ -25,7 +25,7 @@
                 (prev)="goPrev()"
                 (next)="goNext()"
                 *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
-</ds-themed-object-list>
+</ds-object-list>
 
 <ds-object-grid [config]="config"
                 [sortConfig]="sortConfig"

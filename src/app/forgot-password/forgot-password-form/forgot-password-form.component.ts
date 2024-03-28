@@ -30,7 +30,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
 @Component({
-  selector: 'ds-forgot-password-form',
+  selector: 'ds-base-forgot-password-form',
   styleUrls: ['./forgot-password-form.component.scss'],
   templateUrl: './forgot-password-form.component.html',
   imports: [

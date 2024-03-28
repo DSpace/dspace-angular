@@ -11,10 +11,11 @@ import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component
  * Themed wrapper for MyDSpaceStatusBadge
  */
 @Component({
-  selector: 'ds-themed-my-dspace-status-badge',
+  selector: 'ds-my-dspace-status-badge',
   styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [MyDSpaceStatusBadgeComponent],
 })
 export class ThemedMyDSpaceStatusBadgeComponent extends ThemedComponent<MyDSpaceStatusBadgeComponent> {
   @Input() context: Context;

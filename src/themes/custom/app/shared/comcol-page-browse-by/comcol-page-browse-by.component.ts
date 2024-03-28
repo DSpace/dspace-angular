@@ -17,7 +17,7 @@ import { ComcolPageBrowseByComponent as BaseComponent } from '../../../../../app
  * It expects the ID of the Community or Collection as input to be passed on as a scope
  */
 @Component({
-  selector: 'ds-comcol-page-browse-by',
+  selector: 'ds-base-comcol-page-browse-by',
   // styleUrls: ['./comcol-page-browse-by.component.scss'],
   styleUrls: ['../../../../../app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component.scss'],
   // templateUrl: './comcol-page-browse-by.component.html'

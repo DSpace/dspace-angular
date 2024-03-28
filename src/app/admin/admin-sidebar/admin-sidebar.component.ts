@@ -41,7 +41,7 @@ import { ThemeService } from '../../shared/theme-support/theme.service';
  * Component representing the admin sidebar
  */
 @Component({
-  selector: 'ds-admin-sidebar',
+  selector: 'ds-base-admin-sidebar',
   templateUrl: './admin-sidebar.component.html',
   styleUrls: ['./admin-sidebar.component.scss'],
   animations: [slideSidebar],

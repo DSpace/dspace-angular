@@ -200,7 +200,7 @@ describe('ItemListPreviewComponent', () => {
     });
 
     it('should show the badges', () => {
-      const entityField = fixture.debugElement.query(By.css('ds-themed-badges'));
+      const entityField = fixture.debugElement.query(By.css('ds-badges'));
       expect(entityField).not.toBeNull();
     });
   });

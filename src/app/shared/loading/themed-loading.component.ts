@@ -12,10 +12,11 @@ import { LoadingComponent } from './loading.component';
  * Themed wrapper for LoadingComponent
  */
 @Component({
-  selector: 'ds-themed-loading',
+  selector: 'ds-loading',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [LoadingComponent],
 })
 export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
 

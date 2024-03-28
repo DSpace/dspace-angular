@@ -22,7 +22,6 @@ import {
   DISALLOWED_THEME_SELECTORS,
   fixSelectors,
   getThemeableComponentByBaseClass,
-  inThemedComponentFile,
   isAllowedUnthemedUsage,
 } from '../../util/theme-support';
 import {

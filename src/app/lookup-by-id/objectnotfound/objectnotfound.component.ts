@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
  * This component representing the `PageNotFound` DSpace page.
  */
 @Component({
-  selector: 'ds-objnotfound',
+  selector: 'ds-base-objnotfound',
   styleUrls: ['./objectnotfound.component.scss'],
   templateUrl: './objectnotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
