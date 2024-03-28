@@ -190,7 +190,7 @@ export class HomePageComponent implements OnInit {
    * @private
    */
   private loadSubject() {
-    const facetName = 'subject';
+    const facetName = 'subjectFirstValue';
     this.getFastSearchLinks(facetName, this.subjects$);
   }
 
@@ -210,7 +210,7 @@ export class HomePageComponent implements OnInit {
    */
   async getFastSearchLinks(facetName, behaviorSubject: BehaviorSubject<any>) {
     await this.assignBaseUrl();
-    const authorFilter: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
+    const searchFilter: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
       name: facetName,
       filterType: FilterType.text,
       hasFacets: false,
@@ -222,8 +222,8 @@ export class HomePageComponent implements OnInit {
         },
       },
     });
-    const authorFilterOptions: SearchOptions = new SearchOptions({configuration: 'default'});
-    this.searchService.getFacetValuesFor(authorFilter, 1, authorFilterOptions)
+    const searchOptions: SearchOptions = new SearchOptions({configuration: 'homepage'});
+    this.searchService.getFacetValuesFor(searchFilter, 1, searchOptions)
       .pipe(getFirstSucceededRemoteDataPayload())
       .subscribe(authorStats => {
         authorStats.page.forEach((facetValue: FacetValue) => {
