@@ -39,8 +39,7 @@ import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
 
-import { ngExpressEngine } from '@nguniversal/express-engine';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
+
 
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
@@ -55,6 +54,11 @@ import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
+import { CommonEngine } from '@angular/ssr';
+import { APP_BASE_HREF } from '@angular/common';
+import { REQUEST, RESPONSE } from './src/express.tokens';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 
 /*
@@ -88,6 +92,9 @@ export function app() {
    * Create a new express application
    */
   const server = express();
+  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
+  const browserDistFolder = resolve(serverDistFolder, '../browser');
+  const commonEngine = new CommonEngine();
 
   // Tell Express to trust X-FORWARDED-* headers from proxies
   // See https://expressjs.com/en/guide/behind-proxies.html
@@ -128,7 +135,7 @@ export function app() {
   server.use(json());
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine('html', (_, options, callback) =>
+/*  server.engine('html', (_, options, callback) =>
     ngExpressEngine({
       bootstrap,
       providers: [
@@ -146,7 +153,7 @@ export function app() {
         },
       ],
     })(_, (options as any), callback),
-  );
+  );*/
 
   server.engine('ejs', ejs.renderFile);
 
@@ -227,7 +234,12 @@ export function app() {
    * copy of the page (see cacheCheck())
    */
   router.get('*', cacheCheck, ngApp);
-
+  // All regular routes use the Angular engine
+  // server.get('*', (req, res, next) => {
+  //   const { protocol, originalUrl, baseUrl, headers } = req;
+  //
+  //
+  // });
   server.use(environment.ui.nameSpace, router);
 
   return server;
@@ -236,10 +248,10 @@ export function app() {
 /*
  * The callback function to serve server side angular
  */
-function ngApp(req, res) {
+function ngApp(req, res, next) {
   if (environment.universal.preboot) {
     // Render the page to user via SSR (server side rendering)
-    serverSideRender(req, res);
+    serverSideRender(req, res, next);
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct client-side rendering (CSR)');
@@ -255,9 +267,37 @@ function ngApp(req, res) {
  * @param sendToUser if true (default), send the rendered content to the user.
  * If false, then only save this rendered content to the in-memory cache (to refresh cache).
  */
-function serverSideRender(req, res, sendToUser: boolean = true) {
+function serverSideRender(req, res, next, sendToUser: boolean = true) {
+  const { protocol, originalUrl, baseUrl, headers } = req;
+  const commonEngine = new CommonEngine();
   // Render the page via SSR (server side rendering)
-  res.render(indexHtml, {
+  commonEngine
+    .render({
+      bootstrap,
+      documentFilePath: indexHtml,
+      url: `${protocol}://${headers.host}${originalUrl}`,
+      publicPath: DIST_FOLDER,
+      providers: [
+        { provide: APP_BASE_HREF, useValue: baseUrl },
+        {
+          provide: REQUEST,
+          useValue: req,
+        },
+        {
+          provide: RESPONSE,
+          useValue: res,
+        },
+        {
+          provide: APP_CONFIG,
+          useValue: environment,
+        },
+      ],
+    })
+    .then((html) => res.send(html))
+    .catch((err) => next(err));
+
+
+/*  res.render(indexHtml, {
     req,
     res,
     preboot: environment.universal.preboot,
@@ -290,7 +330,7 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
         clientSideRender(req, res);
       }
     }
-  });
+  });*/
 }
 
 /**
@@ -426,7 +466,7 @@ function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, r
       // Update cached copy by rerendering server-side
       // NOTE: In this scenario the currently cached copy will be returned to the current user.
       // This re-render is peformed behind the scenes to update cached copy for next user.
-      serverSideRender(req, res, false);
+      serverSideRender(req, res, null, false);
     }
   } else {
     if (environment.cache.serverSide.debug) { console.log(`CACHE MISS FOR ${key} in ${cacheName} cache.`); }
