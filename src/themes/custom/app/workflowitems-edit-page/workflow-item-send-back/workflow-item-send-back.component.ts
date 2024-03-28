@@ -7,7 +7,7 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { WorkflowItemSendBackComponent as BaseComponent } from '../../../../../app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
 
 @Component({
-  selector: 'ds-workflow-item-send-back',
+  selector: 'ds-themed-workflow-item-send-back',
   // NOTE: the SCSS file for workflow-item-action-page does not have a corresponding file in the original
   // implementation, so this commented out line below is a stub, here if you
   // need it, but you probably don't need it.

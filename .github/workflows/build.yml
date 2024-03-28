@@ -85,8 +85,14 @@ jobs:
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Build lint plugins
+        run: yarn run build:lint
+
+      - name: Run lint plugin tests
+        run: yarn run test:lint:nobuild
+
       - name: Run lint
-        run: yarn run lint --quiet
+        run: yarn run lint:nobuild --quiet
 
       - name: Check for circular dependencies
         run: yarn run check-circ-deps

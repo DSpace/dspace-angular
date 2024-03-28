@@ -22,10 +22,11 @@ import { BrowseByComponent } from './browse-by.component';
  * Themed wrapper for {@link BrowseByComponent}
  */
 @Component({
-  selector: 'ds-themed-browse-by',
+  selector: 'ds-browse-by',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
+  imports: [BrowseByComponent],
 })
 export class ThemedBrowseByComponent extends ThemedComponent<BrowseByComponent> {
 

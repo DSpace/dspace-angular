@@ -35,7 +35,7 @@ import { currentPath } from '../utils/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
 @Component({
-  selector: 'ds-search-form',
+  selector: 'ds-base-search-form',
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
   standalone: true,

@@ -1,4 +1,4 @@
-<ds-themed-loading *ngIf="(loading | async) || (isAuthenticated | async)" class="m-5"></ds-themed-loading>
+<ds-loading *ngIf="(loading | async) || (isAuthenticated | async)" class="m-5"></ds-loading>
 <div *ngIf="(loading | async) !== true && (isAuthenticated | async) !== true" class="px-4 py-3 mx-auto login-container">
   <ng-container *ngFor="let authMethod of (authMethods | async); let last = last">
     <ds-log-in-container [authMethod]="authMethod" [isStandalonePage]="isStandalonePage"></ds-log-in-container>

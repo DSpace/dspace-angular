@@ -9,17 +9,17 @@
         <img id="header-logo" src="assets/images/dspace-logo.svg" [attr.alt]="'menu.header.image.logo' | translate"/>
       </a>
       <nav *ngIf="(isMobile$ | async) !== true" class="navbar navbar-expand p-0 align-items-stretch align-self-stretch" id="desktop-navbar" [attr.aria-label]="'nav.main.description' | translate">
-        <ds-themed-navbar></ds-themed-navbar>
+        <ds-navbar></ds-navbar>
       </nav>
     </div>
     <!-- Search bar and other menus -->
     <div id="header-right" class="h-100 d-flex flex-row flex-nowrap justify-content-end align-items-center gapx-1 ml-auto">
-      <ds-themed-search-navbar></ds-themed-search-navbar>
+      <ds-search-navbar></ds-search-navbar>
       <div role="menubar" class="h-100 d-flex flex-row flex-nowrap align-items-center gapx-1">
-        <ds-themed-lang-switch></ds-themed-lang-switch>
+        <ds-lang-switch></ds-lang-switch>
         <ds-context-help-toggle></ds-context-help-toggle>
         <ds-impersonate-navbar></ds-impersonate-navbar>
-        <ds-themed-auth-nav-menu></ds-themed-auth-nav-menu>
+        <ds-auth-nav-menu></ds-auth-nav-menu>
       </div>
 
       <div id="mobile-navbar-toggler" class="d-block d-lg-none ml-3" *ngIf="(isMobile$ | async)">

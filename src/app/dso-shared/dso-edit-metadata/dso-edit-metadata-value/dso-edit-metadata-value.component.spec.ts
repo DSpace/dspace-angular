@@ -221,7 +221,7 @@ describe('DsoEditMetadataValueComponent', () => {
 
   it('should not show a badge', () => {
     expect(
-      fixture.debugElement.query(By.css('ds-themed-type-badge')),
+      fixture.debugElement.query(By.css('ds-type-badge')),
     ).toBeNull();
   });
 
@@ -289,7 +289,7 @@ describe('DsoEditMetadataValueComponent', () => {
 
     it('should show a badge', () => {
       expect(
-        fixture.debugElement.query(By.css('ds-themed-type-badge')),
+        fixture.debugElement.query(By.css('ds-type-badge')),
       ).toBeTruthy();
     });
 

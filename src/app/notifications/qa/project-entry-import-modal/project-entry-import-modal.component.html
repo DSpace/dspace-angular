@@ -38,7 +38,7 @@
     </div>
 
     <ds-loading *ngIf="(isLoading$ | async)" message="{{'loading.search-results' | translate}}"></ds-loading>
-    <ds-themed-search-results *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0 && (isLoading$ | async) !== true"
+    <ds-search-results *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0 && (isLoading$ | async) !== true"
                               [searchResults]="(localEntitiesRD$ | async)"
                               [sortConfig]="this.searchOptions?.sort"
                               [searchConfig]="this.searchOptions"
@@ -51,7 +51,7 @@
                               [context]="context"
                               (deselectObject)="deselectEntity()"
                               (selectObject)="selectEntity($event)">
-    </ds-themed-search-results>
+    </ds-search-results>
 
     <div *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length < 1 && (isLoading$ | async) !== true">
       <ds-alert [type]="'alert-info'">

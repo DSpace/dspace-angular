@@ -6,7 +6,7 @@
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
     <div *ngIf="item" @fadeInOut>
       <div class="d-flex">
-        <ds-themed-badges [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-themed-badges>
+        <ds-badges [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-badges>
       </div>
       <ds-truncatable [id]="item.id">
         <h3 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>

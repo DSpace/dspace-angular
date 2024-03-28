@@ -30,7 +30,7 @@ import {
 } from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
 
 @Component({
-  selector: 'ds-item-alerts',
+  selector: 'ds-base-item-alerts',
   templateUrl: './item-alerts.component.html',
   styleUrls: ['./item-alerts.component.scss'],
   imports: [

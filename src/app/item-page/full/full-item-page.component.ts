@@ -60,7 +60,7 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
  */
 
 @Component({
-  selector: 'ds-full-item-page',
+  selector: 'ds-base-full-item-page',
   styleUrls: ['./full-item-page.component.scss'],
   templateUrl: './full-item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -30,7 +30,7 @@ import {
  */
 
 @Component({
-  selector: 'ds-edit-collection-selector',
+  selector: 'ds-base-edit-collection-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
   imports: [NgIf, DSOSelectorComponent, TranslateModule],

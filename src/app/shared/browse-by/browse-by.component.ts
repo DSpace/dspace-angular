@@ -51,7 +51,7 @@ import { StartsWithType } from '../starts-with/starts-with-type';
 import { VarDirective } from '../utils/var.directive';
 
 @Component({
-  selector: 'ds-browse-by',
+  selector: 'ds-base-browse-by',
   styleUrls: ['./browse-by.component.scss'],
   templateUrl: './browse-by.component.html',
   animations: [

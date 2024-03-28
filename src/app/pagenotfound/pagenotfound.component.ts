@@ -13,7 +13,7 @@ import { ServerResponseService } from '../core/services/server-response.service'
  * This component representing the `PageNotFound` DSpace page.
  */
 @Component({
-  selector: 'ds-pagenotfound',
+  selector: 'ds-base-pagenotfound',
   styleUrls: ['./pagenotfound.component.scss'],
   templateUrl: './pagenotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,

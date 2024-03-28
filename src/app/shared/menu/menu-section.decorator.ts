@@ -1,7 +1,6 @@
-import { ExpandableNavbarSectionComponent } from 'src/app/navbar/expandable-navbar-section/expandable-navbar-section.component';
-
 import { AdminSidebarSectionComponent } from '../../admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from '../../admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
+import { ThemedExpandableNavbarSectionComponent } from '../../navbar/expandable-navbar-section/themed-expandable-navbar-section.component';
 import { NavbarSectionComponent } from '../../navbar/navbar-section/navbar-section.component';
 import { DsoEditMenuExpandableSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
 import { DsoEditMenuSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
@@ -20,7 +19,7 @@ menuComponentMap.set(MenuID.PUBLIC, new Map());
 menuComponentMap.get(MenuID.PUBLIC).set(false, new Map());
 menuComponentMap.get(MenuID.PUBLIC).get(false).set(DEFAULT_THEME, NavbarSectionComponent);
 menuComponentMap.get(MenuID.PUBLIC).set(true, new Map());
-menuComponentMap.get(MenuID.PUBLIC).get(true).set(DEFAULT_THEME, ExpandableNavbarSectionComponent);
+menuComponentMap.get(MenuID.PUBLIC).get(true).set(DEFAULT_THEME, ThemedExpandableNavbarSectionComponent);
 menuComponentMap.set(MenuID.DSO_EDIT, new Map());
 menuComponentMap.get(MenuID.DSO_EDIT).set(false, new Map());
 menuComponentMap.get(MenuID.DSO_EDIT).get(false).set(DEFAULT_THEME, DsoEditMenuSectionComponent);

@@ -29,7 +29,7 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 import { PersonInputSuggestionsComponent } from './person-suggestions/person-input-suggestions.component';
 
@@ -39,7 +39,7 @@ import { PersonInputSuggestionsComponent } from './person-suggestions/person-inp
   styleUrls: ['./person-search-result-list-submission-element.component.scss'],
   templateUrl: './person-search-result-list-submission-element.component.html',
   standalone: true,
-  imports: [NgIf, ThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, NgFor, AsyncPipe],
+  imports: [NgIf, ThemedThumbnailComponent, NgClass, PersonInputSuggestionsComponent, FormsModule, NgFor, AsyncPipe],
 })
 
 /**

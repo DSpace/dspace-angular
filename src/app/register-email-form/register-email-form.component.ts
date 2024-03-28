@@ -63,7 +63,7 @@ export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
 
 @Component({
-  selector: 'ds-register-email-form',
+  selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
   standalone: true,
   imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule],

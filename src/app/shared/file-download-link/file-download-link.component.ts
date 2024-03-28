@@ -32,7 +32,7 @@ import {
 } from '../empty.util';
 
 @Component({
-  selector: 'ds-file-download-link',
+  selector: 'ds-base-file-download-link',
   templateUrl: './file-download-link.component.html',
   styleUrls: ['./file-download-link.component.scss'],
   standalone: true,

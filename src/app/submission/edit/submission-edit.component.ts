@@ -45,7 +45,7 @@ import parseSectionErrors from '../utils/parseSectionErrors';
  * This component allows to edit an existing workspaceitem/workflowitem.
  */
 @Component({
-  selector: 'ds-submission-edit',
+  selector: 'ds-base-submission-edit',
   styleUrls: ['./submission-edit.component.scss'],
   templateUrl: './submission-edit.component.html',
   standalone: true,

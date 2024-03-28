@@ -17,7 +17,7 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
  * It expects the ID of the Community or Collection as input to be passed on as a scope
  */
 @Component({
-  selector: 'ds-object-list',
+  selector: 'ds-themed-object-list',
   // styleUrls: ['./object-list.component.scss'],
   styleUrls: ['../../../../../app/shared/object-list/object-list.component.scss'],
   // templateUrl: './object-list.component.html'

@@ -34,7 +34,7 @@ import { ErrorComponent } from '../../../shared/error/error.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
-  selector: 'ds-feedback-form',
+  selector: 'ds-base-feedback-form',
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
   standalone: true,

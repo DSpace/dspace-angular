@@ -1,4 +1,4 @@
-<ds-themed-home-news></ds-themed-home-news>
+<ds-home-news></ds-home-news>
 <div [ngClass]="appConfig.homePage.showDiscoverFilters ? 'container-fluid' : 'container'">
   <div class="row m-5">
     <div class="col-sm-3" *ngIf="appConfig.homePage.showDiscoverFilters">
@@ -9,9 +9,9 @@
       <ng-container *ngIf="(site$ | async) as site">
         <ds-view-tracker [object]="site"></ds-view-tracker>
       </ng-container>
-      <ds-themed-search-form [inPlaceSearch]="false"
-        [searchPlaceholder]="'home.search-form.placeholder' | translate"></ds-themed-search-form>
-      <ds-themed-top-level-community-list></ds-themed-top-level-community-list>
+      <ds-search-form [inPlaceSearch]="false"
+        [searchPlaceholder]="'home.search-form.placeholder' | translate"></ds-search-form>
+      <ds-top-level-community-list></ds-top-level-community-list>
       <ds-recent-item-list *ngIf="recentSubmissionspageSize>0"></ds-recent-item-list>
     </div>
     </div>

@@ -26,7 +26,7 @@ import { TruncatableComponent } from '../../../../../shared/truncatable/truncata
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { JournalVolumeSearchResultListElementComponent } from './journal-volume-search-result-list-element.component';
 
 let journalVolumeListElementComponent: JournalVolumeSearchResultListElementComponent;
@@ -103,7 +103,7 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
-          ThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent,
+          ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent,
         ],
       },
     }).compileComponents();
@@ -196,7 +196,7 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
-          ThumbnailComponent,
+          ThemedThumbnailComponent,
           ThemedBadgesComponent,
           TruncatableComponent,
           TruncatablePartComponent,

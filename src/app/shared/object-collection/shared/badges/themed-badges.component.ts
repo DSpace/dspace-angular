@@ -12,10 +12,11 @@ import { BadgesComponent } from './badges.component';
  * Themed wrapper for BadgesComponent
  */
 @Component({
-  selector: 'ds-themed-badges',
+  selector: 'ds-badges',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [BadgesComponent],
 })
 export class ThemedBadgesComponent extends ThemedComponent<BadgesComponent> {
   @Input() object: DSpaceObject;

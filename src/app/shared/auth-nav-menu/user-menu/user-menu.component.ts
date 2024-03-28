@@ -36,7 +36,7 @@ import { LogOutComponent } from '../../log-out/log-out.component';
  * This component represents the user nav menu.
  */
 @Component({
-  selector: 'ds-user-menu',
+  selector: 'ds-base-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],
   standalone: true,

@@ -8,7 +8,7 @@ import { ThemedCommunityListComponent } from './community-list/themed-community-
  * navigated to with community-list.page.routing.module
  */
 @Component({
-  selector: 'ds-community-list-page',
+  selector: 'ds-base-community-list-page',
   templateUrl: './community-list-page.component.html',
   standalone: true,
   imports: [ThemedCommunityListComponent, TranslateModule],

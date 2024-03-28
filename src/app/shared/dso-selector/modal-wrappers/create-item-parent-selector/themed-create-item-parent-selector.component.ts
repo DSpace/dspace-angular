@@ -10,10 +10,11 @@ import { CreateItemParentSelectorComponent } from './create-item-parent-selector
  * Themed wrapper for CreateItemParentSelectorComponent
  */
 @Component({
-  selector: 'ds-themed-create-item-parent-selector',
+  selector: 'ds-create-item-parent-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [CreateItemParentSelectorComponent],
 })
 export class ThemedCreateItemParentSelectorComponent
   extends ThemedComponent<CreateItemParentSelectorComponent> {

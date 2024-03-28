@@ -25,10 +25,11 @@ import {
  * Themed wrapper for SearchResultsComponent
  */
 @Component({
-  selector: 'ds-themed-search-results',
+  selector: 'ds-search-results',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
+  imports: [SearchResultsComponent],
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
 

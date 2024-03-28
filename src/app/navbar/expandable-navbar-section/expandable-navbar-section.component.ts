@@ -26,7 +26,7 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
  * Represents an expandable section in the navbar
  */
 @Component({
-  selector: 'ds-expandable-navbar-section',
+  selector: 'ds-base-expandable-navbar-section',
   templateUrl: './expandable-navbar-section.component.html',
   styleUrls: ['./expandable-navbar-section.component.scss'],
   animations: [slide],

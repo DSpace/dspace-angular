@@ -64,14 +64,14 @@ describe('ObjectCollectionComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).not.toBeNull();
-    expect(fixture.debugElement.query(By.css('ds-themed-object-list'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeNull();
   });
 
   it('should only show the list component when the viewmode is set to list', () => {
     objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
     fixture.detectChanges();
 
-    expect(fixture.debugElement.query(By.css('ds-themed-object-list'))).not.toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-object-list'))).not.toBeNull();
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();
   });
 
@@ -79,7 +79,7 @@ describe('ObjectCollectionComponent', () => {
     objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
     fixture.detectChanges();
 
-    const comp = fixture.debugElement.query(By.css('ds-themed-object-list'));
+    const comp = fixture.debugElement.query(By.css('ds-object-list'));
     expect(comp).not.toBeNull();
     expect(comp.nativeElement.classList).not.toContain('hide-placeholder-text');
   });

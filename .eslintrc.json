@@ -11,7 +11,10 @@
     "eslint-plugin-jsonc",
     "eslint-plugin-rxjs",
     "eslint-plugin-simple-import-sort",
-    "eslint-plugin-import-newlines"
+    "eslint-plugin-import-newlines",
+    "eslint-plugin-jsonc",
+    "dspace-angular-ts",
+    "dspace-angular-html"
   ],
   "overrides": [
     {
@@ -21,7 +24,8 @@
       "parserOptions": {
         "project": [
           "./tsconfig.json",
-          "./cypress/tsconfig.json"
+          "./cypress/tsconfig.json",
+          "./lint/tsconfig.json"
         ],
         "createDefaultProgram": true
       },
@@ -238,7 +242,12 @@
           "method"
         ],
 
-        "rxjs/no-nested-subscribe": "off"     // todo: go over _all_ cases
+        "rxjs/no-nested-subscribe": "off",     // todo: go over _all_ cases
+
+        // Custom DSpace Angular rules
+        "dspace-angular-ts/themed-component-classes": "error",
+        "dspace-angular-ts/themed-component-selectors": "error",
+        "dspace-angular-ts/themed-component-usages": "error"
       }
     },
     {
@@ -253,7 +262,10 @@
         "createDefaultProgram": true
       },
       "rules": {
-        "prefer-const": "off"
+        "prefer-const": "off",
+
+        // Custom DSpace Angular rules
+        "dspace-angular-ts/themed-component-usages": "error"
       }
     },
     {
@@ -262,7 +274,11 @@
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended"
-      ]
+      ],
+      "rules": {
+        // Custom DSpace Angular rules
+        "dspace-angular-html/themed-component-usages": "error"
+      }
     },
     {
       "files": [

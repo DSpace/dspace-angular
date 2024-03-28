@@ -15,7 +15,6 @@ import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
-import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
@@ -47,7 +46,6 @@ import {
     ComcolPageContentComponent,
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
-    BrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,

@@ -20,7 +20,7 @@ import { ThemedSearchFormComponent } from '../../../../../../../../../app/shared
 import { VarDirective } from '../../../../../../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-external-source-tab',
+  selector: 'ds-themed-dynamic-lookup-relation-external-source-tab',
   // styleUrls: ['./dynamic-lookup-relation-external-source-tab.component.scss'],
   styleUrls: ['../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component.scss'],
   // templateUrl: './dynamic-lookup-relation-external-source-tab.component.html',

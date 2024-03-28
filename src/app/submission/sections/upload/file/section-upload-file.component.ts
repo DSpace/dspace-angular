@@ -44,7 +44,7 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
  * This component represents a single bitstream contained in the submission
  */
 @Component({
-  selector: 'ds-submission-upload-section-file',
+  selector: 'ds-base-submission-upload-section-file',
   styleUrls: ['./section-upload-file.component.scss'],
   templateUrl: './section-upload-file.component.html',
   imports: [

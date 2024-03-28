@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
  * This component representing the `PageError` DSpace page.
  */
 @Component({
-  selector: 'ds-page-error',
+  selector: 'ds-base-page-error',
   styleUrls: ['./page-error.component.scss'],
   templateUrl: './page-error.component.html',
   changeDetection: ChangeDetectionStrategy.Default,

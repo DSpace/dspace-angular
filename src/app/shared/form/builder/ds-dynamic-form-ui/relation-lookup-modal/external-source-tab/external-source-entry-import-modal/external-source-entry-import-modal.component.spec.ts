@@ -21,7 +21,7 @@ import { NotificationsService } from '../../../../../../notifications/notificati
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
-import { SearchResultsComponent } from '../../../../../../search/search-results/search-results.component';
+import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import { createPaginatedList } from '../../../../../../testing/utils.test';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
 import {
@@ -97,7 +97,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ExternalSourceEntryImportModalComponent, {
-        remove: { imports: [SearchResultsComponent] },
+        remove: { imports: [ThemedSearchResultsComponent] },
       })
       .compileComponents();
   }));

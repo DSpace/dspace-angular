@@ -17,7 +17,7 @@ import { NotificationsBoardComponent } from '../../../../app/shared/notification
 import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-alert/alert-banner/system-wide-alert-banner.component';
 
 @Component({
-  selector: 'ds-root',
+  selector: 'ds-themed-root',
   // styleUrls: ['./root.component.scss'],
   styleUrls: ['../../../../app/root/root.component.scss'],
   // templateUrl: './root.component.html',

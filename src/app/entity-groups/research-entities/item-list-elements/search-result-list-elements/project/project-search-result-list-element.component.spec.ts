@@ -24,7 +24,7 @@ import { ThemeService } from '../../../../../shared/theme-support/theme.service'
 import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { ProjectSearchResultListElementComponent } from './project-search-result-list-element.component';
 
 let projectListElementComponent: ProjectSearchResultListElementComponent;
@@ -94,7 +94,7 @@ describe('ProjectSearchResultListElementComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
-      remove: { imports: [ThumbnailComponent, TruncatableComponent, ThemedBadgesComponent] },
+      remove: { imports: [ThemedThumbnailComponent, TruncatableComponent, ThemedBadgesComponent] },
     }).compileComponents();
   }));
 

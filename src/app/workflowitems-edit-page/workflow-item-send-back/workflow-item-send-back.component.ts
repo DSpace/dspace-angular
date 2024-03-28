@@ -22,7 +22,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.component';
 
 @Component({
-  selector: 'ds-workflow-item-send-back',
+  selector: 'ds-base-workflow-item-send-back',
   templateUrl: '../workflow-item-action-page.component.html',
   standalone: true,
   imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],

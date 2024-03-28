@@ -18,7 +18,6 @@ import {
   WidthCategory,
 } from '../shared/host-window.service';
 import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
-import { LangSwitchComponent } from '../shared/lang-switch/lang-switch.component';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
@@ -28,11 +27,11 @@ import { ContextHelpToggleComponent } from './context-help-toggle/context-help-t
  * Represents the header with the logo and simple navigation
  */
 @Component({
-  selector: 'ds-header',
+  selector: 'ds-base-header',
   styleUrls: ['header.component.scss'],
   templateUrl: 'header.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule, AsyncPipe, NgIf],
+  imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule, AsyncPipe, NgIf],
 })
 export class HeaderComponent implements OnInit {
   /**

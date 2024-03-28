@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
 import { LocaleService } from '../../core/locale/locale.service';
 
 @Component({
-  selector: 'ds-lang-switch',
+  selector: 'ds-base-lang-switch',
   styleUrls: ['lang-switch.component.scss'],
   templateUrl: 'lang-switch.component.html',
   standalone: true,

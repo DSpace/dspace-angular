@@ -10,7 +10,7 @@ import { BrowserOnlyPipe } from '../../../../app/shared/utils/browser-only.pipe'
 import { ClickOutsideDirective } from '../../../../app/shared/utils/click-outside.directive';
 
 @Component({
-  selector: 'ds-search-navbar',
+  selector: 'ds-themed-search-navbar',
   // styleUrls: ['./search-navbar.component.scss'],
   styleUrls: ['../../../../app/search-navbar/search-navbar.component.scss'],
   // templateUrl: './search-navbar.component.html'

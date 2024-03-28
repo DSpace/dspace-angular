@@ -9,7 +9,7 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { Item } from '../../../../../core/shared/item.model';
 
 @Component({
-  selector: 'ds-item-page-title-field',
+  selector: 'ds-base-item-page-title-field',
   templateUrl: './item-page-title-field.component.html',
   standalone: true,
   imports: [NgIf, TranslateModule],

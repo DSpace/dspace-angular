@@ -28,7 +28,7 @@ const MY_DSPACE_STATUS_CONTEXTS = [
  * Component that renders all the badges for a listable object
  */
 @Component({
-  selector: 'ds-badges',
+  selector: 'ds-base-badges',
   templateUrl: './badges.component.html',
   styleUrls: ['./badges.component.scss'],
   standalone: true,

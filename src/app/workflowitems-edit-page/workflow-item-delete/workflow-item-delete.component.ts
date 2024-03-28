@@ -26,7 +26,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.component';
 
 @Component({
-  selector: 'ds-workflow-item-delete',
+  selector: 'ds-base-workflow-item-delete',
   templateUrl: '../workflow-item-action-page.component.html',
   standalone: true,
   imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],

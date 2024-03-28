@@ -4,7 +4,7 @@
       <h1>{{'subscriptions.title' | translate}}</h1>
       <div class="row">
         <div class="col-md-12 m-40">
-          <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
+          <ds-loading *ngIf="loading$ | async"></ds-loading>
           <ng-container *ngVar="(subscriptions$ | async) as subscriptions">
 
             <ds-pagination *ngIf="subscriptions?.pageInfo?.totalElements > 0 && (loading$ | async) !== true"

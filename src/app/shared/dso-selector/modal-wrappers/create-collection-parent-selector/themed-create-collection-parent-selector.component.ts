@@ -7,10 +7,11 @@ import { CreateCollectionParentSelectorComponent } from './create-collection-par
  * Themed wrapper for CreateCollectionParentSelectorComponent
  */
 @Component({
-  selector: 'ds-themed-create-collection-parent-selector',
+  selector: 'ds-create-collection-parent-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [CreateCollectionParentSelectorComponent],
 })
 export class ThemedCreateCollectionParentSelectorComponent
   extends ThemedComponent<CreateCollectionParentSelectorComponent> {

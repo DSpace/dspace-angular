@@ -11,7 +11,7 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-deny-request-copy',
+  selector: 'ds-themed-deny-request-copy',
   // styleUrls: ['./deny-request-copy.component.scss'],
   styleUrls: [],
   // templateUrl: './deny-request-copy.component.html',

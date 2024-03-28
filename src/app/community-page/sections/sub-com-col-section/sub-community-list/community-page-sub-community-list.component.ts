@@ -35,7 +35,7 @@ import { PaginationComponentOptions } from '../../../../shared/pagination/pagina
 import { VarDirective } from '../../../../shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-community-page-sub-community-list',
+  selector: 'ds-base-community-page-sub-community-list',
   styleUrls: ['./community-page-sub-community-list.component.scss'],
   templateUrl: './community-page-sub-community-list.component.html',
   animations: [fadeIn],

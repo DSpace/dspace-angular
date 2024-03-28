@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EmailRequestCopyComponent as BaseComponent } from 'src/app/request-copy/email-request-copy/email-request-copy.component';
 
 @Component({
-  selector: 'ds-email-request-copy',
+  selector: 'ds-themed-email-request-copy',
   // styleUrls: ['./email-request-copy.component.scss'],
   styleUrls: [],
   // templateUrl: './email-request-copy.component.html',

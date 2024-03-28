@@ -58,7 +58,7 @@ import { ItemOperationComponent } from '../item-operation/item-operation.compone
 import { ItemOperation } from '../item-operation/itemOperation.model';
 
 @Component({
-  selector: 'ds-item-status',
+  selector: 'ds-base-item-status',
   templateUrl: './item-status.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [

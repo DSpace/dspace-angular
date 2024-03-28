@@ -7,7 +7,7 @@
     <div class="w-100">
       <div id="collapsingNav">
         <ng-container *ngIf="(isMobile$ | async) && (isAuthenticated$ | async)">
-          <ds-themed-user-menu [inExpandableNavbar]="true"></ds-themed-user-menu>
+          <ds-user-menu [inExpandableNavbar]="true"></ds-user-menu>
         </ng-container>
         <div class="navbar-nav align-items-md-center mr-auto shadow-none gapx-3">
           <ng-container *ngFor="let section of (sections | async)">

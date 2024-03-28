@@ -26,7 +26,7 @@ import {
  */
 
 @Component({
-  selector: 'ds-edit-item-selector',
+  selector: 'ds-base-edit-item-selector',
   templateUrl: 'edit-item-selector.component.html',
   standalone: true,
   imports: [NgIf, DSOSelectorComponent, TranslateModule],

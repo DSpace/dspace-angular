@@ -72,7 +72,7 @@ export interface CollectionListEntry {
 }
 
 @Component({
-  selector: 'ds-collection-dropdown',
+  selector: 'ds-base-collection-dropdown',
   templateUrl: './collection-dropdown.component.html',
   styleUrls: ['./collection-dropdown.component.scss'],
   standalone: true,

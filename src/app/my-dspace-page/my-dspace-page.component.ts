@@ -34,7 +34,7 @@ export const MYDSPACE_ROUTE = '/mydspace';
  * This component represents the whole mydspace page
  */
 @Component({
-  selector: 'ds-my-dspace-page',
+  selector: 'ds-base-my-dspace-page',
   styleUrls: ['./my-dspace-page.component.scss'],
   templateUrl: './my-dspace-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

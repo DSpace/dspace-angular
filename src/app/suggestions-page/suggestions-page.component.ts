@@ -52,7 +52,7 @@ import {
   SuggestionBulkResult,
   SuggestionsService,
 } from '../notifications/suggestions.service';
-import { LoadingComponent } from '../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
@@ -70,7 +70,7 @@ import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowit
     RouterLink,
     TranslateModule,
     SuggestionActionsComponent,
-    LoadingComponent,
+    ThemedLoadingComponent,
     PaginationComponent,
     SuggestionListElementComponent,
     NgForOf,

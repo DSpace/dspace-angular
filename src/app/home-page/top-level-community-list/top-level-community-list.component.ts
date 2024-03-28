@@ -42,7 +42,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
  * this component renders the Top-Level Community list
  */
 @Component({
-  selector: 'ds-top-level-community-list',
+  selector: 'ds-base-top-level-community-list',
   styleUrls: ['./top-level-community-list.component.scss'],
   templateUrl: './top-level-community-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -33,7 +33,7 @@ import {
  */
 
 @Component({
-  selector: 'ds-create-collection-parent-selector',
+  selector: 'ds-base-create-collection-parent-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
   imports: [NgIf, DSOSelectorComponent, TranslateModule],

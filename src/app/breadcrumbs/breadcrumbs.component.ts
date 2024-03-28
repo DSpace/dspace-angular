@@ -18,7 +18,7 @@ import { BreadcrumbsService } from './breadcrumbs.service';
  * Component representing the breadcrumbs of a page
  */
 @Component({
-  selector: 'ds-breadcrumbs',
+  selector: 'ds-base-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
   standalone: true,

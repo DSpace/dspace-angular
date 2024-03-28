@@ -19,7 +19,6 @@ import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navb
 import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-nav-menu.component';
 import { HostWindowService } from '../shared/host-window.service';
 import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
-import { LangSwitchComponent } from '../shared/lang-switch/lang-switch.component';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
@@ -60,7 +59,7 @@ describe('HeaderComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(HeaderComponent, {
-        remove: { imports: [ ThemedLangSwitchComponent, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent] },
+        remove: { imports: [ ThemedLangSwitchComponent, ThemedSearchNavbarComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent] },
       })
       .compileComponents();  // compile template and css
   }));

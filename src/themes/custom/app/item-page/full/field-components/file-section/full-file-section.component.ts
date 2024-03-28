@@ -15,7 +15,7 @@ import { VarDirective } from '../../../../../../../app/shared/utils/var.directiv
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
 
 @Component({
-  selector: 'ds-item-page-full-file-section',
+  selector: 'ds-themed-item-page-full-file-section',
   // styleUrls: ['./full-file-section.component.scss'],
   styleUrls: ['../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component.scss'],
   // templateUrl: './full-file-section.component.html',

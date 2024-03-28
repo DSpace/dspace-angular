@@ -7,7 +7,6 @@ import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submiss
 import { ItemFromWorkspaceResolver } from './item-from-workspace.resolver';
 import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
 import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
-import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/workspaceitems-delete-page.component';
 
 export const ROUTES: Route[] = [
   {
@@ -40,7 +39,7 @@ export const ROUTES: Route[] = [
       {
         canActivate: [AuthenticatedGuard],
         path: 'delete',
-        component: WorkspaceItemsDeletePageComponent,
+        component: ThemedWorkspaceItemsDeletePageComponent,
         resolve: {
           dso: ItemFromWorkspaceResolver,
           breadcrumb: I18nBreadcrumbResolver,

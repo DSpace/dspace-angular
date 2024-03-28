@@ -5,10 +5,11 @@ import { CommunityListComponent } from './community-list.component';
 
 
 @Component({
-  selector: 'ds-themed-community-list',
+  selector: 'ds-community-list',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [CommunityListComponent],
 })
 export class ThemedCommunityListComponent extends ThemedComponent<CommunityListComponent> {
   protected getComponentName(): string {

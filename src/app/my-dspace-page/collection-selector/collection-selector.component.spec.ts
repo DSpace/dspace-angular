@@ -2,7 +2,6 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
   ElementRef,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
@@ -129,14 +128,13 @@ describe('CollectionSelectorComponent', () => {
           },
         }),
         CollectionSelectorComponent,
-        // CollectionDropdownComponent,
+        CollectionDropdownComponent,
       ],
       providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceMock },
         { provide: ElementRef, useClass: MockElementRef },
         { provide: NgbActiveModal, useValue: modal },
         { provide: ActivatedRoute, useValue: {} },
-        { provide: CollectionDropdownComponent, useClass: CollectionDropdownStubComponent },
         ChangeDetectorRef,
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -153,7 +151,7 @@ describe('CollectionSelectorComponent', () => {
     scheduler = getTestScheduler();
     fixture = TestBed.overrideComponent(CollectionSelectorComponent, {
       set: {
-        template: '<ds-collection-dropdown (selectionChange)="selectObject($event)"></ds-collection-dropdown>',
+        template: '<ds-base-collection-dropdown (selectionChange)="selectObject($event)"></ds-base-collection-dropdown>',
       },
     }).createComponent(CollectionSelectorComponent);
     component = fixture.componentInstance;
@@ -180,19 +178,3 @@ describe('CollectionSelectorComponent', () => {
     expect((component as any).activeModal.close).toHaveBeenCalled();
   });
 });
-
-@Component({
-  selector: 'ds-collection-dropdown',
-  template: `
-    <li
-      (click)="test()"
-            class="dropdown-item collection-item"
-            title="test" >
-    </li>`,
-  standalone: true,
-})
-export class CollectionDropdownStubComponent {
-  test() {
-    return 'test';
-  }
-}

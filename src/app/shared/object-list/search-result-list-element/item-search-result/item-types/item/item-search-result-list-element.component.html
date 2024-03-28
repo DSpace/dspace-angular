@@ -12,7 +12,7 @@
   </div>
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
     <div class="d-flex">
-      <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context" [showAccessStatus]="true"></ds-themed-badges>
+      <ds-badges *ngIf="showLabel" [object]="dso" [context]="context" [showAccessStatus]="true"></ds-badges>
     </div>
 
     <ds-truncatable [id]="dso.id" *ngIf="object !== undefined && object !== null">

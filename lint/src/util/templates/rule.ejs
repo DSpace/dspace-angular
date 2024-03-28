@@ -1,0 +1,36 @@
+[DSpace ESLint plugins](../../../README.md) > [<%= plugin.language %> rules](../index.md) > `<%= plugin.name %>/<%= rule.name %>`
+_______
+
+<%- rule.meta.docs?.description %>
+
+_______
+
+[Source code](../../../src/rules/<%- plugin.name.replace('dspace-angular-', '') %>/<%- rule.name %>.ts)
+
+### Examples
+
+<% if (tests.valid) {%>
+#### Valid code
+    <% tests.valid.forEach(test => { %>
+        <% if (test.filename) { %>
+Filename: `<%- test.filename %>`
+        <% } %>
+```
+<%- test.code.trim() %>
+```
+    <% }) %>
+<% } %>
+
+<% if (tests.invalid) {%>
+#### Invalid code
+    <% tests.invalid.forEach(test => { %>
+
+        <% if (test.filename) { %>
+Filename: `<%- test.filename %>`
+        <% } %>
+```
+<%- test.code.trim() %>
+```
+
+    <% }) %>
+<% } %>

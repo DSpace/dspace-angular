@@ -29,7 +29,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
-  selector: 'ds-metadata-representation-list',
+  selector: 'ds-base-metadata-representation-list',
   templateUrl: './metadata-representation-list.component.html',
   standalone: true,
   imports: [MetadataFieldWrapperComponent, NgFor, VarDirective, MetadataRepresentationLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule],

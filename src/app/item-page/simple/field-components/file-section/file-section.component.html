@@ -1,15 +1,15 @@
 <ng-container *ngVar="(bitstreams$ | async) as bitstreams">
   <ds-metadata-field-wrapper *ngIf="bitstreams?.length > 0" [label]="label | translate">
     <div class="file-section">
-      <ds-themed-file-download-link *ngFor="let file of bitstreams; let last=last;" [bitstream]="file" [item]="item">
+      <ds-file-download-link *ngFor="let file of bitstreams; let last=last;" [bitstream]="file" [item]="item">
         <span>
           <span *ngIf="primaryBitsreamId === file.id" class="badge badge-primary">{{ 'item.page.bitstreams.primary' | translate }}</span> 
           {{ dsoNameService.getName(file) }}
         </span>
         <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
         <span *ngIf="!last" innerHTML="{{separator}}"></span>
-      </ds-themed-file-download-link>
-      <ds-themed-loading *ngIf="isLoading" message="{{'loading.default' | translate}}" [showMessage]="false"></ds-themed-loading>
+      </ds-file-download-link>
+      <ds-loading *ngIf="isLoading" message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>
       <div *ngIf="!isLastPage" class="mt-1" id="view-more">
         <button class="bitstream-view-more btn btn-outline-secondary btn-sm" (click)="getNextPage()">{{'item.page.bitstreams.view-more' | translate}}</button>
       </div>

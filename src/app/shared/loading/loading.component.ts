@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { hasValue } from '../empty.util';
 
 @Component({
-  selector: 'ds-loading',
+  selector: 'ds-base-loading',
   styleUrls: ['./loading.component.scss'],
   templateUrl: './loading.component.html',
   standalone: true,
