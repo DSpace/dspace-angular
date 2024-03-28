@@ -6,7 +6,7 @@ import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
 
 describe('WorkflowItemPageResolver', () => {
   describe('resolve', () => {
-    let resolver: WorkspaceItemPageResolver;
+    let resolver: any;
     let wsiService: WorkspaceitemDataService;
     const uuid = '1234-65487-12354-1235';
 
@@ -14,11 +14,11 @@ describe('WorkflowItemPageResolver', () => {
       wsiService = {
         findById: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       } as any;
-      resolver = new WorkspaceItemPageResolver(wsiService);
+      resolver = WorkspaceItemPageResolver;
     });
 
     it('should resolve a workspace item with the correct id', (done) => {
-      resolver.resolve({ params: { id: uuid } } as any, undefined)
+      resolver({ params: { id: uuid } } as any, undefined, wsiService)
         .pipe(first())
         .subscribe(
           (resolved) => {

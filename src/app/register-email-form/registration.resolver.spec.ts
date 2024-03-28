@@ -6,7 +6,7 @@ import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { RegistrationResolver } from './registration.resolver';
 
 describe('RegistrationResolver', () => {
-  let resolver: RegistrationResolver;
+  let resolver: any;
   let epersonRegistrationService: EpersonRegistrationService;
 
   const token = 'test-token';
@@ -16,11 +16,11 @@ describe('RegistrationResolver', () => {
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
       searchByToken: createSuccessfulRemoteDataObject$(registration),
     });
-    resolver = new RegistrationResolver(epersonRegistrationService);
+    resolver = RegistrationResolver;
   });
   describe('resolve', () => {
     it('should resolve a registration based on the token', (done) => {
-      resolver.resolve({ params: { token: token } } as any, undefined)
+      resolver({ params: { token: token } } as any, undefined, epersonRegistrationService)
         .pipe(first())
         .subscribe(
           (resolved) => {
