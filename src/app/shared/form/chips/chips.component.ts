@@ -106,8 +106,8 @@ export class ChipsComponent implements OnChanges {
   }
 
   onDrop(event: CdkDragDrop<ChipsItem[]>) {
-    console.log('onDrop', event);
     moveItemInArray(this.chips.chipsItems.getValue(), event.previousIndex, event.currentIndex);
+    this.dragged = -1;
     this.chips.updateOrder();
     this.isDragging.next(false);
   }
