@@ -28,7 +28,7 @@ function lazyEJS(path: string, data: object) {
   return templates.get(path)(data);
 }
 
-const docsDir = join('lint', 'docs');
+const docsDir = join('docs', 'lint');
 const tsDir = join(docsDir, 'ts');
 const htmlDir = join(docsDir, 'html');
 

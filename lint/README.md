@@ -5,8 +5,8 @@ Custom ESLint rules for DSpace Angular peculiarities.
 ## Documentation
 
 The rules are split up into plugins by language:
-- [TypeScript rules](./docs/ts/index.md)
-- [HTML rules](./docs/html/index.md)
+- [TypeScript rules](../docs/lint/ts/index.md)
+- [HTML rules](../docs/lint/html/index.md)
 
 > Run `yarn docs:lint` to generate this documentation!
 
