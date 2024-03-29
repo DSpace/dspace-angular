@@ -1,6 +1,6 @@
 {
   "name": "dspace-angular",
-  "version": "2023.02.03",
+  "version": "2023.02.04-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "config:watch": "nodemon",
