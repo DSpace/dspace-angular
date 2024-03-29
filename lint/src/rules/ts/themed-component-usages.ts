@@ -242,7 +242,7 @@ export class Something {
       filename: fixture('src/app/test/test.component.spec.ts'),
       code: `
 By.css('ds-themeable');
-By.Css('#test > ds-themeable > #nest');
+By.css('#test > ds-themeable > #nest');
         `,
     },
     {
@@ -250,7 +250,7 @@ By.Css('#test > ds-themeable > #nest');
       filename: fixture('src/app/test/test.component.cy.ts'),
       code: `
 By.css('ds-themeable');
-By.Css('#test > ds-themeable > #nest');
+By.css('#test > ds-themeable > #nest');
         `,
     },
   ],

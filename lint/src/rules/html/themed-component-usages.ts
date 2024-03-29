@@ -93,6 +93,7 @@ export const tests = {
   plugin: info.name,
   valid: [
     {
+      name: 'use no-prefix selectors in HTML templates',
       code: `
 <ds-test-themeable/>
 <ds-test-themeable></ds-test-themeable>
@@ -100,6 +101,7 @@ export const tests = {
         `,
     },
     {
+      name: 'use no-prefix selectors in TypeScript templates',
       code: `
 @Component({
   template: '<ds-test-themeable></ds-test-themeable>'
@@ -109,6 +111,7 @@ class Test {
         `,
     },
     {
+      name: 'use no-prefix selectors in TypeScript test templates',
       filename: fixture('src/test.spec.ts'),
       code: `
 @Component({
@@ -119,6 +122,7 @@ class Test {
         `,
     },
     {
+      name: 'base selectors are also allowed in TypeScript test templates',
       filename: fixture('src/test.spec.ts'),
       code: `
 @Component({
@@ -131,6 +135,7 @@ class Test {
   ],
   invalid: [
     {
+      name: 'themed override selectors are not allowed in HTML templates',
       code: `
 <ds-themed-test-themeable/>
 <ds-themed-test-themeable></ds-themed-test-themeable>
@@ -154,6 +159,7 @@ class Test {
         `,
     },
     {
+      name: 'base selectors are not allowed in HTML templates',
       code: `
 <ds-base-test-themeable/>
 <ds-base-test-themeable></ds-base-test-themeable>

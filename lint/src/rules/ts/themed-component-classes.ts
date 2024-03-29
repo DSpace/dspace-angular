@@ -45,7 +45,7 @@ export const info = {
     messages: {
       [Message.NOT_STANDALONE]: 'Themeable components must be standalone',
       [Message.NOT_STANDALONE_IMPORTS_BASE]: 'Themeable component wrapper classes must be standalone and import the base class',
-      [Message.WRAPPER_IMPORTS_BASE]: 'Themed component wrapper classes must import the base class',
+      [Message.WRAPPER_IMPORTS_BASE]: 'Themed component wrapper classes must only import the base class',
     },
   },
   defaultOptions: [],

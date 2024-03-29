@@ -48,8 +48,8 @@ Unit tests are exempt from this rule, because they may redefine components using
     schema: [],
     fixable: 'code',
     messages: {
-      [Message.BASE]: 'Unthemed version of themeable components should have a selector starting with \'ds-base-\'',
-      [Message.WRAPPER]: 'Themed component wrapper of themeable components shouldn\'t have a selector starting with \'ds-themed-\'',
+      [Message.BASE]: 'Unthemed version of themeable component should have a selector starting with \'ds-base-\'',
+      [Message.WRAPPER]: 'Themed component wrapper of themeable component shouldn\'t have a selector starting with \'ds-themed-\'',
       [Message.THEMED]: 'Theme override of themeable component should have a selector starting with \'ds-themed-\'',
     },
   },
