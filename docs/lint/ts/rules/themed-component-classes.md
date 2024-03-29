@@ -3,6 +3,10 @@ _______
 
 Formatting rules for themeable component classes
 
+- All themeable components must be standalone.
+- The base component must always be imported in the `ThemedComponent` wrapper. This ensures that it is always sufficient to import just the wrapper whenever we use the component.
+      
+
 _______
 
 [Source code](../../../../lint/src/rules/ts/themed-component-classes.ts)

@@ -37,7 +37,11 @@ export const info = {
   name: 'themed-component-classes',
   meta: {
     docs: {
-      description: `Formatting rules for themeable component classes`,
+      description: `Formatting rules for themeable component classes
+
+- All themeable components must be standalone.
+- The base component must always be imported in the \`ThemedComponent\` wrapper. This ensures that it is always sufficient to import just the wrapper whenever we use the component.
+      `,
     },
     type: 'problem',
     fixable: 'code',
