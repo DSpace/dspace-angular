@@ -10,7 +10,7 @@ import { CreateCollectionPageGuard } from './create-collection-page.guard';
 
 describe('CreateCollectionPageGuard', () => {
   describe('canActivate', () => {
-    let guard: CreateCollectionPageGuard;
+    let guard: any;
     let router;
     let communityDataServiceStub: any;
 
@@ -28,11 +28,11 @@ describe('CreateCollectionPageGuard', () => {
       };
       router = new RouterMock();
 
-      guard = new CreateCollectionPageGuard(router, communityDataServiceStub);
+      guard = CreateCollectionPageGuard;
     });
 
     it('should return true when the parent ID resolves to a community', () => {
-      guard.canActivate({ queryParams: { parent: 'valid-id' } } as any, undefined)
+      guard({ queryParams: { parent: 'valid-id' } } as any, undefined, communityDataServiceStub, router)
         .pipe(first())
         .subscribe(
           (canActivate) =>
@@ -41,7 +41,7 @@ describe('CreateCollectionPageGuard', () => {
     });
 
     it('should return false when no parent ID has been provided', () => {
-      guard.canActivate({ queryParams: { } } as any, undefined)
+      guard({ queryParams: { } } as any, undefined, communityDataServiceStub, router)
         .pipe(first())
         .subscribe(
           (canActivate) =>
@@ -50,7 +50,7 @@ describe('CreateCollectionPageGuard', () => {
     });
 
     it('should return false when the parent ID does not resolve to a community', () => {
-      guard.canActivate({ queryParams: { parent: 'invalid-id' } } as any, undefined)
+      guard({ queryParams: { parent: 'invalid-id' } } as any, undefined, communityDataServiceStub, router)
         .pipe(first())
         .subscribe(
           (canActivate) =>
@@ -59,7 +59,7 @@ describe('CreateCollectionPageGuard', () => {
     });
 
     it('should return false when the parent ID resolves to an error response', () => {
-      guard.canActivate({ queryParams: { parent: 'error-id' } } as any, undefined)
+      guard({ queryParams: { parent: 'error-id' } } as any, undefined, communityDataServiceStub, router)
         .pipe(first())
         .subscribe(
           (canActivate) =>

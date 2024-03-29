@@ -5,14 +5,14 @@ import { DefaultAppConfig } from '../../../config/default-app-config';
 import { ReloadGuard } from './reload.guard';
 
 describe('ReloadGuard', () => {
-  let guard: ReloadGuard;
+  let guard: any;
   let router: Router;
   let appConfig: AppConfig;
 
   beforeEach(() => {
     router = jasmine.createSpyObj('router', ['parseUrl', 'createUrlTree']);
     appConfig = new DefaultAppConfig();
-    guard = new ReloadGuard(router, appConfig);
+    guard = ReloadGuard;
   });
 
   describe('canActivate', () => {
@@ -31,7 +31,7 @@ describe('ReloadGuard', () => {
       });
 
       it('should create a UrlTree with the redirect URL', () => {
-        guard.canActivate(route, undefined);
+        guard(route, undefined, appConfig, router);
         expect(router.parseUrl).toHaveBeenCalledWith(redirectUrl.substring(1));
       });
     });
@@ -44,7 +44,7 @@ describe('ReloadGuard', () => {
       });
 
       it('should create a UrlTree to home', () => {
-        guard.canActivate(route, undefined);
+        guard(route, undefined, appConfig, router);
         expect(router.createUrlTree).toHaveBeenCalledWith(['home']);
       });
     });
