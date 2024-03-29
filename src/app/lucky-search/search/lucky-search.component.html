@@ -29,3 +29,18 @@
     </div>
   </div>
 </div>
+
+<div class="w-100" *ngIf="(bitstreamFilters$ | async)?.length">
+    <div *ngFor="let attachment of (bitstreams$ | async)" class="mb-3 mx-auto" [style.width]="'33%'">
+      <ds-truncatable [id]="attachment.id">
+        <ds-file-download-link [bitstream]="attachment" [enableRequestACopy]="true" [item]="(item$ | async)" [showIcon]="true">
+          <span data-test="title" *ngIf="fileName(attachment)">
+            {{fileName(attachment)}} ({{getSize(attachment) | dsFileSize}})
+          </span>
+        </ds-file-download-link>
+        <ds-truncatable-part [id]="attachment.id" [minLines]="1">
+          <span *ngIf="getDescription(attachment)" data-test="description">{{getDescription(attachment)}}</span>
+        </ds-truncatable-part>
+      </ds-truncatable>
+    </div>
+</div>

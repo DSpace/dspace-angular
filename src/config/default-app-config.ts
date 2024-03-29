@@ -337,7 +337,12 @@ export class DefaultAppConfig implements AppConfig {
       // Rounded to the nearest size in the list of selectable sizes on the
       // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
       pageSize: 5
-    }
+    },
+    // The maximum number of metadata values to add to the metatag list of the item page
+    metatagLimit: 20,
+
+    // The maximum number of values for repeatable metadata to show in the full item
+    metadataLimit: 20
   };
 
   // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
