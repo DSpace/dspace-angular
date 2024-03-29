@@ -19,6 +19,7 @@ import { BitstreamDataService, MetadataFilter } from '../../core/data/bitstream-
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 
 describe('SearchComponent', () => {
   let fixture: ComponentFixture<LuckySearchComponent>;
@@ -67,7 +68,7 @@ describe('SearchComponent', () => {
   const routerStub = new RouterMock();
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LuckySearchComponent],
+      declarations: [LuckySearchComponent, FileSizePipe],
       imports: [TranslateModule.forRoot()],
       providers: [
         {provide: Router, useValue: routerStub},
@@ -187,7 +188,7 @@ describe('SearchComponent', () => {
       });
       const data = createSuccessfulRemoteDataObject(createPaginatedList([firstSearchResult]));
       const metadataFilters = [{ metadataName: 'dc.title', metadataValue: 'test.pdf' }] as MetadataFilter[];
-      component.bitstreamFilters = metadataFilters;
+      component.bitstreamFilters$.next(metadataFilters);
       bitstreamDataService.findByItem.withArgs(itemUUID, 'ORIGINAL', metadataFilters, {})
         .and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([bitstream])));
 
