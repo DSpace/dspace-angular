@@ -126,6 +126,8 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
         return 'fa fa-wallet';
       case 'project':
         return 'fas fa-wallet';
+      case 'patent':
+        return 'fas fa-file';
       case 'education':
         return 'fas fa-school';
       case 'affiliation':
