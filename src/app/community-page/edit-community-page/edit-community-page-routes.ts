@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { CommunityAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
@@ -25,7 +28,7 @@ export const ROUTES: Route[] = [
     },
     data: { breadcrumbKey: 'community.edit' },
     component: EditCommunityPageComponent,
-    canActivate: [CommunityAdministratorGuard],
+    canActivate: mapToCanActivate([CommunityAdministratorGuard]),
     children: [
       {
         path: '',

@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { EndUserAgreementCookieGuard } from '../core/end-user-agreement/end-user-agreement-cookie.guard';
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
@@ -17,7 +20,7 @@ export const ROUTES: Route[] = [
     component: ThemedCreateProfileComponent,
     canActivate: [
       RegistrationGuard,
-      EndUserAgreementCookieGuard,
+      ...mapToCanActivate([EndUserAgreementCookieGuard]),
     ],
   },
 ];

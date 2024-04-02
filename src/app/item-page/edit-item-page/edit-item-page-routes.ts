@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
@@ -69,31 +72,31 @@ export const ROUTES: Route[] = [
             path: 'status',
             component: ThemedItemStatusComponent,
             data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true },
-            canActivate: [ItemPageStatusGuard],
+            canActivate: mapToCanActivate([ItemPageStatusGuard]),
           },
           {
             path: 'bitstreams',
             component: ItemBitstreamsComponent,
             data: { title: 'item.edit.tabs.bitstreams.title', showBreadcrumbs: true },
-            canActivate: [ItemPageBitstreamsGuard],
+            canActivate: mapToCanActivate([ItemPageBitstreamsGuard]),
           },
           {
             path: 'metadata',
             component: ThemedDsoEditMetadataComponent,
             data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
-            canActivate: [ItemPageMetadataGuard],
+            canActivate: mapToCanActivate([ItemPageMetadataGuard]),
           },
           {
             path: 'curate',
             component: ItemCurateComponent,
             data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true },
-            canActivate: [ItemPageCurateGuard],
+            canActivate: mapToCanActivate([ItemPageCurateGuard]),
           },
           {
             path: 'relationships',
             component: ItemRelationshipsComponent,
             data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true },
-            canActivate: [ItemPageRelationshipsGuard],
+            canActivate: mapToCanActivate([ItemPageRelationshipsGuard]),
           },
           /* TODO - uncomment & fix when view page exists
           {
@@ -111,19 +114,19 @@ export const ROUTES: Route[] = [
             path: 'versionhistory',
             component: ItemVersionHistoryComponent,
             data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true },
-            canActivate: [ItemPageVersionHistoryGuard],
+            canActivate: mapToCanActivate([ItemPageVersionHistoryGuard]),
           },
           {
             path: 'access-control',
             component: ItemAccessControlComponent,
             data: { title: 'item.edit.tabs.access-control.title', showBreadcrumbs: true },
-            canActivate: [ItemPageAccessControlGuard],
+            canActivate: mapToCanActivate([ItemPageAccessControlGuard]),
           },
           {
             path: 'mapper',
             component: ItemCollectionMapperComponent,
             data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
-            canActivate: [ItemPageCollectionMapperGuard],
+            canActivate: mapToCanActivate([ItemPageCollectionMapperGuard]),
           },
         ],
       },
@@ -134,12 +137,12 @@ export const ROUTES: Route[] = [
       {
         path: ITEM_EDIT_WITHDRAW_PATH,
         component: ItemWithdrawComponent,
-        canActivate: [ItemPageWithdrawGuard],
+        canActivate: mapToCanActivate([ItemPageWithdrawGuard]),
       },
       {
         path: ITEM_EDIT_REINSTATE_PATH,
         component: ItemReinstateComponent,
-        canActivate: [ItemPageReinstateGuard],
+        canActivate: mapToCanActivate([ItemPageReinstateGuard]),
       },
       {
         path: ITEM_EDIT_PRIVATE_PATH,
@@ -161,7 +164,7 @@ export const ROUTES: Route[] = [
       {
         path: ITEM_EDIT_REGISTER_DOI_PATH,
         component: ItemRegisterDoiComponent,
-        canActivate: [ItemPageRegisterDoiGuard],
+        canActivate: mapToCanActivate([ItemPageRegisterDoiGuard]),
         data: { title: 'item.edit.register-doi.title' },
       },
       {

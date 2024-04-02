@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { CollectionAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
@@ -27,7 +30,7 @@ export const ROUTES: Route[] = [
     },
     data: { breadcrumbKey: 'collection.edit' },
     component: EditCollectionPageComponent,
-    canActivate: [CollectionAdministratorGuard],
+    canActivate: mapToCanActivate([CollectionAdministratorGuard]),
     children: [
       {
         path: '',

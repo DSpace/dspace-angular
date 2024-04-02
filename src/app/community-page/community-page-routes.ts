@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { BrowseByGuard } from '../browse-by/browse-by-guard';
 import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
@@ -41,7 +44,7 @@ export const ROUTES: Route[] = [
         path: COMMUNITY_EDIT_PATH,
         loadChildren: () => import('./edit-community-page/edit-community-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [CommunityPageAdministratorGuard],
+        canActivate: mapToCanActivate([CommunityPageAdministratorGuard]),
       },
       {
         path: 'delete',

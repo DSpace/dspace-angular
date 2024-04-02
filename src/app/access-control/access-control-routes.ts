@@ -1,5 +1,8 @@
 import { AbstractControl } from '@angular/forms';
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 import {
   DYNAMIC_ERROR_MESSAGES_MATCHER,
   DynamicErrorMessagesMatcher,
@@ -43,7 +46,7 @@ export const ROUTES: Route[] = [
     },
     providers,
     data: { title: 'admin.access-control.epeople.title', breadcrumbKey: 'admin.access-control.epeople' },
-    canActivate: [SiteAdministratorGuard],
+    canActivate: mapToCanActivate([SiteAdministratorGuard]),
   },
   {
     path: `${EPERSON_PATH}/create`,
@@ -53,7 +56,7 @@ export const ROUTES: Route[] = [
     },
     providers,
     data: { title: 'admin.access-control.epeople.add.title', breadcrumbKey: 'admin.access-control.epeople.add' },
-    canActivate: [SiteAdministratorGuard],
+    canActivate: mapToCanActivate([SiteAdministratorGuard]),
   },
   {
     path: `${EPERSON_PATH}/:id/edit`,
@@ -64,7 +67,7 @@ export const ROUTES: Route[] = [
     },
     providers,
     data: { title: 'admin.access-control.epeople.edit.title', breadcrumbKey: 'admin.access-control.epeople.edit' },
-    canActivate: [SiteAdministratorGuard],
+    canActivate: mapToCanActivate([SiteAdministratorGuard]),
   },
   {
     path: GROUP_PATH,
@@ -74,7 +77,7 @@ export const ROUTES: Route[] = [
     },
     providers,
     data: { title: 'admin.access-control.groups.title', breadcrumbKey: 'admin.access-control.groups' },
-    canActivate: [GroupAdministratorGuard],
+    canActivate: mapToCanActivate([GroupAdministratorGuard]),
   },
   {
     path: `${GROUP_PATH}/create`,
@@ -87,7 +90,7 @@ export const ROUTES: Route[] = [
       title: 'admin.access-control.groups.title.addGroup',
       breadcrumbKey: 'admin.access-control.groups.addGroup',
     },
-    canActivate: [GroupAdministratorGuard],
+    canActivate: mapToCanActivate([GroupAdministratorGuard]),
   },
   {
     path: `${GROUP_PATH}/:groupId/edit`,
@@ -100,7 +103,7 @@ export const ROUTES: Route[] = [
       title: 'admin.access-control.groups.title.singleGroup',
       breadcrumbKey: 'admin.access-control.groups.singleGroup',
     },
-    canActivate: [GroupPageGuard],
+    canActivate: mapToCanActivate([GroupPageGuard]),
   },
   {
     path: 'bulk-access',
@@ -109,6 +112,6 @@ export const ROUTES: Route[] = [
       breadcrumb: I18nBreadcrumbResolver,
     },
     data: { title: 'admin.access-control.bulk-access.title', breadcrumbKey: 'admin.access-control.bulk-access' },
-    canActivate: [SiteAdministratorGuard],
+    canActivate: mapToCanActivate([SiteAdministratorGuard]),
   },
 ];

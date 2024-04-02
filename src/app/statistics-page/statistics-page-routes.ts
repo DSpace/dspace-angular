@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { CollectionPageResolver } from '../collection-page/collection-page.resolver';
 import { CommunityPageResolver } from '../community-page/community-page.resolver';
@@ -26,7 +29,7 @@ export const ROUTES: Route[] = [
         component: ThemedSiteStatisticsPageComponent,
       },
     ],
-    canActivate: [StatisticsAdministratorGuard],
+    canActivate: mapToCanActivate([StatisticsAdministratorGuard]),
   },
   {
     path: `items/:id`,
@@ -39,7 +42,7 @@ export const ROUTES: Route[] = [
       breadcrumbKey: 'statistics',
     },
     component: ThemedItemStatisticsPageComponent,
-    canActivate: [StatisticsAdministratorGuard],
+    canActivate: mapToCanActivate([StatisticsAdministratorGuard]),
   },
   {
     path: `collections/:id`,
@@ -52,7 +55,7 @@ export const ROUTES: Route[] = [
       breadcrumbKey: 'statistics',
     },
     component: ThemedCollectionStatisticsPageComponent,
-    canActivate: [StatisticsAdministratorGuard],
+    canActivate: mapToCanActivate([StatisticsAdministratorGuard]),
   },
   {
     path: `communities/:id`,
@@ -65,6 +68,6 @@ export const ROUTES: Route[] = [
       breadcrumbKey: 'statistics',
     },
     component: ThemedCommunityStatisticsPageComponent,
-    canActivate: [StatisticsAdministratorGuard],
+    canActivate: mapToCanActivate([StatisticsAdministratorGuard]),
   },
 ];

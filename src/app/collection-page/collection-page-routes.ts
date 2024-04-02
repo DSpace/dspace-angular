@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { BrowseByGuard } from '../browse-by/browse-by-guard';
 import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
@@ -44,7 +47,7 @@ export const ROUTES: Route[] = [
         path: COLLECTION_EDIT_PATH,
         loadChildren: () => import('./edit-collection-page/edit-collection-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [CollectionPageAdministratorGuard],
+        canActivate: mapToCanActivate([CollectionPageAdministratorGuard]),
       },
       {
         path: 'delete',

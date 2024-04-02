@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
@@ -57,7 +60,7 @@ export const ROUTES: Route[] = [
       {
         path: ORCID_PATH,
         component: OrcidPageComponent,
-        canActivate: [AuthenticatedGuard, OrcidPageGuard],
+        canActivate: [AuthenticatedGuard, ...mapToCanActivate([OrcidPageGuard])],
       },
     ],
     data: {

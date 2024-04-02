@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
@@ -12,7 +15,7 @@ export const ROUTES: Route[] = [
       breadcrumbKey: 'health',
       title: 'health-page.title',
     },
-    canActivate: [SiteAdministratorGuard],
+    canActivate: mapToCanActivate([SiteAdministratorGuard]),
     component: HealthPageComponent,
   },
 ];
