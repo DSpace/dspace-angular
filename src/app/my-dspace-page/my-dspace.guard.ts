@@ -28,19 +28,21 @@ export const MyDSpaceGuard: CanActivateFn = (
 ): Observable<boolean> => {
   return configurationService.getAvailableConfigurationTypes().pipe(
     first(),
-    map((configurationList) => validateConfigurationParam(route.queryParamMap.get('configuration'), configurationList)));
+    map((configurationList) => validateConfigurationParam(router, route.queryParamMap.get('configuration'), configurationList)));
 };
 
 /**
  * Check if the given configuration is present in the list of those available
  *
+ * @param router
+ *    the service router
  * @param configuration
  *    the configuration to validate
  * @param configurationList
  *    the list of available configuration
  *
  */
-function validateConfigurationParam(configuration: string, configurationList: MyDSpaceConfigurationValueType[]): boolean {
+function validateConfigurationParam(router: Router, configuration: string, configurationList: MyDSpaceConfigurationValueType[]): boolean {
   const configurationDefault: string = configurationList[0];
   if (isEmpty(configuration) || !configurationList.includes(configuration as MyDSpaceConfigurationValueType)) {
     // If configuration param is empty or is not included in available configurations redirect to a default configuration value
@@ -48,7 +50,7 @@ function validateConfigurationParam(configuration: string, configurationList: My
       queryParams: { configuration: configurationDefault },
     };
 
-    this.router.navigate([MYDSPACE_ROUTE], navigationExtras);
+    router.navigate([MYDSPACE_ROUTE], navigationExtras);
     return false;
   } else {
     return true;
