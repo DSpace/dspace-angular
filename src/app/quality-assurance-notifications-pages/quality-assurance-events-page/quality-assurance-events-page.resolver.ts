@@ -19,7 +19,7 @@ export interface AssuranceEventsPageParams {
  * @param {RouterStateSnapshot} state The current RouterStateSnapshot
  * @returns AdminQualityAssuranceEventsPageParams Emits the route parameters
  */
-export const ItemResolver: ResolveFn<AssuranceEventsPageParams> = (
+export const QualityAssuranceEventsPageResolver: ResolveFn<AssuranceEventsPageParams> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
 ): AssuranceEventsPageParams => {
