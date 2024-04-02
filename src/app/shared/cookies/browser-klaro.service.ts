@@ -352,7 +352,7 @@ export class BrowserKlaroService extends KlaroService {
         },
         error: (err) => {
           console.error('Error updating user settings', err);
-        }
+        },
       });
   }
 
