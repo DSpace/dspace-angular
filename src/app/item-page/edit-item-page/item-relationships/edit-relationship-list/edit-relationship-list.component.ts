@@ -512,10 +512,15 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
             false,
             true,
             ...linksToFollow
-          )),
-      ).subscribe((rd: RemoteData<PaginatedList<Relationship>>) => {
-        this.relationshipsRd$.next(rd);
-      })
+          ),
+        ),
+        tap((rd: RemoteData<PaginatedList<Relationship>>) => {
+          this.relationshipsRd$.next(rd);
+        }),
+        getFirstSucceededRemoteDataPayload(),
+      ).subscribe((relationshipPaginatedList: PaginatedList<Relationship>) => {
+        this.objectUpdatesService.initialize(this.url, relationshipPaginatedList.page, new Date());
+      }),
     );
 
     // keep isLastPage$ up to date based on relationshipsRd$
