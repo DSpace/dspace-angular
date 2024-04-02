@@ -29,6 +29,7 @@ import { distinctNext } from './core/shared/distinct-next';
 import { RouteService } from './core/services/route.service';
 import { getEditItemPageRoute, getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from './app-routing-paths';
 import { SocialService } from './social/social.service';
+import { datadogRum } from '@datadog/browser-rum';
 
 @Component({
   selector: 'ds-app',
@@ -108,6 +109,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     );
 
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
+
+    if (
+      environment.datadogRum?.clientToken && environment.datadogRum?.applicationId &&
+      environment.datadogRum?.service && environment.datadogRum?.env) {
+      // TODO: aggiungere check consent cookie
+      console.warn('init', environment.datadogRum);
+      datadogRum.init(environment.datadogRum);
+    }
   }
 
   private storeCSSVariables() {

@@ -35,6 +35,7 @@ import {
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
+import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -759,5 +760,19 @@ export class DefaultAppConfig implements AppConfig {
 
   mirador: MiradorConfig = {
     enableDownloadPlugin: true,
+  };
+
+  datadogRum: DatadogRumConfig = {
+    clientToken: undefined,
+    applicationId: undefined,
+    site: 'datadoghq.eu',
+    service: undefined,
+    env: undefined,
+    sessionSampleRate: 50,
+    sessionReplaySampleRate: 20,
+    trackUserInteractions: true,
+    trackResources: true,
+    trackLongTasks: true,
+    defaultPrivacyLevel: 'mask-user-input',
   };
 }
