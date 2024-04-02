@@ -20,10 +20,17 @@
           <table class="table  table-striped">
             <tbody>
             <ng-container *ngFor="let mdEntry of (metadata$ | async) | keyvalue">
-              <tr *ngFor="let mdValue of mdEntry.value">
+              <tr *ngFor="let mdValue of mdEntry.value | slice:0:(metadataMapLimit$ | async).get(mdEntry.key)">
                 <td>{{mdEntry.key}}</td>
                 <td>{{mdValue.value}}</td>
                 <td>{{mdValue.language}}</td>
+              </tr>
+              <tr *ngIf="mdEntry.value.length > (metadataMapLimit$ | async).get(mdEntry.key)">
+                <td class="text-center" colspan="3">
+                  <button class="btn btn-link" (click)="increaseLimit(mdEntry.key)" data-test="btn-more">
+                    {{'item.truncatable-part.show-more' | translate}}
+                  </button>
+                </td>
               </tr>
             </ng-container>
             </tbody>

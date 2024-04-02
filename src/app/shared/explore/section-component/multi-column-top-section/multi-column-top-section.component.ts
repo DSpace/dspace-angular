@@ -11,7 +11,7 @@ import { SearchObjects } from '../../../search/models/search-objects.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchManager } from '../../../../core/browse/search-manager';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 import { Item } from '../../../../core/shared/item.model';
@@ -30,7 +30,7 @@ export class MultiColumnTopSectionComponent implements OnInit {
 
   topObjects: Observable<DSpaceObject[]>;
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchManager) {
 
   }
 
