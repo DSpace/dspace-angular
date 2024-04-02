@@ -341,14 +341,10 @@ export class BrowserKlaroService extends KlaroService {
    */
   updateSettingsForUsers(user: EPerson) {
     this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)))
-      .pipe(take(1)) // Ensures the observable completes after the first emitted value
       .subscribe({
-        next: (result) => {
-          // Logic to check if the settings were successfully updated
-          // This depends on how `setSettingsForUser` is implemented and what it returns
-          if (result.success) {
-            window.location.reload(); // Triggers the page reload
-          }
+        next: (response) => {
+          // Settings saved successfully, now reload the page
+          window.location.reload();
         },
         error: (err) => {
           console.error('Error updating user settings', err);
