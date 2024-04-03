@@ -59,7 +59,7 @@ import { MissingTranslationHelper } from '../../app/shared/translate/missing-tra
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
-import { BrowserInitService } from './browser-init.service'
+import { BrowserInitService } from './browser-init.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
