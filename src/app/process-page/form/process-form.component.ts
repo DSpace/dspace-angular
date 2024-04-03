@@ -178,7 +178,7 @@ export class ProcessFormComponent implements OnInit {
     }
   }
 
-  private get generatedProcessName() {
+  get generatedProcessName() {
     const paramsString = this.parameters?.map((p: ProcessParameter) => {
       const value = this.parseValue(p.value);
       return isEmpty(value) ? p.name : `${p.name} ${value}`;

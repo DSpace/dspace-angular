@@ -3268,6 +3268,8 @@
 
   "process.overview.delete.header": "Delete processes",
 
+  "process.overview.unknown.user": "Unknown",
+
   "process.bulk.delete.error.head": "Error on deleteing process",
 
   "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",

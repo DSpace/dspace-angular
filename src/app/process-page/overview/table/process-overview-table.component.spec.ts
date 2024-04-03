@@ -12,7 +12,7 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { BehaviorSubject } from 'rxjs';
 import { NgbModal, NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { By } from '@angular/platform-browser';
@@ -36,6 +36,7 @@ describe('ProcessOverviewTableComponent', () => {
   let modalService: NgbModal;
   let authService; // : AuthService; Not typed as the mock does not fully implement AuthService
   let routeService: RouteService;
+  let translateService: TranslateService;
 
   let processes: Process[];
   let ePerson: EPerson;
@@ -202,4 +203,50 @@ describe('ProcessOverviewTableComponent', () => {
     });
 
   });
+/*
+  describe('getEPersonName', () => {
+    beforeEach(() => {
+      init();
+      translateService = getMockTranslateService();
+    });
+
+    it('should return the name when the ID is valid', () => {
+      const id = 'valid_id';
+      const expectedName = 'John Doe';
+
+      spyOn(dsoNameService, 'getName').and.returnValue(expectedName);
+
+      component.getEPersonName(id).subscribe(name => {
+        expect(name).toEqual(expectedName);
+      });
+
+      expect(ePersonService.findById).toHaveBeenCalledWith(id);
+    });
+
+    fit('should return "Unknown" when the ID is invalid', () => {
+      const id = 'invalid_id';
+      const translationKey = 'unknown_user';
+      const expectedMessage = 'Unknown';
+
+      spyOn(translateService, 'get').and.returnValue(of(expectedMessage));
+
+      component.getEPersonName(id).subscribe(name => {
+        expect(name).toEqual(expectedMessage);
+      });
+
+      expect(ePersonService.findById).toHaveBeenCalledWith(id);
+      expect(translateService.get).toHaveBeenCalledWith(translationKey);
+    });
+
+    it('should return an empty observable when the ID is null', () => {
+      const id = null;
+
+      component.getEPersonName(id).subscribe(name => {
+        expect(name).toBeUndefined();
+      });
+
+      expect(ePersonService.findById).not.toHaveBeenCalled();
+    });
+  });
+*/
 });
