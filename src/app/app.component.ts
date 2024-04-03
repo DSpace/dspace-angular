@@ -29,8 +29,7 @@ import { distinctNext } from './core/shared/distinct-next';
 import { RouteService } from './core/services/route.service';
 import { getEditItemPageRoute, getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from './app-routing-paths';
 import { SocialService } from './social/social.service';
-import { datadogRum } from '@datadog/browser-rum';
-import { KlaroService } from './shared/cookies/klaro.service';
+import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 
 @Component({
   selector: 'ds-app',
@@ -76,7 +75,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private modalService: NgbModal,
     private modalConfig: NgbModalConfig,
     private socialService: SocialService,
-    private klaroService: KlaroService
+    private datadogRumService: DatadogRumService
   ) {
     this.notificationOptions = environment.notifications;
 
@@ -112,13 +111,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
 
-    this.klaroService.getSavedPreferences().subscribe(savedPreferences => {
-      if (savedPreferences?.datadog &&
-        environment.datadogRum?.clientToken && environment.datadogRum?.applicationId &&
-        environment.datadogRum?.service && environment.datadogRum?.env) {
-        datadogRum.init(environment.datadogRum);
-      }
-    });
+    this.datadogRumService.initDatadogRum();
   }
 
   private storeCSSVariables() {
