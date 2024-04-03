@@ -16,7 +16,7 @@ import { DsoPageSingleFeatureGuard } from '../core/data/feature-authorization/fe
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
 import { Community } from '../core/shared/community.model';
-import { CommunityPageResolver } from './community-page.resolver';
+import { communityPageResolver } from './community-page.resolver';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ import { CommunityPageResolver } from './community-page.resolver';
  */
 export class CommunityPageAdministratorGuard extends DsoPageSingleFeatureGuard<Community> {
 
-  protected resolver: ResolveFn<RemoteData<Community>> = CommunityPageResolver;
+  protected resolver: ResolveFn<RemoteData<Community>> = communityPageResolver;
 
   constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,

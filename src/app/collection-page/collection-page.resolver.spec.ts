@@ -2,9 +2,9 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { CollectionPageResolver } from './collection-page.resolver';
+import { collectionPageResolver } from './collection-page.resolver';
 
-describe('CollectionPageResolver', () => {
+describe('collectionPageResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let collectionService: any;
@@ -18,7 +18,7 @@ describe('CollectionPageResolver', () => {
       store = jasmine.createSpyObj('store', {
         dispatch: {},
       });
-      resolver = CollectionPageResolver;
+      resolver = collectionPageResolver;
     });
 
     it('should resolve a collection with the correct id', (done) => {

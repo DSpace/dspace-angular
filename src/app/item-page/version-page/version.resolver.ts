@@ -35,7 +35,7 @@ export const VERSION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Version>[] = [
  * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const VersionResolver: ResolveFn<RemoteData<Version>> = (
+export const versionResolver: ResolveFn<RemoteData<Version>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   versionService: VersionDataService = inject(VersionDataService),

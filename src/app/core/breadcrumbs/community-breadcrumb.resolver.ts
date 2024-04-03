@@ -18,7 +18,7 @@ import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 /**
  * The resolve function that resolves the BreadcrumbConfig object for a Community
  */
-export const CommunityBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Community>> = (
+export const communityBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Community>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   breadcrumbService: DSOBreadcrumbsService = inject(DSOBreadcrumbsService),

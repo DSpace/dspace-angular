@@ -16,7 +16,7 @@ import { DsoPageSingleFeatureGuard } from '../../core/data/feature-authorization
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
-import { ItemPageResolver } from '../item-page.resolver';
+import { itemPageResolver } from '../item-page.resolver';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ import { ItemPageResolver } from '../item-page.resolver';
  */
 export class ItemPageReinstateGuard extends DsoPageSingleFeatureGuard<Item> {
 
-  protected resolver: ResolveFn<RemoteData<Item>> = ItemPageResolver;
+  protected resolver: ResolveFn<RemoteData<Item>> = itemPageResolver;
 
   constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,

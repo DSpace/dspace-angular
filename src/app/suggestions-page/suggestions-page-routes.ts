@@ -1,16 +1,16 @@
 import { Route } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { PublicationClaimBreadcrumbResolver } from '../core/breadcrumbs/publication-claim-breadcrumb.resolver';
+import { publicationClaimBreadcrumbResolver } from '../core/breadcrumbs/publication-claim-breadcrumb.resolver';
 import { SuggestionsPageComponent } from './suggestions-page.component';
-import { SuggestionsPageResolver } from './suggestions-page.resolver';
+import { suggestionsPageResolver } from './suggestions-page.resolver';
 
 export const ROUTES: Route[] = [
   {
     path: ':targetId',
     resolve: {
-      suggestionTargets: SuggestionsPageResolver,
-      breadcrumb: PublicationClaimBreadcrumbResolver,//I18nBreadcrumbResolver
+      suggestionTargets: suggestionsPageResolver,
+      breadcrumb: publicationClaimBreadcrumbResolver,//i18nBreadcrumbResolver
     },
     data: {
       title: 'admin.notifications.publicationclaim.page.title',

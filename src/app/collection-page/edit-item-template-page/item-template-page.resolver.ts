@@ -12,7 +12,7 @@ import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 
-export const ItemTemplatePageResolver: ResolveFn<RemoteData<Item>> = (
+export const itemTemplatePageResolver: ResolveFn<RemoteData<Item>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   itemTemplateService: ItemTemplateDataService = inject(ItemTemplateDataService),

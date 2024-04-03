@@ -2,7 +2,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { Collection } from '../shared/collection.model';
-import { CollectionBreadcrumbResolver } from './collection-breadcrumb.resolver';
+import { collectionBreadcrumbResolver } from './collection-breadcrumb.resolver';
 
 describe('DSOBreadcrumbResolver', () => {
   describe('resolve', () => {
@@ -23,7 +23,7 @@ describe('DSOBreadcrumbResolver', () => {
       collectionService = {
         findById: () => createSuccessfulRemoteDataObject$(testCollection),
       };
-      resolver = CollectionBreadcrumbResolver;
+      resolver = collectionBreadcrumbResolver;
     });
 
     it('should resolve a breadcrumb config for the correct DSO', () => {

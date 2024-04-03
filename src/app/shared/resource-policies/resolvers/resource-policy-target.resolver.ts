@@ -31,7 +31,7 @@ import { isEmpty } from '../../empty.util';
  * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const ResourcePolicyTargetResolver: ResolveFn<RemoteData<DSpaceObject>> = (
+export const resourcePolicyTargetResolver: ResolveFn<RemoteData<DSpaceObject>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   dataServiceMap: InjectionToken<LazyDataServicesMap> = inject(InjectionToken<LazyDataServicesMap>),

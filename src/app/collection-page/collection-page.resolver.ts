@@ -38,7 +38,7 @@ export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
  * @returns Observable<<RemoteData<Collection>> Emits the found collection based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const CollectionPageResolver: ResolveFn<RemoteData<Collection>> = (
+export const collectionPageResolver: ResolveFn<RemoteData<Collection>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   collectionService: CollectionDataService = inject(CollectionDataService),

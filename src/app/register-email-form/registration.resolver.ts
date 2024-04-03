@@ -11,7 +11,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { Registration } from '../core/shared/registration.model';
 
-export const RegistrationResolver: ResolveFn<RemoteData<Registration>> = (
+export const registrationResolver: ResolveFn<RemoteData<Registration>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   epersonRegistrationService: EpersonRegistrationService = inject(EpersonRegistrationService),

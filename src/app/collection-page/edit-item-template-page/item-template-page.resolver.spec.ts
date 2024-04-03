@@ -2,9 +2,9 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ItemTemplatePageResolver } from './item-template-page.resolver';
+import { itemTemplatePageResolver } from './item-template-page.resolver';
 
-describe('ItemTemplatePageResolver', () => {
+describe('itemTemplatePageResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let itemTemplateService: any;
@@ -14,7 +14,7 @@ describe('ItemTemplatePageResolver', () => {
       itemTemplateService = {
         findByCollectionID: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       };
-      resolver = ItemTemplatePageResolver;
+      resolver = itemTemplatePageResolver;
     });
 
     it('should resolve an item template with the correct id', (done) => {

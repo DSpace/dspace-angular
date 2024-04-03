@@ -4,9 +4,9 @@ import { TestScheduler } from 'rxjs/testing';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { RequestEntryState } from '../core/data/request-entry-state.model';
-import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
+import { legacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 
-describe(`LegacyBitstreamUrlResolver`, () => {
+describe(`legacyBitstreamUrlResolver`, () => {
   let resolver: any;
   let bitstreamDataService: BitstreamDataService;
   let testScheduler;
@@ -33,7 +33,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
     bitstreamDataService = {
       findByItemHandle: () => undefined,
     } as any;
-    resolver = LegacyBitstreamUrlResolver;
+    resolver = legacyBitstreamUrlResolver;
   });
 
   describe(`resolve`, () => {

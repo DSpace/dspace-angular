@@ -22,7 +22,7 @@ import { hasNoValue } from '../shared/empty.util';
  * @returns Observable<<RemoteData<Item>> Emits the found bitstream based on the parameters in
  * current route, or an error if something went wrong
  */
-export const LegacyBitstreamUrlResolver: ResolveFn<RemoteData<Bitstream>> = (
+export const legacyBitstreamUrlResolver: ResolveFn<RemoteData<Bitstream>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   bitstreamDataService: BitstreamDataService = inject(BitstreamDataService),

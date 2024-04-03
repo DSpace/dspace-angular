@@ -19,7 +19,7 @@ import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
  * @returns Observable<<RemoteData<BitstreamFormat>> Emits the found bitstreamFormat based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const BitstreamFormatsResolver: ResolveFn<RemoteData<BitstreamFormat>> = (
+export const bitstreamFormatsResolver: ResolveFn<RemoteData<BitstreamFormat>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   bitstreamFormatDataService: BitstreamFormatDataService = inject(BitstreamFormatDataService),

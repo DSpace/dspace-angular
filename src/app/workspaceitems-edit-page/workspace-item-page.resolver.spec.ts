@@ -2,9 +2,9 @@ import { first } from 'rxjs/operators';
 
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
+import { workspaceItemPageResolver } from './workspace-item-page.resolver';
 
-describe('WorkflowItemPageResolver', () => {
+describe('workspaceItemPageResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let wsiService: WorkspaceitemDataService;
@@ -14,7 +14,7 @@ describe('WorkflowItemPageResolver', () => {
       wsiService = {
         findById: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       } as any;
-      resolver = WorkspaceItemPageResolver;
+      resolver = workspaceItemPageResolver;
     });
 
     it('should resolve a workspace item with the correct id', (done) => {

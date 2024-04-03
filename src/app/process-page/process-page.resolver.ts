@@ -24,7 +24,7 @@ export const PROCESS_PAGE_FOLLOW_LINKS = [
  * @returns Observable<<RemoteData<Process>> Emits the found process based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const ProcessPageResolver: ResolveFn<RemoteData<Process>> = (
+export const processPageResolver: ResolveFn<RemoteData<Process>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   processService: ProcessDataService = inject(ProcessDataService),

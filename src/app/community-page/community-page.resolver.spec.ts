@@ -2,9 +2,9 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { CommunityPageResolver } from './community-page.resolver';
+import { communityPageResolver } from './community-page.resolver';
 
-describe('CommunityPageResolver', () => {
+describe('communityPageResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let communityService: any;
@@ -18,7 +18,7 @@ describe('CommunityPageResolver', () => {
       store = jasmine.createSpyObj('store', {
         dispatch: {},
       });
-      resolver = CommunityPageResolver;
+      resolver = communityPageResolver;
     });
 
     it('should resolve a community with the correct id', (done) => {

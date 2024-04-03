@@ -3,7 +3,7 @@ import {
   Route,
 } from '@angular/router';
 
-import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { NotifyInfoGuard } from '../../core/coar-notify/notify-info/notify-info.guard';
 import { SiteAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
@@ -15,7 +15,7 @@ export const ROUTES: Route[] = [
     canActivate: [...mapToCanActivate([SiteAdministratorGuard]), NotifyInfoGuard],
     path: '',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
     },
     component: AdminNotifyDashboardComponent,
     pathMatch: 'full',
@@ -27,7 +27,7 @@ export const ROUTES: Route[] = [
   {
     path: 'inbound',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
     },
     component: AdminNotifyIncomingComponent,
     canActivate: [...mapToCanActivate([SiteAdministratorGuard]), NotifyInfoGuard],
@@ -39,7 +39,7 @@ export const ROUTES: Route[] = [
   {
     path: 'outbound',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
     },
     component: AdminNotifyOutgoingComponent,
     canActivate: [...mapToCanActivate([SiteAdministratorGuard]), NotifyInfoGuard],

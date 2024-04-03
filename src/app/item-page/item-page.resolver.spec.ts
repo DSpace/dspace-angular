@@ -6,9 +6,9 @@ import { first } from 'rxjs/operators';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { MetadataValueFilter } from '../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { ItemPageResolver } from './item-page.resolver';
+import { itemPageResolver } from './item-page.resolver';
 
-describe('ItemPageResolver', () => {
+describe('itemPageResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{
@@ -42,7 +42,7 @@ describe('ItemPageResolver', () => {
         store = jasmine.createSpyObj('store', {
           dispatch: {},
         });
-        resolver = ItemPageResolver;
+        resolver = itemPageResolver;
       });
 
       it('should redirect to the correct route for the entity type', (done) => {

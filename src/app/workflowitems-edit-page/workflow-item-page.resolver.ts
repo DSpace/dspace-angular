@@ -12,7 +12,7 @@ import { WorkflowItem } from '../core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
 
-export const WorkflowItemPageResolver: ResolveFn<RemoteData<WorkflowItem>> = (
+export const workflowItemPageResolver: ResolveFn<RemoteData<WorkflowItem>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   workflowItemService: WorkflowItemDataService = inject(WorkflowItemDataService),

@@ -15,7 +15,7 @@ import { NavigationBreadcrumbsService } from './navigation-breadcrumb.service';
  * @param {NavigationBreadcrumbsService} breadcrumbService
  * @returns BreadcrumbConfig object
  */
-export const NavigationBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
+export const navigationBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   breadcrumbService: NavigationBreadcrumbsService = inject(NavigationBreadcrumbsService),

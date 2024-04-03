@@ -3,12 +3,12 @@ import {
   Route,
 } from '@angular/router';
 
-import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
-import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
-import { ResourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
+import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
+import { resourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
 import { EditItemPageComponent } from './edit-item-page.component';
 import {
   ITEM_EDIT_AUTHORIZATIONS_PATH,
@@ -55,7 +55,7 @@ export const ROUTES: Route[] = [
   {
     path: '',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
     },
     data: { breadcrumbKey: 'item.edit' },
     children: [
@@ -173,7 +173,7 @@ export const ROUTES: Route[] = [
           {
             path: 'create',
             resolve: {
-              resourcePolicyTarget: ResourcePolicyTargetResolver,
+              resourcePolicyTarget: resourcePolicyTargetResolver,
             },
             component: ResourcePolicyCreateComponent,
             data: { title: 'resource-policies.create.page.title' },
@@ -181,7 +181,7 @@ export const ROUTES: Route[] = [
           {
             path: 'edit',
             resolve: {
-              resourcePolicy: ResourcePolicyResolver,
+              resourcePolicy: resourcePolicyResolver,
             },
             component: ResourcePolicyEditComponent,
             data: { title: 'resource-policies.edit.page.title' },

@@ -32,7 +32,7 @@ export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
  * @returns Observable<<RemoteData<Item>> Emits the found bitstream based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const BitstreamPageResolver: ResolveFn<RemoteData<Bitstream>> = (
+export const bitstreamPageResolver: ResolveFn<RemoteData<Bitstream>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   bitstreamService: BitstreamDataService = inject(BitstreamDataService),

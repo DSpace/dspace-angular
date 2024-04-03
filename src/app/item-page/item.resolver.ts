@@ -32,7 +32,7 @@ export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
   followLink('thumbnail'),
 ];
 
-export const ItemResolver: ResolveFn<RemoteData<Item>> = (
+export const itemResolver: ResolveFn<RemoteData<Item>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   itemService: ItemDataService = inject(ItemDataService),

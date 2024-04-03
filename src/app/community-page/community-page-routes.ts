@@ -4,16 +4,16 @@ import {
 } from '@angular/router';
 
 import { BrowseByGuard } from '../browse-by/browse-by-guard';
-import { BrowseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
+import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
-import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
-import { CommunityPageResolver } from './community-page.resolver';
+import { communityPageResolver } from './community-page.resolver';
 import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
 import {
   COMMUNITY_CREATE_PATH,
@@ -34,9 +34,9 @@ export const ROUTES: Route[] = [
   {
     path: ':id',
     resolve: {
-      dso: CommunityPageResolver,
-      breadcrumb: CommunityBreadcrumbResolver,
-      menu: DSOEditMenuResolver,
+      dso: communityPageResolver,
+      breadcrumb: communityBreadcrumbResolver,
+      menu: dsoEditMenuResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [
@@ -66,7 +66,7 @@ export const ROUTES: Route[] = [
             pathMatch: 'full',
             component: SubComColSectionComponent,
             resolve: {
-              breadcrumb: I18nBreadcrumbResolver,
+              breadcrumb: i18nBreadcrumbResolver,
             },
             data: { breadcrumbKey: 'community.subcoms-cols' },
           },
@@ -76,7 +76,7 @@ export const ROUTES: Route[] = [
             component: ComcolBrowseByComponent,
             canActivate: [BrowseByGuard],
             resolve: {
-              breadcrumb: BrowseByI18nBreadcrumbResolver,
+              breadcrumb: browseByI18nBreadcrumbResolver,
             },
             data: { breadcrumbKey: 'browse.metadata' },
           },

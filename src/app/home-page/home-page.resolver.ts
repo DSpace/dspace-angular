@@ -10,7 +10,7 @@ import { take } from 'rxjs/operators';
 import { SiteDataService } from '../core/data/site-data.service';
 import { Site } from '../core/shared/site.model';
 
-export const HomePageResolver: ResolveFn<Site> = (
+export const homePageResolver: ResolveFn<Site> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   siteService: SiteDataService = inject(SiteDataService),

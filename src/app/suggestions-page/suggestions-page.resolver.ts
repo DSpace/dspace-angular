@@ -20,7 +20,7 @@ import { hasValue } from '../shared/empty.util';
  * @returns Observable<<RemoteData<Collection>> Emits the found collection based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const SuggestionsPageResolver: ResolveFn<RemoteData<SuggestionTarget>> = (
+export const suggestionsPageResolver: ResolveFn<RemoteData<SuggestionTarget>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   suggestionsDataService: SuggestionTargetDataService = inject(SuggestionTargetDataService),

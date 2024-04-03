@@ -12,7 +12,7 @@ import { MenuResolverService } from './menu-resolver.service';
 /**
  * Initialize all menus
  */
-export const MenuResolver: ResolveFn<boolean> = (
+export const menuResolver: ResolveFn<boolean> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   menuResolverService: MenuResolverService = inject(MenuResolverService),

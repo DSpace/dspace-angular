@@ -2,9 +2,9 @@ import { first } from 'rxjs/operators';
 
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { ItemFromWorkspaceResolver } from './item-from-workspace.resolver';
+import { itemFromWorkspaceResolver } from './item-from-workspace.resolver';
 
-describe('ItemFromWorkspaceResolver', () => {
+describe('itemFromWorkspaceResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let wfiService: WorkspaceitemDataService;
@@ -20,7 +20,7 @@ describe('ItemFromWorkspaceResolver', () => {
       wfiService = {
         findById: (id: string) => createSuccessfulRemoteDataObject$(wfi),
       } as any;
-      resolver = ItemFromWorkspaceResolver;
+      resolver = itemFromWorkspaceResolver;
     });
 
     it('should resolve a an item from from the workflow item with the correct id', (done) => {

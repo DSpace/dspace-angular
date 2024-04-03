@@ -29,7 +29,7 @@ import { getItemPageRoute } from './item-page-routing-paths';
  * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const ItemPageResolver: ResolveFn<RemoteData<Item>> = (
+export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   router: Router = inject(Router),

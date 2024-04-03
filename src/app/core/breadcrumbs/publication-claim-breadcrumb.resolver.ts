@@ -8,7 +8,7 @@ import {
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { PublicationClaimBreadcrumbService } from './publication-claim-breadcrumb.service';
 
-export const PublicationClaimBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
+export const publicationClaimBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   breadcrumbService: PublicationClaimBreadcrumbService = inject(PublicationClaimBreadcrumbService),

@@ -14,7 +14,7 @@ import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.
 /**
  * This method represents a resolver that requests a specific item before the route is activated
  */
-export const ItemFromWorkspaceResolver: ResolveFn<RemoteData<Item>> = (
+export const itemFromWorkspaceResolver: ResolveFn<RemoteData<Item>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   workspaceItemService: WorkspaceitemDataService = inject(WorkspaceitemDataService),

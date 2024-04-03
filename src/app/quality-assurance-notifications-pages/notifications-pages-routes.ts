@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
 
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { QualityAssuranceBreadcrumbResolver } from '../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { qualityAssuranceBreadcrumbResolver } from '../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
 import {
   NOTIFICATIONS_RECITER_SUGGESTION_PATH,
   QUALITY_ASSURANCE_EDIT_PATH,
@@ -10,8 +10,8 @@ import {
 import { NotificationsSuggestionTargetsPageComponent } from './notifications-suggestion-targets-page/notifications-suggestion-targets-page.component';
 import { AdminNotificationsPublicationClaimPageResolver } from './notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
 import { QualityAssuranceEventsPageComponent } from './quality-assurance-events-page/quality-assurance-events-page.component';
-import { QualityAssuranceEventsPageResolver } from './quality-assurance-events-page/quality-assurance-events-page.resolver';
-import { SourceDataResolver } from './quality-assurance-source-page-component/quality-assurance-source-data.resolver';
+import { qualityAssuranceEventsPageResolver } from './quality-assurance-events-page/quality-assurance-events-page.resolver';
+import { qualityAssuranceSourceDataResolver } from './quality-assurance-source-page-component/quality-assurance-source-data.resolver';
 import { QualityAssuranceSourcePageComponent } from './quality-assurance-source-page-component/quality-assurance-source-page.component';
 import { QualityAssuranceSourcePageResolver } from './quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { QualityAssuranceTopicsPageComponent } from './quality-assurance-topics-page/quality-assurance-topics-page.component';
@@ -24,7 +24,7 @@ export const ROUTES: Route[] = [
     component: NotificationsSuggestionTargetsPageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
       reciterSuggestionTargetParams: AdminNotificationsPublicationClaimPageResolver,
     },
     data: {
@@ -39,7 +39,7 @@ export const ROUTES: Route[] = [
     component: QualityAssuranceTopicsPageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: QualityAssuranceBreadcrumbResolver,
+      breadcrumb: qualityAssuranceBreadcrumbResolver,
       openaireQualityAssuranceTopicsParams: QualityAssuranceTopicsPageResolver,
     },
     data: {
@@ -54,7 +54,7 @@ export const ROUTES: Route[] = [
     component: QualityAssuranceTopicsPageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
       openaireQualityAssuranceTopicsParams: QualityAssuranceTopicsPageResolver,
     },
     data: {
@@ -69,9 +69,9 @@ export const ROUTES: Route[] = [
     component: QualityAssuranceSourcePageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
       openaireQualityAssuranceSourceParams: QualityAssuranceSourcePageResolver,
-      sourceData: SourceDataResolver,
+      sourceData: qualityAssuranceSourceDataResolver,
     },
     data: {
       title: 'admin.notifications.source.breadcrumbs',
@@ -85,8 +85,8 @@ export const ROUTES: Route[] = [
     component: QualityAssuranceEventsPageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: QualityAssuranceBreadcrumbResolver,
-      openaireQualityAssuranceEventsParams: QualityAssuranceEventsPageResolver,
+      breadcrumb: qualityAssuranceBreadcrumbResolver,
+      openaireQualityAssuranceEventsParams: qualityAssuranceEventsPageResolver,
     },
     data: {
       title: 'admin.notifications.event.page.title',

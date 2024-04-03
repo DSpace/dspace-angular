@@ -20,7 +20,7 @@ import { followLink } from '../shared/utils/follow-link-config.model';
  * @returns Observable<<RemoteData<Item>> Emits the found workflow item based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const WorkspaceItemPageResolver: ResolveFn<RemoteData<WorkspaceItem>> = (
+export const workspaceItemPageResolver: ResolveFn<RemoteData<WorkspaceItem>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   workspaceItemService: WorkspaceitemDataService = inject(WorkspaceitemDataService),

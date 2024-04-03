@@ -1,6 +1,6 @@
-import { PublicationClaimBreadcrumbResolver } from './publication-claim-breadcrumb.resolver';
+import { publicationClaimBreadcrumbResolver } from './publication-claim-breadcrumb.resolver';
 
-describe('PublicationClaimBreadcrumbResolver', () => {
+describe('publicationClaimBreadcrumbResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let publicationClaimBreadcrumbService: any;
@@ -19,7 +19,7 @@ describe('PublicationClaimBreadcrumbResolver', () => {
         },
       };
       publicationClaimBreadcrumbService = {};
-      resolver = PublicationClaimBreadcrumbResolver;
+      resolver = publicationClaimBreadcrumbResolver;
     });
 
     it('should resolve the breadcrumb config', () => {

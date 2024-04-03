@@ -44,7 +44,7 @@ import { DSOEditMenuResolverService } from './dso-edit-menu-resolver.service';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
 
-describe('DSOEditMenuResolver', () => {
+describe('dsoEditMenuResolver', () => {
 
   const MENU_STATE = {
     id: 'some menu',

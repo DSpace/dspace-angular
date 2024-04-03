@@ -27,7 +27,7 @@ import { hasValue } from '../shared/empty.util';
  * @param {DSpaceObjectDataService} dataService
  * @returns BreadcrumbConfig object
  */
-export const BrowseByDSOBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Community | Collection>> = (
+export const browseByDSOBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Community | Collection>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   breadcrumbService: DSOBreadcrumbsService = inject(DSOBreadcrumbsService),

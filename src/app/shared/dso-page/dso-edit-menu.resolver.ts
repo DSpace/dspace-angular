@@ -12,7 +12,7 @@ import { DSOEditMenuResolverService } from './dso-edit-menu-resolver.service';
 /**
  * Initialise all dspace object related menus
  */
-export const DSOEditMenuResolver: ResolveFn<{ [key: string]: MenuSection[] }> = (
+export const dsoEditMenuResolver: ResolveFn<{ [key: string]: MenuSection[] }> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   menuResolverService: DSOEditMenuResolverService = inject(DSOEditMenuResolverService),

@@ -24,7 +24,7 @@ import { Process } from './processes/process.model';
  * @returns Observable<<RemoteData<Process>> Emits the found process based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const ProcessBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Process>> = (
+export const processBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Process>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   breadcrumbService: ProcessBreadcrumbsService = inject(ProcessBreadcrumbsService),

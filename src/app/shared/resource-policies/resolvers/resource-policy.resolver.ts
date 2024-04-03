@@ -23,7 +23,7 @@ import { followLink } from '../../utils/follow-link-config.model';
  * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const ResourcePolicyResolver: ResolveFn<RemoteData<ResourcePolicy>> = (
+export const resourcePolicyResolver: ResolveFn<RemoteData<ResourcePolicy>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   router: Router = inject(Router),

@@ -1,6 +1,6 @@
-import { QualityAssuranceBreadcrumbResolver } from './quality-assurance-breadcrumb.resolver';
+import { qualityAssuranceBreadcrumbResolver } from './quality-assurance-breadcrumb.resolver';
 
-describe('QualityAssuranceBreadcrumbResolver', () => {
+describe('qualityAssuranceBreadcrumbResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let qualityAssuranceBreadcrumbService: any;
@@ -19,7 +19,7 @@ describe('QualityAssuranceBreadcrumbResolver', () => {
         },
       };
       qualityAssuranceBreadcrumbService = {};
-      resolver = QualityAssuranceBreadcrumbResolver;
+      resolver = qualityAssuranceBreadcrumbResolver;
     });
 
     it('should resolve the breadcrumb config', () => {

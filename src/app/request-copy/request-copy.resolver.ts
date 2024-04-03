@@ -11,7 +11,7 @@ import { RemoteData } from '../core/data/remote-data';
 import { ItemRequest } from '../core/shared/item-request.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
-export const RequestCopyResolver: ResolveFn<RemoteData<ItemRequest>> = (
+export const requestCopyResolver: ResolveFn<RemoteData<ItemRequest>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   itemRequestDataService: ItemRequestDataService = inject(ItemRequestDataService),

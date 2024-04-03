@@ -1,9 +1,9 @@
 import { ProcessDataService } from '../core/data/processes/process-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
+import { processBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { Process } from './processes/process.model';
 
-describe('ProcessBreadcrumbResolver', () => {
+describe('processBreadcrumbResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let processDataService: ProcessDataService;
@@ -19,7 +19,7 @@ describe('ProcessBreadcrumbResolver', () => {
       processDataService = {
         findById: () => createSuccessfulRemoteDataObject$(process),
       } as any;
-      resolver = ProcessBreadcrumbResolver;
+      resolver = processBreadcrumbResolver;
     });
 
     it('should resolve the breadcrumb config', (done) => {

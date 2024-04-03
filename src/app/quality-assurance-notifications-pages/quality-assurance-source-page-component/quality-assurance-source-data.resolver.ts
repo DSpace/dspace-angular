@@ -25,7 +25,7 @@ import { QualityAssuranceSourceService } from '../../notifications/qa/source/qua
  * @param appConfig
  * @returns Observable<QualityAssuranceSourceObject[]>
  */
-export const SourceDataResolver: ResolveFn<QualityAssuranceSourceObject[]> = (
+export const qualityAssuranceSourceDataResolver: ResolveFn<QualityAssuranceSourceObject[]> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   router: Router = inject(Router),

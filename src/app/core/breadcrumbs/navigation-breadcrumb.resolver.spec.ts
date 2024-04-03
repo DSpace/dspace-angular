@@ -1,6 +1,6 @@
-import { NavigationBreadcrumbResolver } from './navigation-breadcrumb.resolver';
+import { navigationBreadcrumbResolver } from './navigation-breadcrumb.resolver';
 
-describe('NavigationBreadcrumbResolver', () => {
+describe('navigationBreadcrumbResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let NavigationBreadcrumbService: any;
@@ -40,7 +40,7 @@ describe('NavigationBreadcrumbResolver', () => {
       };
       expectedPath = '/base/example:/base';
       NavigationBreadcrumbService = {};
-      resolver = NavigationBreadcrumbResolver;
+      resolver = navigationBreadcrumbResolver;
     });
 
     it('should resolve the breadcrumb config', () => {

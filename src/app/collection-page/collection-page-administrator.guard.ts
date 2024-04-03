@@ -16,7 +16,7 @@ import { DsoPageSingleFeatureGuard } from '../core/data/feature-authorization/fe
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../core/data/remote-data';
 import { Collection } from '../core/shared/collection.model';
-import { CollectionPageResolver } from './collection-page.resolver';
+import { collectionPageResolver } from './collection-page.resolver';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ import { CollectionPageResolver } from './collection-page.resolver';
  */
 export class CollectionPageAdministratorGuard extends DsoPageSingleFeatureGuard<Collection> {
 
-  protected resolver: ResolveFn<RemoteData<Collection>> = CollectionPageResolver;
+  protected resolver: ResolveFn<RemoteData<Collection>> = collectionPageResolver;
 
   constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,

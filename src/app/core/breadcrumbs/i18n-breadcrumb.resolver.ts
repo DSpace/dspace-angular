@@ -17,7 +17,7 @@ import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
  * @param {I18nBreadcrumbsService} breadcrumbService
  * @returns BreadcrumbConfig object
  */
-export const I18nBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
+export const i18nBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   breadcrumbService: I18nBreadcrumbsService = inject(I18nBreadcrumbsService),

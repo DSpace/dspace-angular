@@ -1,7 +1,7 @@
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { I18nBreadcrumbResolver } from './i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from './i18n-breadcrumb.resolver';
 
-describe('I18nBreadcrumbResolver', () => {
+describe('i18nBreadcrumbResolver', () => {
   describe('resolve', () => {
     let resolver: any;
     let i18nBreadcrumbService: any;
@@ -27,7 +27,7 @@ describe('I18nBreadcrumbResolver', () => {
       };
       expectedPath = new URLCombiner(parentSegment, segment).toString();
       i18nBreadcrumbService = {};
-      resolver = I18nBreadcrumbResolver;
+      resolver = i18nBreadcrumbResolver;
     });
 
     it('should resolve the breadcrumb config', () => {

@@ -38,7 +38,7 @@ const BROWSE_DEFINITIONS = [
   { id: 'definition3' },
 ];
 
-describe('MenuResolver', () => {
+describe('menuResolver', () => {
   let resolver: MenuResolverService;
 
   let menuService;

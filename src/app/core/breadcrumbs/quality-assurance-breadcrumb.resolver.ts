@@ -8,7 +8,7 @@ import {
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { QualityAssuranceBreadcrumbService } from './quality-assurance-breadcrumb.service';
 
-export const QualityAssuranceBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
+export const qualityAssuranceBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   breadcrumbService: QualityAssuranceBreadcrumbService = inject(QualityAssuranceBreadcrumbService),

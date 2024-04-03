@@ -38,7 +38,7 @@ export const COMMUNITY_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Community>[] = [
  * @returns Observable<<RemoteData<Community>> Emits the found community based on the parameters in the current route,
  * or an error if something went wrong
  */
-export const CommunityPageResolver: ResolveFn<RemoteData<Community>> = (
+export const communityPageResolver: ResolveFn<RemoteData<Community>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   communityService: CommunityDataService = inject(CommunityDataService),
