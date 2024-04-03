@@ -18,6 +18,16 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { ProcessDataService } from '../../../core/data/processes/process-data.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
+import { ProcessStatus } from '../../processes/process-status.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { BehaviorSubject } from 'rxjs';
+import { NgbModal, NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { RouterTestingModule } from '@angular/router/testing';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RouteService } from '../../../core/services/route.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -46,6 +56,7 @@ describe('ProcessOverviewTableComponent', () => {
   let modalService: NgbModal;
   let authService; // : AuthService; Not typed as the mock does not fully implement AuthService
   let routeService: RouteService;
+  let translateService: TranslateService;
 
   let processes: Process[];
   let ePerson: EPerson;
@@ -217,4 +228,50 @@ describe('ProcessOverviewTableComponent', () => {
     });
 
   });
+/*
+  describe('getEPersonName', () => {
+    beforeEach(() => {
+      init();
+      translateService = getMockTranslateService();
+    });
+
+    it('should return the name when the ID is valid', () => {
+      const id = 'valid_id';
+      const expectedName = 'John Doe';
+
+      spyOn(dsoNameService, 'getName').and.returnValue(expectedName);
+
+      component.getEPersonName(id).subscribe(name => {
+        expect(name).toEqual(expectedName);
+      });
+
+      expect(ePersonService.findById).toHaveBeenCalledWith(id);
+    });
+
+    fit('should return "Unknown" when the ID is invalid', () => {
+      const id = 'invalid_id';
+      const translationKey = 'unknown_user';
+      const expectedMessage = 'Unknown';
+
+      spyOn(translateService, 'get').and.returnValue(of(expectedMessage));
+
+      component.getEPersonName(id).subscribe(name => {
+        expect(name).toEqual(expectedMessage);
+      });
+
+      expect(ePersonService.findById).toHaveBeenCalledWith(id);
+      expect(translateService.get).toHaveBeenCalledWith(translationKey);
+    });
+
+    it('should return an empty observable when the ID is null', () => {
+      const id = null;
+
+      component.getEPersonName(id).subscribe(name => {
+        expect(name).toBeUndefined();
+      });
+
+      expect(ePersonService.findById).not.toHaveBeenCalled();
+    });
+  });
+*/
 });

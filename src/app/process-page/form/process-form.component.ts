@@ -100,11 +100,11 @@ export class ProcessFormComponent implements OnInit {
     }
 
     const stringParameters: ProcessParameter[] = this.parameters.map((parameter: ProcessParameter) => {
-      return {
-        name: parameter.name,
-        value: this.checkValue(parameter),
-      };
-    },
+        return {
+          name: parameter.name,
+          value: this.checkValue(parameter),
+        };
+      },
     );
     this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)
       .pipe(getFirstCompletedRemoteData())
@@ -177,5 +177,36 @@ export class ProcessFormComponent implements OnInit {
     };
     void this.router.navigate([getProcessListRoute()], extras);
   }
-}
 
+  updateScript($event: Script) {
+    this.selectedScript = $event;
+    this.parameters = undefined;
+    this.updateName();
+  }
+
+  updateName(): void {
+    if (isEmpty(this.customName)) {
+      this.processName = this.generatedProcessName;
+    } else {
+      this.processName = this.customName;
+    }
+  }
+
+  get generatedProcessName() {
+    const paramsString = this.parameters?.map((p: ProcessParameter) => {
+      const value = this.parseValue(p.value);
+      return isEmpty(value) ? p.name : `${p.name} ${value}`;
+    }).join(' ') || '';
+    return isEmpty(paramsString) ? this.selectedScript.name : `${this.selectedScript.name} ${paramsString}`;
+  }
+
+  private parseValue(value: any) {
+    if (typeof value === 'boolean') {
+      return undefined;
+    }
+    if (value instanceof File) {
+      return value.name;
+    }
+    return value?.toString();
+  }
+}

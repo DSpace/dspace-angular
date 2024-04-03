@@ -47,6 +47,7 @@ import { redirectOn4xx } from '../../../core/shared/authorized.operators';
 import {
   getAllCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
+  getAllCompletedRemoteData, getFirstCompletedRemoteData
 } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -60,6 +61,17 @@ import {
   ProcessOverviewService,
   ProcessSortField,
 } from '../process-overview.service';
+import { map, switchMap, toArray, take, filter } from 'rxjs/operators';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { redirectOn4xx } from '../../../core/shared/authorized.operators';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../core/auth/auth.service';
+import { isPlatformBrowser } from '@angular/common';
+import { RouteService } from '../../../core/services/route.service';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { TranslateService } from '@ngx-translate/core';
 
 const NEW_PROCESS_PARAM = 'new_process_id';
 
@@ -159,6 +171,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
               protected routeService: RouteService,
               protected router: Router,
               protected auth: AuthService,
+              private translateService: TranslateService,
               @Inject(PLATFORM_ID) protected platformId: object,
   ) {
   }
@@ -176,7 +189,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
     // Creates an ID from the first 2 characters of the process status.
     // Should two process status values ever start with the same substring,
     // increase the number of characters until the ids are distinct.
-    this.paginationId = this.processStatus.toLowerCase().substring(0,2);
+    this.paginationId = this.processStatus.toLowerCase().substring(0, 2);
 
     const defaultPaginationOptions = Object.assign(new PaginationComponentOptions(), {
       id: this.paginationId,
@@ -218,7 +231,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
         // Map RemoteData<PaginatedList<Process>> to RemoteData<PaginatedList<ProcessOverviewTableEntry>>
         switchMap((processesRD: RemoteData<PaginatedList<Process>>) => {
           // Create observable emitting all processes one by one
-          return  observableFrom(processesRD.payload.page).pipe(
+          return observableFrom(processesRD.payload.page).pipe(
             // Map every Process to ProcessOverviewTableEntry
             mergeMap((process: Process) => {
               return this.getEPersonName(process.userId).pipe(
@@ -243,7 +256,6 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
             }),
           );
         }),
-
       ).subscribe((next: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
         this.processesRD$.next(next);
       }));
@@ -267,10 +279,20 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
    * @param id  ID of the EPerson
    */
   getEPersonName(id: string): Observable<string> {
-    return this.ePersonDataService.findById(id).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
-    );
+    if (isNotEmpty(id)) {
+      return this.ePersonDataService.findById(id).pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((rd: RemoteData<EPerson>) => {
+          if (rd.hasSucceeded) {
+            return observableFrom([this.dsoNameService.getName(rd.payload)]);
+          } else {
+            return this.translateService.get('process.overview.unknown.user');
+          }
+        })
+      );
+    } else {
+      return this.translateService.get('process.overview.unknown.user');
+    }
   }
 
   /**
