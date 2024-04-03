@@ -24,13 +24,13 @@ import {
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
-import { AuthenticatedGuard } from './core/auth/authenticated.guard';
+import { authBlockingGuard } from './core/auth/auth-blocking.guard';
+import { authenticatedGuard } from './core/auth/authenticated.guard';
 import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
-import { ReloadGuard } from './core/reload/reload.guard';
+import { reloadGuard } from './core/reload/reload.guard';
 import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
@@ -49,7 +49,7 @@ export const APP_ROUTES: Route[] = [
   { path: ERROR_PAGE, component: ThemedPageErrorComponent },
   {
     path: '',
-    canActivate: [AuthBlockingGuard],
+    canActivate: [authBlockingGuard],
     canActivateChild: [ServerCheckGuard],
     resolve: [menuResolver],
     children: [
@@ -58,7 +58,7 @@ export const APP_ROUTES: Route[] = [
         path: 'reload/:rnd',
         component: ThemedPageNotFoundComponent,
         pathMatch: 'full',
-        canActivate: [ReloadGuard],
+        canActivate: [reloadGuard],
       },
       {
         path: 'home',
@@ -139,7 +139,7 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./my-dspace-page/my-dspace-page-routes')
           .then((m) => m.ROUTES),
         providers: [provideSuggestionNotificationsState()],
-        canActivate: [AuthenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
+        canActivate: [authenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
       },
       {
         path: 'search',
@@ -164,7 +164,7 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages-routes')
           .then((m) => m.ROUTES),
         providers: [provideSuggestionNotificationsState()],
-        canActivate: [AuthenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
+        canActivate: [authenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
       },
       {
         path: 'login',
@@ -208,20 +208,20 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./profile-page/profile-page-routes')
           .then((m) => m.ROUTES),
         providers: [provideSuggestionNotificationsState()],
-        canActivate: [AuthenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
+        canActivate: [authenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
       },
       {
         path: PROCESS_MODULE_PATH,
         loadChildren: () => import('./process-page/process-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [AuthenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
+        canActivate: [authenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
       },
       {
         path: SUGGESTION_MODULE_PATH,
         loadChildren: () => import('./suggestions-page/suggestions-page-routes')
           .then((m) => m.ROUTES),
         providers: [provideSuggestionNotificationsState()],
-        canActivate: [AuthenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
+        canActivate: [authenticatedGuard, ...mapToCanActivate([EndUserAgreementCurrentUserGuard])],
       },
       {
         path: INFO_MODULE_PATH,
@@ -256,7 +256,7 @@ export const APP_ROUTES: Route[] = [
         path: 'subscriptions',
         loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
       },
       { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
     ],

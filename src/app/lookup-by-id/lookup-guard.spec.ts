@@ -1,9 +1,9 @@
 import { of as observableOf } from 'rxjs';
 
 import { IdentifierType } from '../core/data/request.models';
-import { LookupGuard } from './lookup-guard';
+import { lookupGuard } from './lookup-guard';
 
-describe('LookupGuard', () => {
+describe('lookupGuard', () => {
   let dsoService: any;
   let guard: any;
 
@@ -12,7 +12,7 @@ describe('LookupGuard', () => {
       findByIdAndIDType: jasmine.createSpy('findByIdAndIDType').and.returnValue(observableOf({ hasFailed: false,
         hasSucceeded: true })),
     };
-    guard = LookupGuard;
+    guard = lookupGuard;
   });
 
   it('should call findByIdAndIDType with handle params', () => {

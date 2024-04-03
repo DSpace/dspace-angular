@@ -4,7 +4,7 @@ import {
 } from '@angular/router';
 
 import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { NotifyInfoGuard } from '../../core/coar-notify/notify-info/notify-info.guard';
+import { notifyInfoGuard } from '../../core/coar-notify/notify-info/notify-info.guard';
 import { SiteAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyIncomingComponent } from './admin-notify-logs/admin-notify-incoming/admin-notify-incoming.component';
@@ -12,7 +12,7 @@ import { AdminNotifyOutgoingComponent } from './admin-notify-logs/admin-notify-o
 
 export const ROUTES: Route[] = [
   {
-    canActivate: [...mapToCanActivate([SiteAdministratorGuard]), NotifyInfoGuard],
+    canActivate: [...mapToCanActivate([SiteAdministratorGuard]), notifyInfoGuard],
     path: '',
     resolve: {
       breadcrumb: i18nBreadcrumbResolver,
@@ -30,7 +30,7 @@ export const ROUTES: Route[] = [
       breadcrumb: i18nBreadcrumbResolver,
     },
     component: AdminNotifyIncomingComponent,
-    canActivate: [...mapToCanActivate([SiteAdministratorGuard]), NotifyInfoGuard],
+    canActivate: [...mapToCanActivate([SiteAdministratorGuard]), notifyInfoGuard],
     data: {
       title: 'admin.notify.dashboard.page.title',
       breadcrumbKey: 'admin.notify.dashboard',
@@ -42,7 +42,7 @@ export const ROUTES: Route[] = [
       breadcrumb: i18nBreadcrumbResolver,
     },
     component: AdminNotifyOutgoingComponent,
-    canActivate: [...mapToCanActivate([SiteAdministratorGuard]), NotifyInfoGuard],
+    canActivate: [...mapToCanActivate([SiteAdministratorGuard]), notifyInfoGuard],
     data: {
       title: 'admin.notify.dashboard.page.title',
       breadcrumbKey: 'admin.notify.dashboard',

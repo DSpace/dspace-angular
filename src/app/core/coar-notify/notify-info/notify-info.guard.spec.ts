@@ -1,8 +1,8 @@
 import { of } from 'rxjs';
 
-import { NotifyInfoGuard } from './notify-info.guard';
+import { notifyInfoGuard } from './notify-info.guard';
 
-describe('NotifyInfoGuard', () => {
+describe('notifyInfoGuard', () => {
   let guard: any;
   let notifyInfoServiceSpy: any;
   let router: any;
@@ -10,7 +10,7 @@ describe('NotifyInfoGuard', () => {
   beforeEach(() => {
     notifyInfoServiceSpy = jasmine.createSpyObj('NotifyInfoService', ['isCoarConfigEnabled']);
     router = jasmine.createSpyObj('Router', ['parseUrl']);
-    guard = NotifyInfoGuard;
+    guard = notifyInfoGuard;
   });
 
   it('should be created', () => {

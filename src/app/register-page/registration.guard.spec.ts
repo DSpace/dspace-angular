@@ -13,9 +13,9 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
-import { RegistrationGuard } from './registration.guard';
+import { registrationGuard } from './registration.guard';
 
-describe('RegistrationGuard', () => {
+describe('registrationGuard', () => {
   let guard: any;
 
   let epersonRegistrationService: EpersonRegistrationService;
@@ -65,7 +65,7 @@ describe('RegistrationGuard', () => {
       setRedirectUrl: {},
     });
 
-    guard = RegistrationGuard;
+    guard = registrationGuard;
   });
 
   describe('canActivate', () => {

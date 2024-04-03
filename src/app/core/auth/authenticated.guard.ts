@@ -34,7 +34,7 @@ import {
  * UrlTree with redirect to login page when user isn't authenticated
  * @method canActivate
  */
-export const AuthenticatedGuard: CanActivateFn = (
+export const authenticatedGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   authService: AuthService = inject(AuthService),
@@ -61,4 +61,4 @@ export const AuthenticatedGuard: CanActivateFn = (
 export const AuthenticatedGuardChild: CanActivateChildFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
-) => AuthenticatedGuard(route, state);
+) => authenticatedGuard(route, state);

@@ -6,10 +6,10 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../shared/remote-data.utils';
 import { RouterStub } from '../shared/testing/router.stub';
-import { BrowseByGuard } from './browse-by-guard';
+import { browseByGuard } from './browse-by-guard';
 import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
 
-describe('BrowseByGuard', () => {
+describe('browseByGuard', () => {
   describe('canActivate', () => {
     let guard: any;
     let translateService: any;
@@ -35,7 +35,7 @@ describe('BrowseByGuard', () => {
 
       router = new RouterStub() as any;
 
-      guard = BrowseByGuard;
+      guard = browseByGuard;
     });
 
     it('should return true, and sets up the data correctly, with a scope and value', () => {

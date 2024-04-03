@@ -17,9 +17,9 @@ import {
   storeModuleConfig,
 } from '../../app.reducer';
 import { authReducer } from './auth.reducer';
-import { AuthBlockingGuard } from './auth-blocking.guard';
+import { authBlockingGuard } from './auth-blocking.guard';
 
-describe('AuthBlockingGuard', () => {
+describe('authBlockingGuard', () => {
   let guard: any;
   let initialState;
   let store: Store<AppState>;
@@ -44,7 +44,7 @@ describe('AuthBlockingGuard', () => {
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: AuthBlockingGuard, useValue: guard },
+        { provide: authBlockingGuard, useValue: guard },
       ],
     }).compileComponents();
   }));
@@ -52,7 +52,7 @@ describe('AuthBlockingGuard', () => {
   beforeEach(() => {
     store = TestBed.inject(Store);
     mockStore = store as MockStore<AppState>;
-    guard = AuthBlockingGuard;
+    guard = authBlockingGuard;
   });
 
   describe(`canActivate`, () => {

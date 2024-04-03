@@ -26,7 +26,7 @@ import {
   hasValue,
 } from '../shared/empty.util';
 
-export const BrowseByGuard: CanActivateFn = (
+export const browseByGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   browseDefinitionService: BrowseDefinitionDataService = inject(BrowseDefinitionDataService),

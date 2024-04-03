@@ -20,7 +20,7 @@ import { MYDSPACE_ROUTE } from './my-dspace-page.component';
 /**
  * Prevent unauthorized activating and loading of mydspace configuration
  */
-export const MyDSpaceGuard: CanActivateFn = (
+export const myDSpaceGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   configurationService: MyDSpaceConfigurationService = inject(MyDSpaceConfigurationService),

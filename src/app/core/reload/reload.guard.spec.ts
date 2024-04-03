@@ -2,9 +2,9 @@ import { Router } from '@angular/router';
 
 import { AppConfig } from '../../../config/app-config.interface';
 import { DefaultAppConfig } from '../../../config/default-app-config';
-import { ReloadGuard } from './reload.guard';
+import { reloadGuard } from './reload.guard';
 
-describe('ReloadGuard', () => {
+describe('reloadGuard', () => {
   let guard: any;
   let router: Router;
   let appConfig: AppConfig;
@@ -12,7 +12,7 @@ describe('ReloadGuard', () => {
   beforeEach(() => {
     router = jasmine.createSpyObj('router', ['parseUrl', 'createUrlTree']);
     appConfig = new DefaultAppConfig();
-    guard = ReloadGuard;
+    guard = reloadGuard;
   });
 
   describe('canActivate', () => {

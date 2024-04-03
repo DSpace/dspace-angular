@@ -6,7 +6,7 @@ import {
 import { EndUserAgreementCookieGuard } from '../core/end-user-agreement/end-user-agreement-cookie.guard';
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
 import { ThemedRegisterEmailComponent } from './register-email/themed-register-email.component';
-import { RegistrationGuard } from './registration.guard';
+import { registrationGuard } from './registration.guard';
 
 
 export const ROUTES: Route[] = [
@@ -19,7 +19,7 @@ export const ROUTES: Route[] = [
     path: ':token',
     component: ThemedCreateProfileComponent,
     canActivate: [
-      RegistrationGuard,
+      registrationGuard,
       ...mapToCanActivate([EndUserAgreementCookieGuard]),
     ],
   },

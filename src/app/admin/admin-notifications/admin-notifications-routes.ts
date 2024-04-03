@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
+import { authenticatedGuard } from '../../core/auth/authenticated.guard';
 import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { qualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
 import { AdminNotificationsPublicationClaimPageResolver } from '../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
@@ -19,7 +19,7 @@ import {
 
 export const ROUTES: Route[] = [
   {
-    canActivate: [ AuthenticatedGuard ],
+    canActivate: [ authenticatedGuard ],
     path: `${PUBLICATION_CLAIMS_PATH}`,
     component: AdminNotificationsPublicationClaimPageComponent,
     pathMatch: 'full',
@@ -34,7 +34,7 @@ export const ROUTES: Route[] = [
     },
   },
   {
-    canActivate: [AuthenticatedGuard],
+    canActivate: [authenticatedGuard],
     path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId`,
     component: QualityAssuranceTopicsPageComponent,
     pathMatch: 'full',
@@ -49,7 +49,7 @@ export const ROUTES: Route[] = [
     },
   },
   {
-    canActivate: [ AuthenticatedGuard ],
+    canActivate: [ authenticatedGuard ],
     path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/target/:targetId`,
     component: QualityAssuranceTopicsPageComponent,
     pathMatch: 'full',
@@ -64,7 +64,7 @@ export const ROUTES: Route[] = [
     },
   },
   {
-    canActivate: [AuthenticatedGuard],
+    canActivate: [authenticatedGuard],
     path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
     component: QualityAssuranceSourcePageComponent,
     pathMatch: 'full',
@@ -80,7 +80,7 @@ export const ROUTES: Route[] = [
     },
   },
   {
-    canActivate: [AuthenticatedGuard],
+    canActivate: [authenticatedGuard],
     path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/:topicId`,
     component: QualityAssuranceEventsPageComponent,
     pathMatch: 'full',

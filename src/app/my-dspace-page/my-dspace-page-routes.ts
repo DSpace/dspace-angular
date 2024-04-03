@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { MyDSpaceGuard } from './my-dspace.guard';
+import { myDSpaceGuard } from './my-dspace.guard';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 
 export const ROUTES: Route[] = [
@@ -13,7 +13,7 @@ export const ROUTES: Route[] = [
     },
     data: { title: 'mydspace.title', breadcrumbKey: 'mydspace' },
     canActivate: [
-      MyDSpaceGuard,
+      myDSpaceGuard,
     ],
   },
 ];

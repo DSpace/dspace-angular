@@ -27,7 +27,7 @@ import {
  * True when either a parent ID query parameter has been provided and the parent ID resolves to a valid parent community
  * Reroutes to a 404 page when the page cannot be activated
  */
-export const CreateCollectionPageGuard: CanActivateFn = (
+export const createCollectionPageGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   communityService: CommunityDataService = inject(CommunityDataService),

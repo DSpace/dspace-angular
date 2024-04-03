@@ -9,7 +9,7 @@ import {
  * The format of the key will be "{configuration}.search.title" with:
  * - configuration: The current configuration stored in route.params
  */
-export const ConfigurationSearchPageGuard: CanActivateFn = (
+export const configurationSearchPageGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
 ): boolean => {

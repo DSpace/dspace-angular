@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ProcessDetailComponent } from './detail/process-detail.component';
 import { NewProcessComponent } from './new/new-process.component';
@@ -13,7 +13,7 @@ export const ROUTES: Route[] = [
     path: '',
     resolve: { breadcrumb: i18nBreadcrumbResolver },
     data: { breadcrumbKey: 'process.overview' },
-    canActivate: [AuthenticatedGuard],
+    canActivate: [authenticatedGuard],
     children: [
       {
         path: '',

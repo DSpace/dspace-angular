@@ -17,7 +17,7 @@ interface LookupParams {
   id: string;
 }
 
-export const LookupGuard: CanActivateFn = (
+export const lookupGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   dsoService: DsoRedirectService = inject(DsoRedirectService),

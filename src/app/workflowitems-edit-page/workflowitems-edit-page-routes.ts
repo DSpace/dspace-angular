@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
@@ -23,7 +23,7 @@ export const ROUTES: Routes = [
     resolve: { wfi: workflowItemPageResolver },
     children: [
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: WORKFLOW_ITEM_EDIT_PATH,
         component: ThemedSubmissionEditComponent,
         resolve: {
@@ -36,7 +36,7 @@ export const ROUTES: Routes = [
         },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: WORKFLOW_ITEM_VIEW_PATH,
         component: ThemedFullItemPageComponent,
         resolve: {
@@ -46,7 +46,7 @@ export const ROUTES: Routes = [
         data: { title: 'workflow-item.view.title', breadcrumbKey: 'workflow-item.view' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: WORKFLOW_ITEM_DELETE_PATH,
         component: ThemedWorkflowItemDeleteComponent,
         resolve: {
@@ -55,7 +55,7 @@ export const ROUTES: Routes = [
         data: { title: 'workflow-item.delete.title', breadcrumbKey: 'workflow-item.edit' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: WORKFLOW_ITEM_SEND_BACK_PATH,
         component: ThemedWorkflowItemSendBackComponent,
         resolve: {
@@ -64,7 +64,7 @@ export const ROUTES: Routes = [
         data: { title: 'workflow-item.send-back.title', breadcrumbKey: 'workflow-item.edit' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: ADVANCED_WORKFLOW_PATH,
         component: AdvancedWorkflowActionPageComponent,
         resolve: {

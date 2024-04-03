@@ -3,9 +3,9 @@ import {
   Route,
 } from '@angular/router';
 
-import { BrowseByGuard } from '../browse-by/browse-by-guard';
+import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
@@ -20,7 +20,7 @@ import {
   COMMUNITY_EDIT_PATH,
 } from './community-page-routing-paths';
 import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
-import { CreateCommunityPageGuard } from './create-community-page/create-community-page.guard';
+import { createCommunityPageGuard } from './create-community-page/create-community-page.guard';
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
@@ -29,7 +29,7 @@ export const ROUTES: Route[] = [
   {
     path: COMMUNITY_CREATE_PATH,
     component: CreateCommunityPageComponent,
-    canActivate: [AuthenticatedGuard, CreateCommunityPageGuard],
+    canActivate: [authenticatedGuard, createCommunityPageGuard],
   },
   {
     path: ':id',
@@ -50,7 +50,7 @@ export const ROUTES: Route[] = [
         path: 'delete',
         pathMatch: 'full',
         component: DeleteCommunityPageComponent,
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
       },
       {
         path: '',
@@ -74,7 +74,7 @@ export const ROUTES: Route[] = [
             path: 'browse/:id',
             pathMatch: 'full',
             component: ComcolBrowseByComponent,
-            canActivate: [BrowseByGuard],
+            canActivate: [browseByGuard],
             resolve: {
               breadcrumb: browseByI18nBreadcrumbResolver,
             },

@@ -1,6 +1,6 @@
 import { environment } from '../../environments/environment';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { FeedbackGuard } from '../core/feedback/feedback.guard';
+import { feedbackGuard } from '../core/feedback/feedback.guard';
 import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import {
@@ -17,7 +17,7 @@ export const ROUTES = [
     component: ThemedFeedbackComponent,
     resolve: { breadcrumb: i18nBreadcrumbResolver },
     data: { title: 'info.feedback.title', breadcrumbKey: 'info.feedback' },
-    canActivate: [FeedbackGuard],
+    canActivate: [feedbackGuard],
   },
   environment.info.enableEndUserAgreement ? {
     path: END_USER_AGREEMENT_PATH,

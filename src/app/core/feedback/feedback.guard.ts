@@ -13,7 +13,7 @@ import { FeatureID } from '../data/feature-authorization/feature-id';
 /**
  * A guard for redirecting users to the feedback page if user is authorized
  */
-export const FeedbackGuard: CanActivateFn = (
+export const feedbackGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   authorizationService: AuthorizationDataService = inject(AuthorizationDataService),

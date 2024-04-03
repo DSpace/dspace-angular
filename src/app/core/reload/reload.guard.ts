@@ -18,7 +18,7 @@ import { isNotEmpty } from '../../shared/empty.util';
  * A guard redirecting the user to the URL provided in the route's query params
  * When no redirect url is found, the user is redirected to the homepage
  */
-export const ReloadGuard: CanActivateFn = (
+export const reloadGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   appConfig: AppConfig = inject(APP_CONFIG),

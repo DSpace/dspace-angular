@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 
 import { NotifyInfoService } from './notify-info.service';
 
-export const NotifyInfoGuard: CanActivateFn = (
+export const notifyInfoGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   notifyInfoService: NotifyInfoService = inject(NotifyInfoService),

@@ -24,7 +24,7 @@ import { isAuthenticationBlocking } from './selectors';
  * route until the authentication status has loaded.
  * To ensure all rest requests get the correct auth header.
  */
-export const AuthBlockingGuard: CanActivateFn = (
+export const authBlockingGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   store: Store<AppState> = inject(Store<AppState>),

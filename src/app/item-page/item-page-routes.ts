@@ -4,7 +4,7 @@ import {
 } from '@angular/router';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
@@ -51,7 +51,7 @@ export const ROUTES: Route[] = [
       {
         path: UPLOAD_BITSTREAM_PATH,
         component: UploadBitstreamComponent,
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
       },
       {
         path: REQUEST_COPY_MODULE_PATH,
@@ -60,7 +60,7 @@ export const ROUTES: Route[] = [
       {
         path: ORCID_PATH,
         component: OrcidPageComponent,
-        canActivate: [AuthenticatedGuard, ...mapToCanActivate([OrcidPageGuard])],
+        canActivate: [authenticatedGuard, ...mapToCanActivate([OrcidPageGuard])],
       },
     ],
     data: {

@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
@@ -19,7 +19,7 @@ export const ROUTES: Route[] = [
     resolve: { wsi: workspaceItemPageResolver },
     children: [
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: 'edit',
         component: ThemedSubmissionEditComponent,
         resolve: {
@@ -28,7 +28,7 @@ export const ROUTES: Route[] = [
         data: { title: 'submission.edit.title', breadcrumbKey: 'submission.edit' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: 'view',
         component: ThemedFullItemPageComponent,
         resolve: {
@@ -38,7 +38,7 @@ export const ROUTES: Route[] = [
         data: { title: 'workspace-item.view.title', breadcrumbKey: 'workspace-item.view' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: 'delete',
         component: WorkspaceItemsDeletePageComponent,
         resolve: {
@@ -48,7 +48,7 @@ export const ROUTES: Route[] = [
         data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: 'delete',
         component: ThemedWorkspaceItemsDeletePageComponent,
         resolve: {

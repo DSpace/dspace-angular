@@ -6,9 +6,9 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { CreateCollectionPageGuard } from './create-collection-page.guard';
+import { createCollectionPageGuard } from './create-collection-page.guard';
 
-describe('CreateCollectionPageGuard', () => {
+describe('createCollectionPageGuard', () => {
   describe('canActivate', () => {
     let guard: any;
     let router;
@@ -28,7 +28,7 @@ describe('CreateCollectionPageGuard', () => {
       };
       router = new RouterMock();
 
-      guard = CreateCollectionPageGuard;
+      guard = createCollectionPageGuard;
     });
 
     it('should return true when the parent ID resolves to a community', () => {
