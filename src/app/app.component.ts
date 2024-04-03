@@ -30,6 +30,7 @@ import { RouteService } from './core/services/route.service';
 import { getEditItemPageRoute, getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from './app-routing-paths';
 import { SocialService } from './social/social.service';
 import { datadogRum } from '@datadog/browser-rum';
+import { KlaroService } from './shared/cookies/klaro.service';
 
 @Component({
   selector: 'ds-app',
@@ -75,6 +76,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private modalService: NgbModal,
     private modalConfig: NgbModalConfig,
     private socialService: SocialService,
+    private klaroService: KlaroService
   ) {
     this.notificationOptions = environment.notifications;
 
@@ -110,13 +112,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
 
-    if (
-      environment.datadogRum?.clientToken && environment.datadogRum?.applicationId &&
-      environment.datadogRum?.service && environment.datadogRum?.env) {
-      // TODO: aggiungere check consent cookie
-      console.warn('init', environment.datadogRum);
-      datadogRum.init(environment.datadogRum);
-    }
+    this.klaroService.getSavedPreferences().subscribe(savedPreferences => {
+      if (savedPreferences?.datadog &&
+        environment.datadogRum?.clientToken && environment.datadogRum?.applicationId &&
+        environment.datadogRum?.service && environment.datadogRum?.env) {
+        datadogRum.init(environment.datadogRum);
+      }
+    });
   }
 
   private storeCSSVariables() {
