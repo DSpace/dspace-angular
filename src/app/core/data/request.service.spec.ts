@@ -16,6 +16,7 @@ import {
   getTestScheduler,
 } from 'jasmine-marbles';
 import {
+  BehaviorSubject,
   EMPTY,
   Observable,
   of as observableOf,
@@ -32,6 +33,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
 import { UUIDService } from '../shared/uuid.service';
+import { XSRFService } from '../xsrf/xsrf.service';
 import {
   RequestConfigureAction,
   RequestExecuteAction,
@@ -59,6 +61,7 @@ describe('RequestService', () => {
   let uuidService: UUIDService;
   let store: Store<CoreState>;
   let mockStore: MockStore<CoreState>;
+  let xsrfService: XSRFService;
 
   const testUUID = '5f2a0d2a-effa-4d54-bd54-5663b960f9eb';
   const testHref = 'https://rest.api/endpoint/selfLink';
@@ -104,10 +107,15 @@ describe('RequestService', () => {
     store = TestBed.inject(Store);
     mockStore = store as MockStore<CoreState>;
     mockStore.setState(initialState);
+    xsrfService = {
+      tokenInitialized$: new BehaviorSubject(false),
+    } as XSRFService;
+
     service = new RequestService(
       objectCache,
       uuidService,
       store,
+      xsrfService,
       undefined,
     );
     serviceAsAny = service as any;

@@ -22,6 +22,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -83,6 +84,7 @@ describe('SubmissionEditComponent Component', () => {
         { provide: HALEndpointService, useValue: halService },
         { provide: SectionsService, useValue: new SectionsServiceStub() },
         { provide: ThemeService, useValue: themeService },
+        { provide: XSRFService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         provideMockStore(),
       ],

@@ -38,6 +38,7 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
@@ -191,6 +192,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
             findById: () => observableOf(createSuccessfulRemoteDataObject(mockSubmissionObject)),
           },
         },
+        { provide: XSRFService, useValue: {} },
         SubmissionSectionLicenseComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],

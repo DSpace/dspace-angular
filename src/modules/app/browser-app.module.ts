@@ -2,7 +2,10 @@ import {
   HttpClient,
   HttpClientModule,
 } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  NgModule,
+} from '@angular/core';
 import {
   BrowserModule,
   BrowserTransferStateModule,
@@ -48,6 +51,8 @@ import { ClientCookieService } from '../../app/core/services/client-cookie.servi
 import { CookieService } from '../../app/core/services/cookie.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
+import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
@@ -97,6 +102,16 @@ export function getRequest(transferState: TransferState): any {
       provide: REQUEST,
       useFactory: getRequest,
       deps: [TransferState],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (xsrfService: XSRFService, httpClient: HttpClient) => xsrfService.initXSRFToken(httpClient),
+      deps: [ XSRFService, HttpClient ],
+      multi: true,
+    },
+    {
+      provide: XSRFService,
+      useClass: BrowserXSRFService,
     },
     {
       provide: AuthService,
