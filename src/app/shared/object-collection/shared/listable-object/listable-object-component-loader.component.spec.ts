@@ -26,6 +26,7 @@ import { FileService } from '../../../../core/shared/file.service';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';
+import { XSRFService } from 'src/app/core/xsrf/xsrf.service';
 
 const testType = 'TestType';
 const testContext = Context.Search;
@@ -72,6 +73,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
         { provide: FileService, useValue: fileService },
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
+        { provide: XSRFService, useValue: {} },
       ]
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {

@@ -28,6 +28,7 @@ import { ConfigurationDataService } from '../../../../core/data/configuration-da
 import { LinkHeadService } from '../../../../core/services/link-head.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Router } from '@angular/router';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
@@ -230,6 +231,7 @@ describe('EditRelationshipListComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: EditItemRelationshipsService, useValue: editItemRelationshipsService },
+        { provide: XSRFService, useValue: {} },
         { provide: APP_CONFIG, useValue: environmentUseThumbs }
       ], schemas: [
         NO_ERRORS_SCHEMA

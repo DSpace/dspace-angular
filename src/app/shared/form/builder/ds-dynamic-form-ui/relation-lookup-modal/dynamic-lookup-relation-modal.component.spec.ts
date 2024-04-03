@@ -24,6 +24,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { By } from '@angular/platform-browser';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -128,6 +129,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
             }
           }
         },
+        { provide: XSRFService, useValue: {} },
         { provide: NgZone, useValue: new NgZone({}) },
         NgbActiveModal
       ],

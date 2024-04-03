@@ -20,6 +20,7 @@ import { SidebarService } from '../sidebar/sidebar.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { RouteService } from '../../core/services/route.service';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
@@ -208,6 +209,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         provide: SearchFilterService,
         useValue: {}
       },
+      { provide: XSRFService, useValue: {} },
       {
         provide: SEARCH_CONFIG_SERVICE,
         useValue: searchConfigurationServiceStub
