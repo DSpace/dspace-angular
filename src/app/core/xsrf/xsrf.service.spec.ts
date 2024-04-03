@@ -1,5 +1,6 @@
-import { XSRFService } from './xsrf.service';
 import { HttpClient } from '@angular/common/http';
+
+import { XSRFService } from './xsrf.service';
 
 class XSRFServiceImpl extends XSRFService {
   initXSRFToken(httpClient: HttpClient): () => Promise<any> {

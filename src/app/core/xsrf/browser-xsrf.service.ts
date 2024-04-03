@@ -1,21 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { take } from 'rxjs/operators';
+
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
-import { take, catchError } from 'rxjs/operators';
-import { of as observableOf } from 'rxjs';
 import { XSRFService } from './xsrf.service';
 
+/**
+ * Browser (CSR) Service to obtain a new CSRF/XSRF token when needed by our RequestService
+ * to perform a modify request (e.g. POST/PUT/DELETE).
+ * NOTE: This is primarily necessary before the *first* modifying request, as the CSRF
+ * token may not yet be initialized.
+ */
 @Injectable()
 export class BrowserXSRFService extends XSRFService {
   initXSRFToken(httpClient: HttpClient): () => Promise<any> {
-    return () => new Promise((resolve) => {
-      httpClient.post(new RESTURLCombiner('/security/csrf').toString(), undefined).pipe(
-        // errors are to be expected if the token and the cookie don't match, that's what we're
-        // trying to fix for future requests, so just emit any observable to end up in the
-        // subscribe
-        catchError(() => observableOf(null)),
+    return () => new Promise<void>((resolve) => {
+      // Force a new token to be created by calling the CSRF endpoint
+      httpClient.get(new RESTURLCombiner('/security/csrf').toString(), undefined).pipe(
         take(1),
       ).subscribe(() => {
+        // Once token is returned, set tokenInitialized to true.
         this.tokenInitialized$.next(true);
       });
 

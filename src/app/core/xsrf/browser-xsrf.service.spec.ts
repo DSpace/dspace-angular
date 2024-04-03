@@ -1,8 +1,12 @@
-import { BrowserXSRFService } from './browser-xsrf.service';
 import { HttpClient } from '@angular/common/http';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { BrowserXSRFService } from './browser-xsrf.service';
 
 describe(`BrowserXSRFService`, () => {
   let service: BrowserXSRFService;
@@ -14,7 +18,7 @@ describe(`BrowserXSRFService`, () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
-      providers: [ BrowserXSRFService ]
+      providers: [ BrowserXSRFService ],
     });
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -22,20 +26,22 @@ describe(`BrowserXSRFService`, () => {
   });
 
   describe(`initXSRFToken`, () => {
-    it(`should perform a POST to the csrf endpoint`, () => {
+    it(`should perform a GET to the csrf endpoint`, (done: DoneFn) => {
       service.initXSRFToken(httpClient)();
 
       const req = httpTestingController.expectOne({
         url: endpointURL,
-        method: 'POST'
+        method: 'GET',
       });
 
       req.flush({});
       httpTestingController.verify();
+      expect().nothing();
+      done();
     });
 
-    describe(`when the POST succeeds`, () => {
-      it(`should set tokenInitialized$ to true`, () => {
+    describe(`when the GET succeeds`, () => {
+      it(`should set tokenInitialized$ to true`, (done: DoneFn) => {
         service.initXSRFToken(httpClient)();
 
         const req = httpTestingController.expectOne(endpointURL);
@@ -44,19 +50,7 @@ describe(`BrowserXSRFService`, () => {
         httpTestingController.verify();
 
         expect(service.tokenInitialized$.getValue()).toBeTrue();
-      });
-    });
-
-    describe(`when the POST fails`, () => {
-      it(`should set tokenInitialized$ to true`, () => {
-        service.initXSRFToken(httpClient)();
-
-        const req = httpTestingController.expectOne(endpointURL);
-
-        req.error(new ErrorEvent('415'));
-        httpTestingController.verify();
-
-        expect(service.tokenInitialized$.getValue()).toBeTrue();
+        done();
       });
     });
 
