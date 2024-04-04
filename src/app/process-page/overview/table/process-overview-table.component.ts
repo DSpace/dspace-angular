@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { ProcessStatus } from '../../processes/process-status.model';
-import { Observable, mergeMap, from as observableFrom, BehaviorSubject, Subscription, of } from 'rxjs';
+import { Observable, mergeMap, from as observableFrom, BehaviorSubject, Subscription } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Process } from '../../processes/process.model';
@@ -12,7 +12,6 @@ import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import {
-  getFirstSucceededRemoteDataPayload,
   getAllCompletedRemoteData, getFirstCompletedRemoteData
 } from '../../../core/shared/operators';
 import { map, switchMap, toArray, take, filter } from 'rxjs/operators';
