@@ -26,15 +26,19 @@ export function lazyService<T>(
   injector: Injector,
 ): Observable<T> {
   return defer(() => {
-    return loader()
-      .then((serviceOrDefault) => {
-        if ('default' in serviceOrDefault) {
-          return injector!.get(serviceOrDefault.default);
-        }
-        return injector!.get(serviceOrDefault);
-      })
-      .catch((error) => {
-        throw error;
-      });
+    if (typeof loader === 'function') {
+      return loader()
+        .then((serviceOrDefault) => {
+          if ('default' in serviceOrDefault) {
+            return injector!.get(serviceOrDefault.default);
+          }
+          return injector!.get(serviceOrDefault);
+        })
+        .catch((error) => {
+          throw error;
+        });
+    } else {
+      return null;
+    }
   });
 }
