@@ -11,6 +11,7 @@ export class DatadogRumService {
 
   consentUpdates$: BehaviorSubject<CookieConsents>;
   isDatadogInitialized = false;
+  isDatadogRunning = false;
 
   constructor(
     private klaroService: KlaroService
@@ -26,12 +27,15 @@ export class DatadogRumService {
         environment.datadogRum?.service && environment.datadogRum?.env) {
         if (!this.isDatadogInitialized) {
           this.isDatadogInitialized = true;
+          this.isDatadogRunning = true;
           datadogRum.init(environment.datadogRum);
+        } else if (!this.isDatadogRunning) {
+          this.isDatadogRunning = true;
+          datadogRum.startSessionReplayRecording();
         }
       } else {
-        // TODO: if a session starts then stops then starts again an error is thrown. Is there an alternative to the .init method?
-        datadogRum.stopSession();
-        this.isDatadogInitialized = false;
+        datadogRum.stopSessionReplayRecording();
+        this.isDatadogRunning = false;
       }
     });
   }
