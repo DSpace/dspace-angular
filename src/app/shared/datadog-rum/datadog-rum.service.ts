@@ -10,14 +10,13 @@ import { distinctUntilChanged, take } from 'rxjs/operators';
 import { coreSelector } from '../../core/core.selectors';
 import { CoreState } from '../../core/core-state.model';
 
-export const getDatadogRumState = createSelector(coreSelector, (state: CoreState) => state.datadogRum);
-
 @Injectable({
   providedIn: 'root'
 })
 export class DatadogRumService {
 
-  consentUpdates$: BehaviorSubject<CookieConsents>;
+  consentsUpdates$: BehaviorSubject<CookieConsents>;
+  datadogRumStateSelector = createSelector(coreSelector, (state: CoreState) => state.datadogRum);
 
   constructor(
     private klaroService: KlaroService,
@@ -27,8 +26,8 @@ export class DatadogRumService {
 
   initDatadogRum() {
     this.klaroService.watchConsentUpdates();
-    this.consentUpdates$ = this.klaroService.consentsUpdates$;
-    this.consentUpdates$.subscribe(savedPreferences => {
+    this.consentsUpdates$ = this.klaroService.consentsUpdates$;
+    this.consentsUpdates$.subscribe(savedPreferences => {
       this.getDatadogRumState().subscribe((state) => {
         if (savedPreferences?.datadog &&
           environment.datadogRum?.clientToken && environment.datadogRum?.applicationId &&
@@ -58,7 +57,7 @@ export class DatadogRumService {
 
   getDatadogRumState(): Observable<DatadogRumState> {
     return this.store
-      .select(getDatadogRumState)
+      .select(this.datadogRumStateSelector)
       .pipe(
         distinctUntilChanged(),
         take(1),
