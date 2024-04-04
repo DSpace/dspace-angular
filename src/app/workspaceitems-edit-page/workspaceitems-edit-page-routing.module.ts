@@ -7,6 +7,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ItemFromWorkspaceResolver } from './item-from-workspace.resolver';
 import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
+import { ItemFromWorkspaceBreadcrumbResolver } from './item-from-workspace-breadcrumb.resolver';
 
 @NgModule({
   imports: [
@@ -14,7 +15,10 @@ import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       {
         path: ':id',
-        resolve: { wsi: WorkspaceItemPageResolver },
+        resolve: {
+          breadcrumb: ItemFromWorkspaceBreadcrumbResolver,
+          wsi: WorkspaceItemPageResolver,
+        },
         children: [
           {
             canActivate: [AuthenticatedGuard],
@@ -39,7 +43,11 @@ import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
       }
     ])
   ],
-  providers: [WorkspaceItemPageResolver, ItemFromWorkspaceResolver]
+  providers: [
+    ItemFromWorkspaceBreadcrumbResolver,
+    ItemFromWorkspaceResolver,
+    WorkspaceItemPageResolver,
+  ],
 })
 /**
  * This module defines the default component to load when navigating to the workspaceitems edit page path

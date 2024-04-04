@@ -15,13 +15,17 @@ import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/t
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ItemFromWorkflowResolver } from './item-from-workflow.resolver';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
+import { ItemFromWorkflowBreadcrumbResolver } from './item-from-workflow-breadcrumb.resolver';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: ':id',
-        resolve: { wfi: WorkflowItemPageResolver },
+        resolve: {
+          breadcrumb: ItemFromWorkflowBreadcrumbResolver,
+          wfi: WorkflowItemPageResolver,
+        },
         children: [
           {
             canActivate: [AuthenticatedGuard],
@@ -64,7 +68,11 @@ import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-
       }]
     )
   ],
-  providers: [WorkflowItemPageResolver, ItemFromWorkflowResolver]
+  providers: [
+    ItemFromWorkflowBreadcrumbResolver,
+    ItemFromWorkflowResolver,
+    WorkflowItemPageResolver,
+  ],
 })
 /**
  * This module defines the default component to load when navigating to the workflowitems edit page path.
