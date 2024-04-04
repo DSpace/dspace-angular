@@ -36,10 +36,11 @@ describe('ProcessOverviewTableComponent', () => {
   let modalService: NgbModal;
   let authService; // : AuthService; Not typed as the mock does not fully implement AuthService
   let routeService: RouteService;
-  let translateService: TranslateService;
 
   let processes: Process[];
   let ePerson: EPerson;
+
+  let translateServiceSpy: jasmine.SpyObj<TranslateService>;
 
   function init() {
     processes = [
@@ -48,24 +49,29 @@ describe('ProcessOverviewTableComponent', () => {
         scriptName: 'script-a',
         startTime: '2020-03-19 00:30:00',
         endTime: '2020-03-19 23:30:00',
-        processStatus: ProcessStatus.COMPLETED
+        processStatus: ProcessStatus.COMPLETED,
+        userId: 'testid'
       }),
       Object.assign(new Process(), {
         processId: 2,
         scriptName: 'script-b',
         startTime: '2020-03-20 00:30:00',
         endTime: '2020-03-20 23:30:00',
-        processStatus: ProcessStatus.FAILED
+        processStatus: ProcessStatus.FAILED,
+        userId: 'testid'
       }),
       Object.assign(new Process(), {
         processId: 3,
         scriptName: 'script-c',
         startTime: '2020-03-21 00:30:00',
         endTime: '2020-03-21 23:30:00',
-        processStatus: ProcessStatus.RUNNING
-      }),
+        processStatus: ProcessStatus.RUNNING,
+        userId: 'testid'
+  }),
     ];
     ePerson = Object.assign(new EPerson(), {
+      id: 'testid',
+      uuid: 'testid',
       metadata: {
         'eperson.firstname': [
           {
@@ -123,6 +129,8 @@ describe('ProcessOverviewTableComponent', () => {
 
   beforeEach(waitForAsync(() => {
     init();
+
+    translateServiceSpy = jasmine.createSpyObj('TranslateService', ['get']);
 
     void TestBed.configureTestingModule({
       declarations: [ProcessOverviewTableComponent, VarDirective, NgbCollapse],
@@ -203,50 +211,43 @@ describe('ProcessOverviewTableComponent', () => {
     });
 
   });
-/*
-  describe('getEPersonName', () => {
-    beforeEach(() => {
-      init();
-      translateService = getMockTranslateService();
+
+  describe('getEPersonName function', () => {
+    it('should return unknown user when id is null', (done: DoneFn) => {
+      const id = null;
+      const expectedTranslation = 'process.overview.unknown.user';
+
+      translateServiceSpy.get(expectedTranslation);
+
+      component.getEPersonName(id).subscribe((result: string) => {
+        expect(result).toBe(expectedTranslation);
+        done();
+      });
+      expect(translateServiceSpy.get).toHaveBeenCalledWith('process.overview.unknown.user');
     });
 
-    it('should return the name when the ID is valid', () => {
-      const id = 'valid_id';
+    it('should return unknown user when id is invalid', (done: DoneFn) => {
+      const id = '';
+      const expectedTranslation = 'process.overview.unknown.user';
+
+      translateServiceSpy.get(expectedTranslation);
+
+      component.getEPersonName(id).subscribe((result: string) => {
+        expect(result).toBe(expectedTranslation);
+        done();
+      });
+      expect(translateServiceSpy.get).toHaveBeenCalledWith('process.overview.unknown.user');
+    });
+
+    it('should return EPerson name when id is correct', (done: DoneFn) => {
+      const id = 'testid';
       const expectedName = 'John Doe';
 
-      spyOn(dsoNameService, 'getName').and.returnValue(expectedName);
-
-      component.getEPersonName(id).subscribe(name => {
-        expect(name).toEqual(expectedName);
+      component.getEPersonName(id).subscribe((result: string) => {
+        expect(result).toEqual(expectedName);
+        done();
       });
-
-      expect(ePersonService.findById).toHaveBeenCalledWith(id);
-    });
-
-    fit('should return "Unknown" when the ID is invalid', () => {
-      const id = 'invalid_id';
-      const translationKey = 'unknown_user';
-      const expectedMessage = 'Unknown';
-
-      spyOn(translateService, 'get').and.returnValue(of(expectedMessage));
-
-      component.getEPersonName(id).subscribe(name => {
-        expect(name).toEqual(expectedMessage);
-      });
-
-      expect(ePersonService.findById).toHaveBeenCalledWith(id);
-      expect(translateService.get).toHaveBeenCalledWith(translationKey);
-    });
-
-    it('should return an empty observable when the ID is null', () => {
-      const id = null;
-
-      component.getEPersonName(id).subscribe(name => {
-        expect(name).toBeUndefined();
-      });
-
-      expect(ePersonService.findById).not.toHaveBeenCalled();
+      expect(translateServiceSpy.get).not.toHaveBeenCalled();
     });
   });
-*/
 });
