@@ -112,7 +112,6 @@ export class LinkFieldParser extends ConcatFieldParser {
         this.initSecurityValue(concatGroup, fieldValue);
         const concatModel = new DynamicLinkModel(concatGroup, clsGroup);
         concatModel.name = this.getFieldId();
-        console.log(concatModel, fieldValue);
         // Init values
         if (isNotEmpty(fieldValue)) {
             concatModel.value = fieldValue;
