@@ -7,6 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { getDSORoute } from '../../app-routing-paths';
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { hasValue } from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -39,15 +40,22 @@ export abstract class DSOBreadcrumbResolver<T extends ChildHALResource & DSpaceO
    * @returns BreadcrumbConfig object
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<T>> {
-    const uuid = route.params.id;
+    return this.resolveById(route.params.id);
+  }
+
+  /**
+   * Method for resolving a breadcrumb by id
+   *
+   * @param uuid The uuid to resolve
+   * @returns BreadcrumbConfig object
+   */
+  resolveById(uuid: string): Observable<BreadcrumbConfig<T>> {
     return this.dataService.findById(uuid, true, false, ...this.followLinks).pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       map((object: T) => {
         if (hasValue(object)) {
-          const fullPath = state.url;
-          const url = fullPath.substr(0, fullPath.indexOf(uuid)) + uuid;
-          return { provider: this.breadcrumbService, key: object, url: url };
+          return { provider: this.breadcrumbService, key: object, url: getDSORoute(object) };
         } else {
           return undefined;
         }

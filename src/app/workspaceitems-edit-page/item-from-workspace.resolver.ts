@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { Store } from '@ngrx/store';
 
 import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
@@ -11,12 +10,12 @@ import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class ItemFromWorkspaceResolver extends SubmissionObjectResolver<Item> implements Resolve<RemoteData<Item>>  {
+export class ItemFromWorkspaceResolver extends SubmissionObjectResolver<Item> implements Resolve<RemoteData<Item>> {
+
   constructor(
-        private workspaceItemService: WorkspaceitemDataService,
-        protected store: Store<any>,
+    protected dataService: WorkspaceitemDataService,
   ) {
-    super(workspaceItemService, store);
+    super(dataService);
   }
 
 }

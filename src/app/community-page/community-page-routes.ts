@@ -25,8 +25,25 @@ import { ThemedCommunityPageComponent } from './themed-community-page.component'
 export const ROUTES: Route[] = [
   {
     path: COMMUNITY_CREATE_PATH,
-    component: CreateCommunityPageComponent,
+    children: [
+      {
+        path: '',
+        component: CreateCommunityPageComponent,
+        resolve: {
+          breadcrumb: I18nBreadcrumbResolver,
+        },
+        data: {
+          breadcrumbKey: 'community.create',
+        },
+      },
+    ],
     canActivate: [AuthenticatedGuard, CreateCommunityPageGuard],
+    data: {
+      breadcrumbQueryParam: 'parent',
+    },
+    resolve: {
+      breadcrumb: CommunityBreadcrumbResolver,
+    },
   },
   {
     path: ':id',

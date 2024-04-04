@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { Store } from '@ngrx/store';
 
 import { RemoteData } from '../core/data/remote-data';
 import { Item } from '../core/shared/item.model';
@@ -11,12 +10,12 @@ import { WorkflowItemDataService } from '../core/submission/workflowitem-data.se
  * This class represents a resolver that requests a specific item before the route is activated
  */
 @Injectable({ providedIn: 'root' })
-export class ItemFromWorkflowResolver extends SubmissionObjectResolver<Item> implements Resolve<RemoteData<Item>>  {
+export class ItemFromWorkflowResolver extends SubmissionObjectResolver<Item> implements Resolve<RemoteData<Item>> {
+
   constructor(
-    private workflowItemService: WorkflowItemDataService,
-    protected store: Store<any>,
+    protected dataService: WorkflowItemDataService,
   ) {
-    super(workflowItemService, store);
+    super(dataService);
   }
 
 }

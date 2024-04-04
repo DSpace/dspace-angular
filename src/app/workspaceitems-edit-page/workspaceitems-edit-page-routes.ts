@@ -5,6 +5,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { ItemFromWorkspaceResolver } from './item-from-workspace.resolver';
+import { ItemFromWorkspaceBreadcrumbResolver } from './item-from-workspace-breadcrumb.resolver';
 import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
 import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/workspaceitems-delete-page.component';
@@ -16,7 +17,10 @@ export const ROUTES: Route[] = [
   },
   {
     path: ':id',
-    resolve: { wsi: WorkspaceItemPageResolver },
+    resolve: {
+      breadcrumb: ItemFromWorkspaceBreadcrumbResolver,
+      wsi: WorkspaceItemPageResolver,
+    },
     children: [
       {
         canActivate: [AuthenticatedGuard],
