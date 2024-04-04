@@ -18,6 +18,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   firstValueFrom,
+  lastValueFrom,
   Subscription,
 } from 'rxjs';
 import {
@@ -124,7 +125,7 @@ export class BrowserInitService extends InitService {
 
       this.initKlaro();
 
-      await this.authenticationReady$().toPromise();
+      await lastValueFrom(this.authenticationReady$());
 
       return true;
     };
@@ -141,10 +142,12 @@ export class BrowserInitService extends InitService {
     const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
     this.transferState.remove(InitService.NGRX_STATE);
     this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
-    return this.store.select(coreSelector).pipe(
-      find((core: any) => isNotEmpty(core)),
-      map(() => true),
-    ).toPromise();
+    return lastValueFrom(
+      this.store.select(coreSelector).pipe(
+        find((core: any) => isNotEmpty(core)),
+        map(() => true),
+      ),
+    );
   }
 
   private trackAuthTokenExpiration(): void {
@@ -190,7 +193,7 @@ export class BrowserInitService extends InitService {
    * @private
    */
   private closeAuthCheckSubscription() {
-    firstValueFrom(this.authenticationReady$()).then(() => {
+    void firstValueFrom(this.authenticationReady$()).then(() => {
       this.sub.unsubscribe();
     });
   }

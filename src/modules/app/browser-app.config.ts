@@ -4,11 +4,8 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import {
-  APP_INITIALIZER,
-  NgModule,
-} from '@angular/core';
-import {
   APP_ID,
+  APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
   makeStateKey,
@@ -53,10 +50,10 @@ import { ClientCookieService } from '../../app/core/services/client-cookie.servi
 import { CookieService } from '../../app/core/services/cookie.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
-import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
-import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { ClientMathService } from '../../app/core/shared/client-math.service';
 import { MathService } from '../../app/core/shared/math.service';
+import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
