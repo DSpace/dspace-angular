@@ -1,15 +1,18 @@
 import { XhrFactory } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
 import {
-  BrowserModule,
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  APP_ID,
+  ApplicationConfig,
+  importProvidersFrom,
+  mergeApplicationConfig,
   TransferState,
-} from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  ServerModule,
-  ServerTransferStateModule,
-} from '@angular/platform-server';
+} from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideServerRendering } from '@angular/platform-server';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -26,8 +29,7 @@ import {
   Angulartics2GoogleGlobalSiteTag,
 } from 'angulartics2';
 
-import { AppComponent } from '../../app/app.component';
-import { AppModule } from '../../app/app.module';
+import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
@@ -46,6 +48,10 @@ import { ServerReferrerService } from '../../app/core/services/server.referrer.s
 import { ServerCookieService } from '../../app/core/services/server-cookie.service';
 import { ServerHardRedirectService } from '../../app/core/services/server-hard-redirect.service';
 import { ServerXhrService } from '../../app/core/services/server-xhr.service';
+import { MathService } from '../../app/core/shared/math.service';
+import { ServerMathService } from '../../app/core/shared/server-math.service';
+import { ServerXSRFService } from '../../app/core/xsrf/server-xsrf.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
@@ -58,28 +64,24 @@ export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
 }
 
-@NgModule({
-  bootstrap: [AppComponent],
-  imports: [
-    BrowserModule.withServerTransition({
-      appId: 'dspace-angular',
-    }),
-    NoopAnimationsModule,
-    ServerTransferStateModule,
-    StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
-    EffectsModule.forFeature(coreEffects),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [TransferState],
-      },
-    }),
-    AppModule,
-    ServerModule,
-  ],
+export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
   providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAnimations(),
+    provideServerRendering(),
+    importProvidersFrom(
+      StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
+      EffectsModule.forFeature(coreEffects),
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: (createTranslateLoader),
+          deps: [TransferState],
+        },
+      }),
+    ),
     ...ServerInitService.providers(),
+    { provide: APP_ID, useValue: 'dspace-angular' },
     {
       provide: Angulartics2,
       useClass: Angulartics2Mock,
@@ -113,6 +115,10 @@ export function createTranslateLoader(transferState: TransferState) {
       useClass: ServerAuthRequestService,
     },
     {
+      provide: XSRFService,
+      useClass: ServerXSRFService,
+    },
+    {
       provide: LocaleService,
       useClass: ServerLocaleService,
     },
@@ -134,7 +140,9 @@ export function createTranslateLoader(transferState: TransferState) {
       provide: ReferrerService,
       useClass: ServerReferrerService,
     },
+    {
+      provide: MathService,
+      useClass: ServerMathService,
+    },
   ],
-})
-export class ServerAppModule {
-}
+}, commonAppConfig);

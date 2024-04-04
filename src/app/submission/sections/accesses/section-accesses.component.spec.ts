@@ -24,6 +24,7 @@ import { SubmissionAccessesConfigDataService } from '../../../core/config/submis
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -120,6 +121,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
           { provide: SubmissionObjectDataService, useValue: {} },
           { provide: SubmissionService, useValue: {} },
+          { provide: XSRFService, useValue: {} },
           { provide: APP_CONFIG, useValue: environment },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
@@ -216,6 +218,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
           { provide: SubmissionObjectDataService, useValue: {} },
           { provide: SubmissionService, useValue: {} },
+          { provide: XSRFService, useValue: {} },
           { provide: APP_CONFIG, useValue: environment },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },

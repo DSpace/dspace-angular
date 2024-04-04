@@ -1,4 +1,7 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { SystemWideAlertFormComponent } from './alert-form/system-wide-alert-form.component';
@@ -6,7 +9,7 @@ import { SystemWideAlertFormComponent } from './alert-form/system-wide-alert-for
 export const ROUTES: Route[] = [
   {
     path: '',
-    canActivate: [SiteAdministratorGuard],
+    canActivate: mapToCanActivate([SiteAdministratorGuard]),
     component: SystemWideAlertFormComponent,
   },
 

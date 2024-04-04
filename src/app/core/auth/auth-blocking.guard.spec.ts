@@ -17,10 +17,10 @@ import {
   storeModuleConfig,
 } from '../../app.reducer';
 import { authReducer } from './auth.reducer';
-import { AuthBlockingGuard } from './auth-blocking.guard';
+import { authBlockingGuard } from './auth-blocking.guard';
 
-describe('AuthBlockingGuard', () => {
-  let guard: AuthBlockingGuard;
+describe('authBlockingGuard', () => {
+  let guard: any;
   let initialState;
   let store: Store<AppState>;
   let mockStore: MockStore<AppState>;
@@ -44,7 +44,7 @@ describe('AuthBlockingGuard', () => {
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: AuthBlockingGuard, useValue: guard },
+        { provide: authBlockingGuard, useValue: guard },
       ],
     }).compileComponents();
   }));
@@ -52,14 +52,14 @@ describe('AuthBlockingGuard', () => {
   beforeEach(() => {
     store = TestBed.inject(Store);
     mockStore = store as MockStore<AppState>;
-    guard = new AuthBlockingGuard(store);
+    guard = authBlockingGuard;
   });
 
   describe(`canActivate`, () => {
 
     describe(`when authState.blocking is undefined`, () => {
       it(`should not emit anything`, (done) => {
-        expect(guard.canActivate()).toBeObservable(cold('-'));
+        expect(guard(null, null, store)).toBeObservable(cold('-'));
         done();
       });
     });
@@ -77,7 +77,7 @@ describe('AuthBlockingGuard', () => {
       });
 
       it(`should not emit anything`, (done) => {
-        expect(guard.canActivate()).toBeObservable(cold('-'));
+        expect(guard(null, null, store)).toBeObservable(cold('-'));
         done();
       });
     });
@@ -95,7 +95,7 @@ describe('AuthBlockingGuard', () => {
       });
 
       it(`should succeed`, (done) => {
-        expect(guard.canActivate()).toBeObservable(cold('(a|)', { a: true }));
+        expect(guard(null, null, store)).toBeObservable(cold('(a|)', { a: true }));
         done();
       });
     });

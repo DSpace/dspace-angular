@@ -17,6 +17,7 @@ import { AuthorizationDataService } from '../../../../../core/data/feature-autho
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
@@ -67,6 +68,7 @@ describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
           { provide: ThemeService, useValue: getMockThemeService() },
           { provide: AuthService, useValue: new AuthServiceMock() },
           { provide: AuthorizationDataService, useValue: {} },
+          { provide: XSRFService, useValue: {} },
         ],
         schemas: [NO_ERRORS_SCHEMA],
       })

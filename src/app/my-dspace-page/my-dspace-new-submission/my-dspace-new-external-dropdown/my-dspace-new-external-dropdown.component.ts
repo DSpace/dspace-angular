@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   Observable,
   of as observableOf,
   Subscription,
@@ -67,7 +68,7 @@ export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
   /**
    * TRUE if the page is initialized
    */
-  public initialized$: Observable<boolean>;
+  public initialized$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -88,7 +89,6 @@ export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
    * Initialize entity type list
    */
   ngOnInit() {
-    this.initialized$ = observableOf(false);
     this.moreThanOne$ = this.entityTypeService.hasMoreThanOneAuthorizedImport();
     this.singleEntity$ = this.moreThanOne$.pipe(
       mergeMap((response: boolean) => {
@@ -98,21 +98,23 @@ export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
             currentPage: 1,
           };
           return this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findListOptions).pipe(
-            map((entities: RemoteData<PaginatedList<ItemType>>) => {
-              this.initialized$ = observableOf(true);
-              return entities.payload.page[0];
-            }),
             take(1),
+            map((entities: RemoteData<PaginatedList<ItemType>>) => {
+              this.initialized$.next(true);
+              return entities?.payload?.page[0];
+            }),
           );
         } else {
-          this.initialized$ = observableOf(true);
+          this.initialized$.next(true);
           return observableOf(null);
         }
       }),
       take(1),
     );
     this.subs.push(
-      this.singleEntity$.subscribe((result) => this.singleEntity = result ),
+      this.singleEntity$.subscribe((result) => {
+        this.singleEntity = result;
+      } ),
     );
   }
 

@@ -22,6 +22,7 @@ import {
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
@@ -83,6 +84,7 @@ describe('FileSectionComponent', () => {
       }), BrowserAnimationsModule, FileSectionComponent, VarDirective, FileSizePipe],
       providers: [
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: APP_CONFIG, useValue: environment },

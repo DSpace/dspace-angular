@@ -1,5 +1,6 @@
 import {
   fakeAsync,
+  flush,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -16,6 +17,7 @@ import {
   getTestScheduler,
 } from 'jasmine-marbles';
 import {
+  BehaviorSubject,
   EMPTY,
   Observable,
   of as observableOf,
@@ -32,6 +34,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
 import { UUIDService } from '../shared/uuid.service';
+import { XSRFService } from '../xsrf/xsrf.service';
 import {
   RequestConfigureAction,
   RequestExecuteAction,
@@ -59,6 +62,7 @@ describe('RequestService', () => {
   let uuidService: UUIDService;
   let store: Store<CoreState>;
   let mockStore: MockStore<CoreState>;
+  let xsrfService: XSRFService;
 
   const testUUID = '5f2a0d2a-effa-4d54-bd54-5663b960f9eb';
   const testHref = 'https://rest.api/endpoint/selfLink';
@@ -104,10 +108,15 @@ describe('RequestService', () => {
     store = TestBed.inject(Store);
     mockStore = store as MockStore<CoreState>;
     mockStore.setState(initialState);
+    xsrfService = {
+      tokenInitialized$: new BehaviorSubject(false),
+    } as XSRFService;
+
     service = new RequestService(
       objectCache,
       uuidService,
       store,
+      xsrfService,
       undefined,
     );
     serviceAsAny = service as any;
@@ -501,21 +510,23 @@ describe('RequestService', () => {
       dispatchSpy = spyOn(store, 'dispatch');
     });
 
-    it('should dispatch a RequestConfigureAction', () => {
+    it('should dispatch a RequestConfigureAction', fakeAsync(() => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
+      flush();
       const firstAction = dispatchSpy.calls.argsFor(0)[0];
       expect(firstAction).toBeInstanceOf(RequestConfigureAction);
       expect(firstAction.payload).toEqual(request);
-    });
+    }));
 
-    it('should dispatch a RequestExecuteAction', () => {
+    it('should dispatch a RequestExecuteAction', fakeAsync(() => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
+      flush();
       const secondAction = dispatchSpy.calls.argsFor(1)[0];
       expect(secondAction).toBeInstanceOf(RequestExecuteAction);
       expect(secondAction.payload).toEqual(request.uuid);
-    });
+    }));
 
     describe('when it\'s not a GET request', () => {
       it('shouldn\'t track it', () => {

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -15,30 +15,27 @@ import { isEmpty } from '../../empty.util';
 import { followLink } from '../../utils/follow-link-config.model';
 
 /**
- * This class represents a resolver that requests a specific item before the route is activated
+ * Method for resolving an item based on the parameters in the current route
+ * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
+ * @param {RouterStateSnapshot} state The current RouterStateSnapshot
+ * @param {Router} router
+ * @param {ResourcePolicyDataService} resourcePolicyService
+ * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
+ * or an error if something went wrong
  */
-@Injectable({ providedIn: 'root' })
-export class ResourcePolicyResolver implements Resolve<RemoteData<ResourcePolicy>> {
+export const resourcePolicyResolver: ResolveFn<RemoteData<ResourcePolicy>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  router: Router = inject(Router),
+  resourcePolicyService: ResourcePolicyDataService = inject(ResourcePolicyDataService),
+): Observable<RemoteData<ResourcePolicy>> => {
+  const policyId = route.queryParamMap.get('policyId');
 
-  constructor(private resourcePolicyService: ResourcePolicyDataService, private router: Router) {
+  if (isEmpty(policyId)) {
+    router.navigateByUrl('/404', { skipLocationChange: true });
   }
 
-  /**
-   * Method for resolving an item based on the parameters in the current route
-   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
-   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Item>> Emits the found item based on the parameters in the current route,
-   * or an error if something went wrong
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<ResourcePolicy>> {
-    const policyId = route.queryParamMap.get('policyId');
-
-    if (isEmpty(policyId)) {
-      this.router.navigateByUrl('/404', { skipLocationChange: true });
-    }
-
-    return this.resourcePolicyService.findById(policyId, true, false, followLink('eperson'), followLink('group')).pipe(
-      getFirstCompletedRemoteData(),
-    );
-  }
-}
+  return resourcePolicyService.findById(policyId, true, false, followLink('eperson'), followLink('group')).pipe(
+    getFirstCompletedRemoteData(),
+  );
+};

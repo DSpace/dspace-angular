@@ -8,6 +8,7 @@ import {
 } from '@ngrx/store';
 import cloneDeep from 'lodash/cloneDeep';
 import {
+  asapScheduler,
   from as observableFrom,
   Observable,
 } from 'rxjs';
@@ -42,6 +43,7 @@ import {
   requestIndexSelector,
 } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
+import { XSRFService } from '../xsrf/xsrf.service';
 import {
   RequestConfigureAction,
   RequestExecuteAction,
@@ -168,6 +170,7 @@ export class RequestService {
   constructor(private objectCache: ObjectCacheService,
               private uuidService: UUIDService,
               private store: Store<CoreState>,
+              protected xsrfService: XSRFService,
               private indexStore: Store<MetaIndexState>) {
   }
 
@@ -241,7 +244,7 @@ export class RequestService {
       return source.pipe(
         tap((entry: RequestEntry) => {
           if (hasValue(entry) && hasValue(entry.request) && !isStale(entry.state) && !isValid(entry)) {
-            this.store.dispatch(new RequestStaleAction(entry.request.uuid));
+            asapScheduler.schedule(() => this.store.dispatch(new RequestStaleAction(entry.request.uuid)));
           }
         }),
       );
@@ -394,6 +397,7 @@ export class RequestService {
     const requestEntry$ = this.getByHref(href);
 
     requestEntry$.pipe(
+      filter((re: RequestEntry) => isNotEmpty(re)),
       map((re: RequestEntry) => re.request.uuid),
       take(1),
     ).subscribe((uuid: string) => {
@@ -449,8 +453,20 @@ export class RequestService {
    * @param {RestRequest} request to dispatch
    */
   private dispatchRequest(request: RestRequest) {
-    this.store.dispatch(new RequestConfigureAction(request));
-    this.store.dispatch(new RequestExecuteAction(request.uuid));
+    asapScheduler.schedule(() => {
+      this.store.dispatch(new RequestConfigureAction(request));
+      // If it's a GET request, or we have an XSRF token, dispatch it immediately
+      if (request.method === RestRequestMethod.GET || this.xsrfService.tokenInitialized$.getValue() === true) {
+        this.store.dispatch(new RequestExecuteAction(request.uuid));
+      } else {
+        // Otherwise wait for the XSRF token first
+        this.xsrfService.tokenInitialized$.pipe(
+          find((hasInitialized: boolean) => hasInitialized === true),
+        ).subscribe(() => {
+          this.store.dispatch(new RequestExecuteAction(request.uuid));
+        });
+      }
+    });
   }
 
   /**

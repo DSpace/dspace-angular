@@ -1,15 +1,19 @@
 import {
   HttpClient,
-  HttpClientModule,
+  provideHttpClient,
+  withInterceptorsFromDi,
 } from '@angular/common/http';
-import { NgModule } from '@angular/core';
 import {
-  BrowserModule,
-  BrowserTransferStateModule,
+  APP_ID,
+  APP_INITIALIZER,
+  ApplicationConfig,
+  importProvidersFrom,
   makeStateKey,
+  mergeApplicationConfig,
   TransferState,
-} from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+} from '@angular/core';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -22,14 +26,12 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { IdlePreloadModule } from 'angular-idle-preload';
 import {
   Angulartics2GoogleTagManager,
   Angulartics2RouterlessModule,
 } from 'angulartics2';
 
-import { AppComponent } from '../../app/app.component';
-import { AppModule } from '../../app/app.module';
+import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { AuthRequestService } from '../../app/core/auth/auth-request.service';
@@ -48,6 +50,10 @@ import { ClientCookieService } from '../../app/core/services/client-cookie.servi
 import { CookieService } from '../../app/core/services/cookie.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
+import { ClientMathService } from '../../app/core/shared/client-math.service';
+import { MathService } from '../../app/core/shared/math.service';
+import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
@@ -66,37 +72,42 @@ export function getRequest(transferState: TransferState): any {
   return transferState.get<any>(REQ_KEY, {});
 }
 
-@NgModule({
-  bootstrap: [AppComponent],
-  imports: [
-    BrowserModule.withServerTransition({
-      appId: 'dspace-angular',
-    }),
-    HttpClientModule,
-    // forRoot ensures the providers are only created once
-    IdlePreloadModule.forRoot(),
-    Angulartics2RouterlessModule.forRoot(),
-    BrowserAnimationsModule,
-    StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
-    EffectsModule.forFeature(coreEffects),
-    BrowserTransferStateModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [TransferState, HttpClient],
-      },
-      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
-      useDefaultLang: true,
-    }),
-    AppModule,
-  ],
+export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
   providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    provideAnimations(),
+    provideClientHydration(),
+    importProvidersFrom(
+      // forRoot ensures the providers are only created once
+      Angulartics2RouterlessModule.forRoot(),
+      StoreModule.forFeature('core', coreReducers, storeModuleConfig as StoreConfig<CoreState, Action>),
+      EffectsModule.forFeature(coreEffects),
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: (createTranslateLoader),
+          deps: [TransferState, HttpClient],
+        },
+        missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+        useDefaultLang: true,
+      }),
+    ),
     ...BrowserInitService.providers(),
+    { provide: APP_ID, useValue: 'dspace-angular' },
     {
       provide: REQUEST,
       useFactory: getRequest,
       deps: [TransferState],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (xsrfService: XSRFService, httpClient: HttpClient) => xsrfService.initXSRFToken(httpClient),
+      deps: [ XSRFService, HttpClient ],
+      multi: true,
+    },
+    {
+      provide: XSRFService,
+      useClass: BrowserXSRFService,
     },
     {
       provide: AuthService,
@@ -142,7 +153,9 @@ export function getRequest(transferState: TransferState): any {
       provide: LocationToken,
       useFactory: locationProvider,
     },
+    {
+      provide: MathService,
+      useClass: ClientMathService,
+    },
   ],
-})
-export class BrowserAppModule {
-}
+}, commonAppConfig);

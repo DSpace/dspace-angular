@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { authenticatedGuard } from '../core/auth/authenticated.guard';
+import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
-import { ItemFromWorkflowResolver } from './item-from-workflow.resolver';
+import { itemFromWorkflowResolver } from './item-from-workflow.resolver';
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
-import { WorkflowItemPageResolver } from './workflow-item-page.resolver';
+import { workflowItemPageResolver } from './workflow-item-page.resolver';
 import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
 import {
   ADVANCED_WORKFLOW_PATH,
@@ -20,14 +20,14 @@ import {
 export const ROUTES: Routes = [
   {
     path: ':id',
-    resolve: { wfi: WorkflowItemPageResolver },
+    resolve: { wfi: workflowItemPageResolver },
     children: [
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: WORKFLOW_ITEM_EDIT_PATH,
         component: ThemedSubmissionEditComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver,
+          breadcrumb: i18nBreadcrumbResolver,
         },
         data: {
           title: 'workflow-item.edit.title',
@@ -36,39 +36,39 @@ export const ROUTES: Routes = [
         },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: WORKFLOW_ITEM_VIEW_PATH,
         component: ThemedFullItemPageComponent,
         resolve: {
-          dso: ItemFromWorkflowResolver,
-          breadcrumb: I18nBreadcrumbResolver,
+          dso: itemFromWorkflowResolver,
+          breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'workflow-item.view.title', breadcrumbKey: 'workflow-item.view' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: WORKFLOW_ITEM_DELETE_PATH,
         component: ThemedWorkflowItemDeleteComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver,
+          breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'workflow-item.delete.title', breadcrumbKey: 'workflow-item.edit' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: WORKFLOW_ITEM_SEND_BACK_PATH,
         component: ThemedWorkflowItemSendBackComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver,
+          breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'workflow-item.send-back.title', breadcrumbKey: 'workflow-item.edit' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: ADVANCED_WORKFLOW_PATH,
         component: AdvancedWorkflowActionPageComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver,
+          breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'workflow-item.advanced.title', breadcrumbKey: 'workflow-item.edit' },
       },
