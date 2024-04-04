@@ -38,6 +38,10 @@ import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { Component, Input, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { ProcessStatus } from '../../processes/process-status.model';
+import { Observable, mergeMap, from as observableFrom, BehaviorSubject, Subscription, of } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -165,8 +169,8 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
 
   constructor(protected processOverviewService: ProcessOverviewService,
               protected processBulkDeleteService: ProcessBulkDeleteService,
-              protected ePersonDataService: EPersonDataService,
-              protected dsoNameService: DSONameService,
+              public ePersonDataService: EPersonDataService,
+              public dsoNameService: DSONameService,
               protected paginationService: PaginationService,
               protected routeService: RouteService,
               protected router: Router,
@@ -284,11 +288,11 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
         getFirstCompletedRemoteData(),
         switchMap((rd: RemoteData<EPerson>) => {
           if (rd.hasSucceeded) {
-            return observableFrom([this.dsoNameService.getName(rd.payload)]);
+            return [this.dsoNameService.getName(rd.payload)];
           } else {
             return this.translateService.get('process.overview.unknown.user');
           }
-        })
+        }),
       );
     } else {
       return this.translateService.get('process.overview.unknown.user');
