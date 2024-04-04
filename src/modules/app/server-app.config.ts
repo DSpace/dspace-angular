@@ -50,6 +50,8 @@ import { ServerHardRedirectService } from '../../app/core/services/server-hard-r
 import { ServerXhrService } from '../../app/core/services/server-xhr.service';
 import { MathService } from '../../app/core/shared/math.service';
 import { ServerMathService } from '../../app/core/shared/server-math.service';
+import { ServerXSRFService } from '../../app/core/xsrf/server-xsrf.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
@@ -111,6 +113,10 @@ export const serverAppConfig: ApplicationConfig = mergeApplicationConfig({
     {
       provide: AuthRequestService,
       useClass: ServerAuthRequestService,
+    },
+    {
+      provide: XSRFService,
+      useClass: ServerXSRFService,
     },
     {
       provide: LocaleService,

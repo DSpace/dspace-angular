@@ -29,6 +29,7 @@ import {
 } from '../../../core/auth/auth.reducer';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { EPersonMock } from '../../testing/eperson.mock';
@@ -91,6 +92,7 @@ describe('UserMenuComponent', () => {
       providers: [
         { provide: AuthService, useValue: authService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: XSRFService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [

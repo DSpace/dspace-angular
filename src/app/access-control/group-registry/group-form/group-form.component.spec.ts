@@ -53,6 +53,7 @@ import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { UUIDService } from '../../../core/shared/uuid.service';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -244,6 +245,7 @@ describe('GroupFormComponent', () => {
         { provide: HttpClient, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },

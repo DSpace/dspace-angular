@@ -43,6 +43,7 @@ import {
   requestIndexSelector,
 } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
+import { XSRFService } from '../xsrf/xsrf.service';
 import {
   RequestConfigureAction,
   RequestExecuteAction,
@@ -169,6 +170,7 @@ export class RequestService {
   constructor(private objectCache: ObjectCacheService,
               private uuidService: UUIDService,
               private store: Store<CoreState>,
+              protected xsrfService: XSRFService,
               private indexStore: Store<MetaIndexState>) {
   }
 
@@ -453,7 +455,17 @@ export class RequestService {
   private dispatchRequest(request: RestRequest) {
     asapScheduler.schedule(() => {
       this.store.dispatch(new RequestConfigureAction(request));
-      this.store.dispatch(new RequestExecuteAction(request.uuid));
+      // If it's a GET request, or we have an XSRF token, dispatch it immediately
+      if (request.method === RestRequestMethod.GET || this.xsrfService.tokenInitialized$.getValue() === true) {
+        this.store.dispatch(new RequestExecuteAction(request.uuid));
+      } else {
+        // Otherwise wait for the XSRF token first
+        this.xsrfService.tokenInitialized$.pipe(
+          find((hasInitialized: boolean) => hasInitialized === true),
+        ).subscribe(() => {
+          this.store.dispatch(new RequestExecuteAction(request.uuid));
+        });
+      }
     });
   }
 
