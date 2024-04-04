@@ -31,12 +31,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },
       ],
-    }).overrideComponent(ExpandableAdminSidebarSectionComponent, {
-      set: {
-        entryComponents: [TestComponent],
-      },
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

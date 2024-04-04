@@ -7,13 +7,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { find } from 'rxjs/operators';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { ResourcePolicy } from '../../../../core/resource-policy/models/resource-policy.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { isEmpty } from '../../../../shared/empty.util';
 
 /**
@@ -55,13 +55,15 @@ export class SubmissionSectionUploadAccessConditionsComponent implements OnInit 
     this.accessConditions.forEach((accessCondition: ResourcePolicy) => {
       if (isEmpty(accessCondition.name)) {
         this.groupService.findByHref(accessCondition._links.group.href).pipe(
-          find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded))
-          .subscribe((rd: RemoteData<Group>) => {
+          getFirstCompletedRemoteData(),
+        ).subscribe((rd: RemoteData<Group>) => {
+          if (rd.hasSucceeded) {
             const group: Group = rd.payload;
             const accessConditionEntry = Object.assign({}, accessCondition);
             accessConditionEntry.name = this.dsoNameService.getName(group);
             this.accessConditionsList.push(accessConditionEntry);
-          });
+          }
+        });
       } else {
         this.accessConditionsList.push(accessCondition);
       }

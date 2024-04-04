@@ -6,9 +6,9 @@ import { first } from 'rxjs/operators';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { MetadataValueFilter } from '../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { ItemPageResolver } from './item-page.resolver';
+import { itemPageResolver } from './item-page.resolver';
 
-describe('ItemPageResolver', () => {
+describe('itemPageResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{
@@ -19,7 +19,7 @@ describe('ItemPageResolver', () => {
   });
 
   describe('resolve', () => {
-    let resolver: ItemPageResolver;
+    let resolver: any;
     let itemService: any;
     let store: any;
     let router: any;
@@ -42,15 +42,19 @@ describe('ItemPageResolver', () => {
         store = jasmine.createSpyObj('store', {
           dispatch: {},
         });
-        resolver = new ItemPageResolver(itemService, store, router);
+        resolver = itemPageResolver;
       });
 
       it('should redirect to the correct route for the entity type', (done) => {
         spyOn(item, 'firstMetadataValue').and.returnValue(entityType);
         spyOn(router, 'navigateByUrl').and.callThrough();
 
-        resolver.resolve({ params: { id: uuid } } as any, { url: router.parseUrl(`/items/${uuid}`).toString() } as any)
-          .pipe(first())
+        resolver({ params: { id: uuid } } as any,
+          { url: router.parseUrl(`/items/${uuid}`).toString() } as any,
+          router,
+          itemService,
+          store,
+        ).pipe(first())
           .subscribe(
             () => {
               expect(router.navigateByUrl).toHaveBeenCalledWith(router.parseUrl(`/entities/${entityType}/${uuid}`).toString());
@@ -63,8 +67,13 @@ describe('ItemPageResolver', () => {
         spyOn(item, 'firstMetadataValue').and.returnValue(entityType);
         spyOn(router, 'navigateByUrl').and.callThrough();
 
-        resolver.resolve({ params: { id: uuid } } as any, { url: router.parseUrl(`/entities/${entityType}/${uuid}`).toString() } as any)
-          .pipe(first())
+        resolver(
+          { params: { id: uuid } } as any,
+          { url: router.parseUrl(`/entities/${entityType}/${uuid}`).toString() } as any,
+          router,
+          itemService,
+          store,
+        ).pipe(first())
           .subscribe(
             () => {
               expect(router.navigateByUrl).not.toHaveBeenCalled();

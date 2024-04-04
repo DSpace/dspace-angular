@@ -17,7 +17,6 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -212,13 +211,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   const testWSI: WorkspaceItem = new WorkspaceItem();
   testWSI.item = observableOf(createSuccessfulRemoteDataObject(testItem));
   beforeEach(waitForAsync(() => {
-
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-
-      set: {
-        entryComponents: [DynamicNGBootstrapInputComponent],
-      },
-    });
 
     TestBed.configureTestingModule({
 

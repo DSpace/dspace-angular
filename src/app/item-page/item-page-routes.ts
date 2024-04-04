@@ -1,15 +1,18 @@
-import { Route } from '@angular/router';
+import {
+  mapToCanActivate,
+  Route,
+} from '@angular/router';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { ItemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
-import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { authenticatedGuard } from '../core/auth/authenticated.guard';
+import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
+import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
-import { ItemPageResolver } from './item-page.resolver';
+import { itemPageResolver } from './item-page.resolver';
 import {
   ITEM_EDIT_PATH,
   ORCID_PATH,
@@ -18,16 +21,16 @@ import {
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
-import { VersionResolver } from './version-page/version.resolver';
+import { versionResolver } from './version-page/version.resolver';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
 
 export const ROUTES: Route[] = [
   {
     path: ':id',
     resolve: {
-      dso: ItemPageResolver,
-      breadcrumb: ItemBreadcrumbResolver,
-      menu: DSOEditMenuResolver,
+      dso: itemPageResolver,
+      breadcrumb: itemBreadcrumbResolver,
+      menu: dsoEditMenuResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [
@@ -48,7 +51,7 @@ export const ROUTES: Route[] = [
       {
         path: UPLOAD_BITSTREAM_PATH,
         component: UploadBitstreamComponent,
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
       },
       {
         path: REQUEST_COPY_MODULE_PATH,
@@ -57,7 +60,7 @@ export const ROUTES: Route[] = [
       {
         path: ORCID_PATH,
         component: OrcidPageComponent,
-        canActivate: [AuthenticatedGuard, OrcidPageGuard],
+        canActivate: [authenticatedGuard, ...mapToCanActivate([OrcidPageGuard])],
       },
     ],
     data: {
@@ -83,7 +86,7 @@ export const ROUTES: Route[] = [
         path: ':id',
         component: VersionPageComponent,
         resolve: {
-          dso: VersionResolver,
+          dso: versionResolver,
         },
       },
     ],

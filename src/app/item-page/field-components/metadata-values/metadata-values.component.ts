@@ -24,7 +24,7 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
 import { hasValue } from '../../../shared/empty.util';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MarkdownPipe as MarkdownPipe_1 } from '../../../shared/utils/markdown.pipe';
+import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';
 
 /**
@@ -36,7 +36,7 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgFor, NgTemplateOutlet, NgIf, RouterLink, AsyncPipe, MarkdownPipe_1, TranslateModule],
+  imports: [MetadataFieldWrapperComponent, NgFor, NgTemplateOutlet, NgIf, RouterLink, AsyncPipe, TranslateModule, MarkdownDirective],
 })
 export class MetadataValuesComponent implements OnChanges {
 
@@ -61,7 +61,7 @@ export class MetadataValuesComponent implements OnChanges {
   @Input() label: string;
 
   /**
-   * Whether the {@link MarkdownPipe} should be used to render these metadata values.
+   * Whether the {@link MarkdownDirective} should be used to render these metadata values.
    * This will only have effect if {@link MarkdownConfig#enabled} is true.
    * Mathjax will only be rendered if {@link MarkdownConfig#mathjax} is true.
    */

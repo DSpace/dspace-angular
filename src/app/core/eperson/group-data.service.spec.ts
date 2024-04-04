@@ -6,6 +6,7 @@ import {
   Store,
   StoreModule,
 } from '@ngrx/store';
+import { createMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -104,7 +105,7 @@ describe('GroupDataService', () => {
   beforeEach(() => {
     init();
     requestService = getMockRequestService(createRequestEntry$(groups));
-    store = new Store<CoreState>(undefined, undefined, undefined);
+    store = createMockStore({});
     service = initTestService();
     spyOn(store, 'dispatch');
     spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();

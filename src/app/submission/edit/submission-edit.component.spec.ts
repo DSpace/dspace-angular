@@ -35,6 +35,7 @@ import { SectionsServiceStub } from '../../shared/testing/sections-service.stub'
 import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { ThemeService } from '../../shared/theme-support/theme.service';
+import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SectionsService } from '../sections/sections.service';
 import { SubmissionService } from '../submission.service';
 import { SubmissionEditComponent } from './submission-edit.component';
@@ -77,7 +78,6 @@ describe('SubmissionEditComponent Component', () => {
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
         { provide: ItemDataService, useValue: itemDataService },
-        // { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: route },
         { provide: AuthService, useValue: new AuthServiceStub() },
@@ -89,6 +89,10 @@ describe('SubmissionEditComponent Component', () => {
         provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(SubmissionEditComponent, {
+      remove: {
+        imports: [ SubmissionFormComponent ],
+      },
     }).compileComponents();
   }));
 
