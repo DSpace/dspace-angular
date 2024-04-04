@@ -109,6 +109,12 @@ jobs:
           echo "dspace cleanup:"
           docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace cleanup -v"
 
+          echo "dspace reindex solr:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace index-discovery -b"
+
+          echo "dspace reindex OAI-PMH:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace oai import -c"
+
           echo "dspace checker:"
           docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace checker -v -l"
 
