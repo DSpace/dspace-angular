@@ -131,6 +131,7 @@ export function app() {
   server.engine('html', (_, options, callback) =>
     ngExpressEngine({
       bootstrap,
+      inlineCriticalCss: environment.universal.inlineCriticalCss,
       providers: [
         {
           provide: REQUEST,
