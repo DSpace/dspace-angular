@@ -33,12 +33,12 @@ jobs:
       #CHROME_VERSION: "90.0.4430.212-1"
       # Bump Node heap size (OOM in CI after upgrading to Angular 15)
       NODE_OPTIONS: '--max-old-space-size=4096'
-      # Project name to use when running docker-compose prior to e2e tests
+      # Project name to use when running "docker compose" prior to e2e tests
       COMPOSE_PROJECT_NAME: 'ci'
     strategy:
       # Create a matrix of Node versions to test against (in parallel)
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [18.x, 20.x]
       # Do NOT exit immediately if one matrix job fails
       fail-fast: false
     # These are the actual CI steps to perform per job
@@ -108,12 +108,12 @@ jobs:
           path: 'coverage/dspace-angular/lcov.info'
           retention-days: 14
 
-      # Using docker-compose start backend using CI configuration
+      # Using "docker compose" start backend using CI configuration
       # and load assetstore from a cached copy
       - name: Start DSpace REST Backend via Docker (for e2e tests)
         run: |
-          docker-compose -f ./docker/docker-compose-ci.yml up -d
-          docker-compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
+          docker compose -f ./docker/docker-compose-ci.yml up -d
+          docker compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
           docker container ls
 
       # Run integration tests via Cypress.io
@@ -182,7 +182,7 @@ jobs:
         run: kill -9 $(lsof -t -i:4000)
 
       - name: Shutdown Docker containers
-        run: docker-compose -f ./docker/docker-compose-ci.yml down
+        run: docker compose -f ./docker/docker-compose-ci.yml down
 
   # Codecov upload is a separate job in order to allow us to restart this separate from the entire build/test
   # job above. This is necessary because Codecov uploads seem to randomly fail at times.

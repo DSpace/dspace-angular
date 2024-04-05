@@ -14,6 +14,7 @@ import { FullFileSectionComponent } from './full-file-section.component';
   selector: 'ds-themed-item-page-full-file-section',
   styleUrls: [],
   templateUrl: './../../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedFullFileSectionComponent extends ThemedComponent<FullFileSectionComponent> {
 

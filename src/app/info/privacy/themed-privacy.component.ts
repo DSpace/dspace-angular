@@ -10,6 +10,7 @@ import { PrivacyComponent } from './privacy.component';
   selector: 'ds-themed-privacy',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedPrivacyComponent extends ThemedComponent<PrivacyComponent> {
   protected getComponentName(): string {

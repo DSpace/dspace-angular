@@ -13,6 +13,7 @@ import { ComcolPageHandleComponent } from './comcol-page-handle.component';
   selector: 'ds-themed-comcol-page-handle',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
+  standalone: true,
 })
 
 

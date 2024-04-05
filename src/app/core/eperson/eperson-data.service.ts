@@ -32,7 +32,6 @@ import {
   CreateData,
   CreateDataImpl,
 } from '../data/base/create-data';
-import { dataService } from '../data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -67,7 +66,6 @@ import {
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { EPerson } from './models/eperson.model';
-import { EPERSON } from './models/eperson.resource-type';
 
 // todo: optimize imports
 
@@ -77,8 +75,7 @@ export const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, 
 /**
  * A service to retrieve {@link EPerson}s from the REST API & EPerson related CRUD actions
  */
-@Injectable()
-@dataService(EPERSON)
+@Injectable({ providedIn: 'root' })
 export class EPersonDataService extends IdentifiableDataService<EPerson> implements CreateData<EPerson>, SearchData<EPerson>, PatchData<EPerson>, DeleteData<EPerson> {
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';

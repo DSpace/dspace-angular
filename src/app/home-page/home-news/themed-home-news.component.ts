@@ -7,6 +7,7 @@ import { HomeNewsComponent } from './home-news.component';
   selector: 'ds-themed-home-news',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 
 /**

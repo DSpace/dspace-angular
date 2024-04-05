@@ -39,7 +39,7 @@ import {
 } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { FacetValue } from '../../../models/facet-value.model';
@@ -80,8 +80,6 @@ describe('SearchHierarchyFilterComponent', () => {
         CommonModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SearchHierarchyFilterComponent,
       ],
       providers: [

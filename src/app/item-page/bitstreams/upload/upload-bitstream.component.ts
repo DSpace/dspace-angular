@@ -1,14 +1,22 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -40,14 +48,26 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../../shared/empty.util';
+import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { getEntityEditRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-upload-bitstream',
   templateUrl: './upload-bitstream.component.html',
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    VarDirective,
+    NgIf,
+    DsoInputSuggestionsComponent,
+    FormsModule,
+    UploaderComponent,
+  ],
+  standalone: true,
 })
 /**
  * Page component for uploading a bitstream to an item
@@ -126,7 +146,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
 
   /**
    * Initialize component properties:
-   * itemRD$          Fetched from the current route data (populated by BitstreamPageResolver)
+   * itemRD$          Fetched from the current route data (populated by bitstreamPageResolver)
    * selectedBundleId Starts off by checking if the route's queryParams contain a "bundle" parameter. If none is found,
    *                  the ID of the first bundle in the list is selected.
    * Calls setUploadUrl after setting the selected bundle

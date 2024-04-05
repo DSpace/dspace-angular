@@ -16,6 +16,8 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { DsoEditMetadataForm } from '../dso-edit-metadata-form';
+import { DsoEditMetadataValueComponent } from '../dso-edit-metadata-value/dso-edit-metadata-value.component';
+import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values.component';
 
 describe('DsoEditMetadataFieldValuesComponent', () => {
@@ -61,12 +63,14 @@ describe('DsoEditMetadataFieldValuesComponent', () => {
     draggingMdField$ = new BehaviorSubject<string>(null);
 
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataFieldValuesComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      providers: [
-      ],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoEditMetadataFieldValuesComponent, VarDirective],
+      providers: [],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(DsoEditMetadataFieldValuesComponent, {
+        remove: { imports: [DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

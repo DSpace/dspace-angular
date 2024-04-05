@@ -1,8 +1,15 @@
 import {
+  NgFor,
+  NgIf,
+  TitleCasePipe,
+} from '@angular/common';
+import {
   Component,
   Input,
 } from '@angular/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { HealthComponentComponent } from '../../health-panel/health-component/health-component.component';
 import { HealthInfoComponent } from '../../models/health-component.model';
 
@@ -13,6 +20,8 @@ import { HealthInfoComponent } from '../../models/health-component.model';
   selector: 'ds-health-info-component',
   templateUrl: './health-info-component.component.html',
   styleUrls: ['./health-info-component.component.scss'],
+  standalone: true,
+  imports: [NgFor, NgIf, NgbCollapseModule, TitleCasePipe, ObjNgFor],
 })
 export class HealthInfoComponentComponent extends HealthComponentComponent {
 

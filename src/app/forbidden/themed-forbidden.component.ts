@@ -10,6 +10,7 @@ import { ForbiddenComponent } from './forbidden.component';
   selector: 'ds-themed-forbidden',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedForbiddenComponent extends ThemedComponent<ForbiddenComponent> {
   protected getComponentName(): string {

@@ -12,7 +12,7 @@ import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-respon
 /**
  * A service that provides methods to make JSON Patch requests.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SubmissionJsonPatchOperationsService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
   protected patchRequestConstructor = SubmissionPatchRequest;

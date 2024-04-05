@@ -26,6 +26,7 @@ import {
 } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../../shared/testing/router.stub';
+import { FormatFormComponent } from '../format-form/format-form.component';
 import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
 
 describe('EditBitstreamFormatComponent', () => {
@@ -60,16 +61,22 @@ describe('EditBitstreamFormatComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [EditBitstreamFormatComponent],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, EditBitstreamFormatComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: router },
         { provide: NotificationsService, useValue: notificationService },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
+
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(EditBitstreamFormatComponent, {
+        remove: {
+          imports: [FormatFormComponent],
+        },
+      })
+      .compileComponents();
   };
 
   const initBeforeEach = () => {
@@ -111,8 +118,7 @@ describe('EditBitstreamFormatComponent', () => {
       });
 
       TestBed.configureTestingModule({
-        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-        declarations: [EditBitstreamFormatComponent],
+        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, EditBitstreamFormatComponent],
         providers: [
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: Router, useValue: router },
@@ -120,7 +126,13 @@ describe('EditBitstreamFormatComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatDataService },
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      }).compileComponents();
+      })
+        .overrideComponent(EditBitstreamFormatComponent, {
+          remove: {
+            imports: [FormatFormComponent],
+          },
+        })
+        .compileComponents();
     }));
     beforeEach(initBeforeEach);
     it('should send the updated form to the service, show a notification and navigate to ', () => {

@@ -1,3 +1,4 @@
+import { NgComponentOutlet } from '@angular/common';
 import {
   Component,
   Injector,
@@ -21,6 +22,8 @@ import { renderFilterType } from '../search-filter-type-decorator';
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
   templateUrl: './search-facet-filter-wrapper.component.html',
+  standalone: true,
+  imports: [NgComponentOutlet],
 })
 
 /**

@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -23,6 +24,8 @@ import { UploaderComponent } from '../../shared/upload/uploader/uploader.compone
 import { UploaderError } from '../../shared/upload/uploader/uploader-error.model';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
+import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
+import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
 
 /**
  * This component represents the whole mydspace page header
@@ -31,6 +34,13 @@ import { CollectionSelectorComponent } from '../collection-selector/collection-s
   selector: 'ds-my-dspace-new-submission',
   styleUrls: ['./my-dspace-new-submission.component.scss'],
   templateUrl: './my-dspace-new-submission.component.html',
+  imports: [
+    MyDSpaceNewExternalDropdownComponent,
+    MyDSpaceNewSubmissionDropdownComponent,
+    UploaderComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   /**

@@ -1,11 +1,12 @@
+import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { CommunityPageResolver } from './community-page.resolver';
+import { communityPageResolver } from './community-page.resolver';
 
-describe('CommunityPageResolver', () => {
+describe('communityPageResolver', () => {
   describe('resolve', () => {
-    let resolver: CommunityPageResolver;
+    let resolver: any;
     let communityService: any;
     let store: any;
     const uuid = '1234-65487-12354-1235';
@@ -17,11 +18,11 @@ describe('CommunityPageResolver', () => {
       store = jasmine.createSpyObj('store', {
         dispatch: {},
       });
-      resolver = new CommunityPageResolver(communityService, store);
+      resolver = communityPageResolver;
     });
 
     it('should resolve a community with the correct id', (done) => {
-      resolver.resolve({ params: { id: uuid } } as any, { url: 'current-url' } as any)
+      (resolver({ params: { id: uuid } } as any, { url: 'current-url' } as any, communityService, store) as Observable<any>)
         .pipe(first())
         .subscribe(
           (resolved) => {

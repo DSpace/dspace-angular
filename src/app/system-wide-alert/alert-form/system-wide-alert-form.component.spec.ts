@@ -23,7 +23,6 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { RouterStub } from '../../shared/testing/router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { SystemWideAlert } from '../system-wide-alert.model';
-import { SystemWideAlertModule } from '../system-wide-alert.module';
 import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';
 
 describe('SystemWideAlertFormComponent', () => {
@@ -63,8 +62,7 @@ describe('SystemWideAlertFormComponent', () => {
     router = new RouterStub();
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, SystemWideAlertModule, UiSwitchModule, TranslateModule.forRoot()],
-      declarations: [SystemWideAlertFormComponent],
+      imports: [FormsModule, UiSwitchModule, TranslateModule.forRoot(), SystemWideAlertFormComponent],
       providers: [
         { provide: SystemWideAlertDataService, useValue: systemWideAlertDataService },
         { provide: NotificationsService, useValue: notificationsService },
@@ -312,6 +310,14 @@ describe('SystemWideAlertFormComponent', () => {
       expect(requestService.setStaleByHrefSubstring).not.toHaveBeenCalledWith('systemwidealerts');
       expect(comp.back).not.toHaveBeenCalled();
 
+    });
+    it('should not create the new alert when the enable button is clicked on an invalid the form', () => {
+      spyOn(comp as any, 'handleResponse');
+
+      comp.formMessage.patchValue('');
+      comp.save();
+
+      expect((comp as any).handleResponse).not.toHaveBeenCalled();
     });
   });
   describe('back', () => {
