@@ -1,6 +1,7 @@
 import { FormBuilderService } from '../form/builder/form-builder.service';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { of } from 'rxjs';
 
 export function getMockFormBuilderService(): FormBuilderService {
 
@@ -43,7 +44,8 @@ export function getMockFormBuilderService(): FormBuilderService {
     removeFormModel: {},
     addFormModel: {},
     updateValue: {},
-    addFormGroups: {}
+    addFormGroups: {},
+    getTypeBindModelUpdates: of('test')
   });
 
 }

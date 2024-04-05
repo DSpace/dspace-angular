@@ -23,6 +23,5 @@ export class CommunitySearchResultListElementComponent extends SearchResultListE
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
   }
 }

@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowseMostElementsComponent } from './browse-most-elements.component';
-import { SearchService } from '../../core/shared/search/search.service';
+
 import { of } from 'rxjs';
+
+import { BrowseMostElementsComponent } from './browse-most-elements.component';
+import { SearchManager } from '../../core/browse/search-manager';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
@@ -68,7 +70,7 @@ describe('BrowseMostElementsComponent', () => {
       declarations: [BrowseMostElementsComponent],
       providers: [
         { provide: APP_CONFIG, useValue: mockConfig },
-        { provide: SearchService, useValue: mockSearchService },
+        { provide: SearchManager, useValue: mockSearchService },
         { provide: ChangeDetectorRef, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ignore unknown Angular elements
