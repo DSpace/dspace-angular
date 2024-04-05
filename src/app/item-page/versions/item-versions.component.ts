@@ -222,10 +222,14 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
 
   /**
    * Get the route to the specified version
-   * @param versionId the ID of the version for which the route will be retrieved
+   * @param version the version for which the route will be retrieved
    */
-  getVersionRoute(versionId: string) {
-    return getItemVersionRoute(versionId);
+  getVersionRoute(version: Version): Observable<string> {
+    return version.item.pipe(
+      getFirstCompletedRemoteData(),
+      map(data => data.payload),
+      map(item => getItemVersionRoute(item.uuid))
+    );
   }
 
   /**
