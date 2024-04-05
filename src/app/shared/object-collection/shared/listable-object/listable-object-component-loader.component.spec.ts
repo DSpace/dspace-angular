@@ -18,6 +18,7 @@ import { of } from 'rxjs';
 import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
 import { CookieService } from 'src/app/core/services/cookie.service';
 import { HardRedirectService } from 'src/app/core/services/hard-redirect.service';
+import { XSRFService } from 'src/app/core/xsrf/xsrf.service';
 import { CookieServiceMock } from 'src/app/shared/mocks/cookie.service.mock';
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { AuthRequestServiceStub } from 'src/app/shared/testing/auth-request-service.stub';
@@ -70,6 +71,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
         { provide: HardRedirectService, useValue: jasmine.createSpyObj('hardRedirectService', ['redirect']) },
         { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
         { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: XSRFService, useValue: {} },
         { provide: REQUEST, useValue: {} },
         {
           provide: ActivatedRoute,

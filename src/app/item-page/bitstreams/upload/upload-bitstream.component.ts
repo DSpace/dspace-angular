@@ -146,7 +146,7 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
 
   /**
    * Initialize component properties:
-   * itemRD$          Fetched from the current route data (populated by BitstreamPageResolver)
+   * itemRD$          Fetched from the current route data (populated by bitstreamPageResolver)
    * selectedBundleId Starts off by checking if the route's queryParams contain a "bundle" parameter. If none is found,
    *                  the ID of the first bundle in the list is selected.
    * Calls setUploadUrl after setting the selected bundle

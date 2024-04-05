@@ -40,17 +40,17 @@ import {
 } from '../remote-data.utils';
 import { MenuServiceStub } from '../testing/menu-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
-import { DSOEditMenuResolver } from './dso-edit-menu.resolver';
+import { DSOEditMenuResolverService } from './dso-edit-menu-resolver.service';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
 
-describe('DSOEditMenuResolver', () => {
+describe('dsoEditMenuResolver', () => {
 
   const MENU_STATE = {
     id: 'some menu',
   };
 
-  let resolver: DSOEditMenuResolver;
+  let resolver: DSOEditMenuResolverService;
 
   let dSpaceObjectDataService;
   let menuService;
@@ -189,12 +189,12 @@ describe('DSOEditMenuResolver', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
         { provide: CorrectionTypeDataService, useValue: correctionsDataService },
-        {
-          provide: NgbModal, useValue: mockNgbModal },
+        { provide: NgbModal, useValue: mockNgbModal },
+        DSOEditMenuResolverService,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });
-    resolver = TestBed.inject(DSOEditMenuResolver);
+    resolver = TestBed.inject(DSOEditMenuResolverService);
 
     spyOn(menuService, 'addSection');
   }));

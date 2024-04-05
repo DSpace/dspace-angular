@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
@@ -27,37 +27,37 @@ export const ROUTES: Route[] = [
   },
   {
     path: 'search',
-    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     component: AdminSearchPageComponent,
     data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' },
   },
   {
     path: 'workflow',
-    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     component: AdminWorkflowPageComponent,
     data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' },
   },
   {
     path: 'curation-tasks',
-    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     component: AdminCurationTasksComponent,
     data: { title: 'admin.curation-tasks.title', breadcrumbKey: 'admin.curation-tasks' },
   },
   {
     path: 'metadata-import',
-    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     component: MetadataImportPageComponent,
     data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' },
   },
   {
     path: 'batch-import',
-    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     component: BatchImportPageComponent,
     data: { title: 'admin.batch-import.title', breadcrumbKey: 'admin.batch-import' },
   },
   {
     path: 'system-wide-alert',
-    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     loadChildren: () => import('../system-wide-alert/system-wide-alert-routes').then((m) => m.ROUTES),
     data: { title: 'admin.system-wide-alert.title', breadcrumbKey: 'admin.system-wide-alert' },
   },

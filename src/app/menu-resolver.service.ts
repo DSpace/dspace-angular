@@ -54,7 +54,7 @@ import { MenuState } from './shared/menu/menu-state.model';
 @Injectable({
   providedIn: 'root',
 })
-export class MenuResolver  {
+export class MenuResolverService  {
   constructor(
     protected menuService: MenuService,
     protected browseService: BrowseService,

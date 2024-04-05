@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import {
   APP_ID,
+  APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
   makeStateKey,
@@ -50,6 +51,8 @@ import { HardRedirectService } from '../../app/core/services/hard-redirect.servi
 import { ReferrerService } from '../../app/core/services/referrer.service';
 import { ClientMathService } from '../../app/core/shared/client-math.service';
 import { MathService } from '../../app/core/shared/math.service';
+import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
@@ -95,6 +98,16 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       provide: REQUEST,
       useFactory: getRequest,
       deps: [TransferState],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (xsrfService: XSRFService, httpClient: HttpClient) => xsrfService.initXSRFToken(httpClient),
+      deps: [ XSRFService, HttpClient ],
+      multi: true,
+    },
+    {
+      provide: XSRFService,
+      useClass: BrowserXSRFService,
     },
     {
       provide: AuthService,
