@@ -7,6 +7,8 @@ import {
   Observable,
 } from 'rxjs';
 
+import { isNotEmpty } from '../shared/empty.util';
+
 /**
  * Loads a service lazily. The service is loaded when the observable is subscribed to.
  *
@@ -26,7 +28,7 @@ export function lazyService<T>(
   injector: Injector,
 ): Observable<T> {
   return defer(() => {
-    if (typeof loader === 'function') {
+    if (isNotEmpty(loader) && typeof loader === 'function') {
       return loader()
         .then((serviceOrDefault) => {
           if ('default' in serviceOrDefault) {
