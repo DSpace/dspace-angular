@@ -9,12 +9,12 @@
       <div class="d-flex flex-column align-items-end gap-3">
         <ng-container *ngFor="let renderingType of allAttachmentProviders">
           <div class="text-nowrap">
-            <ds-attachment-render [renderingType]="renderingType" [bitstream]="attachment" [item]="item"></ds-attachment-render>
+            <ds-attachment-render [renderingType]="renderingType" [bitstream]="attachment" [item]="item" [tabName]="tabName"></ds-attachment-render>
           </div>
         </ng-container>
         <!-- Default download button -->
         <div class="text-nowrap">
-          <ds-attachment-render [renderingType]="AttachmentRenderingType.DOWNLOAD" [bitstream]="attachment" [item]="item"></ds-attachment-render>
+          <ds-attachment-render [renderingType]="AttachmentRenderingType.DOWNLOAD" [bitstream]="attachment" [item]="item" [tabName]="tabName"></ds-attachment-render>
         </div>
       </div>
     </div>
