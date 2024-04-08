@@ -443,7 +443,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       compAsAny.formData = {};
       compAsAny.sectionMetadata = ['dc.title'];
 
-      comp.updateForm({data: sectionData, errorsToShow: sectionError} as any);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionError } as any);
 
       expect(comp.isUpdating).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalled();
@@ -460,7 +460,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       };
       const sectionState = {
         data: sectionData,
-        errorsToShow: [{path: '/test', message: 'test'}],
+        errorsToShow: [{ path: '/test', message: 'test' }],
       } as any;
       comp.sectionData.data = {};
       comp.sectionData.errorsToShow = [];
@@ -478,9 +478,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
       const sectionData: any = {};
-      const sectionErrors: any = [{ path: '/test', message: 'test'}];
+      const sectionErrors: any = [{ path: '/test', message: 'test' }];
 
-      comp.updateForm({data: sectionData, errorsToShow: sectionErrors} as any);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionErrors } as any);
 
       expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
