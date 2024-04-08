@@ -7,27 +7,32 @@ import {
   Observable,
 } from 'rxjs';
 
+import { LazyDataServicesMap } from '../../config/app-config.interface';
 import { isNotEmpty } from '../shared/empty.util';
+import { HALDataService } from './data/base/hal-data-service.interface';
 
 /**
  * Loads a service lazily. The service is loaded when the observable is subscribed to.
  *
- * @param loader A function that returns a promise of the service to load.
+ * @param map A map of promises returning the data services to load
+ * @param key The key of the service
  * @param injector The injector to use to load the service. If not provided, the current injector is used.
  * @returns An observable of the service.
  *
  * @example
  * ```ts
- * const dataService$ = lazyService(() => import('./data-service').then((m) => m.MyService), this.injector);
+ * const dataService$ = lazyDataService({ 'data-service': () => import('./data-service').then((m) => m.MyService)}, 'data-service', this.injector);
  * or
- * const dataService$ = lazyService(() => import('./data-service'), this.injector);
+ * const dataService$ = lazyDataService({'data-service': () => import('./data-service')}, 'data-service', this.injector);
  * ```
  */
-export function lazyService<T>(
-  loader: () => Promise<Type<T>> | Promise<{ default: Type<T> }>,
+export function lazyDataService<T>(
+  map: LazyDataServicesMap,
+  key: string,
   injector: Injector,
 ): Observable<T> {
   return defer(() => {
+    const loader: () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }> = map[key];
     if (isNotEmpty(loader) && typeof loader === 'function') {
       return loader()
         .then((serviceOrDefault) => {

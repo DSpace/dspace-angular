@@ -1,6 +1,5 @@
 import {
   inject,
-  InjectionToken,
   Injector,
 } from '@angular/core';
 import {
@@ -12,10 +11,13 @@ import {
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { LazyDataServicesMap } from '../../../../config/app-config.interface';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '../../../../config/app-config.interface';
 import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { lazyService } from '../../../core/lazy-service';
+import { lazyDataService } from '../../../core/lazy-data-service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { ResourceType } from '../../../core/shared/resource-type';
@@ -34,7 +36,7 @@ import { isEmpty } from '../../empty.util';
 export const resourcePolicyTargetResolver: ResolveFn<RemoteData<DSpaceObject>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
-  dataServiceMap: InjectionToken<LazyDataServicesMap> = inject(InjectionToken<LazyDataServicesMap>),
+  dataServiceMap: LazyDataServicesMap = inject(APP_DATA_SERVICES_MAP),
   parentInjector: Injector = inject(Injector),
   router: Router = inject(Router),
 ): Observable<RemoteData<DSpaceObject>> => {
@@ -46,7 +48,7 @@ export const resourcePolicyTargetResolver: ResolveFn<RemoteData<DSpaceObject>> =
   }
 
   const resourceType: ResourceType = new ResourceType(targetType);
-  const lazyProvider$: Observable<IdentifiableDataService<DSpaceObject>> = lazyService(dataServiceMap[resourceType.value], parentInjector);
+  const lazyProvider$: Observable<IdentifiableDataService<DSpaceObject>> = lazyDataService(dataServiceMap, resourceType.value, parentInjector);
 
   return lazyProvider$.pipe(
     switchMap((dataService: IdentifiableDataService<DSpaceObject>) => {
