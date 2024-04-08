@@ -125,7 +125,9 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * Setup the dynamic child component
    */
   ngOnInit(): void {
-    this.instantiateComponent(this.object);
+    if (hasNoValue(this.compRef)) {
+      this.instantiateComponent(this.object);
+    }
   }
 
   /**
@@ -147,7 +149,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
+    }
     this.subs
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());

@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -122,6 +122,11 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    */
   fetchThumbnails: boolean;
 
+  /**
+   * Observable determining if the loading animation needs to be shown
+   */
+  loading$ = observableOf(true);
+
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
@@ -200,6 +205,9 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    */
   updatePage(searchOptions: BrowseEntrySearchOptions) {
     this.browseEntries$ = this.browseService.getBrowseEntriesFor(searchOptions);
+    this.loading$ = this.browseEntries$.pipe(
+      map((browseEntriesRD: RemoteData<PaginatedList<BrowseEntry>>) => browseEntriesRD.isLoading),
+    );
     this.items$ = undefined;
   }
 
@@ -214,6 +222,9 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string, authority: string) {
     this.items$ = this.browseService.getBrowseItemsFor(value, authority, searchOptions);
+    this.loading$ = this.items$.pipe(
+      map((itemsRD: RemoteData<PaginatedList<Item>>) => itemsRD.isLoading),
+    );
   }
 
   /**
