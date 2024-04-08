@@ -5,7 +5,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { APP_DATA_SERVICES_MAP, LazyDataServicesMap } from '../../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { TestDataService } from '../../../shared/testing/test-data-service.mock';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { HALLink } from '../../shared/hal-link.model';
