@@ -26,6 +26,7 @@ import {
 import { ANONYMOUS_STORAGE_NAME_KLARO } from './klaro-configuration';
 
 describe('BrowserKlaroService', () => {
+  let originalLocation;
   const trackingIdProp = 'google.analytics.key';
   const trackingIdTestValue = 'mock-tracking-id';
   const googleAnalytics = 'google-analytics';
@@ -126,6 +127,11 @@ describe('BrowserKlaroService', () => {
     };
 
     service.klaroConfig = mockConfig;
+  });
+
+  afterEach(() => {
+    // Restore the original location after each test
+    window.location = originalLocation;
   });
 
   it('should be created', () => {
@@ -294,7 +300,6 @@ describe('BrowserKlaroService', () => {
         jasmine.any(EPerson),
         jasmine.any(Array) // Adjust based on expected operations
       );
-    
       // Now check if window.location.reload was called
       expect(window.location.reload).toHaveBeenCalled();
     }));
