@@ -32,8 +32,8 @@ export function lazyDataService<T>(
   injector: Injector,
 ): Observable<T> {
   return defer(() => {
-    const loader: () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }> = map[key];
-    if (isNotEmpty(loader) && typeof loader === 'function') {
+    if (isNotEmpty(map[key]) && typeof map[key] === 'function') {
+      const loader: () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }> = map[key];
       return loader()
         .then((serviceOrDefault) => {
           if ('default' in serviceOrDefault) {
