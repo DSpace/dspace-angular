@@ -5,7 +5,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import { APP_DATA_SERVICES_MAP, LazyDataServicesMap } from '../../../../config/app-config.interface';
 import { TestDataService } from '../../../shared/testing/test-data-service.mock';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { HALLink } from '../../shared/hal-link.model';
@@ -37,9 +37,9 @@ class TestModel implements HALResource {
   successor?: TestModel;
 }
 
-const mockDataServiceMap: any = {
-  [TEST_MODEL.value]: () => import('../../../shared/testing/test-data-service.mock').then(m => m.TestDataService),
-};
+const mockDataServiceMap: any = new Map([
+  [TEST_MODEL.value, () => import('../../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+]);
 
 let testDataService: TestDataService;
 

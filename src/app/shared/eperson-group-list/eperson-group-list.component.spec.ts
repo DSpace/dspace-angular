@@ -17,7 +17,10 @@ import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 import { of as observableOf } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import {
+  APP_DATA_SERVICES_MAP,
+  LazyDataServicesMap,
+} from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { RequestService } from '../../core/data/request.service';
@@ -41,10 +44,10 @@ import { SearchEvent } from './eperson-group-list-event-type';
 import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-box.component';
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
 
-const mockDataServiceMap: any = {
-  [EPERSON.value]: () => import('../../core/eperson/eperson-data.service').then(m => m.EPersonDataService),
-  [GROUP.value]: () => import('../../core/eperson/group-data.service').then(m => m.GroupDataService),
-};
+const mockDataServiceMap: LazyDataServicesMap = new Map([
+  [EPERSON.value, () => import('../../core/eperson/eperson-data.service').then(m => m.EPersonDataService)],
+  [GROUP.value, () => import('../../core/eperson/group-data.service').then(m => m.GroupDataService)],
+]);
 
 describe('EpersonGroupListComponent test suite', () => {
   let comp: EpersonGroupListComponent;
