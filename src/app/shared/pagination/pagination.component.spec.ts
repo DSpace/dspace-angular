@@ -172,8 +172,6 @@ describe('Pagination component', () => {
           { path: 'home', component: TestComponent },
         ]),
         UUIDService,
-      ],
-      declarations: [
         PaginationComponent,
         TestComponent,
         EnumKeysPipe,
