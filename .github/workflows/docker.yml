@@ -28,7 +28,7 @@ jobs:
     # Use the reusable-docker-build.yml script from DSpace/DSpace repo to build our Docker image
     uses: DSpace/DSpace/.github/workflows/reusable-docker-build.yml@dspace-7_x
     with:
-      build_id: dspace-angular
+      build_id: dspace-angular-dev
       image_name: dspace/dspace-angular
       dockerfile_path: ./Dockerfile
     secrets:
