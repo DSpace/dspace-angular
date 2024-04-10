@@ -7,7 +7,7 @@
       <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
         <span class="fa fa-chevron-right"></span>
       </span>
-      <div class="align-middle pt-2">
+      <div class="align-middle my-auto">
         <button *ngIf="(dataSource.loading$ | async) !== true" (click)="getNextPage(node)"
            class="btn btn-outline-primary btn-sm" role="button">
            <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
@@ -37,10 +37,10 @@
         <span class="fa fa-chevron-right"></span>
       </span>
       <div class="d-flex flex-row">
-        <span class="align-middle pt-2 lead">
+        <span class="d-flex align-middle my-auto">
           <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
           <span class="pr-2">&nbsp;</span>
-          <span *ngIf="node.payload.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-top archived-items-lead">{{node.payload.archivedItemsCount}}</span>
+          <span *ngIf="node.payload.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-top archived-items-lead my-auto">{{node.payload.archivedItemsCount}}</span>
         </span>
       </div>
     </div>
@@ -71,7 +71,7 @@
       <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
         <span class="fa fa-chevron-right"></span>
       </span>
-      <h6 class="align-middle pt-2">
+      <h6 class="align-middle my-auto">
         <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
       </h6>
     </div>
