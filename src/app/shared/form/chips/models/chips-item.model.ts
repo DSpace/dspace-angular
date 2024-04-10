@@ -53,7 +53,7 @@ export class ChipsItem {
   }
 
   hasIcons(): boolean {
-     return isNotEmpty(this.icons);
+    return isNotEmpty(this.icons);
   }
 
   hasVisibleIcons(): boolean {
@@ -62,11 +62,11 @@ export class ChipsItem {
       // check if it has at least one visible icon
       for (const icon of this.icons) {
         if (this._item.hasOwnProperty(icon.metadata)
-          && (((typeof this._item[icon.metadata] === 'string') && hasValue(this._item[icon.metadata]))
-            || (this._item[icon.metadata] as FormFieldMetadataValueObject).hasValue())
+          && ((this._item[icon.metadata] && (typeof this._item[icon.metadata] === 'string') && hasValue(this._item[icon.metadata]))
+            || this._item[icon.metadata] && hasValue(this._item[icon.metadata].value))
           && !this.hasPlaceholder(this._item[icon.metadata])) {
           if ((icon.visibleWhenAuthorityEmpty
-            || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET)
+              || this._item[icon.metadata] && (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET)
             && isNotEmpty(icon.style)) {
             hasVisible = true;
             break;
