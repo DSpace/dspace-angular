@@ -47,6 +47,7 @@ import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
         resolve: {
           breadcrumb: CommunityBreadcrumbResolver,
         },
+        runGuardsAndResolvers: 'always',
       },
       {
         path: ':id',

@@ -40,6 +40,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         resolve: {
           breadcrumb: CommunityBreadcrumbResolver,
         },
+        runGuardsAndResolvers: 'always',
       },
       {
         path: ':id',
