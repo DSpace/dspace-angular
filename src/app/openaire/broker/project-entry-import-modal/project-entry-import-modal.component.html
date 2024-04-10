@@ -9,7 +9,7 @@
   <small>{{ (labelPrefix + label + '.publication' | translate) }}</small>
   <div class="mb-3">
     <div class="text-truncate">
-      <a target="_blank" href="/items/{{(externalSourceEntry.event.target|async)?.payload?.id}}">
+      <a target="_blank" [routerLink]="['/items', (externalSourceEntry.event.target|async)?.payload?.id]">
         {{externalSourceEntry.title}}
       </a>
     </div>
@@ -18,7 +18,7 @@
     <small>{{ (labelPrefix + label + '.bountToLocal' |translate) }}</small>
     <div class="mb-3">
       <div class="text-truncate">
-        <a target="_blank" href="/items/{{externalSourceEntry.projectId}}">
+        <a target="_blank" [routerLink]="['/items', externalSourceEntry.projectId]">
           {{externalSourceEntry.projectTitle}}
         </a>
       </div>

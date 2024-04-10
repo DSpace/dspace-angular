@@ -83,6 +83,11 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
       const queryParam: any = {};
       links[1].split('&').forEach(res => {
         const str = res.split('=');
+        if (queryParam[str[0]] && queryParam[str[0]].includes(str[1])) {
+          // if the value is already selected, then return
+          // do not add the same value again
+          return;
+        }
         queryParam[str[0]] = queryParam[str[0]] ? [...queryParam[str[0]], str[1]] : [str[1]];
       });
       this.router.navigate(this.getSearchLinkParts(), {
