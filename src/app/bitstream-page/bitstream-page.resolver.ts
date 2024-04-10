@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -25,32 +25,20 @@ export const BITSTREAM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [
 ];
 
 /**
- * This class represents a resolver that requests a specific bitstream before the route is activated
+ * Method for resolving a bitstream based on the parameters in the current route
+ * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
+ * @param {RouterStateSnapshot} state The current RouterStateSnapshot
+ * @param {BitstreamDataService} bitstreamService
+ * @returns Observable<<RemoteData<Item>> Emits the found bitstream based on the parameters in the current route,
+ * or an error if something went wrong
  */
-@Injectable({ providedIn: 'root' })
-export class BitstreamPageResolver implements Resolve<RemoteData<Bitstream>> {
-  constructor(private bitstreamService: BitstreamDataService) {
-  }
-
-  /**
-   * Method for resolving a bitstream based on the parameters in the current route
-   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
-   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Item>> Emits the found bitstream based on the parameters in the current route,
-   * or an error if something went wrong
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Bitstream>> {
-    return this.bitstreamService.findById(route.params.id, true, false, ...this.followLinks)
-      .pipe(
-        getFirstCompletedRemoteData(),
-      );
-  }
-  /**
-     * Method that returns the follow links to already resolve
-     * The self links defined in this list are expected to be requested somewhere in the near future
-     * Requesting them as embeds will limit the number of requests
-     */
-  get followLinks(): FollowLinkConfig<Bitstream>[] {
-    return BITSTREAM_PAGE_LINKS_TO_FOLLOW;
-  }
-}
+export const bitstreamPageResolver: ResolveFn<RemoteData<Bitstream>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  bitstreamService: BitstreamDataService = inject(BitstreamDataService),
+): Observable<RemoteData<Bitstream>> => {
+  return bitstreamService.findById(route.params.id, true, false, ...BITSTREAM_PAGE_LINKS_TO_FOLLOW)
+    .pipe(
+      getFirstCompletedRemoteData(),
+    );
+};

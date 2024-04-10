@@ -37,9 +37,9 @@ class TestModel implements HALResource {
   successor?: TestModel;
 }
 
-const mockDataServiceMap: any = {
-  [TEST_MODEL.value]: () => import('../../../shared/testing/test-data-service.mock').then(m => m.TestDataService),
-};
+const mockDataServiceMap: any = new Map([
+  [TEST_MODEL.value, () => import('../../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+]);
 
 let testDataService: TestDataService;
 

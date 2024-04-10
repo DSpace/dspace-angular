@@ -91,7 +91,7 @@ export class DsoRedirectService {
   /**
    * Redirect to a DSpaceObject's path using the given identifier type and ID.
    * This is used to redirect paths like "/handle/[prefix]/[suffix]" to the object's path (e.g. /items/[uuid]).
-   * See LookupGuard for more examples.
+   * See lookupGuard for more examples.
    *
    * @param id              the identifier of the object to retrieve
    * @param identifierType  the type of the given identifier (defaults to UUID)

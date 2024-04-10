@@ -1,12 +1,12 @@
 import { Route } from '@angular/router';
 
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { authenticatedGuard } from '../core/auth/authenticated.guard';
+import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
-import { ItemFromWorkspaceResolver } from './item-from-workspace.resolver';
+import { itemFromWorkspaceResolver } from './item-from-workspace.resolver';
 import { ItemFromWorkspaceBreadcrumbResolver } from './item-from-workspace-breadcrumb.resolver';
-import { WorkspaceItemPageResolver } from './workspace-item-page.resolver';
+import { workspaceItemPageResolver } from './workspace-item-page.resolver';
 import { ThemedWorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/themed-workspaceitems-delete-page.component';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page/workspaceitems-delete-page.component';
 
@@ -19,45 +19,45 @@ export const ROUTES: Route[] = [
     path: ':id',
     resolve: {
       breadcrumb: ItemFromWorkspaceBreadcrumbResolver,
-      wsi: WorkspaceItemPageResolver,
+      wsi: workspaceItemPageResolver,
     },
     children: [
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: 'edit',
         component: ThemedSubmissionEditComponent,
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver,
+          breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'submission.edit.title', breadcrumbKey: 'submission.edit' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: 'view',
         component: ThemedFullItemPageComponent,
         resolve: {
-          dso: ItemFromWorkspaceResolver,
-          breadcrumb: I18nBreadcrumbResolver,
+          dso: itemFromWorkspaceResolver,
+          breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'workspace-item.view.title', breadcrumbKey: 'workspace-item.view' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: 'delete',
         component: WorkspaceItemsDeletePageComponent,
         resolve: {
-          dso: ItemFromWorkspaceResolver,
-          breadcrumb: I18nBreadcrumbResolver,
+          dso: itemFromWorkspaceResolver,
+          breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' },
       },
       {
-        canActivate: [AuthenticatedGuard],
+        canActivate: [authenticatedGuard],
         path: 'delete',
         component: ThemedWorkspaceItemsDeletePageComponent,
         resolve: {
-          dso: ItemFromWorkspaceResolver,
-          breadcrumb: I18nBreadcrumbResolver,
+          dso: itemFromWorkspaceResolver,
+          breadcrumb: i18nBreadcrumbResolver,
         },
         data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' },
       },

@@ -7,7 +7,6 @@ import {
   Component,
   EventEmitter,
   Inject,
-  InjectionToken,
   Injector,
   Input,
   OnDestroy,
@@ -35,7 +34,7 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { EPERSON } from '../../core/eperson/models/eperson.resource-type';
 import { GROUP } from '../../core/eperson/models/group.resource-type';
-import { lazyService } from '../../core/lazy-service';
+import { lazyDataService } from '../../core/lazy-data-service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
@@ -133,7 +132,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
   constructor(public dsoNameService: DSONameService,
               private parentInjector: Injector,
               private paginationService: PaginationService,
-              @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: InjectionToken<LazyDataServicesMap>) {
+              @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap) {
   }
 
   /**
@@ -141,7 +140,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     const resourceType: ResourceType = (this.isListOfEPerson) ? EPERSON : GROUP;
-    const lazyProvider$: Observable<EPersonDataService | GroupDataService> = lazyService(this.dataServiceMap[resourceType.value], this.parentInjector);
+    const lazyProvider$: Observable<EPersonDataService | GroupDataService> = lazyDataService(this.dataServiceMap, resourceType.value, this.parentInjector);
     lazyProvider$.subscribe((dataService: EPersonDataService | GroupDataService) => {
       this.dataService = dataService;
       console.log(dataService);

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
-  filter,
   map,
   switchMap,
   take,
@@ -14,6 +13,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import {
+  getAllCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
@@ -89,8 +89,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
   getAllAuthorizedRelationshipType(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<ItemType>>> {
     const searchHref = 'findAllByAuthorizedCollection';
 
-    return this.searchBy(searchHref, options).pipe(
-      filter((type: RemoteData<PaginatedList<ItemType>>) => !type.isResponsePending));
+    return this.searchBy(searchHref, options).pipe(getAllCompletedRemoteData());
   }
 
   /**
@@ -123,8 +122,7 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
   getAllAuthorizedRelationshipTypeImport(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<ItemType>>> {
     const searchHref = 'findAllByAuthorizedExternalSource';
 
-    return this.searchBy(searchHref, options).pipe(
-      filter((type: RemoteData<PaginatedList<ItemType>>) => !type.isResponsePending));
+    return this.searchBy(searchHref, options).pipe(getAllCompletedRemoteData());
   }
 
   /**
@@ -136,15 +134,8 @@ export class EntityTypeDataService extends BaseDataService<ItemType> implements 
       currentPage: 1,
     };
     return this.getAllAuthorizedRelationshipTypeImport(findListOptions).pipe(
-      map((result: RemoteData<PaginatedList<ItemType>>) => {
-        let output: boolean;
-        if (result.payload) {
-          output = ( result.payload.page.length > 1 );
-        } else {
-          output = false;
-        }
-        return output;
-      }),
+      take(1),
+      map((result: RemoteData<PaginatedList<ItemType>>) => result?.payload?.totalElements > 1),
     );
   }
 
