@@ -1,25 +1,17 @@
-import { map, startWith } from 'rxjs/operators';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { first, map, skipWhile, startWith } from 'rxjs/operators';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-
-import { MetadataService } from '../core/metadata/metadata.service';
-import { HostWindowState } from '../shared/search/host-window.reducer';
-import { NativeWindowRef, NativeWindowService } from '../core/services/window.service';
-import { AuthService } from '../core/auth/auth.service';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemeConfig } from '../../config/theme.config';
-import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
 import { slideSidebarPadding } from '../shared/animations/slide';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
-import { hasValueOperator } from '../shared/empty.util';
+import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
 
 @Component({
   selector: 'ds-root',
@@ -28,13 +20,13 @@ import { hasValueOperator } from '../shared/empty.util';
   animations: [slideSidebarPadding],
 })
 export class RootComponent implements OnInit {
-  sidebarVisible: Observable<boolean>;
-  slideSidebarOver: Observable<boolean>;
-  collapsedSidebarWidth: Observable<string>;
-  totalSidebarWidth: Observable<string>;
   theme: Observable<ThemeConfig> = of({} as any);
-  notificationOptions;
-  models;
+  isSidebarVisible$: Observable<boolean>;
+  slideSidebarOver$: Observable<boolean>;
+  collapsedSidebarWidth$: Observable<string>;
+  expandedSidebarWidth$: Observable<string>;
+  notificationOptions: INotificationBoardOptions;
+  models: any;
 
   /**
    * Whether or not to show a full screen loader
@@ -47,12 +39,6 @@ export class RootComponent implements OnInit {
   @Input() shouldShowRouteLoader: boolean;
 
   constructor(
-    @Inject(NativeWindowService) private _window: NativeWindowRef,
-    private translate: TranslateService,
-    private store: Store<HostWindowState>,
-    private metadata: MetadataService,
-    private angulartics2DSpace: Angulartics2DSpace,
-    private authService: AuthService,
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
@@ -62,13 +48,19 @@ export class RootComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sidebarVisible = this.menuService.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
+    this.isSidebarVisible$ = this.menuService.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
 
-    this.collapsedSidebarWidth = this.cssService.getVariable('--ds-collapsed-sidebar-width').pipe(hasValueOperator());
-    this.totalSidebarWidth = this.cssService.getVariable('--ds-total-sidebar-width').pipe(hasValueOperator());
+    this.expandedSidebarWidth$ = this.cssService.getVariable('--ds-admin-sidebar-total-width').pipe(
+      skipWhile((val) => !val),
+      first(),
+    );
+    this.collapsedSidebarWidth$ = this.cssService.getVariable('--ds-admin-sidebar-fixed-element-width').pipe(
+      skipWhile((val) => !val),
+      first(),
+    );
 
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
-    this.slideSidebarOver = combineLatestObservable([sidebarCollapsed, this.windowService.isXsOrSm()])
+    this.slideSidebarOver$ = combineLatestObservable([sidebarCollapsed, this.windowService.isXsOrSm()])
       .pipe(
         map(([collapsed, mobile]) => collapsed || mobile),
         startWith(true),
