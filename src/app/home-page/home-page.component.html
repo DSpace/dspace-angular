@@ -1,8 +1,8 @@
 <ds-themed-home-news></ds-themed-home-news>
 <div [ngClass]="showDiscoverFilters ? 'container-fluid' : 'container'">
-  <ds-page-with-sidebar [sidebarContent]="sidebar" [sideBarWidth]="3" [class]="showDiscoverFilters ? 'row mx-3' : ''">
+  <ds-page-with-sidebar [sidebarContent]="sidebar" [sideBarWidth]="showDiscoverFilters ? 3 : 0" [class]="showDiscoverFilters ? 'row mx-3' : ''">
     <div [class.col-sm-12]="showDiscoverFilters">
-      <button *ngIf="(isXsOrSm$ | async) && sidebarService.isCollapsed" (click)="sidebarService.expand()"
+      <button *ngIf="showDiscoverFilters && (isXsOrSm$ | async) && sidebarService.isCollapsed" (click)="sidebarService.expand()"
               class="btn btn-outline-primary d-block ml-auto mb-3">
         <i class="fas fa-sliders"></i> {{ 'search.sidebar.open' | translate }}
       </button>
