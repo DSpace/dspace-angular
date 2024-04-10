@@ -354,14 +354,6 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       .forEach((sub) => sub.unsubscribe());
   }
 
-  /**
-   * Hide image on error
-   * @param image
-   */
-  handleImgError(image: HTMLElement): void {
-    image.style.display = 'none';
-  }
-
   toggleOtherInfoSelection() {
     this.additionalInfoSelectIsOpen = !this.additionalInfoSelectIsOpen;
   }
