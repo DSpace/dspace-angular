@@ -47,6 +47,7 @@ export const ROUTES: Route[] = [
     resolve: {
       breadcrumb: communityBreadcrumbResolver,
     },
+    runGuardsAndResolvers: 'always',
   },
   {
     path: ':id',
