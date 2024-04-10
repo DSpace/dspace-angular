@@ -55,6 +55,12 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    */
   public abstract pageInfo: PageInfo;
 
+  protected otherInfoValue: string;
+  protected otherName: string;
+  protected otherInfoKey: string;
+  public otherInfoValues: string[] = [];
+  public otherInfoValuesUnformatted: string[] = [];
+
   protected constructor(protected vocabularyService: VocabularyService,
                         protected layoutService: DynamicFormLayoutService,
                         protected validationService: DynamicFormValidationService,
@@ -202,11 +208,11 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
    * @param authority
    */
   updateAuthority(authority: string) {
-      const currentValue: string = (this.model.value instanceof FormFieldMetadataValueObject
+    const currentValue: string = (this.model.value instanceof FormFieldMetadataValueObject
       || this.model.value instanceof VocabularyEntry) ? this.model.value.value : this.model.value;
     let security = null;
     if ( this.model.value instanceof VocabularyEntry) {
-       security  = this.model.value.securityLevel;
+      security  = this.model.value.securityLevel;
     } else {
       if (this.model.metadataValue) {
         security  = this.model.metadataValue.securityLevel;
@@ -250,7 +256,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         for (const key in otherInformation) {
           if (otherInformation.hasOwnProperty(key) && key.startsWith('data-')) {
             const fieldId = key.replace('data-', '');
-            const newValue: FormFieldMetadataValueObject = this.getOtherInformationValue(otherInformation[key]);
+            const newValue: FormFieldMetadataValueObject = this.getOtherInformationValue(otherInformation[key], key);
             if (isNotEmpty(newValue)) {
               const updatedModel = this.formBuilderService.updateModelValue(fieldId, newValue);
               if (isNotEmpty(updatedModel)) {
@@ -270,23 +276,42 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     }
   }
 
-  getOtherInformationValue(value: string): FormFieldMetadataValueObject {
-    if (isEmpty(value)) {
+  getOtherInformationValue(value: string, key: string): FormFieldMetadataValueObject {
+    if (isEmpty(value) || key === 'alternative-names' ) {
       return null;
     }
 
     let returnValue;
     if (value.indexOf('::') === -1) {
       returnValue = new FormFieldMetadataValueObject(value);
-    } else {
+    } else if (value.indexOf('|||') === -1) {
       returnValue = new FormFieldMetadataValueObject(
         value.substring(0, value.lastIndexOf('::')),
         null,
         null,
         value.substring(value.lastIndexOf('::') + 2)
       );
+    } else if (value.indexOf('|||') !== -1 && this.otherInfoValue) {
+      const unformattedValue =  this.otherInfoValuesUnformatted.find(otherInfoValue => otherInfoValue.includes(this.otherInfoValue || this.otherName));
+      const authorityValue = hasValue(unformattedValue) ?  unformattedValue.substring(unformattedValue.lastIndexOf('::') + 2) : null;
+      let otherInfo = {};
+      let alternativeValue;
+      otherInfo[key] = value;
+      if (hasValue(this.otherName)) {
+        const otherValues = value.split('|||');
+        alternativeValue = otherValues[0].substring(0, otherValues[0].lastIndexOf('::'));
+      }
+      returnValue = new FormFieldMetadataValueObject(
+        hasValue(alternativeValue) ? alternativeValue : this.otherInfoValue,
+        null,
+        null,
+        authorityValue,
+        null,
+        null,
+        null,
+        otherInfo
+      );
     }
-
     return returnValue;
   }
 
