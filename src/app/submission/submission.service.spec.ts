@@ -581,6 +581,7 @@ describe('SubmissionService test suite', () => {
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/keyinformation',
               mandatory: true,
               sectionType: 'submission-form',
+              extendsSectionType: undefined,
               data: {},
               errorsToShow: [],
               serverValidationErrors: []
@@ -591,6 +592,7 @@ describe('SubmissionService test suite', () => {
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/indexing',
               mandatory: false,
               sectionType: 'submission-form',
+              extendsSectionType: undefined,
               data: {},
               errorsToShow: [],
               serverValidationErrors: []
@@ -601,6 +603,7 @@ describe('SubmissionService test suite', () => {
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/publicationchannel',
               mandatory: true,
               sectionType: 'submission-form',
+              extendsSectionType: undefined,
               data: {},
               errorsToShow: [],
               serverValidationErrors: []
@@ -611,6 +614,7 @@ describe('SubmissionService test suite', () => {
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/acknowledgement',
               mandatory: false,
               sectionType: 'submission-form',
+              extendsSectionType: undefined,
               data: {},
               errorsToShow: [],
               serverValidationErrors: []
@@ -621,6 +625,7 @@ describe('SubmissionService test suite', () => {
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/identifiers',
               mandatory: false,
               sectionType: 'submission-form',
+              extendsSectionType: undefined,
               data: {},
               errorsToShow: [],
               serverValidationErrors: []
@@ -631,6 +636,7 @@ describe('SubmissionService test suite', () => {
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/references',
               mandatory: false,
               sectionType: 'submission-form',
+              extendsSectionType: undefined,
               data: {},
               errorsToShow: [],
               serverValidationErrors: []
@@ -641,6 +647,7 @@ describe('SubmissionService test suite', () => {
               config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
               mandatory: true,
               sectionType: 'upload',
+              extendsSectionType: undefined,
               data: {},
               errorsToShow: [],
               serverValidationErrors: []
@@ -651,6 +658,7 @@ describe('SubmissionService test suite', () => {
               config: '',
               mandatory: true,
               sectionType: 'license',
+              extendsSectionType: undefined,
               data: {},
               errorsToShow: [],
               serverValidationErrors: []

@@ -40,7 +40,8 @@ const sectionObject: SectionDataObject = {
   serverValidationErrors:		[],
   header:	'submit.progressbar.describe.stepone',
   id:	'traditionalpageone',
-  sectionType:	SectionsType.SubmissionForm
+  sectionType:	SectionsType.SubmissionForm,
+  extendsSectionType: undefined,
 };
 
 describe('SubmissionSectionContainerComponent test suite', () => {
