@@ -4,8 +4,14 @@ import {
   DeleteRelationship,
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip, Observable } from 'rxjs';
+import { map, startWith, switchMap, take, concatMap, toArray, tap } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+  zip as observableZip,
+  Observable,
+  BehaviorSubject, EMPTY
+} from 'rxjs';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -30,6 +36,7 @@ import { FieldChangeType } from '../../../core/data/object-updates/field-change-
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HALLink } from '../../../core/shared/hal-link.model';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -50,7 +57,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   /**
    * The item's entity type as an observable
    */
-  entityType$: Observable<ItemType>;
+  entityType$: BehaviorSubject<ItemType> = new BehaviorSubject(undefined);
 
   constructor(
     public itemService: ItemDataService,
@@ -82,13 +89,13 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page)
       );
 
-      this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
+      this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
-      );
+      ).subscribe((type) => this.entityType$.next(type));
 
     } else {
-      this.entityType$ = observableOf(undefined);
+      this.entityType$.next(undefined);
     }
   }
 
@@ -106,8 +113,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   public submit(): void {
 
     // Get all the relationships that should be removed
-    const removedRelationshipIDs$: Observable<DeleteRelationship[]> = this.relationshipService.getItemRelationshipsArray(this.item).pipe(
-      startWith([]),
+    const removeUpdates$: Observable<FieldUpdate[]> = this.relationshipService.getItemRelationshipsArray(this.item).pipe(
       map((relationships: Relationship[]) => relationships.map((relationship) =>
         Object.assign(new Relationship(), relationship, { uuid: relationship.id })
       )),
@@ -117,83 +123,113 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)
           .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)
-          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as DeleteRelationship)
       ),
+      take(1)
     );
 
-    const addRelatedItems$: Observable<RelationshipIdentifiable[]> = this.objectUpdatesService.getFieldUpdates(this.url, []).pipe(
+    const addUpdates$: Observable<FieldUpdate[]> = this.objectUpdatesService.getFieldUpdates(this.url, []).pipe(
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)
           .filter((fieldUpdate: FieldUpdate) => hasValue(fieldUpdate))
           .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.ADD)
-          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as RelationshipIdentifiable)
       ),
+      take(1)
     );
 
-    observableCombineLatest(
-      removedRelationshipIDs$,
-      addRelatedItems$,
-    ).pipe(
+    observableCombineLatest([
+      removeUpdates$,
+      addUpdates$,
+    ]).pipe(
       take(1),
-    ).subscribe(([removeRelationshipIDs, addRelatedItems]) => {
-      const actions = [
-        this.deleteRelationships(removeRelationshipIDs),
-        this.addRelationships(addRelatedItems),
-      ];
-      actions.forEach((action) =>
-        action.subscribe((response) => {
-          if (response.length > 0) {
-            this.initializeOriginalFields();
-            this.cdr.detectChanges();
-            this.displayNotifications(response);
-            this.modalService.dismissAll();
-          }
-        })
-      );
+      switchMap(([removeUpdates, addUpdates]) => [...removeUpdates, ...addUpdates]),
+      concatMap((update: FieldUpdate) => {
+        if (update.changeType === FieldChangeType.REMOVE) {
+          return this.deleteRelationship(update.field as DeleteRelationship).pipe(take(1))
+        } else if (update.changeType === FieldChangeType.ADD) {
+          return this.addRelationship(update.field as RelationshipIdentifiable).pipe(
+            take(1),
+            switchMap((relationshipRD: RemoteData<Relationship>) => {
+              if (relationshipRD.hasSucceeded) {
+                // Set the newly related item to stale, so its relationships will update to include
+                // the new one. Only set the current item to stale at the very end so we only do it
+                // once
+                const { leftItem, rightItem } = relationshipRD.payload._links;
+                if (leftItem.href === this.item.self) {
+                  return this.itemService.invalidateByHref(rightItem.href).pipe(
+                    // when it's invalidated, emit the original relationshipRD for use in the pipe below
+                    map(() => relationshipRD)
+                  );
+                } else {
+                  return this.itemService.invalidateByHref(leftItem.href).pipe(
+                    // when it's invalidated, emit the original relationshipRD for use in the pipe below
+                    map(() => relationshipRD)
+                  );
+                }
+              }
+              else {
+                return [relationshipRD];
+              }
+            })
+          )
+        } else {
+          return EMPTY;
+        }
+      }),
+      toArray(),
+      switchMap((responses) => {
+        // once all relationships are made and all related items have been invalidated, invalidate
+        // the current item
+        return this.itemService.invalidateByHref(this.item.self).pipe(
+          map(() => responses)
+        );
+      })
+    ).subscribe((responses) => {
+      if (responses.length > 0) {
+        this.initializeOriginalFields();
+        this.displayNotifications(responses);
+        this.modalService.dismissAll();
+      }
     });
   }
 
-  deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<RemoteData<NoContent>[]> {
-    return observableZip(...deleteRelationshipIDs.map((deleteRelationship) => {
-        let copyVirtualMetadata: string;
-        if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
-          copyVirtualMetadata = 'all';
-        } else if (deleteRelationship.keepLeftVirtualMetadata) {
-          copyVirtualMetadata = 'left';
-        } else if (deleteRelationship.keepRightVirtualMetadata) {
-          copyVirtualMetadata = 'right';
-        } else {
-          copyVirtualMetadata = 'none';
-        }
-        return this.relationshipService.deleteRelationship(deleteRelationship.uuid, copyVirtualMetadata);
-      }
-    ));
+  deleteRelationship(deleteRelationship: DeleteRelationship): Observable<RemoteData<NoContent>> {
+    let copyVirtualMetadata: string;
+    if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
+      copyVirtualMetadata = 'all';
+    } else if (deleteRelationship.keepLeftVirtualMetadata) {
+      copyVirtualMetadata = 'left';
+    } else if (deleteRelationship.keepRightVirtualMetadata) {
+      copyVirtualMetadata = 'right';
+    } else {
+      copyVirtualMetadata = 'none';
+    }
+
+    return this.relationshipService.deleteRelationship(deleteRelationship.uuid, copyVirtualMetadata, false);
   }
 
-  addRelationships(addRelatedItems: RelationshipIdentifiable[]): Observable<RemoteData<Relationship>[]> {
-    return observableZip(...addRelatedItems.map((addRelationship) =>
-      this.entityType$.pipe(
-        switchMap((entityType) => this.entityTypeService.isLeftType(addRelationship.type, entityType)),
-        switchMap((isLeftType) => {
-          let leftItem: Item;
-          let rightItem: Item;
-          let leftwardValue: string;
-          let rightwardValue: string;
-          if (isLeftType) {
-            leftItem = this.item;
-            rightItem = addRelationship.relatedItem;
-            leftwardValue = null;
-            rightwardValue = addRelationship.nameVariant;
-          } else {
-            leftItem = addRelationship.relatedItem;
-            rightItem = this.item;
-            leftwardValue = addRelationship.nameVariant;
-            rightwardValue = null;
-          }
-          return this.relationshipService.addRelationship(addRelationship.type.id, leftItem, rightItem, leftwardValue, rightwardValue);
-        }),
-      )
-    ));
+  addRelationship(addRelationship: RelationshipIdentifiable): Observable<RemoteData<Relationship>> {
+    return this.entityType$.pipe(
+      switchMap((entityType) => this.entityTypeService.isLeftType(addRelationship.type, entityType)),
+      switchMap((isLeftType) => {
+        let leftItem: Item;
+        let rightItem: Item;
+        let leftwardValue: string;
+        let rightwardValue: string;
+        if (isLeftType) {
+          leftItem = this.item;
+          rightItem = addRelationship.relatedItem;
+          leftwardValue = null;
+          rightwardValue = addRelationship.nameVariant;
+        } else {
+          leftItem = addRelationship.relatedItem;
+          rightItem = this.item;
+          leftwardValue = addRelationship.nameVariant;
+          rightwardValue = null;
+        }
+        return this.relationshipService.addRelationship(addRelationship.type.id, leftItem, rightItem, leftwardValue, rightwardValue, false);
+      }),
+    )
+
   }
 
   /**
