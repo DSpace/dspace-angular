@@ -407,10 +407,11 @@ mediaViewer:
 
 # Whether the end user agreement is required before users use the repository.
 # If enabled, the user will be required to accept the agreement before they can use the repository.
-# And whether the privacy statement should exist or not.
+# And whether the privacy statement/COAR notify support page should exist or not.
 info:
   enableEndUserAgreement: true
   enablePrivacyStatement: true
+  enableCOARNotifySupport: true
 
 # Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
 # display in supported metadata fields. By default, only dc.description.abstract is supported.
