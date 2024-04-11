@@ -40,7 +40,7 @@ export class ClarinRefCitationModalComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.selectContent();
-    }, 100);
+    }, 300);
   }
 
   selectContent() {
