@@ -3,8 +3,9 @@ import {
   Injectable,
   Optional,
 } from '@angular/core';
-import { RESPONSE } from '../../../express.tokens';
 import { Response } from 'express';
+
+import { RESPONSE } from '../../../express.tokens';
 
 /**
  * Service responsible to provide method to manage the response object
