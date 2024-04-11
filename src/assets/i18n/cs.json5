@@ -2388,7 +2388,7 @@
   // "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
   "item.edit.tabs.bitstreams.title": "Úprava položky - Bitstreamy",
   // "item.edit.tabs.curate.head": "Curate",
-  "item.edit.tabs.curate.head": "",
+  "item.edit.tabs.curate.head": "Spravovat",
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
   "item.edit.tabs.curate.title": "Úprava položky - Kurátor",
   // "item.edit.tabs.metadata.head": "Metadata",
