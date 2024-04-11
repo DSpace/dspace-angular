@@ -34,7 +34,7 @@ export class DefaultAppConfig implements AppConfig {
   // NOTE: will log all redux actions and transfers in console
   debug = false;
 
-  // Angular Universal server settings
+  // Angular express server settings
   // NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
   ui: UIServerConfig = {
     ssl: false,
