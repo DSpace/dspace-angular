@@ -374,7 +374,9 @@ export class SectionsService {
     return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
       filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
       map((submissionState: SubmissionObjectEntry) => {
-        return isNotUndefined(submissionState.sections) && isNotUndefined(findKey(submissionState.sections, { sectionType: sectionType }));
+        return isNotUndefined(submissionState.sections) &&
+          (isNotUndefined(findKey(submissionState.sections, { sectionType: sectionType })) ||
+            isNotUndefined(findKey(submissionState.sections, { extendsSectionType: sectionType })));
       }),
       distinctUntilChanged());
   }
@@ -390,7 +392,7 @@ export class SectionsService {
       filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
       map((submissionState: SubmissionObjectEntry) => {
         return isNotUndefined(submissionState.sections) && isNotUndefined(submissionState.sections[sectionId])
-          && submissionState.sections[sectionId].sectionType === sectionType;
+          && (submissionState.sections[sectionId].sectionType === sectionType || submissionState.sections[sectionId].extendsSectionType === sectionType);
       }),
       distinctUntilChanged());
   }

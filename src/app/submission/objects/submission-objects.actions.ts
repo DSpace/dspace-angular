@@ -117,6 +117,7 @@ export class InitSectionAction implements Action {
     config: string;
     mandatory: boolean;
     sectionType: SectionsType;
+    extendsSectionType: SectionsType;
     visibility: SectionVisibility;
     enabled: boolean;
     data: WorkspaceitemSectionDataType;
@@ -138,6 +139,8 @@ export class InitSectionAction implements Action {
    *    the section's mandatory
    * @param sectionType
    *    the section's type
+   * @param extendsSectionType
+   *    the type of the section it extends
    * @param visibility
    *    the section's visibility
    * @param enabled
@@ -153,11 +156,12 @@ export class InitSectionAction implements Action {
               config: string,
               mandatory: boolean,
               sectionType: SectionsType,
+              extendsSectionType: SectionsType,
               visibility: SectionVisibility,
               enabled: boolean,
               data: WorkspaceitemSectionDataType,
               errors: SubmissionSectionError[]) {
-    this.payload = { submissionId, sectionId, header, config, mandatory, sectionType, visibility, enabled, data, errors };
+    this.payload = { submissionId, sectionId, header, config, mandatory, sectionType, extendsSectionType, visibility, enabled, data, errors };
   }
 }
 

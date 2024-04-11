@@ -549,6 +549,7 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             config: action.payload.config,
             mandatory: action.payload.mandatory,
             sectionType: action.payload.sectionType,
+            extendsSectionType: action.payload.extendsSectionType,
             visibility: action.payload.visibility,
             collapsed: false,
             enabled: action.payload.enabled,
