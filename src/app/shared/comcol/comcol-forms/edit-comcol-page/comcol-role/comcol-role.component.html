@@ -16,7 +16,7 @@
         <ds-themed-loading *ngIf="groupRD$ | async | dsHasNoValue"></ds-themed-loading>
         <div *ngIf="hasNoGroup$ | async">
           {{'comcol-role.edit.no-group' | translate}}
-        </div>V
+        </div>
         <div *ngIf="hasAnonymousGroup$ | async">
           {{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.anonymous-group' | translate}}
         </div>
