@@ -1,4 +1,4 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Injectable, InjectionToken, EventEmitter } from '@angular/core';
 import {
@@ -22,6 +22,15 @@ import { RouteService } from '../../services/route.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { Params } from '@angular/router';
 import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
+import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { getFirstSucceededRemoteData } from '../operators';
+import { FacetValue } from '../../../shared/search/models/facet-value.model';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { stripOperatorFromFilterValue, getFacetValueForType } from '../../../shared/search/search.utils';
+import { EmphasizePipe } from '../../../shared/utils/emphasize.pipe';
+import { SearchService } from './search.service';
+import { InputSuggestion } from '../../../shared/input-suggestions/input-suggestions.model';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
@@ -36,8 +45,11 @@ export const CHANGE_APPLIED_FILTERS: InjectionToken<EventEmitter<AppliedFilter[]
 @Injectable()
 export class SearchFilterService {
 
-  constructor(private store: Store<SearchFiltersState>,
-              private routeService: RouteService) {
+  constructor(
+    protected searchService: SearchService,
+    protected store: Store<SearchFiltersState>,
+    protected routeService: RouteService,
+  ) {
   }
 
   /**
@@ -144,6 +156,42 @@ export class SearchFilterService {
         }
       )
     );
+  }
+
+  /**
+   * Updates the found facet value suggestions for a given query
+   * Transforms the found values into display values
+   *
+   * @param searchFilterConfig The search filter config
+   * @param searchOptions The search options
+   * @param query The query for which is being searched
+   */
+  findSuggestions(searchFilterConfig: SearchFilterConfig, searchOptions: SearchOptions, query: string): Observable<InputSuggestion[]> {
+    if (isNotEmpty(query)) {
+      return this.searchService.getFacetValuesFor(searchFilterConfig, 1, searchOptions, query.toLowerCase()).pipe(
+        getFirstSucceededRemoteData(),
+        map((rd: RemoteData<PaginatedList<FacetValue>>) => rd.payload.page.map((facet) => {
+          return {
+            displayValue: this.getDisplayValue(facet, query),
+            query: getFacetValueForType(facet, searchFilterConfig),
+            value: stripOperatorFromFilterValue(getFacetValueForType(facet, searchFilterConfig))
+          };
+        })),
+      );
+    } else {
+      return observableOf([]);
+    }
+  }
+
+  /**
+   * Transforms the facet value string, so if the query matches part of the value, it's emphasized in the value
+   *
+   * @param facet The value of the facet as returned by the server
+   * @param query The query that was used to search facet values
+   * @returns {string} The facet value with the query part emphasized
+   */
+  getDisplayValue(facet: FacetValue, query: string): string {
+    return `${new EmphasizePipe().transform(facet.value, query)} (${facet.count})`;
   }
 
   /**

@@ -215,15 +215,4 @@ describe('SearchFacetFilterComponent', () => {
       expect(comp.filter).toEqual('');
     });
   });
-
-  describe('when findSuggestions is called with query \'test\'', () => {
-    const query = 'test';
-    beforeEach(() => {
-      comp.findSuggestions(query);
-    });
-
-    it('should call getFacetValuesFor on the component\'s SearchService with the right query', () => {
-      expect((comp as any).searchService.getFacetValuesFor).toHaveBeenCalledWith(comp.filterConfig, 1, {}, query);
-    });
-  });
 });

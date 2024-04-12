@@ -6,21 +6,18 @@ import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, 
 import { debounceTime, distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../empty.util';
-import { EmphasizePipe } from '../../../../utils/emphasize.pipe';
 import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SearchFilterService, CHANGE_APPLIED_FILTERS } from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../../../utils/route.utils';
-import { getFacetValueForType, stripOperatorFromFilterValue, addOperatorToFilterValue } from '../../../search.utils';
+import { stripOperatorFromFilterValue, addOperatorToFilterValue } from '../../../search.utils';
 import { FacetValues } from '../../../models/facet-values.model';
 import { AppliedFilter } from '../../../models/applied-filter.model';
 
@@ -61,7 +58,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the result values for this filter found by the current filter query
    */
-  filterSearchResults: Observable<InputSuggestion[]> = observableOf([]);
+  filterSearchResults$: Observable<InputSuggestion[]> = observableOf([]);
 
   /**
    * Emits the active values for this filter
@@ -200,34 +197,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       .forEach((sub) => sub.unsubscribe());
   }
 
-  /**
-   * Updates the found facet value suggestions for a given query
-   * Transforms the found values into display values
-   * @param data The query for which is being searched
-   */
-  findSuggestions(data): void {
-    if (isNotEmpty(data)) {
-      this.searchOptions$.pipe(take(1)).subscribe(
-        (options) => {
-          this.filterSearchResults = this.searchService.getFacetValuesFor(this.filterConfig, 1, options, data.toLowerCase())
-            .pipe(
-              getFirstSucceededRemoteData(),
-              map(
-                (rd: RemoteData<PaginatedList<FacetValue>>) => {
-                  return rd.payload.page.map((facet) => {
-                    return {
-                      displayValue: this.getDisplayValue(facet, data),
-                      query: this.getFacetValue(facet),
-                      value: stripOperatorFromFilterValue(this.getFacetValue(facet))
-                    };
-                  });
-                }
-              ));
-        }
-      );
-    } else {
-      this.filterSearchResults = observableOf([]);
-    }
+  findSuggestions(query: string): void {
+    this.filterSearchResults$ = this.filterService.findSuggestions(this.filterConfig, this.searchOptions$.value, query);
   }
 
   /**
@@ -250,16 +221,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           });
           this.filter = '';
         }
-        this.filterSearchResults = observableOf([]);
+        this.filterSearchResults$ = observableOf([]);
       });
     }
-  }
-
-  /**
-   * Retrieve facet value
-   */
-  protected getFacetValue(facet: FacetValue): string {
-    return getFacetValueForType(facet, this.filterConfig);
   }
 
   protected retrieveFilterValues(useCachedVersionIfAvailable = true): Observable<FacetValues[]> {
@@ -307,16 +271,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         return appliedFilters;
       }),
     );
-  }
-
-  /**
-   * Transforms the facet value string, so if the query matches part of the value, it's emphasized in the value
-   * @param {FacetValue} facet The value of the facet as returned by the server
-   * @param {string} query The query that was used to search facet values
-   * @returns {string} The facet value with the query part emphasized
-   */
-  getDisplayValue(facet: FacetValue, query: string): string {
-    return new EmphasizePipe().transform(facet.value, query) + ' (' + facet.count + ')';
   }
 
   /**
