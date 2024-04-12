@@ -6,7 +6,6 @@ import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { map } from 'rxjs/operators';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 /**
@@ -57,13 +56,7 @@ export class SearchLabelRangeComponent implements OnInit {
    * @param operator The {@link AppliedFilter}'s optional operator
    */
   updateRemoveParams(filterName: string, value: string, operator?: string): Observable<Params> {
-    const page: string = this.paginationService.getPageParam(this.searchConfigurationService.paginationID);
-    return this.searchConfigurationService.unselectAppliedFilterParams(filterName, value, operator).pipe(
-      map((params: Params) => ({
-        ...params,
-        [page]: 1,
-      })),
-    );
+    return this.searchConfigurationService.unselectAppliedFilterParams(filterName, value, operator);
   }
 
   /**

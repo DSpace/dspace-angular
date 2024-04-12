@@ -527,25 +527,33 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Calculates the {@link Params} of the search after removing a filter with a certain value
+   * Calculates the {@link Params} of the search after removing a filter with a certain value and resets the page number.
    *
    * @param filterName The {@link AppliedFilter}'s name
    * @param value The {@link AppliedFilter}'s value
    * @param operator The {@link AppliedFilter}'s optional operator
    */
   unselectAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
-    return this.routeService.getParamsExceptValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value);
+    return this.routeService.getParamsExceptValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
+      map((params: Params) => Object.assign(params, {
+        [this.paginationService.getPageParam(this.paginationID)]: 1,
+      })),
+    );
   }
 
   /**
-   * Calculates the {@link Params} of the search after removing a filter with a certain value
+   * Calculates the {@link Params} of the search after adding a filter with a certain value and resets the page number.
    *
    * @param filterName The {@link AppliedFilter}'s name
    * @param value The {@link AppliedFilter}'s value
    * @param operator The {@link AppliedFilter}'s optional operator
    */
   selectNewAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
-    return this.routeService.getParamsWithAdditionalValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value);
+    return this.routeService.getParamsWithAdditionalValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value).pipe(
+      map((params: Params) => Object.assign(params, {
+        [this.paginationService.getPageParam(this.paginationID)]: 1,
+      })),
+    );
   }
 
   /**

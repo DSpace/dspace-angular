@@ -13,8 +13,6 @@ import { SearchConfigurationServiceStub } from '../../../testing/search-configur
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { of as observableOf } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;
@@ -79,16 +77,7 @@ describe('SearchLabelComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('updateRemoveParams', () => {
-    it('should always reset the page to 1', (done: DoneFn) => {
-      spyOn(searchConfigurationService, 'unselectAppliedFilterParams').and.returnValue(observableOf(initialRouteParams));
-
-      comp.updateRemoveParams().pipe(take(1)).subscribe((params: Params) => {
-        expect(params).toEqual(Object.assign({}, initialRouteParams, {
-          'page-id.page': 1,
-        }));
-        done();
-      });
-    });
+  it('should create', () => {
+    expect(comp).toBeTruthy();
   });
 });

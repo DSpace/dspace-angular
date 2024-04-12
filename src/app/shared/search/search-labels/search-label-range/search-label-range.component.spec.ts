@@ -12,8 +12,6 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
-import { take } from 'rxjs/operators';
-import { of as observableOf } from 'rxjs';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 
 describe('SearchLabelRangeComponent', () => {
@@ -79,16 +77,7 @@ describe('SearchLabelRangeComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('updateRemoveParams', () => {
-    it('should always reset the page to 1', (done: DoneFn) => {
-      spyOn(searchConfigurationService, 'unselectAppliedFilterParams').and.returnValue(observableOf(initialRouteParams));
-
-      comp.updateRemoveParams('f.dateIssued.max', '2000').pipe(take(1)).subscribe((params: Params) => {
-        expect(params).toEqual(Object.assign({}, initialRouteParams, {
-          'page-id.page': 1,
-        }));
-        done();
-      });
-    });
+  it('should create', () => {
+    expect(comp).toBeTruthy();
   });
 });

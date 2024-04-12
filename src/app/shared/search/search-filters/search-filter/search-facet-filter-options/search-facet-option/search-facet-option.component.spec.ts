@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf, take } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -85,23 +85,6 @@ describe('SearchFacetOptionComponent', () => {
     comp.filterValue = facetValue;
     comp.filterConfig = mockFilterConfig;
     fixture.detectChanges();
-  });
-
-  describe('updateAddParams', () => {
-    it('should always reset the page to 1', (done: DoneFn) => {
-      spyOn(searchConfigurationService, 'selectNewAppliedFilterParams').and.returnValue(observableOf({
-        [mockFilterConfig.paramName]: [`${facetValue.value},equals`],
-        ['test-id.page']: 5,
-      }));
-
-      comp.updateAddParams().pipe(take(1)).subscribe((params: Params) => {
-        expect(params).toEqual({
-          [mockFilterConfig.paramName]: [`${facetValue.value},equals`],
-          ['test-id.page']: 1,
-        });
-        done();
-      });
-    });
   });
 
   describe('when isVisible emits true', () => {

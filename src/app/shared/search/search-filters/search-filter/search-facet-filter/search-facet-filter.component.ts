@@ -1,12 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../../empty.util';
+import { hasNoValue, hasValue } from '../../../../empty.util';
 import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
@@ -17,7 +17,7 @@ import { InputSuggestion } from '../../../../input-suggestions/input-suggestions
 import { SearchOptions } from '../../../models/search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../../../utils/route.utils';
-import { stripOperatorFromFilterValue, addOperatorToFilterValue } from '../../../search.utils';
+import { stripOperatorFromFilterValue } from '../../../search.utils';
 import { FacetValues } from '../../../models/facet-values.model';
 import { AppliedFilter } from '../../../models/applied-filter.model';
 
@@ -203,26 +203,18 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   /**
    * Build the filter query using the value given and apply to the search.
-   * @param data The string from the input field
+   * @param data The string from the input field (containing operator)
    */
-  protected applyFilterValue(data) {
+  protected applyFilterValue(data: string): void {
     if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
-      this.selectedAppliedFilters$.pipe(take(1)).subscribe((selectedValues: AppliedFilter[]) => {
-        if (isNotEmpty(data)) {
-          void this.router.navigate(this.getSearchLinkParts(), {
-            queryParams:
-              {
-                [this.filterConfig.paramName]: [
-                  ...selectedValues.map((appliedFilter: AppliedFilter) => addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator)),
-                  data
-                ]
-              },
-            queryParamsHandling: 'merge'
-          });
-          this.filter = '';
-        }
+      const valueParts = data.split(',');
+      this.subs.push(this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, valueParts.slice(0, valueParts.length - 1).join(), valueParts[valueParts.length - 1]).pipe(take(1)).subscribe((params: Params) => {
+        void this.router.navigate(this.getSearchLinkParts(), {
+          queryParams: params,
+        });
+        this.filter = '';
         this.filterSearchResults$ = observableOf([]);
-      });
+      }));
     }
   }
 

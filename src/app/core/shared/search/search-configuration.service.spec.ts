@@ -1,4 +1,5 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
+import { Params } from '@angular/router';
 import { SearchConfigurationService } from './search-configuration.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -41,9 +42,10 @@ describe('SearchConfigurationService', () => {
     getQueryParamsWithPrefix: observableOf(prefixFilter),
     getRouteParameterValue: observableOf(''),
     getParamsExceptValue: observableOf({}),
+    getParamsWithAdditionalValue: observableOf({}),
   });
 
-  const paginationService = new PaginationServiceStub();
+  let paginationService: PaginationServiceStub;
 
 
   const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
@@ -72,6 +74,12 @@ describe('SearchConfigurationService', () => {
     }
   };
   beforeEach(() => {
+    paginationService = new PaginationServiceStub(Object.assign(new PaginationComponentOptions(), {
+      id: defaults.pagination.id,
+      currentPage: 1,
+      pageSize: 20,
+    }));
+
     service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb);
   });
 
@@ -304,6 +312,45 @@ describe('SearchConfigurationService', () => {
       service.unselectAppliedFilterParams('dateIssued.max', '2000');
 
       expect(routeService.getParamsExceptValue).toHaveBeenCalledWith('f.dateIssued.max', '2000');
+    });
+
+    it('should reset the page to 1', (done: DoneFn) => {
+      service.unselectAppliedFilterParams('dateIssued.max', '2000').subscribe((params: Params) => {
+        expect(params[`${defaults.pagination.id}.page`]).toBe(1);
+        done();
+      });
+    });
+  });
+
+  describe('selectNewAppliedFilterParams', () => {
+    let appliedFilter: AppliedFilter;
+
+    beforeEach(() => {
+      appliedFilter = Object.assign(new AppliedFilter(), {
+        filter: 'author',
+        operator: 'authority',
+        value: '1282121b-5394-4689-ab93-78d537764052',
+        label: 'Odinson, Thor',
+      });
+    });
+
+    it('should return all params with the applied filter', () => {
+      service.selectNewAppliedFilterParams(appliedFilter.filter, appliedFilter.value, appliedFilter.operator);
+
+      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith('f.author', '1282121b-5394-4689-ab93-78d537764052,authority');
+    });
+
+    it('should be able to add AppliedFilter without operator', () => {
+      service.selectNewAppliedFilterParams('dateIssued.max', '2000');
+
+      expect(routeService.getParamsWithAdditionalValue).toHaveBeenCalledWith('f.dateIssued.max', '2000');
+    });
+
+    it('should reset the page to 1', (done: DoneFn) => {
+      service.selectNewAppliedFilterParams('dateIssued.max', '2000').subscribe((params: Params) => {
+        expect(params[`${defaults.pagination.id}.page`]).toBe(1);
+        done();
+      });
     });
   });
 });

@@ -24,6 +24,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-p
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { AppliedFilter } from '../../../models/applied-filter.model';
 import { FacetValues } from '../../../models/facet-values.model';
+import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -64,37 +65,30 @@ describe('SearchFacetFilterComponent', () => {
 
   const searchLink = '/search';
   const selectedValues = [value1, value2];
-  let filterService;
-  let searchService;
-  let router;
-  const page = observableOf(0);
+  let filterService: SearchFilterServiceStub;
+  let searchService: SearchServiceStub;
+  let router: RouterStub;
+  let searchConfigService: SearchConfigurationServiceStub;
 
   beforeEach(waitForAsync(() => {
+    searchService = new SearchServiceStub(searchLink);
+    filterService = new SearchFilterServiceStub();
+    router = new RouterStub();
+    searchConfigService = new SearchConfigurationServiceStub();
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
       declarations: [SearchFacetFilterComponent],
       providers: [
-        { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: Router, useValue: new RouterStub() },
+        { provide: SearchService, useValue: searchService },
+        { provide: SearchFilterService, useValue: filterService },
+        { provide: Router, useValue: router },
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
-        {
-          provide: SearchFilterService, useValue: {
-            getSelectedValuesForFilter: () => observableOf(selectedValues),
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-            getPage: (paramName: string) => page,
-            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-            incrementPage: (filterName: string) => {
-            },
-            resetPage: (filterName: string) => {
-            }
-            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          }
-        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchFacetFilterComponent, {
@@ -106,10 +100,7 @@ describe('SearchFacetFilterComponent', () => {
     fixture = TestBed.createComponent(SearchFacetFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.filterConfig = mockFilterConfig;
-    filterService = (comp as any).filterService;
-    searchService = (comp as any).searchService;
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(values));
-    router = (comp as any).router;
     fixture.detectChanges();
   });
 
@@ -182,13 +173,14 @@ describe('SearchFacetFilterComponent', () => {
         })));
       fixture.detectChanges();
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
+      spyOn(searchConfigService, 'selectNewAppliedFilterParams').and.returnValue(observableOf({ [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] }));
     });
 
     it('should call navigate on the router with the right searchlink and parameters when the filter is provided with a valid operator', () => {
       comp.onSubmit(testValue + ',equals');
+      expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalledWith(filterName1, testValue, 'equals');
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] },
-        queryParamsHandling: 'merge'
       });
     });
 

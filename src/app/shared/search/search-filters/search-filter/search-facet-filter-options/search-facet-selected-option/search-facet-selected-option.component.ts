@@ -6,7 +6,6 @@ import { SearchService } from '../../../../../../core/shared/search/search.servi
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { currentPath } from '../../../../../utils/route.utils';
 import { AppliedFilter } from '../../../../models/applied-filter.model';
-import { map } from 'rxjs/operators';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 
 @Component({
@@ -64,13 +63,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit {
    * Calculates the parameters that should change if this {@link selectedValue} would be removed from the active filters
    */
   updateRemoveParams(): Observable<Params> {
-    const page: string = this.paginationService.getPageParam(this.searchConfigService.paginationID);
-    return this.searchConfigService.unselectAppliedFilterParams(this.selectedValue.filter, this.selectedValue.value, this.selectedValue.operator).pipe(
-      map((params: Params) => ({
-        ...params,
-        [page]: 1,
-      })),
-    );
+    return this.searchConfigService.unselectAppliedFilterParams(this.selectedValue.filter, this.selectedValue.value, this.selectedValue.operator);
   }
 
   /**

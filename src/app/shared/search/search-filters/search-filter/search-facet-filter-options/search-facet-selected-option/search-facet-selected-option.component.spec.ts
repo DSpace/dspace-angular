@@ -2,9 +2,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf, take } from 'rxjs';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -81,20 +80,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('updateRemoveParams', () => {
-    it('should always reset the page to 1', (done: DoneFn) => {
-      spyOn(searchConfigurationService, 'unselectAppliedFilterParams').and.returnValue(observableOf({
-        [mockFilterConfig.paramName]: [`${value1},equals`],
-        ['page-id.page']: 5,
-      }));
-
-      comp.updateRemoveParams().pipe(take(1)).subscribe((params: Params) => {
-        expect(params).toEqual({
-          [mockFilterConfig.paramName]: [`${value1},equals`],
-          ['page-id.page']: 1
-        });
-        done();
-      });
-    });
+  it('should create', () => {
+    expect(comp).toBeTruthy();
   });
 });

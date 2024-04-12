@@ -6,7 +6,6 @@ import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
-import { map } from 'rxjs/operators';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 
 /**
@@ -49,13 +48,7 @@ export class SearchLabelComponent implements OnInit {
    * Calculates the parameters that should change if this {@link appliedFilter} would be removed from the active filters
    */
   updateRemoveParams(): Observable<Params> {
-    const page: string = this.paginationService.getPageParam(this.searchConfigurationService.paginationID);
-    return this.searchConfigurationService.unselectAppliedFilterParams(this.appliedFilter.filter, this.appliedFilter.value, this.appliedFilter.operator).pipe(
-      map((params: Params) => ({
-        ...params,
-        [page]: 1,
-      })),
-    );
+    return this.searchConfigurationService.unselectAppliedFilterParams(this.appliedFilter.filter, this.appliedFilter.value, this.appliedFilter.operator);
   }
 
   /**
