@@ -213,7 +213,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           .subscribe((bitstream) => {
             this.fileData = bitstream;
             const fileType = this.fileData.metadata['dc.type']?.map(data => data.value)[0];
-            this.vocabularyFileType$ = !hasValue(fileType) ? of(null) : this.vocabularyService.getPublicVocabularyEntryByValue('bitstream_types', fileType).pipe(
+            this.vocabularyFileType$ = !hasValue(fileType) ? of(null) : this.vocabularyService.getPublicVocabularyEntryByValue(this.getControlledVocabulary(this.configMetadataForm), fileType).pipe(
               getFirstCompletedRemoteData(),
               getRemoteDataPayload(),
               getPaginatedListPayload(),
@@ -317,6 +317,21 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
         this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
         this.processingDelete$.next(false);
       }));
+  }
+
+  /**
+   * Retrieve vocabulary key for dc.type
+   * @param model
+   * @private
+   */
+  private getControlledVocabulary(model: SubmissionFormsModel): string {
+    return  model.rows.filter(row =>
+      hasValue(row.fields) &&
+      hasValue(row.fields[0]) &&
+      hasValue(row.fields[0].selectableMetadata) &&
+      hasValue(row.fields[0].selectableMetadata[0]) &&
+      row.fields[0].selectableMetadata[0].metadata === 'dc.type'
+    ).map((filteredRow) => filteredRow.fields[0].selectableMetadata[0].controlledVocabulary)[0];
   }
 
 }
