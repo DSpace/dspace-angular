@@ -1,7 +1,15 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { RequestStatusAlertBoxComponent } from './request-status-alert-box.component';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { RequestStatusEnum } from '../notify-status.enum';
+import { RequestStatusAlertBoxComponent } from './request-status-alert-box.component';
 
 describe('RequestStatusAlertBoxComponent', () => {
   let component: RequestStatusAlertBoxComponent;
@@ -13,22 +21,25 @@ describe('RequestStatusAlertBoxComponent', () => {
       serviceName: 'test',
       serviceUrl: 'test',
       status: RequestStatusEnum.ACCEPTED,
-      offerType: 'test'
+      offerType: 'test',
     },
     {
       serviceName: 'test1',
       serviceUrl: 'test',
       status: RequestStatusEnum.REJECTED,
-      offerType: 'test'
+      offerType: 'test',
     },
   ];
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [RequestStatusAlertBoxComponent],
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), RequestStatusAlertBoxComponent],
+    }).overrideComponent(RequestStatusAlertBoxComponent, {
+      remove: {
+        imports: [TruncatablePartComponent, TruncatableComponent],
+      },
     }).compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RequestStatusAlertBoxComponent);

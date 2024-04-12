@@ -7,7 +7,7 @@ describe(`ServerReferrerService`, () => {
   describe(`getReferrer`, () => {
     describe(`when the referer header is set`, () => {
       beforeEach(() => {
-        service = new ServerReferrerService({ headers: { referer: referrer }});
+        service = new ServerReferrerService({ headers: { referer: referrer } });
       });
 
       it(`should return the referer header`, (done: DoneFn) => {
@@ -20,7 +20,7 @@ describe(`ServerReferrerService`, () => {
 
     describe(`when the referer header is not set`, () => {
       beforeEach(() => {
-        service = new ServerReferrerService({ headers: {}});
+        service = new ServerReferrerService({ headers: {} });
       });
 
       it(`should return an empty string`, (done: DoneFn) => {

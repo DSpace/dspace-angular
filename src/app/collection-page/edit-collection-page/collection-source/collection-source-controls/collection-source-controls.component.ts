@@ -1,25 +1,48 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { ContentSource } from '../../../../core/shared/content-source.model';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
+import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import { RequestService } from '../../../../core/data/request.service';
+import { Collection } from '../../../../core/shared/collection.model';
+import { ContentSource } from '../../../../core/shared/content-source.model';
+import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload
+  getFirstSucceededRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { hasValue } from '../../../../shared/empty.util';
-import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { RequestService } from '../../../../core/data/request.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { Process } from '../../../../process-page/processes/process.model';
-import { TranslateService } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
+import { hasValue } from '../../../../shared/empty.util';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**
  * Component that contains the controls to run, reset and test the harvest
@@ -28,6 +51,13 @@ import { ContentSourceSetSerializer } from '../../../../core/shared/content-sour
   selector: 'ds-collection-source-controls',
   styleUrls: ['./collection-source-controls.component.scss'],
   templateUrl: './collection-source-controls.component.html',
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
 
@@ -61,7 +91,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
               private collectionService: CollectionDataService,
               private translateService: TranslateService,
               private httpClient: HttpClient,
-              private bitstreamService: BitstreamDataService
+              private bitstreamService: BitstreamDataService,
   ) {
   }
 
@@ -70,7 +100,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
     this.contentSource$ = this.collectionService.findByHref(this.collection._links.self.href, false).pipe(
       getAllSucceededRemoteDataPayload(),
       switchMap((collection) => this.collectionService.getContentSource(collection.uuid, false)),
-      getAllSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload(),
     );
   }
 
@@ -81,9 +111,9 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
   testConfiguration(contentSource) {
     this.testConfigRunning$.next(true);
     this.subs.push(this.scriptDataService.invoke('harvest', [
-      {name: '-g', value: null},
-      {name: '-a', value: contentSource.oaiSource},
-      {name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId)},
+      { name: '-g', value: null },
+      { name: '-a', value: contentSource.oaiSource },
+      { name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId) },
     ], []).pipe(
       getFirstCompletedRemoteData(),
       tap((rd) => {
@@ -99,7 +129,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
         this.autoRefreshIDs.push(rd.payload.processId);
         return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
       }),
-      map((rd) => rd.payload)
+      map((rd) => rd.payload),
     ).subscribe((process: Process) => {
       if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
         this.notificationsService.error(this.translateService.get('collection.source.controls.test.failed'));
@@ -107,7 +137,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
       }
       if (process.processStatus.toString() === ProcessStatus[ProcessStatus.COMPLETED].toString()) {
         this.bitstreamService.findByHref(process._links.output.href).pipe(getFirstSucceededRemoteDataPayload()).subscribe((bitstream) => {
-          this.httpClient.get(bitstream._links.content.href, {responseType: 'text'}).subscribe((data: any) => {
+          this.httpClient.get(bitstream._links.content.href, { responseType: 'text' }).subscribe((data: any) => {
             const output = data.replaceAll(new RegExp('.*\\@(.*)', 'g'), '$1')
               .replaceAll('The script has started', '')
               .replaceAll('The script has completed', '');
@@ -125,8 +155,8 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
   importNow() {
     this.importRunning$.next(true);
     this.subs.push(this.scriptDataService.invoke('harvest', [
-      {name: '-r', value: null},
-      {name: '-c', value: this.collection.uuid},
+      { name: '-r', value: null },
+      { name: '-c', value: this.collection.uuid },
     ], [])
       .pipe(
         getFirstCompletedRemoteData(),
@@ -143,7 +173,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
           this.autoRefreshIDs.push(rd.payload.processId);
           return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
         }),
-        map((rd) => rd.payload)
+        map((rd) => rd.payload),
       ).subscribe((process) => {
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
           this.notificationsService.error(this.translateService.get('collection.source.controls.import.failed'));
@@ -163,8 +193,8 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
   resetAndReimport() {
     this.reImportRunning$.next(true);
     this.subs.push(this.scriptDataService.invoke('harvest', [
-      {name: '-o', value: null},
-      {name: '-c', value: this.collection.uuid},
+      { name: '-o', value: null },
+      { name: '-c', value: this.collection.uuid },
     ], [])
       .pipe(
         getFirstCompletedRemoteData(),
@@ -181,7 +211,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
           this.autoRefreshIDs.push(rd.payload.processId);
           return this.processDataService.autoRefreshUntilCompletion(rd.payload.processId);
         }),
-        map((rd) => rd.payload)
+        map((rd) => rd.payload),
       ).subscribe((process) => {
         if (process.processStatus.toString() === ProcessStatus[ProcessStatus.FAILED].toString()) {
           this.notificationsService.error(this.translateService.get('collection.source.controls.reset.failed'));

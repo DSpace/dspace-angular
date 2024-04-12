@@ -1,8 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AdminNotifyDetailModalComponent } from './admin-notify-detail-modal.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { AdminNotifyDetailModalComponent } from './admin-notify-detail-modal.component';
 
 describe('AdminNotifyDetailModalComponent', () => {
   let component: AdminNotifyDetailModalComponent;
@@ -12,11 +15,10 @@ describe('AdminNotifyDetailModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifyDetailModalComponent ],
-      providers: [{ provide: NgbActiveModal, useValue: modalStub }]
+      imports: [TranslateModule.forRoot(), AdminNotifyDetailModalComponent],
+      providers: [{ provide: NgbActiveModal, useValue: modalStub }],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifyDetailModalComponent);
     component = fixture.componentInstance;

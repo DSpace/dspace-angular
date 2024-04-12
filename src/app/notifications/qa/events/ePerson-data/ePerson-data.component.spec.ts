@@ -1,10 +1,14 @@
 /* tslint:disable:no-unused-variable */
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { EPersonDataComponent } from './ePerson-data.component';
-import { EPersonDataService } from './../../../../core/eperson/eperson-data.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { EPerson } from 'src/app/core/eperson/models/eperson.model';
 import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+
+import { EPersonDataService } from './../../../../core/eperson/eperson-data.service';
+import { EPersonDataComponent } from './ePerson-data.component';
 
 describe('EPersonDataComponent', () => {
   let component: EPersonDataComponent;
@@ -13,13 +17,13 @@ describe('EPersonDataComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EPersonDataComponent ],
-      providers: [ {
+      imports: [EPersonDataComponent],
+      providers: [{
         provide: EPersonDataService,
-        useValue: ePersonDataService
-      } ]
+        useValue: ePersonDataService,
+      } ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -40,13 +44,13 @@ describe('EPersonDataComponent', () => {
       metadata: [
         {
           key: 'eperson.firstname',
-          value: 'John'
+          value: 'John',
         },
         {
           key: 'eperson.lastname',
-          value: 'Doe'
-        }
-      ]
+          value: 'Doe',
+        },
+      ],
     });
     const ePersonDataRD$ = createSuccessfulRemoteDataObject$(ePersonData);
     ePersonDataService.findById.and.returnValue(ePersonDataRD$);

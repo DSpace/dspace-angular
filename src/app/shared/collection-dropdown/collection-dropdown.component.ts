@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -7,25 +12,47 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-
-import { BehaviorSubject, from as observableFrom, Observable, of as observableOf, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, mergeMap, reduce, startWith, switchMap, take } from 'rxjs/operators';
-
-import { hasValue } from '../empty.util';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { Community } from '../../core/shared/community.model';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { Collection } from '../../core/shared/collection.model';
-import { followLink } from '../utils/follow-link-config.model';
 import {
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
-} from '../../core/shared/operators';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {
+  BehaviorSubject,
+  from as observableFrom,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  mergeMap,
+  reduce,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { hasValue } from '../empty.util';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { followLink } from '../utils/follow-link-config.model';
 
 /**
  * An interface to represent a collection entry
@@ -47,7 +74,9 @@ export interface CollectionListEntry {
 @Component({
   selector: 'ds-collection-dropdown',
   templateUrl: './collection-dropdown.component.html',
-  styleUrls: ['./collection-dropdown.component.scss']
+  styleUrls: ['./collection-dropdown.component.scss'],
+  standalone: true,
+  imports: [NgIf, FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class CollectionDropdownComponent implements OnInit, OnDestroy {
 
@@ -151,18 +180,18 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isLoading.next(false);
     this.subs.push(this.searchField.valueChanges.pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        startWith('')
-      ).subscribe(
-        (next) => {
-          if (hasValue(next) && next !== this.currentQuery) {
-            this.resetPagination();
-            this.currentQuery = next;
-            this.populateCollectionList(this.currentQuery, this.currentPage);
-          }
+      debounceTime(500),
+      distinctUntilChanged(),
+      startWith(''),
+    ).subscribe(
+      (next) => {
+        if (hasValue(next) && next !== this.currentQuery) {
+          this.resetPagination();
+          this.currentQuery = next;
+          this.populateCollectionList(this.currentQuery, this.currentPage);
         }
-      ));
+      },
+    ));
     // Workaround for prevent the scroll of main page when this component is placed in a dialog
     setTimeout(() => this.el.nativeElement.querySelector('input').focus(), 0);
   }
@@ -207,52 +236,52 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
     // Set the pagination info
     const findOptions: FindListOptions = {
       elementsPerPage: 10,
-      currentPage: page
+      currentPage: page,
     };
     let searchListService$: Observable<RemoteData<PaginatedList<Collection>>>;
     if (this.entityType) {
       searchListService$ = this.collectionDataService
-      .getAuthorizedCollectionByEntityType(
-        query,
-        this.entityType,
-        findOptions,
-        true,
-        followLink('parentCommunity'));
+        .getAuthorizedCollectionByEntityType(
+          query,
+          this.entityType,
+          findOptions,
+          true,
+          followLink('parentCommunity'));
     } else {
       searchListService$ = this.collectionDataService
-      .getAuthorizedCollection(query, findOptions, true, true, followLink('parentCommunity'));
+        .getAuthorizedCollection(query, findOptions, true, true, followLink('parentCommunity'));
     }
     this.searchListCollection$ = searchListService$.pipe(
-        getFirstCompletedRemoteData(),
-        switchMap((collectionsRD: RemoteData<PaginatedList<Collection>>) => {
-          this.searchComplete.emit();
-          if (collectionsRD.hasSucceeded && collectionsRD.payload.totalElements > 0) {
-            if (this.searchListCollection.length >= collectionsRD.payload.totalElements) {
-              this.hasNextPage = false;
-            }
-            this.emitSelectionEvents(collectionsRD);
-            return observableFrom(collectionsRD.payload.page).pipe(
-              mergeMap((collection: Collection) => collection.parentCommunity.pipe(
-                getFirstSucceededRemoteDataPayload(),
-                map((community: Community) => ({
-                    communities: [{ id: community.id, name: this.dsoNameService.getName(community) }],
-                    collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) }
-                  })
-                ))),
-              reduce((acc: any, value: any) => [...acc, value], []),
-            );
-          } else {
+      getFirstCompletedRemoteData(),
+      switchMap((collectionsRD: RemoteData<PaginatedList<Collection>>) => {
+        this.searchComplete.emit();
+        if (collectionsRD.hasSucceeded && collectionsRD.payload.totalElements > 0) {
+          if (this.searchListCollection.length >= collectionsRD.payload.totalElements) {
             this.hasNextPage = false;
-            return observableOf([]);
           }
-        })
-        );
+          this.emitSelectionEvents(collectionsRD);
+          return observableFrom(collectionsRD.payload.page).pipe(
+            mergeMap((collection: Collection) => collection.parentCommunity.pipe(
+              getFirstSucceededRemoteDataPayload(),
+              map((community: Community) => ({
+                communities: [{ id: community.id, name: this.dsoNameService.getName(community) }],
+                collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) },
+              }),
+              ))),
+            reduce((acc: any, value: any) => [...acc, value], []),
+          );
+        } else {
+          this.hasNextPage = false;
+          return observableOf([]);
+        }
+      }),
+    );
     this.subs.push(
       this.searchListCollection$.subscribe((list: CollectionListEntry[]) => {
         this.searchListCollection.push(...list);
         this.hideShowLoader(false);
         this.changeDetectorRef.detectChanges();
-      })
+      }),
     );
   }
 
@@ -300,11 +329,11 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
       const collection = collections.payload.page[0];
       collections.payload.page[0].parentCommunity.pipe(
         getFirstSucceededRemoteDataPayload(),
-        take(1)
+        take(1),
       ).subscribe((community: Community) => {
         this.theOnlySelectable.emit({
           communities: [{ id: community.id, name: this.dsoNameService.getName(community), uuid: community.id }],
-          collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) }
+          collection: { id: collection.id, uuid: collection.id, name: this.dsoNameService.getName(collection) },
         });
       });
     }

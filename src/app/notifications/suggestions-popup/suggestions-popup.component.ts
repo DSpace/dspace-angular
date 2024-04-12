@@ -1,14 +1,32 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { trigger } from '@angular/animations';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  of,
+  Subject,
+} from 'rxjs';
+import {
+  take,
+  takeUntil,
+} from 'rxjs/operators';
+
+import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { fromTopEnter } from '../../shared/animations/fromTop';
+import { isNotEmpty } from '../../shared/empty.util';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../suggestions.service';
-import { take, takeUntil } from 'rxjs/operators';
-import { isNotEmpty } from '../../shared/empty.util';
-import { combineLatest, Observable, of, Subject } from 'rxjs';
-import { trigger } from '@angular/animations';
-
-
-import { fromTopEnter } from '../../shared/animations/fromTop';
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
 
 /**
  * Show suggestions on a popover window, used on the homepage
@@ -19,9 +37,17 @@ import { SuggestionTarget } from '../../core/notifications/models/suggestion-tar
   styleUrls: ['./suggestions-popup.component.scss'],
   animations: [
     trigger('enterLeave', [
-      fromTopEnter
-    ])
+      fromTopEnter,
+    ]),
   ],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    RouterLink,
+    NgIf,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 
@@ -34,7 +60,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 
   constructor(
     private suggestionTargetsStateService: SuggestionTargetsStateService,
-    private suggestionsService: SuggestionsService
+    private suggestionsService: SuggestionsService,
   ) { }
 
   ngOnInit() {
@@ -45,7 +71,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
     const notifier = new Subject();
     this.subscription = combineLatest([
       this.suggestionTargetsStateService.getCurrentUserSuggestionTargets().pipe(take(2)),
-      this.suggestionTargetsStateService.hasUserVisitedSuggestions()
+      this.suggestionTargetsStateService.hasUserVisitedSuggestions(),
     ]).pipe(takeUntil(notifier)).subscribe(([suggestions, visited]) => {
       this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
       if (isNotEmpty(suggestions)) {

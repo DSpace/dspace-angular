@@ -1,25 +1,72 @@
-import { Component, OnInit, OnChanges, OnDestroy, Input } from '@angular/core';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { ActivatedRoute, Params } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+
+import { BrowseDefinition } from '../../core/shared/browse-definition.model';
 import { Context } from '../../core/shared/context.model';
+import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
+import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
+import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { hasValue } from '../../shared/empty.util';
+import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',
   templateUrl: './browse-by-taxonomy.component.html',
   styleUrls: ['./browse-by-taxonomy.component.scss'],
+  imports: [
+    VarDirective,
+    AsyncPipe,
+    ComcolPageHeaderComponent,
+    ComcolPageLogoComponent,
+    NgIf,
+    ThemedComcolPageHandleComponent,
+    ComcolPageContentComponent,
+    DsoEditMenuComponent,
+    ThemedComcolPageBrowseByComponent,
+    BrowseByComponent,
+    TranslateModule,
+    ThemedLoadingComponent,
+    ThemedBrowseByComponent,
+    VocabularyTreeviewComponent,
+    RouterLink,
+  ],
+  standalone: true,
 })
 /**
  * Component for browsing items by metadata in a hierarchical controlled vocabulary
  */
-@rendersBrowseBy(BrowseByDataType.Hierarchy)
 export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
@@ -93,7 +140,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
     this.browseDefinition$ = this.route.data.pipe(
       map((data: { browseDefinition: BrowseDefinition }) => {
         return data.browseDefinition;
-      })
+      }),
     );
     this.subs.push(this.browseDefinition$.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
       this.facetType = browseDefinition.facetType;
@@ -142,7 +189,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
    */
   updateQueryParams(): void {
     this.queryParams = {
-      ['f.' + this.facetType]: this.filterValues
+      ['f.' + this.facetType]: this.filterValues,
     };
     if (hasValue(this.scope)) {
       this.queryParams.scope = this.scope;

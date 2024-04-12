@@ -1,14 +1,52 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { Script } from '../../scripts/script.model';
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  Output,
+} from '@angular/core';
+import {
+  ControlContainer,
+  FormsModule,
+  NgForm,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { ControlContainer, NgForm } from '@angular/forms';
-import { controlContainerFactory } from '../process-form.component';
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
+import { Script } from '../../scripts/script.model';
+import { controlContainerFactory } from '../process-form-factory';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
 
@@ -19,9 +57,11 @@ const SCRIPT_QUERY_PARAMETER = 'script';
   selector: 'ds-scripts-select',
   templateUrl: './scripts-select.component.html',
   styleUrls: ['./scripts-select.component.scss'],
-  viewProviders: [ { provide: ControlContainer,
+  viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] } ]
+    deps: [[new Optional(), NgForm]] }],
+  standalone: true,
+  imports: [NgIf, FormsModule, NgFor, AsyncPipe, TranslateModule],
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
   /**
@@ -51,7 +91,7 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
       .pipe(
         getFirstSucceededRemoteData(),
         getRemoteDataPayload(),
-        map((paginatedList: PaginatedList<Script>) => paginatedList.page)
+        map((paginatedList: PaginatedList<Script>) => paginatedList.page),
       );
 
     this.routeSub = this.route.queryParams
@@ -64,10 +104,10 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
             .pipe(
               take(1),
               map((scripts) =>
-                scripts.find((script) => script.id === id)
-              )
-            )
-        )
+                scripts.find((script) => script.id === id),
+              ),
+            ),
+        ),
       ).subscribe((script: Script) => {
         this._selectedScript = script;
         this.select.emit(script);
@@ -89,13 +129,13 @@ export class ScriptsSelectComponent implements OnInit, OnDestroy {
     this.router.navigate([],
       {
         queryParams: { [SCRIPT_QUERY_PARAMETER]: value },
-      }
+      },
     );
   }
 
   @Input()
   set script(value: Script) {
-     this._selectedScript = value;
+    this._selectedScript = value;
   }
 
   ngOnDestroy(): void {

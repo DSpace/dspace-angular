@@ -1,11 +1,25 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { TruncatableService } from '../truncatable.service';
+import { NgIf } from '@angular/common';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { hasValue } from '../../empty.util';
+import { DragClickDirective } from '../../utils/drag-click.directive';
+import { TruncatableService } from '../truncatable.service';
 
 @Component({
   selector: 'ds-truncatable-part',
   templateUrl: './truncatable-part.component.html',
-  styleUrls: ['./truncatable-part.component.scss']
+  styleUrls: ['./truncatable-part.component.scss'],
+  standalone: true,
+  imports: [DragClickDirective, NgIf, TranslateModule],
 })
 
 /**
@@ -49,7 +63,7 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
   /**
    * The view on the truncatable part
    */
-  @ViewChild('content', {static: true}) content: ElementRef;
+  @ViewChild('content', { static: true }) content: ElementRef;
 
   /**
    * Current amount of lines shown of this part

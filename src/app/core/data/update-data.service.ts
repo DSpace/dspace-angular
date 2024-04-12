@@ -1,41 +1,63 @@
 import { Operation } from 'fast-json-patch';
-import { AsyncSubject, from as observableFrom, Observable } from 'rxjs';
+import {
+  AsyncSubject,
+  from as observableFrom,
+  Observable,
+} from 'rxjs';
 import {
   find,
   map,
   mergeMap,
   switchMap,
   take,
-  toArray
+  toArray,
 } from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { CacheableObject } from '../cache/cacheable-object.model';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import {
+  CreateData,
+  CreateDataImpl,
+} from './base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
+import {
+  PutData,
+  PutDataImpl,
+} from './base/put-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
 import { ChangeAnalyzer } from './change-analyzer';
+import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import {
   DeleteByIDRequest,
-  PostRequest
+  PostRequest,
 } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequestMethod } from './rest-request-method';
-import { NoContent } from '../shared/NoContent.model';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { FindListOptions } from './find-list-options.model';
-import { FindAllData, FindAllDataImpl } from './base/find-all-data';
-import { SearchData, SearchDataImpl } from './base/search-data';
-import { CreateData, CreateDataImpl } from './base/create-data';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { PutData, PutDataImpl } from './base/put-data';
-import { DeleteData, DeleteDataImpl } from './base/delete-data';
-
 
 /**
  * Interface to list the methods used by the injected service in components
@@ -213,7 +235,7 @@ export class UpdateDataServiceImpl<T extends CacheableObject> extends Identifiab
     const hrefObs = this.getIDHrefObs(itemId);
 
     hrefObs.pipe(
-      take(1)
+      take(1),
     ).subscribe((href: string) => {
       const request = new PostRequest(requestId, href + '/related?item=' + relatedItemId, body);
       if (hasValue(this.responseMsToLive)) {
@@ -242,7 +264,7 @@ export class UpdateDataServiceImpl<T extends CacheableObject> extends Identifiab
           request.responseMsToLive = this.responseMsToLive;
         }
         this.requestService.send(request);
-      })
+      }),
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);
@@ -255,7 +277,7 @@ export class UpdateDataServiceImpl<T extends CacheableObject> extends Identifiab
    */
   invalidate(objectId: string): Observable<boolean> {
     return this.getIDHrefObs(objectId).pipe(
-      switchMap((href: string) => this.invalidateByHref(href))
+      switchMap((href: string) => this.invalidateByHref(href)),
     );
   }
 
@@ -302,7 +324,7 @@ export class UpdateDataServiceImpl<T extends CacheableObject> extends Identifiab
    *          Only emits once all request related to the DSO has been invalidated.
    */
   deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
-   return this.deleteData.deleteByHref(href, copyVirtualMetadata);
+    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
   }
 
   /**

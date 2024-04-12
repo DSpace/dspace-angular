@@ -1,23 +1,46 @@
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-
-import { CommunityListComponent } from './community-list.component';
-import { CommunityListService, showMoreFlatNode, toFlatNode } from '../community-list-service';
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Community } from '../../core/shared/community.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { Collection } from '../../core/shared/collection.model';
-import { of as observableOf } from 'rxjs';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { FlatNode } from '../flat-node.model';
 import { RouterLinkWithHref } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
+
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  CommunityListService,
+  showMoreFlatNode,
+  toFlatNode,
+} from '../community-list-service';
+import { FlatNode } from '../flat-node.model';
+import { CommunityListComponent } from './community-list.component';
 
 describe('CommunityListComponent', () => {
   let component: CommunityListComponent;
@@ -28,11 +51,11 @@ describe('CommunityListComponent', () => {
     uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     name: 'subcommunity1',
   }),
-    Object.assign(new Community(), {
-      id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-      uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-      name: 'subcommunity2',
-    })
+  Object.assign(new Community(), {
+    id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+    uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+    name: 'subcommunity2',
+  }),
   ];
   const mockCollectionsPage1 = [
     Object.assign(new Collection(), {
@@ -44,7 +67,7 @@ describe('CommunityListComponent', () => {
       id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
       uuid: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
       name: 'collection2',
-    })
+    }),
   ];
   const mockCollectionsPage2 = [
     Object.assign(new Collection(), {
@@ -56,7 +79,7 @@ describe('CommunityListComponent', () => {
       id: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
       uuid: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
       name: 'collection4',
-    })
+    }),
   ];
 
   const mockTopCommunitiesWithChildrenArrays = [
@@ -87,7 +110,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community1',
-      }), observableOf(true), 0, false, null
+      }), observableOf(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -96,7 +119,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
         name: 'community2',
-      }), observableOf(true), 0, false, null
+      }), observableOf(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -105,7 +128,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community3',
-      }), observableOf(false), 0, false, null
+      }), observableOf(false), 0, false, null,
     ),
   ];
   let communityListServiceStub;
@@ -184,24 +207,33 @@ describe('CommunityListComponent', () => {
           }
           return observableOf(flatnodes);
         }
-      }
+      },
     };
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
+            useClass: TranslateLoaderMock,
           },
         }),
         CdkTreeModule,
         RouterTestingModule,
-        RouterLinkWithHref],
-      declarations: [CommunityListComponent],
+        RouterLinkWithHref,
+        CommunityListComponent,
+      ],
       providers: [CommunityListComponent,
-        { provide: CommunityListService, useValue: communityListServiceStub },],
+        { provide: CommunityListService, useValue: communityListServiceStub }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
+      .overrideComponent(CommunityListComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ] },
+      })
       .compileComponents();
   }));
 
@@ -243,7 +275,7 @@ describe('CommunityListComponent', () => {
       const showMoreLink = fixture.debugElement.query(By.css('.show-more-node .btn-outline-primary'));
       showMoreLink.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

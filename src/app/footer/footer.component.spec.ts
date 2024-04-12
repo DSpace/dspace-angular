@@ -1,26 +1,34 @@
 // ... test imports
-import { ComponentFixture, fakeAsync, inject, TestBed,waitForAsync } from '@angular/core/testing';
-
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
-
-// Load the implementations that should be tested
-import { FooterComponent } from './footer.component';
-
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { storeModuleConfig } from '../app.reducer';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
-import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
 import { environment } from 'src/environments/environment';
 
+import { storeModuleConfig } from '../app.reducer';
+import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
+// Load the implementations that should be tested
+import { FooterComponent } from './footer.component';
 
 let comp: FooterComponent;
 let compAny: any;
@@ -29,7 +37,7 @@ let de: DebugElement;
 let el: HTMLElement;
 
 let notifyInfoService = {
-  isCoarConfigEnabled: () => of(true)
+  isCoarConfigEnabled: () => of(true),
 };
 
 describe('Footer component', () => {
@@ -38,16 +46,16 @@ describe('Footer component', () => {
       imports: [CommonModule, StoreModule.forRoot({}, storeModuleConfig), TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [FooterComponent], // declare the test component
+          useClass: TranslateLoaderMock,
+        },
+      }), FooterComponent],
       providers: [
         FooterComponent,
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
-        { provide: NotifyInfoService, useValue: notifyInfoService }
+        { provide: NotifyInfoService, useValue: notifyInfoService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
   }));
 

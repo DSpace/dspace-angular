@@ -1,22 +1,29 @@
 import { TestBed } from '@angular/core/testing';
-import { BrowserKlaroService, COOKIE_MDFIELD } from './browser-klaro.service';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
-import { of as observableOf } from 'rxjs';
-import { RestResponse } from '../../core/cache/response.models';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateService } from '@ngx-translate/core';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { CookieService } from '../../core/services/cookie.service';
 import { getTestScheduler } from 'jasmine-marbles';
-import { MetadataValue } from '../../core/shared/metadata.models';
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { ANONYMOUS_STORAGE_NAME_KLARO } from './klaro-configuration';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { RestResponse } from '../../core/cache/response.models';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { CookieService } from '../../core/services/cookie.service';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { MetadataValue } from '../../core/shared/metadata.models';
+import { getMockTranslateService } from '../mocks/translate.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
+import {
+  BrowserKlaroService,
+  COOKIE_MDFIELD,
+} from './browser-klaro.service';
+import { ANONYMOUS_STORAGE_NAME_KLARO } from './klaro-configuration';
 
 describe('BrowserKlaroService', () => {
   const trackingIdProp = 'google.analytics.key';
@@ -48,17 +55,17 @@ describe('BrowserKlaroService', () => {
 
   beforeEach(() => {
     user = Object.assign(new EPerson(), {
-      uuid: 'test-user'
+      uuid: 'test-user',
     });
 
     translateService = getMockTranslateService();
     ePersonService = jasmine.createSpyObj('ePersonService', {
       createPatchFromCache: observableOf([]),
-      patch: observableOf(new RestResponse(true, 200, 'Ok'))
+      patch: observableOf(new RestResponse(true, 200, 'Ok')),
     });
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      getAuthenticatedUserFromStore: observableOf(user)
+      getAuthenticatedUserFromStore: observableOf(user),
     });
     configurationDataService = createConfigSuccessSpy(recaptchaValue);
     findByPropertyName = configurationDataService.findByPropertyName;
@@ -66,7 +73,7 @@ describe('BrowserKlaroService', () => {
       get: '{%22token_item%22:true%2C%22impersonation%22:true%2C%22redirect%22:true%2C%22language%22:true%2C%22klaro%22:true%2C%22has_agreed_end_user%22:true%2C%22google-analytics%22:true}',
       set: () => {
         /* empty */
-      }
+      },
     });
 
     TestBed.configureTestingModule({
@@ -74,7 +81,7 @@ describe('BrowserKlaroService', () => {
         BrowserKlaroService,
         {
           provide: TranslateService,
-          useValue: translateService
+          useValue: translateService,
         },
         {
           provide: EPersonDataService,
@@ -82,17 +89,17 @@ describe('BrowserKlaroService', () => {
         },
         {
           provide: AuthService,
-          useValue: authService
+          useValue: authService,
         },
         {
           provide: CookieService,
-          useValue: cookieService
+          useValue: cookieService,
         },
         {
           provide: ConfigurationDataService,
-          useValue: configurationDataService
-        }
-      ]
+          useValue: configurationDataService,
+        },
+      ],
     });
     service = TestBed.inject(BrowserKlaroService);
     appName = 'testName';
@@ -104,16 +111,16 @@ describe('BrowserKlaroService', () => {
         zz: {
           purposes: {},
           test: {
-            testeritis: testKey
-          }
-        }
+            testeritis: testKey,
+          },
+        },
       },
       services: [{
         name: appName,
-        purposes: [purpose]
+        purposes: [purpose],
       }, {
         name: googleAnalytics,
-        purposes: [purpose]
+        purposes: [purpose],
       }],
 
     };
@@ -327,7 +334,7 @@ describe('BrowserKlaroService', () => {
           ...new ConfigurationProperty(),
           name: trackingIdProp,
           values: [googleAnalytics],
-        })
+        }),
       );
       service.initialize();
       expect(service.klaroConfig.services).toContain(jasmine.objectContaining({ name: googleAnalytics }));
@@ -342,8 +349,8 @@ describe('BrowserKlaroService', () => {
               ... new ConfigurationProperty(),
               name: googleAnalytics,
               values: [],
-              }
-            )
+            },
+            ),
           )
           .withArgs(REGISTRATION_VERIFICATION_ENABLED_KEY)
           .and
@@ -352,7 +359,7 @@ describe('BrowserKlaroService', () => {
               ... new ConfigurationProperty(),
               name: trackingIdTestValue,
               values: ['false'],
-            })
+            }),
           );
 
       service.initialize();
@@ -362,7 +369,7 @@ describe('BrowserKlaroService', () => {
       configurationDataService.findByPropertyName =
         jasmine.createSpy()
           .withArgs(GOOGLE_ANALYTICS_KEY).and.returnValue(
-            createFailedRemoteDataObject$('Error while loading GA')
+            createFailedRemoteDataObject$('Error while loading GA'),
           )
           .withArgs(REGISTRATION_VERIFICATION_ENABLED_KEY)
           .and
@@ -371,7 +378,7 @@ describe('BrowserKlaroService', () => {
               ... new ConfigurationProperty(),
               name: trackingIdTestValue,
               values: ['false'],
-            })
+            }),
           );
       service.initialize();
       expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
@@ -380,7 +387,7 @@ describe('BrowserKlaroService', () => {
       configurationDataService.findByPropertyName =
         jasmine.createSpy()
           .withArgs(GOOGLE_ANALYTICS_KEY).and.returnValue(
-            createSuccessfulRemoteDataObject$(null)
+            createSuccessfulRemoteDataObject$(null),
           )
           .withArgs(REGISTRATION_VERIFICATION_ENABLED_KEY)
           .and
@@ -389,7 +396,7 @@ describe('BrowserKlaroService', () => {
               ... new ConfigurationProperty(),
               name: trackingIdTestValue,
               values: ['false'],
-            })
+            }),
           );
       service.initialize();
       expect(service.klaroConfig.services).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));

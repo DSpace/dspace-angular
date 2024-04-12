@@ -2,7 +2,7 @@
     <h1>{{MESSAGE_PREFIX + '.header'|translate}}</h1>
     <p>{{MESSAGE_PREFIX + '.info' | translate}}</p>
 
-    <p *ngIf="validMailDomains.length != 0 && typeRequest === TYPE_REQUEST_REGISTER">
+    <p *ngIf="validMailDomains.length !== 0 && typeRequest === TYPE_REQUEST_REGISTER">
       {{ MESSAGE_PREFIX + '.info.maildomain' | translate}} {{ validMailDomains.join(', ')}}
     </p>
 
@@ -47,7 +47,7 @@
                            (showNotification)="showNotification($event)"></ds-google-recaptcha>
     </div>
 
-    <ng-container *ngIf="!((googleRecaptchaService.captchaVersion() | async) === 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible'); else v2Invisible">
+    <ng-container *ngIf="((googleRecaptchaService.captchaVersion() | async) !== 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible'); else v2Invisible">
       <button class="btn btn-primary" [disabled]="form.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked" (click)="register()">
         {{ MESSAGE_PREFIX + '.submit' | translate }}
       </button>

@@ -23,7 +23,7 @@ describe('Config Util', () => {
 
       const rateLimiter = {
         windowMs: 5 * 50 * 1000, // 5 minutes
-        max: 1000
+        max: 1000,
       };
       appConfig.ui.rateLimiter = rateLimiter;
 
@@ -31,14 +31,14 @@ describe('Config Util', () => {
 
       const autoSaveMetadata = [
         'dc.author',
-        'dc.title'
+        'dc.title',
       ];
 
       appConfig.submission.autosave.metadata = autoSaveMetadata;
 
       const customTheme: HandleThemeConfig = {
         name: 'custom',
-        handle: '10673/1233'
+        handle: '10673/1233',
       };
 
       appConfig.themes.push(customTheme);

@@ -1,9 +1,20 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-item-edit-bitstream-drag-handle',
   styleUrls: ['../item-bitstreams.component.scss'],
   templateUrl: './item-edit-bitstream-drag-handle.component.html',
+  imports: [
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component displaying a drag handle for the item-edit-bitstream page
@@ -14,7 +25,7 @@ export class ItemEditBitstreamDragHandleComponent implements OnInit, OnDestroy {
   /**
    * The view on the drag-handle
    */
-  @ViewChild('handleView', {static: true}) handleView;
+  @ViewChild('handleView', { static: true }) handleView;
 
   constructor(private viewContainerRef: ViewContainerRef) {
   }

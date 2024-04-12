@@ -1,39 +1,59 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { Context } from '../../../core/shared/context.model';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 import {
-  tabulatableObjectsComponent
-} from '../../../shared/object-collection/shared/tabulatable-objects/tabulatable-objects.decorator';
+  AsyncPipe,
+  DatePipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
-  TabulatableResultListElementsComponent
-} from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { DatePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
 
-@tabulatableObjectsComponent(PaginatedList<AdminNotifySearchResult>, ViewMode.Table, Context.CoarNotify)
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { TabulatableResultListElementsComponent } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
+import { AdminNotifyMessage } from '../models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
+import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
+
 @Component({
   selector: 'ds-admin-notify-search-result',
   templateUrl: './admin-notify-search-result.component.html',
   providers: [
+    DatePipe,
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
+  standalone: true,
+  imports: [
+    TranslateModule,
+    NgForOf,
+    NgIf,
+    DatePipe,
+    AsyncPipe,
+    TruncatableComponent,
+    TruncatablePartComponent,
+    RouterLink,
+  ],
 })
 /**
  * Component for visualization in table format of the search results related to the AdminNotifyDashboardComponent
  */
-
-
 export class AdminNotifySearchResultComponent extends TabulatableResultListElementsComponent<PaginatedList<AdminNotifySearchResult>, AdminNotifySearchResult> implements OnInit, OnDestroy{
   public messagesSubject$: BehaviorSubject<AdminNotifyMessage[]> = new BehaviorSubject([]);
   public reprocessStatus = 'QUEUE_STATUS_QUEUED_FOR_RETRY';
@@ -47,7 +67,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     'QUEUE_STATUS_UNTRUSTED',
     'QUEUE_STATUS_UNTRUSTED_IP',
     'QUEUE_STATUS_FAILED',
-    'QUEUE_STATUS_UNMAPPED_ACTION'
+    'QUEUE_STATUS_UNMAPPED_ACTION',
   ];
 
 
@@ -77,7 +97,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     'queueAttempts',
     'queueLastStartTime',
     'queueStatusLabel',
-    'queueTimeout'
+    'queueTimeout',
   ];
 
   /**
@@ -86,12 +106,12 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    */
   private dateFormat = 'YYYY/MM/d hh:mm:ss';
 
-    constructor(private modalService: NgbModal,
+  constructor(private modalService: NgbModal,
                 private adminNotifyMessagesService: AdminNotifyMessagesService,
                 private datePipe: DatePipe,
                 @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
-      super();
-    }
+    super();
+  }
 
   /**
    * Map messages on init for readable representation
@@ -101,7 +121,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     this.subs.push(this.searchConfigService.getCurrentConfiguration('')
       .subscribe(configuration => {
         this.isInbound = configuration.startsWith('NOTIFY.incoming');
-      })
+      }),
     );
   }
 
@@ -115,7 +135,7 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
    */
   openDetailModal(notifyMessage: AdminNotifyMessage) {
     const modalRef = this.modalService.open(AdminNotifyDetailModalComponent);
-    const messageToOpen = {...notifyMessage};
+    const messageToOpen = { ...notifyMessage };
 
     this.messageKeys.forEach(key => {
       if (this.dateTypeKeys.includes(key)) {
@@ -138,8 +158,8 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
       this.adminNotifyMessagesService.reprocessMessage(message, this.messagesSubject$)
         .subscribe(response => {
           this.messagesSubject$.next(response);
-        }
-      )
+        },
+        ),
     );
   }
 
@@ -152,6 +172,6 @@ export class AdminNotifySearchResultComponent extends TabulatableResultListEleme
     this.subs.push(this.adminNotifyMessagesService.getDetailedMessages(this.objects?.page.map(pageResult => pageResult.indexableObject))
       .subscribe(response => {
         this.messagesSubject$.next(response);
-    }));
+      }));
   }
 }

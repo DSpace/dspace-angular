@@ -1,21 +1,33 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { AdvancedSearchComponent } from './advanced-search.component';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { APP_CONFIG } from '../../../../config/app-config.interface';
-import { environment } from '../../../../environments/environment';
-import { RouterStub } from '../../testing/router.stub';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserOnlyMockPipe } from '../../testing/browser-only-mock.pipe';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { FormBuilderService } from '../../form/builder/form-builder.service';
+import { getMockFormBuilderService } from '../../mocks/form-builder-service.mock';
+import { BrowserOnlyMockPipe } from '../../testing/browser-only-mock.pipe';
+import { RouterStub } from '../../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { AdvancedSearchComponent } from './advanced-search.component';
+
 describe('AdvancedSearchComponent', () => {
   let component: AdvancedSearchComponent;
   let fixture: ComponentFixture<AdvancedSearchComponent>;
@@ -33,8 +45,7 @@ describe('AdvancedSearchComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AdvancedSearchComponent, BrowserOnlyMockPipe],
-      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), BrowserAnimationsModule, ReactiveFormsModule],
+      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), BrowserAnimationsModule, ReactiveFormsModule, BrowserOnlyMockPipe, AdvancedSearchComponent],
       providers: [
         FormBuilder,
         { provide: APP_CONFIG, useValue: environment },
@@ -44,9 +55,9 @@ describe('AdvancedSearchComponent', () => {
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: SearchService, useValue: searchServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(AdvancedSearchComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   });
 
@@ -66,7 +77,7 @@ describe('AdvancedSearchComponent', () => {
       component.onSubmit(data);
       expect(router.navigate).toHaveBeenCalledWith([undefined], {
         queryParams: { ['f.' + data.filter]: data.textsearch + ',' + data.operator },
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
 
     });

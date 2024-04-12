@@ -1,20 +1,33 @@
-import {ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
-import { SectionsType } from '../sections-type';
-import { SectionModelComponent } from '../models/section.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionDataObject } from '../models/section-data.model';
-import { SubmissionService } from '../../submission.service';
-import { AlertType } from '../../../shared/alert/alert-type';
-import { SectionsService } from '../sections.service';
 import {
-  WorkspaceitemSectionDuplicatesObject
-} from '../../../core/submission/models/workspaceitem-section-duplicates.model';
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+} from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+
 import { Metadata } from '../../../core/shared/metadata.utils';
+import { WorkspaceitemSectionDuplicatesObject } from '../../../core/submission/models/workspaceitem-section-duplicates.model';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
+import { AlertType } from '../../../shared/alert/alert-type';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { SubmissionService } from '../../submission.service';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
 
 /**
  * Detect duplicates step
@@ -24,10 +37,17 @@ import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 @Component({
   selector: 'ds-submission-section-duplicates',
   templateUrl: './section-duplicates.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    VarDirective,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 
-@renderSectionFor(SectionsType.Duplicates)
 export class SubmissionSectionDuplicatesComponent extends SectionModelComponent {
   protected readonly Metadata = Metadata;
   /**
@@ -68,7 +88,7 @@ export class SubmissionSectionDuplicatesComponent extends SectionModelComponent 
   }
 
   ngOnInit() {
-      super.ngOnInit();
+    super.ngOnInit();
   }
 
   /**

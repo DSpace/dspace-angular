@@ -1,25 +1,61 @@
-import { combineLatest as observableCombineLatest } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Params } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { combineLatest as observableCombineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
+import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
+import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   BrowseByMetadataComponent,
-  browseParamsToOptions, getBrowseSearchOptions
+  browseParamsToOptions,
+  getBrowseSearchOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { map } from 'rxjs/operators';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-title',
   styleUrls: ['../browse-by-metadata/browse-by-metadata.component.scss'],
-  templateUrl: '../browse-by-metadata/browse-by-metadata.component.html'
+  templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
+  standalone: true,
+  imports: [
+    VarDirective,
+    AsyncPipe,
+    ComcolPageHeaderComponent,
+    ComcolPageLogoComponent,
+    NgIf,
+    ThemedComcolPageHandleComponent,
+    ComcolPageContentComponent,
+    DsoEditMenuComponent,
+    ThemedComcolPageBrowseByComponent,
+    BrowseByComponent,
+    TranslateModule,
+    ThemedLoadingComponent,
+    ThemedBrowseByComponent,
+  ],
 })
 /**
  * Component for browsing items by title (dc.title)
  */
-@rendersBrowseBy(BrowseByDataType.Title)
 export class BrowseByTitleComponent extends BrowseByMetadataComponent implements OnInit {
 
   ngOnInit(): void {
@@ -32,7 +68,7 @@ export class BrowseByTitleComponent extends BrowseByMetadataComponent implements
       observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
-        })
+        }),
       ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         this.startsWith = +params.startsWith || params.startsWith;
         this.browseId = params.id || this.defaultBrowseId;

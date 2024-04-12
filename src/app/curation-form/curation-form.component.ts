@@ -1,19 +1,48 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
-import { map } from 'rxjs/operators';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { hasValue, isEmpty, isNotEmpty } from '../shared/empty.util';
-import { RemoteData } from '../core/data/remote-data';
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { Process } from '../process-page/processes/process.model';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { ScriptDataService } from '../core/data/processes/script-data.service';
+import { RemoteData } from '../core/data/remote-data';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { Observable, Subscription } from 'rxjs';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../core/shared/operators';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
+import { Process } from '../process-page/processes/process.model';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../shared/empty.util';
 import { HandleService } from '../shared/handle.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
 
@@ -22,7 +51,9 @@ export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
  */
 @Component({
   selector: 'ds-curation-form',
-  templateUrl: './curation-form.component.html'
+  templateUrl: './curation-form.component.html',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, TranslateModule],
 })
 export class CurationFormComponent implements OnDestroy, OnInit {
 
@@ -31,7 +62,7 @@ export class CurationFormComponent implements OnDestroy, OnInit {
   form: UntypedFormGroup;
 
   @Input()
-  dsoHandle: string;
+    dsoHandle: string;
 
   subs: Subscription[] = [];
 
@@ -42,7 +73,7 @@ export class CurationFormComponent implements OnDestroy, OnInit {
     private translateService: TranslateService,
     private handleService: HandleService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
   }
 
@@ -53,7 +84,7 @@ export class CurationFormComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.form = new UntypedFormGroup({
       task: new UntypedFormControl(''),
-      handle: new UntypedFormControl('')
+      handle: new UntypedFormControl(''),
     });
 
     this.config = this.configurationDataService.findByPropertyName(CURATION_CFG);

@@ -1,46 +1,75 @@
-import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store, StoreModule } from '@ngrx/store';
+import {
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { Observable, of as observableOf } from 'rxjs';
-import { authReducer, AuthState } from './auth.reducer';
-import { NativeWindowRef, NativeWindowService } from '../services/window.service';
-import { AuthService, IMPERSONATING_COOKIE } from './auth.service';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { CookieService } from '../services/cookie.service';
-import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
-import { AuthRequestService } from './auth-request.service';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
-import { EPerson } from '../eperson/models/eperson.model';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
+import { TranslateService } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { AppState } from '../../app.reducer';
-import { ClientCookieService } from '../services/client-cookie.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service.stub';
+import { authMethodsMock } from '../../shared/testing/auth-service.stub';
+import { EPersonMock } from '../../shared/testing/eperson.mock';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { RouteService } from '../services/route.service';
+import { RouterStub } from '../../shared/testing/router.stub';
+import {
+  SpecialGroupDataMock,
+  SpecialGroupDataMock$,
+} from '../../shared/testing/special-group.mock';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { EPersonDataService } from '../eperson/eperson-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { authMethodsMock } from '../../shared/testing/auth-service.stub';
-import { AuthMethod } from './models/auth.method';
+import { EPerson } from '../eperson/models/eperson.model';
+import { ClientCookieService } from '../services/client-cookie.service';
+import { CookieService } from '../services/cookie.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SetUserAsIdleAction, UnsetUserAsIdleAction } from './auth.actions';
-import { SpecialGroupDataMock, SpecialGroupDataMock$ } from '../../shared/testing/special-group.mock';
-import { cold } from 'jasmine-marbles';
+import { RouteService } from '../services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
+import {
+  SetUserAsIdleAction,
+  UnsetUserAsIdleAction,
+} from './auth.actions';
+import {
+  authReducer,
+  AuthState,
+} from './auth.reducer';
+import {
+  AuthService,
+  IMPERSONATING_COOKIE,
+} from './auth.service';
+import { AuthRequestService } from './auth-request.service';
+import { AuthMethod } from './models/auth.method';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 describe('AuthService test', () => {
 
   const mockEpersonDataService: any = {
     findByHref(href: string): Observable<RemoteData<EPerson>> {
       return createSuccessfulRemoteDataObject$(EPersonMock);
-    }
+    },
   };
 
   let mockStore: Store<AuthState>;
@@ -62,13 +91,13 @@ describe('AuthService test', () => {
     uuid: 'test',
     authenticated: true,
     okay: true,
-    specialGroups: SpecialGroupDataMock$
+    specialGroups: SpecialGroupDataMock$,
   });
 
   function init() {
     mockStore = jasmine.createSpyObj('store', {
       dispatch: {},
-      pipe: observableOf(true)
+      pipe: observableOf(true),
     });
     window = new NativeWindowRef();
     routerStub = new RouterStub();
@@ -80,7 +109,7 @@ describe('AuthService test', () => {
       loading: false,
       authToken: token,
       user: EPersonMock,
-      idle: false
+      idle: false,
     };
     unAuthenticatedState = {
       authenticated: false,
@@ -88,7 +117,7 @@ describe('AuthService test', () => {
       loading: false,
       authToken: undefined,
       user: undefined,
-      idle: false
+      idle: false,
     };
     idleState = {
       authenticated: true,
@@ -96,12 +125,12 @@ describe('AuthService test', () => {
       loading: false,
       authToken: token,
       user: EPersonMock,
-      idle: true
+      idle: true,
     };
     authRequest = new AuthRequestServiceStub();
     routeStub = new ActivatedRouteStub();
     linkService = {
-      resolveLinks: {}
+      resolveLinks: {},
     };
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', ['redirect']);
     spyOn(linkService, 'resolveLinks').and.returnValue({ authenticated: true, eperson: observableOf({ payload: {} }) });
@@ -117,11 +146,10 @@ describe('AuthService test', () => {
           StoreModule.forRoot({ authReducer }, {
             runtimeChecks: {
               strictStateImmutability: false,
-              strictActionImmutability: false
-            }
+              strictActionImmutability: false,
+            },
           }),
         ],
-        declarations: [],
         providers: [
           { provide: AuthRequestService, useValue: authRequest },
           { provide: NativeWindowService, useValue: window },
@@ -135,7 +163,7 @@ describe('AuthService test', () => {
           { provide: NotificationsService, useValue: NotificationsServiceStub },
           { provide: TranslateService, useValue: getMockTranslateService() },
           CookieService,
-          AuthService
+          AuthService,
         ],
       });
       authService = TestBed.inject(AuthService);
@@ -238,9 +266,9 @@ describe('AuthService test', () => {
           StoreModule.forRoot({ authReducer }, {
             runtimeChecks: {
               strictStateImmutability: false,
-              strictActionImmutability: false
-            }
-          })
+              strictActionImmutability: false,
+            },
+          }),
         ],
         providers: [
           { provide: AuthRequestService, useValue: authRequest },
@@ -249,8 +277,8 @@ describe('AuthService test', () => {
           { provide: RouteService, useValue: routeServiceStub },
           { provide: RemoteDataBuildService, useValue: linkService },
           CookieService,
-          AuthService
-        ]
+          AuthService,
+        ],
       }).compileComponents();
     }));
 
@@ -313,9 +341,9 @@ describe('AuthService test', () => {
           StoreModule.forRoot({ authReducer }, {
             runtimeChecks: {
               strictStateImmutability: false,
-              strictActionImmutability: false
-            }
-          })
+              strictActionImmutability: false,
+            },
+          }),
         ],
         providers: [
           { provide: AuthRequestService, useValue: authRequest },
@@ -325,8 +353,8 @@ describe('AuthService test', () => {
           { provide: RemoteDataBuildService, useValue: linkService },
           ClientCookieService,
           CookieService,
-          AuthService
-        ]
+          AuthService,
+        ],
       }).compileComponents();
     }));
 
@@ -338,7 +366,7 @@ describe('AuthService test', () => {
         loaded: true,
         loading: false,
         authToken: expiredToken,
-        user: EPersonMock
+        user: EPersonMock,
       };
       store
         .subscribe((state) => {
@@ -528,7 +556,7 @@ describe('AuthService test', () => {
 
       it('should call navigateToRedirectUrl with no url', () => {
         const expectRes = cold('(a|)', {
-          a: SpecialGroupDataMock
+          a: SpecialGroupDataMock,
         });
         expect(authService.getSpecialGroupsFromAuthStatus()).toBeObservable(expectRes);
       });
@@ -543,9 +571,9 @@ describe('AuthService test', () => {
           StoreModule.forRoot({ authReducer }, {
             runtimeChecks: {
               strictStateImmutability: false,
-              strictActionImmutability: false
-            }
-          })
+              strictActionImmutability: false,
+            },
+          }),
         ],
         providers: [
           { provide: AuthRequestService, useValue: authRequest },
@@ -554,8 +582,8 @@ describe('AuthService test', () => {
           { provide: RouteService, useValue: routeServiceStub },
           { provide: RemoteDataBuildService, useValue: linkService },
           CookieService,
-          AuthService
-        ]
+          AuthService,
+        ],
       }).compileComponents();
     }));
 
@@ -583,9 +611,9 @@ describe('AuthService test', () => {
           StoreModule.forRoot({ authReducer }, {
             runtimeChecks: {
               strictStateImmutability: false,
-              strictActionImmutability: false
-            }
-          })
+              strictActionImmutability: false,
+            },
+          }),
         ],
         providers: [
           { provide: AuthRequestService, useValue: authRequest },
@@ -594,8 +622,8 @@ describe('AuthService test', () => {
           { provide: RouteService, useValue: routeServiceStub },
           { provide: RemoteDataBuildService, useValue: linkService },
           CookieService,
-          AuthService
-        ]
+          AuthService,
+        ],
       }).compileComponents();
     }));
 

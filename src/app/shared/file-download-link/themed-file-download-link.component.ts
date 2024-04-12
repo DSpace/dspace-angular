@@ -1,13 +1,18 @@
-import { ThemedComponent } from '../theme-support/themed.component';
-import { Component, Input } from '@angular/core';
-import { FileDownloadLinkComponent } from './file-download-link.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Item } from '../../core/shared/item.model';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { FileDownloadLinkComponent } from './file-download-link.component';
 
 @Component({
   selector: 'ds-themed-file-download-link',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloadLinkComponent> {
 

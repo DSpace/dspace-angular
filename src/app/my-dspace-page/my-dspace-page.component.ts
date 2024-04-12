@@ -1,19 +1,34 @@
-import { ChangeDetectionStrategy, Component, Inject, InjectionToken, OnInit } from '@angular/core';
-
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { SearchService } from '../core/shared/search/search.service';
+
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
-import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
-import { Context } from '../core/shared/context.model';
 import { RoleType } from '../core/roles/role-types';
+import { Context } from '../core/shared/context.model';
+import { SearchService } from '../core/shared/search/search.service';
+import { ViewMode } from '../core/shared/view-mode.model';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { RoleDirective } from '../shared/roles/role.directive';
+import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import { ThemedSearchComponent } from '../shared/search/themed-search.component';
+import {
+  MyDSpaceConfigurationService,
+  SEARCH_CONFIG_SERVICE,
+} from './my-dspace-configuration.service';
+import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
+import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 
 export const MYDSPACE_ROUTE = '/mydspace';
-export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
 
 /**
  * This component represents the whole mydspace page
@@ -26,9 +41,19 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: MyDSpaceConfigurationService
-    }
-  ]
+      useClass: MyDSpaceConfigurationService,
+    },
+  ],
+  imports: [
+    ThemedSearchComponent,
+    MyDSpaceNewSubmissionComponent,
+    AsyncPipe,
+    RoleDirective,
+    NgIf,
+    SuggestionsNotificationComponent,
+    MyDspaceQaEventsNotificationsComponent,
+  ],
+  standalone: true,
 })
 export class MyDSpacePageComponent implements OnInit {
 

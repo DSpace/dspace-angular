@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
+
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -7,7 +8,7 @@ import {
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
 } from './search-filter.actions';
 import { filterReducer } from './search-filter.reducer';
 

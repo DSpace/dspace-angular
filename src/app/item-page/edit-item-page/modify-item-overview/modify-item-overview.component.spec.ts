@@ -1,8 +1,13 @@
-import {Item} from '../../../core/shared/item.model';
-import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
-import {ModifyItemOverviewComponent} from './modify-item-overview.component';
-import {By} from '@angular/platform-browser';
-import {TranslateModule} from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { Item } from '../../../core/shared/item.model';
+import { ModifyItemOverviewComponent } from './modify-item-overview.component';
 
 let comp: ModifyItemOverviewComponent;
 let fixture: ComponentFixture<ModifyItemOverviewComponent>;
@@ -13,19 +18,18 @@ const mockItem = Object.assign(new Item(), {
   lastModified: '2018',
   metadata: {
     'dc.title': [
-      { value: 'Mock item title', language: 'en' }
+      { value: 'Mock item title', language: 'en' },
     ],
     'dc.contributor.author': [
-      { value: 'Mayer, Ed', language: '' }
-    ]
-  }
+      { value: 'Mayer, Ed', language: '' },
+    ],
+  },
 });
 
 describe('ModifyItemOverviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ModifyItemOverviewComponent],
+      imports: [TranslateModule.forRoot(), ModifyItemOverviewComponent],
     }).compileComponents();
   }));
 

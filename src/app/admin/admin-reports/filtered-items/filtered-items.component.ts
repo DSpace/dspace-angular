@@ -1,8 +1,31 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { map, Observable } from 'rxjs';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  NgbAccordion,
+  NgbAccordionModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+} from 'rxjs';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { CommunityDataService } from 'src/app/core/data/community-data.service';
 import { MetadataFieldDataService } from 'src/app/core/data/metadata-field-data.service';
@@ -18,6 +41,7 @@ import { Item } from 'src/app/core/shared/item.model';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 import { isEmpty } from 'src/app/shared/empty.util';
 import { environment } from 'src/environments/environment';
+
 import { FiltersComponent } from '../filters-section/filters-section.component';
 import { FilteredItems } from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
@@ -30,7 +54,17 @@ import { QueryPredicate } from './query-predicate.model';
 @Component({
   selector: 'ds-report-filtered-items',
   templateUrl: './filtered-items.component.html',
-  styleUrls: ['./filtered-items.component.scss']
+  styleUrls: ['./filtered-items.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    NgbAccordionModule,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NgForOf,
+    FiltersComponent,
+  ],
+  standalone: true,
 })
 export class FilteredItemsComponent {
 
@@ -63,8 +97,8 @@ export class FilteredItemsComponent {
     this.loadPredicates();
     this.loadPageLimits();
 
-    let formQueryPredicates: FormGroup[] = [
-      new QueryPredicate().toFormGroup(this.formBuilder)
+    const formQueryPredicates: FormGroup[] = [
+      new QueryPredicate().toFormGroup(this.formBuilder),
     ];
 
     this.queryForm = this.formBuilder.group({
@@ -73,111 +107,111 @@ export class FilteredItemsComponent {
       queryPredicates: this.formBuilder.array(formQueryPredicates),
       pageLimit: this.formBuilder.control('10', []),
       filters: FiltersComponent.formGroup(this.formBuilder),
-      additionalFields: this.formBuilder.control([], [])
+      additionalFields: this.formBuilder.control([], []),
     });
   }
 
   loadCollections(): void {
     this.collections = [];
-    let wholeRepo$ = this.translateService.stream('admin.reports.items.wholeRepo');
+    const wholeRepo$ = this.translateService.stream('admin.reports.items.wholeRepo');
     this.collections.push(OptionVO.collectionLoc('', wholeRepo$));
 
     this.communityService.findAll({ elementsPerPage: 10000, currentPage: 1 }).pipe(
-      getFirstSucceededRemoteListPayload()
+      getFirstSucceededRemoteListPayload(),
     ).subscribe(
-          (communitiesRest: Community[]) => {
-            communitiesRest.forEach(community => {
-              let commVO = OptionVO.collection(community.uuid, community.name, true);
-              this.collections.push(commVO);
+      (communitiesRest: Community[]) => {
+        communitiesRest.forEach(community => {
+          const commVO = OptionVO.collection(community.uuid, community.name, true);
+          this.collections.push(commVO);
 
-              this.collectionService.findByParent(community.uuid, { elementsPerPage: 10000, currentPage: 1 }).pipe(
-                getFirstSucceededRemoteListPayload()
-              ).subscribe(
-                    (collectionsRest: Collection[]) => {
-                      collectionsRest.filter(collection => collection.firstMetadataValue('dspace.entity.type') === 'Publication')
-                          .forEach(collection => {
-                            let collVO = OptionVO.collection(collection.uuid, '–' + collection.name);
-                            this.collections.push(collVO);
-                          });
-                    }
-                  );
-            });
-          }
-        );
+          this.collectionService.findByParent(community.uuid, { elementsPerPage: 10000, currentPage: 1 }).pipe(
+            getFirstSucceededRemoteListPayload(),
+          ).subscribe(
+            (collectionsRest: Collection[]) => {
+              collectionsRest.filter(collection => collection.firstMetadataValue('dspace.entity.type') === 'Publication')
+                .forEach(collection => {
+                  const collVO = OptionVO.collection(collection.uuid, '–' + collection.name);
+                  this.collections.push(collVO);
+                });
+            },
+          );
+        });
+      },
+    );
   }
 
   loadPresetQueries(): void {
     this.presetQueries = [
       PresetQuery.of('new', 'admin.reports.items.preset.new', []),
       PresetQuery.of('q1', 'admin.reports.items.preset.hasNoTitle', [
-        QueryPredicate.of('dc.title', QueryPredicate.DOES_NOT_EXIST)
+        QueryPredicate.of('dc.title', QueryPredicate.DOES_NOT_EXIST),
       ]),
       PresetQuery.of('q2', 'admin.reports.items.preset.hasNoIdentifierUri', [
-        QueryPredicate.of('dc.identifier.uri', QueryPredicate.DOES_NOT_EXIST)
+        QueryPredicate.of('dc.identifier.uri', QueryPredicate.DOES_NOT_EXIST),
       ]),
       PresetQuery.of('q3', 'admin.reports.items.preset.hasCompoundSubject', [
-        QueryPredicate.of('dc.subject.*', QueryPredicate.LIKE, '%;%')
+        QueryPredicate.of('dc.subject.*', QueryPredicate.LIKE, '%;%'),
       ]),
       PresetQuery.of('q4', 'admin.reports.items.preset.hasCompoundAuthor', [
-        QueryPredicate.of('dc.contributor.author', QueryPredicate.LIKE, '% and %')
+        QueryPredicate.of('dc.contributor.author', QueryPredicate.LIKE, '% and %'),
       ]),
       PresetQuery.of('q5', 'admin.reports.items.preset.hasCompoundCreator', [
-        QueryPredicate.of('dc.creator', QueryPredicate.LIKE, '% and %')
+        QueryPredicate.of('dc.creator', QueryPredicate.LIKE, '% and %'),
       ]),
       PresetQuery.of('q6', 'admin.reports.items.preset.hasUrlInDescription', [
-        QueryPredicate.of('dc.description', QueryPredicate.MATCHES, '^.*(http://|https://|mailto:).*$')
+        QueryPredicate.of('dc.description', QueryPredicate.MATCHES, '^.*(http://|https://|mailto:).*$'),
       ]),
       PresetQuery.of('q7', 'admin.reports.items.preset.hasFullTextInProvenance', [
-        QueryPredicate.of('dc.description.provenance', QueryPredicate.MATCHES, '^.*No\. of bitstreams(.|\r|\n|\r\n)*\.(PDF|pdf|DOC|doc|PPT|ppt|DOCX|docx|PPTX|pptx).*$')
+        QueryPredicate.of('dc.description.provenance', QueryPredicate.MATCHES, '^.*No\. of bitstreams(.|\r|\n|\r\n)*\.(PDF|pdf|DOC|doc|PPT|ppt|DOCX|docx|PPTX|pptx).*$'),
       ]),
       PresetQuery.of('q8', 'admin.reports.items.preset.hasNonFullTextInProvenance', [
-        QueryPredicate.of('dc.description.provenance', QueryPredicate.DOES_NOT_MATCH, '^.*No\. of bitstreams(.|\r|\n|\r\n)*\.(PDF|pdf|DOC|doc|PPT|ppt|DOCX|docx|PPTX|pptx).*$')
+        QueryPredicate.of('dc.description.provenance', QueryPredicate.DOES_NOT_MATCH, '^.*No\. of bitstreams(.|\r|\n|\r\n)*\.(PDF|pdf|DOC|doc|PPT|ppt|DOCX|docx|PPTX|pptx).*$'),
       ]),
       PresetQuery.of('q9', 'admin.reports.items.preset.hasEmptyMetadata', [
-        QueryPredicate.of('*', QueryPredicate.MATCHES, '^\s*$')
+        QueryPredicate.of('*', QueryPredicate.MATCHES, '^\s*$'),
       ]),
       PresetQuery.of('q10', 'admin.reports.items.preset.hasUnbreakingDataInDescription', [
-        QueryPredicate.of('dc.description.*', QueryPredicate.MATCHES, '^.*[^\s]{50,}.*$')
+        QueryPredicate.of('dc.description.*', QueryPredicate.MATCHES, '^.*[^\s]{50,}.*$'),
       ]),
       PresetQuery.of('q12', 'admin.reports.items.preset.hasXmlEntityInMetadata', [
-        QueryPredicate.of('*', QueryPredicate.MATCHES, '^.*&#.*$')
+        QueryPredicate.of('*', QueryPredicate.MATCHES, '^.*&#.*$'),
       ]),
       PresetQuery.of('q13', 'admin.reports.items.preset.hasNonAsciiCharInMetadata', [
-        QueryPredicate.of('*', QueryPredicate.MATCHES, '^.*[^[:ascii:]].*$')
-      ])
+        QueryPredicate.of('*', QueryPredicate.MATCHES, '^.*[^[:ascii:]].*$'),
+      ]),
     ];
   }
 
   loadMetadataFields(): void {
     this.metadataFields = [];
     this.metadataFieldsWithAny = [];
-    let anyField$ = this.translateService.stream('admin.reports.items.anyField');
+    const anyField$ = this.translateService.stream('admin.reports.items.anyField');
     this.metadataFieldsWithAny.push(OptionVO.itemLoc('*', anyField$));
     this.metadataSchemaService.findAll({ elementsPerPage: 10000, currentPage: 1 }).pipe(
-      getFirstSucceededRemoteListPayload()
+      getFirstSucceededRemoteListPayload(),
     ).subscribe(
-          (schemasRest: MetadataSchema[]) => {
-            schemasRest.forEach(schema => {
-              this.metadataFieldService.findBySchema(schema, { elementsPerPage: 10000, currentPage: 1 }).pipe(
-                getFirstSucceededRemoteListPayload()
-              ).subscribe(
-                    (fieldsRest: MetadataField[]) => {
-                      fieldsRest.forEach(field => {
-                        let fieldName = schema.prefix + '.' + field.toString();
-                        let fieldVO = OptionVO.item(fieldName, fieldName);
-                        this.metadataFields.push(fieldVO);
-                        this.metadataFieldsWithAny.push(fieldVO);
-                        if (isEmpty(field.qualifier)) {
-                          fieldName = schema.prefix + '.' + field.element + '.*';
-                          fieldVO = OptionVO.item(fieldName, fieldName);
-                          this.metadataFieldsWithAny.push(fieldVO);
-                        }
-                      });
-                    }
-                  );
-            });
-          }
-        );
+      (schemasRest: MetadataSchema[]) => {
+        schemasRest.forEach(schema => {
+          this.metadataFieldService.findBySchema(schema, { elementsPerPage: 10000, currentPage: 1 }).pipe(
+            getFirstSucceededRemoteListPayload(),
+          ).subscribe(
+            (fieldsRest: MetadataField[]) => {
+              fieldsRest.forEach(field => {
+                let fieldName = schema.prefix + '.' + field.toString();
+                let fieldVO = OptionVO.item(fieldName, fieldName);
+                this.metadataFields.push(fieldVO);
+                this.metadataFieldsWithAny.push(fieldVO);
+                if (isEmpty(field.qualifier)) {
+                  fieldName = schema.prefix + '.' + field.element + '.*';
+                  fieldVO = OptionVO.item(fieldName, fieldName);
+                  this.metadataFieldsWithAny.push(fieldVO);
+                }
+              });
+            },
+          );
+        });
+      },
+    );
   }
 
   loadPredicates(): void {
@@ -191,7 +225,7 @@ export class FilteredItemsComponent {
       OptionVO.item(QueryPredicate.CONTAINS, 'admin.reports.items.predicate.contains'),
       OptionVO.item(QueryPredicate.DOES_NOT_CONTAIN, 'admin.reports.items.predicate.doesNotContain'),
       OptionVO.item(QueryPredicate.MATCHES, 'admin.reports.items.predicate.matches'),
-      OptionVO.item(QueryPredicate.DOES_NOT_MATCH, 'admin.reports.items.predicate.doesNotMatch')
+      OptionVO.item(QueryPredicate.DOES_NOT_MATCH, 'admin.reports.items.predicate.doesNotMatch'),
     ];
   }
 
@@ -200,7 +234,7 @@ export class FilteredItemsComponent {
       OptionVO.item('10', '10'),
       OptionVO.item('25', '25'),
       OptionVO.item('50', '50'),
-      OptionVO.item('100', '100')
+      OptionVO.item('100', '100'),
     ];
   }
 
@@ -223,14 +257,14 @@ export class FilteredItemsComponent {
   }
 
   setPresetQuery() {
-    let queryField = this.queryForm.controls.presetQuery as FormControl;
-    let value = queryField.value;
-    let query = this.presetQueries.find(q => q.id === value);
+    const queryField = this.queryForm.controls.presetQuery as FormControl;
+    const value = queryField.value;
+    const query = this.presetQueries.find(q => q.id === value);
     if (query !== undefined) {
       this.queryPredicatesArray().clear();
       query.predicates
-          .map(qp => qp.toFormGroup(this.formBuilder))
-          .forEach(qp => this.addQueryPredicate(qp));
+        .map(qp => qp.toFormGroup(this.formBuilder))
+        .forEach(qp => this.addQueryPredicate(qp));
       if (query.predicates.length === 0) {
         this.addQueryPredicate(new QueryPredicate().toFormGroup(this.formBuilder));
       }
@@ -242,7 +276,7 @@ export class FilteredItemsComponent {
   }
 
   private pageSize() {
-    let form = this.queryForm.value;
+    const form = this.queryForm.value;
     return form.pageLimit;
   }
 
@@ -258,7 +292,7 @@ export class FilteredItemsComponent {
   }
 
   pageCount(): number {
-    let total = this.results.itemCount || 0;
+    const total = this.results.itemCount || 0;
     return Math.ceil(total / this.pageSize());
   }
 
@@ -284,32 +318,32 @@ export class FilteredItemsComponent {
       .getFilteredItems()
       .pipe(
         map(response => {
-          let offset = this.currentPage * this.pageSize();
+          const offset = this.currentPage * this.pageSize();
           this.results.deserialize(response.payload, offset);
           return this.results.items;
-        })
+        }),
       );
   }
 
   getFilteredItems(): Observable<RawRestResponse> {
     let params = this.toQueryString();
     if (params.length > 0) {
-       params = `?${params}`;
+      params = `?${params}`;
     }
-    let scheme = environment.rest.ssl ? 'https' : 'http';
-    let urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
+    const scheme = environment.rest.ssl ? 'https' : 'http';
+    const urlRestApp = `${scheme}://${environment.rest.host}:${environment.rest.port}${environment.rest.nameSpace}`;
     return this.restService.request(RestRequestMethod.GET, `${urlRestApp}/api/contentreport/filtereditems${params}`);
   }
 
   private toQueryString(): string {
     let params = `pageNumber=${this.currentPage}&pageLimit=${this.pageSize()}`;
 
-    let colls = this.queryForm.value.collections;
+    const colls = this.queryForm.value.collections;
     for (let i = 0; i < colls.length; i++) {
       params += `&collections=${colls[i]}`;
     }
 
-    let preds = this.queryForm.value.queryPredicates;
+    const preds = this.queryForm.value.queryPredicates;
     for (let i = 0; i < preds.length; i++) {
       const field = preds[i].field;
       const op = preds[i].operator;
@@ -320,12 +354,12 @@ export class FilteredItemsComponent {
       }
     }
 
-    let filters = FiltersComponent.toQueryString(this.queryForm.value.filters);
+    const filters = FiltersComponent.toQueryString(this.queryForm.value.filters);
     if (filters.length > 0) {
       params += `&${filters}`;
     }
 
-    let addFlds = this.queryForm.value.additionalFields;
+    const addFlds = this.queryForm.value.additionalFields;
     for (let i = 0; i < addFlds.length; i++) {
       params += `&additionalFields=${addFlds[i]}`;
     }

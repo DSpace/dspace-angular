@@ -1,14 +1,37 @@
-import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
 import { hasValue } from '../../shared/empty.util';
-import { ProcessOverviewService, ProcessSortField } from './process-overview.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessStatus } from '../processes/process-status.model';
+import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import {
+  ProcessOverviewService,
+  ProcessSortField,
+} from './process-overview.service';
+import { ProcessOverviewTableComponent } from './table/process-overview-table.component';
 
 @Component({
   selector: 'ds-process-overview',
   templateUrl: './process-overview.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, PaginationComponent, NgFor, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent],
 })
 /**
  * Component displaying a list of all processes in a paginated table
@@ -67,9 +90,9 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
     }
     this.isProcessingSub = this.processBulkDeleteService.isProcessing$()
       .subscribe((isProcessing) => {
-      if (!isProcessing) {
-        this.closeModal();
-      }
-    });
+        if (!isProcessing) {
+          this.closeModal();
+        }
+      });
   }
 }

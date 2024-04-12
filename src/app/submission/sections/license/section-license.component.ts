@@ -1,13 +1,35 @@
-import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewChild,
+} from '@angular/core';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  DynamicFormLayout
+  DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  mergeMap,
+  startWith,
+  take,
+} from 'rxjs/operators';
 
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mergeMap, startWith, take } from 'rxjs/operators';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -15,21 +37,25 @@ import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/jso
 import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/models/workspaceitem-section-license.model';
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionService } from '../../submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { SectionDataObject } from '../models/section-data.model';
-
 import { SectionModelComponent } from '../models/section.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
+import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  SECTION_LICENSE_FORM_LAYOUT,
+  SECTION_LICENSE_FORM_MODEL,
+} from './section-license.model';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -38,9 +64,15 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'ds-submission-section-license',
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
+  providers: [],
+  imports: [
+    FormComponent,
+    NgIf,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.License)
-export class SubmissionSectionLicenseComponent extends SectionModelComponent {
+export class SubmissionSectionLicenseComponent   extends SectionModelComponent implements AfterViewChecked {
 
   /**
    * The form id
@@ -130,7 +162,9 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
     const model = this.formBuilderService.findById('granted', this.formModel);
 
     // Translate checkbox label
-    model.label = this.translateService.instant(model.label);
+    if (model.label) {
+      model.label = this.translateService.instant(model.label);
+    }
 
     // Retrieve license accepted status
     (model as DynamicCheckboxModel).value = (this.sectionData.data as WorkspaceitemSectionLicenseObject).granted;
@@ -181,9 +215,12 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
             // Remove any section's errors
             this.sectionService.dispatchRemoveSectionErrors(this.submissionId, this.sectionData.id);
           }
-          this.changeDetectorRef.detectChanges();
-        })
+        }),
     );
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
   }
 
   /**

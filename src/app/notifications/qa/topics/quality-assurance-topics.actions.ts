@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-import { type } from '../../../shared/ngrx/type';
+
 import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { type } from '../../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
@@ -42,7 +43,7 @@ export class RetrieveAllTopicsAction implements Action {
       elementsPerPage,
       currentPage,
       source,
-      target
+      target,
     };
   }
 }
@@ -84,7 +85,7 @@ export class AddTopicsAction implements Action {
       topics,
       totalPages,
       currentPage,
-      totalElements
+      totalElements,
     };
   }
 

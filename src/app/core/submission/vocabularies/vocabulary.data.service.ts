@@ -5,29 +5,30 @@
  *
  * http://www.dspace.org/license/
  */
-import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
-import { RequestService } from '../../data/request.service';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../../data/base/find-all-data';
+import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+import { SearchDataImpl } from '../../data/base/search-data';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { Vocabulary } from './models/vocabulary.model';
-import { FindAllData, FindAllDataImpl } from '../../data/base/find-all-data';
-import { FindListOptions } from '../../data/find-list-options.model';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../data/remote-data';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { Injectable } from '@angular/core';
-import { VOCABULARY } from './models/vocabularies.resource-type';
-import { dataService } from '../../data/base/data-service.decorator';
-import { SearchDataImpl } from '../../data/base/search-data';
-import { RequestParam } from '../../cache/models/request-param.model';
 
 /**
  * Data service to retrieve vocabularies from the REST server.
  */
-@Injectable()
-@dataService(VOCABULARY)
+@Injectable({ providedIn: 'root' })
 export class VocabularyDataService extends IdentifiableDataService<Vocabulary> implements FindAllData<Vocabulary> {
   protected searchByMetadataAndCollectionPath = 'byMetadataAndCollection';
 
@@ -78,7 +79,7 @@ export class VocabularyDataService extends IdentifiableDataService<Vocabulary> i
   public getVocabularyByMetadataAndCollection(metadataField: string, collectionUUID: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Vocabulary>[]): Observable<RemoteData<Vocabulary>> {
     const findListOptions = new FindListOptions();
     findListOptions.searchParams = [new RequestParam('metadata', encodeURIComponent(metadataField)),
-                        new RequestParam('collection', encodeURIComponent(collectionUUID))];
+      new RequestParam('collection', encodeURIComponent(collectionUUID))];
     const href$ = this.searchData.getSearchByHref(this.searchByMetadataAndCollectionPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }

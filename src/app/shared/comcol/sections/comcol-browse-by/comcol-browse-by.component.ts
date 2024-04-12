@@ -1,14 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
-import { ActivatedRoute, Data } from '@angular/router';
 import { map } from 'rxjs/operators';
+
+import { BrowseByDataType } from '../../../../browse-by/browse-by-switcher/browse-by-data-type';
+import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 
 @Component({
   selector: 'ds-comcol-browse-by',
   templateUrl: './comcol-browse-by.component.html',
   styleUrls: ['./comcol-browse-by.component.scss'],
+  imports: [
+    BrowseBySwitcherComponent,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class ComcolBrowseByComponent implements OnInit {
 

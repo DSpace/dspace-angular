@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ItemStatisticsPageComponent } from './item-statistics-page.component';
 
@@ -9,6 +10,7 @@ import { ItemStatisticsPageComponent } from './item-statistics-page.component';
   selector: 'ds-themed-item-statistics-page',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedItemStatisticsPageComponent extends ThemedComponent<ItemStatisticsPageComponent> {
   protected getComponentName(): string {

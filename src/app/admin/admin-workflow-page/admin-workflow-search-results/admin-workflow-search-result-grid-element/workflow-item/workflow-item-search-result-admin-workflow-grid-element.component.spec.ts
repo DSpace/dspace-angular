@@ -1,34 +1,35 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { RouterTestingModule } from '@angular/router/testing';
-import {
-  WorkflowItemSearchResultAdminWorkflowGridElementComponent
-} from './workflow-item-search-result-admin-workflow-grid-element.component';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { followLink } from '../../../../../shared/utils/follow-link-config.model';
-import { Item } from '../../../../../core/shared/item.model';
-import {
-  ItemGridElementComponent
-} from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
-import {
-  DynamicComponentLoaderDirective
-} from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import {
-  WorkflowItemSearchResult
-} from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
-import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../../../../core/shared/item.model';
+import { ListableModule } from '../../../../../core/shared/listable.module';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { getMockLinkService } from '../../../../../shared/mocks/link-service.mock';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
+import { WorkflowItemSearchResult } from '../../../../../shared/object-collection/shared/workflow-item-search-result.model';
+import { ItemGridElementComponent } from '../../../../../shared/object-grid/item-grid-element/item-types/item/item-grid-element.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkflowItemSearchResultAdminWorkflowGridElementComponent } from './workflow-item-search-result-admin-workflow-grid-element.component';
 
 describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowGridElementComponent;
@@ -55,15 +56,15 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [
+        imports: [
           WorkflowItemSearchResultAdminWorkflowGridElementComponent,
           ItemGridElementComponent,
           DynamicComponentLoaderDirective,
-        ],
-        imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
+          ListableModule,
+          WorkflowItemSearchResultAdminWorkflowGridElementComponent,
         ],
         providers: [
           { provide: LinkService, useValue: linkService },
@@ -71,16 +72,13 @@ describe('WorkflowItemSearchResultAdminWorkflowGridElementComponent', () => {
           {
             provide: TruncatableService, useValue: {
               isCollapsed: () => observableOf(true),
-            }
+            },
           },
           { provide: BitstreamDataService, useValue: {} },
+          { provide: AuthService, useValue: new AuthServiceMock() },
+          { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
-      })
-      .overrideComponent(WorkflowItemSearchResultAdminWorkflowGridElementComponent, {
-        set: {
-          entryComponents: [ItemGridElementComponent]
-        }
+        schemas: [NO_ERRORS_SCHEMA],
       })
       .compileComponents();
   }));

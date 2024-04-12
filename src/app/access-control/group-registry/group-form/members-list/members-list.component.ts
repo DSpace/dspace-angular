@@ -1,29 +1,58 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
   Observable,
   Subscription,
-  BehaviorSubject
 } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
-import {
-  getFirstCompletedRemoteData,
-  getAllCompletedRemoteData,
-  getRemoteDataPayload
-} from '../../../../core/shared/operators';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../../core/shared/operators';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { getEPersonEditRoute } from '../../../access-control-routing-paths';
+
+// todo: optimize imports
 
 /**
  * Keys to keep track of specific subscriptions
@@ -65,7 +94,19 @@ export interface EPersonListActionConfig {
 
 @Component({
   selector: 'ds-members-list',
-  templateUrl: './members-list.component.html'
+  templateUrl: './members-list.component.html',
+  imports: [
+    TranslateModule,
+    ContextHelpDirective,
+    ReactiveFormsModule,
+    PaginationComponent,
+    NgIf,
+    AsyncPipe,
+    RouterLink,
+    NgClass,
+    NgForOf,
+  ],
+  standalone: true,
 })
 /**
  * The list of members in the edit group page
@@ -73,21 +114,21 @@ export interface EPersonListActionConfig {
 export class MembersListComponent implements OnInit, OnDestroy {
 
   @Input()
-  messagePrefix: string;
+    messagePrefix: string;
 
   @Input()
-  actionConfig: EPersonListActionConfig = {
-    add: {
-      css: 'btn-outline-primary',
-      disabled: false,
-      icon: 'fas fa-plus fa-fw',
-    },
-    remove: {
-      css: 'btn-outline-danger',
-      disabled: false,
-      icon: 'fas fa-trash-alt fa-fw'
-    },
-  };
+    actionConfig: EPersonListActionConfig = {
+      add: {
+        css: 'btn-outline-primary',
+        disabled: false,
+        icon: 'fas fa-plus fa-fw',
+      },
+      remove: {
+        css: 'btn-outline-danger',
+        disabled: false,
+        icon: 'fas fa-trash-alt fa-fw',
+      },
+    };
 
   /**
    * EPeople being displayed in search result, initially all members, after search result of search
@@ -104,7 +145,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'sml',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
   /**
    * Pagination config used to display the list of EPerson Membes of active group being edited
@@ -112,7 +153,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'ml',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -155,7 +196,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
         this.retrieveMembers(this.config.currentPage);
-        this.search({query: ''});
+        this.search({ query: '' });
       }
     }));
   }
@@ -172,9 +213,9 @@ export class MembersListComponent implements OnInit, OnDestroy {
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((currentPagination) => {
           return this.ePersonDataService.findListByHref(this.groupBeingEdited._links.epersons.href, {
-              currentPage: currentPagination.currentPage,
-              elementsPerPage: currentPagination.pageSize
-            }
+            currentPage: currentPagination.currentPage,
+            elementsPerPage: currentPagination.pageSize,
+          },
           );
         }),
         getAllCompletedRemoteData(),
@@ -217,7 +258,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
         // Reload search results (if there is an active query).
         // This will potentially add this deleted subgroup into the list of search results.
         if (this.currentSearchQuery != null) {
-          this.search({query: this.currentSearchQuery});
+          this.search({ query: this.currentSearchQuery });
         }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
@@ -237,7 +278,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
         // Reload search results (if there is an active query).
         // This will potentially add this deleted subgroup into the list of search results.
         if (this.currentSearchQuery != null) {
-          this.search({query: this.currentSearchQuery});
+          this.search({ query: this.currentSearchQuery });
         }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
@@ -263,7 +304,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
 
           return this.ePersonDataService.searchNonMembers(this.currentSearchQuery, this.groupBeingEdited.id, {
             currentPage: paginationOptions.currentPage,
-            elementsPerPage: paginationOptions.pageSize
+            elementsPerPage: paginationOptions.pageSize,
           }, false, true);
         }),
         getAllCompletedRemoteData(),

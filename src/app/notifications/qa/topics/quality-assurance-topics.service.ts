@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {
-  QualityAssuranceTopicDataService
-} from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import {
-  QualityAssuranceTopicObject
-} from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+
 import { RequestParam } from '../../../core/cache/models/request-param.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 
 /**
  * The service handling all Quality Assurance topic requests to the REST service.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class QualityAssuranceTopicsService {
 
   /**
@@ -26,7 +26,7 @@ export class QualityAssuranceTopicsService {
    * @param {QualityAssuranceTopicDataService} qualityAssuranceTopicRestService
    */
   constructor(
-    private qualityAssuranceTopicRestService: QualityAssuranceTopicDataService
+    private qualityAssuranceTopicRestService: QualityAssuranceTopicDataService,
   ) { }
 
 
@@ -46,7 +46,7 @@ export class QualityAssuranceTopicsService {
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
       sort: sortOptions,
-      searchParams: [new RequestParam('source', source)]
+      searchParams: [new RequestParam('source', source)],
     };
 
     let request$: Observable<RemoteData<PaginatedList<QualityAssuranceTopicObject>>>;
@@ -66,7 +66,7 @@ export class QualityAssuranceTopicsService {
         } else {
           throw new Error('Can\'t retrieve Quality Assurance topics from the Broker topics REST service');
         }
-      })
+      }),
     );
   }
 }

@@ -1,16 +1,35 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  map,
+  Observable,
+} from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import {
   getAuthenticationError,
   getAuthenticationMethods,
   isAuthenticated,
-  isAuthenticationLoading
+  isAuthenticationLoading,
 } from '../../core/auth/selectors';
-import { hasValue } from '../empty.util';
-import { AuthService } from '../../core/auth/auth.service';
 import { CoreState } from '../../core/core-state.model';
+import { hasValue } from '../empty.util';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 
 @Component({
@@ -18,6 +37,8 @@ import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe],
 })
 export class LogInComponent implements OnInit {
 
@@ -55,7 +76,7 @@ export class LogInComponent implements OnInit {
       select(getAuthenticationMethods),
       map((methods: AuthMethod[]) => methods
         .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
-        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position)
+        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
       ),
     );
 

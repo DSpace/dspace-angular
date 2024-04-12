@@ -1,9 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { ThemedComponent } from '../../theme-support/themed.component';
-import { SearchFiltersComponent } from './search-filters.component';
-import { Observable } from 'rxjs/internal/Observable';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { RemoteData } from '../../../core/data/remote-data';
+import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchFiltersComponent } from './search-filters.component';
 
 /**
  * Themed wrapper for SearchFiltersComponent
@@ -12,6 +16,7 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
   selector: 'ds-themed-search-filters',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersComponent> {
 

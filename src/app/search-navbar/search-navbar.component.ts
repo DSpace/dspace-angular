@@ -1,8 +1,20 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SearchService } from '../core/shared/search/search.service';
 import { expandSearchInput } from '../shared/animations/slide';
+import { BrowserOnlyPipe } from '../shared/utils/browser-only.pipe';
+import { ClickOutsideDirective } from '../shared/utils/click-outside.directive';
 
 /**
  * The search box in the header that expands on focus and collapses on focus out
@@ -11,7 +23,9 @@ import { expandSearchInput } from '../shared/animations/slide';
   selector: 'ds-search-navbar',
   templateUrl: './search-navbar.component.html',
   styleUrls: ['./search-navbar.component.scss'],
-  animations: [expandSearchInput]
+  animations: [expandSearchInput],
+  standalone: true,
+  imports: [ClickOutsideDirective, FormsModule, ReactiveFormsModule, TranslateModule, BrowserOnlyPipe],
 })
 export class SearchNavbarComponent {
 
@@ -66,7 +80,7 @@ export class SearchNavbarComponent {
     this.searchForm.reset();
 
     this.router.navigate(linkToNavigateTo, {
-      queryParams: queryParams
+      queryParams: queryParams,
     });
   }
 }

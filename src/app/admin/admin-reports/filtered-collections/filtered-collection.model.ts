@@ -25,8 +25,8 @@ export class FilteredCollection {
     this.communityLabel = object.community_label;
     this.communityHandle = object.community_handle;
     this.nbTotalItems = object.nb_total_items;
-    let valuesPerFilter = object.values;
-    for (let filter in valuesPerFilter) {
+    const valuesPerFilter = object.values;
+    for (const filter in valuesPerFilter) {
       if (valuesPerFilter.hasOwnProperty(filter)) {
         this.values[filter] = valuesPerFilter[filter];
       }

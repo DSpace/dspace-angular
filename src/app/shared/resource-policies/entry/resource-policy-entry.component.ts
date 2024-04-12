@@ -5,20 +5,46 @@
  *
  * http://www.dspace.org/license/
  */
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { dateToString, stringToNgbDateStruct } from '../../date.util';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getAllSucceededRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+
+import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Group } from '../../../core/eperson/models/group.model';
-import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { Group } from '../../../core/eperson/models/group.model';
+import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import {
+  dateToString,
+  stringToNgbDateStruct,
+} from '../../date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { HasValuePipe } from '../../utils/has-value.pipe';
 
 export interface ResourcePolicyCheckboxEntry {
   id: string;
@@ -30,10 +56,18 @@ export interface ResourcePolicyCheckboxEntry {
   /* eslint-disable @angular-eslint/component-selector */
   selector: 'tr[ds-resource-policy-entry]',
   templateUrl: './resource-policy-entry.component.html',
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    FormsModule,
+    NgIf,
+    HasValuePipe,
+  ],
+  standalone: true,
 })
 export class ResourcePolicyEntryComponent implements OnInit {
   @Input()
-  entry: ResourcePolicyCheckboxEntry;
+    entry: ResourcePolicyCheckboxEntry;
 
   @Output()
   public toggleCheckbox: EventEmitter<boolean> = new EventEmitter();

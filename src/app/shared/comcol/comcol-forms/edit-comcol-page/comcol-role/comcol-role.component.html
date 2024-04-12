@@ -13,15 +13,14 @@
 
     <div class="d-flex flex-md-row justify-content-between flex-column">
       <div class="w-100 d-flex align-items-center">
-        <ds-themed-loading *ngIf="!(groupRD$ | async)"></ds-themed-loading>
+        <ds-themed-loading *ngIf="groupRD$ | async | dsHasNoValue"></ds-themed-loading>
         <div *ngIf="hasNoGroup$ | async">
           {{'comcol-role.edit.no-group' | translate}}
-        </div>
+        </div>V
         <div *ngIf="hasAnonymousGroup$ | async">
           {{'comcol-role.edit.' + (comcolRole$ | async)?.name + '.anonymous-group' | translate}}
         </div>
-        <a *ngIf="hasCustomGroup$ | async"
-           routerLink="{{editGroupLink$ | async}}">
+        <a *ngIf="hasCustomGroup$ | async" [routerLink]="editGroupLink$ | async">
           {{ dsoNameService.getName(group) }}
         </a>
       </div>

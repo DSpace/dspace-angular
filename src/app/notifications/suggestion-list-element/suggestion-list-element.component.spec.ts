@@ -1,13 +1,20 @@
-import { SuggestionListElementComponent } from './suggestion-list-element.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TestScheduler } from 'rxjs/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
-import { Item } from '../../core/shared/item.model';
+import { TestScheduler } from 'rxjs/testing';
 
+import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import { Item } from '../../core/shared/item.model';
+import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
+import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
+import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
+import { SuggestionListElementComponent } from './suggestion-list-element.component';
 
 describe('SuggestionListElementComponent', () => {
   let component: SuggestionListElementComponent;
@@ -18,14 +25,24 @@ describe('SuggestionListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        SuggestionListElementComponent,
       ],
-      declarations: [SuggestionListElementComponent],
       providers: [
-        NgbModal
+        NgbModal,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(SuggestionListElementComponent, {
+        remove: {
+          imports: [
+            ItemSearchResultListElementComponent,
+            SuggestionActionsComponent,
+            SuggestionEvidencesComponent,
+          ],
+        },
+      })
+      .compileComponents().then();
   }));
 
   beforeEach(() => {
@@ -43,7 +60,7 @@ describe('SuggestionListElementComponent', () => {
       scheduler.flush();
       const expectedIndexableObject = Object.assign(new Item(), {
         id: mockSuggestionPublicationOne.id,
-        metadata: mockSuggestionPublicationOne.metadata
+        metadata: mockSuggestionPublicationOne.metadata,
       });
       expect(component).toBeTruthy();
       expect(component.listableObject.hitHighlights).toEqual({});
@@ -61,7 +78,7 @@ describe('SuggestionListElementComponent', () => {
 
     it('should emit selection', () => {
       spyOn(component.selected, 'next');
-      component.changeSelected({target: { checked: true}});
+      component.changeSelected({ target: { checked: true } });
       expect(component.selected.next).toHaveBeenCalledWith(true);
     });
 
@@ -72,7 +89,7 @@ describe('SuggestionListElementComponent', () => {
     });
 
     it('should emit for approve and import', () => {
-      const event = {collectionId:'1234', suggestion: mockSuggestionPublicationOne};
+      const event = { collectionId:'1234', suggestion: mockSuggestionPublicationOne };
       spyOn(component.approveAndImport, 'emit');
       component.onApproveAndImport(event);
       expect(component.approveAndImport.emit).toHaveBeenCalledWith(event);

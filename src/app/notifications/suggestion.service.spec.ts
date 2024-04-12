@@ -1,21 +1,22 @@
-import { SuggestionsService } from './suggestions.service';
-import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
-
-import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../core/cache/models/sort-options.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
-import { ResourceType } from '../core/shared/resource-type';
+import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
 import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
 import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
-import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
-
-
+import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
+import { ResourceType } from '../core/shared/resource-type';
+import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {
   let scheduler: TestScheduler;
@@ -31,13 +32,13 @@ describe('SuggestionsService test', () => {
     display: 'display',
     source: 'source',
     total: 8,
-    type: new ResourceType('suggestiontarget')
+    type: new ResourceType('suggestiontarget'),
   };
 
   const mockResercherProfile = {
     id: '1234',
     uuid: '1234',
-    visible: true
+    visible: true,
   };
 
   function initTestService() {
@@ -45,7 +46,7 @@ describe('SuggestionsService test', () => {
       researcherProfileService,
       suggestionsDataService,
       suggestionTargetDataService,
-      translateService
+      translateService,
     );
   }
 
@@ -85,7 +86,7 @@ describe('SuggestionsService test', () => {
       const findListOptions: FindListOptions = {
         elementsPerPage: 10,
         currentPage: 1,
-        sort: sortOptions
+        sort: sortOptions,
       };
       service.getTargets('source', 10, 1);
       expect(suggestionTargetDataService.getTargets).toHaveBeenCalledWith('source', findListOptions);
@@ -96,7 +97,7 @@ describe('SuggestionsService test', () => {
       const findListOptions: FindListOptions = {
         elementsPerPage: 10,
         currentPage: 1,
-        sort: sortOptions
+        sort: sortOptions,
       };
       service.getSuggestions('source:target', 10, 1, sortOptions);
       expect(suggestionsDataService.getSuggestionsByTargetAndSource).toHaveBeenCalledWith('target', 'source', findListOptions);
@@ -119,14 +120,14 @@ describe('SuggestionsService test', () => {
 
     it('should approve and import suggestion', () => {
       spyOn(service, 'resolveCollectionId');
-      const workspaceitemService = {importExternalSourceEntry: (x,y) => observableOf(null)};
+      const workspaceitemService = { importExternalSourceEntry: (x,y) => observableOf(null) };
       service.approveAndImport(workspaceitemService as unknown as WorkspaceitemDataService, mockSuggestionPublicationOne, '1234');
       expect(service.resolveCollectionId).toHaveBeenCalled();
     });
 
     it('should approve and import suggestions', () => {
       spyOn(service, 'approveAndImport');
-      const workspaceitemService = {importExternalSourceEntry: (x,y) => observableOf(null)};
+      const workspaceitemService = { importExternalSourceEntry: (x,y) => observableOf(null) };
       service.approveAndImportMultiple(workspaceitemService as unknown as WorkspaceitemDataService, [mockSuggestionPublicationOne], '1234');
       expect(service.approveAndImport).toHaveBeenCalledWith(workspaceitemService as unknown as WorkspaceitemDataService, mockSuggestionPublicationOne, '1234');
     });
@@ -145,7 +146,7 @@ describe('SuggestionsService test', () => {
 
     it('should get target Uuid', () => {
       expect(service.getTargetUuid(suggestionTarget as SuggestionTarget)).toBe('4321');
-      expect(service.getTargetUuid({id: ''} as SuggestionTarget)).toBe(null);
+      expect(service.getTargetUuid({ id: '' } as SuggestionTarget)).toBe(null);
     });
 
     it('should get suggestion interpolation', () => {
@@ -158,19 +159,19 @@ describe('SuggestionsService test', () => {
     });
 
     it('should translate suggestion type', () => {
-        expect(service.translateSuggestionType('source')).toEqual('suggestion.type.source');
+      expect(service.translateSuggestionType('source')).toEqual('suggestion.type.source');
     });
 
     it('should translate suggestion source', () => {
-        expect(service.translateSuggestionSource('source')).toEqual('suggestion.source.source');
+      expect(service.translateSuggestionSource('source')).toEqual('suggestion.source.source');
     });
 
     it('should resolve collection id', () => {
-        expect(service.resolveCollectionId(mockSuggestionPublicationOne, '1234')).toEqual('1234');
+      expect(service.resolveCollectionId(mockSuggestionPublicationOne, '1234')).toEqual('1234');
     });
 
     it('should check if collection is fixed', () => {
-        expect(service.isCollectionFixed([mockSuggestionPublicationOne])).toBeFalse();
+      expect(service.isCollectionFixed([mockSuggestionPublicationOne])).toBeFalse();
     });
   });
 });

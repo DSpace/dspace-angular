@@ -3,7 +3,7 @@
      [ngClass]="{ 'ds-warning': mdValue.reordered || mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD, 'h-100': isOnlyValue }">
   <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex flex-column" *ngVar="(mdRepresentation$ | async) as mdRepresentation" role="cell">
     <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing && !mdRepresentation">{{ mdValue.newValue.value }}</div>
-    <textarea class="form-control" rows="5" *ngIf="mdValue.editing && !mdRepresentation && !(isAuthorityControlled() | async)" [(ngModel)]="mdValue.newValue.value"
+    <textarea class="form-control" rows="5" *ngIf="mdValue.editing && !mdRepresentation && (isAuthorityControlled() | async) !== true" [(ngModel)]="mdValue.newValue.value"
               [attr.aria-label]="(dsoType + '.edit.metadata.edit.value') | translate"
               [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
     <ds-dynamic-scrollable-dropdown *ngIf="mdValue.editing && (isScrollableVocabulary() | async)"
@@ -36,7 +36,7 @@
           [authorityValue]="mdValue.newValue.confidence"
           [iconMode]="true"
       ></i>
-        <input class="form-control form-outline" [(ngModel)]="mdValue.newValue.authority" [disabled]="!editingAuthority"
+        <input class="form-control form-outline" data-test="authority-input" [(ngModel)]="mdValue.newValue.authority" [disabled]="!editingAuthority"
               [attr.aria-label]="(dsoType + '.edit.metadata.edit.authority.key') | translate"
               (change)="onChangeAuthorityKey()" />
         <button class="btn btn-outline-secondary btn-sm ng-star-inserted" id="metadata-confirm-btn" *ngIf="!editingAuthority"

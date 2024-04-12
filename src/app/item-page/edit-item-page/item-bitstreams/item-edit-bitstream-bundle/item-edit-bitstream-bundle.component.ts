@@ -1,15 +1,36 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ItemEditBitstreamDragHandleComponent } from '../item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
+import { PaginatedDragAndDropBitstreamListComponent } from './paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
   styleUrls: ['../item-bitstreams.component.scss'],
   templateUrl: './item-edit-bitstream-bundle.component.html',
+  imports: [
+    PaginatedDragAndDropBitstreamListComponent,
+    TranslateModule,
+    RouterLink,
+    ItemEditBitstreamDragHandleComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component that displays a single bundle of an item on the item bitstreams edit page
@@ -21,7 +42,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   /**
    * The view on the bundle information and bitstreams
    */
-  @ViewChild('bundleView', {static: true}) bundleView;
+  @ViewChild('bundleView', { static: true }) bundleView;
 
   /**
    * The bundle to display bitstreams for

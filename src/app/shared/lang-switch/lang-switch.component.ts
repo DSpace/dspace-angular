@@ -1,5 +1,18 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+} from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
 import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
 import { LocaleService } from '../../core/locale/locale.service';
@@ -8,6 +21,8 @@ import { LocaleService } from '../../core/locale/locale.service';
   selector: 'ds-lang-switch',
   styleUrls: ['lang-switch.component.scss'],
   templateUrl: 'lang-switch.component.html',
+  standalone: true,
+  imports: [NgIf, NgbDropdownModule, NgFor, TranslateModule],
 })
 
 /**
@@ -25,7 +40,7 @@ export class LangSwitchComponent implements OnInit {
   constructor(
     public el: ElementRef,
     public translate: TranslateService,
-    private localeService: LocaleService
+    private localeService: LocaleService,
   ) {
   }
 

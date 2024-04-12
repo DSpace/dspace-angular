@@ -1,26 +1,35 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminNotifySearchResultComponent } from './admin-notify-search-result.component';
-import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RequestService } from '../../../core/data/request.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { cold } from 'jasmine-marbles';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { RouteService } from '../../../core/services/route.service';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { ActivatedRoute } from '@angular/router';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf, of } from 'rxjs';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { DatePipe } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RequestService } from '../../../core/data/request.service';
+import { RouteService } from '../../../core/services/route.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
+import { AdminNotifyMessage } from '../models/admin-notify-message.model';
+import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
+import { AdminNotifySearchResultComponent } from './admin-notify-search-result.component';
 
 export const mockAdminNotifyMessages = [
   {
@@ -40,15 +49,15 @@ export const mockAdminNotifyMessages = [
     'queueStatus': 3,
     '_links': {
       'self': {
-        'href': 'http://localhost:8080/server/api/ldn/messages/urn:uuid:5fb3af44-d4f8-4226-9475-2d09c2d8d9e0'
-      }
+        'href': 'http://localhost:8080/server/api/ldn/messages/urn:uuid:5fb3af44-d4f8-4226-9475-2d09c2d8d9e0',
+      },
     },
     'thumbnail': 'test',
     'item': {},
     'accessStatus': {},
     'ldnService': 'NOTIFY inbox - Automatic service',
     'relatedItem': 'test coar 2 demo',
-    'message': '{"@context":["https://www.w3.org/ns/activitystreams","https://purl.org/coar/notify"],"id":"urn:uuid:668f26e0-2e8d-4118-b0d2-ee713523bc45","type":["Reject","coar-notify:IngestAction"],"actor":{"id":"https://generic-service.com","type":["Service"],"name":"Generic Service"},"context":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Document"],"ietf:cite-as":"https://doi.org/10.4598/12123488"},"object":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Offer"]},"origin":{"id":"https://generic-service.com/system","type":["Service"],"inbox":"https://notify-inbox.info/inbox7"},"target":{"id":"https://some-organisation.org","type":["Organization"],"inbox":"https://dspace-coar.4science.cloud/server/ldn/inbox"},"inReplyTo":"urn:uuid:d9b4010a-f128-4815-abb2-83707a2ee9cf"}'
+    'message': '{"@context":["https://www.w3.org/ns/activitystreams","https://purl.org/coar/notify"],"id":"urn:uuid:668f26e0-2e8d-4118-b0d2-ee713523bc45","type":["Reject","coar-notify:IngestAction"],"actor":{"id":"https://generic-service.com","type":["Service"],"name":"Generic Service"},"context":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Document"],"ietf:cite-as":"https://doi.org/10.4598/12123488"},"object":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Offer"]},"origin":{"id":"https://generic-service.com/system","type":["Service"],"inbox":"https://notify-inbox.info/inbox7"},"target":{"id":"https://some-organisation.org","type":["Organization"],"inbox":"https://dspace-coar.4science.cloud/server/ldn/inbox"},"inReplyTo":"urn:uuid:d9b4010a-f128-4815-abb2-83707a2ee9cf"}',
   },
   {
     'type': 'message',
@@ -67,16 +76,16 @@ export const mockAdminNotifyMessages = [
     'queueStatus': 6,
     '_links': {
       'self': {
-        'href': 'http://localhost:8080/server/api/ldn/messages/urn:uuid:544c8777-e826-4810-a625-3e394cc3660d'
-      }
+        'href': 'http://localhost:8080/server/api/ldn/messages/urn:uuid:544c8777-e826-4810-a625-3e394cc3660d',
+      },
     },
     'thumbnail': {},
     'item': {},
     'accessStatus': {},
     'ldnService': 'NOTIFY inbox - Automatic service',
     'relatedItem': 'test coar demo',
-    'message': '{"@context":["https://www.w3.org/ns/activitystreams","https://purl.org/coar/notify"],"id":"urn:uuid:668f26e0-2e8d-4118-b0d2-ee713523bc45","type":["Reject","coar-notify:IngestAction"],"actor":{"id":"https://generic-service.com","type":["Service"],"name":"Generic Service"},"context":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Document"],"ietf:cite-as":"https://doi.org/10.4598/12123488"},"object":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Offer"]},"origin":{"id":"https://generic-service.com/system","type":["Service"],"inbox":"https://notify-inbox.info/inbox7"},"target":{"id":"https://some-organisation.org","type":["Organization"],"inbox":"https://dspace-coar.4science.cloud/server/ldn/inbox"},"inReplyTo":"urn:uuid:d9b4010a-f128-4815-abb2-83707a2ee9cf"}'
-  }
+    'message': '{"@context":["https://www.w3.org/ns/activitystreams","https://purl.org/coar/notify"],"id":"urn:uuid:668f26e0-2e8d-4118-b0d2-ee713523bc45","type":["Reject","coar-notify:IngestAction"],"actor":{"id":"https://generic-service.com","type":["Service"],"name":"Generic Service"},"context":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Document"],"ietf:cite-as":"https://doi.org/10.4598/12123488"},"object":{"id":"https://dspace-coar.4science.cloud/handle/123456789/28","type":["Offer"]},"origin":{"id":"https://generic-service.com/system","type":["Service"],"inbox":"https://notify-inbox.info/inbox7"},"target":{"id":"https://some-organisation.org","type":["Organization"],"inbox":"https://dspace-coar.4science.cloud/server/ldn/inbox"},"inReplyTo":"urn:uuid:d9b4010a-f128-4815-abb2-83707a2ee9cf"}',
+  },
 ] as unknown as AdminNotifyMessage[];
 describe('AdminNotifySearchResultComponent', () => {
   let component: AdminNotifySearchResultComponent;
@@ -92,12 +101,12 @@ describe('AdminNotifySearchResultComponent', () => {
   const testObject = {
     uuid: 'test-property',
     name: 'test-property',
-    values: ['value-1', 'value-2']
+    values: ['value-1', 'value-2'],
   } as ConfigurationProperty;
 
   beforeEach(async () => {
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: '' })
+      getEndpoint: cold('a', { a: '' }),
     });
     adminNotifyMessageService = jasmine.createSpyObj('adminNotifyMessageService', {
       getDetailedMessages: of(mockAdminNotifyMessages),
@@ -105,25 +114,24 @@ describe('AdminNotifySearchResultComponent', () => {
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      send: true
+      send: true,
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {
         a: {
-          payload: testObject
-        }
-      })
+          payload: testObject,
+        },
+      }),
     });
 
     searchConfigService = jasmine.createSpyObj('searchConfigService', {
-      getCurrentConfiguration: of('NOTIFY.outgoing')
+      getCurrentConfiguration: of('NOTIFY.outgoing'),
     });
     objectCache = {} as ObjectCacheService;
 
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifySearchResultComponent, AdminNotifyDetailModalComponent ],
+      imports: [TranslateModule.forRoot(), AdminNotifySearchResultComponent, AdminNotifyDetailModalComponent],
       providers: [
         { provide: AdminNotifyMessagesService, useValue: adminNotifyMessageService },
         { provide: RouteService, useValue: routeServiceStub },
@@ -133,11 +141,20 @@ describe('AdminNotifySearchResultComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: rdbService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
-        DatePipe
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        DatePipe,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .overrideComponent(AdminNotifySearchResultComponent, {
+        remove: {
+          imports: [
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifySearchResultComponent);
     component = fixture.componentInstance;

@@ -1,10 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AdminNotifyMetricsComponent } from './admin-notify-metrics.component';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { AdminNotifyMetricsComponent } from './admin-notify-metrics.component';
 
 describe('AdminNotifyMetricsComponent', () => {
   let component: AdminNotifyMetricsComponent;
@@ -13,16 +16,15 @@ describe('AdminNotifyMetricsComponent', () => {
 
   beforeEach(async () => {
     router = Object.assign(new RouterStub(),
-      {url : '/notify-dashboard'}
+      { url : '/notify-dashboard' },
     );
 
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifyMetricsComponent ],
-      providers: [{provide: Router, useValue: router}]
+      imports: [TranslateModule.forRoot(), AdminNotifyMetricsComponent],
+      providers: [{ provide: Router, useValue: router }],
     })
-    .compileComponents();
+      .compileComponents();
 
 
 
@@ -42,21 +44,21 @@ describe('AdminNotifyMetricsComponent', () => {
     const routeExtras = {
       queryParams: {
         configuration: searchConfig,
-        view: ViewMode.ListElement
+        view: ViewMode.ListElement,
       },
     };
 
     const routeExtrasTable = {
       queryParams: {
         configuration: incomingConfig,
-        view: ViewMode.Table
+        view: ViewMode.Table,
       },
     };
 
     const routeExtrasTableOutgoing = {
       queryParams: {
         configuration: outgoingConfig,
-        view: ViewMode.Table
+        view: ViewMode.Table,
       },
     };
     component.navigateToSelectedSearchConfig(searchConfig);

@@ -1,30 +1,66 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ComponentRef } from '@angular/core';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  ComponentRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
+
 import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
-import { RemoteData } from '../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
-import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
-import { Context } from '../../../../../../core/shared/context.model';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
-import { fadeIn, fadeInOut } from '../../../../../animations/fade';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
-import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
-import { hasValue, hasValueOperator } from '../../../../../empty.util';
-import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { Item } from '../../../../../../core/shared/item.model';
-import { Collection } from '../../../../../../core/shared/collection.model';
+import { RemoteData } from '../../../../../../core/data/remote-data';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Observable, Subscription } from 'rxjs';
+import { Collection } from '../../../../../../core/shared/collection.model';
+import { Context } from '../../../../../../core/shared/context.model';
+import { ExternalSource } from '../../../../../../core/shared/external-source.model';
+import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
+import { Item } from '../../../../../../core/shared/item.model';
 import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
 import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../../../animations/fade';
+import {
+  hasValue,
+  hasValueOperator,
+} from '../../../../../empty.util';
+import { ErrorComponent } from '../../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
+import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
+import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
+import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../../../../search/models/paginated-search-options.model';
+import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
+import { VarDirective } from '../../../../../utils/var.directive';
+import { RelationshipOptions } from '../../../models/relationship-options.model';
+import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ThemedExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/themed-external-source-entry-import-modal.component';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -33,13 +69,25 @@ import { getFirstCompletedRemoteData } from '../../../../../../core/shared/opera
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
+      useClass: SearchConfigurationService,
+    },
   ],
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
+  imports: [
+    ThemedSearchFormComponent,
+    PageSizeSelectorComponent,
+    ObjectCollectionComponent,
+    VarDirective,
+    AsyncPipe,
+    TranslateModule,
+    ErrorComponent,
+    NgIf,
+    ThemedLoadingComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component rendering the tab content of an external source during submission lookup
@@ -92,7 +140,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
    */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'spc',
-    pageSize: 5
+    pageSize: 5,
   });
 
   /**
@@ -148,7 +196,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
       getFirstCompletedRemoteData(),
       map((entityTypesRD: RemoteData<PaginatedList<ItemType>>) => {
         return (entityTypesRD.hasSucceeded && entityTypesRD.payload.totalElements > 0) ? entityTypesRD.payload.page[0] : null;
-      })
+      }),
     ).subscribe((entityType: ItemType) => {
       this.relatedEntityType = entityType;
     });
@@ -160,11 +208,11 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
           searchOptions.query = this.query;
         }
         return this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions).pipe(startWith(undefined));
-      })
+      }),
     );
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.searchConfigService.paginationID, this.initialPagination);
     this.importConfig = {
-      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
+      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label,
     };
   }
 
@@ -175,12 +223,12 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
   import(entry) {
     this.modalRef = this.modalService.open(ThemedExternalSourceEntryImportModalComponent, {
       size: 'lg',
-      container: 'ds-dynamic-lookup-relation-modal'
+      container: 'ds-dynamic-lookup-relation-modal',
     });
 
     const modalComp$ = this.modalRef.componentInstance.compRef$.pipe(
       hasValueOperator(),
-      map((compRef: ComponentRef<ExternalSourceEntryImportModalComponent>) => compRef.instance)
+      map((compRef: ComponentRef<ExternalSourceEntryImportModalComponent>) => compRef.instance),
     );
 
     this.subs.push(modalComp$.subscribe((modalComp: ExternalSourceEntryImportModalComponent) => {
@@ -193,7 +241,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
     }));
 
     this.subs.push(modalComp$.pipe(
-      switchMap((modalComp: ExternalSourceEntryImportModalComponent) => modalComp.importedObject)
+      switchMap((modalComp: ExternalSourceEntryImportModalComponent) => modalComp.importedObject),
     ).subscribe((object) => {
       this.selectableListService.selectSingle(this.listId, object);
       this.importedObject.emit(object);
@@ -215,7 +263,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
   resetRoute() {
     this.paginationService.updateRoute(this.searchConfigService.paginationID, {
       page: 1,
-      pageSize: 5
+      pageSize: 5,
     });
   }
 }

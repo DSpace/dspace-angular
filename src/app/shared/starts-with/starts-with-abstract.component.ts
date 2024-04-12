@@ -1,17 +1,29 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Subscription } from 'rxjs';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { hasValue } from '../empty.util';
+
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { StartsWithType } from './starts-with-decorator';
+import { hasValue } from '../empty.util';
+import { StartsWithType } from './starts-with-type';
 
 /**
  * An abstract component to render StartsWith options
  */
 @Component({
   selector: 'ds-start-with-abstract',
-  template: ''
+  template: '',
 })
 export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
 
@@ -49,10 +61,10 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
         if (hasValue(params.startsWith)) {
           this.setStartsWith(params.startsWith);
         }
-      })
+      }),
     );
     this.formData = new UntypedFormGroup({
-      startsWith: new UntypedFormControl()
+      startsWith: new UntypedFormControl(),
     });
   }
 
@@ -79,11 +91,11 @@ export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
       this.startsWith = undefined;
     }
     if (resetPage) {
-      this.paginationService.updateRoute(this.paginationId, {page: 1}, { startsWith: this.startsWith });
+      this.paginationService.updateRoute(this.paginationId, { page: 1 }, { startsWith: this.startsWith });
     } else {
       void this.router.navigate([], {
         queryParams: Object.assign({ startsWith: this.startsWith }),
-        queryParamsHandling: 'merge'
+        queryParamsHandling: 'merge',
       });
     }
   }

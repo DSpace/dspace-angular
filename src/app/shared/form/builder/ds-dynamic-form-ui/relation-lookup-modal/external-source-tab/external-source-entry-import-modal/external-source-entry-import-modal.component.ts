@@ -1,30 +1,53 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbActiveModal,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { ItemDataService } from '../../../../../../../core/data/item-data.service';
+import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
+import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../../core/data/remote-data';
+import { Context } from '../../../../../../../core/shared/context.model';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../../../../core/shared/metadata.utils';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { SearchResult } from '../../../../../../search/models/search-result.model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { RelationshipOptions } from '../../../../models/relationship-options.model';
-import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
-import { PaginatedSearchOptions } from '../../../../../../search/models/paginated-search-options.model';
-import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
-import { Context } from '../../../../../../../core/shared/context.model';
-import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
-import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
-import { ItemDataService } from '../../../../../../../core/data/item-data.service';
-import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../../../../../core/shared/operators';
-import { switchMap, take } from 'rxjs/operators';
-import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
-import { NotificationsService } from '../../../../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../../../../../core/shared/operators';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
+import { NotificationsService } from '../../../../../../notifications/notifications.service';
+import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
+import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
+import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
+import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../../../../../search/models/paginated-search-options.model';
+import { SearchResult } from '../../../../../../search/models/search-result.model';
+import { SearchResultsComponent } from '../../../../../../search/search-results/search-results.component';
+import { RelationshipOptions } from '../../../../models/relationship-options.model';
 
 /**
  * The possible types of import for the external entry
@@ -40,7 +63,14 @@ export enum ImportType {
 @Component({
   selector: 'ds-external-source-entry-import-modal',
   styleUrls: ['./external-source-entry-import-modal.component.scss'],
-  templateUrl: './external-source-entry-import-modal.component.html'
+  templateUrl: './external-source-entry-import-modal.component.html',
+  imports: [
+    TranslateModule,
+    SearchResultsComponent,
+    NgIf,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 /**
  * Component to display a modal window for importing an external source entry
@@ -223,13 +253,13 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
         return this.itemService.importExternalSourceEntry(this.externalSourceEntry, collectionListEntry.collection.id).pipe(
           getFirstSucceededRemoteData(),
           getRemoteDataPayload(),
-          take(1)
+          take(1),
         );
-      })
+      }),
     ).subscribe((item: Item) => {
       this.lookupRelationService.removeLocalResultsCache();
       const searchResult = Object.assign(new ItemSearchResult(), {
-        indexableObject: item
+        indexableObject: item,
       });
       this.notificationsService.success(this.translateService.get(this.labelPrefix + this.label + '.added.new-entity'));
       this.modalRef.close();

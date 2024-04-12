@@ -1,34 +1,88 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { BrowseByMetadataComponent, browseParamsToOptions, getBrowseSearchOptions } from '../browse-by-metadata/browse-by-metadata.component';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { BrowseService } from '../../core/browse/browse.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
-import { PaginationService } from '../../core/pagination/pagination.service';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { isValidDate } from '../../shared/date.util';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
+import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
+import { BrowseService } from '../../core/browse/browse.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { Item } from '../../core/shared/item.model';
+import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
+import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { isValidDate } from '../../shared/date.util';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { StartsWithType } from '../../shared/starts-with/starts-with-type';
+import { VarDirective } from '../../shared/utils/var.directive';
+import {
+  BrowseByMetadataComponent,
+  browseParamsToOptions,
+  getBrowseSearchOptions,
+} from '../browse-by-metadata/browse-by-metadata.component';
 
 @Component({
   selector: 'ds-browse-by-date',
   styleUrls: ['../browse-by-metadata/browse-by-metadata.component.scss'],
   templateUrl: '../browse-by-metadata/browse-by-metadata.component.html',
+  standalone: true,
+  imports: [
+    VarDirective,
+    AsyncPipe,
+    ComcolPageHeaderComponent,
+    ComcolPageLogoComponent,
+    NgIf,
+    ThemedComcolPageHandleComponent,
+    ComcolPageContentComponent,
+    DsoEditMenuComponent,
+    ThemedComcolPageBrowseByComponent,
+    BrowseByComponent,
+    TranslateModule,
+    ThemedLoadingComponent,
+    ThemedBrowseByComponent,
+  ],
 })
 /**
  * Component for browsing items by metadata definition of type 'date'
  * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'dateissued' for 'dc.date.issued'
  */
-@rendersBrowseBy(BrowseByDataType.Date)
 export class BrowseByDateComponent extends BrowseByMetadataComponent implements OnInit {
 
   /**
@@ -61,7 +115,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
         this.currentPagination$, this.currentSort$]).pipe(
         map(([routeParams, queryParams, scope, data, currentPage, currentSort]) => {
           return [Object.assign({}, routeParams, queryParams, data), scope, currentPage, currentSort];
-        })
+        }),
       ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
@@ -89,7 +143,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
       firstItemRD$,
       lastItemRD$,
     ]).pipe(
-      map(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => firstItemRD.isLoading || lastItemRD.isLoading)
+      map(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => firstItemRD.isLoading || lastItemRD.isLoading),
     );
     this.subs.push(
       observableCombineLatest([
@@ -97,7 +151,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
         lastItemRD$,
       ]).subscribe(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
         let lowerLimit: number = this.getLimit(firstItemRD, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
-        let upperLimit: number = this.getLimit(lastItemRD, metadataKeys, new Date().getUTCFullYear());
+        const upperLimit: number = this.getLimit(lastItemRD, metadataKeys, new Date().getUTCFullYear());
         const options: number[] = [];
         const oneYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
         const fiveYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;
@@ -123,7 +177,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
           this.startsWithOptions = options;
           this.cdRef.detectChanges();
         }
-      })
+      }),
     );
   }
 

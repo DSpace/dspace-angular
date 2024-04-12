@@ -1,13 +1,13 @@
-import {autoserialize} from 'cerialize';
+import { autoserialize } from 'cerialize';
 
 /**
  * A single notify service pattern and his properties
  */
 export class NotifyServicePattern {
   @autoserialize
-  pattern: string;
+    pattern: string;
   @autoserialize
-  constraint: string;
+    constraint: string;
   @autoserialize
-  automatic: string;
+    automatic: string;
 }

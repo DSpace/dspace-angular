@@ -1,17 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../../core/shared/search/search.service';
-import { environment } from '../../../environments/environment';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { forkJoin, Observable } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  forkJoin,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SearchObjects } from '../../shared/search/models/search-objects.model';
-import { AdminNotifyMetricsBox, AdminNotifyMetricsRow } from './admin-notify-metrics/admin-notify-metrics.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 
+import { environment } from '../../../environments/environment';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { SearchService } from '../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchObjects } from '../../shared/search/models/search-objects.model';
+import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
+import {
+  AdminNotifyMetricsBox,
+  AdminNotifyMetricsRow,
+} from './admin-notify-metrics/admin-notify-metrics.model';
 
 @Component({
   selector: 'ds-admin-notify-dashboard',
@@ -19,9 +35,17 @@ import { SearchConfigurationService } from '../../core/shared/search/search-conf
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
+  standalone: true,
+  imports: [
+    AdminNotifyMetricsComponent,
+    RouterLink,
+    NgIf,
+    TranslateModule,
+    AsyncPipe,
+  ],
 })
 
 /**
@@ -34,7 +58,7 @@ export class AdminNotifyDashboardComponent implements OnInit{
   private metricsConfig = environment.notifyMetrics;
   private singleResultOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'single-result-options',
-    pageSize: 1
+    pageSize: 1,
   });
 
   constructor(private searchService: SearchService) {
@@ -47,17 +71,17 @@ export class AdminNotifyDashboardComponent implements OnInit{
     const flatConfigurations = [].concat(...mertricsRowsConfigurations.map((config) => config));
     const searchConfigurations = flatConfigurations
       .map(config => Object.assign(new PaginatedSearchOptions({}),
-      { configuration: config, pagination: this.singleResultOptions }
-    ));
+        { configuration: config, pagination: this.singleResultOptions },
+      ));
 
     this.notifyMetricsRows$ = forkJoin(searchConfigurations.map(config => this.searchService.search(config)
-        .pipe(
-          getFirstCompletedRemoteData(),
-          map(response => this.mapSearchObjectsToMetricsBox(response.payload)),
-        )
-      )
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map(response => this.mapSearchObjectsToMetricsBox(response.payload)),
+      ),
+    ),
     ).pipe(
-      map(metricBoxes => this.mapUpdatedBoxesToMetricsRows(metricBoxes))
+      map(metricBoxes => this.mapUpdatedBoxesToMetricsRows(metricBoxes)),
     );
   }
 
@@ -74,7 +98,7 @@ export class AdminNotifyDashboardComponent implements OnInit{
 
     return {
       ...metricsBoxes.find(box => box.config === objectConfig),
-      count
+      count,
     };
   }
 
@@ -86,10 +110,10 @@ export class AdminNotifyDashboardComponent implements OnInit{
    */
   private mapUpdatedBoxesToMetricsRows(boxesWithCount: AdminNotifyMetricsBox[]): AdminNotifyMetricsRow[] {
     return this.metricsConfig.map(row => {
-        return {
-          ...row,
-          boxes: row.boxes.map(rowBox => boxesWithCount.find(boxWithCount => boxWithCount.config === rowBox.config))
-        };
+      return {
+        ...row,
+        boxes: row.boxes.map(rowBox => boxesWithCount.find(boxWithCount => boxWithCount.config === rowBox.config)),
+      };
     });
   }
 }

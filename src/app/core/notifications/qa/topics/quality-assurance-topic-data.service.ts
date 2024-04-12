@@ -1,28 +1,30 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
 
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { RequestService } from '../../../data/request.service';
-import { RemoteData } from '../../../data/remote-data';
-import { QualityAssuranceTopicObject } from '../models/quality-assurance-topic.model';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { FindListOptions } from '../../../data/find-list-options.model';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../../../data/base/find-all-data';
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
-import { dataService } from '../../../data/base/data-service.decorator';
-import { QUALITY_ASSURANCE_TOPIC_OBJECT } from '../models/quality-assurance-topic-object.resource-type';
-import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
-import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../../../data/base/search-data';
+import { FindListOptions } from '../../../data/find-list-options.model';
+import { PaginatedList } from '../../../data/paginated-list.model';
+import { RemoteData } from '../../../data/remote-data';
+import { RequestService } from '../../../data/request.service';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { QualityAssuranceTopicObject } from '../models/quality-assurance-topic.model';
 
 /**
  * The service handling all Quality Assurance topic REST requests.
  */
-@Injectable()
-@dataService(QUALITY_ASSURANCE_TOPIC_OBJECT)
+@Injectable({ providedIn: 'root' })
 export class QualityAssuranceTopicDataService extends IdentifiableDataService<QualityAssuranceTopicObject> {
 
   private findAllData: FindAllData<QualityAssuranceTopicObject>;
@@ -44,7 +46,7 @@ export class QualityAssuranceTopicDataService extends IdentifiableDataService<Qu
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService
+    protected notificationsService: NotificationsService,
   ) {
     super('qualityassurancetopics', requestService, rdbService, objectCache, halService);
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);

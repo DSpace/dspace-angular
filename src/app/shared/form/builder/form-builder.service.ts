@@ -1,6 +1,12 @@
-import {Injectable, Optional} from '@angular/core';
-import { AbstractControl, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-
+import {
+  Injectable,
+  Optional,
+} from '@angular/core';
+import {
+  AbstractControl,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
@@ -22,6 +28,14 @@ import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
 
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import {
+  dateToString,
+  isNgbDateStruct,
+} from '../../date.util';
 import {
   hasNoValue,
   hasValue,
@@ -29,24 +43,22 @@ import {
   isNotEmpty,
   isNotNull,
   isNotUndefined,
-  isNull
+  isNull,
 } from '../../empty.util';
-import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { RowParser } from './parsers/row-parser';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
-import { dateToString, isNgbDateStruct } from '../../date.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import {
+  CONCAT_GROUP_SUFFIX,
+  DynamicConcatModel,
+} from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
+import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
+import { RowParser } from './parsers/row-parser';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FormBuilderService extends DynamicFormService {
 
   private typeBindModel: DynamicFormControlModel;
@@ -86,10 +98,10 @@ export class FormBuilderService extends DynamicFormService {
   createDynamicFormControlEvent(control: UntypedFormControl, group: UntypedFormGroup, model: DynamicFormControlModel, type: string): DynamicFormControlEvent {
     const $event = {
       value: (model as any).value,
-      autoSave: false
+      autoSave: false,
     };
     const context: DynamicFormArrayGroupModel = (model?.parent instanceof DynamicFormArrayGroupModel) ? model?.parent : null;
-    return {$event, context, control: control, group: group, model: model, type};
+    return { $event, context, control: control, group: group, model: model, type };
   }
 
   getTypeBindModel() {
@@ -281,10 +293,10 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
-                         submissionScope?: string, readOnly = false, typeBindModel = null,
-                         isInnerForm = false): DynamicFormControlModel[] | never {
-     let rows: DynamicFormControlModel[] = [];
-     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
+    submissionScope?: string, readOnly = false, typeBindModel = null,
+    isInnerForm = false): DynamicFormControlModel[] | never {
+    let rows: DynamicFormControlModel[] = [];
+    const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
         const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope,

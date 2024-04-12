@@ -1,18 +1,25 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
+import { AppConfig } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DsoRedirectService } from './dso-redirect.service';
-import { GetRequest, IdentifierType } from './request.models';
-import { RequestService } from './request.service';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { Item } from '../shared/item.model';
 import { EMBED_SEPARATOR } from './base/base-data.service';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { environment } from '../../../environments/environment.test';
-import { AppConfig } from '../../../config/app-config.interface';
+import { DsoRedirectService } from './dso-redirect.service';
+import {
+  GetRequest,
+  IdentifierType,
+} from './request.models';
+import { RequestService } from './request.service';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;
@@ -35,26 +42,26 @@ describe('DsoRedirectService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: pidLink })
+      getEndpoint: cold('a', { a: pidLink }),
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      send: true
+      send: true,
     });
 
     remoteData = createSuccessfulRemoteDataObject(Object.assign(new Item(), {
       type: 'item',
-      uuid: '123456789'
+      uuid: '123456789',
     }));
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {
-        a: remoteData
-      })
+        a: remoteData,
+      }),
     });
 
     redirectService = jasmine.createSpyObj('redirectService', {
-      redirect: {}
+      redirect: {},
     });
 
     service = new DsoRedirectService(
@@ -63,7 +70,7 @@ describe('DsoRedirectService', () => {
       rdbService,
       objectCache,
       halService,
-      redirectService
+      redirectService,
     );
   });
 
@@ -118,8 +125,8 @@ describe('DsoRedirectService', () => {
         'dspace.entity.type': [
           {
             language: 'en_US',
-            value: 'Publication'
-          }
+            value: 'Publication',
+          },
         ],
       };
       const redir = service.findByIdAndIDType(dsoHandle, IdentifierType.HANDLE);

@@ -1,35 +1,40 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  NotificationsSuggestionTargetsPageComponent
-} from '../../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page.component';
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
-describe('NotificationsSuggestionTargetsPageComponent', () => {
-  let component: NotificationsSuggestionTargetsPageComponent;
-  let fixture: ComponentFixture<NotificationsSuggestionTargetsPageComponent>;
+import { PublicationClaimComponent } from '../../../notifications/suggestion-targets/publication-claim/publication-claim.component';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page.component';
 
-  beforeEach(async(() => {
+describe('AdminNotificationsPublicationClaimPageComponent', () => {
+  let component: AdminNotificationsPublicationClaimPageComponent;
+  let fixture: ComponentFixture<AdminNotificationsPublicationClaimPageComponent>;
+
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
-        NotificationsSuggestionTargetsPageComponent
+        TranslateModule.forRoot(),
+        AdminNotificationsPublicationClaimPageComponent,
       ],
       providers: [
-        NotificationsSuggestionTargetsPageComponent
+        AdminNotificationsPublicationClaimPageComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(AdminNotificationsPublicationClaimPageComponent, {
+      remove: {
+        imports: [PublicationClaimComponent],
+      },
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NotificationsSuggestionTargetsPageComponent);
+    fixture = TestBed.createComponent(AdminNotificationsPublicationClaimPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

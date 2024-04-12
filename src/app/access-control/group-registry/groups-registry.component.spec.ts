@@ -1,39 +1,79 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  of,
+} from 'rxjs';
+
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Group } from '../../core/eperson/models/group.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { GroupMock, GroupMock2 } from '../../shared/testing/group-mock';
-import { GroupsRegistryComponent } from './groups-registry.component';
-import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../core/shared/NoContent.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock, UNDEFINED_NAME } from '../../shared/mocks/dso-name.service.mock';
+import { PageInfo } from '../../core/shared/page-info.model';
+import {
+  DSONameServiceMock,
+  UNDEFINED_NAME,
+} from '../../shared/mocks/dso-name.service.mock';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../shared/testing/eperson.mock';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../../shared/testing/group-mock';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
+import { GroupsRegistryComponent } from './groups-registry.component';
 
 describe('GroupsRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -42,6 +82,7 @@ describe('GroupsRegistryComponent', () => {
   let groupsDataServiceStub: any;
   let dsoDataServiceStub: any;
   let authorizationService: AuthorizationDataService;
+  let configurationDataService: jasmine.SpyObj<ConfigurationDataService>;
 
   let mockGroups;
   let mockEPeople;
@@ -78,24 +119,24 @@ describe('GroupsRegistryComponent', () => {
               elementsPerPage: 1,
               totalElements: 0,
               totalPages: 0,
-              currentPage: 1
+              currentPage: 1,
             }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/epersons':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
               elementsPerPage: 1,
               totalElements: 1,
               totalPages: 1,
-              currentPage: 1
+              currentPage: 1,
             }), [EPersonMock]));
           default:
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
               elementsPerPage: 1,
               totalElements: 0,
               totalPages: 0,
-              currentPage: 1
+              currentPage: 1,
             }), []));
         }
-      }
+      },
     };
     groupsDataServiceStub = {
       allGroups: mockGroups,
@@ -106,21 +147,21 @@ describe('GroupsRegistryComponent', () => {
               elementsPerPage: 1,
               totalElements: 0,
               totalPages: 0,
-              currentPage: 1
+              currentPage: 1,
             }), []));
           case 'https://dspace.4science.it/dspace-spring-rest/api/eperson/groups/testgroupid/groups':
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
               elementsPerPage: 1,
               totalElements: 1,
               totalPages: 1,
-              currentPage: 1
+              currentPage: 1,
             }), [GroupMock2]));
           default:
             return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo({
               elementsPerPage: 1,
               totalElements: 0,
               totalPages: 0,
-              currentPage: 1
+              currentPage: 1,
             }), []));
         }
       },
@@ -136,7 +177,7 @@ describe('GroupsRegistryComponent', () => {
             elementsPerPage: this.allGroups.length,
             totalElements: this.allGroups.length,
             totalPages: 1,
-            currentPage: 1
+            currentPage: 1,
           }), this.allGroups));
         }
         const result = this.allGroups.find((group: Group) => {
@@ -146,7 +187,7 @@ describe('GroupsRegistryComponent', () => {
           elementsPerPage: [result].length,
           totalElements: [result].length,
           totalPages: 1,
-          currentPage: 1
+          currentPage: 1,
         }), [result]));
       },
       delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
@@ -156,8 +197,12 @@ describe('GroupsRegistryComponent', () => {
     dsoDataServiceStub = {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
         return createSuccessfulRemoteDataObject$(undefined);
-      }
+      },
     };
+
+    configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+      findByPropertyName: of({ payload: { value: 'test' } }),
+    });
 
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
     setIsAuthorized(true, true);
@@ -167,24 +212,26 @@ describe('GroupsRegistryComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [GroupsRegistryComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }), GroupsRegistryComponent],
       providers: [GroupsRegistryComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
         { provide: DSpaceObjectDataService, useValue: dsoDataServiceStub },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: RouteService, useValue: routeServiceStub },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: Router, useValue: new RouterMock() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
-        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) }
+        { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        provideMockStore(),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -237,16 +284,16 @@ describe('GroupsRegistryComponent', () => {
 
       it('should not check the canManageGroup permissions', () => {
         expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
-          FeatureID.CanManageGroup, mockGroups[0].self
+          FeatureID.CanManageGroup, mockGroups[0].self,
         );
         expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
-          FeatureID.CanManageGroup, mockGroups[0].self, undefined // treated differently
+          FeatureID.CanManageGroup, mockGroups[0].self, undefined, // treated differently
         );
         expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
-          FeatureID.CanManageGroup, mockGroups[1].self
+          FeatureID.CanManageGroup, mockGroups[1].self,
         );
         expect(authorizationService.isAuthorized).not.toHaveBeenCalledWith(
-          FeatureID.CanManageGroup, mockGroups[1].self, undefined // treated differently
+          FeatureID.CanManageGroup, mockGroups[1].self, undefined, // treated differently
         );
       });
     });

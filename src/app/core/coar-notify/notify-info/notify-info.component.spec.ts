@@ -1,9 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NotifyInfoComponent } from './notify-info.component';
-import { NotifyInfoService } from './notify-info.service';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { NotifyInfoComponent } from './notify-info.component';
+import { NotifyInfoService } from './notify-info.service';
 
 describe('NotifyInfoComponent', () => {
   let component: NotifyInfoComponent;
@@ -14,13 +19,13 @@ describe('NotifyInfoComponent', () => {
     notifyInfoServiceSpy = jasmine.createSpyObj('NotifyInfoService', ['getCoarLdnLocalInboxUrls']);
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ NotifyInfoComponent ],
+      imports: [TranslateModule.forRoot(), NotifyInfoComponent],
       providers: [
-        { provide: NotifyInfoService, useValue: notifyInfoServiceSpy }
-      ]
+        { provide: NotifyInfoService, useValue: notifyInfoServiceSpy },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

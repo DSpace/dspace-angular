@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { Process } from '../processes/process.model';
-import { RequestParam } from '../../core/cache/models/request-param.model';
-import { ProcessStatus } from '../processes/process-status.model';
 import { DatePipe } from '@angular/common';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortOptions, SortDirection } from '../../core/cache/models/sort-options.model';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { RequestParam } from '../../core/cache/models/request-param.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { hasValue } from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { Process } from '../processes/process.model';
+import { ProcessStatus } from '../processes/process-status.model';
 
 /**
  * The sortable fields for processes
@@ -55,8 +59,8 @@ export class ProcessOverviewService {
    * Leave empty or set to null to only retrieve the processes once.
    */
   getProcessesByProcessStatus(processStatus: ProcessStatus, findListOptions?: FindListOptions, autoRefreshingIntervalInMs: number = null): Observable<RemoteData<PaginatedList<Process>>> {
-    let requestParam = new RequestParam('processStatus', processStatus);
-    let options: FindListOptions = Object.assign(new FindListOptions(), {
+    const requestParam = new RequestParam('processStatus', processStatus);
+    const options: FindListOptions = Object.assign(new FindListOptions(), {
       searchParams: [requestParam],
       elementsPerPage: 5,
     }, findListOptions);
@@ -83,14 +87,14 @@ export class ProcessOverviewService {
    * @param sortField the field on which the processes are sorted
    */
   getFindListOptions(paginationOptions: PaginationComponentOptions, sortField: ProcessSortField): FindListOptions {
-    let sortOptions = new SortOptions(sortField, SortDirection.DESC);
+    const sortOptions = new SortOptions(sortField, SortDirection.DESC);
     return Object.assign(
       new FindListOptions(),
       {
         currentPage: paginationOptions.currentPage,
         elementsPerPage: paginationOptions.pageSize,
         sort: sortOptions,
-      }
+      },
     );
   }
 

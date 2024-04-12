@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
-import { ThemedComponent } from '../../../shared/theme-support/themed.component';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
-import { MediaViewerVideoComponent } from './media-viewer-video.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { Bitstream } from '../../../core/shared/bitstream.model';
+import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { ThemedComponent } from '../../../shared/theme-support/themed.component';
+import { MediaViewerVideoComponent } from './media-viewer-video.component';
 
 /**
  * Themed wrapper for {@link MediaViewerVideoComponent}.
@@ -11,6 +15,7 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
   selector: 'ds-themed-media-viewer-video',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedMediaViewerVideoComponent extends ThemedComponent<MediaViewerVideoComponent> {
 

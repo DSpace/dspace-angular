@@ -1,21 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { QaEventNotificationComponent } from './qa-event-notification.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { provideMockStore } from '@ngrx/store/testing';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { of } from 'rxjs';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
+
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RequestService } from '../../../core/data/request.service';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { QaEventNotificationComponent } from './qa-event-notification.component';
 
 describe('QaEventNotificationComponent', () => {
   let component: QaEventNotificationComponent;
@@ -26,7 +33,7 @@ describe('QaEventNotificationComponent', () => {
     id: 'sourceName:target',
     source: 'sourceName',
     target: 'target',
-    totalEvents: 1
+    totalEvents: 1,
   });
 
   const objPL = createSuccessfulRemoteDataObject$(createPaginatedList([obj]));
@@ -34,19 +41,20 @@ describe('QaEventNotificationComponent', () => {
   beforeEach(async () => {
 
     qualityAssuranceSourceDataServiceStub = {
-      getSourcesByTarget: () => objPL
+      getSourcesByTarget: () => objPL,
     };
     await TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot()],
-      declarations: [QaEventNotificationComponent, SplitPipe],
+      imports: [CommonModule, TranslateModule.forRoot(), QaEventNotificationComponent, SplitPipe],
       providers: [
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: QualityAssuranceSourceDataService, useValue: qualityAssuranceSourceDataServiceStub },
         { provide: RequestService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         ObjectCacheService,
         RemoteDataBuildService,
-        provideMockStore({})
+        provideMockStore({}),
       ],
     })
       .compileComponents();

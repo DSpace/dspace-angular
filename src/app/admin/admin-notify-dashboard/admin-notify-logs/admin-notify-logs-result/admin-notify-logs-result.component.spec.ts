@@ -1,17 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AdminNotifyLogsResultComponent } from './admin-notify-logs-result.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { APP_DATA_SERVICES_MAP } from '../../../../../config/app-config.interface';
+import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../core/data/request.service';
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterStub } from '../../../../shared/testing/router.stub';
 import { RouteService } from '../../../../core/services/route.service';
+import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
+import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
+import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';
 import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
+import { RouterStub } from '../../../../shared/testing/router.stub';
+import { AdminNotifyLogsResultComponent } from './admin-notify-logs-result.component';
 
 describe('AdminNotifyLogsResultComponent', () => {
   let component: AdminNotifyLogsResultComponent;
@@ -23,8 +32,7 @@ describe('AdminNotifyLogsResultComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifyLogsResultComponent ],
+      imports: [TranslateModule.forRoot(), AdminNotifyLogsResultComponent],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
@@ -32,11 +40,20 @@ describe('AdminNotifyLogsResultComponent', () => {
         { provide: HALEndpointService, useValue: halService },
         { provide: ObjectCacheService, useValue: objectCache },
         { provide: RequestService, useValue: requestService },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         provideMockStore({}),
-      ]
+      ],
     })
-    .compileComponents();
+      .overrideComponent(AdminNotifyLogsResultComponent, {
+        remove: {
+          imports: [
+            SearchLabelsComponent,
+            ThemedSearchComponent,
+          ],
+        },
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifyLogsResultComponent);
     component = fixture.componentInstance;

@@ -1,22 +1,61 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
-import { Item } from '../../../core/shared/item.model';
-import { ActivatedRoute } from '@angular/router';
-import { ItemOperation } from '../item-operation/itemOperation.model';
-import {concatMap, distinctUntilChanged, first, map, mergeMap, switchMap, toArray} from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { getItemEditRoute, getItemPageRoute } from '../../item-page-routing-paths';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import {
+  concatMap,
+  distinctUntilChanged,
+  first,
+  map,
+  mergeMap,
+  switchMap,
+  toArray,
+} from 'rxjs/operators';
+
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { hasValue } from '../../../shared/empty.util';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, } from '../../../core/shared/operators';
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { Item } from '../../../core/shared/item.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+} from '../../../core/shared/operators';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../shared/animations/fade';
+import { hasValue } from '../../../shared/empty.util';
+import { Identifier } from '../../../shared/object-list/identifier-data/identifier.model';
+import { IdentifierData } from '../../../shared/object-list/identifier-data/identifier-data.model';
+import {
+  getItemEditRoute,
+  getItemPageRoute,
+} from '../../item-page-routing-paths';
+import { ItemOperationComponent } from '../item-operation/item-operation.component';
+import { ItemOperation } from '../item-operation/itemOperation.model';
 
 @Component({
   selector: 'ds-item-status',
@@ -24,8 +63,18 @@ import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
+  imports: [
+    TranslateModule,
+    NgForOf,
+    AsyncPipe,
+    NgIf,
+    RouterLink,
+    ItemOperationComponent,
+    NgClass,
+  ],
+  standalone: true,
 })
 /**
  * Component for displaying an item's status
@@ -72,7 +121,7 @@ export class ItemStatusComponent implements OnInit {
               private authorizationService: AuthorizationDataService,
               private identifierDataService: IdentifierDataService,
               private configurationService: ConfigurationDataService,
-              private orcidAuthService: OrcidAuthService
+              private orcidAuthService: OrcidAuthService,
   ) {
   }
 
@@ -83,66 +132,66 @@ export class ItemStatusComponent implements OnInit {
     this.itemRD$ = this.route.parent.data.pipe(map((data) => data.dso));
     this.itemRD$.pipe(
       first(),
-      map((data: RemoteData<Item>) => data.payload)
+      map((data: RemoteData<Item>) => data.payload),
     ).pipe(
       switchMap((item: Item) => {
         this.statusData = Object.assign({
           id: item.id,
           handle: item.handle,
-          lastModified: item.lastModified
+          lastModified: item.lastModified,
         });
         this.statusDataKeys = Object.keys(this.statusData);
 
-      // Observable for item identifiers (retrieved from embedded link)
-      this.identifiers$ = this.identifierDataService.getIdentifierDataFor(item).pipe(
-        map((identifierRD) => {
-          if (identifierRD.statusCode !== 401 && hasValue(identifierRD.payload)) {
-            return identifierRD.payload.identifiers;
-          } else {
-            return null;
-          }
-        }),
-      );
+        // Observable for item identifiers (retrieved from embedded link)
+        this.identifiers$ = this.identifierDataService.getIdentifierDataFor(item).pipe(
+          map((identifierRD) => {
+            if (identifierRD.statusCode !== 401 && hasValue(identifierRD.payload)) {
+              return identifierRD.payload.identifiers;
+            } else {
+              return null;
+            }
+          }),
+        );
 
-      // Observable for configuration determining whether the Register DOI feature is enabled
-      let registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
-        getFirstCompletedRemoteData(),
-        map((response: RemoteData<ConfigurationProperty>) => {
+        // Observable for configuration determining whether the Register DOI feature is enabled
+        const registerConfigEnabled$: Observable<boolean> = this.configurationService.findByPropertyName('identifiers.item-status.register-doi').pipe(
+          getFirstCompletedRemoteData(),
+          map((response: RemoteData<ConfigurationProperty>) => {
           // Return true if a successful response with a 'true' value was retrieved, otherwise return false
-          if (response.hasSucceeded) {
-            const payload = response.payload;
-            if (payload.values.length > 0 && hasValue(payload.values[0])) {
-              return payload.values[0] === 'true';
+            if (response.hasSucceeded) {
+              const payload = response.payload;
+              if (payload.values.length > 0 && hasValue(payload.values[0])) {
+                return payload.values[0] === 'true';
+              } else {
+                return false;
+              }
             } else {
               return false;
             }
-          } else {
-            return false;
-          }
-        })
-      );
+          }),
+        );
 
-      /**
-       * Construct a base list of operations.
-       * The key is used to build messages
-       * i18n example: 'item.edit.tabs.status.buttons.<key>.label'
-       * The value is supposed to be a href for the button
-       */
-      const currentUrl = this.getCurrentUrl(item);
-      const initialOperations: ItemOperation[] = [
-        new ItemOperation('authorizations', `${currentUrl}/authorizations`, FeatureID.CanManagePolicies, true),
-        new ItemOperation('mappedCollections', `${currentUrl}/mapper`, FeatureID.CanManageMappings, true),
-        item.isWithdrawn
-         ? new ItemOperation('reinstate', `${currentUrl}/reinstate`, FeatureID.ReinstateItem, true)
-         : new ItemOperation('withdraw', `${currentUrl}/withdraw`, FeatureID.WithdrawItem, true),
-        item.isDiscoverable
-         ? new ItemOperation('private', `${currentUrl}/private`, FeatureID.CanMakePrivate, true)
-         : new ItemOperation('public', `${currentUrl}/public`, FeatureID.CanMakePrivate, true),
-        new ItemOperation('move', `${currentUrl}/move`, FeatureID.CanMove, true),
-        new ItemOperation('delete', `${currentUrl}/delete`, FeatureID.CanDelete, true)
-      ];
+        /**
+         * Construct a base list of operations.
+         * The key is used to build messages
+         * i18n example: 'item.edit.tabs.status.buttons.<key>.label'
+         * The value is supposed to be a href for the button
+         */
+        const currentUrl = this.getCurrentUrl(item);
+        const initialOperations: ItemOperation[] = [
+          new ItemOperation('authorizations', `${currentUrl}/authorizations`, FeatureID.CanManagePolicies, true),
+          new ItemOperation('mappedCollections', `${currentUrl}/mapper`, FeatureID.CanManageMappings, true),
+          item.isWithdrawn
+            ? new ItemOperation('reinstate', `${currentUrl}/reinstate`, FeatureID.ReinstateItem, true)
+            : new ItemOperation('withdraw', `${currentUrl}/withdraw`, FeatureID.WithdrawItem, true),
+          item.isDiscoverable
+            ? new ItemOperation('private', `${currentUrl}/private`, FeatureID.CanMakePrivate, true)
+            : new ItemOperation('public', `${currentUrl}/public`, FeatureID.CanMakePrivate, true),
+          new ItemOperation('move', `${currentUrl}/move`, FeatureID.CanMove, true),
+          new ItemOperation('delete', `${currentUrl}/delete`, FeatureID.CanDelete, true),
+        ];
 
-      this.operations$.next(initialOperations);
+        this.operations$.next(initialOperations);
 
         /**
          *  When the identifier data stream changes, determine whether the register DOI button should be shown or not.
@@ -153,7 +202,7 @@ export class ItemStatusComponent implements OnInit {
           getFirstCompletedRemoteData(),
           mergeMap((dataRD: RemoteData<IdentifierData>) => {
             if (dataRD.hasSucceeded) {
-              let identifiers = dataRD.payload.identifiers;
+              const identifiers = dataRD.payload.identifiers;
               let no_doi = true;
               let pending = false;
               if (identifiers !== undefined && identifiers !== null) {
@@ -173,9 +222,9 @@ export class ItemStatusComponent implements OnInit {
               // If there is no DOI, or a pending/minted/null DOI, and the config is enabled, return true
               return registerConfigEnabled$.pipe(
                 map((enabled: boolean) => {
-                    return enabled && (pending || no_doi);
-                  }
-                ));
+                  return enabled && (pending || no_doi);
+                }),
+              );
             } else {
               return of(false);
             }
@@ -197,38 +246,37 @@ export class ItemStatusComponent implements OnInit {
                   op.setDisabled(!authorized);
                   op.setAuthorized(authorized);
                   return op;
-                })
+                }),
               );
             }
             return [op];
           }),
-          toArray()
+          toArray(),
         );
 
         let orcidOps$ = of([]);
         if (this.orcidAuthService.isLinkedToOrcid(item)) {
           orcidOps$ = this.orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid().pipe(
-              map((canDisconnect) => {
-                if (canDisconnect) {
-                  return [new ItemOperation('unlinkOrcid', `${currentUrl}/unlink-orcid`)];
-                }
-                return [];
-              })
-            );
+            map((canDisconnect) => {
+              if (canDisconnect) {
+                return [new ItemOperation('unlinkOrcid', `${currentUrl}/unlink-orcid`)];
+              }
+              return [];
+            }),
+          );
         }
 
         return combineLatest([ops$, orcidOps$]);
       }),
-      map(([ops, orcidOps]: [ItemOperation[], ItemOperation[]]) => [...ops, ...orcidOps])
+      map(([ops, orcidOps]: [ItemOperation[], ItemOperation[]]) => [...ops, ...orcidOps]),
     ).subscribe((ops) => this.operations$.next(ops));
 
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
-      map((item) => getItemPageRoute(item))
+      map((item) => getItemPageRoute(item)),
     );
 
   }
-
 
   /**
    * Get the current url without query params

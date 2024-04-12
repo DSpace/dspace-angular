@@ -1,30 +1,42 @@
-import {Injectable} from '@angular/core';
-import {dataService} from '../../../core/data/base/data-service.decorator';
-import {IdentifiableDataService} from '../../../core/data/base/identifiable-data.service';
-import {RequestService} from '../../../core/data/request.service';
-import {RemoteDataBuildService} from '../../../core/cache/builders/remote-data-build.service';
-import {ObjectCacheService} from '../../../core/cache/object-cache.service';
-import {HALEndpointService} from '../../../core/shared/hal-endpoint.service';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import { BehaviorSubject, from, Observable, of, scan } from 'rxjs';
-import { ADMIN_NOTIFY_MESSAGE } from '../models/admin-notify-message.resource-type';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
-import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { LdnServicesService } from '../../admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { Injectable } from '@angular/core';
+import {
+  BehaviorSubject,
+  from,
+  Observable,
+  of,
+  scan,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { PostRequest } from '../../../core/data/request.models';
+import { RequestService } from '../../../core/data/request.service';
 import { RestRequest } from '../../../core/data/rest-request.model';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+} from '../../../core/shared/operators';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { LdnServicesService } from '../../admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 
 /**
- * Injectable service responsible for fetching/sending data from/to the REST API on the messages endpoint.
+ * Injectable service responsible for fetching/sending data from/to the REST API on the messages' endpoint.
  *
  * @export
  * @class AdminNotifyMessagesService
  * @extends {IdentifiableDataService<AdminNotifyMessage>}
  */
-@Injectable()
-@dataService(ADMIN_NOTIFY_MESSAGE)
+@Injectable({ providedIn: 'root' })
 export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNotifyMessage> {
 
   protected reprocessEndpoint = 'enqueueretry';
@@ -51,13 +63,13 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
       mergeMap(message =>
         message.target || message.origin ? this.ldnServicesService.findById((message.target || message.origin).toString()).pipe(
           getAllSucceededRemoteDataPayload(),
-          map(detail => ({...message, ldnService: detail.name}))
+          map(detail => ({ ...message, ldnService: detail.name })),
         ) : of(message),
       ),
       mergeMap(message =>
         message.object || message.context  ? this.itemDataService.findById(message.object || message.context).pipe(
           getAllSucceededRemoteDataPayload(),
-          map(detail => ({...message, relatedItem: detail.name}))
+          map(detail => ({ ...message, relatedItem: detail.name })),
         ) : of(message),
       ),
       scan((acc: any, value: any) => [...acc, value], []),
@@ -93,7 +105,7 @@ export class AdminNotifyMessagesService extends IdentifiableDataService<AdminNot
           messages[indexOfMessageToUpdate] = detailedReprocessedMessage;
 
           return messages;
-        })
+        }),
       )),
     );
   }

@@ -2,8 +2,8 @@ import { autoserialize } from 'cerialize';
 
 export class SortOption {
   @autoserialize
-  name: string;
+    name: string;
 
   @autoserialize
-  metadata: string;
+    metadata: string;
 }

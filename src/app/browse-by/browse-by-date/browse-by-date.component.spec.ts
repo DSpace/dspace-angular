@@ -1,29 +1,49 @@
-import { BrowseByDateComponent } from './browse-by-date.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BrowseService } from '../../core/browse/browse.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { Community } from '../../core/shared/community.model';
-import { Item } from '../../core/shared/item.model';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
+import { BrowseService } from '../../core/browse/browse.service';
+import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
-import { cold } from 'jasmine-marbles';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { Community } from '../../core/shared/community.model';
+import { Item } from '../../core/shared/item.model';
+import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
+import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
+import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
+import { BrowseByDateComponent } from './browse-by-date.component';
 
 describe('BrowseByDateComponent', () => {
   let comp: BrowseByDateComponent;
@@ -36,9 +56,9 @@ describe('BrowseByDateComponent', () => {
     metadata: [
       {
         key: 'dc.title',
-        value: 'test community'
-      }
-    ]
+        value: 'test community',
+      },
+    ],
   });
 
   const firstItem = Object.assign(new Item(), {
@@ -46,48 +66,55 @@ describe('BrowseByDateComponent', () => {
     metadata: {
       'dc.date.issued': [
         {
-          value: '1950-01-01'
-        }
-      ]
-    }
+          value: '1950-01-01',
+        },
+      ],
+    },
   });
   const lastItem = Object.assign(new Item(), {
     id: 'last-item-id',
     metadata: {
       'dc.date.issued': [
         {
-          value: '1960-01-01'
-        }
-      ]
-    }
+          value: '1960-01-01',
+        },
+      ],
+    },
   });
 
-   const mockBrowseService = {
-     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
-     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
-     getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => null
-   };
+  const mockBrowseService = {
+    getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
+    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
+    getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => null,
+  };
 
   const mockDsoService = {
-    findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
+    findById: () => createSuccessfulRemoteDataObject$(mockCommunity),
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({}),
     queryParams: observableOf({}),
-    data: observableOf({ metadata: 'dateissued', metadataField: 'dc.date.issued' })
+    data: observableOf({ metadata: 'dateissued', metadataField: 'dc.date.issued' }),
   });
 
   const mockCdRef = Object.assign({
-    detectChanges: () => fixture.detectChanges()
+    detectChanges: () => fixture.detectChanges(),
   });
 
   paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BrowseByDateComponent, EnumKeysPipe, VarDirective],
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbModule,
+        BrowseByDateComponent,
+        EnumKeysPipe,
+        VarDirective,
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
@@ -95,10 +122,26 @@ describe('BrowseByDateComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: ChangeDetectorRef, useValue: mockCdRef },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: Store, useValue: {} },
+        { provide: APP_CONFIG, useValue: environment },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(BrowseByDateComponent, {
+        remove: {
+          imports: [
+            ComcolPageHeaderComponent,
+            ComcolPageLogoComponent,
+            ThemedComcolPageHandleComponent,
+            ComcolPageContentComponent,
+            ThemedComcolPageBrowseByComponent,
+            BrowseByComponent,
+            ThemedLoadingComponent,
+            ThemedBrowseByComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
