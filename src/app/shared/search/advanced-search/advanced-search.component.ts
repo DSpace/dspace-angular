@@ -1,7 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of as observableOf } from 'rxjs';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { FilterConfig, SearchConfig } from '../../../core/shared/search/search-filters/search-config.model';
+import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { Router } from '@angular/router';
+import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
+import { hasValue } from '../../empty.util';
 
 @Component({
   selector: 'ds-advanced-search',
@@ -12,6 +17,8 @@ export class AdvancedSearchComponent implements OnInit {
 
   @Input() configuration: string;
 
+  @Input() filtersConfig: SearchFilterConfig[];
+
   advancedFilters$: Observable<FilterConfig[]>;
 
   advancedFilterMap$: Observable<Map<string, FilterConfig>>;
@@ -20,8 +27,20 @@ export class AdvancedSearchComponent implements OnInit {
 
   currentOperator: string;
 
+  /**
+   * The value of the input field that is used to query for possible values for this filter
+   */
+  currentValue = '';
+
+  /**
+   * Emits the result values for this filter found by the current filter query
+   */
+  filterSearchResults$: Observable<InputSuggestion[]> = observableOf([]);
+
   constructor(
+    protected router: Router,
     protected searchConfigurationService: SearchConfigurationService,
+    protected searchFilterService: SearchFilterService,
   ) {
   }
 
@@ -42,6 +61,16 @@ export class AdvancedSearchComponent implements OnInit {
         return filterMap;
       }),
     );
+  }
+
+  findSuggestions(query: string): void {
+    if (hasValue(this.filtersConfig)) {
+      for (const filterConfig of this.filtersConfig) {
+        if (filterConfig.name === this.currentFilter) {
+          this.filterSearchResults$ = this.searchFilterService.findSuggestions(filterConfig, this.searchConfigurationService.searchOptions.value, query);
+        }
+      }
+    }
   }
 
 }

@@ -11,4 +11,16 @@
       {{ 'search.filters.operator.' + operator.operator + '.text' | translate }}
     </option>
   </select>
+  <ds-filter-input-suggestions [suggestions]="(filterSearchResults$ | async)"
+                               [placeholder]="'search.filters.filter.' + currentFilter + '.placeholder' | translate"
+                               [label]="'search.filters.filter.' + currentFilter + '.label' | translate"
+                               [action]="router.url"
+                               [name]="'f.' + currentFilter"
+                               [(ngModel)]="currentValue"
+                               (findSuggestions)="findSuggestions($event)"
+                               ngDefaultControl>
+  </ds-filter-input-suggestions>
+  <button [disabled]="currentValue === ''" class="btn btn-primary mt-2">
+    {{ 'search.sidebar.advanced-search.add' | translate }}
+  </button>
 </div>
