@@ -84,6 +84,7 @@ const sectionObject: SectionDataObject = {
   header: 'submit.progressbar.describe.stepone',
   id: 'traditionalpageone',
   sectionType: SectionsType.SubmissionForm,
+  extendsSectionType: undefined,
 };
 
 const testFormConfiguration = {
