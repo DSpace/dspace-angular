@@ -1,19 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { map, Observable, of as observableOf } from 'rxjs';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { map, Observable, of as observableOf, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { FilterConfig, SearchConfig } from '../../../core/shared/search/search-filters/search-config.model';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
-import { hasValue } from '../../empty.util';
+import { hasValue, isNotEmpty } from '../../empty.util';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 @Component({
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
 })
-export class AdvancedSearchComponent implements OnInit {
+export class AdvancedSearchComponent implements OnInit, OnDestroy {
 
   @Input() configuration: string;
 
@@ -37,8 +39,11 @@ export class AdvancedSearchComponent implements OnInit {
    */
   filterSearchResults$: Observable<InputSuggestion[]> = observableOf([]);
 
+  subs: Subscription[] = [];
+
   constructor(
     protected router: Router,
+    protected searchService: SearchService,
     protected searchConfigurationService: SearchConfigurationService,
     protected searchFilterService: SearchFilterService,
   ) {
@@ -63,6 +68,10 @@ export class AdvancedSearchComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    this.subs.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+
   findSuggestions(query: string): void {
     if (hasValue(this.filtersConfig)) {
       for (const filterConfig of this.filtersConfig) {
@@ -70,6 +79,17 @@ export class AdvancedSearchComponent implements OnInit {
           this.filterSearchResults$ = this.searchFilterService.findSuggestions(filterConfig, this.searchConfigurationService.searchOptions.value, query);
         }
       }
+    }
+  }
+
+  applyFilter(): void {
+    if (isNotEmpty(this.currentValue)) {
+      this.subs.push(this.searchConfigurationService.selectNewAppliedFilterParams(this.currentFilter, this.currentValue.trim(), this.currentOperator).pipe(take(1)).subscribe((params: Params) => {
+        void this.router.navigate([this.searchService.getSearchLink()], {
+          queryParams: params,
+        });
+        this.currentValue = '';
+      }));
     }
   }
 

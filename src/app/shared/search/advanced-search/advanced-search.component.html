@@ -1,12 +1,12 @@
 <h3>{{ 'search.sidebar.advanced-search.title' | translate }}</h3>
 <div *ngVar="advancedFilterMap$ | async as advancedFilterMap" class="advanced-search b-3 p-3">
   <h5>{{ 'search.sidebar.advanced-search.filter-by' | translate }}</h5>
-  <select [(ngModel)]="currentFilter" class="form-control mb-2">
+  <select [(ngModel)]="currentFilter" (keyup.enter)="applyFilter()" class="form-control mb-2">
     <option *ngFor="let advancedFilter of (advancedFilters$ | async) | keyvalue" [value]="advancedFilter.value.filter">
       {{ 'search.filters.filter.' + advancedFilter.value.filter + '.head' | translate }}
     </option>
   </select>
-  <select [(ngModel)]="currentOperator" class="form-control mb-2">
+  <select [(ngModel)]="currentOperator" (keyup.enter)="applyFilter()" class="form-control mb-2">
     <option *ngFor="let operator of advancedFilterMap.get(currentFilter)?.operators" [value]="operator.operator">
       {{ 'search.filters.operator.' + operator.operator + '.text' | translate }}
     </option>
@@ -17,10 +17,11 @@
                                [action]="router.url"
                                [name]="'f.' + currentFilter"
                                [(ngModel)]="currentValue"
+                               (submitSuggestion)="applyFilter()"
                                (findSuggestions)="findSuggestions($event)"
                                ngDefaultControl>
   </ds-filter-input-suggestions>
-  <button [disabled]="currentValue === ''" class="btn btn-primary mt-2">
+  <button (click)="applyFilter()" [disabled]="currentValue === ''" class="btn btn-primary mt-2">
     {{ 'search.sidebar.advanced-search.add' | translate }}
   </button>
 </div>
