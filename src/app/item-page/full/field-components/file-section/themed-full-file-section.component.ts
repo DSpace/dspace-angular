@@ -20,8 +20,6 @@ export class ThemedFullFileSectionComponent extends ThemedComponent<FullFileSect
 
   @Input() item: Item;
 
-  protected inAndOutputNames: (keyof FullFileSectionComponent & keyof this)[] = ['item'];
-
   protected getComponentName(): string {
     return 'FullFileSectionComponent';
   }

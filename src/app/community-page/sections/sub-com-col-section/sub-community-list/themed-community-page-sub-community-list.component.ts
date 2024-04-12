@@ -17,7 +17,6 @@ export class ThemedCommunityPageSubCommunityListComponent extends ThemedComponen
 
   @Input() community: Community;
   @Input() pageSize: number;
-  protected inAndOutputNames: (keyof CommunityPageSubCommunityListComponent & keyof this)[] = ['community', 'pageSize'];
 
   protected getComponentName(): string {
     return 'CommunityPageSubCommunityListComponent';

@@ -22,12 +22,6 @@ export class ThemedMediaViewerImageComponent extends ThemedComponent<MediaViewer
   @Input() preview?: boolean;
   @Input() image?: string;
 
-  protected inAndOutputNames: (keyof MediaViewerImageComponent & keyof this)[] = [
-    'images',
-    'preview',
-    'image',
-  ];
-
   protected getComponentName(): string {
     return 'MediaViewerImageComponent';
   }

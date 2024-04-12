@@ -19,10 +19,6 @@ export class ThemedLogInComponent extends ThemedComponent<LogInComponent> {
 
   @Input() isStandalonePage: boolean;
 
-  protected inAndOutputNames: (keyof LogInComponent & keyof this)[] = [
-    'isStandalonePage',
-  ];
-
   protected getComponentName(): string {
     return 'LogInComponent';
   }
