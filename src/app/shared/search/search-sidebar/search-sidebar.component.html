@@ -24,6 +24,8 @@
                                [inPlaceSearch]="inPlaceSearch"
                                (changeAppliedFilters)="changeAppliedFilters.emit($event)">
             </ds-themed-search-filters>
+            <ds-advanced-search [configuration]="configuration">
+            </ds-advanced-search>
             <ds-themed-search-settings [currentSortOption]="currentSortOption"
                                        [sortOptionsList]="sortOptionsList"></ds-themed-search-settings>
         </div>

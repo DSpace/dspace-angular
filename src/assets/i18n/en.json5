@@ -3620,6 +3620,8 @@
 
   "search.search-form.placeholder": "Search the repository ...",
 
+  "search.filters.applied.f.title": "Title",
+
   "search.filters.applied.f.author": "Author",
 
   "search.filters.applied.f.dateIssued.max": "End date",
@@ -3633,6 +3635,10 @@
   "search.filters.applied.f.entityType": "Item Type",
 
   "search.filters.applied.f.has_content_in_original_bundle": "Has files",
+
+  "search.filters.applied.f.original_bundle_filenames": "File name",
+
+  "search.filters.applied.f.original_bundle_descriptions": "File description",
 
   "search.filters.applied.f.itemtype": "Type",
 
@@ -3651,6 +3657,12 @@
   "search.filters.applied.f.supervisedBy": "Supervised by",
 
   "search.filters.applied.f.withdrawn": "Withdrawn",
+
+  "search.filters.filter.title.head": "Title",
+
+  "search.filters.filter.title.placeholder": "Title",
+
+  "search.filters.filter.title.label": "Search Title",
 
   "search.filters.filter.author.head": "Author",
 
@@ -3719,6 +3731,18 @@
   "search.filters.filter.expand": "Expand filter",
 
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
+
+  "search.filters.filter.original_bundle_filenames.head": "File name",
+
+  "search.filters.filter.original_bundle_filenames.placeholder": "File name",
+
+  "search.filters.filter.original_bundle_filenames.label": "Search File name",
+
+  "search.filters.filter.original_bundle_descriptions.head": "File description",
+
+  "search.filters.filter.original_bundle_descriptions.placeholder": "File description",
+
+  "search.filters.filter.original_bundle_descriptions.label": "Search File description",
 
   "search.filters.filter.itemtype.head": "Type",
 
@@ -3822,6 +3846,20 @@
 
   "search.filters.search.submit": "Submit",
 
+  "search.filters.operator.equals.text": "Equals",
+
+  "search.filters.operator.notequals.text": "Not Equals",
+
+  "search.filters.operator.authority.text": "Authority",
+
+  "search.filters.operator.notauthority.text": "Not Authority",
+
+  "search.filters.operator.contains.text": "Contains",
+
+  "search.filters.operator.notcontains.text": "Not Contains",
+
+  "search.filters.operator.query.text": "Query",
+
   "search.form.search": "Search",
 
   "search.form.search_dspace": "All repository",
@@ -3855,6 +3893,10 @@
   "search.sidebar.settings.rpp": "Results per page",
 
   "search.sidebar.settings.sort-by": "Sort By",
+
+  "search.sidebar.advanced-search.title": "Advanced Search",
+
+  "search.sidebar.advanced-search.filter-by": "Filter by",
 
   "search.sidebar.settings.title": "Settings",
 

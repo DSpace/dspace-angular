@@ -1,0 +1,14 @@
+<h3>{{ 'search.sidebar.advanced-search.title' | translate }}</h3>
+<div *ngVar="advancedFilterMap$ | async as advancedFilterMap" class="advanced-search b-3 p-3">
+  <h5>{{ 'search.sidebar.advanced-search.filter-by' | translate }}</h5>
+  <select [(ngModel)]="currentFilter" class="form-control mb-2">
+    <option *ngFor="let advancedFilter of (advancedFilters$ | async) | keyvalue" [value]="advancedFilter.value.filter">
+      {{ 'search.filters.filter.' + advancedFilter.value.filter + '.head' | translate }}
+    </option>
+  </select>
+  <select [(ngModel)]="currentOperator" class="form-control mb-2">
+    <option *ngFor="let operator of advancedFilterMap.get(currentFilter)?.operators" [value]="operator.operator">
+      {{ 'search.filters.operator.' + operator.operator + '.text' | translate }}
+    </option>
+  </select>
+</div>

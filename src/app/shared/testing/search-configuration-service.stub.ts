@@ -1,5 +1,6 @@
 import { BehaviorSubject, of as observableOf, Observable } from 'rxjs';
 import { Params } from '@angular/router';
+import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
 
 export class SearchConfigurationServiceStub {
 
@@ -26,6 +27,10 @@ export class SearchConfigurationServiceStub {
 
   getConfig () {
     return observableOf({ hasSucceeded: true, payload: [] });
+  }
+
+  getConfigurationSearchConfig(_configuration: string, _scope?: string): Observable<SearchConfig> {
+    return observableOf(new SearchConfig());
   }
 
   getAvailableConfigurationOptions() {
