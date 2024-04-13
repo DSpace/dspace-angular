@@ -15,6 +15,7 @@ import { AuthService } from '../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../../../core/shared/item.model';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
@@ -94,6 +95,7 @@ describe('ItemListElementComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
+        { provide: XSRFService, useValue: {} },
       ],
     }).overrideComponent(ItemListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

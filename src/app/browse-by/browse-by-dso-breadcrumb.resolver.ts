@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
+  ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -19,30 +20,28 @@ import {
 import { hasValue } from '../shared/empty.util';
 
 /**
- * The class that resolves the BreadcrumbConfig object for a DSpaceObject on a browse by page
+ * Method for resolving a breadcrumb config object
+ * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
+ * @param {RouterStateSnapshot} state The current RouterStateSnapshot
+ * @param {DSOBreadcrumbsService} breadcrumbService
+ * @param {DSpaceObjectDataService} dataService
+ * @returns BreadcrumbConfig object
  */
-@Injectable({ providedIn: 'root' })
-export class BrowseByDSOBreadcrumbResolver {
-  constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: DSpaceObjectDataService) {
+export const browseByDSOBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Community | Collection>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  breadcrumbService: DSOBreadcrumbsService = inject(DSOBreadcrumbsService),
+  dataService: DSpaceObjectDataService = inject(DSpaceObjectDataService),
+): Observable<BreadcrumbConfig<Community | Collection>> => {
+  const uuid = route.queryParams.scope;
+  if (hasValue(uuid)) {
+    return dataService.findById(uuid).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((object: Community | Collection) => {
+        return { provider: breadcrumbService, key: object, url: getDSORoute(object) };
+      }),
+    );
   }
-
-  /**
-   * Method for resolving a breadcrumb config object
-   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
-   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns BreadcrumbConfig object
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<Community | Collection>> {
-    const uuid = route.queryParams.scope;
-    if (hasValue(uuid)) {
-      return this.dataService.findById(uuid).pipe(
-        getFirstSucceededRemoteData(),
-        getRemoteDataPayload(),
-        map((object: Community | Collection) => {
-          return { provider: this.breadcrumbService, key: object, url: getDSORoute(object) };
-        }),
-      );
-    }
-    return undefined;
-  }
-}
+  return undefined;
+};

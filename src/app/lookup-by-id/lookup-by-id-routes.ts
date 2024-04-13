@@ -4,13 +4,13 @@ import {
 } from '@angular/router';
 
 import { isNotEmpty } from '../shared/empty.util';
-import { LookupGuard } from './lookup-guard';
+import { lookupGuard } from './lookup-guard';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 
 export const ROUTES: Route[] = [
   {
     matcher: urlMatcher,
-    canActivate: [LookupGuard],
+    canActivate: [lookupGuard],
     component: ThemedObjectNotFoundComponent,
   },
 ];

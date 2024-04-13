@@ -20,6 +20,7 @@ import { FileService } from '../../../../core/shared/file.service';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableModule } from '../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
@@ -87,6 +88,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
         { provide: FileService, useValue: fileService },
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
+        { provide: XSRFService, useValue: {} },
       ],
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {

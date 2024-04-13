@@ -2,9 +2,12 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import { Context } from '../core/shared/context.model';
+import { ViewMode } from '../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../shared/object-collection/collection-element-link.type';
+import { SelectionConfig } from '../shared/search/search-results/search-results.component';
+import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 
@@ -13,53 +16,85 @@ import { ConfigurationSearchPageComponent } from './configuration-search-page.co
  */
 @Component({
   selector: 'ds-themed-configuration-search-page',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
 })
 export class ThemedConfigurationSearchPageComponent extends ThemedComponent<ConfigurationSearchPageComponent> {
-  /**
-   * The configuration to use for the search options
-   * If empty, the configuration will be determined by the route parameter called 'configuration'
-   */
+
+  @Input() configurationList: SearchConfigurationOption[] = [];
+
+  @Input() context: Context;
+
   @Input() configuration: string;
 
-  /**
-   * The actual query for the fixed filter.
-   * If empty, the query will be determined by the route parameter called 'filter'
-   */
   @Input() fixedFilterQuery: string;
 
-  /**
-   * True when the search component should show results on the current page
-   */
+  @Input() useCachedVersionIfAvailable: boolean;
+
   @Input() inPlaceSearch: boolean;
 
-  /**
-   * Whether or not the search bar should be visible
-   */
+  @Input() linkType: CollectionElementLinkType;
+
+  @Input() paginationId: string;
+
   @Input() searchEnabled: boolean;
 
-  /**
-   * The width of the sidebar (bootstrap columns)
-   */
-  @Input()
-    sideBarWidth: number;
+  @Input() sideBarWidth: number;
 
-  /**
-   * The currently applied configuration (determines title of search)
-   */
-  @Input()
-    configuration$: Observable<string>;
+  @Input() searchFormPlaceholder: string;
 
-  /**
-   * The current context
-   */
-  @Input()
-    context: Context;
+  @Input() selectable: boolean;
 
-  protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] =
-    ['context', 'configuration', 'fixedFilterQuery', 'inPlaceSearch', 'searchEnabled', 'sideBarWidth'];
+  @Input() selectionConfig: SelectionConfig;
+
+  @Input() showCsvExport: boolean;
+
+  @Input() showSidebar: boolean;
+
+  @Input() showThumbnails: boolean;
+
+  @Input() showViewModes: boolean;
+
+  @Input() useUniquePageId: boolean;
+
+  @Input() viewModeList: ViewMode[];
+
+  @Input() showScopeSelector: boolean;
+
+  @Input() trackStatistics: boolean;
+
+  @Input() query: string;
+
+  @Input() scope: string;
+
+  @Input() hideScopeInUrl: boolean;
+
+  protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] = [
+    'configurationList',
+    'context',
+    'configuration',
+    'fixedFilterQuery',
+    'useCachedVersionIfAvailable',
+    'inPlaceSearch',
+    'linkType',
+    'paginationId',
+    'searchEnabled',
+    'sideBarWidth',
+    'searchFormPlaceholder',
+    'selectable',
+    'selectionConfig',
+    'showCsvExport',
+    'showSidebar',
+    'showThumbnails',
+    'showViewModes',
+    'useUniquePageId',
+    'viewModeList',
+    'showScopeSelector',
+    'trackStatistics',
+    'query',
+    'scope',
+    'hideScopeInUrl',
+  ];
 
   protected getComponentName(): string {
     return 'ConfigurationSearchPageComponent';

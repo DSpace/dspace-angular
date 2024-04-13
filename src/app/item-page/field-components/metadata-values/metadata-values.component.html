@@ -12,7 +12,7 @@
 
 <!-- Render value as markdown -->
 <ng-template #markdown let-value="value">
-  <span class="dont-break-out" [innerHTML]="value | dsMarkdown | async">
+  <span class="dont-break-out" [dsMarkdown]="value">
   </span>
 </ng-template>
 

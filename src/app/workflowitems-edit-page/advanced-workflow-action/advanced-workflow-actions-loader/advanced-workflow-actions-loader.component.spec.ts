@@ -63,7 +63,6 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
     }).overrideComponent(AdvancedWorkflowActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [AdvancedWorkflowActionTestComponent],
       },
     }).compileComponents();
   });

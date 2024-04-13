@@ -9,10 +9,11 @@ import {
   Component,
   Injector,
   OnInit,
+  runInInjectionContext,
 } from '@angular/core';
 import {
   ActivatedRoute,
-  CanActivate,
+  CanActivateFn,
   Route,
   Router,
   RouterLink,
@@ -28,7 +29,6 @@ import {
 import { map } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { Item } from '../../core/shared/item.model';
 import {
   fadeIn,
@@ -88,9 +88,10 @@ export class EditItemPageComponent implements OnInit {
       .map((child: Route) => {
         let enabled = observableOf(true);
         if (isNotEmpty(child.canActivate)) {
-          enabled = observableCombineLatest(child.canActivate.map((guardConstructor: GenericConstructor<CanActivate>) => {
-            const guard: CanActivate = this.injector.get<CanActivate>(guardConstructor);
-            return guard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
+          enabled = observableCombineLatest(child.canActivate.map((guardFn: CanActivateFn) => {
+            return runInInjectionContext(this.injector, () => {
+              return guardFn(this.route.snapshot, this.router.routerState.snapshot);
+            });
           }),
           ).pipe(
             map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true)),

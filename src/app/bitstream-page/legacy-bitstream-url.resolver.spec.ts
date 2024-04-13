@@ -4,10 +4,10 @@ import { TestScheduler } from 'rxjs/testing';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { RequestEntryState } from '../core/data/request-entry-state.model';
-import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
+import { legacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 
-describe(`LegacyBitstreamUrlResolver`, () => {
-  let resolver: LegacyBitstreamUrlResolver;
+describe(`legacyBitstreamUrlResolver`, () => {
+  let resolver: any;
   let bitstreamDataService: BitstreamDataService;
   let testScheduler;
   let remoteDataMocks;
@@ -33,7 +33,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
     bitstreamDataService = {
       findByItemHandle: () => undefined,
     } as any;
-    resolver = new LegacyBitstreamUrlResolver(bitstreamDataService);
+    resolver = legacyBitstreamUrlResolver;
   });
 
   describe(`resolve`, () => {
@@ -51,7 +51,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
       });
       it(`should call findByItemHandle with the handle, sequence id, and filename from the route`, () => {
         testScheduler.run(() => {
-          resolver.resolve(route, state);
+          resolver(route, state, bitstreamDataService);
           expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
             `${route.params.prefix}/${route.params.suffix}`,
             route.params.sequence_id,
@@ -78,7 +78,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
         });
         it(`should call findByItemHandle with the handle and filename from the route, and the sequence ID from the queryParams`, () => {
           testScheduler.run(() => {
-            resolver.resolve(route, state);
+            resolver(route, state, bitstreamDataService);
             expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
               `${route.params.prefix}/${route.params.suffix}`,
               route.queryParams.sequenceId,
@@ -100,7 +100,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
         });
         it(`should call findByItemHandle with the handle, and filename from the route`, () => {
           testScheduler.run(() => {
-            resolver.resolve(route, state);
+            resolver(route, state, bitstreamDataService);
             expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
               `${route.params.prefix}/${route.params.suffix}`,
               undefined,
@@ -123,7 +123,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
             c: remoteDataMocks.Error,
           };
 
-          expectObservable(resolver.resolve(route, state)).toBe(expected, values);
+          expectObservable(resolver(route, state, bitstreamDataService)).toBe(expected, values);
         });
       });
       it(`...succeeded`, () => {
@@ -138,7 +138,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
             c: remoteDataMocks.Success,
           };
 
-          expectObservable(resolver.resolve(route, state)).toBe(expected, values);
+          expectObservable(resolver(route, state, bitstreamDataService)).toBe(expected, values);
         });
       });
     });

@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
 
-import { I18nBreadcrumbResolver } from '../../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '../../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { AddBitstreamFormatComponent } from './add-bitstream-format/add-bitstream-format.component';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
-import { BitstreamFormatsResolver } from './bitstream-formats.resolver';
+import { bitstreamFormatsResolver } from './bitstream-formats.resolver';
 import { EditBitstreamFormatComponent } from './edit-bitstream-format/edit-bitstream-format.component';
 
 const BITSTREAMFORMAT_EDIT_PATH = ':id/edit';
@@ -19,7 +19,7 @@ export const ROUTES: Route[] = [
   },
   {
     path: BITSTREAMFORMAT_ADD_PATH,
-    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     providers,
     component: AddBitstreamFormatComponent,
     data: { breadcrumbKey: 'admin.registries.bitstream-formats.create' },
@@ -29,8 +29,8 @@ export const ROUTES: Route[] = [
     providers,
     component: EditBitstreamFormatComponent,
     resolve: {
-      bitstreamFormat: BitstreamFormatsResolver,
-      breadcrumb: I18nBreadcrumbResolver,
+      bitstreamFormat: bitstreamFormatsResolver,
+      breadcrumb: i18nBreadcrumbResolver,
     },
     data: { breadcrumbKey: 'admin.registries.bitstream-formats.edit' },
   },
