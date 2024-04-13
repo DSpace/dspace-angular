@@ -43,6 +43,7 @@ import { FormRowModel } from '../../../../../../core/config/models/config-submis
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { XSRFService } from '../../../../../../core/xsrf/xsrf.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
@@ -180,6 +181,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: SubmissionObjectDataService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },

@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -21,7 +22,11 @@ import { SidebarService } from './sidebar.service';
   templateUrl: './page-with-sidebar.component.html',
   animations: [pushInOut],
   standalone: true,
-  imports: [NgTemplateOutlet, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgTemplateOutlet,
+    NgIf,
+  ],
 })
 /**
  * This component takes care of displaying the sidebar properly on all viewports. It does not

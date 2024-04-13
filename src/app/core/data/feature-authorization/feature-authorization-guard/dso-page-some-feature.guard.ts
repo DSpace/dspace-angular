@@ -1,6 +1,6 @@
 import {
   ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -23,8 +23,10 @@ import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guar
  * This guard utilizes a resolver to retrieve the relevant object to check authorizations for
  */
 export abstract class DsoPageSomeFeatureGuard<T extends DSpaceObject> extends SomeFeatureAuthorizationGuard {
-  constructor(protected resolver: Resolve<RemoteData<T>>,
-              protected authorizationService: AuthorizationDataService,
+
+  protected abstract resolver: ResolveFn<RemoteData<DSpaceObject>>;
+
+  constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService) {
     super(authorizationService, router, authService);
@@ -35,14 +37,14 @@ export abstract class DsoPageSomeFeatureGuard<T extends DSpaceObject> extends So
    */
   getObjectUrl(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
     const routeWithObjectID = this.getRouteWithDSOId(route);
-    return (this.resolver.resolve(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
+    return (this.resolver(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
       getAllSucceededRemoteDataPayload(),
       map((dso) => dso.self),
     );
   }
 
   /**
-   * Method to resolve resolve (parent) route that contains the UUID of the DSO
+   * Method to resolve (parent) route that contains the UUID of the DSO
    * @param route The current route
    */
   protected getRouteWithDSOId(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {

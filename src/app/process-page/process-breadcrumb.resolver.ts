@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -16,30 +16,28 @@ import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 import { Process } from './processes/process.model';
 
 /**
- * This class represents a resolver that requests a specific process before the route is activated
+ * Method for resolving a process based on the parameters in the current route
+ * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
+ * @param {RouterStateSnapshot} state The current RouterStateSnapshot
+ * @param breadcrumbService
+ * @param processService
+ * @returns Observable<<RemoteData<Process>> Emits the found process based on the parameters in the current route,
+ * or an error if something went wrong
  */
-@Injectable({ providedIn: 'root' })
-export class ProcessBreadcrumbResolver implements Resolve<BreadcrumbConfig<Process>> {
-  constructor(protected breadcrumbService: ProcessBreadcrumbsService, private processService: ProcessDataService) {
-  }
+export const processBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Process>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  breadcrumbService: ProcessBreadcrumbsService = inject(ProcessBreadcrumbsService),
+  processService: ProcessDataService = inject(ProcessDataService),
+): Observable<BreadcrumbConfig<Process>> => {
+  const id = route.params.id;
 
-  /**
-   * Method for resolving a process based on the parameters in the current route
-   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
-   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Process>> Emits the found process based on the parameters in the current route,
-   * or an error if something went wrong
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<BreadcrumbConfig<Process>> {
-    const id = route.params.id;
-
-    return this.processService.findById(route.params.id, true, false, followLink('script')).pipe(
-      getFirstCompletedRemoteData(),
-      map((object: RemoteData<Process>) => {
-        const fullPath = state.url;
-        const url = fullPath.substr(0, fullPath.indexOf(id)) + id;
-        return { provider: this.breadcrumbService, key: object.payload, url: url };
-      }),
-    );
-  }
-}
+  return processService.findById(route.params.id, true, false, followLink('script')).pipe(
+    getFirstCompletedRemoteData(),
+    map((object: RemoteData<Process>) => {
+      const fullPath = state.url;
+      const url = fullPath.substring(0, fullPath.indexOf(id)).concat(id);
+      return { provider: breadcrumbService, key: object.payload, url: url };
+    }),
+  );
+};

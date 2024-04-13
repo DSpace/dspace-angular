@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -17,23 +17,19 @@ export const PROCESS_PAGE_FOLLOW_LINKS = [
 ];
 
 /**
- * This class represents a resolver that requests a specific process before the route is activated
+ * Method for resolving a process based on the parameters in the current route
+ * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
+ * @param {RouterStateSnapshot} state The current RouterStateSnapshot
+ * @param {ProcessDataService} processService
+ * @returns Observable<<RemoteData<Process>> Emits the found process based on the parameters in the current route,
+ * or an error if something went wrong
  */
-@Injectable({ providedIn: 'root' })
-export class ProcessPageResolver implements Resolve<RemoteData<Process>> {
-  constructor(private processService: ProcessDataService) {
-  }
-
-  /**
-   * Method for resolving a process based on the parameters in the current route
-   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
-   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Process>> Emits the found process based on the parameters in the current route,
-   * or an error if something went wrong
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Process>> {
-    return this.processService.findById(route.params.id, false, true, ...PROCESS_PAGE_FOLLOW_LINKS).pipe(
-      getFirstCompletedRemoteData(),
-    );
-  }
-}
+export const processPageResolver: ResolveFn<RemoteData<Process>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  processService: ProcessDataService = inject(ProcessDataService),
+): Observable<RemoteData<Process>> => {
+  return processService.findById(route.params.id, false, true, ...PROCESS_PAGE_FOLLOW_LINKS).pipe(
+    getFirstCompletedRemoteData(),
+  );
+};

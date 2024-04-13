@@ -38,6 +38,7 @@ import { ItemType } from '../../../../core/shared/item-relationships/item-type.m
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
@@ -257,6 +258,7 @@ describe('EditRelationshipListComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: XSRFService, useValue: {} },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: REQUEST, useValue: {} },
         CookieService,

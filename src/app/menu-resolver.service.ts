@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
   RouterStateSnapshot,
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -55,7 +54,7 @@ import { MenuState } from './shared/menu/menu-state.model';
 @Injectable({
   providedIn: 'root',
 })
-export class MenuResolver implements Resolve<boolean> {
+export class MenuResolverService  {
   constructor(
     protected menuService: MenuService,
     protected browseService: BrowseService,

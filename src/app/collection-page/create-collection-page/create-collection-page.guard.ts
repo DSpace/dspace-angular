@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
+  CanActivateFn,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
@@ -24,34 +24,29 @@ import {
 } from '../../shared/empty.util';
 
 /**
- * Prevent creation of a collection without a parent community provided
- * @class CreateCollectionPageGuard
+ * True when either a parent ID query parameter has been provided and the parent ID resolves to a valid parent community
+ * Reroutes to a 404 page when the page cannot be activated
  */
-@Injectable({ providedIn: 'root' })
-export class CreateCollectionPageGuard implements CanActivate {
-  public constructor(private router: Router, private communityService: CommunityDataService) {
+export const createCollectionPageGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  communityService: CommunityDataService = inject(CommunityDataService),
+  router: Router = inject(Router),
+): Observable<boolean> => {
+  const parentID = route.queryParams.parent;
+  if (hasNoValue(parentID)) {
+    router.navigate(['/404']);
+    return observableOf(false);
   }
+  return communityService.findById(parentID)
+    .pipe(
+      getFirstCompletedRemoteData(),
+      map((communityRD: RemoteData<Community>) => hasValue(communityRD) && communityRD.hasSucceeded && hasValue(communityRD.payload)),
+      tap((isValid: boolean) => {
+        if (!isValid) {
+          router.navigate(['/404']);
+        }
+      }),
+    );
+};
 
-  /**
-   * True when either a parent ID query parameter has been provided and the parent ID resolves to a valid parent community
-   * Reroutes to a 404 page when the page cannot be activated
-   * @method canActivate
-   */
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    const parentID = route.queryParams.parent;
-    if (hasNoValue(parentID)) {
-      this.router.navigate(['/404']);
-      return observableOf(false);
-    }
-    return this.communityService.findById(parentID)
-      .pipe(
-        getFirstCompletedRemoteData(),
-        map((communityRD: RemoteData<Community>) => hasValue(communityRD) && communityRD.hasSucceeded && hasValue(communityRD.payload)),
-        tap((isValid: boolean) => {
-          if (!isValid) {
-            this.router.navigate(['/404']);
-          }
-        }),
-      );
-  }
-}

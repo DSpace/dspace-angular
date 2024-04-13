@@ -39,7 +39,7 @@ export class ItemPageFieldComponent {
     @Input() item: Item;
 
     /**
-     * Whether the {@link MarkdownPipe} should be used to render this metadata.
+     * Whether the {@link MarkdownDirective} should be used to render this metadata.
      */
     enableMarkdown = false;
 

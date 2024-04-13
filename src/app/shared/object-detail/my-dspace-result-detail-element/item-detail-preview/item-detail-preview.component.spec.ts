@@ -32,6 +32,7 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { Item } from '../../../../core/shared/item.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { SearchServiceStub } from '../../../../shared/testing/search-service.stub';
@@ -114,6 +115,7 @@ describe('ItemDetailPreviewComponent', () => {
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },

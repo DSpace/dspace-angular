@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotifyInfoComponent } from './notify-info.component';
-import { NotifyInfoService } from './notify-info.service';
 
 describe('NotifyInfoComponent', () => {
   let component: NotifyInfoComponent;

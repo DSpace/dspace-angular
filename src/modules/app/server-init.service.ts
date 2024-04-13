@@ -8,10 +8,11 @@
 import {
   Inject,
   Injectable,
+  TransferState,
 } from '@angular/core';
-import { TransferState } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { AppState } from '../../app/app.reducer';
@@ -75,7 +76,7 @@ export class ServerInitService extends InitService {
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
 
-      await this.authenticationReady$().toPromise();
+      await lastValueFrom(this.authenticationReady$());
 
       return true;
     };

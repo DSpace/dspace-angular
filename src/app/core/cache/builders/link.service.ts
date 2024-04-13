@@ -1,7 +1,6 @@
 import {
   Inject,
   Injectable,
-  InjectionToken,
   Injector,
 } from '@angular/core';
 import {
@@ -25,7 +24,7 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { HALDataService } from '../../data/base/hal-data-service.interface';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
-import { lazyService } from '../../lazy-service';
+import { lazyDataService } from '../../lazy-data-service';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
 import {
@@ -43,7 +42,7 @@ export class LinkService {
 
   constructor(
     protected injector: Injector,
-    @Inject(APP_DATA_SERVICES_MAP) private map: InjectionToken<LazyDataServicesMap>,
+    @Inject(APP_DATA_SERVICES_MAP) private map: LazyDataServicesMap,
     @Inject(LINK_DEFINITION_FACTORY) private getLinkDefinition: <T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']) => LinkDefinition<T>,
     @Inject(LINK_DEFINITION_MAP_FACTORY) private getLinkDefinitions: <T extends HALResource>(source: GenericConstructor<T>) => Map<keyof T['_links'], LinkDefinition<T>>,
   ) {
@@ -73,7 +72,7 @@ export class LinkService {
   public resolveLinkWithoutAttaching<T extends HALResource, U extends HALResource>(model, linkToFollow: FollowLinkConfig<T>): Observable<RemoteData<U | PaginatedList<U>>> {
     const matchingLinkDef = this.getLinkDefinition(model.constructor, linkToFollow.name);
     if (hasValue(matchingLinkDef)) {
-      const lazyProvider$: Observable<HALDataService<any>> = lazyService(this.map[matchingLinkDef.resourceType.value], this.injector);
+      const lazyProvider$: Observable<HALDataService<any>> = lazyDataService(this.map, matchingLinkDef.resourceType.value, this.injector);
       return lazyProvider$.pipe(
         switchMap((provider: HALDataService<any>) => {
           const link = model._links[matchingLinkDef.linkName];

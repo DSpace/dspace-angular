@@ -1,12 +1,12 @@
 import { Route } from '@angular/router';
 
-import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
-import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { QualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
+import { authenticatedGuard } from '../../core/auth/authenticated.guard';
+import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { qualityAssuranceBreadcrumbResolver } from '../../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
 import { AdminNotificationsPublicationClaimPageResolver } from '../../quality-assurance-notifications-pages/notifications-suggestion-targets-page/notifications-suggestion-targets-page-resolver.service';
 import { QualityAssuranceEventsPageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.component';
-import { QualityAssuranceEventsPageResolver } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.resolver';
-import { SourceDataResolver } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-data.resolver';
+import { qualityAssuranceEventsPageResolver } from '../../quality-assurance-notifications-pages/quality-assurance-events-page/quality-assurance-events-page.resolver';
+import { qualityAssuranceSourceDataResolver } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-data.resolver';
 import { QualityAssuranceSourcePageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page.component';
 import { QualityAssuranceSourcePageResolver } from '../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { QualityAssuranceTopicsPageComponent } from '../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page.component';
@@ -19,12 +19,12 @@ import {
 
 export const ROUTES: Route[] = [
   {
-    canActivate: [ AuthenticatedGuard ],
+    canActivate: [ authenticatedGuard ],
     path: `${PUBLICATION_CLAIMS_PATH}`,
     component: AdminNotificationsPublicationClaimPageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
       suggestionTargetParams: AdminNotificationsPublicationClaimPageResolver,
     },
     data: {
@@ -34,12 +34,12 @@ export const ROUTES: Route[] = [
     },
   },
   {
-    canActivate: [AuthenticatedGuard],
+    canActivate: [authenticatedGuard],
     path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId`,
     component: QualityAssuranceTopicsPageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: QualityAssuranceBreadcrumbResolver,
+      breadcrumb: qualityAssuranceBreadcrumbResolver,
       openaireQualityAssuranceTopicsParams: QualityAssuranceTopicsPageResolver,
     },
     data: {
@@ -49,12 +49,12 @@ export const ROUTES: Route[] = [
     },
   },
   {
-    canActivate: [ AuthenticatedGuard ],
+    canActivate: [ authenticatedGuard ],
     path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/target/:targetId`,
     component: QualityAssuranceTopicsPageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
       openaireQualityAssuranceTopicsParams: QualityAssuranceTopicsPageResolver,
     },
     data: {
@@ -64,14 +64,14 @@ export const ROUTES: Route[] = [
     },
   },
   {
-    canActivate: [AuthenticatedGuard],
+    canActivate: [authenticatedGuard],
     path: `${QUALITY_ASSURANCE_EDIT_PATH}`,
     component: QualityAssuranceSourcePageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
       openaireQualityAssuranceSourceParams: QualityAssuranceSourcePageResolver,
-      sourceData: SourceDataResolver,
+      sourceData: qualityAssuranceSourceDataResolver,
     },
     data: {
       title: 'admin.notifications.source.breadcrumbs',
@@ -80,13 +80,13 @@ export const ROUTES: Route[] = [
     },
   },
   {
-    canActivate: [AuthenticatedGuard],
+    canActivate: [authenticatedGuard],
     path: `${QUALITY_ASSURANCE_EDIT_PATH}/:sourceId/:topicId`,
     component: QualityAssuranceEventsPageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: QualityAssuranceBreadcrumbResolver,
-      openaireQualityAssuranceEventsParams: QualityAssuranceEventsPageResolver,
+      breadcrumb: qualityAssuranceBreadcrumbResolver,
+      openaireQualityAssuranceEventsParams: qualityAssuranceEventsPageResolver,
     },
     data: {
       title: 'admin.notifications.event.page.title',
