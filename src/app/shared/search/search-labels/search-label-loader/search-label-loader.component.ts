@@ -1,6 +1,5 @@
-import { Component, ComponentRef, OnChanges, OnDestroy, OnInit, ViewChild, ViewContainerRef, SimpleChanges, Input } from '@angular/core';
+import { Component, ComponentRef, OnChanges, OnDestroy, OnInit, ViewChild, ViewContainerRef, SimpleChanges, Input, Type } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { GenericConstructor } from 'src/app/core/shared/generic-constructor';
 import { hasValue, isNotEmpty } from 'src/app/shared/empty.util';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { SearchLabelLoaderDirective } from './search-label-loader-directive.directive';
@@ -85,7 +84,7 @@ export class SearchLabelLoaderComponent implements OnInit, OnChanges, OnDestroy 
    * Creates the component and connects the @Input() & @Output() from the ThemedComponent to its child Component.
    */
   public instantiateComponent(): void {
-    const component: GenericConstructor<Component> = this.getComponent();
+    const component: Type<Component> = this.getComponent();
 
     const viewContainerRef: ViewContainerRef = this.componentDirective.viewContainerRef;
     viewContainerRef.clear();
@@ -113,8 +112,8 @@ export class SearchLabelLoaderComponent implements OnInit, OnChanges, OnDestroy 
   /**
    * Fetch the component depending on the item's entity type, metadata representation type and context
    */
-  public getComponent(): GenericConstructor<Component> {
-    return getSearchLabelByOperator(this.appliedFilter.operator);
+  public getComponent(): Type<Component> {
+    return getSearchLabelByOperator(this.appliedFilter.operator, this.themeService.getThemeName());
   }
 
   /**

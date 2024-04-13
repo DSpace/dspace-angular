@@ -15,13 +15,7 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
   selector: 'ds-search-label',
   templateUrl: './search-label.component.html',
 })
-@renderSearchLabelFor('equals')
-@renderSearchLabelFor('notequals')
-@renderSearchLabelFor('authority')
-@renderSearchLabelFor('notauthority')
-@renderSearchLabelFor('contains')
-@renderSearchLabelFor('notcontains')
-@renderSearchLabelFor('query')
+@renderSearchLabelFor()
 export class SearchLabelComponent implements OnInit {
   @Input() inPlaceSearch: boolean;
   @Input() appliedFilter: AppliedFilter;
