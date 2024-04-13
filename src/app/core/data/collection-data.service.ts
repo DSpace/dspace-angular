@@ -28,7 +28,10 @@ import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../shared/operators';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
@@ -84,7 +87,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
     });
 
     return this.searchBy(searchHref, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
-      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+      getAllCompletedRemoteData(),
+    );
   }
 
   /**
@@ -114,7 +118,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
     });
 
     return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
-      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+      getAllCompletedRemoteData(),
+    );
   }
 
   /**
@@ -138,7 +143,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
     });
 
     return this.searchBy(searchHref, options, reRequestOnStale).pipe(
-      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+      getAllCompletedRemoteData(),
+    );
   }
   /**
    * Get all collections the user is authorized to submit to, by community and has the metadata
@@ -169,7 +175,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
     });
 
     return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
-      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+      getAllCompletedRemoteData(),
+    );
   }
 
   /**
@@ -184,9 +191,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
     options.elementsPerPage = 1;
 
     return this.searchBy(searchHref, options).pipe(
-      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending),
-      take(1),
-      map((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.totalElements > 0),
+      getFirstCompletedRemoteData(),
+      map((collections: RemoteData<PaginatedList<Collection>>) => collections?.payload?.totalElements > 0),
     );
   }
 

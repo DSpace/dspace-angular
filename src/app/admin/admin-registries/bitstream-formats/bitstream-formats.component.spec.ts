@@ -31,6 +31,7 @@ import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
@@ -143,6 +144,7 @@ describe('BitstreamFormatsComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: GroupDataService, useValue: groupDataService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

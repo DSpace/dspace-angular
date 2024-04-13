@@ -314,6 +314,7 @@ export const environment: BuildConfig = {
   info: {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+    enableCOARNotifySupport: true,
   },
   markdown: {
     enabled: false,

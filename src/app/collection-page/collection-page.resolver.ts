@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import { AppState } from '../app.reducer';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { RemoteData } from '../core/data/remote-data';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
@@ -29,37 +30,32 @@ export const COLLECTION_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Collection>[] = [
 ];
 
 /**
- * This class represents a resolver that requests a specific collection before the route is activated
+ * Method for resolving a collection based on the parameters in the current route
+ * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
+ * @param {RouterStateSnapshot} state The current RouterStateSnapshot
+ * @param collectionService
+ * @param store
+ * @returns Observable<<RemoteData<Collection>> Emits the found collection based on the parameters in the current route,
+ * or an error if something went wrong
  */
-@Injectable({ providedIn: 'root' })
-export class CollectionPageResolver implements Resolve<RemoteData<Collection>> {
-  constructor(
-    private collectionService: CollectionDataService,
-    private store: Store<any>,
-  ) {
-  }
+export const collectionPageResolver: ResolveFn<RemoteData<Collection>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  collectionService: CollectionDataService = inject(CollectionDataService),
+  store: Store<AppState> = inject(Store<AppState>),
+): Observable<RemoteData<Collection>> => {
+  const collectionRD$ = collectionService.findById(
+    route.params.id,
+    true,
+    false,
+    ...COLLECTION_PAGE_LINKS_TO_FOLLOW,
+  ).pipe(
+    getFirstCompletedRemoteData(),
+  );
 
-  /**
-   * Method for resolving a collection based on the parameters in the current route
-   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
-   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Collection>> Emits the found collection based on the parameters in the current route,
-   * or an error if something went wrong
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Collection>> {
-    const collectionRD$ = this.collectionService.findById(
-      route.params.id,
-      true,
-      false,
-      ...COLLECTION_PAGE_LINKS_TO_FOLLOW,
-    ).pipe(
-      getFirstCompletedRemoteData(),
-    );
+  collectionRD$.subscribe((collectionRD: RemoteData<Collection>) => {
+    store.dispatch(new ResolvedAction(state.url, collectionRD.payload));
+  });
 
-    collectionRD$.subscribe((collectionRD: RemoteData<Collection>) => {
-      this.store.dispatch(new ResolvedAction(state.url, collectionRD.payload));
-    });
-
-    return collectionRD$;
-  }
-}
+  return collectionRD$;
+};

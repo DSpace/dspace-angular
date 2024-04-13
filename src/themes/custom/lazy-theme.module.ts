@@ -10,9 +10,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { IdlePreloadModule } from 'angular-idle-preload';
 
-import { AppModule } from '../../app/app.module';
 import { RootModule } from '../../app/root.module';
 import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
@@ -194,13 +192,11 @@ const DECLARATIONS = [
 
 @NgModule({
   imports: [
-    AppModule,
     RootModule,
     CommonModule,
     DragDropModule,
     FormsModule,
     HttpClientModule,
-    IdlePreloadModule,
     NgbModule,
     RouterModule,
     ScrollToModule,

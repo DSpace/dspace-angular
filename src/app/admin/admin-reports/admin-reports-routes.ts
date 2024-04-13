@@ -1,13 +1,13 @@
 import { Route } from '@angular/router';
 
-import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { FilteredCollectionsComponent } from './filtered-collections/filtered-collections.component';
 import { FilteredItemsComponent } from './filtered-items/filtered-items.component';
 
 export const ROUTES: Route[] = [
   {
     path: 'collections',
-    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     data: { title: 'admin.reports.collections.title', breadcrumbKey: 'admin.reports.collections' },
     children: [
       {
@@ -18,7 +18,7 @@ export const ROUTES: Route[] = [
   },
   {
     path: 'queries',
-    resolve: { breadcrumb: I18nBreadcrumbResolver },
+    resolve: { breadcrumb: i18nBreadcrumbResolver },
     data: { title: 'admin.reports.items.title', breadcrumbKey: 'admin.reports.items' },
     children: [
       {

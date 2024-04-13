@@ -53,6 +53,7 @@ import {
   DynamicFormValidationService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
+import { DynamicFormControlMapFn } from '@ng-dynamic-forms/core/lib/service/dynamic-form-component.service';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -74,7 +75,6 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-  DynamicFormControlFn,
 } from '../../../../../config/app-config.interface';
 import { AppState } from '../../../../app.reducer';
 import { ItemDataService } from '../../../../core/data/item-data.service';
@@ -214,7 +214,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     public formBuilderService: FormBuilderService,
     private submissionService: SubmissionService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlFn,
+    @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlMapFn,
   ) {
     super(ref, componentFactoryResolver, layoutService, validationService, dynamicFormComponentService, relationService);
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;

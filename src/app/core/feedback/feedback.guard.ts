@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
+  CanActivateFn,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -11,16 +11,13 @@ import { AuthorizationDataService } from '../data/feature-authorization/authoriz
 import { FeatureID } from '../data/feature-authorization/feature-id';
 
 /**
- * An guard for redirecting users to the feedback page if user is authorized
+ * A guard for redirecting users to the feedback page if user is authorized
  */
-@Injectable({ providedIn: 'root' })
-export class FeedbackGuard implements CanActivate {
+export const feedbackGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  authorizationService: AuthorizationDataService = inject(AuthorizationDataService),
+): Observable<boolean | UrlTree> => {
+  return authorizationService.isAuthorized(FeatureID.CanSendFeedback);
+};
 
-  constructor(private authorizationService: AuthorizationDataService) {
-  }
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
-    return this.authorizationService.isAuthorized(FeatureID.CanSendFeedback);
-  }
-
-}

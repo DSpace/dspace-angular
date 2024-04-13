@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import {
   ChangeDetectionStrategy,
   NO_ERRORS_SCHEMA,
@@ -13,10 +12,9 @@ import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
-  CanActivate,
+  CanActivateFn,
   RouterModule,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
 import {
   TranslateLoader,
@@ -32,29 +30,31 @@ import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { EditItemPageComponent } from './edit-item-page.component';
 
-describe('ItemPageComponent', () => {
+describe('EditItemPageComponent', () => {
   let comp: EditItemPageComponent;
   let fixture: ComponentFixture<EditItemPageComponent>;
 
-  class AcceptAllGuard implements CanActivate {
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return observableOf(true);
-    }
-  }
+  const AcceptAllGuard: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+  ): Observable<boolean> => {
+    return observableOf(true);
+  };
 
-  class AcceptNoneGuard implements CanActivate {
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return observableOf(false);
-    }
-  }
+  const AcceptNoneGuard: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+  ): Observable<boolean> => {
+    return observableOf(false);
+  };
 
-  const accesiblePages = ['accessible'];
-  const inaccesiblePages = ['inaccessible', 'inaccessibleDoubleGuard'];
+  const accessiblePages = ['accessible'];
+  const inaccessiblePages = ['inaccessible', 'inaccessibleDoubleGuard'];
   const mockRoute = {
     snapshot: {
       firstChild: {
         routeConfig: {
-          path: accesiblePages[0],
+          path: accessiblePages[0],
         },
       },
       routerState: {
@@ -64,25 +64,18 @@ describe('ItemPageComponent', () => {
     routeConfig: {
       children: [
         {
-          path: accesiblePages[0],
+          path: accessiblePages[0],
           canActivate: [AcceptAllGuard],
         }, {
-          path: inaccesiblePages[0],
+          path: inaccessiblePages[0],
           canActivate: [AcceptNoneGuard],
         }, {
-          path: inaccesiblePages[1],
+          path: inaccessiblePages[1],
           canActivate: [AcceptAllGuard, AcceptNoneGuard],
         },
       ],
     },
     data: observableOf({ dso: createSuccessfulRemoteDataObject(new Item()) }),
-  };
-
-  const mockRouter = {
-    routerState: {
-      snapshot: undefined,
-    },
-    events: observableOf(undefined),
   };
 
   beforeEach(waitForAsync(() => {
@@ -99,8 +92,6 @@ describe('ItemPageComponent', () => {
       ],
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
-        AcceptAllGuard,
-        AcceptNoneGuard,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(EditItemPageComponent, {
@@ -111,19 +102,19 @@ describe('ItemPageComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(EditItemPageComponent);
     comp = fixture.componentInstance;
-    spyOn((comp as any).injector, 'get').and.callFake((a) => new a());
+    // spyOn((comp as any).injector, 'get').and.callFake((a) => new a());
     fixture.detectChanges();
   }));
 
   describe('ngOnInit', () => {
     it('should enable tabs that the user can activate', fakeAsync(() => {
       const enabledItems = fixture.debugElement.queryAll(By.css('a.nav-link'));
-      expect(enabledItems.length).toBe(accesiblePages.length);
+      expect(enabledItems.length).toBe(accessiblePages.length);
     }));
 
     it('should disable tabs that the user can not activate', () => {
       const disabledItems = fixture.debugElement.queryAll(By.css('button.nav-link.disabled'));
-      expect(disabledItems.length).toBe(inaccesiblePages.length);
+      expect(disabledItems.length).toBe(inaccessiblePages.length);
     });
   });
 });

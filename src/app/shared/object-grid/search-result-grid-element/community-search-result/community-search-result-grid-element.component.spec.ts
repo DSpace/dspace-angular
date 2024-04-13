@@ -26,6 +26,7 @@ import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.ser
 import { Community } from '../../../../core/shared/community.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { StoreMock } from '../../../../shared/testing/store.mock';
@@ -100,6 +101,7 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CommunitySearchResultGridElementComponent, {

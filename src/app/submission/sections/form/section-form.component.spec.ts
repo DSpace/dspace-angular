@@ -282,7 +282,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       expect(comp.sectionData.errorsToShow).toEqual([]);
       expect(comp.sectionData.data).toEqual(sectionData);
       expect(comp.isLoading).toBeFalsy();
-      expect(comp.initForm).toHaveBeenCalledWith(sectionData);
+      expect(comp.initForm).toHaveBeenCalledWith(sectionData, [], []);
       expect(comp.subscriptions).toHaveBeenCalled();
     });
 
@@ -290,7 +290,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formBuilderService.modelFromConfiguration.and.returnValue(testFormModel);
       const sectionData = {};
 
-      comp.initForm(sectionData);
+      comp.initForm(sectionData, [], []);
 
       expect(comp.formModel).toEqual(testFormModel);
 
@@ -305,7 +305,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         path: '/sections/' + sectionObject.id,
       };
 
-      comp.initForm(sectionData);
+      comp.initForm(sectionData, [], []);
 
       expect(comp.formModel).toBeUndefined();
       expect(sectionsServiceStub.setSectionError).toHaveBeenCalledWith(submissionId, sectionObject.id, sectionError);
@@ -464,7 +464,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       compAsAny.formData = {};
       compAsAny.sectionMetadata = ['dc.title'];
 
-      comp.updateForm(sectionData, sectionError);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionError } as any);
 
       expect(comp.isUpdating).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalled();
@@ -476,15 +476,19 @@ describe('SubmissionSectionFormComponent test suite', () => {
     it('should update form error properly', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
-      const sectionData: any = {
+      const sectionData = {
         'dc.title': [new FormFieldMetadataValueObject('test')],
       };
+      const sectionState = {
+        data: sectionData,
+        errorsToShow: [{ path: '/test', message: 'test' }],
+      } as any;
       comp.sectionData.data = {};
       comp.sectionData.errorsToShow = [];
       compAsAny.formData = sectionData;
       compAsAny.sectionMetadata = ['dc.title'];
 
-      comp.updateForm(sectionData, parsedSectionErrors);
+      comp.updateForm(sectionState);
 
       expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
@@ -495,8 +499,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
       const sectionData: any = {};
+      const sectionErrors: any = [{ path: '/test', message: 'test' }];
 
-      comp.updateForm(sectionData, parsedSectionErrors);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionErrors } as any);
 
       expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
@@ -562,7 +567,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       const sectionState = {
         data: sectionData,
         errorsToShow: parsedSectionErrors,
-      };
+      } as any;
 
       formService.getFormData.and.returnValue(observableOf(formData));
       sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
@@ -571,7 +576,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.formData).toEqual(formData);
-      expect(comp.updateForm).toHaveBeenCalledWith(sectionState.data, sectionState.errorsToShow);
+      expect(comp.updateForm).toHaveBeenCalledWith(sectionState);
 
     });
 

@@ -1,39 +1,35 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { RemoteData } from '../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { WorkflowItem } from '../core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
 
 /**
- * This class represents a resolver that requests a specific workflow item before the route is activated
+ * Method for resolving a workflow item based on the parameters in the current route
+ * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
+ * @param {RouterStateSnapshot} state The current RouterStateSnapshot
+ * @param {WorkspaceitemDataService} workspaceItemService
+ * @returns Observable<<RemoteData<Item>> Emits the found workflow item based on the parameters in the current route,
+ * or an error if something went wrong
  */
-@Injectable({ providedIn: 'root' })
-export class WorkspaceItemPageResolver implements Resolve<RemoteData<WorkflowItem>> {
-  constructor(private workspaceItemService: WorkspaceitemDataService) {
-  }
-
-  /**
-   * Method for resolving a workflow item based on the parameters in the current route
-   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
-   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Item>> Emits the found workflow item based on the parameters in the current route,
-   * or an error if something went wrong
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<WorkflowItem>> {
-    return this.workspaceItemService.findById(route.params.id,
-      true,
-      false,
-      followLink('item'),
-    ).pipe(
-      getFirstCompletedRemoteData(),
-    );
-  }
-}
+export const workspaceItemPageResolver: ResolveFn<RemoteData<WorkspaceItem>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  workspaceItemService: WorkspaceitemDataService = inject(WorkspaceitemDataService),
+): Observable<RemoteData<WorkspaceItem>> => {
+  return workspaceItemService.findById(route.params.id,
+    true,
+    false,
+    followLink('item'),
+  ).pipe(
+    getFirstCompletedRemoteData(),
+  );
+};

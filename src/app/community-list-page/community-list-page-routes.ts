@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedCommunityListPageComponent } from './themed-community-list-page.component';
 
 /**
@@ -12,7 +12,7 @@ export const ROUTES: Route[] = [
     component: ThemedCommunityListPageComponent,
     pathMatch: 'full',
     resolve: {
-      breadcrumb: I18nBreadcrumbResolver,
+      breadcrumb: i18nBreadcrumbResolver,
     },
     data: { title: 'communityList.tabTitle', breadcrumbKey: 'communityList' },
   },
