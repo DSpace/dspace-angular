@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ObjectNotFoundComponent } from './objectnotfound.component';
 
@@ -9,6 +10,7 @@ import { ObjectNotFoundComponent } from './objectnotfound.component';
   selector: 'ds-themed-objnotfound',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedObjectNotFoundComponent extends ThemedComponent<ObjectNotFoundComponent> {
   protected getComponentName(): string {

@@ -22,7 +22,7 @@
                Checkboxes that are in the indeterminate state always switch to checked when clicked
                This seemed like the cleanest and clearest solution to solve this issue for now. -->
 
-          <input *ngIf="!allSelected && !(someSelected$ | async)"
+          <input *ngIf="!allSelected && (someSelected$ | async) !== true"
                  type="checkbox"
                  [indeterminate]="false"
                  (change)="selectAll()">

@@ -1,5 +1,9 @@
-import { RemoveNameVariantAction, SetNameVariantAction } from './name-variant.actions';
 import { Action } from '@ngrx/store';
+
+import {
+  RemoveNameVariantAction,
+  SetNameVariantAction,
+} from './name-variant.actions';
 import { nameVariantReducer } from './name-variant.reducer';
 
 class NullAction implements Action {

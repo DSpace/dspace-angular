@@ -1,20 +1,36 @@
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { hasValue } from '../../../../../empty.util';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { FacetValue } from '../../../../models/facet-value.model';
 import { currentPath } from '../../../../../utils/route.utils';
+import { FacetValue } from '../../../../models/facet-value.model';
+import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { getFacetValueForType } from '../../../../search.utils';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
   styleUrls: ['./search-facet-selected-option.component.scss'],
   templateUrl: './search-facet-selected-option.component.html',
+  standalone: true,
+  imports: [RouterLink, TranslateModule],
 })
 
 /**
@@ -60,7 +76,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
-              protected paginationService: PaginationService
+              protected paginationService: PaginationService,
   ) {
   }
 
@@ -95,7 +111,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
       [this.filterConfig.paramName]: selectedValues
         .filter((facetValue: FacetValue) => facetValue.label !== this.selectedValue.label)
         .map((facetValue: FacetValue) => this.getFacetValue(facetValue)),
-      [page]: 1
+      [page]: 1,
     };
   }
   /**

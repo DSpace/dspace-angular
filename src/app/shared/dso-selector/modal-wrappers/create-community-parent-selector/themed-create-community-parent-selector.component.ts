@@ -1,27 +1,29 @@
-import {Component} from '@angular/core';
-import {CreateCommunityParentSelectorComponent} from './create-community-parent-selector.component';
-import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
+import { Component } from '@angular/core';
+import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
+
+import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 
 /**
  * Themed wrapper for CreateCommunityParentSelectorComponent
  */
 @Component({
-    selector: 'ds-themed-create-community-parent-selector',
-    styleUrls: [],
-    templateUrl: '../../../theme-support/themed.component.html'
+  selector: 'ds-themed-create-community-parent-selector',
+  styleUrls: [],
+  templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCreateCommunityParentSelectorComponent
-    extends ThemedComponent<CreateCommunityParentSelectorComponent> {
-    protected getComponentName(): string {
-        return 'CreateCommunityParentSelectorComponent';
-    }
+  extends ThemedComponent<CreateCommunityParentSelectorComponent> {
+  protected getComponentName(): string {
+    return 'CreateCommunityParentSelectorComponent';
+  }
 
-    protected importThemedComponent(themeName: string): Promise<any> {
-        return import(`../../../../../themes/${themeName}/app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component`);
-    }
+  protected importThemedComponent(themeName: string): Promise<any> {
+    return import(`../../../../../themes/${themeName}/app/shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component`);
+  }
 
-    protected importUnthemedComponent(): Promise<any> {
-        return import('./create-community-parent-selector.component');
-    }
+  protected importUnthemedComponent(): Promise<any> {
+    return import('./create-community-parent-selector.component');
+  }
 
 }

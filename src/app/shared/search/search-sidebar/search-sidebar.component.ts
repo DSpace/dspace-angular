@@ -1,12 +1,26 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
-import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
+import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
+import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
+import { SearchSwitchConfigurationComponent } from '../search-switch-configuration/search-switch-configuration.component';
 
 /**
  * This component renders a simple item page.
@@ -18,6 +32,8 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
   selector: 'ds-search-sidebar',
   styleUrls: ['./search-sidebar.component.scss'],
   templateUrl: './search-sidebar.component.html',
+  standalone: true,
+  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule],
 })
 
 /**

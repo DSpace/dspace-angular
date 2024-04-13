@@ -1,4 +1,7 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 /**
  * Stub service for {@link RequestService}.

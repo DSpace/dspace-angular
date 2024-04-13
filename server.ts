@@ -32,6 +32,7 @@ import isbot from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
+import { createHttpTerminator } from 'http-terminator';
 
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -47,7 +48,7 @@ import { hasNoValue, hasValue } from './src/app/shared/empty.util';
 
 import { UIServerConfig } from './src/config/ui-server-config.interface';
 
-import { ServerAppModule } from './src/main.server';
+import bootstrap from './src/main.server';
 
 import { buildAppConfig } from './src/config/config.server';
 import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
@@ -129,7 +130,8 @@ export function app() {
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', (_, options, callback) =>
     ngExpressEngine({
-      bootstrap: ServerAppModule,
+      bootstrap,
+      inlineCriticalCss: environment.universal.inlineCriticalCss,
       providers: [
         {
           provide: REQUEST,
@@ -141,10 +143,10 @@ export function app() {
         },
         {
           provide: APP_CONFIG,
-          useValue: environment
-        }
-      ]
-    })(_, (options as any), callback)
+          useValue: environment,
+        },
+      ],
+    })(_, (options as any), callback),
   );
 
   server.engine('ejs', ejs.renderFile);
@@ -161,7 +163,7 @@ export function app() {
   server.get('/robots.txt', (req, res) => {
     res.setHeader('content-type', 'text/plain');
     res.render('assets/robots.txt.ejs', {
-      'origin': req.protocol + '://' + req.headers.host
+      'origin': req.protocol + '://' + req.headers.host,
     });
   });
 
@@ -176,7 +178,7 @@ export function app() {
   router.use('/sitemap**', createProxyMiddleware({
     target: `${environment.rest.baseUrl}/sitemaps`,
     pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
-    changeOrigin: true
+    changeOrigin: true,
   }));
 
   /**
@@ -185,7 +187,7 @@ export function app() {
   router.use('/signposting**', createProxyMiddleware({
     target: `${environment.rest.baseUrl}`,
     pathRewrite: path => path.replace(environment.ui.nameSpace, '/'),
-    changeOrigin: true
+    changeOrigin: true,
   }));
 
   /**
@@ -196,7 +198,7 @@ export function app() {
     const RateLimit = require('express-rate-limit');
     const limiter = new RateLimit({
       windowMs: (environment.ui as UIServerConfig).rateLimiter.windowMs,
-      max: (environment.ui as UIServerConfig).rateLimiter.max
+      max: (environment.ui as UIServerConfig).rateLimiter.max,
     });
     server.use(limiter);
   }
@@ -320,22 +322,23 @@ function initCache() {
   if (botCacheEnabled()) {
     // Initialize a new "least-recently-used" item cache (where least recently used pages are removed first)
     // See https://www.npmjs.com/package/lru-cache
-    // When enabled, each page defaults to expiring after 1 day
+    // When enabled, each page defaults to expiring after 1 day (defined in default-app-config.ts)
     botCache = new LRU( {
       max: environment.cache.serverSide.botCache.max,
-      ttl: environment.cache.serverSide.botCache.timeToLive || 24 * 60 * 60 * 1000, // 1 day
-      allowStale: environment.cache.serverSide.botCache.allowStale ?? true // if object is stale, return stale value before deleting
+      ttl: environment.cache.serverSide.botCache.timeToLive,
+      allowStale: environment.cache.serverSide.botCache.allowStale,
     });
   }
 
   if (anonymousCacheEnabled()) {
     // NOTE: While caches may share SSR pages, this cache must be kept separately because the timeToLive
     // may expire pages more frequently.
-    // When enabled, each page defaults to expiring after 10 seconds (to minimize anonymous users seeing out-of-date content)
+    // When enabled, each page defaults to expiring after 10 seconds (defined in default-app-config.ts)
+    // to minimize anonymous users seeing out-of-date content
     anonymousCache = new LRU( {
       max: environment.cache.serverSide.anonymousCache.max,
-      ttl: environment.cache.serverSide.anonymousCache.timeToLive || 10 * 1000, // 10 seconds
-      allowStale: environment.cache.serverSide.anonymousCache.allowStale ?? true // if object is stale, return stale value before deleting
+      ttl: environment.cache.serverSide.anonymousCache.timeToLive,
+      allowStale: environment.cache.serverSide.anonymousCache.allowStale,
     });
   }
 }
@@ -413,7 +416,7 @@ function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, r
   const key = getCacheKey(req);
 
   // Check if this page is in our cache
-  let cachedCopy = cache.get(key);
+  const cachedCopy = cache.get(key);
   if (cachedCopy) {
     if (environment.cache.serverSide.debug) { console.log(`CACHE HIT FOR ${key} in ${cacheName} cache`); }
 
@@ -487,7 +490,7 @@ function saveToCache(req, page: any) {
  */
 function hasNotSucceeded(statusCode) {
   const rgx = new RegExp(/^20+/);
-  return !rgx.test(statusCode)
+  return !rgx.test(statusCode);
 }
 
 function retrieveHeaders(response) {
@@ -525,22 +528,45 @@ function serverStarted() {
  * @param keys SSL credentials
  */
 function createHttpsServer(keys) {
-  createServer({
+  const listener = createServer({
     key: keys.serviceKey,
-    cert: keys.certificate
+    cert: keys.certificate,
   }, app).listen(environment.ui.port, environment.ui.host, () => {
     serverStarted();
   });
+
+  // Graceful shutdown when signalled
+  const terminator = createHttpTerminator({ server: listener });
+  process.on('SIGINT', () => {
+    void (async ()=> {
+      console.debug('Closing HTTPS server on signal');
+      await terminator.terminate().catch(e => { console.error(e); });
+      console.debug('HTTPS server closed');
+    })();
+  });
 }
 
+/**
+ * Create an HTTP server with the configured port and host.
+ */
 function run() {
   const port = environment.ui.port || 4000;
   const host = environment.ui.host || '/';
 
   // Start up the Node server
   const server = app();
-  server.listen(port, host, () => {
+  const listener = server.listen(port, host, () => {
     serverStarted();
+  });
+
+  // Graceful shutdown when signalled
+  const terminator = createHttpTerminator({ server: listener });
+  process.on('SIGINT', () => {
+    void (async () => {
+      console.debug('Closing HTTP server on signal');
+      await terminator.terminate().catch(e => { console.error(e); });
+      console.debug('HTTP server closed.');return undefined;
+    })();
   });
 }
 
@@ -572,7 +598,7 @@ function start() {
     if (serviceKey && certificate) {
       createHttpsServer({
         serviceKey: serviceKey,
-        certificate: certificate
+        certificate: certificate,
       });
     } else {
       console.warn('Disabling certificate validation and proceeding with a self-signed certificate. If this is a production server, it is recommended that you configure a valid certificate instead.');
@@ -581,7 +607,7 @@ function start() {
 
       createCertificate({
         days: 1,
-        selfSigned: true
+        selfSigned: true,
       }, (error, keys) => {
         createHttpsServer(keys);
       });
@@ -602,7 +628,7 @@ function healthCheck(req, res) {
     })
     .catch((error) => {
       res.status(error.response.status).send({
-        error: error.message
+        error: error.message,
       });
     });
 }

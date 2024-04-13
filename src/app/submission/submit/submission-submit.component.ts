@@ -1,20 +1,39 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { debounceTime, switchMap } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  switchMap,
+} from 'rxjs/operators';
 
-import { hasValue, isEmpty, isNotEmptyOperator, isNotNull } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmptyOperator,
+  isNotNull,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionService } from '../submission.service';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { Item } from '../../core/shared/item.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { getAllSucceededRemoteData } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { ItemDataService } from '../../core/data/item-data.service';
 
 /**
  * This component allows to submit a new workspaceitem.
@@ -22,7 +41,8 @@ import { ItemDataService } from '../../core/data/item-data.service';
 @Component({
   selector: 'ds-submission-submit',
   styleUrls: ['./submission-submit.component.scss'],
-  templateUrl: './submission-submit.component.html'
+  templateUrl: './submission-submit.component.html',
+  standalone: true,
 })
 export class SubmissionSubmitComponent implements OnDestroy, OnInit {
 
@@ -120,14 +140,14 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
               this.router.navigate(['/mydspace']);
             } else {
-              this.router.navigate(['/workspaceitems', submissionObject.id, 'edit'], { replaceUrl: true});
+              this.router.navigate(['/workspaceitems', submissionObject.id, 'edit'], { replaceUrl: true });
             }
           }
         }),
       this.itemLink$.pipe(
         isNotEmptyOperator(),
         switchMap((itemLink: string) =>
-          this.itemDataService.findByHref(itemLink)
+          this.itemDataService.findByHref(itemLink),
         ),
         getAllSucceededRemoteData(),
         // Multiple sources can update the item in quick succession.
@@ -136,7 +156,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
       ).subscribe((itemRd: RemoteData<Item>) => {
         this.item = itemRd.payload;
         this.changeDetectorRef.detectChanges();
-      })
+      }),
     );
   }
 

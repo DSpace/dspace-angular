@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { ItemStatusComponent } from './item-status.component';
 
@@ -6,6 +7,7 @@ import { ItemStatusComponent } from './item-status.component';
   selector: 'ds-themed-item-status',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedItemStatusComponent extends ThemedComponent<ItemStatusComponent> {
   protected getComponentName(): string {

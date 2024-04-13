@@ -1,33 +1,45 @@
 // eslint-disable-next-line max-classes-per-file
 import { Injectable } from '@angular/core';
-import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
-import { dataService } from '../data/base/data-service.decorator';
-import { isNotEmpty, isNotEmptyOperator, hasValue } from '../../shared/empty.util';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
-import { BrowseDefinitionRestRequest } from '../data/request.models';
+
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../data/base/find-all-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { BrowseDefinitionRestRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 
 /**
  * Create a GET request for the given href, and send it.
  * Use a GET request specific for BrowseDefinitions.
  */
 export const createAndSendBrowseDefinitionGetRequest = (requestService: RequestService,
-                                                        responseMsToLive: number,
-                                                        href$: string | Observable<string>,
-                                                        useCachedVersionIfAvailable: boolean = true): void => {
+  responseMsToLive: number,
+  href$: string | Observable<string>,
+  useCachedVersionIfAvailable: boolean = true): void => {
   if (isNotEmpty(href$)) {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
@@ -35,7 +47,7 @@ export const createAndSendBrowseDefinitionGetRequest = (requestService: RequestS
 
     href$.pipe(
       isNotEmptyOperator(),
-      take(1)
+      take(1),
     ).subscribe((href: string) => {
       const requestId = requestService.generateRequestId();
       const request = new BrowseDefinitionRestRequest(requestId, href);
@@ -62,7 +74,6 @@ class BrowseDefinitionFindAllDataImpl extends FindAllDataImpl<BrowseDefinition> 
 @Injectable({
   providedIn: 'root',
 })
-@dataService(BROWSE_DEFINITION)
 export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseDefinition> implements FindAllData<BrowseDefinition>, SearchData<BrowseDefinition> {
   private findAllData: BrowseDefinitionFindAllDataImpl;
   private searchData: SearchDataImpl<BrowseDefinition>;
@@ -150,7 +161,7 @@ export class BrowseDefinitionDataService extends IdentifiableDataService<BrowseD
     const hrefObs = this.getSearchByHref(
       'byFields',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findByHref(

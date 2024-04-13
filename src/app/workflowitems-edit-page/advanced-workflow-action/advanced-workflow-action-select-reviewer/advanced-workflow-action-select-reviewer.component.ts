@@ -1,27 +1,37 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Location } from '@angular/common';
 import {
-  rendersAdvancedWorkflowTaskOption
-} from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
-import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
+  CommonModule,
+  Location,
+} from '@angular/common';
 import {
-  SelectReviewerAdvancedWorkflowInfo
-} from '../../../core/tasks/models/select-reviewer-advanced-workflow-info.model';
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
-  EPersonListActionConfig
-} from '../../../access-control/group-registry/group-form/members-list/members-list.component';
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { RouteService } from '../../../core/services/route.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
+
+import { EPersonListActionConfig } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { RequestService } from '../../../core/data/request.service';
+import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { RouteService } from '../../../core/services/route.service';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
+import { SelectReviewerAdvancedWorkflowInfo } from '../../../core/tasks/models/select-reviewer-advanced-workflow-info.model';
+import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
+import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
+import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
 
 export const ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER = 'submit_select_reviewer';
 export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
@@ -29,11 +39,17 @@ export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
 /**
  * The page on which Review Managers can assign Reviewers to review an item.
  */
-@rendersAdvancedWorkflowTaskOption(ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER)
 @Component({
   selector: 'ds-advanced-workflow-action-select-reviewer',
   templateUrl: './advanced-workflow-action-select-reviewer.component.html',
   styleUrls: ['./advanced-workflow-action-select-reviewer.component.scss'],
+  imports: [
+    CommonModule,
+    ModifyItemOverviewComponent,
+    TranslateModule,
+    ReviewersListComponent,
+  ],
+  standalone: true,
 })
 export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkflowActionComponent implements OnInit, OnDestroy {
 
@@ -84,7 +100,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
         remove: {
           css: 'btn-outline-danger',
           disabled: false,
-          icon: 'fas fa-minus'
+          icon: 'fas fa-minus',
         },
       };
     } else {
@@ -97,7 +113,7 @@ export class AdvancedWorkflowActionSelectReviewerComponent extends AdvancedWorkf
         remove: {
           css: 'btn-primary',
           disabled: true,
-          icon: 'fas fa-check'
+          icon: 'fas fa-check',
         },
       };
     }

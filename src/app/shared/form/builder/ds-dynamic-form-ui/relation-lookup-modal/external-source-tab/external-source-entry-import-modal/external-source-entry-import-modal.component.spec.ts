@@ -1,20 +1,33 @@
-import { ExternalSourceEntryImportModalComponent, ImportType } from './external-source-entry-import-modal.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  NgbActiveModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
+import { Collection } from '../../../../../../../core/shared/collection.model';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
-import { Collection } from '../../../../../../../core/shared/collection.model';
-import { RelationshipOptions } from '../../../../models/relationship-options.model';
-import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
-import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
+import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
+import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
+import { SearchResultsComponent } from '../../../../../../search/search-results/search-results.component';
 import { createPaginatedList } from '../../../../../../testing/utils.test';
+import { RelationshipOptions } from '../../../../models/relationship-options.model';
+import {
+  ExternalSourceEntryImportModalComponent,
+  ImportType,
+} from './external-source-entry-import-modal.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: ExternalSourceEntryImportModalComponent;
@@ -33,10 +46,10 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     metadata: {
       'dc.identifier.uri': [
         {
-          value: uri
-        }
-      ]
-    }
+          value: uri,
+        },
+      ],
+    },
   });
 
   const label = 'Author';
@@ -54,12 +67,12 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   function init() {
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
       getLocalResults: createSuccessfulRemoteDataObject$(createPaginatedList([searchResult1, searchResult2, searchResult3])),
-      removeLocalResultsCache: {}
+      removeLocalResultsCache: {},
     });
     selectService = jasmine.createSpyObj('selectService', ['deselectAll']);
     notificationsService = jasmine.createSpyObj('notificationsService', ['success']);
     itemService = jasmine.createSpyObj('itemService', {
-      importExternalSourceEntry: createSuccessfulRemoteDataObject$(importedItem)
+      importExternalSourceEntry: createSuccessfulRemoteDataObject$(importedItem),
     });
     modalStub = jasmine.createSpyObj('modal', ['close']);
   }
@@ -67,17 +80,26 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ExternalSourceEntryImportModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        NgbModule,
+        ExternalSourceEntryImportModalComponent,
+        NoopAnimationsModule,
+      ],
       providers: [
         { provide: LookupRelationService, useValue: lookupRelationService },
         { provide: SelectableListService, useValue: selectService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ItemDataService, useValue: itemService },
-        { provide: NgbActiveModal, useValue: modalStub }
+        { provide: NgbActiveModal, useValue: modalStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ExternalSourceEntryImportModalComponent, {
+        remove: { imports: [SearchResultsComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

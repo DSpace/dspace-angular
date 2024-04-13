@@ -1,16 +1,35 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { fadeIn, fadeInOut } from '../../animations/fade';
-import { SearchResult } from '../models/search-result.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { hasNoValue, isNotEmpty } from '../../empty.util';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
-import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Context } from '../../../core/shared/context.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../animations/fade';
+import {
+  hasNoValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { ErrorComponent } from '../../error/error.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
+import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchResult } from '../models/search-result.model';
+import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 
 export interface SelectionConfig {
   repeatable: boolean;
@@ -22,8 +41,10 @@ export interface SelectionConfig {
   templateUrl: './search-results.component.html',
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
+  standalone: true,
+  imports: [NgIf, SearchExportCsvComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, RouterLink, TranslateModule],
 })
 
 /**

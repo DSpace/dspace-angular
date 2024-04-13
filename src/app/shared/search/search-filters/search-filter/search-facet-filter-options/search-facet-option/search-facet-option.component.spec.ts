@@ -1,24 +1,36 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { ActivatedRouteStub } from '../../../../../../shared/testing/active-router.stub';
+import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
+import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RouterStub } from '../../../../../testing/router.stub';
 import { SearchServiceStub } from '../../../../../testing/search-service.stub';
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { FilterType } from '../../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchFacetOptionComponent } from './search-facet-option.component';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
-import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
@@ -44,7 +56,7 @@ describe('SearchFacetOptionComponent', () => {
     filterType: FilterType.authority,
     hasFacets: false,
     isOpenByDefault: false,
-    pageSize: 2
+    pageSize: 2,
   });
 
   const value: FacetValue = {
@@ -53,8 +65,8 @@ describe('SearchFacetOptionComponent', () => {
     count: 20,
     _links: {
       self: { href: 'selectedValue-self-link2' },
-      search: { href: `` }
-    }
+      search: { href: `` },
+    },
   };
 
   const selectedValue: FacetValue = {
@@ -63,8 +75,8 @@ describe('SearchFacetOptionComponent', () => {
     count: 20,
     _links: {
       self: { href: 'selectedValue-self-link1' },
-      search: { href: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1},${operator}` }
-    }
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1},${operator}` },
+    },
   };
 
   const authorityValue: FacetValue = {
@@ -73,8 +85,8 @@ describe('SearchFacetOptionComponent', () => {
     count: 20,
     _links: {
       self: { href: 'authorityValue-self-link2' },
-      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}` }
-    }
+      search: { href: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}` },
+    },
   };
 
   const searchLink = '/search';
@@ -89,8 +101,7 @@ describe('SearchFacetOptionComponent', () => {
   const paginationService = new PaginationServiceStub(pagination);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetOptionComponent, ShortNumberPipe],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetOptionComponent, ShortNumberPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
@@ -98,8 +109,8 @@ describe('SearchFacetOptionComponent', () => {
         {
           provide: SearchConfigurationService, useValue: {
             paginationID: 'page-id',
-            searchOptions: observableOf({})
-          }
+            searchOptions: observableOf({}),
+          },
         },
         {
           provide: SearchFilterService, useValue: {
@@ -110,14 +121,15 @@ describe('SearchFacetOptionComponent', () => {
             incrementPage: (filterName: string) => {
             },
             resetPage: (filterName: string) => {
-            }
+            },
             /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          }
-        }
+          },
+        },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetOptionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -139,7 +151,7 @@ describe('SearchFacetOptionComponent', () => {
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
         [mockFilterConfig.paramName]: [`${value1},${operator}`, value.value + ',equals'],
-        ['page-id.page']: 1
+        ['page-id.page']: 1,
       });
     });
   });
@@ -154,7 +166,7 @@ describe('SearchFacetOptionComponent', () => {
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
         [mockAuthorityFilterConfig.paramName]: [value1 + ',equals', `${value2},${operator}`],
-        ['page-id.page']: 1
+        ['page-id.page']: 1,
       });
     });
   });
