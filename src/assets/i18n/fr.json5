@@ -176,7 +176,8 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nom",
-  // TODO New key - Add a translation
+
+  // "admin.registries.bitstream-formats.table.id": "ID",
   "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
@@ -253,7 +254,8 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Champ",
-  // TODO New key - Add a translation
+
+  // "admin.registries.schema.fields.table.id": "ID",
   "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
@@ -748,9 +750,6 @@
   //"admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
   "admin.reports.collections.match_all_selected_filters": "Correspondant à tous les filtres sélectionnés",
 
-
-  //"admin.reports.items.title": "Metadata Query Report",
-  "admin.reports.items.title": "Rapport de requête de métadonnées",
 
   //"admin.reports.items.breadcrumbs": "Metadata Query Report",
   "admin.reports.items.breadcrumbs": "Requête de métadonnées",
@@ -2186,6 +2185,15 @@
 
   // "dso-selector.placeholder": "Search for a {{ type }}",
   "dso-selector.placeholder": "Rechercher un(e) {{ type }}",
+
+  // "dso-selector.placeholder.type.community": "community",
+  "dso-selector.placeholder.type.community": "communauté",
+
+  // "dso-selector.placeholder.type.collection": "collection",
+  "dso-selector.placeholder.type.collection": "collection",
+
+  // "dso-selector.placeholder.type.item": "item",
+  "dso-selector.placeholder.type.item": "item",
 
   // "dso-selector.select.collection.head": "Select a collection",
   "dso-selector.select.collection.head": "Sélectionner une collection",
@@ -6400,9 +6408,6 @@
   "supervisedWorkspace.search.results.head": "Documents supervisés",
 
   //"workspace.search.results.head": "Your submissions",
-  "workspace.search.results.head": "Vos dépôts",
-
-  // "workspace.search.results.head": "Your submissions",
   "workspace.search.results.head": "Vos dépôts",
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
