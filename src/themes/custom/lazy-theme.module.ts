@@ -54,6 +54,7 @@ import { MyDSpacePageComponent } from './app/my-dspace-page/my-dspace-page.compo
 import { ExpandableNavbarSectionComponent } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import { PageNotFoundComponent } from './app/pagenotfound/pagenotfound.component';
 import { ProfilePageComponent } from './app/profile-page/profile-page.component';
+import { ProfilePageMetadataFormComponent } from './app/profile-page/profile-page-metadata-form/profile-page-metadata-form.component';
 import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
 import { CreateProfileComponent } from './app/register-page/create-profile/create-profile.component';
 import { RegisterEmailComponent } from './app/register-page/register-email/register-email.component';
@@ -188,6 +189,7 @@ const DECLARATIONS = [
   ItemListPreviewComponent,
   MetadataImportPageComponent,
   ItemDetailPreviewFieldComponent,
+  ProfilePageMetadataFormComponent,
 ];
 
 @NgModule({

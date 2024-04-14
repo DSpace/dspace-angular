@@ -15,7 +15,7 @@
     <div class="card mb-4">
       <div class="card-header">{{'profile.card.identify' | translate}}</div>
       <div class="card-body">
-        <ds-profile-page-metadata-form [user]="user"></ds-profile-page-metadata-form>
+        <ds-themed-profile-page-metadata-form [user]="user"></ds-themed-profile-page-metadata-form>
       </div>
     </div>
     <div *ngIf="canChangePassword$ | async" class="card mb-4 security-section">

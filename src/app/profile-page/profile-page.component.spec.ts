@@ -41,7 +41,7 @@ import {
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageComponent } from './profile-page.component';
-import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
@@ -129,7 +129,7 @@ describe('ProfilePageComponent', () => {
       .overrideComponent(ProfilePageComponent, {
         remove: {
           imports: [
-            ProfilePageMetadataFormComponent,
+            ThemedProfilePageMetadataFormComponent,
             ProfilePageSecurityFormComponent,
             ProfilePageResearcherFormComponent,
             SuggestionsNotificationComponent,

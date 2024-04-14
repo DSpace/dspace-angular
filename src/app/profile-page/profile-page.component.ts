@@ -48,6 +48,7 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
@@ -56,7 +57,7 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
   styleUrls: ['./profile-page.component.scss'],
   templateUrl: './profile-page.component.html',
   imports: [
-    ProfilePageMetadataFormComponent,
+    ThemedProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
     AsyncPipe,
     TranslateModule,
