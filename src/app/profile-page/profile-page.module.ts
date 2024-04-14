@@ -12,6 +12,7 @@ import { ThemedProfilePageComponent } from './themed-profile-page.component';
 import { FormModule } from '../shared/form/form.module';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profile-claim-item-modal.component';
+import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profi
     ProfilePageComponent,
     ThemedProfilePageComponent,
     ProfilePageMetadataFormComponent,
+    ThemedProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
     ProfilePageResearcherFormComponent
   ],
@@ -34,6 +36,7 @@ import { ProfileClaimItemModalComponent } from './profile-claim-item-modal/profi
     ThemedProfilePageComponent,
     ProfileClaimItemModalComponent,
     ProfilePageMetadataFormComponent,
+    ThemedProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
     ProfilePageResearcherFormComponent
   ]
