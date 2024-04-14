@@ -5,7 +5,7 @@
     <div [class.col-sm-12]="showDiscoverFilters">
       <button *ngIf="showDiscoverFilters && (isXsOrSm$ | async) && sidebarService.isCollapsed" (click)="sidebarService.expand()"
               class="btn btn-outline-primary d-block ml-auto mb-3">
-        <i class="fas fa-sliders"></i> {{ 'search.sidebar.open' | translate }}
+        <fa-icon [icon]="faSliders"/> {{ 'search.sidebar.open' | translate }}
       </button>
       <ng-container *ngIf="(site$ | async) as site">
         <ds-view-tracker [object]="site"></ds-view-tracker>

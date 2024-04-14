@@ -17,6 +17,11 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircle,
+  faCircleNotch,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -89,10 +94,13 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
     ObjNgFor,
     NgForOf,
     FormsModule,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
+  protected readonly faCircleNotch = faCircleNotch;
+  protected readonly faCircle = faCircle;
 
   @Input() group: UntypedFormGroup;
   @Input() model: DynamicOneboxModel;
@@ -347,5 +355,4 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
   }
-
 }

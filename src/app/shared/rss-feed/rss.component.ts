@@ -10,6 +10,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faRssSquare } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -43,9 +45,10 @@ import { PaginatedSearchOptions } from '../search/models/paginated-search-option
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [NgIf, AsyncPipe, TranslateModule],
+  imports: [NgIf, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class RSSComponent implements OnInit, OnDestroy  {
+  protected readonly faRssSquare = faRssSquare;
 
   route$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 

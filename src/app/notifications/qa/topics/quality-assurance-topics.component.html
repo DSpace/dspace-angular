@@ -46,7 +46,9 @@
                               title="{{'quality-assurance.topics-list.button.detail' | translate : { param: topicElement.name } }}"
                               [routerLink]="[getQualityAssuranceRoute(), sourceId, topicElement.id]">
                         <span class="badge badge-info">{{topicElement.totalEvents}}</span>
-                        <i class="fas fa-info fa-fw"></i>
+                        <fa-layers [fixedWidth]="true">
+                          <fa-icon [icon]="faInfo"/>
+                        </fa-layers>
                       </button>
                     </div>
                   </td>

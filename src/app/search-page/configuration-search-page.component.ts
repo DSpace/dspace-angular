@@ -9,6 +9,7 @@ import {
   Inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {
@@ -46,7 +47,7 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
     },
   ],
   standalone: true,
-  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {

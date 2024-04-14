@@ -19,6 +19,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -83,10 +85,12 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
     ViewTrackerComponent,
     ThemedItemAlertsComponent,
     VarDirective,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit, OnDestroy {
+  protected readonly faArrowLeft = faArrowLeft;
 
   itemRD$: BehaviorSubject<RemoteData<Item>>;
 

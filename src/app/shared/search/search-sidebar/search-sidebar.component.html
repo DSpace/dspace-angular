@@ -4,8 +4,8 @@
         <button (click)="toggleSidebar.emit()"
                 [attr.aria-label]="'search.sidebar.close' | translate"
                 aria-controls="search-content"
-                class="btn btn-outline-primary float-right close-sidebar"><i
-                class="fas fa-arrow-right"></i> {{'search.sidebar.close' | translate}}
+                class="btn btn-outline-primary float-right close-sidebar">
+          <fa-icon [icon]="faArrowRight"/> {{'search.sidebar.close' | translate}}
         </button>
     </div>
     <div id="search-sidebar-content">

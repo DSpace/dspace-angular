@@ -12,6 +12,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import {
   BehaviorSubject,
@@ -84,10 +86,13 @@ export abstract class Reorderable {
     AsyncPipe,
     ListableObjectComponentLoaderComponent,
     NgIf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {
+  protected readonly faTrash = faTrash;
+
   @Input() listId: string;
   @Input() submissionItem: Item;
   @Input() reoRel: ReorderableRelationship;
@@ -149,6 +154,5 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
   }
-
 }
 

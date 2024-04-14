@@ -3,5 +3,7 @@
    [ngbTooltip]="tooltipMsg | translate"
    (click)="export()"
    [title]="tooltipMsg |translate" [attr.aria-label]="tooltipMsg |translate">
-    <i class="fas fa-file-export fa-fw"></i>
+    <fa-layers [fixedWidth]="true">
+      <fa-icon [icon]="faFileExport"/>
+    </fa-layers>
 </button>

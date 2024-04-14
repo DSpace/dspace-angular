@@ -4,6 +4,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faRedoAlt,
+  faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,9 +23,11 @@ import { hasValue } from '../empty.util';
   selector: 'ds-idle-modal',
   templateUrl: 'idle-modal.component.html',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, FontAwesomeModule],
 })
 export class IdleModalComponent implements OnInit {
+  protected readonly faSignOutAlt = faSignOutAlt;
+  protected readonly faRedoAlt = faRedoAlt;
 
   /**
    * Total time of idleness before session expires (in minutes)

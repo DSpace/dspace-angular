@@ -7,6 +7,16 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faArrowCircleRight,
+  faBan,
+  faEdit,
+  faEye,
+  faEyeSlash,
+  faTrash,
+  faUndo,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Item } from '../../../core/shared/item.model';
@@ -26,12 +36,20 @@ import { getItemEditRoute } from '../../../item-page/item-page-routing-paths';
   styleUrls: ['./item-admin-search-result-actions.component.scss'],
   templateUrl: './item-admin-search-result-actions.component.html',
   standalone: true,
-  imports: [NgClass, RouterLink, NgIf, TranslateModule],
+  imports: [NgClass, RouterLink, NgIf, TranslateModule, FontAwesomeModule],
 })
 /**
  * The component for displaying the actions for a list element for an item search result on the admin search page
  */
 export class ItemAdminSearchResultActionsComponent {
+  protected readonly faArrowCircleRight = faArrowCircleRight;
+  protected readonly faEyeSlash = faEyeSlash;
+  protected readonly faEye = faEye;
+  protected readonly faEdit = faEdit;
+  protected readonly faBan = faBan;
+  protected readonly faUndo = faUndo;
+  protected readonly faTrash = faTrash;
+
   /**
    * The item to perform the actions on
    */

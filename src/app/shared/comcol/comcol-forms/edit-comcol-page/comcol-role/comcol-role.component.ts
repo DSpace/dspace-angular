@@ -8,6 +8,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -62,10 +67,13 @@ import { VarDirective } from '../../../../utils/var.directive';
     RouterLink,
     VarDirective,
     HasNoValuePipe,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class ComcolRoleComponent implements OnInit {
+  protected readonly faTrash = faTrash;
+  protected readonly faPlus = faPlus;
 
   /**
    * The community or collection to manage.

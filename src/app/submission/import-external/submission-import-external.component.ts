@@ -11,6 +11,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -78,10 +80,12 @@ import {
     TranslateModule,
     VarDirective,
     RouterLink,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
+  protected readonly faChevronLeft = faChevronLeft;
 
   /**
    * The external source search data from the routing service.
@@ -266,5 +270,4 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label,
     };
   }
-
 }

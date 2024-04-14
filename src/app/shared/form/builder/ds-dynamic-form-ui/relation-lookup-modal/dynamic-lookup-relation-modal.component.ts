@@ -12,6 +12,11 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faSave,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbActiveModal,
   NgbNavModule,
@@ -90,6 +95,7 @@ import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dy
     AsyncPipe,
     NgForOf,
     DsDynamicLookupRelationSelectionTabComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -98,6 +104,9 @@ import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dy
  * Represents a modal where the submitter can select items to be added as a certain relationship type to the object being submitted
  */
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
+  protected readonly faSave = faSave;
+  protected readonly faTimes = faTimes;
+
   @Output() selectEvent: EventEmitter<ListableObject[]> = new EventEmitter<ListableObject[]>();
 
   /**

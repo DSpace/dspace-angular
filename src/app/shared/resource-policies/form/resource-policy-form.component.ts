@@ -13,6 +13,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbNavChangeEvent,
@@ -95,6 +100,7 @@ export interface ResourcePolicyEvent {
     AsyncPipe,
     NgIf,
     NgFor,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -102,6 +108,8 @@ export interface ResourcePolicyEvent {
  * Component that show form for adding/editing a resource policy
  */
 export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
+  protected readonly faInfoCircle = faInfoCircle;
+  protected readonly faCircleNotch = faCircleNotch;
 
   /**
    * If given contains the resource policy to edit

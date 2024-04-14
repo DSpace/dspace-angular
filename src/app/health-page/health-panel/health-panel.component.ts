@@ -8,6 +8,11 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faChevronDown,
+  faChevronUp,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -27,9 +32,11 @@ import { HealthStatusComponent } from './health-status/health-status.component';
   templateUrl: './health-panel.component.html',
   styleUrls: ['./health-panel.component.scss'],
   standalone: true,
-  imports: [HealthStatusComponent, NgbAccordionModule, NgFor, NgIf, HealthComponentComponent, TitleCasePipe, ObjNgFor, TranslateModule],
+  imports: [HealthStatusComponent, NgbAccordionModule, NgFor, NgIf, HealthComponentComponent, TitleCasePipe, ObjNgFor, TranslateModule, FontAwesomeModule],
 })
 export class HealthPanelComponent implements OnInit {
+  protected readonly faChevronUp = faChevronUp;
+  protected readonly faChevronDown = faChevronDown;
 
   /**
    * Health endpoint response

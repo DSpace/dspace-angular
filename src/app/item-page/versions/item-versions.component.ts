@@ -13,6 +13,15 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCheck,
+  faCodeBranch,
+  faEdit,
+  faPencilAlt,
+  faTrash,
+  faUndoAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -69,13 +78,20 @@ import { ItemVersionsRowElementVersionComponent } from './item-versions-row-elem
   templateUrl: './item-versions.component.html',
   styleUrls: ['./item-versions.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule, ItemVersionsRowElementVersionComponent],
+  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule, ItemVersionsRowElementVersionComponent, FontAwesomeModule],
 })
 
 /**
  * Component listing all available versions of the history the provided item is a part of
  */
 export class ItemVersionsComponent implements OnDestroy, OnInit {
+  protected readonly faPencilAlt = faPencilAlt;
+  protected readonly faCodeBranch = faCodeBranch;
+  protected readonly faTrash = faTrash;
+  protected readonly faUndoAlt = faUndoAlt;
+  protected readonly faEdit = faEdit;
+  protected readonly faCheck = faCheck;
+
 
   /**
    * The item to display a version history for

@@ -8,6 +8,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faFileImport } from '@fortawesome/free-solid-svg-icons';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -45,10 +47,12 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     TranslateModule,
     BrowserOnlyPipe,
     NgIf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class MyDSpaceNewExternalDropdownComponent implements OnInit, OnDestroy {
+  protected readonly faFileImport = faFileImport;
 
   /**
    * Used to verify if there are one or more entities available

@@ -35,7 +35,7 @@
                  (mouseover)="showTooltip(t, i, icon.metadata)"
                  (mouseout)="t.close()"></i>
             </ng-container>
-            <p class="chip-label text-truncate d-table-cell">{{c.display}}</p><i class="fas fa-times ml-2" (click)="removeChips($event, i)" [title]="'chips.remove' | translate"></i>
+            <p class="chip-label text-truncate d-table-cell">{{c.display}}</p><fa-icon [icon]="faGlobeAsia" class="ml-2" [title]="'chips.remove' | translate" (click)="removeChips($event, i)"/>
           </span>
         </a>
       </div>

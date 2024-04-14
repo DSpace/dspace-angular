@@ -4,6 +4,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { StartsWithDateComponent as BaseComponent } from '../../../../../../app/shared/starts-with/date/starts-with-date.component';
@@ -15,7 +16,7 @@ import { StartsWithDateComponent as BaseComponent } from '../../../../../../app/
   // templateUrl: './starts-with-date.component.html',
   templateUrl: '../../../../../../app/shared/starts-with/date/starts-with-date.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgFor, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, NgFor, TranslateModule, FontAwesomeModule],
 })
 export class StartsWithDateComponent extends BaseComponent {
 }

@@ -17,7 +17,9 @@
              [class.grey-background]="model.isInlineGroupArray">
           <!-- Item content -->
           <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0" cdkDragHandle>
-            <i class="drag-icon fas fa-grip-vertical fa-fw" [class.drag-disable]="dragDisabled" ></i>
+            <fa-layers [fixedWidth]="true" class="drag-icon" [class.drag-disable]="dragDisabled">
+              <fa-icon [icon]="faGripVertical"/>
+            </fa-layers>
           </div>
           <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
           <ds-dynamic-form-control-container *ngFor="let _model of groupModel.group"

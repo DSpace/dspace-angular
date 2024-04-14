@@ -14,6 +14,13 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faSave,
+  faTimes,
+  faUndoAlt,
+  faUpload,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -78,6 +85,7 @@ import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag
     ItemEditBitstreamDragHandleComponent,
     NgForOf,
     ThemedLoadingComponent,
+    FontAwesomeModule,
   ],
   providers: [ObjectValuesPipe],
   standalone: true,
@@ -86,6 +94,10 @@ import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag
  * Component for displaying an item's bitstreams edit page
  */
 export class ItemBitstreamsComponent extends AbstractItemUpdateComponent implements OnDestroy {
+  protected readonly faUpload = faUpload;
+  protected readonly faUndoAlt = faUndoAlt;
+  protected readonly faSave = faSave;
+  protected readonly faTimes = faTimes;
 
   /**
    * The currently listed bundles

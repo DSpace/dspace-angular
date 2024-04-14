@@ -7,6 +7,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -29,9 +31,10 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   styleUrls: ['./workflowitem-actions.component.scss'],
   templateUrl: './workflowitem-actions.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, RouterLink, TranslateModule],
+  imports: [NgbTooltipModule, RouterLink, TranslateModule, FontAwesomeModule],
 })
 export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<WorkflowItem, WorkflowItemDataService> {
+  protected readonly faInfoCircle = faInfoCircle;
 
   /**
    * The WorkflowItem object

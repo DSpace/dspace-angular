@@ -5,6 +5,8 @@
      [attr.aria-label]="'nav.context-help-toggle' | translate"
      [title]="'nav.context-help-toggle' | translate"
   >
-    <i class="fas fa-lg fa-fw fa-question-circle ds-context-help-toggle"></i>
+    <fa-layers [fixedWidth]="true">
+      <fa-icon [icon]="faQuestionCircle" size="lg" class="ds-context-help-toggle"/>
+    </fa-layers>
   </a>
 </div>

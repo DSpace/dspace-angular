@@ -12,6 +12,13 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faEdit,
+  faInfoCircle,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbTooltipModule,
@@ -52,9 +59,13 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   styleUrls: ['./workspaceitem-actions.component.scss'],
   templateUrl: './workspaceitem-actions.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, RouterLink, NgIf, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, RouterLink, NgIf, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<WorkspaceItem, WorkspaceitemDataService> implements OnInit {
+  protected readonly faEdit = faEdit;
+  protected readonly faInfoCircle = faInfoCircle;
+  protected readonly faTrash = faTrash;
+  protected readonly faCircleNotch = faCircleNotch;
 
   /**
    * The workspaceitem object

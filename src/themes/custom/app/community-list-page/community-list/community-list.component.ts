@@ -6,6 +6,7 @@ import {
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CommunityListComponent as BaseComponent } from '../../../../../app/community-list-page/community-list/community-list.component';
@@ -26,7 +27,7 @@ import { TruncatablePartComponent } from '../../../../../app/shared/truncatable/
   // templateUrl: './community-list.component.html'
   templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html',
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class CommunityListComponent extends BaseComponent {}
 

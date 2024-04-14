@@ -12,6 +12,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -47,10 +49,12 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
     NgIf,
     NgFor,
     RouterLink,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class PublicationClaimComponent implements OnInit {
+  protected readonly faLightbulb = faLightbulb;
 
   /**
    * The source for which to list targets

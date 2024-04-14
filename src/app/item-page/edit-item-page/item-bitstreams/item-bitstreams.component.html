@@ -2,27 +2,27 @@
   <div class="button-row top d-flex mt-2 space-children-mr">
     <button class="mr-auto btn btn-success"
             [attr.aria-label]="'item.edit.bitstreams.upload-button' | translate"
-            [routerLink]="[itemPageRoute, 'bitstreams', 'new']"><i
-            class="fas fa-upload"></i>
+            [routerLink]="[itemPageRoute, 'bitstreams', 'new']">
+      <fa-icon [icon]="faUpload"/>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.upload-button" | translate}}</span>
     </button>
     <button class="btn btn-warning" *ngIf="isReinstatable() | async"
             [attr.aria-label]="'item.edit.bitstreams.reinstate-button' | translate"
-            (click)="reinstate()"><i
-            class="fas fa-undo-alt"></i>
+            (click)="reinstate()">
+      <fa-icon [icon]="faUndoAlt"/>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
     </button>
     <button class="btn btn-primary" [disabled]="(hasChanges() | async) !== true || submitting"
             [attr.aria-label]="'item.edit.bitstreams.save-button' | translate"
-            (click)="submit()"><i
-            class="fas fa-save"></i>
+            (click)="submit()">
+      <fa-icon [icon]="faSave"/>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>
     </button>
     <button class="btn btn-danger" *ngIf="(isReinstatable() | async) !== true"
             [attr.aria-label]="'item.edit.bitstreams.discard-button' | translate"
             [disabled]="(hasChanges() | async) !== true || submitting"
-            (click)="discard()"><i
-            class="fas fa-times"></i>
+            (click)="discard()">
+      <fa-icon [icon]="faTimes"/>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
     </button>
   </div>
@@ -54,21 +54,27 @@
     <div class="mt-4 float-right space-children-mr ml-gap">
       <button class="btn btn-warning" *ngIf="isReinstatable() | async"
               [attr.aria-label]="'item.edit.bitstreams.reinstate-button' | translate"
-              (click)="reinstate()"><i
-        class="fas fa-undo-alt"></i>
+              (click)="reinstate()">
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="faUndoAlt"/>
+        </fa-layers>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
       </button>
       <button class="btn btn-primary" [disabled]="(hasChanges() | async) !== true || submitting"
               [attr.aria-label]="'item.edit.bitstreams.save-button' | translate"
-              (click)="submit()"><i
-        class="fas fa-save"></i>
+              (click)="submit()">
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="faSave"/>
+        </fa-layers>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>
       </button>
       <button class="btn btn-danger" *ngIf="(isReinstatable() | async) !== true"
               [attr.aria-label]="'item.edit.bitstreams.discard-button' | translate"
               [disabled]="(hasChanges() | async) !== true || submitting"
-              (click)="discard()"><i
-        class="fas fa-times"></i>
+              (click)="discard()">
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="faTimes"/>
+        </fa-layers>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
       </button>
     </div>

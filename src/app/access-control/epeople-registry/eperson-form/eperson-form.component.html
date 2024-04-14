@@ -21,24 +21,24 @@
                (submitForm)="onSubmit()">
         <div before class="btn-group">
           <button (click)="onCancel()" type="button" class="btn btn-outline-secondary">
-            <i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}
+            <fa-icon [icon]="faArrowLeft"/> {{messagePrefix + '.return' | translate}}
           </button>
         </div>
         <div *ngIf="displayResetPassword" between class="btn-group">
           <button class="btn btn-primary" [disabled]="(canReset$ | async) !== true" type="button" (click)="resetPassword()">
-            <i class="fa fa-key"></i> {{'admin.access-control.epeople.actions.reset' | translate}}
+            <fa-icon [icon]="faKey"/> {{'admin.access-control.epeople.actions.reset' | translate}}
           </button>
         </div>
         <div *ngIf="canImpersonate$ | async" between class="btn-group">
           <button *ngIf="!isImpersonated" class="btn btn-primary" type="button" (click)="impersonate()">
-            <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
+            <fa-icon [icon]="faUserSecret"/> {{'admin.access-control.epeople.actions.impersonate' | translate}}
           </button>
           <button *ngIf="isImpersonated" class="btn btn-primary" type="button" (click)="stopImpersonating()">
-            <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
+            <fa-icon [icon]="faUserSecret"/> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
           </button>
         </div>
         <button *ngIf="canDelete$ | async" after class="btn btn-danger delete-button" type="button" (click)="delete()">
-          <i class="fas fa-trash"></i> {{'admin.access-control.epeople.actions.delete' | translate}}
+          <fa-icon [icon]="faTrash"/> {{'admin.access-control.epeople.actions.delete' | translate}}
         </button>
       </ds-form>
 

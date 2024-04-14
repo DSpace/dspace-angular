@@ -11,6 +11,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Community } from '../../core/shared/community.model';
@@ -32,6 +33,7 @@ import { getCommunityPageRoute } from '../community-page-routing-paths';
     RouterOutlet,
     NgIf,
     AsyncPipe,
+    FontAwesomeModule,
   ],
 })
 export class EditCommunityPageComponent extends EditComColPageComponent<Community> {

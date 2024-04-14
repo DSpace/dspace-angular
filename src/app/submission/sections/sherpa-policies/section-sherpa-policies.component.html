@@ -7,7 +7,8 @@
   </ds-alert>
   <div>
     <button type="button" class="btn btn-secondary float-right" (click)="refresh()" data-test="refresh-btn">
-      <span><i class="fas fa-sync"></i> {{'submission.sections.sherpa.publisher.policy.refresh' | translate}} </span>
+      <span>
+        <fa-icon [icon]="faSync"/> {{'submission.sections.sherpa.publisher.policy.refresh' | translate}} </span>
     </button>
   </div>
 </div>
@@ -22,8 +23,8 @@
                         {{'submission.sections.sherpa.publication.information' | translate}}
                     </button>
                     <div class="d-inline-block">
-                        <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
-                        <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
+                        <fa-icon *ngIf="collapse.collapsed" [icon]="faChevronDown"/>
+                        <fa-icon *ngIf="!collapse.collapsed" [icon]="faChevronUp"/>
                     </div>
                 </div>
                 <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
@@ -37,8 +38,8 @@
                         {{'submission.sections.sherpa.publisher.policy' | translate}}
                     </button>
                     <div class="d-inline-block">
-                        <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
-                        <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
+                        <fa-icon *ngIf="collapse.collapsed" [icon]="faChevronDown"/>
+                        <fa-icon *ngIf="!collapse.collapsed" [icon]="faChevronUp"/>
                     </div>
                 </div>
                 <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
@@ -54,8 +55,8 @@
                     {{'submission.sections.sherpa.record.information' | translate}}
                 </button>
                 <div class="d-inline-block">
-                    <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
-                    <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
+                    <fa-icon *ngIf="collapse.collapsed" [icon]="faChevronDown"/>
+                    <fa-icon *ngIf="!collapse.collapsed" [icon]="faChevronUp"/>
                 </div>
             </div>
             <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">

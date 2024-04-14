@@ -7,6 +7,8 @@ import {
   ElementRef,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -25,9 +27,11 @@ import { ContextHelpService } from '../../shared/context-help.service';
   templateUrl: './context-help-toggle.component.html',
   styleUrls: ['./context-help-toggle.component.scss'],
   standalone: true,
-  imports: [NgIf, AsyncPipe, TranslateModule],
+  imports: [NgIf, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class ContextHelpToggleComponent implements OnInit {
+  protected readonly faQuestionCircle = faQuestionCircle;
+
   buttonVisible$: Observable<boolean>;
 
   subscriptions: Subscription[] = [];

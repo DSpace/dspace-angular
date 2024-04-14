@@ -31,13 +31,13 @@
   <ds-themed-loading *ngIf="!collectionsRD || collectionsRD?.isLoading" message="{{'loading.collections' | translate}}"></ds-themed-loading>
   <div class="space-children-mr float-right" *ngVar="(selectedIds$ | async) as selectedIds">
     <button class="btn btn-outline-secondary collection-cancel" (click)="onCancel()">
-      <i class="fas fa-times"></i> {{cancelButton | translate}}
+      <fa-icon [icon]="faTimes"/> {{cancelButton | translate}}
     </button>
     <button class="btn collection-confirm"
             [ngClass]="{'btn-danger': dangerConfirm, 'btn-primary': !dangerConfirm}"
             [disabled]="selectedIds?.length === 0"
             (click)="confirmSelected()">
-      <i class="fas fa-trash"></i> {{confirmButton | translate}}
+      <fa-icon [icon]="faTrash"/> {{confirmButton | translate}}
     </button>
   </div>
 </ng-container>

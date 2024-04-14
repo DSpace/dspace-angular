@@ -10,6 +10,8 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -56,9 +58,11 @@ import { SubmissionService } from '../../submission.service';
     TranslateModule,
     NgbDropdownModule,
     ThemedCollectionDropdownComponent,
+    FontAwesomeModule,
   ],
 })
 export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
+  protected readonly faCircleNotch = faCircleNotch;
 
   /**
    * The current collection id this submission belonging to

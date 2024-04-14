@@ -28,7 +28,9 @@
          class="dropdownLogout px-1"
          [attr.data-test]="'user-menu' | dsBrowserOnly"
          ngbDropdownToggle>
-        <i class="fas fa-user-circle fa-lg fa-fw"></i></a>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="faUserCircle" size="lg"/>
+        </fa-layers></a>
       <div id="logoutDropdownMenu" ngbDropdownMenu>
         <ds-themed-user-menu [inExpandableNavbar]="false"></ds-themed-user-menu>
       </div>
@@ -43,7 +45,9 @@
       {{ 'nav.login' | translate }}<span class="sr-only">(current)</span>
     </a>
     <a *ngIf="(isAuthenticated | async)" role="button" [attr.aria-label]="'nav.logout' |translate" [title]="'nav.logout' | translate" routerLink="/logout" routerLinkActive="active" class="logoutLink px-1">
-      <i class="fas fa-sign-out-alt fa-lg fa-fw"></i>
+      <fa-layers [fixedWidth]="true">
+        <fa-icon [icon]="faSignOutAlt" size="lg"/>
+      </fa-layers>
       <span class="sr-only">(current)</span>
     </a>
   </div>

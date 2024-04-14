@@ -7,6 +7,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { hasValue } from '../../empty.util';
@@ -21,9 +23,10 @@ import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
   styleUrls: ['./starts-with-date.component.scss'],
   templateUrl: './starts-with-date.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgFor, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, NgFor, TranslateModule, FontAwesomeModule],
 })
 export class StartsWithDateComponent extends StartsWithAbstractComponent implements OnInit {
+  protected readonly faBookOpen = faBookOpen;
 
   /**
    * A list of options for months to select from
@@ -138,5 +141,4 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent impleme
   getStartsWithMonth() {
     return this.monthOptions.indexOf(this.startsWithMonth);
   }
-
 }

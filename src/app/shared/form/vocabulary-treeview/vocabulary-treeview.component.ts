@@ -17,6 +17,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faAngleDown,
+  faAngleRight,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import {
@@ -69,10 +74,13 @@ import {
     AsyncPipe,
     ThemedLoadingComponent,
     AlertComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {
+  protected readonly faAngleRight = faAngleRight;
+  protected readonly faAngleDown = faAngleDown;
 
   /**
    * The {@link VocabularyOptions} object

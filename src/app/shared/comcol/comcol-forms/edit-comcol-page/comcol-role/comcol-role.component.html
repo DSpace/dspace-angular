@@ -29,7 +29,7 @@
         <button *ngIf="hasNoGroup$ | async"
              class="btn btn-primary create"
              (click)="create()">
-          <i class="fas fa-plus" aria-hidden="true"></i> {{'comcol-role.edit.create' | translate}}
+          <fa-icon [icon]="faPlus"/> {{'comcol-role.edit.create' | translate}}
         </button>
         <button *ngIf="hasAnonymousGroup$ | async"
              class="btn btn-primary restrict"
@@ -39,7 +39,7 @@
         <button *ngIf="hasCustomGroup$ | async"
              class="btn btn-danger delete"
              (click)="delete()">
-          <i class="fas fa-trash" aria-hidden="true"></i> {{'comcol-role.edit.delete' | translate}}
+          <fa-icon [icon]="faTrash"/> {{'comcol-role.edit.delete' | translate}}
         </button>
       </div>
 

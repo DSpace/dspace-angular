@@ -14,6 +14,8 @@ import {
   FormsModule,
   NgForm,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ProcessParameter } from '../../../processes/process-parameter.model';
@@ -34,9 +36,11 @@ import { ParameterValueInputComponent } from '../parameter-value-input/parameter
     deps: [[new Optional(), NgForm]],
   }],
   standalone: true,
-  imports: [FormsModule, NgFor, ParameterValueInputComponent, NgIf, TranslateModule],
+  imports: [FormsModule, NgFor, ParameterValueInputComponent, NgIf, TranslateModule, FontAwesomeModule],
 })
 export class ParameterSelectComponent {
+  protected readonly faTrash = faTrash;
+
   @Input() index: number;
 
   /**

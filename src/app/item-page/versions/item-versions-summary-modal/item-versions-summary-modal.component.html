@@ -24,13 +24,17 @@
               type="button"
               (click)="onModalClose()"
               title="{{'item.version.create.modal.button.cancel.tooltip' | translate}}">
-        <i class="fas fa-times fa-fw"></i> {{'item.version.create.modal.button.cancel' | translate}}
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="faTimes"/>
+        </fa-layers> {{'item.version.create.modal.button.cancel' | translate}}
       </button>
       <button class="btn btn-success btn-sm ml-0"
               type="submit"
               (click)="onModalSubmit()"
               title="{{'item.version.create.modal.button.confirm.tooltip' | translate}}">
-        <i class="fas fa-check fa-fw"></i> {{'item.version.create.modal.button.confirm' | translate}}
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="faCheck"/>
+        </fa-layers> {{'item.version.create.modal.button.confirm' | translate}}
     </button>
   </div>
 </div>

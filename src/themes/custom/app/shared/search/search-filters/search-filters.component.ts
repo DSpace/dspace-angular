@@ -12,6 +12,7 @@ import {
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchConfigurationService } from '../../../../../../app/core/shared/search/search-configuration.service';
@@ -19,7 +20,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../../app/my-dspace-page/my-d
 import { AdvancedSearchComponent } from '../../../../../../app/shared/search/advanced-search/advanced-search.component';
 import { SearchFilterComponent } from '../../../../../../app/shared/search/search-filters/search-filter/search-filter.component';
 import { SearchFiltersComponent as BaseComponent } from '../../../../../../app/shared/search/search-filters/search-filters.component';
-
 
 @Component({
   selector: 'ds-search-filters',
@@ -34,7 +34,7 @@ import { SearchFiltersComponent as BaseComponent } from '../../../../../../app/s
     },
   ],
   standalone: true,
-  imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule, AdvancedSearchComponent],
+  imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule, AdvancedSearchComponent, FontAwesomeModule],
 })
 
 export class SearchFiltersComponent extends BaseComponent {

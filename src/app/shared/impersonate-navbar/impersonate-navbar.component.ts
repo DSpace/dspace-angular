@@ -7,6 +7,8 @@ import {
   ElementRef,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   select,
@@ -27,12 +29,13 @@ import { isAuthenticated } from '../../core/auth/selectors';
   selector: 'ds-impersonate-navbar',
   templateUrl: 'impersonate-navbar.component.html',
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Navbar component for actions to take concerning impersonating users
  */
 export class ImpersonateNavbarComponent implements OnInit {
+  protected readonly faUserSecret = faUserSecret;
 
   /**
    * Is the user currently impersonating another user?

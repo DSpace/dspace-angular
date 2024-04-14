@@ -94,8 +94,8 @@
                       <span class="text-ellipsis">{{eventElement.event.message.abstract}}</span>
                     </p>
                     <button class="btn btn-outline-primary btn-sm" (click)="showMore = !showMore">
-                      <i *ngIf="!showMore" class="fas fa-angle-down"></i>
-                      <i *ngIf="showMore" class="fas fa-angle-up"></i>
+                      <fa-icon *ngIf="!showMore" [icon]="faAngleDown"/>
+                      <fa-icon *ngIf="showMore" [icon]="faAngleUp"/>
                       {{ (showMore ? 'quality-assurance.event.table.less': 'quality-assurance.event.table.more') | translate }}
                     </button>
                   </td>
@@ -142,7 +142,7 @@
                                 (click)="openModalLookup(eventElement); $event.stopPropagation();"
                                 [attr.aria-label]="'quality-assurance.event.modal.project.select' | translate"
                         >
-                          <i class="fas fa-search"></i>
+                          <fa-icon [icon]="faSearch"/>
                         </button>
                         <button *ngIf="eventElement.hasProject"
                                 class="btn btn-outline-danger btn-sm"
@@ -150,7 +150,7 @@
                                 (click)="removeProject(eventElement)"
                                 [attr.aria-label]="'quality-assurance.event.modal.project.remove' | translate"
                         >
-                          <i class="fas fa-trash-alt"></i>
+                          <fa-icon [icon]="faTrashAlt"/>
                         </button>
                       </div>
                     </div>
@@ -165,7 +165,7 @@
                               (click)="modalChoice('ACCEPTED', eventElement, acceptModal)"
                               [attr.aria-label]="'quality-assurance.event.action.import' | translate"
                       >
-                        <i class="fas fa-check"></i>
+                        <fa-icon [icon]="faCheck"/>
                       </button>
                       <button *ngIf="showTopic.indexOf('/PROJECT') === -1"
                               class="btn btn-outline-success btn-sm button-width"
@@ -175,7 +175,7 @@
                               (click)="executeAction('ACCEPTED', eventElement)"
                               [attr.aria-label]="'quality-assurance.event.action.accept' | translate"
                       >
-                        <i class="fas fa-check"></i>
+                        <fa-icon [icon]="faCheck"/>
                       </button>
                       <button class="btn btn-outline-dark btn-sm button-width"
                               ngbTooltip="{{'quality-assurance.event.action.ignore' | translate}}"
@@ -184,7 +184,7 @@
                               (click)="openModal('DISCARDED', eventElement, ignoreModal)"
                               [attr.aria-label]="'quality-assurance.event.action.ignore' | translate"
                       >
-                        <i class="fas fa-ban"></i>
+                        <fa-icon [icon]="faBan"/>
                       </button>
                       <button class="btn btn-outline-danger btn-sm button-width"
                               ngbTooltip="{{'quality-assurance.event.action.reject' | translate}}"
@@ -193,7 +193,7 @@
                               (click)="openModal('REJECTED', eventElement, rejectModal)"
                               [attr.aria-label]="'quality-assurance.event.action.reject' | translate"
                       >
-                        <i class="fas fa-trash-alt"></i>
+                        <fa-icon [icon]="faTrashAlt"/>
                       </button>
                     </div>
                     <div *ngIf="(isAdmin$ | async) !== true" class="btn-group button-width">
@@ -203,7 +203,7 @@
                               [disabled]="eventElement.isRunning"
                               [attr.aria-label]="'quality-assurance.event.action.undo' | translate"
                               (click)="openModal('UNDO', eventElement, undoModal)">
-                        <i class="fas fa-trash-alt"></i>
+                        <fa-icon [icon]="faTrashAlt"/>
                       </button>
                     </div>
                   </td>
@@ -225,11 +225,11 @@
     <p>{{'quality-assurance.event.accept.description' | translate}}</p>
 
     <button class="btn btn-outline-success float-right" (click)="modal.close('do')">
-      <i class="fas fa-check"></i>
+      <fa-icon [icon]="faCheck"/>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.import' | translate}}</span>
     </button>
     <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
-      <i class="fas fa-close"></i>
+      <fa-icon [icon]="faClose"/>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
   </div>
@@ -242,11 +242,11 @@
   <div class="modal-body">
     <p>{{'quality-assurance.event.ignore.description' | translate}}</p>
     <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
-      <i class="fas fa-trash-alt"></i>
+      <fa-icon [icon]="faTrashAlt"/>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.ignore' | translate}}</span>
     </button>
     <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
-      <i class="fas fa-close"></i>
+      <fa-icon [icon]="faClose"/>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
   </div>
@@ -259,11 +259,11 @@
   <div class="modal-body">
     <p>{{'quality-assurance.event.reject.description' | translate}}</p>
     <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
-      <i class="fas fa-trash-alt"></i>
+      <fa-icon [icon]="faTrashAlt"/>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.reject' | translate}}</span>
     </button>
     <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
-      <i class="fas fa-close"></i>
+      <fa-icon [icon]="faClose"/>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
   </div>
@@ -276,11 +276,11 @@
   <div class="modal-body">
     <p>{{'quality-assurance.event.undo.description' | translate}}</p>
     <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
-      <i class="fas fa-trash-alt"></i>
+      <fa-icon [icon]="faTrashAlt"/>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.undo' | translate}}</span>
     </button>
     <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
-      <i class="fas fa-close"></i>
+      <fa-icon [icon]="faClose"/>
       <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
     </button>
   </div>

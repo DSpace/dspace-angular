@@ -31,15 +31,21 @@
 <ng-template #buttons>
     <div class="d-flex justify-content-end mb-2">
         <button *ngIf="processBulkDeleteService.hasSelected()" class="btn btn-primary mr-2"
-                (click)="processBulkDeleteService.clearAllProcesses()"><i
-            class="fas fa-undo pr-2"></i>{{'process.overview.delete.clear' | translate }}
+                (click)="processBulkDeleteService.clearAllProcesses()">
+          <fa-layers class="pr-2">
+            <fa-icon [icon]="faUndo"/>
+          </fa-layers>{{'process.overview.delete.clear' | translate }}
         </button>
         <button *ngIf="processBulkDeleteService.hasSelected()" class="btn btn-danger mr-2"
-                (click)="openDeleteModal(deleteModal)"><i
-            class="fas fa-trash pr-2"></i>{{'process.overview.delete' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}
+                (click)="openDeleteModal(deleteModal)">
+          <fa-layers class="pr-2">
+            <fa-icon [icon]="faTrash"/>
+          </fa-layers>{{'process.overview.delete' | translate: {count: processBulkDeleteService.getAmountOfSelectedProcesses()} }}
         </button>
-        <button class="btn btn-success" routerLink="/processes/new"><i
-            class="fas fa-plus pr-2"></i>{{'process.overview.new' | translate}}</button>
+        <button class="btn btn-success" routerLink="/processes/new">
+          <fa-layers class="pr-2">
+            <fa-icon [icon]="faPlus"/>
+          </fa-layers>{{'process.overview.new' | translate}}</button>
     </div>
 </ng-template>
 

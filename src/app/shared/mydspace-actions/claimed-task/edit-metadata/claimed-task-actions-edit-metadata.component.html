@@ -3,5 +3,5 @@
    ngbTooltip="{{'submission.workflow.tasks.claimed.edit_help' | translate}}"
    [routerLink]="['/workflowitems/' + (object.workflowitem | async)?.payload?.id + '/edit']"
    role="button">
-  <i class="fa fa-edit"></i> {{'submission.workflow.tasks.claimed.edit' | translate}}
+  <fa-icon [icon]="faEdit"/> {{'submission.workflow.tasks.claimed.edit' | translate}}
 </a>

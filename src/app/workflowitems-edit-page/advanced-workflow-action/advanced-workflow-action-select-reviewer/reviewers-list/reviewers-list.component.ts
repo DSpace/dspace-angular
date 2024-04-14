@@ -22,6 +22,7 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   TranslateModule,
   TranslateService,
@@ -70,6 +71,7 @@ enum SubKey {
     RouterLink,
     NgClass,
     NgForOf,
+    FontAwesomeModule,
   ],
 })
 export class ReviewersListComponent extends MembersListComponent implements OnInit, OnChanges, OnDestroy {

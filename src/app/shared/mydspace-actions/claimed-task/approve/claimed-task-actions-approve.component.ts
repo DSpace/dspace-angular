@@ -7,6 +7,11 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faThumbsUp,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -32,12 +37,15 @@ export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
   styleUrls: ['./claimed-task-actions-approve.component.scss'],
   templateUrl: './claimed-task-actions-approve.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Component for displaying and processing the approve action on a workflow task item
  */
 export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstractComponent {
+  protected readonly faCircleNotch = faCircleNotch;
+  protected readonly faThumbsUp = faThumbsUp;
+
   /**
    * This component represents the approve option
    */
@@ -62,5 +70,4 @@ export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstra
     });
     return reloadedObject;
   }
-
 }

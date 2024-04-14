@@ -14,6 +14,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUndo } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -42,13 +44,14 @@ import { SearchFilterComponent } from './search-filter/search-filter.component';
   styleUrls: ['./search-filters.component.scss'],
   templateUrl: './search-filters.component.html',
   standalone: true,
-  imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule, AdvancedSearchComponent],
+  imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule, AdvancedSearchComponent, FontAwesomeModule],
 })
 
 /**
  * This component represents the part of the search sidebar that contains filters.
  */
 export class SearchFiltersComponent implements OnInit, OnDestroy {
+  protected readonly faUndo = faUndo;
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */

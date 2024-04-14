@@ -8,6 +8,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -30,10 +32,11 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   styleUrls: ['./item-actions.component.scss'],
   templateUrl: './item-actions.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, RouterLink, TranslateModule],
+  imports: [NgbTooltipModule, RouterLink, TranslateModule, FontAwesomeModule],
 })
 
 export class ItemActionsComponent extends MyDSpaceActionsComponent<Item, ItemDataService> implements OnInit {
+  protected readonly faInfoCircle = faInfoCircle;
 
   /**
    * The Item object
@@ -84,5 +87,4 @@ export class ItemActionsComponent extends MyDSpaceActionsComponent<Item, ItemDat
   initPageRoute() {
     this.itemPageRoute = getItemPageRoute(this.object);
   }
-
 }

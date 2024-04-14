@@ -19,6 +19,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faGlobeAsia } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbTooltip,
   NgbTooltipModule,
@@ -48,11 +50,14 @@ import { ChipsItem } from './models/chips-item.model';
     TranslateModule,
     CdkDrag,
     CdkDropList,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 
 export class ChipsComponent implements OnChanges {
+  protected readonly faGlobeAsia = faGlobeAsia;
+
   @Input() chips: Chips;
   @Input() wrapperClass: string;
   @Input() editable = true;

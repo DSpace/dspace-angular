@@ -8,6 +8,8 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -65,6 +67,7 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     NgIf,
     NgForOf,
     SuggestionsNotificationComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -72,6 +75,8 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
  * Component for a user to edit their profile information
  */
 export class ProfilePageComponent implements OnInit {
+  protected readonly faEdit = faEdit;
+
   /**
    * A reference to the metadata form component
    */
@@ -255,5 +260,4 @@ export class ProfilePageComponent implements OnInit {
     // Show default error message notification.
     return this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.change-failed');
   }
-
 }

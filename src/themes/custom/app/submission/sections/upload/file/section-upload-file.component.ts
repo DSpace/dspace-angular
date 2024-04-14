@@ -3,6 +3,7 @@ import {
   NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { SubmissionSectionUploadFileComponent as BaseComponent } from 'src/app/submission/sections/upload/file/section-upload-file.component';
 
@@ -27,6 +28,7 @@ import { SubmissionSectionUploadFileViewComponent } from '../../../../../../../a
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
+    FontAwesomeModule,
   ],
 })
 export class SubmissionSectionUploadFileComponent

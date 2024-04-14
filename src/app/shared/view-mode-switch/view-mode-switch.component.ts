@@ -12,6 +12,12 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faList,
+  faSquare,
+  faThLarge,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -33,9 +39,12 @@ import { currentPath } from '../utils/route.utils';
   styleUrls: ['./view-mode-switch.component.scss'],
   templateUrl: './view-mode-switch.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe],
+  imports: [NgIf, RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe, FontAwesomeModule],
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
+  protected readonly faList = faList;
+  protected readonly faThLarge = faThLarge;
+  protected readonly faSquare = faSquare;
 
   /**
    * True when the search component should show results on the current page

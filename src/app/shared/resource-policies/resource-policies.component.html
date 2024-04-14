@@ -17,10 +17,12 @@
                       [title]="'resource-policies.delete.btn.title' | translate"
                       (click)="deleteSelectedResourcePolicies()">
                 <span *ngIf="(isProcessingDelete() | async)">
-                  <i class='fas fa-circle-notch fa-spin' aria-hidden="true"></i> {{'submission.workflow.tasks.generic.processing' | translate}}
+                  <fa-icon [icon]="faCircleNotch" animation="spin"/> {{'submission.workflow.tasks.generic.processing' | translate}}
                 </span>
                 <span *ngIf="(isProcessingDelete() | async) !== true">
-                  <i class='fas fa-trash-alt fa-fw' aria-hidden="true"></i>
+                  <fa-layers [fixedWidth]="true">
+                    <fa-icon [icon]="faTrashAlt"/>
+                  </fa-layers>
                   {{'resource-policies.delete.btn' | translate}}
                 </span>
               </button>
@@ -28,7 +30,7 @@
                       [disabled]="(isProcessingDelete() | async)"
                       [title]="'resource-policies.add.for.' + resourceType | translate"
                       (click)="redirectToResourcePolicyCreatePage()">
-                <i class='fas fa-plus' aria-hidden="true"></i>
+                <fa-icon [icon]="faPlus"/>
                 {{'resource-policies.add.button' | translate}}
               </button>
             </div>

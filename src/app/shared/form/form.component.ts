@@ -18,6 +18,13 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faSave,
+  faTimes,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -69,10 +76,15 @@ import { FormService } from './form.service';
     DynamicFormsCoreModule,
     NgIf,
     AsyncPipe,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class FormComponent implements OnDestroy, OnInit {
+  protected readonly faSave = faSave;
+  protected readonly faTimes = faTimes;
+  protected readonly faTrash = faTrash;
+  protected readonly faPlus = faPlus;
 
   private formErrors: FormError[] = [];
   private formValid: boolean;

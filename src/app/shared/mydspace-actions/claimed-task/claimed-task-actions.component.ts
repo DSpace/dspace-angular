@@ -12,6 +12,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -42,9 +44,10 @@ import { ClaimedTaskActionsLoaderComponent } from './switcher/claimed-task-actio
   styleUrls: ['./claimed-task-actions.component.scss'],
   templateUrl: './claimed-task-actions.component.html',
   standalone: true,
-  imports: [VarDirective, NgFor, ClaimedTaskActionsLoaderComponent, NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgFor, ClaimedTaskActionsLoaderComponent, NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnInit {
+  protected readonly faInfoCircle = faInfoCircle;
 
   /**
    * The ClaimedTask object
@@ -120,5 +123,4 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
   getWorkflowItemViewRoute(workflowitem: WorkflowItem): string {
     return getWorkflowItemViewRoute(workflowitem?.id);
   }
-
 }

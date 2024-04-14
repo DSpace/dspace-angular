@@ -13,6 +13,8 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbTooltip,
   NgbTooltipModule,
@@ -47,9 +49,11 @@ type ParsedContent = (string | {href: string, text: string})[];
   templateUrl: './context-help-wrapper.component.html',
   styleUrls: ['./context-help-wrapper.component.scss'],
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe],
+  imports: [NgFor, NgIf, NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe, FontAwesomeModule],
 })
 export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
+  protected readonly faQuestionCircle = faQuestionCircle;
+
   /**
    * Template reference for the wrapped element.
    */
@@ -190,4 +194,5 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
     this.subs.forEach(sub => sub.unsubscribe());
     this.subs = [];
   }
+
 }

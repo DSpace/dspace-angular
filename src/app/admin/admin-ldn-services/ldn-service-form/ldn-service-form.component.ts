@@ -29,6 +29,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faSave,
+  faTrash,
+  faUndo,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -81,9 +87,14 @@ import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patter
     NgbDropdownModule,
     NgForOf,
     AsyncPipe,
+    FontAwesomeModule,
   ],
 })
 export class LdnServiceFormComponent implements OnInit, OnDestroy {
+  protected readonly faUndo = faUndo;
+  protected readonly faTrash = faTrash;
+  protected readonly faSave = faSave;
+
   formModel: FormGroup;
 
   @ViewChild('confirmModal', { static: true }) confirmModal: TemplateRef<any>;

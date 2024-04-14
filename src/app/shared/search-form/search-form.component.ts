@@ -11,6 +11,8 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbTooltipModule,
@@ -39,12 +41,14 @@ import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-select
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
   standalone: true,
-  imports: [FormsModule, NgIf, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [FormsModule, NgIf, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe, FontAwesomeModule],
 })
 /**
  * Component that represents the search form
  */
 export class SearchFormComponent implements OnChanges {
+  protected readonly faSearch = faSearch;
+
   /**
    * The search query
    */

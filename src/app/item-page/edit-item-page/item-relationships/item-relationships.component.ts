@@ -11,6 +11,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faSave,
+  faTimes,
+  faUndoAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -74,6 +80,7 @@ import { EditRelationshipListComponent } from './edit-relationship-list/edit-rel
     EditRelationshipListComponent,
     NgForOf,
     VarDirective,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -81,7 +88,9 @@ import { EditRelationshipListComponent } from './edit-relationship-list/edit-rel
  * Component for displaying an item's relationships edit page
  */
 export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
-
+  protected readonly faUndoAlt = faUndoAlt;
+  protected readonly faTimes = faTimes;
+  protected readonly faSave = faSave;
 
   /**
    * The allowed relationship types for this type of item as an observable list
@@ -272,5 +281,4 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       followLink('rightType'),
     ];
   }
-
 }

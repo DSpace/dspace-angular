@@ -26,7 +26,9 @@
                 *ngIf="workspaceId$ | async"
                 (click)="editWorkspaceItem(workspaceId$)"
                 title="{{'item.version.history.table.action.editWorkspaceItem' | translate }}">
-          <i class="fas fa-pencil-alt fa-fw"></i>
+          <fa-layers [fixedWidth]="true">
+            <fa-icon [icon]="faPencilAlt"/>
+          </fa-layers>
         </button>
         <!--CREATE-->
         <ng-container *ngIf="canCreateVersion$ | async">
@@ -34,7 +36,9 @@
                   [disabled]="isAnyBeingEdited() || hasDraftVersion"
                   (click)="createNewVersion(version)"
                   title="{{createVersionTitle | translate }}">
-            <i class="fas fa-code-branch fa-fw"></i>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon [icon]="faCodeBranch"/>
+            </fa-layers>
           </button>
         </ng-container>
         <!--DELETE-->
@@ -44,7 +48,9 @@
                   [disabled]="isAnyBeingEdited()"
                   (click)="deleteVersion(version, version.id === itemVersion.id)"
                   title="{{'item.version.history.table.action.deleteVersion' | translate}}">
-            <i class="fas fa-trash fa-fw"></i>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon [icon]="faTrash"/>
+            </fa-layers>
           </button>
         </ng-container>
       </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { ExpandableNavbarSectionComponent as BaseComponent } from '../../../../../app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import { slide } from '../../../../../app/shared/animations/slide';
@@ -13,6 +14,7 @@ import { slide } from '../../../../../app/shared/animations/slide';
   // styleUrls: ['./expandable-navbar-section.component.scss'],
   styleUrls: ['../../../../../app/navbar/expandable-navbar-section/expandable-navbar-section.component.scss'],
   animations: [slide],
+  imports: [FontAwesomeModule],
   standalone: true,
 })
 export class ExpandableNavbarSectionComponent extends BaseComponent {

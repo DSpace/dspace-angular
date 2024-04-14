@@ -12,7 +12,7 @@
                    attr.aria-label="{{ searchPlaceholder }}" [attr.data-test]="'search-box' | dsBrowserOnly"
                    [placeholder]="searchPlaceholder">
             <span class="input-group-append">
-            <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>
+            <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly"><fa-icon [icon]="faSearch"/> {{ ('search.form.search' | translate) }}</button>
         </span>
         </div>
     </div>

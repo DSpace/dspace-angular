@@ -12,6 +12,13 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faArrowLeft,
+  faCircleNotch,
+  faSave,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -56,6 +63,7 @@ import {
     AsyncPipe,
     AuthorizedCollectionSelectorComponent,
     NgIf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -63,6 +71,10 @@ import {
  * Component that handles the moving of an item to a different collection
  */
 export class ItemMoveComponent implements OnInit {
+  protected readonly faArrowLeft = faArrowLeft;
+  protected readonly faSave = faSave;
+  protected readonly faCircleNotch = faCircleNotch;
+  protected readonly faTimes = faTimes;
   /**
    * TODO: There is currently no backend support to change the owningCollection and inherit policies,
    * TODO: when this is added, the inherit policies option should be used.

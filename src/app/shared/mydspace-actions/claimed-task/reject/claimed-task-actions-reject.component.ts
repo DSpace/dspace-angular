@@ -15,6 +15,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -44,12 +49,15 @@ export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, NgIf, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Component for displaying and processing the reject action on a workflow task item
  */
 export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
+  protected readonly faTrashAlt = faTrashAlt;
+  protected readonly faCircleNotch = faCircleNotch;
+
   /**
    * This component represents the reject option
    */

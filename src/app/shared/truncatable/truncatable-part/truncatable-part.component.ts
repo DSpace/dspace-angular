@@ -8,6 +8,11 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faAngleDown,
+  faAngleUp,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { hasValue } from '../../empty.util';
@@ -19,7 +24,7 @@ import { TruncatableService } from '../truncatable.service';
   templateUrl: './truncatable-part.component.html',
   styleUrls: ['./truncatable-part.component.scss'],
   standalone: true,
-  imports: [DragClickDirective, NgIf, TranslateModule],
+  imports: [DragClickDirective, NgIf, TranslateModule, FontAwesomeModule],
 })
 
 /**
@@ -27,6 +32,9 @@ import { TruncatableService } from '../truncatable.service';
  * It needs a TruncatableComponent parent to identify it's current state
  */
 export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDestroy {
+  protected readonly faAngleDown = faAngleDown;
+  protected readonly faAngleUp = faAngleUp;
+
   /**
    * Number of lines shown when the part is collapsed
    */

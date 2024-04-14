@@ -8,6 +8,11 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCheck,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
@@ -15,6 +20,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
 import { LoadingComponent } from '../loading/loading.component';
+
 
 @Component({
   selector: 'ds-item-withdrawn-reinstate-modal',
@@ -26,6 +32,7 @@ import { LoadingComponent } from '../loading/loading.component';
     LoadingComponent,
     FormsModule,
     AsyncPipe,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -34,6 +41,8 @@ import { LoadingComponent } from '../loading/loading.component';
  * Implements the ModalBeforeDismiss interface.
  */
 export class ItemWithdrawnReinstateModalComponent implements ModalBeforeDismiss {
+  protected readonly faTimes = faTimes;
+  protected readonly faCheck = faCheck;
 
   /**
    * The reason for withdrawing or reinstating a suggestion.

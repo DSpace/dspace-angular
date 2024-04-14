@@ -3,6 +3,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchNavbarComponent as BaseComponent } from '../../../../app/search-navbar/search-navbar.component';
@@ -16,7 +17,7 @@ import { ClickOutsideDirective } from '../../../../app/shared/utils/click-outsid
   // templateUrl: './search-navbar.component.html'
   templateUrl: '../../../../app/search-navbar/search-navbar.component.html',
   standalone: true,
-  imports: [ClickOutsideDirective, FormsModule, ReactiveFormsModule, TranslateModule, BrowserOnlyPipe],
+  imports: [ClickOutsideDirective, FormsModule, ReactiveFormsModule, TranslateModule, BrowserOnlyPipe, FontAwesomeModule],
 })
 export class SearchNavbarComponent extends BaseComponent {
 

@@ -11,6 +11,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
@@ -34,6 +36,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
     VarDirective,
     AsyncPipe,
     ListableObjectComponentLoaderComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -43,6 +46,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
  * Each item has a checkbox to indicate whether its virtual metadata should be saved as real metadata.
  */
 export class VirtualMetadataComponent implements OnInit {
+  protected readonly faSave = faSave;
 
   /**
    * The current url of this page

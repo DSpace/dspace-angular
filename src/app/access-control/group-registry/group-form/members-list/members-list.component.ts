@@ -18,6 +18,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -105,6 +107,7 @@ export interface EPersonListActionConfig {
     RouterLink,
     NgClass,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -112,6 +115,7 @@ export interface EPersonListActionConfig {
  * The list of members in the edit group page
  */
 export class MembersListComponent implements OnInit, OnDestroy {
+  protected readonly faSearch = faSearch;
 
   @Input()
     messagePrefix: string;

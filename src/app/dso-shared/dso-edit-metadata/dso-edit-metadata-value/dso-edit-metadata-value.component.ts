@@ -23,6 +23,16 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCheck,
+  faEdit,
+  faGripVertical,
+  faLock,
+  faLockOpen,
+  faTrashAlt,
+  faUndoAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -91,12 +101,20 @@ import {
   styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value.component.html',
   standalone: true,
-  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective],
+  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, DsDynamicScrollableDropdownComponent, DsDynamicOneboxComponent, AuthorityConfidenceStateDirective, FontAwesomeModule],
 })
 /**
  * Component displaying a single editable row for a metadata value
  */
 export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
+  protected readonly faLock = faLock;
+  protected readonly faLockOpen = faLockOpen;
+  protected readonly faEdit = faEdit;
+  protected readonly faCheck = faCheck;
+  protected readonly faTrashAlt = faTrashAlt;
+  protected readonly faUndoAlt = faUndoAlt;
+  protected readonly faGripVertical = faGripVertical;
+
   /**
    * The parent {@link DSpaceObject} to display a metadata form for
    * Also used to determine metadata-representations in case of virtual metadata
@@ -463,5 +481,4 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
       this.confirm.emit(false);
     }
   }
-
 }

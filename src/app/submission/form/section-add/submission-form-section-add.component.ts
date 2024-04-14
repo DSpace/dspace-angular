@@ -4,6 +4,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -22,9 +24,10 @@ import { SubmissionService } from '../../submission.service';
   styleUrls: ['./submission-form-section-add.component.scss'],
   templateUrl: './submission-form-section-add.component.html',
   standalone: true,
-  imports: [CommonModule, TranslateModule, NgbDropdownModule],
+  imports: [CommonModule, TranslateModule, NgbDropdownModule, FontAwesomeModule],
 })
 export class SubmissionFormSectionAddComponent implements OnInit {
+  protected readonly faPlus = faPlus;
 
   /**
    * The collection id this submission belonging to

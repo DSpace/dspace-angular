@@ -13,6 +13,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -74,6 +76,7 @@ import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowit
     PaginationComponent,
     SuggestionListElementComponent,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -83,6 +86,7 @@ import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowit
  */
 
 export class SuggestionsPageComponent implements OnInit {
+  protected readonly faCircleNotch = faCircleNotch;
 
   /**
    * The pagination configuration
@@ -328,5 +332,4 @@ export class SuggestionsPageComponent implements OnInit {
   translateSuggestionType() {
     return this.suggestionService.translateSuggestionType(this.suggestionSource);
   }
-
 }

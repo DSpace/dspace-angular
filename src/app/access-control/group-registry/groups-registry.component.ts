@@ -18,6 +18,13 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faEdit,
+  faPlus,
+  faSearch,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -87,6 +94,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     NgSwitchCase,
     NgbTooltipModule,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -95,6 +103,10 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
  * The admin can create, edit or delete groups here.
  */
 export class GroupsRegistryComponent implements OnInit, OnDestroy {
+  protected readonly faPlus = faPlus;
+  protected readonly faSearch = faSearch;
+  protected readonly faEdit = faEdit;
+  protected readonly faTrashAlt = faTrashAlt;
 
   messagePrefix = 'admin.access-control.groups.';
 
@@ -325,5 +337,4 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
     this.paginationService.clearPagination(this.config.id);
   }
-
 }

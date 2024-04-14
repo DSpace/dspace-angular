@@ -14,6 +14,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faPlus,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -63,6 +69,7 @@ import {
     NgIf,
     AsyncPipe,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -70,6 +77,9 @@ import {
  * Component that shows the policies for given resource
  */
 export class ResourcePoliciesComponent implements OnInit, OnDestroy {
+  protected readonly faCircleNotch = faCircleNotch;
+  protected readonly faPlus = faPlus;
+  protected readonly faTrashAlt = faTrashAlt;
 
   /**
    * The resource UUID

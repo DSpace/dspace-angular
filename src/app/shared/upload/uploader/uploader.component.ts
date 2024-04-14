@@ -10,6 +10,11 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faTrash,
+  faUpload,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -40,9 +45,11 @@ import { UploaderProperties } from './uploader-properties.model';
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [TranslateModule, FileUploadModule, CommonModule],
+  imports: [TranslateModule, FileUploadModule, CommonModule, FontAwesomeModule],
 })
 export class UploaderComponent {
+  protected readonly faUpload = faUpload;
+  protected readonly faTrash = faTrash;
 
   /**
    * The message to show when drag files on the drop zone
@@ -249,5 +256,4 @@ export class UploaderComponent {
     this.cookieService.remove(XSRF_COOKIE);
     this.cookieService.set(XSRF_COOKIE, token);
   }
-
 }

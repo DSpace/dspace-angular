@@ -46,9 +46,11 @@
             />
             <div class="input-group-append">
               <button
-                class="btn btn-outline-secondary fas fa-calendar"
+                class="btn btn-outline-secondary"
                 [disabled]="ngForm.disabled"
-                (click)="d.toggle()" type="button">
+                (click)="d.toggle()"
+                type="button">
+                <fa-icon [icon]="faCalendar"></fa-icon>
               </button>
             </div>
           </div>
@@ -75,9 +77,11 @@
             />
             <div class="input-group-append">
               <button
-                type="button" class="btn btn-outline-secondary fas fa-calendar"
+                class="btn btn-outline-secondary"
                 [disabled]="ngForm.disabled"
-                (click)="d1.toggle()">
+                (click)="d1.toggle()"
+                type="button">
+                <fa-icon [icon]="faCalendar"></fa-icon>
               </button>
             </div>
           </div>
@@ -95,7 +99,7 @@
                   [attr.aria-label]="'access-control-remove' | translate"
                   [disabled]="ngForm.disabled || form.accessControls.length === 1"
                   (click)="removeAccessControlItem(control.id)">
-            <i class="fas fa-trash"></i>
+            <fa-icon [icon]="faTrash"/>
           </button>
         </div>
       </div>
@@ -105,7 +109,7 @@
   <button type="button" id="add-btn-{{type}}" class="btn btn-outline-primary mt-3"
           [disabled]="ngForm.disabled"
           (click)="addAccessControlItem()">
-    <i class="fas fa-plus"></i>
+    <fa-icon [icon]="faPlus"/>
     {{'access-control-add-more' | translate}}
   </button>
 

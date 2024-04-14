@@ -7,6 +7,8 @@ import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchConfigurationService } from '../../../../app/core/shared/search/search-configuration.service';
@@ -35,11 +37,13 @@ import { ViewModeSwitchComponent } from '../../../../app/shared/view-mode-switch
     },
   ],
   standalone: true,
-  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 
 /**
  * This component renders a search page using a configuration as input.
  */
-export class ConfigurationSearchPageComponent extends BaseComponent {}
+export class ConfigurationSearchPageComponent extends BaseComponent {
+  protected readonly faSliders = faSliders;
+}
 

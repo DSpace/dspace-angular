@@ -3,6 +3,11 @@ import {
   Component,
   ViewChild,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faChevronDown,
+  faChevronUp,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -18,10 +23,13 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
     TranslateModule,
     NgIf,
     AccessControlFormContainerComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class BulkAccessSettingsComponent {
+  protected readonly faChevronUp = faChevronUp;
+  protected readonly faChevronDown = faChevronDown;
 
   /**
    * The SectionsDirective reference

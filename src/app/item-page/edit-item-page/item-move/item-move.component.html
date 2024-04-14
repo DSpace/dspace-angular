@@ -38,18 +38,18 @@
           <div class="button-row bottom">
             <div class="float-right space-children-mr">
               <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left"></i> {{'item.edit.move.cancel' | translate}}
+                <fa-icon [icon]="faArrowLeft"/> {{'item.edit.move.cancel' | translate}}
               </button>
               <button class="btn btn-primary" [disabled]="!canMove" (click)="moveToCollection()">
               <span *ngIf="!processing">
-                <i class="fas fa-save"></i> {{'item.edit.move.save-button' | translate}}
+                <fa-icon [icon]="faSave"/> {{'item.edit.move.save-button' | translate}}
               </span>
               <span *ngIf="processing">
-                <i class="fas fa-circle-notch fa-spin"></i> {{'item.edit.move.processing' | translate}}
+                <fa-icon [icon]="faCircleNotch" animation="spin"/> {{'item.edit.move.processing' | translate}}
               </span>
               </button>
               <button class="btn btn-danger" [disabled]="!canSubmit" (click)="discard()">
-                <i class="fas fa-times"></i> {{"item.edit.move.discard-button" | translate}}
+                <fa-icon [icon]="faTimes"/> {{"item.edit.move.discard-button" | translate}}
               </button>
             </div>
           </div>

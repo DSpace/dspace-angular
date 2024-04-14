@@ -8,16 +8,16 @@
                 }}
             </button>
             <div>
-                <span *ngIf="!!version?.embargo && !!version?.embargo.amount;else noEmbargoTitle"> <i
-                        class="fas fa-hourglass-half"></i> {{version.embargo.amount}}
+                <span *ngIf="!!version?.embargo && !!version?.embargo.amount;else noEmbargoTitle">
+                  <fa-icon [icon]="faHourglassHalf"/> {{version.embargo.amount}}
                     {{version.embargo?.units[0]}}</span>
                 <ng-template #noEmbargoTitle>
-                    <span><i class="fas fa-hourglass-half"></i> {{
+                    <span><fa-icon [icon]="faHourglassHalf"/> {{
                         'submission.sections.sherpa.publisher.policy.noembargo' | translate }}</span>
                 </ng-template>
 
                 <span class="m-1 ml-4">
-                    <i class="far fa-folder-open"></i>
+                    <fa-icon [icon]="faFolderOpen"/>
                     <span *ngIf="!!version?.locations && version.locations.length > 0; else noLocations">
                         {{version.locations[0]}} <span
                             *ngIf="version.locations.length > 1">+{{version.locations.length-1}}</span>
@@ -30,15 +30,17 @@
             </div>
         </div>
         <div class="d-inline-block">
-            <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
-            <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
+          <fa-layers [fixedWidth]="true">
+            <fa-icon *ngIf="collapse.collapsed" [icon]="faChevronDown"/>
+            <fa-icon *ngIf="!collapse.collapsed" [icon]="faChevronUp"/>
+          </fa-layers>
         </div>
     </div>
     <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
         <div *ngIf="!!version" class="ml-4">
             <div class="row" *ngIf="!!version?.embargo && !!version?.embargo.amount">
                 <div class="col-4">
-                    <p class="m-1"><i class="fas fa-hourglass-half"></i> {{
+                    <p class="m-1"><fa-icon [icon]="faHourglassHalf"/> {{
                         'submission.sections.sherpa.publisher.policy.embargo' | translate }}</p>
                 </div>
                 <div class="col-6">
@@ -51,7 +53,7 @@
             </div>
             <div class="row" *ngIf="!!version?.licenses && version.licenses.length > 0">
                 <div class="col-4">
-                    <p class="m-1"><i class="fas fa-certificate"></i> {{
+                    <p class="m-1"><fa-icon [icon]="faCertificate"/> {{
                         'submission.sections.sherpa.publisher.policy.license' | translate }}</p>
                 </div>
                 <div class="col-6">
@@ -60,7 +62,7 @@
             </div>
             <div class="row" *ngIf="!!version?.prerequisites && version.prerequisites.length > 0">
                 <div class="col-4">
-                    <p class="m-1"><i class="fas fa-exclamation-circle"></i> {{
+                    <p class="m-1"><fa-icon [icon]="faExclamationCircle"/> {{
                         'submission.sections.sherpa.publisher.policy.prerequisites' | translate }}</p>
                 </div>
                 <div class="col-6">
@@ -69,7 +71,7 @@
             </div>
             <div class="row" *ngIf="!!version?.locations && version.locations.length > 0">
                 <div class="col-4">
-                    <p class="m-1"><i class="far fa-folder-open"></i> {{
+                    <p class="m-1"><fa-icon [icon]="faFolderOpen"/> {{
                         'submission.sections.sherpa.publisher.policy.location' | translate }}</p>
                 </div>
                 <div class="col-6">
@@ -78,7 +80,7 @@
             </div>
             <div class="row" *ngIf="!!version?.conditions && version.conditions.length > 0">
                 <div class="col-4">
-                    <p class="m-1"><i class="fas fa-tasks"></i> {{
+                    <p class="m-1"><<fa-icon [icon]="faTasks"/> {{
                         'submission.sections.sherpa.publisher.policy.conditions' | translate }}</p>
                 </div>
                 <div class="col-6">

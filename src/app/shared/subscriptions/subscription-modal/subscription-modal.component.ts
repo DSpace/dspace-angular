@@ -18,6 +18,8 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbActiveModal,
   NgbModal,
@@ -61,12 +63,13 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   templateUrl: './subscription-modal.component.html',
   styleUrls: ['./subscription-modal.component.scss'],
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, ThemedTypeBadgeComponent, NgFor, AlertComponent, AsyncPipe, KeyValuePipe, TranslateModule],
+  imports: [NgIf, FormsModule, ReactiveFormsModule, ThemedTypeBadgeComponent, NgFor, AlertComponent, AsyncPipe, KeyValuePipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Modal that allows to manage the subscriptions for the selected item
  */
 export class SubscriptionModalComponent implements OnInit {
+  protected readonly faCircleNotch = faCircleNotch;
 
   /**
    * DSpaceObject of which to get the subscriptions
@@ -318,5 +321,4 @@ export class SubscriptionModalComponent implements OnInit {
 
     return body;
   }
-
 }

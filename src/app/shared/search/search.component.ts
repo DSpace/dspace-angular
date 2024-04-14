@@ -17,6 +17,8 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSliders } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -88,13 +90,14 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
   standalone: true,
-  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 
 /**
  * This component renders a sidebar, a search input bar and the search results.
  */
 export class SearchComponent implements OnDestroy, OnInit {
+  protected readonly faSliders = faSliders;
 
   /**
    * The list of available configuration options

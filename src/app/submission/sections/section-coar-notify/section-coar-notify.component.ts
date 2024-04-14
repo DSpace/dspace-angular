@@ -9,6 +9,11 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbDropdown,
   NgbDropdownModule,
@@ -66,10 +71,13 @@ import { LdnPattern } from './submission-coar-notify.config';
     NgbDropdownModule,
     NgClass,
     InfiniteScrollModule,
+    FontAwesomeModule,
   ],
   providers: [NgbDropdown],
 })
 export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent {
+  protected readonly faTrash = faTrash;
+  protected readonly faPlus = faPlus;
 
   hasSectionData = false;
   /**

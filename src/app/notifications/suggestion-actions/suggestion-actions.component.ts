@@ -5,6 +5,12 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faBan,
+  faCheck,
+  faEye,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -31,10 +37,14 @@ import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestio
     TranslateModule,
     NgIf,
     NgbDropdownModule,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class SuggestionActionsComponent {
+  protected readonly faCheck = faCheck;
+  protected readonly faEye = faEye;
+  protected readonly faBan = faBan;
 
   @Input() object: Suggestion;
 

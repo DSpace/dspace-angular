@@ -9,6 +9,7 @@ import {
   Component,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedItemAlertsComponent } from '../../../../../app/item-page/alerts/themed-item-alerts.component';
@@ -57,6 +58,7 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     ViewTrackerComponent,
     ThemedItemAlertsComponent,
     VarDirective,
+    FontAwesomeModule,
   ],
 })
 export class FullItemPageComponent extends BaseComponent {

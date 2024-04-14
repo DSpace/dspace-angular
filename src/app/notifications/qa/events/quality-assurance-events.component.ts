@@ -12,6 +12,17 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faAngleDown,
+  faAngleUp,
+  faBan,
+  faCheck,
+  faClose,
+  faSearch,
+  faTrash,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbTooltipModule,
@@ -86,9 +97,18 @@ import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
   templateUrl: './quality-assurance-events.component.html',
   styleUrls: ['./quality-assurance-events.component.scss'],
   standalone: true,
-  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent],
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent, FontAwesomeModule],
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
+  protected readonly faAngleDown = faAngleDown;
+  protected readonly faAngleUp = faAngleUp;
+  protected readonly faSearch = faSearch;
+  protected readonly faTrashAlt = faTrashAlt;
+  protected readonly faCheck = faCheck;
+  protected readonly faBan = faBan;
+  protected readonly faClose = faClose;
+  protected readonly faTrash = faTrash;
+
   /**
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}

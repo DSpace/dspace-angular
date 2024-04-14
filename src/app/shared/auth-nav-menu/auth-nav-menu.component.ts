@@ -11,6 +11,11 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faSignOutAlt,
+  faUserCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterReducerState } from '@ngrx/router-store';
 import {
@@ -60,9 +65,12 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
   styleUrls: ['./auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
   standalone: true,
-  imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, ThemedLogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, ThemedLogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe, FontAwesomeModule],
 })
 export class AuthNavMenuComponent implements OnInit {
+  protected readonly faUserCircle = faUserCircle;
+  protected readonly faSignOutAlt = faSignOutAlt;
+
   /**
    * Whether user is authenticated.
    * @type {Observable<string>}

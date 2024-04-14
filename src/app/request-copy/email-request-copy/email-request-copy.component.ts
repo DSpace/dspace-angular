@@ -10,6 +10,11 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faArrowLeft,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { RequestCopyEmail } from './request-copy-email.model';
@@ -20,12 +25,15 @@ import { RequestCopyEmail } from './request-copy-email.model';
   styleUrls: ['./email-request-copy.component.scss'],
   templateUrl: './email-request-copy.component.html',
   standalone: true,
-  imports: [FormsModule, NgClass, NgIf, TranslateModule],
+  imports: [FormsModule, NgClass, NgIf, TranslateModule, FontAwesomeModule],
 })
 /**
  * A form component for an email to send back to the user requesting an item
  */
 export class EmailRequestCopyComponent {
+  protected readonly faArrowLeft = faArrowLeft;
+  protected readonly faEnvelope = faEnvelope;
+
   /**
    * Event emitter for sending the email
    */

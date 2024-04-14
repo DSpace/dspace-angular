@@ -3,11 +3,11 @@
     <ng-content></ng-content>
   </div>
   <button class="btn btn-link p-0 expandButton" dsDragClick (actualClick)="toggle()">
-    <i class="fas fa-angle-down"></i>
+    <fa-icon [icon]="faAngleDown"/>
     <span class="ml-1">{{ 'item.truncatable-part.show-more' | translate }}</span>
   </button>
   <button class="btn btn-link p-0 collapseButton" dsDragClick (actualClick)="toggle()" *ngIf="expand && expandable">
-    <i class="fas fa-angle-up"></i>
+    <fa-icon [icon]="faAngleUp"/>
     <span class="ml-1">{{ 'item.truncatable-part.show-less' | translate }}</span>
   </button>
 </div>

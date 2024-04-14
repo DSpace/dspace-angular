@@ -10,8 +10,10 @@
         </button>
         <div class="text-right d-flex gap-2">
           <div class="d-flex my-auto">
-            <span *ngIf="acc.isExpanded('browse')" class="fas fa-chevron-up fa-fw"></span>
-            <span *ngIf="!acc.isExpanded('browse')" class="fas fa-chevron-down fa-fw"></span>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon *ngIf="acc.isExpanded('browse')" [icon]="faChevronUp"/>
+              <fa-icon *ngIf="!acc.isExpanded('browse')" [icon]="faChevronDown"/>
+            </fa-layers>
           </div>
         </div>
       </div>

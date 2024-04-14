@@ -3,7 +3,7 @@
             [attr.aria-label]="'mydspace.new-submission-external' | translate" [disabled]="(initialized$ | async) !== true"
             (click)="openPage(singleEntity)" role="button"
             title="{{'mydspace.new-submission-external' | translate}}">
-      <i class="fa fa-file-import" aria-hidden="true"></i>
+      <fa-icon [icon]="faFileImport"/>
     </button>
   </div>
   <div class="add w-100" display="dynamic" placement="bottom-right"
@@ -14,7 +14,7 @@
             [attr.aria-label]="'mydspace.new-submission-external' | translate"
             [attr.data-test]="'import-dropdown' | dsBrowserOnly"
             title="{{'mydspace.new-submission-external' | translate}}">
-      <i class="fa fa-file-import" aria-hidden="true"></i>
+      <fa-icon [icon]="faFileImport"/>
       <span class="caret" aria-hidden="true"></span>
     </button>
     <div ngbDropdownMenu

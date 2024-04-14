@@ -17,6 +17,13 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faEdit,
+  faPlus,
+  faSearch,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -79,6 +86,7 @@ import { EPersonFormComponent } from './eperson-form/eperson-form.component';
     PaginationComponent,
     NgClass,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -87,6 +95,10 @@ import { EPersonFormComponent } from './eperson-form/eperson-form.component';
  * The admin can create, edit or delete epeople here.
  */
 export class EPeopleRegistryComponent implements OnInit, OnDestroy {
+  protected readonly faPlus = faPlus;
+  protected readonly faSearch = faSearch;
+  protected readonly faEdit = faEdit;
+  protected readonly faTrashAlt = faTrashAlt;
 
   labelPrefix = 'admin.access-control.epeople.';
 

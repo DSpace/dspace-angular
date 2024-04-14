@@ -19,6 +19,8 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faLevelDown } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
@@ -76,9 +78,10 @@ export interface CollectionListEntry {
   templateUrl: './collection-dropdown.component.html',
   styleUrls: ['./collection-dropdown.component.scss'],
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class CollectionDropdownComponent implements OnInit, OnDestroy {
+  protected readonly faLevelDown = faLevelDown;
 
   /**
    * The search form control
@@ -338,5 +341,4 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
       });
     }
   }
-
 }

@@ -8,6 +8,8 @@ import {
   ReactiveFormsModule,
   UntypedFormBuilder,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
@@ -21,9 +23,10 @@ import { SearchEvent } from '../eperson-group-list-event-type';
   selector: 'ds-eperson-search-box',
   templateUrl: './eperson-search-box.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule, FontAwesomeModule],
 })
 export class EpersonSearchBoxComponent {
+  protected readonly faSearch = faSearch;
 
   labelPrefix = 'admin.access-control.epeople.';
 

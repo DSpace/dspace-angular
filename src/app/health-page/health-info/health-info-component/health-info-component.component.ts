@@ -7,6 +7,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faChevronDown,
+  faChevronUp,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
@@ -21,9 +26,11 @@ import { HealthInfoComponent } from '../../models/health-component.model';
   templateUrl: './health-info-component.component.html',
   styleUrls: ['./health-info-component.component.scss'],
   standalone: true,
-  imports: [NgFor, NgIf, NgbCollapseModule, TitleCasePipe, ObjNgFor],
+  imports: [NgFor, NgIf, NgbCollapseModule, TitleCasePipe, ObjNgFor, FontAwesomeModule],
 })
 export class HealthInfoComponentComponent extends HealthComponentComponent {
+  protected readonly faChevronUp = faChevronUp;
+  protected readonly faChevronDown = faChevronDown;
 
   /**
    * The HealthInfoComponent object to display

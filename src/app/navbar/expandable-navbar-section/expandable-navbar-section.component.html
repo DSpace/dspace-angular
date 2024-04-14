@@ -22,7 +22,7 @@
           *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
 <!--        <span class="sr-only">{{'nav.expandable-navbar-section-suffix' | translate}}</span>-->
       </span>
-      <i class="fas fa-caret-down fa-xs toggle-menu-icon" aria-hidden="true"></i>
+      <fa-icon [icon]="faCaretDown" size="xs" class="toggle-menu-icon"/>
     </a>
     <div @slide *ngIf="isActive" (click)="deactivateSection($event)"
         [id]="expandableNavbarSectionId(section.id)"

@@ -17,6 +17,12 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faSearch,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -71,6 +77,7 @@ enum SubKey {
     ReactiveFormsModule,
     PaginationComponent,
     NgIf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -78,6 +85,9 @@ enum SubKey {
  * The list of subgroups in the edit group page
  */
 export class SubgroupsListComponent implements OnInit, OnDestroy {
+  protected readonly faTrashAlt = faTrashAlt;
+  protected readonly faSearch = faSearch;
+  protected readonly faPlus = faPlus;
 
   @Input()
     messagePrefix: string;

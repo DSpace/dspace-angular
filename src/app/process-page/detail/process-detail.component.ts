@@ -19,6 +19,12 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faSyncAlt,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -76,12 +82,15 @@ import { ProcessDetailFieldComponent } from './process-detail-field/process-deta
   selector: 'ds-process-detail',
   templateUrl: './process-detail.component.html',
   standalone: true,
-  imports: [NgIf, ProcessDetailFieldComponent, NgFor, VarDirective, ThemedFileDownloadLinkComponent, ThemedLoadingComponent, RouterLink, AsyncPipe, DatePipe, FileSizePipe, TranslateModule, HasNoValuePipe],
+  imports: [NgIf, ProcessDetailFieldComponent, NgFor, VarDirective, ThemedFileDownloadLinkComponent, ThemedLoadingComponent, RouterLink, AsyncPipe, DatePipe, FileSizePipe, TranslateModule, HasNoValuePipe, FontAwesomeModule],
 })
 /**
  * A component displaying detailed information about a DSpace Process
  */
 export class ProcessDetailComponent implements OnInit, OnDestroy {
+  protected readonly faTrash = faTrash;
+  protected readonly faPlus = faPlus;
+  protected readonly faSyncAlt = faSyncAlt;
 
   /**
    * The AlertType enumeration

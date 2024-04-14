@@ -14,6 +14,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -60,10 +62,12 @@ import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-set
     OrcidQueueComponent,
     TranslateModule,
     RouterLink,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class OrcidPageComponent implements OnInit {
+  protected readonly faArrowLeft = faArrowLeft;
   protected readonly AlertType = AlertType;
 
   /**
@@ -190,5 +194,4 @@ export class OrcidPageComponent implements OnInit {
     const redirectUrl = this.router.url.split('?')[0];
     this.router.navigate([redirectUrl]);
   }
-
 }

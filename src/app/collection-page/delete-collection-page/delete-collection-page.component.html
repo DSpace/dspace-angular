@@ -7,11 +7,11 @@
                 <div class="form-group row">
                   <div class="col text-right space-children-mr">
                     <button class="btn btn-outline-secondary" (click)="onCancel(dso)" [disabled]="(processing$ | async)">
-                      <i class="fas fa-times"></i> {{'collection.delete.cancel' | translate}}
+                      <fa-icon [icon]="faTimes"/> {{'collection.delete.cancel' | translate}}
                     </button>
                     <button class="btn btn-danger" (click)="onConfirm(dso)" [disabled]="(processing$ | async)">
-                      <span *ngIf="processing$ | async"><i class='fas fa-circle-notch fa-spin'></i> {{'collection.delete.processing' | translate}}</span>
-                      <span *ngIf="(processing$ | async) !== true"><i class="fas fa-trash"></i> {{'collection.delete.confirm' | translate}}</span>
+                      <span *ngIf="processing$ | async"><fa-icon [icon]="faCircleNotch" animation="spin"/> {{'collection.delete.processing' | translate}}</span>
+                      <span *ngIf="(processing$ | async) !== true"><fa-icon [icon]="faTrash"/> {{'collection.delete.confirm' | translate}}</span>
                     </button>
                   </div>
                 </div>

@@ -3,6 +3,8 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import {
   select,
   Store,
@@ -34,9 +36,10 @@ import {
   templateUrl: './log-in-external-provider.component.html',
   styleUrls: ['./log-in-external-provider.component.scss'],
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, FontAwesomeModule],
 })
 export class LogInExternalProviderComponent implements OnInit {
+  protected readonly faSignInAlt = faSignInAlt;
 
   /**
    * The authentication method data.

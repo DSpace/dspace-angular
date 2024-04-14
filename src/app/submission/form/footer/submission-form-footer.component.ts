@@ -5,6 +5,14 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCheckCircle,
+  faExclamationCircle,
+  faPlus,
+  faSave,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -27,9 +35,14 @@ import { SubmissionService } from '../../submission.service';
   styleUrls: ['./submission-form-footer.component.scss'],
   templateUrl: './submission-form-footer.component.html',
   standalone: true,
-  imports: [CommonModule, BrowserOnlyPipe, TranslateModule],
+  imports: [CommonModule, BrowserOnlyPipe, TranslateModule, FontAwesomeModule],
 })
 export class SubmissionFormFooterComponent implements OnChanges {
+  protected readonly faTrash = faTrash;
+  protected readonly faCheckCircle = faCheckCircle;
+  protected readonly faExclamationCircle = faExclamationCircle;
+  protected readonly faPlus = faPlus;
+  protected readonly faSave = faSave;
 
   /**
    * The submission id

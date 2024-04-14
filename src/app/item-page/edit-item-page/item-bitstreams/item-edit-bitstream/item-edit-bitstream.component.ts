@@ -13,6 +13,13 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faDownload,
+  faEdit,
+  faTrashAlt,
+  faUndoAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
@@ -43,6 +50,7 @@ import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
     NgbTooltipModule,
     AsyncPipe,
     NgIf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -52,6 +60,10 @@ import { BrowserOnlyPipe } from '../../../../shared/utils/browser-only.pipe';
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream element)
  */
 export class ItemEditBitstreamComponent implements OnChanges, OnDestroy, OnInit {
+  protected readonly faDownload = faDownload;
+  protected readonly faEdit = faEdit;
+  protected readonly faUndoAlt = faUndoAlt;
+  protected readonly faTrashAlt = faTrashAlt;
 
   /**
    * The view on the bitstream
@@ -147,5 +159,4 @@ export class ItemEditBitstreamComponent implements OnChanges, OnDestroy, OnInit 
   canUndo(): boolean {
     return this.fieldUpdate.changeType >= 0;
   }
-
 }

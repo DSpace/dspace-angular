@@ -4,6 +4,7 @@ import {
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AlertComponent } from '../../../../../app/shared/alert/alert.component';
@@ -35,6 +36,7 @@ import { SubmissionImportExternalComponent as BaseComponent } from '../../../../
     TranslateModule,
     VarDirective,
     RouterLink,
+    FontAwesomeModule,
   ],
 })
 export class SubmissionImportExternalComponent extends BaseComponent {

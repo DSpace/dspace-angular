@@ -9,6 +9,8 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -29,6 +31,7 @@ import { PaginatedDragAndDropBitstreamListComponent } from './paginated-drag-and
     TranslateModule,
     RouterLink,
     ItemEditBitstreamDragHandleComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -38,6 +41,7 @@ import { PaginatedDragAndDropBitstreamListComponent } from './paginated-drag-and
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream-bundle element)
  */
 export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
+  protected readonly faUpload = faUpload;
 
   /**
    * The view on the bundle information and bitstreams
@@ -92,5 +96,4 @@ export class ItemEditBitstreamBundleComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.viewContainerRef.clear();
   }
-
 }

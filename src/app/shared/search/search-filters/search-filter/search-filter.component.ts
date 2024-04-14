@@ -10,6 +10,11 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faMinus,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -44,13 +49,16 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
   templateUrl: './search-filter.component.html',
   animations: [slide],
   standalone: true,
-  imports: [NgIf, NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgIf, NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe, FontAwesomeModule],
 })
 
 /**
  * Represents a part of the filter section for a single type of filter
  */
 export class SearchFilterComponent implements OnInit {
+  protected readonly faPlus = faPlus;
+  protected readonly faMinus = faMinus;
+
   /**
    * The filter config for this component
    */

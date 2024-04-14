@@ -7,6 +7,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faTimes,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -31,10 +37,15 @@ import { VarDirective } from '../../shared/utils/var.directive';
     AsyncPipe,
     NgIf,
     VarDirective,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class DeleteCollectionPageComponent extends DeleteComColPageComponent<Collection> {
+  protected readonly faTrash = faTrash;
+  protected readonly faTimes = faTimes;
+  protected readonly faCircleNotch = faCircleNotch;
+
   protected frontendURL = '/collections/';
 
   public constructor(

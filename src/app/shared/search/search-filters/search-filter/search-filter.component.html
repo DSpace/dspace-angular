@@ -9,11 +9,8 @@
     <span class="h4 d-inline-block text-left mt-auto mb-auto">
       {{'search.filters.filter.' + filter.name + '.head'| translate}}
     </span>
-    <i class="filter-toggle flex-grow-1 fas p-auto"
-       aria-hidden="true"
-       [ngClass]="(collapsed$ | async) ? 'fa-plus' : 'fa-minus'"
-       [title]="((collapsed$ | async) ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate">
-    </i>
+    <fa-icon *ngIf="(collapsed$ | async)" [icon]="faPlus" class="filter-toggle flex-grow-1 p-auto" [title]="'search.filters.filter.expand' | translate"/>
+    <fa-icon *ngIf="(collapsed$ | async) !== true" [icon]="faMinus" class="filter-toggle flex-grow-1 p-auto" [title]="'search.filters.filter.collapse' | translate"/>
   </button>
   <div [@slide]="(collapsed$ | async) ? 'collapsed' : 'expanded'"
        (@slide.start)="startSlide($event)" (@slide.done)="finishSlide($event)"

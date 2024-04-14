@@ -1,14 +1,19 @@
 <div class="facet-filter d-block mb-3 p-3" [ngClass]="{ 'focus': focusBox }" role="region">
     <button (click)="toggle()" (focusin)="focusBox = true" (focusout)="focusBox = false" class="filter-name d-flex"
-        [attr.aria-expanded]="false" 
-        [attr.aria-label]="((collapsedSearch ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate) + ' ' + (('search.advanced.filters.head') | translate | lowercase)" 
+        [attr.aria-expanded]="false"
+        [attr.aria-label]="((collapsedSearch ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate) + ' ' + (('search.advanced.filters.head') | translate | lowercase)"
         [attr.data-test]="'filter-toggle' | dsBrowserOnly">
         <span class="h4 d-inline-block text-left mt-auto mb-auto">
             {{'search.advanced.filters.head' | translate}}
         </span>
-        <i class="filter-toggle flex-grow-1 fas p-auto" aria-hidden="true" [ngClass]="collapsedSearch ? 'fa-plus' : 'fa-minus'"
-            [title]="(collapsedSearch ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate">
-        </i>
+        <fa-icon *ngIf="collapsedSearch"
+                 [icon]="faPlus"
+                 class="filter-toggle flex-grow-1 p-auto"
+                 [title]="'search.filters.filter.expand' | translate"/>
+        <fa-icon *ngIf="!collapsedSearch"
+                 [icon]="faMinus"
+                 class="filter-toggle flex-grow-1 p-auto"
+                 [title]="'search.filters.filter.collapse' | translate"/>
     </button>
     <div [@slide]="collapsedSearch ? 'collapsed' : 'expanded'" (@slide.start)="startSlide($event)"
         (@slide.done)="finishSlide($event)" class="search-filter-wrapper"

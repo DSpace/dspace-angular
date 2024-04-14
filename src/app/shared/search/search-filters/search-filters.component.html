@@ -8,5 +8,5 @@
 <ds-advanced-search *ngIf="appConfig.search.advancedFilters.enabled"
     [inPlaceSearch]="inPlaceSearch"></ds-advanced-search>
 <a *ngIf="inPlaceSearch" class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">
-  <i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}
+  <fa-icon [icon]="faUndo"/> {{"search.filters.reset" | translate}}
 </a>

@@ -7,6 +7,8 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -64,10 +66,12 @@ import { SectionsType } from '../sections-type';
     VarDirective,
     NgForOf,
     DsSelectComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class SubmissionSectionCcLicensesComponent extends SectionModelComponent {
+  protected readonly faQuestion = faQuestion;
 
   /**
    * The form id

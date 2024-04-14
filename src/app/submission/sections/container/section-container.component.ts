@@ -12,6 +12,14 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCheckCircle,
+  faChevronDown,
+  faChevronUp,
+  faExclamationCircle,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -38,10 +46,16 @@ import { rendersSectionType } from '../sections-decorator';
     NgIf,
     AsyncPipe,
     SectionsDirective,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class SubmissionSectionContainerComponent implements OnInit {
+  protected readonly faTrashCan = faTrashCan;
+  protected readonly faChevronUp = faChevronUp;
+  protected readonly faExclamationCircle = faExclamationCircle;
+  protected readonly faCheckCircle = faCheckCircle;
+  protected readonly faChevronDown = faChevronDown;
 
   /**
    * The collection id this submission belonging to

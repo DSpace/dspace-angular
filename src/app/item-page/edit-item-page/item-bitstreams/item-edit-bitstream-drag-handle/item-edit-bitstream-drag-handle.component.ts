@@ -5,6 +5,8 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -13,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './item-edit-bitstream-drag-handle.component.html',
   imports: [
     TranslateModule,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -22,6 +25,8 @@ import { TranslateModule } from '@ngx-translate/core';
  * (which means it'll be added to the parents html without a wrapping ds-item-edit-bitstream-drag-handle element)
  */
 export class ItemEditBitstreamDragHandleComponent implements OnInit, OnDestroy {
+  protected readonly faGripVertical = faGripVertical;
+
   /**
    * The view on the drag-handle
    */
@@ -37,5 +42,4 @@ export class ItemEditBitstreamDragHandleComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.viewContainerRef.clear();
   }
-
 }

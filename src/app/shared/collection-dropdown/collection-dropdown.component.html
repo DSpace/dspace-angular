@@ -29,7 +29,7 @@
             (click)="onSelect(listItem)">
       <div class="list-unstyled mb-0">
         <div class="list-item text-truncate text-secondary" *ngFor="let item of listItem.communities">
-          {{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i>
+          {{ item.name}} <fa-icon [icon]="faLevelDown"/>
         </div>
         <div class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</div>
       </div>

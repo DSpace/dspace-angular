@@ -10,6 +10,8 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -36,10 +38,12 @@ import { NotificationsService } from '../../../shared/notifications/notification
     FormsModule,
     TranslateModule,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class OrcidSyncSettingsComponent implements OnInit {
+  protected readonly faEdit = faEdit;
   protected readonly AlertType = AlertType;
 
   /**
@@ -214,5 +218,4 @@ export class OrcidSyncSettingsComponent implements OnInit {
       value: currentValue,
     });
   }
-
 }

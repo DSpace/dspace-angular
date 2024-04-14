@@ -7,6 +7,7 @@
  */
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchConfigurationService } from '../../../../../../app/core/shared/search/search-configuration.service';
@@ -31,7 +32,7 @@ import { ViewModeSwitchComponent } from '../../../../../../app/shared/view-mode-
     },
   ],
   standalone: true,
-  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule],
+  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule, FontAwesomeModule],
 })
 export class SearchSidebarComponent extends BaseComponent {
 }

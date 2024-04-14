@@ -32,8 +32,7 @@
         <ds-item-versions class="mt-2" [item]="item"></ds-item-versions>
         <div class="button-row bottom" *ngIf="fromSubmissionObject">
           <div class="text-right">
-            <button class="btn btn-outline-secondary mr-1" (click)="back()"><i
-                    class="fas fa-arrow-left"></i> {{'item.page.return' | translate}}</button>
+            <button class="btn btn-outline-secondary mr-1" (click)="back()"><fa-icon [icon]="faArrowLeft"/> {{'item.page.return' | translate}}</button>
           </div>
         </div>
       </div>

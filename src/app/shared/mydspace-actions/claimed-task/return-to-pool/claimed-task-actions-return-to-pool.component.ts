@@ -7,6 +7,11 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faUndo,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -30,12 +35,15 @@ export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
   styleUrls: ['./claimed-task-actions-return-to-pool.component.scss'],
   templateUrl: './claimed-task-actions-return-to-pool.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Component for displaying and processing the return to pool action on a workflow task item
  */
 export class ClaimedTaskActionsReturnToPoolComponent extends ClaimedTaskActionsAbstractComponent {
+  protected readonly faUndo = faUndo;
+  protected readonly faCircleNotch = faCircleNotch;
+
   /**
    * This component represents the return to pool option
    */
@@ -58,5 +66,4 @@ export class ClaimedTaskActionsReturnToPoolComponent extends ClaimedTaskActionsA
   actionExecution(): Observable<any> {
     return this.objectDataService.returnToPoolTask(this.object.id);
   }
-
 }

@@ -10,6 +10,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -51,6 +52,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
     NgIf,
     NgClass,
     VarDirective,
+    FontAwesomeModule,
   ],
 })
 export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges {

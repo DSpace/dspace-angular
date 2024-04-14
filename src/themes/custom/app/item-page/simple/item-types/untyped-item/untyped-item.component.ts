@@ -4,6 +4,7 @@ import {
   Component,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Context } from '../../../../../../../app/core/shared/context.model';
@@ -56,6 +57,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     RouterLink,
     ItemPageUriFieldComponent,
     ItemPageAbstractFieldComponent,
+    FontAwesomeModule,
   ],
 })
 export class UntypedItemComponent extends BaseComponent {

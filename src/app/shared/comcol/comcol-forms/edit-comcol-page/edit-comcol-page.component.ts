@@ -6,6 +6,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faArrowLeft,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -19,9 +24,13 @@ import { isNotEmpty } from '../../../empty.util';
 @Component({
   selector: 'ds-edit-comcol',
   template: '',
+  imports: [FontAwesomeModule],
   standalone: true,
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
+  protected readonly faTrash = faTrash;
+  protected readonly faArrowLeft = faArrowLeft;
+
   /**
    * The type of DSpaceObject (used to create i18n messages)
    */

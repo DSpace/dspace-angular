@@ -31,6 +31,8 @@ import {
   UntypedFormArray,
   UntypedFormGroup,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -142,10 +144,13 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
     NgbTooltipModule,
     NgTemplateOutlet,
     ExistingRelationListElementComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges, OnDestroy {
+  protected readonly faSearch = faSearch;
+
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;

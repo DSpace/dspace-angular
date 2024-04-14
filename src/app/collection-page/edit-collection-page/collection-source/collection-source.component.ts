@@ -13,6 +13,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faSave,
+  faTimes,
+  faUndo,
+  faUndoAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
@@ -81,10 +88,16 @@ import { CollectionSourceControlsComponent } from './collection-source-controls/
     ThemedLoadingComponent,
     FormComponent,
     CollectionSourceControlsComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class CollectionSourceComponent extends AbstractTrackableComponent implements OnInit, OnDestroy {
+  protected readonly faUndo = faUndo;
+  protected readonly faTimes = faTimes;
+  protected readonly faSave = faSave;
+  protected readonly faUndoAlt = faUndoAlt;
+
   /**
    * The current collection's remote data
    */

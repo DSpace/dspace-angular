@@ -35,7 +35,9 @@
               <button (click)="deleteSubgroupFromGroup(group)"
                       class="btn btn-outline-danger btn-sm deleteButton"
                       title="{{messagePrefix + '.table.edit.buttons.remove' | translate: { name: dsoNameService.getName(group) } }}">
-                <i class="fas fa-trash-alt fa-fw"></i>
+                <fa-layers [fixedWidth]="true">
+                  <fa-icon [icon]="faTrashAlt"/>
+                </fa-layers>
               </button>
             </div>
           </td>
@@ -69,7 +71,9 @@
                class="form-control" aria-label="Search input">
         <span class="input-group-append">
             <button type="submit" class="search-button btn btn-primary">
-              <i class="fas fa-search"></i> {{ messagePrefix + '.search.button' | translate }}
+                <fa-layers [fixedWidth]="true">
+                  <fa-icon [icon]="faSearch"/>
+                </fa-layers> {{ messagePrefix + '.search.button' | translate }}
             </button>
         </span>
 
@@ -114,7 +118,9 @@
               <button (click)="addSubgroupToGroup(group)"
                       class="btn btn-outline-primary btn-sm addButton"
                       title="{{messagePrefix + '.table.edit.buttons.add' | translate: { name: dsoNameService.getName(group) } }}">
-                <i class="fas fa-plus fa-fw"></i>
+                <fa-layers [fixedWidth]="true">
+                  <fa-icon [icon]="faPlus"/>
+                </fa-layers>
               </button>
             </div>
           </td>

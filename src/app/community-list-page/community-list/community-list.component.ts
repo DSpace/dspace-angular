@@ -13,6 +13,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faAngleDown,
+  faChevronDown,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
@@ -42,9 +48,12 @@ import { FlatNode } from '../flat-node.model';
   templateUrl: './community-list.component.html',
   styleUrls: ['./community-list.component.scss'],
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
+  protected readonly faChevronRight = faChevronRight;
+  protected readonly faAngleDown = faAngleDown;
+  protected readonly faChevronDown = faChevronDown;
 
   private expandedNodes: FlatNode[] = [];
   public loadingNode: FlatNode;
@@ -148,5 +157,4 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     }
     this.dataSource.loadCommunities(this.paginationConfig, this.expandedNodes);
   }
-
 }

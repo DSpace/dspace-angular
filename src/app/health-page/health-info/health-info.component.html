@@ -10,8 +10,10 @@
           <div class="text-right d-flex gap-2">
             <ds-health-status [status]="entry.value?.status"></ds-health-status>
             <div class="d-flex my-auto">
-              <span *ngIf="acc.isExpanded(entry.key)" class="fas fa-chevron-up fa-fw"></span>
-              <span *ngIf="!acc.isExpanded(entry.key)" class="fas fa-chevron-down fa-fw"></span>
+              <fa-layers [fixedWidth]="true">
+                <fa-icon *ngIf="acc.isExpanded(entry.key)" [icon]="faChevronUp"/>
+                <fa-icon *ngIf="!acc.isExpanded(entry.key)" [icon]="faChevronDown"/>
+              </fa-layers>
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Collection } from '../../core/shared/collection.model';
@@ -31,6 +32,7 @@ import { getCollectionPageRoute } from '../collection-page-routing-paths';
     RouterOutlet,
     NgIf,
     AsyncPipe,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
