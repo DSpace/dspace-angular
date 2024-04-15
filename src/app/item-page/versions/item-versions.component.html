@@ -15,7 +15,7 @@
         <thead>
         <tr>
           <th scope="col">{{ "item.version.history.table.version" | translate }}</th>
-          <th scope="col" *ngIf="(showSubmitter() | async)">{{ "item.version.history.table.editor" | translate }}</th>
+          <th scope="col" *ngIf="(showSubmitter$ | async)">{{ "item.version.history.table.editor" | translate }}</th>
           <th scope="col">{{ "item.version.history.table.date" | translate }}</th>
           <th scope="col">{{ "item.version.history.table.summary" | translate }}</th>
         </tr>
@@ -31,7 +31,7 @@
                                                   (versionsHistoryChange)="getAllVersions($event)"
             ></ds-item-versions-row-element-version>
           </td>
-          <td class="version-row-element-editor" *ngIf="(showSubmitter() | async)">
+          <td class="version-row-element-editor" *ngIf="(showSubmitter$ | async)">
             {{ versionDTO.version.submitterName }}
           </td>
           <td class="version-row-element-date">
