@@ -20,7 +20,8 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import {
-  combineLatest, concatMap,
+  combineLatest,
+  concatMap,
   Observable,
   of,
 } from 'rxjs';
