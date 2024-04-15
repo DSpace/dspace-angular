@@ -143,6 +143,11 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   hasDraftVersion$: Observable<boolean>;
 
   /**
+   * Show submitter in version history table
+   */
+  showSubmitter$: Observable<boolean> = this.showSubmitter();
+
+  /**
    * The amount of versions to display per page
    */
   pageSize = 10;
