@@ -3,7 +3,6 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -16,6 +15,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { REQUEST } from '../../../express.tokens';
 import {
   hasValue,
   isEmpty,
