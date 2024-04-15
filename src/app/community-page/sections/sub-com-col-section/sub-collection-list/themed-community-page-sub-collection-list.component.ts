@@ -11,6 +11,7 @@ import { CommunityPageSubCollectionListComponent } from './community-page-sub-co
   selector: 'ds-themed-community-page-sub-collection-list',
   styleUrls: [],
   templateUrl: '../../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCollectionPageSubCollectionListComponent extends ThemedComponent<CommunityPageSubCollectionListComponent> {
   @Input() community: Community;

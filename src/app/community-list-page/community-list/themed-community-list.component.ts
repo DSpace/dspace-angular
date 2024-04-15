@@ -8,6 +8,7 @@ import { CommunityListComponent } from './community-list.component';
   selector: 'ds-themed-community-list',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCommunityListComponent extends ThemedComponent<CommunityListComponent> {
   protected getComponentName(): string {

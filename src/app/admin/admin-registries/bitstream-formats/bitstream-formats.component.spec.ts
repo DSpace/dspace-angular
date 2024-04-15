@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
   ComponentFixture,
   TestBed,
   waitForAsync,
@@ -7,19 +11,27 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
@@ -108,17 +120,33 @@ describe('BitstreamFormatsComponent', () => {
       clearBitStreamFormatRequests: observableOf('cleared'),
     });
 
+    const groupDataService = jasmine.createSpyObj('groupsDataService', {
+      findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+      getGroupRegistryRouterLink: '',
+      getUUIDFromString: '',
+    });
+
+
+    const configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+      findByPropertyName: of({ payload: { value: 'test' } }),
+    });
+
     paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
       providers: [
+        provideMockStore(),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: PaginationService, useValue: paginationService },
+        { provide: GroupDataService, useValue: groupDataService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: XSRFService, useValue: {} },
       ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   };
 
@@ -236,18 +264,39 @@ describe('BitstreamFormatsComponent', () => {
         clearBitStreamFormatRequests: observableOf('cleared'),
       });
 
+      const groupDataService = jasmine.createSpyObj('groupsDataService', {
+        findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+        getGroupRegistryRouterLink: '',
+        getUUIDFromString: '',
+      });
+
+      const configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+        findByPropertyName: of({ payload: { value: 'test' } }),
+      });
+
       paginationService = new PaginationServiceStub();
 
       TestBed.configureTestingModule({
-        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-        declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
+        imports: [
+          CommonModule,
+          RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule,
+          BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
         providers: [
+          provideMockStore(),
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
           { provide: PaginationService, useValue: paginationService },
+          { provide: GroupDataService, useValue: groupDataService },
+          { provide: ConfigurationDataService, useValue: configurationDataService },
         ],
-      }).compileComponents();
+        schemas: [NO_ERRORS_SCHEMA],
+      })
+        .overrideComponent(BitstreamFormatsComponent, {
+          remove: { imports: [PaginationComponent] },
+          add: { imports: [TestPaginationComponent] },
+        })
+        .compileComponents();
     },
     ));
 
@@ -285,18 +334,37 @@ describe('BitstreamFormatsComponent', () => {
         clearBitStreamFormatRequests: observableOf('cleared'),
       });
 
+      const groupDataService = jasmine.createSpyObj('groupsDataService', {
+        findListByHref: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+        getGroupRegistryRouterLink: '',
+        getUUIDFromString: '',
+      });
+
+      const configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
+        findByPropertyName: of({ payload: { value: 'test' } }),
+      });
+
       paginationService = new PaginationServiceStub();
 
       TestBed.configureTestingModule({
-        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-        declarations: [BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
+        imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, BitstreamFormatsComponent, PaginationComponent, EnumKeysPipe],
         providers: [
+          provideMockStore(),
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
           { provide: PaginationService, useValue: paginationService },
+          { provide: PaginationService, useValue: paginationService },
+          { provide: GroupDataService, useValue: groupDataService },
+          { provide: ConfigurationDataService, useValue: configurationDataService },
         ],
-      }).compileComponents();
+        schemas: [NO_ERRORS_SCHEMA],
+      })
+        .overrideComponent(BitstreamFormatsComponent, {
+          remove: { imports: [PaginationComponent] },
+          add: { imports: [TestPaginationComponent] },
+        })
+        .compileComponents();
     },
     ));
 
@@ -316,3 +384,12 @@ describe('BitstreamFormatsComponent', () => {
     });
   });
 });
+
+@Component({
+  exportAs: 'paginationComponent',
+  selector: 'ds-pagination',
+  template: ``,
+  standalone: true,
+})
+export class TestPaginationComponent {
+}

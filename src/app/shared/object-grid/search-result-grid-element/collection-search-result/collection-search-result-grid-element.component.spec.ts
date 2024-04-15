@@ -9,10 +9,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Store } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { AuthService } from '../../../../core/auth/auth.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -24,8 +26,11 @@ import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.ser
 import { Collection } from '../../../../core/shared/collection.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';
@@ -71,14 +76,17 @@ describe('CollectionSearchResultGridElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
+        TruncatePipe,
+        CollectionSearchResultGridElementComponent,
       ],
-      declarations: [CollectionSearchResultGridElementComponent, TruncatePipe],
       providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
         { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
-        { provide: Store, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceStub() },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: BitstreamDataService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
@@ -88,9 +96,10 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
         { provide: BitstreamFormatDataService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
         { provide: LinkService, useValue: linkService },
+        provideMockStore({}),
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionSearchResultGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

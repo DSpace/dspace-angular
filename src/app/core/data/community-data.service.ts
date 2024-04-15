@@ -13,9 +13,7 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Community } from '../shared/community.model';
-import { COMMUNITY } from '../shared/community.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { dataService } from './base/data-service.decorator';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
@@ -24,8 +22,7 @@ import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 
-@Injectable()
-@dataService(COMMUNITY)
+@Injectable({ providedIn: 'root' })
 export class CommunityDataService extends ComColDataService<Community> {
   protected topLinkPath = 'search/top';
 

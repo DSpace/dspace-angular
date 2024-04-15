@@ -84,8 +84,7 @@ describe('GrantDenyRequestCopyComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [GrantDenyRequestCopyComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), GrantDenyRequestCopyComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: route },
         { provide: AuthService, useValue: authService },

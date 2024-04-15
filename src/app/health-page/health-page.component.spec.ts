@@ -52,8 +52,8 @@ describe('HealthPageComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        HealthPageComponent,
       ],
-      declarations: [ HealthPageComponent ],
       providers: [
         { provide: HealthService, useValue: healthService },
       ],

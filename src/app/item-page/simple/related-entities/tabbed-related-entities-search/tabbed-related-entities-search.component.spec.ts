@@ -16,6 +16,7 @@ import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { VarDirective } from '../../../../shared/utils/var.directive';
+import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
 import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';
 
 describe('TabbedRelatedEntitiesSearchComponent', () => {
@@ -37,8 +38,7 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule],
-      declarations: [TabbedRelatedEntitiesSearchComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, NgbModule, TabbedRelatedEntitiesSearchComponent, VarDirective],
       providers: [
         {
           provide: ActivatedRoute,
@@ -49,7 +49,15 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         { provide: Router, useValue: router },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(TabbedRelatedEntitiesSearchComponent, {
+        remove: {
+          imports: [
+            RelatedEntitiesSearchComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

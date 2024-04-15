@@ -3,6 +3,7 @@ import {
   Component,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component representing the `PageError` DSpace page.
@@ -12,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./page-error.component.scss'],
   templateUrl: './page-error.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class PageErrorComponent {
   status: number;

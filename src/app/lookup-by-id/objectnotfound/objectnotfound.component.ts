@@ -4,7 +4,11 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { ServerResponseService } from 'src/app/core/services/server-response.service';
 
 /**
@@ -15,6 +19,8 @@ import { ServerResponseService } from 'src/app/core/services/server-response.ser
   styleUrls: ['./objectnotfound.component.scss'],
   templateUrl: './objectnotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  standalone: true,
+  imports: [RouterLink, TranslateModule],
 })
 export class ObjectNotFoundComponent implements OnInit {
 

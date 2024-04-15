@@ -8,7 +8,10 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
@@ -19,6 +22,7 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
@@ -76,8 +80,7 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
     themeService = getMockThemeService('dspace');
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [
+      imports: [TranslateModule.forRoot(),
         ClaimedTaskActionsLoaderComponent,
         ClaimedTaskActionsEditMetadataComponent,
         DynamicComponentLoaderDirective,
@@ -92,11 +95,11 @@ describe('ClaimedTaskActionsLoaderComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: {} },
         { provide: ThemeService, useValue: themeService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
     }).overrideComponent(ClaimedTaskActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [ClaimedTaskActionsEditMetadataComponent],
       },
     }).compileComponents();
   }));

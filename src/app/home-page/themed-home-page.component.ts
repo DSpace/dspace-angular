@@ -7,6 +7,7 @@ import { HomePageComponent } from './home-page.component';
   selector: 'ds-themed-home-page',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedHomePageComponent extends ThemedComponent<HomePageComponent> {
 

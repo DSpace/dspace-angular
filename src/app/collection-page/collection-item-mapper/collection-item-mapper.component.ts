@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Inject,
@@ -9,7 +13,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -45,14 +53,16 @@ import {
 } from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { ItemSelectComponent } from '../../shared/object-select/item-select/item-select.component';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { ThemedSearchFormComponent } from '../../shared/search-form/themed-search-form.component';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
@@ -70,6 +80,15 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
       useClass: SearchConfigurationService,
     },
   ],
+  imports: [
+    ThemedSearchFormComponent,
+    NgbNavModule,
+    TranslateModule,
+    AsyncPipe,
+    ItemSelectComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
 /**
  * Component used to map items to a collection

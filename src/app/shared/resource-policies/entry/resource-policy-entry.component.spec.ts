@@ -29,7 +29,6 @@ import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { EPersonMock } from '../../testing/eperson.mock';
 import { GroupMock } from '../../testing/group-mock';
 import { RouterStub } from '../../testing/router.stub';
-import { HasValuePipe } from '../../utils/has-value.pipe';
 import { ResourcePolicyEntryComponent } from './resource-policy-entry.component';
 import createSpyObj = jasmine.createSpyObj;
 
@@ -126,10 +125,7 @@ describe('ResourcePolicyEntryComponent', () => {
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ResourcePolicyEntryComponent,
-        HasValuePipe,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
@@ -137,9 +133,6 @@ describe('ResourcePolicyEntryComponent', () => {
         { provide: GroupDataService, useValue: groupService },
         { provide: DSONameService, useValue: dsoNameService },
       ],
-      // schemas: [
-      //   NO_ERRORS_SCHEMA
-      // ]
     }).compileComponents();
   });
 

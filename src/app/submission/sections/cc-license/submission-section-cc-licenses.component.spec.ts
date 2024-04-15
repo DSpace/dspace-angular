@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -16,8 +17,8 @@ import { SUBMISSION_CC_LICENSE } from '../../../core/submission/models/submissio
 import { SubmissionCcLicence } from '../../../core/submission/models/submission-cc-license.model';
 import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { SharedModule } from '../../../shared/shared.module';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
@@ -174,10 +175,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionCcLicensesComponent,
       ],
       providers: [
@@ -189,8 +187,16 @@ describe('SubmissionSectionCcLicensesComponent', () => {
         { provide: 'collectionIdProvider', useValue: 'test collection id' },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: 'test submission id' },
+        { provide: FormBuilderService, useValue: {} },
       ],
     })
+      .overrideComponent(SubmissionSectionCcLicensesComponent, {
+        remove: {
+          imports:[
+            ThemedLoadingComponent,
+          ],
+        },
+      })
       .compileComponents();
   }));
 

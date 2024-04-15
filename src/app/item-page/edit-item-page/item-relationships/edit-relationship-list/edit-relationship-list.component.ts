@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Inject,
@@ -11,6 +17,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -62,16 +69,34 @@ import {
 } from '../../../../shared/empty.util';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { SearchResult } from '../../../../shared/search/models/search-result.model';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
+import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';
 
 @Component({
   selector: 'ds-edit-relationship-list',
   styleUrls: ['./edit-relationship-list.component.scss'],
   templateUrl: './edit-relationship-list.component.html',
+  imports: [
+    EditRelationshipComponent,
+    PaginationComponent,
+    AsyncPipe,
+    ObjectValuesPipe,
+    VarDirective,
+    NgIf,
+    NgFor,
+    TranslateModule,
+    NgClass,
+    ThemedLoadingComponent,
+  ],
+  standalone: true,
 })
 /**
  * A component creating a list of editable relationships of a certain type
@@ -119,6 +144,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   private currentItemIsLeftItem$: Observable<boolean>;
 
   private relatedEntityType$: Observable<ItemType>;
+
+  getRelationshipMessageKey$: Observable<string>;
 
   /**
    * The list ID to save selected entities under
@@ -182,30 +209,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
-  }
-
-  /**
-   * Get the i18n message key for this relationship type
-   */
-  public getRelationshipMessageKey(): Observable<string> {
-
-    return observableCombineLatest(
-      this.getLabel(),
-      this.relatedEntityType$,
-    ).pipe(
-      map(([label, relatedEntityType]) => {
-        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
-          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
-          if (relationshipLabel !== relatedEntityType.label) {
-            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
-          } else {
-            return `relationships.is${relationshipLabel}Of`;
-          }
-        } else {
-          return label;
-        }
-      }),
-    );
   }
 
   /**
@@ -500,6 +503,24 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         // should never happen...
         console.warn(`The item ${this.item.uuid} is not on the right or the left side of relationship type ${this.relationshipType.uuid}`);
         return undefined;
+      }),
+    );
+
+    this.getRelationshipMessageKey$ = observableCombineLatest(
+      this.getLabel(),
+      this.relatedEntityType$,
+    ).pipe(
+      map(([label, relatedEntityType]) => {
+        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
+          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
+          if (relationshipLabel !== relatedEntityType.label) {
+            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
+          } else {
+            return `relationships.is${relationshipLabel}Of`;
+          }
+        } else {
+          return label;
+        }
       }),
     );
 
