@@ -8,9 +8,9 @@ import { currentPath } from '../../../utils/route.utils';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { stripOperatorFromFilterValue } from '../../search.utils';
-import {ItemDataService} from '../../../../core/data/item-data.service';
-import {DSONameService} from '../../../../core/breadcrumbs/dso-name.service';
-import {getFirstCompletedRemoteData} from '../../../../core/shared/operators';
+import { ItemDataService } from '../../../../core/data/item-data.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-label',
@@ -37,6 +37,7 @@ export class SearchLabelComponent implements OnInit {
    * Represents the name associated with the corresponding ID value.
    */
   filterValue: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   /**
    * Initialize the instance variable
    */
@@ -53,31 +54,35 @@ export class SearchLabelComponent implements OnInit {
     this.searchLink = this.getSearchLink();
     this.removeParameters = this.getRemoveParams();
     this.filterName = this.getFilterName();
-    this.getCorrectFilterLabelValue();
+    this.setFilterValue();
   }
+
   /**
    * Retrieves and sets the appropriate filter value based on the given input, updating the filterValue accordingly.
    * @returns {void}
    */
-  getCorrectFilterLabelValue(): void{
+  setFilterValue(): void{
     const parts = this.value.split(',');
-    const partTrimmed = parts[1].trim();
+    const partTrimmed = parts.pop().trim();
     if (partTrimmed === 'authority') {
       const id = parts[0].trim();
       this.itemDataService.findById(id).pipe(
         getFirstCompletedRemoteData(),
         map((rq)=> rq.hasSucceeded ? rq.payload : null),
       ).subscribe((result)=>{
+        let tmpValue: string;
         if (isNotEmpty(result)){
-          this.filterValue.next(this.dsoNameService.getName(result));
+          tmpValue = this.dsoNameService.getName(result);
         } else {
-          this.filterValue.next('');
+          tmpValue = this.value;
         }
+        this.filterValue.next(this.normalizeFilterValue(this.getStrippedValue(tmpValue)));
       });
     } else {
-      this.filterValue.next(this.value);
+      this.filterValue.next(this.normalizeFilterValue(this.getStrippedValue(this.value)));
     }
   }
+
   /**
    * Calculates the parameters that should change if a given value for the given filter would be removed from the active filters
    * @returns {Observable<Params>} The changed filter parameters
