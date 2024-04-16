@@ -17,7 +17,7 @@ jobs:
   import-specific-bitstreams:
     runs-on: dspace-dep-1
     env:
-      DSPACE_REST_API: http://dev-5.pc:8${{ github.event.inputs.INSTANCE }}/server/api/
+      DSPACE_REST_API: http://dev-5.pc:8${{ github.event.inputs.INSTANCE }}/server/api
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,6 +27,6 @@ jobs:
 
       - name: install requirements and run import
         run: |
-          pip install -r requirements.txt
+          pip install -q -r requirements.txt
           cd tests/integration
           python3 create_bitstreams.py
