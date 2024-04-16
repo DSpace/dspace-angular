@@ -14,61 +14,40 @@ on:
           - '8'
       
 jobs:
+
   checkout-codebase:
     runs-on: dspace-dep-1
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: dataquest-dev/dspace-python-api
+          repository: dataquest-dev/dspace-rest-test
+          ref: master
+          submodules: 'recursive'
 
-  import-2:
-    if: inputs.INSTANCE == '2'
-    runs-on: dspace-dep-1
+  import:
+
+    strategy:
+      matrix:
+        include:
+          - instance: '2'
+            runner: dspace-dep-1
+          - instance: '5'
+            runner: dspace-dep-1
+          - instance: '6'
+            runner: dspace-dep-1
+          - instance: '8'
+            runner: dspace-dep-1
+              
     needs: checkout-codebase
+
+    if: github.event.inputs.INSTANCE == matrix.instance
+
+    runs-on: ${{ matrix.runner }}
     env:
-      DSPACE_REST_API: http://dev-5.pc:82/server/api/
+      DSPACE_REST_API: http://dev-5.pc:8${{ matrix.instance }}/server/api/
     steps:
       - name: install requirements and run import
         run: |
           pip install -r requirements.txt
-          cd tools/create_bitstreams
-          python3 create_bitstreams.py
-
-  import-5:
-    if: inputs.INSTANCE == '5'
-    runs-on: dspace-dep-1
-    needs: checkout-codebase
-    env:
-      DSPACE_REST_API: http://dev-5.pc:85/server/api/
-    steps:
-      - name: install requirements and run import
-        run: |
-          pip install -r requirements.txt
-          cd tools/create_bitstreams
-          python3 create_bitstreams.py
-
-  import-6:
-    if: inputs.INSTANCE == '6'
-    runs-on: dspace-dep-1
-    needs: checkout-codebase
-    env:
-      DSPACE_REST_API: http://dev-5.pc:86/server/api/
-    steps:
-      - name: install requirements and run import
-        run: |
-          pip install -r requirements.txt
-          cd tools/create_bitstreams
-          python3 create_bitstreams.py
-
-  import-8:
-    if: inputs.INSTANCE == '8'
-    runs-on: dspace-dep-1
-    needs: checkout-codebase
-    env:
-      DSPACE_REST_API: http://dev-5.pc:88/server/api/
-    steps:
-      - name: install requirements and run import
-        run: |
-          pip install -r requirements.txt
-          cd tools/create_bitstreams
+          cd tests/integration
           python3 create_bitstreams.py
