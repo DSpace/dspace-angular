@@ -407,7 +407,7 @@ export class MetadataService {
    * Add <meta name="citation_pdf_url" ... >  to the <head>
    */
   private setCitationPdfUrlTag(): void {
-    this.setPrimaryBitstreamInBundleTag('ORIGINAL', 'citation_pdf_url');
+    this.setPrimaryBitstreamInBundleTag('citation_pdf_url');
   }
 
   /**
@@ -431,7 +431,7 @@ export class MetadataService {
    * Add <meta name="og:image" ... >  to the <head>
    */
   private setOpenGraphImageTag(): void {
-    this.setPrimaryBitstreamInBundleTag('THUMBNAIL', 'og:image');
+    this.setPrimaryBitstreamInBundleTag('og:image');
   }
 
 
@@ -456,65 +456,42 @@ export class MetadataService {
    * Add <meta name="twitter:image" ... >  to the <head>
    */
   private setTwitterImageTag(): void {
-    this.setPrimaryBitstreamInBundleTag('THUMBNAIL', 'twitter:image');
+    this.setPrimaryBitstreamInBundleTag('twitter:image');
   }
 
-  private setPrimaryBitstreamInBundleTag(bundleName: string, tag: string): void {
+  /**
+   * Get bitstream from item thumbnail link
+   *
+   * @param item
+   * @private
+   */
+  private getBitstreamFromThumbnail(item: Item) : Observable<Bitstream> {
+    return item.thumbnail.pipe(
+      getFirstCompletedRemoteData(),
+      map((thumbnailRD) => {
+        if (thumbnailRD.hasSucceeded && isNotEmpty(thumbnailRD.payload)) {
+          return thumbnailRD.payload;
+        } else {
+          return null;
+        }
+      }),
+      filter(data => !!data),
+      getDownloadableBitstream(this.authorizationService),
+    )
+  }
+
+  private setPrimaryBitstreamInBundleTag(tag: string): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
-
-      // Retrieve the bundle for the item
-      this.bundleDataService.findByItemAndName(
-        item,
-        bundleName,
-        true,
-        true,
-        followLink('primaryBitstream'),
-        followLink('bitstreams', {
-          findListOptions: {
-            // limit the number of bitstreams used to find the citation pdf url to the number
-            // shown by default on an item page
-            elementsPerPage: this.appConfig.item.bitstream.pageSize
-          }
-        }, followLink('format')),
-      ).pipe(
-        getFirstSucceededRemoteDataPayload(),
-        switchMap((bundle: Bundle) =>
-          // First try the primary bitstream
-          bundle.primaryBitstream.pipe(
-            getFirstCompletedRemoteData(),
-            map((rd: RemoteData<Bitstream>) => {
-              if (hasValue(rd.payload)) {
-                return rd.payload;
-              } else {
-                return null;
-              }
-            }),
-            getDownloadableBitstream(this.authorizationService),
-            // return the bundle as well so we can use it again if there's no primary bitstream
-            map((bitstream: Bitstream) => [bundle, bitstream])
-          )
-        ),
-        switchMap(([bundle, primaryBitstream]: [Bundle, Bitstream]) => {
-          if (hasValue(primaryBitstream)) {
-            // If there was a downloadable primary bitstream, emit its link
-            return [getBitstreamDownloadRoute(primaryBitstream)];
+      this.getBitstreamFromThumbnail(item).pipe(
+        switchMap((bitstream) => {
+          if (hasValue(bitstream)) {
+            return [getBitstreamDownloadRoute(bitstream)]
           } else {
-            // Otherwise consider the regular bitstreams in the bundle
-            return bundle.bitstreams.pipe(
-              getFirstCompletedRemoteData(),
-              switchMap((bitstreamRd: RemoteData<PaginatedList<Bitstream>>) => {
-                if (hasValue(bitstreamRd.payload) && bitstreamRd.payload.totalElements === 1) {
-                  // If there's only one bitstream in the bundle, emit its link if its downloadable
-                  return this.getBitLinkIfDownloadable(bitstreamRd.payload.page[0], bitstreamRd);
-                } else {
-                  // Otherwise check all bitstreams to see if one matches the format whitelist
-                  return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
-                }
-              })
-            );
+            return null
           }
         }),
+        filter(data => !!data),
         take(1)
       ).subscribe((link: string) => {
         // Use the found link to set the <meta> tag
