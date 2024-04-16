@@ -14,9 +14,10 @@ on:
           - '8'
       
 jobs:
-
-  checkout-codebase:
+  import-specific-bitstreams:
     runs-on: dspace-dep-1
+    env:
+      DSPACE_REST_API: http://dev-5.pc:8${{ github.event.inputs.INSTANCE }}/server/api/
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,25 +25,7 @@ jobs:
           ref: master
           submodules: 'recursive'
 
-  import:
-    strategy:
-      matrix:
-        include:
-          - instance: '2'
-            runner: dspace-dep-1
-          - instance: '5'
-            runner: dspace-dep-1
-          - instance: '6'
-            runner: dspace-dep-1
-          - instance: '8'
-            runner: dspace-dep-1
-    runs-on: ${{ matrix.runner }}
-    needs: checkout-codebase
-    env:
-      DSPACE_REST_API: http://dev-5.pc:8${{ matrix.instance }}/server/api/
-    steps:
       - name: install requirements and run import
-        if: github.event.inputs.INSTANCE == matrix.instance
         run: |
           pip install -r requirements.txt
           cd tests/integration
