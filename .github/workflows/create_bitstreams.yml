@@ -40,13 +40,14 @@ jobs:
               
     needs: checkout-codebase
 
-    if: github.event.inputs.INSTANCE == matrix.instance
+    
 
     runs-on: ${{ matrix.runner }}
     env:
       DSPACE_REST_API: http://dev-5.pc:8${{ matrix.instance }}/server/api/
     steps:
       - name: install requirements and run import
+        if: github.event.inputs.INSTANCE == matrix.instance
         run: |
           pip install -r requirements.txt
           cd tests/integration
