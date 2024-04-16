@@ -1,12 +1,17 @@
-import {Directive} from '@angular/core';
-import {NG_VALIDATORS, Validator, UntypedFormControl} from '@angular/forms';
+import { Directive } from '@angular/core';
+import {
+  NG_VALIDATORS,
+  UntypedFormControl,
+  Validator,
+} from '@angular/forms';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[ipV4format]',
   providers: [
     { provide: NG_VALIDATORS, useExisting: IpV4Validator, multi: true },
-  ]
+  ],
+  standalone: true,
 })
 /**
  * Validator to validate if an Ip is in the right format
@@ -21,6 +26,6 @@ export class IpV4Validator implements Validator {
       return null;
     }
 
-    return {isValidIp: false};
+    return { isValidIp: false };
   }
 }

@@ -1,11 +1,16 @@
-import {ResourceType} from '../../../core/shared/resource-type';
-import {CacheableObject} from '../../../core/cache/cacheable-object.model';
-import {autoserialize, deserialize, deserializeAs, inheritSerialization} from 'cerialize';
-import {LDN_SERVICE} from './ldn-service.resource-type';
-import {excludeFromEquals} from '../../../core/utilities/equals.decorators';
-import {typedObject} from '../../../core/cache/builders/build-decorators';
-import {NotifyServicePattern} from './ldn-service-patterns.model';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+  inheritSerialization,
+} from 'cerialize';
 
+import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../core/cache/cacheable-object.model';
+import { ResourceType } from '../../../core/shared/resource-type';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { LDN_SERVICE } from './ldn-service.resource-type';
+import { NotifyServicePattern } from './ldn-service-patterns.model';
 
 /**
  * LDN Services bounded to each selected pattern, relation set in service creation
@@ -24,43 +29,43 @@ export class LdnService extends CacheableObject {
 
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   @autoserialize
-  id: number;
+    id: number;
 
   @deserializeAs('id')
-  uuid: string;
+    uuid: string;
 
   @autoserialize
-  name: string;
+    name: string;
 
   @autoserialize
-  description: string;
+    description: string;
 
   @autoserialize
-  url: string;
+    url: string;
 
   @autoserialize
-  score: number;
+    score: number;
 
   @autoserialize
-  enabled: boolean;
+    enabled: boolean;
 
   @autoserialize
-  ldnUrl: string;
+    ldnUrl: string;
 
   @autoserialize
-  lowerIp: string;
+    lowerIp: string;
 
   @autoserialize
-  upperIp: string;
+    upperIp: string;
 
   @autoserialize
-  notifyServiceInboundPatterns?: NotifyServicePattern[];
+    notifyServiceInboundPatterns?: NotifyServicePattern[];
 
   @deserialize
-  _links: {
+    _links: {
     self: {
       href: string;
     };

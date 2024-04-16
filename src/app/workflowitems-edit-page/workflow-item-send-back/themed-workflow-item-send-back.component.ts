@@ -1,5 +1,6 @@
-import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { Component } from '@angular/core';
+
+import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back.component';
 
 /**
@@ -9,7 +10,8 @@ import { WorkflowItemSendBackComponent } from './workflow-item-send-back.compone
 @Component({
   selector: 'ds-themed-workflow-item-send-back',
   styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+  templateUrl: './../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedWorkflowItemSendBackComponent extends ThemedComponent<WorkflowItemSendBackComponent> {
   protected getComponentName(): string {

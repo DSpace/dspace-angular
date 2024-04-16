@@ -1,23 +1,53 @@
-import { first, map, skipWhile, startWith } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Router,
+  RouterOutlet,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as combineLatestObservable,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  first,
+  map,
+  skipWhile,
+  startWith,
+} from 'rxjs/operators';
+import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
 
-import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
-import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
-import { MenuService } from '../shared/menu/menu.service';
-import { HostWindowService } from '../shared/host-window.service';
 import { ThemeConfig } from '../../config/theme.config';
 import { environment } from '../../environments/environment';
-import { slideSidebarPadding } from '../shared/animations/slide';
-import { MenuID } from '../shared/menu/menu-id.model';
+import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
-import { INotificationBoardOptions } from 'src/config/notifications-config.interfaces';
+import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
+import { ThemedFooterComponent } from '../footer/themed-footer.component';
+import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
+import { slideSidebarPadding } from '../shared/animations/slide';
+import { HostWindowService } from '../shared/host-window.service';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { MenuService } from '../shared/menu/menu.service';
+import { MenuID } from '../shared/menu/menu-id.model';
+import { NotificationsBoardComponent } from '../shared/notifications/notifications-board/notifications-board.component';
+import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
+import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 
 @Component({
   selector: 'ds-root',
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.scss'],
   animations: [slideSidebarPadding],
+  standalone: true,
+  imports: [TranslateModule, ThemedAdminSidebarComponent, SystemWideAlertBannerComponent, ThemedHeaderNavbarWrapperComponent, ThemedBreadcrumbsComponent, NgIf, ThemedLoadingComponent, RouterOutlet, ThemedFooterComponent, NotificationsBoardComponent, AsyncPipe],
 })
 export class RootComponent implements OnInit {
   theme: Observable<ThemeConfig> = of({} as any);
@@ -42,7 +72,7 @@ export class RootComponent implements OnInit {
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
   ) {
     this.notificationOptions = environment.notifications;
   }

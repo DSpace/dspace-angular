@@ -1,36 +1,46 @@
+import {
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-
 import { Store } from '@ngrx/store';
-import { dataService } from '../cache/builders/build-decorators';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { WorkspaceItem } from './models/workspaceitem.model';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../data/remote-data';
+import {
+  find,
+  map,
+} from 'rxjs/operators';
+
+import { hasValue } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import {HttpOptions} from '../dspace-rest/dspace-rest.service';
-import {find, map} from 'rxjs/operators';
-import {PostRequest} from '../data/request.models';
-import {hasValue} from '../../shared/empty.util';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { NoContent } from '../shared/NoContent.model';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { PostRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import { WorkspaceItem } from './models/workspaceitem.model';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
-@Injectable()
-@dataService(WorkspaceItem.type)
+@Injectable({ providedIn: 'root' })
 export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements DeleteData<WorkspaceItem>, SearchData<WorkspaceItem>{
   protected linkPath = 'workspaceitems';
   protected searchByItemLinkPath = 'item';
@@ -104,7 +114,7 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
       map((href: string) => {
         const request = new PostRequest(requestId, href, externalSourceEntryHref, options);
         this.requestService.send(request);
-      })
+      }),
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);

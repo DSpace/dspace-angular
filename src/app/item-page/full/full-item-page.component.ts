@@ -1,25 +1,58 @@
-import { filter, map } from 'rxjs/operators';
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import {
+  AsyncPipe,
+  KeyValuePipe,
+  Location,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Observable } from 'rxjs';
-
-import { ItemPageComponent } from '../simple/item-page.component';
-import { MetadataMap } from '../../core/shared/metadata.models';
-import { ItemDataService } from '../../core/data/item-data.service';
-
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-
-import { fadeInOut } from '../../shared/animations/fade';
-import { hasValue } from '../../shared/empty.util';
 import { AuthService } from '../../core/auth/auth.service';
-import { Location } from '@angular/common';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { Item } from '../../core/shared/item.model';
+import { MetadataMap } from '../../core/shared/metadata.models';
+import { fadeInOut } from '../../shared/animations/fade';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { hasValue } from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { CollectionsComponent } from '../field-components/collections/collections.component';
+import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
+import { ItemPageComponent } from '../simple/item-page.component';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
 
 /**
  * This component renders a full item page.
@@ -31,7 +64,27 @@ import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-inf
   styleUrls: ['./full-item-page.component.scss'],
   templateUrl: './full-item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeInOut]
+  animations: [fadeInOut],
+  imports: [
+    ErrorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    ThemedFullFileSectionComponent,
+    CollectionsComponent,
+    ItemVersionsComponent,
+    NgIf,
+    NgForOf,
+    AsyncPipe,
+    KeyValuePipe,
+    RouterLink,
+    ThemedItemPageTitleFieldComponent,
+    DsoEditMenuComponent,
+    ItemVersionsNoticeComponent,
+    ViewTrackerComponent,
+    ThemedItemAlertsComponent,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class FullItemPageComponent extends ItemPageComponent implements OnInit, OnDestroy {
 
@@ -68,11 +121,11 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     this.metadata$ = this.itemRD$.pipe(
       map((rd: RemoteData<Item>) => rd.payload),
       filter((item: Item) => hasValue(item)),
-      map((item: Item) => item.metadata),);
+      map((item: Item) => item.metadata));
 
     this.subs.push(this.route.data.subscribe((data: Data) => {
-        this.fromSubmissionObject = hasValue(data.wfi) || hasValue(data.wsi);
-      })
+      this.fromSubmissionObject = hasValue(data.wfi) || hasValue(data.wsi);
+    }),
     );
   }
 

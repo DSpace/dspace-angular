@@ -1,16 +1,25 @@
-import { ThemedComponent } from '../../theme-support/themed.component';
-import { SearchResultsComponent, SelectionConfig } from './search-results.component';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SearchResult } from '../models/search-result.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Context } from '../../../core/shared/context.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ThemedComponent } from '../../theme-support/themed.component';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchResult } from '../models/search-result.model';
+import {
+  SearchResultsComponent,
+  SelectionConfig,
+} from './search-results.component';
 
 /**
  * Themed wrapper for SearchResultsComponent
@@ -19,6 +28,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
   selector: 'ds-themed-search-results',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSearchResultsComponent extends ThemedComponent<SearchResultsComponent> {
 

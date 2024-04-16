@@ -47,7 +47,7 @@
     </ds-process-detail-field>
 
     <ds-process-detail-field *ngIf="isProcessFinished(process)" id="process-output" [title]="'process.detail.output'">
-        <button *ngIf="!showOutputLogs && process?._links?.output?.href != undefined" id="showOutputButton"
+        <button *ngIf="!showOutputLogs && process?._links?.output?.href !== undefined" id="showOutputButton"
                 class="btn btn-primary" (click)="showProcessOutputLogs()">
             {{ 'process.detail.logs.button' | translate }}
         </button>
@@ -55,8 +55,8 @@
                            message="{{ 'process.detail.logs.loading' | translate }}"></ds-themed-loading>
         <pre class="font-weight-bold text-secondary bg-light p-3" tabindex="0"
              *ngIf="showOutputLogs && (outputLogs$ | async)?.length > 0">{{ (outputLogs$ | async) }}</pre>
-        <p id="no-output-logs-message" *ngIf="(!(retrievingOutputLogs$ | async) && showOutputLogs)
-      && !(outputLogs$ | async) || (outputLogs$ | async)?.length == 0 || !process._links.output">
+        <p id="no-output-logs-message" *ngIf="((retrievingOutputLogs$ | async) !== true && showOutputLogs)
+      && (outputLogs$ | async | dsHasNoValue) || (outputLogs$ | async)?.length === 0 || !process._links.output">
             {{ 'process.detail.logs.none' | translate }}
         </p>
     </ds-process-detail-field>

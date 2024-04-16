@@ -1,14 +1,46 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { Router, EventType, Scroll } from '@angular/router';
-import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  EventType,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  Scroll,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  startWith,
+  take,
+} from 'rxjs/operators';
+
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { RemoteData } from '../../../core/data/remote-data';
+import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { BrowseService } from '../../../core/browse/browse.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { isNotEmpty } from '../../empty.util';
 
 export interface ComColPageNavOption {
   id: string;
@@ -24,7 +56,17 @@ export interface ComColPageNavOption {
 @Component({
   selector: 'ds-comcol-page-browse-by',
   styleUrls: ['./comcol-page-browse-by.component.scss'],
-  templateUrl: './comcol-page-browse-by.component.html'
+  templateUrl: './comcol-page-browse-by.component.html',
+  imports: [
+    FormsModule,
+    NgForOf,
+    RouterLink,
+    RouterLinkActive,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
   /**
@@ -41,7 +83,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
 
   constructor(
     public router: Router,
-    private browseService: BrowseService
+    private browseService: BrowseService,
   ) {
   }
 
@@ -85,13 +127,16 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
 
     this.subs.push(combineLatest([
       this.allOptions$,
-      this.router.events,
-    ]).subscribe(([navOptions, scrollEvent]: [ComColPageNavOption[], Scroll]) => {
-      if (scrollEvent.type === EventType.Scroll) {
-        for (let option of navOptions) {
-          if (option.routerLink === scrollEvent.routerEvent.urlAfterRedirects.split('?')[0]) {
-            this.currentOption$.next(option);
-          }
+      this.router.events.pipe(
+        startWith(this.router),
+        filter((next: Router|Scroll) => (isNotEmpty((next as Router)?.url) || (next as Scroll)?.type === EventType.Scroll)),
+        map((next: Router|Scroll) => (next as Router)?.url || ((next as Scroll).routerEvent as NavigationEnd).urlAfterRedirects),
+        distinctUntilChanged(),
+      ),
+    ]).subscribe(([navOptions, url]: [ComColPageNavOption[], string]) => {
+      for (const option of navOptions) {
+        if (option.routerLink === url?.split('?')[0]) {
+          this.currentOption$.next(option);
         }
       }
     }));
@@ -105,7 +150,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
     this.allOptions$.pipe(
       take(1),
     ).subscribe((allOptions: ComColPageNavOption[]) => {
-      for (let option of allOptions) {
+      for (const option of allOptions) {
         if (option.id === event.target.value) {
           this.currentOption$.next(option[0]);
           void this.router.navigate([option.routerLink], { queryParams: option.params });

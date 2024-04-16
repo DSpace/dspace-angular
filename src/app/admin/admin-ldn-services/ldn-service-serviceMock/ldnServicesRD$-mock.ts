@@ -1,9 +1,13 @@
-import {LdnService} from '../ldn-services-model/ldn-services.model';
-import {LDN_SERVICE} from '../ldn-services-model/ldn-service.resource-type';
-import {RemoteData} from '../../../core/data/remote-data';
-import {PaginatedList} from '../../../core/data/paginated-list.model';
-import {Observable, of} from 'rxjs';
-import {createSuccessfulRemoteDataObject$} from '../../../shared/remote-data.utils';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
+import { LdnService } from '../ldn-services-model/ldn-services.model';
 
 export const mockLdnService: LdnService = {
   uuid: '1',
@@ -31,7 +35,7 @@ export const mockLdnService: LdnService = {
   type: LDN_SERVICE,
   _links: {
     self: {
-      href: 'http://localhost/api/ldn/ldnservices/1'
+      href: 'http://localhost/api/ldn/ldnservices/1',
     },
   },
   get self(): string {
@@ -68,7 +72,7 @@ export const mockLdnServices: LdnService[] = [{
   type: LDN_SERVICE,
   _links: {
     self: {
-      href: 'http://localhost/api/ldn/ldnservices/1'
+      href: 'http://localhost/api/ldn/ldnservices/1',
     },
   },
   get self(): string {
@@ -100,12 +104,12 @@ export const mockLdnServices: LdnService[] = [{
   type: LDN_SERVICE,
   _links: {
     self: {
-      href: 'http://localhost/api/ldn/ldnservices/1'
+      href: 'http://localhost/api/ldn/ldnservices/1',
     },
   },
   get self(): string {
     return '';
   },
-}
+},
 ];
 export const mockLdnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>> = of((mockLdnServices as unknown) as RemoteData<PaginatedList<LdnService>>);

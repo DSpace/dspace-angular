@@ -1,21 +1,23 @@
 import { TestBed } from '@angular/core/testing';
+import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+
+import { RequestParam } from '../../../core/cache/models/request-param.model';
 import {
-  QualityAssuranceTopicDataService
-} from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import {
   getMockQualityAssuranceTopicRestService,
   qualityAssuranceTopicObjectMoreAbstract,
-  qualityAssuranceTopicObjectMorePid
+  qualityAssuranceTopicObjectMorePid,
 } from '../../../shared/mocks/notifications.mock';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { cold } from 'jasmine-marbles';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { QualityAssuranceTopicsService } from './quality-assurance-topics.service';
 
 describe('QualityAssuranceTopicsService', () => {
   let service: QualityAssuranceTopicsService;
@@ -34,8 +36,8 @@ describe('QualityAssuranceTopicsService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: QualityAssuranceTopicDataService, useClass: getMockQualityAssuranceTopicRestService },
-        { provide: QualityAssuranceTopicsService, useValue: service }
-      ]
+        { provide: QualityAssuranceTopicsService, useValue: service },
+      ],
     }).compileComponents();
   });
 
@@ -55,7 +57,7 @@ describe('QualityAssuranceTopicsService', () => {
         elementsPerPage: elementsPerPage,
         currentPage: currentPage,
         sort: sortOptions,
-        searchParams: [new RequestParam('source', 'openaire')]
+        searchParams: [new RequestParam('source', 'openaire')],
       };
       service.getTopics(elementsPerPage, currentPage, 'openaire');
       expect((service as any).qualityAssuranceTopicRestService.searchTopicsBySource).toHaveBeenCalledWith(findListOptions);
@@ -63,7 +65,7 @@ describe('QualityAssuranceTopicsService', () => {
 
     it('should return a paginated list of Quality Assurance topics', () => {
       const expected = cold('(a|)', {
-        a: paginatedList
+        a: paginatedList,
       });
       const result = service.getTopics(elementsPerPage, currentPage, 'openaire');
       expect(result).toBeObservable(expected);

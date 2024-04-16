@@ -14,13 +14,16 @@
         <button class="btn btn-outline-primary" type="button" (click)="add()" [disabled]="this.vocabularyOptions.closed">
           {{'vocabulary-treeview.search.form.add' | translate}}
         </button>
+        <button class="btn btn-outline-primary" type="button" (click)="add()" [disabled]="this.vocabularyOptions.closed">
+          {{'vocabulary-treeview.search.form.add' | translate}}
+        </button>
       </div>
     </div>
   </div>
 </div>
 <div class="treeview-container">
   <ds-themed-loading *ngIf="loading | async" [showMessage]="false"></ds-themed-loading>
-  <h2 *ngIf="!(loading | async) && dataSource.data.length === 0" class="h4 text-center text-muted mt-4" >
+  <h2 *ngIf="(loading | async) !== true && dataSource.data.length === 0" class="h4 text-center text-muted mt-4" >
     <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
   </h2>
   <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">

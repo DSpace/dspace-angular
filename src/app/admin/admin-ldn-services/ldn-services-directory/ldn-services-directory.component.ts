@@ -1,28 +1,47 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
-import {RemoteData} from '../../../core/data/remote-data';
-import {PaginatedList} from '../../../core/data/paginated-list.model';
-import {FindListOptions} from '../../../core/data/find-list-options.model';
-import {LdnService} from '../ldn-services-model/ldn-services.model';
-import {PaginationComponentOptions} from '../../../shared/pagination/pagination-component-options.model';
-import {map, switchMap} from 'rxjs/operators';
-import {LdnServicesService} from 'src/app/admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import {PaginationService} from 'src/app/core/pagination/pagination.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {hasValue} from '../../../shared/empty.util';
-import {Operation} from 'fast-json-patch';
-import {getFirstCompletedRemoteData} from '../../../core/shared/operators';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+import { LdnServicesService } from 'src/app/admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { PaginationService } from 'src/app/core/pagination/pagination.service';
 
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { LdnService } from '../ldn-services-model/ldn-services.model';
 
 /**
  * The `LdnServicesOverviewComponent` is a component that provides an overview of LDN (Linked Data Notifications) services.
@@ -33,20 +52,32 @@ import {TranslateService} from '@ngx-translate/core';
   selector: 'ds-ldn-services-directory',
   templateUrl: './ldn-services-directory.component.html',
   styleUrls: ['./ldn-services-directory.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    NgIf,
+    NgFor,
+    TranslateModule,
+    AsyncPipe,
+    PaginationComponent,
+    TruncatableComponent,
+    TruncatablePartComponent,
+    NgClass,
+    RouterLink,
+  ],
+  standalone: true,
 })
 export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
 
   selectedServiceId: string | number | null = null;
   servicesData: any[] = [];
-  @ViewChild('deleteModal', {static: true}) deleteModal: TemplateRef<any>;
+  @ViewChild('deleteModal', { static: true }) deleteModal: TemplateRef<any>;
   ldnServicesRD$: Observable<RemoteData<PaginatedList<LdnService>>>;
   config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 10
+    elementsPerPage: 10,
   });
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'po',
-    pageSize: 10
+    pageSize: 10,
   });
   isProcessingSub: Subscription;
   modalRef: any;
@@ -72,8 +103,8 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
   setLdnServices() {
     this.ldnServicesRD$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config).pipe(
       switchMap((config) => this.ldnServicesService.findAll(config, false, false).pipe(
-        getFirstCompletedRemoteData()
-      ))
+        getFirstCompletedRemoteData(),
+      )),
     );
   }
 
@@ -128,7 +159,7 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
                 remoteData.payload.page = remoteData.payload.page.filter(service => service.id.toString() !== serviceId);
               }
               return remoteData;
-            })
+            }),
           );
           this.cdRef.detectChanges();
           this.closeModal();
@@ -170,7 +201,7 @@ export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
           this.notificationService.error(this.translateService.get('ldn-enable-service.notification.error.title'),
             this.translateService.get('ldn-enable-service.notification.error.content'));
         }
-      }
+      },
     );
   }
 }

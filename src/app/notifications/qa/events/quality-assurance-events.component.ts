@@ -1,41 +1,82 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  from,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  last,
+  map,
+  mergeMap,
+  scan,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, from, Observable, of, Subscription } from 'rxjs';
-import { distinctUntilChanged, last, map, mergeMap, scan, switchMap, take, tap } from 'rxjs/operators';
-
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
+import { environment } from '../../../../environments/environment';
 import {
-  SourceQualityAssuranceEventMessageObject,
-  QualityAssuranceEventObject
-} from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import {
-  QualityAssuranceEventDataService
-} from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { hasValue } from '../../../shared/empty.util';
-import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  ProjectEntryImportModalComponent,
-  QualityAssuranceEventData
-} from '../project-entry-import-modal/project-entry-import-modal.component';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { environment } from '../../../../environments/environment';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
+import {
+  QualityAssuranceEventObject,
+  SourceQualityAssuranceEventMessageObject,
+} from '../../../core/notifications/qa/models/quality-assurance-event.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { Item } from '../../../core/shared/item.model';
+import { Metadata } from '../../../core/shared/metadata.utils';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { hasValue } from '../../../shared/empty.util';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ItemSearchResult } from '../../../shared/object-collection/shared/item-search-result.model';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import {
+  ProjectEntryImportModalComponent,
+  QualityAssuranceEventData,
+} from '../project-entry-import-modal/project-entry-import-modal.component';
+import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
 
 /**
  * Component to display the Quality Assurance event list.
@@ -44,6 +85,8 @@ import { ItemDataService } from '../../../core/data/item-data.service';
   selector: 'ds-quality-assurance-events',
   templateUrl: './quality-assurance-events.component.html',
   styleUrls: ['./quality-assurance-events.component.scss'],
+  standalone: true,
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent],
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**
@@ -54,7 +97,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
     id: 'bep',
     currentPage: 1,
     pageSize: 10,
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
   /**
    * The Quality Assurance event list sort options.
@@ -187,17 +230,17 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         this.selectedTopicName = splitList[1];
         this.sourceId = splitList[0];
         return this.getQualityAssuranceEvents();
-      })
+      }),
     ).subscribe(
       {
         next: (events: QualityAssuranceEventData[]) => {
           this.eventsUpdated$.next(events);
           this.isEventPageLoading.next(false);
         },
-        error: (error) => {
+        error: (error: unknown) => {
           this.isEventPageLoading.next(false);
-        }
-      }
+        },
+      },
     );
   }
 
@@ -253,7 +296,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       },
       (_reason) => {
         this.selectedReason = null;
-      }
+      },
     );
   }
 
@@ -265,7 +308,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
    */
   public openModalLookup(eventData: QualityAssuranceEventData): void {
     this.modalRef = this.modalService.open(ProjectEntryImportModalComponent, {
-      size: 'lg'
+      size: 'lg',
     });
     const modalComp = this.modalRef.componentInstance;
     modalComp.externalSourceEntry = eventData;
@@ -278,9 +321,9 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
             eventData,
             object.indexableObject.id,
             projectTitle.value,
-            object.indexableObject.handle
+            object.indexableObject.handle,
           );
-        })
+        }),
     );
   }
 
@@ -306,20 +349,20 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         switchMap((rd: RemoteData<QualityAssuranceEventObject>) => {
           if (rd.hasSucceeded) {
             this.notificationsService.success(
-              this.translateService.instant('quality-assurance.event.action.saved')
+              this.translateService.instant('quality-assurance.event.action.saved'),
             );
             return this.getQualityAssuranceEvents();
           } else {
             this.notificationsService.error(
-              this.translateService.instant('quality-assurance.event.action.error')
+              this.translateService.instant('quality-assurance.event.action.error'),
             );
             return of(this.eventsUpdated$.value);
           }
-        })
+        }),
       ).subscribe((events: QualityAssuranceEventData[]) => {
         this.eventsUpdated$.next(events);
         eventData.isRunning = false;
-      })
+      }),
     );
   }
 
@@ -342,7 +385,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         .subscribe((rd: RemoteData<QualityAssuranceEventObject>) => {
           if (rd.hasSucceeded) {
             this.notificationsService.success(
-              this.translateService.instant('quality-assurance.event.project.bounded')
+              this.translateService.instant('quality-assurance.event.project.bounded'),
             );
             eventData.hasProject = true;
             eventData.projectTitle = projectTitle;
@@ -350,11 +393,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
             eventData.projectId = projectId;
           } else {
             this.notificationsService.error(
-              this.translateService.instant('quality-assurance.event.project.error')
+              this.translateService.instant('quality-assurance.event.project.error'),
             );
           }
           eventData.isRunning = false;
-        })
+        }),
     );
   }
 
@@ -371,7 +414,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
         .subscribe((rd: RemoteData<QualityAssuranceEventObject>) => {
           if (rd.hasSucceeded) {
             this.notificationsService.success(
-              this.translateService.instant('quality-assurance.event.project.removed')
+              this.translateService.instant('quality-assurance.event.project.removed'),
             );
             eventData.hasProject = false;
             eventData.projectTitle = null;
@@ -379,11 +422,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
             eventData.projectId = null;
           } else {
             this.notificationsService.error(
-              this.translateService.instant('quality-assurance.event.project.error')
+              this.translateService.instant('quality-assurance.event.project.error'),
             );
           }
           eventData.isRunning = false;
-        })
+        }),
     );
   }
 
@@ -412,7 +455,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       switchMap((options: FindListOptions) => this.qualityAssuranceEventRestService.getEventsByTopic(
         this.topic,
         options,
-        followLink('target'), followLink('related')
+        followLink('target'), followLink('related'),
       )),
       getFirstCompletedRemoteData(),
       switchMap((rd: RemoteData<PaginatedList<QualityAssuranceEventObject>>) => {
@@ -430,7 +473,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       take(1),
       tap(() => {
         this.qualityAssuranceEventRestService.clearFindByTopicRequests();
-      })
+      }),
     );
   }
 
@@ -457,7 +500,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
           getFirstCompletedRemoteData(),
         );
         const target$ = event.target.pipe(
-          getFirstCompletedRemoteData()
+          getFirstCompletedRemoteData(),
         );
         return combineLatest([related$, target$]).pipe(
           map(([relatedItemRD, targetItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
@@ -480,11 +523,11 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
               data.handle = relatedItemRD?.payload?.handle;
             }
             return data;
-          })
+          }),
         );
       }),
       scan((acc: any, value: any) => [...acc, value], []),
-      last()
+      last(),
     );
   }
 
@@ -510,7 +553,7 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       tap((item: Item) => this.itemPageUrl = getItemPageRoute(item)),
-      map((item: Item) => item.firstMetadataValue('dc.title'))
+      map((item: Item) => item.firstMetadataValue('dc.title')),
     );
   }
 }

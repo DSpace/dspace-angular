@@ -1,23 +1,49 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import {NgbDropdownModule, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {LdnServiceFormComponent} from './ldn-service-form.component';
-import {ChangeDetectorRef, EventEmitter} from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {PaginationService} from 'ngx-pagination';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {LdnItemfiltersService} from '../ldn-services-data/ldn-itemfilters-data.service';
-import {LdnServicesService} from '../ldn-services-data/ldn-services-data.service';
-import {RouterStub} from '../../../shared/testing/router.stub';
-import {MockActivatedRoute} from '../../../shared/mocks/active-router.mock';
-import {NotificationsServiceStub} from '../../../shared/testing/notifications-service.stub';
-import { of as observableOf, of } from 'rxjs';
-import {RouteService} from '../../../core/services/route.service';
-import {provideMockStore} from '@ngrx/store/testing';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  ChangeDetectorRef,
+  EventEmitter,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { PaginationService } from 'ngx-pagination';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
+
+import { RouteService } from '../../../core/services/route.service';
+import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
+import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
+import { LdnServiceFormComponent } from './ldn-service-form.component';
 
 describe('LdnServiceFormEditComponent', () => {
   let component: LdnServiceFormComponent;
@@ -33,7 +59,7 @@ describe('LdnServiceFormEditComponent', () => {
   const routeParams = {
     serviceId: testId,
   };
-  const routeUrlSegments = [{path: 'path'}];
+  const routeUrlSegments = [{ path: 'path' }];
   const formMockValue = {
     'id': '',
     'name': 'name',
@@ -52,9 +78,9 @@ describe('LdnServiceFormEditComponent', () => {
         'pattern': '',
         'patternLabel': 'Select a pattern',
         'constraint': '',
-        'automatic': false
-      }
-    ]
+        'automatic': false,
+      },
+    ],
   };
 
 
@@ -63,7 +89,7 @@ describe('LdnServiceFormEditComponent', () => {
     instant: () => 'translated-text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
@@ -77,33 +103,32 @@ describe('LdnServiceFormEditComponent', () => {
       findAll: () => of(['item1', 'item2']),
     };
     cdRefStub = Object.assign({
-      detectChanges: () => fixture.detectChanges()
+      detectChanges: () => fixture.detectChanges(),
     });
     modalService = {
       open: () => {/*comment*/
-      }
+      },
     };
 
 
     activatedRoute = new MockActivatedRoute(routeParams, routeUrlSegments);
 
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, TranslateModule.forRoot(), NgbDropdownModule],
-      declarations: [LdnServiceFormComponent],
+      imports: [ReactiveFormsModule, TranslateModule.forRoot(), NgbDropdownModule, LdnServiceFormComponent],
       providers: [
-        {provide: LdnServicesService, useValue: ldnServicesService},
-        {provide: LdnItemfiltersService, useValue: ldnItemfiltersService},
-        {provide: Router, useValue: new RouterStub()},
-        {provide: ActivatedRoute, useValue: activatedRoute},
-        {provide: ChangeDetectorRef, useValue: cdRefStub},
-        {provide: NgbModal, useValue: modalService},
-        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
-        {provide: TranslateService, useValue: translateServiceStub},
-        {provide: PaginationService, useValue: {}},
+        { provide: LdnServicesService, useValue: ldnServicesService },
+        { provide: LdnItemfiltersService, useValue: ldnItemfiltersService },
+        { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: ChangeDetectorRef, useValue: cdRefStub },
+        { provide: NgbModal, useValue: modalService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: TranslateService, useValue: translateServiceStub },
+        { provide: PaginationService, useValue: {} },
         FormBuilder,
         RouteService,
         provideMockStore({}),
-      ]
+      ],
     })
       .compileComponents();
 
@@ -139,7 +164,7 @@ describe('LdnServiceFormEditComponent', () => {
 
   it('should handle create service with valid form', () => {
     spyOn(component, 'fetchServiceData').and.callFake((a) => a);
-    component.formModel.addControl('notifyServiceInboundPatterns', (component as any).formBuilder.array([{pattern: 'patternValue'}]));
+    component.formModel.addControl('notifyServiceInboundPatterns', (component as any).formBuilder.array([{ pattern: 'patternValue' }]));
     const nameInput = fixture.debugElement.query(By.css('#name'));
     const descriptionInput = fixture.debugElement.query(By.css('#description'));
     const urlInput = fixture.debugElement.query(By.css('#url'));
@@ -184,7 +209,7 @@ describe('LdnServiceFormEditComponent', () => {
     spyOn(component.formModel, 'markAllAsTouched');
     spyOn(component, 'closeModal');
     spyOn(component, 'checkPatterns').and.callFake(() => true);
-    component.formModel.addControl('notifyServiceInboundPatterns', (component as any).formBuilder.array([{pattern: 'patternValue'}]));
+    component.formModel.addControl('notifyServiceInboundPatterns', (component as any).formBuilder.array([{ pattern: 'patternValue' }]));
     component.formModel.patchValue(formMockValue);
     component.createService();
 
@@ -196,13 +221,13 @@ describe('LdnServiceFormEditComponent', () => {
   it('should check patterns', () => {
     const arrValid = new FormArray([
       new FormGroup({
-        pattern: new FormControl('pattern')
+        pattern: new FormControl('pattern'),
       }),
     ]);
 
     const arrInvalid = new FormArray([
       new FormGroup({
-        pattern: new FormControl('')
+        pattern: new FormControl(''),
       }),
     ]);
 

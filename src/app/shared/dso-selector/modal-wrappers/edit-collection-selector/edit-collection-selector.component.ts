@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { environment } from '../../../../../environments/environment';
+import { getCollectionEditRoute } from '../../../../collection-page/collection-page-routing-paths';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../core/cache/models/sort-options.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
-  SelectorActionType
+  SelectorActionType,
 } from '../dso-selector-modal-wrapper.component';
-import { getCollectionEditRoute } from '../../../../collection-page/collection-page-routing-paths';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { environment } from '../../../../../environments/environment';
 
 /**
  * Component to wrap a list of existing collections inside a modal
@@ -19,6 +32,8 @@ import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'ds-edit-collection-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;

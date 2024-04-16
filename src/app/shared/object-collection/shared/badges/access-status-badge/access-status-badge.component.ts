@@ -1,18 +1,36 @@
-import { Component, Input } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { AccessStatusObject } from './access-status.model';
-import { hasValue } from '../../../../empty.util';
-import { environment } from 'src/environments/environment';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
 import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
+import { environment } from 'src/environments/environment';
+
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ITEM } from '../../../../../core/shared/item.resource-type';
+import { hasValue } from '../../../../empty.util';
+import { AccessStatusObject } from './access-status.model';
 
 @Component({
   selector: 'ds-access-status-badge',
   templateUrl: './access-status-badge.component.html',
-  styleUrls: ['./access-status-badge.component.scss']
+  styleUrls: ['./access-status-badge.component.scss'],
+  standalone: true,
+  imports: [NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component rendering the access status of an item as a badge
@@ -66,16 +84,16 @@ export class AccessStatusBadgeComponent {
       }),
       map((accessStatus: AccessStatusObject) => hasValue(accessStatus.status) ? accessStatus.status : 'unknown'),
       map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
-      catchError(() => observableOf('access-status.unknown.listelement.badge'))
+      catchError(() => observableOf('access-status.unknown.listelement.badge')),
     );
 
     // stylesheet based on the access status value
     this.subs.push(
       this.accessStatus$.pipe(
-        map((accessStatusClass: string) => accessStatusClass.replace(/\./g, '-'))
+        map((accessStatusClass: string) => accessStatusClass.replace(/\./g, '-')),
       ).subscribe((accessStatusClass: string) => {
         this.accessStatusClass = accessStatusClass;
-      })
+      }),
     );
   }
 

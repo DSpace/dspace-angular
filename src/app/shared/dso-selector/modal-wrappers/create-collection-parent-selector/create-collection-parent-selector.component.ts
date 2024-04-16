@@ -1,15 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
+import { NgIf } from '@angular/common';
 import {
-    getCollectionCreateRoute,
-    COLLECTION_PARENT_PARAMETER
-} from '../../../../collection-page/collection-page-routing-paths';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationExtras,
+  Router,
+} from '@angular/router';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { environment } from '../../../../../environments/environment';
+import {
+  COLLECTION_PARENT_PARAMETER,
+  getCollectionCreateRoute,
+} from '../../../../collection-page/collection-page-routing-paths';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../core/cache/models/sort-options.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType,
+} from '../dso-selector-modal-wrapper.component';
 /**
  * Component to wrap a list of existing communities inside a modal
  * Used to choose a community from to create a new collection in
@@ -18,6 +35,8 @@ import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'ds-create-collection-parent-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;
@@ -37,7 +56,7 @@ export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWra
     const navigationExtras: NavigationExtras = {
       queryParams: {
         [COLLECTION_PARENT_PARAMETER]: dso.uuid,
-      }
+      },
     };
     this.router.navigate([getCollectionCreateRoute()], navigationExtras);
   }

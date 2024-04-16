@@ -1,26 +1,30 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { USAGE_REPORT } from './models/usage-report.resource-type';
-import { UsageReport } from './models/usage-report.model';
-import { Observable } from 'rxjs';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { map } from 'rxjs/operators';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
 import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list.model';
-import { dataService } from '../data/base/data-service.decorator';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { UsageReport } from './models/usage-report.model';
 
 /**
  * A service to retrieve {@link UsageReport}s from the REST API
  */
-@Injectable()
-@dataService(USAGE_REPORT)
+@Injectable({ providedIn: 'root' })
 export class UsageReportDataService extends IdentifiableDataService<UsageReport> implements SearchData<UsageReport> {
   private searchData: SearchDataImpl<UsageReport>;
 

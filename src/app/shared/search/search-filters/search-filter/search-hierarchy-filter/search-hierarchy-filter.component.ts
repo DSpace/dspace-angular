@@ -1,47 +1,84 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { renderFacetFor } from '../search-filter-type-decorator';
-import { FilterType } from '../../../models/filter-type.model';
-import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
-  VocabularyEntryDetail
-} from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+  AsyncPipe,
+  LowerCasePipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../config/app-config.interface';
+import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import {
   FILTER_CONFIG,
-  SCOPE,
   IN_PLACE_SEARCH,
-  SearchFilterService, REFRESH_FILTER
+  REFRESH_FILTER,
+  SCOPE,
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { FacetValue } from '../../../models/facet-value.model';
-import { getFacetValueForType } from '../../../search.utils';
-import { filter, map, take } from 'rxjs/operators';
+import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { addOperatorToFilterValue } from '../../../search.utils';
-import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../empty.util';
-import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
-import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
+import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { FacetValue } from '../../../models/facet-value.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import {
+  addOperatorToFilterValue,
+  getFacetValueForType,
+} from '../../../search.utils';
+import {
+  facetLoad,
+  SearchFacetFilterComponent,
+} from '../search-facet-filter/search-facet-filter.component';
+import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
+import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
   styleUrls: ['./search-hierarchy-filter.component.scss'],
   templateUrl: './search-hierarchy-filter.component.html',
-  animations: [facetLoad]
+  animations: [facetLoad],
+  standalone: true,
+  imports: [NgFor, SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, NgIf, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, LowerCasePipe, TranslateModule],
 })
 
 /**
  * Component that represents a hierarchy facet for a specific filter configuration
  */
-@renderFacetFor(FilterType.hierarchy)
-export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnInit {
+export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnDestroy, OnInit {
+
+  subscriptions: Subscription[] = [];
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
@@ -60,6 +97,11 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
   }
 
   vocabularyExists$: Observable<boolean>;
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
 
   /**
    * Submits a new active custom value to the filter from the input field
@@ -93,28 +135,27 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
   showVocabularyTree() {
     const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, {
       size: 'lg',
-      windowClass: 'treeview'
+      windowClass: 'treeview',
     });
     modalRef.componentInstance.vocabularyOptions = {
       name: this.getVocabularyEntry(),
-      closed: true
+      closed: true,
     };
-    void modalRef.result.then((detail: VocabularyEntryDetail) => {
-      this.subs.push(this.selectedValues$
-        .pipe(take(1))
-        .subscribe((selectedValues) => {
-          void this.router.navigate(
-            [this.searchService.getSearchLink()],
-            {
-              queryParams: {
-                [this.filterConfig.paramName]: [...selectedValues, {value: detail.value}]
-                  .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
-              },
-              queryParamsHandling: 'merge',
-            },
-          );
-        }));
-    });
+    this.subscriptions.push(combineLatest([
+      (modalRef.componentInstance as VocabularyTreeviewModalComponent).select,
+      this.selectedValues$.pipe(take(1)),
+    ]).subscribe(([detail, selectedValues]: [VocabularyEntryDetail, FacetValue[]]) => {
+      void this.router.navigate(
+        [this.searchService.getSearchLink()],
+        {
+          queryParams: {
+            [this.filterConfig.paramName]: [...selectedValues, { value: detail.value }]
+              .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
+          },
+          queryParamsHandling: 'merge',
+        },
+      );
+    }));
   }
 
   /**

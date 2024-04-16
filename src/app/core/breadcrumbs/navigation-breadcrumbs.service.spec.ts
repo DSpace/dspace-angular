@@ -1,6 +1,10 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
+
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { BREADCRUMB_MESSAGE_POSTFIX } from './i18n-breadcrumbs.service';
 import { NavigationBreadcrumbsService } from './navigation-breadcrumb.service';
 
@@ -35,9 +39,9 @@ describe('NavigationBreadcrumbsService', () => {
     it('should return an array of breadcrumbs based on strings by adding the postfix', () => {
       const breadcrumbs = service.getBreadcrumbs(exampleString, exampleURL);
       getTestScheduler().expectObservable(breadcrumbs).toBe('(a|)', { a: [
-          new Breadcrumb(childrenString + BREADCRUMB_MESSAGE_POSTFIX, childrenUrl),
-          new Breadcrumb(parentString + BREADCRUMB_MESSAGE_POSTFIX, parentUrl),
-        ].reverse() });
+        new Breadcrumb(childrenString + BREADCRUMB_MESSAGE_POSTFIX, childrenUrl),
+        new Breadcrumb(parentString + BREADCRUMB_MESSAGE_POSTFIX, parentUrl),
+      ].reverse() });
     });
   });
 });

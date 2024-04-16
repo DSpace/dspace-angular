@@ -1,23 +1,55 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../core/cache/models/sort-options.model';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { fadeIn } from '../../../../shared/animations/fade';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { switchMap } from 'rxjs/operators';
 import { hasValue } from '../../../../shared/empty.util';
+import { ErrorComponent } from '../../../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../shared/object-collection/object-collection.component';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-community-page-sub-collection-list',
   styleUrls: ['./community-page-sub-collection-list.component.scss'],
   templateUrl: './community-page-sub-collection-list.component.html',
-  animations:[fadeIn]
+  animations: [fadeIn],
+  imports: [
+    ObjectCollectionComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    NgIf,
+    TranslateModule,
+    AsyncPipe,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class CommunityPageSubCollectionListComponent implements OnInit, OnDestroy {
   @Input() community: Community;
@@ -74,17 +106,17 @@ export class CommunityPageSubCollectionListComponent implements OnInit, OnDestro
    * Initialise the list of collections
    */
   initPage() {
-     const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
-     const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
+    const pagination$ = this.paginationService.getCurrentPagination(this.config.id, this.config);
+    const sort$ = this.paginationService.getCurrentSort(this.config.id, this.sortConfig);
 
     this.subscriptions.push(observableCombineLatest([pagination$, sort$]).pipe(
       switchMap(([currentPagination, currentSort]) => {
         return this.cds.findByParent(this.community.id, {
           currentPage: currentPagination.currentPage,
           elementsPerPage: currentPagination.pageSize,
-          sort: {field: currentSort.field, direction: currentSort.direction}
+          sort: { field: currentSort.field, direction: currentSort.direction },
         });
-      })
+      }),
     ).subscribe((results) => {
       this.subCollectionsRDObs.next(results);
     }));

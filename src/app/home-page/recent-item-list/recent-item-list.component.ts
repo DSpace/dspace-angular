@@ -1,23 +1,54 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { Item } from '../../core/shared/item.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { environment } from '../../../environments/environment';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { toDSpaceObjectListRD } from '../../core/shared/operators';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
-import { isPlatformBrowser } from '@angular/common';
-import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
+import { Item } from '../../core/shared/item.model';
+import { toDSpaceObjectListRD } from '../../core/shared/operators';
+import { SearchService } from '../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../shared/animations/fade';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
+import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-recent-item-list',
@@ -26,8 +57,10 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
+  standalone: true,
+  imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, LoadingComponent, AsyncPipe, TranslateModule],
 })
 export class RecentItemListComponent implements OnInit {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;
@@ -48,14 +81,14 @@ export class RecentItemListComponent implements OnInit {
     public searchConfigurationService: SearchConfigurationService,
     protected elementRef: ElementRef,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: any,
   ) {
 
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
       id: 'hp',
       pageSize: environment.homePage.recentSubmissions.pageSize,
       currentPage: 1,
-      maxSize: 1
+      maxSize: 1,
     });
     this.sortConfig = new SortOptions(environment.homePage.recentSubmissions.sortField, SortDirection.DESC);
   }
@@ -76,7 +109,7 @@ export class RecentItemListComponent implements OnInit {
       undefined,
       ...linksToFollow,
     ).pipe(
-      toDSpaceObjectListRD()
+      toDSpaceObjectListRD(),
     ) as Observable<RemoteData<PaginatedList<Item>>>;
   }
 
@@ -88,7 +121,7 @@ export class RecentItemListComponent implements OnInit {
     this.paginationService.updateRouteWithUrl(this.searchConfigurationService.paginationID, ['search'], {
       sortField: environment.homePage.recentSubmissions.sortField,
       sortDirection: 'DESC' as SortDirection,
-      page: 1
+      page: 1,
     });
   }
 

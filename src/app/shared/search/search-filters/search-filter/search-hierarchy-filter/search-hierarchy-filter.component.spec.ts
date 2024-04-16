@@ -1,34 +1,50 @@
-import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  DebugElement,
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { of as observableOf, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
+import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment.test';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterStub } from '../../../../testing/router.stub';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { CommonModule } from '@angular/common';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
-  SCOPE,
   IN_PLACE_SEARCH,
+  REFRESH_FILTER,
+  SCOPE,
   SearchFilterService,
-  REFRESH_FILTER
 } from '../../../../../core/shared/search/search-filter.service';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { FacetValue} from '../../../models/facet-value.model';
+import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { RouterStub } from '../../../../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { APP_CONFIG } from '../../../../../../config/app-config.interface';
-import { environment } from '../../../../../../environments/environment.test';
+import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {
 
@@ -52,20 +68,18 @@ describe('SearchHierarchyFilterComponent', () => {
   const ngbModal = jasmine.createSpyObj('modal', {
     open: {
       componentInstance: VocabularyTreeViewComponent,
-    }
+    },
   });
   const vocabularyService = {
     searchTopEntries: () => undefined,
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
+    return TestBed.configureTestingModule({
       imports: [
         CommonModule,
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SearchHierarchyFilterComponent,
       ],
       providers: [
@@ -79,7 +93,7 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false)},
+        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         { provide: SCOPE, useValue: undefined },
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -96,7 +110,7 @@ describe('SearchHierarchyFilterComponent', () => {
 
     beforeEach(() => {
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
-        undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404
+        undefined, 0, 0, RequestEntryState.Error, undefined, undefined, 404,
       )));
       init();
     });
@@ -110,7 +124,7 @@ describe('SearchHierarchyFilterComponent', () => {
 
     beforeEach(() => {
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
-        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200
+        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(new PageInfo(), []), 200,
       )));
       init();
     });
@@ -128,10 +142,10 @@ describe('SearchHierarchyFilterComponent', () => {
       const newSelectedValue = 'new-selected-value';
 
       beforeEach(async () => {
-        showVocabularyTreeLink.nativeElement.click();
         fixture.componentInstance.selectedValues$ = observableOf(
-          alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value }))
+          alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value })),
         );
+        showVocabularyTreeLink.nativeElement.click();
         VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
           value: newSelectedValue,
         }));
@@ -143,8 +157,9 @@ describe('SearchHierarchyFilterComponent', () => {
 
       describe('when selecting a value from the vocabulary tree', () => {
 
-        it('should add a new search filter to the existing search filters', () => {
-          waitForAsync(() => expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
+        it('should add a new search filter to the existing search filters', fakeAsync(() => {
+          tick();
+          expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
             queryParams: {
               [`f.${testSearchFilter}`]: [
                 ...alreadySelectedValues,
@@ -152,8 +167,8 @@ describe('SearchHierarchyFilterComponent', () => {
               ].map((value => `${value},equals`)),
             },
             queryParamsHandling: 'merge',
-          }));
-        });
+          });
+        }));
       });
     });
   });

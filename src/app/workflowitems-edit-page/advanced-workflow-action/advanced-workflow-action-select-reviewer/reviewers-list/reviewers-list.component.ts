@@ -1,20 +1,47 @@
-import { Component, OnDestroy, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import {
-  MembersListComponent,
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
+import {
   EPersonListActionConfig,
+  MembersListComponent,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -32,20 +59,32 @@ enum SubKey {
   selector: 'ds-reviewers-list',
   // templateUrl: './reviewers-list.component.html',
   templateUrl: '../../../../access-control/group-registry/group-form/members-list/members-list.component.html',
+  standalone: true,
+  imports: [
+    TranslateModule,
+    ContextHelpDirective,
+    ReactiveFormsModule,
+    PaginationComponent,
+    NgIf,
+    AsyncPipe,
+    RouterLink,
+    NgClass,
+    NgForOf,
+  ],
 })
 export class ReviewersListComponent extends MembersListComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
-  groupId: string | null;
+    groupId: string | null;
 
   @Input()
-  actionConfig: EPersonListActionConfig;
+    actionConfig: EPersonListActionConfig;
 
   @Input()
-  multipleReviewers: boolean;
+    multipleReviewers: boolean;
 
   @Output()
-  selectedReviewersUpdated: EventEmitter<EPerson[]> = new EventEmitter();
+    selectedReviewersUpdated: EventEmitter<EPerson[]> = new EventEmitter();
 
   selectedReviewers: EPerson[] = [];
 

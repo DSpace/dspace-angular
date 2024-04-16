@@ -1,4 +1,9 @@
-import {of as observableOf,  Observable ,  BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { ViewMode } from '../../core/shared/view-mode.model';
 
 export class SearchServiceStub {

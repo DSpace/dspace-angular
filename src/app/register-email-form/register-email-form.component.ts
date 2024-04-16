@@ -1,29 +1,72 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import {EpersonRegistrationService} from '../core/data/eperson-registration.service';
-import {NotificationsService} from '../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
-import {Router} from '@angular/router';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators, ValidatorFn } from '@angular/forms';
-import {Registration} from '../core/shared/registration.model';
-import {RemoteData} from '../core/data/remote-data';
-import {ConfigurationDataService} from '../core/data/configuration-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
-import {ConfigurationProperty} from '../core/shared/configuration-property.model';
-import {isNotEmpty} from '../shared/empty.util';
-import {BehaviorSubject, combineLatest, Observable, of, switchMap} from 'rxjs';
-import {map, startWith, take} from 'rxjs/operators';
-import {CAPTCHA_NAME, GoogleRecaptchaService} from '../core/google-recaptcha/google-recaptcha.service';
-import {AlertType} from '../shared/alert/alert-type';
-import {KlaroService} from '../shared/cookies/klaro.service';
-import {CookieService} from '../core/services/cookie.service';
-import { Subscription } from 'rxjs';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+  Subscription,
+  switchMap,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  take,
+} from 'rxjs/operators';
+
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
+import { RemoteData } from '../core/data/remote-data';
+import {
+  CAPTCHA_NAME,
+  GoogleRecaptchaService,
+} from '../core/google-recaptcha/google-recaptcha.service';
+import { CookieService } from '../core/services/cookie.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '../core/shared/operators';
+import { Registration } from '../core/shared/registration.model';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { AlertType } from '../shared/alert/alert-type';
+import { KlaroService } from '../shared/cookies/klaro.service';
+import { isNotEmpty } from '../shared/empty.util';
+import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
 
 @Component({
   selector: 'ds-register-email-form',
-  templateUrl: './register-email-form.component.html'
+  templateUrl: './register-email-form.component.html',
+  standalone: true,
+  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component responsible to render an email registration form.
@@ -39,13 +82,13 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * The message prefix
    */
   @Input()
-  MESSAGE_PREFIX: string;
+    MESSAGE_PREFIX: string;
 
   /**
    * Type of register request to be done, register new email or forgot password (same endpoint)
    */
   @Input()
-  typeRequest: string = null;
+    typeRequest: string = null;
 
   public AlertTypeEnum = AlertType;
 
@@ -99,12 +142,12 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
       Validators.email,
       // Regex pattern borrowed from HTML5 specs for a valid email address:
       // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
-      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
+      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'),
     ];
     this.form = this.formBuilder.group({
       email: new UntypedFormControl('', {
         validators: validators,
-      })
+      }),
     });
     this.validMailDomains = [];
     if (this.typeRequest === TYPE_REQUEST_REGISTER) {
@@ -126,7 +169,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     }
     this.subscriptions.push(this.configService.findByPropertyName('registration.verification.enabled').pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true')
+      map((res: ConfigurationProperty) => res?.values[0].toLowerCase() === 'true'),
     ).subscribe((res: boolean) => {
       this.registrationVerification = res;
     }));
@@ -165,13 +208,13 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
           }),
           take(1),
         ).subscribe((token) => {
-            if (isNotEmpty(token)) {
-              this.registration(token);
-            } else {
-              console.error('reCaptcha error');
-              this.showNotification('error');
-            }
+          if (isNotEmpty(token)) {
+            this.registration(token);
+          } else {
+            console.error('reCaptcha error');
+            this.showNotification('error');
           }
+        },
         ));
       } else {
         this.registration();
@@ -183,19 +226,19 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * Registration of an email address
    */
   registration(captchaToken = null) {
-    let registerEmail$ = captchaToken ?
+    const registerEmail$ = captchaToken ?
       this.epersonRegistrationService.registerEmail(this.email.value, captchaToken, this.typeRequest) :
       this.epersonRegistrationService.registerEmail(this.email.value, null, this.typeRequest);
     this.subscriptions.push(registerEmail$.subscribe((response: RemoteData<Registration>) => {
       if (response.hasSucceeded) {
         this.notificationService.success(this.translateService.get(`${this.MESSAGE_PREFIX}.success.head`),
-          this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, {email: this.email.value}));
+          this.translateService.get(`${this.MESSAGE_PREFIX}.success.content`, { email: this.email.value }));
         this.router.navigate(['/home']);
-        } else if (response.statusCode === 422) {
-        this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, {domains: this.validMailDomains.join(', ')}));
+      } else if (response.statusCode === 422) {
+        this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`), this.translateService.get(`${this.MESSAGE_PREFIX}.error.maildomain`, { domains: this.validMailDomains.join(', ') }));
       } else {
         this.notificationService.error(this.translateService.get(`${this.MESSAGE_PREFIX}.error.head`),
-          this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, {email: this.email.value}));
+          this.translateService.get(`${this.MESSAGE_PREFIX}.error.content`, { email: this.email.value }));
       }
     }));
   }

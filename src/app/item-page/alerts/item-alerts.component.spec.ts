@@ -1,17 +1,31 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemAlertsComponent } from './item-alerts.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { DsoWithdrawnReinstateModalService, REQUEST_REINSTATE } from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
-import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
-import { TestScheduler } from 'rxjs/testing';
-import { CorrectionType } from '../../core/submission/models/correctiontype.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../core/shared/item.model';
+import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
+import { CorrectionType } from '../../core/submission/models/correctiontype.model';
+import {
+  DsoWithdrawnReinstateModalService,
+  REQUEST_REINSTATE,
+} from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ItemAlertsComponent } from './item-alerts.component';
 
 describe('ItemAlertsComponent', () => {
   let component: ItemAlertsComponent;
@@ -32,14 +46,14 @@ describe('ItemAlertsComponent', () => {
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', ['openCreateWithdrawnReinstateModal']);
     correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  ['findByItem']);
     TestBed.configureTestingModule({
-      declarations: [ItemAlertsComponent],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
       providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
-        { provide: CorrectionTypeDataService, useValue: correctionTypeDataService }
+        { provide: CorrectionTypeDataService, useValue: correctionTypeDataService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));
@@ -55,7 +69,7 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is discoverable', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isDiscoverable: true
+        isDiscoverable: true,
       });
       component.item = item;
       fixture.detectChanges();
@@ -70,7 +84,7 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is not discoverable', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isDiscoverable: false
+        isDiscoverable: false,
       });
       component.item = item;
       fixture.detectChanges();
@@ -85,7 +99,7 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is withdrawn', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isWithdrawn: true
+        isWithdrawn: true,
       });
       component.item = item;
       (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
@@ -101,7 +115,7 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is not withdrawn', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isWithdrawn: false
+        isWithdrawn: false,
       });
       component.item = item;
       (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
@@ -116,7 +130,7 @@ describe('ItemAlertsComponent', () => {
 
   describe('when the item is reinstated', () => {
     const correctionType = Object.assign(new CorrectionType(), {
-      topic: REQUEST_REINSTATE
+      topic: REQUEST_REINSTATE,
     });
     const correctionRD = createSuccessfulRemoteDataObject(createPaginatedList([correctionType]));
 
@@ -125,7 +139,7 @@ describe('ItemAlertsComponent', () => {
       component.item = item;
       (correctionTypeDataService.findByItem).and.returnValue(of(correctionRD));
 
-       testScheduler = new TestScheduler((actual, expected) => {
+      testScheduler = new TestScheduler((actual, expected) => {
         expect(actual).toEqual(expected);
       });
       fixture.detectChanges();

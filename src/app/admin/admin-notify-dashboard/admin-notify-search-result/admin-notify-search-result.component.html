@@ -1,0 +1,51 @@
+<div class="table-responsive mt-2">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr class="text-nowrap">
+        <th scope="col">{{ 'notify-message-result.timestamp' | translate}}</th>
+        <th scope="col">{{'notify-message-result.repositoryItem' | translate}}</th>
+        <th scope="col">{{ 'notify-message-result.ldnService' | translate}}</th>
+        <th scope="col">{{ 'notify-message-result.type' | translate }}</th>
+        <th scope="col">{{ 'notify-message-result.status' | translate  }}</th>
+        <th scope="col">{{ 'notify-message-result.action' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let message of (messagesSubject$ | async)">
+        <td class="text-nowrap">
+          <div *ngIf="message.queueLastStartTime">{{ message.queueLastStartTime | date:"YYYY/MM/d hh:mm:ss" }}</div>
+          <div *ngIf="!message.queueLastStartTime">n/a</div>
+        </td>
+        <td>
+          <ds-truncatable [id]="message.id">
+            <ds-truncatable-part [id]="message.id" [minLines]="2">
+              <a *ngIf="message.relatedItem" [routerLink]="'/items/' + (message.context || message.object)">{{ message.relatedItem }}</a>
+            </ds-truncatable-part>
+          </ds-truncatable>
+          <div *ngIf="!message.relatedItem">n/a</div>
+        </td>
+        <td>
+          <div *ngIf="message.ldnService">{{ message.ldnService }}</div>
+          <div *ngIf="!message.ldnService">n/a</div>
+        </td>
+        <td>
+          <div>{{ message.activityStreamType }}</div>
+        </td>
+        <td>
+          <div class="text-nowrap">{{ 'notify-detail-modal.' + message.queueStatusLabel | translate }}</div>
+        </td>
+        <td>
+          <div class="d-flex flex-column">
+            <button class="btn mb-2 btn-dark" (click)="openDetailModal(message)">{{ 'notify-message-result.detail' | translate }}</button>
+            <button *ngIf="message.queueStatusLabel !== reprocessStatus && validStatusesForReprocess.includes(message.queueStatusLabel)"
+                    (click)="reprocessMessage(message)"
+                    class="btn btn-warning"
+            >
+              {{ 'notify-message-result.reprocess' | translate }}
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

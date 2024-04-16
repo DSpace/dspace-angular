@@ -1,14 +1,19 @@
-import { Injectable, RendererFactory2, ViewEncapsulation, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  RendererFactory2,
+  ViewEncapsulation,
+} from '@angular/core';
 
 /**
  * LinkHead Service injects <link> tag into the head element during runtime.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LinkHeadService {
   constructor(
     private rendererFactory: RendererFactory2,
-    @Inject(DOCUMENT) private document
+    @Inject(DOCUMENT) private document,
   ) {
 
   }
@@ -25,7 +30,7 @@ export class LinkHeadService {
         id: '-1',
         encapsulation: ViewEncapsulation.None,
         styles: [],
-        data: {}
+        data: {},
       });
 
       const link = renderer.createElement('link');
@@ -42,7 +47,7 @@ export class LinkHeadService {
       renderer.appendChild(head, link);
       return renderer;
     } catch (e) {
-      console.error('Error within linkService : ', e);
+      console.error('Error within linkService: ', e);
     }
   }
 
@@ -57,7 +62,7 @@ export class LinkHeadService {
           id: '-1',
           encapsulation: ViewEncapsulation.None,
           styles: [],
-          data: {}
+          data: {},
         });
         const head = this.document.head;
         if (head === null) {
@@ -68,7 +73,9 @@ export class LinkHeadService {
           renderer.removeChild(head, link);
         }
       } catch (e) {
-        console.log('Error while removing tag ' + e.message);
+        if (e instanceof Error) {
+          console.error('Error while removing tag: ' + e.message);
+        }
       }
     }
   }

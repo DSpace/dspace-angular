@@ -1,12 +1,17 @@
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { Community } from '../../../../core/shared/community.model';
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
-import { Component, Input } from '@angular/core';
-import { Community } from '../../../../core/shared/community.model';
 
 @Component({
   selector: 'ds-themed-community-page-sub-community-list',
   styleUrls: [],
   templateUrl: '../../../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCommunityPageSubCommunityListComponent extends ThemedComponent<CommunityPageSubCommunityListComponent> {
 

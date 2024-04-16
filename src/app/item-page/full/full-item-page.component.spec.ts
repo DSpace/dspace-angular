@@ -1,29 +1,59 @@
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
-import { TruncatePipe } from '../../shared/utils/truncate.pipe';
-import { FullItemPageComponent } from './full-item-page.component';
-import { MetadataService } from '../../core/metadata/metadata.service';
-import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Item } from '../../core/shared/item.model';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
-import { RemoteData } from '../../core/data/remote-data';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { SignpostingDataService } from '../../core/data/signposting-data.service';
+import { MetadataService } from '../../core/metadata/metadata.service';
+import { LinkHeadService } from '../../core/services/link-head.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { Item } from '../../core/shared/item.model';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { TruncatePipe } from '../../shared/utils/truncate.pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { CollectionsComponent } from '../field-components/collections/collections.component';
+import { ThemedItemPageTitleFieldComponent } from '../simple/field-components/specific-field/title/themed-item-page-field.component';
+import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { ThemedFullFileSectionComponent } from './field-components/file-section/themed-full-file-section.component';
+import { FullItemPageComponent } from './full-item-page.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -31,23 +61,23 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'test item'
-      }
-    ]
-  }
+        value: 'test item',
+      },
+    ],
+  },
 });
 
 const mockWithdrawnItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
   relationships: createRelationshipsObservable(),
-  isWithdrawn: true
+  isWithdrawn: true,
 });
 
 const metadataServiceStub = {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   processRemoteData: () => {
-  }
+  },
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };
 
@@ -67,19 +97,19 @@ describe('FullItemPageComponent', () => {
   const mocklink = {
     href: 'http://test.org',
     rel: 'test',
-    type: 'test'
+    type: 'test',
   };
 
   const mocklink2 = {
     href: 'http://test2.org',
     rel: 'test',
-    type: 'test'
+    type: 'test',
   };
 
   beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
 
     routeData = {
@@ -87,7 +117,7 @@ describe('FullItemPageComponent', () => {
     };
 
     routeStub = Object.assign(new ActivatedRouteStub(), {
-      data: observableOf(routeData)
+      data: observableOf(routeData),
     });
 
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
@@ -117,10 +147,9 @@ describe('FullItemPageComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
-      declarations: [FullItemPageComponent, TruncatePipe, VarDirective],
+          useClass: TranslateLoaderMock,
+        },
+      }), RouterTestingModule.withRoutes([]), BrowserAnimationsModule, FullItemPageComponent, TruncatePipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: ItemDataService, useValue: {} },
@@ -131,12 +160,27 @@ describe('FullItemPageComponent', () => {
         { provide: SignpostingDataService, useValue: signpostingDataService },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: NotifyInfoService, useValue: notifyInfoService },
-        { provide: PLATFORM_ID, useValue: 'server' }
+        { provide: PLATFORM_ID, useValue: 'server' },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(FullItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(FullItemPageComponent, {
+        remove: {
+          imports: [
+            ItemVersionsComponent,
+            ItemVersionsNoticeComponent,
+            ThemedLoadingComponent,
+            ThemedItemPageTitleFieldComponent,
+            DsoEditMenuComponent,
+            ViewTrackerComponent,
+            ThemedItemAlertsComponent,
+            CollectionsComponent,
+            ThemedFullFileSectionComponent,
+          ],
+        },
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+      }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
@@ -163,7 +207,7 @@ describe('FullItemPageComponent', () => {
   });
 
   it('should not show simple view button when originated from workflow', fakeAsync(() => {
-    routeData.wfi = createSuccessfulRemoteDataObject$({ id: 'wfiId'});
+    routeData.wfi = createSuccessfulRemoteDataObject$({ id: 'wfiId' });
     comp.ngOnInit();
     fixture.detectChanges();
     fixture.whenStable().then(() => {

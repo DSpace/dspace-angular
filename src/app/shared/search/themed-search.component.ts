@@ -1,14 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { SearchComponent } from './search.component';
-import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { Context } from '../../core/shared/context.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { SelectionConfig } from './search-results/search-results.component';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchComponent } from './search.component';
+import { SelectionConfig } from './search-results/search-results.component';
+import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 /**
  * Themed wrapper for {@link SearchComponent}
@@ -16,6 +22,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 @Component({
   selector: 'ds-themed-search',
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 

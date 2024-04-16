@@ -1,31 +1,44 @@
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
-
 // Import modules
 import { CommonModule } from '@angular/common';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { SubscriptionViewComponent } from './subscription-view.component';
-
-// Import mocks
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { findByEPersonAndDsoResEmpty, subscriptionMock } from '../../testing/subscriptions-data.mock';
-
-// Import utils
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
-import { Subscription } from '../models/subscription.model';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { Item } from '../../../core/shared/item.model';
 import { ITEM } from '../../../core/shared/item.resource-type';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
+// Import mocks
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+// Import utils
+import { NotificationsService } from '../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import {
+  findByEPersonAndDsoResEmpty,
+  subscriptionMock,
+} from '../../testing/subscriptions-data.mock';
+import { ThemeService } from '../../theme-support/theme.service';
+import { Subscription } from '../models/subscription.model';
+import { SubscriptionsDataService } from '../subscriptions-data.service';
+import { SubscriptionViewComponent } from './subscription-view.component';
 
 describe('SubscriptionViewComponent', () => {
   let component: SubscriptionViewComponent;
@@ -47,9 +60,9 @@ describe('SubscriptionViewComponent', () => {
     type: ITEM,
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
   beforeEach(async () => {
@@ -63,19 +76,20 @@ describe('SubscriptionViewComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        SubscriptionViewComponent,
       ],
-      declarations: [ SubscriptionViewComponent ],
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,26 +1,50 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
-
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import {
-  QualityAssuranceTopicObject
-} from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+  AsyncPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { Item } from '../../../core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { hasValue } from '../../../shared/empty.util';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
-
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { Item } from '../../../core/shared/item.model';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import {
-  QualityAssuranceTopicsPageParams
-} from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 
 /**
  * Component to display the Quality Assurance topic list.
@@ -29,6 +53,8 @@ import {
   selector: 'ds-quality-assurance-topic',
   templateUrl: './quality-assurance-topics.component.html',
   styleUrls: ['./quality-assurance-topics.component.scss'],
+  standalone: true,
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
 export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
@@ -38,7 +64,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'btp',
     pageSize: 10,
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
   /**
    * The Quality Assurance topic list sort options.
@@ -106,7 +132,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
           // If there is only one topic, navigate to the first topic automatically
           this.router.navigate([this.getQualityAssuranceRoute(), this.sourceId, topics[0].id]);
         }
-      })
+      }),
     );
     this.totalElements$ = this.notificationsStateService.getQualityAssuranceTopicsTotals();
   }
@@ -117,10 +143,10 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
   ngAfterViewInit(): void {
     this.subs.push(
       this.notificationsStateService.isQualityAssuranceTopicsLoaded().pipe(
-        take(1)
+        take(1),
       ).subscribe(() => {
         this.getQualityAssuranceTopics(this.sourceId, this.targetId);
-      })
+      }),
     );
   }
 
@@ -155,7 +181,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
         options.pageSize,
         options.currentPage,
         source,
-        target
+        target,
       );
     }));
   }
@@ -191,7 +217,7 @@ export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, After
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
       tap((item: Item) => this.itemPageUrl = getItemPageRoute(item)),
-      map((item: Item) => item.firstMetadataValue('dc.title'))
+      map((item: Item) => item.firstMetadataValue('dc.title')),
     );
   }
 

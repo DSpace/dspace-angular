@@ -1,16 +1,37 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
-import { Observable, of as observableOf, Subscription } from 'rxjs';
-import { map, mergeMap, take } from 'rxjs/operators';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { hasValue } from '../../../shared/empty.util';
-import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { CreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { hasValue } from '../../../shared/empty.util';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 /**
  * This component represents the new submission dropdown
@@ -18,7 +39,16 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 @Component({
   selector: 'ds-my-dspace-new-submission-dropdown',
   styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
-  templateUrl: './my-dspace-new-submission-dropdown.component.html'
+  templateUrl: './my-dspace-new-submission-dropdown.component.html',
+  imports: [
+    EntityDropdownComponent,
+    NgbDropdownModule,
+    AsyncPipe,
+    TranslateModule,
+    BrowserOnlyPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy {
 
@@ -68,24 +98,24 @@ export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy
         if (!response) {
           const findListOptions: FindListOptions = {
             elementsPerPage: 1,
-            currentPage: 1
+            currentPage: 1,
           };
           return this.entityTypeService.getAllAuthorizedRelationshipType(findListOptions).pipe(
             map((entities: RemoteData<PaginatedList<ItemType>>) => {
               this.initialized$ = observableOf(true);
               return entities.payload.page[0];
             }),
-            take(1)
+            take(1),
           );
         } else {
           this.initialized$ = observableOf(true);
           return observableOf(null);
         }
       }),
-      take(1)
+      take(1),
     );
     this.subs.push(
-      this.singleEntity$.subscribe((result) => this.singleEntity = result )
+      this.singleEntity$.subscribe((result) => this.singleEntity = result ),
     );
   }
 
