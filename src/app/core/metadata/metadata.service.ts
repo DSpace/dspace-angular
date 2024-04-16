@@ -29,8 +29,6 @@ import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from 
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { BundleDataService } from '../data/bundle-data.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { Bundle } from '../shared/bundle.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { HardRedirectService } from '../services/hard-redirect.service';
@@ -465,7 +463,7 @@ export class MetadataService {
    * @param item
    * @private
    */
-  private getBitstreamFromThumbnail(item: Item) : Observable<Bitstream> {
+  private getBitstreamFromThumbnail(item: Item): Observable<Bitstream> {
     return item.thumbnail.pipe(
       getFirstCompletedRemoteData(),
       map((thumbnailRD) => {
@@ -477,7 +475,7 @@ export class MetadataService {
       }),
       filter(data => !!data),
       getDownloadableBitstream(this.authorizationService),
-    )
+    );
   }
 
   private setPrimaryBitstreamInBundleTag(tag: string): void {
@@ -486,9 +484,9 @@ export class MetadataService {
       this.getBitstreamFromThumbnail(item).pipe(
         switchMap((bitstream) => {
           if (hasValue(bitstream)) {
-            return [getBitstreamDownloadRoute(bitstream)]
+            return [getBitstreamDownloadRoute(bitstream)];
           } else {
-            return null
+            return null;
           }
         }),
         filter(data => !!data),
