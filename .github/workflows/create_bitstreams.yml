@@ -25,7 +25,6 @@ jobs:
           submodules: 'recursive'
 
   import:
-
     strategy:
       matrix:
         include:
@@ -37,12 +36,8 @@ jobs:
             runner: dspace-dep-1
           - instance: '8'
             runner: dspace-dep-1
-              
-    needs: checkout-codebase
-
-    
-
     runs-on: ${{ matrix.runner }}
+    needs: checkout-codebase
     env:
       DSPACE_REST_API: http://dev-5.pc:8${{ matrix.instance }}/server/api/
     steps:
