@@ -1,4 +1,5 @@
 /.angular/cache
+/.nx
 /__build__
 /__server_build__
 /node_modules

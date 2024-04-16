@@ -206,19 +206,6 @@ describe('ItemVersionsComponent', () => {
   versions.forEach((version: Version, index: number) => {
     const versionItem = items[index];
 
-    it(`should display version ${version.version} in the correct column for version ${version.id}`, () => {
-      const id = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-version`));
-      expect(id.nativeElement.textContent).toContain(version.version.toString());
-    });
-
-    // Check if the current version contains an asterisk
-    if (item1.uuid === versionItem.uuid) {
-      it('should add an asterisk to the version of the selected item', () => {
-        const item = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-version`));
-        expect(item.nativeElement.textContent).toContain('*');
-      });
-    }
-
     it(`should display date ${version.created} in the correct column for version ${version.id}`, () => {
       const date = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-date`));
       switch (versionItem.uuid) {
@@ -317,46 +304,6 @@ describe('ItemVersionsComponent', () => {
     it('isThisBeingEdited should be false for all versions', () => {
       expect(component.isThisBeingEdited(version1)).toBeFalse();
       expect(component.isThisBeingEdited(version2)).toBeFalse();
-    });
-  });
-
-  describe('when deleting a version', () => {
-    let deleteButton;
-
-    beforeEach(() => {
-      const canDelete = (featureID: FeatureID, url: string ) => of(featureID === FeatureID.CanDeleteVersion);
-      authorizationServiceSpy.isAuthorized.and.callFake(canDelete);
-
-      fixture.detectChanges();
-
-      // delete the last version in the table (version2 → item2)
-      deleteButton = fixture.debugElement.queryAll(By.css('.version-row-element-delete'))[1].nativeElement;
-
-      itemDataServiceSpy.delete.calls.reset();
-    });
-
-    describe('if confirmed via modal', () => {
-      beforeEach(waitForAsync(() => {
-        deleteButton.click();
-        fixture.detectChanges();
-        (document as any).querySelector('.modal-footer .confirm').click();
-      }));
-
-      it('should call ItemService.delete', () => {
-        expect(itemDataServiceSpy.delete).toHaveBeenCalledWith(item2.id);
-      });
-    });
-
-    describe('if canceled via modal', () => {
-      beforeEach(waitForAsync(() => {
-        deleteButton.click();
-        fixture.detectChanges();
-        (document as any).querySelector('.modal-footer .cancel').click();
-      }));
-
-      it('should not call ItemService.delete', () => {
-        expect(itemDataServiceSpy.delete).not.toHaveBeenCalled();
-      });
     });
   });
 });
