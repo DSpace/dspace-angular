@@ -11,6 +11,14 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faDownload,
+  faEdit,
+  faSearch,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
@@ -54,10 +62,17 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, OnDestroy {
+  protected readonly faEdit = faEdit;
+  protected readonly faDownload = faDownload;
+  protected readonly faTrash = faTrash;
+  protected readonly faCircleNotch = faCircleNotch;
+  protected readonly faSearch = faSearch;
+
   /**
    * The indicator is the primary bitstream
    * it will be null if no primary bitstream is set for the ORIGINAL bundle
@@ -333,5 +348,4 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
         this.processingDelete$.next(false);
       }));
   }
-
 }

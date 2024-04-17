@@ -12,12 +12,16 @@
       <button [disabled]="!canRemove()" (click)="openVirtualMetadataModal(virtualMetadataModal)"
               class="btn btn-outline-danger btn-sm"
               title="{{'item.edit.metadata.edit.buttons.remove' | translate}}">
-        <i class="fas fa-trash-alt fa-fw"></i>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="faTrashAlt"/>
+        </fa-layers>
       </button>
       <button [disabled]="!canUndo()" (click)="undo()"
               class="btn btn-outline-warning btn-sm"
               title="{{'item.edit.metadata.edit.buttons.undo' | translate}}">
-        <i class="fas fa-undo-alt fa-fw"></i>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="faUndoAlt"/>
+        </fa-layers>
       </button>
     </div>
   </div>

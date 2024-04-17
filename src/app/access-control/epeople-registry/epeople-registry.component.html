@@ -7,7 +7,9 @@
         <div>
           <button class="mr-auto btn btn-success addEPerson-button"
                   [routerLink]="'create'">
-            <i class="fas fa-plus"></i>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon [icon]="faPlus"/>
+            </fa-layers>
             <span class="d-none d-sm-inline ml-1">{{labelPrefix + 'button.add' | translate}}</span>
           </button>
         </div>
@@ -30,7 +32,9 @@
                    [placeholder]="(labelPrefix + 'search.placeholder' | translate)">
             <span class="input-group-append">
                 <button type="submit" class="search-button btn btn-primary">
-                  <i class="fas fa-search"></i> {{ labelPrefix + 'search.button' | translate }}
+                    <fa-layers [fixedWidth]="true">
+                      <fa-icon [icon]="faSearch"/>
+                    </fa-layers> {{ labelPrefix + 'search.button' | translate }}
                 </button>
               </span>
           </div>
@@ -71,12 +75,16 @@
                   <button [routerLink]="getEditEPeoplePage(epersonDto.eperson.id)"
                           class="btn btn-outline-primary btn-sm access-control-editEPersonButton"
                           title="{{labelPrefix + 'table.edit.buttons.edit' | translate: { name: dsoNameService.getName(epersonDto.eperson) } }}">
-                    <i class="fas fa-edit fa-fw"></i>
+                    <fa-layers [fixedWidth]="true">
+                      <fa-icon [icon]="faEdit"/>
+                    </fa-layers>
                   </button>
                   <button *ngIf="epersonDto.ableToDelete" (click)="deleteEPerson(epersonDto.eperson)"
                           class="delete-button btn btn-outline-danger btn-sm access-control-deleteEPersonButton"
                           title="{{labelPrefix + 'table.edit.buttons.remove' | translate: { name: dsoNameService.getName(epersonDto.eperson) } }}">
-                    <i class="fas fa-trash-alt fa-fw"></i>
+                    <fa-layers [fixedWidth]="true">
+                      <fa-icon [icon]="faTrashAlt"/>
+                    </fa-layers>
                   </button>
                 </div>
               </td>

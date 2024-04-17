@@ -14,6 +14,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -80,6 +82,7 @@ import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component'
     VarDirective,
     NgForOf,
     RouterLink,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -89,6 +92,7 @@ import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component'
 export class ItemDeleteComponent
   extends AbstractSimpleItemActionComponent
   implements OnInit, OnDestroy {
+  protected readonly faInfo = faInfo;
 
   /**
    * The current url of this page
@@ -420,5 +424,4 @@ export class ItemDeleteComponent
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
   }
-
 }

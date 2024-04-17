@@ -7,6 +7,11 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faBan,
+  faCircleNotch,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -32,12 +37,14 @@ export const WORKFLOW_TASK_OPTION_DECLINE_TASK = 'submit_decline_task';
   templateUrl: './claimed-task-actions-decline-task.component.html',
   styleUrls: ['./claimed-task-actions-decline-task.component.scss'],
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Component for displaying and processing the decline task action on a workflow task item
  */
 export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAbstractComponent {
+  protected readonly faBan = faBan;
+  protected readonly faCircleNotch = faCircleNotch;
 
   option = WORKFLOW_TASK_OPTION_DECLINE_TASK;
 
@@ -59,5 +66,4 @@ export class ClaimedTaskActionsDeclineTaskComponent extends ClaimedTaskActionsAb
       indexableObject: dso,
     });
   }
-
 }

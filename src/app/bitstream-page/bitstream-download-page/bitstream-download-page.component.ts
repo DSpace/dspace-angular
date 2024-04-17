@@ -13,6 +13,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -51,6 +53,7 @@ import {
   imports: [
     AsyncPipe,
     TranslateModule,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -58,6 +61,7 @@ import {
  * Page component for downloading a bitstream
  */
 export class BitstreamDownloadPageComponent implements OnInit {
+  protected readonly faArrowLeft = faArrowLeft;
 
   bitstream$: Observable<Bitstream>;
   bitstreamRD$: Observable<RemoteData<Bitstream>>;

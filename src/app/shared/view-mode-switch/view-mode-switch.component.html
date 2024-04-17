@@ -10,7 +10,7 @@
        [class.active]="currentMode === viewModeEnum.ListElement"
        class="btn btn-secondary"
        [attr.data-test]="'list-view' | dsBrowserOnly">
-       <i class="fas fa-list"></i>
+      <fa-icon [icon]="faList"/>
     </button>
     <button *ngIf="isToShow(viewModeEnum.GridElement)"
             [attr.aria-current]="currentMode === viewModeEnum.GridElement"
@@ -23,7 +23,7 @@
        [class.active]="currentMode === viewModeEnum.GridElement"
        class="btn btn-secondary"
        [attr.data-test]="'grid-view' | dsBrowserOnly">
-       <i class="fas fa-th-large"></i>
+      <fa-icon [icon]="faThLarge"/>
     </button>
     <button *ngIf="isToShow(viewModeEnum.DetailedListElement)"
        routerLink="."
@@ -34,6 +34,6 @@
        [class.active]="currentMode === viewModeEnum.DetailedListElement"
        class="btn btn-secondary"
        [attr.data-test]="'detail-view' | dsBrowserOnly">
-      <span class="far fa-square"></span><span class="sr-only">{{'search.view-switch.show-detail' | translate}}</span>
+      <fa-icon [icon]="faSquare"/><span class="sr-only">{{'search.view-switch.show-detail' | translate}}</span>
     </button>
 </div>

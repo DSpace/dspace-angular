@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLangSwitchComponent } from 'src/app/shared/lang-switch/themed-lang-switch.component';
@@ -21,7 +22,7 @@ import { LangSwitchComponent } from '../../../../app/shared/lang-switch/lang-swi
   // templateUrl: 'header.component.html',
   templateUrl: '../../../../app/header/header.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule],
+  imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule, FontAwesomeModule],
 })
 export class HeaderComponent extends BaseComponent {
 }

@@ -49,14 +49,14 @@
       <div class="col">
         <button type="submit" class="btn btn-danger float-right" (click)="unlinkOrcid()"
                 [disabled]="(unlinkProcessing | async)">
-          <span *ngIf="(unlinkProcessing | async) !== true"><i
-            class="fas fa-unlink"></i> {{ 'person.page.orcid.unlink' | translate }}</span>
-          <span *ngIf="(unlinkProcessing | async)"><i
-            class='fas fa-circle-notch fa-spin'></i> {{'person.page.orcid.unlink.processing' | translate}}</span>
+          <span *ngIf="(unlinkProcessing | async) !== true">
+            <fa-icon [icon]="faUnlink"/>{{ 'person.page.orcid.unlink' | translate }}</span>
+          <span *ngIf="(unlinkProcessing | async)"><fa-icon [icon]="faCircleNotch" animation="spin"/> {{'person.page.orcid.unlink.processing' | translate}}</span>
         </button>
         <button *ngIf="(hasMissingOrcidAuthorizations() | async)" type="submit"
                 class="btn btn-primary float-right" (click)="linkOrcid()">
-          <span><i class="fas fa-check"></i> {{ 'person.page.orcid.grant-authorizations' | translate }}</span>
+          <span>
+            <fa-icon [icon]="faCheck"/>{{ 'person.page.orcid.grant-authorizations' | translate }}</span>
         </button>
       </div>
     </div>
@@ -74,7 +74,7 @@
     <div class="row">
       <div class="col">
         <button class="btn btn-primary float-right" (click)="linkOrcid()">
-          <i class="fas fa-link"></i>
+          <fa-icon [icon]="faLink"/>
           {{'person.page.orcid.link' | translate}}
         </button>
       </div>

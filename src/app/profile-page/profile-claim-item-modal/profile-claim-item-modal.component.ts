@@ -13,6 +13,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
@@ -42,10 +44,12 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
     AsyncPipe,
     TranslateModule,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
+  protected readonly faPlus = faPlus;
 
   /**
    * The current page's DSO
@@ -128,5 +132,4 @@ export class ProfileClaimItemModalComponent extends DSOSelectorModalWrapperCompo
     this.create.emit();
     this.close();
   }
-
 }

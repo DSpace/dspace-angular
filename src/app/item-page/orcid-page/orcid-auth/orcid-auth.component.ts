@@ -13,6 +13,14 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faArrowLeft,
+  faCheck,
+  faCircleNotch,
+  faLink,
+  faUnlink,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -45,10 +53,16 @@ import { NotificationsService } from '../../../shared/notifications/notification
     NgIf,
     NgForOf,
     AlertComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class OrcidAuthComponent implements OnInit, OnChanges {
+  protected readonly faCheck = faCheck;
+  protected readonly faUnlink = faUnlink;
+  protected readonly faLink = faLink;
+  protected readonly faArrowLeft = faArrowLeft;
+  protected readonly faCircleNotch = faCircleNotch;
 
   /**
    * The item for which showing the orcid settings
@@ -246,5 +260,4 @@ export class OrcidAuthComponent implements OnInit, OnChanges {
   private setOrcidAuthorizationsFromItem(): void {
     this.profileAuthorizationScopes.next(this.orcidAuthService.getOrcidAuthorizationScopesByItem(this.item));
   }
-
 }

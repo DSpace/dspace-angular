@@ -12,6 +12,12 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faTrash,
+  faUndo,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -31,12 +37,15 @@ import { ProcessOverviewTableComponent } from './table/process-overview-table.co
   selector: 'ds-process-overview',
   templateUrl: './process-overview.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, PaginationComponent, NgFor, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent],
+  imports: [NgIf, RouterLink, PaginationComponent, NgFor, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent, FontAwesomeModule],
 })
 /**
  * Component displaying a list of all processes in a paginated table
  */
 export class ProcessOverviewComponent implements OnInit, OnDestroy {
+  protected readonly faTrash = faTrash;
+  protected readonly faUndo = faUndo;
+  protected readonly faPlus = faPlus;
 
   // Enums are redeclared here so they can be used in the template
   protected readonly ProcessStatus = ProcessStatus;

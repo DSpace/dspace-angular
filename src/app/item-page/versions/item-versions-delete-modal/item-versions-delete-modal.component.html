@@ -11,12 +11,16 @@
     <button class="btn btn-outline-secondary btn-sm cancel"
             (click)="onModalClose()"
             title="{{'item.version.delete.modal.button.cancel.tooltip' | translate}}">
-      <i class="fas fa-times fa-fw"></i> {{'item.version.delete.modal.button.cancel' | translate}}
+      <fa-layers [fixedWidth]="true">
+        <fa-icon [icon]="faTimes"/>
+      </fa-layers> {{'item.version.delete.modal.button.cancel' | translate}}
     </button>
     <button class="btn btn-danger btn-sm confirm"
             (click)="onModalSubmit()"
             title="{{'item.version.delete.modal.button.confirm.tooltip' | translate}}">
-      <i class="fas fa-check fa-fw"></i> {{'item.version.delete.modal.button.confirm' | translate}}
+      <fa-layers [fixedWidth]="true">
+        <fa-icon [icon]="faCheck"/>
+      </fa-layers> {{'item.version.delete.modal.button.confirm' | translate}}
     </button>
   </div>
 </div>

@@ -13,7 +13,9 @@
                 [attr.aria-label]="'item.edit.bitstreams.bundle.edit.buttons.upload' | translate"
                 class="btn btn-outline-success btn-sm"
                 title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
-          <i class="fas fa-upload fa-fw"></i>
+          <fa-layers [fixedWidth]="true">
+            <fa-icon [icon]="faUpload"/>
+          </fa-layers>
         </button>
       </div>
     </div>

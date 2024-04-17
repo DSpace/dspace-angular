@@ -18,6 +18,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCheckCircle,
+  faExclamationTriangle,
+  faInfoCircle,
+  faTimesCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   Observable,
   of as observableOf,
@@ -92,10 +99,14 @@ import { NotificationsService } from '../notifications.service';
   styleUrls: ['./notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, NgStyle, NgClass, NgTemplateOutlet, AsyncPipe],
+  imports: [NgIf, NgStyle, NgClass, NgTemplateOutlet, AsyncPipe, FontAwesomeModule],
 })
 
 export class NotificationComponent implements OnInit, OnDestroy {
+  protected readonly faCheckCircle = faCheckCircle;
+  protected readonly faExclamationTriangle = faExclamationTriangle;
+  protected readonly faInfoCircle = faInfoCircle;
+  protected readonly faTimesCircle = faTimesCircle;
 
   @Input() public notification = null as INotification;
 

@@ -7,6 +7,8 @@ import {
   ElementRef,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faGlobeAsia } from '@fortawesome/free-solid-svg-icons';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -22,7 +24,7 @@ import { LocaleService } from '../../core/locale/locale.service';
   styleUrls: ['lang-switch.component.scss'],
   templateUrl: 'lang-switch.component.html',
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgFor, TranslateModule],
+  imports: [NgIf, NgbDropdownModule, NgFor, TranslateModule, FontAwesomeModule],
 })
 
 /**
@@ -30,6 +32,7 @@ import { LocaleService } from '../../core/locale/locale.service';
  * If only one language is active, the component will disappear as there are no languages to switch to.
  */
 export class LangSwitchComponent implements OnInit {
+  protected readonly faGlobeAsia = faGlobeAsia;
 
   // All of the languages that are active, meaning that a user can switch between them.
   activeLangs: LangConfig[];
@@ -74,5 +77,4 @@ export class LangSwitchComponent implements OnInit {
     this.localeService.setCurrentLanguageCode(lang);
     this.localeService.refreshAfterChangeLanguage();
   }
-
 }

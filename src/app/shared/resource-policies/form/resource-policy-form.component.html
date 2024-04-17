@@ -38,7 +38,7 @@
                   [disabled]="(isFormValid() | async) !== true || (isProcessing | async)"
                   (click)="onSubmit()">
             <span *ngIf="(isProcessing | async)">
-                  <i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}
+                  <fa-icon [icon]="faCircleNotch" animation="spin"/> {{'submission.workflow.tasks.generic.processing' | translate}}
                 </span>
             <span *ngIf="(isProcessing | async) !== true">
                   {{'form.submit' | translate}}
@@ -61,7 +61,7 @@
   <div class="modal-body">
     <div class="d-flex flex-row">
       <div class="mr-3">
-        <i class="fas fa-info-circle fa-2x text-info"></i>
+        <fa-icon [icon]="faInfoCircle" size="2x" class="text-info"/>
       </div>
       <div>
       <p [innerHTML]="(navActiveId === 'eperson' ? 'resource-policies.form.eperson-group-list.modal.text1.toGroup' :

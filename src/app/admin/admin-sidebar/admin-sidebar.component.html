@@ -47,10 +47,14 @@
        (keyup.space)="toggle($event)"
     >
       <div class="sidebar-fixed-element-wrapper">
-        <i *ngIf="(menuCollapsed | async)" class="fas fa-fw fa-angle-double-right"
-           [title]="'menu.section.icon.pin' | translate"></i>
-                <i *ngIf="(menuCollapsed | async) !== true" class="fas fa-fw fa-angle-double-left"
-           [title]="'menu.section.icon.unpin' | translate"></i>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon *ngIf="(menuCollapsed | async)"
+                   [icon]="faAngleDoubleRight"
+                   [title]="'menu.section.icon.pin' | translate"/>
+          <fa-icon *ngIf="(menuCollapsed | async) !== true"
+                   [icon]="faAngleDoubleLeft"
+                   [title]="'menu.section.icon.unpin' | translate"/>
+        </fa-layers>
       </div>
       <div class="sidebar-collapsible-element-outer-wrapper">
         <div class="sidebar-collapsible-element-inner-wrapper sidebar-item">

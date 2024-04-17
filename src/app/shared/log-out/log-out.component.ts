@@ -7,6 +7,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import {
   select,
   Store,
@@ -26,9 +28,11 @@ import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
   styleUrls: ['./log-out.component.scss'],
   animations: [fadeOut],
   standalone: true,
-  imports: [NgIf, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgIf, AsyncPipe, TranslateModule, BrowserOnlyPipe, FontAwesomeModule],
 })
 export class LogOutComponent implements OnInit {
+  protected readonly faSignOutAlt = faSignOutAlt;
+
   /**
    * The error if authentication fails.
    * @type {Observable<string>}

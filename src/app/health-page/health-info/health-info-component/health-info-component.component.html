@@ -6,8 +6,10 @@
         {{ entry.key | titlecase }}
       </button>
       <div class="d-flex my-auto">
-        <span *ngIf="collapse.collapsed" class="fas fa-chevron-down"></span>
-        <span *ngIf="!collapse.collapsed" class="fas fa-chevron-up"></span>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon *ngIf="collapse.collapsed" [icon]="faChevronDown"/>
+          <fa-icon *ngIf="!collapse.collapsed" [icon]="faChevronUp"/>
+        </fa-layers>
       </div>
     </div>
     <div #collapse="ngbCollapse" [id]="'health-info-component-' + entry.key + '-content'" [ngbCollapse]="isCollapsed">

@@ -15,6 +15,13 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faAngleLeft,
+  faAngleRight,
+  faCheck,
+  faCog,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbDropdownModule,
   NgbPaginationModule,
@@ -60,9 +67,14 @@ import { PaginationComponentOptions } from './pagination-component-options.model
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgFor, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe],
+  imports: [NgIf, NgbDropdownModule, NgFor, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe, FontAwesomeModule],
 })
 export class PaginationComponent implements OnDestroy, OnInit {
+  protected readonly faCheck = faCheck;
+  protected readonly faAngleLeft = faAngleLeft;
+  protected readonly faAngleRight = faAngleRight;
+  protected readonly faCog = faCog;
+
   /**
    * ViewMode that should be passed to {@link ListableObjectComponentLoaderComponent}.
    */
@@ -441,5 +453,4 @@ export class PaginationComponent implements OnDestroy, OnInit {
       this.updateParams({ page: (currentPaginationOptions.currentPage + value) });
     });
   }
-
 }

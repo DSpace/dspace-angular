@@ -15,6 +15,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import {
   select,
   Store,
@@ -62,9 +64,10 @@ import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, AsyncPipe, TranslateModule, BrowserOnlyPipe, FontAwesomeModule],
 })
 export class LogInPasswordComponent implements OnInit {
+  protected readonly faSignInAlt = faSignInAlt;
 
   /**
    * The authentication method data.

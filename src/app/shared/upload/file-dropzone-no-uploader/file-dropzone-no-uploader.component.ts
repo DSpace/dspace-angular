@@ -8,6 +8,8 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCloudUpload } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
@@ -39,10 +41,12 @@ import { UploaderOptions } from '../uploader/uploader-options.model';
     TranslateModule,
     FileUploadModule,
     FileValidator,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class FileDropzoneNoUploaderComponent implements OnInit {
+  protected readonly faCloudUpload = faCloudUpload;
 
   public isOverDocumentDropZone: Observable<boolean>;
   public uploader: FileUploader;
@@ -113,5 +117,4 @@ export class FileDropzoneNoUploaderComponent implements OnInit {
     this.fileObject = files.length > 0 ? files[0] : undefined;
     this.onFileAdded.emit(this.fileObject);
   }
-
 }

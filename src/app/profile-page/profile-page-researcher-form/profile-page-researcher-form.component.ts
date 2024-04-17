@@ -8,6 +8,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faInfoCircle,
+  faPlus,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -53,6 +60,7 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
     TranslateModule,
     UiSwitchModule,
     VarDirective,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -60,6 +68,10 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
  * Component for a user to create/delete or change their researcher profile.
  */
 export class ProfilePageResearcherFormComponent implements OnInit {
+  protected readonly faPlus = faPlus;
+  protected readonly faInfoCircle = faInfoCircle;
+  protected readonly faCircleNotch = faCircleNotch;
+  protected readonly faTrashAlt = faTrashAlt;
 
   /**
    * The user to display the form for.
@@ -239,5 +251,4 @@ export class ProfilePageResearcherFormComponent implements OnInit {
       }
     });
   }
-
 }

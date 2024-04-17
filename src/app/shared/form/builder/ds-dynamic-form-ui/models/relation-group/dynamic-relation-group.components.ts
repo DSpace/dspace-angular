@@ -15,6 +15,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faAngleDown,
+  faAngleUp,
+  faSave,
+  faTrash,
+  faUndo,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -81,10 +89,16 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
     ThemedLoadingComponent,
     ChipsComponent,
     forwardRef(() => FormComponent),
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
+  protected readonly faUndo = faUndo;
+  protected readonly faSave = faSave;
+  protected readonly faTrash = faTrash;
+  protected readonly faAngleUp = faAngleUp;
+  protected readonly faAngleDown = faAngleDown;
 
   @Input() formId: string;
   @Input() group: UntypedFormGroup;
@@ -354,5 +368,4 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       this.formService.resetForm(this.formRef.formGroup, this.formModel, this.formId);
     }
   }
-
 }

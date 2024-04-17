@@ -9,6 +9,11 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faEdit,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -34,12 +39,14 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   templateUrl: './subscription-view.component.html',
   styleUrls: ['./subscription-view.component.scss'],
   standalone: true,
-  imports: [NgIf, ThemedTypeBadgeComponent, RouterLink, NgFor, TranslateModule],
+  imports: [NgIf, ThemedTypeBadgeComponent, RouterLink, NgFor, TranslateModule, FontAwesomeModule],
 })
 /**
  * Table row representing a subscription that displays all information and action buttons to manage it
  */
 export class SubscriptionViewComponent {
+  protected readonly faTrashAlt = faTrashAlt;
+  protected readonly faEdit = faEdit;
 
   /**
    * Subscription to be rendered

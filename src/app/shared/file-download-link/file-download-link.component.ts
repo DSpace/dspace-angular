@@ -10,6 +10,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -36,7 +38,7 @@ import {
   templateUrl: './file-download-link.component.html',
   styleUrls: ['./file-download-link.component.scss'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe, TranslateModule],
+  imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Component displaying a download link
@@ -44,6 +46,7 @@ import {
  * ensuring the user is authorized to download the file.
  */
 export class FileDownloadLinkComponent implements OnInit {
+  protected readonly faLock = faLock;
 
   /**
    * Optional bitstream instead of href and file name

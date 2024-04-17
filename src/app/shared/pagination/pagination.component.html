@@ -7,14 +7,14 @@
       </div>
       <div class="col">
         <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">
-          <button class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog" aria-hidden="true"></i></button>
+          <button class="btn btn-secondary" id="paginationControls" ngbDropdownToggle [title]="'pagination.options.description' | translate" [attr.aria-label]="'pagination.options.description' | translate" aria-haspopup="true" aria-expanded="false"><fa-icon [icon]="faCog"/></button>
           <ul id="paginationControlsDropdownMenu" aria-labelledby="paginationControls" role="menu" ngbDropdownMenu>
             <li role="menuitem">
               <span class="dropdown-header" id="pagination-control_results-per-page" role="heading">{{ 'pagination.results-per-page' | translate}}</span>
               <ul aria-labelledby="pagination-control_results-per-page" class="list-unstyled" role="listbox">
                 <li *ngFor="let item of pageSizeOptions" role="option" [attr.aria-selected]="item === (pageSize$ | async)">
                   <button (click)="doPageSizeChange(item)" class="dropdown-item">
-                    <i [ngClass]="{'invisible': item !== (pageSize$ | async) }" class="fas fa-check" aria-hidden="true"></i> {{item}}
+                    <fa-icon [icon]="faCheck" [ngClass]="{'invisible': item !== (pageSize$ | async) }"/> {{item}}
                   </button>
                 </li>
               </ul>
@@ -24,7 +24,7 @@
               <ul aria-labelledby="pagination-control_sort-direction" class="list-unstyled" role="listbox">
                 <li *ngFor="let direction of (sortDirections | dsKeys)" [attr.aria-selected]="direction.value === (sortDirection$ | async)" role="option">
                   <button class="dropdown-item" (click)="doSortDirectionChange(direction.value)">
-                    <i [ngClass]="{'invisible': direction.value !== (sortDirection$ |async)}" class="fas fa-check" aria-hidden="true"></i> {{'sorting.' + direction.key | translate}}
+                    <fa-icon [icon]="faCheck" [ngClass]="{'invisible': direction.value !== (sortDirection$ |async)}"/> {{'sorting.' + direction.key | translate}}
                   </button>
                 </li>
               </ul>
@@ -56,13 +56,13 @@
         <button id="nav-prev" type="button" class="btn btn-outline-primary float-left"
                 (click)="goPrev()"
                 [disabled]="(objects?.payload?.currentPage <= 1) && (paginationOptions?.currentPage <= 1)">
-          <i class="fas fa-angle-left"></i> {{'pagination.previous.button' |translate}}
+          <fa-icon [icon]="faAngleLeft"/> {{'pagination.previous.button' |translate}}
         </button>
       <button id="nav-next" type="button" class="btn btn-outline-primary float-right"
               (click)="goNext()"
               [disabled]="(objects?.payload?.currentPage >= objects?.payload?.totalPages) || (paginationOptions?.currentPage >= objects?.payload?.totalPages)">
           <span [ngbTooltip]="objects?.payload?.currentPage >= objects?.payload?.totalPages ? ('pagination.next.button.disabled.tooltip' |translate) : null">
-            <i class="fas fa-angle-right"></i> {{'pagination.next.button' |translate}}
+            <fa-icon [icon]="faAngleRight"/> {{'pagination.next.button' |translate}}
           </span>
       </button>
     </div>

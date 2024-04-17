@@ -7,7 +7,7 @@
         {{processesRD?.payload?.totalElements}}
       </span>
       <span class="ml-2 toggle-icon">
-        <i class="fas" [ngClass]="collapse.collapsed ? 'fa-angle-right' : 'fa-angle-down'"></i>
+        <fa-icon [icon]="collapse.collapsed ? faAngleRight :  faAngleDown"/>
       </span>
     </h2>
   </div>
@@ -47,7 +47,7 @@
                         aria-hidden="true"
                         (click)="processBulkDeleteService.toggleDelete(tableEntry.process.processId)"
                         class="btn btn-outline-danger">
-                  <i class="fas fa-trash"></i>
+                  <fa-icon [icon]="faTrash"/>
                 </button>
               </td>
             </tr>

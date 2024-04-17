@@ -21,6 +21,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faEdit,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -62,10 +67,14 @@ export interface ResourcePolicyCheckboxEntry {
     FormsModule,
     NgIf,
     HasValuePipe,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class ResourcePolicyEntryComponent implements OnInit {
+  protected readonly faEdit = faEdit;
+  protected readonly faUser = faUser;
+
   @Input()
     entry: ResourcePolicyCheckboxEntry;
 

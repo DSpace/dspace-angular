@@ -6,6 +6,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -29,9 +31,10 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
   templateUrl: './advanced-claimed-task-action-select-reviewer.component.html',
   styleUrls: ['./advanced-claimed-task-action-select-reviewer.component.scss'],
   standalone: true,
-  imports: [NgbTooltipModule, TranslateModule],
+  imports: [NgbTooltipModule, TranslateModule, FontAwesomeModule],
 })
 export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedClaimedTaskActionsAbstractComponent {
+  protected readonly faUser = faUser;
 
   /**
    * This component represents the advanced select option
@@ -51,5 +54,4 @@ export class AdvancedClaimedTaskActionSelectReviewerComponent extends AdvancedCl
   ) {
     super(injector, router, notificationsService, translate, searchService, requestService, route);
   }
-
 }

@@ -13,6 +13,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -46,9 +51,12 @@ import { ThemeService } from '../../shared/theme-support/theme.service';
   styleUrls: ['./admin-sidebar.component.scss'],
   animations: [slideSidebar],
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
+  protected readonly faAngleDoubleLeft = faAngleDoubleLeft;
+  protected readonly faAngleDoubleRight = faAngleDoubleRight;
+
   /**
    * The menu ID of the Navbar is PUBLIC
    * @type {MenuID.ADMIN}

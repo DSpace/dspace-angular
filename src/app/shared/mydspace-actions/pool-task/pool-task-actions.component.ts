@@ -12,6 +12,12 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCircleNotch,
+  faHandPaper,
+  faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -45,9 +51,12 @@ import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actio
   styleUrls: ['./pool-task-actions.component.scss'],
   templateUrl: './pool-task-actions.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, RouterLink, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, NgIf, RouterLink, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent<PoolTask, PoolTaskDataService> implements OnDestroy {
+  protected readonly faInfoCircle = faInfoCircle;
+  protected readonly faHandPaper = faHandPaper;
+  protected readonly faCircleNotch = faCircleNotch;
 
   /**
    * The PoolTask object
@@ -136,5 +145,4 @@ export class PoolTaskActionsComponent extends MyDSpaceReloadableActionsComponent
   getWorkflowItemViewRoute(workflowitem: WorkflowItem): string {
     return getWorkflowItemViewRoute(workflowitem?.id);
   }
-
 }

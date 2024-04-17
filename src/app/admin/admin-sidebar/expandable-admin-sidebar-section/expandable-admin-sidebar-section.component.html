@@ -23,9 +23,8 @@
           <ng-container
             *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
         </span>
-        <i class="fas fa-chevron-right fa-xs" aria-hidden="true"
-           [@rotate]="(isExpanded$ | async) ? 'expanded' : 'collapsed'"
-        ></i>
+        <fa-icon [icon]="faChevronRight" size="xs"
+                 [@rotate]="(isExpanded$ | async) ? 'expanded' : 'collapsed'"/>
       </div>
     </div>
   </a>

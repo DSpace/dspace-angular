@@ -9,6 +9,8 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SearchService } from '../core/shared/search/search.service';
@@ -25,9 +27,10 @@ import { ClickOutsideDirective } from '../shared/utils/click-outside.directive';
   styleUrls: ['./search-navbar.component.scss'],
   animations: [expandSearchInput],
   standalone: true,
-  imports: [ClickOutsideDirective, FormsModule, ReactiveFormsModule, TranslateModule, BrowserOnlyPipe],
+  imports: [ClickOutsideDirective, FormsModule, ReactiveFormsModule, TranslateModule, BrowserOnlyPipe, FontAwesomeModule],
 })
 export class SearchNavbarComponent {
+  protected readonly faSearch = faSearch;
 
   // The search form
   searchForm;

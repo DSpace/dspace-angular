@@ -13,6 +13,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -66,6 +68,7 @@ import { getEntityEditRoute } from '../../item-page-routing-paths';
     DsoInputSuggestionsComponent,
     FormsModule,
     UploaderComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -73,6 +76,8 @@ import { getEntityEditRoute } from '../../item-page-routing-paths';
  * Page component for uploading a bitstream to an item
  */
 export class UploadBitstreamComponent implements OnInit, OnDestroy {
+  protected readonly faPlus = faPlus;
+
   /**
    * The file uploader component
    */
@@ -303,5 +308,4 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
       .filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
   }
-
 }

@@ -8,6 +8,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
@@ -21,7 +22,7 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
   styleUrls: ['../../../../../app/shared/collection-dropdown/collection-dropdown.component.scss'],
   // styleUrls: ['./collection-dropdown.component.scss']
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class CollectionDropdownComponent extends BaseComponent {
 

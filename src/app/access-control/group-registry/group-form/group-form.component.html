@@ -37,11 +37,11 @@
                (submitForm)="onSubmit()">
         <div before class="btn-group">
           <button (click)="onCancel()" type="button"
-                  class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
+                  class="btn btn-outline-secondary"><fa-icon [icon]="faArrowLeft"/> {{messagePrefix + '.return' | translate}}</button>
         </div>
         <div after *ngIf="(canEdit$ | async) && !groupBeingEdited?.permanent" class="btn-group">
           <button (click)="delete()" class="btn btn-danger delete-button" type="button">
-            <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
+            <fa-icon [icon]="faTrashAlt"/> {{ messagePrefix + '.actions.delete' | translate}}
           </button>
         </div>
       </ds-form>

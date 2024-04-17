@@ -9,31 +9,43 @@
           'submission.sections.'+sectionData.header | translate
           }}</span>
         <div class="d-inline-block float-right">
-          <i *ngIf="(sectionRef.isValid() | async) !== true && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
-            class="fas fa-exclamation-circle text-warning mr-3"
-            title="{{'submission.sections.status.warnings.title' | translate}}" role="img"
-            [attr.aria-label]="'submission.sections.status.warnings.aria' | translate"></i>
-          <i *ngIf="(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
-            class="fas fa-exclamation-circle text-danger mr-3"
-            title="{{'submission.sections.status.errors.title' | translate}}" role="img"
-            [attr.aria-label]="'submission.sections.status.errors.aria' | translate"></i>
-          <i *ngIf="(sectionRef.isValid() | async) && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
-            class="fas fa-check-circle text-success mr-3"
-            title="{{'submission.sections.status.valid.title' | translate}}" role="img"
-            [attr.aria-label]="'submission.sections.status.valid.aria' | translate"></i>
-          <i *ngIf="sectionRef.isInfo()" class="fas fa-info-circle mr-3 text-white"
-            title="{{'submission.sections.status.info.title' | translate}}" role="img"
-            [attr.aria-label]="'submission.sections.status.info.aria' | translate"></i>
+          <fa-icon *ngIf="(sectionRef.isValid() | async) !== true && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
+                   [icon]="faExclamationCircle"
+                   class="text-warning mr-3"
+                   role="img"
+                   title="{{'submission.sections.status.warnings.title' | translate}}"
+                   [attr.aria-label]="'submission.sections.status.warnings.aria' | translate"/>
+          <fa-icon *ngIf="(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
+                   [icon]="faExclamationCircle"
+                   class="text-danger mr-3"
+                   role="img"
+                   title="{{'submission.sections.status.errors.title' | translate}}"
+                   [attr.aria-label]="'submission.sections.status.errors.aria' | translate"/>
+          <fa-icon *ngIf="(sectionRef.isValid() | async) && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
+                   [icon]="faCheckCircle"
+                   class="text-success mr-3"
+                   role="img"
+                   title="{{'submission.sections.status.valid.title' | translate}}"
+                   [attr.aria-label]="'submission.sections.status.valid.aria' | translate"/>
+          <fa-icon *ngIf="sectionRef.isInfo()"
+                   [icon]="faCheckCircle"
+                   class="text-white mr-3"
+                   role="img"
+                   title="{{'submission.sections.status.info.title' | translate}}"
+                   [attr.aria-label]="'submission.sections.status.info.aria' | translate"/>
           <a class="close" tabindex="0" role="button"
             [attr.aria-label]="(sectionRef.isOpen() ? 'submission.sections.toggle.aria.close' : 'submission.sections.toggle.aria.open') | translate: {sectionHeader: ('submission.sections.'+sectionData.header | translate)}"
             [title]="(sectionRef.isOpen() ? 'submission.sections.toggle.close' : 'submission.sections.toggle.open') | translate">
-            <span *ngIf="sectionRef.isOpen()" [ngClass]="{ 'text-white' : sectionRef.isInfo()}"
-              class="fas fa-chevron-up fa-fw"></span>
-            <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"></span>
+            <fa-layers *ngIf="sectionRef.isOpen()"  [fixedWidth]="true" [ngClass]="{ 'text-white' : sectionRef.isInfo()}">
+              <fa-icon [icon]="faChevronUp"/>
+            </fa-layers>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon *ngIf="!sectionRef.isOpen()" [icon]="faChevronDown"/>
+            </fa-layers>
           </a>
           <a href="javascript:void(0);" class="close mr-3" *ngIf="!sectionRef.isMandatory()"
             (click)="removeSection($event)">
-            <i class="fas fa-trash-o" aria-hidden="true" tabindex="0"></i>
+            <fa-icon [icon]="faTrashCan" tabindex="0"/>
           </a>
         </div>
       </ng-template>

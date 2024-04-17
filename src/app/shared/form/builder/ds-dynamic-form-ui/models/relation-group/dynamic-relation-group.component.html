@@ -2,17 +2,19 @@
    class="close position-relative"
    ngbTooltip="{{'form.group-collapse-help' | translate}}"
    placement="left">
-  <span class="fas fa-angle-up fa-fw fa-2x"
-        aria-hidden="true"
-        (click)="collapseForm()"></span>
+  <fa-layers [fixedWidth]="true"
+             (click)="collapseForm()">
+    <fa-icon [icon]="faAngleUp" size="2x"/>
+  </fa-layers>
 </a>
 <a *ngIf="(formCollapsed | async)"
    class="close position-relative"
    ngbTooltip="{{'form.group-expand-help' | translate}}"
    placement="left">
-  <span class="fas fa-angle-down fa-fw fa-2x"
-        aria-hidden="true"
-        (click)="expandForm()"></span>
+  <fa-layers [fixedWidth]="true"
+             (click)="expandForm()">
+    <fa-icon [icon]="faAngleDown" size="2x"/>
+  </fa-layers>
 </a>
 
 <div class="pt-2" [ngClass]="{'border-top': !showErrorMessages, 'border border-danger': showErrorMessages}">
@@ -34,22 +36,19 @@
                 class="btn btn-link"
                 [disabled]="isMandatoryFieldEmpty()"
                 (click)="save()">
-          <i class="fas fa-save text-primary fa-2x"
-             aria-hidden="true"></i>
+          <fa-icon [icon]="faSave" size="2x" class="text-primary"/>
         </button>
         <button type="button"
                 class="btn btn-link"
                 [disabled]="!editMode"
                 (click)="delete()">
-          <i class="fas fa-trash text-danger fa-2x"
-             aria-hidden="true"></i>
+          <fa-icon [icon]="faTrash" size="2x" class="text-danger"/>
         </button>
         <button type="button"
                 class="btn btn-link"
                 [disabled]="isMandatoryFieldEmpty()"
                 (click)="clear()">
-          <i class="fas fa-undo fa-2x"
-             aria-hidden="true"></i>
+          <fa-icon [icon]="faUndo" size="2x"/>
         </button>
 
     </div>

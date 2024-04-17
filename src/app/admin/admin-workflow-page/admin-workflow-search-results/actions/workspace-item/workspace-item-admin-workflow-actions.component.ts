@@ -10,6 +10,12 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faEdit,
+  faTrash,
+  faUsersCog,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -52,13 +58,15 @@ import {
   styleUrls: ['./workspace-item-admin-workflow-actions.component.scss'],
   templateUrl: './workspace-item-admin-workflow-actions.component.html',
   standalone: true,
-  imports: [SupervisionOrderStatusComponent, NgClass, RouterLink, NgIf, TranslateModule],
+  imports: [SupervisionOrderStatusComponent, NgClass, RouterLink, NgIf, TranslateModule, FontAwesomeModule],
 })
 /**
  * The component for displaying the actions for a list element for a workspace-item on the admin workflow search page
  */
 export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
-
+  protected readonly faTrash = faTrash;
+  protected readonly faEdit = faEdit;
+  protected readonly faUsersCog = faUsersCog;
   /**
    * The workspace item to perform the actions on
    */

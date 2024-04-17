@@ -21,13 +21,18 @@
 </ng-template>
 
 <div *ngIf="(isHierarchicalVocabulary() | async) !== true" class="position-relative right-addon">
-  <i *ngIf="searching || loadingInitialValue" class="fas fa-circle-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></i>
-  <i *ngIf="!searching && !loadingInitialValue"
-     dsAuthorityConfidenceState
-     class="far fa-circle fa-2x fa-fw position-absolute mt-1 p-0"
-     aria-hidden="true"
-     [authorityValue]="currentValue"
-     (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
+  <fa-layers [fixedWidth]="true" size="2x">
+    <fa-icon *ngIf="searching || loadingInitialValue"
+             [icon]="faCircleNotch"
+             animation="spin"
+             class="text-primary position-absolute mt-1 p-0"/>
+    <i *ngIf="!searching && !loadingInitialValue"
+       dsAuthorityConfidenceState
+       class="far fa-circle fa-2x fa-fw position-absolute mt-1 p-0"
+       aria-hidden="true"
+       [authorityValue]="currentValue"
+       (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
+  </fa-layers>
   <input #instance="ngbTypeahead"
          class="form-control"
          [attr.aria-labelledby]="'label_' + model.id"

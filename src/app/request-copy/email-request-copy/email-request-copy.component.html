@@ -16,12 +16,12 @@
             [disabled]="!subject || subject.length === 0"
             class="btn btn-primary"
             title="{{'grant-deny-request-copy.email.send' | translate }}">
-      <i class="fas fa-envelope"></i> {{'grant-deny-request-copy.email.send' | translate }}
+      <fa-icon [icon]="faEnvelope"/> {{'grant-deny-request-copy.email.send' | translate }}
     </button>
     <button (click)="return()"
             class="btn btn-outline-secondary mr-1"
             title="{{'grant-deny-request-copy.email.back' | translate }}">
-      <i class="fas fa-arrow-left"></i> {{'grant-deny-request-copy.email.back' | translate }}
+      <fa-icon [icon]="faArrowLeft"/> {{'grant-deny-request-copy.email.back' | translate }}
     </button>
   </div>
 </form>

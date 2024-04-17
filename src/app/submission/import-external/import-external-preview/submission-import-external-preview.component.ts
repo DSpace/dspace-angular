@@ -5,6 +5,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faFileImport } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbActiveModal,
   NgbModal,
@@ -32,10 +34,12 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
   imports: [
     NgFor,
     TranslateModule,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class SubmissionImportExternalPreviewComponent implements OnInit {
+  protected readonly faFileImport = faFileImport;
   /**
    * The external source entry
    */

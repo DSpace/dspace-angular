@@ -12,6 +12,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
@@ -31,9 +33,11 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
   styleUrls: ['./expandable-navbar-section.component.scss'],
   animations: [slide],
   standalone: true,
-  imports: [VarDirective, RouterLinkActive, NgComponentOutlet, NgIf, NgFor, AsyncPipe],
+  imports: [VarDirective, RouterLinkActive, NgComponentOutlet, NgIf, NgFor, AsyncPipe, FontAwesomeModule],
 })
 export class ExpandableNavbarSectionComponent extends NavbarSectionComponent implements OnInit {
+  protected readonly faCaretDown = faCaretDown;
+
   /**
    * This section resides in the Public Navbar
    */

@@ -4,6 +4,8 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ListableObject } from '../listable-object.model';
@@ -12,12 +14,14 @@ import { ListableObject } from '../listable-object.model';
   selector: 'ds-importable-list-item-control',
   templateUrl: './importable-list-item-control.component.html',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, FontAwesomeModule],
 })
 /**
  * Component adding an import button to a list item
  */
 export class ImportableListItemControlComponent {
+  protected readonly faCloudDownloadAlt = faCloudDownloadAlt;
+
   /**
    * The item or metadata to determine the component for
    */

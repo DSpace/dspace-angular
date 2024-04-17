@@ -15,6 +15,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faArrowLeft,
+  faCalendar,
+  faSave,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbDatepickerModule,
   NgbDateStruct,
@@ -59,9 +65,12 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   styleUrls: ['./system-wide-alert-form.component.scss'],
   templateUrl: './system-wide-alert-form.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class SystemWideAlertFormComponent implements OnInit {
+  protected readonly faSave = faSave;
+  protected readonly faArrowLeft = faArrowLeft;
+  protected readonly faCalendar = faCalendar;
 
   /**
    * Observable to track an existing system-wide alert
@@ -288,6 +297,4 @@ export class SystemWideAlertFormComponent implements OnInit {
   back() {
     this.router.navigate(['/home']);
   }
-
-
 }

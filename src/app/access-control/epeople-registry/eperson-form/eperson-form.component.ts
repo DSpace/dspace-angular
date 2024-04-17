@@ -18,6 +18,13 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faArrowLeft,
+  faKey,
+  faTrash,
+  faUserSecret,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
@@ -92,6 +99,7 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     PaginationComponent,
     RouterLink,
     HasNoValuePipe,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -99,6 +107,10 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
  * A form used for creating and editing EPeople
  */
 export class EPersonFormComponent implements OnInit, OnDestroy {
+  protected readonly faArrowLeft = faArrowLeft;
+  protected readonly faTrash = faTrash;
+  protected readonly faKey = faKey;
+  protected readonly faUserSecret = faUserSecret;
 
   labelPrefix = 'admin.access-control.epeople.form.';
 

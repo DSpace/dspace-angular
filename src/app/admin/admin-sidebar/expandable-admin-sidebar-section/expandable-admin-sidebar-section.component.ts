@@ -12,6 +12,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as combineLatestObservable,
@@ -36,10 +38,12 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor],
   standalone: true,
-  imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule],
+  imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
+  protected readonly faChevronRight = faChevronRight;
+
   /**
    * This section resides in the Admin Sidebar
    */

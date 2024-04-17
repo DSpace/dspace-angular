@@ -8,6 +8,7 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThemedUserMenuComponent } from 'src/app/shared/auth-nav-menu/user-menu/themed-user-menu.component';
@@ -33,7 +34,7 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   styleUrls: ['../../../../../app/shared/auth-nav-menu/auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
   standalone: true,
-  imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, ThemedLogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgClass, NgIf, NgbDropdownModule, LogInComponent, ThemedLogInComponent, RouterLink, RouterLinkActive, UserMenuComponent, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe, FontAwesomeModule],
 })
 export class AuthNavMenuComponent extends BaseComponent {
 }

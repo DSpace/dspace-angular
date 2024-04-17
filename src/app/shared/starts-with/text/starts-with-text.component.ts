@@ -3,6 +3,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { hasValue } from '../../empty.util';
@@ -16,9 +18,10 @@ import { StartsWithAbstractComponent } from '../starts-with-abstract.component';
   styleUrls: ['./starts-with-text.component.scss'],
   templateUrl: './starts-with-text.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule, FontAwesomeModule],
 })
 export class StartsWithTextComponent extends StartsWithAbstractComponent {
+  protected readonly faBookOpen = faBookOpen;
 
   /**
    * Get startsWith as text;
@@ -40,5 +43,4 @@ export class StartsWithTextComponent extends StartsWithAbstractComponent {
     }
     super.setStartsWithParam(resetPage);
   }
-
 }

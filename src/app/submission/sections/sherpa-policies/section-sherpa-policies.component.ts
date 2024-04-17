@@ -7,6 +7,12 @@ import {
   Component,
   Inject,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faChevronDown,
+  faChevronUp,
+  faSync,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -52,11 +58,14 @@ import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.co
     AsyncPipe,
     VarDirective,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
-
+  protected readonly faChevronDown = faChevronDown;
+  protected readonly faChevronUp = faChevronUp;
+  protected readonly faSync = faSync;
   /**
    * The accesses section data
    * @type {WorkspaceitemSectionAccessesObject}
@@ -153,5 +162,4 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
     this.operationsBuilder.remove(this.pathCombiner.getPath('retrievalTime'));
     this.submissionService.dispatchSaveSection(this.submissionId, this.sectionData.id);
   }
-
 }

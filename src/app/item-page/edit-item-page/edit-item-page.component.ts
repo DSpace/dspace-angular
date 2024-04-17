@@ -19,6 +19,8 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -54,6 +56,7 @@ import { getItemPageRoute } from '../item-page-routing-paths';
     NgbTooltipModule,
     RouterLink,
     RouterOutlet,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -61,6 +64,7 @@ import { getItemPageRoute } from '../item-page-routing-paths';
  * Page component for editing an item
  */
 export class EditItemPageComponent implements OnInit {
+  protected readonly faArrowLeft = faArrowLeft;
 
   /**
    * The item to edit

@@ -5,6 +5,8 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -33,14 +35,14 @@ import { SearchSwitchConfigurationComponent } from '../search-switch-configurati
   styleUrls: ['./search-sidebar.component.scss'],
   templateUrl: './search-sidebar.component.html',
   standalone: true,
-  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule],
+  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule, FontAwesomeModule],
 })
 
 /**
  * Component representing the sidebar on the search page
  */
 export class SearchSidebarComponent {
-
+  protected readonly faArrowRight = faArrowRight;
   /**
    * The configuration to use for the search options
    */

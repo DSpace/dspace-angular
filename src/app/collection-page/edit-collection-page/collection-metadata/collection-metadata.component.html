@@ -2,16 +2,16 @@
   <span class="d-inline-block mb-2">{{ 'collection.edit.template.label' | translate}}</span>
   <div class="button-row space-children-mr">
     <button *ngIf="!itemTemplateRD?.payload" class="btn btn-success" (click)="addItemTemplate()">
-      <i class="fas fa-plus" aria-hidden="true"></i>
+      <fa-icon [icon]="faPlus"/>
       <span class="d-none d-sm-inline">&nbsp;{{"collection.edit.template.add-button" | translate}}</span>
     </button>
     <button *ngIf="itemTemplateRD?.payload" class="btn btn-danger" (click)="deleteItemTemplate()">
-      <i class="fas fa-trash-alt" aria-hidden="true"></i>
+      <fa-icon [icon]="faTrashAlt"/>
       <span class="d-none d-sm-inline">&nbsp;{{"collection.edit.template.delete-button" | translate}}</span>
     </button>
     <button *ngIf="itemTemplateRD?.payload" class="btn btn-primary"
             [routerLink]="'/collections/' + (dsoRD$ | async)?.payload.uuid + '/itemtemplate'">
-      <i class="fas fa-edit" aria-hidden="true"></i>
+      <fa-icon [icon]="faEdit"/>
       <span class="d-none d-sm-inline">&nbsp;{{"collection.edit.template.edit-button" | translate}}</span>
     </button>
   </div>

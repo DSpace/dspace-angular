@@ -30,12 +30,16 @@
     <button class="btn btn-outline-primary btn-sm"
             [title]="'resource-policies.table.headers.edit.policy' | translate"
             (click)="redirectToResourcePolicyEditPage()">
-      <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+      <fa-layers [fixedWidth]="true">
+        <fa-icon [icon]="faEdit"/>
+      </fa-layers>
     </button>
     <button *ngIf="groupName$ | async | dsHasValue" class="btn btn-outline-primary btn-sm"
             [title]="'resource-policies.table.headers.edit.group' | translate"
             (click)="redirectToGroupEditPage()">
-      <i class="fas fa-users fa-fw" aria-hidden="true"></i>
+      <fa-layers [fixedWidth]="true">
+        <fa-icon [icon]="faUser"/>
+      </fa-layers>
     </button>
   </div>
 </td>

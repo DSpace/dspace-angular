@@ -17,6 +17,13 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faPlus,
+  faSave,
+  faTimes,
+  faUndoAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -66,12 +73,16 @@ import { MetadataFieldSelectorComponent } from './metadata-field-selector/metada
   styleUrls: ['./dso-edit-metadata.component.scss'],
   templateUrl: './dso-edit-metadata.component.html',
   standalone: true,
-  imports: [NgIf, DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, NgFor, DsoEditMetadataFieldValuesComponent, AlertComponent, LoadingComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, NgFor, DsoEditMetadataFieldValuesComponent, AlertComponent, LoadingComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Component showing a table of all metadata on a DSpaceObject and options to modify them
  */
 export class DsoEditMetadataComponent implements OnInit, OnDestroy {
+  protected readonly faPlus = faPlus;
+  protected readonly faUndoAlt = faUndoAlt;
+  protected readonly faSave = faSave;
+  protected readonly faTimes = faTimes;
   /**
    * DSpaceObject to edit metadata for
    */
@@ -324,5 +335,4 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       this.dsoUpdateSubscription.unsubscribe();
     }
   }
-
 }

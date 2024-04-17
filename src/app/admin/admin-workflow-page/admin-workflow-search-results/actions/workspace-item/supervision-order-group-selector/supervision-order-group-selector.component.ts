@@ -5,6 +5,11 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faSave,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -33,9 +38,11 @@ import { ErrorComponent } from '../../../../../../shared/error/error.component';
   styleUrls: ['./supervision-order-group-selector.component.scss'],
   templateUrl: './supervision-order-group-selector.component.html',
   standalone: true,
-  imports: [FormsModule, NgIf, ErrorComponent, EpersonGroupListComponent, TranslateModule],
+  imports: [FormsModule, NgIf, ErrorComponent, EpersonGroupListComponent, TranslateModule, FontAwesomeModule],
 })
 export class SupervisionOrderGroupSelectorComponent {
+  protected readonly faTimes = faTimes;
+  protected readonly faSave = faSave;
 
   /**
    * The item to perform the actions on
@@ -107,5 +114,4 @@ export class SupervisionOrderGroupSelectorComponent {
       });
     }
   }
-
 }

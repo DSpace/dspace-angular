@@ -13,6 +13,8 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -95,6 +97,7 @@ import { EditRelationshipComponent } from '../edit-relationship/edit-relationshi
     TranslateModule,
     NgClass,
     ThemedLoadingComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -103,6 +106,7 @@ import { EditRelationshipComponent } from '../edit-relationship/edit-relationshi
  * The relationships are rendered as a list of related items
  */
 export class EditRelationshipListComponent implements OnInit, OnDestroy {
+  protected readonly faPlus = faPlus;
 
   /**
    * The item to display related items for

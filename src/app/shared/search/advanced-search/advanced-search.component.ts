@@ -17,6 +17,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faMinus,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   APP_CONFIG,
@@ -41,6 +46,7 @@ import { BrowserOnlyPipe } from '../../utils/browser-only.pipe';
     BrowserOnlyPipe,
     LowerCasePipe,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -48,6 +54,9 @@ import { BrowserOnlyPipe } from '../../utils/browser-only.pipe';
    * This component represents the part of the search sidebar that contains advanced filters.
    */
 export class AdvancedSearchComponent implements OnInit {
+  protected readonly faPlus = faPlus;
+  protected readonly faMinus = faMinus;
+
   /**
    * True when the search component should show results on the current page
    */
@@ -141,6 +150,5 @@ export class AdvancedSearchComponent implements OnInit {
   private isCollapsed(): boolean {
     return !this.collapsedSearch;
   }
-
 }
 

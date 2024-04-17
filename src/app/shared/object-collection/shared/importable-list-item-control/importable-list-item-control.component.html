@@ -2,6 +2,8 @@
   <button (click)="importObject.emit(object)"
           class="btn btn-outline-primary btn-sm float-left"
           title="{{importConfig?.buttonLabel | translate}}">
-    <i class="fas fa-cloud-download-alt fa-fw"></i>
+    <fa-layers [fixedWidth]="true">
+      <fa-icon [icon]="faCloudDownloadAlt"/>
+    </fa-layers>
   </button>
 </div>

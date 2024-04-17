@@ -7,6 +7,11 @@ import {
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faTimes,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -25,13 +30,15 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
   templateUrl: './collection-select.component.html',
   styleUrls: ['./collection-select.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 
 /**
  * A component used to select collections from a specific list and returning the UUIDs of the selected collections
  */
 export class CollectionSelectComponent extends ObjectSelectComponent<Collection> {
+  protected readonly faTrash = faTrash;
+  protected readonly faTimes = faTimes;
 
   constructor(
     protected objectSelectService: ObjectSelectService,
@@ -47,5 +54,4 @@ export class CollectionSelectComponent extends ObjectSelectComponent<Collection>
       this.confirmButton = 'collection.select.confirm';
     }
   }
-
 }

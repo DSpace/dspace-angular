@@ -7,6 +7,8 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -26,6 +28,7 @@ import { ResourcePoliciesComponent } from '../../shared/resource-policies/resour
     AsyncPipe,
     TranslateModule,
     RouterLink,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -33,6 +36,7 @@ import { ResourcePoliciesComponent } from '../../shared/resource-policies/resour
  * Component that handles the Collection Authorizations
  */
 export class BitstreamAuthorizationsComponent<TDomain extends DSpaceObject> implements OnInit {
+  protected readonly faArrowLeft = faArrowLeft;
 
   /**
    * The initial DSO object

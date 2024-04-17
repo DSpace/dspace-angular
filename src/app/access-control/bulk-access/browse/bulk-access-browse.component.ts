@@ -9,6 +9,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faChevronDown,
+  faChevronUp,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbAccordionModule,
   NgbNavModule,
@@ -67,10 +72,13 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     NgxPaginationModule,
     SelectableListItemControlComponent,
     ListableObjectComponentLoaderComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
+  protected readonly faChevronUp = faChevronUp;
+  protected readonly faChevronDown = faChevronDown;
 
   /**
    * The selection list id

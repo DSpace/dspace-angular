@@ -5,6 +5,8 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -12,9 +14,11 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-confirmation-modal',
   templateUrl: 'confirmation-modal.component.html',
   standalone: true,
-  imports: [NgIf, TranslateModule],
+  imports: [NgIf, TranslateModule, FontAwesomeModule],
 })
 export class ConfirmationModalComponent {
+  protected readonly faTimes = faTimes;
+
   @Input() headerLabel: string;
   @Input() infoLabel: string;
   @Input() cancelLabel: string;

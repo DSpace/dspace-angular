@@ -19,7 +19,7 @@
                                      [isCollectionFixed]="isCollectionFixed(suggestionsRD.page)"
                                      (approveAndImport)="approveAndImportAllSelected($event)"
                                      (ignoreSuggestionClicked)="ignoreSuggestionAllSelected()"></ds-suggestion-actions>
-              <i class='fas fa-circle-notch fa-spin' *ngIf="isBulkOperationPending"></i>
+              <fa-icon *ngIf="isBulkOperationPending" [icon]="faCircleNotch" animation="spin"/>
             </div>
             <ds-loading *ngIf="(processing$ | async)"></ds-loading>
             <ds-pagination *ngIf="(processing$ | async) !== true"

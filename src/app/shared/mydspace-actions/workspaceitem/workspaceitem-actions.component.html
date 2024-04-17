@@ -4,7 +4,7 @@
     ngbTooltip="{{'submission.workspace.generic.view-help' | translate}}"
     [attr.aria-label]="'submission.workspace.generic.view-help' | translate"
     [routerLink]="[getWorkspaceItemViewRoute(object)]">
-    <i class="fa fa-info-circle"></i> {{"submission.workspace.generic.view" | translate}}
+    <fa-icon [icon]="faInfoCircle"/> {{"submission.workspace.generic.view" | translate}}
   </button>
 
   <a class="btn btn-primary mt-1 mb-3 edit-btn" id="{{'edit_' + object.id}}"
@@ -12,7 +12,7 @@
     ngbTooltip="{{'submission.workflow.generic.edit-help' | translate}}"
     [attr.aria-label]="'submission.workflow.generic.edit-help' | translate"
     [routerLink]="['/workspaceitems/' + object.id + '/edit']" role="button">
-    <i class="fa fa-edit"></i> {{'submission.workflow.generic.edit' | translate}}
+    <fa-icon [icon]="faEdit"/> {{'submission.workflow.generic.edit' | translate}}
   </a>
 
   <button type="button" id="{{'delete_' + object.id}}" class="btn btn-danger mt-1 mb-3"
@@ -20,9 +20,9 @@
     ngbTooltip="{{'submission.workflow.generic.delete-help' | translate}}"
     [attr.aria-label]="'submission.workflow.generic.delete-help' | translate"
     (click)="$event.preventDefault();confirmDiscard(content)">
-    <span *ngIf="(processingDelete$ | async)"><i class='fas fa-circle-notch fa-spin'></i>
+    <span *ngIf="(processingDelete$ | async)"><fa-icon [icon]="faCircleNotch" animation="spin"/>
       {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-    <span *ngIf="(processingDelete$ | async) !== true"><i class="fa fa-trash"></i> {{'submission.workflow.generic.delete' |
+    <span *ngIf="(processingDelete$ | async) !== true"><fa-icon [icon]="faTrash"/> {{'submission.workflow.generic.delete' |
       translate}}</span>
   </button>
 </div>

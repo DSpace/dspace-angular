@@ -20,6 +20,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -71,6 +73,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     AsyncPipe,
     ReactiveFormsModule,
     NgIf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -78,6 +81,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
  * Page component for requesting a copy for a bitstream
  */
 export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
+  protected readonly faArrowLeft = faArrowLeft;
 
   item$: Observable<Item>;
 

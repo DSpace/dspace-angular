@@ -36,7 +36,7 @@
     </button>
     <button type="submit" class="btn btn-success" [disabled]="(processing$ | async) || !isValid">
         <span *ngIf="(processing$ | async)">
-          <i class='fas fa-circle-notch fa-spin'></i> {{'subscriptions.modal.new-subscription-form.processing' | translate}}
+          <fa-icon [icon]="faCircleNotch" animation="spin"/> {{'subscriptions.modal.new-subscription-form.processing' | translate}}
         </span>
       <span *ngIf="(processing$ | async) !== true">
         {{'subscriptions.modal.new-subscription-form.submit' | translate}}

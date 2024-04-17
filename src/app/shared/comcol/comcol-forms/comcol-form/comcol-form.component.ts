@@ -13,6 +13,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faArrowLeft,
+  faTrash,
+  faUndo,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -73,10 +79,14 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
     NgIf,
     NgClass,
     VarDirective,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {
+  protected readonly faUndo = faUndo;
+  protected readonly faTrash = faTrash;
+  protected readonly faArrowLeft = faArrowLeft;
 
   /**
    * The logo uploader component

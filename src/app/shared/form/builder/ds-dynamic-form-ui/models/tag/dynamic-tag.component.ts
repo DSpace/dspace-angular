@@ -12,6 +12,8 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbTypeahead,
   NgbTypeaheadModule,
@@ -66,10 +68,12 @@ import { DynamicTagModel } from './dynamic-tag.model';
     FormsModule,
     NgIf,
     ChipsComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
+  protected readonly faCircleNotch = faCircleNotch;
 
   @Input() bindId = true;
   @Input() group: UntypedFormGroup;

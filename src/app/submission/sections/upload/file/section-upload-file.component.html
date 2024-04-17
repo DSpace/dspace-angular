@@ -24,21 +24,21 @@
         <ng-container>
           <ds-themed-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
                                         [bitstream]="getBitstream()" [enableRequestACopy]="false">
-            <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
+            <fa-icon [icon]="faDownload" class="text-normal" size="2x"/>
           </ds-themed-file-download-link>
           <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.edit.title' | translate"
                   title="{{ 'submission.sections.upload.edit.title' | translate }}"
                   (click)="$event.preventDefault();editBitstreamData();">
-            <i class="fa fa-edit fa-2x text-normal"></i>
+            <fa-icon [icon]="faEdit" class="text-normal" size="2x"/>
           </button>
           <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
                   [disabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">
-            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
-            <i *ngIf="(processingDelete$ | async) !== true" class="fa fa-trash fa-2x text-danger"></i>
+            <fa-icon *ngIf="(processingDelete$ | async)" [icon]="faCircleNotch" size="2x" animation="spin" class="text-danger"/>
+            <fa-icon *ngIf="(processingDelete$ | async) !== true" [icon]="faTrash" size="2x" class="text-danger"/>
           </button>
         </ng-container>
       </div>

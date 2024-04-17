@@ -6,6 +6,7 @@ import {
   NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -21,7 +22,7 @@ import { AdminSidebarComponent as BaseComponent } from '../../../../../app/admin
   // styleUrls: ['./admin-sidebar.component.scss']
   styleUrls: ['../../../../../app/admin/admin-sidebar/admin-sidebar.component.scss'],
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class AdminSidebarComponent extends BaseComponent {
 }

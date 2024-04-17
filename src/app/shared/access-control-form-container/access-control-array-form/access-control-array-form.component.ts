@@ -12,6 +12,12 @@ import {
   FormsModule,
   NgForm,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCalendar,
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -25,9 +31,13 @@ import { ToDatePipe } from './to-date.pipe';
   styleUrls: ['./access-control-array-form.component.scss'],
   exportAs: 'accessControlArrayForm',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, NgbDatepickerModule, TranslateModule, ToDatePipe],
+  imports: [FormsModule, NgIf, NgFor, NgbDatepickerModule, TranslateModule, ToDatePipe, FontAwesomeModule],
 })
 export class AccessControlArrayFormComponent implements OnInit {
+  protected readonly faTrash = faTrash;
+  protected readonly faPlus = faPlus;
+  protected readonly faCalendar = faCalendar;
+
   @Input() dropdownOptions: AccessesConditionOption[] = [];
   @Input() mode!: 'add' | 'replace';
   @Input() type!: 'item' | 'bitstream';
@@ -136,7 +146,6 @@ export class AccessControlArrayFormComponent implements OnInit {
   trackById(index: number, item: AccessControlItem) {
     return item.id;
   }
-
 }
 
 

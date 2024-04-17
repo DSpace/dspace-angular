@@ -5,12 +5,12 @@
                  class="example-tree-node show-more-node">
     <div class="btn-group">
       <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
-        <span class="fa fa-chevron-right"></span>
+        <fa-icon [icon]="faChevronRight"/>
       </span>
       <div class="align-middle my-auto">
         <button *ngIf="(dataSource.loading$ | async) !== true" (click)="getNextPage(node)"
            class="btn btn-outline-primary btn-sm" role="button">
-           <i class="fas fa-angle-down"></i> {{ 'communityList.showMore' | translate }}
+          <fa-icon [icon]="faAngleDown"/> {{ 'communityList.showMore' | translate }}
         </button>
         <ds-themed-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-themed-loading"></ds-themed-loading>
       </div>
@@ -28,13 +28,13 @@
               [attr.aria-label]="(node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) }"
               (click)="toggleExpanded(node)"
               data-test="expand-button">
-        <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
-              aria-hidden="true"></span>
+        <fa-icon *ngIf="node.isExpanded" [icon]="faChevronDown"/>
+        <fa-icon *ngIf="!node.isExpanded" [icon]="faChevronRight"/>
         <span class="sr-only">{{ (node.isExpanded ? 'communityList.collapse' : 'communityList.expand') | translate:{ name: dsoNameService.getName(node.payload) } }}</span>
       </button>
       <!--Don't render the button when non-expandable otherwise it's still accessible, instead render this placeholder-->
       <span *ngIf="(hasChild(null, node) | async) !== true" aria-hidden="true" class="btn btn-default invisible">
-        <span class="fa fa-chevron-right"></span>
+        <fa-icon [icon]="faChevronRight"/>
       </span>
       <div class="d-flex flex-row">
         <span class="d-flex align-middle my-auto">
@@ -48,7 +48,7 @@
       <div class="text-muted" cdkTreeNodePadding>
         <div class="d-flex" *ngIf="node.payload.shortDescription">
           <span aria-hidden="true" class="btn btn-default invisible">
-            <span class="fa fa-chevron-right"></span>
+            <fa-icon [icon]="faChevronRight"/>
           </span>
           <ds-truncatable-part [id]="node.id" [minLines]="3">
             <span>{{node.payload.shortDescription}}</span>
@@ -59,7 +59,7 @@
     <div class="d-flex" *ngIf="node===loadingNode && dataSource.loading$ | async"
          cdkTreeNodePadding>
       <span aria-hidden="true" class="btn btn-default invisible">
-        <span class="fa fa-chevron-right"></span>
+        <fa-icon [icon]="faChevronRight"/>
       </span>
       <ds-themed-loading class="ds-themed-loading"></ds-themed-loading>
     </div>
@@ -69,7 +69,7 @@
                  class="example-tree-node childless-node">
     <div class="btn-group">
       <span aria-hidden="true" class="btn btn-default invisible" cdkTreeNodeToggle>
-        <span class="fa fa-chevron-right"></span>
+        <fa-icon [icon]="faChevronRight"/>
       </span>
       <h6 class="align-middle my-auto">
         <a [routerLink]="node.route" class="lead">{{ dsoNameService.getName(node.payload) }}</a>
@@ -79,7 +79,7 @@
       <div class="text-muted" cdkTreeNodePadding>
         <div class="d-flex" *ngIf="node.payload.shortDescription">
           <span aria-hidden="true" class="btn btn-default invisible">
-            <span class="fa fa-chevron-right"></span>
+            <fa-icon [icon]="faChevronRight"/>
           </span>
           <ds-truncatable-part [id]="node.id" [minLines]="3">
             <span>{{node.payload.shortDescription}}</span>

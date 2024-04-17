@@ -13,6 +13,8 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DynamicFormArrayGroupModel } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -171,10 +173,13 @@ export class ReorderableRelationship extends Reorderable {
     AsyncPipe,
     MetadataRepresentationLoaderComponent,
     TranslateModule,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class ExistingMetadataListElementComponent implements OnInit, OnChanges, OnDestroy   {
+  protected readonly faTrash = faTrash;
+
   @Input() listId: string;
   @Input() submissionItem: Item;
   @Input() reoRel: ReorderableRelationship;
@@ -249,6 +254,5 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
   }
-
 }
 

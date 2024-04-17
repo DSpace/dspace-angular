@@ -7,6 +7,8 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -47,10 +49,12 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     TranslateModule,
     BrowserOnlyPipe,
     NgIf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class MyDSpaceNewSubmissionDropdownComponent implements OnInit, OnDestroy {
+  protected readonly faPlusCircle = faPlusCircle;
 
   /**
    * Used to verify if there are one or more entities available

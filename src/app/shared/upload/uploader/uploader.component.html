@@ -20,7 +20,7 @@
          class="well ds-base-drop-zone mt-1 mb-3 text-muted">
       <div class="text-center m-0 p-2 d-flex justify-content-center align-items-center" *ngIf="uploader?.queue?.length === 0">
         <span>
-          <i class="fas fa-upload" aria-hidden="true"></i>
+          <fa-icon [icon]="faUpload"/>
           {{dropMsg | translate}}{{'uploader.or' | translate}}
           <label for="inputFileUploader-{{uploaderId}}" class="btn btn-link m-0 p-0 ml-1" tabindex="0" (keyup.enter)="$event.stopImmediatePropagation(); fileInput.click()">
             <span role="button" [attr.aria-label]="ariaLabel | translate">{{'uploader.browse' | translate}}</span>
@@ -36,7 +36,7 @@
             </span>
             <div class="btn-group btn-group-sm float-right" role="group">
               <button type="button" class="btn btn-danger" title="{{'uploader.delete.btn-title' | translate}}" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-                <i class="fas fa-trash" aria-hidden="true"></i>
+                <fa-icon [icon]="faTrash"/>
               </button>
             </div>
             <span *ngIf="uploader.progress < 100 && !(uploader.progress === 0 && !uploader.options.autoUpload)" class="float-right mr-3">{{ uploader.progress }}%</span>

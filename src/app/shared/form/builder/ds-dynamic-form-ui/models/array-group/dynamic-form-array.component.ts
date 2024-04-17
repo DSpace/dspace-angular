@@ -21,6 +21,8 @@ import {
   ReactiveFormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faGripVertical } from '@fortawesome/free-solid-svg-icons';
 import {
   DynamicFormArrayComponent,
   DynamicFormControlCustomEvent,
@@ -51,10 +53,12 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
     CdkDragHandle,
     forwardRef(() => DsDynamicFormControlContainerComponent),
     NgTemplateOutlet,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
+  protected readonly faGripVertical = faGripVertical;
 
   @Input() bindId = true;
   @Input() formModel: DynamicFormControlModel[];

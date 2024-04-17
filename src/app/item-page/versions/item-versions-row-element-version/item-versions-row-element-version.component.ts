@@ -14,6 +14,12 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCodeBranch,
+  faPencilAlt,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -67,11 +73,16 @@ import { ItemVersionsSummaryModalComponent } from '../item-versions-summary-moda
     TranslateModule,
     NgClass,
     NgIf,
+    FontAwesomeModule,
   ],
   templateUrl: './item-versions-row-element-version.component.html',
   styleUrl: './item-versions-row-element-version.component.scss',
 })
 export class ItemVersionsRowElementVersionComponent implements OnInit {
+  protected readonly faTrash = faTrash;
+  protected readonly faPencilAlt = faPencilAlt;
+  protected readonly faCodeBranch = faCodeBranch;
+
   @Input() hasDraftVersion: boolean | null;
   @Input() version: Version;
   @Input() itemVersion: Version;

@@ -9,6 +9,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -38,9 +40,10 @@ import { NotificationsStateService } from '../../notifications-state.service';
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
   standalone: true,
-  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
+  imports: [AlertComponent, NgIf, LoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe, FontAwesomeModule],
 })
 export class QualityAssuranceSourceComponent implements OnInit {
+  protected readonly faInfo = faInfo;
 
   /**
    * The pagination system configuration for HTML listing.
@@ -162,5 +165,4 @@ export class QualityAssuranceSourceComponent implements OnInit {
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
   }
-
 }

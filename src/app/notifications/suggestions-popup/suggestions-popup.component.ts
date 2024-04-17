@@ -10,6 +10,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
@@ -46,10 +48,12 @@ import { SuggestionsService } from '../suggestions.service';
     RouterLink,
     NgIf,
     NgForOf,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class SuggestionsPopupComponent implements OnInit, OnDestroy {
+  protected readonly faCheckCircle = faCheckCircle;
 
   labelPrefix = 'notification.';
 

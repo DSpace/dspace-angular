@@ -12,6 +12,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   DynamicFormControlModel,
   DynamicFormOptionConfig,
@@ -66,6 +67,7 @@ import {
     NgIf,
     NgClass,
     VarDirective,
+    FontAwesomeModule,
   ],
 })
 export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {

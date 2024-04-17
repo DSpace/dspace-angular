@@ -5,6 +5,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
@@ -14,12 +16,13 @@ import { Observable } from 'rxjs';
   templateUrl: './results-back-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, FontAwesomeModule],
 })
 /**
  * Component for creating a back to result list button.
  */
 export class ResultsBackButtonComponent implements OnInit {
+  protected readonly faArrowLeft = faArrowLeft;
 
   /**
    * The function used for back navigation.
@@ -41,5 +44,4 @@ export class ResultsBackButtonComponent implements OnInit {
       this.buttonLabel = this.translateService.get('search.browse.item-back');
     }
   }
-
 }

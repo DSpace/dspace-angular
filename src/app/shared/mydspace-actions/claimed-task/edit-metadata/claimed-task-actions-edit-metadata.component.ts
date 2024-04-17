@@ -10,6 +10,8 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -28,12 +30,14 @@ export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
   styleUrls: ['./claimed-task-actions-edit-metadata.component.scss'],
   templateUrl: './claimed-task-actions-edit-metadata.component.html',
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Component for displaying the edit metadata action on a workflow task item
  */
 export class ClaimedTaskActionsEditMetadataComponent extends ClaimedTaskActionsAbstractComponent {
+  protected readonly faEdit = faEdit;
+
   /**
    * This component represents the edit metadata option
    */

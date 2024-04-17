@@ -8,6 +8,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faFileExport } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -38,12 +40,13 @@ import { PaginatedSearchOptions } from '../models/paginated-search-options.model
   styleUrls: ['./search-export-csv.component.scss'],
   templateUrl: './search-export-csv.component.html',
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 /**
  * Display a button to export the current search results as csv
  */
 export class SearchExportCsvComponent implements OnInit {
+  protected readonly faFileExport = faFileExport;
 
   /**
    * The current configuration of the search

@@ -14,6 +14,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faEdit,
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -63,10 +69,14 @@ import { LdnService } from '../ldn-services-model/ldn-services.model';
     TruncatablePartComponent,
     NgClass,
     RouterLink,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class LdnServicesOverviewComponent implements OnInit, OnDestroy {
+  protected readonly faTrash = faTrash;
+  protected readonly faEdit = faEdit;
+  protected readonly faPlus = faPlus;
 
   selectedServiceId: string | number | null = null;
   servicesData: any[] = [];

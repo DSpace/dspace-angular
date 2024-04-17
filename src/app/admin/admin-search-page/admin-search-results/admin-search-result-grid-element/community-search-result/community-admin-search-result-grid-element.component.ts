@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
 import { Community } from '../../../../../core/shared/community.model';
@@ -16,12 +18,14 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
   styleUrls: ['./community-admin-search-result-grid-element.component.scss'],
   templateUrl: './community-admin-search-result-grid-element.component.html',
   standalone: true,
-  imports: [CommunitySearchResultGridElementComponent, RouterLink],
+  imports: [CommunitySearchResultGridElementComponent, RouterLink, FontAwesomeModule],
 })
 /**
  * The component for displaying a list element for a community search result on the admin search page
  */
 export class CommunityAdminSearchResultGridElementComponent extends SearchResultGridElementComponent<CommunitySearchResult, Community> {
+  protected readonly faEdit = faEdit;
+
   editPath: string;
 
   ngOnInit() {

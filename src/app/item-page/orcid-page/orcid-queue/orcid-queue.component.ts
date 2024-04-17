@@ -6,6 +6,8 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUnlink } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -53,10 +55,12 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
     LoadingComponent,
     AlertComponent,
     PaginationComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class OrcidQueueComponent implements OnInit, OnDestroy {
+  protected readonly faUnlink = faUnlink;
 
   /**
    * The item for which showing the orcid settings
@@ -330,5 +334,4 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
     this.subs.filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
   }
-
 }

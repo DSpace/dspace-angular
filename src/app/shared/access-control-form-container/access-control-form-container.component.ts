@@ -10,6 +10,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
@@ -46,9 +48,10 @@ import {
   styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
   standalone: true,
-  imports: [NgIf, AlertComponent, UiSwitchModule, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, AlertComponent, UiSwitchModule, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
+  protected readonly faSearch = faSearch;
 
   /**
    * Will be used to determine if we need to show the limit changes to specific bitstreams radio buttons
@@ -177,6 +180,5 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   ngOnDestroy(): void {
     this.selectableListService.deselectAll(ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID);
   }
-
 }
 

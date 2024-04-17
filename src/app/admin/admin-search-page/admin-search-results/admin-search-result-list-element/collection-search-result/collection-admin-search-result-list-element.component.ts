@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
@@ -17,12 +19,13 @@ import { SearchResultListElementComponent } from '../../../../../shared/object-l
   styleUrls: ['./collection-admin-search-result-list-element.component.scss'],
   templateUrl: './collection-admin-search-result-list-element.component.html',
   standalone: true,
-  imports: [CollectionSearchResultListElementComponent, RouterLink, TranslateModule],
+  imports: [CollectionSearchResultListElementComponent, RouterLink, TranslateModule, FontAwesomeModule],
 })
 /**
  * The component for displaying a list element for a collection search result on the admin search page
  */
 export class CollectionAdminSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {
+  protected readonly faEdit = faEdit;
   editPath: string;
 
   ngOnInit() {

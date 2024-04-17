@@ -6,6 +6,8 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -29,9 +31,10 @@ import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advance
   templateUrl: './advanced-claimed-task-action-rating.component.html',
   styleUrls: ['./advanced-claimed-task-action-rating.component.scss'],
   standalone: true,
-  imports: [NgbTooltipModule, TranslateModule],
+  imports: [NgbTooltipModule, TranslateModule, FontAwesomeModule],
 })
 export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTaskActionsAbstractComponent {
+  protected readonly faStarHalfAlt = faStarHalfAlt;
 
   /**
    * This component represents the advanced select option
@@ -51,5 +54,4 @@ export class AdvancedClaimedTaskActionRatingComponent extends AdvancedClaimedTas
   ) {
     super(injector, router, notificationsService, translate, searchService, requestService, route);
   }
-
 }

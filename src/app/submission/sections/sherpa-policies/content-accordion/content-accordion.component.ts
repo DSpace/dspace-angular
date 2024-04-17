@@ -7,6 +7,16 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCertificate,
+  faChevronDown,
+  faChevronUp,
+  faExclamationCircle,
+  faFolderOpen,
+  faHourglassHalf,
+  faTasks,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -25,10 +35,19 @@ import { PermittedVersions } from '../../../../core/submission/models/sherpa-pol
     NgIf,
     NgbCollapseModule,
     TitleCasePipe,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class ContentAccordionComponent {
+  protected readonly faChevronUp = faChevronUp;
+  protected readonly faChevronDown = faChevronDown;
+  protected readonly faHourglassHalf = faHourglassHalf;
+  protected readonly faFolderOpen = faFolderOpen;
+  protected readonly faCertificate = faCertificate;
+  protected readonly faExclamationCircle = faExclamationCircle;
+  protected readonly faTasks = faTasks;
+
   /**
    * PermittedVersions to show information from
    */

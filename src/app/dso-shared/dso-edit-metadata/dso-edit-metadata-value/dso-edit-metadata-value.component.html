@@ -43,13 +43,17 @@
                 [title]="dsoType + '.edit.metadata.edit.buttons.open-authority-edition' | translate"
                 ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.open-authority-edition' | translate }}"
                 (click)="onChangeEditingAuthorityStatus(true)">
-          <i class="fas fa-lock fa-fw"></i>
+          <fa-layers [fixedWidth]="true">
+            <fa-icon [icon]="faLock"/>
+          </fa-layers>
         </button>
         <button class="btn btn-outline-success btn-sm ng-star-inserted" id="metadata-confirm-btn" *ngIf="editingAuthority"
                 [title]="dsoType + '.edit.metadata.edit.buttons.close-authority-edition' | translate"
                 ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.close-authority-edition' | translate }}"
                 (click)="onChangeEditingAuthorityStatus(false)">
-          <i class="fas fa-lock-open fa-fw"></i>
+          <fa-layers [fixedWidth]="true">
+            <fa-icon [icon]="faLockOpen"/>
+          </fa-layers>
         </button>
       </div>
     </div>
@@ -72,31 +76,41 @@
                   [title]="dsoType + '.edit.metadata.edit.buttons.edit' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.edit' | translate }}"
                   [disabled]="isVirtual || mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE || (saving$ | async)" (click)="edit.emit()">
-            <i class="fas fa-edit fa-fw"></i>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon [icon]="faEdit"/>
+            </fa-layers>
           </button>
           <button class="btn btn-outline-success btn-sm ng-star-inserted" data-test="metadata-confirm-btn" *ngIf="mdValue.editing"
                   [title]="dsoType + '.edit.metadata.edit.buttons.confirm' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.confirm' | translate }}"
                   [disabled]="isVirtual || (saving$ | async)" (click)="confirm.emit(true)">
-            <i class="fas fa-check fa-fw"></i>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon [icon]="faCheck"/>
+            </fa-layers>
           </button>
           <button class="btn btn-outline-danger btn-sm" data-test="metadata-remove-btn"
                   [title]="dsoType + '.edit.metadata.edit.buttons.remove' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.remove' | translate }}"
                   [disabled]="isVirtual || (mdValue.change && mdValue.change !== DsoEditMetadataChangeTypeEnum.ADD) || mdValue.editing || (saving$ | async)" (click)="remove.emit()">
-            <i class="fas fa-trash-alt fa-fw"></i>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon [icon]="faTrashAlt"/>
+            </fa-layers>
           </button>
           <button class="btn btn-outline-warning btn-sm" data-test="metadata-undo-btn"
                   [title]="dsoType + '.edit.metadata.edit.buttons.undo' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.undo' | translate }}"
                   [disabled]="isVirtual || (!mdValue.change && mdValue.reordered) || (!mdValue.change && !mdValue.editing) || (saving$ | async)" (click)="undo.emit()">
-            <i class="fas fa-undo-alt fa-fw"></i>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon [icon]="faUndoAlt"/>
+            </fa-layers>
           </button>
           <button class="btn btn-outline-secondary ds-drag-handle btn-sm" data-test="metadata-drag-btn" *ngVar="(isOnlyValue || (saving$ | async)) as disabled"
                   cdkDragHandle [cdkDragHandleDisabled]="disabled" [ngClass]="{'disabled': disabled}" [disabled]="disabled"
                   [title]="dsoType + '.edit.metadata.edit.buttons.drag' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.drag' | translate }}">
-            <i class="fas fa-grip-vertical fa-fw"></i>
+            <fa-layers [fixedWidth]="true">
+              <fa-icon [icon]="faGripVertical"/>
+            </fa-layers>
           </button>
         </div>
       </div>

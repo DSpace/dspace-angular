@@ -14,6 +14,12 @@ import {
   RouterLink,
   Scroll,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faEdit,
+  faPlus,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   TranslateModule,
   TranslateService,
@@ -58,10 +64,15 @@ import { getCollectionItemTemplateRoute } from '../../collection-page-routing-pa
     TranslateModule,
     NgIf,
     VarDirective,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class CollectionMetadataComponent extends ComcolMetadataComponent<Collection> implements OnInit {
+  protected readonly faEdit = faEdit;
+  protected readonly faPlus = faPlus;
+  protected readonly faTrashAlt = faTrashAlt;
+
   protected frontendURL = '/collections/';
   protected type = Collection.type;
 

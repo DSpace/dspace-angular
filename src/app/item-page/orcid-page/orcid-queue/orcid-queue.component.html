@@ -39,7 +39,7 @@
                 </button>
                 <button [ngbTooltip]="'person.page.orcid.sync-queue.discard' | translate" container="body"
                         class="btn btn-outline-danger my-1 col-md" (click)="discardEntry(entry)">
-                  <span class="fas fa-unlink"></span>
+                  <fa-icon [icon]="faUnlink"/>
                   <span class="sr-only">{{ 'person.page.orcid.sync-queue.discard' | translate }}</span>
                 </button>
               </div>

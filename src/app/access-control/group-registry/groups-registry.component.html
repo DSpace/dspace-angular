@@ -6,8 +6,7 @@
         <div>
           <button class="mr-auto btn btn-success"
                   [routerLink]="'create'">
-            <i class="fas fa-plus"></i>
-            <span class="d-none d-sm-inline ml-1">{{messagePrefix + 'button.add' | translate}}</span>
+            <fa-icon [icon]="faPlus"/><span class="d-none d-sm-inline ml-1">{{messagePrefix + 'button.add' | translate}}</span>
           </button>
         </div>
       </div>
@@ -21,7 +20,7 @@
                    [placeholder]="(messagePrefix + 'search.placeholder' | translate)" >
             <span class="input-group-append">
               <button type="submit" class="search-button btn btn-primary">
-                <i class="fas fa-search"></i> {{ messagePrefix + 'search.button' | translate }}
+              <fa-icon [icon]="faSearch"/> {{ messagePrefix + 'search.button' | translate }}
               </button>
             </span>
           </div>
@@ -67,7 +66,9 @@
                       class="btn btn-outline-primary btn-sm btn-edit"
                       title="{{messagePrefix + 'table.edit.buttons.edit' | translate: {name: dsoNameService.getName(groupDto.group) } }}"
                     >
-                      <i class="fas fa-edit fa-fw"></i>
+                      <fa-layers [fixedWidth]="true">
+                        <fa-icon [icon]="faEdit"/>
+                      </fa-layers>
                     </button>
                     <button *ngSwitchCase="false"
                       [disabled]="true"
@@ -75,13 +76,17 @@
                       placement="left"
                       [ngbTooltip]="'admin.access-control.epeople.table.edit.buttons.edit-disabled' | translate"
                     >
-                      <i class="fas fa-edit fa-fw"></i>
+                      <fa-layers [fixedWidth]="true">
+                        <fa-icon [icon]="faEdit"/>
+                      </fa-layers>
                     </button>
                   </ng-container>
                   <button *ngIf="!groupDto.group?.permanent && groupDto.ableToDelete"
                           (click)="deleteGroup(groupDto)" class="btn btn-outline-danger btn-sm btn-delete"
                           title="{{messagePrefix + 'table.edit.buttons.remove' | translate: {name: dsoNameService.getName(groupDto.group) } }}">
-                    <i class="fas fa-trash-alt fa-fw"></i>
+                    <fa-layers [fixedWidth]="true">
+                      <fa-icon [icon]="faTrashAlt"/>
+                    </fa-layers>
                   </button>
                 </div>
               </td>

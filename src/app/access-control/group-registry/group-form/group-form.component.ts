@@ -16,6 +16,11 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faArrowLeft,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
@@ -99,6 +104,7 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
     ContextHelpDirective,
     MembersListComponent,
     SubgroupsListComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
@@ -106,6 +112,8 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
  * A form used for creating and editing groups
  */
 export class GroupFormComponent implements OnInit, OnDestroy {
+  protected readonly faTrashAlt = faTrashAlt;
+  protected readonly faArrowLeft = faArrowLeft;
 
   messagePrefix = 'admin.access-control.groups.form';
 

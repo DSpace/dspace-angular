@@ -17,6 +17,12 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faAngleDown,
+  faAngleRight,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -89,9 +95,13 @@ export interface ProcessOverviewTableEntry {
     NgIf,
     ThemedLoadingComponent,
     VarDirective,
+    FontAwesomeModule,
   ],
 })
 export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
+  protected readonly faTrash = faTrash;
+  protected readonly faAngleRight = faAngleRight;
+  protected readonly faAngleDown = faAngleDown;
 
   /**
    * The status of the processes this sections should show
@@ -293,5 +303,4 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
       .forEach((sub) => sub.unsubscribe());
     this.processOverviewService.stopAutoRefreshing(this.processStatus);
   }
-
 }

@@ -13,7 +13,7 @@
     <ds-parameter-value-input [initialValue]="parameterValue.value" [parameter]="selectedScriptParameter" (updateValue)="selectedParameterValue = $event" class="d-block col px-0" [index]="index"></ds-parameter-value-input>
     <button *ngIf="removable" [attr.aria-label]="'process.new.delete-parameter' | translate"
             (click)="removeParameter.emit(parameterValue);" class="btn btn-danger col-1 remove-button">
-      <i class="fas fa-trash"></i>
+      <fa-icon [icon]="faTrash"/>
     </button>
     <span *ngIf="!removable" class="col-1"></span>
 </div>

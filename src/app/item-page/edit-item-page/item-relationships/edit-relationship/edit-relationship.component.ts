@@ -7,6 +7,11 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faTrashAlt,
+  faUndoAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   NgbModal,
   NgbModalRef,
@@ -54,10 +59,14 @@ import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadat
     NgIf,
     TranslateModule,
     VirtualMetadataComponent,
+    FontAwesomeModule,
   ],
   standalone: true,
 })
 export class EditRelationshipComponent implements OnChanges {
+  protected readonly faTrashAlt = faTrashAlt;
+  protected readonly faUndoAlt = faUndoAlt;
+
   /**
    * The current field, value and state of the relationship
    */

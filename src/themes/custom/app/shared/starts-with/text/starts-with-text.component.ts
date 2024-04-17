@@ -3,6 +3,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { StartsWithTextComponent as BaseComponent } from '../../../../../../app/shared/starts-with/text/starts-with-text.component';
@@ -14,7 +15,7 @@ import { StartsWithTextComponent as BaseComponent } from '../../../../../../app/
   // templateUrl: './starts-with-text.component.html',
   templateUrl: '../../../../../../app/shared/starts-with/text/starts-with-text.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule, FontAwesomeModule],
 })
 export class StartsWithTextComponent extends BaseComponent {
 }

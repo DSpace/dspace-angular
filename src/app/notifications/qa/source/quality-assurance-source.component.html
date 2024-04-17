@@ -42,7 +42,9 @@
                                 title="{{'quality-assurance.source-list.button.detail' | translate : { param: sourceElement.id } }}"
                                 [routerLink]="[sourceElement.id]">
                           <span class="badge badge-info">{{sourceElement.totalEvents}}</span>
-                          <i class="fas fa-info fa-fw"></i>
+                          <fa-layers [fixedWidth]="true">
+                            <fa-icon [icon]="faInfo"/>
+                          </fa-layers>
                         </button>
                       </div>
                     </td>

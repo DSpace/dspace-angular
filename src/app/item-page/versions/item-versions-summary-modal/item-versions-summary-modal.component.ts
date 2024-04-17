@@ -9,6 +9,11 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faCheck,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
@@ -21,9 +26,11 @@ import { LoadingComponent } from '../../../shared/loading/loading.component';
   templateUrl: './item-versions-summary-modal.component.html',
   styleUrls: ['./item-versions-summary-modal.component.scss'],
   standalone: true,
-  imports: [NgIf, FormsModule, LoadingComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, FormsModule, LoadingComponent, AsyncPipe, TranslateModule, FontAwesomeModule],
 })
 export class ItemVersionsSummaryModalComponent implements OnInit, ModalBeforeDismiss {
+  protected readonly faCheck = faCheck;
+  protected readonly faTimes = faTimes;
 
   versionNumber: number;
   newVersionSummary: string;
@@ -56,5 +63,4 @@ export class ItemVersionsSummaryModalComponent implements OnInit, ModalBeforeDis
     // NOTE: the caller of this modal is responsible for closing it,
     //       e.g. after the version creation POST request completed.
   }
-
 }
