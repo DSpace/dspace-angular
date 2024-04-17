@@ -82,6 +82,12 @@ jobs:
         working-directory: build-scripts/run/
         run: |
           ./start.sh dspace-$INSTANCE
+          cd ../..
+          # this is not necessary, since extra.yml doesn't contain any new images that weren't pulled within script above
+          # docker compose --env-file $ENVFILE -p dspace-$INSTANCE -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f /opt/dspace-envs/8/extra.yml pull
+          docker compose --env-file $ENVFILE -p dspace-$INSTANCE -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f /opt/dspace-envs/8/extra.yml up -d --no-build
+          # this seems to be the easiest solution for now
+          docker restart dockerized-nginx-with-shibboleth-nginx-1
           /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
 
 
