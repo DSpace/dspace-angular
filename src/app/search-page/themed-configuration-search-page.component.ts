@@ -16,7 +16,6 @@ import { ConfigurationSearchPageComponent } from './configuration-search-page.co
  */
 @Component({
   selector: 'ds-configuration-search-page',
-  styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
   imports: [ConfigurationSearchPageComponent],
@@ -37,7 +36,7 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
    * The configuration to use for the search options
    * If empty, 'default' is used
    */
-  @Input() configuration;
+  @Input() configuration: string;
 
   /**
    * The actual query for the fixed filter.
@@ -49,12 +48,12 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
    * If this is true, the request will only be sent if there's
    * no valid cached version. Defaults to true
    */
-  @Input() useCachedVersionIfAvailable;
+  @Input() useCachedVersionIfAvailable: boolean;
 
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The link type of the listed search results
@@ -64,27 +63,27 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   /**
    * The pagination id used in the search
    */
-  @Input() paginationId;
+  @Input() paginationId: string;
 
   /**
    * Whether or not the search bar should be visible
    */
-  @Input() searchEnabled;
+  @Input() searchEnabled: boolean;
 
   /**
    * The width of the sidebar (bootstrap columns)
    */
-  @Input() sideBarWidth;
+  @Input() sideBarWidth: number;
 
   /**
    * The placeholder of the search form input
    */
-  @Input() searchFormPlaceholder;
+  @Input() searchFormPlaceholder: string;
 
   /**
    * A boolean representing if result entries are selectable
    */
-  @Input() selectable;
+  @Input() selectable: boolean;
 
   /**
    * The config option used for selection functionality
@@ -94,22 +93,22 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   /**
    * A boolean representing if show csv export button
    */
-  @Input() showCsvExport;
+  @Input() showCsvExport: boolean;
 
   /**
    * A boolean representing if show search sidebar button
    */
-  @Input() showSidebar;
+  @Input() showSidebar: boolean;
 
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * Whether to show the view mode switch
    */
-  @Input() showViewModes;
+  @Input() showViewModes: boolean;
 
   /**
    * List of available view mode
@@ -124,12 +123,12 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
   /**
    * Defines whether or not to show the scope selector
    */
-  @Input() showScopeSelector;
+  @Input() showScopeSelector: boolean;
 
   /**
    * Whether or not to track search statistics by sending updates to the rest api
    */
-  @Input() trackStatistics;
+  @Input() trackStatistics: boolean;
 
   /**
    * The default value for the search query when none is already defined in the {@link SearchConfigurationService}
@@ -146,8 +145,32 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
    */
   @Input() hideScopeInUrl: boolean;
 
-  protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] =
-    ['context', 'configuration', 'fixedFilterQuery', 'inPlaceSearch', 'searchEnabled', 'sideBarWidth'];
+  protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] = [
+    'configurationList',
+    'context',
+    'configuration',
+    'fixedFilterQuery',
+    'useCachedVersionIfAvailable',
+    'inPlaceSearch',
+    'linkType',
+    'paginationId',
+    'searchEnabled',
+    'sideBarWidth',
+    'searchFormPlaceholder',
+    'selectable',
+    'selectionConfig',
+    'showCsvExport',
+    'showSidebar',
+    'showThumbnails',
+    'showViewModes',
+    'useUniquePageId',
+    'viewModeList',
+    'showScopeSelector',
+    'trackStatistics',
+    'query',
+    'scope',
+    'hideScopeInUrl',
+  ];
 
   protected getComponentName(): string {
     return 'ConfigurationSearchPageComponent';

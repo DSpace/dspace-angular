@@ -7,7 +7,6 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  InjectionToken,
   Injector,
   Input,
   OnDestroy,
@@ -42,7 +41,7 @@ import {
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { UpdateDataService } from '../../core/data/update-data.service';
-import { lazyService } from '../../core/lazy-service';
+import { lazyDataService } from '../../core/lazy-data-service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
@@ -152,7 +151,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
               protected parentInjector: Injector,
               protected arrayMoveChangeAnalyser: ArrayMoveChangeAnalyzer<number>,
               protected cdr: ChangeDetectorRef,
-              @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: InjectionToken<LazyDataServicesMap>) {
+              @Inject(APP_DATA_SERVICES_MAP) private dataServiceMap: LazyDataServicesMap) {
   }
 
   /**
@@ -186,7 +185,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    */
   retrieveDataService(): Observable<UpdateDataService<DSpaceObject>> {
     if (hasNoValue(this.updateDataService)) {
-      const lazyProvider$: Observable<UpdateDataService<DSpaceObject>> = lazyService(this.dataServiceMap[this.dsoType], this.parentInjector);
+      const lazyProvider$: Observable<UpdateDataService<DSpaceObject>> = lazyDataService(this.dataServiceMap, this.dsoType, this.parentInjector);
       return lazyProvider$;
     } else {
       return EMPTY;

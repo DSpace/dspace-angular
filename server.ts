@@ -17,7 +17,6 @@
 
 import 'zone.js/node';
 import 'reflect-metadata';
-import 'rxjs';
 
 /* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
@@ -39,23 +38,26 @@ import { join } from 'path';
 
 import { enableProdMode } from '@angular/core';
 
-import { ngExpressEngine } from '@nguniversal/express-engine';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { environment } from './src/environments/environment';
 import { createProxyMiddleware } from 'http-proxy-middleware';
-import { hasNoValue, hasValue } from './src/app/shared/empty.util';
-
+import { hasValue } from './src/app/shared/empty.util';
 import { UIServerConfig } from './src/config/ui-server-config.interface';
-
 import bootstrap from './src/main.server';
-
 import { buildAppConfig } from './src/config/config.server';
-import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
-
+import { CommonEngine } from '@angular/ssr';
+import { APP_BASE_HREF } from '@angular/common';
+import {
+  REQUEST,
+  RESPONSE,
+} from './src/express.tokens';
 
 /*
  * Set path for the browser application's dist folder
@@ -126,27 +128,6 @@ export function app() {
    * See [body-parser](https://github.com/expressjs/body-parser)
    */
   server.use(json());
-
-  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine('html', (_, options, callback) =>
-    ngExpressEngine({
-      bootstrap,
-      providers: [
-        {
-          provide: REQUEST,
-          useValue: (options as any).req,
-        },
-        {
-          provide: RESPONSE,
-          useValue: (options as any).req.res,
-        },
-        {
-          provide: APP_CONFIG,
-          useValue: environment,
-        },
-      ],
-    })(_, (options as any), callback),
-  );
 
   server.engine('ejs', ejs.renderFile);
 
@@ -236,10 +217,10 @@ export function app() {
 /*
  * The callback function to serve server side angular
  */
-function ngApp(req, res) {
-  if (environment.universal.preboot) {
+function ngApp(req, res, next) {
+  if (environment.ssr.enabled) {
     // Render the page to user via SSR (server side rendering)
-    serverSideRender(req, res);
+    serverSideRender(req, res, next);
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct client-side rendering (CSR)');
@@ -252,45 +233,66 @@ function ngApp(req, res) {
  * returned to the user.
  * @param req current request
  * @param res current response
+ * @param next the next function
  * @param sendToUser if true (default), send the rendered content to the user.
  * If false, then only save this rendered content to the in-memory cache (to refresh cache).
  */
-function serverSideRender(req, res, sendToUser: boolean = true) {
+function serverSideRender(req, res, next, sendToUser: boolean = true) {
+  const { protocol, originalUrl, baseUrl, headers } = req;
+  const commonEngine = new CommonEngine({ enablePerformanceProfiler: environment.ssr.enablePerformanceProfiler });
   // Render the page via SSR (server side rendering)
-  res.render(indexHtml, {
-    req,
-    res,
-    preboot: environment.universal.preboot,
-    async: environment.universal.async,
-    time: environment.universal.time,
-    baseUrl: environment.ui.nameSpace,
-    originUrl: environment.ui.baseUrl,
-    requestUrl: req.originalUrl,
-  }, (err, data) => {
-    if (hasNoValue(err) && hasValue(data)) {
-      // save server side rendered page to cache (if any are enabled)
-      saveToCache(req, data);
-      if (sendToUser) {
-        res.locals.ssr = true;  // mark response as SSR (enables text compression)
-        // send rendered page to user
-        res.send(data);
+  commonEngine
+    .render({
+      bootstrap,
+      documentFilePath: indexHtml,
+      inlineCriticalCss: environment.ssr.inlineCriticalCss,
+      url: `${protocol}://${headers.host}${originalUrl}`,
+      publicPath: DIST_FOLDER,
+      providers: [
+        { provide: APP_BASE_HREF, useValue: baseUrl },
+        {
+          provide: REQUEST,
+          useValue: req,
+        },
+        {
+          provide: RESPONSE,
+          useValue: res,
+        },
+        {
+          provide: APP_CONFIG,
+          useValue: environment,
+        },
+      ],
+    })
+    .then((html) => {
+      if (hasValue(html)) {
+        // save server side rendered page to cache (if any are enabled)
+        saveToCache(req, html);
+        if (sendToUser) {
+          res.locals.ssr = true;  // mark response as SSR (enables text compression)
+          // send rendered page to user
+          res.send(html);
+        }
       }
-    } else if (hasValue(err) && err.code === 'ERR_HTTP_HEADERS_SENT') {
-      // When this error occurs we can't fall back to CSR because the response has already been
-      // sent. These errors occur for various reasons in universal, not all of which are in our
-      // control to solve.
-      console.warn('Warning [ERR_HTTP_HEADERS_SENT]: Tried to set headers after they were sent to the client');
-    } else {
-      console.warn('Error in server-side rendering (SSR)');
-      if (hasValue(err)) {
-        console.warn('Error details : ', err);
+    })
+    .catch((err) => {
+      if (hasValue(err) && err.code === 'ERR_HTTP_HEADERS_SENT') {
+        // When this error occurs we can't fall back to CSR because the response has already been
+        // sent. These errors occur for various reasons in universal, not all of which are in our
+        // control to solve.
+        console.warn('Warning [ERR_HTTP_HEADERS_SENT]: Tried to set headers after they were sent to the client');
+      } else {
+        console.warn('Error in server-side rendering (SSR)');
+        if (hasValue(err)) {
+          console.warn('Error details : ', err);
+        }
+        if (sendToUser) {
+          console.warn('Falling back to serving direct client-side rendering (CSR).');
+          clientSideRender(req, res);
+        }
       }
-      if (sendToUser) {
-        console.warn('Falling back to serving direct client-side rendering (CSR).');
-        clientSideRender(req, res);
-      }
-    }
-  });
+      next(err);
+    });
 }
 
 /**
@@ -348,7 +350,7 @@ function initCache() {
 function botCacheEnabled(): boolean {
   // Caching is only enabled if SSR is enabled AND
   // "max" pages to cache is greater than zero
-  return environment.universal.preboot && environment.cache.serverSide.botCache.max && (environment.cache.serverSide.botCache.max > 0);
+  return environment.ssr.enabled && environment.cache.serverSide.botCache.max && (environment.cache.serverSide.botCache.max > 0);
 }
 
 /**
@@ -357,7 +359,7 @@ function botCacheEnabled(): boolean {
 function anonymousCacheEnabled(): boolean {
   // Caching is only enabled if SSR is enabled AND
   // "max" pages to cache is greater than zero
-  return environment.universal.preboot && environment.cache.serverSide.anonymousCache.max && (environment.cache.serverSide.anonymousCache.max > 0);
+  return environment.ssr.enabled && environment.cache.serverSide.anonymousCache.max && (environment.cache.serverSide.anonymousCache.max > 0);
 }
 
 /**
@@ -370,9 +372,9 @@ function cacheCheck(req, res, next) {
 
   // If the bot cache is enabled and this request looks like a bot, check the bot cache for a cached page.
   if (botCacheEnabled() && isbot(req.get('user-agent'))) {
-    cachedCopy = checkCacheForRequest('bot', botCache, req, res);
+    cachedCopy = checkCacheForRequest('bot', botCache, req, res, next);
   } else if (anonymousCacheEnabled() && !isUserAuthenticated(req)) {
-    cachedCopy = checkCacheForRequest('anonymous', anonymousCache, req, res);
+    cachedCopy = checkCacheForRequest('anonymous', anonymousCache, req, res, next);
   }
 
   // If cached copy exists, return it to the user.
@@ -408,9 +410,10 @@ function cacheCheck(req, res, next) {
  * @param cache LRU cache to check
  * @param req current request to look for in the cache
  * @param res current response
+ * @param next the next function
  * @returns cached copy (if found) or undefined (if not found)
  */
-function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, res): any {
+function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, res, next): any {
   // Get the cache key for this request
   const key = getCacheKey(req);
 
@@ -426,7 +429,7 @@ function checkCacheForRequest(cacheName: string, cache: LRU<string, any>, req, r
       // Update cached copy by rerendering server-side
       // NOTE: In this scenario the currently cached copy will be returned to the current user.
       // This re-render is peformed behind the scenes to update cached copy for next user.
-      serverSideRender(req, res, false);
+      serverSideRender(req, res, next, false);
     }
   } else {
     if (environment.cache.serverSide.debug) { console.log(`CACHE MISS FOR ${key} in ${cacheName} cache.`); }
@@ -530,7 +533,7 @@ function createHttpsServer(keys) {
   const listener = createServer({
     key: keys.serviceKey,
     cert: keys.certificate,
-  }, app).listen(environment.ui.port, environment.ui.host, () => {
+  }, app()).listen(environment.ui.port, environment.ui.host, () => {
     serverStarted();
   });
 

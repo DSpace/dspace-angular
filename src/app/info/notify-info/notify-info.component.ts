@@ -11,7 +11,7 @@ import {
   of,
 } from 'rxjs';
 
-import { NotifyInfoService } from './notify-info.service';
+import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 
 @Component({
   selector: 'ds-notify-info',

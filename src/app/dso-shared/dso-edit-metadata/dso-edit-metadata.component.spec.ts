@@ -38,9 +38,9 @@ const REINSTATE_BTN = 'reinstate';
 const SAVE_BTN = 'save';
 const DISCARD_BTN = 'discard';
 
-const mockDataServiceMap: any = {
-  [ITEM.value]: () => import('../../shared/testing/test-data-service.mock').then(m => m.TestDataService),
-};
+const mockDataServiceMap: any = new Map([
+  [ITEM.value, () => import('../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+]);
 
 describe('DsoEditMetadataComponent', () => {
   let component: DsoEditMetadataComponent;
