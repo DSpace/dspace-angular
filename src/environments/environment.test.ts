@@ -577,4 +577,10 @@ export const environment: BuildConfig = {
   mirador: {
     enableDownloadPlugin: true,
   },
+
+  loader: {
+    enableFallbackMessagesByDefault: true,
+    warningMessageDelay: 1000,
+    errorMessageDelay: 2000,
+  },
 };

@@ -35,6 +35,7 @@ import {
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
+import { LoaderConfig } from './loader-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -759,5 +760,11 @@ export class DefaultAppConfig implements AppConfig {
 
   mirador: MiradorConfig = {
     enableDownloadPlugin: true,
+  };
+
+  loader: LoaderConfig = {
+    enableFallbackMessagesByDefault: false,
+    warningMessageDelay: 10000, // 10 seconds
+    errorMessageDelay: 30000, // 30 seconds
   };
 }
