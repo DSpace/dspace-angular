@@ -22,15 +22,15 @@ runs:
 
     - uses: actions/checkout@v4
       with:
-        repository: dataquest-dev/dspace-python-api
-        path: dspace-python-api
+        repository: dataquest-dev/dspace-import
         ref: 'main'
+        submodules: 'recursive'
 
 
     - name: stop and remove containers
       id: import
       shell: bash
-      working-directory: dspace-python-api/scripts
+      working-directory: dspace-import/scripts
       env:
         DATADIR: ${{ inputs.DATADIR }}
         DB5PORT: 15432
