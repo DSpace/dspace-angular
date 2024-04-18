@@ -37,7 +37,7 @@ runs:
         DB5PORT: 15432
         DB5NAME: dspace-import-db5
         DB7PORT: 543${{ inputs.INSTANCE }}
-        BEURL: http://dev-5.pc:8${{ inputs.INSTANCE }}/server/api/
+        BEURL: http://dev-5.pc:8${{ inputs.INSTANCE }}/server/api
       run: |
           docker stop $DB5NAME || true
           echo "====="
