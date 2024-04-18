@@ -55,7 +55,6 @@
     }
   },
   "exclude": [
-    "cypress.config.ts",
-    "lint"
+    "cypress.config.ts"
   ]
 }
