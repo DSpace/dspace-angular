@@ -3677,6 +3677,10 @@
 
   "loading.default": "Loading...",
 
+  "loading.warning": "This is taking longer than expected. Please be patient.",
+
+  "loading.error": "An error occurred while loading the page. Please refresh the page and try again.",
+
   "loading.item": "Loading item...",
 
   "loading.items": "Loading items...",
