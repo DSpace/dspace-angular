@@ -15,9 +15,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let collection of collectionsRD?.payload?.page">
-            <td><input class="collection-checkbox" [ngModel]="getSelected(collection.id) | async" (change)="switch(collection.id)" type="checkbox" name="{{collection.id}}"></td>
-            <td><a [routerLink]="['/collections', collection.id]">{{ dsoNameService.getName(collection) }}</a></td>
+          <tr *ngFor="let selectCollection of selectCollections$ | async">
+            <td><input [disabled]="(selectCollection.canSelect$ | async) === false" class="collection-checkbox" [ngModel]="selectCollection.selected$ | async" (change)="switch(selectCollection.dso.id)" type="checkbox" name="{{selectCollection.dso.id}}"></td>
+            <td><a [routerLink]="selectCollection.route">{{ dsoNameService.getName(selectCollection.dso) }}</a></td>
           </tr>
         </tbody>
       </table>
