@@ -18,7 +18,7 @@ export class ItemVersionsDeleteModalComponent {
    * An event fired when the cancel or confirm button is clicked, with respectively false or true
    */
   @Output()
-    response = new EventEmitter<boolean>();
+  response = new EventEmitter<boolean>();
 
   versionNumber: number;
 

@@ -82,13 +82,13 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * The message prefix
    */
   @Input()
-    MESSAGE_PREFIX: string;
+  MESSAGE_PREFIX: string;
 
   /**
    * Type of register request to be done, register new email or forgot password (same endpoint)
    */
   @Input()
-    typeRequest: string = null;
+  typeRequest: string = null;
 
   public AlertTypeEnum = AlertType;
 

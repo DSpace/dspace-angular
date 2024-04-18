@@ -20,31 +20,31 @@ export class SearchConfig implements CacheableObject {
    * The id of this search configuration.
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The configured filters.
    */
   @autoserialize
-    filters: FilterConfig[];
+  filters: FilterConfig[];
 
   /**
    * The configured sort options.
    */
   @autoserialize
-    sortOptions: SortConfig[];
+  sortOptions: SortConfig[];
 
   /**
    * The object type.
    */
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The {@link HALLink}s for this Item
    */
   @deserialize
-    _links: {
+  _links: {
     facets: HALLink;
     objects: HALLink;
     self: HALLink;

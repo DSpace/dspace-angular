@@ -59,7 +59,7 @@ export class SearchFormComponent implements OnChanges {
    * The currently selected scope object's UUID
    */
   @Input()
-    scope = '';
+  scope = '';
 
   /**
    * Hides the scope in the url, this can be useful when you hardcode the scope in another way
