@@ -39,7 +39,6 @@
 
   <ds-pagination *ngIf="(ePeopleSearchDtos | async)?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(ePeopleSearchDtos | async)"
                  [collectionSize]="(ePeopleSearchDtos | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -103,7 +102,6 @@
 
   <ds-pagination *ngIf="(ePeopleMembersOfGroupDtos | async)?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(ePeopleMembersOfGroupDtos | async)"
                  [collectionSize]="(ePeopleMembersOfGroupDtos | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">

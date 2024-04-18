@@ -3,7 +3,6 @@
     *ngIf="collectionsRD?.payload?.totalElements > 0 || collectionsRD?.payload?.page?.length > 0"
     [paginationOptions]="paginationOptions"
     [sortOptions]="sortOptions"
-    [pageInfoState]="collectionsRD?.payload"
     [collectionSize]="collectionsRD?.payload?.totalElements"
     [hidePagerWhenSinglePage]="true"
     [hideGear]="true">
