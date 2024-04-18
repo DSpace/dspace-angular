@@ -25,6 +25,7 @@ runs:
         repository: dataquest-dev/dspace-import
         ref: 'main'
         submodules: 'recursive'
+        path: 'dspace-import'
 
 
     - name: stop and remove containers
