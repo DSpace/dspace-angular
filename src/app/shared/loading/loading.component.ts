@@ -23,7 +23,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
   @Input() message: string;
   @Input() showMessage = true;
 
-  @Input() enableFallbackMessages = environment.loader.enableFallbackMessagesByDefault;
+  @Input() showFallbackMessages = environment.loader.showFallbackMessagesByDefault;
   @Input() warningMessage: string;
   @Input() warningMessageDelay = environment.loader.warningMessageDelay;
   @Input() errorMessage: string;
@@ -37,8 +37,6 @@ export class LoadingComponent implements OnDestroy, OnInit {
   readonly MessageType = MessageType;
   messageToShow: MessageType = this.showMessage ? MessageType.LOADING : undefined;
 
-  private subscriptions: Subscription[] = [];
-
   warningTimeout: any;
   errorTimeout: any;
 
@@ -49,22 +47,12 @@ export class LoadingComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    if (this.showMessage && this.message === undefined) {
-      this.subscriptions.push(this.translate.get('loading.default').subscribe((message: string) => {
-        this.message = message;
-      }));
+    if (this.showMessage) {
+      this.message = this.message || this.translate.instant('loading.default');
     }
-    if (this.enableFallbackMessages) {
-      if (!this.warningMessage) {
-        this.subscriptions.push(this.translate.get('loading.warning').subscribe((warningMessage: string) => {
-          this.warningMessage = warningMessage;
-        }));
-      }
-      if (!this.errorMessage) {
-        this.subscriptions.push(this.translate.get('loading.error').subscribe((errorMessage: string) => {
-          this.errorMessage = errorMessage;
-        }));
-      }
+    if (this.showFallbackMessages) {
+      this.warningMessage = this.warningMessage || this.translate.instant('loading.warning');
+      this.errorMessage = this.errorMessage || this.translate.instant('loading.error');
       if (this.warningMessageDelay > 0) {
         this.warningTimeout = setTimeout(() => {
           this.messageToShow = MessageType.WARNING;
@@ -81,11 +69,6 @@ export class LoadingComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    if (this.subscriptions.length > 0) {
-      this.subscriptions.forEach((sub) => {
-        sub.unsubscribe();
-      });
-    }
     if (hasValue(this.warningTimeout)) {
       clearTimeout(this.warningTimeout);
     }

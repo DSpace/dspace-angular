@@ -1,7 +1,7 @@
 import { Config } from './config.interface';
 
 export interface LoaderConfig extends Config {
-  enableFallbackMessagesByDefault: boolean;
+  showFallbackMessagesByDefault: boolean;
   warningMessageDelay: number;
   errorMessageDelay: number;
 }

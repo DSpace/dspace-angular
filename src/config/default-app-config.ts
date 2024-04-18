@@ -763,8 +763,8 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   loader: LoaderConfig = {
-    enableFallbackMessagesByDefault: false,
-    warningMessageDelay: 10000, // 10 seconds
-    errorMessageDelay: 30000, // 30 seconds
+    showFallbackMessagesByDefault: false,
+    warningMessageDelay: 5000, // 5 seconds
+    errorMessageDelay: 15000, // 15 seconds
   };
 }
