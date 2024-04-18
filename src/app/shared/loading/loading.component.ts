@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { Subscription } from 'rxjs';
 import { hasValue } from '../empty.util';
 import { environment } from '../../../environments/environment';
 import { AlertType } from '../alert/alert-type';
