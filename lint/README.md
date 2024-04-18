@@ -2,6 +2,12 @@
 
 Custom ESLint rules for DSpace Angular peculiarities.
 
+## Usage
+
+These plugins are included with the rest of our ESLint configuration in [.eslintc.json](../.eslintrc.json). Individual rules can be configured or disabled there, like usual.
+- In order for the new rules to be picked up by your IDE, you should first run `yarn build:lint` to build the plugins.
+- This will also happen automatically each time `yarn lint` is run.
+
 ## Documentation
 
 The rules are split up into plugins by language:
@@ -17,7 +23,13 @@ The rules are split up into plugins by language:
 - All rules are written in TypeScript and compiled into [`dist`](./dist)
   - The plugins are linked into the main project dependencies from here
   - These directories already contain the necessary `package.json` files to mark them as ESLint plugins
-- The plugins are declared in [`.eslintrc.json`](../.eslintrc.json). Individual rules can be configured or disabled there, like usual.
+- Rule source files are structured, so they can be imported all in one go
+  - Each rule must export the following:
+    - `Messages`: an Enum of error message IDs
+    - `info`: metadata about this rule (name, description, messages, options, ...)
+    - `rule`: the implementation of the rule
+    - `tests`: the tests for this rule, as a set of valid/invalid code snippets. These snippets are used as example in the documentation.
+  - New rules should be added to their plugin's `index.ts`
 - Some useful links
   - [Developing ESLint plugins](https://eslint.org/docs/latest/extend/plugins)
   - [Custom rules in typescript-eslint](https://typescript-eslint.io/developers/custom-rules)
