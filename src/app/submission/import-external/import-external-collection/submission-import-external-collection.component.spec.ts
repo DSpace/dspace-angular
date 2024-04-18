@@ -1,32 +1,54 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
-import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
+import { SubmissionImportExternalCollectionComponent } from './submission-import-external-collection.component';
 
 describe('SubmissionImportExternalCollectionComponent test suite', () => {
   let comp: SubmissionImportExternalCollectionComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionImportExternalCollectionComponent>;
+  let themeService = getMockThemeService();
 
-  beforeEach(waitForAsync (() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionImportExternalCollectionComponent,
         TestComponent,
       ],
       providers: [
         NgbActiveModal,
-        SubmissionImportExternalCollectionComponent
+        SubmissionImportExternalCollectionComponent,
+        { provide: ThemeService, useValue: themeService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(SubmissionImportExternalCollectionComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+            ThemedCollectionDropdownComponent,
+          ],
+        },
+      })
+      .compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -70,11 +92,11 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       const entry = {
         communities: [
           { id: 'community1' },
-          { id: 'community2' }
+          { id: 'community2' },
         ],
         collection: {
-          id: 'collection'
-        }
+          id: 'collection',
+        },
       } as CollectionListEntry;
       comp.selectObject(entry);
 
@@ -117,7 +139,7 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
       expect(comp.selectedEvent.emit).toHaveBeenCalledWith(selected);
     });
 
-    it('dropdown should be invisible when the component is loading', fakeAsync(() => {
+    it('dropdown should be invisible when the component is loading', waitForAsync(() => {
 
       spyOn(comp, 'isLoading').and.returnValue(true);
       fixture.detectChanges();
@@ -134,7 +156,8 @@ describe('SubmissionImportExternalCollectionComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

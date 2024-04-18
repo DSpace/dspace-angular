@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { CommunityStatisticsPageComponent } from './community-statistics-page.component';
 
@@ -9,6 +10,7 @@ import { CommunityStatisticsPageComponent } from './community-statistics-page.co
   selector: 'ds-themed-collection-statistics-page',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedCommunityStatisticsPageComponent extends ThemedComponent<CommunityStatisticsPageComponent> {
   protected getComponentName(): string {

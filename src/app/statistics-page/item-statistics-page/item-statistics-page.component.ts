@@ -1,10 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { Item } from '../../core/shared/item.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthService } from '../../core/auth/auth.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 /**
  * Component representing the statistics page for an item.
@@ -12,9 +14,11 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-item-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./item-statistics-page.component.scss']
+  styleUrls: ['./item-statistics-page.component.scss'],
+  standalone: true,
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
 })
-export class ItemStatisticsPageComponent extends StatisticsPageComponent<Item> {
+export class ItemStatisticsPageComponent extends StatisticsPageDirective<Item> {
 
   /**
    * The report types to show on this statistics page.
@@ -26,20 +30,4 @@ export class ItemStatisticsPageComponent extends StatisticsPageComponent<Item> {
     'TopCountries',
     'TopCities',
   ];
-
-  constructor(
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected usageReportService: UsageReportDataService,
-    protected nameService: DSONameService,
-    protected authService: AuthService
-  ) {
-    super(
-      route,
-      router,
-      usageReportService,
-      nameService,
-      authService,
-    );
-  }
 }

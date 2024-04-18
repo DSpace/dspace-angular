@@ -1,12 +1,16 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ConfigurationDataService } from './configuration-data.service';
 import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { ConfigurationDataService } from './configuration-data.service';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
 
 describe('ConfigurationDataService', () => {
   let scheduler: TestScheduler;
@@ -18,7 +22,7 @@ describe('ConfigurationDataService', () => {
   const testObject = {
     uuid: 'test-property',
     name: 'test-property',
-    values: ['value-1', 'value-2']
+    values: ['value-1', 'value-2'],
   } as ConfigurationProperty;
   const configLink = 'https://rest.api/rest/api/config/properties';
   const requestURL = `https://rest.api/rest/api/config/properties/${testObject.name}`;
@@ -28,18 +32,18 @@ describe('ConfigurationDataService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: configLink })
+      getEndpoint: cold('a', { a: configLink }),
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      send: true
+      send: true,
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {
         a: {
-          payload: testObject
-        }
-      })
+          payload: testObject,
+        },
+      }),
     });
     objectCache = {} as ObjectCacheService;
 
@@ -70,8 +74,8 @@ describe('ConfigurationDataService', () => {
       const result = service.findByPropertyName(testObject.name);
       const expected = cold('a', {
         a: {
-          payload: testObject
-        }
+          payload: testObject,
+        },
       });
       expect(result).toBeObservable(expected);
     });

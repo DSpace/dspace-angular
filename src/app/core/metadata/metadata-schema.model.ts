@@ -1,4 +1,8 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { typedObject } from '../cache/builders/build-decorators';
 import { GenericConstructor } from '../shared/generic-constructor';
@@ -19,29 +23,29 @@ export class MetadataSchema extends ListableObject implements HALResource {
    * The unique identifier for this metadata schema
    */
   @autoserialize
-  id: number;
+    id: number;
 
   /**
    * The object type
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * A unique prefix that defines this schema
    */
   @autoserialize
-  prefix: string;
+    prefix: string;
 
   /**
    * The namespace of this metadata schema
    */
   @autoserialize
-  namespace: string;
+    namespace: string;
 
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
   };
 

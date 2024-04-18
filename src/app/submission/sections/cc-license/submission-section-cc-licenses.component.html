@@ -20,7 +20,7 @@
     </ng-container>
 
     <ng-container class="menu">
-      <button *ngIf="submissionCcLicenses?.length == 0"
+      <button *ngIf="submissionCcLicenses?.length === 0"
               class="dropdown-item disabled">
         {{ 'submission.sections.ccLicense.none' | translate }}
       </button>
@@ -134,6 +134,7 @@
       <div class="m-2">
         <div (click)="setAccepted(!accepted)">
           <input type="checkbox"
+                 class="mr-2"
                  title="accepted"
                  [checked]="accepted">
           <span> {{ 'submission.sections.ccLicense.confirmation' | translate }}</span>

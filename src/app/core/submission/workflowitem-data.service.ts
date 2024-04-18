@@ -1,32 +1,40 @@
 import { Injectable } from '@angular/core';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestService } from '../data/request.service';
-import { WorkflowItem } from './models/workflowitem.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteByIDRequest } from '../data/request.models';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { Observable } from 'rxjs';
-import { find, map } from 'rxjs/operators';
+import {
+  find,
+  map,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
+import { DeleteByIDRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { WorkflowItem } from './models/workflowitem.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
-import { RequestParam } from '../cache/models/request-param.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { PaginatedList } from '../data/paginated-list.model';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with workflow items endpoint.
  */
-@Injectable()
-@dataService(WorkflowItem.type)
+@Injectable({ providedIn: 'root' })
 export class WorkflowItemDataService extends IdentifiableDataService<WorkflowItem> implements SearchData<WorkflowItem>, DeleteData<WorkflowItem> {
   protected linkPath = 'workflowitems';
   protected searchByItemLinkPath = 'item';
@@ -65,7 +73,7 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
   sendBack(id: string): Observable<boolean> {
     return this.deleteWFI(id, false).pipe(
       getFirstCompletedRemoteData(),
-      map((response: RemoteData<NoContent>) => response.hasSucceeded)
+      map((response: RemoteData<NoContent>) => response.hasSucceeded),
     );
   }
 

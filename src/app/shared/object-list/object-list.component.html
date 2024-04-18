@@ -1,6 +1,6 @@
 <ds-pagination
         [paginationOptions]="config"
-        [pageInfoState]="objects?.payload"
+        [pageInfoState]="$any(objects?.payload)"
         [collectionSize]="objects?.payload?.totalElements"
         [objects]="objects"
         [sortOptions]="sortConfig"
@@ -15,7 +15,7 @@
         (paginationChange)="onPaginationChange($event)"
         (prev)="goPrev()"
         (next)="goNext()">
-    <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
+    <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}" data-test="objects">
         <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" [attr.data-test]="'list-object' | dsBrowserOnly">
           <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
                                            [object]="object"

@@ -6,63 +6,63 @@ import {
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
+import { ActionType } from '../../../core/resource-policy/models/action-type.model';
+import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
 import { DsDynamicInputModelConfig } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModelConfig } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
 
 const policyTypeList: DynamicFormOptionConfig<any>[] = [
   {
     label: PolicyType.TYPE_SUBMISSION,
-    value: PolicyType.TYPE_SUBMISSION
+    value: PolicyType.TYPE_SUBMISSION,
   },
   {
     label: PolicyType.TYPE_WORKFLOW,
-    value: PolicyType.TYPE_WORKFLOW
+    value: PolicyType.TYPE_WORKFLOW,
   },
   {
     label: PolicyType.TYPE_INHERITED,
-    value: PolicyType.TYPE_INHERITED
+    value: PolicyType.TYPE_INHERITED,
   },
   {
     label: PolicyType.TYPE_CUSTOM,
-    value: PolicyType.TYPE_CUSTOM
+    value: PolicyType.TYPE_CUSTOM,
   },
 ];
 
 const policyActionList: DynamicFormOptionConfig<any>[] = [
   {
     label: ActionType.READ.toString(),
-    value: ActionType.READ
+    value: ActionType.READ,
   },
   {
     label: ActionType.WRITE.toString(),
-    value: ActionType.WRITE
+    value: ActionType.WRITE,
   },
   {
     label: ActionType.REMOVE.toString(),
-    value: ActionType.REMOVE
+    value: ActionType.REMOVE,
   },
   {
     label: ActionType.ADMIN.toString(),
-    value: ActionType.ADMIN
+    value: ActionType.ADMIN,
   },
   {
     label: ActionType.DELETE.toString(),
-    value: ActionType.DELETE
+    value: ActionType.DELETE,
   },
   {
     label: ActionType.WITHDRAWN_READ.toString(),
-    value: ActionType.WITHDRAWN_READ
+    value: ActionType.WITHDRAWN_READ,
   },
   {
     label: ActionType.DEFAULT_BITSTREAM_READ.toString(),
-    value: ActionType.DEFAULT_BITSTREAM_READ
+    value: ActionType.DEFAULT_BITSTREAM_READ,
   },
   {
     label: ActionType.DEFAULT_ITEM_READ.toString(),
-    value: ActionType.DEFAULT_ITEM_READ
-  }
+    value: ActionType.DEFAULT_ITEM_READ,
+  },
 ];
 
 export const RESOURCE_POLICY_FORM_NAME_CONFIG: DsDynamicInputModelConfig = {
@@ -71,7 +71,7 @@ export const RESOURCE_POLICY_FORM_NAME_CONFIG: DsDynamicInputModelConfig = {
   metadataFields: [],
   repeatable: false,
   submissionId: '',
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const RESOURCE_POLICY_FORM_DESCRIPTION_CONFIG: DsDynamicTextAreaModelConfig = {
@@ -81,7 +81,7 @@ export const RESOURCE_POLICY_FORM_DESCRIPTION_CONFIG: DsDynamicTextAreaModelConf
   repeatable: false,
   rows: 10,
   submissionId: '',
-  hasSelectableMetadata: false
+  hasSelectableMetadata: false,
 };
 
 export const RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG: DynamicSelectModelConfig<any> = {
@@ -90,11 +90,11 @@ export const RESOURCE_POLICY_FORM_POLICY_TYPE_CONFIG: DynamicSelectModelConfig<a
   options: policyTypeList,
   required: true,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'resource-policies.form.policy-type.required'
-  }
+    required: 'resource-policies.form.policy-type.required',
+  },
 };
 
 export const RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG: DynamicSelectModelConfig<any> = {
@@ -103,21 +103,21 @@ export const RESOURCE_POLICY_FORM_ACTION_TYPE_CONFIG: DynamicSelectModelConfig<a
   options: policyActionList,
   required: true,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'resource-policies.form.action-type.required'
-  }
+    required: 'resource-policies.form.action-type.required',
+  },
 };
 
 export const RESOURCE_POLICY_FORM_DATE_GROUP_CONFIG: DynamicFormGroupModelConfig = {
   id: 'date',
-  group: []
+  group: [],
 };
 export const RESOURCE_POLICY_FORM_DATE_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
     control: 'form-row',
-  }
+  },
 };
 
 export const RESOURCE_POLICY_FORM_START_DATE_CONFIG: DynamicDatePickerModelConfig = {
@@ -125,17 +125,17 @@ export const RESOURCE_POLICY_FORM_START_DATE_CONFIG: DynamicDatePickerModelConfi
   label: 'resource-policies.form.date.start.label',
   placeholder: 'resource-policies.form.date.start.label',
   inline: false,
-  toggleIcon: 'far fa-calendar-alt'
+  toggleIcon: 'far fa-calendar-alt',
 };
 
 export const RESOURCE_POLICY_FORM_START_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
     container: 'p-0',
-    label: 'col-form-label'
+    label: 'col-form-label',
   },
   grid: {
-    host: 'col-md-6'
-  }
+    host: 'col-md-6',
+  },
 };
 
 export const RESOURCE_POLICY_FORM_END_DATE_CONFIG: DynamicDatePickerModelConfig = {
@@ -143,14 +143,14 @@ export const RESOURCE_POLICY_FORM_END_DATE_CONFIG: DynamicDatePickerModelConfig 
   label: 'resource-policies.form.date.end.label',
   placeholder: 'resource-policies.form.date.end.label',
   inline: false,
-  toggleIcon: 'far fa-calendar-alt'
+  toggleIcon: 'far fa-calendar-alt',
 };
 export const RESOURCE_POLICY_FORM_END_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
     container: 'p-0',
-    label: 'col-form-label'
+    label: 'col-form-label',
   },
   grid: {
-    host: 'col-md-6'
-  }
+    host: 'col-md-6',
+  },
 };

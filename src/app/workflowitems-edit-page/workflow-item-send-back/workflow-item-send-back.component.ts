@@ -1,22 +1,36 @@
+import {
+  CommonModule,
+  Location,
+} from '@angular/common';
 import { Component } from '@angular/core';
-import { WorkflowItemActionPageComponent } from '../workflow-item-action-page.component';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { RouteService } from '../../core/services/route.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+
 import { RequestService } from '../../core/data/request.service';
-import { Location } from '@angular/common';
+import { RouteService } from '../../core/services/route.service';
+import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
+import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.component';
 
 @Component({
   selector: 'ds-workflow-item-send-back',
-  templateUrl: '../workflow-item-action-page.component.html'
+  templateUrl: '../workflow-item-action-page.component.html',
+  standalone: true,
+  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],
 })
 /**
  * Component representing a page to send back a workflow item to the submitter
  */
-export class WorkflowItemSendBackComponent extends WorkflowItemActionPageComponent {
+export class WorkflowItemSendBackComponent extends WorkflowItemActionPageDirective {
   constructor(protected route: ActivatedRoute,
               protected workflowItemService: WorkflowItemDataService,
               protected router: Router,

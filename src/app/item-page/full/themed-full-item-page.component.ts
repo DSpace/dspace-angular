@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { FullItemPageComponent } from './full-item-page.component';
 
@@ -9,6 +10,7 @@ import { FullItemPageComponent } from './full-item-page.component';
   selector: 'ds-themed-full-item-page',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedFullItemPageComponent extends ThemedComponent<FullItemPageComponent> {
   protected getComponentName(): string {

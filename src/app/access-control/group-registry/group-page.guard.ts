@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { SomeFeatureAuthorizationGuard } from '../../core/data/feature-authorization/feature-authorization-guard/some-feature-authorization.guard';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { AuthService } from '../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { SomeFeatureAuthorizationGuard } from '../../core/data/feature-authorization/feature-authorization-guard/some-feature-authorization.guard';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GroupPageGuard extends SomeFeatureAuthorizationGuard {
 
@@ -28,7 +36,7 @@ export class GroupPageGuard extends SomeFeatureAuthorizationGuard {
 
   getObjectUrl(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
     return this.halEndpointService.getEndpoint(this.groupsEndpoint).pipe(
-      map(groupsUrl => `${groupsUrl}/${route?.params?.groupId}`)
+      map(groupsUrl => `${groupsUrl}/${route?.params?.groupId}`),
     );
   }
 
