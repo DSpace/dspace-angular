@@ -96,6 +96,8 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     this.initialDay = now.getUTCDate();
 
     if (this.model && this.model.value !== null) {
+      // todo: model value could object or Date according to its type annotation
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       const values = this.model.value.toString().split(DS_DATE_PICKER_SEPARATOR);
       if (values.length > 0) {
         this.initialYear = parseInt(values[0], 10);

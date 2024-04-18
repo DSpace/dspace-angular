@@ -117,6 +117,8 @@ export class MetadataValuesComponent implements OnChanges {
    */
   getQueryParams(value) {
     const queryParams = { startsWith: value };
+    // todo: should compare with type instead?
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     if (this.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
       return { value: value };
     }

@@ -43,7 +43,7 @@ function isAngularComponentDecorator(node: ts.Node) {
       const method = decorator.expression as ts.CallExpression;
 
       if (method.expression.kind === ts.SyntaxKind.Identifier) {
-        return (method.expression as Identifier).escapedText === 'Component';
+        return (method.expression as Identifier).text === 'Component';
       }
     }
   }
@@ -60,7 +60,7 @@ function findImportDeclaration(source: ts.SourceFile, identifierName: string): t
         const namedImports = importDeclaration.importClause?.namedBindings as ts.NamedImports;
 
         for (const element of namedImports.elements) {
-          if (element.name.escapedText === identifierName) {
+          if (element.name.text === identifierName) {
             return importDeclaration;
           }
         }

@@ -52,7 +52,7 @@ export function findUsages(context: AnyRuleContext, localNode: TSESTree.Identifi
   const usages: TSESTree.Identifier[] = [];
 
   for (const token of source.ast.tokens) {
-    if (token.type === 'Identifier' && token.value === localNode.name && !match(token.range, localNode.range)) {
+    if (token.type === TSESTree.AST_TOKEN_TYPES.Identifier && token.value === localNode.name && !match(token.range, localNode.range)) {
       const node = source.getNodeByRangeIndex(token.range[0]);
       // todo: in some cases, the resulting node can actually be the whole program (!)
       if (node !== null) {
@@ -70,7 +70,7 @@ export function findUsagesByName(context: AnyRuleContext, identifier: string): T
   const usages: TSESTree.Identifier[] = [];
 
   for (const token of source.ast.tokens) {
-    if (token.type === 'Identifier' && token.value === identifier) {
+    if (token.type === TSESTree.AST_TOKEN_TYPES.Identifier && token.value === identifier) {
       const node = source.getNodeByRangeIndex(token.range[0]);
       // todo: in some cases, the resulting node can actually be the whole program (!)
       if (node !== null) {
@@ -83,11 +83,11 @@ export function findUsagesByName(context: AnyRuleContext, identifier: string): T
 }
 
 export function isPartOfTypeExpression(node: TSESTree.Identifier): boolean {
-  return node.parent?.type?.startsWith('TSType');
+  return node.parent?.type?.valueOf().startsWith('TSType');
 }
 
 export function isPartOfClassDeclaration(node: TSESTree.Identifier): boolean {
-  return node.parent?.type === 'ClassDeclaration';
+  return node.parent?.type === TSESTree.AST_NODE_TYPES.ClassDeclaration;
 }
 
 function fromSrc(path: string): string {
@@ -134,7 +134,7 @@ export function findImportSpecifier(context: AnyRuleContext, identifier: string)
   const usages: TSESTree.Identifier[] = [];
 
   for (const token of source.ast.tokens) {
-    if (token.type === 'Identifier' && token.value === identifier) {
+    if (token.type === TSESTree.AST_TOKEN_TYPES.Identifier && token.value === identifier) {
       const node = source.getNodeByRangeIndex(token.range[0]);
       // todo: in some cases, the resulting node can actually be the whole program (!)
       if (node && node.parent && node.parent.type === TSESTree.AST_NODE_TYPES.ImportSpecifier) {

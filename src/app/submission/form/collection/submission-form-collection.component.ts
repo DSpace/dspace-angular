@@ -166,7 +166,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
-    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.collection);
+    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Collection);
   }
 
   /**
