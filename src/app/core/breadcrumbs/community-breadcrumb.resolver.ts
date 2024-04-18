@@ -1,29 +1,35 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
 
+import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
 import { COMMUNITY_PAGE_LINKS_TO_FOLLOW } from '../../community-page/community-page.resolver';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { CommunityDataService } from '../data/community-data.service';
 import { Community } from '../shared/community.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 
 /**
- * The class that resolves the BreadcrumbConfig object for a Community
+ * The resolve function that resolves the BreadcrumbConfig object for a Community
  */
-@Injectable({
-  providedIn: 'root',
-})
-export class CommunityBreadcrumbResolver extends DSOBreadcrumbResolver<Community> {
-  constructor(protected breadcrumbService: DSOBreadcrumbsService, protected dataService: CommunityDataService) {
-    super(breadcrumbService, dataService);
-  }
-
-  /**
-   * Method that returns the follow links to already resolve
-   * The self links defined in this list are expected to be requested somewhere in the near future
-   * Requesting them as embeds will limit the number of requests
-   */
-  get followLinks(): FollowLinkConfig<Community>[] {
-    return COMMUNITY_PAGE_LINKS_TO_FOLLOW;
-  }
-}
+export const communityBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Community>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  breadcrumbService: DSOBreadcrumbsService = inject(DSOBreadcrumbsService),
+  dataService: CommunityDataService = inject(CommunityDataService),
+): Observable<BreadcrumbConfig<Community>> => {
+  const linksToFollow: FollowLinkConfig<DSpaceObject>[] = COMMUNITY_PAGE_LINKS_TO_FOLLOW as FollowLinkConfig<DSpaceObject>[];
+  return DSOBreadcrumbResolver(
+    route,
+    state,
+    breadcrumbService,
+    dataService,
+    ...linksToFollow,
+  ) as Observable<BreadcrumbConfig<Community>>;
+};

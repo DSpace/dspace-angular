@@ -1,8 +1,15 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
@@ -23,6 +30,14 @@ import {
   templateUrl: './my-dspace-qa-events-notifications.component.html',
   styleUrls: ['./my-dspace-qa-events-notifications.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    AsyncPipe,
+    NgForOf,
+    TranslateModule,
+    RouterLink,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class MyDspaceQaEventsNotificationsComponent  implements OnInit {
 

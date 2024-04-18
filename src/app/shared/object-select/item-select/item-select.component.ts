@@ -1,8 +1,17 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,12 +23,18 @@ import {
   hasValueOperator,
   isNotEmpty,
 } from '../../empty.util';
+import { ErrorComponent } from '../../error/error.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
+import { VarDirective } from '../../utils/var.directive';
 import { DSpaceObjectSelect } from '../object-select.model';
 import { ObjectSelectComponent } from '../object-select/object-select.component';
 
 @Component({
   selector: 'ds-item-select',
   templateUrl: './item-select.component.html',
+  standalone: true,
+  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule],
 })
 
 /**

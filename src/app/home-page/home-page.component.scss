@@ -1,2 +1,5 @@
-:host {
+:host ::ng-deep {
+  .container-fluid .container {
+    padding: 0;
+  }
 }

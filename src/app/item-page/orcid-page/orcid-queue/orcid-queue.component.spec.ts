@@ -23,6 +23,7 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { Item } from '../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
@@ -127,8 +128,8 @@ describe('OrcidQueueComponent test suite', () => {
           },
         }),
         RouterTestingModule.withRoutes([]),
+        OrcidQueueComponent,
       ],
-      declarations: [OrcidQueueComponent],
       providers: [
         { provide: OrcidAuthService, useValue: orcidAuthService },
         { provide: OrcidQueueDataService, useValue: orcidQueueServiceSpy },
@@ -137,7 +138,13 @@ describe('OrcidQueueComponent test suite', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(OrcidQueueComponent, {
+        remove: {
+          imports: [PaginationComponent],
+        },
+      })
+      .compileComponents();
 
     orcidQueueService = TestBed.inject(OrcidQueueDataService);
   }));

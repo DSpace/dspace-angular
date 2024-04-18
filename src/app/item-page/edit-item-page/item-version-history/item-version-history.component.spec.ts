@@ -1,4 +1,7 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -12,6 +15,7 @@ import { of as observableOf } from 'rxjs';
 import { Item } from '../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { ItemVersionsComponent } from '../../versions/item-versions.component';
 import { ItemVersionHistoryComponent } from './item-version-history.component';
 
 describe('ItemVersionHistoryComponent', () => {
@@ -33,13 +37,22 @@ describe('ItemVersionHistoryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemVersionHistoryComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        ItemVersionHistoryComponent,
+        VarDirective,
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ItemVersionHistoryComponent, {
+        remove: { imports: [ItemVersionsComponent] },
+        add: { imports: [MockItemVersionsComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -55,3 +68,10 @@ describe('ItemVersionHistoryComponent', () => {
     });
   });
 });
+
+@Component({
+  selector: 'ds-item-versions',
+  template: '',
+  standalone: true,
+})
+class MockItemVersionsComponent {}

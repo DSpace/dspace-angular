@@ -6,5 +6,5 @@ export const StoreDevModules = [
   StoreDevtoolsModule.instrument({
     maxAge: 1000,
     logOnly: false,
-  }),
+    connectInZone: true }),
 ];

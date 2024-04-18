@@ -34,7 +34,7 @@
                          [checked]="isSelected(bitstreamFormat) | async"
                          (change)="selectBitStreamFormat(bitstreamFormat, $event)"
                   >
-                  <span class="sr-only">{{'admin.registries.bitstream-formats.select' | translate}}}</span>
+                  <span class="sr-only">{{'admin.registries.bitstream-formats.select' | translate}}&#125;</span>
                 </label>
               </td>
               <td><a [routerLink]="['/admin/registries/bitstream-formats', bitstreamFormat.id, 'edit']">{{bitstreamFormat.id}}</a></td>

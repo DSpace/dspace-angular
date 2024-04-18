@@ -1,8 +1,14 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Inject,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -32,6 +38,7 @@ import { Group } from '../../../core/eperson/models/group.model';
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
@@ -45,8 +52,8 @@ import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
+import { SubmissionSectionUploadAccessConditionsComponent } from './accessConditions/submission-section-upload-access-conditions.component';
+import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';
 import { SectionUploadService } from './section-upload.service';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
@@ -64,8 +71,17 @@ export interface AccessConditionGroupsMapEntry {
   selector: 'ds-submission-section-upload',
   styleUrls: ['./section-upload.component.scss'],
   templateUrl: './section-upload.component.html',
+  imports: [
+    ThemedSubmissionSectionUploadFileComponent,
+    SubmissionSectionUploadAccessConditionsComponent,
+    NgIf,
+    AlertComponent,
+    TranslateModule,
+    NgForOf,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.Upload)
 export class SubmissionSectionUploadComponent extends SectionModelComponent {
 
   /**

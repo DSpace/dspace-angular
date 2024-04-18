@@ -4,10 +4,6 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { SearchService } from 'src/app/core/shared/search/search.service';
-import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
-import { SearchServiceStub } from 'src/app/shared/testing/search-service.stub';
-import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
@@ -16,10 +12,14 @@ import {
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { SearchServiceStub } from '../../shared/testing/search-service.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 import { RecentItemListComponent } from './recent-item-list.component';
 
 describe('RecentItemListComponent', () => {
@@ -47,7 +47,7 @@ describe('RecentItemListComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RecentItemListComponent],
+      imports: [RecentItemListComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: PaginationService, useValue: paginationService },

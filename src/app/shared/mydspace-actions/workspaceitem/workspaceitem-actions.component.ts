@@ -1,12 +1,25 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Injector,
   Input,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -38,6 +51,8 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   selector: 'ds-workspaceitem-actions',
   styleUrls: ['./workspaceitem-actions.component.scss'],
   templateUrl: './workspaceitem-actions.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, RouterLink, NgIf, AsyncPipe, TranslateModule],
 })
 export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<WorkspaceItem, WorkspaceitemDataService> implements OnInit {
 

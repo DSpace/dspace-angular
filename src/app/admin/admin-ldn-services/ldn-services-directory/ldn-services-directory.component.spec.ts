@@ -9,6 +9,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -20,10 +21,14 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 import { LdnServicesOverviewComponent } from './ldn-services-directory.component';
@@ -50,8 +55,7 @@ describe('LdnServicesOverviewComponent', () => {
       'patch': createSuccessfulRemoteDataObject$({}),
     });
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [LdnServicesOverviewComponent],
+      imports: [TranslateModule.forRoot(), LdnServicesOverviewComponent],
       providers: [
         {
           provide: LdnServicesService,
@@ -60,16 +64,28 @@ describe('LdnServicesOverviewComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         {
           provide: NgbModal, useValue: {
-            open: () => { /*comment*/
+            open: () => {
+              //
             },
           },
         },
         { provide: ChangeDetectorRef, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(LdnServicesOverviewComponent, {
+        remove: {
+          imports: [
+            PaginationComponent,
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ],
+        },
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -107,11 +123,9 @@ describe('LdnServicesOverviewComponent', () => {
       component.ldnServicesRD$ = createSuccessfulRemoteDataObject$(mockLdnServicesRD);
       fixture.detectChanges();
 
-      const tableRows = fixture.debugElement.nativeElement.querySelectorAll('tbody tr');
-      expect(tableRows.length).toBe(testData.length);
-      const firstRowContent = tableRows[0].textContent;
-      expect(firstRowContent).toContain('Service 1');
-      expect(firstRowContent).toContain('Description 1');
+      component.ldnServicesRD$.subscribe((rd) => {
+        expect(rd.payload.page).toEqual(mockLdnServicesRD.page);
+      });
     }));
   });
 

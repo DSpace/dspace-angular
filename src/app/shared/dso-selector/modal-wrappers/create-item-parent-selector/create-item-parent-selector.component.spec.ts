@@ -18,6 +18,7 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 
 describe('CreateItemParentSelectorComponent', () => {
@@ -39,8 +40,7 @@ describe('CreateItemParentSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [CreateItemParentSelectorComponent],
+      imports: [TranslateModule.forRoot(), CreateItemParentSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -60,7 +60,11 @@ describe('CreateItemParentSelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(CreateItemParentSelectorComponent, {
+        remove: { imports: [AuthorizedCollectionSelectorComponent] },
+      })
+      .compileComponents();
 
   }));
 

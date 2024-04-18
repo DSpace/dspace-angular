@@ -1,8 +1,10 @@
+import { NgForOf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
   ContentChildren,
   EventEmitter,
+  forwardRef,
   Input,
   Output,
   QueryList,
@@ -24,6 +26,11 @@ import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-contro
 @Component({
   selector: 'ds-dynamic-form',
   templateUrl: './ds-dynamic-form.component.html',
+  imports: [
+    forwardRef(() => DsDynamicFormControlContainerComponent),
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class DsDynamicFormComponent extends DynamicFormComponent {
 

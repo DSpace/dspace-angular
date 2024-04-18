@@ -1,6 +1,5 @@
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
   Router,
   RouterStateSnapshot,
   UrlTree,
@@ -22,7 +21,7 @@ import { FeatureID } from '../feature-id';
  * doesn't have authorized rights on any of the specified features and/or object.
  * Override the desired getters in the parent class for checking specific authorization on a list of features and/or object.
  */
-export abstract class SomeFeatureAuthorizationGuard implements CanActivate {
+export abstract class SomeFeatureAuthorizationGuard  {
   constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService) {

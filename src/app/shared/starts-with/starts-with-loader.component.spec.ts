@@ -20,8 +20,8 @@ import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
 import { ThemeService } from '../theme-support/theme.service';
-import { StartsWithType } from './starts-with-decorator';
 import { StartsWithLoaderComponent } from './starts-with-loader.component';
+import { StartsWithType } from './starts-with-type';
 import { StartsWithTextComponent } from './text/starts-with-text.component';
 
 describe('StartsWithLoaderComponent', () => {
@@ -42,10 +42,8 @@ describe('StartsWithLoaderComponent', () => {
     void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        StartsWithLoaderComponent,
         StartsWithTextComponent,
+        StartsWithLoaderComponent,
         DynamicComponentLoaderDirective,
       ],
       providers: [
@@ -58,7 +56,6 @@ describe('StartsWithLoaderComponent', () => {
     }).overrideComponent(StartsWithLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [StartsWithTextComponent],
       },
     }).compileComponents();
   }));

@@ -5,6 +5,7 @@ import {
 
 @Pipe({
   name: 'dsCapitalize',
+  standalone: true,
 })
 
 /**

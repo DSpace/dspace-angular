@@ -1,9 +1,20 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  NgbAccordionModule,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import {
   BehaviorSubject,
   Subscription,
@@ -20,13 +31,18 @@ import {
 import { RemoteData } from '../../../core/data/remote-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../shared/empty.util';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 @Component({
   selector: 'ds-bulk-access-browse',
@@ -38,6 +54,21 @@ import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.ut
       useClass: SearchConfigurationService,
     },
   ],
+  imports: [
+    PaginationComponent,
+    AsyncPipe,
+    NgbAccordionModule,
+    TranslateModule,
+    NgIf,
+    NgbNavModule,
+    ThemedSearchComponent,
+    BrowserOnlyPipe,
+    NgForOf,
+    NgxPaginationModule,
+    SelectableListItemControlComponent,
+    ListableObjectComponentLoaderComponent,
+  ],
+  standalone: true,
 })
 export class BulkAccessBrowseComponent implements OnInit, OnDestroy {
 

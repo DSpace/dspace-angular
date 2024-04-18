@@ -48,7 +48,7 @@ export const DEBOUNCE_TIME_OPERATOR = new InjectionToken<<T>(dueTime: number) =>
 
 export const getRemoteDataPayload = <T>() =>
   (source: Observable<RemoteData<T>>): Observable<T> =>
-    source.pipe(map((remoteData: RemoteData<T>) => remoteData.payload));
+    source.pipe(map((remoteData: RemoteData<T>) => remoteData?.payload));
 
 export const getPaginatedListPayload = <T>() =>
   (source: Observable<PaginatedList<T>>): Observable<T[]> =>

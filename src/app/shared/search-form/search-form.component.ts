@@ -1,12 +1,21 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
   OnChanges,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -21,6 +30,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../empty.util';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
@@ -28,6 +38,8 @@ import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-select
   selector: 'ds-search-form',
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
+  standalone: true,
+  imports: [FormsModule, NgIf, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 /**
  * Component that represents the search form

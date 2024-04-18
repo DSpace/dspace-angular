@@ -28,7 +28,6 @@ import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Bitstream } from '../shared/bitstream.model';
-import { BITSTREAM } from '../shared/bitstream.resource-type';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -37,7 +36,6 @@ import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { sendRequest } from '../shared/request.operators';
-import { dataService } from './base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -70,10 +68,7 @@ import { RestRequestMethod } from './rest-request-method';
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
  */
-@Injectable({
-  providedIn: 'root',
-})
-@dataService(BITSTREAM)
+@Injectable({ providedIn: 'root' })
 export class BitstreamDataService extends IdentifiableDataService<Bitstream> implements SearchData<Bitstream>, PatchData<Bitstream>, DeleteData<Bitstream> {
   private searchData: SearchDataImpl<Bitstream>;
   private patchData: PatchDataImpl<Bitstream>;

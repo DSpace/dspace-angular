@@ -8,12 +8,17 @@
 import {
   Inject,
   Injectable,
+  TransferState,
 } from '@angular/core';
-import { TransferState } from '@angular/platform-browser';
+import {
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   firstValueFrom,
+  lastValueFrom,
   Subscription,
 } from 'rxjs';
 import {
@@ -30,7 +35,6 @@ import { coreSelector } from '../../app/core/core.selectors';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { MetadataService } from '../../app/core/metadata/metadata.service';
-import { ServerCheckGuard } from '../../app/core/server-check/server-check.guard';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
@@ -76,7 +80,7 @@ export class BrowserInitService extends InitService {
     protected themeService: ThemeService,
     protected menuService: MenuService,
     private rootDataService: RootDataService,
-    protected serverCheckGuard: ServerCheckGuard,
+    protected router: Router,
   ) {
     super(
       store,
@@ -121,7 +125,7 @@ export class BrowserInitService extends InitService {
 
       this.initKlaro();
 
-      await this.authenticationReady$().toPromise();
+      await lastValueFrom(this.authenticationReady$());
 
       return true;
     };
@@ -138,10 +142,12 @@ export class BrowserInitService extends InitService {
     const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
     this.transferState.remove(InitService.NGRX_STATE);
     this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
-    return this.store.select(coreSelector).pipe(
-      find((core: any) => isNotEmpty(core)),
-      map(() => true),
-    ).toPromise();
+    return lastValueFrom(
+      this.store.select(coreSelector).pipe(
+        find((core: any) => isNotEmpty(core)),
+        map(() => true),
+      ),
+    );
   }
 
   private trackAuthTokenExpiration(): void {
@@ -187,7 +193,7 @@ export class BrowserInitService extends InitService {
    * @private
    */
   private closeAuthCheckSubscription() {
-    firstValueFrom(this.authenticationReady$()).then(() => {
+    void firstValueFrom(this.authenticationReady$()).then(() => {
       this.sub.unsubscribe();
     });
   }
@@ -198,7 +204,25 @@ export class BrowserInitService extends InitService {
    */
   protected initRouteListeners(): void {
     super.initRouteListeners();
-    this.serverCheckGuard.listenForRouteChanges();
+    this.listenForRouteChanges();
+  }
+
+  /**
+   * Listen to all router events. Every time a new navigation starts, invalidate the cache
+   * for the root endpoint. That way we retrieve it once per routing operation to ensure the
+   * backend is not down. But if the guard is called multiple times during the same routing
+   * operation, the cached version is used.
+   */
+  protected listenForRouteChanges(): void {
+    // we'll always be too late for the first NavigationStart event with the router subscribe below,
+    // so this statement is for the very first route operation.
+    this.rootDataService.invalidateRootCache();
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationStart),
+    ).subscribe(() => {
+      this.rootDataService.invalidateRootCache();
+    });
   }
 
 }

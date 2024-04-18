@@ -24,7 +24,7 @@ const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: 
 /**
  * Service that performs all actions that have to do with the sidebar
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SidebarService {
   /**
    * Emits true is the current screen size is mobile

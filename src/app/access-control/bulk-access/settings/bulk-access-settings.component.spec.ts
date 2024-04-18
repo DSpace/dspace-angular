@@ -6,6 +6,7 @@ import {
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { BulkAccessSettingsComponent } from './bulk-access-settings.component';
 
 describe('BulkAccessSettingsComponent', () => {
@@ -45,10 +46,13 @@ describe('BulkAccessSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NgbAccordionModule, TranslateModule.forRoot()],
-      declarations: [BulkAccessSettingsComponent],
+      imports: [NgbAccordionModule, TranslateModule.forRoot(), BulkAccessSettingsComponent],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(BulkAccessSettingsComponent, {
+        remove: { imports: [AccessControlFormContainerComponent] },
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {

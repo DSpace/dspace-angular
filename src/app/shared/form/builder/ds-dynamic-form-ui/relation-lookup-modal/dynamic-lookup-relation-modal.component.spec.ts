@@ -15,12 +15,14 @@ import {
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
@@ -31,6 +33,7 @@ import { ExternalSource } from '../../../../../core/shared/external-source.model
 import { Item } from '../../../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
@@ -121,8 +124,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicLookupRelationModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
@@ -146,8 +148,11 @@ describe('DsDynamicLookupRelationModalComponent', () => {
             },
           },
         },
+        { provide: XSRFService, useValue: {} },
         { provide: NgZone, useValue: new NgZone({}) },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         NgbActiveModal,
+        provideMockStore(),
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

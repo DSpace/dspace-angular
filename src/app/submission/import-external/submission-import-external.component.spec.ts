@@ -10,7 +10,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -21,7 +24,12 @@ import { ExternalSourceDataService } from '../../core/data/external-source-data.
 import { RouteService } from '../../core/services/route.service';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { HostWindowService } from '../../shared/host-window.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   createFailedRemoteDataObject$,
@@ -29,14 +37,18 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import {
   createPaginatedList,
   createTestComponent,
 } from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import { SubmissionImportExternalSearchbarComponent } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { SubmissionImportExternalComponent } from './submission-import-external.component';
 
 describe('SubmissionImportExternalComponent test suite', () => {
@@ -62,8 +74,6 @@ describe('SubmissionImportExternalComponent test suite', () => {
       imports: [
         TranslateModule.forRoot(),
         BrowserAnimationsModule,
-      ],
-      declarations: [
         SubmissionImportExternalComponent,
         TestComponent,
         VarDirective,
@@ -73,11 +83,25 @@ describe('SubmissionImportExternalComponent test suite', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: NgbModal, useValue: ngbModal },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: ThemeService, useValue: getMockThemeService() },
         SubmissionImportExternalComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    })
+      .overrideComponent(SubmissionImportExternalComponent, {
+        remove: {
+          imports: [
+            ObjectCollectionComponent,
+            ThemedLoadingComponent,
+            AlertComponent,
+            SubmissionImportExternalSearchbarComponent,
+          ],
+        },
+      })
+      .compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -520,6 +544,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

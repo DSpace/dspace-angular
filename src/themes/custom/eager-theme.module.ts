@@ -1,14 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ItemPageModule } from '../../app/item-page/item-page.module';
-import { ItemSharedModule } from '../../app/item-page/item-shared.module';
-import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RootModule } from '../../app/root.module';
-import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
-import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
-import { SharedModule } from '../../app/shared/shared.module';
 import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
 import { JournalIssueComponent } from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
@@ -84,21 +77,11 @@ const DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
     RootModule,
-    NavbarModule,
-    SharedBrowseByModule,
-    ResultsBackButtonModule,
-    ItemPageModule,
-    ItemSharedModule,
-    DsoPageModule,
+    ...DECLARATIONS,
   ],
-  declarations: DECLARATIONS,
   providers: [
     ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
-  ],
-  exports: [
-    ItemSearchResultListElementComponent,
   ],
 })
 /**

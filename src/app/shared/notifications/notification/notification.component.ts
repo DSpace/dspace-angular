@@ -1,5 +1,12 @@
 import { trigger } from '@angular/animations';
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+  NgStyle,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -84,6 +91,8 @@ import { NotificationsService } from '../notifications.service';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, NgStyle, NgClass, NgTemplateOutlet, AsyncPipe],
 })
 
 export class NotificationComponent implements OnInit, OnDestroy {

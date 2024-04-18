@@ -36,8 +36,6 @@ describe('HealthComponentComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-      ],
-      declarations: [
         HealthComponentComponent,
         ObjNgFor,
       ],

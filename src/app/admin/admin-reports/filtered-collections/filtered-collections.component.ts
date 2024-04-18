@@ -1,4 +1,8 @@
 import {
+  KeyValuePipe,
+  NgForOf,
+} from '@angular/common';
+import {
   Component,
   ViewChild,
 } from '@angular/core';
@@ -6,7 +10,11 @@ import {
   FormBuilder,
   FormGroup,
 } from '@angular/forms';
-import { NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbAccordion,
+  NgbAccordionModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
 import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
@@ -23,6 +31,14 @@ import { FilteredCollections } from './filtered-collections.model';
   selector: 'ds-report-filtered-collections',
   templateUrl: './filtered-collections.component.html',
   styleUrls: ['./filtered-collections.component.scss'],
+  imports: [
+    TranslateModule,
+    NgbAccordionModule,
+    FiltersComponent,
+    KeyValuePipe,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class FilteredCollectionsComponent {
 
