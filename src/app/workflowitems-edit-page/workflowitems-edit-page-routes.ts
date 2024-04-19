@@ -6,6 +6,7 @@ import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
 import { itemFromWorkflowResolver } from './item-from-workflow.resolver';
+import { ItemFromWorkflowBreadcrumbResolver } from './item-from-workflow-breadcrumb.resolver';
 import { ThemedWorkflowItemDeleteComponent } from './workflow-item-delete/themed-workflow-item-delete.component';
 import { workflowItemPageResolver } from './workflow-item-page.resolver';
 import { ThemedWorkflowItemSendBackComponent } from './workflow-item-send-back/themed-workflow-item-send-back.component';
@@ -20,7 +21,10 @@ import {
 export const ROUTES: Routes = [
   {
     path: ':id',
-    resolve: { wfi: workflowItemPageResolver },
+    resolve: {
+      breadcrumb: ItemFromWorkflowBreadcrumbResolver,
+      wfi: workflowItemPageResolver,
+    },
     children: [
       {
         canActivate: [authenticatedGuard],
