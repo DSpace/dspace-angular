@@ -28,6 +28,7 @@ import { PatchRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { URLCombiner } from '../url-combiner/url-combiner';
 import { JsonPatchOperationModel } from './json-patch.model';
 import {
   CommitPatchOperationsAction,
@@ -37,7 +38,6 @@ import {
 } from './json-patch-operations.actions';
 import { JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
 import { jsonPatchOperationsByResourceType } from './selectors';
-import { URLCombiner } from '../url-combiner/url-combiner';
 
 /**
  * An abstract class that provides methods to make JSON Patch requests.
