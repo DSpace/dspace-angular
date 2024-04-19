@@ -247,11 +247,12 @@ export class DefaultAppConfig implements AppConfig {
           // default configuration
           {
             value: 'default',
-            style: 'text-muted'
+            style: 'text-gray-500'
           }
 
         ]
-      }
+      },
+      iconsVisibleWithNoAuthority: ['fas fa-user']
     },
     detectDuplicate: {
       // NOTE: list of additional item metadata to show for duplicate match presentation list
