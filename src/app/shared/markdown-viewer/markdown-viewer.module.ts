@@ -6,6 +6,6 @@ import { SharedModule } from '../shared.module';
 @NgModule({
   declarations: [ MarkdownViewerComponent ],
   exports: [ MarkdownViewerComponent ],
-    imports: [ CommonModule, SharedModule ]
+  imports: [ CommonModule, SharedModule ]
 })
 export class MarkdownViewerModule { }
