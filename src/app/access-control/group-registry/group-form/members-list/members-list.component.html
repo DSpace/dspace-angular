@@ -5,7 +5,6 @@
 
   <ds-pagination *ngIf="(ePeopleMembersOfGroup | async)?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(ePeopleMembersOfGroup | async)"
                  [collectionSize]="(ePeopleMembersOfGroup | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -86,7 +85,6 @@
 
   <ds-pagination *ngIf="(ePeopleSearch | async)?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(ePeopleSearch | async)"
                  [collectionSize]="(ePeopleSearch | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
