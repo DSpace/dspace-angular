@@ -1,5 +1,6 @@
-:host ::ng-deep {
-  .container-fluid .container {
-    padding: 0;
+@include media-breakpoint-down(md) {
+  ds-themed-configuration-search-page + .container {
+    width: 100%;
+    max-width: none;
   }
 }
