@@ -1,12 +1,11 @@
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { switchMap } from 'rxjs/operators';
 import { RemoteData } from '../../data/remote-data';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+import { SUBMISSION_LINKS_TO_FOLLOW } from './submission-links-to-follow';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -15,7 +14,6 @@ import { IdentifiableDataService } from '../../data/base/identifiable-data.servi
 export class SubmissionObjectResolver<T> implements Resolve<RemoteData<T>> {
     constructor(
       protected dataService: IdentifiableDataService<any>,
-      protected store: Store<any>,
     ) {
     }
 
@@ -30,7 +28,7 @@ export class SubmissionObjectResolver<T> implements Resolve<RemoteData<T>> {
         const itemRD$ = this.dataService.findById(route.params.id,
             true,
             false,
-            followLink('item'),
+            ...SUBMISSION_LINKS_TO_FOLLOW,
         ).pipe(
             getFirstCompletedRemoteData(),
             switchMap((wfiRD: RemoteData<any>) => wfiRD.payload.item as Observable<RemoteData<T>>),
