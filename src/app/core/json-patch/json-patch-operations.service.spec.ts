@@ -156,7 +156,7 @@ describe('JsonPatchOperationsService test suite', () => {
     });
 
     it('should send a new SubmissionPatchRequest', () => {
-      const expected = new SubmissionPatchRequest(requestService.generateRequestId(), resourceHref, patchOpBody);
+      const expected = new SubmissionPatchRequest(requestService.generateRequestId(), resourceHref + '?embed=item', patchOpBody);
       scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType).subscribe());
       scheduler.flush();
 
@@ -246,7 +246,7 @@ describe('JsonPatchOperationsService test suite', () => {
     });
 
     it('should send a new SubmissionPatchRequest', () => {
-      const expected = new SubmissionPatchRequest(requestService.generateRequestId(), resourceHref, patchOpBody);
+      const expected = new SubmissionPatchRequest(requestService.generateRequestId(), resourceHref + '?embed=item', patchOpBody);
       scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId).subscribe());
       scheduler.flush();
 
