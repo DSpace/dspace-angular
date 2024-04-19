@@ -141,6 +141,11 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    */
   public subs: Subscription[] = [];
 
+  /**
+   * Random seed of 4 characters to avoid duplicate ids
+   */
+  randomSeed: string = Math.random().toString(36).substring(2, 6);
+
   constructor(
     protected searchService: SearchService,
     protected notifcationsService: NotificationsService,
