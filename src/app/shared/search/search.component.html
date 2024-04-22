@@ -33,6 +33,7 @@
                        | translate}}
                 </button>
             </div>
+            <ng-content select="[searchContentTop]"></ng-content>
             <ds-search-results *ngIf="inPlaceSearch"
                                       [searchResults]="resultsRD$ | async"
                                       [searchConfig]="searchOptions$ | async"

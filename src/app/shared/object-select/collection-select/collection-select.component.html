@@ -3,7 +3,6 @@
     *ngIf="collectionsRD?.payload?.totalElements > 0 || collectionsRD?.payload?.page?.length > 0"
     [paginationOptions]="paginationOptions"
     [sortOptions]="sortOptions"
-    [pageInfoState]="collectionsRD?.payload"
     [collectionSize]="collectionsRD?.payload?.totalElements"
     [hidePagerWhenSinglePage]="true"
     [hideGear]="true">
@@ -16,9 +15,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let collection of collectionsRD?.payload?.page">
-            <td><input #selectCollectionBtn [attr.aria-label]="(selectCollectionBtn.checked ? 'collection.select.table.deselect' : 'collection.select.table.select') | translate" class="collection-checkbox" [ngModel]="getSelected(collection.id) | async" (change)="switch(collection.id)" type="checkbox" name="{{collection.id}}"></td>
-            <td><a [routerLink]="['/collections', collection.id]">{{ dsoNameService.getName(collection) }}</a></td>
+          <tr *ngFor="let selectCollection of selectCollections$ | async">
+            <td><input #selectCollectionBtn [attr.aria-label]="(selectCollectionBtn.checked ? 'collection.select.table.deselect' : 'collection.select.table.select') | translate" [disabled]="(selectCollection.canSelect$ | async) === false" class="collection-checkbox" [ngModel]="selectCollection.selected$ | async" (change)="switch(selectCollection.dso.id)" type="checkbox" name="{{selectCollection.dso.id}}"></td>
+            <td><a [routerLink]="selectCollection.route">{{ dsoNameService.getName(selectCollection.dso) }}</a></td>
           </tr>
         </tbody>
       </table>

@@ -37,7 +37,6 @@
             <ng-template ngbNavContent>
               <ds-pagination
                 [paginationOptions]="(paginationOptions$ | async)"
-                [pageInfoState]="(objectsSelected$|async)?.payload.pageInfo"
                 [collectionSize]="(objectsSelected$|async)?.payload?.totalElements"
                 [objects]="(objectsSelected$|async)"
                 [showPaginator]="false"

@@ -15,6 +15,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -31,7 +32,7 @@ import { ObjectSelectService } from '../object-select.service';
   selector: 'ds-object-select-abstract',
   template: '',
 })
-export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestroy {
+export abstract class ObjectSelectComponent<TDomain extends DSpaceObject> implements OnInit, OnDestroy {
 
   /**
    * A unique key used for the object select service
@@ -102,8 +103,11 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
    */
   selectedIds$: Observable<string[]>;
 
-  constructor(protected objectSelectService: ObjectSelectService,
-              protected authorizationService: AuthorizationDataService) {
+  constructor(
+    protected objectSelectService: ObjectSelectService,
+    protected authorizationService: AuthorizationDataService,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   ngOnInit(): void {
