@@ -12,7 +12,6 @@ import {
   Store,
   StoreModule,
 } from '@ngrx/store';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
@@ -20,6 +19,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { REQUEST } from '../../../express.tokens';
 import { AppState } from '../../app.reducer';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

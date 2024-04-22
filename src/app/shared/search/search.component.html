@@ -1,4 +1,4 @@
-<div class="container" *ngIf="(isXsOrSm$ | async)">
+<div class="container" *ngIf="searchEnabled && (isXsOrSm$ | async)">
     <div class="row">
         <div class="col-12">
             <ng-template *ngTemplateOutlet="searchForm"></ng-template>
@@ -18,7 +18,9 @@
 <ng-template #searchContent>
     <div class="row">
         <div class="col-12" *ngIf="(isXsOrSm$ | async) !== true">
-            <ng-template *ngTemplateOutlet="searchForm"></ng-template>
+            <ng-container *ngIf="searchEnabled">
+                <ng-template *ngTemplateOutlet="searchForm"></ng-template>
+            </ng-container>
             <ng-content select="[additionalSearchOptions]"></ng-content>
         </div>
         <div id="search-content" class="col-12">
@@ -31,6 +33,7 @@
                        | translate}}
                 </button>
             </div>
+            <ng-content select="[searchContentTop]"></ng-content>
             <ds-themed-search-results *ngIf="inPlaceSearch"
                                       [searchResults]="resultsRD$ | async"
                                       [searchConfig]="searchOptions$ | async"
@@ -84,7 +87,7 @@
 </ng-template>
 
 <ng-template #searchForm>
-    <ds-themed-search-form *ngIf="searchEnabled" id="search-form"
+    <ds-themed-search-form id="search-form"
                     [query]="(searchOptions$ | async)?.query"
                     [scope]="(searchOptions$ | async)?.scope"
                     [hideScopeInUrl]="hideScopeInUrl"
@@ -95,7 +98,7 @@
     </ds-themed-search-form>
     <div class="row mb-3 mb-md-1">
         <div class="labels col-sm-9">
-            <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
+            <ds-search-labels [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
         </div>
     </div>
 </ng-template>

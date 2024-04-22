@@ -7,6 +7,7 @@ import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { collectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
+import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
@@ -27,12 +28,29 @@ import { itemTemplatePageResolver } from './edit-item-template-page/item-templat
 import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 
-
 export const ROUTES: Route[] = [
   {
     path: COLLECTION_CREATE_PATH,
-    component: CreateCollectionPageComponent,
     canActivate: [authenticatedGuard, createCollectionPageGuard],
+    children: [
+      {
+        path: '',
+        component: CreateCollectionPageComponent,
+        resolve: {
+          breadcrumb: i18nBreadcrumbResolver,
+        },
+        data: {
+          breadcrumbKey: 'collection.create',
+        },
+      },
+    ],
+    data: {
+      breadcrumbQueryParam: 'parent',
+    },
+    resolve: {
+      breadcrumb: communityBreadcrumbResolver,
+    },
+    runGuardsAndResolvers: 'always',
   },
   {
     path: ':id',

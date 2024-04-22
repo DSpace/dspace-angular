@@ -1108,6 +1108,8 @@
 
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
 
+  "collection.create.breadcrumbs": "Create collection",
+
   "collection.browse.logo": "Browse for a collection logo",
 
   "collection.create.head": "Create a Collection",
@@ -1397,6 +1399,8 @@
   "community.browse.logo": "Browse for a community logo",
 
   "community.subcoms-cols.breadcrumbs": "Subcommunities and Collections",
+
+  "community.create.breadcrumbs": "Create Community",
 
   "community.create.head": "Create a Community",
 
@@ -1886,6 +1890,8 @@
 
   "footer.link.feedback": "Send Feedback",
 
+  "footer.link.coar-notify-support": "COAR Notify",
+
   "forgot-email.form.header": "Forgot Password",
 
   "forgot-email.form.info": "Enter the email address associated with the account.",
@@ -2149,6 +2155,10 @@
   "info.feedback.page-label": "Page",
 
   "info.feedback.page_help": "The page related to your feedback",
+
+  "info.coar-notify-support.title": "COAR Notify Support",
+
+  "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
 
   "item.alerts.private": "This item is non-discoverable",
 
@@ -6172,10 +6182,6 @@
   "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   "ldn-register-new-service.notification.success.title": "Success",
   "ldn-register-new-service.notification.success.content": "The process was successfully created",
-
-  "info.coar-notify-support.title": "Notify Support",
-
-  "info.coar-notify.breadcrumbs": "Notify Support",
 
   "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
 

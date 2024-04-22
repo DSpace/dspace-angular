@@ -34,7 +34,7 @@ export class DefaultAppConfig implements AppConfig {
   // NOTE: will log all redux actions and transfers in console
   debug = false;
 
-  // Angular Universal server settings
+  // Angular express server settings
   // NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
   ui: UIServerConfig = {
     ssl: false,
@@ -468,9 +468,13 @@ export class DefaultAppConfig implements AppConfig {
   // Disabling the privacy policy feature will result in:
   // - A 404 page if you manually try to navigate to the privacy policy page at info/privacy
   // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
+  // Disabling the COAR notify support page feature will result in:
+  // - A 404 page if you manually try to navigate to the COAR notify support page
+  // - All mentions of the COAR notify support page being removed from the UI (e.g. in the footer)
   info: InfoConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+    enableCOARNotifySupport: true,
   };
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
