@@ -1962,6 +1962,9 @@
   "resource-policies.form.date.start.label": "Data rozpoczęcia",
   "resource-policies.form.description.label": "Opis",
   "resource-policies.form.name.label": "Nazwa",
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
   "resource-policies.form.policy-type.label": "Wybierz typ polityki",
   "resource-policies.form.policy-type.required": "Musisz wybrać typ polityki zasobu.",
   "resource-policies.table.headers.action": "Akcja",
