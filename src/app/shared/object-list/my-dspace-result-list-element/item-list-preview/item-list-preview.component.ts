@@ -20,7 +20,7 @@ import {
 } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
-import { ThumbnailComponent } from '../../../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
@@ -38,7 +38,7 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
   templateUrl: 'item-list-preview.component.html',
   animations: [fadeInOut],
   standalone: true,
-  imports: [NgIf, ThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, ItemSubmitterComponent, ItemCollectionComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, ItemSubmitterComponent, ItemCollectionComponent, AsyncPipe, TranslateModule],
 })
 export class ItemListPreviewComponent implements OnInit {
 

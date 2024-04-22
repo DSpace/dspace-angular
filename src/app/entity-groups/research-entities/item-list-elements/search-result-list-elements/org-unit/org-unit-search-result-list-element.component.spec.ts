@@ -124,7 +124,7 @@ describe('OrgUnitSearchResultListElementComponent', () => {
     });
 
     it('should add thumbnail element', () => {
-      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
       expect(thumbnailElement).toBeTruthy();
     });
   });
@@ -190,7 +190,7 @@ describe('OrgUnitSearchResultListElementComponent', () => {
     });
 
     it('should not add thumbnail element', () => {
-      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
       expect(thumbnailElement).toBeNull();
     });
   });

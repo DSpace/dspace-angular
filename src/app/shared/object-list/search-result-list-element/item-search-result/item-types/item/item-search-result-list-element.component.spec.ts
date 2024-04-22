@@ -247,8 +247,8 @@ describe('ItemSearchResultListElementComponent', () => {
       expect(publicationListElementComponent.showThumbnails).toBeTrue();
     });
 
-    it('should add ds-thumbnail element', () => {
-      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+    it('should add thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
       expect(thumbnailElement).toBeTruthy();
     });
   });
@@ -428,8 +428,8 @@ describe('ItemSearchResultListElementComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not add ds-thumbnail element', () => {
-      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
+    it('should not add thumbnail element', () => {
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
       expect(thumbnailElement).toBeFalsy();
     });
   });

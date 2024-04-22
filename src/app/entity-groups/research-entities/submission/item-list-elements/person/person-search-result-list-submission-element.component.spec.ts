@@ -213,8 +213,8 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should add the ds-thumbnail element', () => {
-      const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
+    it('should add the thumbnail element', () => {
+      const thumbnail = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
       expect(thumbnail).toBeTruthy();
     });
   });
@@ -266,8 +266,8 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not add the ds-thumbnail element', () => {
-      const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
+    it('should not add the thumbnail element', () => {
+      const thumbnail = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
       expect(thumbnail).toBeNull();
     });
   });

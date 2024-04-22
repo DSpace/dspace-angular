@@ -10,7 +10,7 @@ import { ThemedMediaViewerImageComponent } from '../../../../../app/item-page/me
 import { ThemedMediaViewerVideoComponent } from '../../../../../app/item-page/media-viewer/media-viewer-video/themed-media-viewer-video.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { ThumbnailComponent } from '../../../../../app/thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-thumbnail.component';
 
 @Component({
   selector: 'ds-media-viewer',
@@ -21,7 +21,7 @@ import { ThumbnailComponent } from '../../../../../app/thumbnail/thumbnail.compo
   standalone: true,
   imports: [
     ThemedMediaViewerImageComponent,
-    ThumbnailComponent,
+    ThemedThumbnailComponent,
     AsyncPipe,
     NgIf,
     ThemedMediaViewerVideoComponent,

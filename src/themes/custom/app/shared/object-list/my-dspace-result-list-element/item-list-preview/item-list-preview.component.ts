@@ -14,7 +14,7 @@ import { ItemSubmitterComponent } from '../../../../../../../app/shared/object-c
 import { ItemListPreviewComponent as BaseComponent } from '../../../../../../../app/shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
 import { TruncatableComponent } from '../../../../../../../app/shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../app/shared/truncatable/truncatable-part/truncatable-part.component';
-import { ThumbnailComponent } from '../../../../../../../app/thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
 
 @Component({
   selector: 'ds-item-list-preview',
@@ -32,7 +32,7 @@ import { ThumbnailComponent } from '../../../../../../../app/thumbnail/thumbnail
     NgFor,
     NgIf,
     ThemedBadgesComponent,
-    ThumbnailComponent,
+    ThemedThumbnailComponent,
     TranslateModule,
     TruncatableComponent,
     TruncatablePartComponent,
