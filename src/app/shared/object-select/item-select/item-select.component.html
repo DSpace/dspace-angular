@@ -3,7 +3,6 @@
     *ngIf="itemsRD?.payload?.totalElements > 0"
     [paginationOptions]="paginationOptions"
     [sortOptions]="sortOptions"
-    [pageInfoState]="itemsRD?.payload"
     [collectionSize]="itemsRD?.payload?.totalElements"
     [hidePagerWhenSinglePage]="true"
     [hideGear]="true">
@@ -18,17 +17,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of itemsRD?.payload?.page">
-          <td><input #selectItemBtn [attr.aria-label]="(selectItemBtn.checked ? 'item.select.table.deselect' : 'item.select.table.select') | translate" [disabled]="!(canSelect(item) | async)" class="item-checkbox" [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox" name="{{item.id}}"></td>
+        <tr *ngFor="let selectItem of selectItems$ | async">
+          <td><input #selectItemBtn [attr.aria-label]="(selectItemBtn.checked ? 'item.select.table.deselect' : 'item.select.table.select') | translate" [disabled]="(selectItem.canSelect$ | async) === false" class="item-checkbox" [ngModel]="selectItem.selected$ | async" (change)="switch(selectItem.dso.id)" type="checkbox" name="{{selectItem.dso.id}}"></td>
           <td *ngIf="!hideCollection">
-            <span *ngVar="(item.owningCollection | async)?.payload as collection">
+            <span *ngVar="(selectItem.dso.owningCollection | async)?.payload as collection">
               <a *ngIf="collection" [routerLink]="['/collections', collection?.id]">
                 {{ dsoNameService.getName(collection) }}
               </a>
             </span>
           </td>
-          <td><span *ngIf="item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])">{{item.firstMetadataValue(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])}}</span></td>
-          <td><a [routerLink]="[(itemPageRoutes$ | async)[item.id]]">{{ dsoNameService.getName(item) }}</a></td>
+          <td><span *ngIf="selectItem.dso.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])">{{selectItem.dso.firstMetadataValue(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])}}</span></td>
+          <td><a [routerLink]="selectItem.route">{{ dsoNameService.getName(selectItem.dso) }}</a></td>
         </tr>
         </tbody>
       </table>

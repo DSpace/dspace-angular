@@ -17,7 +17,6 @@
     </div>
     <ds-pagination *ngIf="(processesRD$ | async)?.payload?.totalElements > 0"
                    [paginationOptions]="pageConfig"
-                   [pageInfoState]="(processesRD$ | async)?.payload"
                    [collectionSize]="(processesRD$ | async)?.payload?.totalElements"
                    [hideGear]="true"
                    [hidePagerWhenSinglePage]="true">

@@ -16,7 +16,6 @@
         <ds-pagination
           *ngIf="fields?.totalElements > 0"
           [paginationOptions]="config"
-          [pageInfoState]="fields"
           [collectionSize]="fields?.totalElements"
           [hideGear]="false"
           [hidePagerWhenSinglePage]="true">
