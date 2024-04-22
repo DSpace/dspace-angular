@@ -6092,11 +6092,11 @@
 
   "coar-notify-support.title": "COAR Notify Protocol",
 
-  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\\\"https://notify.coar-repositories.org/\\\">COAR Notify website</a>.",
+  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
 
   "coar-notify-support.ldn-inbox.title": "LDN InBox",
 
-  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {ldnInboxUrl}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {{ ldnInboxUrl }}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
 
   "coar-notify-support.message-moderation.title": "Message Moderation",
 
