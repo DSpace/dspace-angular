@@ -45,7 +45,7 @@ export class SubmissionSectionModel extends ConfigObject {
    * A string representing the type this section extends
    */
   @autoserialize
-  extendsSectionType: SectionsType;
+    extendsSectionType: SectionsType;
 
   /**
    * The [SubmissionSectionVisibility] object for this section
