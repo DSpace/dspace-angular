@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  NgClass,
   NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
@@ -24,7 +25,20 @@ import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-aler
   templateUrl: '../../../../app/root/root.component.html',
   animations: [slideSidebarPadding],
   standalone: true,
-  imports: [TranslateModule, ThemedAdminSidebarComponent, SystemWideAlertBannerComponent, ThemedHeaderNavbarWrapperComponent, ThemedBreadcrumbsComponent, NgIf, ThemedLoadingComponent, RouterOutlet, ThemedFooterComponent, NotificationsBoardComponent, AsyncPipe],
+  imports: [
+    TranslateModule,
+    ThemedAdminSidebarComponent,
+    SystemWideAlertBannerComponent,
+    ThemedHeaderNavbarWrapperComponent,
+    ThemedBreadcrumbsComponent,
+    NgIf,
+    NgClass,
+    ThemedLoadingComponent,
+    RouterOutlet,
+    ThemedFooterComponent,
+    NotificationsBoardComponent,
+    AsyncPipe,
+  ],
 })
 export class RootComponent extends BaseComponent {
 
