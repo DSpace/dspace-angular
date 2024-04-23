@@ -11,9 +11,10 @@
         </div>
       </div>
       <div class="pt-2">
-        <ul class="nav nav-tabs justify-content-start mb-2">
-          <li *ngFor="let page of pages" class="nav-item">
-            <a class="nav-link"
+        <ul class="nav nav-tabs justify-content-start mb-2" role="tablist">
+          <li *ngFor="let page of pages" class="nav-item" role="presentation">
+            <a class="nav-link" role="tab"
+               [attr.aria-selected]="page === currentPage"
                [ngClass]="{'active' : page === currentPage}"
                [routerLink]="['./' + page]"
                [attr.data-test]="page">
