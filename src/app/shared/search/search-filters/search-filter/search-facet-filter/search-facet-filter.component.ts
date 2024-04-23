@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Inject, OnDestroy, OnInit, EventEmitter } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router, Params } from '@angular/router';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { hasNoValue, hasValue } from '../../../../empty.util';
 import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SearchFilterService, CHANGE_APPLIED_FILTERS } from '../../../../../core/shared/search/search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
@@ -90,7 +90,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
-              @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
   ) {
   }
 
@@ -259,7 +258,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         const appliedFilters: AppliedFilter[] = selectedValues.map((value: string) => {
           return allAppliedFilters.find((appliedFilter: AppliedFilter) => appliedFilter.value === stripOperatorFromFilterValue(value));
         }).filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
-        this.changeAppliedFilters.emit(appliedFilters);
         return appliedFilters;
       }),
     );

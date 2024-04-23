@@ -8,7 +8,6 @@ import { PaginatedSearchOptions } from '../models/paginated-search-options.model
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
-import { AppliedFilter } from '../models/applied-filter.model';
 
 /**
  * Themed wrapper for SearchSidebarComponent
@@ -33,14 +32,12 @@ export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarC
   @Input() refreshFilters: BehaviorSubject<boolean>;
   @Output() toggleSidebar: EventEmitter<boolean> = new EventEmitter();
   @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter();
-  @Output() changeAppliedFilters: EventEmitter<Map<string, AppliedFilter[]>> = new EventEmitter();
   @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter();
 
   protected inAndOutputNames: (keyof SearchSidebarComponent & keyof this)[] = [
     'configuration', 'configurationList', 'currentScope', 'currentSortOption',
     'resultCount', 'filters', 'viewModeList', 'showViewModes', 'inPlaceSearch',
     'searchOptions', 'sortOptionsList', 'refreshFilters', 'toggleSidebar', 'changeConfiguration',
-    'changeAppliedFilters',
     'changeViewMode',
   ];
 

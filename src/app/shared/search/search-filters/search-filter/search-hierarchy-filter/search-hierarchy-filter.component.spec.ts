@@ -13,7 +13,6 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { CommonModule } from '@angular/common';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
-  CHANGE_APPLIED_FILTERS,
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   SearchFilterService,
@@ -77,7 +76,6 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
-        { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

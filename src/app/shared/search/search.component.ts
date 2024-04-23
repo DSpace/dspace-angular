@@ -38,7 +38,6 @@ import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model'
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
-import { AppliedFilter } from './models/applied-filter.model';
 
 @Component({
   selector: 'ds-search',
@@ -268,11 +267,6 @@ export class SearchComponent implements OnInit {
    * Emits event when the user select result entry
    */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
-
-  /**
-   * The {@link AppliedFilter}s by filter name
-   */
-  appliedFilters: Map<string, AppliedFilter[]> = new Map();
 
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,

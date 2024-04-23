@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  CHANGE_APPLIED_FILTERS,
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
@@ -88,7 +87,6 @@ describe('SearchFacetFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
-        { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchFacetFilterComponent, {

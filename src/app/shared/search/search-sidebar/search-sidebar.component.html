@@ -21,8 +21,7 @@
                                [currentConfiguration]="configuration"
                                [filters]="filters"
                                [refreshFilters]="refreshFilters"
-                               [inPlaceSearch]="inPlaceSearch"
-                               (changeAppliedFilters)="changeAppliedFilters.emit($event)">
+                               [inPlaceSearch]="inPlaceSearch">
             </ds-themed-search-filters>
             <ds-advanced-search [configuration]="configuration"
                                 [filtersConfig]="(filters | async)?.payload">

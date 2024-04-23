@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,7 +6,7 @@ import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
-  SearchFilterService, CHANGE_APPLIED_FILTERS
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { FilterType } from '../../../models/filter-type.model';
@@ -105,7 +105,6 @@ describe('SearchRangeFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
-        { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => selectedValues,

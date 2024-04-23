@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, BehaviorSubject } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
@@ -32,6 +32,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { RestRequest } from '../../data/rest-request.model';
 import { BaseDataService } from '../../data/base/base-data.service';
 import { Angulartics2 } from 'angulartics2';
+import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
 
 /**
  * A limited data service implementation for the 'discover' endpoint
@@ -86,6 +87,8 @@ export class SearchService implements OnDestroy {
    * Instance of SearchDataService to forward data service methods to
    */
   private searchDataService: SearchDataService;
+
+  public appliedFilters$: BehaviorSubject<AppliedFilter[]> = new BehaviorSubject([]);
 
   constructor(
     private routeService: RouteService,
@@ -293,7 +296,19 @@ export class SearchService implements OnDestroy {
     });
     this.requestService.send(request, useCachedVersionIfAvailable);
 
-    return this.rdb.buildFromHref(href);
+    return this.rdb.buildFromHref(href).pipe(
+      tap((facetValuesRD: RemoteData<FacetValues>) => {
+        if (facetValuesRD.hasSucceeded) {
+          const appliedFilters: AppliedFilter[] = (facetValuesRD.payload.appliedFilters ?? [])
+            .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
+            // TODO this should ideally be fixed in the backend
+            .map((appliedFilter: AppliedFilter) => Object.assign({}, appliedFilter, {
+              operator: hasValue(appliedFilter.value.match(/\[\s*(\*|\d+)\s*TO\s*(\*|\d+)\s*]/)) ? 'range' : appliedFilter.operator,
+            }));
+          this.appliedFilters$.next(appliedFilters);
+        }
+      }),
+    );
   }
 
   /**

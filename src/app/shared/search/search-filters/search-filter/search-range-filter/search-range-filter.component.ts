@@ -1,14 +1,13 @@
 import { BehaviorSubject, combineLatest as observableCombineLatest, of as observableOf , Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, EventEmitter } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
-  CHANGE_APPLIED_FILTERS,
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
@@ -86,9 +85,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
-              @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
               private route: RouteService) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, changeAppliedFilters);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
 
   }
 
@@ -121,7 +119,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
       }));
 
     this.selectedAppliedFilters$ = observableOf(appliedFilters);
-    this.changeAppliedFilters.emit(appliedFilters);
   }
 
   /**

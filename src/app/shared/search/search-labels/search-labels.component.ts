@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AppliedFilter } from '../models/applied-filter.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-search-labels',
@@ -10,16 +12,22 @@ import { AppliedFilter } from '../models/applied-filter.model';
 /**
  * Component that represents the labels containing the currently active filters
  */
-export class SearchLabelsComponent {
+export class SearchLabelsComponent implements OnInit {
 
   /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch: boolean;
 
-  /**
-   * The {@link AppliedFilter}s by filter name
-   */
-  @Input() appliedFilters: Map<string, AppliedFilter[]>;
+  appliedFilters$: BehaviorSubject<AppliedFilter[]>;
+
+  constructor(
+    protected searchService: SearchService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.appliedFilters$ = this.searchService.appliedFilters$;
+  }
 
 }

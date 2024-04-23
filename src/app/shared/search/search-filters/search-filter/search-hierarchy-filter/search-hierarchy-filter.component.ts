@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, EventEmitter } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { renderFacetFor } from '../search-filter-type-decorator';
 import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
@@ -10,7 +10,7 @@ import { SearchService } from '../../../../../core/shared/search/search.service'
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  SearchFilterService, REFRESH_FILTER, CHANGE_APPLIED_FILTERS
+  SearchFilterService, REFRESH_FILTER,
 } from '../../../../../core/shared/search/search-filter.service';
 import { Params, Router } from '@angular/router';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -24,7 +24,6 @@ import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { environment } from '../../../../../../environments/environment';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
-import { AppliedFilter } from '../../../models/applied-filter.model';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -49,9 +48,8 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
-              @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
   ) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, changeAppliedFilters);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
   }
 
   vocabularyExists$: Observable<boolean>;
