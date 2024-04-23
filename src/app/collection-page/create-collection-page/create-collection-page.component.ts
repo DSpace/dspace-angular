@@ -15,6 +15,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/create-comcol-page/create-comcol-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CollectionFormComponent } from '../collection-form/collection-form.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 
 /**
  * Component that represents the page where a user can create a new Collection
@@ -27,6 +28,7 @@ import { CollectionFormComponent } from '../collection-form/collection-form.comp
     CollectionFormComponent,
     TranslateModule,
     AsyncPipe,
+    ThemedLoadingComponent,
   ],
   standalone: true,
 })

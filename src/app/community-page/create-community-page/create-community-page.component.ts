@@ -18,6 +18,7 @@ import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/crea
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { CommunityFormComponent } from '../community-form/community-form.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 
 /**
  * Component that represents the page where a user can create a new Community
@@ -32,6 +33,7 @@ import { CommunityFormComponent } from '../community-form/community-form.compone
     VarDirective,
     NgIf,
     AsyncPipe,
+    ThemedLoadingComponent,
   ],
   standalone: true,
 })
