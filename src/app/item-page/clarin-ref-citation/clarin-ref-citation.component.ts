@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { isNull, isUndefined } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isNull, isUndefined } from '../../shared/empty.util';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { NgbModal, NgbTooltip, NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -21,11 +21,6 @@ import { AUTHOR_METADATA_FIELDS } from '../../core/shared/clarin/constants';
  * If the item has more authors do not add all authors to the citation but add there a shortcut.
  */
 export const ET_AL_TEXT = 'et al.';
-
-/**
- * If the author is unknown, the citation should not contain the author.
- */
-export const UNKNOWN_AUTHOR_MV = '(:unav) Unknown author';
 
 /**
  * The citation part in the ref-box component.
@@ -96,17 +91,19 @@ export class ClarinRefCitationComponent implements OnInit {
 
   ngOnInit(): void {
     this.authors = this.item.allMetadataValues(AUTHOR_METADATA_FIELDS);
-    const author = this.getAuthors();
+    // First Part could be authors or publisher
+    let firstPart = this.getAuthors();
     const year = this.getYear();
 
-    let citationArray = [author, year];
-    // Do not show author if it is unknown
-    if (this.isUnknownAuthor()) {
-      citationArray = [year];
+    // Show publisher instead of author if author is none
+    if (isEmpty(firstPart)) {
+      firstPart = this.item.firstMetadataValue('dc.publisher');
     }
+
+    let citationArray = [firstPart, year];
     // Filter null values
     citationArray = citationArray.filter(textValue => {
-      return textValue !== null;
+      return isNotEmpty(textValue);
     });
 
     this.hasDoi = this.hasItemDoi();
@@ -128,10 +125,6 @@ export class ClarinRefCitationComponent implements OnInit {
   copyText() {
     const tabChar = '  ';
     let authorWithItemName = this.citationText + ',\n' + tabChar + this.itemNameText;
-    if (this.isUnknownAuthor()) {
-      // If the author is unknown, do not add the author to the citation
-      authorWithItemName = this.itemNameText + ', ' + this.citationText;
-    }
     this.clipboard.copy(authorWithItemName + ', ' +
       this.repositoryNameText + ', \n' + tabChar + this.identifierURI);
     setTimeout(() => {
@@ -174,14 +167,11 @@ export class ClarinRefCitationComponent implements OnInit {
   }
 
   /**
-   * Check if the author is unknown.
+   * Check if the Item has any author metadata.
    * @param authorMetadata
    */
-  isUnknownAuthor(authorMetadata: string[] = []) {
-    if (authorMetadata.length === 0) {
-      authorMetadata = this.authors;
-    }
-    return authorMetadata?.[0] === UNKNOWN_AUTHOR_MV;
+  hasNoAuthor(authorMetadata: string[] = []) {
+    return isEmpty(authorMetadata);
   }
 
   getAuthors() {
@@ -192,7 +182,7 @@ export class ClarinRefCitationComponent implements OnInit {
     }
 
     // If metadata value is `(:unav) Unknown author` return null
-    if (this.isUnknownAuthor(authorMetadata)) {
+    if (this.hasNoAuthor(authorMetadata)) {
       return null;
     }
 

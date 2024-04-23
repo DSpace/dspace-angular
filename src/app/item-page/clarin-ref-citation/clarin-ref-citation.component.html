@@ -12,7 +12,8 @@
     </div>
     <div class="pt-2 clarin-ref-box-body d-flex justify-content-between pl-2" >
       <div class="clarin-ref-box-text pr-4">
-        <div *ngIf="isUnknownAuthor(); then withoutAuthor else withAuthor"></div>
+        <span>{{citationText + ', '}}</span>
+        <span><i>{{itemNameText + ', '}}</i></span>
         <span>{{repositoryNameText + ', '}}</span>
         <span><a [href]="identifierURI">{{prettifiedIdentifier | async}}</a></span>
       </div>
@@ -23,12 +24,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #withAuthor>
-  <span>{{citationText + ', '}}</span>
-  <span><i>{{itemNameText + ', '}}</i></span>
-</ng-template>
-<ng-template #withoutAuthor>
-  <span><i>{{itemNameText + ', '}}</i></span>
-  <span>{{citationText + ', '}}</span>
-</ng-template>
