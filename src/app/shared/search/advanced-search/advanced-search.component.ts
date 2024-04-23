@@ -23,7 +23,7 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
 
   advancedFilters$: Observable<FilterConfig[]>;
 
-  advancedFilterMap$: Observable<Map<string, FilterConfig>>;
+  advancedFilterMap: Map<string, FilterConfig> = new Map();
 
   currentFilter: string;
 
@@ -53,19 +53,17 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
     this.advancedFilters$ = this.searchConfigurationService.getConfigurationSearchConfig(this.configuration).pipe(
       map((searchConfiguration: SearchConfig) => searchConfiguration.filters),
     );
-    this.advancedFilterMap$ = this.advancedFilters$.pipe(
-      map((filters: FilterConfig[]) => {
-        const filterMap: Map<string, FilterConfig> = new Map();
-        if (filters.length > 0) {
-          this.currentFilter = filters[0].filter;
-          this.currentOperator = filters[0].operators[0].operator;
-          for (const filter of filters) {
-            filterMap.set(filter.filter, filter);
-          }
+    this.subs.push(this.advancedFilters$.subscribe((filters: FilterConfig[]) => {
+      const filterMap: Map<string, FilterConfig> = new Map();
+      if (filters.length > 0) {
+        this.currentFilter = filters[0].filter;
+        this.currentOperator = filters[0].operators[0].operator;
+        for (const filter of filters) {
+          filterMap.set(filter.filter, filter);
         }
-        return filterMap;
-      }),
-    );
+      }
+      this.advancedFilterMap = filterMap;
+    }));
   }
 
   ngOnDestroy(): void {
