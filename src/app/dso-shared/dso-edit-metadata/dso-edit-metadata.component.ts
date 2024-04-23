@@ -25,8 +25,8 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  Subscription,
   of,
+  Subscription,
 } from 'rxjs';
 import {
   map,
