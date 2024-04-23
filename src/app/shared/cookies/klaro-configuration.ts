@@ -32,7 +32,7 @@ export const klaroConfiguration: any = {
   hideLearnMore: false,
 
   /*
-  Override cookies modal styles according to customer TUL requirements.
+  Override cookies modal styles according to customer requirements.
    */
   stylePrefix: 'klaro customer-cookies',
 
