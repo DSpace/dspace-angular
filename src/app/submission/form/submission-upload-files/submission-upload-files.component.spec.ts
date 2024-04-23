@@ -81,9 +81,9 @@ describe('SubmissionUploadFilesComponent Component', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const html = `
-        <ds-submission-upload-files [submissionId]="submissionId"
+        <ds-themed-submission-upload-files [submissionId]="submissionId"
                                     [collectionId]="collectionId"
-                                    [uploadFilesOptions]="uploadFilesOptions"></ds-submission-upload-files>`;
+                                    [uploadFilesOptions]="uploadFilesOptions"></ds-themed-submission-upload-files>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
