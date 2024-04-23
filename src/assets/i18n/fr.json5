@@ -6319,8 +6319,8 @@
 //"community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
 "community-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès de tous les Items de toutes les collections de cette communauté. Les changements peuvent être appliqués aux métadonnées des Items ou à leur contenu (Bitstreams).",
 
-//"access-control-item-header-toggle": “Item's Metadata”,
-"access-control-item-header-toggle": “Métadonnées de l'Item”,
+//"access-control-item-header-toggle": "Item's Metadata",
+"access-control-item-header-toggle": "Métadonnées de l'Item",
 
 //"access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
 "access-control-item-toggle.enable": "Activer l'option permettant d'effectuer des modifications sur les métadonnées de l'Item",
