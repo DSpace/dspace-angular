@@ -126,3 +126,17 @@ jobs:
 
           echo "dspace healthcheck:"
           docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace healthcheck -v"
+
+  trigger-playwright:
+    runs-on: ubuntu-latest
+    needs: [deploy-5, deploy-8]
+    if: ${{ always() }}
+    steps:
+      - name: run playwright
+        run: |
+          curl -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
+          --request POST \
+          https://api.github.com/repos/dataquest-dev/\
+          dspace-ui-tests/actions/workflows/cron-test.yml/dispatches \
+          --data "{\"ref\":\"refs/heads/master\"}"
