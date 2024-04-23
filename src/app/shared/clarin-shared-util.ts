@@ -63,7 +63,7 @@ export function loadItemAuthors(item, itemAuthors, baseUrl, fields) {
   }
   const itemAuthorsLocal = [];
   authorsMV.forEach((authorMV: MetadataValue) => {
-    const authorSearchLink = baseUrl + '/search?f.author=' + authorMV.value + ',equals';
+    const authorSearchLink = baseUrl + '/search?f.author=' + encodeURIComponent(authorMV.value) + ',equals';
     const authorNameLink = Object.assign(new AuthorNameLink(), {
       name: authorMV.value,
       url: authorSearchLink

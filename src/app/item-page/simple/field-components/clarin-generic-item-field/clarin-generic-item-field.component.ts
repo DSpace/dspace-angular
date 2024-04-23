@@ -148,7 +148,8 @@ export class ClarinGenericItemFieldComponent implements OnInit {
     }
 
     const searchType = convertMetadataFieldIntoSearchType(this.fields);
-    return this.baseUrl + '/search?f.' + searchType + '=' + metadataValue + ',equals';
+    return this.baseUrl + '/search?f.' + encodeURIComponent(searchType) + '=' +
+      encodeURIComponent(metadataValue) + ',equals';
   }
 
   /**
