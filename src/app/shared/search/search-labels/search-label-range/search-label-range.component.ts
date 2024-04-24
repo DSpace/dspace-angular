@@ -7,6 +7,7 @@ import { AppliedFilter } from '../../models/applied-filter.model';
 import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 
 /**
  * Component that represents the label containing the currently active filters
@@ -37,6 +38,7 @@ export class SearchLabelRangeComponent implements OnInit {
     protected router: Router,
     protected searchConfigurationService: SearchConfigurationService,
     protected searchService: SearchService,
+    protected searchFilterService: SearchFilterService,
   ) {
   }
 

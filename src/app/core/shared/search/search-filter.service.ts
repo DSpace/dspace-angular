@@ -13,7 +13,8 @@ import {
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
+  SearchFilterMinimizeAllPageAction,
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
 import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
@@ -202,7 +203,7 @@ export class SearchFilterService {
       select(filterByNameSelector(filterName)),
       map((object: SearchFilterState) => {
         if (object) {
-          return object.filterCollapsed;
+          return object.filterCollapsed || object.minimized;
         } else {
           return false;
         }
@@ -283,6 +284,10 @@ export class SearchFilterService {
    */
   public resetPage(filterName: string): void {
     this.store.dispatch(new SearchFilterResetPageAction(filterName));
+  }
+
+  public minimizeAll(): void {
+    this.store.dispatch(new SearchFilterMinimizeAllPageAction());
   }
 }
 

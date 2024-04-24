@@ -11,6 +11,7 @@ import { SearchConfigurationService } from '../../../core/shared/search/search-c
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../utils/route.utils';
 import { AppliedFilter } from '../models/applied-filter.model';
+import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 
 @Component({
   selector: 'ds-search-filters',
@@ -69,9 +70,11 @@ export class SearchFiltersComponent implements OnInit {
    * @param {SearchConfigurationService} searchConfigService
    */
   constructor(
-    private searchService: SearchService,
-    private router: Router,
-    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
+    protected searchService: SearchService,
+    protected searchFilterService: SearchFilterService,
+    protected router: Router,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -99,4 +102,9 @@ export class SearchFiltersComponent implements OnInit {
     return config ? config.name : undefined;
   }
 
+  minimizeFilters(): void {
+    if (this.searchService.appliedFilters$.value.length > 0) {
+      this.searchFilterService.minimizeAll();
+    }
+  }
 }

@@ -13,6 +13,8 @@ import { SearchConfigurationServiceStub } from '../../../testing/search-configur
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;
@@ -20,6 +22,7 @@ describe('SearchLabelComponent', () => {
 
   let route: ActivatedRouteStub;
   let searchConfigurationService: SearchConfigurationServiceStub;
+  let searchFilterService: SearchFilterServiceStub;
   let paginationService: PaginationServiceStub;
 
   const searchLink = '/search';
@@ -51,6 +54,7 @@ describe('SearchLabelComponent', () => {
     init();
     route = new ActivatedRouteStub(initialRouteParams);
     searchConfigurationService = new SearchConfigurationServiceStub();
+    searchFilterService = new SearchFilterServiceStub();
     paginationService = new PaginationServiceStub(pagination);
 
     await TestBed.configureTestingModule({
@@ -64,6 +68,7 @@ describe('SearchLabelComponent', () => {
       providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SearchFilterService, useValue: searchFilterService },
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: ActivatedRoute, useValue: route },
       ],

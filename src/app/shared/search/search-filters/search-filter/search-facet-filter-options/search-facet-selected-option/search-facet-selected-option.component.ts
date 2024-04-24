@@ -7,6 +7,7 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { currentPath } from '../../../../../utils/route.utils';
 import { AppliedFilter } from '../../../../models/applied-filter.model';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
+import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
@@ -46,6 +47,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit {
   constructor(
     protected paginationService: PaginationService,
     protected router: Router,
+    protected searchFilterService: SearchFilterService,
     protected searchService: SearchService,
     protected searchConfigService: SearchConfigurationService,
   ) {

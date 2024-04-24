@@ -9,7 +9,6 @@
                   </span>
                   <input type="text" [(ngModel)]="range[0]" [name]="filterConfig.paramName + '.min'"
                          class="form-control" (blur)="onSubmit()"
-                         aria-label="Mininum value"
                          [placeholder]="'search.filters.filter.' + filterConfig.name + '.min.placeholder' | translate"
                   />
                 </label>
@@ -21,7 +20,6 @@
                     </span>
                     <input type="text" [(ngModel)]="range[1]" [name]="filterConfig.paramName + '.max'"
                            class="form-control" (blur)="onSubmit()"
-                           aria-label="Maximum value"
                            [placeholder]="'search.filters.filter.' + filterConfig.name + '.max.placeholder' | translate"
                     />
                 </label>
