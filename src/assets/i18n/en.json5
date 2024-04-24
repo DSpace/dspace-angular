@@ -3658,6 +3658,20 @@
 
   "search.filters.applied.f.withdrawn": "Withdrawn",
 
+  "search.filters.applied.operator.equals": "",
+
+  "search.filters.applied.operator.notequals": " not equals",
+
+  "search.filters.applied.operator.authority": "",
+
+  "search.filters.applied.operator.notauthority": " not authority",
+
+  "search.filters.applied.operator.contains": " contains",
+
+  "search.filters.applied.operator.notcontains": " not contains",
+
+  "search.filters.applied.operator.query": "",
+
   "search.filters.filter.title.head": "Title",
 
   "search.filters.filter.title.placeholder": "Title",

@@ -1,6 +1,6 @@
-<a class="badge badge-primary mr-1 mb-1 text-capitalize"
+<a class="badge badge-primary mr-1 mb-1"
    [routerLink]="searchLink"
    [queryParams]="(removeParameters$ | async)">
-    {{('search.filters.applied.f.' + appliedFilter.filter) | translate}}: {{'search.filters.' + appliedFilter.filter + '.' + appliedFilter.label | translate: {default: appliedFilter.label} }}
+    {{('search.filters.applied.f.' + appliedFilter.filter) | translate}}{{'search.filters.applied.operator.' + appliedFilter.operator | translate}}: {{'search.filters.' + appliedFilter.filter + '.' + appliedFilter.label | translate: {default: appliedFilter.label} }}
     <span> ×</span>
 </a>

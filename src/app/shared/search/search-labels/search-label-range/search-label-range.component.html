@@ -1,14 +1,14 @@
 <a *ngIf="min !== '*'"
    [routerLink]="searchLink"
    [queryParams]="(removeParametersMin$ | async)"
-   class="badge badge-primary mr-1 mb-1 text-capitalize">
+   class="badge badge-primary mr-1 mb-1">
   {{('search.filters.applied.f.' + appliedFilter.filter + '.min') | translate}}: {{ min }}
   <span> ×</span>
 </a>
 <a *ngIf="max !== '*'"
    [routerLink]="searchLink"
    [queryParams]="(removeParametersMax$ | async)"
-   class="badge badge-primary mr-1 mb-1 text-capitalize">
+   class="badge badge-primary mr-1 mb-1">
   {{('search.filters.applied.f.' + appliedFilter.filter + '.max') | translate}}: {{ max }}
   <span> ×</span>
 </a>
