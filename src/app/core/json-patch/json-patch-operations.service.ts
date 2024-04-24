@@ -18,7 +18,6 @@ import { getFirstCompletedRemoteData } from '../shared/operators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
 import { CoreState } from '../core-state.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
 
 /**
  * An abstract class that provides methods to make JSON Patch requests.
@@ -126,7 +125,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
    *    instance of PatchRequestDefinition
    */
   protected getRequestInstance(uuid: string, href: string, body?: any): PatchRequestDefinition {
-    return new this.patchRequestConstructor(uuid, new URLCombiner(href, '?embed=item').toString(), body);
+    return new this.patchRequestConstructor(uuid, href, body);
   }
 
   protected getEndpointByIDHref(endpoint, resourceID): string {
