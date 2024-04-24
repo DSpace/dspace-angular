@@ -9,6 +9,7 @@ import { Router, Params } from '@angular/router';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { FilterType } from '../models/filter-type.model';
 
 @Component({
   selector: 'ds-advanced-search',
@@ -51,7 +52,7 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.advancedFilters$ = this.searchConfigurationService.getConfigurationSearchConfig(this.configuration).pipe(
-      map((searchConfiguration: SearchConfig) => searchConfiguration.filters),
+      map((searchConfiguration: SearchConfig) => searchConfiguration.filters.filter((filter: FilterConfig) => filter.type !== FilterType.range)),
     );
     this.subs.push(this.advancedFilters$.subscribe((filters: FilterConfig[]) => {
       const filterMap: Map<string, FilterConfig> = new Map();
@@ -59,7 +60,9 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
         this.currentFilter = filters[0].filter;
         this.currentOperator = filters[0].operators[0].operator;
         for (const filter of filters) {
-          filterMap.set(filter.filter, filter);
+          if (filter.type !== FilterType.range) {
+            filterMap.set(filter.filter, filter);
+          }
         }
       }
       this.advancedFilterMap = filterMap;
