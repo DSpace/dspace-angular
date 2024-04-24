@@ -93,6 +93,7 @@ import { CommunityStatisticsPageComponent } from './app/statistics-page/communit
 import { ItemStatisticsPageComponent } from './app/statistics-page/item-statistics-page/item-statistics-page.component';
 import { SiteStatisticsPageComponent } from './app/statistics-page/site-statistics-page/site-statistics-page.component';
 import { SubmissionEditComponent } from './app/submission/edit/submission-edit.component';
+import { SubmissionUploadFilesComponent } from './app/submission/form/submission-upload-files/submission-upload-files.component';
 import { SubmissionImportExternalComponent } from './app/submission/import-external/submission-import-external.component';
 import { SubmissionSectionUploadFileComponent } from './app/submission/sections/upload/file/section-upload-file.component';
 import { SubmissionSubmitComponent } from './app/submission/submit/submission-submit.component';
@@ -190,6 +191,7 @@ const DECLARATIONS = [
   MetadataImportPageComponent,
   ItemDetailPreviewFieldComponent,
   ProfilePageMetadataFormComponent,
+  SubmissionUploadFilesComponent,
 ];
 
 @NgModule({
