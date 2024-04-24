@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -19,7 +23,10 @@ import {
   DynamicInputModel,
   DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
   combineLatest as observableCombineLatest,
@@ -59,25 +66,41 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
+import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import {
   hasValue,
   hasValueOperator,
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import {
   getGroupEditRoute,
   getGroupsRoute,
 } from '../../access-control-routing-paths';
+import { MembersListComponent } from './members-list/members-list.component';
+import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
 import { ValidateGroupExists } from './validators/group-exists.validator';
 
 @Component({
   selector: 'ds-group-form',
   templateUrl: './group-form.component.html',
+  imports: [
+    FormComponent,
+    AlertComponent,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    ContextHelpDirective,
+    MembersListComponent,
+    SubgroupsListComponent,
+  ],
+  standalone: true,
 })
 /**
  * A form used for creating and editing groups

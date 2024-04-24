@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  Resolve,
+  ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,41 +13,34 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { hasNoValue } from '../shared/empty.util';
 
 /**
- * This class resolves a bitstream based on the DSpace 6 XMLUI or JSPUI bitstream download URLs
+ * Resolve a bitstream based on the handle of the item, and the sequence id or the filename of the
+ * bitstream
+ *
+ * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
+ * @param {RouterStateSnapshot} state The current RouterStateSnapshot
+ * @param {BitstreamDataService} bitstreamDataService
+ * @returns Observable<<RemoteData<Item>> Emits the found bitstream based on the parameters in
+ * current route, or an error if something went wrong
  */
-@Injectable({
-  providedIn: 'root',
-})
-export class LegacyBitstreamUrlResolver implements Resolve<RemoteData<Bitstream>> {
-  constructor(protected bitstreamDataService: BitstreamDataService) {
+export const legacyBitstreamUrlResolver: ResolveFn<RemoteData<Bitstream>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  bitstreamDataService: BitstreamDataService = inject(BitstreamDataService),
+): Observable<RemoteData<Bitstream>> => {
+  const prefix = route.params.prefix;
+  const suffix = route.params.suffix;
+  const filename = route.params.filename;
+
+  let sequenceId = route.params.sequence_id;
+  if (hasNoValue(sequenceId)) {
+    sequenceId = route.queryParams.sequenceId;
   }
 
-  /**
-   * Resolve a bitstream based on the handle of the item, and the sequence id or the filename of the
-   * bitstream
-   *
-   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
-   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Item>> Emits the found bitstream based on the parameters in
-   * current route, or an error if something went wrong
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-    Observable<RemoteData<Bitstream>> {
-    const prefix = route.params.prefix;
-    const suffix = route.params.suffix;
-    const filename = route.params.filename;
-
-    let sequenceId = route.params.sequence_id;
-    if (hasNoValue(sequenceId)) {
-      sequenceId = route.queryParams.sequenceId;
-    }
-
-    return this.bitstreamDataService.findByItemHandle(
-      `${prefix}/${suffix}`,
-      sequenceId,
-      filename,
-    ).pipe(
-      getFirstCompletedRemoteData(),
-    );
-  }
-}
+  return bitstreamDataService.findByItemHandle(
+    `${prefix}/${suffix}`,
+    sequenceId,
+    filename,
+  ).pipe(
+    getFirstCompletedRemoteData(),
+  );
+};

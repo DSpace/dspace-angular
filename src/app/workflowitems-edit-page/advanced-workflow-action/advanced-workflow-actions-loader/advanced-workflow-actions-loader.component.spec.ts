@@ -1,6 +1,12 @@
+/* eslint-disable max-classes-per-file */
 import {
   ChangeDetectionStrategy,
   Component,
+  ComponentFactoryResolver,
+  Directive,
+  Injector,
+  NO_ERRORS_SCHEMA,
+  ViewContainerRef,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -8,6 +14,8 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
@@ -24,25 +32,37 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   let fixture: ComponentFixture<AdvancedWorkflowActionsLoaderComponent>;
 
   let router: RouterStub;
+  let mockComponentFactoryResolver: any;
   let themeService: ThemeService;
 
   beforeEach(async () => {
     router = new RouterStub();
+    mockComponentFactoryResolver = {
+      resolveComponentFactory: jasmine.createSpy('resolveComponentFactory').and.returnValue(
+        AdvancedWorkflowActionTestComponent,
+      ),
+    };
     themeService = getMockThemeService();
 
-    await TestBed.configureTestingModule({
-      declarations: [
+    TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule,
         DynamicComponentLoaderDirective,
         AdvancedWorkflowActionsLoaderComponent,
+        AdvancedWorkflowActionTestComponent,
       ],
       providers: [
         { provide: Router, useValue: router },
+        { provide: ComponentFactoryResolver, useValue: mockComponentFactoryResolver },
+        { provide: Injector, useValue: {} },
+        ViewContainerRef,
         { provide: ThemeService, useValue: themeService },
       ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(AdvancedWorkflowActionsLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [AdvancedWorkflowActionTestComponent],
       },
     }).compileComponents();
   });
@@ -88,6 +108,15 @@ describe('AdvancedWorkflowActionsLoaderComponent', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '<span id="AdvancedWorkflowActionsLoaderComponent"></span>',
+  standalone: true,
 })
 class AdvancedWorkflowActionTestComponent {
+}
+
+@Directive({
+  selector: '[dsAdvancedWorkflowActions]',
+  standalone: true,
+})
+export class MockAdvancedWorkflowActionsDirective {
+  constructor(public viewContainerRef: ViewContainerRef) {}
 }

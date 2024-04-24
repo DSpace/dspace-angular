@@ -3,10 +3,10 @@ import { first } from 'rxjs/operators';
 import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
 import { Registration } from '../core/shared/registration.model';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { RegistrationResolver } from './registration.resolver';
+import { registrationResolver } from './registration.resolver';
 
-describe('RegistrationResolver', () => {
-  let resolver: RegistrationResolver;
+describe('registrationResolver', () => {
+  let resolver: any;
   let epersonRegistrationService: EpersonRegistrationService;
 
   const token = 'test-token';
@@ -16,11 +16,11 @@ describe('RegistrationResolver', () => {
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
       searchByToken: createSuccessfulRemoteDataObject$(registration),
     });
-    resolver = new RegistrationResolver(epersonRegistrationService);
+    resolver = registrationResolver;
   });
   describe('resolve', () => {
     it('should resolve a registration based on the token', (done) => {
-      resolver.resolve({ params: { token: token } } as any, undefined)
+      resolver({ params: { token: token } } as any, undefined, epersonRegistrationService)
         .pipe(first())
         .subscribe(
           (resolved) => {

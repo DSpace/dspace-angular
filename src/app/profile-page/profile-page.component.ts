@@ -1,9 +1,17 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
   BehaviorSubject,
@@ -31,18 +39,34 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../core/shared/operators';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import {
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
+import { VarDirective } from '../shared/utils/var.directive';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
 @Component({
   selector: 'ds-profile-page',
   styleUrls: ['./profile-page.component.scss'],
   templateUrl: './profile-page.component.html',
+  imports: [
+    ProfilePageMetadataFormComponent,
+    ProfilePageSecurityFormComponent,
+    AsyncPipe,
+    TranslateModule,
+    ProfilePageResearcherFormComponent,
+    VarDirective,
+    NgIf,
+    NgForOf,
+    SuggestionsNotificationComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component for a user to edit their profile information

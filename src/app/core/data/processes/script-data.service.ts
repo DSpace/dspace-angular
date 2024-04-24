@@ -8,7 +8,6 @@ import {
 import { Process } from '../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { Script } from '../../../process-page/scripts/script.model';
-import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
 import { hasValue } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
@@ -16,7 +15,6 @@ import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
-import { dataService } from '../base/data-service.decorator';
 import {
   FindAllData,
   FindAllDataImpl,
@@ -34,8 +32,7 @@ export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
 export const BATCH_IMPORT_SCRIPT_NAME = 'import';
 export const BATCH_EXPORT_SCRIPT_NAME = 'export';
 
-@Injectable()
-@dataService(SCRIPT)
+@Injectable({ providedIn: 'root' })
 export class ScriptDataService extends IdentifiableDataService<Script> implements FindAllData<Script> {
   private findAllData: FindAllDataImpl<Script>;
 

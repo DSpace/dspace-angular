@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
@@ -7,12 +12,16 @@ import {
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
 import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -51,14 +60,28 @@ import {
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemEditRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
 
 @Component({
   selector: 'ds-item-delete',
   templateUrl: '../item-delete/item-delete.component.html',
+  imports: [
+    TranslateModule,
+    ListableObjectComponentLoaderComponent,
+    NgIf,
+    ModifyItemOverviewComponent,
+    AsyncPipe,
+    VarDirective,
+    NgForOf,
+    RouterLink,
+  ],
+  standalone: true,
 })
 /**
  * Component responsible for rendering the item delete page

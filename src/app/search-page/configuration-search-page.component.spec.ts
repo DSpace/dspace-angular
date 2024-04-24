@@ -14,17 +14,22 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { configureSearchComponentTestingModule } from '../shared/search/search.component.spec';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import createSpy = jasmine.createSpy;
+import { of } from 'rxjs';
 
 const CONFIGURATION = 'test-configuration';
 const QUERY = 'test query';
 
 @Component({
   template: `
-    <ds-configuration-search-page [configuration]="'${CONFIGURATION}'"
-                                  [fixedFilterQuery]="'${QUERY}'"
-                                  #configurationSearchPage>
-    </ds-configuration-search-page>
+      <ds-configuration-search-page [configuration]="'${CONFIGURATION}'"
+                                    [fixedFilterQuery]="'${QUERY}'"
+                                    #configurationSearchPage>
+      </ds-configuration-search-page>
   `,
+  imports: [
+    ConfigurationSearchPageComponent,
+  ],
+  standalone: true,
 })
 class HostComponent {
   @ViewChild('configurationSearchPage') configurationSearchPage: ConfigurationSearchPageComponent;
@@ -48,6 +53,7 @@ describe('ConfigurationSearchPageComponent', () => {
 
     routeService = TestBed.inject(RouteService);
     routeService.setParameter = createSpy('setParameter');
+    routeService.getRouteParameterValue = createSpy('getRouteParameterValue').and.returnValue(of(CONFIGURATION));
 
     fixture.detectChanges();
 

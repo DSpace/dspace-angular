@@ -1,26 +1,32 @@
+import { CommonModule } from '@angular/common';
 import {
   ComponentFixture,
-  inject,
   TestBed,
 } from '@angular/core/testing';
-import { BrowserModule } from '@angular/platform-browser';
 import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
-import {
-  TranslateModule,
-  TranslateService,
-} from '@ngx-translate/core';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
-import { AppState } from '../../../app.reducer';
 import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
+import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
+import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
@@ -33,17 +39,26 @@ import {
   getSubmissionAccessesConfigService,
 } from '../../../shared/mocks/section-accesses-config.service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import {
   accessConditionChangeEvent,
   checkboxChangeEvent,
 } from '../../../shared/testing/form-event.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
+import { SubmissionService } from '../../submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';
 import { SectionAccessesService } from './section-accesses.service';
+
+
+function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
+  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
+    getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
+    matchesCondition: jasmine.createSpy('matchesCondition'),
+    subscribeRelations: jasmine.createSpy('subscribeRelations'),
+  });
+}
 
 describe('SubmissionSectionAccessesComponent', () => {
   let component: SubmissionSectionAccessesComponent;
@@ -87,29 +102,37 @@ describe('SubmissionSectionAccessesComponent', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [
-          BrowserModule,
+          CommonModule,
           TranslateModule.forRoot(),
+          SubmissionSectionAccessesComponent,
+          FormComponent,
         ],
-        declarations: [SubmissionSectionAccessesComponent, FormComponent],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
           { provide: SubmissionAccessesConfigDataService, useValue: submissionAccessesConfigService },
           { provide: SectionAccessesService, useValue: sectionAccessesService },
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
-          { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: FormService, useValue: getMockFormService() },
           { provide: Store, useValue: storeStub },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
+          { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
+          { provide: SubmissionObjectDataService, useValue: {} },
+          { provide: SubmissionService, useValue: {} },
+          { provide: XSRFService, useValue: {} },
+          { provide: APP_CONFIG, useValue: environment },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+          { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
           FormBuilderService,
+          provideMockStore({}),
         ],
       })
         .compileComponents();
     });
 
-    beforeEach(inject([Store], (store: Store<AppState>) => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
       component = fixture.componentInstance;
       formService = TestBed.inject(FormService);
@@ -118,8 +141,7 @@ describe('SubmissionSectionAccessesComponent', () => {
       formService.isValid.and.returnValue(observableOf(true));
       formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
       fixture.detectChanges();
-    }));
-
+    });
 
     it('should create', () => {
       expect(component).toBeTruthy();
@@ -173,42 +195,49 @@ describe('SubmissionSectionAccessesComponent', () => {
 
   describe('when canDescoverable is false', () => {
 
-
-
     beforeEach(async () => {
+      formService = getMockFormService();
       await TestBed.configureTestingModule({
         imports: [
-          BrowserModule,
+          CommonModule,
           TranslateModule.forRoot(),
+          SubmissionSectionAccessesComponent,
+          FormComponent,
         ],
-        declarations: [SubmissionSectionAccessesComponent, FormComponent],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
-          { provide: FormBuilderService, useValue: builderService },
           { provide: SubmissionAccessesConfigDataService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
           { provide: SectionAccessesService, useValue: sectionAccessesService },
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
-          { provide: TranslateService, useValue: getMockTranslateService() },
-          { provide: FormService, useValue: getMockFormService() },
+          { provide: FormService, useValue: formService },
           { provide: Store, useValue: storeStub },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
+          { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
+          { provide: SubmissionObjectDataService, useValue: {} },
+          { provide: SubmissionService, useValue: {} },
+          { provide: XSRFService, useValue: {} },
+          { provide: APP_CONFIG, useValue: environment },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+          { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
+          FormBuilderService,
+          provideMockStore({}),
+
         ],
       })
         .compileComponents();
     });
 
-    beforeEach(inject([Store], (store: Store<AppState>) => {
+    beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
       component = fixture.componentInstance;
-      formService = TestBed.inject(FormService);
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(observableOf(true));
       formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
       fixture.detectChanges();
-    }));
+    });
 
 
     it('should have formModel length should be 1', () => {

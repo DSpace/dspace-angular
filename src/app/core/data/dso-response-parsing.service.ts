@@ -19,7 +19,7 @@ import { RestRequest } from './rest-request.model';
  * @deprecated use DspaceRestResponseParsingService for new code, this is only left to support a
  * few legacy use cases, and should get removed eventually
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DSOResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
   protected toCache = true;
 

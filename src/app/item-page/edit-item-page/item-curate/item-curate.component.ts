@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -13,6 +18,7 @@ import {
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { hasValue } from '../../../shared/empty.util';
 
 /**
@@ -21,6 +27,13 @@ import { hasValue } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-item-curate',
   templateUrl: './item-curate.component.html',
+  imports: [
+    CurationFormComponent,
+    NgIf,
+    TranslateModule,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class ItemCurateComponent implements OnInit {
   dsoRD$: Observable<RemoteData<Item>>;

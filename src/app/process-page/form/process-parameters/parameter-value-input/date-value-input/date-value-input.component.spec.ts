@@ -28,8 +28,9 @@ describe('DateValueInputComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [DateValueInputComponent],
+        }),
+        DateValueInputComponent,
+      ],
     })
       .compileComponents();
   }));

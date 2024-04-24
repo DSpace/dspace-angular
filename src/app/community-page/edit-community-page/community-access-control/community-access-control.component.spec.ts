@@ -9,12 +9,14 @@ import {
 } from 'rxjs';
 
 import { Community } from '../../../core/shared/community.model';
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { CommunityAccessControlComponent } from './community-access-control.component';
 
 describe('CommunityAccessControlComponent', () => {
   let component: CommunityAccessControlComponent;
   let fixture: ComponentFixture<CommunityAccessControlComponent>;
+
   const testCommunity = Object.assign(new Community(),
     {
       type: 'community',
@@ -44,9 +46,16 @@ describe('CommunityAccessControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommunityAccessControlComponent ],
-      providers: [{ provide: ActivatedRoute, useValue: routeStub }],
+      imports: [CommunityAccessControlComponent],
+      providers: [{
+        provide: ActivatedRoute, useValue: routeStub,
+      }],
     })
+      .overrideComponent(CommunityAccessControlComponent, {
+        remove: {
+          imports: [AccessControlFormContainerComponent],
+        },
+      })
       .compileComponents();
   });
 

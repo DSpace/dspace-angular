@@ -5,7 +5,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -14,13 +17,16 @@ import { of as observableOf } from 'rxjs';
 
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RequestService } from '../../core/data/request.service';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { Script } from '../scripts/script.model';
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { ProcessFormComponent } from './process-form.component';
+import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 
 describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
@@ -65,16 +71,25 @@ describe('ProcessFormComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [ProcessFormComponent],
+        }),
+        ProcessFormComponent,
+      ],
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring', 'removeByHrefSubstring']) },
-        { provide: Router, useValue: jasmine.createSpyObj('router', ['navigateByUrl']) },
+        { provide: Router, useValue: new RouterMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(ProcessFormComponent, {
+        remove: {
+          imports: [
+            ScriptsSelectComponent,
+          ],
+        },
+      })
       .compileComponents();
   }));
 

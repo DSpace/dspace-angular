@@ -10,7 +10,7 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
-import { getMockStore } from '@ngrx/store/testing';
+import { createMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -106,8 +106,7 @@ describe('MetadataService', () => {
       isAuthorized: observableOf(true),
     });
 
-    // @ts-ignore
-    store = getMockStore({ initialState });
+    store = createMockStore({ initialState });
     spyOn(store, 'dispatch');
 
     appConfig = {

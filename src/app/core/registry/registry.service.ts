@@ -56,7 +56,7 @@ const selectedMetadataFieldsSelector = createSelector(metadataRegistryStateSelec
 /**
  * Service for registry related CRUD actions such as metadata schema, metadata field and bitstream format
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RegistryService {
 
   constructor(private store: Store<AppState>,

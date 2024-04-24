@@ -133,8 +133,9 @@ describe('NavbarComponent', () => {
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         NoopAnimationsModule,
         ReactiveFormsModule,
-        RouterTestingModule],
-      declarations: [NavbarComponent],
+        RouterTestingModule,
+        NavbarComponent,
+      ],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },

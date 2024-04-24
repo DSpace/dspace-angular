@@ -29,8 +29,7 @@ describe('FilterInputSuggestionsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
-      declarations: [FilterInputSuggestionsComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, FilterInputSuggestionsComponent],
       providers: [],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(FilterInputSuggestionsComponent, {

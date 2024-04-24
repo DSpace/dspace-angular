@@ -25,7 +25,7 @@ import {
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MiradorViewerService {
 
   LINKS_TO_FOLLOW: FollowLinkConfig<Bitstream>[] = [

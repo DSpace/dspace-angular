@@ -15,6 +15,7 @@ import { of as observableOf } from 'rxjs';
 import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { CommunityAuthorizationsComponent } from './community-authorizations.component';
 
 describe('CommunityAuthorizationsComponent', () => {
@@ -45,15 +46,21 @@ describe('CommunityAuthorizationsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
+        CommunityAuthorizationsComponent,
       ],
-      declarations: [CommunityAuthorizationsComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         ChangeDetectorRef,
         CommunityAuthorizationsComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(CommunityAuthorizationsComponent, {
+        remove: {
+          imports: [ResourcePoliciesComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

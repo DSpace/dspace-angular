@@ -11,7 +11,6 @@
       <ds-pagination
         *ngIf="(bitstreamFormats | async)?.payload?.totalElements > 0"
         [paginationOptions]="pageConfig"
-        [pageInfoState]="(bitstreamFormats | async)?.payload"
         [collectionSize]="(bitstreamFormats | async)?.payload?.totalElements"
         [hideGear]="false"
         [hidePagerWhenSinglePage]="true">
@@ -35,7 +34,7 @@
                          [checked]="isSelected(bitstreamFormat) | async"
                          (change)="selectBitStreamFormat(bitstreamFormat, $event)"
                   >
-                  <span class="sr-only">{{'admin.registries.bitstream-formats.select' | translate}}}</span>
+                  <span class="sr-only">{{'admin.registries.bitstream-formats.select' | translate}}&#125;</span>
                 </label>
               </td>
               <td><a [routerLink]="['/admin/registries/bitstream-formats', bitstreamFormat.id, 'edit']">{{bitstreamFormat.id}}</a></td>

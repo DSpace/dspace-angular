@@ -27,8 +27,8 @@ describe('MetadataInformationComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        MetadataInformationComponent,
       ],
-      declarations: [MetadataInformationComponent],
     })
       .compileComponents();
   });
