@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
@@ -7,6 +11,7 @@ import {
 import {
   Params,
   Router,
+  RouterLink,
 } from '@angular/router';
 import {
   Observable,
@@ -20,12 +25,13 @@ import { SearchConfigurationService } from '../../../../../../core/shared/search
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX,
-} from '../../search-range-filter/search-range-filter.component';
+} from '../../search-range-filter/search-range-filter-constants';
 
 const rangeDelimiter = '-';
 
@@ -34,6 +40,8 @@ const rangeDelimiter = '-';
   styleUrls: ['./search-facet-range-option.component.scss'],
   // templateUrl: './search-facet-range-option.component.html',
   templateUrl: './search-facet-range-option.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe, ShortNumberPipe],
 })
 
 /**

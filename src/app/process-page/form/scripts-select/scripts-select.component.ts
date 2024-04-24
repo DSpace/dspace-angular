@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -9,6 +14,7 @@ import {
 } from '@angular/core';
 import {
   ControlContainer,
+  FormsModule,
   NgForm,
 } from '@angular/forms';
 import {
@@ -16,6 +22,7 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
@@ -39,7 +46,7 @@ import {
   hasValue,
 } from '../../../shared/empty.util';
 import { Script } from '../../scripts/script.model';
-import { controlContainerFactory } from '../process-form.component';
+import { controlContainerFactory } from '../process-form-factory';
 
 const SCRIPT_QUERY_PARAMETER = 'script';
 
@@ -50,9 +57,11 @@ const SCRIPT_QUERY_PARAMETER = 'script';
   selector: 'ds-scripts-select',
   templateUrl: './scripts-select.component.html',
   styleUrls: ['./scripts-select.component.scss'],
-  viewProviders: [ { provide: ControlContainer,
+  viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] } ],
+    deps: [[new Optional(), NgForm]] }],
+  standalone: true,
+  imports: [NgIf, FormsModule, NgFor, AsyncPipe, TranslateModule],
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
   /**

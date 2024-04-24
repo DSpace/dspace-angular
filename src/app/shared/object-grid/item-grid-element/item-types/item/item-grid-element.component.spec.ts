@@ -18,7 +18,10 @@ import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
+import { ItemSearchResultGridElementComponent } from '../../../search-result-grid-element/item-search-result/item/item-search-result-grid-element.component';
 import { ItemGridElementComponent } from './item-grid-element.component';
+
+
 
 const mockItem = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -60,15 +63,17 @@ describe('ItemGridElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [ItemGridElementComponent, TruncatePipe],
+      imports: [NoopAnimationsModule, TruncatePipe, ItemGridElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemGridElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [ItemSearchResultGridElementComponent],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

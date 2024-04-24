@@ -6,8 +6,8 @@ import {
 import {
   ActivatedRoute,
   Params,
+  RouterModule,
 } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -65,11 +65,8 @@ describe('SearchLabelRangeComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterModule.forRoot([]),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        SearchLabelRangeComponent,
       ],
       providers: [
         { provide: PaginationService, useValue: paginationService },

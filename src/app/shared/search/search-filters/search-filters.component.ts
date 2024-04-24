@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Inject,
@@ -7,7 +12,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -21,18 +30,21 @@ import {
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../empty.util';
 import { currentPath } from '../../utils/route.utils';
+import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { AppliedFilter } from '../models/applied-filter.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @Component({
   selector: 'ds-search-filters',
   styleUrls: ['./search-filters.component.scss'],
   templateUrl: './search-filters.component.html',
-
+  standalone: true,
+  imports: [NgIf, NgFor, SearchFilterComponent, RouterLink, AsyncPipe, TranslateModule, AdvancedSearchComponent],
 })
 
 /**

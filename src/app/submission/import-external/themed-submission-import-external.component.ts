@@ -10,6 +10,7 @@ import { SubmissionImportExternalComponent } from './submission-import-external.
   selector: 'ds-themed-submission-import-external',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
+  standalone: true,
 })
 export class ThemedSubmissionImportExternalComponent extends ThemedComponent<SubmissionImportExternalComponent> {
   protected getComponentName(): string {

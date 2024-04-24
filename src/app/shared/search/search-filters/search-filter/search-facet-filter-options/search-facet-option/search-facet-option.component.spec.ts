@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  ActivatedRoute,
   Params,
   Router,
 } from '@angular/router';
@@ -24,6 +25,7 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { ActivatedRouteStub } from '../../../../../../shared/testing/active-router.stub';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RouterStub } from '../../../../../testing/router.stub';
@@ -78,14 +80,14 @@ describe('SearchFacetOptionComponent', () => {
     router = new RouterStub();
 
     void TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetOptionComponent, ShortNumberPipe],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetOptionComponent, ShortNumberPipe],
       providers: [
         { provide: SearchService, useValue: searchService },
         { provide: Router, useValue: router },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetOptionComponent, {

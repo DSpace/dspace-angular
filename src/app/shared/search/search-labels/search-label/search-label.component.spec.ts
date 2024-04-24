@@ -1,13 +1,18 @@
+import { ChangeDetectionStrategy } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   Params,
+  Router,
+  RouterLink,
+  RouterModule,
 } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -20,6 +25,7 @@ import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
+import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { addOperatorToFilterValue } from '../../search.utils';
 import { SearchLabelComponent } from './search-label.component';
@@ -65,18 +71,25 @@ describe('SearchLabelComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterModule.forRoot([]),
+        NoopAnimationsModule,
+        FormsModule,
+        ObjectKeysPipe,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        SearchLabelComponent,
       ],
       providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: ActivatedRoute, useValue: route },
+        { provide: Router, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
+    }).overrideComponent(SearchLabelComponent, {
+      remove: {
+        imports: [RouterLink],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

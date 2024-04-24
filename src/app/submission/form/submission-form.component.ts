@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -31,9 +32,11 @@ import {
   isNotEmpty,
   isNotUndefined,
 } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
+import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SectionsService } from '../sections/sections.service';
 import { SectionsType } from '../sections/sections-type';
@@ -43,6 +46,10 @@ import {
   SubmissionSectionModel,
   SubmissionSectionVisibility,
 } from './../../core/config/models/config-submission-section.model';
+import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
+import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
+import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
+import { SubmissionUploadFilesComponent } from './submission-upload-files/submission-upload-files.component';
 
 /**
  * This component represents the submission form.
@@ -51,6 +58,16 @@ import {
   selector: 'ds-submission-form',
   styleUrls: ['./submission-form.component.scss'],
   templateUrl: './submission-form.component.html',
+  imports: [
+    CommonModule,
+    ThemedLoadingComponent,
+    SubmissionSectionContainerComponent,
+    SubmissionFormFooterComponent,
+    SubmissionUploadFilesComponent,
+    SubmissionFormCollectionComponent,
+    SubmissionFormSectionAddComponent,
+  ],
+  standalone: true,
 })
 export class SubmissionFormComponent implements OnChanges, OnDestroy {
 

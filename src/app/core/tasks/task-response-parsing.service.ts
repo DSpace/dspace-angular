@@ -10,7 +10,7 @@ import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 /**
  * Provides methods to parse response for a task request.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TaskResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
   protected toCache = false;

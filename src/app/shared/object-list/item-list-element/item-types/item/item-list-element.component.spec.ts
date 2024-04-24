@@ -7,10 +7,22 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
+import { AuthService } from '../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../../../core/shared/item.model';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
@@ -56,16 +68,18 @@ describe('ItemListElementComponent', () => {
   let comp;
   let fixture;
 
-  const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
-  };
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, TranslateModule.forRoot(), ItemListElementComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: AuthorizationDataService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemListElementComponent, {

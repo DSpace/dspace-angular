@@ -6,20 +6,28 @@ import {
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  ActivatedRoute,
   Params,
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  take,
+} from 'rxjs';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
+import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { RouterStub } from '../../../../../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../../testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../../../testing/search-service.stub';
+import { AppliedFilter } from '../../../../models/applied-filter.model';
 import { FilterType } from '../../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
@@ -64,14 +72,14 @@ describe('SearchFacetSelectedOptionComponent', () => {
     router = new RouterStub();
 
     void TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetSelectedOptionComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetSelectedOptionComponent],
       providers: [
         { provide: SearchService, useValue:searchService },
         { provide: Router, useValue: router },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
     }).compileComponents();
   }));

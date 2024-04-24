@@ -5,6 +5,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   Router,
@@ -17,6 +18,14 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
+import { RouteService } from 'src/app/core/services/route.service';
+import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { HostWindowService } from 'src/app/shared/host-window.service';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
+import { SelectableListService } from 'src/app/shared/object-list/selectable-list/selectable-list.service';
+import { routeServiceStub } from 'src/app/shared/testing/route-service.stub';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { BrowseService } from '../../core/browse/browse.service';
@@ -117,8 +126,16 @@ describe('BrowseByMetadataComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BrowseByMetadataComponent, EnumKeysPipe, VarDirective],
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbModule,
+        BrowseByMetadataComponent,
+        EnumKeysPipe,
+        VarDirective,
+        NoopAnimationsModule,
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
@@ -126,9 +143,19 @@ describe('BrowseByMetadataComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
         { provide: APP_CONFIG, useValue: environmentMock },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: SelectableListService, useValue: {} },
+        { provide: HostWindowService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(BrowseByMetadataComponent, {
+        remove: {
+          imports: [ThemedLoadingComponent, DsoEditMenuComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

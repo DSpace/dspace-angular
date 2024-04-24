@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  EventEmitter,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -26,11 +27,12 @@ import {
   SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
+import { AppliedFilter } from '../../../models/applied-filter.model';
 import { FacetValues } from '../../../models/facet-values.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
@@ -82,8 +84,7 @@ describe('SearchFacetFilterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetFilterComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetFilterComponent],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },

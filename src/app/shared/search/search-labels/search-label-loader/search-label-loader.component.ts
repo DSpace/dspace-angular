@@ -12,6 +12,7 @@ import { getSearchLabelByOperator } from './search-label-loader.decorator';
 
 @Component({
   selector: 'ds-search-label-loader',
+  standalone: true,
   templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
 })
 export class SearchLabelLoaderComponent extends AbstractComponentLoaderComponent<Component> implements OnInit, OnChanges {

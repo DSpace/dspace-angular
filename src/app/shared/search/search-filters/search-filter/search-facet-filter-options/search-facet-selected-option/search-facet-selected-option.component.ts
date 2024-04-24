@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -6,7 +7,9 @@ import {
 import {
   Params,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -21,6 +24,12 @@ import { SearchFilterConfig } from '../../../../models/search-filter-config.mode
   selector: 'ds-search-facet-selected-option',
   styleUrls: ['./search-facet-selected-option.component.scss'],
   templateUrl: './search-facet-selected-option.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 
 /**

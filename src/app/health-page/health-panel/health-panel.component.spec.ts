@@ -18,7 +18,9 @@ import {
 import { HealthResponseObj } from '../../shared/mocks/health-endpoint.mocks';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
+import { HealthComponentComponent } from './health-component/health-component.component';
 import { HealthPanelComponent } from './health-panel.component';
+import { HealthStatusComponent } from './health-status/health-status.component';
 
 describe('HealthPanelComponent', () => {
   let component: HealthPanelComponent;
@@ -37,13 +39,17 @@ describe('HealthPanelComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-      ],
-      declarations: [
         HealthPanelComponent,
         ObjNgFor,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(HealthPanelComponent, {
+        remove: {
+          imports: [HealthComponentComponent, HealthStatusComponent],
+        },
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {

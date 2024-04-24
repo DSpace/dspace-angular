@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
@@ -6,7 +10,9 @@ import {
 import {
   Params,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -23,6 +29,13 @@ import { renderSearchLabelFor } from '../search-label-loader/search-label-loader
 @Component({
   selector: 'ds-search-label-range',
   templateUrl: './search-label-range.component.html',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgIf,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 @renderSearchLabelFor('range')
 export class SearchLabelRangeComponent implements OnInit {

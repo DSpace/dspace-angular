@@ -46,11 +46,10 @@ describe('MetadataValuesComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
+      }), MetadataValuesComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
       ],
-      declarations: [MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataValuesComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

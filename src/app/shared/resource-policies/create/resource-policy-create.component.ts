@@ -6,7 +6,10 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -24,11 +27,19 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
 
 @Component({
   selector: 'ds-resource-policy-create',
   templateUrl: './resource-policy-create.component.html',
+  imports: [
+    ResourcePolicyFormComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class ResourcePolicyCreateComponent implements OnInit {
 

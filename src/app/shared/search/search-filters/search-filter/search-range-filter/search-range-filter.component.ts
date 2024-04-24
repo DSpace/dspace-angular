@@ -1,4 +1,9 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -7,8 +12,13 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { NouisliderComponent } from 'ng2-nouislider';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -33,27 +43,21 @@ import {
   SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../empty.util';
+import { DebounceDirective } from '../../../../utils/debounce.directive';
 import { AppliedFilter } from '../../../models/applied-filter.model';
 import { FacetValues } from '../../../models/facet-values.model';
-import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
   facetLoad,
   SearchFacetFilterComponent,
 } from '../search-facet-filter/search-facet-filter.component';
-import { renderFacetFor } from '../search-filter-type-decorator';
-
-/**
- * The suffix for a range filters' minimum in the frontend URL
- */
-export const RANGE_FILTER_MIN_SUFFIX = '.min';
-
-/**
- * The suffix for a range filters' maximum in the frontend URL
- */
-export const RANGE_FILTER_MAX_SUFFIX = '.max';
+import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
+import {
+  RANGE_FILTER_MAX_SUFFIX,
+  RANGE_FILTER_MIN_SUFFIX,
+} from './search-range-filter-constants';
 
 /**
  * This component renders a simple item page.
@@ -65,12 +69,13 @@ export const RANGE_FILTER_MAX_SUFFIX = '.max';
   styleUrls: ['./search-range-filter.component.scss'],
   templateUrl: './search-range-filter.component.html',
   animations: [facetLoad],
+  standalone: true,
+  imports: [FormsModule, NgIf, NouisliderComponent, DebounceDirective, NgFor, SearchFacetRangeOptionComponent, AsyncPipe, TranslateModule],
 })
 
 /**
  * Component that represents a range facet for a specific filter configuration
  */
-@renderFacetFor(FilterType.range)
 export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Fallback minimum for the range
@@ -117,6 +122,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected router: Router,
+              protected route: RouteService,
               protected rdbs: RemoteDataBuildService,
               private translateService: TranslateService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
@@ -126,7 +132,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
               @Inject(SCOPE) public scope: string,
               @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
-              private route: RouteService) {
+  ) {
     super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope, changeAppliedFilters);
 
   }

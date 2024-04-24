@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
@@ -6,7 +10,9 @@ import {
 import {
   Params,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,6 +21,7 @@ import { SearchService } from '../../../../../../core/shared/search/search.servi
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
 import { currentPath } from '../../../../../utils/route.utils';
+import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { getFacetValueForType } from '../../../../search.utils';
@@ -23,6 +30,8 @@ import { getFacetValueForType } from '../../../../search.utils';
   selector: 'ds-search-facet-option',
   styleUrls: ['./search-facet-option.component.scss'],
   templateUrl: './search-facet-option.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe, TranslateModule, ShortNumberPipe],
 })
 
 /**

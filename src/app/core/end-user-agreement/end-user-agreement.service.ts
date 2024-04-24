@@ -21,7 +21,7 @@ export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';
 /**
  * Service for checking and managing the status of the current end user agreement
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EndUserAgreementService {
 
   constructor(protected cookie: CookieService,

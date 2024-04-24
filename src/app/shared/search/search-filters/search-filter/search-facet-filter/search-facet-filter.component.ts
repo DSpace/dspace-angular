@@ -48,7 +48,7 @@ import {
   SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   hasNoValue,
   hasValue,
@@ -71,6 +71,7 @@ import {
 @Component({
   selector: 'ds-search-facet-filter',
   template: ``,
+  standalone: true,
 })
 
 /**

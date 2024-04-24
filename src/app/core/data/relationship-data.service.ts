@@ -58,7 +58,6 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
-import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '../shared/metadata.models';
 import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
@@ -72,7 +71,6 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PutData,
@@ -120,8 +118,7 @@ const compareItemsByUUID = (itemCheck: Item) =>
 /**
  * The service handling all relationship requests
  */
-@Injectable()
-@dataService(RELATIONSHIP)
+@Injectable({ providedIn: 'root' })
 export class RelationshipDataService extends IdentifiableDataService<Relationship> implements SearchData<Relationship> {
   private searchData: SearchData<Relationship>;
   private putData: PutData<Relationship>;

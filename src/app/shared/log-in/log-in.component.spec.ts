@@ -27,7 +27,6 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { NativeWindowService } from '../../core/services/window.service';
 import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 import { getMockThemeService } from '../mocks/theme-service.mock';
-import { SharedModule } from '../shared.module';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import {
   authMethodsMock,
@@ -76,10 +75,7 @@ describe('LogInComponent', () => {
           },
         }),
         RouterTestingModule,
-        SharedModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         TestComponent,
       ],
       providers: [
@@ -150,6 +146,10 @@ describe('LogInComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    RouterTestingModule],
 })
 class TestComponent {
 

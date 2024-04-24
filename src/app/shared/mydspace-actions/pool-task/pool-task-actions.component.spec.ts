@@ -9,7 +9,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -30,6 +33,7 @@ import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { PoolTaskSearchResult } from '../../object-collection/shared/pool-task-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RouterStub } from '../../testing/router.stub';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
@@ -94,8 +98,8 @@ describe('PoolTaskActionsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        PoolTaskActionsComponent,
       ],
-      declarations: [PoolTaskActionsComponent],
       providers: [
         { provide: Injector, useValue: {} },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -104,6 +108,7 @@ describe('PoolTaskActionsComponent', () => {
         { provide: ClaimedTaskDataService, useValue: mockClaimedTaskDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(PoolTaskActionsComponent, {

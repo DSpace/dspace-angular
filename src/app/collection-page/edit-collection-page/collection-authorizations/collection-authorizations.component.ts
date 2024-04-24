@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -11,10 +12,16 @@ import {
 
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 
 @Component({
   selector: 'ds-collection-authorizations',
   templateUrl: './collection-authorizations.component.html',
+  imports: [
+    ResourcePoliciesComponent,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 /**
  * Component that handles the Collection Authorizations

@@ -1,9 +1,12 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
   Input,
   Output,
 } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component which represent a DSpace dropdown selector.
@@ -12,6 +15,8 @@ import {
   selector: 'ds-select',
   templateUrl: './ds-select.component.html',
   styleUrls: ['./ds-select.component.scss'],
+  standalone: true,
+  imports: [NgbDropdownModule, NgIf, TranslateModule],
 })
 export class DsSelectComponent {
 

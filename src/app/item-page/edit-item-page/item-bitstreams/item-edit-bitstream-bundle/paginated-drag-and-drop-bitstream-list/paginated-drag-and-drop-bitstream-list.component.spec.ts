@@ -4,6 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -15,9 +16,11 @@ import { PaginationService } from '../../../../../core/pagination/pagination.ser
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../../../core/shared/bitstream-format.model';
 import { Bundle } from '../../../../../core/shared/bundle.model';
+import { PaginationComponent } from '../../../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
 import { createPaginatedList } from '../../../../../shared/testing/utils.test';
 import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
@@ -120,18 +123,24 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [PaginatedDragAndDropBitstreamListComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), PaginatedDragAndDropBitstreamListComponent, VarDirective],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: BundleDataService, useValue: bundleService },
         { provide: ObjectValuesPipe, useValue: objectValuesPipe },
         { provide: RequestService, useValue: requestService },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(PaginatedDragAndDropBitstreamListComponent, {
+        remove: {
+          imports: [PaginationComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
