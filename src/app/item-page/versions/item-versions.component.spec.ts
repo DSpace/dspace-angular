@@ -10,7 +10,7 @@ import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
 import { BrowserModule, By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { EMPTY, of, of as observableOf } from 'rxjs';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -26,7 +26,7 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ItemSharedModule } from '../item-shared.module';
 import { UUIDService } from '../../core/shared/uuid.service';
@@ -135,6 +135,25 @@ describe('ItemVersionsComponent', () => {
     navigateByUrl: null,
   });
 
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    uuid: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018',
+    _links: {
+      self: {
+        href: 'https://localhost:8000/items/fake-id'
+      }
+    }
+  });
+
+  const routeStub = {
+    data: observableOf({
+      dso: createSuccessfulRemoteDataObject(mockItem)
+    }),
+    children: []
+  };
+
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
@@ -153,7 +172,8 @@ describe('ItemVersionsComponent', () => {
         {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
         {provide: ConfigurationDataService, useValue: configurationServiceSpy},
         { provide: Router, useValue: routerSpy },
-        { provide: UUIDService, useValue: getMockUUIDService() }
+        { provide: UUIDService, useValue: getMockUUIDService() },
+        { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

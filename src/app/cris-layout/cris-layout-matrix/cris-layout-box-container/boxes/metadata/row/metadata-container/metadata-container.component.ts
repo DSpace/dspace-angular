@@ -38,6 +38,10 @@ export class MetadataContainerComponent implements OnInit {
    * The metadata field to render
    */
   @Input() field: LayoutField;
+  /**
+   * The tab name
+   */
+  @Input() tabName: string;
 
   /**
    * The prefix used for box field label's i18n key
