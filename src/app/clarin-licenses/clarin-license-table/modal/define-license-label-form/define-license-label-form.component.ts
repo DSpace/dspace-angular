@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { validateLicenseLabel } from '../define-license-form/define-license-form-validator';
 import { isNotEmpty } from '../../../../shared/empty.util';
 
 /**
@@ -64,7 +63,7 @@ export class DefineLicenseLabelFormComponent implements OnInit {
       label: [this.label, [Validators.required, Validators.maxLength(5)]],
       title: [this.title, Validators.required],
       extended: isNotEmpty(this.extended) ? this.extended : this.extendedOptions[0],
-      icon: [this.icon, validateLicenseLabel()],
+      icon: [this.icon],
     });
   }
 

@@ -182,7 +182,7 @@ export class DefineLicenseFormComponent implements OnInit {
    * @private
    */
   private loadAndAssignClarinLicenseLabels() {
-    this.clarinLicenseLabelService.findAll({}, false)
+    this.clarinLicenseLabelService.findAll({ elementsPerPage: 100 }, false)
       .pipe(getFirstSucceededRemoteListPayload())
       .subscribe(res => {
         res.forEach(clarinLicenseLabel => {

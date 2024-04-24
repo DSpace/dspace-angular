@@ -149,10 +149,10 @@ describe('ClarinLicenseTableComponent', () => {
     expect((component as ClarinLicenseTableComponent).licensesRD$).not.toBeNull();
   });
 
-  it('should not create new clarin license label when icon image is null', () => {
+  it('should create new clarin license label when icon image is null', () => {
     // non extended ll has no icon
     (component as ClarinLicenseTableComponent).defineLicenseLabel(mockNonExtendedLicenseLabel);
-    expect((component as any).notificationService.error).toHaveBeenCalled();
+    expect((component as any).notificationService.success).toHaveBeenCalled();
   });
 
   it('should create new clarin license label and load table data', fakeAsync(() => {

@@ -225,9 +225,13 @@ export class ClarinLicenseTableComponent implements OnInit {
     try {
       reader.readAsArrayBuffer(clarinLicenseLabel.icon?.[0]);
     } catch (error) {
-      this.notifyOperationStatus(null, successfulMessageContentDef, errorMessageContentDef);
+      // Cannot read any icon that means there is no icon
+      // Create license label without icon
+      this.createClarinLicenseLabel(clarinLicenseLabel, [], successfulMessageContentDef, errorMessageContentDef);
+      return;
     }
 
+    // Create license label with icon
     reader.onerror = (evt) => {
       this.notifyOperationStatus(null, successfulMessageContentDef, errorMessageContentDef);
     };
@@ -240,20 +244,29 @@ export class ClarinLicenseTableComponent implements OnInit {
             fileByteArray.push(item);
           }
         }
-        clarinLicenseLabel.icon = fileByteArray;
-        // convert string value from the form to the boolean
-        clarinLicenseLabel.extended = ClarinLicenseLabelExtendedSerializer.Serialize(clarinLicenseLabel.extended);
-
-        // create
-        this.clarinLicenseLabelService.create(clarinLicenseLabel)
-          .pipe(getFirstCompletedRemoteData())
-          .subscribe((defineLicenseLabelResponse: RemoteData<ClarinLicenseLabel>) => {
-            // check payload and show error or successful
-            this.notifyOperationStatus(defineLicenseLabelResponse, successfulMessageContentDef, errorMessageContentDef);
-            this.loadAllLicenses();
-          });
+        this.createClarinLicenseLabel(clarinLicenseLabel, fileByteArray, successfulMessageContentDef, errorMessageContentDef);
       }
     };
+  }
+
+  /**
+   * Call BE request to create a clarin license label with or without icon.
+   * Show response in the notification popup.
+   */
+  createClarinLicenseLabel(clarinLicenseLabel: ClarinLicenseLabel, fileByteArray: any[] = [],
+                           successfulMessageContentDef: any, errorMessageContentDef: any) {
+    clarinLicenseLabel.icon = fileByteArray;
+    // convert string value from the form to the boolean
+    clarinLicenseLabel.extended = ClarinLicenseLabelExtendedSerializer.Serialize(clarinLicenseLabel.extended);
+
+    // create
+    this.clarinLicenseLabelService.create(clarinLicenseLabel)
+      .pipe(getFirstCompletedRemoteData())
+      .subscribe((defineLicenseLabelResponse: RemoteData<ClarinLicenseLabel>) => {
+        // check payload and show error or successful
+        this.notifyOperationStatus(defineLicenseLabelResponse, successfulMessageContentDef, errorMessageContentDef);
+        this.loadAllLicenses();
+      });
   }
 
   // delete license
