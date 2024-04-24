@@ -413,4 +413,13 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       type: 'vocabularyEntry'
     });
   }
+
+
+  /**
+   * Hide image on error
+   * @param image
+   */
+  handleImgError(image: HTMLElement): void {
+    image.style.display = 'none';
+  }
 }
