@@ -28,7 +28,6 @@ import { PatchRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
-import { URLCombiner } from '../url-combiner/url-combiner';
 import { JsonPatchOperationModel } from './json-patch.model';
 import {
   CommitPatchOperationsAction,
@@ -145,7 +144,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
    *    instance of PatchRequestDefinition
    */
   protected getRequestInstance(uuid: string, href: string, body?: any): PatchRequestDefinition {
-    return new this.patchRequestConstructor(uuid, new URLCombiner(href, '?embed=item').toString(), body);
+    return new this.patchRequestConstructor(uuid, href, body);
   }
 
   protected getEndpointByIDHref(endpoint, resourceID): string {
