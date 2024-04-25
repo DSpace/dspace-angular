@@ -159,7 +159,7 @@ jobs:
 
           echo $RES
           # if last result is not success, return -1 and fail
-          if [[ $RES != 'success' ]]; then
+          if [[ $RES != "success" ]]; then
             echo "playwright tests failed! check appropriate action run"
             exit 1
           fi;
@@ -196,7 +196,7 @@ jobs:
 
           echo $RES
           # if last result is not success, return -1 and fail
-          if [[ $RES != 'success' ]]; then
+          if [[ $RES != "success" ]]; then
             echo "playwright tests failed! check appropriate action run"
             exit 1
           fi;
