@@ -10,14 +10,21 @@ import {
   TSESTree,
 } from '@typescript-eslint/utils';
 
-import { match } from './misc';
+import {
+  match,
+  toUnixStylePath,
+} from './misc';
 
 export type AnyRuleContext = TSESLint.RuleContext<string, unknown[]>;
 
+/**
+ * Return the current filename based on the ESLint rule context as a Unix-style path.
+ * This is easier for regex and comparisons to glob paths.
+ */
 export function getFilename(context: AnyRuleContext): string {
   // TSESLint claims this is deprecated, but the suggested alternative is undefined (could be a version mismatch between ESLint and TSESlint?)
   // eslint-disable-next-line deprecation/deprecation
-  return context.getFilename();
+  return toUnixStylePath(context.getFilename());
 }
 
 export function getSourceCode(context: AnyRuleContext): TSESLint.SourceCode {

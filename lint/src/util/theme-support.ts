@@ -16,8 +16,6 @@ import {
   isPartOfViewChild,
 } from './angular';
 import {
-  AnyRuleContext,
-  getFilename,
   isPartOfClassDeclaration,
   isPartOfTypeExpression,
 } from './typescript';
@@ -152,6 +150,7 @@ class ThemeableComponentRegistry {
 
     const glob = require('glob');
 
+    // note: this outputs Unix-style paths on Windows
     const wrappers: string[] = glob.GlobSync(prefix + 'src/app/**/themed-*.component.ts', { ignore: 'node_modules/**' }).found;
 
     for (const wrapper of wrappers) {
@@ -243,17 +242,6 @@ export function inThemedComponentOverrideFile(filename: string): boolean {
   themeableComponents.initialize();
   // todo: this is fragile!
   return themeableComponents.byBasePath.has(`src/${match[1]}`);
-}
-
-export function inThemedComponentFile(context: AnyRuleContext): boolean {
-  themeableComponents.initialize();
-  const filename = getFilename(context);
-
-  return [
-    () => themeableComponents.byBasePath.has(filename),
-    () => themeableComponents.byWrapperPath.has(filename),
-    () => inThemedComponentOverrideFile(filename),
-  ].some(predicate => predicate());
 }
 
 export function allThemeableComponents(): ThemeableComponentRegistryEntry[] {

@@ -14,3 +14,15 @@ export function match(rangeA: number[], rangeB: number[]) {
 export function stringLiteral(value: string): string {
   return `'${value}'`;
 }
+
+/**
+ * Transform Windows-style paths into Unix-style paths
+ */
+export function toUnixStylePath(path: string): string {
+  // note: we're assuming that none of the directory/file names contain '\' or '/' characters.
+  //       using these characters in paths is very bad practice in general, so this should be a safe assumption.
+  if (path.includes('\\')) {
+    return path.replace(/^[A-Z]:\\/, '/').replaceAll('\\', '/');
+  }
+  return path;
+}
