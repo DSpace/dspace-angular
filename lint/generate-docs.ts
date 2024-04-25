@@ -20,12 +20,12 @@ import { default as tsPlugin } from './src/rules/ts';
 
 const templates = new Map();
 
-function lazyEJS(path: string, data: object) {
+function lazyEJS(path: string, data: object): string {
   if (!templates.has(path)) {
     templates.set(path, require('ejs').compile(readFileSync(path).toString()));
   }
 
-  return templates.get(path)(data);
+  return templates.get(path)(data).replace(/\r\n/g, '\n');
 }
 
 const docsDir = join('docs', 'lint');
