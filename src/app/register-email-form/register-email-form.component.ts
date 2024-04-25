@@ -99,7 +99,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
       Validators.email,
       // Regex pattern borrowed from HTML5 specs for a valid email address:
       // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
-      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
+      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])\\.(?:[a-zA-Z0-9](?:\\.[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
     ];
     this.form = this.formBuilder.group({
       email: new UntypedFormControl('', {

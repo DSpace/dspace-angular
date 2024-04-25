@@ -64,7 +64,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
       }),
       email: new UntypedFormControl('', {
         validators: [Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]
+        Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])\\.(?:[a-zA-Z0-9](?:\\.[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')]
       }),
       allfiles: new UntypedFormControl(''),
       message: new UntypedFormControl(''),
