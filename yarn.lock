@@ -183,11 +183,6 @@
     "@nx/devkit" "17.2.8"
     nx "17.2.8"
 
-"@angular-eslint/bundled-angular-compiler@16.3.1":
-  version "16.3.1"
-  resolved "https://registry.yarnpkg.com/@angular-eslint/bundled-angular-compiler/-/bundled-angular-compiler-16.3.1.tgz#c4e9828020e26be17abb87197118a7faaa8a97c5"
-  integrity sha512-m4WP1xwS9XLcC/3n6lIcG5HZoai/5eb5W3xm48GVcv//0qE2p7S96RSgKPgGHvif5pF8O9xAqEWs3gDEG45+7A==
-
 "@angular-eslint/bundled-angular-compiler@17.2.1":
   version "17.2.1"
   resolved "https://registry.yarnpkg.com/@angular-eslint/bundled-angular-compiler/-/bundled-angular-compiler-17.2.1.tgz#d849b0845371b41856b9f598af81ce5bf799bca0"

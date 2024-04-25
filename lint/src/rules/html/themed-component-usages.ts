@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { TmplAstElement } from '@angular-eslint/bundled-angular-compiler';
-import { getTemplateParserServices } from '@angular-eslint/utils';
+import { TemplateParserServices } from '@angular-eslint/utils';
 import {
   ESLintUtils,
   TSESLint,
@@ -21,7 +21,10 @@ import {
   DISALLOWED_THEME_SELECTORS,
   fixSelectors,
 } from '../../util/theme-support';
-import { getFilename } from '../../util/typescript';
+import {
+  getFilename,
+  getSourceCode,
+} from '../../util/typescript';
 
 export enum Message {
   WRONG_SELECTOR = 'mustUseThemedWrapperSelector',
@@ -55,7 +58,7 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
       return {};
     }
 
-    const parserServices = getTemplateParserServices(context as any);
+    const parserServices = getSourceCode(context).parserServices as TemplateParserServices;
 
     return {
       [`Element$1[name = /^${DISALLOWED_THEME_SELECTORS}/]`](node: TmplAstElement) {
