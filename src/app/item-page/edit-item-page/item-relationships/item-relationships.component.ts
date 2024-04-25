@@ -4,11 +4,9 @@ import {
   DeleteRelationship,
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
-import { map, startWith, switchMap, take, concatMap, toArray, tap } from 'rxjs/operators';
+import { map, switchMap, take, concatMap, toArray } from 'rxjs/operators';
 import {
   combineLatest as observableCombineLatest,
-  of as observableOf,
-  zip as observableZip,
   Observable,
   BehaviorSubject, EMPTY
 } from 'rxjs';
@@ -36,7 +34,6 @@ import { FieldChangeType } from '../../../core/data/object-updates/field-change-
 import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HALLink } from '../../../core/shared/hal-link.model';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -144,7 +141,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       switchMap(([removeUpdates, addUpdates]) => [...removeUpdates, ...addUpdates]),
       concatMap((update: FieldUpdate) => {
         if (update.changeType === FieldChangeType.REMOVE) {
-          return this.deleteRelationship(update.field as DeleteRelationship).pipe(take(1))
+          return this.deleteRelationship(update.field as DeleteRelationship).pipe(take(1));
         } else if (update.changeType === FieldChangeType.ADD) {
           return this.addRelationship(update.field as RelationshipIdentifiable).pipe(
             take(1),
@@ -165,12 +162,11 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
                     map(() => relationshipRD)
                   );
                 }
-              }
-              else {
+              } else {
                 return [relationshipRD];
               }
             })
-          )
+          );
         } else {
           return EMPTY;
         }
@@ -228,7 +224,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         }
         return this.relationshipService.addRelationship(addRelationship.type.id, leftItem, rightItem, leftwardValue, rightwardValue, false);
       }),
-    )
+    );
 
   }
 

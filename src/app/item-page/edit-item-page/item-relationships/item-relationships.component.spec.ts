@@ -266,7 +266,7 @@ describe('ItemRelationshipsComponent', () => {
     });
 
     it('it should delete the correct relationship', () => {
-      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left');
+      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left', false);
     });
   });
 
