@@ -40,11 +40,11 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
   imports: [
     ThemedSearchComponent,
     MyDSpaceNewSubmissionComponent,
-    MyDspaceQaEventsNotificationsComponent,
-    SuggestionsNotificationComponent,
     AsyncPipe,
     RoleDirective,
     NgIf,
+    SuggestionsNotificationComponent,
+    MyDspaceQaEventsNotificationsComponent,
   ],
 })
 export class MyDSpacePageComponent extends BaseComponent {
