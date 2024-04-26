@@ -6,7 +6,7 @@ describe('Item Template', () => {
     cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
   });
 
-  it('It should display the elements with specific texts', () => {
+  it('should load properly', () => {
     cy.contains('.ds-header-row .lbl-cell', 'Field', { timeout: 10000 }).should('exist').should('be.visible');
     cy.contains('.ds-header-row b', 'Value', { timeout: 10000 }).should('exist').should('be.visible');
     cy.contains('.ds-header-row b', 'Lang', { timeout: 10000 }).should('exist').should('be.visible');
