@@ -12,8 +12,7 @@ import { RegisterEmailFormComponent } from '../../../../../app/register-email-fo
   templateUrl: '../../../../../app/forgot-password/forgot-password-email/forgot-email.component.html',
   standalone: true,
   imports: [
-    RegisterEmailFormComponent,
-    ThemedRegisterEmailFormComponent,
+    RegisterEmailFormComponent, ThemedRegisterEmailFormComponent,
   ],
 })
 /**

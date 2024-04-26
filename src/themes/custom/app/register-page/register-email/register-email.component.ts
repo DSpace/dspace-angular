@@ -12,8 +12,7 @@ import { RegisterEmailComponent as BaseComponent } from '../../../../../app/regi
   templateUrl: '../../../../../app/register-page/register-email/register-email.component.html',
   standalone: true,
   imports: [
-    RegisterEmailFormComponent,
-    ThemedRegisterEmailFormComponent,
+    RegisterEmailFormComponent, ThemedRegisterEmailFormComponent,
   ],
 })
 /**

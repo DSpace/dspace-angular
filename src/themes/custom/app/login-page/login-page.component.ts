@@ -15,7 +15,7 @@ import { LogInComponent } from '../../../../app/shared/log-in/log-in.component';
   // templateUrl: './login-page.component.html'
   templateUrl: '../../../../app/login-page/login-page.component.html',
   standalone: true,
-  imports: [LogInComponent, ThemedLogInComponent ,TranslateModule],
+  imports: [LogInComponent, ThemedLogInComponent, TranslateModule],
 })
 export class LoginPageComponent extends BaseComponent {
 }
