@@ -58,14 +58,11 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
     let highlights: string[] = Metadata.allValues([this.object.hitHighlights], keyOrKeys);
     let removedHighlights: string[] = highlights.map(str => str.replace(/<\/?em>/g, ''));
     for (let i = 0; i < removedHighlights.length; i++) {
-        let index = dsoMetadata.indexOf(removedHighlights[i]);        
+        let index = dsoMetadata.indexOf(removedHighlights[i]);
         if (index !== -1) {
           dsoMetadata[index] = highlights[i];
         }
     }
-    console.log(dsoMetadata);
-    console.log(highlights);
-    console.log(removedHighlights);
     return dsoMetadata;
   }
 
