@@ -10,7 +10,6 @@
         <ng-container *ngVar="updates | dsObjectValues as updateValues">
           <ds-pagination
             [paginationOptions]="paginationConfig"
-            [pageInfoState]="(relationshipsRd$ | async)?.payload?.pageInfo"
             [collectionSize]="(relationshipsRd$ | async)?.payload?.totalElements + (this.nbAddedFields$ | async)"
             [hideGear]="true"
             [hidePagerWhenSinglePage]="true">

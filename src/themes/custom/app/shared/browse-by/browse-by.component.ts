@@ -30,8 +30,7 @@ import { StartsWithLoaderComponent } from '../../../../../app/shared/starts-with
     fadeInOut,
   ],
   standalone: true,
-  imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent,
-    ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
+  imports: [VarDirective, NgClass, NgComponentOutlet, NgIf, ThemedResultsBackButtonComponent, ObjectCollectionComponent, ThemedLoadingComponent, ErrorComponent, AsyncPipe, TranslateModule, StartsWithLoaderComponent],
 })
 export class BrowseByComponent extends BaseComponent {
 }

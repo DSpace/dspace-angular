@@ -9,10 +9,6 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  REQUEST,
-  RESPONSE,
-} from '@nguniversal/express-engine/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieAttributes } from 'js-cookie';
 import {
@@ -28,6 +24,10 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import {
+  REQUEST,
+  RESPONSE,
+} from '../../../express.tokens';
 import { AppState } from '../../app.reducer';
 import {
   hasNoValue,

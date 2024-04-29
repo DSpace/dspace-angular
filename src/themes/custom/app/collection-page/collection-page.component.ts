@@ -43,7 +43,6 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     ComcolPageContentComponent,
     ErrorComponent,
     NgIf,
-    RouterOutlet,
     ThemedLoadingComponent,
     TranslateModule,
     ViewTrackerComponent,
@@ -55,6 +54,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
     ObjectCollectionComponent,
+    RouterOutlet,
   ],
 })
 /**

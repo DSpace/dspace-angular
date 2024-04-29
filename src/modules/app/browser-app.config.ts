@@ -20,7 +20,6 @@ import {
   StoreConfig,
   StoreModule,
 } from '@ngrx/store';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import {
   MissingTranslationHandler,
   TranslateLoader,
@@ -59,6 +58,7 @@ import { KlaroService } from '../../app/shared/cookies/klaro.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { SubmissionService } from '../../app/submission/submission.service';
+import { REQUEST } from '../../express.tokens';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
 

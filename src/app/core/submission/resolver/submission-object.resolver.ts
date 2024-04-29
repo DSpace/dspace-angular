@@ -5,12 +5,12 @@ import {
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
 import { RemoteData } from '../../data/remote-data';
 import { Item } from '../../shared/item.model';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { SubmissionObject } from '../models/submission-object.model';
+import { SUBMISSION_LINKS_TO_FOLLOW } from './submission-links-to-follow';
 
 /**
  * Method for resolving an item based on the parameters in the current route
@@ -28,7 +28,7 @@ export const SubmissionObjectResolver: (route: ActivatedRouteSnapshot, state: Ro
   return dataService.findById(route.params.id,
     true,
     false,
-    followLink('item'),
+    ...SUBMISSION_LINKS_TO_FOLLOW,
   ).pipe(
     getFirstCompletedRemoteData(),
     switchMap((wfiRD: RemoteData<any>) => wfiRD.payload.item as Observable<RemoteData<Item>>),

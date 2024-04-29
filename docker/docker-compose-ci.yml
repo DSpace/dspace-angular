@@ -33,6 +33,7 @@ services:
       # Tell Statistics to commit all views immediately instead of waiting on Solr's autocommit.
       # This allows us to generate statistics in e2e tests so that statistics pages can be tested thoroughly.
       solr__D__statistics__P__autoCommit: 'false'
+      LOGGING_CONFIG: /dspace/config/log4j2-container.xml
     image: "${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
     depends_on:
     - dspacedb
@@ -60,15 +61,19 @@ services:
   # NOTE: This is customized to use our loadsql image, so that we are using a database with existing test data
   dspacedb:
     container_name: dspacedb
+    image: "${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest-loadsql}"
     environment:
       # This LOADSQL should be kept in sync with the LOADSQL in
       # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
       # This SQL is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data
       LOADSQL: https://github.com/DSpace-Labs/AIP-Files/releases/download/demo-entities-data/dspace7-entities-data.sql
       PGDATA: /pgdata
-    image: dspace/dspace-postgres-pgcrypto:loadsql
+      POSTGRES_PASSWORD: dspace
     networks:
       - dspacenet
+    ports:
+    - published: 5432
+      target: 5432
     stdin_open: true
     tty: true
     volumes:
@@ -105,6 +110,8 @@ services:
       cp -r /opt/solr/server/solr/configsets/statistics/* statistics
       precreate-core qaevent /opt/solr/server/solr/configsets/qaevent
       cp -r /opt/solr/server/solr/configsets/qaevent/* qaevent
+      precreate-core suggestion /opt/solr/server/solr/configsets/suggestion
+      cp -r /opt/solr/server/solr/configsets/suggestion/* suggestion
       exec solr -f
 volumes:
   assetstore:
