@@ -10,8 +10,7 @@
       </a>
     </span>
     <div id="command-div" *ngIf="isCommandLineVisible">
-      <button class="repo-copy-btn pull-right" data-clipboard-target="#command-div"></button>
-      <pre style="background-color: #d9edf7; color: #3a87ad">{{ command }}</pre>
+        <pre class="command-pre">{{ command }}</pre>
     </div>
     <span>
       <a *ngIf="canDownloadAllFiles" class="btn btn-download" id="download-all-button" (click)="downloadFiles()"

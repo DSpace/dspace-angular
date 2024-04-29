@@ -83,7 +83,7 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
   unsupportedLicenseMsgHidden = new BehaviorSubject<boolean>(true);
 
   /**
-   * Licenses loaded from the license-definitions.json and mapped to the object list.
+   * Licenses loaded from the BE and mapped to the object list.
    */
   licenses4Selector: License4Selector[] = [];
 
@@ -513,7 +513,7 @@ export class SubmissionSectionClarinLicenseComponent extends SectionModelCompone
   }
 
   /**
-   * Map licenses from `license-definitions.json` to the object list.
+   * Map licenses from BE to the object list.
    */
   private async loadLicenses4Selector(): Promise<any> {
     // Show PUB licenses as first.
