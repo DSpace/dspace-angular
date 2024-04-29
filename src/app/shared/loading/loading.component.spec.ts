@@ -7,6 +7,7 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 
 import { LoadingComponent } from './loading.component';
+import { NativeWindowService } from '../../core/services/window.service';
 
 describe('LoadingComponent (inline template)', () => {
 
@@ -14,6 +15,19 @@ describe('LoadingComponent (inline template)', () => {
   let fixture: ComponentFixture<LoadingComponent>;
   let de: DebugElement;
   let el: HTMLElement;
+
+  let windowSpy = jasmine.createSpyObj('NativeWindowService', [],{
+    nativeWindow: {
+      location: {
+        search: '',
+        pathname: '',
+        reload: () => null
+      },
+      history: {
+        replaceState: () => null
+      }
+    }
+  });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -26,8 +40,12 @@ describe('LoadingComponent (inline template)', () => {
         }),
       ],
       declarations: [LoadingComponent], // declare the test component
-      providers: [TranslateService]
+      providers: [
+        TranslateService,
+        { provide: NativeWindowService, useValue: windowSpy },
+      ]
     }).compileComponents();  // compile template and css
+
   }));
 
   beforeEach(() => {
@@ -73,6 +91,16 @@ describe('LoadingComponent (inline template)', () => {
     fixture.detectChanges();
     de = fixture.debugElement.query(By.css('ds-alert'));
     expect(de).toBeTruthy();
+  });
+
+  it('should add time if the page has been automatically reloaded', () => {
+    comp.pageReloadCount = 1;
+    comp.errorMessageDelay = 1000;
+    comp.warningMessageDelay = 500;
+    comp.numberOfAutomaticPageReloads = 2;
+    comp.ngOnInit();
+
+    expect(comp.errorTimeoutWithRetriesDelay).toBe(1500);
   });
 
 });

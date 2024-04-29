@@ -30,6 +30,8 @@ export class LoadingComponent implements OnDestroy, OnInit {
   @Input() warningMessageDelay = environment.loader.warningMessageDelay;
   @Input() errorMessage: string;
   @Input() errorMessageDelay = environment.loader.errorMessageDelay;
+  errorTimeoutWithRetriesDelay = environment.loader.errorMessageDelay;
+
 
   @Input() numberOfAutomaticPageReloads = environment.loader.numberOfAutomaticPageReloads || 0;
 
@@ -66,6 +68,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
       this._window.nativeWindow.history.replaceState({}, '',
         `${this._window.nativeWindow.location.pathname}${queryParams.keys.length ? '?' + queryParams.toString() : ''}`);
     }
+    this.errorTimeoutWithRetriesDelay = this.errorMessageDelay + this.pageReloadCount * (this.errorMessageDelay - this.warningMessageDelay);
 
     if (this.showMessage) {
       this.message = this.message || this.translate.instant('loading.default');
@@ -80,7 +83,6 @@ export class LoadingComponent implements OnDestroy, OnInit {
         }, this.warningMessageDelay);
       }
       if (this.errorMessageDelay > 0) {
-        const errorTimeoutWithRetriesDelay = this.errorMessageDelay + this.pageReloadCount * (this.errorMessageDelay - this.warningMessageDelay);
         this.errorTimeout = setTimeout(() => {
           if (this.pageReloadCount < this.numberOfAutomaticPageReloads) {
             this.pageReloadCount++;
@@ -92,7 +94,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
             this.messageToShow = MessageType.ERROR;
             this.changeDetectorRef.detectChanges();
           }
-        }, errorTimeoutWithRetriesDelay);
+        }, this.errorTimeoutWithRetriesDelay);
       }
     }
   }
