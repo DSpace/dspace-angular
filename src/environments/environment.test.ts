@@ -582,5 +582,6 @@ export const environment: BuildConfig = {
     showFallbackMessagesByDefault: true,
     warningMessageDelay: 1000,
     errorMessageDelay: 2000,
+    numberOfAutomaticPageReloads: 2,
   },
 };

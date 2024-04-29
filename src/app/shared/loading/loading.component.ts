@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
 import { hasValue } from '../empty.util';
 import { environment } from '../../../environments/environment';
 import { AlertType } from '../alert/alert-type';
+import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
 
 enum MessageType {
   LOADING = 'loading',
@@ -19,6 +20,8 @@ enum MessageType {
 })
 export class LoadingComponent implements OnDestroy, OnInit {
 
+  readonly QUERY_PARAM_RELOAD_COUNT = 'reloadCount';
+
   @Input() message: string;
   @Input() showMessage = true;
 
@@ -27,6 +30,8 @@ export class LoadingComponent implements OnDestroy, OnInit {
   @Input() warningMessageDelay = environment.loader.warningMessageDelay;
   @Input() errorMessage: string;
   @Input() errorMessageDelay = environment.loader.errorMessageDelay;
+
+  @Input() numberOfAutomaticPageReloads = environment.loader.numberOfAutomaticPageReloads || 0;
 
   /**
    * Show a more compact spinner animation instead of the default one
@@ -39,13 +44,29 @@ export class LoadingComponent implements OnDestroy, OnInit {
   warningTimeout: any;
   errorTimeout: any;
 
+  pageReloadCount = 0;
+
   readonly AlertTypeEnum = AlertType;
 
-  constructor(private translate: TranslateService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
+    private translate: TranslateService,
+    private changeDetectorRef: ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
+    // get current page reload count from query parameters
+    const queryParams = new URLSearchParams(this._window.nativeWindow.location.search);
+    const reloadCount = queryParams.get(this.QUERY_PARAM_RELOAD_COUNT);
+    if (hasValue(reloadCount)) {
+      this.pageReloadCount = +reloadCount;
+      // clear reload count from query parameters
+      queryParams.delete(this.QUERY_PARAM_RELOAD_COUNT);
+      this._window.nativeWindow.history.replaceState({}, '',
+        `${this._window.nativeWindow.location.pathname}${queryParams.keys.length ? '?' + queryParams.toString() : ''}`);
+    }
+
     if (this.showMessage) {
       this.message = this.message || this.translate.instant('loading.default');
     }
@@ -59,10 +80,19 @@ export class LoadingComponent implements OnDestroy, OnInit {
         }, this.warningMessageDelay);
       }
       if (this.errorMessageDelay > 0) {
+        const errorTimeoutWithRetriesDelay = this.errorMessageDelay + this.pageReloadCount * (this.errorMessageDelay - this.warningMessageDelay);
         this.errorTimeout = setTimeout(() => {
-          this.messageToShow = MessageType.ERROR;
-          this.changeDetectorRef.detectChanges();
-        }, this.errorMessageDelay);
+          if (this.pageReloadCount < this.numberOfAutomaticPageReloads) {
+            this.pageReloadCount++;
+            // add reload count to query parameters, then reload the page
+            queryParams.set(this.QUERY_PARAM_RELOAD_COUNT, this.pageReloadCount.toString());
+            this._window.nativeWindow.history.replaceState({}, '', `${this._window.nativeWindow.location.pathname}?${queryParams}`);
+            this._window.nativeWindow.location.reload();
+          } else {
+            this.messageToShow = MessageType.ERROR;
+            this.changeDetectorRef.detectChanges();
+          }
+        }, errorTimeoutWithRetriesDelay);
       }
     }
   }
