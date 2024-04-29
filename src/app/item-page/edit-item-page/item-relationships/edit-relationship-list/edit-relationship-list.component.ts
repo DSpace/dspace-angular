@@ -348,7 +348,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         // Wait until the states changes since there are multiple items
         setTimeout( () => {
           this.submit.emit();
-        },1000);
+          this.modalRef.close();
+        },2000);
 
         modalComp.isPending = true;
       });
