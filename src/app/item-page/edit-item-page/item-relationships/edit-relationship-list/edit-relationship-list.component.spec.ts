@@ -13,7 +13,6 @@ import {
   Router,
 } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
@@ -23,6 +22,7 @@ import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 import { AuthRequestServiceStub } from 'src/app/shared/testing/auth-request-service.stub';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { REQUEST } from '../../../../../express.tokens';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';

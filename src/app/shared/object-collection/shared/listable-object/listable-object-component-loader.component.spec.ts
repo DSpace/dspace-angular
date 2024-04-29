@@ -12,7 +12,6 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
@@ -27,6 +26,7 @@ import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
 } from '../../../../../config/app-config.interface';
+import { REQUEST } from '../../../../../express.tokens';
 import { Context } from '../../../../core/shared/context.model';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableModule } from '../../../../core/shared/listable.module';

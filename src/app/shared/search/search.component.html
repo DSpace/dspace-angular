@@ -33,6 +33,7 @@
                        | translate}}
                 </button>
             </div>
+            <ng-content select="[searchContentTop]"></ng-content>
             <ds-themed-search-results *ngIf="inPlaceSearch"
                                       [searchResults]="resultsRD$ | async"
                                       [searchConfig]="searchOptions$ | async"
@@ -95,8 +96,8 @@
                     [inPlaceSearch]="inPlaceSearch"
                     [searchPlaceholder]="searchFormPlaceholder | translate">
     </ds-themed-search-form>
-    <div class="row mb-3 mb-md-1">
-        <div class="labels col-sm-9">
+    <div class="mb-3 mb-md-1">
+        <div class="labels">
             <ds-search-labels [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
         </div>
     </div>

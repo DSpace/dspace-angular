@@ -14,6 +14,4 @@ import { serverAppConfig } from './modules/app/server-app.config';
 
 const bootstrap = () => bootstrapApplication(AppComponent, serverAppConfig);
 
-export { renderModule } from '@angular/platform-server';
-export { ngExpressEngine } from '@nguniversal/express-engine';
 export default bootstrap;

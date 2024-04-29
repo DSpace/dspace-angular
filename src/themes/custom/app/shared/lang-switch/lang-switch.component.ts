@@ -1,5 +1,5 @@
 import {
-  NgForOf,
+  NgFor,
   NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
@@ -15,7 +15,7 @@ import { LangSwitchComponent as BaseComponent } from '../../../../../app/shared/
   // templateUrl: './lang-switch.component.html',
   templateUrl: '../../../../../app/shared/lang-switch/lang-switch.component.html',
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgForOf, TranslateModule],
+  imports: [NgIf, NgbDropdownModule, NgFor, TranslateModule],
 })
 export class LangSwitchComponent extends BaseComponent {
 }

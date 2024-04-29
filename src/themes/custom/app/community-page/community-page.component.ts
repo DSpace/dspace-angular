@@ -6,7 +6,10 @@ import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {
+  RouterModule,
+  RouterOutlet,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { CommunityPageComponent as BaseComponent } from '../../../../app/community-page/community-page.component';
@@ -49,6 +52,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     AsyncPipe,
     ViewTrackerComponent,
     VarDirective,
+    RouterOutlet,
     RouterModule,
   ],
 })

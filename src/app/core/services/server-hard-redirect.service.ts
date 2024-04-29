@@ -3,14 +3,14 @@ import {
   Injectable,
 } from '@angular/core';
 import {
-  REQUEST,
-  RESPONSE,
-} from '@nguniversal/express-engine/tokens';
-import {
   Request,
   Response,
 } from 'express';
 
+import {
+  REQUEST,
+  RESPONSE,
+} from '../../../express.tokens';
 import { HardRedirectService } from './hard-redirect.service';
 
 /**

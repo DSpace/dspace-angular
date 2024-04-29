@@ -23,13 +23,13 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
   imports: [
     ThemedProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
-    SuggestionsNotificationComponent,
     AsyncPipe,
     TranslateModule,
     ProfilePageResearcherFormComponent,
     VarDirective,
     NgIf,
     NgForOf,
+    SuggestionsNotificationComponent,
   ],
 })
 /**
