@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ThemedRegisterEmailFormComponent } from 'src/app/register-email-form/themed-registry-email-form.component';
 
 import { ForgotEmailComponent as BaseComponent } from '../../../../../app/forgot-password/forgot-password-email/forgot-email.component';
-import { RegisterEmailFormComponent } from '../../../../../app/register-email-form/register-email-form.component';
 
 @Component({
   selector: 'ds-themed-forgot-email',
@@ -12,7 +11,7 @@ import { RegisterEmailFormComponent } from '../../../../../app/register-email-fo
   templateUrl: '../../../../../app/forgot-password/forgot-password-email/forgot-email.component.html',
   standalone: true,
   imports: [
-    RegisterEmailFormComponent, ThemedRegisterEmailFormComponent,
+    ThemedRegisterEmailFormComponent,
   ],
 })
 /**

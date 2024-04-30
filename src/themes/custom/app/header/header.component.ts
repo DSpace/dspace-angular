@@ -13,7 +13,6 @@ import { HeaderComponent as BaseComponent } from '../../../../app/header/header.
 import { ThemedSearchNavbarComponent } from '../../../../app/search-navbar/themed-search-navbar.component';
 import { ThemedAuthNavMenuComponent } from '../../../../app/shared/auth-nav-menu/themed-auth-nav-menu.component';
 import { ImpersonateNavbarComponent } from '../../../../app/shared/impersonate-navbar/impersonate-navbar.component';
-import { LangSwitchComponent } from '../../../../app/shared/lang-switch/lang-switch.component';
 
 /**
  * Represents the header with the logo and simple navigation
@@ -25,7 +24,7 @@ import { LangSwitchComponent } from '../../../../app/shared/lang-switch/lang-swi
   // templateUrl: 'header.component.html',
   templateUrl: '../../../../app/header/header.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, LangSwitchComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule, AsyncPipe, NgIf],
+  imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule, AsyncPipe, NgIf],
 })
 export class HeaderComponent extends BaseComponent {
 }
