@@ -107,7 +107,7 @@ describe('SubscriptionViewComponent', () => {
   });
 
   it('should have dso object info', () => {
-    expect(de.query(By.css('.dso-info > ds-themed-type-badge'))).toBeTruthy();
+    expect(de.query(By.css('.dso-info > ds-type-badge'))).toBeTruthy();
     expect(de.query(By.css('.dso-info > p > a'))).toBeTruthy();
   });
 

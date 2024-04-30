@@ -29,7 +29,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
 
 
 @Component({
-  selector: 'ds-community-page',
+  selector: 'ds-themed-community-page',
   // templateUrl: './community-page.component.html',
   templateUrl: '../../../../app/community-page/community-page.component.html',
   // styleUrls: ['./community-page.component.scss']

@@ -10,7 +10,7 @@ import { ItemAlertsComponent as BaseComponent } from '../../../../../app/item-pa
 import { AlertComponent } from '../../../../../app/shared/alert/alert.component';
 
 @Component({
-  selector: 'ds-item-alerts',
+  selector: 'ds-themed-item-alerts',
   // templateUrl: './item-alerts.component.html',
   templateUrl: '../../../../../app/item-page/alerts/item-alerts.component.html',
   // styleUrls: ['./item-alerts.component.scss'],

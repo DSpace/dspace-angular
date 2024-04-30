@@ -75,16 +75,16 @@ enum SubKey {
 export class ReviewersListComponent extends MembersListComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
-    groupId: string | null;
+  groupId: string | null;
 
   @Input()
-    actionConfig: EPersonListActionConfig;
+  actionConfig: EPersonListActionConfig;
 
   @Input()
-    multipleReviewers: boolean;
+  multipleReviewers: boolean;
 
   @Output()
-    selectedReviewersUpdated: EventEmitter<EPerson[]> = new EventEmitter();
+  selectedReviewersUpdated: EventEmitter<EPerson[]> = new EventEmitter();
 
   selectedReviewers: EPerson[] = [];
 

@@ -28,7 +28,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
 @Component({
-  selector: 'ds-end-user-agreement',
+  selector: 'ds-base-end-user-agreement',
   templateUrl: './end-user-agreement.component.html',
   styleUrls: ['./end-user-agreement.component.scss'],
   standalone: true,

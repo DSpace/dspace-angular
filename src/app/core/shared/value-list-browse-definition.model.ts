@@ -23,14 +23,14 @@ export class ValueListBrowseDefinition extends NonHierarchicalBrowseDefinition {
    * The object type
    */
   @excludeFromEquals
-    type: ResourceType = VALUE_LIST_BROWSE_DEFINITION;
+  type: ResourceType = VALUE_LIST_BROWSE_DEFINITION;
 
   get self(): string {
     return this._links.self.href;
   }
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     entries: HALLink;
   };

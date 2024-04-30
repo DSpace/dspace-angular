@@ -68,8 +68,8 @@ export abstract class FieldParser {
 
   public parse() {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
-      && (this.configData.input.type !== ParserType.List)
-      && (this.configData.input.type !== ParserType.Tag)
+      && (this.configData.input.type !== ParserType.List.valueOf())
+      && (this.configData.input.type !== ParserType.Tag.valueOf())
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
@@ -81,7 +81,7 @@ export abstract class FieldParser {
       }
 
       let isDraggable = true;
-      if (this.configData.input.type === ParserType.Onebox && this.configData?.selectableMetadata?.length > 1) {
+      if (this.configData.input.type === ParserType.Onebox.valueOf() && this.configData?.selectableMetadata?.length > 1) {
         isDraggable = false;
       }
       const config = {
@@ -344,12 +344,12 @@ export abstract class FieldParser {
       && isNotEmpty(fieldScope)
       && isNotEmpty(visibility)
       && ((
-        submissionScope === SubmissionScopeType.WorkspaceItem
+        submissionScope === SubmissionScopeType.WorkspaceItem.valueOf()
           && visibility.main === VisibilityType.READONLY
       )
         ||
           (visibility.other === VisibilityType.READONLY
-          && submissionScope === SubmissionScopeType.WorkflowItem
+          && submissionScope === SubmissionScopeType.WorkflowItem.valueOf()
           )
       );
   }

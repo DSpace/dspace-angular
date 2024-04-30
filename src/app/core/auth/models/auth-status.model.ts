@@ -36,14 +36,14 @@ export class AuthStatus implements CacheableObject {
    * The unique identifier of this auth status
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The type for this AuthStatus
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The UUID of this auth status
@@ -57,19 +57,19 @@ export class AuthStatus implements CacheableObject {
    * True if REST API is up and running, should never return false
    */
   @autoserialize
-    okay: boolean;
+  okay: boolean;
 
   /**
    * If the auth status represents an authenticated state
    */
   @autoserialize
-    authenticated: boolean;
+  authenticated: boolean;
 
   /**
    * The {@link HALLink}s for this AuthStatus
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     eperson: HALLink;
     specialGroups: HALLink;
@@ -80,32 +80,32 @@ export class AuthStatus implements CacheableObject {
    * Will be undefined unless the eperson {@link HALLink} has been resolved.
    */
   @link(EPERSON)
-    eperson?: Observable<RemoteData<EPerson>>;
+  eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * The SpecialGroup of this auth status
    * Will be undefined unless the SpecialGroup {@link HALLink} has been resolved.
    */
   @link(GROUP, true)
-    specialGroups?: Observable<RemoteData<PaginatedList<Group>>>;
+  specialGroups?: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
    * True if the token is valid, false if there was no token or the token wasn't valid
    */
   @autoserialize
-    token?: AuthTokenInfo;
+  token?: AuthTokenInfo;
 
   /**
    * Authentication error if there was one for this status
    */
   // TODO should be refactored to use the RemoteData error
   @autoserialize
-    error?: AuthError;
+  error?: AuthError;
 
   /**
    * All authentication methods enabled at the backend
    */
   @autoserialize
-    authMethods: AuthMethod[];
+  authMethods: AuthMethod[];
 
 }

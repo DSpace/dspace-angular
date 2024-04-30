@@ -63,7 +63,7 @@ export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
 
 @Component({
-  selector: 'ds-register-email-form',
+  selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
   standalone: true,
   imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule],
@@ -82,13 +82,13 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * The message prefix
    */
   @Input()
-    MESSAGE_PREFIX: string;
+  MESSAGE_PREFIX: string;
 
   /**
    * Type of register request to be done, register new email or forgot password (same endpoint)
    */
   @Input()
-    typeRequest: string = null;
+  typeRequest: string = null;
 
   public AlertTypeEnum = AlertType;
 

@@ -11,7 +11,13 @@
     "eslint-plugin-jsonc",
     "eslint-plugin-rxjs",
     "eslint-plugin-simple-import-sort",
-    "eslint-plugin-import-newlines"
+    "eslint-plugin-import-newlines",
+    "eslint-plugin-jsonc",
+    "dspace-angular-ts",
+    "dspace-angular-html"
+  ],
+  "ignorePatterns": [
+    "lint/test/fixture"
   ],
   "overrides": [
     {
@@ -21,7 +27,8 @@
       "parserOptions": {
         "project": [
           "./tsconfig.json",
-          "./cypress/tsconfig.json"
+          "./cypress/tsconfig.json",
+          "./lint/tsconfig.json"
         ],
         "createDefaultProgram": true
       },
@@ -38,7 +45,10 @@
           "error",
           2,
           {
-            "SwitchCase": 1
+            "SwitchCase": 1,
+            "ignoredNodes": [
+              "ClassBody.body > PropertyDefinition[decorators.length > 0] > .key"
+            ]
           }
         ],
         "max-classes-per-file": [
@@ -212,6 +222,15 @@
         "@typescript-eslint/no-unsafe-return": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/require-await": "off",
+        "@typescript-eslint/no-base-to-string": [
+          "error",
+          {
+            "ignoredTypeNames": [
+              "ResourceType",
+              "Error"
+            ]
+          }
+        ],
 
         "deprecation/deprecation": "warn",
 
@@ -238,7 +257,12 @@
           "method"
         ],
 
-        "rxjs/no-nested-subscribe": "off"     // todo: go over _all_ cases
+        "rxjs/no-nested-subscribe": "off",     // todo: go over _all_ cases
+
+        // Custom DSpace Angular rules
+        "dspace-angular-ts/themed-component-classes": "error",
+        "dspace-angular-ts/themed-component-selectors": "error",
+        "dspace-angular-ts/themed-component-usages": "error"
       }
     },
     {
@@ -253,7 +277,10 @@
         "createDefaultProgram": true
       },
       "rules": {
-        "prefer-const": "off"
+        "prefer-const": "off",
+
+        // Custom DSpace Angular rules
+        "dspace-angular-ts/themed-component-usages": "error"
       }
     },
     {
@@ -262,7 +289,11 @@
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended"
-      ]
+      ],
+      "rules": {
+        // Custom DSpace Angular rules
+        "dspace-angular-html/themed-component-usages": "error"
+      }
     },
     {
       "files": [

@@ -11,17 +11,15 @@ import { ThemedDsoEditMetadataComponent } from '../../../../../app/dso-shared/ds
 import { AlertComponent } from '../../../../../app/shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { DsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/dso-edit-metadata.component';
 
 @Component({
-  selector: 'ds-edit-item-template-page',
+  selector: 'ds-themed-edit-item-template-page',
   styleUrls: ['./edit-item-template-page.component.scss'],
   // templateUrl: './edit-item-template-page.component.html',
   templateUrl: '../../../../../app/collection-page/edit-item-template-page/edit-item-template-page.component.html',
   standalone: true,
   imports: [
     ThemedDsoEditMetadataComponent,
-    DsoEditMetadataComponent,
     RouterLink,
     AsyncPipe,
     VarDirective,

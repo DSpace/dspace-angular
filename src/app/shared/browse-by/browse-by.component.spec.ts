@@ -135,7 +135,7 @@ describe('BrowseByComponent', () => {
   it('should display a loading message when objects is empty', () => {
     (comp as any).objects = undefined;
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('ds-themed-loading'))).not.toBeNull();
+    expect(fixture.debugElement.query(By.css('ds-loading'))).not.toBeNull();
   });
 
   it('should display results when objects is not empty', () => {
