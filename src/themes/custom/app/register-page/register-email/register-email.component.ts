@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ThemedRegisterEmailFormComponent } from 'src/app/register-email-form/themed-registry-email-form.component';
 
+import { RegisterEmailFormComponent } from '../../../../../app/register-email-form/register-email-form.component';
 import { RegisterEmailComponent as BaseComponent } from '../../../../../app/register-page/register-email/register-email.component';
 
 @Component({
@@ -11,7 +12,7 @@ import { RegisterEmailComponent as BaseComponent } from '../../../../../app/regi
   templateUrl: '../../../../../app/register-page/register-email/register-email.component.html',
   standalone: true,
   imports: [
-    ThemedRegisterEmailFormComponent,
+    RegisterEmailFormComponent, ThemedRegisterEmailFormComponent,
   ],
 })
 /**

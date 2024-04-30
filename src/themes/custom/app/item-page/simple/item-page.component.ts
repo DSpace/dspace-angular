@@ -44,11 +44,11 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     ItemVersionsComponent,
     ErrorComponent,
     ThemedLoadingComponent,
-    NotifyRequestsStatusComponent,
-    QaEventNotificationComponent,
     TranslateModule,
     AsyncPipe,
     NgIf,
+    NotifyRequestsStatusComponent,
+    QaEventNotificationComponent,
   ],
 })
 export class ItemPageComponent extends BaseComponent {

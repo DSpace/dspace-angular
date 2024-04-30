@@ -24,8 +24,8 @@ import {
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
-  EMPTY,
   Observable,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -188,7 +188,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       const lazyProvider$: Observable<UpdateDataService<DSpaceObject>> = lazyDataService(this.dataServiceMap, this.dsoType, this.parentInjector);
       return lazyProvider$;
     } else {
-      return EMPTY;
+      return of(this.updateDataService);
     }
   }
 

@@ -18,8 +18,8 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   standalone: true,
   imports: [
     TranslateModule,
-    ProfilePageSecurityFormComponent,
     BrowserOnlyPipe,
+    ProfilePageSecurityFormComponent,
     AsyncPipe,
     NgIf,
   ],

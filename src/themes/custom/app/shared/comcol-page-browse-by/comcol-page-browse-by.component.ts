@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgForOf,
+  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -30,6 +31,7 @@ import { ComcolPageBrowseByComponent as BaseComponent } from '../../../../../app
     RouterLinkActive,
     TranslateModule,
     AsyncPipe,
+    NgIf,
   ],
 })
 export class ComcolPageBrowseByComponent extends BaseComponent {}

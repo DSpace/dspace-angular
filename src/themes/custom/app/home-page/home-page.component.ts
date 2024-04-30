@@ -2,6 +2,7 @@ import {
   AsyncPipe,
   NgClass,
   NgIf,
+  NgTemplateOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,6 +13,7 @@ import { HomePageComponent as BaseComponent } from '../../../../app/home-page/ho
 import { RecentItemListComponent } from '../../../../app/home-page/recent-item-list/recent-item-list.component';
 import { ThemedTopLevelCommunityListComponent } from '../../../../app/home-page/top-level-community-list/themed-top-level-community-list.component';
 import { SuggestionsPopupComponent } from '../../../../app/notifications/suggestions-popup/suggestions-popup.component';
+import { ConfigurationSearchPageComponent } from '../../../../app/search-page/configuration-search-page.component';
 import { ThemedConfigurationSearchPageComponent } from '../../../../app/search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-with-sidebar.component';
@@ -24,7 +26,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
   // templateUrl: './home-page.component.html'
   templateUrl: '../../../../app/home-page/home-page.component.html',
   standalone: true,
-  imports: [ThemedHomeNewsComponent, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, ThemedConfigurationSearchPageComponent, SuggestionsPopupComponent, PageWithSidebarComponent, HomeCoarComponent],
+  imports: [ThemedHomeNewsComponent, NgTemplateOutlet, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, ConfigurationSearchPageComponent, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
 })
 export class HomePageComponent extends BaseComponent {
 
