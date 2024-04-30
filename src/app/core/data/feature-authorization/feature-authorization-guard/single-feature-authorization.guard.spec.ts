@@ -1,12 +1,13 @@
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { of as observableOf } from 'rxjs';
-import { Router } from '@angular/router';
+import { of as observableOf, Observable } from 'rxjs';
+import { Router, UrlTree } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
 import { singleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 
 
-describe('SingleFeatureAuthorizationGuard', () => {
+describe('singleFeatureAuthorizationGuard', () => {
   let guard: any;
   let authorizationService: AuthorizationDataService;
   let router: Router;
@@ -31,21 +32,34 @@ describe('SingleFeatureAuthorizationGuard', () => {
       isAuthenticated: observableOf(true),
     });
 
-    guard = singleFeatureAuthorizationGuard;
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: Router, useValue: router },
+        { provide: AuthService, useValue: authService },
+      ]
+    });
   }
 
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     init();
+  }));
+
+  it('should call authorizationService.isAuthenticated with the appropriate arguments', (done: DoneFn) => {
+    const result$ = TestBed.runInInjectionContext(() => {
+      return singleFeatureAuthorizationGuard(
+        () => observableOf(featureId),
+        () => observableOf(objectUrl),
+        () => observableOf(ePersonUuid),
+      )(undefined, { url: 'current-url' } as any)
+    }) as Observable<boolean | UrlTree>;
+
+
+    result$.subscribe(() => {
+      expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId, objectUrl, ePersonUuid);
+      done();
+    })
   });
 
-  describe('canActivate', () => {
-    it('should call authorizationService.isAuthorized with the appropriate arguments', (done) => {
-      guard(observableOf(featureId), observableOf(objectUrl), observableOf(ePersonUuid))(undefined, { url: 'current-url' } as any).subscribe(() => {
-        expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId, objectUrl, ePersonUuid);
-        done();
-      });
-
-    }, 10000);
-  });
 });
 
