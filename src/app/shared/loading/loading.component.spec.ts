@@ -7,7 +7,8 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 
 import { LoadingComponent } from './loading.component';
-import { NativeWindowService } from '../../core/services/window.service';
+import { Router } from '@angular/router';
+import { RouterMock } from '../mocks/router.mock';
 
 describe('LoadingComponent (inline template)', () => {
 
@@ -15,19 +16,6 @@ describe('LoadingComponent (inline template)', () => {
   let fixture: ComponentFixture<LoadingComponent>;
   let de: DebugElement;
   let el: HTMLElement;
-
-  let windowSpy = jasmine.createSpyObj('NativeWindowService', [],{
-    nativeWindow: {
-      location: {
-        search: '',
-        pathname: '',
-        reload: () => null
-      },
-      history: {
-        replaceState: () => null
-      }
-    }
-  });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -42,7 +30,7 @@ describe('LoadingComponent (inline template)', () => {
       declarations: [LoadingComponent], // declare the test component
       providers: [
         TranslateService,
-        { provide: NativeWindowService, useValue: windowSpy },
+        {provide: Router, useValue: new RouterMock()},
       ]
     }).compileComponents();  // compile template and css
 
