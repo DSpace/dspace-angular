@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
 import { hasValue } from '../empty.util';
 import { environment } from '../../../environments/environment';
 import { AlertType } from '../alert/alert-type';
-import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
+import { Router } from '@angular/router';
 
 enum MessageType {
   LOADING = 'loading',
@@ -51,7 +51,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
   readonly AlertTypeEnum = AlertType;
 
   constructor(
-    @Inject(NativeWindowService) private _window: NativeWindowRef,
+    private router: Router,
     private translate: TranslateService,
     private changeDetectorRef: ChangeDetectorRef) {
 
@@ -59,14 +59,14 @@ export class LoadingComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     // get current page reload count from query parameters
-    const queryParams = new URLSearchParams(this._window.nativeWindow.location.search);
+    const queryParams = new URLSearchParams(this.router.url.split('?')[1]);
     const reloadCount = queryParams.get(this.QUERY_PARAM_RELOAD_COUNT);
+    let currentUrl = this.router.url.split('?')[0];
     if (hasValue(reloadCount)) {
       this.pageReloadCount = +reloadCount;
       // clear reload count from query parameters
       queryParams.delete(this.QUERY_PARAM_RELOAD_COUNT);
-      this._window.nativeWindow.history.replaceState({}, '',
-        `${this._window.nativeWindow.location.pathname}${queryParams.keys.length ? '?' + queryParams.toString() : ''}`);
+      this.router.navigate([currentUrl], {queryParams: queryParams, skipLocationChange: true});
     }
     this.errorTimeoutWithRetriesDelay = this.errorMessageDelay + this.pageReloadCount * (this.errorMessageDelay - this.warningMessageDelay);
 
@@ -87,9 +87,14 @@ export class LoadingComponent implements OnDestroy, OnInit {
           if (this.pageReloadCount < this.numberOfAutomaticPageReloads) {
             this.pageReloadCount++;
             // add reload count to query parameters, then reload the page
-            queryParams.set(this.QUERY_PARAM_RELOAD_COUNT, this.pageReloadCount.toString());
-            this._window.nativeWindow.history.replaceState({}, '', `${this._window.nativeWindow.location.pathname}?${queryParams}`);
-            this._window.nativeWindow.location.reload();
+            const queryParamsObj = {};
+            queryParamsObj[this.QUERY_PARAM_RELOAD_COUNT] = this.pageReloadCount;
+            queryParams.forEach((value, key) => {
+              queryParamsObj[key] = value;
+            });
+            this.router.navigateByUrl('/fake-url', { skipLocationChange: true }).then(() => {
+              this.router.navigate([currentUrl], { queryParams: queryParamsObj, queryParamsHandling: 'merge', onSameUrlNavigation: 'reload'});
+            });
           } else {
             this.messageToShow = MessageType.ERROR;
             this.changeDetectorRef.detectChanges();
