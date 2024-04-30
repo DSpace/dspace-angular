@@ -1,14 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdvancedSearchComponent } from './advanced-search.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { RouterStub } from '../../testing/router.stub';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { SearchServiceStub } from '../../testing/search-service.stub';
+import { RouterStub } from '../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { SearchFilterServiceStub } from '../../testing/search-filter-service.stub';
-import { TranslateModule } from '@ngx-translate/core';
+import { SearchServiceStub } from '../../testing/search-service.stub';
+import { AdvancedSearchComponent } from './advanced-search.component';
 
 describe('AdvancedSearchComponent', () => {
   let component: AdvancedSearchComponent;
@@ -27,10 +31,8 @@ describe('AdvancedSearchComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdvancedSearchComponent,
+        TranslateModule.forRoot(),
       ],
       providers: [
         { provide: Router, useValue: router },

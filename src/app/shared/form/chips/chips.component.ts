@@ -1,19 +1,55 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, } from '@angular/core';
-
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDropList,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  NgbTooltip,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import isObject from 'lodash/isObject';
+import { BehaviorSubject } from 'rxjs';
 
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
-import { DragService } from '../../../core/drag.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Options } from 'sortablejs';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-chips',
   styleUrls: ['./chips.component.scss'],
   templateUrl: './chips.component.html',
+  imports: [
+    NgbTooltipModule,
+    NgClass,
+    NgForOf,
+    AsyncPipe,
+    AuthorityConfidenceStateDirective,
+    NgIf,
+    TranslateModule,
+    CdkDrag,
+    CdkDropList,
+  ],
+  standalone: true,
 })
 
 export class ChipsComponent implements OnChanges {
@@ -27,22 +63,12 @@ export class ChipsComponent implements OnChanges {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
 
   isDragging: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  options: Options;
   dragged = -1;
   tipText: string[];
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private dragService: DragService,
     private translate: TranslateService) {
-
-    this.options = {
-      animation: 300,
-      chosenClass: 'm-0',
-      dragClass: 'm-0',
-      filter: '.chips-sort-ignore',
-      ghostClass: 'm-0'
-    };
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -74,14 +100,13 @@ export class ChipsComponent implements OnChanges {
     }
   }
 
-  onDragStart(index) {
+  onDrag(index) {
     this.isDragging.next(true);
-    this.dragService.overrideDragOverPage();
     this.dragged = index;
   }
 
-  onDragEnd(event) {
-    this.dragService.allowDragOverPage();
+  onDrop(event: CdkDragDrop<ChipsItem[]>) {
+    moveItemInArray(this.chips.chipsItems.getValue(), event.previousIndex, event.currentIndex);
     this.dragged = -1;
     this.chips.updateOrder();
     this.isDragging.next(false);
@@ -89,6 +114,9 @@ export class ChipsComponent implements OnChanges {
 
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
+    if (this.isDragging.value) {
+      return;
+    }
     const chipsItem = this.chips.getChipByIndex(index);
     const textToDisplay: string[] = [];
     if (!chipsItem.editMode && this.dragged === -1) {
@@ -102,7 +130,7 @@ export class ChipsComponent implements OnChanges {
                   .subscribe((label) => {
                     textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
                   });
-            });
+              });
           }
         } else {
           textToDisplay.push(chipsItem.item[field]);
@@ -119,5 +147,4 @@ export class ChipsComponent implements OnChanges {
 
     }
   }
-
 }

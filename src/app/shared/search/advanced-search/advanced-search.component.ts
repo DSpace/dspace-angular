@@ -1,20 +1,57 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { map, Observable, of as observableOf, Subscription } from 'rxjs';
+import {
+  AsyncPipe,
+  KeyValuePipe,
+  NgForOf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  Params,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { FilterConfig, SearchConfig } from '../../../core/shared/search/search-filters/search-config.model';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
-import { Router, Params } from '@angular/router';
-import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
-import { hasValue, isNotEmpty } from '../../empty.util';
+
 import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
+import {
+  FilterConfig,
+  SearchConfig,
+} from '../../../core/shared/search/search-filters/search-config.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
 import { FilterType } from '../models/filter-type.model';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
 
 @Component({
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.scss'],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    FilterInputSuggestionsComponent,
+    FormsModule,
+    KeyValuePipe,
+    NgForOf,
+    TranslateModule,
+  ],
 })
 export class AdvancedSearchComponent implements OnInit, OnDestroy {
 

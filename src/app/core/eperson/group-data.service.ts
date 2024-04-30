@@ -1,45 +1,66 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
+import {
+  Observable,
+  zip as observableZip,
+} from 'rxjs';
+import { take } from 'rxjs/operators';
 
-import { createSelector, select, Store } from '@ngrx/store';
-import { Observable, zip as observableZip } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
 import {
   GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction
+  GroupRegistryEditGroupAction,
 } from '../../access-control/group-registry/group-registry.actions';
 import { GroupRegistryState } from '../../access-control/group-registry/group-registry.reducers';
 import { AppState } from '../../app.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { CreateRequest, DeleteRequest, PostRequest } from '../data/request.models';
-
+import {
+  CreateRequest,
+  DeleteRequest,
+  PostRequest,
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { Collection } from '../shared/collection.model';
+import { Community } from '../shared/community.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { EPerson } from './models/eperson.model';
 import { Group } from './models/group.model';
-import { GROUP } from './models/group.resource-type';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { Community } from '../shared/community.model';
-import { Collection } from '../shared/collection.model';
-import { NoContent } from '../shared/NoContent.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { CreateData, CreateDataImpl } from '../data/base/create-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { PatchData, PatchDataImpl } from '../data/base/patch-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { Operation } from 'fast-json-patch';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { dataService } from '../data/base/data-service.decorator';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -47,8 +68,7 @@ const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegis
 /**
  * Provides methods to retrieve eperson group resources from the REST API & Group related CRUD actions.
  */
-@Injectable()
-@dataService(GROUP)
+@Injectable({ providedIn: 'root' })
 export class GroupDataService extends IdentifiableDataService<Group> implements CreateData<Group>, SearchData<Group>, PatchData<Group>, DeleteData<Group> {
   protected browseEndpoint = '';
   public ePersonsEndpoint = 'epersons';
@@ -104,23 +124,31 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
   }
 
   /**
-   * Check if the current user is member of to the indicated group
-   *
-   * @param groupName
-   *    the group name
-   * @return boolean
-   *    true if user is member of the indicated group, false otherwise
+   * Searches for all groups which are *not* a member of a given group, via a passed in query
+   * (searches in group name and by exact UUID).
+   * Endpoint used: /eperson/groups/search/isNotMemberOf?query=<:string>&group=<:uuid>
+   * @param query                       search query param
+   * @param group                       UUID of group to exclude results from. Members of this group will never be returned.
+   * @param options
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  isMemberOf(groupName: string): Observable<boolean> {
-    const searchHref = 'isMemberOf';
-    const options = new FindListOptions();
-    options.searchParams = [new RequestParam('groupName', groupName)];
-
-    return this.searchBy(searchHref, options).pipe(
-      filter((groups: RemoteData<PaginatedList<Group>>) => !groups.isResponsePending),
-      take(1),
-      map((groups: RemoteData<PaginatedList<Group>>) => groups.payload.totalElements > 0)
-    );
+  public searchNonMemberGroups(query: string, group: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<RemoteData<PaginatedList<Group>>> {
+    const searchParams = [new RequestParam('query', query), new RequestParam('group', group)];
+    let findListOptions = new FindListOptions();
+    if (options) {
+      findListOptions = Object.assign(new FindListOptions(), options);
+    }
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
+    } else {
+      findListOptions.searchParams = searchParams;
+    }
+    return this.searchBy('isNotMemberOf', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -264,15 +292,15 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
    * @param group Group we want edit page for
    */
   public getGroupEditPageRouterLink(group: Group): string {
-    return this.getGroupEditPageRouterLinkWithID(group.id);
+    return getGroupEditRoute(group.id);
   }
 
   /**
    * Get Edit page of group
    * @param groupID Group ID we want edit page for
    */
-  public getGroupEditPageRouterLinkWithID(groupId: string): string {
-    return '/access-control/groups/' + groupId;
+  public getGroupEditPageRouterLinkWithID(groupID: string): string {
+    return getGroupEditRoute(groupID);
   }
 
   /**
@@ -303,7 +331,7 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
         'dc.description': [
           {
             value: `${this.nameService.getName(dso)} ${role} group`,
-          }
+          },
         ],
       },
     });

@@ -1,12 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
-import { SiteDataService } from '../../core/data/site-data.service';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Site } from '../../core/shared/site.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { TranslateModule } from '@ngx-translate/core';
 import { switchMap } from 'rxjs/operators';
-import { AuthService } from '../../core/auth/auth.service';
+
+import { SiteDataService } from '../../core/data/site-data.service';
+import { Site } from '../../core/shared/site.model';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 /**
  * Component representing the site-wide statistics page.
@@ -14,9 +16,11 @@ import { AuthService } from '../../core/auth/auth.service';
 @Component({
   selector: 'ds-site-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./site-statistics-page.component.scss']
+  styleUrls: ['./site-statistics-page.component.scss'],
+  standalone: true,
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
 })
-export class SiteStatisticsPageComponent extends StatisticsPageComponent<Site> {
+export class SiteStatisticsPageComponent extends StatisticsPageDirective<Site> {
 
   /**
    * The report types to show on this statistics page.
@@ -25,21 +29,8 @@ export class SiteStatisticsPageComponent extends StatisticsPageComponent<Site> {
     'TotalVisits',
   ];
 
-  constructor(
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected usageReportService: UsageReportDataService,
-    protected nameService: DSONameService,
-    protected siteService: SiteDataService,
-    protected authService: AuthService,
-  ) {
-    super(
-      route,
-      router,
-      usageReportService,
-      nameService,
-      authService,
-    );
+  constructor(protected siteService: SiteDataService) {
+    super();
   }
 
   protected getScope$() {

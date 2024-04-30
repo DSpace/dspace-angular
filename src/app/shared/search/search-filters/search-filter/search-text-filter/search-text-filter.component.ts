@@ -1,8 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { FilterType } from '../../../models/filter-type.model';
-import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { renderFacetFor } from '../search-filter-type-decorator';
-import { addOperatorToFilterValue, } from '../../../search.utils';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { addOperatorToFilterValue } from '../../../search.utils';
+import {
+  facetLoad,
+  SearchFacetFilterComponent,
+} from '../search-facet-filter/search-facet-filter.component';
+import { SearchFacetOptionComponent } from '../search-facet-filter-options/search-facet-option/search-facet-option.component';
+import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
 
 /**
  * This component renders a simple item page.
@@ -14,13 +29,14 @@ import { addOperatorToFilterValue, } from '../../../search.utils';
   selector: 'ds-search-text-filter',
   styleUrls: ['./search-text-filter.component.scss'],
   templateUrl: './search-text-filter.component.html',
-  animations: [facetLoad]
+  animations: [facetLoad],
+  standalone: true,
+  imports: [NgFor, SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, NgIf, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, TranslateModule],
 })
 
 /**
  * Component that represents a text facet for a specific filter configuration
  */
-@renderFacetFor(FilterType.text)
 export class SearchTextFilterComponent extends SearchFacetFilterComponent implements OnInit {
   /**
    * Submits a new active custom value to the filter from the input field

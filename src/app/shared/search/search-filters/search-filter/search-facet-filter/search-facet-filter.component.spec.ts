@@ -1,29 +1,41 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
-  SearchFilterService
+  SCOPE,
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { FilterType } from '../../../models/filter-type.model';
-import { FormsModule } from '@angular/forms';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { RouterStub } from '../../../../testing/router.stub';
-import { Router } from '@angular/router';
-import { SearchFacetFilterComponent } from './search-facet-filter.component';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
+import { RouterStub } from '../../../../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { AppliedFilter } from '../../../models/applied-filter.model';
 import { FacetValues } from '../../../models/facet-values.model';
-import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchFacetFilterComponent } from './search-facet-filter.component';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -37,7 +49,7 @@ describe('SearchFacetFilterComponent', () => {
     filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,
-    pageSize: 2
+    pageSize: 2,
   });
   const values: Partial<FacetValues> = {
     appliedFilters: [
@@ -58,8 +70,8 @@ describe('SearchFacetFilterComponent', () => {
         operator: 'equals',
         label: value3,
         value: value3,
-      }
-    ]
+      },
+    ],
   };
 
   const searchLink = '/search';
@@ -76,8 +88,7 @@ describe('SearchFacetFilterComponent', () => {
     searchConfigService = new SearchConfigurationServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchFacetFilterComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetFilterComponent],
       providers: [
         { provide: SearchService, useValue: searchService },
         { provide: SearchFilterService, useValue: filterService },
@@ -87,10 +98,11 @@ describe('SearchFacetFilterComponent', () => {
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
+        { provide: SCOPE, useValue: undefined },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetFilterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -167,7 +179,7 @@ describe('SearchFacetFilterComponent', () => {
           filter: filterName1,
           operator: 'equals',
           label: value,
-          value: value
+          value: value,
         })));
       fixture.detectChanges();
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);

@@ -1,4 +1,8 @@
-import { SearchFilterAction, SearchFilterActionTypes, SearchFilterInitializeAction } from './search-filter.actions';
+import {
+  SearchFilterAction,
+  SearchFilterActionTypes,
+  SearchFilterInitializeAction,
+} from './search-filter.actions';
 
 /**
  * Interface that represents the state for a single filters
@@ -34,7 +38,7 @@ export function filterReducer(state: SearchFiltersState = initialState, action: 
         [action.filterName]: {
           filterCollapsed: !initAction.initiallyExpanded,
           minimized: false,
-          page: 1
+          page: 1,
         } as SearchFilterState,
       });
     }
@@ -44,7 +48,7 @@ export function filterReducer(state: SearchFiltersState = initialState, action: 
         [action.filterName]: {
           filterCollapsed: true,
           minimized: state[action.filterName].minimized,
-          page: state[action.filterName].page
+          page: state[action.filterName].page,
         } as SearchFilterState,
       });
     }
@@ -54,7 +58,7 @@ export function filterReducer(state: SearchFiltersState = initialState, action: 
         [action.filterName]: {
           filterCollapsed: false,
           minimized: state[action.filterName].minimized,
-          page: state[action.filterName].page
+          page: state[action.filterName].page,
         } as SearchFilterState,
       });
     }
@@ -65,7 +69,7 @@ export function filterReducer(state: SearchFiltersState = initialState, action: 
         [action.filterName]: {
           filterCollapsed: state[action.filterName].filterCollapsed,
           minimized: state[action.filterName].minimized,
-          page: (page >= 1 ? page : 1)
+          page: (page >= 1 ? page : 1),
         } as SearchFilterState,
       });
     }
@@ -75,7 +79,7 @@ export function filterReducer(state: SearchFiltersState = initialState, action: 
         [action.filterName]: {
           filterCollapsed: state[action.filterName].filterCollapsed,
           minimized: state[action.filterName].minimized,
-          page: state[action.filterName].page + 1
+          page: state[action.filterName].page + 1,
         } as SearchFilterState,
       });
     }
@@ -89,7 +93,7 @@ export function filterReducer(state: SearchFiltersState = initialState, action: 
         [action.filterName]: {
           filterCollapsed: state[action.filterName].filterCollapsed,
           minimized: false,
-          page: 1
+          page: 1,
         } as SearchFilterState,
       });
     }
@@ -99,7 +103,7 @@ export function filterReducer(state: SearchFiltersState = initialState, action: 
         [action.filterName]: {
           filterCollapsed: !state[action.filterName].filterCollapsed,
           minimized: state[action.filterName].minimized,
-          page: state[action.filterName].page
+          page: state[action.filterName].page,
         } as SearchFilterState,
       });
     }

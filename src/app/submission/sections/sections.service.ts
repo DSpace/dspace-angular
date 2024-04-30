@@ -1,16 +1,41 @@
 import { Injectable } from '@angular/core';
-
-import { combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, take } from 'rxjs/operators';
+import { parseReviver } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import {
+  ScrollToConfigOptions,
+  ScrollToService,
+} from '@nicky-lenaers/ngx-scroll-to';
 import findIndex from 'lodash/findIndex';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
 
-import { SubmissionState } from '../submission.reducers';
-import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
+import { normalizeSectionData } from '../../core/submission/submission-response-parsing.service';
+import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../shared/empty.util';
+import { FormClearErrorsAction } from '../../shared/form/form.actions';
+import { FormError } from '../../shared/form/form.reducer';
+import { FormService } from '../../shared/form/form.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -18,38 +43,27 @@ import {
   RemoveSectionErrorsAction,
   SectionStatusChangeAction,
   SetSectionFormId,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
 } from '../objects/submission-objects.actions';
-import {
-  SubmissionObjectEntry
-} from '../objects/submission-objects.reducer';
+import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
+import { SubmissionSectionError } from '../objects/submission-section-error.model';
+import { SubmissionSectionObject } from '../objects/submission-section-object.model';
 import {
   submissionObjectFromIdSelector,
   submissionSectionDataFromIdSelector,
   submissionSectionErrorsFromIdSelector,
   submissionSectionFromIdSelector,
-  submissionSectionServerErrorsFromIdSelector
+  submissionSectionServerErrorsFromIdSelector,
 } from '../selectors';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { FormClearErrorsAction } from '../../shared/form/form.actions';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
-import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
+import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { SectionsType } from './sections-type';
-import { normalizeSectionData } from '../../core/submission/submission-response-parsing.service';
-import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
-import { parseReviver } from '@ng-dynamic-forms/core';
-import { FormService } from '../../shared/form/form.service';
-import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { FormError } from '../../shared/form/form.reducer';
-import { SubmissionSectionObject } from '../objects/submission-section-object.model';
-import { SubmissionSectionError } from '../objects/submission-section-error.model';
 
 /**
  * A service that provides methods used in submission process.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SectionsService {
 
   /**
@@ -197,12 +211,12 @@ export class SectionsService {
             const sectionErrors = formErrors
               .map((error) => ({
                 path: pathCombiner.getPath(error.fieldId.replace(/\_/g, '.')).path,
-                message: error.message
+                message: error.message,
               } as SubmissionSectionError))
               .filter((sectionError: SubmissionSectionError) => findIndex(state.errorsToShow, { path: sectionError.path }) === -1);
             return [...state.errorsToShow, ...sectionErrors];
-          })
-        ))
+          }),
+        )),
       );
     }
 
@@ -257,13 +271,13 @@ export class SectionsService {
       map((sectionState: SubmissionSectionObject) => {
         if (hasValue(sectionState.data) && sectionType === SectionsType.SubmissionForm) {
           return Object.assign({}, sectionState, {
-            data: normalizeSectionData(sectionState.data)
+            data: normalizeSectionData(sectionState.data),
           });
         } else {
           return sectionState;
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -336,7 +350,7 @@ export class SectionsService {
         return isNotEmpty(sectionObj.visibility)
           && ((sectionObj.visibility.other === 'READONLY' && submissionScope !== SubmissionScopeType.WorkspaceItem)
               || (sectionObj.visibility.main === 'READONLY' && submissionScope === SubmissionScopeType.WorkspaceItem)
-             );
+          );
       }),
       distinctUntilChanged());
   }
@@ -407,7 +421,7 @@ export class SectionsService {
     this.store.dispatch(new EnableSectionAction(submissionId, sectionId));
     const config: ScrollToConfigOptions = {
       target: sectionId,
-      offset: -70
+      offset: -70,
     };
 
     this.scrollToService.scrollTo(config);
@@ -449,7 +463,7 @@ export class SectionsService {
     data: WorkspaceitemSectionDataType,
     errorsToShow: SubmissionSectionError[] = [],
     serverValidationErrors: SubmissionSectionError[] = [],
-    metadata?: string[]
+    metadata?: string[],
   ) {
     if (isNotEmpty(data)) {
       const isAvailable$ = this.isSectionAvailable(submissionId, sectionId);

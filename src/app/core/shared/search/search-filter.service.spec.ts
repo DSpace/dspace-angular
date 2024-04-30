@@ -1,6 +1,13 @@
-import { waitForAsync, TestBed } from '@angular/core/testing';
-import { SearchFilterService } from './search-filter.service';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
+import { of as observableOf } from 'rxjs';
+
+import { FilterType } from '../../../shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { SearchOptions } from '../../../shared/search/models/search-options.model';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -8,18 +15,18 @@ import {
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
 import { SearchFiltersState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { FilterType } from '../../../shared/search/models/filter-type.model';
-import { of as observableOf } from 'rxjs';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { SearchServiceStub } from '../../../shared/testing/search-service.stub';
-import { SearchService } from './search.service';
-import { RouteService } from '../../services/route.service';
 import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { SearchServiceStub } from '../../../shared/testing/search-service.stub';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
+import { RouteService } from '../../services/route.service';
+import { SearchService } from './search.service';
+import { SearchFilterService } from './search-filter.service';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;
@@ -29,7 +36,7 @@ describe('SearchFilterService', () => {
     filterType: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,
-    pageSize: 2
+    pageSize: 2,
   });
 
   const value1 = 'random value';
@@ -39,7 +46,7 @@ describe('SearchFilterService', () => {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
     dispatch: {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
-    select: observableOf(true)
+    select: observableOf(true),
   });
 
   beforeEach(waitForAsync(() => {

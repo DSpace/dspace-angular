@@ -1,31 +1,28 @@
-import { Component, Type } from '@angular/core';
-import { DEFAULT_THEME } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import {
+  Component,
+  Type,
+} from '@angular/core';
+
 import { hasNoValue } from '../../../empty.util';
+import { DEFAULT_THEME } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { SearchLabelComponent } from '../search-label/search-label.component';
+import { SearchLabelRangeComponent } from '../search-label-range/search-label-range.component';
 
 export const DEFAULT_LABEL_OPERATOR = undefined;
 
-const map: Map<string, Map<string, Type<Component>>> = new Map();
-
-export function renderSearchLabelFor(operator: string = DEFAULT_LABEL_OPERATOR, theme = DEFAULT_THEME) {
-  return function decorator(objectElement: any) {
-    if (!objectElement) {
-      return;
-    }
-    if (hasNoValue(map.get(operator))) {
-      map.set(operator, new Map());
-    }
-    if (hasNoValue(map.get(operator).get(theme))) {
-      map.get(operator).set(theme, objectElement);
-    } else {
-      throw new Error(`There can't be more than one component to render Label with operator "${operator}" and theme "${theme}"`);
-    }
-  };
-}
+export const LABEL_DECORATOR_MAP: Map<string, Map<string, Type<Component>>> = new Map([
+  [DEFAULT_LABEL_OPERATOR, new Map([
+    [DEFAULT_THEME, SearchLabelComponent as Type<Component>],
+  ])],
+  ['range', new Map([
+    [DEFAULT_THEME, SearchLabelRangeComponent as Type<Component>],
+  ])],
+]);
 
 export function getSearchLabelByOperator(operator: string, theme: string): Type<Component> {
-  let themeMap: Map<string, Type<Component>> = map.get(operator);
+  let themeMap: Map<string, Type<Component>> = LABEL_DECORATOR_MAP.get(operator);
   if (hasNoValue(themeMap)) {
-    themeMap = map.get(DEFAULT_LABEL_OPERATOR);
+    themeMap = LABEL_DECORATOR_MAP.get(DEFAULT_LABEL_OPERATOR);
   }
   const comp: Type<Component> = themeMap.get(theme);
   if (hasNoValue(comp)) {

@@ -1,47 +1,74 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { Injectable, InjectionToken } from '@angular/core';
 import {
-  SearchFiltersState,
-  SearchFilterState
-} from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
+import { Params } from '@angular/router';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { InputSuggestion } from '../../../shared/input-suggestions/input-suggestions.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { FacetValue } from '../../../shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import {
+  getFacetValueForType,
+  stripOperatorFromFilterValue,
+} from '../../../shared/search/search.utils';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
   SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
+  SearchFilterMinimizeAllPageAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-  SearchFilterMinimizeAllPageAction,
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
-import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { RouteService } from '../../services/route.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { Params } from '@angular/router';
-import { SearchOptions } from '../../../shared/search/models/search-options.model';
-import { getFirstSucceededRemoteData } from '../operators';
-import { FacetValue } from '../../../shared/search/models/facet-value.model';
+import {
+  SearchFiltersState,
+  SearchFilterState,
+} from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
+import { EmphasizePipe } from '../../../shared/utils/emphasize.pipe';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
-import { stripOperatorFromFilterValue, getFacetValueForType } from '../../../shared/search/search.utils';
-import { EmphasizePipe } from '../../../shared/utils/emphasize.pipe';
+import { RouteService } from '../../services/route.service';
+import { getFirstSucceededRemoteData } from '../operators';
 import { SearchService } from './search.service';
-import { InputSuggestion } from '../../../shared/input-suggestions/input-suggestions.model';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
 export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
 export const REFRESH_FILTER: InjectionToken<BehaviorSubject<any>> = new InjectionToken<boolean>('refreshFilters');
+export const SCOPE: InjectionToken<string> = new InjectionToken<string>('scope');
 
 /**
  * Service that performs all actions that have to do with search filters and facets
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchFilterService {
 
   constructor(
@@ -98,7 +125,7 @@ export class SearchFilterService {
     return observableCombineLatest(page$, size$).pipe(map(([page, size]) => {
       return Object.assign(new PaginationComponentOptions(), pagination, {
         currentPage: page || 1,
-        pageSize: size || pagination.pageSize
+        pageSize: size || pagination.pageSize,
       });
     }));
   }
@@ -113,10 +140,10 @@ export class SearchFilterService {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
     return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
-        const field = sortField || defaultSort.field;
-        const direction = SortDirection[sortDirection] || defaultSort.direction;
-        return new SortOptions(field, direction);
-      }
+      const field = sortField || defaultSort.field;
+      const direction = SortDirection[sortDirection] || defaultSort.direction;
+      return new SortOptions(field, direction);
+    },
     ));
   }
 
@@ -148,12 +175,12 @@ export class SearchFilterService {
     );
     return observableCombineLatest(values$, prefixValues$).pipe(
       map(([values, prefixValues]) => {
-          if (isNotEmpty(values)) {
-            return values;
-          }
-          return prefixValues;
+        if (isNotEmpty(values)) {
+          return values;
         }
-      )
+        return prefixValues;
+      },
+      ),
     );
   }
 
@@ -173,7 +200,7 @@ export class SearchFilterService {
           return {
             displayValue: this.getDisplayValue(facet, query),
             query: getFacetValueForType(facet, searchFilterConfig),
-            value: stripOperatorFromFilterValue(getFacetValueForType(facet, searchFilterConfig))
+            value: stripOperatorFromFilterValue(getFacetValueForType(facet, searchFilterConfig)),
           };
         })),
       );
@@ -208,7 +235,7 @@ export class SearchFilterService {
           return false;
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

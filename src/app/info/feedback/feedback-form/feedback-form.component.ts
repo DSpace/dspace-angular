@@ -1,24 +1,44 @@
-import { RemoteData } from '../../../core/data/remote-data';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
-import { Component, Inject, OnInit } from '@angular/core';
-import { RouteService } from '../../../core/services/route.service';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../../../core/auth/auth.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { getHomePageRoute } from '../../../app-routing-paths';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
-import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
+
+import { getHomePageRoute } from '../../../app-routing-paths';
+import { AuthService } from '../../../core/auth/auth.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
+import { RouteService } from '../../../core/services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../core/services/window.service';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { ErrorComponent } from '../../../shared/error/error.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-feedback-form',
   templateUrl: './feedback-form.component.html',
-  styleUrls: ['./feedback-form.component.scss']
+  styleUrls: ['./feedback-form.component.scss'],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule],
 })
 /**
  * Component displaying the contents of the Feedback Statement
@@ -51,7 +71,7 @@ export class FeedbackFormComponent implements OnInit {
   ngOnInit() {
 
     this.authService.getAuthenticatedUserFromStore().pipe(take(1)).subscribe((user: EPerson) => {
-      if (!!user) {
+      if (user) {
         this.feedbackForm.patchValue({ email: user.email });
       }
     });

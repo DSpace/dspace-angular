@@ -1,20 +1,34 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ChangeDetectionStrategy } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+  RouterLink,
+  RouterModule,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Params, ActivatedRoute } from '@angular/router';
-import { SearchLabelComponent } from './search-label.component';
-import { SearchServiceStub } from '../../../testing/search-service.stub';
+
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../../testing/search-service.stub';
+import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { addOperatorToFilterValue } from '../../search.utils';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
+import { SearchLabelComponent } from './search-label.component';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;
@@ -59,11 +73,11 @@ describe('SearchLabelComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterModule.forRoot([]),
+        NoopAnimationsModule,
+        FormsModule,
+        ObjectKeysPipe,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
-        SearchLabelComponent,
       ],
       providers: [
         { provide: PaginationService, useValue: paginationService },
@@ -71,7 +85,14 @@ describe('SearchLabelComponent', () => {
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: ActivatedRoute, useValue: route },
+        { provide: Router, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
+    }).overrideComponent(SearchLabelComponent, {
+      remove: {
+        imports: [RouterLink],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

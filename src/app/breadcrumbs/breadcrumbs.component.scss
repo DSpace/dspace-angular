@@ -4,9 +4,8 @@
 
 .breadcrumb {
   border-radius: 0;
-  margin-top: calc(-1 * var(--ds-content-spacing));
-  padding-bottom: var(--ds-content-spacing / 3);
-  padding-top: var(--ds-content-spacing / 3);
+  padding-bottom: calc(var(--ds-content-spacing) / 2);
+  padding-top: calc(var(--ds-content-spacing) / 2);
   background-color: var(--ds-breadcrumb-bg);
 }
 

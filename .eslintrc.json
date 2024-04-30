@@ -8,7 +8,10 @@
     "eslint-plugin-deprecation",
     "unused-imports",
     "eslint-plugin-lodash",
-    "eslint-plugin-jsonc"
+    "eslint-plugin-jsonc",
+    "eslint-plugin-rxjs",
+    "eslint-plugin-simple-import-sort",
+    "eslint-plugin-import-newlines"
   ],
   "overrides": [
     {
@@ -27,16 +30,28 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:rxjs/recommended"
       ],
       "rules": {
+        "indent": [
+          "error",
+          2,
+          {
+            "SwitchCase": 1
+          }
+        ],
         "max-classes-per-file": [
           "error",
           1
         ],
         "comma-dangle": [
-          "off",
+          "error",
           "always-multiline"
+        ],
+        "object-curly-spacing": [
+          "error",
+          "always"
         ],
         "eol-last": [
           "error",
@@ -104,15 +119,13 @@
             "allowTernary": true
           }
         ],
-        "prefer-const": "off",            // todo: re-enable & fix errors (more strict than it used to be in TSLint)
+        "prefer-const": "error",
+        "no-case-declarations": "error",
+        "no-extra-boolean-cast": "error",
         "prefer-spread": "off",
         "no-underscore-dangle": "off",
-
-        // todo: disabled rules from eslint:recommended, consider re-enabling & fixing
         "no-prototype-builtins": "off",
         "no-useless-escape": "off",
-        "no-case-declarations": "off",
-        "no-extra-boolean-cast": "off",
 
         "@angular-eslint/directive-selector": [
           "error",
@@ -139,7 +152,6 @@
           }
         ],
         "@angular-eslint/no-attribute-decorator": "error",
-        "@angular-eslint/no-forward-ref": "error",
         "@angular-eslint/no-output-native": "warn",
         "@angular-eslint/no-output-on-prefix": "warn",
         "@angular-eslint/no-conflicting-lifecycle": "warn",
@@ -183,7 +195,7 @@
         ],
         "@typescript-eslint/type-annotation-spacing": "error",
         "@typescript-eslint/unified-signatures": "error",
-        "@typescript-eslint/ban-types": "warn",  // todo: deal with {} type issues & re-enable
+        "@typescript-eslint/ban-types": "error",
         "@typescript-eslint/no-floating-promises": "warn",
         "@typescript-eslint/no-misused-promises": "warn",
         "@typescript-eslint/restrict-plus-operands": "warn",
@@ -203,14 +215,45 @@
 
         "deprecation/deprecation": "warn",
 
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
         "import/order": "off",
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error",
         "import/no-deprecated": "warn",
         "import/no-namespace": "error",
+        "import-newlines/enforce": [
+          "error",
+          {
+            "items": 1,
+            "semi": true,
+            "forceSingleLine": true
+          }
+        ],
+
         "unused-imports/no-unused-imports": "error",
         "lodash/import-scope": [
           "error",
           "method"
-        ]
+        ],
+
+        "rxjs/no-nested-subscribe": "off"     // todo: go over _all_ cases
+      }
+    },
+    {
+      "files": [
+        "*.spec.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "./tsconfig.json",
+          "./cypress/tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "prefer-const": "off"
       }
     },
     {
@@ -219,12 +262,7 @@
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {
-        // todo: re-enable & fix errors
-        "@angular-eslint/template/no-negated-async": "off",
-        "@angular-eslint/template/eqeqeq": "off"
-      }
+      ]
     },
     {
       "files": [

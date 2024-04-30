@@ -1,9 +1,16 @@
-import { ForgotEmailComponent } from './forgot-email.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { RegisterEmailFormComponent } from '../../register-email-form/register-email-form.component';
+import { ThemedRegisterEmailFormComponent } from '../../register-email-form/themed-registry-email-form.component';
+import { ForgotEmailComponent } from './forgot-email.component';
 
 describe('ForgotEmailComponent', () => {
   let comp: ForgotEmailComponent;
@@ -11,10 +18,15 @@ describe('ForgotEmailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [ForgotEmailComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+      imports: [CommonModule, TranslateModule.forRoot(), ReactiveFormsModule, ForgotEmailComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideComponent(ForgotEmailComponent, {
+        remove: {
+          imports: [RegisterEmailFormComponent, ThemedRegisterEmailFormComponent],
+        },
+      })
+      .compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(ForgotEmailComponent);

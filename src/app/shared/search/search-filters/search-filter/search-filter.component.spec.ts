@@ -1,19 +1,29 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { SearchFilterService } from 'src/app/core/shared/search/search-filter.service';
+
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchFilterComponent } from './search-filter.component';
-import { SearchFilterConfig } from '../../models/search-filter-config.model';
-import { FilterType } from '../../models/filter-type.model';
-import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
 import { SequenceService } from '../../../../core/shared/sequence.service';
-import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { FilterType } from '../../models/filter-type.model';
+import { SearchFilterConfig } from '../../models/search-filter-config.model';
+import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
+import { SearchFilterComponent } from './search-filter.component';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -27,7 +37,7 @@ describe('SearchFilterComponent', () => {
     name: filterName1,
     filterType: FilterType.text,
     hasFacets: false,
-    isOpenByDefault: false
+    isOpenByDefault: false,
   });
   const mockFilterService = {
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -47,7 +57,7 @@ describe('SearchFilterComponent', () => {
     },
     isCollapsed: (filter) => {
       return observableOf(true);
-    }
+    },
     /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   };
@@ -55,30 +65,27 @@ describe('SearchFilterComponent', () => {
   let sequenceService;
   const mockResults = observableOf(['test', 'data']);
   const searchServiceStub = {
-    getFacetValuesFor: (filter) => mockResults
+    getFacetValuesFor: (filter) => mockResults,
   };
 
   beforeEach(waitForAsync(() => {
     sequenceService = jasmine.createSpyObj('sequenceService', { next: 17 });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
-      declarations: [
-        SearchFilterComponent,
-        BrowserOnlyMockPipe,
-      ],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchFilterComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         {
           provide: SearchFilterService,
-          useValue: mockFilterService
+          useValue: mockFilterService,
         },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: SequenceService, useValue: sequenceService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFilterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [SearchFacetFilterWrapperComponent] },
     }).compileComponents();
   }));
 

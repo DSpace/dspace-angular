@@ -1,29 +1,67 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Router, Params } from '@angular/router';
-
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { hasNoValue, hasValue } from '../../../../empty.util';
-import { FacetValue } from '../../../models/facet-value.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { FILTER_CONFIG, IN_PLACE_SEARCH, REFRESH_FILTER, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { SearchService } from '../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  REFRESH_FILTER,
+  SCOPE,
+  SearchFilterService,
+} from '../../../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../../empty.util';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
-import { SearchOptions } from '../../../models/search-options.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { currentPath } from '../../../../utils/route.utils';
-import { stripOperatorFromFilterValue } from '../../../search.utils';
-import { FacetValues } from '../../../models/facet-values.model';
 import { AppliedFilter } from '../../../models/applied-filter.model';
+import { FacetValue } from '../../../models/facet-value.model';
+import { FacetValues } from '../../../models/facet-values.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchOptions } from '../../../models/search-options.model';
+import { stripOperatorFromFilterValue } from '../../../search.utils';
 
 @Component({
   selector: 'ds-search-facet-filter',
   template: ``,
+  standalone: true,
 })
 
 /**
@@ -75,7 +113,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits all current search options available in the search URL
    */
-  searchOptions$: BehaviorSubject<SearchOptions>;
+  searchOptions$: Observable<SearchOptions>;
 
   /**
    * The current URL
@@ -90,6 +128,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(SCOPE) public scope: string,
   ) {
   }
 
@@ -99,16 +138,19 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentUrl = this.router.url;
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
-
-    this.searchOptions$ = this.searchConfigService.searchOptions;
+    this.searchOptions$ = this.searchConfigService.searchOptions.pipe(
+      map((options: SearchOptions) => hasNoValue(this.scope) ? options : Object.assign({}, options, {
+        scope: this.scope,
+      })),
+    );
     this.subs.push(
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
       this.refreshFilters.asObservable().pipe(
         filter((toRefresh: boolean) => toRefresh),
         // NOTE This is a workaround, otherwise retrieving filter values returns tha old cached response
         debounceTime((100)),
-        mergeMap(() => this.retrieveFilterValues(false))
-      ).subscribe()
+        mergeMap(() => this.retrieveFilterValues(false)),
+      ).subscribe(),
     );
     this.retrieveFilterValues().subscribe();
   }
@@ -197,7 +239,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   findSuggestions(query: string): void {
-    this.filterSearchResults$ = this.filterService.findSuggestions(this.filterConfig, this.searchOptions$.value, query);
+    this.subs.push(this.searchOptions$.pipe(
+      take(1),
+    ).subscribe((searchOptions: SearchOptions) => {
+      this.filterSearchResults$ = this.filterService.findSuggestions(this.filterConfig, searchOptions, query);
+    }));
   }
 
   /**
@@ -245,7 +291,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         this.setAppliedFilter(allFacetValues);
         this.animationState = 'ready';
         this.facetValues$.next(allFacetValues);
-      })
+      }),
     );
   }
 
@@ -255,10 +301,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
     this.selectedAppliedFilters$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
       map((selectedValues: string[]) => {
-        const appliedFilters: AppliedFilter[] = selectedValues.map((value: string) => {
+        return selectedValues.map((value: string) => {
           return allAppliedFilters.find((appliedFilter: AppliedFilter) => appliedFilter.value === stripOperatorFromFilterValue(value));
         }).filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
-        return appliedFilters;
       }),
     );
   }

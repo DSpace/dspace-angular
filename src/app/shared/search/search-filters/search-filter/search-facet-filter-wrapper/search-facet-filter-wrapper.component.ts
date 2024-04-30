@@ -1,20 +1,29 @@
-import { Component, Injector, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { renderFilterType } from '../search-filter-type-decorator';
-import { FilterType } from '../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { NgComponentOutlet } from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
+  SCOPE,
 } from '../../../../../core/shared/search/search-filter.service';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { BehaviorSubject } from 'rxjs';
-import { AppliedFilter } from '../../../models/applied-filter.model';
+import { renderFilterType } from '../search-filter-type-decorator';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
-  templateUrl: './search-facet-filter-wrapper.component.html'
+  templateUrl: './search-facet-filter-wrapper.component.html',
+  standalone: true,
+  imports: [NgComponentOutlet],
 })
 
 /**
@@ -37,9 +46,9 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
   @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
-   * Emits the {@link AppliedFilter}s of this search filter
+   * The current scope
    */
-  @Output() changeAppliedFilters: EventEmitter<AppliedFilter[]> = new EventEmitter();
+  @Input() scope: string;
 
   /**
    * The constructor of the search facet filter that should be rendered, based on the filter config's type
@@ -63,8 +72,9 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
         { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
         { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
         { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
+        { provide: SCOPE, useFactory: () => (this.scope), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

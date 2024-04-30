@@ -1,13 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { Params, Router } from '@angular/router';
+
+import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 
 /**
  * Component that represents the label containing the currently active filters
@@ -15,8 +25,10 @@ import { SearchFilterService } from '../../../../core/shared/search/search-filte
 @Component({
   selector: 'ds-search-label',
   templateUrl: './search-label.component.html',
+  styleUrls: ['./search-label.component.scss'],
+  standalone: true,
+  imports: [RouterLink, AsyncPipe, TranslateModule],
 })
-@renderSearchLabelFor()
 export class SearchLabelComponent implements OnInit {
   @Input() inPlaceSearch: boolean;
   @Input() appliedFilter: AppliedFilter;

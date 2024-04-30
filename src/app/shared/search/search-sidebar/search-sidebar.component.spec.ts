@@ -1,9 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { SearchSidebarComponent } from './search-sidebar.component';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ChangeDetectionStrategy,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
+import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
+import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
+import { SearchSidebarComponent } from './search-sidebar.component';
 
 describe('SearchSidebarComponent', () => {
   let comp: SearchSidebarComponent;
@@ -11,10 +22,25 @@ describe('SearchSidebarComponent', () => {
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NgbCollapseModule],
-      declarations: [SearchSidebarComponent],
-      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        TranslateModule.forRoot(),
+        NgbCollapseModule,
+        SearchSidebarComponent,
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
+      .overrideComponent(SearchSidebarComponent, {
+        remove:{
+          imports: [
+            AdvancedSearchComponent,
+            ThemedSearchFiltersComponent,
+            ThemedSearchSettingsComponent,
+          ],
+        },
+        add: {
+          changeDetection: ChangeDetectionStrategy.Default,
+        },
+      })
       .compileComponents();  // compile template and css
   }));
 
