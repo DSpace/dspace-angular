@@ -29,6 +29,7 @@ import { renderSearchLabelFor } from '../search-label-loader/search-label-loader
 @Component({
   selector: 'ds-search-label-range',
   templateUrl: './search-label-range.component.html',
+  styleUrls: ['./search-label-range.component.scss'],
   standalone: true,
   imports: [
     AsyncPipe,

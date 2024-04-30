@@ -99,8 +99,8 @@
                     [searchPlaceholder]="searchFormPlaceholder | translate">
     </ds-themed-search-form>
     <div class="row mb-3 mb-md-1">
-        <div class="labels col-sm-9">
-            <ds-search-labels *ngIf="searchEnabled" [appliedFilters]="appliedFilters" [inPlaceSearch]="inPlaceSearch">
+        <div class="labels col-12">
+            <ds-search-labels [appliedFilters]="appliedFilters" [inPlaceSearch]="inPlaceSearch">
             </ds-search-labels>
         </div>
     </div>

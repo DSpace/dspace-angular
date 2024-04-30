@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { LoadingComponent as BaseComponent } from '../../../../../app/shared/loading/loading.component';
@@ -9,6 +10,7 @@ import { LoadingComponent as BaseComponent } from '../../../../../app/shared/loa
   templateUrl: '../../../../../app/shared/loading/loading.component.html',
   // templateUrl: './loading.component.html'
   standalone: true,
+  imports: [NgIf],
 })
 export class LoadingComponent extends BaseComponent {
 
