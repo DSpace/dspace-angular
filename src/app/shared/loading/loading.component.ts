@@ -6,6 +6,7 @@ import { hasValue } from '../empty.util';
 import { environment } from '../../../environments/environment';
 import { AlertType } from '../alert/alert-type';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 enum MessageType {
   LOADING = 'loading',
@@ -52,21 +53,18 @@ export class LoadingComponent implements OnDestroy, OnInit {
 
   constructor(
     private router: Router,
+    private location: Location,
     private translate: TranslateService,
     private changeDetectorRef: ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
-    // get current page reload count from query parameters
-    const queryParams = new URLSearchParams(this.router.url.split('?')[1]);
-    const reloadCount = queryParams.get(this.QUERY_PARAM_RELOAD_COUNT);
     let currentUrl = this.router.url.split('?')[0];
+    const queryParams = new URLSearchParams(this.router.url.split('?')[1]);
+    const reloadCount = (this.location.getState() as any)?.[this.QUERY_PARAM_RELOAD_COUNT];
     if (hasValue(reloadCount)) {
       this.pageReloadCount = +reloadCount;
-      // clear reload count from query parameters
-      queryParams.delete(this.QUERY_PARAM_RELOAD_COUNT);
-      this.router.navigate([currentUrl], {queryParams: queryParams, skipLocationChange: true});
     }
     this.errorTimeoutWithRetriesDelay = this.errorMessageDelay + this.pageReloadCount * (this.errorMessageDelay - this.warningMessageDelay);
 
@@ -86,14 +84,13 @@ export class LoadingComponent implements OnDestroy, OnInit {
         this.errorTimeout = setTimeout(() => {
           if (this.pageReloadCount < this.numberOfAutomaticPageReloads) {
             this.pageReloadCount++;
-            // add reload count to query parameters, then reload the page
-            const queryParamsObj = {};
-            queryParamsObj[this.QUERY_PARAM_RELOAD_COUNT] = this.pageReloadCount;
-            queryParams.forEach((value, key) => {
-              queryParamsObj[key] = value;
-            });
-            this.router.navigateByUrl('/fake-url', { skipLocationChange: true }).then(() => {
-              this.router.navigate([currentUrl], { queryParams: queryParamsObj, queryParamsHandling: 'merge', onSameUrlNavigation: 'reload'});
+            this.router.navigate(['/fake-url'], {queryParams, queryParamsHandling: 'merge', skipLocationChange: true}).then(() => {
+              this.router.navigate([currentUrl], {
+                queryParams,
+                queryParamsHandling: 'merge',
+                onSameUrlNavigation: 'reload',
+                state: {[this.QUERY_PARAM_RELOAD_COUNT]: this.pageReloadCount}
+              });
             });
           } else {
             this.messageToShow = MessageType.ERROR;
