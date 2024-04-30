@@ -18,7 +18,6 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
-import { renderSearchLabelFor } from '../search-label-loader/search-label-loader.decorator';
 
 /**
  * Component that represents the label containing the currently active filters
@@ -30,13 +29,6 @@ import { renderSearchLabelFor } from '../search-label-loader/search-label-loader
   standalone: true,
   imports: [RouterLink, AsyncPipe, TranslateModule],
 })
-@renderSearchLabelFor('equals')
-@renderSearchLabelFor('notequals')
-@renderSearchLabelFor('authority')
-@renderSearchLabelFor('notauthority')
-@renderSearchLabelFor('contains')
-@renderSearchLabelFor('notcontains')
-@renderSearchLabelFor('query')
 export class SearchLabelComponent implements OnInit {
   @Input() inPlaceSearch: boolean;
   @Input() appliedFilter: AppliedFilter;

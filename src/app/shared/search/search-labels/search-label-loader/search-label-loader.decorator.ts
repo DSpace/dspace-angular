@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  Type,
+} from '@angular/core';
 
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { hasNoValue } from '../../../empty.util';
+import { SearchLabelComponent } from '../search-label/search-label.component';
+import { SearchLabelRangeComponent } from '../search-label-range/search-label-range.component';
 
-export const map: Map<string, GenericConstructor<Component>> = new Map();
+export const DEFAULT_LABEL_OPERATOR = undefined;
 
-export function renderSearchLabelFor(operator: string) {
-  return function decorator(objectElement: any) {
-    if (!objectElement) {
-      return;
-    }
-    map.set(operator, objectElement);
-  };
-}
+export const LABEL_DECORATOR_MAP: Map<string, Type<Component>> = new Map([
+  [DEFAULT_LABEL_OPERATOR, SearchLabelComponent as Type<Component>],
+  ['range', SearchLabelRangeComponent as Type<Component>],
+]);
 
-export function getSearchLabelByOperator(operator: string): GenericConstructor<Component> {
-  return map.get(operator);
+export function getSearchLabelByOperator(operator: string): Type<Component> {
+  const comp: Type<Component> = LABEL_DECORATOR_MAP.get(operator);
+  if (hasNoValue(comp)) {
+    return LABEL_DECORATOR_MAP.get(DEFAULT_LABEL_OPERATOR);
+  }
+  return comp;
 }
