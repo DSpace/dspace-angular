@@ -24,7 +24,9 @@
             <span *ngIf="item.allMetadata(authorMetadata).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
             <span class="d-flex position-absolute w-100">
               <span class="metadata-content" *ngFor="let author of item.allMetadata(authorMetadata); let i=index; let last=last;">
-                <ds-metadata-link-view [item]="item" [metadata]="author" [metadataName]="authorMetadata"></ds-metadata-link-view>
+                <ds-metadata-link-view [item]="item" [metadataName]="authorMetadata"
+                                       [metadata]="author"></ds-metadata-link-view><span
+                *ngIf="!last">; </span>
               </span>
 
             </span>

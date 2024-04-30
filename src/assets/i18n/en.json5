@@ -3275,11 +3275,25 @@
 
   "item.preview.dc.identifier.arxiv": "arXiv ID",
 
-  "item.preview.dc.identifier.patentno": "Patent Number",
+  "item.preview.crispatent.document.description": "Document description:",
+
+  "item.preview.crispatent.document.issueDate": "Publication date:",
+
+  "item.preview.crispatent.document.kind": "Document Kind code:",
+
+  "item.preview.crispatent.document.title": "Document title:",
+
+  "item.preview.crispatent.kind": "Kind code:",
+
+  "item.preview.dc.contributor": "Applicants:",
+
+  "item.preview.dc.identifier.applicationnumber": "Application number:",
+
+  "item.preview.dc.identifier.patentno": "Patent number:",
 
   "item.preview.dc.subject.ipc": "Subject IPC",
 
-  "item.preview.dcterms.dateSubmitted": "Registration Date",
+  "item.preview.dcterms.dateSubmitted": "Registration date:",
 
   "item.preview.dc.identifier.isi": "ISI",
 
@@ -3373,14 +3387,6 @@
 
   "item.preview.oairecerif.oamandate": "OA Mandate",
 
-  "item.preview.oairecerif.identifier.url": "Link",
-
-  "item.preview.organization.identifier.ror": "ROR ID",
-
-  "item.preview.organization.foundingDate": "Founding Date",
-
-  "item.preview.organization.address.addressCountry": "Country",
-
   "item.preview.organization.parentOrganization": "Parent Organization",
 
   "item.preview.person.familyName": "Surname:",
@@ -3398,6 +3404,20 @@
   "item.preview.dc.coverage.spatial": "Jurisdiction:",
 
   "item.preview.oaire.fundingStream": "Funding Stream:",
+
+  "item.preview.oairecerif.identifier.url": "URL",
+
+  "item.preview.organization.address.addressCountry": "Country",
+
+  "item.preview.organization.foundingDate": "Founding Date",
+
+  "item.preview.organization.identifier.crossrefid": "CrossRef ID",
+
+  "item.preview.organization.identifier.isni": "ISNI",
+
+  "item.preview.organization.identifier.ror": "ROR ID",
+
+  "item.preview.organization.legalName": "Legal Name",
 
   "item.preview.person.identifier.rid": "Researcher ID:",
 
@@ -3682,6 +3702,10 @@
   "loading.community": "Loading community...",
 
   "loading.default": "Loading...",
+
+  "loading.warning": "This is taking longer than expected. Please be patient.",
+
+  "loading.error": "An error occurred while loading the page. Please refresh the page and try again.",
 
   "loading.item": "Loading item...",
 
@@ -6908,6 +6932,10 @@
 
   "person.page.orcid.funding-preferences": "Funding preferences",
 
+  "person.page.orcid.products-preferences": "Product preferences",
+
+  "person.page.orcid.patent-preferences": "Patent preferences",
+
   "person.page.orcid.publications-preferences": "Publication preferences",
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
@@ -6930,6 +6958,14 @@
 
   "person.page.orcid.sync-fundings.disabled": "Disabled",
 
+  "person.page.orcid.sync-patents.all": "All patents",
+
+  "person.page.orcid.sync-patents.mine": "My patents",
+
+  "person.page.orcid.sync-patents.my_selected": "Selected patents",
+
+  "person.page.orcid.sync-patents.disabled": "Disabled",
+
   "person.page.orcid.sync-publications.all": "All publications",
 
   "person.page.orcid.sync-publications.mine": "My publications",
@@ -6937,6 +6973,14 @@
   "person.page.orcid.sync-publications.my_selected": "Selected publications",
 
   "person.page.orcid.sync-publications.disabled": "Disabled",
+
+  "person.page.orcid.sync-products.all": "All products",
+
+  "person.page.orcid.sync-products.mine": "My products",
+
+  "person.page.orcid.sync-products.my_selected": "Selected products",
+
+  "person.page.orcid.sync-products.disabled": "Disabled",
 
   "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
 
@@ -6974,7 +7018,11 @@
 
   "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
 
+  "person.page.orcid.sync-queue.tooltip.patent": "Patent",
+
   "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+
+  "person.page.orcid.sync-queue.tooltip.product": "Product",
 
   "person.page.orcid.sync-queue.tooltip.project": "Project",
 
@@ -7056,7 +7104,11 @@
 
   "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
 
+  "person.page.orcid.synchronization-mode-patent-message": "Select whether to send your linked Patent entities to your ORCID record's list of works.",
+
   "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+
+  "person.page.orcid.synchronization-mode-product-message": "Select whether to send your linked Product entities to your ORCID record's list of works.",
 
   "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
 
@@ -7314,4 +7366,14 @@
   "third-party-metrics-cookies.consent-settings": "consent settings",
 
   "third-party-metrics-blocked": "Some of the metrics are blocked by your",
+
+  "form.other-information.alternative-names": "Alternative names",
+
+  "form.other-information.selection.data-oairecerif_author_affiliation": "Select alternative affiliation",
+
+  "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.selection.data-crispj_coinvestigator_affiliation": "Affiliation",
+
+  "form.other-information.selection.alternative-names": "Select alternative name",
 }

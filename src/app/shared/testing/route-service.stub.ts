@@ -23,7 +23,7 @@ export const routeServiceStub: any = {
   getQueryParamMap: () => {
     return observableOf(new Map());
   },
-  getQueryParameterValue: () => {
+  getQueryParameterValue: (lang?: string) => {
     return observableOf({});
   },
   getRouteParameterValue: (param) => {
