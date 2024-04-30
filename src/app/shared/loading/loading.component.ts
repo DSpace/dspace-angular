@@ -60,31 +60,44 @@ export class LoadingComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
+    // saving current url and query params for the upcoming router trick
     let currentUrl = this.router.url.split('?')[0];
     const queryParams = new URLSearchParams(this.router.url.split('?')[1]);
+
+    // get reload count from state
     const reloadCount = (this.location.getState() as any)?.[this.QUERY_PARAM_RELOAD_COUNT];
     if (hasValue(reloadCount)) {
       this.pageReloadCount = +reloadCount;
     }
+
+    // calculate the delay for the error message with retries
     this.errorTimeoutWithRetriesDelay = this.errorMessageDelay + this.pageReloadCount * (this.errorMessageDelay - this.warningMessageDelay);
 
     if (this.showMessage) {
       this.message = this.message || this.translate.instant('loading.default');
     }
+
     if (this.showFallbackMessages) {
       this.warningMessage = this.warningMessage || this.translate.instant('loading.warning');
       this.errorMessage = this.errorMessage || this.translate.instant('loading.error');
+
       if (this.warningMessageDelay > 0) {
         this.warningTimeout = setTimeout(() => {
           this.messageToShow = MessageType.WARNING;
           this.changeDetectorRef.detectChanges();
         }, this.warningMessageDelay);
       }
+
       if (this.errorMessageDelay > 0) {
         this.errorTimeout = setTimeout(() => {
+          // if the page has been reloaded less than the maximum number of retries
           if (this.pageReloadCount < this.numberOfAutomaticPageReloads) {
             this.pageReloadCount++;
+            // navigate to a fake url to trigger a reload of the current page
+            // this is needed because the router does not reload the page if the url is the same,
+            // even if the state changes and the onSameUrlNavigation property is set to 'reload'
             this.router.navigate(['/fake-url'], {queryParams, queryParamsHandling: 'merge', skipLocationChange: true}).then(() => {
+              // navigate back to the current url
               this.router.navigate([currentUrl], {
                 queryParams,
                 queryParamsHandling: 'merge',
@@ -93,6 +106,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
               });
             });
           } else {
+            // if the page has been reloaded the maximum number of retries
             this.messageToShow = MessageType.ERROR;
             this.changeDetectorRef.detectChanges();
           }
