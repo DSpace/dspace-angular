@@ -1,12 +1,13 @@
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { Observable, of as observableOf } from 'rxjs';
-import { Router, UrlTree } from '@angular/router';
+import { Router, UrlTree, CanActivateFn } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
 import { waitForAsync, TestBed } from '@angular/core/testing';
 import { someFeatureAuthorizationGuard } from './some-feature-authorization.guard';
 
 describe('someFeatureAuthorizationGuard', () => {
+  let guard: CanActivateFn;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
@@ -41,6 +42,12 @@ describe('someFeatureAuthorizationGuard', () => {
         { provide: AuthService, useValue: authService },
       ]
     });
+
+    guard = someFeatureAuthorizationGuard(
+      () => observableOf(featureIds),
+      () => observableOf(objectUrl),
+      () => observableOf(ePersonUuid),
+    );
   }
 
   beforeEach(waitForAsync(() => {
@@ -54,11 +61,7 @@ describe('someFeatureAuthorizationGuard', () => {
 
     it('should not return true', (done: DoneFn) => {
       const result$ = TestBed.runInInjectionContext(() => {
-        return someFeatureAuthorizationGuard(
-          () => observableOf(featureIds),
-          () => observableOf(objectUrl),
-          () => observableOf(ePersonUuid),
-        )(undefined, { url: 'current-url' } as any)
+        return guard(undefined, { url: 'current-url' } as any)
       }) as Observable<boolean | UrlTree>;
 
       result$.subscribe((result) => {
@@ -75,11 +78,7 @@ describe('someFeatureAuthorizationGuard', () => {
 
     it('should return true', (done) => {
       const result$ = TestBed.runInInjectionContext(() => {
-        return someFeatureAuthorizationGuard(
-          () => observableOf(featureIds),
-          () => observableOf(objectUrl),
-          () => observableOf(ePersonUuid),
-        )(undefined, { url: 'current-url' } as any)
+        return guard(undefined, { url: 'current-url' } as any)
       }) as Observable<boolean | UrlTree>;
 
       result$.subscribe((result) => {
@@ -96,11 +95,7 @@ describe('someFeatureAuthorizationGuard', () => {
 
     it('should return true', (done) => {
       const result$ = TestBed.runInInjectionContext(() => {
-        return someFeatureAuthorizationGuard(
-          () => observableOf(featureIds),
-          () => observableOf(objectUrl),
-          () => observableOf(ePersonUuid),
-        )(undefined, { url: 'current-url' } as any)
+        return guard(undefined, { url: 'current-url' } as any)
       }) as Observable<boolean | UrlTree>;
 
       result$.subscribe((result) => {
