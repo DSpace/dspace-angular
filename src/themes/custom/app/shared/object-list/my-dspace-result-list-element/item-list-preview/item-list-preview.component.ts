@@ -17,7 +17,7 @@ import { TruncatablePartComponent } from '../../../../../../../app/shared/trunca
 import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/themed-thumbnail.component';
 
 @Component({
-  selector: 'ds-item-list-preview',
+  selector: 'ds-themed-item-list-preview',
   // styleUrls: ['./item-list-preview.component.scss'],
   styleUrls: ['../../../../../../../app/shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component.scss'],
   // templateUrl: './item-list-preview.component.html',

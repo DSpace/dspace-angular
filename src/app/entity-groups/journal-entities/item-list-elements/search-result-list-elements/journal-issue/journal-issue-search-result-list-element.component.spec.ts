@@ -129,7 +129,7 @@ describe('JournalIssueSearchResultListElementComponent', () => {
     });
 
     it('should add thumbnail element', () => {
-      const thumbnailElement = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnailElement).toBeTruthy();
     });
   });
@@ -215,7 +215,7 @@ describe('JournalIssueSearchResultListElementComponent', () => {
     });
 
     it('should not add thumbnail element', () => {
-      const thumbnailElement = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnailElement).toBeFalsy();
     });
   });

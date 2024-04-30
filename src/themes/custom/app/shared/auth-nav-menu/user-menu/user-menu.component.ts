@@ -18,7 +18,7 @@ import { UserMenuComponent as BaseComponent } from '../../../../../../app/shared
  * Component representing the {@link UserMenuComponent} of a page
  */
 @Component({
-  selector: 'ds-user-menu',
+  selector: 'ds-themed-user-menu',
   // templateUrl: 'user-menu.component.html',
   templateUrl: '../../../../../../app/shared/auth-nav-menu/user-menu/user-menu.component.html',
   // styleUrls: ['user-menu.component.scss'],

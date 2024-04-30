@@ -44,7 +44,7 @@ export class ConcatFieldParser extends FieldParser {
     this.secondPlaceholder = secondPlaceholder;
   }
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     const id: string = this.configData.selectableMetadata[0].metadata;
 
     const clsInput = {

@@ -15,7 +15,7 @@ import { CollectionDropdownComponent as BaseComponent } from '../../../../../app
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 
 @Component({
-  selector: 'ds-collection-dropdown',
+  selector: 'ds-themed-collection-dropdown',
   templateUrl: '../../../../../app/shared/collection-dropdown/collection-dropdown.component.html',
   // templateUrl: './collection-dropdown.component.html',
   styleUrls: ['../../../../../app/shared/collection-dropdown/collection-dropdown.component.scss'],

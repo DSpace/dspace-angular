@@ -28,7 +28,6 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
-import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
@@ -135,7 +134,6 @@ describe('BrowseByDateComponent', () => {
             ThemedComcolPageHandleComponent,
             ComcolPageContentComponent,
             ThemedComcolPageBrowseByComponent,
-            BrowseByComponent,
             ThemedLoadingComponent,
             ThemedBrowseByComponent,
           ],

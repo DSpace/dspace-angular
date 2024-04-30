@@ -35,7 +35,7 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
  * This component represents the drop zone that provides to add files to the submission.
  */
 @Component({
-  selector: 'ds-submission-upload-files',
+  selector: 'ds-base-submission-upload-files',
   templateUrl: './submission-upload-files.component.html',
   imports: [
     UploaderComponent,

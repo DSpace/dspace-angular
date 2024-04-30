@@ -11,10 +11,11 @@ import { MediaViewerImageComponent } from './media-viewer-image.component';
  * Themed wrapper for {@link MediaViewerImageComponent}.
  */
 @Component({
-  selector: 'ds-themed-media-viewer-image',
+  selector: 'ds-media-viewer-image',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [MediaViewerImageComponent],
 })
 export class ThemedMediaViewerImageComponent extends ThemedComponent<MediaViewerImageComponent> {
 

@@ -11,9 +11,10 @@ import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.c
  * Themed wrapper for {@link ProfilePageMetadataFormComponent}
  */
 @Component({
-  selector: 'ds-themed-profile-page-metadata-form',
+  selector: 'ds-profile-page-metadata-form',
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [ProfilePageMetadataFormComponent],
 })
 export class ThemedProfilePageMetadataFormComponent extends ThemedComponent<ProfilePageMetadataFormComponent> {
 

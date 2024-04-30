@@ -4,7 +4,7 @@ import { FeedbackComponent as BaseComponent } from '../../../../../app/info/feed
 import { ThemedFeedbackFormComponent } from '../../../../../app/info/feedback/feedback-form/themed-feedback-form.component';
 
 @Component({
-  selector: 'ds-feedback',
+  selector: 'ds-themed-feedback',
   // styleUrls: ['./feedback.component.scss'],
   styleUrls: ['../../../../../app/info/feedback/feedback.component.scss'],
   // templateUrl: './feedback.component.html'

@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
  * To see how it is used see collection-page or community-page.
  */
 @Component({
-  selector: 'ds-comcol-page-content',
+  selector: 'ds-base-comcol-page-content',
   styleUrls: ['./comcol-page-content.component.scss'],
   templateUrl: './comcol-page-content.component.html',
   imports: [

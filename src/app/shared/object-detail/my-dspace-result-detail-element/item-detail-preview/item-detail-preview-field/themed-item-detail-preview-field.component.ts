@@ -12,9 +12,10 @@ import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.com
  * Themed wrapper for {@link ItemDetailPreviewFieldComponent}
  */
 @Component({
-  selector: 'ds-themed-item-detail-preview-field',
+  selector: 'ds-item-detail-preview-field',
   templateUrl: '../../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [ItemDetailPreviewFieldComponent],
 })
 export class ThemedItemDetailPreviewFieldComponent  extends ThemedComponent<ItemDetailPreviewFieldComponent> {
 

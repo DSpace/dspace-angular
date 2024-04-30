@@ -53,7 +53,7 @@ import { RelationshipOptions } from '../../../models/relationship-options.model'
 
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-search-tab',
+  selector: 'ds-base-dynamic-lookup-relation-search-tab',
   styleUrls: ['./dynamic-lookup-relation-search-tab.component.scss'],
   templateUrl: './dynamic-lookup-relation-search-tab.component.html',
   providers: [

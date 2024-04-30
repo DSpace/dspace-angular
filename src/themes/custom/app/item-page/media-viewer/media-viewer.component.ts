@@ -13,7 +13,7 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-thumbnail.component';
 
 @Component({
-  selector: 'ds-media-viewer',
+  selector: 'ds-themed-media-viewer',
   // templateUrl: './media-viewer.component.html',
   templateUrl: '../../../../../app/item-page/media-viewer/media-viewer.component.html',
   // styleUrls: ['./media-viewer.component.scss'],

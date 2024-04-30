@@ -17,45 +17,45 @@
             </ds-comcol-page-logo>
 
             <!-- Handle -->
-            <ds-themed-comcol-page-handle
+            <ds-comcol-page-handle
                 [content]="collection.handle"
                 [title]="'collection.page.handle'">
-            </ds-themed-comcol-page-handle>
+            </ds-comcol-page-handle>
             <!-- Introductory text -->
-            <ds-themed-comcol-page-content
+            <ds-comcol-page-content
                 [content]="collection.introductoryText"
                 [hasInnerHtml]="true">
-            </ds-themed-comcol-page-content>
+            </ds-comcol-page-content>
             <!-- News -->
-            <ds-themed-comcol-page-content
+            <ds-comcol-page-content
                 [content]="collection.sidebarText"
                 [hasInnerHtml]="true"
                 [title]="'collection.page.news'">
-            </ds-themed-comcol-page-content>
+            </ds-comcol-page-content>
           </header>
           <ds-dso-edit-menu></ds-dso-edit-menu>
         </div>
         <section class="comcol-page-browse-section">
           <!-- Browse-By Links -->
-          <ds-themed-comcol-page-browse-by
+          <ds-comcol-page-browse-by
               [id]="collection.id"
               [contentType]="collection.type">
-          </ds-themed-comcol-page-browse-by>
+          </ds-comcol-page-browse-by>
 
           <router-outlet></router-outlet>
         </section>
         <footer *ngIf="collection.copyrightText" class="border-top my-5 pt-4">
           <!-- Copyright -->
-          <ds-themed-comcol-page-content
+          <ds-comcol-page-content
               [content]="collection.copyrightText"
               [hasInnerHtml]="true">
-          </ds-themed-comcol-page-content>
+          </ds-comcol-page-content>
         </footer>
       </div>
     </div>
     <ds-error *ngIf="collectionRD?.hasFailed"
               message="{{'error.collection' | translate}}"></ds-error>
-    <ds-themed-loading *ngIf="collectionRD?.isLoading"
-                       message="{{'loading.collection' | translate}}"></ds-themed-loading>
+    <ds-loading *ngIf="collectionRD?.isLoading"
+                       message="{{'loading.collection' | translate}}"></ds-loading>
   </div>
 </div>

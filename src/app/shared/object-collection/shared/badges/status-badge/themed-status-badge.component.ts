@@ -11,10 +11,11 @@ import { StatusBadgeComponent } from './status-badge.component';
  * Themed wrapper for StatusBadgeComponent
  */
 @Component({
-  selector: 'ds-themed-status-badge',
+  selector: 'ds-status-badge',
   styleUrls: [],
   templateUrl: '../../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [StatusBadgeComponent],
 })
 export class ThemedStatusBadgeComponent extends ThemedComponent<StatusBadgeComponent> {
   @Input() object: DSpaceObject;

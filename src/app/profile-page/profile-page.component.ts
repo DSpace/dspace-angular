@@ -53,7 +53,7 @@ import { ProfilePageResearcherFormComponent } from './profile-page-researcher-fo
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
 @Component({
-  selector: 'ds-profile-page',
+  selector: 'ds-base-profile-page',
   styleUrls: ['./profile-page.component.scss'],
   templateUrl: './profile-page.component.html',
   imports: [

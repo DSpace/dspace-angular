@@ -27,7 +27,6 @@ import { Context } from '../../core/shared/context.model';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
@@ -55,7 +54,6 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
     ThemedComcolPageContentComponent,
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
-    BrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,

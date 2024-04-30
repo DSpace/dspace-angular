@@ -19,7 +19,7 @@ import { PageWithSidebarComponent } from '../../../../../app/shared/sidebar/page
 import { ViewModeSwitchComponent } from '../../../../../app/shared/view-mode-switch/view-mode-switch.component';
 
 @Component({
-  selector: 'ds-search',
+  selector: 'ds-themed-search',
   styleUrls: ['./search.component.scss'],
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

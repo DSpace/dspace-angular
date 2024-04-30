@@ -14,7 +14,7 @@ import { ProfilePageSecurityFormComponent } from '../../../../app/profile-page/p
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-profile-page',
+  selector: 'ds-themed-profile-page',
   // styleUrls: ['./profile-page.component.scss'],
   styleUrls: ['../../../../app/profile-page/profile-page.component.scss'],
   // templateUrl: './profile-page.component.html'

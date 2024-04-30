@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <div *ngIf="(isLoading() | async) !== true" class="submission-form-header mb-3 d-flex flex-wrap position-sticky">
         <div *ngIf="(uploadEnabled$ | async)" class="w-100">
-            <ds-themed-submission-upload-files [submissionId]="submissionId"
+            <ds-submission-upload-files [submissionId]="submissionId"
                                         [collectionId]="collectionId"
-                                        [uploadFilesOptions]="uploadFilesOptions"></ds-themed-submission-upload-files>
+                                        [uploadFilesOptions]="uploadFilesOptions"></ds-submission-upload-files>
             <div class="clearfix"></div>
         </div>
 
@@ -27,7 +27,7 @@
     </div>
 
     <div class="submission-form-content">
-        <ds-themed-loading *ngIf="(isLoading() | async)" message="Loading..."></ds-themed-loading>
+        <ds-loading *ngIf="(isLoading() | async)" message="Loading..."></ds-loading>
         <ng-container *ngFor="let object of $any(submissionSections | async)">
             <ds-submission-section-container [collectionId]="collectionId"
                                              [submissionId]="submissionId"

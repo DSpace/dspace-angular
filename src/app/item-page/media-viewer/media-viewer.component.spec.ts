@@ -124,7 +124,7 @@ describe('MediaViewerComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });
@@ -152,7 +152,7 @@ describe('MediaViewerComponent', () => {
 
     it('should display a default, thumbnail', () => {
       const defaultThumbnail = fixture.debugElement.query(
-        By.css('ds-themed-media-viewer-image'),
+        By.css('ds-media-viewer-image'),
       );
       expect(defaultThumbnail.nativeElement).toBeDefined();
     });

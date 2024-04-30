@@ -15,7 +15,7 @@ import { ServerResponseService } from 'src/app/core/services/server-response.ser
  * This component representing the `PageNotFound` DSpace page.
  */
 @Component({
-  selector: 'ds-objnotfound',
+  selector: 'ds-base-objnotfound',
   styleUrls: ['./objectnotfound.component.scss'],
   templateUrl: './objectnotfound.component.html',
   changeDetection: ChangeDetectionStrategy.Default,

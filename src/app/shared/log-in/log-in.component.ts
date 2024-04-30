@@ -33,7 +33,7 @@ import { LogInContainerComponent } from './container/log-in-container.component'
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 
 @Component({
-  selector: 'ds-log-in',
+  selector: 'ds-base-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -10,9 +10,10 @@ import { ComcolPageContentComponent } from './comcol-page-content.component';
  * Themed wrapper for {@link ComcolPageContentComponent}
  */
 @Component({
-  selector: 'ds-themed-comcol-page-content',
+  selector: 'ds-comcol-page-content',
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
+  imports: [ComcolPageContentComponent],
 })
 export class ThemedComcolPageContentComponent extends ThemedComponent<ComcolPageContentComponent> {
 

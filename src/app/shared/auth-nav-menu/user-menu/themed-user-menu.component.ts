@@ -10,10 +10,11 @@ import { UserMenuComponent } from './user-menu.component';
  * This component represents the user nav menu.
  */
 @Component({
-  selector: 'ds-themed-user-menu',
+  selector: 'ds-user-menu',
   templateUrl: './../../theme-support/themed.component.html',
   styleUrls: [],
   standalone: true,
+  imports: [UserMenuComponent],
 })
 export class ThemedUserMenuComponent extends ThemedComponent<UserMenuComponent>{
 

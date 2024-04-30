@@ -42,7 +42,7 @@ import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-med
  * This component renders the media viewers
  */
 @Component({
-  selector: 'ds-media-viewer',
+  selector: 'ds-base-media-viewer',
   templateUrl: './media-viewer.component.html',
   styleUrls: ['./media-viewer.component.scss'],
   imports: [

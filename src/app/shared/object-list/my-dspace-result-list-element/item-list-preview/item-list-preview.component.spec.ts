@@ -140,7 +140,7 @@ describe('ItemListPreviewComponent', () => {
       fixture.detectChanges();
     });
     it('should add the thumbnail element', () => {
-      const thumbnail = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeTruthy();
     });
   });
@@ -200,7 +200,7 @@ describe('ItemListPreviewComponent', () => {
     });
 
     it('should show the badges', () => {
-      const entityField = fixture.debugElement.query(By.css('ds-themed-badges'));
+      const entityField = fixture.debugElement.query(By.css('ds-badges'));
       expect(entityField).not.toBeNull();
     });
   });
@@ -251,7 +251,7 @@ describe('ItemListPreviewComponent', () => {
       fixture.detectChanges();
     });
     it('should add the thumbnail element', () => {
-      const thumbnail = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeFalsy();
     });
   });

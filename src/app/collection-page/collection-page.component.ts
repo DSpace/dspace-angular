@@ -54,7 +54,7 @@ import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-trac
 import { getCollectionPageRoute } from './collection-page-routing-paths';
 
 @Component({
-  selector: 'ds-collection-page',
+  selector: 'ds-base-collection-page',
   styleUrls: ['./collection-page.component.scss'],
   templateUrl: './collection-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

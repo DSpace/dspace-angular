@@ -52,7 +52,7 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
  */
 
 @Component({
-  selector: 'ds-item-page-full-file-section',
+  selector: 'ds-base-item-page-full-file-section',
   styleUrls: ['./full-file-section.component.scss'],
   templateUrl: './full-file-section.component.html',
   imports: [

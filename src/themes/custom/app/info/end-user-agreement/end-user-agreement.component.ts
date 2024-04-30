@@ -6,7 +6,7 @@ import { EndUserAgreementComponent as BaseComponent } from '../../../../../app/i
 import { EndUserAgreementContentComponent } from '../../../../../app/info/end-user-agreement/end-user-agreement-content/end-user-agreement-content.component';
 
 @Component({
-  selector: 'ds-end-user-agreement',
+  selector: 'ds-themed-end-user-agreement',
   // styleUrls: ['./end-user-agreement.component.scss'],
   styleUrls: ['../../../../../app/info/end-user-agreement/end-user-agreement.component.scss'],
   // templateUrl: './end-user-agreement.component.html'

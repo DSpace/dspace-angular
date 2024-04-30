@@ -20,7 +20,6 @@ import {
 
 import { Site } from '../core/shared/site.model';
 import { SuggestionsPopupComponent } from '../notifications/suggestions-popup/suggestions-popup.component';
-import { ConfigurationSearchPageComponent } from '../search-page/configuration-search-page.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../shared/sidebar/page-with-sidebar.component';
@@ -31,11 +30,11 @@ import { RecentItemListComponent } from './recent-item-list/recent-item-list.com
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
 
 @Component({
-  selector: 'ds-home-page',
+  selector: 'ds-base-home-page',
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
   standalone: true,
-  imports: [ThemedHomeNewsComponent, NgTemplateOutlet, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, ConfigurationSearchPageComponent, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
+  imports: [ThemedHomeNewsComponent, NgTemplateOutlet, NgIf, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
 })
 export class HomePageComponent implements OnInit {
 

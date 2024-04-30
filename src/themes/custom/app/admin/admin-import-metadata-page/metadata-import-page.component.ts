@@ -6,7 +6,7 @@ import { MetadataImportPageComponent as BaseComponent } from '../../../../../app
 import { FileDropzoneNoUploaderComponent } from '../../../../../app/shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
-  selector: 'ds-metadata-import-page',
+  selector: 'ds-themed-metadata-import-page',
   // templateUrl: './metadata-import-page.component.html',
   templateUrl: '../../../../../app/admin/admin-import-metadata-page/metadata-import-page.component.html',
   standalone: true,

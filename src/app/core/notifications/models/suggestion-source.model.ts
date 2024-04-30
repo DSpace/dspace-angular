@@ -24,26 +24,26 @@ export class SuggestionSource implements CacheableObject {
    * The Suggestion Target id
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The total number of suggestions provided by Suggestion Target for
    */
   @autoserialize
-    total: number;
+  total: number;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
     suggestiontargets: HALLink
   };
