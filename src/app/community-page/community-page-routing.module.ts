@@ -10,11 +10,11 @@ import { CommunityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
 import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
 import { LinkService } from '../core/cache/builders/link.service';
 import { COMMUNITY_EDIT_PATH, COMMUNITY_CREATE_PATH } from './community-page-routing-paths';
-import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 
 @NgModule({
   imports: [
@@ -37,7 +37,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: COMMUNITY_EDIT_PATH,
             loadChildren: () => import('./edit-community-page/edit-community-page.module')
               .then((m) => m.EditCommunityPageModule),
-            canActivate: [CommunityPageAdministratorGuard]
+            canActivate: [communityPageAdministratorGuard]
           },
           {
             path: 'delete',
@@ -75,7 +75,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     DSOBreadcrumbsService,
     LinkService,
     CreateCommunityPageGuard,
-    CommunityPageAdministratorGuard,
   ]
 })
 export class CommunityPageRoutingModule {

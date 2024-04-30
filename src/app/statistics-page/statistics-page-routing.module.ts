@@ -10,7 +10,9 @@ import { ThemedCommunityStatisticsPageComponent } from './community-statistics-p
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
 import { ItemResolver } from '../item-page/item.resolver';
-import { StatisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import {
+  statisticsAdministratorGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 
 @NgModule({
   imports: [
@@ -31,7 +33,7 @@ import { StatisticsAdministratorGuard } from '../core/data/feature-authorization
             component: ThemedSiteStatisticsPageComponent,
           },
         ],
-        canActivate: [StatisticsAdministratorGuard]
+        canActivate: [statisticsAdministratorGuard]
       },
       {
         path: `items/:id`,
@@ -44,7 +46,7 @@ import { StatisticsAdministratorGuard } from '../core/data/feature-authorization
           breadcrumbKey: 'statistics'
         },
         component: ThemedItemStatisticsPageComponent,
-        canActivate: [StatisticsAdministratorGuard]
+        canActivate: [statisticsAdministratorGuard]
       },
       {
         path: `collections/:id`,
@@ -57,7 +59,7 @@ import { StatisticsAdministratorGuard } from '../core/data/feature-authorization
           breadcrumbKey: 'statistics'
         },
         component: ThemedCollectionStatisticsPageComponent,
-        canActivate: [StatisticsAdministratorGuard]
+        canActivate: [statisticsAdministratorGuard]
       },
       {
         path: `communities/:id`,
@@ -70,7 +72,7 @@ import { StatisticsAdministratorGuard } from '../core/data/feature-authorization
           breadcrumbKey: 'statistics'
         },
         component: ThemedCommunityStatisticsPageComponent,
-        canActivate: [StatisticsAdministratorGuard]
+        canActivate: [statisticsAdministratorGuard]
       },
     ]
     )

@@ -17,11 +17,11 @@ import {
   COLLECTION_EDIT_PATH,
   COLLECTION_CREATE_PATH
 } from './collection-page-routing-paths';
-import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 
 @NgModule({
   imports: [
@@ -44,7 +44,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: COLLECTION_EDIT_PATH,
             loadChildren: () => import('./edit-collection-page/edit-collection-page.module')
               .then((m) => m.EditCollectionPageModule),
-            canActivate: [CollectionPageAdministratorGuard]
+            canActivate: [collectionPageAdministratorGuard]
           },
           {
             path: 'delete',
@@ -93,7 +93,6 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     DSOBreadcrumbsService,
     LinkService,
     CreateCollectionPageGuard,
-    CollectionPageAdministratorGuard,
   ]
 })
 export class CollectionPageRoutingModule {

@@ -29,20 +29,19 @@ import {
   ITEM_EDIT_WITHDRAW_PATH,
   ITEM_EDIT_REGISTER_DOI_PATH
 } from './edit-item-page.routing-paths';
-import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
-import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
-import { ItemPageMetadataGuard } from './item-page-metadata.guard';
-import { ItemPageAdministratorGuard } from '../item-page-administrator.guard';
-import { ItemPageStatusGuard } from './item-page-status.guard';
-import { ItemPageBitstreamsGuard } from './item-page-bitstreams.guard';
-import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
-import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
-import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
-import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
+import { itemPageStatusGuard } from './item-page-status.guard';
+import { itemPageBitstreamsGuard } from './item-page-bitstreams.guard';
+import { itemPageMetadataGuard } from './item-page-metadata.guard';
+import { itemPageRelationshipsGuard } from './item-page-relationships.guard';
+import { itemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
+import { itemPageWithdrawGuard } from './item-page-withdraw.guard';
+import { itemPageReinstateGuard } from './item-page-reinstate.guard';
+import { itemPageRegisterDoiGuard } from './item-page-register-doi.guard';
+import { itemPageVersionHistoryGuard } from './item-page-version-history.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -70,19 +69,19 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
                 path: 'status',
                 component: ThemedItemStatusComponent,
                 data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true },
-                canActivate: [ItemPageStatusGuard]
+                canActivate: [itemPageStatusGuard]
               },
               {
                 path: 'bitstreams',
                 component: ItemBitstreamsComponent,
                 data: { title: 'item.edit.tabs.bitstreams.title', showBreadcrumbs: true },
-                canActivate: [ItemPageBitstreamsGuard]
+                canActivate: [itemPageBitstreamsGuard]
               },
               {
                 path: 'metadata',
                 component: ThemedDsoEditMetadataComponent,
                 data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
-                canActivate: [ItemPageMetadataGuard]
+                canActivate: [itemPageMetadataGuard]
               },
               {
                 path: 'curate',
@@ -93,7 +92,7 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
                 path: 'relationships',
                 component: ItemRelationshipsComponent,
                 data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true },
-                canActivate: [ItemPageRelationshipsGuard]
+                canActivate: [itemPageRelationshipsGuard]
               },
               /* TODO - uncomment & fix when view page exists
               {
@@ -111,7 +110,7 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
                 path: 'versionhistory',
                 component: ItemVersionHistoryComponent,
                 data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true },
-                canActivate: [ItemPageVersionHistoryGuard]
+                canActivate: [itemPageVersionHistoryGuard]
               },
               {
                 path: 'access-control',
@@ -122,7 +121,7 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
                 path: 'mapper',
                 component: ItemCollectionMapperComponent,
                 data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
-                canActivate: [ItemPageCollectionMapperGuard]
+                canActivate: [itemPageCollectionMapperGuard]
               }
             ]
           },
@@ -133,12 +132,12 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
           {
             path: ITEM_EDIT_WITHDRAW_PATH,
             component: ItemWithdrawComponent,
-            canActivate: [ItemPageWithdrawGuard]
+            canActivate: [itemPageWithdrawGuard]
           },
           {
             path: ITEM_EDIT_REINSTATE_PATH,
             component: ItemReinstateComponent,
-            canActivate: [ItemPageReinstateGuard]
+            canActivate: [itemPageReinstateGuard]
           },
           {
             path: ITEM_EDIT_PRIVATE_PATH,
@@ -160,7 +159,7 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
           {
             path: ITEM_EDIT_REGISTER_DOI_PATH,
             component: ItemRegisterDoiComponent,
-            canActivate: [ItemPageRegisterDoiGuard],
+            canActivate: [itemPageRegisterDoiGuard],
             data: { title: 'item.edit.register-doi.title' },
           },
           {
@@ -198,16 +197,6 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
     I18nBreadcrumbsService,
     ResourcePolicyResolver,
     ResourcePolicyTargetResolver,
-    ItemPageReinstateGuard,
-    ItemPageWithdrawGuard,
-    ItemPageAdministratorGuard,
-    ItemPageMetadataGuard,
-    ItemPageStatusGuard,
-    ItemPageBitstreamsGuard,
-    ItemPageRelationshipsGuard,
-    ItemPageVersionHistoryGuard,
-    ItemPageCollectionMapperGuard,
-    ItemPageRegisterDoiGuard,
   ]
 })
 export class EditItemPageRoutingModule {

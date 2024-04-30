@@ -5,14 +5,14 @@ import { GroupFormComponent } from './group-registry/group-form/group-form.compo
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 import { GROUP_EDIT_PATH } from './access-control-routing-paths';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { GroupPageGuard } from './group-registry/group-page.guard';
-import {
-  GroupAdministratorGuard
-} from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import {
-  SiteAdministratorGuard
-} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { BulkAccessComponent } from './bulk-access/bulk-access.component';
+import {
+  siteAdministratorGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  groupAdministratorGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { groupPageGuard } from './group-registry/group-page.guard';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { BulkAccessComponent } from './bulk-access/bulk-access.component';
           breadcrumb: I18nBreadcrumbResolver
         },
         data: { title: 'admin.access-control.epeople.title', breadcrumbKey: 'admin.access-control.epeople' },
-        canActivate: [SiteAdministratorGuard]
+        canActivate: [siteAdministratorGuard]
       },
       {
         path: GROUP_EDIT_PATH,
@@ -33,7 +33,7 @@ import { BulkAccessComponent } from './bulk-access/bulk-access.component';
           breadcrumb: I18nBreadcrumbResolver
         },
         data: { title: 'admin.access-control.groups.title', breadcrumbKey: 'admin.access-control.groups' },
-        canActivate: [GroupAdministratorGuard]
+        canActivate: [groupAdministratorGuard]
       },
       {
         path: `${GROUP_EDIT_PATH}/newGroup`,
@@ -42,7 +42,7 @@ import { BulkAccessComponent } from './bulk-access/bulk-access.component';
           breadcrumb: I18nBreadcrumbResolver
         },
         data: { title: 'admin.access-control.groups.title.addGroup', breadcrumbKey: 'admin.access-control.groups.addGroup' },
-        canActivate: [GroupAdministratorGuard]
+        canActivate: [groupAdministratorGuard]
       },
       {
         path: `${GROUP_EDIT_PATH}/:groupId`,
@@ -51,7 +51,7 @@ import { BulkAccessComponent } from './bulk-access/bulk-access.component';
           breadcrumb: I18nBreadcrumbResolver
         },
         data: { title: 'admin.access-control.groups.title.singleGroup', breadcrumbKey: 'admin.access-control.groups.singleGroup' },
-        canActivate: [GroupPageGuard]
+        canActivate: [groupPageGuard]
       },
       {
         path: 'bulk-access',
@@ -60,7 +60,7 @@ import { BulkAccessComponent } from './bulk-access/bulk-access.component';
           breadcrumb: I18nBreadcrumbResolver
         },
         data: { title: 'admin.access-control.bulk-access.title', breadcrumbKey: 'admin.access-control.bulk-access' },
-        canActivate: [SiteAdministratorGuard]
+        canActivate: [siteAdministratorGuard]
       },
     ])
   ]

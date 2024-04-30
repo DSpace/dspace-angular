@@ -126,9 +126,6 @@ import { Feature } from './shared/feature.model';
 import { Authorization } from './shared/authorization.model';
 import { FeatureDataService } from './data/feature-authorization/feature-data.service';
 import { AuthorizationDataService } from './data/feature-authorization/authorization-data.service';
-import {
-  SiteAdministratorGuard
-} from './data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { Registration } from './shared/registration.model';
 import { MetadataSchemaDataService } from './data/metadata-schema-data.service';
 import { MetadataFieldDataService } from './data/metadata-field-data.service';
@@ -147,7 +144,6 @@ import { ReloadGuard } from './reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './end-user-agreement/end-user-agreement-current-user.guard';
 import { EndUserAgreementCookieGuard } from './end-user-agreement/end-user-agreement-cookie.guard';
 import { EndUserAgreementService } from './end-user-agreement/end-user-agreement.service';
-import { SiteRegisterGuard } from './data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
 import { UsageReport } from './statistics/models/usage-report.model';
 import { RootDataService } from './data/root-data.service';
@@ -182,6 +178,8 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
+
+
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -280,8 +278,6 @@ const PROVIDERS = [
   ScriptDataService,
   FeatureDataService,
   AuthorizationDataService,
-  SiteAdministratorGuard,
-  SiteRegisterGuard,
   MetadataSchemaDataService,
   MetadataFieldDataService,
   TokenResponseParsingService,

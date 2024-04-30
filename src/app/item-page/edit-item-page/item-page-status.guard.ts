@@ -1,32 +1,24 @@
-import { Injectable } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
+import {
+  dsoPageSomeFeatureGuard
+} from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-some-feature.guard';
+import { CanActivateFn, ResolveFn } from '@angular/router';
+import { inject } from '@angular/core';
 import { ItemPageResolver } from '../item-page.resolver';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { AuthService } from '../../core/auth/auth.service';
-import { DsoPageSomeFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-some-feature.guard';
 
-@Injectable({
-  providedIn: 'root'
-})
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring any of the rights required for
  * the status page
+ * Check authorization rights
  */
-export class ItemPageStatusGuard extends DsoPageSomeFeatureGuard<Item> {
-  constructor(protected resolver: ItemPageResolver,
-              protected authorizationService: AuthorizationDataService,
-              protected router: Router,
-              protected authService: AuthService) {
-    super(resolver, authorizationService, router, authService);
-  }
-
-  /**
-   * Check authorization rights
-   */
-  getFeatureIDs(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> {
-    return observableOf([FeatureID.CanManageMappings, FeatureID.WithdrawItem, FeatureID.ReinstateItem, FeatureID.CanManagePolicies, FeatureID.CanMakePrivate, FeatureID.CanDelete, FeatureID.CanMove, FeatureID.CanRegisterDOI]);
-  }
-}
+export const itemPageStatusGuard: CanActivateFn =
+  dsoPageSomeFeatureGuard(
+    () => {
+      const itemPageResolver = inject(ItemPageResolver);
+      return itemPageResolver.resolve as ResolveFn<Observable<RemoteData<Item>>>;
+    },
+    () => observableOf([FeatureID.CanManageMappings, FeatureID.WithdrawItem, FeatureID.ReinstateItem, FeatureID.CanManagePolicies, FeatureID.CanMakePrivate, FeatureID.CanDelete, FeatureID.CanMove, FeatureID.CanRegisterDOI])
+  );

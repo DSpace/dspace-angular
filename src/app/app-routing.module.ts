@@ -4,9 +4,6 @@ import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import {
-  SiteAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
   BITSTREAM_MODULE_PATH,
@@ -28,18 +25,21 @@ import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { ReloadGuard } from './core/reload/reload.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
-import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
-import {
-  GroupAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import {
   ThemedPageInternalServerErrorComponent
 } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { siteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
+import {
+  siteAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  groupAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 
 @NgModule({
   imports: [
@@ -88,7 +88,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             path: REGISTER_PATH,
             loadChildren: () => import('./register-page/register-page.module')
               .then((m) => m.RegisterPageModule),
-            canActivate: [SiteRegisterGuard]
+            canActivate: [siteRegisterGuard]
           },
           {
             path: FORGOT_PASSWORD_PATH,
@@ -154,7 +154,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
-            canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [siteAdministratorGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',
@@ -229,7 +229,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
           {
             path: ACCESS_CONTROL_MODULE_PATH,
             loadChildren: () => import('./access-control/access-control.module').then((m) => m.AccessControlModule),
-            canActivate: [GroupAdministratorGuard, EndUserAgreementCurrentUserGuard],
+            canActivate: [groupAdministratorGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'subscriptions',
@@ -248,7 +248,7 @@ import { ThemedPageErrorComponent } from './page-error/themed-page-error.compone
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-})
+    })
   ],
   exports: [RouterModule],
 })
