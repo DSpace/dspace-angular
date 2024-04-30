@@ -12,7 +12,7 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-grant-request-copy',
+  selector: 'ds-themed-grant-request-copy',
   // styleUrls: ['./grant-request-copy.component.scss'],
   styleUrls: [],
   // templateUrl: './grant-request-copy.component.html',

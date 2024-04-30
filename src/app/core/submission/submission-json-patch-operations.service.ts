@@ -8,6 +8,7 @@ import { RequestService } from '../data/request.service';
 import { JsonPatchOperationsService } from '../json-patch/json-patch-operations.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 /**
  * A service that provides methods to make JSON Patch requests.
@@ -24,6 +25,22 @@ export class SubmissionJsonPatchOperationsService extends JsonPatchOperationsSer
     protected halService: HALEndpointService) {
 
     super();
+  }
+
+  /**
+   * Return an instance for RestRequest class
+   *
+   * @param uuid
+   *    The request uuid
+   * @param href
+   *    The request href
+   * @param body
+   *    The request body
+   * @return Object<PatchRequestDefinition>
+   *    instance of PatchRequestDefinition
+   */
+  protected getRequestInstance(uuid: string, href: string, body?: any): SubmissionPatchRequest {
+    return new this.patchRequestConstructor(uuid, new URLCombiner(href, '?embed=item').toString(), body);
   }
 
 }

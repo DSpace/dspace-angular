@@ -155,7 +155,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() formModel: DynamicFormControlModel[];
   @Input() asBootstrapFormGroup = false;
   @Input() bindId = true;
-  @Input() context: any | null = null;
+  @Input() context: any = null;
   @Input() group: UntypedFormGroup;
   @Input() hostClass: string[];
   @Input() hasErrorMessaging = false;

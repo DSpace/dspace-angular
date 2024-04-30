@@ -50,7 +50,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
  * Component that renders the create profile page to be used by a user registering through a token
  */
 @Component({
-  selector: 'ds-create-profile',
+  selector: 'ds-base-create-profile',
   styleUrls: ['./create-profile.component.scss'],
   templateUrl: './create-profile.component.html',
   imports: [

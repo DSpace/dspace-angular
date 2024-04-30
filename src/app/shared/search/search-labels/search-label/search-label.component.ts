@@ -26,6 +26,7 @@ import { stripOperatorFromFilterValue } from '../../search.utils';
 @Component({
   selector: 'ds-search-label',
   templateUrl: './search-label.component.html',
+  styleUrls: ['./search-label.component.scss'],
   standalone: true,
   imports: [RouterLink, AsyncPipe, TranslateModule],
 })

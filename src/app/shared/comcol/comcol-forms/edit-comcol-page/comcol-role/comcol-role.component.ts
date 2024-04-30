@@ -71,7 +71,7 @@ export class ComcolRoleComponent implements OnInit {
    * The community or collection to manage.
    */
   @Input()
-    dso: Community | Collection;
+  dso: Community | Collection;
 
   /**
    * The role to manage

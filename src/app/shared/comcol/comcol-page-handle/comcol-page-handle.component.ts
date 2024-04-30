@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
  */
 
 @Component({
-  selector: 'ds-comcol-page-handle',
+  selector: 'ds-base-comcol-page-handle',
   styleUrls: ['./comcol-page-handle.component.scss'],
   templateUrl: './comcol-page-handle.component.html',
   imports: [NgIf, TranslateModule],

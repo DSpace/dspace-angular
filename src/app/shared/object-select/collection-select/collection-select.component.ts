@@ -4,20 +4,31 @@ import {
   NgFor,
   NgIf,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+} from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Collection } from '../../../core/shared/collection.model';
-import { isNotEmpty } from '../../empty.util';
+import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  hasValueOperator,
+  isNotEmpty,
+} from '../../empty.util';
 import { ErrorComponent } from '../../error/error.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { PaginationComponent } from '../../pagination/pagination.component';
 import { VarDirective } from '../../utils/var.directive';
-import { ObjectSelectService } from '../object-select.service';
+import { DSpaceObjectSelect } from '../object-select.model';
 import { ObjectSelectComponent } from '../object-select/object-select.component';
 
 @Component({
@@ -31,21 +42,29 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
 /**
  * A component used to select collections from a specific list and returning the UUIDs of the selected collections
  */
-export class CollectionSelectComponent extends ObjectSelectComponent<Collection> {
+export class CollectionSelectComponent extends ObjectSelectComponent<Collection> implements OnInit {
 
-  constructor(
-    protected objectSelectService: ObjectSelectService,
-    protected authorizationService: AuthorizationDataService,
-    public dsoNameService: DSONameService,
-  ) {
-    super(objectSelectService, authorizationService);
-  }
+  /**
+   * Collection of all the data that is used to display the {@link Collection} in the HTML.
+   * By collecting this data here it doesn't need to be recalculated on evey change detection.
+   */
+  selectCollections$: Observable<DSpaceObjectSelect<Collection>[]>;
 
   ngOnInit(): void {
     super.ngOnInit();
     if (!isNotEmpty(this.confirmButton)) {
       this.confirmButton = 'collection.select.confirm';
     }
+    this.selectCollections$ = this.dsoRD$.pipe(
+      hasValueOperator(),
+      getAllSucceededRemoteDataPayload(),
+      map((collections: PaginatedList<Collection>) => collections.page.map((collection: Collection) => Object.assign(new DSpaceObjectSelect<Collection>(), {
+        dso: collection,
+        canSelect$: this.canSelect(collection),
+        selected$: this.getSelected(collection.id),
+        route: getCollectionPageRoute(collection.id),
+      } as DSpaceObjectSelect<Collection>))),
+    );
   }
 
 }

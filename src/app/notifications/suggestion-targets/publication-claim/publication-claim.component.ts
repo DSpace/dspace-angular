@@ -25,7 +25,7 @@ import {
 import { SuggestionTarget } from '../../../core/notifications/models/suggestion-target.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { hasValue } from '../../../shared/empty.util';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
@@ -40,7 +40,7 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
   templateUrl: './publication-claim.component.html',
   styleUrls: ['./publication-claim.component.scss'],
   imports: [
-    LoadingComponent,
+    ThemedLoadingComponent,
     AsyncPipe,
     TranslateModule,
     PaginationComponent,

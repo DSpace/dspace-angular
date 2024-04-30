@@ -32,7 +32,7 @@ import { VarDirective } from '../shared/utils/var.directive';
  * If no Bitstream is provided, an HTML placeholder will be rendered instead.
  */
 @Component({
-  selector: 'ds-thumbnail',
+  selector: 'ds-base-thumbnail',
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
   standalone: true,

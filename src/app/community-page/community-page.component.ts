@@ -47,7 +47,7 @@ import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-c
 import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
 
 @Component({
-  selector: 'ds-community-page',
+  selector: 'ds-base-community-page',
   styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -28,7 +28,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
 
 
 @Component({
-  selector: 'ds-collection-page',
+  selector: 'ds-themed-collection-page',
   // templateUrl: './collection-page.component.html',
   templateUrl: '../../../../app/collection-page/collection-page.component.html',
   // styleUrls: ['./collection-page.component.scss']
@@ -43,7 +43,6 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     ComcolPageContentComponent,
     ErrorComponent,
     NgIf,
-    RouterOutlet,
     ThemedLoadingComponent,
     TranslateModule,
     ViewTrackerComponent,
@@ -55,6 +54,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
     ObjectCollectionComponent,
+    RouterOutlet,
   ],
 })
 /**

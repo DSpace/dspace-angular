@@ -10,7 +10,6 @@
         <ng-container *ngVar="updates | dsObjectValues as updateValues">
           <ds-pagination
             [paginationOptions]="paginationConfig"
-            [pageInfoState]="(relationshipsRd$ | async)?.payload?.pageInfo"
             [collectionSize]="(relationshipsRd$ | async)?.payload?.totalElements + (this.nbAddedFields$ | async)"
             [hideGear]="true"
             [hidePagerWhenSinglePage]="true">
@@ -31,5 +30,5 @@
           <div *ngIf="updateValues.length === 0">{{"item.edit.relationships.no-relationships" | translate}}</div>
         </ng-container>
     </ng-container>
-    <ds-themed-loading *ngIf="loading$ | async"></ds-themed-loading>
+    <ds-loading *ngIf="loading$ | async"></ds-loading>
 </ng-container>

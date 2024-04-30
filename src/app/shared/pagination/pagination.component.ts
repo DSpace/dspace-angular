@@ -39,13 +39,11 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PaginationRouteParams } from '../../core/pagination/pagination-route-params.interface';
-import { PageInfo } from '../../core/shared/page-info.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { hasValue } from '../empty.util';
 import { HostWindowService } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { RSSComponent } from '../rss-feed/rss.component';
-import { HostWindowState } from '../search/host-window.reducer';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 
@@ -72,11 +70,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Number of items in collection.
    */
   @Input() collectionSize: number;
-
-  /**
-   * Page state of a Remote paginated objects.
-   */
-  @Input() pageInfoState: Observable<PageInfo> = undefined;
 
   /**
    * Configuration for the NgbPagination component.
@@ -167,17 +160,12 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Current page.
    */
-  public currentPage$;
+  public currentPage$: Observable<number>;
 
   /**
    * Current page in the state of a Remote paginated objects.
    */
   public currentPageState: number = undefined;
-
-  /**
-   * An observable of HostWindowState type
-   */
-  public hostWindow: Observable<HostWindowState>;
 
   /**
    * ID for the pagination instance. This ID is used in the routing to retrieve the pagination options.
@@ -268,7 +256,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
       map((currentPagination) => currentPagination.pageSize),
     );
 
-    let sortOptions;
+    let sortOptions: SortOptions;
     if (this.sortOptions) {
       sortOptions = this.sortOptions;
     } else {
@@ -282,16 +270,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
     );
   }
 
-  /**
-   * @param cdRef
-   *    ChangeDetectorRef is a singleton service provided by Angular.
-   * @param route
-   *    Route is a singleton service provided by Angular.
-   * @param router
-   *    Router is a singleton service provided by Angular.
-   * @param hostWindowService
-   *    the HostWindowService singleton.
-   */
   constructor(private cdRef: ChangeDetectorRef,
               private paginationService: PaginationService,
               public hostWindowService: HostWindowService) {
@@ -331,17 +309,6 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method to change the route to the given sort field
-   *
-   * @param sortField
-   *    The sort field being navigated to.
-   */
-  public doSortFieldChange(field: string) {
-    this.updateParams({ page: 1, sortField: field });
-    this.emitPaginationChange();
-  }
-
-  /**
    * Method to emit a general pagination change event
    */
   private emitPaginationChange() {
@@ -364,10 +331,10 @@ export class PaginationComponent implements OnDestroy, OnInit {
     if (collectionSize) {
       showingDetails = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(
         map((currentPaginationOptions) => {
-          let lastItem;
+          let lastItem: number;
           const pageMax = currentPaginationOptions.pageSize * currentPaginationOptions.currentPage;
 
-          const firstItem = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
+          const firstItem: number = currentPaginationOptions.pageSize * (currentPaginationOptions.currentPage - 1) + 1;
           if (collectionSize > pageMax) {
             lastItem = pageMax;
           } else {

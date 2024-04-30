@@ -9,10 +9,11 @@ import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
 
 @Component({
-  selector: 'ds-themed-dso-edit-metadata',
+  selector: 'ds-dso-edit-metadata',
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [DsoEditMetadataComponent],
 })
 export class ThemedDsoEditMetadataComponent extends ThemedComponent<DsoEditMetadataComponent> {
 
