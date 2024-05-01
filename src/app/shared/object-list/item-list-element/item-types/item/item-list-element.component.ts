@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+} from '@angular/core';
 
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { hasValue } from '../../../../empty.util';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -21,12 +25,16 @@ import { AbstractListableElementComponent } from '../../../../object-collection/
 /**
  * The component for displaying a list element for an item of the type Publication
  */
-export class ItemListElementComponent extends AbstractListableElementComponent<Item> {
+export class ItemListElementComponent extends AbstractListableElementComponent<Item> implements OnChanges {
 
-  transformItemToItemSearchResult(object: Item): ItemSearchResult {
-    const itemSearchResult = new ItemSearchResult();
-    itemSearchResult.indexableObject = object;
-    return itemSearchResult;
+  itemSearchResult: ItemSearchResult;
+
+  ngOnChanges(): void {
+    if (hasValue(this.object)) {
+      this.itemSearchResult = Object.assign(new ItemSearchResult(), {
+        indexableObject: this.object,
+      });
+    }
   }
 
 }

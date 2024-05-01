@@ -110,6 +110,7 @@ describe('ItemListElementComponent', () => {
   describe(`when the publication is rendered`, () => {
     beforeEach(() => {
       comp.object = mockItem;
+      comp.ngOnChanges();
       fixture.detectChanges();
     });
 
