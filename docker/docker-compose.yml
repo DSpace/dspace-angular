@@ -9,7 +9,6 @@
 # Docker Compose for running the DSpace Angular UI for testing/development
 # Requires also running a REST API backend (either locally or remotely),
 # for example via 'docker-compose-rest.yml'
-version: '3.7'
 networks:
   dspacenet:
 services:
