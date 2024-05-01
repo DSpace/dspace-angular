@@ -1,8 +1,7 @@
 import { AuthorizationDataService } from '../authorization-data.service';
-import { Resolve, Router, UrlTree, ResolveFn } from '@angular/router';
+import { Router, UrlTree, ResolveFn } from '@angular/router';
 import { RemoteData } from '../../remote-data';
 import { Observable, of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
 import { AuthService } from '../../../auth/auth.service';
 import { dsoPageSomeFeatureGuard } from './dso-page-some-feature.guard';
