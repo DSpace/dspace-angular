@@ -18,13 +18,7 @@ import {
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
@@ -93,12 +87,8 @@ describe('SearchFacetFilterComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: SearchFilterService, useValue: filterService },
         { provide: Router, useValue: router },
-        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
-        { provide: IN_PLACE_SEARCH, useValue: false },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
-        { provide: SCOPE, useValue: undefined },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetFilterComponent, {
@@ -110,6 +100,8 @@ describe('SearchFacetFilterComponent', () => {
     fixture = TestBed.createComponent(SearchFacetFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.filterConfig = mockFilterConfig;
+    comp.inPlaceSearch = false;
+    comp.refreshFilters = new BehaviorSubject<boolean>(false);
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(values));
     fixture.detectChanges();
   });

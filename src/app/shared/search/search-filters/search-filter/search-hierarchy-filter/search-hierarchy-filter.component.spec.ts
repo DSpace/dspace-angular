@@ -30,13 +30,7 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
@@ -46,7 +40,7 @@ import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {
-
+  let comp: SearchHierarchyFilterComponent;
   let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
   let showVocabularyTreeLink: DebugElement;
 
@@ -97,10 +91,6 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: APP_CONFIG, useValue: environment },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
-        { provide: IN_PLACE_SEARCH, useValue: false },
-        { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
-        { provide: SCOPE, useValue: undefined },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
@@ -108,6 +98,10 @@ describe('SearchHierarchyFilterComponent', () => {
 
   function init() {
     fixture = TestBed.createComponent(SearchHierarchyFilterComponent);
+    comp = fixture.componentInstance;
+    comp.inPlaceSearch = false;
+    comp.filterConfig = Object.assign(new SearchFilterConfig(), { name: testSearchFilter });
+    comp.refreshFilters = new BehaviorSubject<boolean>(false);
     fixture.detectChanges();
     showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
   }

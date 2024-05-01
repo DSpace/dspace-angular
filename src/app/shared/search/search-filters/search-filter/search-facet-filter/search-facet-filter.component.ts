@@ -8,6 +8,7 @@ import {
 import {
   Component,
   Inject,
+  Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -37,13 +38,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   hasNoValue,
@@ -68,6 +63,27 @@ import { stripOperatorFromFilterValue } from '../../../search.utils';
  * Super class for all different representations of facets
  */
 export class SearchFacetFilterComponent implements OnInit, OnDestroy {
+
+  /**
+   * Configuration for the filter of this wrapper component
+   */
+  @Input() filterConfig: SearchFilterConfig;
+
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch: boolean;
+
+  /**
+   * Emits when the search filters values may be stale, and so they must be refreshed.
+   */
+  @Input() refreshFilters: BehaviorSubject<boolean>;
+
+  /**
+   * The current scope
+   */
+  @Input() scope: string;
+
   /**
    * Emits an array of pages with values found for this facet
    */
@@ -125,10 +141,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
-              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
-              @Inject(SCOPE) public scope: string,
   ) {
   }
 
