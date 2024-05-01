@@ -6,9 +6,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { singleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
 import { waitForAsync, TestBed } from '@angular/core/testing';
 
-
 describe('singleFeatureAuthorizationGuard', () => {
-  let guard: any;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
@@ -45,21 +43,22 @@ describe('singleFeatureAuthorizationGuard', () => {
     init();
   }));
 
-  it('should call authorizationService.isAuthenticated with the appropriate arguments', (done: DoneFn) => {
-    const result$ = TestBed.runInInjectionContext(() => {
-      return singleFeatureAuthorizationGuard(
-        () => observableOf(featureId),
-        () => observableOf(objectUrl),
-        () => observableOf(ePersonUuid),
-      )(undefined, { url: 'current-url' } as any)
-    }) as Observable<boolean | UrlTree>;
+  describe('canActivate', () => {
+    it('should call authorizationService.isAuthenticated with the appropriate arguments', (done: DoneFn) => {
+      const result$ = TestBed.runInInjectionContext(() => {
+        return singleFeatureAuthorizationGuard(
+          () => observableOf(featureId),
+          () => observableOf(objectUrl),
+          () => observableOf(ePersonUuid),
+        )(undefined, { url: 'current-url' } as any);
+      }) as Observable<boolean | UrlTree>;
 
 
-    result$.subscribe(() => {
-      expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId, objectUrl, ePersonUuid);
-      done();
-    })
+      result$.subscribe(() => {
+        expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId, objectUrl, ePersonUuid);
+        done();
+      });
+    });
+
   });
-
 });
-

@@ -1,13 +1,12 @@
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 import { Observable, of as observableOf } from 'rxjs';
-import { Router, UrlTree, CanActivateFn } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
-import { waitForAsync, TestBed } from '@angular/core/testing';
 import { someFeatureAuthorizationGuard } from './some-feature-authorization.guard';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
-describe('someFeatureAuthorizationGuard', () => {
-  let guard: CanActivateFn;
+describe('SomeFeatureAuthorizationGuard', () => {
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
@@ -28,9 +27,11 @@ describe('someFeatureAuthorizationGuard', () => {
         return observableOf(authorizedFeatureIds.indexOf(featureId) > -1);
       }
     });
+
     router = jasmine.createSpyObj('router', {
       parseUrl: {}
     });
+
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true)
     });
@@ -42,65 +43,76 @@ describe('someFeatureAuthorizationGuard', () => {
         { provide: AuthService, useValue: authService },
       ]
     });
-
-    guard = someFeatureAuthorizationGuard(
-      () => observableOf(featureIds),
-      () => observableOf(objectUrl),
-      () => observableOf(ePersonUuid),
-    );
   }
 
   beforeEach(waitForAsync(() => {
     init();
   }));
 
-  describe('when the user isn\'t authorized', () => {
-    beforeEach(() => {
-      authorizedFeatureIds = [];
-    });
+  describe('canActivate', () => {
+    describe('when the user isn\'t authorized', () => {
+      beforeEach(() => {
+        authorizedFeatureIds = [];
+      });
 
-    it('should not return true', (done: DoneFn) => {
-      const result$ = TestBed.runInInjectionContext(() => {
-        return guard(undefined, { url: 'current-url' } as any)
-      }) as Observable<boolean | UrlTree>;
+      it('should not return true', (done) => {
 
-      result$.subscribe((result) => {
-        expect(result).not.toEqual(true);
-        done();
+        const result$ = TestBed.runInInjectionContext(() => {
+          return someFeatureAuthorizationGuard(
+            () => observableOf(featureIds),
+            () => observableOf(objectUrl),
+            () => observableOf(ePersonUuid),
+          )(undefined, { url: 'current-url' } as any);
+        }) as Observable<boolean | UrlTree>;
+
+        result$.subscribe((result) => {
+          expect(result).not.toEqual(true);
+          done();
+        });
       });
     });
-  });
 
-  describe('when the user is authorized for at least one of the guard\'s features', () => {
-    beforeEach(() => {
-      authorizedFeatureIds = [featureIds[0]];
-    });
+    describe('when the user is authorized for at least one of the guard\'s features', () => {
+      beforeEach(() => {
+        authorizedFeatureIds = [featureIds[0]];
+      });
 
-    it('should return true', (done) => {
-      const result$ = TestBed.runInInjectionContext(() => {
-        return guard(undefined, { url: 'current-url' } as any)
-      }) as Observable<boolean | UrlTree>;
+      it('should return true', (done) => {
 
-      result$.subscribe((result) => {
-        expect(result).toEqual(true);
-        done();
+        const result$ = TestBed.runInInjectionContext(() => {
+          return someFeatureAuthorizationGuard(
+            () => observableOf(featureIds),
+            () => observableOf(objectUrl),
+            () => observableOf(ePersonUuid),
+          )(undefined, { url: 'current-url' } as any);
+        }) as Observable<boolean | UrlTree>;
+
+        result$.subscribe((result) => {
+          expect(result).toEqual(true);
+          done();
+        });
       });
     });
-  });
 
-  describe('when the user is authorized for all of the guard\'s features', () => {
-    beforeEach(() => {
-      authorizedFeatureIds = featureIds;
-    });
+    describe('when the user is authorized for all of the guard\'s features', () => {
+      beforeEach(() => {
+        authorizedFeatureIds = featureIds;
+      });
 
-    it('should return true', (done) => {
-      const result$ = TestBed.runInInjectionContext(() => {
-        return guard(undefined, { url: 'current-url' } as any)
-      }) as Observable<boolean | UrlTree>;
+      it('should return true', (done) => {
 
-      result$.subscribe((result) => {
-        expect(result).toEqual(true);
-        done();
+        const result$ = TestBed.runInInjectionContext(() => {
+          return someFeatureAuthorizationGuard(
+            () => observableOf(featureIds),
+            () => observableOf(objectUrl),
+            () => observableOf(ePersonUuid),
+          )(undefined, { url: 'current-url' } as any);
+        }) as Observable<boolean | UrlTree>;
+
+        result$.subscribe((result) => {
+          expect(result).toEqual(true);
+          done();
+        });
       });
     });
   });
