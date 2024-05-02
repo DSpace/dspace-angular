@@ -8,6 +8,7 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  ControlContainer,
   FormsModule,
   NgForm,
 } from '@angular/forms';
@@ -22,12 +23,6 @@ import {
 } from '@ngx-translate/core';
 
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { ControlContainer, NgForm } from '@angular/forms';
-import { ScriptParameter } from '../scripts/script-parameter.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { isEmpty } from '../../shared/empty.util';
