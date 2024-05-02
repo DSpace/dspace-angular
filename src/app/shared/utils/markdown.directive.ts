@@ -4,9 +4,10 @@ import {
   Inject,
   InjectionToken,
   Input,
+  OnChanges,
   OnDestroy,
-  OnInit,
-  SecurityContext
+  SecurityContext,
+  SimpleChanges
 } from '@angular/core';
 import {
   DomSanitizer,
@@ -33,7 +34,7 @@ const MARKDOWN_IT = new InjectionToken<LazyMarkdownIt>(
 @Directive({
   selector: '[dsMarkdown]'
 })
-export class MarkdownDirective implements OnInit, OnDestroy {
+export class MarkdownDirective implements OnChanges, OnDestroy {
 
   @Input() dsMarkdown: string;
   private alive$ = new Subject<boolean>();
@@ -48,8 +49,10 @@ export class MarkdownDirective implements OnInit, OnDestroy {
     this.el = elementRef.nativeElement;
   }
 
-  ngOnInit() {
-    this.render(this.dsMarkdown);
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.dsMarkdown && changes.dsMarkdown.currentValue !== changes.dsMarkdown.previousValue) {
+      this.render(changes.dsMarkdown.currentValue);
+    }
   }
 
   async render(value: string, forcePreview = false): Promise<SafeHtml> {
