@@ -349,7 +349,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         setTimeout( () => {
           this.submit.emit();
           this.modalRef.close();
-        },2000);
+        },1000);
 
         modalComp.isPending = true;
       });
