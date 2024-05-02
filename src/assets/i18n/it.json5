@@ -5372,6 +5372,12 @@
   // "loading.default": "Loading...",
   "loading.default": "Caricamento...",
 
+  // "loading.warning": "This is taking longer than expected. Please be patient.",
+  "loading.warning": "Il caricamento sta richiedendo più tempo del previsto. Si prega di attendere.",
+
+  // "loading.error": "An error occurred while loading the page. Please refresh the page and try again.",
+  "loading.error": "Si è verificato un errore durante il caricamento della pagina. Si prega di aggiornare la pagina e riprovare.",
+
   // "loading.item": "Loading item...",
   "loading.item": "Caricamento articolo...",
 
