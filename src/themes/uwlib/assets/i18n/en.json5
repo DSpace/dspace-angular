@@ -29,4 +29,8 @@
   // no DSpace default
 
   "footer.link.uwscholarlypublishing": "UW Scholarly Publishing Services",
+
+  // no DSpace default
+
+  "item.page.doi": "DOI",
 }
