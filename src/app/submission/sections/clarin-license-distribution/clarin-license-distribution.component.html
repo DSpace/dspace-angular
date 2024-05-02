@@ -4,7 +4,7 @@
       <div id="aspect_submission_StepTransformer_item_head" class="form-group distribution_licnese_head">
         <span> {{'submission.sections.clarin-license.head.read-accept' | translate}} </span>
         <span class="">
-          <a [routerLink]="contractRoutingPath + '?collectionId=' + collectionId" class="target_blank"
+          <a [routerLink]="[contractRoutingPath]" [queryParams]="{collectionId: collectionId}" class="target_blank"
              target="_blank">{{'submission.sections.clarin-license.head.license-agreement' | translate}}</a>
         </span>
       </div>
