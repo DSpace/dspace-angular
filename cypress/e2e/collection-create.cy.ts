@@ -1,5 +1,5 @@
 beforeEach(() => {
-  cy.visit('/collections/create');
+  cy.visit('/collections/create?parent='.concat(Cypress.env('DSPACE_TEST_COMMUNITY')));
   cy.loginViaForm(Cypress.env('DSPACE_TEST_ADMIN_USER'), Cypress.env('DSPACE_TEST_ADMIN_PASSWORD'));
 });
 
@@ -9,5 +9,5 @@ it('should show loading component while saving', () => {
 
   cy.get('button[type="submit"]').click();
 
-  cy.get('ds-themed-loading').should('be.visible');
+  cy.get('ds-loading').should('be.visible');
 });

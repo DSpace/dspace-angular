@@ -9,5 +9,5 @@ it('should show loading component while saving', () => {
 
   cy.get('button[type="submit"]').click();
 
-  cy.get('ds-themed-loading').should('be.visible');
+  cy.get('ds-loading').should('be.visible');
 });
