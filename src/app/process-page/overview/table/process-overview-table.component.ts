@@ -18,7 +18,10 @@ import {
   RouterLink,
 } from '@angular/router';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   from as observableFrom,
@@ -38,10 +41,6 @@ import { PaginationService } from 'src/app/core/pagination/pagination.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { Component, Input, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
-import { ProcessStatus } from '../../processes/process-status.model';
-import { Observable, mergeMap, from as observableFrom, BehaviorSubject, Subscription } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -50,10 +49,12 @@ import { RouteService } from '../../../core/services/route.service';
 import { redirectOn4xx } from '../../../core/shared/authorized.operators';
 import {
   getAllCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getAllCompletedRemoteData, getFirstCompletedRemoteData
+  getFirstCompletedRemoteData,
 } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -65,17 +66,6 @@ import {
   ProcessOverviewService,
   ProcessSortField,
 } from '../process-overview.service';
-import { map, switchMap, toArray, take, filter } from 'rxjs/operators';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { redirectOn4xx } from '../../../core/shared/authorized.operators';
-import { Router } from '@angular/router';
-import { AuthService } from '../../../core/auth/auth.service';
-import { isPlatformBrowser } from '@angular/common';
-import { RouteService } from '../../../core/services/route.service';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { TranslateService } from '@ngx-translate/core';
 
 const NEW_PROCESS_PARAM = 'new_process_id';
 

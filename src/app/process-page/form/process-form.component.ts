@@ -100,11 +100,11 @@ export class ProcessFormComponent implements OnInit {
     }
 
     const stringParameters: ProcessParameter[] = this.parameters.map((parameter: ProcessParameter) => {
-        return {
-          name: parameter.name,
-          value: this.checkValue(parameter),
-        };
-      },
+      return {
+        name: parameter.name,
+        value: this.checkValue(parameter),
+      };
+    },
     );
     this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)
       .pipe(getFirstCompletedRemoteData())
@@ -181,15 +181,6 @@ export class ProcessFormComponent implements OnInit {
   updateScript($event: Script) {
     this.selectedScript = $event;
     this.parameters = undefined;
-    this.updateName();
-  }
-
-  updateName(): void {
-    if (isEmpty(this.customName)) {
-      this.processName = this.generatedProcessName;
-    } else {
-      this.processName = this.customName;
-    }
   }
 
   get generatedProcessName() {

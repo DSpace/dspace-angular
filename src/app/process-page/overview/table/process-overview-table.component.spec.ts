@@ -10,7 +10,10 @@ import {
   NgbCollapse,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -18,16 +21,6 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { ProcessDataService } from '../../../core/data/processes/process-data.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
-import { ProcessStatus } from '../../processes/process-status.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { BehaviorSubject } from 'rxjs';
-import { NgbModal, NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RouteService } from '../../../core/services/route.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
