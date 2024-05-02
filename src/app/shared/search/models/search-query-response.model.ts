@@ -1,6 +1,7 @@
 import { autoserialize } from 'cerialize';
-import { PageInfo } from '../../../core/shared/page-info.model';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
 
 /**
  * Class representing the response returned by the server when performing a search request

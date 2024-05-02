@@ -1,7 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SubComColSectionComponent } from './sub-com-col-section.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { SubComColSectionComponent } from './sub-com-col-section.component';
 
 describe('SubComColSectionComponent', () => {
   let component: SubComColSectionComponent;
@@ -14,9 +18,7 @@ describe('SubComColSectionComponent', () => {
     activatedRoute.parent = new ActivatedRouteStub();
 
     await TestBed.configureTestingModule({
-      declarations: [
-        SubComColSectionComponent,
-      ],
+      imports: [SubComColSectionComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
       ],

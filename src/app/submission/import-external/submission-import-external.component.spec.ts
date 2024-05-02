@@ -1,33 +1,55 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { getTestScheduler } from 'jasmine-marbles';
-import { TranslateModule } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionImportExternalComponent } from './submission-import-external.component';
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { RouteService } from '../../core/services/route.service';
-import { createPaginatedList, createTestComponent } from '../../shared/testing/utils.test';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { HostWindowService } from '../../shared/host-window.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { getMockExternalSourceService } from '../../shared/mocks/external-source.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
+import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../../shared/testing/utils.test';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
-import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SubmissionImportExternalSearchbarComponent } from './import-external-searchbar/submission-import-external-searchbar.component';
+import { SubmissionImportExternalComponent } from './submission-import-external.component';
 
 describe('SubmissionImportExternalComponent test suite', () => {
   let comp: SubmissionImportExternalComponent;
@@ -38,12 +60,12 @@ describe('SubmissionImportExternalComponent test suite', () => {
   const mockSearchOptions = observableOf(new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), {
       pageSize: 10,
-      currentPage: 0
+      currentPage: 0,
     }),
-    query: 'test'
+    query: 'test',
   }));
   const searchConfigServiceStub = {
-    paginatedSearchOptions: mockSearchOptions
+    paginatedSearchOptions: mockSearchOptions,
   };
   const mockExternalSourceService: any = getMockExternalSourceService();
 
@@ -51,23 +73,35 @@ describe('SubmissionImportExternalComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        BrowserAnimationsModule
-      ],
-      declarations: [
+        BrowserAnimationsModule,
         SubmissionImportExternalComponent,
         TestComponent,
-        VarDirective
+        VarDirective,
       ],
       providers: [
         { provide: ExternalSourceDataService, useValue: mockExternalSourceService },
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: NgbModal, useValue: ngbModal },
-        SubmissionImportExternalComponent
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        SubmissionImportExternalComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(SubmissionImportExternalComponent, {
+        remove: {
+          imports: [
+            ObjectCollectionComponent,
+            ThemedLoadingComponent,
+            AlertComponent,
+            SubmissionImportExternalSearchbarComponent,
+          ],
+        },
+      })
+      .compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -109,17 +143,17 @@ describe('SubmissionImportExternalComponent test suite', () => {
 
     it('Should init component properly (without route data)', () => {
       const expectedEntries = createSuccessfulRemoteDataObject(createPaginatedList([]));
-      comp.routeData = {entity: '', sourceId: '', query: '' };
+      comp.routeData = { entity: '', sourceId: '', query: '' };
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValue(observableOf(''));
       fixture.detectChanges();
 
-      expect(comp.routeData).toEqual({entity: '', sourceId: '', query: '' });
+      expect(comp.routeData).toEqual({ entity: '', sourceId: '', query: '' });
       expect(comp.isLoading$.value).toBe(false);
       expect(comp.entriesRD$.value).toEqual(expectedEntries);
     });
 
     it('Should init component properly (with route data)', () => {
-      comp.routeData = {entity: '', sourceId: '', query: '' };
+      comp.routeData = { entity: '', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources');
       spyOn(compAsAny.routeService, 'getQueryParameterValue').and.returnValues(observableOf('entity'), observableOf('source'), observableOf('dummy'));
       fixture.detectChanges();
@@ -145,10 +179,10 @@ describe('SubmissionImportExternalComponent test suite', () => {
     });
 
     it('Should call \'router.navigate\'', () => {
-      comp.routeData = {entity: 'Person', sourceId: '', query: '' };
+      comp.routeData = { entity: 'Person', sourceId: '', query: '' };
       spyOn(compAsAny, 'retrieveExternalSources').and.callFake(() => null);
       compAsAny.router.navigate.and.returnValue( new Promise(() => {return;}));
-      const event = {entity: 'Person', sourceId: 'orcidV2', query: 'dummy' };
+      const event = { entity: 'Person', sourceId: 'orcidV2', query: 'dummy' };
 
       scheduler.schedule(() => comp.getExternalSourceData(event));
       scheduler.flush();
@@ -164,12 +198,12 @@ describe('SubmissionImportExternalComponent test suite', () => {
         metadata: {
           'dc.identifier.uri': [
             {
-              value: 'https://orcid.org/0001-0001-0001-0001'
-            }
-          ]
-        }
+              value: 'https://orcid.org/0001-0001-0001-0001',
+            },
+          ],
+        },
       });
-      ngbModal.open.and.returnValue({componentInstance: { externalSourceEntry: null}});
+      ngbModal.open.and.returnValue({ componentInstance: { externalSourceEntry: null } });
       comp.import(entry);
 
       expect(compAsAny.modalService.open).toHaveBeenCalledWith(SubmissionImportExternalPreviewComponent, { size: 'lg' });
@@ -193,32 +227,32 @@ describe('SubmissionImportExternalComponent test suite', () => {
       'errorMessage': null,
       'payload': {
         'type': {
-          'value': 'paginated-list'
+          'value': 'paginated-list',
         },
         'pageInfo': {
           'elementsPerPage': 10,
           'totalElements': 11971608,
           'totalPages': 1197161,
-          'currentPage': 1
+          'currentPage': 1,
         },
         '_links': {
           'first': {
-            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?query=test&page=0&size=10&sort=id,asc'
+            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?query=test&page=0&size=10&sort=id,asc',
           },
           'self': {
-            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?sort=id,ASC&page=0&size=10&query=test'
+            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?sort=id,ASC&page=0&size=10&query=test',
           },
           'next': {
-            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?query=test&page=1&size=10&sort=id,asc'
+            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?query=test&page=1&size=10&sort=id,asc',
           },
           'last': {
-            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?query=test&page=1197160&size=10&sort=id,asc'
+            'href': 'https://example.com/server/api/integration/externalsources/scopus/entries?query=test&page=1197160&size=10&sort=id,asc',
           },
           'page': [
             {
-              'href': 'https://example.com/server/api/integration/externalsources/scopus/entryValues/2-s2.0-85130258665'
-            }
-          ]
+              'href': 'https://example.com/server/api/integration/externalsources/scopus/entryValues/2-s2.0-85130258665',
+            },
+          ],
         },
         'page': [
           {
@@ -235,8 +269,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'Silva I.M.M.',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.date.issued': [
                 {
@@ -245,8 +279,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': '2024-01-01',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.description.abstract': [
                 {
@@ -255,8 +289,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'This systematic review integrates the data available in the literature regarding the biological activities of the extracts of endophytic fungi isolated from Annona muricata and their secondary metabolites. The search was performed using four electronic databases, and studies’ quality was evaluated using an adapted assessment tool. The initial database search yielded 436 results; ten studies were selected for inclusion. The leaf was the most studied part of the plant (in nine studies); Periconia sp. was the most tested fungus (n = 4); the most evaluated biological activity was anticancer (n = 6), followed by antiviral (n = 3). Antibacterial, antifungal, and antioxidant activities were also tested. Terpenoids or terpenoid hybrid compounds were the most abundant chemical metabolites. Phenolic compounds, esters, alkaloids, saturated and unsaturated fatty acids, aromatic compounds, and peptides were also reported. The selected studies highlighted the biotechnological potentiality of the endophytic fungi extracts from A. muricata. Consequently, it can be considered a promising source of biological compounds with antioxidant effects and active against different microorganisms and cancer cells. Further research is needed involving different plant tissues, other microorganisms, such as SARS-CoV-2, and different cancer cells.',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.identifier.doi': [
                 {
@@ -265,8 +299,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': '10.1590/1519-6984.259525',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.identifier.pmid': [
                 {
@@ -275,8 +309,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': '35588520',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.identifier.scopus': [
                 {
@@ -285,8 +319,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': '2-s2.0-85130258665',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.relation.grantno': [
                 {
@@ -295,8 +329,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'undefined',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.relation.ispartof': [
                 {
@@ -305,8 +339,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'Brazilian Journal of Biology',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.relation.ispartofseries': [
                 {
@@ -315,8 +349,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'Brazilian Journal of Biology',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.relation.issn': [
                 {
@@ -325,8 +359,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': '15196984',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.subject': [
                 {
@@ -335,8 +369,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'biological products | biotechnology | mycology | soursop',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.title': [
                 {
@@ -345,8 +379,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'Biological activities of endophytic fungi isolated from Annona muricata Linnaeus: a systematic review',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'dc.type': [
                 {
@@ -355,8 +389,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'Journal',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'oaire.citation.volume': [
                 {
@@ -365,8 +399,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': '84',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'oairecerif.affiliation.orgunit': [
                 {
@@ -375,8 +409,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'Universidade Federal do Reconcavo da Bahia',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'oairecerif.citation.number': [
                 {
@@ -385,8 +419,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': 'e259525',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'person.identifier.orcid': [
                 {
@@ -395,8 +429,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': '#PLACEHOLDER_PARENT_METADATA_VALUE#',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
+                  'confidence': -1,
+                },
               ],
               'person.identifier.scopus-author-id': [
                 {
@@ -405,19 +439,19 @@ describe('SubmissionImportExternalComponent test suite', () => {
                   'value': '42561627000',
                   'place': -1,
                   'authority': null,
-                  'confidence': -1
-                }
-              ]
+                  'confidence': -1,
+                },
+              ],
             },
             '_links': {
               'self': {
-                'href': 'https://example.com/server/api/integration/externalsources/scopus/entryValues/2-s2.0-85130258665'
-              }
-            }
-          }
-        ]
+                'href': 'https://example.com/server/api/integration/externalsources/scopus/entryValues/2-s2.0-85130258665',
+              },
+            },
+          },
+        ],
       },
-      'statusCode': 200
+      'statusCode': 200,
     };
     const errorObj = {
       errorMessage: 'Http failure response for ' +
@@ -425,8 +459,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
       statusCode: 500,
       timeCompleted: 1656950434666,
       errors: [{
-        'message': 'Internal Server Error', 'paths': ['/server/api/integration/externalsources/pubmed/entries']
-      }]
+        'message': 'Internal Server Error', 'paths': ['/server/api/integration/externalsources/pubmed/entries'],
+      }],
     };
     beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionImportExternalComponent);
@@ -483,7 +517,7 @@ describe('SubmissionImportExternalComponent test suite', () => {
       mockExternalSourceService.getExternalSourceEntries.and.returnValue(createFailedRemoteDataObject$(
         errorObj.errorMessage,
         errorObj.statusCode,
-        errorObj.timeCompleted
+        errorObj.timeCompleted,
       ));
       spyOn(routeServiceStub, 'getQueryParameterValue').and.callFake((param) => {
         if (param === 'entity') {
@@ -509,7 +543,8 @@ describe('SubmissionImportExternalComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

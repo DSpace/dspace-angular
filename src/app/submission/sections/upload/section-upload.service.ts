@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
-
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
+import { JsonPatchOperationPathObject } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 
-import { SubmissionState } from '../../submission.reducers';
+import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { isUndefined } from '../../../shared/empty.util';
 import {
   DeleteUploadedFileAction,
   EditFileDataAction,
   EditFilePrimaryBitstreamAction,
-  NewUploadedFileAction
+  NewUploadedFileAction,
 } from '../../objects/submission-objects.actions';
-import { submissionSectionDataFromIdSelector, submissionUploadedFileFromUuidSelector, submissionUploadedFilesFromIdSelector } from '../../selectors';
-import { isUndefined } from '../../../shared/empty.util';
-import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
-import { JsonPatchOperationPathObject } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
+import {
+  submissionSectionDataFromIdSelector,
+  submissionUploadedFileFromUuidSelector,
+  submissionUploadedFilesFromIdSelector,
+} from '../../selectors';
+import { SubmissionState } from '../../submission.reducers';
 
 /**
  * A service that provides methods to handle submission's bitstream state.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SectionUploadService {
 
   /**
@@ -32,7 +39,7 @@ export class SectionUploadService {
    */
   constructor(private store: Store<SubmissionState>, private operationsBuilder: JsonPatchOperationsBuilder) {}
 
- /**
+  /**
    * Define and add an operation based on a change
    *
    * @param path
@@ -149,11 +156,11 @@ export class SectionUploadService {
    */
   public addUploadedFile(submissionId: string, sectionId: string, fileUUID: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
-      new NewUploadedFileAction(submissionId, sectionId, fileUUID, data)
+      new NewUploadedFileAction(submissionId, sectionId, fileUUID, data),
     );
   }
 
-   /**
+  /**
    * Update primary bitstream into the state
    *
    * @param submissionId
@@ -163,9 +170,9 @@ export class SectionUploadService {
    * @param fileUUID
    *    The bitstream UUID
    */
-   public updateFilePrimaryBitstream(submissionId: string, sectionId: string, fileUUID: string | null) {
+  public updateFilePrimaryBitstream(submissionId: string, sectionId: string, fileUUID: string | null) {
     this.store.dispatch(
-      new EditFilePrimaryBitstreamAction(submissionId, sectionId, fileUUID)
+      new EditFilePrimaryBitstreamAction(submissionId, sectionId, fileUUID),
     );
   }
 
@@ -183,7 +190,7 @@ export class SectionUploadService {
    */
   public updateFileData(submissionId: string, sectionId: string, fileUUID: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
-      new EditFileDataAction(submissionId, sectionId, fileUUID, data)
+      new EditFileDataAction(submissionId, sectionId, fileUUID, data),
     );
   }
 
@@ -199,7 +206,7 @@ export class SectionUploadService {
    */
   public removeUploadedFile(submissionId: string, sectionId: string, fileUUID: string) {
     this.store.dispatch(
-      new DeleteUploadedFileAction(submissionId, sectionId, fileUUID)
+      new DeleteUploadedFileAction(submissionId, sectionId, fileUUID),
     );
   }
 }

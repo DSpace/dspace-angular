@@ -1,19 +1,32 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { FormsModule } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ProcessFormComponent } from './process-form.component';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { ScriptParameter } from '../scripts/script-parameter.model';
-import { Script } from '../scripts/script.model';
-import { ProcessParameter } from '../processes/process-parameter.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RequestService } from '../../core/data/request.service';
-import { Router } from '@angular/router';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { ProcessParameter } from '../processes/process-parameter.model';
+import { Script } from '../scripts/script.model';
+import { ScriptParameter } from '../scripts/script-parameter.model';
+import { ProcessFormComponent } from './process-form.component';
+import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 
 describe('ProcessFormComponent', () => {
   let component: ProcessFormComponent;
@@ -38,10 +51,10 @@ describe('ProcessFormComponent', () => {
         invoke: observableOf({
           response:
             {
-              isSuccessful: true
-            }
-        })
-      }
+              isSuccessful: true,
+            },
+        }),
+      },
     );
     router = {
       navigateByUrl: () => undefined,
@@ -56,18 +69,27 @@ describe('ProcessFormComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [ProcessFormComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        ProcessFormComponent,
+      ],
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeBySubstring', 'removeByHrefSubstring']) },
-        { provide: Router, useValue: jasmine.createSpyObj('router', ['navigateByUrl']) },
+        { provide: Router, useValue: new RouterMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(ProcessFormComponent, {
+        remove: {
+          imports: [
+            ScriptsSelectComponent,
+          ],
+        },
+      })
       .compileComponents();
   }));
 

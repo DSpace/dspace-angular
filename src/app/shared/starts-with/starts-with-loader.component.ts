@@ -1,8 +1,13 @@
-import { Component, Input, } from '@angular/core';
-import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { getStartsWithComponent, StartsWithType } from './starts-with-decorator';
+import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
 import { StartsWithAbstractComponent } from './starts-with-abstract.component';
+import { getStartsWithComponent } from './starts-with-decorator';
+import { StartsWithType } from './starts-with-type';
 
 /**
  * Component for loading a {@link StartsWithAbstractComponent} depending on the "type" input
@@ -10,6 +15,7 @@ import { StartsWithAbstractComponent } from './starts-with-abstract.component';
 @Component({
   selector: 'ds-starts-with-loader',
   templateUrl: '../abstract-component-loader/abstract-component-loader.component.html',
+  standalone: true,
 })
 export class StartsWithLoaderComponent extends AbstractComponentLoaderComponent<StartsWithAbstractComponent> {
 

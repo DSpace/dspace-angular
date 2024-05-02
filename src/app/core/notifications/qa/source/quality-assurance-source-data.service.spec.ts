@@ -1,25 +1,27 @@
 import { HttpClient } from '@angular/common/http';
-
-import { TestScheduler } from 'rxjs/testing';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
 
-import { RequestService } from '../../../data/request.service';
-import { buildPaginatedList } from '../../../data/paginated-list.model';
+import {
+  qualityAssuranceSourceObjectMoreAbstract,
+  qualityAssuranceSourceObjectMorePid,
+} from '../../../../shared/mocks/notifications.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { RestResponse } from '../../../cache/response.models';
-import { PageInfo } from '../../../shared/page-info.model';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
-import {
-  qualityAssuranceSourceObjectMoreAbstract,
-  qualityAssuranceSourceObjectMorePid
-} from '../../../../shared/mocks/notifications.mock';
+import { buildPaginatedList } from '../../../data/paginated-list.model';
+import { RequestService } from '../../../data/request.service';
 import { RequestEntry } from '../../../data/request-entry.model';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { PageInfo } from '../../../shared/page-info.model';
 import { QualityAssuranceSourceDataService } from './quality-assurance-source-data.service';
-import { ObjectCacheServiceStub } from '../../../../shared/testing/object-cache-service.stub';
 
 describe('QualityAssuranceSourceDataService', () => {
   let scheduler: TestScheduler;
@@ -57,16 +59,16 @@ describe('QualityAssuranceSourceDataService', () => {
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
-        a: qaSourceObjectRD
+        a: qaSourceObjectRD,
       }),
       buildList: cold('(a)', {
-        a: paginatedListRD
+        a: paginatedListRD,
       }),
     });
 
     objectCache = new ObjectCacheServiceStub();
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a|', { a: endpointURL })
+      getEndpoint: cold('a|', { a: endpointURL }),
     });
 
     notificationsService = {} as NotificationsService;
@@ -78,7 +80,7 @@ describe('QualityAssuranceSourceDataService', () => {
       rdbService,
       objectCache as ObjectCacheService,
       halService,
-      notificationsService
+      notificationsService,
     );
 
     spyOn((service as any).findAllData, 'findAll').and.callThrough();
@@ -90,7 +92,7 @@ describe('QualityAssuranceSourceDataService', () => {
       service.getSources().subscribe(
         (res) => {
           expect((service as any).findAllData.findAll).toHaveBeenCalledWith({}, true, true);
-        }
+        },
       );
       done();
     });
@@ -98,7 +100,7 @@ describe('QualityAssuranceSourceDataService', () => {
     it('should return a RemoteData<PaginatedList<QualityAssuranceSourceObject>> for the object with the given URL', () => {
       const result = service.getSources();
       const expected = cold('(a)', {
-        a: paginatedListRD
+        a: paginatedListRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -109,7 +111,7 @@ describe('QualityAssuranceSourceDataService', () => {
       service.getSource(qualityAssuranceSourceObjectMorePid.id).subscribe(
         (res) => {
           expect((service as any).findById).toHaveBeenCalledWith(qualityAssuranceSourceObjectMorePid.id, true, true);
-        }
+        },
       );
       done();
     });
@@ -117,7 +119,7 @@ describe('QualityAssuranceSourceDataService', () => {
     it('should return a RemoteData<QualityAssuranceSourceObject> for the object with the given URL', () => {
       const result = service.getSource(qualityAssuranceSourceObjectMorePid.id);
       const expected = cold('(a)', {
-        a: qaSourceObjectRD
+        a: qaSourceObjectRD,
       });
       expect(result).toBeObservable(expected);
     });

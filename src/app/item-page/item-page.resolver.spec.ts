@@ -1,24 +1,25 @@
-import { ItemPageResolver } from './item-page.resolver';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { first } from 'rxjs/operators';
+
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { MetadataValueFilter } from '../core/shared/metadata.models';
-import { first } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { itemPageResolver } from './item-page.resolver';
 
-describe('ItemPageResolver', () => {
+describe('itemPageResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([{
         path: 'entities/:entity-type/:id',
-        component: {} as any
-      }])]
+        component: {} as any,
+      }])],
     });
   });
 
   describe('resolve', () => {
-    let resolver: ItemPageResolver;
+    let resolver: any;
     let itemService: any;
     let store: any;
     let router: any;
@@ -33,28 +34,32 @@ describe('ItemPageResolver', () => {
           uuid: uuid,
           firstMetadataValue(_keyOrKeys: string | string[], _valueFilter?: MetadataValueFilter): string {
             return entityType;
-          }
+          },
         });
         itemService = {
-          findById: (_id: string) => createSuccessfulRemoteDataObject$(item)
+          findById: (_id: string) => createSuccessfulRemoteDataObject$(item),
         };
         store = jasmine.createSpyObj('store', {
           dispatch: {},
         });
-        resolver = new ItemPageResolver(itemService, store, router);
+        resolver = itemPageResolver;
       });
 
       it('should redirect to the correct route for the entity type', (done) => {
         spyOn(item, 'firstMetadataValue').and.returnValue(entityType);
         spyOn(router, 'navigateByUrl').and.callThrough();
 
-        resolver.resolve({ params: { id: uuid } } as any, { url: router.parseUrl(`/items/${uuid}`).toString() } as any)
-          .pipe(first())
+        resolver({ params: { id: uuid } } as any,
+          { url: router.parseUrl(`/items/${uuid}`).toString() } as any,
+          router,
+          itemService,
+          store,
+        ).pipe(first())
           .subscribe(
             () => {
               expect(router.navigateByUrl).toHaveBeenCalledWith(router.parseUrl(`/entities/${entityType}/${uuid}`).toString());
               done();
-            }
+            },
           );
       });
 
@@ -62,13 +67,18 @@ describe('ItemPageResolver', () => {
         spyOn(item, 'firstMetadataValue').and.returnValue(entityType);
         spyOn(router, 'navigateByUrl').and.callThrough();
 
-        resolver.resolve({ params: { id: uuid } } as any, { url: router.parseUrl(`/entities/${entityType}/${uuid}`).toString() } as any)
-          .pipe(first())
+        resolver(
+          { params: { id: uuid } } as any,
+          { url: router.parseUrl(`/entities/${entityType}/${uuid}`).toString() } as any,
+          router,
+          itemService,
+          store,
+        ).pipe(first())
           .subscribe(
             () => {
               expect(router.navigateByUrl).not.toHaveBeenCalled();
               done();
-            }
+            },
           );
       });
     }

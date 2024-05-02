@@ -1,20 +1,29 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
-import { renderFilterType } from '../search-filter-type-decorator';
-import { FilterType } from '../../../models/filter-type.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { NgComponentOutlet } from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
 import {
   FILTER_CONFIG,
-  SCOPE,
   IN_PLACE_SEARCH,
-  REFRESH_FILTER
+  REFRESH_FILTER,
+  SCOPE,
 } from '../../../../../core/shared/search/search-filter.service';
-import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { BehaviorSubject } from 'rxjs';
+import { renderFilterType } from '../search-filter-type-decorator';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
-  templateUrl: './search-facet-filter-wrapper.component.html'
+  templateUrl: './search-facet-filter-wrapper.component.html',
+  standalone: true,
+  imports: [NgComponentOutlet],
 })
 
 /**
@@ -65,7 +74,7 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
         { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
         { provide: SCOPE, useFactory: () => (this.scope), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

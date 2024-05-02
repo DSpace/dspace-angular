@@ -1,4 +1,6 @@
 /* eslint-disable max-classes-per-file */
+import { hasValue } from '../../empty.util';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
   SelectableListAction,
   SelectableListDeselectAction,
@@ -6,11 +8,9 @@ import {
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
-  SelectableListSetSelectionAction
+  SelectableListSetSelectionAction,
 } from './selectable-list.actions';
 import { selectableListReducer } from './selectable-list.reducer';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
-import { hasValue } from '../../empty.util';
 
 class SelectableObject extends ListableObject {
   constructor(private value: string) {

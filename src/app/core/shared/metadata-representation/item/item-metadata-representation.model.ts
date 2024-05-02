@@ -1,6 +1,9 @@
 import { Item } from '../../item.model';
-import { MetadataRepresentation, MetadataRepresentationType } from '../metadata-representation.model';
 import { MetadataValue } from '../../metadata.models';
+import {
+  MetadataRepresentation,
+  MetadataRepresentationType,
+} from '../metadata-representation.model';
 
 /**
  * This class determines which fields to use when rendering an Item as a metadata value.

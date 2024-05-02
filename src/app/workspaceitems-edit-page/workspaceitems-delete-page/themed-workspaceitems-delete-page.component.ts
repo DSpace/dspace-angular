@@ -1,5 +1,6 @@
-import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { Component } from '@angular/core';
+
+import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 
 /**
@@ -7,9 +8,11 @@ import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.
  */
 
 @Component({
-  selector: 'ds-themed-workspace-items-delete',
+  selector: 'ds-workspace-items-delete',
   styleUrls: [],
-  templateUrl: './../../shared/theme-support/themed.component.html'
+  templateUrl: './../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [WorkspaceItemsDeletePageComponent],
 })
 export class ThemedWorkspaceItemsDeletePageComponent extends ThemedComponent<WorkspaceItemsDeletePageComponent> {
   protected getComponentName(): string {

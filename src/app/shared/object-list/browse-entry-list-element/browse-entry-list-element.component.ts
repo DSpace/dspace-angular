@@ -1,21 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  Params,
+  RouterLink,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { RouteService } from 'src/app/core/services/route.service';
 
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { BBM_PAGINATION_ID } from '../../../browse-by/browse-by-metadata/browse-by-metadata.component';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BrowseEntry } from '../../../core/shared/browse-entry.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Params } from '@angular/router';
-import { BBM_PAGINATION_ID } from '../../../browse-by/browse-by-metadata/browse-by-metadata.component';
-import { RouteService } from 'src/app/core/services/route.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 @Component({
   selector: 'ds-browse-entry-list-element',
   styleUrls: ['./browse-entry-list-element.component.scss'],
-  templateUrl: './browse-entry-list-element.component.html'
+  templateUrl: './browse-entry-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, AsyncPipe],
 })
 
 /**
@@ -49,12 +61,12 @@ export class BrowseEntryListElementComponent extends AbstractListableElementComp
       map((currentPage) => {
         return {
           value: this.object.value,
-          authority: !!this.object.authority ? this.object.authority : undefined,
+          authority: this.object.authority ? this.object.authority : undefined,
           startsWith: undefined,
           [pageParamName]: null,
-          [BBM_PAGINATION_ID + '.return']: currentPage
+          [BBM_PAGINATION_ID + '.return']: currentPage,
         };
-      })
+      }),
     );
   }
 }

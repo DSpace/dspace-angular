@@ -1,47 +1,94 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   EMPTY,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
-import { catchError, defaultIfEmpty, map, switchMap, tap } from 'rxjs/operators';
+import {
+  catchError,
+  defaultIfEmpty,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { GroupDtoModel } from '../../core/eperson/models/group-dto.model';
 import { Group } from '../../core/eperson/models/group.model';
+import { GroupDtoModel } from '../../core/eperson/models/group-dto.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { NoContent } from '../../core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-groups-registry',
   templateUrl: './groups-registry.component.html',
+  imports: [
+    ThemedLoadingComponent,
+    TranslateModule,
+    RouterLink,
+    ReactiveFormsModule,
+    AsyncPipe,
+    NgIf,
+    PaginationComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgbTooltipModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 /**
  * A component used for managing all existing groups within the repository.
@@ -57,7 +104,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'gl',
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -133,7 +180,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
         const query: string = data.query;
         if (query != null && this.currentSearchQuery !== query) {
           this.currentSearchQuery = query;
-          this.paginationService.updateRouteWithUrl(this.config.id, [], {page: 1});
+          this.paginationService.updateRouteWithUrl(this.config.id, [], { page: 1 });
         }
         return this.groupService.searchGroups(this.currentSearchQuery.trim(), {
           currentPage: paginationOptions.currentPage,
@@ -155,19 +202,19 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
                   this.canManageGroup$(isSiteAdmin, group),
                   this.hasLinkedDSO(group),
                   this.getSubgroups(group),
-                  this.getMembers(group)
+                  this.getMembers(group),
                 ]).pipe(
                   map(([canDelete, canManageGroup, hasLinkedDSO, subgroups, members]:
                          [boolean, boolean, boolean, RemoteData<PaginatedList<Group>>, RemoteData<PaginatedList<EPerson>>]) => {
-                      const groupDtoModel: GroupDtoModel = new GroupDtoModel();
-                      groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
-                      groupDtoModel.ableToEdit = canManageGroup;
-                      groupDtoModel.group = group;
-                      groupDtoModel.subgroups = subgroups.payload;
-                      groupDtoModel.epersons = members.payload;
-                      return groupDtoModel;
-                    }
-                  )
+                    const groupDtoModel: GroupDtoModel = new GroupDtoModel();
+                    groupDtoModel.ableToDelete = canDelete && !hasLinkedDSO;
+                    groupDtoModel.ableToEdit = canManageGroup;
+                    groupDtoModel.group = group;
+                    groupDtoModel.subgroups = subgroups.payload;
+                    groupDtoModel.epersons = members.payload;
+                    return groupDtoModel;
+                  },
+                  ),
                 );
               } else {
                 return EMPTY;
@@ -175,9 +222,9 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
             })]).pipe(defaultIfEmpty([]), map((dtos: GroupDtoModel[]) => {
               return buildPaginatedList(groups.pageInfo, dtos);
             }));
-          })
+          }),
         );
-      })
+      }),
     ).subscribe((value: PaginatedList<GroupDtoModel>) => {
       this.groupsDto$.next(value);
       this.pageInfoState$.next(value.pageInfo);
@@ -185,7 +232,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
     });
 
     this.subs.push(this.searchSub);
-      }
+  }
 
   canManageGroup$(isSiteAdmin: boolean, group: Group): Observable<boolean> {
     if (isSiteAdmin) {
@@ -210,7 +257,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.title', { name: this.dsoNameService.getName(group.group) }),
               this.translateService.get(this.messagePrefix + 'notification.deleted.failure.content', { cause: rd.errorMessage }));
           }
-      });
+        });
     }
   }
 
@@ -222,9 +269,9 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   getMembers(group: Group): Observable<RemoteData<PaginatedList<EPerson>>> {
     return this.ePersonDataService.findListByHref(group._links.epersons.href, {
-        currentPage: 1,
-        elementsPerPage: 1,
-      }).pipe(getFirstSucceededRemoteData());
+      currentPage: 1,
+      elementsPerPage: 1,
+    }).pipe(getFirstSucceededRemoteData());
   }
 
   /**
@@ -235,9 +282,9 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    */
   getSubgroups(group: Group): Observable<RemoteData<PaginatedList<Group>>> {
     return this.groupService.findListByHref(group._links.subgroups.href, {
-        currentPage: 1,
-        elementsPerPage: 1,
-      }).pipe(getFirstSucceededRemoteData());
+      currentPage: 1,
+      elementsPerPage: 1,
+    }).pipe(getFirstSucceededRemoteData());
   }
 
   /**

@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
-import { compare } from 'fast-json-patch';
-import { Operation } from 'fast-json-patch';
+import {
+  compare,
+  Operation,
+} from 'fast-json-patch';
+
 import { getClassForType } from '../cache/builders/build-decorators';
+import { TypedObject } from '../cache/typed-object.model';
 import { DSpaceNotNullSerializer } from '../dspace-rest/dspace-not-null.serializer';
 import { ChangeAnalyzer } from './change-analyzer';
-import { TypedObject } from '../cache/typed-object.model';
 
 /**
  * A class to determine what differs between two
  * CacheableObjects
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DefaultChangeAnalyzer<T extends TypedObject> implements ChangeAnalyzer<T> {
   /**
    * Compare the metadata of two CacheableObject and return the differences as

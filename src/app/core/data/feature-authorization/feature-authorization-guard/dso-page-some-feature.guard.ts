@@ -1,12 +1,21 @@
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../../shared/empty.util';
+import { AuthService } from '../../../auth/auth.service';
+import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
 import { RemoteData } from '../../remote-data';
 import { AuthorizationDataService } from '../authorization-data.service';
-import { Observable } from 'rxjs';
-import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
-import { map } from 'rxjs/operators';
-import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { AuthService } from '../../../auth/auth.service';
-import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guard';
 
 /**
@@ -14,8 +23,10 @@ import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guar
  * This guard utilizes a resolver to retrieve the relevant object to check authorizations for
  */
 export abstract class DsoPageSomeFeatureGuard<T extends DSpaceObject> extends SomeFeatureAuthorizationGuard {
-  constructor(protected resolver: Resolve<RemoteData<T>>,
-              protected authorizationService: AuthorizationDataService,
+
+  protected abstract resolver: ResolveFn<RemoteData<DSpaceObject>>;
+
+  constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService) {
     super(authorizationService, router, authService);
@@ -26,14 +37,14 @@ export abstract class DsoPageSomeFeatureGuard<T extends DSpaceObject> extends So
    */
   getObjectUrl(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
     const routeWithObjectID = this.getRouteWithDSOId(route);
-    return (this.resolver.resolve(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
+    return (this.resolver(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
       getAllSucceededRemoteDataPayload(),
-      map((dso) => dso.self)
+      map((dso) => dso.self),
     );
   }
 
   /**
-   * Method to resolve resolve (parent) route that contains the UUID of the DSO
+   * Method to resolve (parent) route that contains the UUID of the DSO
    * @param route The current route
    */
   protected getRouteWithDSOId(route: ActivatedRouteSnapshot): ActivatedRouteSnapshot {

@@ -1,22 +1,30 @@
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { PROCESS_OUTPUT_TYPE } from '../../core/shared/process-output.resource-type';
-import { ProcessStatus } from './process-status.model';
-import { ProcessParameter } from './process-parameter.model';
-import { HALLink } from '../../core/shared/hal-link.model';
-import { autoserialize, deserialize, autoserializeAs } from 'cerialize';
-import { PROCESS } from './process.resource-type';
-import { excludeFromEquals } from '../../core/utilities/equals.decorators';
-import { ResourceType } from '../../core/shared/resource-type';
-import { link, typedObject } from '../../core/cache/builders/build-decorators';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { SCRIPT } from '../scripts/script.resource-type';
-import { Script } from '../scripts/script.model';
+
+import {
+  link,
+  typedObject,
+} from '../../core/cache/builders/build-decorators';
 import { CacheableObject } from '../../core/cache/cacheable-object.model';
-import { BITSTREAM } from '../../core/shared/bitstream.resource-type';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { BITSTREAM } from '../../core/shared/bitstream.resource-type';
+import { HALLink } from '../../core/shared/hal-link.model';
+import { PROCESS_OUTPUT_TYPE } from '../../core/shared/process-output.resource-type';
+import { ResourceType } from '../../core/shared/resource-type';
+import { excludeFromEquals } from '../../core/utilities/equals.decorators';
+import { Script } from '../scripts/script.model';
+import { SCRIPT } from '../scripts/script.resource-type';
 import { Filetypes } from './filetypes.model';
 import { FILETYPES } from './filetypes.resource-type';
+import { PROCESS } from './process.resource-type';
+import { ProcessParameter } from './process-parameter.model';
+import { ProcessStatus } from './process-status.model';
 
 /**
  * Object representing a process

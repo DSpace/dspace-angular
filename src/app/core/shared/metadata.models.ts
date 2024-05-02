@@ -1,6 +1,11 @@
 /* eslint-disable max-classes-per-file */
+import {
+  autoserialize,
+  Deserialize,
+  Serialize,
+} from 'cerialize';
 import { v4 as uuidv4 } from 'uuid';
-import { autoserialize, Serialize, Deserialize } from 'cerialize';
+
 import { hasValue } from '../../shared/empty.util';
 
 export const VIRTUAL_METADATA_PREFIX = 'virtual::';
@@ -136,5 +141,5 @@ export const MetadataMapSerializer = {
       metadataMap[key] = Deserialize(json[key], MetadataValue);
     });
     return metadataMap;
-  }
+  },
 };

@@ -1,11 +1,16 @@
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { HALLink } from '../hal-link.model';
 import { ResourceType } from '../resource-type';
 import { ITEM_TYPE } from './item-type.resource-type';
-import { CacheableObject } from '../../cache/cacheable-object.model';
 
 /**
  * Describes a type of Item
@@ -36,7 +41,7 @@ export class ItemType implements CacheableObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer(ItemType.type.value), 'id')
-  uuid: string;
+    uuid: string;
 
   /**
    * The {@link HALLink}s for this ItemType

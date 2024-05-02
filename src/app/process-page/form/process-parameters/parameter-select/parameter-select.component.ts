@@ -1,8 +1,25 @@
-import { Component, EventEmitter, Input, Optional, Output } from '@angular/core';
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Optional,
+  Output,
+} from '@angular/core';
+import {
+  ControlContainer,
+  FormsModule,
+  NgForm,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ProcessParameter } from '../../../processes/process-parameter.model';
 import { ScriptParameter } from '../../../scripts/script-parameter.model';
-import { ControlContainer, NgForm } from '@angular/forms';
-import { controlContainerFactory } from '../../process-form.component';
+import { controlContainerFactory } from '../../process-form-factory';
+import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 
 /**
  * Component to select a single parameter for a process
@@ -14,8 +31,10 @@ import { controlContainerFactory } from '../../process-form.component';
   viewProviders: [{
     provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]]
-  }]
+    deps: [[new Optional(), NgForm]],
+  }],
+  standalone: true,
+  imports: [FormsModule, NgFor, ParameterValueInputComponent, NgIf, TranslateModule],
 })
 export class ParameterSelectComponent {
   @Input() index: number;
