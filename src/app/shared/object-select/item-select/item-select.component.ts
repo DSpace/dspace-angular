@@ -46,7 +46,7 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> implements 
    * Whether or not to hide the collection column
    */
   @Input()
-    hideCollection = false;
+  hideCollection = false;
 
   /**
    * Collection of all the data that is used to display the {@link Item} in the HTML.

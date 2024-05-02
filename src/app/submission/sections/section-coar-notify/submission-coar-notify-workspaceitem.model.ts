@@ -18,16 +18,16 @@ export class SubmissionCoarNotifyWorkspaceitemModel extends CacheableObject {
 
   @excludeFromEquals
   @autoserialize
-    endorsement?: number[];
+  endorsement?: number[];
 
   @deserializeAs('id')
-    review?: number[];
+  review?: number[];
 
   @autoserialize
-    ingest?: number[];
+  ingest?: number[];
 
   @deserialize
-    _links: {
+  _links: {
     self: {
       href: string;
     };

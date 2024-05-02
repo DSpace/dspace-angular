@@ -1,6 +1,6 @@
 <section class="comcol-page-browse-section">
   <div class="browse-by-metadata w-100">
-    <ds-themed-browse-by *ngIf="(loading$ | async) !== true" class="col-xs-12 w-100"
+    <ds-browse-by *ngIf="(loading$ | async) !== true" class="col-xs-12 w-100"
                          title="{{'browse.title' | translate:{
                            field: 'browse.metadata.' + browseId | translate,
                            startsWith: (startsWith)? ('browse.startsWith' | translate: { startsWith: '&quot;' + startsWith + '&quot;' }) : '',
@@ -14,8 +14,8 @@
                          [startsWithOptions]="startsWithOptions"
                          (prev)="goPrev()"
                          (next)="goNext()">
-    </ds-themed-browse-by>
-    <ds-themed-loading *ngIf="loading$ | async"
-                       message="{{'loading.browse-by-page' | translate}}"></ds-themed-loading>
+    </ds-browse-by>
+    <ds-loading *ngIf="loading$ | async"
+                       message="{{'loading.browse-by-page' | translate}}"></ds-loading>
   </div>
 </section>

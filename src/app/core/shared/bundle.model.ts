@@ -27,7 +27,7 @@ export class Bundle extends DSpaceObject {
    * The {@link HALLink}s for this Bundle
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     primaryBitstream: HALLink;
     bitstreams: HALLink;
@@ -39,19 +39,19 @@ export class Bundle extends DSpaceObject {
    * Will be undefined unless the primaryBitstream {@link HALLink} has been resolved.
    */
   @link(BITSTREAM)
-    primaryBitstream?: Observable<RemoteData<Bitstream>>;
+  primaryBitstream?: Observable<RemoteData<Bitstream>>;
 
   /**
    * The list of Bitstreams that are direct children of this Bundle
    * Will be undefined unless the bitstreams {@link HALLink} has been resolved.
    */
   @link(BITSTREAM, true)
-    bitstreams?: Observable<RemoteData<PaginatedList<Bitstream>>>;
+  bitstreams?: Observable<RemoteData<PaginatedList<Bitstream>>>;
 
   /**
      * The owning item for this Bundle
      * Will be undefined unless the Item{@link HALLink} has been resolved.
      */
   @link(ITEM)
-    item?: Observable<RemoteData<Item>>;
+  item?: Observable<RemoteData<Item>>;
 }

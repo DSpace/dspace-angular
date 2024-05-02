@@ -47,7 +47,7 @@ export class PageWithSidebarComponent implements OnInit {
    * The width of the sidebar (bootstrap columns)
    */
   @Input()
-    sideBarWidth = 3;
+  sideBarWidth = 3;
 
   /**
    * Observable for whether or not the sidebar is currently collapsed

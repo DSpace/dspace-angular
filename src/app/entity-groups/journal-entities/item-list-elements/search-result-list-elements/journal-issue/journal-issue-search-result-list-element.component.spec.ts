@@ -26,7 +26,7 @@ import { TruncatableComponent } from '../../../../../shared/truncatable/truncata
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
-import { ThumbnailComponent } from '../../../../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { JournalIssueSearchResultListElementComponent } from './journal-issue-search-result-list-element.component';
 
 let journalIssueListElementComponent: JournalIssueSearchResultListElementComponent;
@@ -108,7 +108,7 @@ describe('JournalIssueSearchResultListElementComponent', () => {
     }).overrideComponent(JournalIssueSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default } ,
       remove: {
-        imports: [ThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent],
+        imports: [ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent],
       } },
     ).compileComponents();
   }));

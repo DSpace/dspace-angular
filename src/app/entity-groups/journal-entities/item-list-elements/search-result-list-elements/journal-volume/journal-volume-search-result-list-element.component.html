@@ -12,7 +12,7 @@
     </span>
   </div>
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
-    <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-themed-badges>
+    <ds-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-badges>
     <ds-truncatable [id]="dso.id">
       <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
          [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"

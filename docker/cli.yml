@@ -12,7 +12,6 @@
 # https://github.com/DSpace/DSpace/blob/main/docker-compose-cli.yml
 #
 # Therefore, it should be kept in sync with that file
-version: "3.7"
 networks:
   # Default to using network named 'dspacenet' from docker-compose-rest.yml.
   # Its full name will be prepended with the project name (e.g. "-p d7" means it will be named "d7_dspacenet")

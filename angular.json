@@ -266,6 +266,8 @@
           "options": {
             "lintFilePatterns": [
               "src/**/*.ts",
+              "cypress/**/*.ts",
+              "lint/**/*.ts",
               "src/**/*.html",
               "src/**/*.json5"
             ]

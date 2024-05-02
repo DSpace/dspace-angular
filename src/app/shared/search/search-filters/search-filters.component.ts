@@ -32,7 +32,7 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @Component({
-  selector: 'ds-search-filters',
+  selector: 'ds-base-search-filters',
   styleUrls: ['./search-filters.component.scss'],
   templateUrl: './search-filters.component.html',
   standalone: true,

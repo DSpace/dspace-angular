@@ -33,7 +33,7 @@ export class Relationship implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The universally unique identifier of this Relationship
@@ -47,37 +47,37 @@ export class Relationship implements CacheableObject {
    * The identifier of this Relationship
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The place of the Item to the left side of this Relationship
    */
   @autoserialize
-    leftPlace: number;
+  leftPlace: number;
 
   /**
    * The place of the Item to the right side of this Relationship
    */
   @autoserialize
-    rightPlace: number;
+  rightPlace: number;
 
   /**
    * The name variant of the Item to the left side of this Relationship
    */
   @autoserialize
-    leftwardValue: string;
+  leftwardValue: string;
 
   /**
    * The name variant of the Item to the right side of this Relationship
    */
   @autoserialize
-    rightwardValue: string;
+  rightwardValue: string;
 
   /**
    * The {@link HALLink}s for this Relationship
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     leftItem: HALLink;
     rightItem: HALLink;
@@ -89,20 +89,20 @@ export class Relationship implements CacheableObject {
    * Will be undefined unless the leftItem {@link HALLink} has been resolved.
    */
   @link(ITEM)
-    leftItem?: Observable<RemoteData<Item>>;
+  leftItem?: Observable<RemoteData<Item>>;
 
   /**
    * The item on the right side of this relationship
    * Will be undefined unless the rightItem {@link HALLink} has been resolved.
    */
   @link(ITEM)
-    rightItem?: Observable<RemoteData<Item>>;
+  rightItem?: Observable<RemoteData<Item>>;
 
   /**
    * The RelationshipType for this Relationship
    * Will be undefined unless the relationshipType {@link HALLink} has been resolved.
    */
   @link(RELATIONSHIP_TYPE)
-    relationshipType?: Observable<RemoteData<RelationshipType>>;
+  relationshipType?: Observable<RemoteData<RelationshipType>>;
 
 }

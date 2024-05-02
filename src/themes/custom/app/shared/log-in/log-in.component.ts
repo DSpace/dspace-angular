@@ -10,7 +10,7 @@ import { LogInContainerComponent } from 'src/app/shared/log-in/container/log-in-
 import { LogInComponent as BaseComponent } from '../../../../../app/shared/log-in/log-in.component';
 
 @Component({
-  selector: 'ds-log-in',
+  selector: 'ds-themed-log-in',
   // templateUrl: './log-in.component.html',
   templateUrl: '../../../../../app/shared/log-in/log-in.component.html',
   // styleUrls: ['./log-in.component.scss'],

@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  NgClass,
   NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
@@ -17,14 +18,27 @@ import { NotificationsBoardComponent } from '../../../../app/shared/notification
 import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-alert/alert-banner/system-wide-alert-banner.component';
 
 @Component({
-  selector: 'ds-root',
+  selector: 'ds-themed-root',
   // styleUrls: ['./root.component.scss'],
   styleUrls: ['../../../../app/root/root.component.scss'],
   // templateUrl: './root.component.html',
   templateUrl: '../../../../app/root/root.component.html',
   animations: [slideSidebarPadding],
   standalone: true,
-  imports: [TranslateModule, ThemedAdminSidebarComponent, SystemWideAlertBannerComponent, ThemedHeaderNavbarWrapperComponent, ThemedBreadcrumbsComponent, NgIf, ThemedLoadingComponent, RouterOutlet, ThemedFooterComponent, NotificationsBoardComponent, AsyncPipe],
+  imports: [
+    TranslateModule,
+    ThemedAdminSidebarComponent,
+    SystemWideAlertBannerComponent,
+    ThemedHeaderNavbarWrapperComponent,
+    ThemedBreadcrumbsComponent,
+    NgIf,
+    NgClass,
+    ThemedLoadingComponent,
+    RouterOutlet,
+    ThemedFooterComponent,
+    NotificationsBoardComponent,
+    AsyncPipe,
+  ],
 })
 export class RootComponent extends BaseComponent {
 

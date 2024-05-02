@@ -44,11 +44,11 @@ export class SearchFacetFilterWrapperComponent extends AbstractComponentLoaderCo
    */
   @Input() scope: string;
 
-  inputNamesDependentForComponent: (keyof SearchFacetFilterWrapperComponent & string)[] = [
+  protected inputNamesDependentForComponent: (keyof this & string)[] = [
     'filterConfig',
   ];
 
-  inputNames: (keyof SearchFacetFilterWrapperComponent & string)[] = [
+  protected inputNames: (keyof this & string)[] = [
     'filterConfig',
     'inPlaceSearch',
     'refreshFilters',

@@ -1,3 +1,5 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
 import { DynamicRelationGroupModel } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -7,6 +9,7 @@ import { RelationGroupFieldParser } from './relation-group-field-parser';
 describe('RelationGroupFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues = {};
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {
@@ -73,13 +76,13 @@ describe('RelationGroupFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     expect(parser instanceof RelationGroupFieldParser).toBe(true);
   });
 
   it('should return a DynamicRelationGroupModel object', () => {
-    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -88,7 +91,7 @@ describe('RelationGroupFieldParser test suite', () => {
 
   it('should throw when rows configuration is empty', () => {
     field.rows = null;
-    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     expect(() => parser.parse())
       .toThrow();
@@ -99,7 +102,7 @@ describe('RelationGroupFieldParser test suite', () => {
       author: [new FormFieldMetadataValueObject('test author')],
       affiliation: [new FormFieldMetadataValueObject('test affiliation')],
     };
-    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
     const expectedValue = [{
