@@ -19,7 +19,7 @@ export declare type DSOGetObjectURlFn = <T extends DSpaceObject>(resolve: Resolv
  * Method to resolve resolve (parent) route that contains the UUID of the DSO
  * @param route The current route
  */
-const getRouteWithDSOId = (route: ActivatedRouteSnapshot): ActivatedRouteSnapshot => {
+export const getRouteWithDSOId = (route: ActivatedRouteSnapshot): ActivatedRouteSnapshot => {
   let routeWithDSOId = route;
   while (hasNoValue(routeWithDSOId.params.id) && hasValue(routeWithDSOId.parent)) {
     routeWithDSOId = routeWithDSOId.parent;
@@ -29,7 +29,7 @@ const getRouteWithDSOId = (route: ActivatedRouteSnapshot): ActivatedRouteSnapsho
 
 
 
-const defaultDSOGetObjectUrl: DSOGetObjectURlFn = <T extends DSpaceObject>(resolve: ResolveFn<Observable<RemoteData<T>>>): StringGuardParamFn => {
+export const defaultDSOGetObjectUrl: DSOGetObjectURlFn = <T extends DSpaceObject>(resolve: ResolveFn<Observable<RemoteData<T>>>): StringGuardParamFn => {
   return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> => {
     const routeWithObjectID = getRouteWithDSOId(route);
     return (resolve(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(

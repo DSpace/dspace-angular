@@ -18,7 +18,6 @@ describe('dsoPageSomeFeatureGuard and its functions', () => {
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
-  // let resolver: Resolve<RemoteData<any>>;
   let resolver: ResolveFn<Observable<RemoteData<any>>>;
   let object: DSpaceObject;
   let route;
@@ -74,14 +73,14 @@ describe('dsoPageSomeFeatureGuard and its functions', () => {
         done();
       });
     });
-  })
+  });
 
   describe('getRouteWithDSOId', () => {
     it('should return the route that has the UUID of the DSO', () => {
       const foundRoute = getRouteWithDSOId(route);
       expect(foundRoute).toBe(parentRoute);
     });
-  })
+  });
 
 
   describe('dsoPageSomeFeatureGuard', () => {
