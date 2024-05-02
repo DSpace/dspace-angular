@@ -4,7 +4,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 import {
   mergeMap,
   take,
@@ -62,6 +65,11 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
    */
   protected type: ResourceType;
 
+  /**
+   * The
+   */
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   public constructor(
     protected dsoDataService: ComColDataService<TDomain>,
     public dsoNameService: DSONameService,
@@ -89,6 +97,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
    * @param event   The event returned by the community/collection form. Contains the new dso and logo uploader
    */
   onSubmit(event) {
+    this.isLoading$.next(true);
     const dso = event.dso;
     const uploader = event.uploader;
 
@@ -101,6 +110,7 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
           );
       }))
       .subscribe((dsoRD: TDomain) => {
+        this.isLoading$.next(false);
         if (isNotUndefined(dsoRD)) {
           this.newUUID = dsoRD.uuid;
           if (uploader.queue.length > 0) {
