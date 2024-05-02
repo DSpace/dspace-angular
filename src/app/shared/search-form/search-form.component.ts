@@ -26,6 +26,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../core/shared/search/search-filter.service';
 import {
   hasValue,
   isNotEmpty,
@@ -98,6 +99,7 @@ export class SearchFormComponent implements OnChanges {
   constructor(
     protected router: Router,
     protected searchService: SearchService,
+    protected searchFilterService: SearchFilterService,
     protected paginationService: PaginationService,
     protected searchConfig: SearchConfigurationService,
     protected modalService: NgbModal,
@@ -134,6 +136,7 @@ export class SearchFormComponent implements OnChanges {
    */
   onScopeChange(scope: DSpaceObject) {
     this.updateSearch({ scope: scope ? scope.uuid : undefined });
+    this.searchFilterService.minimizeAll();
   }
 
   /**

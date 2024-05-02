@@ -477,7 +477,6 @@ export class SearchComponent implements OnDestroy, OnInit {
    * @private
    */
   private retrieveFilters(searchOptions: PaginatedSearchOptions) {
-    this.filtersRD$.next(null);
     this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
