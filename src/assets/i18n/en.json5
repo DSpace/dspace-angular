@@ -3269,11 +3269,25 @@
 
   "item.preview.dc.identifier.arxiv": "arXiv ID",
 
-  "item.preview.dc.identifier.patentno": "Patent Number",
+  "item.preview.crispatent.document.description": "Document description:",
+
+  "item.preview.crispatent.document.issueDate": "Publication date:",
+
+  "item.preview.crispatent.document.kind": "Document Kind code:",
+
+  "item.preview.crispatent.document.title": "Document title:",
+
+  "item.preview.crispatent.kind": "Kind code:",
+
+  "item.preview.dc.contributor": "Applicants:",
+
+  "item.preview.dc.identifier.applicationnumber": "Application number:",
+
+  "item.preview.dc.identifier.patentno": "Patent number:",
 
   "item.preview.dc.subject.ipc": "Subject IPC",
 
-  "item.preview.dcterms.dateSubmitted": "Registration Date",
+  "item.preview.dcterms.dateSubmitted": "Registration date:",
 
   "item.preview.dc.identifier.isi": "ISI",
 
@@ -7344,4 +7358,14 @@
   "third-party-metrics-cookies.consent-settings": "consent settings",
 
   "third-party-metrics-blocked": "Some of the metrics are blocked by your",
+
+  "form.other-information.alternative-names": "Alternative names",
+
+  "form.other-information.selection.data-oairecerif_author_affiliation": "Select alternative affiliation",
+
+  "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.selection.data-crispj_coinvestigator_affiliation": "Affiliation",
+
+  "form.other-information.selection.alternative-names": "Select alternative name",
 }
