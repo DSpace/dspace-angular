@@ -26,19 +26,19 @@ export class UsageReport extends HALResource {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   @autoserialize
-    id: string;
+  id: string;
 
   @autoserializeAs('report-type')
     reportType: string;
 
   @autoserialize
-    points: Point[];
+  points: Point[];
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
   };
 }

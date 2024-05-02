@@ -13,7 +13,7 @@ import {
 } from '../../../../empty.util';
 
 @Component({
-  selector: 'ds-type-badge',
+  selector: 'ds-base-type-badge',
   templateUrl: './type-badge.component.html',
   standalone: true,
   imports: [NgIf, TranslateModule],

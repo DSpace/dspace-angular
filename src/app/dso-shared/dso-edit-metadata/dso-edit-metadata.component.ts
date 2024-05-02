@@ -52,7 +52,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
-import { LoadingComponent } from '../../shared/loading/loading.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DsoEditMetadataFieldValuesComponent } from './dso-edit-metadata-field-values/dso-edit-metadata-field-values.component';
 import { DsoEditMetadataForm } from './dso-edit-metadata-form';
@@ -62,11 +62,11 @@ import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata-value-
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
 
 @Component({
-  selector: 'ds-dso-edit-metadata',
+  selector: 'ds-base-dso-edit-metadata',
   styleUrls: ['./dso-edit-metadata.component.scss'],
   templateUrl: './dso-edit-metadata.component.html',
   standalone: true,
-  imports: [NgIf, DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, NgFor, DsoEditMetadataFieldValuesComponent, AlertComponent, LoadingComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, DsoEditMetadataHeadersComponent, MetadataFieldSelectorComponent, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, NgFor, DsoEditMetadataFieldValuesComponent, AlertComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component showing a table of all metadata on a DSpaceObject and options to modify them

@@ -1,9 +1,9 @@
 <ng-container *ngIf="(workflowitem$ | async) && (item$ | async)">
-  <ds-themed-item-list-preview [item]="item$.value"
+  <ds-item-list-preview [item]="item$.value"
                                [object]="object"
                                [showSubmitter]="showSubmitter"
                                [badgeContext]="badgeContext"
-                               [workflowItem]="workflowitem$.value"></ds-themed-item-list-preview>
+                               [workflowItem]="workflowitem$.value"></ds-item-list-preview>
   <!-- Display duplicate alert, if feature enabled and duplicates detected -->
   <ng-container *ngVar="(duplicates$|async)?.length as duplicateCount">
     <div [ngClass]="'row'" *ngIf="duplicateCount > 0">

@@ -51,7 +51,7 @@ import { ThemedSearchComponent } from '../../../../shared/search/themed-search.c
 export class AdminNotifyLogsResultComponent implements OnInit {
 
   @Input()
-    defaultConfiguration: string;
+  defaultConfiguration: string;
 
 
   public selectedSearchConfig$: Observable<string>;

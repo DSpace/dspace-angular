@@ -38,57 +38,57 @@ export class Suggestion implements CacheableObject {
    * The Suggestion id
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The Suggestion name to display
    */
   @autoserialize
-    display: string;
+  display: string;
 
   /**
    * The Suggestion source to display
    */
   @autoserialize
-    source: string;
+  source: string;
 
   /**
    * The Suggestion external source uri
    */
   @autoserialize
-    externalSourceUri: string;
+  externalSourceUri: string;
 
   /**
    * The Total Score of the suggestion
    */
   @autoserialize
-    score: string;
+  score: string;
 
   /**
    * The total number of suggestions provided by Suggestion Target for
    */
   @autoserialize
-    evidences: SuggestionEvidences;
+  evidences: SuggestionEvidences;
 
   /**
    * All metadata of this suggestion object
    */
   @excludeFromEquals
   @autoserializeAs(MetadataMapSerializer)
-    metadata: MetadataMap;
+  metadata: MetadataMap;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
     target: HALLink
   };

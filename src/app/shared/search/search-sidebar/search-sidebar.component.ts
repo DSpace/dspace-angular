@@ -30,7 +30,7 @@ import { SearchSwitchConfigurationComponent } from '../search-switch-configurati
  */
 
 @Component({
-  selector: 'ds-search-sidebar',
+  selector: 'ds-base-search-sidebar',
   styleUrls: ['./search-sidebar.component.scss'],
   templateUrl: './search-sidebar.component.html',
   standalone: true,

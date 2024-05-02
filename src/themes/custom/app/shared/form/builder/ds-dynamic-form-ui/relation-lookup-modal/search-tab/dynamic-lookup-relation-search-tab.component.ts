@@ -13,7 +13,7 @@ import { ThemedSearchComponent } from '../../../../../../../../../app/shared/sea
 import { VarDirective } from '../../../../../../../../../app/shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-search-tab',
+  selector: 'ds-themed-dynamic-lookup-relation-search-tab',
   // styleUrls: ['./dynamic-lookup-relation-search-tab.component.scss'],
   styleUrls: ['../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component.scss'],
   // templateUrl: './dynamic-lookup-relation-search-tab.component.html',

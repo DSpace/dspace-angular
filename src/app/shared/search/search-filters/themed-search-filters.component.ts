@@ -16,9 +16,10 @@ import { SearchFiltersComponent } from './search-filters.component';
  * Themed wrapper for SearchFiltersComponent
  */
 @Component({
-  selector: 'ds-themed-search-filters',
+  selector: 'ds-search-filters',
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
+  imports: [SearchFiltersComponent],
 })
 export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersComponent> {
 

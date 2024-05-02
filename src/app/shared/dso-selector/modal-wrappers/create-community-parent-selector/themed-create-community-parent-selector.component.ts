@@ -7,10 +7,11 @@ import { CreateCommunityParentSelectorComponent } from './create-community-paren
  * Themed wrapper for CreateCommunityParentSelectorComponent
  */
 @Component({
-  selector: 'ds-themed-create-community-parent-selector',
+  selector: 'ds-create-community-parent-selector',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [CreateCommunityParentSelectorComponent],
 })
 export class ThemedCreateCommunityParentSelectorComponent
   extends ThemedComponent<CreateCommunityParentSelectorComponent> {

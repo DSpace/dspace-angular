@@ -199,6 +199,6 @@ export class EditRelationshipComponent implements OnChanges {
    * Check if a user should be allowed to cancel the update to this field
    */
   canUndo(): boolean {
-    return this.fieldUpdate.changeType >= 0;
+    return this.fieldUpdate.changeType?.valueOf() >= 0;
   }
 }

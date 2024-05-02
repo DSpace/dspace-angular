@@ -501,7 +501,7 @@ function getForm(forms, currentState, sectionId) {
  *  Whether notifications are enabled
  */
 function filterErrors(sectionForm: FormState, sectionErrors: SubmissionSectionError[], sectionType: string, notify: boolean): SubmissionSectionError[] {
-  if (notify || sectionType !== SectionsType.SubmissionForm) {
+  if (notify || sectionType !== SectionsType.SubmissionForm.valueOf()) {
     return sectionErrors;
   }
   if (!sectionForm || !sectionForm.touched) {

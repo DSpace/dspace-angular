@@ -7,7 +7,7 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 import { WorkflowItemDeleteComponent as BaseComponent } from '../../../../../app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
 
 @Component({
-  selector: 'ds-workflow-item-delete',
+  selector: 'ds-themed-workflow-item-delete',
   // styleUrls: ['workflow-item-delete.component.scss'],
   // templateUrl: './workflow-item-delete.component.html'
   templateUrl: '../../../../../app/workflowitems-edit-page/workflow-item-action-page.component.html',

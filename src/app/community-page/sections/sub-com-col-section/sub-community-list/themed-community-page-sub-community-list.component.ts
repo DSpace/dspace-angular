@@ -8,10 +8,11 @@ import { ThemedComponent } from '../../../../shared/theme-support/themed.compone
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
 
 @Component({
-  selector: 'ds-themed-community-page-sub-community-list',
+  selector: 'ds-community-page-sub-community-list',
   styleUrls: [],
   templateUrl: '../../../../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [CommunityPageSubCommunityListComponent],
 })
 export class ThemedCommunityPageSubCommunityListComponent extends ThemedComponent<CommunityPageSubCommunityListComponent> {
 

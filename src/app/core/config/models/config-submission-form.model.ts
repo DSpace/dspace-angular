@@ -27,5 +27,5 @@ export class SubmissionFormModel extends ConfigObject {
    * An array of [FormRowModel] that are present in this form
    */
   @autoserialize
-    rows: FormRowModel[];
+  rows: FormRowModel[];
 }
