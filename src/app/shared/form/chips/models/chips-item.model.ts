@@ -65,7 +65,7 @@ export class ChipsItem {
       for (const icon of this.icons) {
         if (this._item.hasOwnProperty(icon.metadata)
           && (((typeof this._item[icon.metadata] === 'string') && hasValue(this._item[icon.metadata]))
-            || (this._item[icon.metadata] as FormFieldMetadataValueObject).hasValue())
+            || this._item[icon.metadata] && hasValue(this._item[icon.metadata].value))
           && !this.hasPlaceholder(this._item[icon.metadata])) {
           if ((icon.visibleWhenAuthorityEmpty
             || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET
