@@ -5,6 +5,8 @@ import {
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment.test';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
@@ -39,6 +41,7 @@ describe('AdvancedSearchComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchFilterService, useValue: searchFilterService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     }).compileComponents();
 

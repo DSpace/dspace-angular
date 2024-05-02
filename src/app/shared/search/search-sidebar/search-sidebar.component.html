@@ -24,7 +24,8 @@
                                [refreshFilters]="refreshFilters"
                                [inPlaceSearch]="inPlaceSearch">
             </ds-themed-search-filters>
-            <ds-advanced-search [configuration]="configuration"
+            <ds-advanced-search *ngIf="appConfig.search.advancedFilters.enabled"
+                                [configuration]="configuration"
                                 [filtersConfig]="(filters | async)?.payload">
             </ds-advanced-search>
             <ds-themed-search-settings *ngIf="inPlaceSearch"

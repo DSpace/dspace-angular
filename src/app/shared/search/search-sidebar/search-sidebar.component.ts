@@ -5,6 +5,7 @@ import {
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   Output,
 } from '@angular/core';
@@ -14,6 +15,10 @@ import {
   Observable,
 } from 'rxjs';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ViewMode } from '../../../core/shared/view-mode.model';
@@ -119,5 +124,10 @@ export class SearchSidebarComponent {
    * Emits event when the user select a new view mode
    */
   @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter<ViewMode>();
+
+  constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
+  }
 
 }

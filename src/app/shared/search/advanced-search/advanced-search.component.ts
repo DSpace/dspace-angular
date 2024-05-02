@@ -5,6 +5,7 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -23,6 +24,10 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
@@ -84,12 +89,17 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
     protected searchService: SearchService,
     protected searchConfigurationService: SearchConfigurationService,
     protected searchFilterService: SearchFilterService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
   }
 
   ngOnInit(): void {
     this.advancedFilters$ = this.searchConfigurationService.getConfigurationSearchConfig(this.configuration).pipe(
-      map((searchConfiguration: SearchConfig) => searchConfiguration.filters.filter((filter: FilterConfig) => filter.type !== FilterType.range)),
+      map((searchConfiguration: SearchConfig) => {
+        return searchConfiguration.filters
+          .filter((filter: FilterConfig) => this.appConfig.search.advancedFilters.filter.includes(filter.filter))
+          .filter((filter: FilterConfig) => filter.type !== FilterType.range);
+      }),
     );
     this.subs.push(this.advancedFilters$.subscribe((filters: FilterConfig[]) => {
       const filterMap: Map<string, FilterConfig> = new Map();

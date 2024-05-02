@@ -19,10 +19,6 @@ import {
   Observable,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -32,7 +28,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configu
 import { currentPath } from '../../utils/route.utils';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { AppliedFilter } from '../models/applied-filter.model';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 
@@ -52,7 +47,7 @@ export class SearchFiltersComponent implements OnInit {
    * An observable containing configuration about which filters are shown and how they are shown
    */
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
-  @Input() searchOptions: PaginatedSearchOptions;
+
   /**
    * List of all filters that are currently active with their value set to null.
    * Used to reset all filters at once
@@ -90,7 +85,6 @@ export class SearchFiltersComponent implements OnInit {
   filterLabel = 'search';
 
   constructor(
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected searchService: SearchService,
     protected searchFilterService: SearchFilterService,
     protected router: Router,

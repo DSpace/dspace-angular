@@ -11,6 +11,8 @@ import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment.test';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
 import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
@@ -26,6 +28,9 @@ describe('SearchSidebarComponent', () => {
         TranslateModule.forRoot(),
         NgbCollapseModule,
         SearchSidebarComponent,
+      ],
+      providers: [
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
