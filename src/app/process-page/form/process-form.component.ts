@@ -7,7 +7,7 @@ import { ControlContainer, NgForm } from '@angular/forms';
 import { ScriptParameter } from '../scripts/script-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { getProcessListRoute } from '../process-page-routing.paths';
@@ -52,6 +52,16 @@ export class ProcessFormComponent implements OnInit {
    */
   public missingParameters = [];
 
+  /**
+   * Custom set name for a process
+   */
+  customName: string;
+
+  /**
+   * The current process name displayed
+   */
+  processName: string;
+
   constructor(
     private scriptService: ScriptDataService,
     private notificationsService: NotificationsService,
@@ -82,7 +92,7 @@ export class ProcessFormComponent implements OnInit {
         };
       }
     );
-    this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)
+    this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files, this.customName)
       .pipe(getFirstCompletedRemoteData())
       .subscribe((rd: RemoteData<Process>) => {
         if (rd.hasSucceeded) {
@@ -152,6 +162,43 @@ export class ProcessFormComponent implements OnInit {
       queryParams: { new_process_id: newProcess.processId },
     };
     void this.router.navigate([getProcessListRoute()], extras);
+  }
+
+  updateScript($event: Script) {
+    this.selectedScript = $event;
+    this.parameters = undefined;
+    this.updateName();
+  }
+
+  updateName(): void {
+    if (isEmpty(this.customName)) {
+      this.processName = this.generatedProcessName;
+    } else {
+      this.processName = this.customName;
+    }
+  }
+
+  get generatedProcessName() {
+    const paramsString = this.parameters?.map((p: ProcessParameter) => {
+      const value = this.parseValue(p.value);
+      return isEmpty(value) ? p.name : `${p.name} ${value}`;
+    }).join(' ') || '';
+    return isEmpty(paramsString) ? this.selectedScript.name : `${this.selectedScript.name} ${paramsString}`;
+  }
+
+  private parseValue(value: any) {
+    if (typeof value === 'boolean') {
+      return undefined;
+    }
+    if (value instanceof File) {
+      return value.name;
+    }
+    return value?.toString();
+  }
+
+  updateParameters($event: ProcessParameter[]) {
+    this.parameters = $event;
+    this.updateName();
   }
 }
 

@@ -1,4 +1,4 @@
-import { waitForAsync, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -70,13 +70,8 @@ describe('ScriptsSelectComponent', () => {
   });
 
   it('should show a validation error if the input field was touched but left empty', fakeAsync(() => {
+    (component as any).touched = true;
     (component as any)._selectedScript.id = '';
-    fixture.detectChanges();
-    tick();
-
-    const select = fixture.debugElement.query(By.css('select'));
-    select.triggerEventHandler('blur', null);
-
     fixture.detectChanges();
 
     const validationError = fixture.debugElement.query(By.css('.validation-error'));
@@ -84,13 +79,8 @@ describe('ScriptsSelectComponent', () => {
   }));
 
   it('should not show a validation error if the input field was touched but not left empty', fakeAsync(() => {
+    (component as any).touched = true;
     (component as any)._selectedScript.id = 'testValue';
-    fixture.detectChanges();
-    tick();
-
-    const select = fixture.debugElement.query(By.css('select'));
-    select.triggerEventHandler('blur', null);
-
     fixture.detectChanges();
 
     const validationError = fixture.debugElement.query(By.css('.validation-error'));

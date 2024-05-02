@@ -3394,6 +3394,8 @@
 
   "process.new.cancel": "Cancel",
 
+  "process.new.process-name": "Process name",
+
   "process.new.submit": "Save",
 
   "process.new.select-script": "Script",
@@ -3527,6 +3529,8 @@
   "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
 
   "process.overview.delete.header": "Delete processes",
+
+  "process.overview.unknown.user": "Unknown",
 
   "process.bulk.delete.error.head": "Error on deleteing process",
 

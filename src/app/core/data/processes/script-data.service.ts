@@ -43,13 +43,13 @@ export class ScriptDataService extends IdentifiableDataService<Script> implement
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
 
-  public invoke(scriptName: string, parameters: ProcessParameter[], files: File[]): Observable<RemoteData<Process>> {
+  public invoke(scriptName: string, parameters: ProcessParameter[], files: File[], processName?: string): Observable<RemoteData<Process>> {
     const requestId = this.requestService.generateRequestId();
     this.getBrowseEndpoint().pipe(
       take(1),
       map((endpoint: string) => new URLCombiner(endpoint, scriptName, 'processes').toString()),
       map((endpoint: string) => {
-        const body = this.getInvocationFormData(parameters, files);
+        const body = this.getInvocationFormData(parameters, files, processName);
         return new MultipartPostRequest(requestId, endpoint, body);
       })
     ).subscribe((request: RestRequest) => this.requestService.send(request));
@@ -57,12 +57,15 @@ export class ScriptDataService extends IdentifiableDataService<Script> implement
     return this.rdbService.buildFromRequestUUID<Process>(requestId);
   }
 
-  private getInvocationFormData(parameters: ProcessParameter[], files: File[]): FormData {
+  private getInvocationFormData(parameters: ProcessParameter[], files: File[], processName?: string): FormData {
     const form: FormData = new FormData();
     form.set('properties', JSON.stringify(parameters));
     files.forEach((file: File) => {
       form.append('file', file);
     });
+    if (hasValue(processName)) {
+      form.set('processName', processName);
+    }
     return form;
   }
 
