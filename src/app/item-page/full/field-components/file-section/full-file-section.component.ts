@@ -17,6 +17,8 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
 import { UUIDService } from '../../../../core/shared/uuid.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 
 /**
  * This component renders the file section of the item
@@ -56,6 +58,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     protected paginationService: PaginationService,
     public dsoNameService: DSONameService,
     protected uuidService: UUIDService,
+    public authorizationService: AuthorizationDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
     super(bitstreamDataService, notificationsService, translateService, dsoNameService, appConfig);
@@ -110,6 +113,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
 
   hasNoDownload(bitstream: Bitstream) {
     return bitstream?.allMetadataValues('bitstream.viewer.provider').includes('nodownload');
+  }
+
+  canDownload(file: Bitstream): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.CanDownload, file.self);
   }
 
   ngOnDestroy(): void {
