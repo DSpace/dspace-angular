@@ -251,7 +251,8 @@ export class DefaultAppConfig implements AppConfig {
           }
 
         ]
-      }
+      },
+      iconsVisibleWithNoAuthority: ['fas fa-user']
     },
     detectDuplicate: {
       // NOTE: list of additional item metadata to show for duplicate match presentation list
