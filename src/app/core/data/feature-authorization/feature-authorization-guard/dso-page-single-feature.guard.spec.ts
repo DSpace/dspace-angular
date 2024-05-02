@@ -8,6 +8,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { TestBed } from '@angular/core/testing';
 import { dsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
 import { FeatureID } from '../feature-id';
+import { defaultDSOGetObjectUrl, getRouteWithDSOId } from './dso-page-some-feature.guard';
 
 
 describe('DsoPageSingleFeatureGuard', () => {
@@ -15,7 +16,6 @@ describe('DsoPageSingleFeatureGuard', () => {
   let router: Router;
   let authService: AuthService;
   let resolver: ResolveFn<Observable<RemoteData<any>>>;
-  // let resolver: jasmine.SpyObj<() => Observable<RemoteData<DSpaceObject>>>;
   let object: DSpaceObject;
   let route;
   let parentRoute;
@@ -33,11 +33,7 @@ describe('DsoPageSingleFeatureGuard', () => {
     router = jasmine.createSpyObj('router', {
       parseUrl: {}
     });
-    resolver = jasmine.createSpyObj('resolver', {
-      resolve: createSuccessfulRemoteDataObject$(object)
-    });
-    // resolver = jasmine.createSpy('resolver') // Mocking the resolver function
-    //   .and.returnValue(observableOf({})); // Returning an observable directly
+    resolver = () => createSuccessfulRemoteDataObject$(object);
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true)
     });
@@ -67,7 +63,23 @@ describe('DsoPageSingleFeatureGuard', () => {
     init();
   });
 
-  describe('canActivate', () => {
+  describe('defaultDSOGetObjectUrl', () => {
+    it('should return the resolved object\'s selflink', (done) => {
+      defaultDSOGetObjectUrl(resolver)(route, undefined).subscribe((selflink) => {
+        expect(selflink).toEqual(object.self);
+        done();
+      });
+    });
+  });
+
+  describe('getRouteWithDSOId', () => {
+    it('should return the route that has the UUID of the DSO', () => {
+      const foundRoute = getRouteWithDSOId(route);
+      expect(foundRoute).toBe(parentRoute);
+    });
+  });
+
+  describe('dsoPageSingleFeatureGuard', () => {
     it('should call authorizationService.isAuthenticated with the appropriate arguments', (done) => {
       const result$ = TestBed.runInInjectionContext(() => {
         return dsoPageSingleFeatureGuard(
@@ -75,15 +87,10 @@ describe('DsoPageSingleFeatureGuard', () => {
         )(route, { url: 'current-url' } as any);
       }) as Observable<boolean | UrlTree>;
 
-      console.log('result$', result$);
-
       result$.subscribe(() => {
-        expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId);
+        expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId, object.self, undefined);
         done();
       });
-
-      // expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId);
-      // done();
     });
   });
 });
