@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -16,6 +16,7 @@ import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/crea
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CollectionFormComponent } from '../collection-form/collection-form.component';
+import { LoadingComponent } from '../../../themes/custom/app/shared/loading/loading.component';
 
 /**
  * Component that represents the page where a user can create a new Collection
@@ -29,6 +30,8 @@ import { CollectionFormComponent } from '../collection-form/collection-form.comp
     TranslateModule,
     AsyncPipe,
     ThemedLoadingComponent,
+    LoadingComponent,
+    NgIf,
   ],
   standalone: true,
 })

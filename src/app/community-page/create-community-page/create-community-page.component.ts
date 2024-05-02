@@ -19,6 +19,7 @@ import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.comp
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { CommunityFormComponent } from '../community-form/community-form.component';
+import { LoadingComponent } from '../../../themes/custom/app/shared/loading/loading.component';
 
 /**
  * Component that represents the page where a user can create a new Community
@@ -34,6 +35,7 @@ import { CommunityFormComponent } from '../community-form/community-form.compone
     NgIf,
     AsyncPipe,
     ThemedLoadingComponent,
+    LoadingComponent,
   ],
   standalone: true,
 })
