@@ -33,6 +33,7 @@ import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-
 import { SearchFilter } from '../../../shared/search/models/search-filter.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
 import { LinkService } from '../../cache/builders/link.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import {
@@ -556,6 +557,27 @@ export class SearchConfigurationService implements OnDestroy {
     );
   }
 
+  /**
+   * Calculates the {@link Params} of the search after removing a filter with a certain value
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  unselectAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsExceptValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value);
+  }
+
+  /**
+   * Calculates the {@link Params} of the search after removing a filter with a certain value
+   *
+   * @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
+   */
+  selectNewAppliedFilterParams(filterName: string, value: string, operator?: string): Observable<Params> {
+    return this.routeService.getParamsWithAdditionalValue(`f.${filterName}`, hasValue(operator) ? addOperatorToFilterValue(value, operator) : value);
+  }
 
   /**
    * @returns {Observable<Params>} Emits the current view mode as a partial SearchOptions object

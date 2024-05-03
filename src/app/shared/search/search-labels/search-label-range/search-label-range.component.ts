@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -23,21 +26,33 @@ import { AppliedFilter } from '../../models/applied-filter.model';
  * Component that represents the label containing the currently active filters
  */
 @Component({
-  selector: 'ds-search-label',
-  templateUrl: './search-label.component.html',
-  styleUrls: ['./search-label.component.scss'],
+  selector: 'ds-search-label-range',
+  templateUrl: './search-label-range.component.html',
+  styleUrls: ['./search-label-range.component.scss'],
   standalone: true,
-  imports: [RouterLink, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgIf,
+    RouterLink,
+    TranslateModule,
+  ],
 })
-export class SearchLabelComponent implements OnInit {
-  @Input() inPlaceSearch: boolean;
-  @Input() appliedFilter: AppliedFilter;
-  searchLink: string;
-  removeParameters$: Observable<Params>;
+export class SearchLabelRangeComponent implements OnInit {
 
-  /**
-   * Initialize the instance variable
-   */
+  @Input() inPlaceSearch: boolean;
+
+  @Input() appliedFilter: AppliedFilter;
+
+  searchLink: string;
+
+  removeParametersMin$: Observable<Params>;
+
+  removeParametersMax$: Observable<Params>;
+
+  min: string;
+
+  max: string;
+
   constructor(
     protected paginationService: PaginationService,
     protected router: Router,
@@ -48,15 +63,22 @@ export class SearchLabelComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchLink = this.getSearchLink();
-    this.removeParameters$ = this.updateRemoveParams();
+    this.min = this.appliedFilter.value.substring(1, this.appliedFilter.value.indexOf('TO') - 1);
+    this.max = this.appliedFilter.value.substring(this.appliedFilter.value.indexOf('TO') + 3, this.appliedFilter.value.length - 1);
+    this.removeParametersMin$ = this.updateRemoveParams(`${this.appliedFilter.filter}.min`, this.min);
+    this.removeParametersMax$ = this.updateRemoveParams(`${this.appliedFilter.filter}.max`, this.max);
   }
 
   /**
    * Calculates the parameters that should change if this {@link appliedFilter} would be removed from the active filters
+   *
+   *  @param filterName The {@link AppliedFilter}'s name
+   * @param value The {@link AppliedFilter}'s value
+   * @param operator The {@link AppliedFilter}'s optional operator
    */
-  updateRemoveParams(): Observable<Params> {
+  updateRemoveParams(filterName: string, value: string, operator?: string): Observable<Params> {
     const page: string = this.paginationService.getPageParam(this.searchConfigurationService.paginationID);
-    return this.searchConfigurationService.unselectAppliedFilterParams(this.appliedFilter.filter, this.appliedFilter.value, this.appliedFilter.operator).pipe(
+    return this.searchConfigurationService.unselectAppliedFilterParams(filterName, value, operator).pipe(
       map((params: Params) => ({
         ...params,
         [page]: 1,

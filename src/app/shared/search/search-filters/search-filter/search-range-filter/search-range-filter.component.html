@@ -38,7 +38,7 @@
                         [(ngModel)]="range" ngDefaultControl>
             </nouislider>
         </ng-container>
-      <ng-container *ngFor="let page of (filterValues$ | async)?.payload">
+      <ng-container *ngFor="let page of (facetValues$ | async)">
         <div [@facetLoad]="animationState">
           <ds-search-facet-range-option *ngFor="let value of page.page; trackBy: trackUpdate" [filterConfig]="filterConfig" [filterValue]="value" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-range-option>
           </div>

@@ -249,4 +249,56 @@ export class RouteService {
         },
       );
   }
+
+  /**
+   * Returns all the query parameters except for the one with the given name & value.
+   *
+   * @param name The name of the query param to exclude
+   * @param value The optional value that the query param needs to have to be excluded
+   */
+  getParamsExceptValue(name: string, value?: string): Observable<Params> {
+    return this.route.queryParams.pipe(
+      map((params: Params) => {
+        const newParams: Params = Object.assign({}, params);
+        const queryParamValues: string | string[] = newParams[name];
+
+        if (queryParamValues === value || value === undefined) {
+          delete newParams[name];
+        } else if (Array.isArray(queryParamValues) && queryParamValues.includes(value)) {
+          newParams[name] = (queryParamValues as string[]).filter((paramValue: string) => paramValue !== value);
+          if (newParams[name].length === 0) {
+            delete newParams[name];
+          }
+        }
+        return newParams;
+      }),
+    );
+  }
+
+  /**
+   * Returns all the existing query parameters and the new value pair with the given name & value.
+   *
+   * @param name The name of the query param for which you need to add the value
+   * @param value The optional value that the query param needs to have in addition to the current ones
+   */
+  getParamsWithAdditionalValue(name: string, value: string): Observable<Params> {
+    return this.route.queryParams.pipe(
+      map((params: Params) => {
+        const newParams: Params = Object.assign({}, params);
+        const queryParamValues: string | string[] = newParams[name];
+
+        if (queryParamValues === undefined) {
+          newParams[name] = value;
+        } else {
+          if (Array.isArray(queryParamValues)) {
+            newParams[name] = [...queryParamValues, value];
+          } else {
+            newParams[name] = [queryParamValues, value];
+          }
+        }
+        return newParams;
+      }),
+    );
+  }
+
 }

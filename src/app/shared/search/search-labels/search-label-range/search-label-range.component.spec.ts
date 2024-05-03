@@ -1,16 +1,11 @@
-import { ChangeDetectionStrategy } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   Params,
-  Router,
-  RouterLink,
   RouterModule,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,14 +20,13 @@ import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
-import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { addOperatorToFilterValue } from '../../search.utils';
-import { SearchLabelComponent } from './search-label.component';
+import { SearchLabelRangeComponent } from './search-label-range.component';
 
-describe('SearchLabelComponent', () => {
-  let comp: SearchLabelComponent;
-  let fixture: ComponentFixture<SearchLabelComponent>;
+describe('SearchLabelRangeComponent', () => {
+  let comp: SearchLabelRangeComponent;
+  let fixture: ComponentFixture<SearchLabelRangeComponent>;
 
   let route: ActivatedRouteStub;
   let searchConfigurationService: SearchConfigurationServiceStub;
@@ -52,7 +46,7 @@ describe('SearchLabelComponent', () => {
     });
     initialRouteParams = {
       'query': '',
-      'spc.page': '1',
+      'page-id.page': '5',
       'f.author': addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator),
       'f.has_content_in_original_bundle': addOperatorToFilterValue('true', 'equals'),
     };
@@ -72,9 +66,6 @@ describe('SearchLabelComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
-        NoopAnimationsModule,
-        FormsModule,
-        ObjectKeysPipe,
         TranslateModule.forRoot(),
       ],
       providers: [
@@ -82,19 +73,12 @@ describe('SearchLabelComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: ActivatedRoute, useValue: route },
-        { provide: Router, useValue: {} },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-    }).overrideComponent(SearchLabelComponent, {
-      remove: {
-        imports: [RouterLink],
-      },
-      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchLabelComponent);
+    fixture = TestBed.createComponent(SearchLabelRangeComponent);
     comp = fixture.componentInstance;
     comp.appliedFilter = appliedFilter;
     fixture.detectChanges();
@@ -104,7 +88,7 @@ describe('SearchLabelComponent', () => {
     it('should always reset the page to 1', (done: DoneFn) => {
       spyOn(searchConfigurationService, 'unselectAppliedFilterParams').and.returnValue(observableOf(initialRouteParams));
 
-      comp.updateRemoveParams().pipe(take(1)).subscribe((params: Params) => {
+      comp.updateRemoveParams('f.dateIssued.max', '2000').pipe(take(1)).subscribe((params: Params) => {
         expect(params).toEqual(Object.assign({}, initialRouteParams, {
           'page-id.page': 1,
         }));

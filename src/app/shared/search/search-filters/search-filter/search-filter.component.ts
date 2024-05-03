@@ -6,23 +6,23 @@ import {
 } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Inject,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  Observable,
-  of as observableOf,
-} from 'rxjs';
-import {
   filter,
   map,
+  Observable,
+  of as observableOf,
   startWith,
   switchMap,
-  take,
-} from 'rxjs/operators';
+} from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
@@ -35,6 +35,7 @@ import {
   isNotEmpty,
 } from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
+import { AppliedFilter } from '../../models/applied-filter.model';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 
@@ -70,6 +71,11 @@ export class SearchFilterComponent implements OnInit {
    * The current scope
    */
   @Input() scope: string;
+
+  /**
+   * Emits the {@link AppliedFilter}s of this search filter
+   */
+  @Output() changeAppliedFilters: EventEmitter<AppliedFilter[]> = new EventEmitter();
 
   /**
    * True when the filter is 100% collapsed in the UI

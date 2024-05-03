@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import {
+  CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
   EventEmitter,
-  NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -31,6 +31,7 @@ import { RequestEntryState } from '../../../../../core/data/request-entry-state.
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
+  CHANGE_APPLIED_FILTERS,
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
@@ -42,7 +43,6 @@ import { VocabularyService } from '../../../../../core/submission/vocabularies/v
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { FacetValue } from '../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
@@ -64,10 +64,14 @@ describe('SearchHierarchyFilterComponent', () => {
   const searchFilterService = {
     getPage: () => observableOf(0),
   };
-  const router = new RouterStub();
-  const ngbModal = jasmine.createSpyObj('modal', {
+  let searchConfigService: SearchConfigurationServiceStub;
+  let router: RouterStub;
+  const modalService = jasmine.createSpyObj('modal', {
     open: {
       componentInstance: VocabularyTreeViewComponent,
+      result: Promise.resolve(Object.assign(new VocabularyEntryDetail(), {
+        value: 'new-selected-value',
+      })),
     },
   });
   const vocabularyService = {
@@ -75,6 +79,9 @@ describe('SearchHierarchyFilterComponent', () => {
   };
 
   beforeEach(() => {
+    searchConfigService = new SearchConfigurationServiceStub();
+    router = new RouterStub();
+
     return TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -87,16 +94,17 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: SearchFilterService, useValue: searchFilterService },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: Router, useValue: router },
-        { provide: NgbModal, useValue: ngbModal },
+        { provide: NgbModal, useValue: modalService },
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         { provide: SCOPE, useValue: undefined },
+        { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 
@@ -134,39 +142,31 @@ describe('SearchHierarchyFilterComponent', () => {
     });
 
     describe('when clicking the vocabulary tree link', () => {
-
-      const alreadySelectedValues = [
-        'already-selected-value-1',
-        'already-selected-value-2',
-      ];
-      const newSelectedValue = 'new-selected-value';
-
       beforeEach(async () => {
-        fixture.componentInstance.selectedValues$ = observableOf(
-          alreadySelectedValues.map(value => Object.assign(new FacetValue(), { value })),
-        );
-        showVocabularyTreeLink.nativeElement.click();
-        VocabularyTreeViewComponent.select.emit(Object.assign(new VocabularyEntryDetail(), {
-          value: newSelectedValue,
+        spyOn(searchConfigService, 'selectNewAppliedFilterParams').and.returnValue(observableOf({
+          'f.subject': [
+            'definedBy_selectNewAppliedFilterParams',
+          ],
         }));
+        showVocabularyTreeLink.nativeElement.click();
       });
 
       it('should open the vocabulary tree modal', () => {
-        expect(ngbModal.open).toHaveBeenCalled();
+        expect(modalService.open).toHaveBeenCalled();
       });
 
       describe('when selecting a value from the vocabulary tree', () => {
 
         it('should add a new search filter to the existing search filters', fakeAsync(() => {
+          expect(modalService.open).toHaveBeenCalled();
           tick();
+          expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalled();
           expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
             queryParams: {
               [`f.${testSearchFilter}`]: [
-                ...alreadySelectedValues,
-                newSelectedValue,
-              ].map((value => `${value},equals`)),
+                'definedBy_selectNewAppliedFilterParams',
+              ],
             },
-            queryParamsHandling: 'merge',
           });
         }));
       });

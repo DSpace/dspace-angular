@@ -1,4 +1,5 @@
 import {
+  EventEmitter,
   Injectable,
   InjectionToken,
 } from '@angular/core';
@@ -24,6 +25,7 @@ import {
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
 import {
   SearchFilterCollapseAction,
@@ -50,6 +52,7 @@ export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionTo
 export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
 export const REFRESH_FILTER: InjectionToken<BehaviorSubject<any>> = new InjectionToken<boolean>('refreshFilters');
 export const SCOPE: InjectionToken<string> = new InjectionToken<string>('scope');
+export const CHANGE_APPLIED_FILTERS: InjectionToken<EventEmitter<AppliedFilter[]>> = new InjectionToken('changeAppliedFilters');
 
 /**
  * Service that performs all actions that have to do with search filters and facets
@@ -84,7 +87,7 @@ export class SearchFilterService {
    * Fetch the current active scope from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentScope() {
+  getCurrentScope(): Observable<string> {
     return this.routeService.getQueryParameterValue('scope');
   }
 
@@ -92,7 +95,7 @@ export class SearchFilterService {
    * Fetch the current query from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentQuery() {
+  getCurrentQuery(): Observable<string> {
     return this.routeService.getQueryParameterValue('query');
   }
 
@@ -134,7 +137,7 @@ export class SearchFilterService {
    * Fetch the current active filters from the query parameters
    * @returns {Observable<Params>}
    */
-  getCurrentFilters() {
+  getCurrentFilters(): Observable<Params> {
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
@@ -142,7 +145,7 @@ export class SearchFilterService {
    * Fetch the current view from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentView() {
+  getCurrentView(): Observable<string> {
     return this.routeService.getQueryParameterValue('view');
   }
 

@@ -5,10 +5,12 @@ import {
 } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Inject,
   Input,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import {
   Router,
@@ -28,11 +30,11 @@ import {
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../empty.util';
 import { currentPath } from '../../utils/route.utils';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
+import { AppliedFilter } from '../models/applied-filter.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
@@ -81,6 +83,13 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
+   * Emits the {@link AppliedFilter}s by search filter name
+   */
+  @Output() changeAppliedFilters: EventEmitter<Map<string, AppliedFilter[]>> = new EventEmitter();
+
+  appliedFilters: Map<string, AppliedFilter[]> = new Map();
+
+  /**
    * Link to the search page
    */
   searchLink: string;
@@ -98,7 +107,6 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private searchService: SearchService,
-    private filterService: SearchFilterService,
     private router: Router,
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
   }
@@ -129,6 +137,17 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    */
   trackUpdate(index, config: SearchFilterConfig) {
     return config ? config.name : undefined;
+  }
+
+  /**
+   * Updates the map of {@link AppliedFilter}s and emits it to it's parent component
+   *
+   * @param filterName
+   * @param appliedFilters
+   */
+  updateAppliedFilters(filterName: string, appliedFilters: AppliedFilter[]): void {
+    this.appliedFilters.set(filterName, appliedFilters);
+    this.changeAppliedFilters.emit(this.appliedFilters);
   }
 
   ngOnDestroy() {
