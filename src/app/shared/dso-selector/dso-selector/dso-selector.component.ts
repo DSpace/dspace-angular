@@ -190,7 +190,7 @@ export class DSOSelectorComponent implements OnInit, OnDestroy {
    * The search will always start with the initial currentDSOId value
    */
   ngOnInit(): void {
-    this.typesString = this.types.map((type: string) => type.toString().toLowerCase()).join(', ');
+    this.typesString = this.types.map((type: string) => this.translate.instant(`dso-selector.placeholder.type.${type.toString().toLowerCase()}`)).join(', ');
 
     // Create an observable searching for the current DSO (return empty list if there's no current DSO)
     let currentDSOResult$: Observable<PaginatedList<SearchResult<DSpaceObject>>>;

@@ -1726,6 +1726,12 @@
 
   "dso-selector.placeholder": "Search for a {{ type }}",
 
+  "dso-selector.placeholder.type.community": "community",
+
+  "dso-selector.placeholder.type.collection": "collection",
+
+  "dso-selector.placeholder.type.item": "item",
+
   "dso-selector.select.collection.head": "Select a collection",
 
   "dso-selector.set-scope.community.head": "Select a search scope",
