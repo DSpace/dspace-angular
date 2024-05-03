@@ -6657,4 +6657,8 @@
   "search.filters.filter.notifyEndorsement.placeholder": "Notify Endorsement",
 
   "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
+
+  "item.page.cc.license.title": "Creative Commons license",
+
+  "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
 }
