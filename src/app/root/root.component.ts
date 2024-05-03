@@ -144,7 +144,7 @@ export class RootComponent implements OnInit {
   }
 
   getBrowserName(): string {
-    const userAgent = this._window.nativeWindow.navigator.userAgent;
+    const userAgent = this._window.nativeWindow.navigator?.userAgent;
     if (/Firefox/.test(userAgent)) {
       return 'firefox';
     }
@@ -155,7 +155,7 @@ export class RootComponent implements OnInit {
   }
 
   getOSName(): string {
-    const userAgent = this._window.nativeWindow.navigator.userAgent;
+    const userAgent = this._window.nativeWindow.navigator?.userAgent;
     if (/Windows/.test(userAgent)) {
       return 'windows';
     }
