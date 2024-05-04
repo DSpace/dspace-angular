@@ -93,7 +93,7 @@ export class SearchSidebarComponent {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch: boolean;
+  @Input() inPlaceSearch = true;
 
   /**
    * The configuration for the current paginated search results
