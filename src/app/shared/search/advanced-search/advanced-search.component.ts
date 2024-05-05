@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { map, Observable, of as observableOf, Subscription } from 'rxjs';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { FilterConfig, SearchConfig } from '../../../core/shared/search/search-filters/search-config.model';
+import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { Router, Params } from '@angular/router';
@@ -11,6 +11,9 @@ import { hasValue, isNotEmpty } from '../../empty.util';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { FilterType } from '../models/filter-type.model';
 
+/**
+ * This component represents the advanced search in the search sidebar.
+ */
 @Component({
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
@@ -18,9 +21,20 @@ import { FilterType } from '../models/filter-type.model';
 })
 export class AdvancedSearchComponent implements OnInit, OnDestroy {
 
+  /**
+   * The current search configuration
+   */
   @Input() configuration: string;
 
+  /**
+   * The facet configurations, used to determine if suggestions should be retrieved for the selected search filter
+   */
   @Input() filtersConfig: SearchFilterConfig[];
+
+  /**
+   * The current search scope
+   */
+  @Input() scope: string;
 
   advancedFilters$: Observable<FilterConfig[]>;
 
@@ -51,9 +65,7 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.advancedFilters$ = this.searchConfigurationService.getConfigurationSearchConfig(this.configuration).pipe(
-      map((searchConfiguration: SearchConfig) => searchConfiguration.filters.filter((filter: FilterConfig) => filter.type !== FilterType.range)),
-    );
+    this.advancedFilters$ = this.searchConfigurationService.getConfigurationAdvancedSearchFilters(this.configuration, this.scope);
     this.subs.push(this.advancedFilters$.subscribe((filters: FilterConfig[]) => {
       const filterMap: Map<string, FilterConfig> = new Map();
       if (filters.length > 0) {

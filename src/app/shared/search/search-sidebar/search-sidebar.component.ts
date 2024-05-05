@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -7,6 +8,8 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
 
 /**
  * This component renders a simple item page.
@@ -23,7 +26,7 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
 /**
  * Component representing the sidebar on the search page
  */
-export class SearchSidebarComponent {
+export class SearchSidebarComponent implements OnInit {
 
   /**
    * The configuration to use for the search options
@@ -99,5 +102,18 @@ export class SearchSidebarComponent {
    * Emits event when the user select a new view mode
    */
   @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter<ViewMode>();
+
+  showAdvancedSearch$: Observable<boolean>;
+
+  constructor(
+    protected searchConfigurationService: SearchConfigurationService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.showAdvancedSearch$ = this.searchConfigurationService.getConfigurationAdvancedSearchFilters(this.configuration, this.currentScope).pipe(
+      map((advancedFilters: FilterConfig[]) => advancedFilters.length > 0),
+    );
+  }
 
 }

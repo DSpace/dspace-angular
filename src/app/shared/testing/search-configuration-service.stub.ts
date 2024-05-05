@@ -1,7 +1,13 @@
 import { BehaviorSubject, of as observableOf, Observable } from 'rxjs';
 import { Params } from '@angular/router';
-import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
+import {
+  FilterConfig,
+  SearchConfig,
+} from '../../core/shared/search/search-filters/search-config.model';
 
+/**
+ * Stub class of {@link SearchConfigurationService}
+ */
 export class SearchConfigurationServiceStub {
 
   public paginationID = 'test-id';
@@ -23,6 +29,10 @@ export class SearchConfigurationServiceStub {
 
   getCurrentConfiguration(a) {
     return observableOf(a);
+  }
+
+  getConfigurationAdvancedSearchFilters(_configuration: string, _scope?: string): Observable<FilterConfig[]> {
+    return observableOf([]);
   }
 
   getConfig () {
