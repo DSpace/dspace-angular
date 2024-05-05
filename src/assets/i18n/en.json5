@@ -3912,6 +3912,10 @@
 
   "search.sidebar.advanced-search.filter-by": "Filter by",
 
+  "search.sidebar.advanced-search.filters": "Filters",
+
+  "search.sidebar.advanced-search.operators": "Operators",
+
   "search.sidebar.advanced-search.add": "Add",
 
   "search.sidebar.settings.title": "Settings",
