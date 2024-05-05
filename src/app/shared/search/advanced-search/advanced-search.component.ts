@@ -17,7 +17,6 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  map,
   Observable,
   of as observableOf,
   Subscription,
@@ -31,10 +30,7 @@ import {
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import {
-  FilterConfig,
-  SearchConfig,
-} from '../../../core/shared/search/search-filters/search-config.model';
+import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
 import {
   hasValue,
   isNotEmpty,
@@ -44,6 +40,9 @@ import { InputSuggestion } from '../../input-suggestions/input-suggestions.model
 import { FilterType } from '../models/filter-type.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 
+/**
+ * This component represents the advanced search in the search sidebar.
+ */
 @Component({
   selector: 'ds-advanced-search',
   templateUrl: './advanced-search.component.html',
@@ -60,9 +59,20 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
 })
 export class AdvancedSearchComponent implements OnInit, OnDestroy {
 
+  /**
+   * The current search configuration
+   */
   @Input() configuration: string;
 
+  /**
+   * The facet configurations, used to determine if suggestions should be retrieved for the selected search filter
+   */
   @Input() filtersConfig: SearchFilterConfig[];
+
+  /**
+   * The current search scope
+   */
+  @Input() scope: string;
 
   advancedFilters$: Observable<FilterConfig[]>;
 
@@ -94,13 +104,7 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.advancedFilters$ = this.searchConfigurationService.getConfigurationSearchConfig(this.configuration).pipe(
-      map((searchConfiguration: SearchConfig) => {
-        return searchConfiguration.filters
-          .filter((filter: FilterConfig) => this.appConfig.search.advancedFilters.filter.includes(filter.filter))
-          .filter((filter: FilterConfig) => filter.type !== FilterType.range);
-      }),
-    );
+    this.advancedFilters$ = this.searchConfigurationService.getConfigurationAdvancedSearchFilters(this.configuration, this.scope);
     this.subs.push(this.advancedFilters$.subscribe((filters: FilterConfig[]) => {
       const filterMap: Map<string, FilterConfig> = new Map();
       if (filters.length > 0) {

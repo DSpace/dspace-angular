@@ -56,6 +56,11 @@ import {
   getFirstSucceededRemoteData,
 } from '../operators';
 import { ViewMode } from '../view-mode.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
+import { FilterConfig } from './search-filters/search-config.model';
+import { FilterType } from '../../../shared/search/models/filter-type.model';
 import {
   SearchConfig,
   SortConfig,
@@ -280,6 +285,21 @@ export class SearchConfigurationService implements OnDestroy {
       field: entry.name,
       direction: entry.sortOrder.toLowerCase() === SortDirection.ASC.toLowerCase() ? SortDirection.ASC : SortDirection.DESC,
     }));
+  }
+
+  /**
+   * Return the {@link FilterConfig}s of the filters that should be displayed for the current configuration/scope
+   *
+   * @param configuration The search configuration
+   * @param scope The scope if exists
+   */
+  public getConfigurationAdvancedSearchFilters(configuration: string, scope?: string): Observable<FilterConfig[]> {
+    return this.getConfigurationSearchConfig(configuration, scope).pipe(
+      map((searchConfiguration: SearchConfig) => {
+        return searchConfiguration.filters
+          .filter((filterConfig: FilterConfig) => filterConfig.type !== FilterType.range);
+      }),
+    );
   }
 
   setPaginationId(paginationId): void {
