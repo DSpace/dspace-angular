@@ -7,6 +7,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { environment } from '../../../../environments/environment.test';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -88,7 +89,7 @@ describe('SearchConfigurationService', () => {
       pageSize: 20,
     }));
 
-    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb);
+    service = new SearchConfigurationService(routeService, paginationService as any, activatedRoute as any, linkService, halService, requestService, rdb, environment);
   });
 
   describe('when the scope is called', () => {

@@ -8,10 +8,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import {
-  Router,
-  RouterLink,
-} from '@angular/router';
+import { RouterLink } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
@@ -74,7 +71,6 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   });
 
   constructor(private notificationsService: NotificationsService,
-              private router: Router,
               private translateService: TranslateService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private paginationService: PaginationService,

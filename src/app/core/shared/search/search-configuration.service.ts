@@ -1,4 +1,5 @@
 import {
+  Inject,
   Injectable,
   OnDestroy,
 } from '@angular/core';
@@ -21,6 +22,10 @@ import {
 } from 'rxjs/operators';
 
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -29,6 +34,7 @@ import {
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
+import { FilterType } from '../../../shared/search/models/filter-type.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../../../shared/search/models/search-filter.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
@@ -56,12 +62,8 @@ import {
   getFirstSucceededRemoteData,
 } from '../operators';
 import { ViewMode } from '../view-mode.model';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { FacetConfigResponse } from '../../../shared/search/models/facet-config-response.model';
-import { addOperatorToFilterValue } from '../../../shared/search/search.utils';
-import { FilterConfig } from './search-filters/search-config.model';
-import { FilterType } from '../../../shared/search/models/filter-type.model';
 import {
+  FilterConfig,
   SearchConfig,
   SortConfig,
 } from './search-filters/search-config.model';
@@ -126,24 +128,15 @@ export class SearchConfigurationService implements OnDestroy {
    */
   protected subs: Map<string, Subscription[]> = new Map<string, Subscription[]>(null);
 
-  /**
-   * Initialize the search options
-   * @param {RouteService} routeService
-   * @param {PaginationService} paginationService
-   * @param {ActivatedRoute} route
-   * @param linkService
-   * @param halService
-   * @param requestService
-   * @param rdb
-   */
   constructor(protected routeService: RouteService,
               protected paginationService: PaginationService,
               protected route: ActivatedRoute,
               protected linkService: LinkService,
               protected halService: HALEndpointService,
               protected requestService: RequestService,
-              protected rdb: RemoteDataBuildService) {
-
+              protected rdb: RemoteDataBuildService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
     this.initDefaults();
   }
 
@@ -297,6 +290,7 @@ export class SearchConfigurationService implements OnDestroy {
     return this.getConfigurationSearchConfig(configuration, scope).pipe(
       map((searchConfiguration: SearchConfig) => {
         return searchConfiguration.filters
+          .filter((filterConfig: FilterConfig) => this.appConfig.search.advancedFilters.filter.includes(filterConfig.filter))
           .filter((filterConfig: FilterConfig) => filterConfig.type !== FilterType.range);
       }),
     );
