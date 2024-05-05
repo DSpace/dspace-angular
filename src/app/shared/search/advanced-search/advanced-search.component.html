@@ -1,14 +1,21 @@
 <h3>{{ 'search.sidebar.advanced-search.title' | translate }}</h3>
 <div class="advanced-search b-3 p-3">
-  <h5>{{ 'search.sidebar.advanced-search.filter-by' | translate }}</h5>
+  <h4>{{ 'search.sidebar.advanced-search.filter-by' | translate }}</h4>
+  <label class="sr-only" for="advanced-search-filters">
+    {{ 'search.sidebar.advanced-search.filters' | translate }}
+  </label>
   <select [(ngModel)]="currentFilter" (keyup.enter)="applyFilter()"
           (ngModelChange)="currentOperator = advancedFilterMap.get(currentFilter).operators[0].operator"
-          class="form-control mb-2">
+          class="form-control mb-2" id="advanced-search-filters">
     <option *ngFor="let advancedFilter of (advancedFilters$ | async) | keyvalue" [value]="advancedFilter.value.filter">
       {{ 'search.filters.filter.' + advancedFilter.value.filter + '.head' | translate }}
     </option>
   </select>
-  <select [(ngModel)]="currentOperator" (keyup.enter)="applyFilter()" class="form-control mb-2">
+  <label class="sr-only" for="advanced-search-operators">
+    {{ 'search.sidebar.advanced-search.operators' | translate }}
+  </label>
+  <select [(ngModel)]="currentOperator" (keyup.enter)="applyFilter()"
+          class="form-control mb-2" id="advanced-search-operators">
     <option *ngFor="let operator of advancedFilterMap.get(currentFilter)?.operators" [value]="operator.operator">
       {{ 'search.filters.operator.' + operator.operator + '.text' | translate }}
     </option>
