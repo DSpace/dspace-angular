@@ -1,13 +1,17 @@
 import { first } from 'rxjs/operators';
-import { BrowseByGuard } from './browse-by-guard';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
-import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
-import { RouterStub } from '../shared/testing/router.stub';
 
-describe('BrowseByGuard', () => {
+import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
+import { RouterStub } from '../shared/testing/router.stub';
+import { browseByGuard } from './browse-by-guard';
+import { BrowseByDataType } from './browse-by-switcher/browse-by-data-type';
+
+describe('browseByGuard', () => {
   describe('canActivate', () => {
-    let guard: BrowseByGuard;
+    let guard: any;
     let translateService: any;
     let browseDefinitionService: any;
     let router: any;
@@ -22,16 +26,16 @@ describe('BrowseByGuard', () => {
 
     beforeEach(() => {
       translateService = {
-        instant: () => field
+        instant: () => field,
       };
 
       browseDefinitionService = {
-        findById: () => createSuccessfulRemoteDataObject$(browseDefinition)
+        findById: () => createSuccessfulRemoteDataObject$(browseDefinition),
       };
 
       router = new RouterStub() as any;
 
-      guard = new BrowseByGuard(translateService, browseDefinitionService, router);
+      guard = browseByGuard;
     });
 
     it('should return true, and sets up the data correctly, with a scope and value', () => {
@@ -46,10 +50,10 @@ describe('BrowseByGuard', () => {
         },
         queryParams: {
           scope,
-          value
-        }
+          value,
+        },
       };
-      guard.canActivate(scopedRoute as any, undefined)
+      guard(scopedRoute as any, undefined, browseDefinitionService, router, translateService)
         .pipe(first())
         .subscribe(
           (canActivate) => {
@@ -59,12 +63,12 @@ describe('BrowseByGuard', () => {
               browseDefinition,
               scope,
               field,
-              value: '"' + value + '"'
+              value: '"' + value + '"',
             };
             expect(scopedRoute.data).toEqual(result);
             expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
-          }
+          },
         );
     });
 
@@ -78,11 +82,11 @@ describe('BrowseByGuard', () => {
           id,
         },
         queryParams: {
-          scope
-        }
+          scope,
+        },
       };
 
-      guard.canActivate(scopedNoValueRoute as any, undefined)
+      guard(scopedNoValueRoute, undefined, browseDefinitionService, router, translateService)
         .pipe(first())
         .subscribe(
           (canActivate) => {
@@ -92,12 +96,12 @@ describe('BrowseByGuard', () => {
               browseDefinition,
               scope,
               field,
-              value: ''
+              value: '',
             };
             expect(scopedNoValueRoute.data).toEqual(result);
             expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
-          }
+          },
         );
     });
 
@@ -119,7 +123,7 @@ describe('BrowseByGuard', () => {
         },
       };
 
-      guard.canActivate(scopedNoValueRoute as any, undefined).pipe(
+      guard(scopedNoValueRoute as any, undefined, browseDefinitionService, router, translateService).pipe(
         first(),
       ).subscribe((canActivate) => {
         const result = {
@@ -147,10 +151,11 @@ describe('BrowseByGuard', () => {
           id,
         },
         queryParams: {
-          value
-        }
+          value,
+        },
       };
-      guard.canActivate(route as any, undefined)
+
+      guard(route as any, undefined, browseDefinitionService, router, translateService)
         .pipe(first())
         .subscribe(
           (canActivate) => {
@@ -160,12 +165,12 @@ describe('BrowseByGuard', () => {
               browseDefinition,
               scope: undefined,
               field,
-              value: '"' + value + '"'
+              value: '"' + value + '"',
             };
             expect(route.data).toEqual(result);
             expect(router.navigate).not.toHaveBeenCalled();
             expect(canActivate).toEqual(true);
-          }
+          },
         );
     });
 
@@ -182,10 +187,11 @@ describe('BrowseByGuard', () => {
         },
         queryParams: {
           scope,
-          value
-        }
+          value,
+        },
       };
-      guard.canActivate(scopedRoute as any, undefined)
+
+      guard(scopedRoute as any, undefined, browseDefinitionService, router, translateService)
         .pipe(first())
         .subscribe((canActivate) => {
           expect(router.navigate).toHaveBeenCalled();

@@ -1,34 +1,58 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+} from 'rxjs';
+import {
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { map, Observable } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import {
-  SupervisionOrderGroupSelectorComponent
-} from './supervision-order-group-selector/supervision-order-group-selector.component';
-import {
- getWorkspaceItemDeleteRoute
-} from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderListEntry } from './supervision-order-status/supervision-order-status.component';
+import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
+import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../../../shared/empty.util';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator';
+import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
+import {
+  SupervisionOrderListEntry,
+  SupervisionOrderStatusComponent,
+} from './supervision-order-status/supervision-order-status.component';
 
 @Component({
   selector: 'ds-workspace-item-admin-workflow-actions-element',
   styleUrls: ['./workspace-item-admin-workflow-actions.component.scss'],
-  templateUrl: './workspace-item-admin-workflow-actions.component.html'
+  templateUrl: './workspace-item-admin-workflow-actions.component.html',
+  standalone: true,
+  imports: [SupervisionOrderStatusComponent, NgClass, RouterLink, NgIf, TranslateModule],
 })
 /**
  * The component for displaying the actions for a list element for a workspace-item on the admin workflow search page
@@ -94,7 +118,7 @@ export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
     );
 
     item$.pipe(
-      map((item: Item) => this.getPoliciesRoute(item))
+      map((item: Item) => this.getPoliciesRoute(item)),
     ).subscribe((route: string[]) => {
       this.resourcePoliciesPageRoute = route;
     });
@@ -143,22 +167,22 @@ export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
                   null,
                   this.translateService.get(
                     this.messagePrefix + '.notification.deleted.success',
-                    { name: this.dsoNameService.getName(supervisionOrderEntry.group) }
-                  )
+                    { name: this.dsoNameService.getName(supervisionOrderEntry.group) },
+                  ),
                 );
               } else {
                 this.notificationsService.error(
                   null,
                   this.translateService.get(
                     this.messagePrefix + '.notification.deleted.failure',
-                    { name: this.dsoNameService.getName(supervisionOrderEntry.group) }
-                  )
+                    { name: this.dsoNameService.getName(supervisionOrderEntry.group) },
+                  ),
                 );
               }
-            })
+            }),
           );
         }
-      })
+      }),
     ).subscribe((result: boolean) => {
       if (result) {
         this.delete.emit(this.convertReloadedObject());
@@ -172,7 +196,7 @@ export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
   openSupervisionModal() {
     const supervisionModal: NgbModalRef = this.modalService.open(SupervisionOrderGroupSelectorComponent, {
       size: 'lg',
-      backdrop: 'static'
+      backdrop: 'static',
     });
     supervisionModal.componentInstance.itemUUID = this.item.uuid;
     supervisionModal.componentInstance.create.subscribe(() => {
@@ -186,7 +210,7 @@ export class WorkspaceItemAdminWorkflowActionsComponent implements OnInit {
   private convertReloadedObject(): DSpaceObject {
     const constructor = getSearchResultFor((this.wsi as any).constructor);
     return Object.assign(new constructor(), this.wsi, {
-      indexableObject: this.wsi
+      indexableObject: this.wsi,
     });
   }
 }

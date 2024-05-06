@@ -1,6 +1,9 @@
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { Params } from '@angular/router';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 export class SearchConfigurationServiceStub {
 
@@ -30,18 +33,15 @@ export class SearchConfigurationServiceStub {
   }
 
   getAvailableConfigurationOptions() {
-    return observableOf([{value: 'test', label: 'test'}]);
+    return observableOf([{ value: 'test', label: 'test' }]);
   }
 
-  getConfigurationSearchConfigObservable() {
-    return observableOf(new SearchConfig());
+  unselectAppliedFilterParams(_filterName: string, _value: string, _operator?: string): Observable<Params> {
+    return observableOf({});
   }
 
-  getConfigurationSortOptionsObservable() {
-    return observableOf([new SortOptions('score', SortDirection.ASC), new SortOptions('score', SortDirection.DESC)]);
+  selectNewAppliedFilterParams(_filterName: string, _value: string, _operator?: string): Observable<Params> {
+    return observableOf({});
   }
 
-  initializeSortOptionsFromConfiguration() {
-   /* empty */
-  }
 }

@@ -1,49 +1,81 @@
 import { Injectable } from '@angular/core';
-import { createSelector, select, Store } from '@ngrx/store';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { find, map, take } from 'rxjs/operators';
+import {
+  find,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { getEPersonEditRoute } from '../../access-control/access-control-routing-paths';
 import {
   EPeopleRegistryCancelEPersonAction,
-  EPeopleRegistryEditEPersonAction
+  EPeopleRegistryEditEPersonAction,
 } from '../../access-control/epeople-registry/epeople-registry.actions';
 import { EPeopleRegistryState } from '../../access-control/epeople-registry/epeople-registry.reducers';
 import { AppState } from '../../app.reducer';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { PatchRequest, PostRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { EPerson } from './models/eperson.model';
-import { EPERSON } from './models/eperson.resource-type';
-import { NoContent } from '../shared/NoContent.model';
-import { PageInfo } from '../shared/page-info.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { CreateData, CreateDataImpl } from '../data/base/create-data';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { PatchData, PatchDataImpl } from '../data/base/patch-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { FindListOptions } from '../data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import {
+  PatchRequest,
+  PostRequest,
+} from '../data/request.models';
+import { RequestService } from '../data/request.service';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { dataService } from '../data/base/data-service.decorator';
-import { getEPersonEditRoute } from '../../access-control/access-control-routing-paths';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../shared/operators';
+import { PageInfo } from '../shared/page-info.model';
+import { EPerson } from './models/eperson.model';
+
+// todo: optimize imports
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
-const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
+export const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
 
 /**
  * A service to retrieve {@link EPerson}s from the REST API & EPerson related CRUD actions
  */
-@Injectable()
-@dataService(EPERSON)
+@Injectable({ providedIn: 'root' })
 export class EPersonDataService extends IdentifiableDataService<EPerson> implements CreateData<EPerson>, SearchData<EPerson>, PatchData<EPerson>, DeleteData<EPerson> {
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';
@@ -101,16 +133,16 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
                   elementsPerPage: options.elementsPerPage,
                   totalElements: page.length,
                   totalPages: page.length,
-                  currentPage: 1
+                  currentPage: 1,
                 }), page),
-                rd.statusCode
+                rd.statusCode,
               );
             } else {
               // If it hasn't succeeded, there can be no payload, so we can re-cast the existing
               // RemoteData object
               return rd as RemoteData<PaginatedList<EPerson>>;
             }
-          })
+          }),
         );
       default:
         return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable);
@@ -216,7 +248,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     oldVersion$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      take(1)
+      take(1),
     ).subscribe((oldEPerson: EPerson) => {
       const operations = this.generateOperations(oldEPerson, ePerson);
       const patchRequest = new PatchRequest(requestId, ePerson._links.self.href, operations);
@@ -236,17 +268,17 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
     let operations = this.comparator.diff(oldEPerson, newEPerson).filter((operation: Operation) => operation.op === 'replace');
     if (hasValue(oldEPerson.email) && oldEPerson.email !== newEPerson.email) {
       operations = [...operations, {
-        op: 'replace', path: '/email', value: newEPerson.email
+        op: 'replace', path: '/email', value: newEPerson.email,
       }];
     }
     if (hasValue(oldEPerson.requireCertificate) && oldEPerson.requireCertificate !== newEPerson.requireCertificate) {
       operations = [...operations, {
-        op: 'replace', path: '/certificate', value: newEPerson.requireCertificate
+        op: 'replace', path: '/certificate', value: newEPerson.requireCertificate,
       }];
     }
     if (hasValue(oldEPerson.canLogIn) && oldEPerson.canLogIn !== newEPerson.canLogIn) {
       operations = [...operations, {
-        op: 'replace', path: '/canLogIn', value: newEPerson.canLogIn
+        op: 'replace', path: '/canLogIn', value: newEPerson.canLogIn,
       }];
     }
     return operations;

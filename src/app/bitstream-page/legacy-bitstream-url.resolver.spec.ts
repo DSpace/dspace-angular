@@ -1,12 +1,13 @@
-import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 import { EMPTY } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { RemoteData } from '../core/data/remote-data';
-import { TestScheduler } from 'rxjs/testing';
 import { RequestEntryState } from '../core/data/request-entry-state.model';
+import { legacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
 
-describe(`LegacyBitstreamUrlResolver`, () => {
-  let resolver: LegacyBitstreamUrlResolver;
+describe(`legacyBitstreamUrlResolver`, () => {
+  let resolver: any;
   let bitstreamDataService: BitstreamDataService;
   let testScheduler;
   let remoteDataMocks;
@@ -20,7 +21,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
 
     route = {
       params: {},
-      queryParams: {}
+      queryParams: {},
     };
     state = {};
     remoteDataMocks = {
@@ -30,9 +31,9 @@ describe(`LegacyBitstreamUrlResolver`, () => {
       Error: new RemoteData(0, 0, 0, RequestEntryState.Error, 'Internal server error', undefined, 500),
     };
     bitstreamDataService = {
-      findByItemHandle: () => undefined
+      findByItemHandle: () => undefined,
     } as any;
-    resolver = new LegacyBitstreamUrlResolver(bitstreamDataService);
+    resolver = legacyBitstreamUrlResolver;
   });
 
   describe(`resolve`, () => {
@@ -44,17 +45,17 @@ describe(`LegacyBitstreamUrlResolver`, () => {
             prefix: '123456789',
             suffix: '1234',
             filename: 'some-file.pdf',
-            sequence_id: '5'
-          }
+            sequence_id: '5',
+          },
         });
       });
       it(`should call findByItemHandle with the handle, sequence id, and filename from the route`, () => {
         testScheduler.run(() => {
-          resolver.resolve(route, state);
+          resolver(route, state, bitstreamDataService);
           expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
             `${route.params.prefix}/${route.params.suffix}`,
             route.params.sequence_id,
-            route.params.filename
+            route.params.filename,
           );
         });
       });
@@ -71,17 +72,17 @@ describe(`LegacyBitstreamUrlResolver`, () => {
               filename: 'some-file.pdf',
             },
             queryParams: {
-              sequenceId: '5'
-            }
+              sequenceId: '5',
+            },
           });
         });
         it(`should call findByItemHandle with the handle and filename from the route, and the sequence ID from the queryParams`, () => {
           testScheduler.run(() => {
-            resolver.resolve(route, state);
+            resolver(route, state, bitstreamDataService);
             expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
               `${route.params.prefix}/${route.params.suffix}`,
               route.queryParams.sequenceId,
-              route.params.filename
+              route.params.filename,
             );
           });
         });
@@ -99,11 +100,11 @@ describe(`LegacyBitstreamUrlResolver`, () => {
         });
         it(`should call findByItemHandle with the handle, and filename from the route`, () => {
           testScheduler.run(() => {
-            resolver.resolve(route, state);
+            resolver(route, state, bitstreamDataService);
             expect(bitstreamDataService.findByItemHandle).toHaveBeenCalledWith(
               `${route.params.prefix}/${route.params.suffix}`,
               undefined,
-              route.params.filename
+              route.params.filename,
             );
           });
         });
@@ -122,7 +123,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
             c: remoteDataMocks.Error,
           };
 
-          expectObservable(resolver.resolve(route, state)).toBe(expected, values);
+          expectObservable(resolver(route, state, bitstreamDataService)).toBe(expected, values);
         });
       });
       it(`...succeeded`, () => {
@@ -137,7 +138,7 @@ describe(`LegacyBitstreamUrlResolver`, () => {
             c: remoteDataMocks.Success,
           };
 
-          expectObservable(resolver.resolve(route, state)).toBe(expected, values);
+          expectObservable(resolver(route, state, bitstreamDataService)).toBe(expected, values);
         });
       });
     });

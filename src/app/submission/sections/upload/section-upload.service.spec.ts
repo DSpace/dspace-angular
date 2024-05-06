@@ -1,9 +1,16 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { JsonPatchOperationPathCombiner } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
+
 import { SectionUploadService } from './section-upload.service';
-import { Store, StoreModule } from '@ngrx/store';
 
 const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
   add: jasmine.createSpy('add'),
@@ -25,7 +32,7 @@ describe('SectionUploadService test suite', () => {
         SectionUploadService,
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
   }));
 
@@ -36,28 +43,28 @@ describe('SectionUploadService test suite', () => {
 
   [
     {
-        initialPrimary: null,
-        primary: true,
-        operationName: 'add',
-        expected: [primaryPath, fileId, false, true]
+      initialPrimary: null,
+      primary: true,
+      operationName: 'add',
+      expected: [primaryPath, fileId, false, true],
     },
     {
-        initialPrimary: true,
-        primary: false,
-        operationName: 'remove',
-        expected: [primaryPath]
+      initialPrimary: true,
+      primary: false,
+      operationName: 'remove',
+      expected: [primaryPath],
     },
     {
-        initialPrimary: false,
-        primary: true,
-        operationName: 'replace',
-        expected: [primaryPath,  fileId, true]
-    }
+      initialPrimary: false,
+      primary: true,
+      operationName: 'replace',
+      expected: [primaryPath,  fileId, true],
+    },
   ].forEach(({ initialPrimary, primary, operationName, expected }) => {
     it(`updatePrimaryBitstreamOperation should add ${operationName} operation`, () => {
-        const path = pathCombiner.getPath('primary');
-        sectionUploadService.updatePrimaryBitstreamOperation(path, initialPrimary, primary, fileId);
-        expect(operationsBuilder[operationName]).toHaveBeenCalledWith(...expected);
-      });
+      const path = pathCombiner.getPath('primary');
+      sectionUploadService.updatePrimaryBitstreamOperation(path, initialPrimary, primary, fileId);
+      expect(operationsBuilder[operationName]).toHaveBeenCalledWith(...expected);
+    });
   });
 });

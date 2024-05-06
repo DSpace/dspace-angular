@@ -1,9 +1,9 @@
-import { of as observableOf } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { of as observableOf } from 'rxjs';
 
+import { CoreState } from '../../core/core-state.model';
 import { RequestService } from '../../core/data/request.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { CoreState } from '../../core/core-state.model';
 
 export class SubmissionRestServiceStub {
   protected linkPath = 'workspaceitems';

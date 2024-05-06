@@ -1,30 +1,43 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../config/app-config.interface';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
+import { Context } from '../../../../../core/shared/context.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { Context } from '../../../../../core/shared/context.model';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
-import { take } from 'rxjs/operators';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.interface';
+import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-unit-input-suggestions.component';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
   selector: 'ds-person-search-result-list-submission-element',
   styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
-  templateUrl: './org-unit-search-result-list-submission-element.component.html'
+  templateUrl: './org-unit-search-result-list-submission-element.component.html',
+  standalone: true,
+  imports: [NgIf, OrgUnitInputSuggestionsComponent, FormsModule],
 })
 
 /**
@@ -50,7 +63,7 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
               private bitstreamDataService: BitstreamDataService,
               private selectableListService: SelectableListService,
               public dsoNameService: DSONameService,
-              @Inject(APP_CONFIG) protected appConfig: AppConfig
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }
@@ -68,8 +81,8 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
       this.relationshipService.getNameVariant(this.listID, this.dso.uuid)
         .pipe(take(1))
         .subscribe((nameVariant: string) => {
-            this.selectedName = nameVariant || defaultValue;
-          }
+          this.selectedName = nameVariant || defaultValue;
+        },
         );
     }
     this.showThumbnails = this.appConfig.browseBy.showThumbnails;
@@ -100,15 +113,15 @@ export class OrgUnitSearchResultListSubmissionElementComponent extends SearchRes
             Object.assign({}, this.dso, {
               metadata: {
                 ...this.dso.metadata,
-                ...alternativeNames
+                ...alternativeNames,
               },
             });
           this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();
         }).catch(() => {
         // user clicked cancel: use the name variant only for this relation, no further action required
-      }).finally(() => {
-        this.select(value);
-      });
+        }).finally(() => {
+          this.select(value);
+        });
     }
   }
 

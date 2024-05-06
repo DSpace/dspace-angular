@@ -3,14 +3,15 @@ import {
   Directive,
   Input,
   OnChanges,
+  OnDestroy,
   TemplateRef,
   ViewContainerRef,
-  OnDestroy
 } from '@angular/core';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
+
+import { ContextHelpService } from './context-help.service';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { PlacementDir } from './context-help-wrapper/placement-dir.model';
-import { ContextHelpService } from './context-help.service';
 import { hasValue } from './empty.util';
 
 export interface ContextHelpDirectiveInput {
@@ -27,6 +28,7 @@ export interface ContextHelpDirectiveInput {
  */
 @Directive({
   selector: '[dsContextHelp]',
+  standalone: true,
 })
 export class ContextHelpDirective implements OnChanges, OnDestroy {
   /**
@@ -43,13 +45,13 @@ export class ContextHelpDirective implements OnChanges, OnDestroy {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainerRef: ViewContainerRef,
-    private contextHelpService: ContextHelpService
+    private contextHelpService: ContextHelpService,
   ) {}
 
   ngOnChanges() {
     this.clearMostRecentId();
     this.mostRecentId = this.dsContextHelp.id;
-    this.contextHelpService.add({id: this.dsContextHelp.id, isTooltipVisible: false});
+    this.contextHelpService.add({ id: this.dsContextHelp.id, isTooltipVisible: false });
 
     if (this.wrapper === undefined) {
       this.wrapper = this.viewContainerRef.createComponent(ContextHelpWrapperComponent);

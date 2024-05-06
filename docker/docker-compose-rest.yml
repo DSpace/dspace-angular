@@ -10,7 +10,6 @@
 # This is based heavily on the docker-compose.yml that is available in the DSpace/DSpace
 # (Backend) at:
 # https://github.com/DSpace/DSpace/blob/main/docker-compose.yml
-version: '3.7'
 networks:
   dspacenet:
     ipam:
@@ -29,8 +28,9 @@ services:
       # __D__ => "-" (e.g. google__D__metadata => google-metadata)
       # dspace.dir, dspace.server.url, dspace.ui.url and dspace.name
       dspace__P__dir: /dspace
-      dspace__P__server__P__url: http://localhost:8080/server
-      dspace__P__ui__P__url: http://localhost:4000
+      # Uncomment to set a non-default value for dspace.server.url or dspace.ui.url
+      # dspace__P__server__P__url: http://localhost:8080/server
+      # dspace__P__ui__P__url: http://localhost:4000
       dspace__P__name: 'DSpace Started with Docker Compose'
       # db.url: Ensure we are using the 'dspacedb' image for our database
       db__P__url: 'jdbc:postgresql://dspacedb:5432/dspace'
@@ -39,6 +39,7 @@ services:
       # proxies.trusted.ipranges: This setting is required for a REST API running in Docker to trust requests 
       # from the host machine. This IP range MUST correspond to the 'dspacenet' subnet defined above.
       proxies__P__trusted__P__ipranges: '172.23.0'
+      LOGGING_CONFIG: /dspace/config/log4j2-container.xml
     image: "${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
     depends_on:
     - dspacedb
@@ -50,24 +51,27 @@ services:
     stdin_open: true
     tty: true
     volumes:
+    # Keep DSpace assetstore directory between reboots
     - assetstore:/dspace/assetstore
     # Ensure that the database is ready BEFORE starting tomcat
     # 1. While a TCP connection to dspacedb port 5432 is not available, continue to sleep
     # 2. Then, run database migration to init database tables
-    # 3. Finally, start Tomcat
+    # 3. Finally, start DSpace
     entrypoint:
     - /bin/bash
     - '-c'
     - |
       while (!</dev/tcp/dspacedb/5432) > /dev/null 2>&1; do sleep 1; done;
       /dspace/bin/dspace database migrate
-      catalina.sh run
+      java -jar /dspace/webapps/server-boot.jar --dspace.dir=/dspace
   # DSpace database container    
   dspacedb:
     container_name: dspacedb
+    # Uses a custom Postgres image with pgcrypto installed
+    image: "${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}"
     environment:
       PGDATA: /pgdata
-    image: "${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}"
+      POSTGRES_PASSWORD: dspace
     networks:
       - dspacenet
     ports:
@@ -113,6 +117,8 @@ services:
       cp -r /opt/solr/server/solr/configsets/statistics/* statistics
       precreate-core qaevent /opt/solr/server/solr/configsets/qaevent
       cp -r /opt/solr/server/solr/configsets/qaevent/* qaevent
+      precreate-core suggestion /opt/solr/server/solr/configsets/suggestion
+      cp -r /opt/solr/server/solr/configsets/suggestion/* suggestion
       exec solr -f
 volumes:
   assetstore:

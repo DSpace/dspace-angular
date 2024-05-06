@@ -1,13 +1,13 @@
 import { BrowseByDataType } from './browse-by-data-type';
-import { rendersBrowseBy } from './browse-by-decorator';
+import { BROWSE_BY_DECORATOR_MAP } from './browse-by-decorator';
 
 describe('BrowseByDecorator', () => {
-  const titleDecorator = rendersBrowseBy(BrowseByDataType.Title);
-  const dateDecorator = rendersBrowseBy(BrowseByDataType.Date);
-  const metadataDecorator = rendersBrowseBy(BrowseByDataType.Metadata);
+  const titleDecorator = BROWSE_BY_DECORATOR_MAP.get(BrowseByDataType.Title);
+  const dateDecorator = BROWSE_BY_DECORATOR_MAP.get(BrowseByDataType.Date);
+  const metadataDecorator = BROWSE_BY_DECORATOR_MAP.get(BrowseByDataType.Metadata);
   it('should have a decorator for all types', () => {
-    expect(titleDecorator.length).not.toEqual(0);
-    expect(dateDecorator.length).not.toEqual(0);
-    expect(metadataDecorator.length).not.toEqual(0);
+    expect(titleDecorator).toBeTruthy();
+    expect(dateDecorator).toBeTruthy();
+    expect(metadataDecorator).toBeTruthy();
   });
 });

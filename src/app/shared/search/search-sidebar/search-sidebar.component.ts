@@ -1,12 +1,27 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
-import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
+import { AppliedFilter } from '../models/applied-filter.model';
+import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
+import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
+import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';
+import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
+import { SearchSwitchConfigurationComponent } from '../search-switch-configuration/search-switch-configuration.component';
 
 /**
  * This component renders a simple item page.
@@ -15,9 +30,11 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
  */
 
 @Component({
-  selector: 'ds-search-sidebar',
+  selector: 'ds-base-search-sidebar',
   styleUrls: ['./search-sidebar.component.scss'],
   templateUrl: './search-sidebar.component.html',
+  standalone: true,
+  imports: [NgIf, ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule],
 })
 
 /**
@@ -28,7 +45,7 @@ export class SearchSidebarComponent {
   /**
    * The configuration to use for the search options
    */
-  @Input() configuration;
+  @Input() configuration: string;
 
   /**
    * The list of available configuration options
@@ -53,7 +70,7 @@ export class SearchSidebarComponent {
   /**
    * The total amount of results
    */
-  @Input() resultCount;
+  @Input() resultCount: number;
 
   /**
    * The list of available view mode options
@@ -68,7 +85,7 @@ export class SearchSidebarComponent {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * The configuration for the current paginated search results
@@ -94,6 +111,11 @@ export class SearchSidebarComponent {
    * Emits event when the user select a new configuration
    */
   @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter<SearchConfigurationOption>();
+
+  /**
+   * Emits the {@link AppliedFilter}s by search filter name
+   */
+  @Output() changeAppliedFilters: EventEmitter<Map<string, AppliedFilter[]>> = new EventEmitter();
 
   /**
    * Emits event when the user select a new view mode

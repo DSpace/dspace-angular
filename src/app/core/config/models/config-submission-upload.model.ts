@@ -1,12 +1,23 @@
-import { autoserialize, inheritSerialization, deserialize } from 'cerialize';
-import { typedObject, link } from '../../cache/builders/build-decorators';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+import { Observable } from 'rxjs';
+
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
+import { RemoteData } from '../../data/remote-data';
+import { HALLink } from '../../shared/hal-link.model';
 import { ConfigObject } from './config.model';
 import { AccessConditionOption } from './config-access-condition-option.model';
 import { SubmissionFormsModel } from './config-submission-forms.model';
-import { SUBMISSION_UPLOAD_TYPE, SUBMISSION_FORMS_TYPE } from './config-type';
-import { HALLink } from '../../shared/hal-link.model';
-import { RemoteData } from '../../data/remote-data';
-import { Observable } from 'rxjs';
+import {
+  SUBMISSION_FORMS_TYPE,
+  SUBMISSION_UPLOAD_TYPE,
+} from './config-type';
 
 @typedObject
 @inheritSerialization(ConfigObject)

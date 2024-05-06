@@ -1,16 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
+import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
+import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-nav-menu.component';
+import {
+  HostWindowService,
+  WidthCategory,
+} from '../shared/host-window.service';
+import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
+import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
-import { HostWindowService } from '../shared/host-window.service';
+import { ContextHelpToggleComponent } from './context-help-toggle/context-help-toggle.component';
 
 /**
  * Represents the header with the logo and simple navigation
  */
 @Component({
-  selector: 'ds-header',
+  selector: 'ds-base-header',
   styleUrls: ['header.component.scss'],
   templateUrl: 'header.component.html',
+  standalone: true,
+  imports: [RouterLink, ThemedLangSwitchComponent, NgbDropdownModule, ThemedSearchNavbarComponent, ContextHelpToggleComponent, ThemedAuthNavMenuComponent, ImpersonateNavbarComponent, TranslateModule, AsyncPipe, NgIf],
 })
 export class HeaderComponent implements OnInit {
   /**
@@ -18,8 +39,10 @@ export class HeaderComponent implements OnInit {
    * @type {Observable<string>}
    */
   public isAuthenticated: Observable<boolean>;
-  public isXsOrSm$: Observable<boolean>;
+  public isMobile$: Observable<boolean>;
+
   menuID = MenuID.PUBLIC;
+  maxMobileWidth = WidthCategory.SM;
 
   constructor(
     protected menuService: MenuService,
@@ -28,7 +51,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isXsOrSm$ = this.windowService.isXsOrSm();
+    this.isMobile$ = this.windowService.isUpTo(this.maxMobileWidth);
   }
 
   public toggleNavbar(): void {

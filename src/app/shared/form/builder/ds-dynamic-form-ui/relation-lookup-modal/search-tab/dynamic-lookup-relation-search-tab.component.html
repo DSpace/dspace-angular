@@ -1,4 +1,4 @@
-<ds-themed-search *ngIf="this.relationship.searchConfiguration && context"
+<ds-search *ngIf="this.relationship.searchConfiguration && context"
            [configuration]="this.relationship.searchConfiguration"
            [context]="context"
            [fixedFilterQuery]="this.relationship.filter"
@@ -22,7 +22,7 @@
                Checkboxes that are in the indeterminate state always switch to checked when clicked
                This seemed like the cleanest and clearest solution to solve this issue for now. -->
 
-          <input *ngIf="!allSelected && !(someSelected$ | async)"
+          <input *ngIf="!allSelected && (someSelected$ | async) !== true"
                  type="checkbox"
                  [indeterminate]="false"
                  (change)="selectAll()">
@@ -62,4 +62,4 @@
     </div>
   </div>
 
-</ds-themed-search>
+</ds-search>

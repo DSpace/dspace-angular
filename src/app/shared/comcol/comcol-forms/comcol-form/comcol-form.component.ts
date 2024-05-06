@@ -1,8 +1,35 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
 import { FileUploader } from 'ng2-file-upload';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
+
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription, switchMap } from 'rxjs';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
@@ -12,15 +39,23 @@ import { RequestService } from '../../../../core/data/request.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
-import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
-import { ResourceType } from '../../../../core/shared/resource-type';
-import { hasValue, isNotEmpty } from '../../../empty.util';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
-import { UploaderComponent } from '../../../upload/uploader/uploader.component';
-import { Operation } from 'fast-json-patch';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../../../../core/shared/metadata.models';
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { ResourceType } from '../../../../core/shared/resource-type';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
+import { FormComponent } from '../../../form/form.component';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { UploaderComponent } from '../../../upload/uploader/uploader.component';
+import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
+import { VarDirective } from '../../../utils/var.directive';
+import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
@@ -32,7 +67,18 @@ import { filter, take } from 'rxjs/operators';
 @Component({
   selector: 'ds-comcol-form',
   styleUrls: ['./comcol-form.component.scss'],
-  templateUrl: './comcol-form.component.html'
+  templateUrl: './comcol-form.component.html',
+  imports: [
+    FormComponent,
+    TranslateModule,
+    UploaderComponent,
+    AsyncPipe,
+    ComcolPageLogoComponent,
+    NgIf,
+    NgClass,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class ComColFormComponent<T extends Collection | Community> implements OnInit, OnDestroy {
 
@@ -81,7 +127,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    * @type {UploaderOptions}
    */
   uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
-    autoUpload: false
+    autoUpload: false,
   });
 
   /**
@@ -141,7 +187,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       this.formModel.forEach(
         (fieldModel: DynamicInputModel) => {
           fieldModel.value = this.dso.firstMetadataValue(fieldModel.name);
-        }
+        },
       );
       this.formGroup = this.formService.createFormGroup(this.formModel);
 
@@ -155,12 +201,12 @@ export class ComColFormComponent<T extends Collection | Community> implements On
         this.subs.push(
           observableCombineLatest([
             this.dsoService.getLogoEndpoint(this.dso.id),
-            this.dso.logo
+            this.dso.logo,
           ]).subscribe(([href, logoRD]: [string, RemoteData<Bitstream>]) => {
             this.uploadFilesOptions.url = href;
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
             this.initializedUploaderOptions.next(true);
-          })
+          }),
         );
       } else {
         // Set a placeholder URL to not break the uploader component. This will be replaced once the object is created.
@@ -187,7 +233,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {
         value: fieldModel.value as string,
-        language: null
+        language: null,
       } as any;
       if (formMetadata.hasOwnProperty(fieldModel.name)) {
         formMetadata[fieldModel.name].push(value);
@@ -199,9 +245,9 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     const updatedDSO = Object.assign({}, this.dso, {
       metadata: {
         ...this.dso.metadata,
-        ...formMetadata
+        ...formMetadata,
       },
-      type: Community.type
+      type: Community.type,
     });
 
     const operations: Operation[] = [];
@@ -245,7 +291,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
             fieldModel.errorMessages[key] = this.translate.instant(this.type.value + this.ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
           });
         }
-      }
+      },
     );
   }
 
