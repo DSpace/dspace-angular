@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../core/auth/auth.service';
 import { take } from 'rxjs/operators';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { ScriptLoaderService } from './script-loader-service';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 import { LocaleService } from '../core/locale/locale.service';
+import { isPlatformBrowser } from '@angular/common';
 
 /**
  * The component which wraps `language` and `login`/`logout + profile` operations in the top navbar.
@@ -14,12 +15,13 @@ import { LocaleService } from '../core/locale/locale.service';
   templateUrl: './clarin-navbar-top.component.html',
   styleUrls: ['./clarin-navbar-top.component.scss']
 })
-export class ClarinNavbarTopComponent implements OnInit {
+export class ClarinNavbarTopComponent implements OnInit, AfterViewInit {
 
   constructor(private authService: AuthService,
               private halService: HALEndpointService,
               private scriptLoader: ScriptLoaderService,
-              private localeService: LocaleService) { }
+              private localeService: LocaleService,
+              @Inject(PLATFORM_ID) private platformId: Object) { }
 
   /**
    * The current authenticated user. It is null if the user is not authenticated.
@@ -47,7 +49,16 @@ export class ClarinNavbarTopComponent implements OnInit {
     } else {
       this.authenticatedUser = null;
     }
+  }
 
+  ngAfterViewInit(): void {
+    // Load scripts only in the browser and not SSR
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadScripts();
+    }
+  }
+
+  loadScripts() {
     // At first load DiscoJuice, second AAI and at last AAIConfig
     this.loadDiscoJuice().then(() => {
       this.loadAAI().then(() => {
