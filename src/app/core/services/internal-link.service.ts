@@ -49,7 +49,7 @@ export class InternalLinkService {
       return currentSegments.startsWith('/') ? currentSegments : `/${currentSegments}`;
     }
 
-    return baseUrl.startsWith('/') ? baseUrl : `/${baseUrl}`;
+    return baseUrl.startsWith('/') || (baseUrl.startsWith('http') && !baseUrl.startsWith(this.currentURL)) ? baseUrl : `/${baseUrl}`;
   }
 
   /**
