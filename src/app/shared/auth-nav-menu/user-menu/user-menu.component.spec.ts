@@ -140,7 +140,7 @@ describe('UserMenuComponent', () => {
 
       fixture.detectChanges();
 
-      deUserMenu = fixture.debugElement.query(By.css('div'));
+      deUserMenu = fixture.debugElement.query(By.css('ul#user-menu-dropdown'));
     }));
 
     afterEach(() => {
@@ -164,7 +164,7 @@ describe('UserMenuComponent', () => {
     it('should display user name and email', () => {
       const username = 'User Test';
       const email = 'test@test.com';
-      const span = deUserMenu.query(By.css('.dropdown-item-text'));
+      const span = deUserMenu.query(By.css('.username-email-wrapper'));
       expect(span).toBeDefined();
       expect(span.nativeElement.innerHTML).toContain(username);
       expect(span.nativeElement.innerHTML).toContain(email);

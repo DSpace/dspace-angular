@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, select, Store } from '@ngrx/store';
 import { Observable, zip as observableZip } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction
@@ -40,6 +40,7 @@ import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { dataService } from '../data/base/data-service.decorator';
+import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);
@@ -104,23 +105,31 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
   }
 
   /**
-   * Check if the current user is member of to the indicated group
-   *
-   * @param groupName
-   *    the group name
-   * @return boolean
-   *    true if user is member of the indicated group, false otherwise
+   * Searches for all groups which are *not* a member of a given group, via a passed in query
+   * (searches in group name and by exact UUID).
+   * Endpoint used: /eperson/groups/search/isNotMemberOf?query=<:string>&group=<:uuid>
+   * @param query                       search query param
+   * @param group                       UUID of group to exclude results from. Members of this group will never be returned.
+   * @param options
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
    */
-  isMemberOf(groupName: string): Observable<boolean> {
-    const searchHref = 'isMemberOf';
-    const options = new FindListOptions();
-    options.searchParams = [new RequestParam('groupName', groupName)];
-
-    return this.searchBy(searchHref, options).pipe(
-      filter((groups: RemoteData<PaginatedList<Group>>) => !groups.isResponsePending),
-      take(1),
-      map((groups: RemoteData<PaginatedList<Group>>) => groups.payload.totalElements > 0)
-    );
+  public searchNonMemberGroups(query: string, group: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Group>[]): Observable<RemoteData<PaginatedList<Group>>> {
+    const searchParams = [new RequestParam('query', query), new RequestParam('group', group)];
+    let findListOptions = new FindListOptions();
+    if (options) {
+      findListOptions = Object.assign(new FindListOptions(), options);
+    }
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
+    } else {
+      findListOptions.searchParams = searchParams;
+    }
+    return this.searchBy('isNotMemberOf', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -264,15 +273,15 @@ export class GroupDataService extends IdentifiableDataService<Group> implements 
    * @param group Group we want edit page for
    */
   public getGroupEditPageRouterLink(group: Group): string {
-    return this.getGroupEditPageRouterLinkWithID(group.id);
+    return getGroupEditRoute(group.id);
   }
 
   /**
    * Get Edit page of group
    * @param groupID Group ID we want edit page for
    */
-  public getGroupEditPageRouterLinkWithID(groupId: string): string {
-    return '/access-control/groups/' + groupId;
+  public getGroupEditPageRouterLinkWithID(groupID: string): string {
+    return getGroupEditRoute(groupID);
   }
 
   /**

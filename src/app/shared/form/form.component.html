@@ -58,11 +58,12 @@
         <div class="col text-right space-children-mr">
           <ng-content select="[before]"></ng-content>
             <button *ngIf="displayCancel" type="reset" class="btn btn-outline-secondary" (click)="reset()">
-              <i class="fa fa-times"></i> {{cancelLabel | translate}}
+              <i class="fa fa-times" aria-hidden="true"></i> {{cancelLabel | translate}}
             </button>
             <ng-content select="[between]"></ng-content>
             <button *ngIf="displaySubmit" type="submit" class="btn btn-primary" (click)="onSubmit()"
-                    [disabled]="!(isValid() | async)"><i class="fas fa-save"></i> {{submitLabel | translate}}
+                    [disabled]="!(isValid() | async)">
+              <i class="fas fa-save" aria-hidden="true"></i> {{submitLabel | translate}}
             </button>
             <ng-content select="[after]"></ng-content>
         </div>

@@ -9,7 +9,7 @@ import { Community } from '../../../../core/shared/community.model';
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
-  selector: 'ds-collection-sidebar-search-list-element',
+  selector: 'ds-community-sidebar-search-list-element',
   templateUrl: '../sidebar-search-list-element.component.html'
 })
 /**

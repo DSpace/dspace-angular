@@ -1,6 +1,6 @@
 <ng-container *ngIf="relationTypes.length > 1">
   <ul ngbNav #tabs="ngbNav" [destroyOnHide]="true" [activeId]="activeTab$ | async" (navChange)="onTabChange($event)" class="nav-tabs">
-    <li *ngFor="let relationType of relationTypes" [ngbNavItem]="relationType.filter">
+    <li *ngFor="let relationType of relationTypes" [ngbNavItem]="relationType.filter" rel="presentation">
       <a ngbNavLink>{{'item.page.relationships.' + relationType.label | translate}}</a>
       <ng-template ngbNavContent>
         <div class="mt-4">
