@@ -162,6 +162,14 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     // `/core/clarinusermetadatavalues/manage?bitstreamUUID=<BITSTREAM_UUID>`
     const url = this.halService.getRootHref() + '/core/' + ClarinUserMetadata.type.value + '/' + CLARIN_USER_METADATA_MANAGE + '?bitstreamUUID=' + this.getBitstreamUUID();
     const postRequest = new PostRequest(requestId, url, this.userMetadata$.value?.page, requestOptions);
+
+    // Add IP address into request. Every restricted download must have stored IP address in the `user_metadata` table.
+    this.userMetadata$.value?.page.push(Object.assign(new ClarinUserMetadata(), {
+      type: ClarinUserMetadata.type,
+      metadataKey: 'IP',
+      metadataValue: this.ipAddress$.value
+    }));
+
     // Send POST request
     this.requestService.send(postRequest);
     // Get response
@@ -361,6 +369,12 @@ export class ClarinLicenseAgreementPageComponent implements OnInit {
     if (areFilledIn.includes(false)) {
       return false;
     }
+
+    // Check IP address
+    if (isEmpty(this.ipAddress$.value)) {
+      return false;
+    }
+
     return true;
   }
 
