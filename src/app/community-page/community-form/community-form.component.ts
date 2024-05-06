@@ -10,6 +10,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -33,7 +34,6 @@ import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Form used for creating and editing communities

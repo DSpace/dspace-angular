@@ -15,10 +15,6 @@ import {
 
 import { ComColDataService } from '../../../../../core/data/comcol-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, take } from 'rxjs/operators';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
-import { isEmpty } from '../../../../empty.util';
 import { Collection } from '../../../../../core/shared/collection.model';
 import { Community } from '../../../../../core/shared/community.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
@@ -27,10 +23,7 @@ import {
   getFirstSucceededRemoteData,
 } from '../../../../../core/shared/operators';
 import { ResourceType } from '../../../../../core/shared/resource-type';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../empty.util';
+import { isEmpty } from '../../../../empty.util';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 
 @Component({
@@ -72,9 +65,9 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
   onSubmit(event) {
     if (!isEmpty(event.operations)) {
       this.dsoDataService.patch(event.dso, event.operations).pipe(getFirstCompletedRemoteData())
-        .subscribe(async (response: RemoteData<DSpaceObject>) => {
+        .subscribe( (response: RemoteData<DSpaceObject>) => {
           if (response.hasSucceeded) {
-            await this.router.navigate([this.frontendURL, event.dso.uuid]);  // todo: ok not to await this?
+            this.router.navigate([this.frontendURL, event.dso.uuid]);  // todo: ok not to await this?
             this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
           } else if (response.statusCode === 403) {
             this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));

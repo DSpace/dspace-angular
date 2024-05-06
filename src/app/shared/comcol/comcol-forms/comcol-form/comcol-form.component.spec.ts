@@ -29,17 +29,12 @@ import { hasValue } from '../../../empty.util';
 import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { VarDirective } from '../../../utils/var.directive';
 import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
 import { ComColFormComponent } from './comcol-form.component';
-import { Operation } from 'fast-json-patch';
-import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<any>;
@@ -82,7 +77,7 @@ describe('ComColFormComponent', () => {
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
     deleteLogo: () => createSuccessfulRemoteDataObject$({}),
-    findById: () => createSuccessfulRemoteDataObject$({})
+    findById: () => createSuccessfulRemoteDataObject$({}),
   });
   const notificationsService = new NotificationsServiceStub();
 
@@ -92,7 +87,7 @@ describe('ComColFormComponent', () => {
 
   const requestServiceStub = jasmine.createSpyObj('requestService', {
     removeByHrefSubstring: {},
-    setStaleByHrefSubstring: {}
+    setStaleByHrefSubstring: {},
   });
   const objectCacheStub = jasmine.createSpyObj('objectCache', {
     remove: {},

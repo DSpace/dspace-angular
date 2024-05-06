@@ -14,6 +14,10 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
@@ -27,10 +31,15 @@ import { FileUploader } from 'ng2-file-upload';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  Observable,
   Subscription,
+  switchMap,
 } from 'rxjs';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription, switchMap } from 'rxjs';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
@@ -46,6 +55,7 @@ import {
 import { NoContent } from '../../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { ResourceType } from '../../../../core/shared/resource-type';
+import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import {
   hasValue,
   isNotEmpty,
@@ -54,12 +64,9 @@ import { FormComponent } from '../../../form/form.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
+import { followLink } from '../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../utils/var.directive';
 import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo.component';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { followLink } from '../../../utils/follow-link-config.model';
-import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
-import { filter, take } from 'rxjs/operators';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -220,7 +227,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       this.refreshDSO$.pipe(
         switchMap(() => this.refreshDsoCache()),
         filter(rd => rd.hasSucceeded),
-      ).subscribe(({ payload }) => this.dso = payload)
+      ).subscribe(({ payload }) => this.dso = payload),
     );
 
   }
@@ -324,7 +331,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   subscribeToConfirmationResponse(modalRef: NgbModalRef): void {
     modalRef.componentInstance.response.pipe(
-      take(1)
+      take(1),
     ).subscribe((confirmed: boolean) => {
       if (confirmed) {
         this.handleLogoDeletion();
@@ -338,7 +345,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   handleLogoDeletion(): void {
     if (hasValue(this.dso.id) && hasValue(this.dso._links.logo)) {
       this.dsoService.deleteLogo(this.dso).pipe(
-        getFirstCompletedRemoteData()
+        getFirstCompletedRemoteData(),
       ).subscribe((response: RemoteData<NoContent>) => {
         const successMessageKey = `${this.type.value}.edit.logo.notifications.delete.success`;
         const errorMessageKey = `${this.type.value}.edit.logo.notifications.delete.error`;
@@ -362,7 +369,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     this.refreshDSO$.next();
     this.notificationsService.success(
       this.translate.get(`${successMessageKey}.title`),
-      this.translate.get(`${successMessageKey}.content`)
+      this.translate.get(`${successMessageKey}.content`),
     );
   }
 
@@ -374,7 +381,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   private handleFailedDeletion(errorMessageKey: string, errorMessage: string): void {
     this.notificationsService.error(
       this.translate.get(`${errorMessageKey}.title`),
-      errorMessage
+      errorMessage,
     );
   }
 
@@ -399,7 +406,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   private fetchUpdatedDso(): Observable<RemoteData<T>> {
     return this.dsoService.findById(this.dso.id, false, true, followLink('logo')).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ) as Observable<RemoteData<T>>;
   }
 

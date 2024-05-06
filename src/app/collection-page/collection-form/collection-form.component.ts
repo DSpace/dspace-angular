@@ -1,33 +1,54 @@
-import { AsyncPipe, NgClass, NgIf, } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, } from '@angular/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormOptionConfig,
   DynamicFormService,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { hasNoValue, isNotNull, } from 'src/app/shared/empty.util';
+import {
+  hasNoValue,
+  isNotNull,
+} from 'src/app/shared/empty.util';
 
-import { Collection } from '../../core/shared/collection.model';
-import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 import { RequestService } from '../../core/data/request.service';
+import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { collectionFormEntityTypeSelectionConfig, collectionFormModels, } from './collection-form.models';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
+import {
+  collectionFormEntityTypeSelectionConfig,
+  collectionFormModels,
+} from './collection-form.models';
 
 /**
  * Form used for creating and editing collections

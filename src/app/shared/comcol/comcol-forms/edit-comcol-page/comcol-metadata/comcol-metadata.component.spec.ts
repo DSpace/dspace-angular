@@ -195,12 +195,12 @@ describe('ComColMetadataComponent', () => {
           dso: new Community(),
           uploader: {
             options: {
-              url: ''
+              url: '',
             },
             queue: [],
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             uploadAll: () => {
-            }
+            },
             /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
           },
         };
