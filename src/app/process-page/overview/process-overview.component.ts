@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, from as observableFrom } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Process } from '../processes/process.model';
@@ -90,7 +90,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
         getFirstCompletedRemoteData(),
         switchMap((rd: RemoteData<EPerson>) => {
           if (rd.hasSucceeded) {
-            return observableFrom([this.dsoNameService.getName(rd.payload)]);
+            return [this.dsoNameService.getName(rd.payload)];
           } else {
             return this.translateService.get('process.overview.unknown.user');
           }
