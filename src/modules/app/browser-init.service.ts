@@ -30,9 +30,11 @@ import { filter, find, map } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { RequestService } from '../../app/core/data/request.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { ServerCheckGuard } from '../../app/core/server-check/server-check.guard';
+import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 
 /**
  * Performs client-side initialization.
@@ -59,6 +61,8 @@ export class BrowserInitService extends InitService {
     protected menuService: MenuService,
     private rootDataService: RootDataService,
     protected serverCheckGuard: ServerCheckGuard,
+    private requestService: RequestService,
+    private halService: HALEndpointService,
   ) {
     super(
       store,
@@ -145,17 +149,15 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * During an external authentication flow invalidate the SSR transferState
+   * During an external authentication flow invalidate the
    * data in the cache. This allows the app to fetch fresh content.
    * @private
    */
   private externalAuthCheck() {
-
     this.sub = this.authService.isExternalAuthentication().pipe(
         filter((externalAuth: boolean) => externalAuth)
       ).subscribe(() => {
-        // Clear the transferState data.
-        this.rootDataService.invalidateRootCache();
+        this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
         this.authService.setExternalAuthStatus(false);
       }
     );
