@@ -18,14 +18,14 @@ describe('New Submission page', () => {
     // The Submission edit form tag should be visible
     cy.get('ds-submission-edit').should('be.visible');
 
-    // A Collection menu button should exist & it's value should be the selected collection
-    cy.get('#collectionControlsMenuButton span').should('have.text', Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
-
     // 4 sections should be visible by default
     cy.get('div#section_traditionalpageone').should('be.visible');
     cy.get('div#section_traditionalpagetwo').should('be.visible');
     cy.get('div#section_upload').should('be.visible');
     cy.get('div#section_license').should('be.visible');
+
+    // A Collection menu button should exist (at top of form) & its value should be the selected collection
+    cy.get('#collectionControlsMenuButton span').should('have.text', Cypress.env('DSPACE_TEST_SUBMIT_COLLECTION_NAME'));
 
     // Test entire page for accessibility
     testA11y('ds-submission-edit',
@@ -58,6 +58,9 @@ describe('New Submission page', () => {
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
     cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+
+    // Wait until the sections appear on form
+    cy.get('div#section_traditionalpageone').should('be.visible');
 
     // Attempt an immediate deposit without filling out any fields
     cy.get('button#deposit').click();
@@ -118,6 +121,9 @@ describe('New Submission page', () => {
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
     cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+
+    // Wait until the sections appear on form
+    cy.get('div#section_traditionalpageone').should('be.visible');
 
     // Fill out all required fields (Title, Date)
     cy.get('input#dc_title').type('DSpace logo uploaded via e2e tests');
