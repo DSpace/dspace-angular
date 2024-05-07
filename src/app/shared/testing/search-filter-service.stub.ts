@@ -5,6 +5,9 @@ import { SearchFilterConfig } from '../search/models/search-filter-config.model'
 import { Params } from '@angular/router';
 
 /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+/**
+ * Stub class of {@link SearchFilterService}
+ */
 export class SearchFilterServiceStub {
 
   isFilterActiveWithValue(_paramName: string, _filterValue: string): Observable<boolean> {
@@ -37,10 +40,6 @@ export class SearchFilterServiceStub {
 
   getCurrentView(): Observable<string> {
     return observableOf(undefined);
-  }
-
-  getSelectedValuesForFilter(_filterConfig: SearchFilterConfig): Observable<string[]> {
-    return observableOf([]);
   }
 
   isCollapsed(_filterName: string): Observable<boolean> {

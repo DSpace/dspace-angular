@@ -2,7 +2,11 @@ import {of as observableOf,  Observable ,  BehaviorSubject } from 'rxjs';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { SearchFilterConfig } from '../search/models/search-filter-config.model';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import { AppliedFilter } from '../search/models/applied-filter.model';
 
+/**
+ * Stub class of {@link SearchService}
+ */
 export class SearchServiceStub {
 
   private _viewMode: ViewMode;
@@ -12,6 +16,10 @@ export class SearchServiceStub {
 
   constructor(private searchLink: string = '/search') {
     this.setViewMode(ViewMode.ListElement);
+  }
+
+  getSelectedValuesForFilter(_filterName: string): Observable<AppliedFilter[]> {
+    return observableOf([]);
   }
 
   getViewMode(): Observable<ViewMode> {

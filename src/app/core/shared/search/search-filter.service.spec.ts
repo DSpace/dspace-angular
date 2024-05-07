@@ -153,17 +153,6 @@ describe('SearchFilterService', () => {
     });
   });
 
-  describe('when the getSelectedValuesForFilter method is called', () => {
-    beforeEach(() => {
-      spyOn(routeServiceStub, 'getQueryParameterValues');
-      service.getSelectedValuesForFilter(mockFilterConfig);
-    });
-
-    it('should call getQueryParameterValues on the route service with the same parameters', () => {
-      expect(routeServiceStub.getQueryParameterValues).toHaveBeenCalledWith(mockFilterConfig.paramName);
-    });
-  });
-
   describe('when the getCurrentScope method is called', () => {
     beforeEach(() => {
       spyOn(routeServiceStub, 'getQueryParameterValue');

@@ -1,7 +1,7 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, of as observableOf , Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
@@ -19,8 +19,6 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-p
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { RouteService } from '../../../../../core/services/route.service';
 import { hasValue } from '../../../../empty.util';
-import { AppliedFilter } from '../../../models/applied-filter.model';
-import { FacetValues } from '../../../models/facet-values.model';
 import { yearFromString } from 'src/app/shared/date.util';
 
 /**
@@ -49,7 +47,7 @@ export const RANGE_FILTER_MAX_SUFFIX = '.max';
  * Component that represents a range facet for a specific filter configuration
  */
 @renderFacetFor(FilterType.range)
-export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit, OnDestroy {
+export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit {
   /**
    * Fallback minimum for the range
    */
@@ -64,11 +62,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
    * The current range of the filter
    */
   range: [number | undefined, number | undefined];
-
-  /**
-   * Subscription to unsubscribe from
-   */
-  sub: Subscription;
 
   /**
    * Whether the sider is being controlled by the keyboard.
@@ -100,25 +93,13 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     this.max = yearFromString(this.filterConfig.maxValue) || this.max;
     const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
     const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
-    this.sub = observableCombineLatest([iniMin, iniMax]).pipe(
+    this.subs.push(observableCombineLatest([iniMin, iniMax]).pipe(
       map(([min, max]: [string, string]) => {
         const minimum = hasValue(min) ? Number(min) : this.min;
         const maximum = hasValue(max) ? Number(max) : this.max;
         return [minimum, maximum];
       })
-    ).subscribe((minmax: [number, number]) => this.range = minmax);
-  }
-
-  setAppliedFilter(allFacetValues: FacetValues[]): void {
-    const appliedFilters: AppliedFilter[] = [].concat(...allFacetValues.map((facetValues: FacetValues) => facetValues.appliedFilters))
-      .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
-      .filter((appliedFilter: AppliedFilter) => appliedFilter.filter === this.filterConfig.name)
-      // TODO this should ideally be fixed in the backend
-      .map((appliedFilter: AppliedFilter) => Object.assign({}, appliedFilter, {
-        operator: 'range',
-      }));
-
-    this.selectedAppliedFilters$ = observableOf(appliedFilters);
+    ).subscribe((minmax: [number, number]) => this.range = minmax));
   }
 
   /**
@@ -159,13 +140,4 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     return isPlatformBrowser(this.platformId);
   }
 
-  /**
-   * Unsubscribe from all subscriptions
-   */
-  ngOnDestroy() {
-    super.ngOnDestroy();
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
-  }
 }

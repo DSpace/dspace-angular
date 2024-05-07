@@ -1,6 +1,6 @@
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DebugElement, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, EventEmitter, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { of as observableOf, BehaviorSubject } from 'rxjs';
@@ -26,6 +26,7 @@ import { SearchConfigurationServiceStub } from '../../../../testing/search-confi
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { AppliedFilter } from '../../../models/applied-filter.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchServiceStub } from '../../../../testing/search-service.stub';
 
 describe('SearchHierarchyFilterComponent', () => {
 
@@ -38,10 +39,7 @@ describe('SearchHierarchyFilterComponent', () => {
     select: new EventEmitter<VocabularyEntryDetail>(),
   };
 
-  const searchService = {
-    getSearchLink: () => testSearchLink,
-    getFacetValuesFor: () => observableOf([]),
-  };
+  let searchService: SearchServiceStub;
   const searchFilterService = {
     getPage: () => observableOf(0),
   };
@@ -56,6 +54,8 @@ describe('SearchHierarchyFilterComponent', () => {
   };
 
   beforeEach(() => {
+    searchService = new SearchServiceStub();
+
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -77,7 +77,7 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   });
 
