@@ -22,6 +22,8 @@ import { IdentifiableDataService } from './base/identifiable-data.service';
 import { getDSORoute } from '../../app-routing-paths';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 const ID_ENDPOINT = 'pid';
 const UUID_ENDPOINT = 'dso';
@@ -76,7 +78,9 @@ export class DsoRedirectService {
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    private hardRedirectService: HardRedirectService
+    private hardRedirectService: HardRedirectService,
+    private router: Router,
+    private authService: AuthService,
   ) {
     this.dataService = new DsoByIdOrUUIDDataService(requestService, rdbService, objectCache, halService);
   }
@@ -103,6 +107,15 @@ export class DsoRedirectService {
               this.hardRedirectService.redirect(this.appConfig.ui.nameSpace.replace(/\/$/, '') + newRoute, 301);
             }
           }
+        }
+        // Redirect to login page if the user is not authenticated to see the requested page
+        if (response.hasFailed && (response.statusCode === 401 || response.statusCode === 403)) {
+          // Remove `/` from the namespace if it is empty
+          const namespace = this.appConfig.ui.nameSpace === '/' ? '' : this.appConfig.ui.nameSpace;
+          // Compose redirect URL - remove `https://.../namespace` from the current URL. Keep only `handle/...`
+          const redirectUrl = window.location.href.replace(this.appConfig.ui.baseUrl + namespace, '');
+          this.authService.setRedirectUrl(redirectUrl);
+          this.router.navigateByUrl('login');
         }
       })
     );
