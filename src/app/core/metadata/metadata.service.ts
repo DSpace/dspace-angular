@@ -167,6 +167,14 @@ export class MetadataService {
     this.setTitleTag();
     this.setDescriptionTag();
 
+    this.setOpenGraphTitleTag();
+    this.setOpenGraphDescriptionTag();
+    this.setOpenGraphImageTag();
+
+    this.setTwitterTitleTag();
+    this.setTwitterDescriptionTag();
+    this.setTwitterImageTag();
+
     if (!this.isResearchOutput()) {
       return;
     }
@@ -200,14 +208,6 @@ export class MetadataService {
     if (this.isTechReport()) {
       this.setCitationTechnicalReportNumberTag();
     }
-
-    this.setOpenGraphTitleTag();
-    this.setOpenGraphDescriptionTag();
-    this.setOpenGraphImageTag();
-
-    this.setTwitterTitleTag();
-    this.setTwitterDescriptionTag();
-    this.setTwitterImageTag();
   }
 
   /**
