@@ -8,6 +8,7 @@ import {
   Component,
   Inject,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -56,7 +57,7 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
 /**
  * Represents a part of the filter section for a single type of filter
  */
-export class SearchFilterComponent implements OnInit, OnDestroy {
+export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * The filter config for this component
    */
@@ -65,7 +66,7 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
   /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * Emits when the search filters values may be stale, and so they must be refreshed.
@@ -107,6 +108,11 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
    */
   active$: Observable<boolean>;
 
+  /**
+   * The current scope as an observable in order to be able to re-trigger the {@link appliedFilters$}
+   */
+  scope$: BehaviorSubject<string> = new BehaviorSubject(undefined);
+
   subs: Subscription[] = [];
 
   private readonly sequenceId: number;
@@ -135,6 +141,12 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
         this.filterService.expand(this.filter.name);
       }
     }));
+  }
+
+  ngOnChanges(): void {
+    if (this.scope$.value !== this.scope) {
+      this.scope$.next(this.scope);
+    }
   }
 
   ngOnDestroy(): void {
@@ -214,13 +226,14 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
     return combineLatest([
       this.appliedFilters$,
       this.searchConfigService.searchOptions,
+      this.scope$,
     ]).pipe(
-      switchMap(([selectedValues, options]: [AppliedFilter[], SearchOptions]) => {
+      switchMap(([selectedValues, options, scope]: [AppliedFilter[], SearchOptions, string]) => {
         if (isNotEmpty(selectedValues.filter((appliedFilter: AppliedFilter) => FACET_OPERATORS.includes(appliedFilter.operator)))) {
           return observableOf(true);
         } else {
-          if (hasValue(this.scope)) {
-            options.scope = this.scope;
+          if (hasValue(scope)) {
+            options.scope = scope;
           }
           return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
             filter((RD: RemoteData<FacetValues>) => !RD.isLoading),
