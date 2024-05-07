@@ -212,6 +212,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   protected applyFilterValue(data: string): void {
     if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
+      this.filterService.minimizeAll();
       const valueParts = data.split(',');
       this.subs.push(this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, valueParts.slice(0, valueParts.length - 1).join(), valueParts[valueParts.length - 1]).pipe(take(1)).subscribe((params: Params) => {
         void this.router.navigate(this.getSearchLinkParts(), {

@@ -71,4 +71,7 @@ export class SearchFilterServiceStub {
   resetPage(_filterName: string): void {
   }
 
+  minimizeAll(): void {
+  }
+
 }
