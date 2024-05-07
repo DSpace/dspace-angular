@@ -13,7 +13,10 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ds-base-comcol-page-handle',
   styleUrls: ['./comcol-page-handle.component.scss'],
   templateUrl: './comcol-page-handle.component.html',
-  imports: [NgIf, TranslateModule],
+  imports: [
+    NgIf,
+    TranslateModule,
+  ],
   standalone: true,
 })
 export class ComcolPageHandleComponent {

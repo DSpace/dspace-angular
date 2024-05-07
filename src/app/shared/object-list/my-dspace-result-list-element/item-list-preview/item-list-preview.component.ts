@@ -38,7 +38,19 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
   templateUrl: 'item-list-preview.component.html',
   animations: [fadeInOut],
   standalone: true,
-  imports: [NgIf, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, ItemSubmitterComponent, ItemCollectionComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ItemCollectionComponent,
+    ItemSubmitterComponent,
+    NgClass,
+    NgFor,
+    NgIf,
+    ThemedBadgesComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 export class ItemListPreviewComponent implements OnInit {
 

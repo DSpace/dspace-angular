@@ -24,9 +24,9 @@ import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzo
   selector: 'ds-base-metadata-import-page',
   templateUrl: './metadata-import-page.component.html',
   imports: [
-    TranslateModule,
-    FormsModule,
     FileDropzoneNoUploaderComponent,
+    FormsModule,
+    TranslateModule,
   ],
   standalone: true,
 })

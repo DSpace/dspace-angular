@@ -20,7 +20,12 @@ import { SearchResult } from '../../../../search/models/search-result.model';
   selector: 'ds-base-item-detail-preview-field',
   templateUrl: './item-detail-preview-field.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgIf, NgFor, TranslateModule],
+  imports: [
+    MetadataFieldWrapperComponent,
+    NgFor,
+    NgIf,
+    TranslateModule,
+  ],
 })
 export class ItemDetailPreviewFieldComponent {
 
