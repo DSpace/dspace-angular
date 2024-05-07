@@ -12,6 +12,9 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { SearchFilterConfig } from '../search/models/search-filter-config.model';
 
 /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+/**
+ * Stub class of {@link SearchFilterService}
+ */
 export class SearchFilterServiceStub {
 
   isFilterActiveWithValue(_paramName: string, _filterValue: string): Observable<boolean> {
@@ -46,10 +49,6 @@ export class SearchFilterServiceStub {
     return observableOf(undefined);
   }
 
-  getSelectedValuesForFilter(_filterConfig: SearchFilterConfig): Observable<string[]> {
-    return observableOf([]);
-  }
-
   isCollapsed(_filterName: string): Observable<boolean> {
     return observableOf(true);
   }
@@ -77,6 +76,9 @@ export class SearchFilterServiceStub {
   }
 
   resetPage(_filterName: string): void {
+  }
+
+  minimizeAll(): void {
   }
 
 }

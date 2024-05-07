@@ -8,20 +8,24 @@ import {
   Component,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
   filter,
   map,
   Observable,
   of as observableOf,
   startWith,
+  Subscription,
   switchMap,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { RemoteData } from '../../../../core/data/remote-data';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
@@ -33,7 +37,11 @@ import {
   isNotEmpty,
 } from '../../../empty.util';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';
+import { AppliedFilter } from '../../models/applied-filter.model';
+import { FacetValues } from '../../models/facet-values.model';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
+import { SearchOptions } from '../../models/search-options.model';
+import { FACET_OPERATORS } from './search-facet-filter/search-facet-filter.component';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 
 @Component({
@@ -48,7 +56,7 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
 /**
  * Represents a part of the filter section for a single type of filter
  */
-export class SearchFilterComponent implements OnInit {
+export class SearchFilterComponent implements OnInit, OnDestroy {
   /**
    * The filter config for this component
    */
@@ -92,12 +100,14 @@ export class SearchFilterComponent implements OnInit {
   /**
    * Emits all currently selected values for this filter
    */
-  selectedValues$: Observable<string[]>;
+  appliedFilters$: Observable<AppliedFilter[]>;
 
   /**
    * Emits true when the current filter is supposed to be shown
    */
   active$: Observable<boolean>;
+
+  subs: Subscription[] = [];
 
   private readonly sequenceId: number;
 
@@ -116,15 +126,19 @@ export class SearchFilterComponent implements OnInit {
    * Else, the filter should initially be collapsed
    */
   ngOnInit() {
-    this.selectedValues$ = this.getSelectedValues();
+    this.appliedFilters$ = this.searchService.getSelectedValuesForFilter(this.filter.name);
     this.active$ = this.isActive();
     this.collapsed$ = this.isCollapsed();
     this.initializeFilter();
-    this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
+    this.subs.push(this.appliedFilters$.pipe(take(1)).subscribe((selectedValues: AppliedFilter[]) => {
       if (isNotEmpty(selectedValues)) {
         this.filterService.expand(this.filter.name);
       }
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((sub: Subscription) => sub.unsubscribe());
   }
 
   /**
@@ -147,13 +161,6 @@ export class SearchFilterComponent implements OnInit {
    */
   initializeFilter() {
     this.filterService.initializeFilter(this.filter);
-  }
-
-  /**
-   * @returns {Observable<string[]>} Emits a list of all values that are currently active for this filter
-   */
-  private getSelectedValues(): Observable<string[]> {
-    return this.filterService.getSelectedValuesForFilter(this.filter);
   }
 
   /**
@@ -203,26 +210,27 @@ export class SearchFilterComponent implements OnInit {
    * Check if a given filter is supposed to be shown or not
    * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
    */
-  private isActive(): Observable<boolean> {
-    return this.selectedValues$.pipe(
-      switchMap((isActive) => {
-        if (isNotEmpty(isActive)) {
+  isActive(): Observable<boolean> {
+    return combineLatest([
+      this.appliedFilters$,
+      this.searchConfigService.searchOptions,
+    ]).pipe(
+      switchMap(([selectedValues, options]: [AppliedFilter[], SearchOptions]) => {
+        if (isNotEmpty(selectedValues.filter((appliedFilter: AppliedFilter) => FACET_OPERATORS.includes(appliedFilter.operator)))) {
           return observableOf(true);
         } else {
-          return this.searchConfigService.searchOptions.pipe(
-            switchMap((options) => {
-              if (hasValue(this.scope)) {
-                options.scope = this.scope;
-              }
-              return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
-                filter((RD) => !RD.isLoading),
-                map((valuesRD) => {
-                  return valuesRD.payload?.totalElements > 0;
-                }));
-            },
-            ));
+          if (hasValue(this.scope)) {
+            options.scope = this.scope;
+          }
+          return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
+            filter((RD: RemoteData<FacetValues>) => !RD.isLoading),
+            map((valuesRD: RemoteData<FacetValues>) => {
+              return valuesRD.payload?.totalElements > 0;
+            }),
+          );
         }
       }),
-      startWith(true));
+      startWith(true),
+    );
   }
 }

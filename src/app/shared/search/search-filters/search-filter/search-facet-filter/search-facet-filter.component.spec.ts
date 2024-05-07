@@ -11,12 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
 import {
   BehaviorSubject,
   of as observableOf,
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
@@ -38,6 +40,7 @@ describe('SearchFacetFilterComponent', () => {
   const value1 = 'testvalue1';
   const value2 = 'test2';
   const value3 = 'another value3';
+  const value4 = '52d629dc-7d2f-47b9-aa2d-258b92e45ae1';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
     filterType: FilterType.text,
@@ -45,27 +48,39 @@ describe('SearchFacetFilterComponent', () => {
     isOpenByDefault: false,
     pageSize: 2,
   });
+  const appliedFilter1: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName1,
+    operator: 'equals',
+    label: value1,
+    value: value1,
+  });
+  const appliedFilter2: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName1,
+    operator: 'equals',
+    label: value2,
+    value: value2,
+  });
+  const appliedFilter3: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName1,
+    operator: 'equals',
+    label: value3,
+    value: value3,
+  });
+  const appliedFilter4: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName1,
+    operator: 'notauthority',
+    label: value4,
+    value: value4,
+  });
   const values: Partial<FacetValues> = {
     appliedFilters: [
-      {
-        filter: filterName1,
-        operator: 'equals',
-        label: value1,
-        value: value1,
-      },
-      {
-        filter: filterName1,
-        operator: 'equals',
-        label: value2,
-        value: value2,
-      },
-      {
-        filter: filterName1,
-        operator: 'equals',
-        label: value3,
-        value: value3,
-      },
+      appliedFilter1,
+      appliedFilter2,
+      appliedFilter3,
     ],
+    pageInfo: Object.assign(new PageInfo(), {
+      currentPage: 0,
+    }),
   };
 
   const searchLink = '/search';
@@ -207,6 +222,28 @@ describe('SearchFacetFilterComponent', () => {
       expect(comp.animationState).toEqual('loading');
       expect((comp as any).collapseNextUpdate).toBeTruthy();
       expect(comp.filter).toEqual('');
+    });
+  });
+
+  describe('when new values are detected for a filter', () => {
+    let selectedValues$: BehaviorSubject<AppliedFilter[]>;
+
+    beforeEach(() => {
+      selectedValues$ = new BehaviorSubject([appliedFilter1, appliedFilter2, appliedFilter3]);
+      spyOn(searchService, 'getSelectedValuesForFilter').and.returnValue(selectedValues$);
+      comp.ngOnInit();
+    });
+
+    it('should updated the selectedAppliedFilters$ when they are AppliedFilters that should be displayed in the search facets', () => {
+      expect(comp.selectedAppliedFilters$).toBeObservable(cold('a', {
+        a: [appliedFilter1, appliedFilter2, appliedFilter3],
+      }));
+
+      selectedValues$.next([appliedFilter1, appliedFilter2, appliedFilter3, appliedFilter4]);
+
+      expect(comp.selectedAppliedFilters$).toBeObservable(cold('a', {
+        a: [appliedFilter1, appliedFilter2, appliedFilter3],
+      }));
     });
   });
 });

@@ -7,7 +7,6 @@ import {
 import {
   Component,
   Inject,
-  OnDestroy,
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
@@ -18,11 +17,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { NouisliderComponent } from 'ng2-nouislider';
-import {
-  combineLatest as observableCombineLatest,
-  of as observableOf,
-  Subscription,
-} from 'rxjs';
+import { combineLatest as observableCombineLatest } from 'rxjs';
 import {
   map,
   startWith,
@@ -37,8 +32,6 @@ import { SearchFilterService } from '../../../../../core/shared/search/search-fi
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../empty.util';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
-import { AppliedFilter } from '../../../models/applied-filter.model';
-import { FacetValues } from '../../../models/facet-values.model';
 import {
   facetLoad,
   SearchFacetFilterComponent,
@@ -66,7 +59,7 @@ import {
 /**
  * Component that represents a range facet for a specific filter configuration
  */
-export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit, OnDestroy {
+export class SearchRangeFilterComponent extends SearchFacetFilterComponent implements OnInit {
   /**
    * Fallback minimum for the range
    */
@@ -97,11 +90,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
    * The current range of the filter
    */
   range: [number | undefined, number | undefined];
-
-  /**
-   * Subscription to unsubscribe from
-   */
-  sub: Subscription;
 
   /**
    * Whether the sider is being controlled by the keyboard.
@@ -139,13 +127,13 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     this.maxLabel = this.translateService.instant('search.filters.filter.' + this.filterConfig.name + '.max.placeholder');
     const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
     const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
-    this.sub = observableCombineLatest([iniMin, iniMax]).pipe(
+    this.subs.push(observableCombineLatest([iniMin, iniMax]).pipe(
       map(([min, max]: [string, string]) => {
         const minimum = hasValue(min) ? Number(min) : this.min;
         const maximum = hasValue(max) ? Number(max) : this.max;
         return [minimum, maximum];
       }),
-    ).subscribe((minmax: [number, number]) => this.range = minmax);
+    ).subscribe((minmax: [number, number]) => this.range = minmax));
 
     // Default/base config for nouislider
     this.config = {
@@ -155,18 +143,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
         { 'aria-label': this.maxLabel },
       ],
     };
-  }
-
-  setAppliedFilter(allFacetValues: FacetValues[]): void {
-    const appliedFilters: AppliedFilter[] = [].concat(...allFacetValues.map((facetValues: FacetValues) => facetValues.appliedFilters))
-      .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
-      .filter((appliedFilter: AppliedFilter) => appliedFilter.filter === this.filterConfig.name)
-      // TODO this should ideally be fixed in the backend
-      .map((appliedFilter: AppliedFilter) => Object.assign({}, appliedFilter, {
-        operator: 'range',
-      }));
-
-    this.selectedAppliedFilters$ = observableOf(appliedFilters);
   }
 
   /**
@@ -207,13 +183,4 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     return isPlatformBrowser(this.platformId);
   }
 
-  /**
-   * Unsubscribe from all subscriptions
-   */
-  ngOnDestroy() {
-    super.ngOnDestroy();
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
-  }
 }

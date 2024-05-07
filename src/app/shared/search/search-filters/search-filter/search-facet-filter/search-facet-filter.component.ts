@@ -24,11 +24,8 @@ import {
   Subscription,
 } from 'rxjs';
 import {
-  debounceTime,
   distinctUntilChanged,
-  filter,
   map,
-  mergeMap,
   switchMap,
   take,
   tap,
@@ -51,7 +48,15 @@ import { FacetValue } from '../../../models/facet-value.model';
 import { FacetValues } from '../../../models/facet-values.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchOptions } from '../../../models/search-options.model';
-import { stripOperatorFromFilterValue } from '../../../search.utils';
+
+/**
+ * The operators the {@link AppliedFilter} should have in order to be shown in the facets
+ */
+export const FACET_OPERATORS: string[] = [
+  'equals',
+  'authority',
+  'range',
+];
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -157,14 +162,12 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     );
     this.subs.push(
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
-      this.refreshFilters.asObservable().pipe(
-        filter((toRefresh: boolean) => toRefresh),
-        // NOTE This is a workaround, otherwise retrieving filter values returns tha old cached response
-        debounceTime((100)),
-        mergeMap(() => this.retrieveFilterValues(false)),
-      ).subscribe(),
+      this.retrieveFilterValues().subscribe(),
     );
-    this.retrieveFilterValues().subscribe();
+    this.selectedAppliedFilters$ = this.searchService.getSelectedValuesForFilter(this.filterConfig.name).pipe(
+      map((allAppliedFilters: AppliedFilter[]) => allAppliedFilters.filter((appliedFilter: AppliedFilter) => FACET_OPERATORS.includes(appliedFilter.operator))),
+      distinctUntilChanged((previous: AppliedFilter[], next: AppliedFilter[]) => JSON.stringify(previous) === JSON.stringify(next)),
+    );
   }
 
   /**
@@ -264,6 +267,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   protected applyFilterValue(data: string): void {
     if (data.match(new RegExp(`^.+,(equals|query|authority)$`))) {
+      this.filterService.minimizeAll();
       const valueParts = data.split(',');
       this.subs.push(this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, valueParts.slice(0, valueParts.length - 1).join(), valueParts[valueParts.length - 1]).pipe(take(1)).subscribe((params: Params) => {
         void this.router.navigate(this.getSearchLinkParts(), {
@@ -275,9 +279,13 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected retrieveFilterValues(useCachedVersionIfAvailable = true): Observable<FacetValues[]> {
+  /**
+   * Retrieves all the filter value suggestion pages that need to be displayed in the facet and combines it into one
+   * list.
+   */
+  protected retrieveFilterValues(): Observable<FacetValues[]> {
     return observableCombineLatest([this.searchOptions$, this.currentPage]).pipe(
-      switchMap(([options, page]: [SearchOptions, number]) => this.searchService.getFacetValuesFor(this.filterConfig, page, options, null, useCachedVersionIfAvailable).pipe(
+      switchMap(([options, page]: [SearchOptions, number]) => this.searchService.getFacetValuesFor(this.filterConfig, page, options).pipe(
         getFirstSucceededRemoteDataPayload(),
         tap((facetValues: FacetValues) => {
           this.isLastPage$.next(hasNoValue(facetValues?.next));
@@ -300,22 +308,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         return filterValues;
       }),
       tap((allFacetValues: FacetValues[]) => {
-        this.setAppliedFilter(allFacetValues);
         this.animationState = 'ready';
         this.facetValues$.next(allFacetValues);
-      }),
-    );
-  }
-
-  setAppliedFilter(allFacetValues: FacetValues[]): void {
-    const allAppliedFilters: AppliedFilter[] = [].concat(...allFacetValues.map((facetValues: FacetValues) => facetValues.appliedFilters))
-      .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
-
-    this.selectedAppliedFilters$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
-      map((selectedValues: string[]) => {
-        return selectedValues.map((value: string) => {
-          return allAppliedFilters.find((appliedFilter: AppliedFilter) => appliedFilter.value === stripOperatorFromFilterValue(value));
-        }).filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter));
       }),
     );
   }

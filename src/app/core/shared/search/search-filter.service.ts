@@ -155,27 +155,6 @@ export class SearchFilterService {
   }
 
   /**
-   * Requests the active filter values set for a given filter
-   * @param {SearchFilterConfig} filterConfig The configuration for which the filters are active
-   * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
-   */
-  getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
-    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
-    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
-      map((params: Params) => [].concat(...Object.values(params))),
-    );
-    return observableCombineLatest(values$, prefixValues$).pipe(
-      map(([values, prefixValues]) => {
-        if (isNotEmpty(values)) {
-          return values;
-        }
-        return prefixValues;
-      },
-      ),
-    );
-  }
-
-  /**
    * Updates the found facet value suggestions for a given query
    * Transforms the found values into display values
    *

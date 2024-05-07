@@ -36,6 +36,7 @@ import { VocabularyService } from '../../../../../core/submission/vocabularies/v
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
@@ -44,16 +45,12 @@ describe('SearchHierarchyFilterComponent', () => {
   let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
   let showVocabularyTreeLink: DebugElement;
 
-  const testSearchLink = 'test-search';
   const testSearchFilter = 'subject';
   const VocabularyTreeViewComponent = {
     select: new EventEmitter<VocabularyEntryDetail>(),
   };
 
-  const searchService = {
-    getSearchLink: () => testSearchLink,
-    getFacetValuesFor: () => observableOf([]),
-  };
+  let searchService: SearchServiceStub;
   const searchFilterService = {
     getPage: () => observableOf(0),
   };
@@ -72,6 +69,7 @@ describe('SearchHierarchyFilterComponent', () => {
   };
 
   beforeEach(() => {
+    searchService = new SearchServiceStub();
     searchConfigService = new SearchConfigurationServiceStub();
     router = new RouterStub();
 
@@ -153,7 +151,7 @@ describe('SearchHierarchyFilterComponent', () => {
           expect(modalService.open).toHaveBeenCalled();
           tick();
           expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalled();
-          expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
+          expect(router.navigate).toHaveBeenCalledWith(['/search'], {
             queryParams: {
               [`f.${testSearchFilter}`]: [
                 'definedBy_selectNewAppliedFilterParams',
