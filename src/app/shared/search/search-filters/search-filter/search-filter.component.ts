@@ -15,6 +15,7 @@ import { FacetValues } from '../../models/facet-values.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { SearchOptions } from '../../models/search-options.model';
+import { FACET_OPERATORS } from './search-facet-filter/search-facet-filter.component';
 
 @Component({
   selector: 'ds-search-filter',
@@ -166,13 +167,13 @@ export class SearchFilterComponent implements OnInit, OnDestroy {
    * Check if a given filter is supposed to be shown or not
    * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
    */
-  private isActive(): Observable<boolean> {
+  isActive(): Observable<boolean> {
     return combineLatest([
       this.appliedFilters$,
       this.searchConfigService.searchOptions,
     ]).pipe(
       switchMap(([selectedValues, options]: [AppliedFilter[], SearchOptions]) => {
-        if (isNotEmpty(selectedValues)) {
+        if (isNotEmpty(selectedValues.filter((appliedFilter: AppliedFilter) => FACET_OPERATORS.includes(appliedFilter.operator)))) {
           return observableOf(true);
         } else {
           return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(

@@ -20,6 +20,15 @@ import { currentPath } from '../../../../utils/route.utils';
 import { FacetValues } from '../../../models/facet-values.model';
 import { AppliedFilter } from '../../../models/applied-filter.model';
 
+/**
+ * The operators the {@link AppliedFilter} should have in order to be shown in the facets
+ */
+export const FACET_OPERATORS: string[] = [
+  'equals',
+  'authority',
+  'range',
+];
+
 @Component({
   selector: 'ds-search-facet-filter',
   template: ``,
@@ -104,7 +113,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
       this.retrieveFilterValues().subscribe(),
     );
-    this.selectedAppliedFilters$ = this.searchService.getSelectedValuesForFilter(this.filterConfig.name);
+    this.selectedAppliedFilters$ = this.searchService.getSelectedValuesForFilter(this.filterConfig.name).pipe(
+      map((allAppliedFilters: AppliedFilter[]) => allAppliedFilters.filter((appliedFilter: AppliedFilter) => FACET_OPERATORS.includes(appliedFilter.operator))),
+      distinctUntilChanged((previous: AppliedFilter[], next: AppliedFilter[]) => JSON.stringify(previous) === JSON.stringify(next)),
+    );
   }
 
   /**

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,10 +16,22 @@ import { SequenceService } from '../../../../core/shared/sequence.service';
 import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
+import { cold } from 'jasmine-marbles';
+import { AppliedFilter } from '../../models/applied-filter.model';
+import { FacetValues } from '../../models/facet-values.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
   let fixture: ComponentFixture<SearchFilterComponent>;
+
+  const appliedFilter1: AppliedFilter = Object.assign(new AppliedFilter(), {
+    operator: 'equals',
+  });
+  const appliedFilter2: AppliedFilter = Object.assign(new AppliedFilter(), {
+    operator: 'notauthority',
+  });
+
   const filterName1 = 'test name';
 
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
@@ -30,16 +42,21 @@ describe('SearchFilterComponent', () => {
   });
   let searchFilterService: SearchFilterServiceStub;
   let sequenceService;
-  const mockResults = observableOf(['test', 'data']);
   let searchService: SearchServiceStub;
+  let searchConfigurationService: SearchConfigurationServiceStub;
 
   beforeEach(waitForAsync(() => {
     searchFilterService = new SearchFilterServiceStub();
     searchService = new SearchServiceStub();
+    searchConfigurationService = new SearchConfigurationServiceStub();
     sequenceService = jasmine.createSpyObj('sequenceService', { next: 17 });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
+      imports: [
+        NoopAnimationsModule,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+      ],
       declarations: [
         SearchFilterComponent,
         BrowserOnlyMockPipe,
@@ -47,7 +64,7 @@ describe('SearchFilterComponent', () => {
       providers: [
         { provide: SearchService, useValue: searchService },
         { provide: SearchFilterService, useValue: searchFilterService },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigurationService },
         { provide: SequenceService, useValue: sequenceService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -57,7 +74,6 @@ describe('SearchFilterComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockResults);
     fixture = TestBed.createComponent(SearchFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.filter = mockFilterConfig;
@@ -119,6 +135,61 @@ describe('SearchFilterComponent', () => {
         expect(value).toBeFalsy();
       });
       sub.unsubscribe();
+    });
+  });
+
+  describe('isActive', () => {
+    it('should return true when there are facet value suggestions & no valid applied values', () => {
+      spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new FacetValues(), {
+        pageInfo: {
+          totalElements: 5,
+        },
+      } as FacetValues)));
+      comp.appliedFilters$ = observableOf([appliedFilter2]);
+
+      expect(comp.isActive()).toBeObservable(cold('(tt)', {
+        t: true,
+      }));
+    });
+
+    it('should return false when there are no facet value suggestions & no valid applied values', () => {
+      spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new FacetValues(), {
+        pageInfo: {
+          totalElements: 0,
+        },
+      } as FacetValues)));
+      comp.appliedFilters$ = observableOf([appliedFilter2]);
+
+      expect(comp.isActive()).toBeObservable(cold('(tf)', {
+        t: true,
+        f: false,
+      }));
+    });
+
+    it('should return true when there are no facet value suggestions & but there are valid applied values', () => {
+      spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new FacetValues(), {
+        pageInfo: {
+          totalElements: 0,
+        },
+      } as FacetValues)));
+      comp.appliedFilters$ = observableOf([appliedFilter1, appliedFilter2]);
+
+      expect(comp.isActive()).toBeObservable(cold('(tt)', {
+        t: true,
+      }));
+    });
+
+    it('should return true when there are facet value suggestions & there are valid applied values', () => {
+      spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(Object.assign(new FacetValues(), {
+        pageInfo: {
+          totalElements: 5,
+        },
+      } as FacetValues)));
+      comp.appliedFilters$ = observableOf([appliedFilter1, appliedFilter2]);
+
+      expect(comp.isActive()).toBeObservable(cold('(tt)', {
+        t: true,
+      }));
     });
   });
 });
