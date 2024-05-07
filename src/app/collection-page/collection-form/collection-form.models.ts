@@ -35,6 +35,11 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     spellCheck: environment.form.spellCheck,
   }),
   new DynamicTextAreaModel({
+    id: 'thumbnail',
+    name: 'dspace.thumbnail.description',
+    spellCheck: environment.form.spellCheck,
+  }),
+  new DynamicTextAreaModel({
     id: 'abstract',
     name: 'dc.description.abstract',
     spellCheck: environment.form.spellCheck,

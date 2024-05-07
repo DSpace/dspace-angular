@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
+  OnInit,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
@@ -38,11 +39,16 @@ import { VarDirective } from '../shared/utils/var.directive';
   standalone: true,
   imports: [VarDirective, CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
 })
-export class ThumbnailComponent implements OnChanges {
+export class ThumbnailComponent implements OnInit, OnChanges {
   /**
    * The thumbnail Bitstream
    */
   @Input() thumbnail: Bitstream | RemoteData<Bitstream>;
+
+   /**
+   * Variable that listens to the thumbnail value
+   */
+   listenThumbnail: any;
 
   /**
    * The default image, used if the thumbnail isn't set or can't be downloaded.
@@ -61,6 +67,11 @@ export class ThumbnailComponent implements OnChanges {
    * i18n key of thumbnail alt text
    */
   @Input() alt? = 'thumbnail.default.alt';
+
+  /**
+   * Custom thumbnail description for alt text
+   */
+  customDescription: string;
 
   /**
    * i18n key of HTML placeholder text
@@ -83,6 +94,15 @@ export class ThumbnailComponent implements OnChanges {
     protected authorizationService: AuthorizationDataService,
     protected fileService: FileService,
   ) {
+  }
+
+  /**
+   * Getting the description from the thumbnail file
+   * when rendering the screen.
+   */
+  ngOnInit(): void{
+    this.listenThumbnail = this.thumbnail;
+    this.customDescription = this.listenThumbnail.payload.metadata['dc.description'][0].value;
   }
 
   /**

@@ -6,8 +6,11 @@
         <header class="comcol-header mr-auto">
           <!-- Community name -->
           <ds-comcol-page-header [name]="dsoNameService.getName(communityPayload)"></ds-comcol-page-header>
-          <!-- Community logo -->
-          <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'community.logo' | translate">
+          <!-- Community logo with custom description -->
+          <ds-comcol-page-logo *ngIf="logoRD$ && communityPayload.descriptionThumbnail" [logo]="(logoRD$ | async)?.payload" [alternateText]="communityPayload.descriptionThumbnail">
+          </ds-comcol-page-logo>
+          <!-- Community logo with simple description -->
+          <ds-comcol-page-logo *ngIf="logoRD$  && !communityPayload.descriptionThumbnail" [logo]="(logoRD$ | async)?.payload" [alternateText]="'community.logo' | translate">
           </ds-comcol-page-logo>
           <!-- Handle -->
           <ds-themed-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">

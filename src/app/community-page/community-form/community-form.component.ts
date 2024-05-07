@@ -91,6 +91,11 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
       spellCheck: environment.form.spellCheck,
     }),
     new DynamicTextAreaModel({
+      id: 'thumbnail',
+      name: 'dspace.thumbnail.description',
+      spellCheck: environment.form.spellCheck,
+    }),
+    new DynamicTextAreaModel({
       id: 'rights',
       name: 'dc.rights',
       spellCheck: environment.form.spellCheck,

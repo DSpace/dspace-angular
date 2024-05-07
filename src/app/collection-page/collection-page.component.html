@@ -10,8 +10,15 @@
             <ds-comcol-page-header
                 [name]="dsoNameService.getName(collection)">
             </ds-comcol-page-header>
-            <!-- Collection logo -->
-            <ds-comcol-page-logo *ngIf="logoRD$"
+
+            <!-- Collection logo with custom description -->
+            <ds-comcol-page-logo *ngIf="logoRD$ && collection.descriptionThumbnail"
+                                 [logo]="(logoRD$ | async)?.payload"
+                                 [alternateText]="collection.descriptionThumbnail">
+            </ds-comcol-page-logo>
+
+            <!-- Collection logo with simple description -->
+            <ds-comcol-page-logo *ngIf="logoRD$ && !collection.descriptionThumbnail"
                                  [logo]="(logoRD$ | async)?.payload"
                                  [alternateText]="'collection.logo' | translate">
             </ds-comcol-page-logo>

@@ -8251,6 +8251,10 @@
   // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
   "access-control-option-end-date-note": "Escoja la fecha hasta la cuál se aplicarán las condiciones de acceso especificadas",
 
+  //"community.form.thumbnail": "Thumbnail Description",
+  "community.form.thumbnail": "Descripción del logotipo de la comunidad",
 
+  // "collection.form.thumbnail": "Thumbnail Description",
+  "collection.form.thumbnail": "Descripción del logo de la colección",
 
 }
