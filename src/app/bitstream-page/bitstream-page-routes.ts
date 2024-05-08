@@ -12,6 +12,7 @@ import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstr
 import { bitstreamPageResolver } from './bitstream-page.resolver';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
 import { legacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
+import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorizations.guard';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -55,6 +56,7 @@ export const ROUTES: Route[] = [
   },
   {
     path: EDIT_BITSTREAM_AUTHORIZATIONS_PATH,
+    canActivate: [bitstreamPageAuthorizationsGuard],
     children: [
       {
         path: 'create',

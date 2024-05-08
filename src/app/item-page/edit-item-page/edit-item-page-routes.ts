@@ -43,6 +43,10 @@ import { ItemRelationshipsComponent } from './item-relationships/item-relationsh
 import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemWithdrawComponent } from './item-withdraw/item-withdraw.component';
+import { itemPageEditAuthorizationsGuard } from './item-page-edit-authorizations.guard';
+import { itemPagePrivateGuard } from './item-page-private.guard';
+import { itemPageMoveGuard } from './item-page-move.guard';
+import { itemPageDeleteGuard } from './item-page-delete.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -144,6 +148,7 @@ export const ROUTES: Route[] = [
       {
         path: ITEM_EDIT_PRIVATE_PATH,
         component: ItemPrivateComponent,
+        canActivate: [itemPagePrivateGuard],
       },
       {
         path: ITEM_EDIT_PUBLIC_PATH,
@@ -152,11 +157,13 @@ export const ROUTES: Route[] = [
       {
         path: ITEM_EDIT_DELETE_PATH,
         component: ItemDeleteComponent,
+        canActivate: [itemPageDeleteGuard],
       },
       {
         path: ITEM_EDIT_MOVE_PATH,
         component: ItemMoveComponent,
         data: { title: 'item.edit.move.title' },
+        canActivate: [itemPageMoveGuard],
       },
       {
         path: ITEM_EDIT_REGISTER_DOI_PATH,
@@ -189,6 +196,7 @@ export const ROUTES: Route[] = [
             data: { title: 'item.edit.authorizations.title' },
           },
         ],
+        canActivate: [itemPageEditAuthorizationsGuard],
       },
     ],
   },
