@@ -1,13 +1,9 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, ResolveFn } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
-import {
-  dsoPageSingleFeatureGuard
-} from '../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
+import { CanActivateFn } from '@angular/router';
+import { of as observableOf } from 'rxjs';
+
+import { dsoPageSingleFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../core/data/remote-data';
-import { CollectionPageResolver } from './collection-page.resolver';
-import { Collection } from '../core/shared/collection.model';
+import { collectionPageResolver } from './collection-page.resolver';
 
 /**
  * Guard for preventing unauthorized access to certain {@link Collection} pages requiring administrator rights
@@ -15,9 +11,6 @@ import { Collection } from '../core/shared/collection.model';
  */
 export const collectionPageAdministratorGuard: CanActivateFn =
   dsoPageSingleFeatureGuard(
-    () => {
-      const collectionPageResolver = inject(CollectionPageResolver);
-      return collectionPageResolver.resolve as ResolveFn<Observable<RemoteData<Collection>>>;
-    },
-    () => observableOf(FeatureID.AdministratorOf)
+    () => collectionPageResolver,
+    () => observableOf(FeatureID.AdministratorOf),
   );

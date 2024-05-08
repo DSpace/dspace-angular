@@ -1,11 +1,9 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, ResolveFn } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
-import { BitstreamPageResolver } from './bitstream-page.resolver';
-import { Bitstream } from '../core/shared/bitstream.model';
+import { CanActivateFn } from '@angular/router';
+import { of as observableOf } from 'rxjs';
+
 import { dsoPageSingleFeatureGuard } from '../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../core/data/remote-data';
+import { bitstreamPageResolver } from './bitstream-page.resolver';
 
 /**
  * Guard for preventing unauthorized access to certain {@link Bitstream} pages requiring specific authorizations.
@@ -13,9 +11,6 @@ import { RemoteData } from '../core/data/remote-data';
  */
 export const bitstreamPageAuthorizationsGuard: CanActivateFn =
   dsoPageSingleFeatureGuard(
-    () => {
-      const bitstreamPageResolver = inject(BitstreamPageResolver);
-      return bitstreamPageResolver.resolve as ResolveFn<Observable<RemoteData<Bitstream>>>;
-    },
-    () => observableOf(FeatureID.CanManagePolicies)
+    () => bitstreamPageResolver,
+    () => observableOf(FeatureID.CanManagePolicies),
   );

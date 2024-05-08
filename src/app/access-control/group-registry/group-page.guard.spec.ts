@@ -1,11 +1,23 @@
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
-import { of as observableOf, Observable } from 'rxjs';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  UrlTree,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { groupPageGuard } from './group-page.guard';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { groupPageGuard } from './group-page.guard';
+
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // Increase timeout to 10 seconds
 
 describe('GroupPageGuard', () => {
@@ -15,7 +27,7 @@ describe('GroupPageGuard', () => {
   const routeSnapshotWithGroupId = {
     params: {
       groupId: groupUuid,
-    }
+    },
   } as unknown as ActivatedRouteSnapshot;
 
   let halEndpointService: HALEndpointService;
@@ -42,7 +54,7 @@ describe('GroupPageGuard', () => {
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authService },
         { provide: HALEndpointService, useValue: halEndpointService },
-      ]
+      ],
     });
   }
 
@@ -67,7 +79,7 @@ describe('GroupPageGuard', () => {
 
         result$.subscribe((result) => {
           expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
-            FeatureID.CanManageGroup, groupEndpointUrl, undefined
+            FeatureID.CanManageGroup, groupEndpointUrl, undefined,
           );
           expect(result).toBeTrue();
           done();
@@ -87,7 +99,7 @@ describe('GroupPageGuard', () => {
 
         result$.subscribe((result) => {
           expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
-            FeatureID.CanManageGroup, groupEndpointUrl, undefined
+            FeatureID.CanManageGroup, groupEndpointUrl, undefined,
           );
           expect(result).not.toBeTrue();
           done();

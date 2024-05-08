@@ -1,13 +1,9 @@
-import { inject } from '@angular/core';
-import {
-  dsoPageSingleFeatureGuard
-} from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
-import { Item } from '../../core/shared/item.model';
-import { ItemPageResolver } from '../item-page.resolver';
-import { CanActivateFn, ResolveFn } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
+import { CanActivateFn } from '@angular/router';
+import { of as observableOf } from 'rxjs';
+
+import { dsoPageSingleFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-single-feature.guard';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../core/data/remote-data';
+import { itemPageResolver } from '../item-page.resolver';
 
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring administrator rights
@@ -15,9 +11,6 @@ import { RemoteData } from '../../core/data/remote-data';
  */
 export const orcidPageGuard: CanActivateFn =
   dsoPageSingleFeatureGuard(
-    () => {
-      const itemPageResolver = inject(ItemPageResolver);
-      return itemPageResolver.resolve as ResolveFn<Observable<RemoteData<Item>>>;
-    },
-    () => observableOf(FeatureID.CanSynchronizeWithORCID)
+    () => itemPageResolver,
+    () => observableOf(FeatureID.CanSynchronizeWithORCID),
   );

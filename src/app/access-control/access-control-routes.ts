@@ -9,8 +9,6 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { GroupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import {
   EPERSON_PATH,
   GROUP_PATH,
@@ -20,8 +18,10 @@ import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.co
 import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-form.component';
 import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
-import { GroupPageGuard } from './group-registry/group-page.guard';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
+import {
+  siteAdministratorGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 /**
  * Condition for displaying error messages on email form field
@@ -46,7 +46,7 @@ export const ROUTES: Route[] = [
     },
     providers,
     data: { title: 'admin.access-control.epeople.title', breadcrumbKey: 'admin.access-control.epeople' },
-    canActivate: mapToCanActivate([SiteAdministratorGuard]),
+    canActivate: [siteAdministratorGuard],
   },
   {
     path: `${EPERSON_PATH}/create`,
@@ -56,7 +56,7 @@ export const ROUTES: Route[] = [
     },
     providers,
     data: { title: 'admin.access-control.epeople.add.title', breadcrumbKey: 'admin.access-control.epeople.add' },
-    canActivate: mapToCanActivate([SiteAdministratorGuard]),
+    canActivate: [siteAdministratorGuard],
   },
   {
     path: `${EPERSON_PATH}/:id/edit`,
@@ -67,7 +67,7 @@ export const ROUTES: Route[] = [
     },
     providers,
     data: { title: 'admin.access-control.epeople.edit.title', breadcrumbKey: 'admin.access-control.epeople.edit' },
-    canActivate: mapToCanActivate([SiteAdministratorGuard]),
+    canActivate: [siteAdministratorGuard],
   },
   {
     path: GROUP_PATH,
@@ -77,7 +77,7 @@ export const ROUTES: Route[] = [
     },
     providers,
     data: { title: 'admin.access-control.groups.title', breadcrumbKey: 'admin.access-control.groups' },
-    canActivate: mapToCanActivate([GroupAdministratorGuard]),
+    canActivate: [siteAdministratorGuard],
   },
   {
     path: `${GROUP_PATH}/create`,
@@ -90,7 +90,7 @@ export const ROUTES: Route[] = [
       title: 'admin.access-control.groups.title.addGroup',
       breadcrumbKey: 'admin.access-control.groups.addGroup',
     },
-    canActivate: mapToCanActivate([GroupAdministratorGuard]),
+    canActivate: [siteAdministratorGuard],
   },
   {
     path: `${GROUP_PATH}/:groupId/edit`,
@@ -103,7 +103,7 @@ export const ROUTES: Route[] = [
       title: 'admin.access-control.groups.title.singleGroup',
       breadcrumbKey: 'admin.access-control.groups.singleGroup',
     },
-    canActivate: mapToCanActivate([GroupPageGuard]),
+    canActivate: [siteAdministratorGuard],
   },
   {
     path: 'bulk-access',
@@ -112,6 +112,6 @@ export const ROUTES: Route[] = [
       breadcrumb: i18nBreadcrumbResolver,
     },
     data: { title: 'admin.access-control.bulk-access.title', breadcrumbKey: 'admin.access-control.bulk-access' },
-    canActivate: mapToCanActivate([SiteAdministratorGuard]),
+    canActivate: [siteAdministratorGuard],
   },
 ];

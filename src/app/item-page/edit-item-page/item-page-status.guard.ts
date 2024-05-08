@@ -1,13 +1,9 @@
-import {
-  dsoPageSomeFeatureGuard
-} from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-some-feature.guard';
-import { CanActivateFn, ResolveFn } from '@angular/router';
-import { inject } from '@angular/core';
-import { ItemPageResolver } from '../item-page.resolver';
-import { Observable, of as observableOf } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
+import { CanActivateFn } from '@angular/router';
+import { of as observableOf } from 'rxjs';
+
+import { dsoPageSomeFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-some-feature.guard';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { itemPageResolver } from '../item-page.resolver';
 
 /**
  * Guard for preventing unauthorized access to certain {@link Item} pages requiring any of the rights required for
@@ -16,9 +12,6 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
  */
 export const itemPageStatusGuard: CanActivateFn =
   dsoPageSomeFeatureGuard(
-    () => {
-      const itemPageResolver = inject(ItemPageResolver);
-      return itemPageResolver.resolve as ResolveFn<Observable<RemoteData<Item>>>;
-    },
-    () => observableOf([FeatureID.CanManageMappings, FeatureID.WithdrawItem, FeatureID.ReinstateItem, FeatureID.CanManagePolicies, FeatureID.CanMakePrivate, FeatureID.CanDelete, FeatureID.CanMove, FeatureID.CanRegisterDOI])
+    () => itemPageResolver,
+    () => observableOf([FeatureID.CanManageMappings, FeatureID.WithdrawItem, FeatureID.ReinstateItem, FeatureID.CanManagePolicies, FeatureID.CanMakePrivate, FeatureID.CanDelete, FeatureID.CanMove, FeatureID.CanRegisterDOI]),
   );

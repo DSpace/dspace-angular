@@ -1,10 +1,20 @@
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Router,
+  UrlTree,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { AuthService } from '../../../auth/auth.service';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { Observable, of as observableOf } from 'rxjs';
-import { Router, UrlTree } from '@angular/router';
-import { AuthService } from '../../../auth/auth.service';
 import { someFeatureAuthorizationGuard } from './some-feature-authorization.guard';
-import { TestBed, waitForAsync } from '@angular/core/testing';
 
 describe('SomeFeatureAuthorizationGuard', () => {
   let authorizationService: AuthorizationDataService;
@@ -25,15 +35,15 @@ describe('SomeFeatureAuthorizationGuard', () => {
     authorizationService = Object.assign({
       isAuthorized(featureId?: FeatureID): Observable<boolean> {
         return observableOf(authorizedFeatureIds.indexOf(featureId) > -1);
-      }
+      },
     });
 
     router = jasmine.createSpyObj('router', {
-      parseUrl: {}
+      parseUrl: {},
     });
 
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
     });
 
     TestBed.configureTestingModule({
@@ -41,7 +51,7 @@ describe('SomeFeatureAuthorizationGuard', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authService },
-      ]
+      ],
     });
   }
 

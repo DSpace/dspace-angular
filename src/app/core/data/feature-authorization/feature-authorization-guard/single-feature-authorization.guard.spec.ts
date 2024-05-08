@@ -1,10 +1,20 @@
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Router,
+  UrlTree,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import { AuthService } from '../../../auth/auth.service';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { of as observableOf, Observable } from 'rxjs';
-import { Router, UrlTree } from '@angular/router';
-import { AuthService } from '../../../auth/auth.service';
 import { singleFeatureAuthorizationGuard } from './single-feature-authorization.guard';
-import { waitForAsync, TestBed } from '@angular/core/testing';
 
 describe('singleFeatureAuthorizationGuard', () => {
   let authorizationService: AuthorizationDataService;
@@ -35,7 +45,7 @@ describe('singleFeatureAuthorizationGuard', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authService },
-      ]
+      ],
     });
   }
 

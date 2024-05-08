@@ -26,12 +26,10 @@ import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routin
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
 import { authBlockingGuard } from './core/auth/auth-blocking.guard';
 import { authenticatedGuard } from './core/auth/authenticated.guard';
-import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { SiteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
+import { siteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { reloadGuard } from './core/reload/reload.guard';
-import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
+import { forgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
@@ -43,6 +41,12 @@ import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { provideSubmissionState } from './submission/provide-submission-state';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
+import {
+  siteAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+import {
+  groupAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 
 export const APP_ROUTES: Route[] = [
   { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
@@ -90,13 +94,13 @@ export const APP_ROUTES: Route[] = [
         path: REGISTER_PATH,
         loadChildren: () => import('./register-page/register-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: mapToCanActivate([SiteRegisterGuard]),
+        canActivate: [siteRegisterGuard],
       },
       {
         path: FORGOT_PASSWORD_PATH,
         loadChildren: () => import('./forgot-password/forgot-password-routes')
           .then((m) => m.ROUTES),
-        canActivate: mapToCanActivate([EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard]),
+        canActivate: [EndUserAgreementCurrentUserGuard, forgotPasswordCheckGuard],
       },
       {
         path: COMMUNITY_MODULE_PATH,
@@ -157,7 +161,7 @@ export const APP_ROUTES: Route[] = [
         path: ADMIN_MODULE_PATH,
         loadChildren: () => import('./admin/admin-routes')
           .then((m) => m.ROUTES),
-        canActivate: mapToCanActivate([SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]),
+        canActivate: [siteAdministratorGuard, EndUserAgreementCurrentUserGuard],
       },
       {
         path: NOTIFICATIONS_MODULE_PATH,
@@ -250,7 +254,7 @@ export const APP_ROUTES: Route[] = [
       {
         path: ACCESS_CONTROL_MODULE_PATH,
         loadChildren: () => import('./access-control/access-control-routes').then((m) => m.ROUTES),
-        canActivate: mapToCanActivate([GroupAdministratorGuard, EndUserAgreementCurrentUserGuard]),
+        canActivate: [groupAdministratorGuard, EndUserAgreementCurrentUserGuard],
       },
       {
         path: 'subscriptions',

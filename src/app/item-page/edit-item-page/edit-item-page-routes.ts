@@ -1,7 +1,4 @@
-import {
-  mapToCanActivate,
-  Route,
-} from '@angular/router';
+import { Route } from '@angular/router';
 
 import { i18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
@@ -27,17 +24,17 @@ import { ItemCollectionMapperComponent } from './item-collection-mapper/item-col
 import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
-import { ItemPageAccessControlGuard } from './item-page-access-control.guard';
-import { ItemPageBitstreamsGuard } from './item-page-bitstreams.guard';
-import { ItemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
-import { ItemPageCurateGuard } from './item-page-curate.guard';
-import { ItemPageMetadataGuard } from './item-page-metadata.guard';
-import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
-import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
-import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
-import { ItemPageStatusGuard } from './item-page-status.guard';
-import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
-import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
+import { itemPageAccessControlGuard } from './item-page-access-control.guard';
+import { itemPageBitstreamsGuard } from './item-page-bitstreams.guard';
+import { itemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
+import { itemPageCurateGuard } from './item-page-curate.guard';
+import { itemPageMetadataGuard } from './item-page-metadata.guard';
+import { itemPageRegisterDoiGuard } from './item-page-register-doi.guard';
+import { itemPageReinstateGuard } from './item-page-reinstate.guard';
+import { itemPageRelationshipsGuard } from './item-page-relationships.guard';
+import { itemPageStatusGuard } from './item-page-status.guard';
+import { itemPageVersionHistoryGuard } from './item-page-version-history.guard';
+import { itemPageWithdrawGuard } from './item-page-withdraw.guard';
 import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
@@ -72,31 +69,31 @@ export const ROUTES: Route[] = [
             path: 'status',
             component: ThemedItemStatusComponent,
             data: { title: 'item.edit.tabs.status.title', showBreadcrumbs: true },
-            canActivate: mapToCanActivate([ItemPageStatusGuard]),
+            canActivate: [itemPageStatusGuard],
           },
           {
             path: 'bitstreams',
             component: ItemBitstreamsComponent,
             data: { title: 'item.edit.tabs.bitstreams.title', showBreadcrumbs: true },
-            canActivate: mapToCanActivate([ItemPageBitstreamsGuard]),
+            canActivate: [itemPageBitstreamsGuard],
           },
           {
             path: 'metadata',
             component: ThemedDsoEditMetadataComponent,
             data: { title: 'item.edit.tabs.metadata.title', showBreadcrumbs: true },
-            canActivate: mapToCanActivate([ItemPageMetadataGuard]),
+            canActivate: [itemPageMetadataGuard],
           },
           {
             path: 'curate',
             component: ItemCurateComponent,
             data: { title: 'item.edit.tabs.curate.title', showBreadcrumbs: true },
-            canActivate: mapToCanActivate([ItemPageCurateGuard]),
+            canActivate: [itemPageCurateGuard],
           },
           {
             path: 'relationships',
             component: ItemRelationshipsComponent,
             data: { title: 'item.edit.tabs.relationships.title', showBreadcrumbs: true },
-            canActivate: mapToCanActivate([ItemPageRelationshipsGuard]),
+            canActivate: [itemPageRelationshipsGuard],
           },
           /* TODO - uncomment & fix when view page exists
           {
@@ -114,19 +111,19 @@ export const ROUTES: Route[] = [
             path: 'versionhistory',
             component: ItemVersionHistoryComponent,
             data: { title: 'item.edit.tabs.versionhistory.title', showBreadcrumbs: true },
-            canActivate: mapToCanActivate([ItemPageVersionHistoryGuard]),
+            canActivate: [itemPageVersionHistoryGuard],
           },
           {
             path: 'access-control',
             component: ItemAccessControlComponent,
             data: { title: 'item.edit.tabs.access-control.title', showBreadcrumbs: true },
-            canActivate: mapToCanActivate([ItemPageAccessControlGuard]),
+            canActivate: [itemPageAccessControlGuard],
           },
           {
             path: 'mapper',
             component: ItemCollectionMapperComponent,
             data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
-            canActivate: mapToCanActivate([ItemPageCollectionMapperGuard]),
+            canActivate: [itemPageCollectionMapperGuard],
           },
         ],
       },
@@ -137,12 +134,12 @@ export const ROUTES: Route[] = [
       {
         path: ITEM_EDIT_WITHDRAW_PATH,
         component: ItemWithdrawComponent,
-        canActivate: mapToCanActivate([ItemPageWithdrawGuard]),
+        canActivate: [itemPageWithdrawGuard],
       },
       {
         path: ITEM_EDIT_REINSTATE_PATH,
         component: ItemReinstateComponent,
-        canActivate: mapToCanActivate([ItemPageReinstateGuard]),
+        canActivate: [itemPageReinstateGuard],
       },
       {
         path: ITEM_EDIT_PRIVATE_PATH,
@@ -164,7 +161,7 @@ export const ROUTES: Route[] = [
       {
         path: ITEM_EDIT_REGISTER_DOI_PATH,
         component: ItemRegisterDoiComponent,
-        canActivate: mapToCanActivate([ItemPageRegisterDoiGuard]),
+        canActivate: [itemPageRegisterDoiGuard],
         data: { title: 'item.edit.register-doi.title' },
       },
       {

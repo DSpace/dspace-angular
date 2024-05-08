@@ -1,11 +1,22 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateFn, Router, UrlTree } from '@angular/router';
-import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
-import { FeatureID } from '../feature-id';
-import { AuthorizationDataService } from '../authorization-data.service';
-import { AuthService } from '../../../auth/auth.service';
 import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
+import { AuthService } from '../../../auth/auth.service';
 import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '../../../shared/authorized.operators';
+import { AuthorizationDataService } from '../authorization-data.service';
+import { FeatureID } from '../feature-id';
 
 export declare type SomeFeatureGuardParamFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => Observable<FeatureID[]>;
 export declare type StringGuardParamFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => Observable<string>;
@@ -33,7 +44,7 @@ export const someFeatureAuthorizationGuard = (
     return observableCombineLatest([
       getFeatureIDs(route, state),
       getObjectUrl(route, state),
-      getEPersonUuid(route, state)
+      getEPersonUuid(route, state),
     ]).pipe(
       switchMap(([featureIDs, objectUrl, ePersonUuid]: [FeatureID[], string, string]) =>
         observableCombineLatest(featureIDs.map((featureID) => authorizationService.isAuthorized(featureID, objectUrl, ePersonUuid))),

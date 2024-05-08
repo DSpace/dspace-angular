@@ -1,18 +1,27 @@
-import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { ResolveFn, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateFn } from '@angular/router';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../remote-data';
-import { hasValue, hasNoValue } from '../../../../shared/empty.util';
-import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
-import { map } from 'rxjs/operators';
 import {
-  StringGuardParamFn,
-  SomeFeatureGuardParamFn,
-  someFeatureAuthorizationGuard
-} from './some-feature-authorization.guard';
-import { FeatureID } from '../feature-id';
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-export declare type DSOGetObjectURlFn = <T extends DSpaceObject>(resolve: ResolveFn<Observable<RemoteData<T>>>) => StringGuardParamFn;
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../../shared/empty.util';
+import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
+import { RemoteData } from '../../remote-data';
+import { FeatureID } from '../feature-id';
+import {
+  someFeatureAuthorizationGuard,
+  SomeFeatureGuardParamFn,
+  StringGuardParamFn,
+} from './some-feature-authorization.guard';
+
+export declare type DSOGetObjectURlFn = <T extends DSpaceObject>(resolve: ResolveFn<RemoteData<T>>) => StringGuardParamFn;
 
 
 /**
@@ -29,12 +38,12 @@ export const getRouteWithDSOId = (route: ActivatedRouteSnapshot): ActivatedRoute
 
 
 
-export const defaultDSOGetObjectUrl: DSOGetObjectURlFn = <T extends DSpaceObject>(resolve: ResolveFn<Observable<RemoteData<T>>>): StringGuardParamFn => {
+export const defaultDSOGetObjectUrl: DSOGetObjectURlFn = <T extends DSpaceObject>(resolve: ResolveFn<RemoteData<T>>): StringGuardParamFn => {
   return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> => {
     const routeWithObjectID = getRouteWithDSOId(route);
     return (resolve(routeWithObjectID, state) as Observable<RemoteData<T>>).pipe(
       getAllSucceededRemoteDataPayload(),
-      map((dso) => dso.self)
+      map((dso) => dso.self),
     );
   };
 };
@@ -44,7 +53,7 @@ export const defaultDSOGetObjectUrl: DSOGetObjectURlFn = <T extends DSpaceObject
  * This guard utilizes a resolver to retrieve the relevant object to check authorizations for
  */
 export const dsoPageSomeFeatureGuard = <T extends DSpaceObject>(
-  getResolveFn: () => ResolveFn<Observable<RemoteData<T>>>,
+  getResolveFn: () => ResolveFn<RemoteData<T>>,
   getFeatureIDs: SomeFeatureGuardParamFn,
   getObjectUrl: DSOGetObjectURlFn = defaultDSOGetObjectUrl,
   getEPersonUuid?: StringGuardParamFn,

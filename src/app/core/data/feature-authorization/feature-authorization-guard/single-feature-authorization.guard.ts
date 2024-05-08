@@ -1,8 +1,16 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateFn } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { FeatureID } from '../feature-id';
 import { map } from 'rxjs/operators';
-import { StringGuardParamFn, someFeatureAuthorizationGuard } from './some-feature-authorization.guard';
+
+import { FeatureID } from '../feature-id';
+import {
+  someFeatureAuthorizationGuard,
+  StringGuardParamFn,
+} from './some-feature-authorization.guard';
 
 export declare type SingleFeatureGuardParamFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => Observable<FeatureID>;
 
@@ -23,5 +31,5 @@ export const singleFeatureAuthorizationGuard = (
   getEPersonUuid?: StringGuardParamFn,
 ): CanActivateFn => someFeatureAuthorizationGuard(
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> => getFeatureID(route, state).pipe(
-  map((featureID: FeatureID) => [featureID]),
-), getObjectUrl, getEPersonUuid);
+    map((featureID: FeatureID) => [featureID]),
+  ), getObjectUrl, getEPersonUuid);
