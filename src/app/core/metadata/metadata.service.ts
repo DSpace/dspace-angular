@@ -170,6 +170,7 @@ export class MetadataService {
     this.setOpenGraphTitleTag();
     this.setOpenGraphDescriptionTag();
     this.setOpenGraphImageTag();
+    this.setOpenGraphUrlTag();
 
     this.setTwitterTitleTag();
     this.setTwitterDescriptionTag();
@@ -421,7 +422,7 @@ export class MetadataService {
    */
   private setOpenGraphDescriptionTag(): void {
     // TODO: truncate abstract
-    const value = this.getMetaTagValue('dc.description.abstract');
+    const value = this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
     this.addMetaTag('og:description', value);
   }
 
@@ -431,6 +432,14 @@ export class MetadataService {
   private setOpenGraphImageTag(): void {
     this.setPrimaryBitstreamInBundleTag('og:image');
   }
+
+  /**
+   * Add <meta name="og:url" ... >  to the <head>
+   */
+  private setOpenGraphUrlTag(): void {
+    const value = this.getMetaTagValue('dc.identifier.uri');
+    this.addMetaTag('og:url', value);
+}
 
 
   /**
