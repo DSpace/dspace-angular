@@ -42,6 +42,10 @@ import { itemPageWithdrawGuard } from './item-page-withdraw.guard';
 import { itemPageReinstateGuard } from './item-page-reinstate.guard';
 import { itemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { itemPageVersionHistoryGuard } from './item-page-version-history.guard';
+import { itemPagePrivateGuard } from './item-page-private.guard';
+import { itemPageMoveGuard } from './item-page-move.guard';
+import { itemPageDeleteGuard } from './item-page-delete.guard';
+import { itemPageEditAuthorizationsGuard } from './item-page-edit-authorizations.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -142,6 +146,7 @@ import { itemPageVersionHistoryGuard } from './item-page-version-history.guard';
           {
             path: ITEM_EDIT_PRIVATE_PATH,
             component: ItemPrivateComponent,
+            canActivate: [itemPagePrivateGuard]
           },
           {
             path: ITEM_EDIT_PUBLIC_PATH,
@@ -150,11 +155,13 @@ import { itemPageVersionHistoryGuard } from './item-page-version-history.guard';
           {
             path: ITEM_EDIT_DELETE_PATH,
             component: ItemDeleteComponent,
+            canActivate: [itemPageDeleteGuard]
           },
           {
             path: ITEM_EDIT_MOVE_PATH,
             component: ItemMoveComponent,
             data: { title: 'item.edit.move.title' },
+            canActivate: [itemPageMoveGuard]
           },
           {
             path: ITEM_EDIT_REGISTER_DOI_PATH,
@@ -179,7 +186,8 @@ import { itemPageVersionHistoryGuard } from './item-page-version-history.guard';
                   resourcePolicy: ResourcePolicyResolver
                 },
                 component: ResourcePolicyEditComponent,
-                data: { title: 'resource-policies.edit.page.title' }
+                data: { title: 'resource-policies.edit.page.title' },
+                canActivate: [itemPageEditAuthorizationsGuard]
               },
               {
                 path: '',
