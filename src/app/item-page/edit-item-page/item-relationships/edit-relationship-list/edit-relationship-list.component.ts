@@ -21,11 +21,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
+  EMPTY,
   from as observableFrom,
   Observable,
   Subscription,
 } from 'rxjs';
 import {
+  concatMap,
   defaultIfEmpty,
   map,
   mergeMap,
@@ -78,6 +80,7 @@ import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.mo
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { VarDirective } from '../../../../shared/utils/var.directive';
+import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipComponent } from '../edit-relationship/edit-relationship.component';
 
 @Component({
@@ -141,7 +144,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    * Observable that emits true if {@link itemType} is on the left-hand side of {@link relationshipType},
    * false if it is on the right-hand side and undefined in the rare case that it is on neither side.
    */
-  private currentItemIsLeftItem$: Observable<boolean>;
+  private currentItemIsLeftItem$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
 
   private relatedEntityType$: Observable<ItemType>;
 
@@ -206,6 +209,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal,
     protected paginationService: PaginationService,
     protected selectableListService: SelectableListService,
+    protected editItemRelationshipsService: EditItemRelationshipsService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     this.fetchThumbnail = this.appConfig.browseBy.showThumbnails;
@@ -240,7 +244,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    * Open the dynamic lookup modal to search for items to add as relationships
    */
   openLookup() {
-
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg',
     });
@@ -306,51 +309,59 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
 
     modalComp.submitEv = () => {
-
-      const subscriptions = [];
-
-      modalComp.toAdd.forEach((searchResult: SearchResult<Item>) => {
-        const relatedItem = searchResult.indexableObject;
-        subscriptions.push(this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
-          map((nameVariant) => {
-            const update = {
-              uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
-              nameVariant,
-              type: this.relationshipType,
-              relatedItem,
-            } as RelationshipIdentifiable;
-            this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
-            return update;
-          }),
-        ));
-      });
-
-      modalComp.toRemove.forEach( (searchResult) => {
-        subscriptions.push(this.relationshipService.getNameVariant(this.listId, searchResult.indexableObjectuuid).pipe(
-          switchMap((nameVariant) => {
-            return this.getRelationFromId(searchResult.indexableObject).pipe(
-              map( (relationship: Relationship) => {
+      modalComp.isPending = true;
+      const isLeft = this.currentItemIsLeftItem$.getValue();
+      const addOperations = modalComp.toAdd.map((searchResult: any) => ({ type: 'add', searchResult }));
+      const removeOperations = modalComp.toRemove.map((searchResult: any) => ({ type: 'remove', searchResult }));
+      observableFrom([...addOperations, ...removeOperations]).pipe(
+        concatMap(({ type, searchResult }: { type: string, searchResult: any }) => {
+          if (type === 'add') {
+            const relatedItem = searchResult.indexableObject;
+            return this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
+              map((nameVariant) => {
                 const update = {
-                  uuid: relationship.id,
+                  uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
                   nameVariant,
                   type: this.relationshipType,
-                  relationship,
+                  originalIsLeft: isLeft,
+                  originalItem: this.item,
+                  relatedItem,
                 } as RelationshipIdentifiable;
-                this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
+                this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
                 return update;
               }),
+              take(1),
             );
-          }),
-        ));
-      });
-
-      observableCombineLatest(subscriptions).subscribe( (res) => {
-        // Wait until the states changes since there are multiple items
-        setTimeout( () => {
+          } else if (type === 'remove') {
+            return this.relationshipService.getNameVariant(this.listId, searchResult.indexableObjectuuid).pipe(
+              switchMap((nameVariant) => {
+                return this.getRelationFromId(searchResult.indexableObject).pipe(
+                  map( (relationship: Relationship) => {
+                    const update = {
+                      uuid: relationship.id,
+                      nameVariant,
+                      type: this.relationshipType,
+                      originalIsLeft: isLeft,
+                      originalItem: this.item,
+                      relationship,
+                    } as RelationshipIdentifiable;
+                    this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
+                    return update;
+                  }),
+                );
+              }),
+              take(1),
+            );
+          } else {
+            return EMPTY;
+          }
+        }),
+        toArray(),
+      ).subscribe({
+        complete: () => {
+          this.editItemRelationshipsService.submit(this.item, this.url);
           this.submit.emit();
-        },1000);
-
-        modalComp.isPending = true;
+        },
       });
     };
 
@@ -384,27 +395,12 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   }
 
   getRelationFromId(relatedItem) {
-    return this.currentItemIsLeftItem$.pipe(
-      take(1),
-      switchMap( isLeft => {
-        let apiCall;
-        if (isLeft) {
-          apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.leftwardType ,[relatedItem.id] ).pipe(
-            getFirstSucceededRemoteData(),
-            getRemoteDataPayload(),
-          );
-        } else {
-          apiCall = this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, this.relationshipType.rightwardType ,[relatedItem.id] ).pipe(
-            getFirstSucceededRemoteData(),
-            getRemoteDataPayload(),
-          );
-        }
-
-        return apiCall.pipe(
-          map( (res: PaginatedList<Relationship>) => res.page[0]),
-        );
-      },
-      ));
+    const relationshipLabel = this.currentItemIsLeftItem$.getValue() ? this.relationshipType.leftwardType : this.relationshipType.rightwardType;
+    return this.relationshipService.searchByItemsAndType( this.relationshipType.id, this.item.uuid, relationshipLabel ,[relatedItem.id] ).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map( (res: PaginatedList<Relationship>) => res.page[0]),
+    );
   }
 
 
@@ -469,7 +465,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     // store the left and right type of the relationship in a single observable
     this.relationshipLeftAndRightType$ = observableCombineLatest([
       this.relationshipType.leftType,
@@ -490,7 +485,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       (relatedEntityType) => this.listId = `edit-relationship-${this.itemType.id}-${relatedEntityType.id}`,
     );
 
-    this.currentItemIsLeftItem$ = this.relationshipLeftAndRightType$.pipe(
+    this.subs.push(this.relationshipLeftAndRightType$.pipe(
       map(([leftType, rightType]: [ItemType, ItemType]) => {
         if (leftType.id === this.itemType.id) {
           return true;
@@ -504,7 +499,9 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         console.warn(`The item ${this.item.uuid} is not on the right or the left side of relationship type ${this.relationshipType.uuid}`);
         return undefined;
       }),
-    );
+    ).subscribe((nextValue: boolean) => {
+      this.currentItemIsLeftItem$.next(nextValue);
+    }));
 
     this.getRelationshipMessageKey$ = observableCombineLatest(
       this.getLabel(),
@@ -547,19 +544,20 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         currentPagination$,
         this.currentItemIsLeftItem$,
       ]).pipe(
-        switchMap(([currentPagination, currentItemIsLeftItem]: [PaginationComponentOptions, boolean]) =>
+        switchMap(([currentPagination, currentItemIsLeftItem]: [PaginationComponentOptions, boolean]) => {
           // get the relationships for the current item, relationshiptype and page
-          this.relationshipService.getItemRelationshipsByLabel(
+          return this.relationshipService.getItemRelationshipsByLabel(
             this.item,
             currentItemIsLeftItem ? this.relationshipType.leftwardType : this.relationshipType.rightwardType,
             {
               elementsPerPage: currentPagination.pageSize,
               currentPage: currentPagination.currentPage,
             },
-            false,
+            true,
             true,
             ...linksToFollow,
-          )),
+          );
+        }),
       ).subscribe((rd: RemoteData<PaginatedList<Relationship>>) => {
         this.relationshipsRd$.next(rd);
       }),
@@ -595,6 +593,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
               uuid: relationship.id,
               type: this.relationshipType,
               relationship,
+              originalIsLeft: isLeftItem,
+              originalItem: this.item,
               nameVariant,
             } as RelationshipIdentifiable;
           }),

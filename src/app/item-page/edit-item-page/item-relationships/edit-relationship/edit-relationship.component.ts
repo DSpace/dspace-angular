@@ -167,9 +167,9 @@ export class EditRelationshipComponent implements OnChanges {
         ) as DeleteRelationship;
       }),
       take(1),
-    ).subscribe((deleteRelationship: DeleteRelationship) =>
-      this.objectUpdatesService.saveRemoveFieldUpdate(this.url, deleteRelationship),
-    );
+    ).subscribe((deleteRelationship: DeleteRelationship) => {
+      this.objectUpdatesService.saveRemoveFieldUpdate(this.url, deleteRelationship);
+    });
   }
 
   openVirtualMetadataModal(content: any) {
