@@ -309,7 +309,13 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     } else {
       findListOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+    const result$ = this.searchBy('byLabel', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+
+    // add this result as a dependency of the item, meaning that if the item is invalided, this
+    // result will be as well
+    this.addDependency(result$, item.self);
+
+    return result$;
   }
 
   /**
