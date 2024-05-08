@@ -5,12 +5,9 @@ import {
 } from '@angular/common';
 import {
   Component,
-  EventEmitter,
   Inject,
   Input,
-  OnDestroy,
   OnInit,
-  Output,
 } from '@angular/core';
 import {
   Router,
@@ -22,20 +19,15 @@ import {
   Observable,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
 import { RemoteData } from '../../../core/data/remote-data';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { hasValue } from '../../empty.util';
 import { currentPath } from '../../utils/route.utils';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { AppliedFilter } from '../models/applied-filter.model';
-import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 
@@ -50,12 +42,12 @@ import { SearchFilterComponent } from './search-filter/search-filter.component';
 /**
  * This component represents the part of the search sidebar that contains filters.
  */
-export class SearchFiltersComponent implements OnInit, OnDestroy {
+export class SearchFiltersComponent implements OnInit {
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
-  @Input() searchOptions: PaginatedSearchOptions;
+
   /**
    * List of all filters that are currently active with their value set to null.
    * Used to reset all filters at once
@@ -82,11 +74,6 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    */
   @Input() refreshFilters: BehaviorSubject<boolean>;
 
-  /**
-   * Emits the {@link AppliedFilter}s by search filter name
-   */
-  @Output() changeAppliedFilters: EventEmitter<Map<string, AppliedFilter[]>> = new EventEmitter();
-
   appliedFilters: Map<string, AppliedFilter[]> = new Map();
 
   /**
@@ -97,18 +84,12 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   subs = [];
   filterLabel = 'search';
 
-  /**
-   * Initialize instance variables
-   * @param {SearchService} searchService
-   * @param {SearchFilterService} filterService
-   * @param {Router} router
-   * @param {SearchConfigurationService} searchConfigService
-   */
   constructor(
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    private searchService: SearchService,
-    private router: Router,
-    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
+    protected searchService: SearchService,
+    protected searchFilterService: SearchFilterService,
+    protected router: Router,
+    @Inject(SEARCH_CONFIG_SERVICE) protected searchConfigService: SearchConfigurationService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -139,22 +120,9 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     return config ? config.name : undefined;
   }
 
-  /**
-   * Updates the map of {@link AppliedFilter}s and emits it to it's parent component
-   *
-   * @param filterName
-   * @param appliedFilters
-   */
-  updateAppliedFilters(filterName: string, appliedFilters: AppliedFilter[]): void {
-    this.appliedFilters.set(filterName, appliedFilters);
-    this.changeAppliedFilters.emit(this.appliedFilters);
-  }
-
-  ngOnDestroy() {
-    this.subs.forEach((sub) => {
-      if (hasValue(sub)) {
-        sub.unsubscribe();
-      }
-    });
+  minimizeFilters(): void {
+    if (this.searchService.appliedFilters$.value.length > 0) {
+      this.searchFilterService.minimizeAll();
+    }
   }
 }

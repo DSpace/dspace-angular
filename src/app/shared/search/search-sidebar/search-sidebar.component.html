@@ -22,9 +22,13 @@
                                [currentConfiguration]="configuration"
                                [filters]="filters"
                                [refreshFilters]="refreshFilters"
-                               [inPlaceSearch]="inPlaceSearch"
-                               (changeAppliedFilters)="changeAppliedFilters.emit($event)">
+                               [inPlaceSearch]="inPlaceSearch">
             </ds-search-filters>
+            <ds-advanced-search *ngIf="inPlaceSearch && (this.showAdvancedSearch$ | async) === true"
+                                [configuration]="configuration"
+                                [filtersConfig]="(filters | async)?.payload"
+                                [scope]="currentScope">
+            </ds-advanced-search>
             <ds-search-settings *ngIf="inPlaceSearch"
                                 [currentSortOption]="currentSortOption"
                                 [sortOptionsList]="sortOptionsList">

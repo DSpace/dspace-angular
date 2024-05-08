@@ -6,7 +6,6 @@ import {
 } from '@angular/common';
 import {
   Component,
-  EventEmitter,
   Inject,
   OnDestroy,
   OnInit,
@@ -22,7 +21,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  BehaviorSubject,
   from,
   Observable,
 } from 'rxjs';
@@ -42,22 +40,13 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import {
-  CHANGE_APPLIED_FILTERS,
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { hasValue } from '../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { AppliedFilter } from '../../../models/applied-filter.model';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { addOperatorToFilterValue } from '../../../search.utils';
 import {
   facetLoad,
@@ -88,13 +77,14 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               protected vocabularyService: VocabularyService,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
-              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
-              @Inject(SCOPE) public scope: string,
-              @Inject(CHANGE_APPLIED_FILTERS) public changeAppliedFilters: EventEmitter<AppliedFilter[]>,
   ) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope, changeAppliedFilters);
+    super(
+      searchService,
+      filterService,
+      rdbs,
+      router,
+      searchConfigService,
+    );
   }
 
   vocabularyExists$: Observable<boolean>;

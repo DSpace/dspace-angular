@@ -13,7 +13,6 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { ThemedComponent } from '../../theme-support/themed.component';
-import { AppliedFilter } from '../models/applied-filter.model';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
 import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
@@ -44,14 +43,12 @@ export class ThemedSearchSidebarComponent extends ThemedComponent<SearchSidebarC
   @Input() refreshFilters: BehaviorSubject<boolean>;
   @Output() toggleSidebar: EventEmitter<boolean> = new EventEmitter();
   @Output() changeConfiguration: EventEmitter<SearchConfigurationOption> = new EventEmitter();
-  @Output() changeAppliedFilters: EventEmitter<Map<string, AppliedFilter[]>> = new EventEmitter();
   @Output() changeViewMode: EventEmitter<ViewMode> = new EventEmitter();
 
   protected inAndOutputNames: (keyof SearchSidebarComponent & keyof this)[] = [
     'configuration', 'configurationList', 'currentScope', 'currentSortOption',
     'resultCount', 'filters', 'viewModeList', 'showViewModes', 'inPlaceSearch',
     'searchOptions', 'sortOptionsList', 'refreshFilters', 'toggleSidebar', 'changeConfiguration',
-    'changeAppliedFilters',
     'changeViewMode',
   ];
 

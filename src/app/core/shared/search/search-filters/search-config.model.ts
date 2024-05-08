@@ -3,6 +3,7 @@ import {
   deserialize,
 } from 'cerialize';
 
+import { FilterType } from '../../../../shared/search/models/filter-type.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { CacheableObject } from '../../../cache/cacheable-object.model';
 import { HALLink } from '../../hal-link.model';
@@ -60,7 +61,7 @@ export interface FilterConfig {
   operators: OperatorConfig[];
   openByDefault: boolean;
   pageSize: number;
-  type: string;
+  type: FilterType;
 }
 
 /**

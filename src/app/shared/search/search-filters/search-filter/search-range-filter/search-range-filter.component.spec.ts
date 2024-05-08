@@ -1,7 +1,4 @@
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  EventEmitter,
-} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -24,14 +21,7 @@ import { buildPaginatedList } from '../../../../../core/data/paginated-list.mode
 import { RouteService } from '../../../../../core/services/route.service';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  CHANGE_APPLIED_FILTERS,
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
@@ -123,12 +113,7 @@ describe('SearchRangeFilterComponent', () => {
         { provide: Router, useValue: router },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
-        { provide: FILTER_CONFIG, useValue: mockFilterConfig },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: IN_PLACE_SEARCH, useValue: false },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
-        { provide: SCOPE, useValue: undefined },
-        { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -144,6 +129,9 @@ describe('SearchRangeFilterComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchRangeFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
+    comp.filterConfig = mockFilterConfig;
+    comp.inPlaceSearch = false;
+    comp.refreshFilters = new BehaviorSubject<boolean>(false);
     spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
     fixture.detectChanges();
   });

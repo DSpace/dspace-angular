@@ -1,17 +1,17 @@
 /* eslint-disable max-classes-per-file */
-import {
-  Injectable,
-  OnDestroy,
-} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import {
+  BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
 } from 'rxjs';
 import {
+  distinctUntilChanged,
   map,
   switchMap,
   take,
+  tap,
 } from 'rxjs/operators';
 
 import {
@@ -21,6 +21,7 @@ import {
 } from '../../../shared/empty.util';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { AppliedFilter } from '../../../shared/search/models/applied-filter.model';
 import { FacetValues } from '../../../shared/search/models/facet-values.model';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
@@ -78,7 +79,7 @@ class SearchDataService extends BaseDataService<any> {
  * Service that performs all general actions that have to do with the search page
  */
 @Injectable({ providedIn: 'root' })
-export class SearchService implements OnDestroy {
+export class SearchService {
 
   /**
    * Endpoint link path for retrieving general search results
@@ -96,14 +97,11 @@ export class SearchService implements OnDestroy {
   private request: GenericConstructor<RestRequest> = GetRequest;
 
   /**
-   * Subscription to unsubscribe from
-   */
-  private sub;
-
-  /**
    * Instance of SearchDataService to forward data service methods to
    */
   private searchDataService: SearchDataService;
+
+  public appliedFilters$: BehaviorSubject<AppliedFilter[]> = new BehaviorSubject([]);
 
   constructor(
     private routeService: RouteService,
@@ -116,6 +114,18 @@ export class SearchService implements OnDestroy {
     private angulartics2: Angulartics2,
   ) {
     this.searchDataService = new SearchDataService();
+  }
+
+  /**
+   * Get the currently {@link AppliedFilter}s for the given filter.
+   *
+   * @param filterName The name of the filter
+   */
+  getSelectedValuesForFilter(filterName: string): Observable<AppliedFilter[]> {
+    return this.appliedFilters$.pipe(
+      map((appliedFilters: AppliedFilter[]) => appliedFilters.filter((appliedFilter: AppliedFilter) => appliedFilter.filter === filterName)),
+      distinctUntilChanged((previous: AppliedFilter[], next: AppliedFilter[]) => JSON.stringify(previous) === JSON.stringify(next)),
+    );
   }
 
   /**
@@ -192,25 +202,10 @@ export class SearchService implements OnDestroy {
   }
 
   /**
-   * Method to retrieve request entries for search results from the server
-   * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
-   * @returns {Observable<RemoteData<SearchObjects<T>>>} Emits a paginated list with all search results found
-   */
-  searchEntries<T extends DSpaceObject>(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<SearchObjects<T>>> {
-    const href$ = this.getEndpoint(searchOptions);
-
-    const sqr$ = href$.pipe(
-      switchMap((href: string) => this.rdb.buildFromHref<SearchObjects<T>>(href)),
-    );
-
-    return this.directlyAttachIndexableObjects(sqr$);
-  }
-
-  /**
    * Method to directly attach the indexableObjects to search results, instead of using RemoteData.
    * For compatibility with the way the search was written originally
    *
-   * @param sqr$:                       a SearchObjects RemotaData Observable without its
+   * @param sqr$                        A {@link SearchObjects} {@link RemoteData} Observable without its
    *                                    indexableObjects attached
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
@@ -311,7 +306,19 @@ export class SearchService implements OnDestroy {
     });
     this.requestService.send(request, useCachedVersionIfAvailable);
 
-    return this.rdb.buildFromHref(href);
+    return this.rdb.buildFromHref(href).pipe(
+      tap((facetValuesRD: RemoteData<FacetValues>) => {
+        if (facetValuesRD.hasSucceeded) {
+          const appliedFilters: AppliedFilter[] = (facetValuesRD.payload.appliedFilters ?? [])
+            .filter((appliedFilter: AppliedFilter) => hasValue(appliedFilter))
+            // TODO this should ideally be fixed in the backend
+            .map((appliedFilter: AppliedFilter) => Object.assign({}, appliedFilter, {
+              operator: hasValue(appliedFilter.value.match(/\[\s*(\*|\d+)\s*TO\s*(\*|\d+)\s*]/)) ? 'range' : appliedFilter.operator,
+            }));
+          this.appliedFilters$.next(appliedFilters);
+        }
+      }),
+    );
   }
 
   /**
@@ -387,12 +394,4 @@ export class SearchService implements OnDestroy {
     return '/search';
   }
 
-  /**
-   * Unsubscribe from the subscription
-   */
-  ngOnDestroy(): void {
-    if (this.sub !== undefined) {
-      this.sub.unsubscribe();
-    }
-  }
 }

@@ -9,16 +9,16 @@ import {
   RouterModule,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { AppliedFilter } from '../../models/applied-filter.model';
 import { addOperatorToFilterValue } from '../../search.utils';
@@ -30,6 +30,7 @@ describe('SearchLabelRangeComponent', () => {
 
   let route: ActivatedRouteStub;
   let searchConfigurationService: SearchConfigurationServiceStub;
+  let searchFilterService: SearchFilterServiceStub;
   let paginationService: PaginationServiceStub;
 
   const searchLink = '/search';
@@ -61,6 +62,7 @@ describe('SearchLabelRangeComponent', () => {
     init();
     route = new ActivatedRouteStub(initialRouteParams);
     searchConfigurationService = new SearchConfigurationServiceStub();
+    searchFilterService = new SearchFilterServiceStub();
     paginationService = new PaginationServiceStub(pagination);
 
     await TestBed.configureTestingModule({
@@ -72,6 +74,7 @@ describe('SearchLabelRangeComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigurationService },
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
+        { provide: SearchFilterService, useValue: searchFilterService },
         { provide: ActivatedRoute, useValue: route },
       ],
     }).compileComponents();
@@ -84,16 +87,7 @@ describe('SearchLabelRangeComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('updateRemoveParams', () => {
-    it('should always reset the page to 1', (done: DoneFn) => {
-      spyOn(searchConfigurationService, 'unselectAppliedFilterParams').and.returnValue(observableOf(initialRouteParams));
-
-      comp.updateRemoveParams('f.dateIssued.max', '2000').pipe(take(1)).subscribe((params: Params) => {
-        expect(params).toEqual(Object.assign({}, initialRouteParams, {
-          'page-id.page': 1,
-        }));
-        done();
-      });
-    });
+  it('should create', () => {
+    expect(comp).toBeTruthy();
   });
 });

@@ -14,11 +14,11 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { currentPath } from '../../../utils/route.utils';
 import { AppliedFilter } from '../../models/applied-filter.model';
 
@@ -58,6 +58,7 @@ export class SearchLabelRangeComponent implements OnInit {
     protected router: Router,
     protected searchConfigurationService: SearchConfigurationService,
     protected searchService: SearchService,
+    protected searchFilterService: SearchFilterService,
   ) {
   }
 
@@ -77,13 +78,7 @@ export class SearchLabelRangeComponent implements OnInit {
    * @param operator The {@link AppliedFilter}'s optional operator
    */
   updateRemoveParams(filterName: string, value: string, operator?: string): Observable<Params> {
-    const page: string = this.paginationService.getPageParam(this.searchConfigurationService.paginationID);
-    return this.searchConfigurationService.unselectAppliedFilterParams(filterName, value, operator).pipe(
-      map((params: Params) => ({
-        ...params,
-        [page]: 1,
-      })),
-    );
+    return this.searchConfigurationService.unselectAppliedFilterParams(filterName, value, operator);
   }
 
   /**

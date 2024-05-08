@@ -109,13 +109,7 @@ export class SearchFacetOptionComponent implements OnInit {
    * Calculates the parameters that should change if this {@link filterValue} would be added to the active filters
    */
   updateAddParams(): Observable<Params> {
-    const page: string = this.paginationService.getPageParam(this.searchConfigService.paginationID);
-    return this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, this.getFacetValue()).pipe(
-      map((params: Params) => ({
-        ...params,
-        [page]: 1,
-      })),
-    );
+    return this.searchConfigService.selectNewAppliedFilterParams(this.filterConfig.name, this.getFacetValue());
   }
 
   /**

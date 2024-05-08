@@ -3,7 +3,6 @@ import {
   NgIf,
 } from '@angular/common';
 import {
-  ChangeDetectorRef,
   Component,
   Inject,
   Input,
@@ -59,10 +58,11 @@ export class AdminNotifyLogsResultComponent implements OnInit {
 
   protected readonly context = Context.CoarNotify;
 
-  constructor(@Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              private router: Router,
-              private route: ActivatedRoute,
-              protected cdRef: ChangeDetectorRef) {
+  constructor(
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+    protected router: Router,
+    protected route: ActivatedRoute,
+  ) {
   }
 
   ngOnInit() {

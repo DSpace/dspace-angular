@@ -5,12 +5,22 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import {
+  FilterConfig,
+  SearchConfig,
+} from '../../core/shared/search/search-filters/search-config.model';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import { SearchOptions } from '../search/models/search-options.model';
+
+/**
+ * Stub class of {@link SearchConfigurationService}
+ */
 export class SearchConfigurationServiceStub {
 
   public paginationID = 'test-id';
 
-  private searchOptions: BehaviorSubject<any> = new BehaviorSubject<any>({});
-  private paginatedSearchOptions: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  public searchOptions: BehaviorSubject<SearchOptions> = new BehaviorSubject(new SearchOptions({}));
+  public paginatedSearchOptions: BehaviorSubject<PaginatedSearchOptions> = new BehaviorSubject(new PaginatedSearchOptions({}));
 
   getCurrentFrontendFilters() {
     return observableOf([]);
@@ -28,8 +38,16 @@ export class SearchConfigurationServiceStub {
     return observableOf(a);
   }
 
+  getConfigurationAdvancedSearchFilters(_configuration: string, _scope?: string): Observable<FilterConfig[]> {
+    return observableOf([]);
+  }
+
   getConfig () {
     return observableOf({ hasSucceeded: true, payload: [] });
+  }
+
+  getConfigurationSearchConfig(_configuration: string, _scope?: string): Observable<SearchConfig> {
+    return observableOf(new SearchConfig());
   }
 
   getAvailableConfigurationOptions() {

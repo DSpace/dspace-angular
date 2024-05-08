@@ -4,6 +4,7 @@ import {
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { environment } from '../../environments/environment.test';
 import {
   SortDirection,
   SortOptions,
@@ -58,7 +59,7 @@ describe('MyDSpaceConfigurationService', () => {
   const rdb: any = getMockRemoteDataBuildService();
 
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb);
+    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb, environment);
   });
 
   describe('when the scope is called', () => {

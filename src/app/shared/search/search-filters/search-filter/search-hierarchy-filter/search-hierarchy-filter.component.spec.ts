@@ -30,37 +30,27 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  CHANGE_APPLIED_FILTERS,
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 
 describe('SearchHierarchyFilterComponent', () => {
-
+  let comp: SearchHierarchyFilterComponent;
   let fixture: ComponentFixture<SearchHierarchyFilterComponent>;
   let showVocabularyTreeLink: DebugElement;
 
-  const testSearchLink = 'test-search';
   const testSearchFilter = 'subject';
   const VocabularyTreeViewComponent = {
     select: new EventEmitter<VocabularyEntryDetail>(),
   };
 
-  const searchService = {
-    getSearchLink: () => testSearchLink,
-    getFacetValuesFor: () => observableOf([]),
-  };
+  let searchService: SearchServiceStub;
   const searchFilterService = {
     getPage: () => observableOf(0),
   };
@@ -79,6 +69,7 @@ describe('SearchHierarchyFilterComponent', () => {
   };
 
   beforeEach(() => {
+    searchService = new SearchServiceStub();
     searchConfigService = new SearchConfigurationServiceStub();
     router = new RouterStub();
 
@@ -98,11 +89,6 @@ describe('SearchHierarchyFilterComponent', () => {
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: APP_CONFIG, useValue: environment },
         { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
-        { provide: IN_PLACE_SEARCH, useValue: false },
-        { provide: FILTER_CONFIG, useValue: Object.assign(new SearchFilterConfig(), { name: testSearchFilter }) },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
-        { provide: SCOPE, useValue: undefined },
-        { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
@@ -110,6 +96,10 @@ describe('SearchHierarchyFilterComponent', () => {
 
   function init() {
     fixture = TestBed.createComponent(SearchHierarchyFilterComponent);
+    comp = fixture.componentInstance;
+    comp.inPlaceSearch = false;
+    comp.filterConfig = Object.assign(new SearchFilterConfig(), { name: testSearchFilter });
+    comp.refreshFilters = new BehaviorSubject<boolean>(false);
     fixture.detectChanges();
     showVocabularyTreeLink = fixture.debugElement.query(By.css(`a#show-${testSearchFilter}-tree`));
   }
@@ -161,7 +151,7 @@ describe('SearchHierarchyFilterComponent', () => {
           expect(modalService.open).toHaveBeenCalled();
           tick();
           expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalled();
-          expect(router.navigate).toHaveBeenCalledWith([testSearchLink], {
+          expect(router.navigate).toHaveBeenCalledWith(['/search'], {
             queryParams: {
               [`f.${testSearchFilter}`]: [
                 'definedBy_selectNewAppliedFilterParams',

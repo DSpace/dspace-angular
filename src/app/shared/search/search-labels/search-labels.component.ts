@@ -6,8 +6,11 @@ import {
 import {
   Component,
   Input,
+  OnInit,
 } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
+import { SearchService } from '../../../core/shared/search/search.service';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
 import { AppliedFilter } from '../models/applied-filter.model';
 import { SearchLabelComponent } from './search-label/search-label.component';
@@ -24,16 +27,22 @@ import { SearchLabelLoaderComponent } from './search-label-loader/search-label-l
 /**
  * Component that represents the labels containing the currently active filters
  */
-export class SearchLabelsComponent {
+export class SearchLabelsComponent implements OnInit {
 
   /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch: boolean;
 
-  /**
-   * The {@link AppliedFilter}s by filter name
-   */
-  @Input() appliedFilters: Map<string, AppliedFilter[]>;
+  appliedFilters$: BehaviorSubject<AppliedFilter[]>;
+
+  constructor(
+    protected searchService: SearchService,
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.appliedFilters$ = this.searchService.appliedFilters$;
+  }
 
 }

@@ -6,7 +6,6 @@
        [queryParams]="{view: 'list'}"
        queryParamsHandling="merge"
        (click)="switchViewTo(viewModeEnum.ListElement)"
-       routerLinkActive="active"
        [class.active]="currentMode === viewModeEnum.ListElement"
        class="btn btn-secondary"
        [attr.data-test]="'list-view' | dsBrowserOnly">
@@ -19,21 +18,21 @@
        [queryParams]="{view: 'grid'}"
        queryParamsHandling="merge"
        (click)="switchViewTo(viewModeEnum.GridElement)"
-       routerLinkActive="active"
        [class.active]="currentMode === viewModeEnum.GridElement"
        class="btn btn-secondary"
        [attr.data-test]="'grid-view' | dsBrowserOnly">
        <i class="fas fa-th-large"></i>
     </button>
     <button *ngIf="isToShow(viewModeEnum.DetailedListElement)"
+          [attr.aria-current]="currentMode === viewModeEnum.DetailedListElement"
+          [attr.aria-label]="'search.view-switch.show-detail' | translate"
        routerLink="."
        [queryParams]="{view: 'detailed'}"
        queryParamsHandling="merge"
        (click)="switchViewTo(viewModeEnum.DetailedListElement)"
-       routerLinkActive="active"
        [class.active]="currentMode === viewModeEnum.DetailedListElement"
        class="btn btn-secondary"
        [attr.data-test]="'detail-view' | dsBrowserOnly">
-      <span class="far fa-square"></span><span class="sr-only">{{'search.view-switch.show-detail' | translate}}</span>
+      <i class="far fa-square"></i>
     </button>
 </div>
