@@ -10,14 +10,14 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../../core/data/remote-data';
 
 /**
- * Guard for preventing unauthorized access to certain {@link Item} pages requiring edit metadata rights
- * Check edit metadata authorization rights
+ * Guard for preventing unauthorized access to certain {@link Item} pages requiring specific authorizations.
+ * Checks authorization rights for making items private.
  */
-export const itemPageMetadataGuard: CanActivateFn =
+export const itemPagePrivateGuard: CanActivateFn =
   dsoPageSingleFeatureGuard(
     () => {
       const itemPageResolver = inject(ItemPageResolver);
       return itemPageResolver.resolve as ResolveFn<Observable<RemoteData<Item>>>;
     },
-    () => observableOf(FeatureID.CanEditMetadata)
+    () => observableOf(FeatureID.CanMakePrivate)
   );
