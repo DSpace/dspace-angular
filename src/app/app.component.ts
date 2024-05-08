@@ -61,6 +61,12 @@ export class AppComponent implements OnInit, AfterViewInit {
    */
   idleModalOpen: boolean;
 
+
+  /**
+   * In order to show sharing component only in csr
+   */
+  browserPlatform = false;
+
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     @Inject(DOCUMENT) private document: any,
@@ -78,11 +84,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     private datadogRumService: DatadogRumService
   ) {
     this.notificationOptions = environment.notifications;
+    this.browserPlatform = isPlatformBrowser(this.platformId);
 
     /* Use models object so all decorators are actually called */
     this.models = models;
 
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.browserPlatform) {
       this.trackIdleModal();
     }
 
