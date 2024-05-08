@@ -1,4 +1,4 @@
-<div class="d-flex flex-row ds-value-row" *ngVar="mdValue.newValue.isVirtual as isVirtual" role="row"
+<div class="d-flex flex-row ds-value-row" *ngVar="metadataService.isVirtual(mdValue.newValue) as isVirtual" role="row"
      cdkDrag (cdkDragStarted)="dragging.emit(true)" (cdkDragEnded)="dragging.emit(false)"
      [ngClass]="{ 'ds-warning': mdValue.reordered || mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD, 'h-100': isOnlyValue }">
   <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex flex-column" *ngVar="(mdRepresentation$ | async) as mdRepresentation" role="cell">

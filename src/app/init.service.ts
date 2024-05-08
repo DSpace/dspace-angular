@@ -38,7 +38,7 @@ import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticationBlocking } from './core/auth/selectors';
 import { LAZY_DATA_SERVICES } from './core/data-services-map';
 import { LocaleService } from './core/locale/locale.service';
-import { MetadataService } from './core/metadata/metadata.service';
+import { HeadTagService } from './core/metadata/head-tag.service';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
@@ -70,7 +70,7 @@ export abstract class InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    protected metadata: MetadataService,
+    protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
@@ -207,13 +207,13 @@ export abstract class InitService {
 
   /**
    * Start route-listening subscriptions
-   * - {@link MetadataService.listenForRouteChange}
+   * - {@link HeadTagService.listenForRouteChange}
    * - {@link BreadcrumbsService.listenForRouteChanges}
    * - {@link ThemeService.listenForRouteChanges}
    * @protected
    */
   protected initRouteListeners(): void {
-    this.metadata.listenForRouteChange();
+    this.headTagService.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
     this.menuService.listenForRouteChanges();

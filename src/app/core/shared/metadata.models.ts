@@ -6,8 +6,6 @@ import {
 } from 'cerialize';
 import { v4 as uuidv4 } from 'uuid';
 
-import { hasValue } from '../../shared/empty.util';
-
 export const VIRTUAL_METADATA_PREFIX = 'virtual::';
 
 /** A single metadata value and its properties. */
@@ -58,24 +56,6 @@ export class MetadataValue implements MetadataValueInterface {
   @autoserialize
   confidence: number;
 
-  /**
-   * Returns true if this Metadatum's authority key starts with 'virtual::'
-   */
-  get isVirtual(): boolean {
-    return hasValue(this.authority) && this.authority.startsWith(VIRTUAL_METADATA_PREFIX);
-  }
-
-  /**
-   * If this is a virtual Metadatum, it returns everything in the authority key after 'virtual::'.
-   * Returns undefined otherwise.
-   */
-  get virtualValue(): string {
-    if (this.isVirtual) {
-      return this.authority.substring(this.authority.indexOf(VIRTUAL_METADATA_PREFIX) + VIRTUAL_METADATA_PREFIX.length);
-    } else {
-      return undefined;
-    }
-  }
 }
 
 /** Constraints for matching metadata values. */
