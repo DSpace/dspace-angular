@@ -5,7 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -113,8 +113,9 @@ describe('ProfilePageComponent', () => {
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([]),
-        ProfilePageComponent, VarDirective,
+        RouterModule.forRoot([]),
+        ProfilePageComponent,
+        VarDirective,
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
@@ -154,9 +155,13 @@ describe('ProfilePageComponent', () => {
     describe('updateProfile', () => {
       describe('when the metadata form returns false and the security form returns true', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: false,
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => false,
+              },
+            },
+          } as any;
           spyOn(component, 'updateSecurity').and.returnValue(true);
           component.updateProfile();
         });
@@ -168,9 +173,13 @@ describe('ProfilePageComponent', () => {
 
       describe('when the metadata form returns true and the security form returns false', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: true,
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => true,
+              },
+            },
+          } as any;
           component.updateProfile();
         });
 
@@ -181,9 +190,13 @@ describe('ProfilePageComponent', () => {
 
       describe('when the metadata form returns true and the security form returns true', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: true,
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => true,
+              },
+            },
+          } as any;
           component.updateProfile();
         });
 
@@ -194,9 +207,13 @@ describe('ProfilePageComponent', () => {
 
       describe('when the metadata form returns false and the security form returns false', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: false,
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => false,
+              },
+            },
+          } as any;
           component.updateProfile();
         });
 
