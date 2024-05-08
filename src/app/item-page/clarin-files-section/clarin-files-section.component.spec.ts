@@ -9,7 +9,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MetadataBitstream } from '../../core/metadata/metadata-bitstream.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { HALLink } from '../../core/shared/hal-link.model';
-import { BehaviorSubject , of} from 'rxjs';
+import { BehaviorSubject , of } from 'rxjs';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { Item } from '../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
 
 describe('ClarinFilesSectionComponent', () => {
   let component: ClarinFilesSectionComponent;
@@ -38,6 +42,22 @@ describe('ClarinFilesSectionComponent', () => {
   const metadataBitstreams: MetadataBitstream[] = [metadatabitstream];
   const bitstreamStream = new BehaviorSubject(metadataBitstreams);
 
+  const mockItem: Item = Object.assign(new Item(), {
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
+    metadata: {
+      'local.files.size': [
+        {
+          language: 'en_US',
+          value: '123'
+        }
+      ]
+    }
+  });
+
+  const configurationServiceSpy = jasmine.createSpyObj('configurationService', {
+    findByPropertyName: of('123456'),
+  });
+
   beforeEach(async () => {
     mockRegistryService = jasmine.createSpyObj('RegistryService', {
       'getMetadataBitstream': of(bitstreamStream)
@@ -53,13 +73,15 @@ describe('ClarinFilesSectionComponent', () => {
       providers: [
         { provide: RegistryService, useValue: mockRegistryService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: HALEndpointService, useValue: halService }
+        { provide: HALEndpointService, useValue: halService },
+        { provide: ConfigurationDataService, useValue: configurationServiceSpy },
       ],
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(ClarinFilesSectionComponent);
     component = fixture.componentInstance;
+    component.item = mockItem;
     fixture.detectChanges();
   });
 

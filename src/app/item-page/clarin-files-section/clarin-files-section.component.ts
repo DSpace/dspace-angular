@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../core/shared/item.model';
-import { getAllSucceededRemoteListPayload } from '../../core/shared/operators';
+import { getAllSucceededRemoteListPayload, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { MetadataBitstream } from '../../core/metadata/metadata-bitstream.model';
 import { RegistryService } from '../../core/registry/registry.service';
 import { Router } from '@angular/router';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'ds-clarin-files-section',
@@ -44,17 +46,36 @@ export class ClarinFilesSectionComponent implements OnInit {
   /**
    * total size of list of files uploaded by users to this item
    */
-  totalFileSizes: number;
+  totalFileSizes: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
 
   /**
    * list of files uploaded by users to this item
    */
-  listOfFiles: MetadataBitstream[];
+  listOfFiles: BehaviorSubject<MetadataBitstream[]> = new BehaviorSubject<MetadataBitstream[]>([]);
+
+  /**
+   * min file size to show `Download all ZIP` button, this value is loaded from the configuration property
+   * `download.all.alert.min.file.size`
+   */
+  downloadZipMinFileSize: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
+
+  /**
+   * max file size to show `Download all ZIP` button, this value is loaded from the configuration property
+   * `download.all.limit.max.file.size`
+   */
+  downloadZipMaxFileSize: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
+
+  /**
+   * min count of files to show `Download all ZIP` button, this value is loaded from the configuration property
+   * `download.all.limit.min.file.count`
+   */
+  downloadZipMinFileCount: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
 
 
   constructor(protected registryService: RegistryService,
               protected router: Router,
-              protected halService: HALEndpointService) {
+              protected halService: HALEndpointService,
+              protected configurationService: ConfigurationDataService) {
   }
 
   ngOnInit(): void {
@@ -62,10 +83,11 @@ export class ClarinFilesSectionComponent implements OnInit {
       .getMetadataBitstream(this.itemHandle, 'ORIGINAL,TEXT,THUMBNAIL')
       .pipe(getAllSucceededRemoteListPayload())
       .subscribe((data: MetadataBitstream[]) => {
-        this.listOfFiles = data;
+        this.listOfFiles.next(data);
         this.generateCurlCommand();
-        this.sumFileSizes();
       });
+    this.totalFileSizes.next(Number(this.item.firstMetadataValue('local.files.size')));
+    this.loadDownloadZipConfigProperties();
   }
 
   setCommandline() {
@@ -77,12 +99,7 @@ export class ClarinFilesSectionComponent implements OnInit {
   }
 
   generateCurlCommand() {
-    const fileNames = this.listOfFiles.map((file: MetadataBitstream) => {
-      // Show `Download All Files` only if there are more files.
-      if (this.listOfFiles.length > 1) {
-        this.canDownloadAllFiles = true;
-      }
-
+    const fileNames = this.listOfFiles.value.map((file: MetadataBitstream) => {
       if (file.canPreview) {
         this.canShowCurlDownload = true;
       }
@@ -95,11 +112,29 @@ export class ClarinFilesSectionComponent implements OnInit {
     }/{${fileNames.join(',')}}`;
   }
 
-  sumFileSizes() {
-    let totalBytes = 0;
-    this.listOfFiles.forEach((file) => {
-      totalBytes += file.fileSize;
-    });
-    this.totalFileSizes = totalBytes;
+  loadDownloadZipConfigProperties() {
+    this.configurationService.findByPropertyName('download.all.limit.min.file.count')
+      .pipe(
+        getFirstSucceededRemoteDataPayload()
+      )
+      .subscribe((config) => {
+        this.downloadZipMinFileCount.next(Number(config.values[0]));
+      });
+
+    this.configurationService.findByPropertyName('download.all.limit.max.file.size')
+      .pipe(
+        getFirstSucceededRemoteDataPayload()
+      )
+      .subscribe((config) => {
+        this.downloadZipMaxFileSize.next(Number(config.values[0]));
+      });
+
+    this.configurationService.findByPropertyName('download.all.alert.min.file.size')
+      .pipe(
+        getFirstSucceededRemoteDataPayload()
+      )
+      .subscribe((config) => {
+        this.downloadZipMinFileSize.next(Number(config.values[0]));
+      });
   }
 }
