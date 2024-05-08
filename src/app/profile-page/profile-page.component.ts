@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { EPerson } from '../core/eperson/models/eperson.model';
-import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Group } from '../core/eperson/models/group.model';
@@ -32,7 +32,7 @@ export class ProfilePageComponent implements OnInit {
   /**
    * A reference to the metadata form component
    */
-  @ViewChild(ProfilePageMetadataFormComponent) metadataForm: ProfilePageMetadataFormComponent;
+  @ViewChild(ThemedProfilePageMetadataFormComponent) metadataForm: ThemedProfilePageMetadataFormComponent;
 
   /**
    * The authenticated user as observable
@@ -114,8 +114,8 @@ export class ProfilePageComponent implements OnInit {
    * Fire an update on both the metadata and security forms
    * Show a warning notification when no changes were made in both forms
    */
-  updateProfile() {
-    const metadataChanged = this.metadataForm.updateProfile();
+  updateProfile(): void {
+    const metadataChanged = this.metadataForm.compRef.instance.updateProfile();
     const securityChanged = this.updateSecurity();
     if (!metadataChanged && !securityChanged) {
       this.notificationsService.warning(

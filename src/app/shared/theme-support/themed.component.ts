@@ -27,7 +27,7 @@ import { BASE_THEME_NAME } from './theme.constants';
 export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('content') themedElementContent: ElementRef;
-  protected compRef: ComponentRef<T>;
+  compRef: ComponentRef<T>;
 
   /**
    * A reference to the themed component. Will start as undefined and emit every time the themed
