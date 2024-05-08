@@ -86,13 +86,13 @@ export class ProfilePageSecurityFormComponent implements OnInit {
    * Indicates whether the "checkPasswordEmpty" needs to be added or not
    */
   @Input()
-    passwordCanBeEmpty = true;
+  passwordCanBeEmpty = true;
 
   /**
    * Prefix for the form's label messages of this component
    */
   @Input()
-    FORM_PREFIX: string;
+  FORM_PREFIX: string;
 
   private subs: Subscription[] = [];
 

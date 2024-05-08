@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  EventEmitter,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
@@ -17,10 +18,9 @@ import {
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
+  CHANGE_APPLIED_FILTERS,
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
@@ -32,7 +32,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { FacetValue } from '../../../models/facet-value.model';
+import { AppliedFilter } from '../../../models/applied-filter.model';
+import { FacetValues } from '../../../models/facet-values.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
@@ -51,45 +52,28 @@ describe('SearchFacetFilterComponent', () => {
     isOpenByDefault: false,
     pageSize: 2,
   });
-  const values: FacetValue[] = [
-    {
-      label: value1,
-      value: value1,
-      count: 52,
-      _links: {
-        self: {
-          href: '',
-        },
-        search: {
-          href: '',
-        },
+  const values: Partial<FacetValues> = {
+    appliedFilters: [
+      {
+        filter: filterName1,
+        operator: 'equals',
+        label: value1,
+        value: value1,
       },
-    }, {
-      label: value2,
-      value: value2,
-      count: 20,
-      _links: {
-        self: {
-          href: '',
-        },
-        search: {
-          href: '',
-        },
+      {
+        filter: filterName1,
+        operator: 'equals',
+        label: value2,
+        value: value2,
       },
-    }, {
-      label: value3,
-      value: value3,
-      count: 5,
-      _links: {
-        self: {
-          href: '',
-        },
-        search: {
-          href: '',
-        },
+      {
+        filter: filterName1,
+        operator: 'equals',
+        label: value3,
+        value: value3,
       },
-    },
-  ];
+    ],
+  };
 
   const searchLink = '/search';
   const selectedValues = [value1, value2];
@@ -98,7 +82,6 @@ describe('SearchFacetFilterComponent', () => {
   let router;
   const page = observableOf(0);
 
-  const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetFilterComponent],
@@ -111,6 +94,7 @@ describe('SearchFacetFilterComponent', () => {
         { provide: IN_PLACE_SEARCH, useValue: false },
         { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
         { provide: SCOPE, useValue: undefined },
+        { provide: CHANGE_APPLIED_FILTERS, useValue: new EventEmitter() },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => observableOf(selectedValues),
@@ -137,20 +121,9 @@ describe('SearchFacetFilterComponent', () => {
     comp.filterConfig = mockFilterConfig;
     filterService = (comp as any).filterService;
     searchService = (comp as any).searchService;
-    spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
+    spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(values));
     router = (comp as any).router;
     fixture.detectChanges();
-  });
-
-  describe('when the isChecked method is called with a value', () => {
-    beforeEach(() => {
-      spyOn(filterService, 'isFilterActiveWithValue');
-      comp.isChecked(values[1]);
-    });
-
-    it('should call isFilterActiveWithValue on the filterService with the correct filter parameter name and the passed value', () => {
-      expect(filterService.isFilterActiveWithValue).toHaveBeenCalledWith(mockFilterConfig.paramName, values[1].value);
-    });
   });
 
   describe('when the getSearchLink method is triggered', () => {
@@ -213,8 +186,10 @@ describe('SearchFacetFilterComponent', () => {
     const testValue = 'test';
 
     beforeEach(() => {
-      comp.selectedValues$ = observableOf(selectedValues.map((value) =>
-        Object.assign(new FacetValue(), {
+      comp.selectedAppliedFilters$ = observableOf(selectedValues.map((value) =>
+        Object.assign(new AppliedFilter(), {
+          filter: filterName1,
+          operator: 'equals',
           label: value,
           value: value,
         })));

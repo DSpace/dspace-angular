@@ -77,7 +77,7 @@ export class SubscriptionViewComponent {
    */
   getPageRoutePrefix(): string {
     let routePrefix;
-    switch (this.dso.type.toString()) {
+    switch (this.dso.type.value) {
       case 'community':
         routePrefix = getCommunityModuleRoute();
         break;

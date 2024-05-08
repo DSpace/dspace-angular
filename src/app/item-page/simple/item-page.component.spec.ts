@@ -26,7 +26,6 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { ItemDataService } from '../../core/data/item-data.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
-import { MetadataService } from '../../core/metadata/metadata.service';
 import {
   LinkDefinition,
   LinkHeadService,
@@ -92,12 +91,6 @@ describe('ItemPageComponent', () => {
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
 
-  const mockMetadataService = {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    processRemoteData: () => {
-    },
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
   });
@@ -141,7 +134,6 @@ describe('ItemPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
@@ -182,7 +174,7 @@ describe('ItemPageComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });

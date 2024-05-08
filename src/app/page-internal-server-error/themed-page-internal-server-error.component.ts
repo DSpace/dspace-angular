@@ -7,10 +7,11 @@ import { PageInternalServerErrorComponent } from './page-internal-server-error.c
  * Themed wrapper for PageInternalServerErrorComponent
  */
 @Component({
-  selector: 'ds-themed-page-internal-server-error',
+  selector: 'ds-page-internal-server-error',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
+  imports: [PageInternalServerErrorComponent],
 })
 export class ThemedPageInternalServerErrorComponent extends ThemedComponent<PageInternalServerErrorComponent> {
 

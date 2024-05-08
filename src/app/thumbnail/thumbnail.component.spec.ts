@@ -111,11 +111,11 @@ describe('ThumbnailComponent', () => {
     });
 
     it('should show a loading animation while isLoading$ is true', () => {
-      expect(de.query(By.css('ds-themed-loading'))).toBeTruthy();
+      expect(de.query(By.css('ds-loading'))).toBeTruthy();
 
       comp.isLoading$.next(false);
       fixture.detectChanges();
-      expect(fixture.debugElement.query(By.css('ds-themed-loading'))).toBeFalsy();
+      expect(fixture.debugElement.query(By.css('ds-loading'))).toBeFalsy();
     });
 
     describe('with a thumbnail image', () => {

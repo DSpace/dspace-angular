@@ -92,7 +92,7 @@ export class SectionFormOperationsService {
    * @return number
    *    the array index is part of array, zero otherwise
    */
-  public getArrayIndexFromEvent(event: DynamicFormControlEvent | any): number {
+  public getArrayIndexFromEvent(event: any): number {
     let fieldIndex: number;
 
     if (isNotEmpty(event)) {
@@ -110,7 +110,7 @@ export class SectionFormOperationsService {
 
       } else {
         // This is the case of a custom event which contains indexes information
-        fieldIndex = event.index as any;
+        fieldIndex = event?.index as any;
       }
     }
 

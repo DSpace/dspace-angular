@@ -27,13 +27,13 @@
           <ng-template ngbNavContent>
             <div class="row mt-2">
               <div class="col-12 col-lg-6">
-                <ds-themed-search-form id="search-form"
+                <ds-search-form id="search-form"
                                 [query]="(searchOptions$ | async)?.query"
                                 [currentUrl]="'./'"
                                 [inPlaceSearch]="true"
                                 [searchPlaceholder]="'item.edit.item-mapper.search-form.placeholder' | translate"
                                 (submitSearch)="performedSearch = true">
-                </ds-themed-search-form>
+                </ds-search-form>
               </div>
             </div>
 

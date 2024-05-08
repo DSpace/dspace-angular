@@ -71,6 +71,7 @@ import { SidebarService } from '../sidebar/sidebar.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { currentPath } from '../utils/route.utils';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
+import { AppliedFilter } from './models/applied-filter.model';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
@@ -82,7 +83,7 @@ import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sid
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 @Component({
-  selector: 'ds-search',
+  selector: 'ds-base-search',
   styleUrls: ['./search.component.scss'],
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -321,6 +322,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    * Emits event when the user select result entry
    */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
+   * The {@link AppliedFilter}s by filter name
+   */
+  appliedFilters: Map<string, AppliedFilter[]> = new Map();
 
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,

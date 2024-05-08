@@ -18,7 +18,10 @@ import {
   RouterLink,
 } from '@angular/router';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   from as observableFrom,
@@ -46,9 +49,12 @@ import { RouteService } from '../../../core/services/route.service';
 import { redirectOn4xx } from '../../../core/shared/authorized.operators';
 import {
   getAllCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
 } from '../../../core/shared/operators';
-import { hasValue } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
@@ -153,12 +159,13 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
 
   constructor(protected processOverviewService: ProcessOverviewService,
               protected processBulkDeleteService: ProcessBulkDeleteService,
-              protected ePersonDataService: EPersonDataService,
-              protected dsoNameService: DSONameService,
+              public ePersonDataService: EPersonDataService,
+              public dsoNameService: DSONameService,
               protected paginationService: PaginationService,
               protected routeService: RouteService,
               protected router: Router,
               protected auth: AuthService,
+              private translateService: TranslateService,
               @Inject(PLATFORM_ID) protected platformId: object,
   ) {
   }
@@ -176,7 +183,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
     // Creates an ID from the first 2 characters of the process status.
     // Should two process status values ever start with the same substring,
     // increase the number of characters until the ids are distinct.
-    this.paginationId = this.processStatus.toLowerCase().substring(0,2);
+    this.paginationId = this.processStatus.toLowerCase().substring(0, 2);
 
     const defaultPaginationOptions = Object.assign(new PaginationComponentOptions(), {
       id: this.paginationId,
@@ -218,7 +225,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
         // Map RemoteData<PaginatedList<Process>> to RemoteData<PaginatedList<ProcessOverviewTableEntry>>
         switchMap((processesRD: RemoteData<PaginatedList<Process>>) => {
           // Create observable emitting all processes one by one
-          return  observableFrom(processesRD.payload.page).pipe(
+          return observableFrom(processesRD.payload.page).pipe(
             // Map every Process to ProcessOverviewTableEntry
             mergeMap((process: Process) => {
               return this.getEPersonName(process.userId).pipe(
@@ -243,7 +250,6 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
             }),
           );
         }),
-
       ).subscribe((next: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
         this.processesRD$.next(next);
       }));
@@ -267,10 +273,20 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
    * @param id  ID of the EPerson
    */
   getEPersonName(id: string): Observable<string> {
-    return this.ePersonDataService.findById(id).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
-    );
+    if (isNotEmpty(id)) {
+      return this.ePersonDataService.findById(id).pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((rd: RemoteData<EPerson>) => {
+          if (rd.hasSucceeded) {
+            return [this.dsoNameService.getName(rd.payload)];
+          } else {
+            return this.translateService.get('process.overview.unknown.user');
+          }
+        }),
+      );
+    } else {
+      return this.translateService.get('process.overview.unknown.user');
+    }
   }
 
   /**

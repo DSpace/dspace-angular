@@ -177,5 +177,27 @@ export class ProcessFormComponent implements OnInit {
     };
     void this.router.navigate([getProcessListRoute()], extras);
   }
-}
 
+  updateScript($event: Script) {
+    this.selectedScript = $event;
+    this.parameters = undefined;
+  }
+
+  get generatedProcessName() {
+    const paramsString = this.parameters?.map((p: ProcessParameter) => {
+      const value = this.parseValue(p.value);
+      return isEmpty(value) ? p.name : `${p.name} ${value}`;
+    }).join(' ') || '';
+    return isEmpty(paramsString) ? this.selectedScript.name : `${this.selectedScript.name} ${paramsString}`;
+  }
+
+  private parseValue(value: any) {
+    if (typeof value === 'boolean') {
+      return undefined;
+    }
+    if (value instanceof File) {
+      return value.name;
+    }
+    return value?.toString();
+  }
+}

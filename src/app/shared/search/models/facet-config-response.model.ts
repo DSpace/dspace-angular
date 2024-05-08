@@ -19,7 +19,7 @@ export class FacetConfigResponse implements CacheableObject {
    * hardcoded because rest doesn't a unique one.
    */
   @excludeFromEquals
-    type = FACET_CONFIG_RESPONSE;
+  type = FACET_CONFIG_RESPONSE;
 
   /**
    * the filters in this response
@@ -30,7 +30,7 @@ export class FacetConfigResponse implements CacheableObject {
    * The {@link HALLink}s for this SearchFilterConfig
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
   };
 }

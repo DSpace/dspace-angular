@@ -21,22 +21,22 @@ export class Feature extends DSpaceObject {
    * Unique identifier for this feature
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * A human readable description of the feature's purpose
    */
   @autoserialize
-    description: string;
+  description: string;
 
   /**
    * A list of resource types this feature applies to
    */
   @autoserialize
-    resourcetypes: string[];
+  resourcetypes: string[];
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
   };
 }

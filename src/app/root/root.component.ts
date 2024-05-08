@@ -49,7 +49,7 @@ import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 
 @Component({
-  selector: 'ds-root',
+  selector: 'ds-base-root',
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.scss'],
   animations: [slideSidebarPadding],
@@ -144,7 +144,7 @@ export class RootComponent implements OnInit {
   }
 
   getBrowserName(): string {
-    const userAgent = this._window.nativeWindow.navigator.userAgent;
+    const userAgent = this._window.nativeWindow.navigator?.userAgent;
     if (/Firefox/.test(userAgent)) {
       return 'firefox';
     }
@@ -155,7 +155,7 @@ export class RootComponent implements OnInit {
   }
 
   getOSName(): string {
-    const userAgent = this._window.nativeWindow.navigator.userAgent;
+    const userAgent = this._window.nativeWindow.navigator?.userAgent;
     if (/Windows/.test(userAgent)) {
       return 'windows';
     }
