@@ -347,7 +347,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
                 );
               }),
               take(1)
-            )
+            );
           } else {
             return EMPTY;
           }
@@ -355,7 +355,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         toArray(),
       ).subscribe({
         complete: () => {
-          this.editItemRelationshipsService.submit(this.item, this.url)
+          this.editItemRelationshipsService.submit(this.item, this.url);
           this.submitModal.emit();
         }
       });
