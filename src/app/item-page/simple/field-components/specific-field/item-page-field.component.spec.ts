@@ -9,13 +9,14 @@ import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.mod
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { environment } from '../../../../../environments/environment';
-import { MarkdownPipe } from '../../../../shared/utils/markdown.pipe';
 import { SharedModule } from '../../../../shared/shared.module';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { By } from '@angular/platform-browser';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MarkdownDirective } from '../../../../shared/utils/markdown.directive';
+import { MathService } from '../../../../core/shared/math.service';
 
 let comp: ItemPageFieldComponent;
 let fixture: ComponentFixture<ItemPageFieldComponent>;
@@ -51,14 +52,15 @@ describe('ItemPageFieldComponent', () => {
       ],
       providers: [
         { provide: APP_CONFIG, useValue: appConfig },
-        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub }
+        { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: MathService, useValue: {} }
       ],
       declarations: [ItemPageFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemPageFieldComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
-    markdownSpy = spyOn(MarkdownPipe.prototype, 'transform');
+    markdownSpy = spyOn(MarkdownDirective.prototype, 'render');
     fixture = TestBed.createComponent(ItemPageFieldComponent);
     comp = fixture.componentInstance;
     comp.item = mockItemWithMetadataFieldsAndValue(mockFields, mockValue);

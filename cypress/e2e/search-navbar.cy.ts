@@ -15,7 +15,7 @@ const page = {
     }
 };
 
-xdescribe('Search from Navigation Bar', () => {
+describe('Search from Navigation Bar', () => {
     // NOTE: these tests currently assume this query will return results!
     const query = TEST_SEARCH_TERM;
 

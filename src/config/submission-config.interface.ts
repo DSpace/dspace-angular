@@ -15,6 +15,7 @@ interface IconsConfig extends Config {
   authority: {
     confidence: ConfidenceIconConfig[];
   };
+  iconsVisibleWithNoAuthority?: string[]
 }
 
 export interface MetadataIconConfig extends Config {

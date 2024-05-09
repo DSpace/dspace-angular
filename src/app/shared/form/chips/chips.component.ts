@@ -175,7 +175,7 @@ export class ChipsComponent implements OnChanges {
   }
 
   textTruncate(text: string): string {
-    if (text.length >= TOOLTIP_TEXT_LIMIT) {
+    if (text && text.length >= TOOLTIP_TEXT_LIMIT) {
       return `${text.substring(0, TOOLTIP_TEXT_LIMIT)}...`;
     }
     return text;
