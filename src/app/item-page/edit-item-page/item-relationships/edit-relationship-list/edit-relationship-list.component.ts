@@ -72,10 +72,10 @@ import {
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { SearchResult } from '../../../../shared/search/models/search-result.model';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
@@ -133,7 +133,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   /**
    * The event emmiter to submit the new information
    */
-  @Output() submit: EventEmitter<any> = new EventEmitter();
+  @Output() submitModal: EventEmitter<void> = new EventEmitter();
 
   /**
    * Observable that emits the left and right item type of {@link relationshipType} simultaneously.
@@ -148,7 +148,10 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
   private relatedEntityType$: Observable<ItemType>;
 
-  getRelationshipMessageKey$: Observable<string>;
+  /**
+   * The translation key for the entity type
+   */
+  relationshipMessageKey$: Observable<string>;
 
   /**
    * The list ID to save selected entities under
@@ -216,6 +219,29 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Get the i18n message key for this relationship type
+   */
+  public getRelationshipMessageKey(): Observable<string> {
+    return observableCombineLatest([
+      this.getLabel(),
+      this.relatedEntityType$,
+    ]).pipe(
+      map(([label, relatedEntityType]) => {
+        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
+          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
+          if (relationshipLabel !== relatedEntityType.label) {
+            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
+          } else {
+            return `relationships.is${relationshipLabel}Of`;
+          }
+        } else {
+          return label;
+        }
+      }),
+    );
+  }
+
+  /**
    * Get the relevant label for this relationship type
    */
   private getLabel(): Observable<string> {
@@ -264,11 +290,11 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       modalComp.collection = collection;
     });
 
-    modalComp.select = (...selectableObjects: SearchResult<Item>[]) => {
+    modalComp.select = (...selectableObjects: ItemSearchResult[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
 
-        const foundIndex = modalComp.toRemove.findIndex( el => el.uuid === relatedItem.uuid);
+        const foundIndex = modalComp.toRemove.findIndex((itemSearchResult: ItemSearchResult) => itemSearchResult.indexableObject.uuid === relatedItem.uuid);
 
         if (foundIndex !== -1) {
           modalComp.toRemove.splice(foundIndex,1);
@@ -292,7 +318,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         }
       });
     };
-    modalComp.deselect = (...selectableObjects: SearchResult<Item>[]) => {
+    modalComp.deselect = (...selectableObjects: ItemSearchResult[]) => {
       selectableObjects.forEach((searchResult) => {
         const relatedItem: Item = searchResult.indexableObject;
 
@@ -360,7 +386,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       ).subscribe({
         complete: () => {
           this.editItemRelationshipsService.submit(this.item, this.url);
-          this.submit.emit();
+          this.submitModal.emit();
         },
       });
     };
@@ -403,67 +429,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     );
   }
 
-
-
-  /**
-   * Get the existing field updates regarding a relationship with a given item
-   * @param relatedItem The item for which to get the existing field updates
-   */
-  private getFieldUpdatesForRelatedItem(relatedItem: Item): Observable<RelationshipIdentifiable[]> {
-    return this.updates$.pipe(
-      take(1),
-      map((updates) => Object.values(updates)
-        .map((update) => update.field as RelationshipIdentifiable)
-        .filter((field) => field.relationship),
-      ),
-      mergeMap((identifiables) =>
-        observableCombineLatest(
-          identifiables.map((identifiable) => this.getRelatedItem(identifiable.relationship)),
-        ).pipe(
-          defaultIfEmpty([]),
-          map((relatedItems) => {
-            return identifiables.filter( (identifiable, index) => {
-              return relatedItems[index].uuid === relatedItem.uuid;
-            });
-          },
-          ),
-        ),
-      ),
-    );
-  }
-
-  /**
-   * Check if the given item is related with the item we are editing relationships
-   * @param relatedItem The item for which to get the existing field updates
-   */
-  private getIsRelatedItem(relatedItem: Item): Observable<boolean> {
-
-    return this.currentItemIsLeftItem$.pipe(
-      take(1),
-      map( isLeft => {
-        if (isLeft) {
-          const listOfRelatedItems = this.item.allMetadataValues( 'relation.' + this.relationshipType.leftwardType );
-          return !!listOfRelatedItems.find( (uuid) => uuid === relatedItem.uuid );
-        } else {
-          const listOfRelatedItems = this.item.allMetadataValues( 'relation.' + this.relationshipType.rightwardType );
-          return !!listOfRelatedItems.find( (uuid) => uuid === relatedItem.uuid );
-        }
-      }),
-    );
-  }
-
-  /**
-   * Get the related item for a given relationship
-   * @param relationship  The relationship for which to get the related item
-   */
-  private getRelatedItem(relationship: Relationship): Observable<Item> {
-    return this.relationshipService.isLeftItem(relationship, this.item).pipe(
-      switchMap((isLeftItem) => isLeftItem ? relationship.rightItem : relationship.leftItem),
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-    ) as Observable<Item>;
-  }
-
   ngOnInit(): void {
     // store the left and right type of the relationship in a single observable
     this.relationshipLeftAndRightType$ = observableCombineLatest([
@@ -475,7 +440,13 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     ))) as Observable<[ItemType, ItemType]>;
 
     this.relatedEntityType$ = this.relationshipLeftAndRightType$.pipe(
-      map((relatedTypes: ItemType[]) => relatedTypes.find((relatedType) => relatedType.uuid !== this.itemType.uuid)),
+      map(([leftType, rightType]: [ItemType, ItemType]) => {
+        if (leftType.uuid !== this.itemType.uuid) {
+          return leftType;
+        } else {
+          return rightType;
+        }
+      }),
       hasValueOperator(),
     );
 
@@ -484,6 +455,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     ).subscribe(
       (relatedEntityType) => this.listId = `edit-relationship-${this.itemType.id}-${relatedEntityType.id}`,
     );
+
+    this.relationshipMessageKey$ = this.getRelationshipMessageKey();
 
     this.subs.push(this.relationshipLeftAndRightType$.pipe(
       map(([leftType, rightType]: [ItemType, ItemType]) => {
@@ -502,24 +475,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     ).subscribe((nextValue: boolean) => {
       this.currentItemIsLeftItem$.next(nextValue);
     }));
-
-    this.getRelationshipMessageKey$ = observableCombineLatest(
-      this.getLabel(),
-      this.relatedEntityType$,
-    ).pipe(
-      map(([label, relatedEntityType]) => {
-        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
-          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
-          if (relationshipLabel !== relatedEntityType.label) {
-            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
-          } else {
-            return `relationships.is${relationshipLabel}Of`;
-          }
-        } else {
-          return label;
-        }
-      }),
-    );
 
 
     // initialize the pagination options
