@@ -19,7 +19,7 @@ import { NotificationsServiceStub } from '../../../testing/notifications-service
 import { VarDirective } from '../../../utils/var.directive';
 import { ComColFormComponent } from './comcol-form.component';
 import { Operation } from 'fast-json-patch';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<any>;
@@ -61,7 +61,8 @@ describe('ComColFormComponent', () => {
   const logoEndpoint = 'rest/api/logo/endpoint';
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
-    deleteLogo: () => createSuccessfulRemoteDataObject$({})
+    deleteLogo: () => createSuccessfulRemoteDataObject$({}),
+    findById: () => createSuccessfulRemoteDataObject$({})
   });
   const notificationsService = new NotificationsServiceStub();
 
@@ -70,7 +71,8 @@ describe('ComColFormComponent', () => {
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 
   const requestServiceStub = jasmine.createSpyObj('requestService', {
-    removeByHrefSubstring: {}
+    removeByHrefSubstring: {},
+    setStaleByHrefSubstring: {}
   });
   const objectCacheStub = jasmine.createSpyObj('objectCache', {
     remove: {}
@@ -148,8 +150,6 @@ describe('ComColFormComponent', () => {
                 type: Community.type,
               }
             ),
-            uploader: undefined,
-            deleteLogo: false,
             operations: operations,
           }
         );
@@ -158,31 +158,21 @@ describe('ComColFormComponent', () => {
 
     describe('onCompleteItem', () => {
       beforeEach(() => {
-        spyOn(comp.finish, 'emit');
         comp.onCompleteItem();
       });
 
       it('should show a success notification', () => {
         expect(notificationsService.success).toHaveBeenCalled();
       });
-
-      it('should emit finish', () => {
-        expect(comp.finish.emit).toHaveBeenCalled();
-      });
     });
 
     describe('onUploadError', () => {
       beforeEach(() => {
-        spyOn(comp.finish, 'emit');
         comp.onUploadError();
       });
 
       it('should show an error notification', () => {
         expect(notificationsService.error).toHaveBeenCalled();
-      });
-
-      it('should emit finish', () => {
-        expect(comp.finish.emit).toHaveBeenCalled();
       });
     });
   });
@@ -204,6 +194,11 @@ describe('ComColFormComponent', () => {
       it('should initialize the uploadFilesOptions with a POST method', () => {
         expect(comp.uploadFilesOptions.method).toEqual(RestRequestMethod.POST);
       });
+
+      it('should not show the delete logo button', () => {
+        const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
+        expect(button).toBeFalsy();
+      });
     });
 
     describe('and the dso contains a logo', () => {
@@ -222,96 +217,71 @@ describe('ComColFormComponent', () => {
         expect(comp.uploadFilesOptions.url).toEqual(logoEndpoint);
       });
 
-      it('should initialize the uploadFilesOptions with a PUT method', () => {
-        expect(comp.uploadFilesOptions.method).toEqual(RestRequestMethod.PUT);
+      it('should show the delete logo button', () => {
+        const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
+        expect(button).toBeTruthy();
       });
 
-      describe('submit with logo marked for deletion', () => {
+      describe('when the delete logo button is clicked', () => {
         beforeEach(() => {
-          spyOn(dsoService, 'deleteLogo').and.callThrough();
-          comp.markLogoForDeletion = true;
-        });
-
-        it('should call dsoService.deleteLogo on the DSO', () => {
-          comp.onSubmit();
+          spyOn(dsoService, 'deleteLogo').and.returnValue(createSuccessfulRemoteDataObject$({}));
+          spyOn(comp, 'handleLogoDeletion').and.callThrough();
+          spyOn(comp, 'createConfirmationModal').and.callThrough();
+          spyOn(comp, 'subscribeToConfirmationResponse').and.callThrough();
+          const deleteButton = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
+          deleteButton.nativeElement.click();
           fixture.detectChanges();
-
-          expect(dsoService.deleteLogo).toHaveBeenCalledWith(comp.dso);
         });
 
-        describe('when dsoService.deleteLogo returns a successful response', () => {
+        it('should create a confirmation modal with the correct labels and properties', () => {
+          const modalServiceSpy = spyOn((comp as any).modalService, 'open').and.callThrough();
+
+          const modalRef = comp.createConfirmationModal();
+
+          expect(modalServiceSpy).toHaveBeenCalled();
+
+          expect(modalRef).toBeDefined();
+          expect(modalRef.componentInstance).toBeDefined();
+
+          expect(modalRef.componentInstance.headerLabel).toBe('community-collection.edit.logo.delete.title');
+          expect(modalRef.componentInstance.infoLabel).toBe('confirmation-modal.delete-community-collection-logo.info');
+          expect(modalRef.componentInstance.cancelLabel).toBe('form.cancel');
+          expect(modalRef.componentInstance.confirmLabel).toBe('community-collection.edit.logo.delete.title');
+          expect(modalRef.componentInstance.confirmIcon).toBe('fas fa-trash');
+        });
+
+        it('should call createConfirmationModal method', () => {
+          expect(comp.createConfirmationModal).toHaveBeenCalled();
+        });
+
+        it('should call subscribeToConfirmationResponse method', () => {
+          expect(comp.subscribeToConfirmationResponse).toHaveBeenCalled();
+        });
+
+        describe('when the modal is closed', () => {
+
+          let modalRef;
+
           beforeEach(() => {
-            dsoService.deleteLogo.and.returnValue(createSuccessfulRemoteDataObject$({}));
-            comp.onSubmit();
+            modalRef = comp.createConfirmationModal();
+            comp.subscribeToConfirmationResponse(modalRef);
           });
 
-          it('should display a success notification', () => {
-            expect(notificationsService.success).toHaveBeenCalled();
-          });
-        });
+          it('should call handleLogoDeletion and dsoService.deleteLogo methods when deletion is confirmed', waitForAsync(() => {
+            modalRef.componentInstance.confirmPressed();
 
-        describe('when dsoService.deleteLogo returns an error response', () => {
-          beforeEach(() => {
-            dsoService.deleteLogo.and.returnValue(createFailedRemoteDataObject$('Error', 500));
-            comp.onSubmit();
-          });
+            expect(comp.handleLogoDeletion).toHaveBeenCalled();
+            expect(dsoService.deleteLogo).toHaveBeenCalled();
 
-          it('should display an error notification', () => {
-            expect(notificationsService.error).toHaveBeenCalled();
-          });
-        });
-      });
+          }));
 
-      describe('deleteLogo', () => {
-        beforeEach(() => {
-          comp.deleteLogo();
-          fixture.detectChanges();
-        });
+          it('should not call handleLogoDeletion and dsoService.deleteLogo methods when deletion is refused', waitForAsync(() => {
+            modalRef.componentInstance.cancelPressed();
 
-        it('should set markLogoForDeletion to true', () => {
-          expect(comp.markLogoForDeletion).toEqual(true);
-        });
+            expect(comp.handleLogoDeletion).not.toHaveBeenCalled();
+            expect(dsoService.deleteLogo).not.toHaveBeenCalled();
+          }));
 
-        it('should mark the logo section with a danger alert', () => {
-          const logoSection = fixture.debugElement.query(By.css('#logo-section.alert-danger'));
-          expect(logoSection).toBeTruthy();
-        });
-
-        it('should hide the delete button', () => {
-          const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
-          expect(button).not.toBeTruthy();
-        });
-
-        it('should show the undo button', () => {
-          const button = fixture.debugElement.query(By.css('#logo-section .btn-warning'));
-          expect(button).toBeTruthy();
-        });
-      });
-
-      describe('undoDeleteLogo', () => {
-        beforeEach(() => {
-          comp.markLogoForDeletion = true;
-          comp.undoDeleteLogo();
-          fixture.detectChanges();
-        });
-
-        it('should set markLogoForDeletion to false', () => {
-          expect(comp.markLogoForDeletion).toEqual(false);
-        });
-
-        it('should disable the danger alert on the logo section', () => {
-          const logoSection = fixture.debugElement.query(By.css('#logo-section.alert-danger'));
-          expect(logoSection).not.toBeTruthy();
-        });
-
-        it('should show the delete button', () => {
-          const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
-          expect(button).toBeTruthy();
-        });
-
-        it('should hide the undo button', () => {
-          const button = fixture.debugElement.query(By.css('#logo-section .btn-warning'));
-          expect(button).not.toBeTruthy();
         });
       });
     });

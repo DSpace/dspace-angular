@@ -1489,7 +1489,11 @@
 
   "community.edit.logo.delete.title": "Delete logo",
 
+  "community-collection.edit.logo.delete.title": "Confirm deletion",
+
   "community.edit.logo.delete-undo.title": "Undo delete",
+
+  "community-collection.edit.logo.delete-undo.title": "Undo delete",
 
   "community.edit.logo.label": "Community logo",
 
@@ -2038,6 +2042,8 @@
   "confirmation-modal.delete-eperson.cancel": "Cancel",
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
+
+  "confirmation-modal.delete-community-collection-logo.info": "Are you sure you want to delete the logo?",
 
   "confirmation-modal.delete-profile.header": "Delete Profile",
 
@@ -5743,6 +5749,8 @@
   "submission.import-external.source.crossref": "CrossRef",
 
   "submission.import-external.source.datacite": "DataCite",
+
+  "submission.import-external.source.doi": "DOI",
 
   "submission.import-external.source.scielo": "SciELO",
 
