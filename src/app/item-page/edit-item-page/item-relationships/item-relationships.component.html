@@ -13,8 +13,9 @@
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.reinstate-button" | translate}}</span>
       </button>
       <button class="btn btn-primary" [disabled]="(hasChanges() | async) !== true"
-              (click)="submit()"><i
-          class="fas fa-save"></i>
+              (click)="submit()"><span *ngIf="isSaving$ | async" class="spinner-border spinner-border-sm" role="status"
+                                                     aria-hidden="true"></span>
+        <i *ngIf="(isSaving$ | async) !== true" class="fas fa-save"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>
       </button>
     </div>
