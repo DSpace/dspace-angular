@@ -20,7 +20,10 @@ import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
@@ -40,6 +43,7 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { compareArraysUsingIds } from '../../simple/item-types/shared/item-relationships-utils';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
 import { EditRelationshipListComponent } from './edit-relationship-list/edit-relationship-list.component';
@@ -105,10 +109,10 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
 
     const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
-      this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label, true, true, ...this.getRelationshipTypeFollowLinks())
-        .pipe(
-          map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page),
-        );
+      this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label, true, true, ...this.getRelationshipTypeFollowLinks()).pipe(
+        map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page),
+        distinctUntilChanged(compareArraysUsingIds()),
+      );
 
       this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
