@@ -44,6 +44,7 @@ import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 import { ITEM } from '../shared/item.resource-type';
 import { isPlatformServer } from '@angular/common';
 import { Root } from '../data/root.model';
+import { environment } from '../../../environments/environment';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -81,6 +82,9 @@ export class MetadataService {
     'application/rtf',                                                          // .rtf
     'application/epub+zip',                                                     // .epub
   ];
+
+  private fallbackImagePath = environment.metaTagFallbacksConfig.logo;
+  private defaultPageDescription = environment.metaTagFallbacksConfig.description;
 
   constructor(
     private router: Router,
@@ -152,6 +156,10 @@ export class MetadataService {
       }
     }
 
+    if (!hasValue(routeInfo.data.value.dso)) {
+      this.setGenericPageMetaTags();
+    }
+
 
   }
 
@@ -163,6 +171,7 @@ export class MetadataService {
   }
 
   private setDSOMetaTags(): void {
+    const openGraphType = this.getOpenGraphType();
 
     this.setTitleTag();
     this.setDescriptionTag();
@@ -172,9 +181,14 @@ export class MetadataService {
     this.setOpenGraphImageTag();
     this.setOpenGraphUrlTag();
 
+    if (openGraphType) {
+      this.setOpenGraphTypeTag(openGraphType);
+    }
+
     this.setTwitterTitleTag();
     this.setTwitterDescriptionTag();
     this.setTwitterImageTag();
+    this.setTwitterSummaryCardTag();
 
     if (!this.isResearchOutput()) {
       return;
@@ -214,8 +228,8 @@ export class MetadataService {
   /**
    * Add <meta name="title" ... >  to the <head>
    */
-  private setTitleTag(): void {
-    const value = this.dsoNameService.getName(this.currentObject.getValue());
+  private setTitleTag(title?: string): void {
+    const value = title ?? this.dsoNameService.getName(this.currentObject.getValue());
     this.addMetaTag('title', value);
     this.title.setTitle(value);
   }
@@ -223,9 +237,9 @@ export class MetadataService {
   /**
    * Add <meta name="description" ... >  to the <head>
    */
-  private setDescriptionTag(): void {
+  private setDescriptionTag(description?: string): void {
     // TODO: truncate abstract
-    const value = this.getMetaTagValue('dc.description.abstract');
+    const value = description ?? this.getMetaTagValue('dc.description.abstract');
     this.addMetaTag('description', value);
   }
 
@@ -410,19 +424,26 @@ export class MetadataService {
   }
 
   /**
+   * Add <meta name="og:type" ... >  to the <head>
+   */
+  private setOpenGraphTypeTag(type: string): void {
+    this.addMetaTag('og:type', type);
+  }
+
+  /**
    * Add <meta name="og:title" ... >  to the <head>
    */
-  private setOpenGraphTitleTag(): void {
-    const value = this.getMetaTagValue('dc.title');
+  private setOpenGraphTitleTag(title?: string): void {
+    const value = title ?? this.getMetaTagValue('dc.title');
     this.addMetaTag('og:title', value);
   }
 
   /**
    * Add <meta name="og:description" ... >  to the <head>
    */
-  private setOpenGraphDescriptionTag(): void {
+  private setOpenGraphDescriptionTag(description?: string): void {
     // TODO: truncate abstract
-    const value = this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
+    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
     this.addMetaTag('og:description', value);
   }
 
@@ -436,8 +457,8 @@ export class MetadataService {
   /**
    * Add <meta name="og:url" ... >  to the <head>
    */
-  private setOpenGraphUrlTag(): void {
-    const value = this.getMetaTagValue('dc.identifier.uri');
+  private setOpenGraphUrlTag(url?: string): void {
+    const value = url ?? this.getMetaTagValue('dc.identifier.uri');
     this.addMetaTag('og:url', value);
 }
 
@@ -445,17 +466,17 @@ export class MetadataService {
   /**
    * Add <meta name="twitter:title" ... >  to the <head>
    */
-  private setTwitterTitleTag(): void {
-    const value = this.getMetaTagValue('dc.title');
+  private setTwitterTitleTag(title?: string): void {
+    const value = title ?? this.getMetaTagValue('dc.title');
     this.addMetaTag('twitter:title', value);
   }
 
   /**
    * Add <meta name="twitter:description" ... >  to the <head>
    */
-  private setTwitterDescriptionTag(): void {
+  private setTwitterDescriptionTag(description?: string): void {
     // TODO: truncate abstract
-    const value = this.getMetaTagValue('dc.description.abstract');
+    const value = description ?? this.getMetaTagValue('dc.description.abstract') ?? this.translate.instant('meta.tag.missing.description');
     this.addMetaTag('twitter:description', value);
   }
 
@@ -464,6 +485,13 @@ export class MetadataService {
    */
   private setTwitterImageTag(): void {
     this.setPrimaryBitstreamInBundleTag('twitter:image');
+  }
+
+  /**
+   * Add <meta name="twitter:card" ... >  to the <head>
+   */
+  private setTwitterSummaryCardTag(): void {
+    this.addMetaTag('twitter:card', 'summary');
   }
 
   /**
@@ -482,8 +510,7 @@ export class MetadataService {
           return null;
         }
       }),
-      filter(data => !!data),
-      getDownloadableBitstream(this.authorizationService),
+      getDownloadableBitstream(this.authorizationService)
     );
   }
 
@@ -491,22 +518,27 @@ export class MetadataService {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
       this.getBitstreamFromThumbnail(item).pipe(
-        switchMap((bitstream) => {
+        map((bitstream) => {
           if (hasValue(bitstream)) {
-            return [getBitstreamDownloadRoute(bitstream)];
+            return getBitstreamDownloadRoute(bitstream);
           } else {
             return null;
           }
         }),
-        filter(data => !!data),
         take(1)
-      ).subscribe((link: string) => {
-        // Use the found link to set the <meta> tag
-        this.addMetaTag(
-          tag,
-          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
-        );
+      ).subscribe((link) => {
+        if (hasValue(link)) {
+          // Use the found link to set the <meta> tag
+          this.addMetaTag(
+            tag,
+            new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
+          );
+        } else {
+          this.addFallbackImageToTag(tag);
+        }
       });
+    } else {
+      this.addFallbackImageToTag(tag);
     }
   }
 
@@ -670,5 +702,62 @@ export class MetadataService {
     });
   }
 
+  private addFallbackImageToTag(tag: string) {
+    this.addMetaTag(
+      tag,
+      new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.fallbackImagePath).toString()
+    );
+  }
 
+  private getOpenGraphType(): string {
+    let type = '';
+    if (this.currentObject.value instanceof Item) {
+      const item = this.currentObject.value as Item;
+      switch (item.entityType) {
+        case 'News':
+          type = 'article';
+          break;
+        case 'Publication':
+          type =  'article';
+          break;
+        case 'Book':
+          type =  'book';
+          break;
+        case 'Person':
+          type =  'profile';
+          break;
+        case 'Audio':
+          type =  'music';
+          break;
+        case 'Video':
+          type =  'video';
+          break;
+        default:
+          break;
+      }
+    }
+    return type;
+  }
+
+
+  private setGenericPageMetaTags() {
+    const pageDocumentTitle = document.getElementsByTagName('title')[0].innerText;
+    const pageUrl = new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.router.url).toString();
+    const genericPageOpenGraphType = 'website';
+
+    this.setTitleTag(pageDocumentTitle);
+    this.setDescriptionTag(this.defaultPageDescription);
+
+    this.setOpenGraphTitleTag(pageDocumentTitle);
+    this.setOpenGraphDescriptionTag(this.defaultPageDescription);
+    this.setOpenGraphUrlTag(pageUrl);
+    this.setOpenGraphImageTag();
+    this.setOpenGraphTypeTag(genericPageOpenGraphType);
+
+
+    this.setTwitterTitleTag(pageDocumentTitle);
+    this.setTwitterDescriptionTag(this.defaultPageDescription);
+    this.setTwitterImageTag();
+    this.setTwitterSummaryCardTag();
+  }
 }
