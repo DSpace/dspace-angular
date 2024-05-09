@@ -577,4 +577,9 @@ export const environment: BuildConfig = {
   mirador: {
     enableDownloadPlugin: true,
   },
+
+  metaTagFallbacksConfig: {
+    logo: '/assets/images/dspace-cris-logo.png',
+    description: 'DSpace is the most widely used repository software with more than 3000 installations around the world. It is free, open source and completely customisable to fit the needs of any organisation.'
+  }
 };

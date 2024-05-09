@@ -11728,9 +11728,4 @@
   // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
   "access-control-option-end-date-note": "Escoja la fecha hasta la cuál se aplicarán las condiciones de acceso especificadas",
 
-  // "meta.tag.missing.description": "No description available"
-  // TODO New key - Add a translation
-  "meta.tag.missing.description": "No description available"
-
-
 }

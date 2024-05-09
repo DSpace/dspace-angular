@@ -7334,4 +7334,6 @@
   "third-party-metrics-cookies.consent-settings": "consent settings",
 
   "third-party-metrics-blocked": "Some of the metrics are blocked by your",
+
+  "meta.tag.missing.description": "No description available",
 }

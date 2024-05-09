@@ -32,6 +32,7 @@ import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-renderi
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
+import { MetaTagFallbacksConfig } from './metatag-fallbacks.config';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -70,6 +71,7 @@ interface AppConfig extends Config {
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
   searchResult: SearchResultConfig;
   mirador: MiradorConfig;
+  metaTagFallbacksConfig: MetaTagFallbacksConfig
 }
 
 /**
