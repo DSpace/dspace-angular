@@ -350,13 +350,19 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     } else {
       findListOptions.searchParams = searchParams;
     }
-    const result$ = this.searchBy('byLabel', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+
+    // always set reRequestOnStale to false here, so it doesn't happen automatically in BaseDataService
+    const result$ = this.searchBy('byLabel', findListOptions, useCachedVersionIfAvailable, false, ...linksToFollow);
 
     // add this result as a dependency of the item, meaning that if the item is invalided, this
     // result will be as well
-    this.addDependency(result$, item.self);
+    this.addDependency(result$, item._links.self.href);
 
-    return result$;
+    // do the reRequestOnStale call here, to ensure any re-requests also get added as dependencies
+    return result$.pipe(
+      this.reRequestStaleRemoteData(reRequestOnStale, () =>
+        this.getItemRelationshipsByLabel(item, label, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
+    );
   }
 
   /**
