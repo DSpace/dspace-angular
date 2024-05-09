@@ -10,7 +10,7 @@
     <!-- don't use *ngIf="!isLoading" so the thumbnail can load in while the animation is playing -->
     <img *ngIf="src !== null && customDescription !== undefined" class="thumbnail-content img-fluid" [ngClass]="{'d-none': isLoading}"
          [src]="src | dsSafeUrl" [alt]="customDescription" (error)="errorHandler()" (load)="successHandler()">
-    <img *ngIf="src !== null && customDescription == undefined" class="thumbnail-content img-fluid" [ngClass]="{'d-none': isLoading}"
+    <img *ngIf="src !== null && customDescription === undefined" class="thumbnail-content img-fluid" [ngClass]="{'d-none': isLoading}"
          [src]="src | dsSafeUrl" [alt]="alt | translate" (error)="errorHandler()" (load)="successHandler()">
     <div *ngIf="src === null && !isLoading" class="thumbnail-content outer">
       <div class="inner">
