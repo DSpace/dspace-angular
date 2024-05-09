@@ -121,6 +121,13 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   }
 
 
+  /**
+   * Method to prevent unnecessary for loop re-rendering
+   */
+  trackById(index: number, relationshipType: RelationshipType): string {
+    return relationshipType.id;
+  }
+
   getRelationshipTypeFollowLinks() {
     return [
       followLink('leftType'),
