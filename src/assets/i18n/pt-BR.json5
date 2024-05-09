@@ -8270,4 +8270,11 @@
 
   // "access-control-option-end-date-note": "Select the date until which the related access condition is applied", (Auto-Translated)
   "access-control-option-end-date-note": "Selecione a data até a qual a condição de acesso relacionada é aplicada",
+
+  // "community.form.thumbnail": "Thumbnail Description",
+  "community.form.thumbnail": "Descrição do logotipo da comunidade",
+
+  // "collection.form.thumbnail": "Thumbnail Description",
+  "collection.form.thumbnail": "Descrição do logotipo da coleção",
+
 }
