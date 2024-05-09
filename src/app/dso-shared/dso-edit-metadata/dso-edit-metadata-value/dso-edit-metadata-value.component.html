@@ -9,12 +9,12 @@
     <ds-dynamic-scrollable-dropdown *ngIf="mdValue.editing && (isScrollableVocabulary() | async)"
                                     [bindId]="mdField"
                                     [group]="group"
-                                    [model]="getModel() | async"
+                                    [model]="getModel()"
                                     (change)="onChangeAuthorityField($event)">
     </ds-dynamic-scrollable-dropdown>
     <ds-dynamic-onebox *ngIf="mdValue.editing && ((isHierarchicalVocabulary() | async) || (isSuggesterVocabulary() | async))"
                       [group]="group"
-                      [model]="getModel() | async"
+                      [model]="getModel()"
                       (change)="onChangeAuthorityField($event)">
     </ds-dynamic-onebox>
     <div *ngIf="!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE">
