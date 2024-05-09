@@ -34,7 +34,7 @@ export class ThemedComcolPageContentComponent extends ThemedComponent<ComcolPage
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../../../themes/${themeName}/app/admin/admin-sidebar/admin-sidebar.component`);
+    return import(`../../../../themes/${themeName}/app/shared/comcol/comcol-page-content/comcol-page-content.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {

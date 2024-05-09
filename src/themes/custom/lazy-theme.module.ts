@@ -68,6 +68,7 @@ import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.c
 import { UserMenuComponent } from './app/shared/auth-nav-menu/user-menu/user-menu.component';
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import { ComcolPageBrowseByComponent } from './app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from './app/shared/comcol/comcol-page-content/comcol-page-content.component';
 import { ComcolPageHandleComponent } from './app/shared/comcol/comcol-page-handle/comcol-page-handle.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { ExternalSourceEntryImportModalComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
@@ -192,6 +193,7 @@ const DECLARATIONS = [
   ItemDetailPreviewFieldComponent,
   ProfilePageMetadataFormComponent,
   SubmissionUploadFilesComponent,
+  ComcolPageContentComponent,
 ];
 
 @NgModule({
