@@ -17,6 +17,7 @@ import { ThemedMediaViewerComponent } from '../../../../../../../app/item-page/m
 import { MiradorViewerComponent } from '../../../../../../../app/item-page/mirador-viewer/mirador-viewer.component';
 import { ThemedFileSectionComponent } from '../../../../../../../app/item-page/simple/field-components/file-section/themed-file-section.component';
 import { ItemPageAbstractFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/abstract/item-page-abstract-field.component';
+import { ItemPageCcLicenseFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/cc-license/item-page-cc-license-field.component';
 import { ItemPageDateFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/date/item-page-date-field.component';
 import { GenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
@@ -36,12 +37,34 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
 @Component({
   selector: 'ds-untyped-item',
   // styleUrls: ['./untyped-item.component.scss'],
-  styleUrls: ['../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component.scss'],
+  styleUrls: [
+    '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component.scss',
+  ],
   // templateUrl: './untyped-item.component.html',
-  templateUrl: '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component.html',
+  templateUrl:
+    '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, ThemedResultsBackButtonComponent, MiradorViewerComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, ThemedMediaViewerComponent, ThemedFileSectionComponent, ItemPageDateFieldComponent, ThemedMetadataRepresentationListComponent, GenericItemPageFieldComponent, ItemPageAbstractFieldComponent, ItemPageUriFieldComponent, CollectionsComponent, RouterLink, AsyncPipe, TranslateModule],
+  imports: [
+    NgIf,
+    ThemedResultsBackButtonComponent,
+    MiradorViewerComponent,
+    ThemedItemPageTitleFieldComponent,
+    DsoEditMenuComponent,
+    MetadataFieldWrapperComponent,
+    ThemedThumbnailComponent,
+    ThemedMediaViewerComponent,
+    ThemedFileSectionComponent,
+    ItemPageDateFieldComponent,
+    ThemedMetadataRepresentationListComponent,
+    GenericItemPageFieldComponent,
+    ItemPageAbstractFieldComponent,
+    ItemPageUriFieldComponent,
+    CollectionsComponent,
+    RouterLink,
+    AsyncPipe,
+    TranslateModule,
+    ItemPageCcLicenseFieldComponent,
+  ],
 })
-export class UntypedItemComponent extends BaseComponent {
-}
+export class UntypedItemComponent extends BaseComponent {}
