@@ -47,7 +47,9 @@ import {
 import {
   SelectableListService
 } from '../../../../shared/object-list/selectable-list/selectable-list.service';
-import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
+import {
+  ItemSearchResult
+} from '../../../../shared/object-collection/shared/item-search-result.model';
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -63,7 +65,6 @@ import { FieldChangeType } from '../../../../core/data/object-updates/field-chan
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
-import { Identifiable } from '../../../../core/data/object-updates/identifiable.model';
 
 @Component({
   selector: 'ds-edit-relationship-list',

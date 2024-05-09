@@ -57,6 +57,10 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    */
   entityType$: BehaviorSubject<ItemType> = new BehaviorSubject(undefined);
 
+  get isSaving$(): BehaviorSubject<boolean> {
+    return this.editItemRelationshipsService.isSaving$;
+  }
+
   constructor(
     public itemService: ItemDataService,
     public objectUpdatesService: ObjectUpdatesService,

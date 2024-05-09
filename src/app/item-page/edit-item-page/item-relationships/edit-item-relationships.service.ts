@@ -10,7 +10,7 @@ import {
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, BehaviorSubject } from 'rxjs';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Item } from '../../../core/shared/item.model';
@@ -25,7 +25,9 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root'
 })
 export class EditItemRelationshipsService {
-  public notificationsPrefix = 'static-pages.form.notification';
+  public notificationsPrefix = 'item.edit.relationships.notifications.';
+
+  public isSaving$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     public itemService: ItemDataService,
@@ -43,6 +45,7 @@ export class EditItemRelationshipsService {
    * Make sure the lists are refreshed afterwards and notifications are sent for success and errors
    */
   public submit(item: Item, url: string): void {
+    this.isSaving$.next(true);
     this.objectUpdatesService.getFieldUpdates(url, [], true).pipe(
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)
@@ -98,6 +101,7 @@ export class EditItemRelationshipsService {
         this.initializeOriginalFields(item, url);
         this.displayNotifications(responses);
         this.modalService.dismissAll();
+        this.isSaving$.next(false);
       }
     });
   }
