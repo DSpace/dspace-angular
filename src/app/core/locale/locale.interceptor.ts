@@ -1,10 +1,17 @@
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
+import {
+  mergeMap,
+  scan,
+} from 'rxjs/operators';
 
 import { LocaleService } from './locale.service';
-import { mergeMap, scan } from 'rxjs/operators';
 
 @Injectable()
 export class LocaleInterceptor implements HttpInterceptor {
@@ -26,7 +33,7 @@ export class LocaleInterceptor implements HttpInterceptor {
           // Clone the request to add the new header.
           newReq = req.clone({
             headers: req.headers
-              .set('Accept-Language', languages.toString())
+              .set('Accept-Language', languages.toString()),
           });
           // Pass on the new request instead of the original request.
           return next.handle(newReq);

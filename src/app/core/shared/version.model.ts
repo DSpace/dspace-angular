@@ -1,17 +1,25 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
-import { excludeFromEquals } from '../utilities/equals.decorators';
-import { Item } from './item.model';
-import { RemoteData } from '../data/remote-data';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { VersionHistory } from './version-history.model';
+
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
+import { RemoteData } from '../data/remote-data';
 import { EPerson } from '../eperson/models/eperson.model';
-import { VERSION } from './version.resource-type';
-import { HALLink } from './hal-link.model';
-import { link, typedObject } from '../cache/builders/build-decorators';
-import { VERSION_HISTORY } from './version-history.resource-type';
-import { ITEM } from './item.resource-type';
 import { EPERSON } from '../eperson/models/eperson.resource-type';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { DSpaceObject } from './dspace-object.model';
+import { HALLink } from './hal-link.model';
+import { Item } from './item.model';
+import { ITEM } from './item.resource-type';
+import { VERSION } from './version.resource-type';
+import { VersionHistory } from './version-history.model';
+import { VERSION_HISTORY } from './version-history.resource-type';
 
 /**
  * Class representing a DSpace Version

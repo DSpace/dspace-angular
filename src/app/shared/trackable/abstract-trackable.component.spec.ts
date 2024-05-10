@@ -1,14 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AbstractTrackableComponent } from './abstract-trackable.component';
-import { INotification, Notification } from '../notifications/models/notification.model';
-import { NotificationType } from '../notifications/models/notification-type';
-import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { NotificationsService } from '../notifications/notifications.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestScheduler } from 'rxjs/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
+import {
+  INotification,
+  Notification,
+} from '../notifications/models/notification.model';
+import { NotificationType } from '../notifications/models/notification-type';
+import { NotificationsService } from '../notifications/notifications.service';
+import { AbstractTrackableComponent } from './abstract-trackable.component';
 
 describe('AbstractTrackableComponent', () => {
   let comp: AbstractTrackableComponent;
@@ -24,8 +32,8 @@ describe('AbstractTrackableComponent', () => {
     {
       info: infoNotification,
       warning: warningNotification,
-      success: successNotification
-    }
+      success: successNotification,
+    },
   );
 
   const url = 'http://test-url.com/test-url';
@@ -39,21 +47,20 @@ describe('AbstractTrackableComponent', () => {
         initialize: {},
         hasUpdates: observableOf(true),
         isReinstatable: observableOf(false), // should always return something --> its in ngOnInit
-        isValidPage: observableOf(true)
-      }
+        isValidPage: observableOf(true),
+      },
     );
 
     scheduler = getTestScheduler();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [AbstractTrackableComponent],
+      imports: [TranslateModule.forRoot(), AbstractTrackableComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

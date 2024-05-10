@@ -1,15 +1,23 @@
 /* eslint-disable max-classes-per-file */
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
-import { QUALITY_ASSURANCE_EVENT_OBJECT } from './quality-assurance-event-object.resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { ResourceType } from '../../../shared/resource-type';
+
+import {
+  link,
+  typedObject,
+} from '../../../cache/builders/build-decorators';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { RemoteData } from '../../../data/remote-data';
 import { HALLink } from '../../../shared/hal-link.model';
 import { Item } from '../../../shared/item.model';
 import { ITEM } from '../../../shared/item.resource-type';
-import { link, typedObject } from '../../../cache/builders/build-decorators';
-import { RemoteData } from '../../../data/remote-data';
-import {CacheableObject} from '../../../cache/cacheable-object.model';
+import { ResourceType } from '../../../shared/resource-type';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { QUALITY_ASSURANCE_EVENT_OBJECT } from './quality-assurance-event-object.resource-type';
 
 /**
  * The interface representing the Quality Assurance event message
@@ -27,6 +35,8 @@ export interface SourceQualityAssuranceEventMessageObject {
    * The type of 'value'
    */
   type: string;
+
+  reason: string;
 
   /**
    * The value suggested by Notifications

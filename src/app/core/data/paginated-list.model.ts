@@ -1,13 +1,22 @@
-import { PageInfo } from '../shared/page-info.model';
-import { hasValue, isEmpty, hasNoValue, isUndefined } from '../../shared/empty.util';
-import { HALResource } from '../shared/hal-resource.model';
-import { HALLink } from '../shared/hal-link.model';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isUndefined,
+} from '../../shared/empty.util';
 import { typedObject } from '../cache/builders/build-decorators';
-import { PAGINATED_LIST } from './paginated-list.resource-type';
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { HALLink } from '../shared/hal-link.model';
+import { HALResource } from '../shared/hal-resource.model';
+import { PageInfo } from '../shared/page-info.model';
 import { ResourceType } from '../shared/resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
-import { autoserialize, deserialize } from 'cerialize';
-import { CacheableObject } from '../cache/cacheable-object.model';
+import { PAGINATED_LIST } from './paginated-list.resource-type';
 
 /**
  * Factory function for a paginated list
@@ -45,7 +54,7 @@ export const buildPaginatedList = <T>(pageInfo: PageInfo, page: T[], normalized 
   }
 
   result._links = Object.assign({}, _links, pageInfo._links, {
-    page: pageLinks
+    page: pageLinks,
   });
 
   if (!normalized || isUndefined(pageLinks)) {

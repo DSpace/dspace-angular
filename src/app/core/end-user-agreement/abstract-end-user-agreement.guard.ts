@@ -1,13 +1,22 @@
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
-import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/authorized.operators';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { environment } from '../../../environments/environment';
+import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/authorized.operators';
 
 /**
  * An abstract guard for redirecting users to the user agreement page if a certain condition is met
  * That condition is defined by abstract method hasAccepted
  */
-export abstract class AbstractEndUserAgreementGuard implements CanActivate {
+export abstract class AbstractEndUserAgreementGuard  {
 
   constructor(protected router: Router) {
   }
@@ -23,7 +32,7 @@ export abstract class AbstractEndUserAgreementGuard implements CanActivate {
       return observableOf(true);
     }
     return this.hasAccepted().pipe(
-      returnEndUserAgreementUrlTreeOnFalse(this.router, state.url)
+      returnEndUserAgreementUrlTreeOnFalse(this.router, state.url),
     );
   }
 

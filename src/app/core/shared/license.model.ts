@@ -1,4 +1,8 @@
-import { autoserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  inheritSerialization,
+} from 'cerialize';
+
 import { typedObject } from '../cache/builders/build-decorators';
 import { DSpaceObject } from './dspace-object.model';
 import { LICENSE } from './license.resource-type';
