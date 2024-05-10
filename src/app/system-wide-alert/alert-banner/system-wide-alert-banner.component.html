@@ -21,7 +21,7 @@
             } }}
         </span>
             </span>
-            <span>{{(systemWideAlert$ |async)?.message}}</span>
+            <span [innerHTML]="(systemWideAlert$ |async)?.message"></span>
         </div>
     </div>
 </div>
