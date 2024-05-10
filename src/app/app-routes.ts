@@ -26,6 +26,8 @@ import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routin
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
 import { authBlockingGuard } from './core/auth/auth-blocking.guard';
 import { authenticatedGuard } from './core/auth/authenticated.guard';
+import { groupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { siteAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { siteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { reloadGuard } from './core/reload/reload.guard';
@@ -41,12 +43,6 @@ import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { provideSubmissionState } from './submission/provide-submission-state';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
-import {
-  siteAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import {
-  groupAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 
 export const APP_ROUTES: Route[] = [
   { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },

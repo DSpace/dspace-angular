@@ -28,7 +28,11 @@ import { itemPageAccessControlGuard } from './item-page-access-control.guard';
 import { itemPageBitstreamsGuard } from './item-page-bitstreams.guard';
 import { itemPageCollectionMapperGuard } from './item-page-collection-mapper.guard';
 import { itemPageCurateGuard } from './item-page-curate.guard';
+import { itemPageDeleteGuard } from './item-page-delete.guard';
+import { itemPageEditAuthorizationsGuard } from './item-page-edit-authorizations.guard';
 import { itemPageMetadataGuard } from './item-page-metadata.guard';
+import { itemPageMoveGuard } from './item-page-move.guard';
+import { itemPagePrivateGuard } from './item-page-private.guard';
 import { itemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { itemPageReinstateGuard } from './item-page-reinstate.guard';
 import { itemPageRelationshipsGuard } from './item-page-relationships.guard';
@@ -43,10 +47,6 @@ import { ItemRelationshipsComponent } from './item-relationships/item-relationsh
 import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemWithdrawComponent } from './item-withdraw/item-withdraw.component';
-import { itemPageEditAuthorizationsGuard } from './item-page-edit-authorizations.guard';
-import { itemPagePrivateGuard } from './item-page-private.guard';
-import { itemPageMoveGuard } from './item-page-move.guard';
-import { itemPageDeleteGuard } from './item-page-delete.guard';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality

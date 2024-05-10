@@ -1,14 +1,12 @@
 import { AbstractControl } from '@angular/forms';
-import {
-  mapToCanActivate,
-  Route,
-} from '@angular/router';
+import { Route } from '@angular/router';
 import {
   DYNAMIC_ERROR_MESSAGES_MATCHER,
   DynamicErrorMessagesMatcher,
 } from '@ng-dynamic-forms/core';
 
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { siteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import {
   EPERSON_PATH,
   GROUP_PATH,
@@ -19,9 +17,6 @@ import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-fo
 import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
-import {
-  siteAdministratorGuard
-} from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 
 /**
  * Condition for displaying error messages on email form field
