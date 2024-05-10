@@ -3951,6 +3951,10 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Ad",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Politika türünü seçin",
 
