@@ -82,6 +82,8 @@ describe('DsDatePickerComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
+        DsDatePickerComponent,
+        TestComponent,
         TranslateModule.forRoot(),
       ],
       declarations: [
