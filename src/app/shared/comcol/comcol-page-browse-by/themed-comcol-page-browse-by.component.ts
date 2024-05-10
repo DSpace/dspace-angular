@@ -30,7 +30,7 @@ export class ThemedComcolPageBrowseByComponent extends ThemedComponent<ComcolPag
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../../../themes/${themeName}/app/shared/comcol-page-browse-by/comcol-page-browse-by.component`);
+    return import(`../../../../themes/${themeName}/app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {

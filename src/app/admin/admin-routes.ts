@@ -3,7 +3,7 @@ import { Route } from '@angular/router';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
-import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
+import { ThemedMetadataImportPageComponent } from './admin-import-metadata-page/themed-metadata-import-page.component';
 import {
   LDN_PATH,
   NOTIFICATIONS_MODULE_PATH,
@@ -46,7 +46,7 @@ export const ROUTES: Route[] = [
   {
     path: 'metadata-import',
     resolve: { breadcrumb: i18nBreadcrumbResolver },
-    component: MetadataImportPageComponent,
+    component: ThemedMetadataImportPageComponent,
     data: { title: 'admin.metadata-import.title', breadcrumbKey: 'admin.metadata-import' },
   },
   {
