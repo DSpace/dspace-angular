@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import {
@@ -49,10 +50,7 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
   searchStatistics(uri: string, page: number, size: number): Observable<UsageReport[]> {
     return this.searchBy('object', {
       searchParams: [
-        {
-          fieldName: `uri`,
-          fieldValue: uri,
-        },
+        new RequestParam('uri', uri),
       ],
       currentPage: page,
       elementsPerPage: size,
