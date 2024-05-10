@@ -85,8 +85,7 @@ describe('DsDatePickerComponent test suite', () => {
         TranslateModule.forRoot(),
       ],
       declarations: [
-        DsDatePickerComponent,
-        TestComponent,        
+        DsDatePickerComponent,              
       ],
       providers: [
         ChangeDetectorRef,
