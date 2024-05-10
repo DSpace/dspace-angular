@@ -25,8 +25,8 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import {
-  TranslateService,
   TranslateModule,
+  TranslateService,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
