@@ -9,6 +9,10 @@ describe(`DSONameService`, () => {
   let service: DSONameService;
   let mockPersonName: string;
   let mockPerson: DSpaceObject;
+  let mockEPersonNameFirst: string;
+  let mockEPersonFirst: DSpaceObject;
+  let mockEPersonName: string;
+  let mockEPerson: DSpaceObject;
   let mockOrgUnitName: string;
   let mockOrgUnit: DSpaceObject;
   let mockDSOName: string;
@@ -23,6 +27,26 @@ describe(`DSONameService`, () => {
       getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
         return ['Person', Item, DSpaceObject];
       }
+    });
+
+    mockEPersonName = 'John Doe';
+    mockEPerson = Object.assign(new DSpaceObject(), {
+      firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+        return mockEPersonName;
+      },
+      getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+        return ['EPerson', Item, DSpaceObject];
+      },
+    });
+
+    mockEPersonNameFirst = 'John';
+    mockEPersonFirst = Object.assign(new DSpaceObject(), {
+      firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+        return mockEPersonNameFirst;
+      },
+      getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
+        return ['EPerson', Item, DSpaceObject];
+      },
     });
 
     mockOrgUnitName = 'Molecular Spectroscopy';
@@ -67,6 +91,15 @@ describe(`DSONameService`, () => {
       expect(result).toBe('Bingo!');
     });
 
+    it(`should use the EPerson factory for EPerson objects`, () => {
+      spyOn((service as any).factories, 'EPerson').and.returnValue('Bingo!');
+
+      const result = service.getName(mockEPerson);
+
+      expect((service as any).factories.EPerson).toHaveBeenCalledWith(mockEPerson);
+      expect(result).toBe('Bingo!');
+    });
+
     it(`should use the Default factory for regular DSpaceObjects`, () => {
       spyOn((service as any).factories, 'Default').and.returnValue('Bingo!');
 
@@ -106,6 +139,35 @@ describe(`DSONameService`, () => {
       });
     });
   });
+
+  describe(`factories.EPerson`, () => {
+    describe(`with eperson.firstname and without eperson.lastname`, () => {
+      beforeEach(() => {
+        spyOn(mockEPerson, 'firstMetadataValue').and.returnValues(...mockEPersonName.split(' '));
+      });
+
+      it(`should return 'eperson.firstname' and 'eperson.lastname'`, () => {
+        const result = (service as any).factories.EPerson(mockEPerson);
+        expect(result).toBe(mockEPersonName);
+        expect(mockEPerson.firstMetadataValue).toHaveBeenCalledWith('eperson.firstname');
+        expect(mockEPerson.firstMetadataValue).toHaveBeenCalledWith('eperson.lastname');
+      });
+    });
+
+    describe(` with eperson.firstname and without eperson.lastname`, () => {
+      beforeEach(() => {
+        spyOn(mockEPersonFirst, 'firstMetadataValue').and.returnValues(mockEPersonNameFirst, undefined);
+      });
+
+      it(`should return 'eperson.firstname'`, () => {
+        const result = (service as any).factories.EPerson(mockEPersonFirst);
+        expect(result).toBe(mockEPersonNameFirst);
+        expect(mockEPersonFirst.firstMetadataValue).toHaveBeenCalledWith('eperson.firstname');
+        expect(mockEPersonFirst.firstMetadataValue).toHaveBeenCalledWith('eperson.lastname');
+      });
+    });
+  });
+
 
   describe(`factories.OrgUnit`, () => {
     beforeEach(() => {
