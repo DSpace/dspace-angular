@@ -22,8 +22,9 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import isEqual from 'lodash/isEqual';
 import { TranslateService } from '@ngx-translate/core';
+import isEqual from 'lodash/isEqual';
+
 import { hasValue } from '../../../../../empty.util';
 import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
