@@ -24,15 +24,17 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateService,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
-import { By } from '@angular/platform-browser';
-import { TranslateModule } from '@ngx-translate/core';
+
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { DsDatePickerComponent } from './date-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
@@ -80,11 +82,11 @@ describe('DsDatePickerComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         DsDatePickerComponent,
-        TestComponent,
+        TestComponent,        
       ],
       providers: [
         ChangeDetectorRef,
