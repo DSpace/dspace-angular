@@ -12,32 +12,23 @@ import {
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorizations.guard';
+import { BitstreamDataService } from '../core/data/bitstream-data.service';
+import { Bitstream } from '../core/shared/bitstream.model';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { Item } from '../../core/shared/item.model';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { itemPageEditAuthorizationsGuard } from './item-page-edit-authorizations.guard';
-
-describe('itemPageEditAuthorizationsGuard', () => {
+describe('bitstreamPageAuthorizationsGuard', () => {
   let authorizationService: AuthorizationDataService;
   let authService: AuthService;
   let router: Router;
   let route;
   let parentRoute;
-  let store: Store;
-  let itemService: ItemDataService;
-  let item: Item;
+  let bitstreamService: BitstreamDataService;
+  let bitstream: Bitstream;
   let uuid = '1234-abcdef-54321-fedcba';
-  let itemSelfLink = 'test.url/1234-abcdef-54321-fedcba';
+  let bitstreamSelfLink = 'test.url/1234-abcdef-54321-fedcba';
 
   beforeEach(() => {
-
-    store = jasmine.createSpyObj('store', {
-      dispatch: {},
-      pipe: observableOf(true),
-    });
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true),
     });
@@ -58,34 +49,31 @@ describe('itemPageEditAuthorizationsGuard', () => {
       params: {},
       parent: parentRoute,
     };
-    item = new Item();
-    item.uuid = uuid;
-    item._links = { self: { href: itemSelfLink }  } as any;
-    itemService = jasmine.createSpyObj('itemService', { findById: createSuccessfulRemoteDataObject$(item) });
+    bitstream = new Bitstream();
+    bitstream.uuid = uuid;
+    bitstream._links = { self: { href: bitstreamSelfLink }  } as any;
+    bitstreamService = jasmine.createSpyObj('bitstreamService', { findById: createSuccessfulRemoteDataObject$(bitstream) });
 
     TestBed.configureTestingModule({
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authService },
-        { provide: Store, useValue: store },
-        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        { provide: TranslateService, useValue: getMockTranslateService() },
-        { provide: ItemDataService, useValue: itemService },
+        { provide: BitstreamDataService, useValue: bitstreamService },
       ],
     });
   });
 
   it('should call authorizationService.isAuthorized with the appropriate arguments', (done) => {
     const result$ = TestBed.runInInjectionContext(() => {
-      return itemPageEditAuthorizationsGuard(route, { url: 'current-url' } as any);
+      return bitstreamPageAuthorizationsGuard(route, { url: 'current-url' } as any);
     }) as Observable<boolean | UrlTree>;
 
     result$.subscribe((result) => {
       expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
         FeatureID.CanManagePolicies,
-        itemSelfLink, // This value is retrieved from the itemDataService.findById's return item's self link
-        undefined, // dsoPageSingleFeatureGuard never provides a function to retrieve a person ID
+        bitstreamSelfLink,
+        undefined,
       );
       done();
     });

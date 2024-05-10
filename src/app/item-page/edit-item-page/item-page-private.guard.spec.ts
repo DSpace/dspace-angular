@@ -18,9 +18,9 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { Item } from '../../core/shared/item.model';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { itemPageEditAuthorizationsGuard } from './item-page-edit-authorizations.guard';
+import { itemPagePrivateGuard } from './item-page-private.guard';
 
-describe('itemPageEditAuthorizationsGuard', () => {
+describe('itemPagePrivateGuard', () => {
   let authorizationService: AuthorizationDataService;
   let authService: AuthService;
   let router: Router;
@@ -78,12 +78,12 @@ describe('itemPageEditAuthorizationsGuard', () => {
 
   it('should call authorizationService.isAuthorized with the appropriate arguments', (done) => {
     const result$ = TestBed.runInInjectionContext(() => {
-      return itemPageEditAuthorizationsGuard(route, { url: 'current-url' } as any);
+      return itemPagePrivateGuard(route, { url: 'current-url' } as any);
     }) as Observable<boolean | UrlTree>;
 
     result$.subscribe((result) => {
       expect(authorizationService.isAuthorized).toHaveBeenCalledWith(
-        FeatureID.CanManagePolicies,
+        FeatureID.CanMakePrivate,
         itemSelfLink, // This value is retrieved from the itemDataService.findById's return item's self link
         undefined, // dsoPageSingleFeatureGuard never provides a function to retrieve a person ID
       );
