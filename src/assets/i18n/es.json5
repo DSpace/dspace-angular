@@ -5788,6 +5788,9 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nombre",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "Máximo 30 caracteres",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Seleccione el tipo de política",
 
