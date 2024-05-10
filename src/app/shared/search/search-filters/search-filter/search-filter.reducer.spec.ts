@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
+
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -7,9 +8,12 @@ import {
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
 } from './search-filter.actions';
-import { filterReducer } from './search-filter.reducer';
+import {
+  filterReducer,
+  SearchFiltersState,
+} from './search-filter.reducer';
 
 const filterName1 = 'author';
 const filterName2 = 'scope';
@@ -25,7 +29,7 @@ class NullAction extends SearchFilterCollapseAction {
 describe('filterReducer', () => {
 
   it('should return the current state when no valid actions have been made', () => {
-    const state = { author: { filterCollapsed: true, page: 1 } };
+    const state: SearchFiltersState = { author: { filterCollapsed: true, minimized: false, page: 1 } };
     const action = new NullAction();
     const newState = filterReducer(state, action);
 
@@ -131,7 +135,7 @@ describe('filterReducer', () => {
 
   it('should not change the state in response to  the INITIALIZE action with isOpenByDefault to false when the state has already been set for this filter', () => {
     const state = {};
-    state[filterName1] = { filterCollapsed: false, page: 1 };
+    state[filterName1] = { filterCollapsed: false, minimized: false, page: 1 };
     const filterConfig = { isOpenByDefault: true, name: filterName1 } as any;
     const action = new SearchFilterInitializeAction(filterConfig);
     const newState = filterReducer(state, action);
@@ -140,7 +144,7 @@ describe('filterReducer', () => {
 
   it('should not change the state in response to  the INITIALIZE action with isOpenByDefault to true when the state has already been set for this filter', () => {
     const state = {};
-    state[filterName1] = { filterCollapsed: true, page: 1 };
+    state[filterName1] = { filterCollapsed: true, minimized: false, page: 1 };
     const filterConfig = { isOpenByDefault: false, name: filterName1 } as any;
     const action = new SearchFilterInitializeAction(filterConfig);
     const newState = filterReducer(state, action);

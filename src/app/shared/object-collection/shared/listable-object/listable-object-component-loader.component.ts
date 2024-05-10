@@ -1,19 +1,27 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { take } from 'rxjs/operators';
-import { ListableObject } from '../listable-object.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { Context } from 'src/app/core/shared/context.model';
-import { getListableObjectComponent } from './listable-object.decorator';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { CollectionElementLinkType } from '../../collection-element-link.type';
+
+import { Context } from '../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
-import { ThemeService } from 'src/app/shared/theme-support/theme.service';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { ListableObject } from '../listable-object.model';
+import { getListableObjectComponent } from './listable-object.decorator';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
   styleUrls: ['./listable-object-component-loader.component.scss'],
   templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
+  standalone: true,
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)

@@ -16,26 +16,29 @@ import {
   OnChanges,
   Output,
   Renderer2,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-
+import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { isNotEmpty, isNull } from '../../empty.util';
 import { ConfidenceIconConfig } from '../../../../config/submission-config.interface';
 import { environment } from '../../../../environments/environment';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { TranslateService } from '@ngx-translate/core';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import {
+  isNotEmpty,
+  isNull,
+} from '../../empty.util';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value
  */
 @Directive({
-  selector: '[dsAuthorityConfidenceState]'
+  selector: '[dsAuthorityConfidenceState]',
+  standalone: true,
 })
 export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewInit {
 
@@ -88,7 +91,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
   constructor(
     private elem: ElementRef,
     private renderer: Renderer2,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
   }
 
@@ -102,7 +105,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
       this.previousClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.previousValue));
     }
     this.newClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
-    let confidenceName = this.getNameByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
+    const confidenceName = this.getNameByConfidence(this.getConfidenceByValue(changes.authorityValue.currentValue));
 
     if (isNull(this.previousClass)) {
       this.renderer.addClass(this.elem.nativeElement, this.newClass);
@@ -170,9 +173,9 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
 
     const confidenceIcons: ConfidenceIconConfig[] = environment.submission.icons.authority.confidence;
 
-    const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
+    const confidenceIndex: number = findIndex(confidenceIcons, { value: confidence });
 
-    const defaultconfidenceIndex: number = findIndex(confidenceIcons, {value: 'default' as  any});
+    const defaultconfidenceIndex: number = findIndex(confidenceIcons, { value: 'default' as  any });
 
     if (this.iconMode) {
       const defaultClass: string = (defaultconfidenceIndex !== -1) ? confidenceIcons[defaultconfidenceIndex].icon : '';
@@ -190,7 +193,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
    * @returns
    */
   private getNameByConfidence(confidence: any): string {
-    let confidenceText = ConfidenceType[confidence];
+    const confidenceText = ConfidenceType[confidence];
     if (isNotEmpty(confidenceText)) {
       return confidenceText.replace('CF_', '').toLowerCase();
     } else {

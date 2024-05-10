@@ -1,24 +1,36 @@
-import { Component, Injector } from '@angular/core';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { rendersWorkflowTaskOption } from '../switcher/claimed-task-actions-decorator';
-import { Observable } from 'rxjs';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Injector,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+
+import { RemoteData } from '../../../../core/data/remote-data';
+import { RequestService } from '../../../../core/data/request.service';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { SearchService } from '../../../../core/shared/search/search.service';
+import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
 
-@rendersWorkflowTaskOption(WORKFLOW_TASK_OPTION_RETURN_TO_POOL)
 @Component({
   selector: 'ds-claimed-task-actions-return-to-pool',
   styleUrls: ['./claimed-task-actions-return-to-pool.component.scss'],
   templateUrl: './claimed-task-actions-return-to-pool.component.html',
+  standalone: true,
+  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying and processing the return to pool action on a workflow task item

@@ -1,4 +1,4 @@
-import {autoserialize} from 'cerialize';
+import { autoserialize } from 'cerialize';
 
 /**
  * A single notify service pattern and his properties

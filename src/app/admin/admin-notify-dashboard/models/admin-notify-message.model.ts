@@ -1,11 +1,17 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+import { Observable } from 'rxjs';
+
 import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
-import { Observable } from 'rxjs';
+import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
+
 /**
  * A message that includes admin notify info
  */

@@ -11,7 +11,7 @@ export class OptionVO {
   disabled = false;
 
   static collection(id: string, name: string, disabled: boolean = false): OptionVO {
-    let opt = new OptionVO();
+    const opt = new OptionVO();
     opt.id = id;
     opt.name$ = OptionVO.toObservable(name);
     opt.disabled = disabled;
@@ -19,7 +19,7 @@ export class OptionVO {
   }
 
   static collectionLoc(id: string, name$: Observable<string>, disabled: boolean = false): OptionVO {
-    let opt = new OptionVO();
+    const opt = new OptionVO();
     opt.id = id;
     opt.name$ = name$;
     opt.disabled = disabled;
@@ -27,14 +27,14 @@ export class OptionVO {
   }
 
   static item(id: string, name: string): OptionVO {
-    let opt = new OptionVO();
+    const opt = new OptionVO();
     opt.id = id;
     opt.name$ = OptionVO.toObservable(name);
     return opt;
   }
 
   static itemLoc(id: string, name$: Observable<string>): OptionVO {
-    let opt = new OptionVO();
+    const opt = new OptionVO();
     opt.id = id;
     opt.name$ = name$;
     return opt;

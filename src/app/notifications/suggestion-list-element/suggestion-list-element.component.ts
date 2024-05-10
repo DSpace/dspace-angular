@@ -1,20 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Suggestion } from 'src/app/core/notifications/models/suggestion.model';
-import { fadeIn } from '../../shared/animations/fade';
+
+import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { Item } from '../../core/shared/item.model';
+import { fadeIn } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
-
-
-
-/**
- * A simple interface to unite a specific suggestion and the id of the chosen collection
- */
-export interface SuggestionApproveAndImport {
-  suggestion: Suggestion;
-  collectionId: string;
-}
+import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
+import { SuggestionApproveAndImport } from './suggestion-approve-and-import';
+import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
 
 /**
  * Show all the suggestions by researcher
@@ -23,7 +25,15 @@ export interface SuggestionApproveAndImport {
   selector: 'ds-suggestion-list-item',
   styleUrls: ['./suggestion-list-element.component.scss'],
   templateUrl: './suggestion-list-element.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
+  imports: [
+    NgIf,
+    TranslateModule,
+    ItemSearchResultListElementComponent,
+    SuggestionActionsComponent,
+    SuggestionEvidencesComponent,
+  ],
+  standalone: true,
 })
 export class SuggestionListElementComponent implements OnInit {
 
@@ -61,8 +71,8 @@ export class SuggestionListElementComponent implements OnInit {
 
   ngOnInit() {
     this.listableObject = {
-      indexableObject: Object.assign(new Item(), {id: this.object.id, metadata: this.object.metadata}),
-      hitHighlights: {}
+      indexableObject: Object.assign(new Item(), { id: this.object.id, metadata: this.object.metadata }),
+      hitHighlights: {},
     };
   }
 

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 /**
  * Interface for the route parameters.
@@ -13,8 +16,8 @@ export interface QualityAssuranceTopicsPageParams {
 /**
  * This class represents a resolver that retrieve the route data before the route is activated.
  */
-@Injectable()
-export class QualityAssuranceTopicsPageResolver implements Resolve<QualityAssuranceTopicsPageParams> {
+@Injectable({ providedIn: 'root' })
+export class QualityAssuranceTopicsPageResolver {
 
   /**
    * Method for resolving the parameters in the current route.
@@ -26,7 +29,7 @@ export class QualityAssuranceTopicsPageResolver implements Resolve<QualityAssura
     return {
       pageId: route.queryParams.pageId,
       pageSize: parseInt(route.queryParams.pageSize, 10),
-      currentPage: parseInt(route.queryParams.page, 10)
+      currentPage: parseInt(route.queryParams.page, 10),
     };
   }
 }

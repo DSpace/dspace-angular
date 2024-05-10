@@ -1,31 +1,33 @@
 import { Injectable } from '@angular/core';
-
-import { select, Store } from '@ngrx/store';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
-import {
-  ClearSuggestionTargetsAction,
-  MarkUserSuggestionsAsVisitedAction,
-  RefreshUserSuggestionsAction,
-  RetrieveTargetsBySourceAction
-} from './suggestion-targets.actions';
-import { SuggestionNotificationsState } from '../../notifications/notifications.reducer';
 import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionNotificationsState } from '../../notifications/notifications.reducer';
 import {
-  getCurrentUserSuggestionTargetsSelector, getCurrentUserSuggestionTargetsVisitedSelector,
+  getCurrentUserSuggestionTargetsSelector,
+  getCurrentUserSuggestionTargetsVisitedSelector,
   getSuggestionTargetCurrentPageSelector,
   getSuggestionTargetTotalsSelector,
   isReciterSuggestionTargetProcessingSelector,
   isSuggestionTargetLoadedSelector,
-  suggestionTargetObjectSelector
+  suggestionTargetObjectSelector,
 } from '../../suggestion-notifications/selectors';
+import {
+  ClearSuggestionTargetsAction,
+  MarkUserSuggestionsAsVisitedAction,
+  RefreshUserSuggestionsAction,
+  RetrieveTargetsBySourceAction,
+} from './suggestion-targets.actions';
 
 /**
  * The service handling the Suggestion targets State.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SuggestionTargetsStateService {
 
   /**
@@ -53,7 +55,7 @@ export class SuggestionTargetsStateService {
   public isSuggestionTargetsLoading(): Observable<boolean> {
     return this.store.pipe(
       select(isSuggestionTargetLoadedSelector),
-      map((loaded: boolean) => !loaded)
+      map((loaded: boolean) => !loaded),
     );
   }
 

@@ -1,7 +1,24 @@
-import { Directive, Injectable } from '@angular/core';
-import { AbstractControl, AsyncValidator, NG_VALIDATORS, ValidationErrors } from '@angular/forms';
-import { map, switchMap, take } from 'rxjs/operators';
-import { of as observableOf, timer as observableTimer, Observable } from 'rxjs';
+import {
+  Directive,
+  Injectable,
+} from '@angular/core';
+import {
+  AbstractControl,
+  AsyncValidator,
+  NG_VALIDATORS,
+  ValidationErrors,
+} from '@angular/forms';
+import {
+  Observable,
+  of as observableOf,
+  timer as observableTimer,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { MetadataFieldDataService } from '../../core/data/metadata-field-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -15,8 +32,9 @@ import { getFirstSucceededRemoteData } from '../../core/shared/operators';
   selector: '[ngModel][dsMetadataFieldValidator]',
   // We add our directive to the list of existing validators
   providers: [
-    { provide: NG_VALIDATORS, useExisting: MetadataFieldValidator, multi: true }
-  ]
+    { provide: NG_VALIDATORS, useExisting: MetadataFieldValidator, multi: true },
+  ],
+  standalone: true,
 })
 @Injectable({ providedIn: 'root' })
 export class MetadataFieldValidator implements AsyncValidator {
@@ -48,13 +66,13 @@ export class MetadataFieldValidator implements AsyncValidator {
               } else if (matchingFieldRD.payload.pageInfo.totalElements === 1) {
                 return null;
               }
-            })
+            }),
           );
 
         res.pipe(take(1)).subscribe();
 
         return res;
-      })
+      }),
     );
     resTimer.pipe(take(1)).subscribe();
     return resTimer;

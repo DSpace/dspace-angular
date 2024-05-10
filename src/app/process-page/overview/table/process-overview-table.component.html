@@ -15,7 +15,7 @@
   <div ngbCollapse #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
 
     <ng-container *ngVar="(processesRD$ | async) as processesRD">
-      <ds-themed-loading *ngIf="!processesRD || processesRD.isLoading"/>
+      <ds-loading *ngIf="!processesRD || processesRD.isLoading"/>
 
       <ds-pagination *ngIf="processesRD?.payload?.totalElements > 0"
                      [paginationOptions]="(paginationOptions$ | async)"
@@ -57,7 +57,7 @@
 
       </ds-pagination>
 
-      <div *ngIf="processesRD?.payload?.totalElements == 0">
+      <div *ngIf="processesRD?.payload?.totalElements === 0">
         <p>{{'process.overview.table.empty' | translate}}</p>
       </div>
     </ng-container>

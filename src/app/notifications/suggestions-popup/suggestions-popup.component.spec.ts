@@ -1,12 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SuggestionsPopupComponent } from './suggestions-popup.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
 import { mockSuggestionTargetsObjectOne } from '../../shared/mocks/publication-claim-targets.mock';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../suggestions.service';
+import { SuggestionsPopupComponent } from './suggestions-popup.component';
 
 describe('SuggestionsPopupComponent', () => {
   let component: SuggestionsPopupComponent;
@@ -16,27 +22,26 @@ describe('SuggestionsPopupComponent', () => {
     hasUserVisitedSuggestions: jasmine.createSpy('hasUserVisitedSuggestions'),
     getCurrentUserSuggestionTargets: jasmine.createSpy('getCurrentUserSuggestionTargets'),
     dispatchMarkUserSuggestionsAsVisitedAction: jasmine.createSpy('dispatchMarkUserSuggestionsAsVisitedAction'),
-    dispatchRefreshUserSuggestionsAction: jasmine.createSpy('dispatchRefreshUserSuggestionsAction')
+    dispatchRefreshUserSuggestionsAction: jasmine.createSpy('dispatchRefreshUserSuggestionsAction'),
   });
 
   const mockNotificationInterpolation = { count: 12, source: 'source', suggestionId: 'id', displayName: 'displayName' };
   const suggestionService = jasmine.createSpyObj('SuggestionService', {
     getNotificationSuggestionInterpolation:
-      jasmine.createSpy('getNotificationSuggestionInterpolation').and.returnValue(mockNotificationInterpolation)
+      jasmine.createSpy('getNotificationSuggestionInterpolation').and.returnValue(mockNotificationInterpolation),
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ SuggestionsPopupComponent ],
+      imports: [TranslateModule.forRoot(), SuggestionsPopupComponent],
       providers: [
         { provide: SuggestionTargetsStateService, useValue: suggestionStateService },
         { provide: SuggestionsService, useValue: suggestionService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   describe('should create', () => {

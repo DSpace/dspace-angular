@@ -1,15 +1,32 @@
-import { UntypedFormGroup } from '@angular/forms';
-import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
-import { DynamicDsDatePickerModel } from './date-picker.model';
-import { hasValue } from '../../../../../empty.util';
+import {
+  DOCUMENT,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  Renderer2,
+} from '@angular/core';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { DOCUMENT } from '@angular/common';
 import isEqual from 'lodash/isEqual';
 import { TranslateService } from '@ngx-translate/core';
+import { hasValue } from '../../../../../empty.util';
+import { NumberPickerComponent } from '../../../../number-picker/number-picker.component';
+import { DynamicDsDatePickerModel } from './date-picker.model';
 
 export type DatePickerFieldType = '_year' | '_month' | '_day';
 
@@ -19,6 +36,13 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
   selector: 'ds-date-picker',
   styleUrls: ['./date-picker.component.scss'],
   templateUrl: './date-picker.component.html',
+  imports: [
+    NgClass,
+    NgIf,
+    NumberPickerComponent,
+    FormsModule,
+  ],
+  standalone: true,
 })
 
 export class DsDatePickerComponent extends DynamicFormControlComponent implements OnInit {
@@ -61,7 +85,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
               protected validationService: DynamicFormValidationService,
               protected translationService: TranslateService,
               private renderer: Renderer2,
-              @Inject(DOCUMENT) private _document: Document
+              @Inject(DOCUMENT) private _document: Document,
   ) {
     super(layoutService, validationService);
   }
@@ -73,6 +97,8 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     this.initialDay = now.getUTCDate();
 
     if (this.model && this.model.value !== null) {
+      // todo: model value could object or Date according to its type annotation
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       const values = this.model.value.toString().split(DS_DATE_PICKER_SEPARATOR);
       if (values.length > 0) {
         this.initialYear = parseInt(values[0], 10);
@@ -91,7 +117,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     }
 
     this.maxYear = now.getUTCFullYear() + 100;
-
+    
     this.translationService.get('form.date-picker.placeholder.year').subscribe(value => this.yearPlaceholder = value);
     this.translationService.get('form.date-picker.placeholder.month').subscribe(value => this.monthPlaceholder = value);
     this.translationService.get('form.date-picker.placeholder.day').subscribe(value => this.dayPlaceholder = value);
@@ -192,7 +218,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     if (index < 0) {
       return;
     }
-    let fieldToFocusOn = index + 1;
+    const fieldToFocusOn = index + 1;
     if (fieldToFocusOn < this.fields.length) {
       this.focusInput(this.fields[fieldToFocusOn]);
     }
@@ -204,7 +230,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     const activeElement: Element = this._document.activeElement;
     (activeElement as any).blur();
     const index = this.selectedFieldIndex(activeElement);
-    let fieldToFocusOn = index - 1;
+    const fieldToFocusOn = index - 1;
     if (fieldToFocusOn >= 0) {
       this.focusInput(this.fields[fieldToFocusOn]);
     }

@@ -1,27 +1,47 @@
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable, combineLatest } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import {
+  Directive,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Params,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { WorkflowItem } from '../core/submission/models/workflowitem.model';
-import { Item } from '../core/shared/item.model';
-import { ActivatedRoute, Data, Router, Params } from '@angular/router';
-import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
-import { RouteService } from '../core/services/route.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { RemoteData } from '../core/data/remote-data';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../core/shared/operators';
-import { isEmpty } from '../shared/empty.util';
 import { RequestService } from '../core/data/request.service';
+import { RouteService } from '../core/services/route.service';
+import { Item } from '../core/shared/item.model';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../core/shared/operators';
+import { WorkflowItem } from '../core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
+import { isEmpty } from '../shared/empty.util';
+import { NotificationsService } from '../shared/notifications/notifications.service';
 
 /**
  * Abstract component representing a page to perform an action on a workflow item
  */
-@Component({
+@Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'ds-workflowitem-action-page',
-  template: ''
+  standalone: true,
 })
-export abstract class WorkflowItemActionPageComponent implements OnInit {
+export abstract class WorkflowItemActionPageDirective implements OnInit {
   public type;
   public wfi$: Observable<WorkflowItem>;
   public item$: Observable<Item>;
@@ -45,7 +65,7 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
     this.type = this.getType();
     this.wfi$ = this.route.data.pipe(map((data: Data) => data.wfi as RemoteData<WorkflowItem>), getRemoteDataPayload());
     this.item$ = this.wfi$.pipe(switchMap((wfi: WorkflowItem) => (wfi.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
-    this.previousQueryParameters = (this.location.getState() as { [key: string]: any }).previousQueryParams;
+    this.previousQueryParameters = (this.location.getState() as { [key: string]: any })?.previousQueryParams;
   }
 
   /**
@@ -54,7 +74,7 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
   performAction() {
     combineLatest([this.wfi$, this.requestService.removeByHrefSubstring('/discover')]).pipe(
       take(1),
-      switchMap(([wfi]) => this.sendRequest(wfi.id))
+      switchMap(([wfi]) => this.sendRequest(wfi.id)),
     ).subscribe((successful: boolean) => {
       if (successful) {
         const title = this.translationService.get('workflow-item.' + this.type + '.notification.success.title');
@@ -76,18 +96,18 @@ export abstract class WorkflowItemActionPageComponent implements OnInit {
   previousPage() {
     this.routeService.getPreviousUrl().pipe(take(1))
       .subscribe((url) => {
-          let params: Params = {};
-          if (isEmpty(url)) {
-            url = '/mydspace';
-            params = this.previousQueryParameters;
-          }
-          if (url.split('?').length > 1) {
-            for (const param of url.split('?')[1].split('&')) {
-              params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);
-            }
-          }
-          void this.router.navigate([url.split('?')[0]], { queryParams: params });
+        let params: Params = {};
+        if (isEmpty(url)) {
+          url = '/mydspace';
+          params = this.previousQueryParameters;
         }
+        if (url.split('?').length > 1) {
+          for (const param of url.split('?')[1].split('&')) {
+            params[param.split('=')[0]] = decodeURIComponent(param.split('=')[1]);
+          }
+        }
+        void this.router.navigate([url.split('?')[0]], { queryParams: params });
+      },
       );
   }
 

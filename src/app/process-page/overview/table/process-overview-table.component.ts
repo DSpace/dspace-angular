@@ -1,30 +1,71 @@
-import { Component, Input, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
-import { ProcessStatus } from '../../processes/process-status.model';
-import { Observable, mergeMap, from as observableFrom, BehaviorSubject, Subscription } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Process } from '../../processes/process.model';
 import {
-  PaginationComponentOptions
-} from '../../../shared/pagination/pagination-component-options.model';
-import { ProcessOverviewService, ProcessSortField } from '../process-overview.service';
-import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
-  getFirstSucceededRemoteDataPayload,
-  getAllCompletedRemoteData
-} from '../../../core/shared/operators';
-import { map, switchMap, toArray, take, filter } from 'rxjs/operators';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  from as observableFrom,
+  mergeMap,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+  toArray,
+} from 'rxjs/operators';
 import { PaginationService } from 'src/app/core/pagination/pagination.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { redirectOn4xx } from '../../../core/shared/authorized.operators';
-import { Router } from '@angular/router';
+
 import { AuthService } from '../../../core/auth/auth.service';
-import { isPlatformBrowser } from '@angular/common';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { RouteService } from '../../../core/services/route.service';
-import { hasValue } from '../../../shared/empty.util';
+import { redirectOn4xx } from '../../../core/shared/authorized.operators';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { Process } from '../../processes/process.model';
+import { ProcessStatus } from '../../processes/process-status.model';
+import { ProcessBulkDeleteService } from '../process-bulk-delete.service';
+import {
+  ProcessOverviewService,
+  ProcessSortField,
+} from '../process-overview.service';
 
 const NEW_PROCESS_PARAM = 'new_process_id';
 
@@ -41,7 +82,20 @@ export interface ProcessOverviewTableEntry {
 @Component({
   selector: 'ds-process-overview-table',
   styleUrls: ['./process-overview-table.component.scss'],
-  templateUrl: './process-overview-table.component.html'
+  templateUrl: './process-overview-table.component.html',
+  standalone: true,
+  imports: [
+    NgClass,
+    NgbCollapseModule,
+    AsyncPipe,
+    TranslateModule,
+    PaginationComponent,
+    RouterLink,
+    NgForOf,
+    NgIf,
+    ThemedLoadingComponent,
+    VarDirective,
+  ],
 })
 export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
 
@@ -105,14 +159,15 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
 
   constructor(protected processOverviewService: ProcessOverviewService,
               protected processBulkDeleteService: ProcessBulkDeleteService,
-              protected ePersonDataService: EPersonDataService,
-              protected dsoNameService: DSONameService,
+              public ePersonDataService: EPersonDataService,
+              public dsoNameService: DSONameService,
               protected paginationService: PaginationService,
               protected routeService: RouteService,
               protected router: Router,
               protected auth: AuthService,
+              private translateService: TranslateService,
               @Inject(PLATFORM_ID) protected platformId: object,
-              ) {
+  ) {
   }
 
   ngOnInit() {
@@ -128,9 +183,9 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
     // Creates an ID from the first 2 characters of the process status.
     // Should two process status values ever start with the same substring,
     // increase the number of characters until the ids are distinct.
-    this.paginationId = this.processStatus.toLowerCase().substring(0,2);
+    this.paginationId = this.processStatus.toLowerCase().substring(0, 2);
 
-    let defaultPaginationOptions = Object.assign(new PaginationComponentOptions(), {
+    const defaultPaginationOptions = Object.assign(new PaginationComponentOptions(), {
       id: this.paginationId,
       pageSize: 5,
     });
@@ -162,7 +217,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
         // Use the findListOptions to retrieve the relevant processes every interval
         switchMap((findListOptions: FindListOptions) =>
           this.processOverviewService.getProcessesByProcessStatus(
-            this.processStatus, findListOptions, this.useAutoRefreshingSearchBy ? this.autoRefreshInterval : null)
+            this.processStatus, findListOptions, this.useAutoRefreshingSearchBy ? this.autoRefreshInterval : null),
         ),
         // Redirect the user when he is logged out
         redirectOn4xx(this.router, this.auth),
@@ -170,7 +225,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
         // Map RemoteData<PaginatedList<Process>> to RemoteData<PaginatedList<ProcessOverviewTableEntry>>
         switchMap((processesRD: RemoteData<PaginatedList<Process>>) => {
           // Create observable emitting all processes one by one
-          return  observableFrom(processesRD.payload.page).pipe(
+          return observableFrom(processesRD.payload.page).pipe(
             // Map every Process to ProcessOverviewTableEntry
             mergeMap((process: Process) => {
               return this.getEPersonName(process.userId).pipe(
@@ -195,7 +250,6 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
             }),
           );
         }),
-
       ).subscribe((next: RemoteData<PaginatedList<ProcessOverviewTableEntry>>) => {
         this.processesRD$.next(next);
       }));
@@ -209,7 +263,7 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
         if (!(processesRD.payload.totalElements > 0)) {
           this.isCollapsed = true;
         }
-      }
+      },
     ));
 
   }
@@ -219,10 +273,20 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
    * @param id  ID of the EPerson
    */
   getEPersonName(id: string): Observable<string> {
-    return this.ePersonDataService.findById(id).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
-    );
+    if (isNotEmpty(id)) {
+      return this.ePersonDataService.findById(id).pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((rd: RemoteData<EPerson>) => {
+          if (rd.hasSucceeded) {
+            return [this.dsoNameService.getName(rd.payload)];
+          } else {
+            return this.translateService.get('process.overview.unknown.user');
+          }
+        }),
+      );
+    } else {
+      return this.translateService.get('process.overview.unknown.user');
+    }
   }
 
   /**
@@ -246,4 +310,4 @@ export class ProcessOverviewTableComponent implements OnInit, OnDestroy {
     this.processOverviewService.stopAutoRefreshing(this.processStatus);
   }
 
-  }
+}

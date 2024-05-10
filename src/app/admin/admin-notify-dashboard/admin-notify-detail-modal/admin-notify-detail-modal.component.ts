@@ -1,16 +1,35 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { MissingTranslationHelper } from '../../../shared/translate/missing-translation.helper';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
 import { fadeIn } from '../../../shared/animations/fade';
+import { MissingTranslationHelper } from '../../../shared/translate/missing-translation.helper';
+import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 
 @Component({
   selector: 'ds-admin-notify-detail-modal',
   templateUrl: './admin-notify-detail-modal.component.html',
   animations: [
-    fadeIn
-  ]
+    fadeIn,
+  ],
+  standalone: true,
+  imports: [
+    NgForOf,
+    TranslateModule,
+    NgIf,
+  ],
 })
 /**
  * Component for detailed view of LDN messages displayed in search result in AdminNotifyDashboardComponent

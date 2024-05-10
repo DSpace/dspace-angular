@@ -1,25 +1,29 @@
-import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
-import { testFindAllDataImplementation } from '../../../core/data/base/find-all-data.spec';
-import { FindAllData } from '../../../core/data/base/find-all-data';
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { TestScheduler } from 'rxjs/testing';
-import { RequestService } from '../../../core/data/request.service';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { RequestEntry } from '../../../core/data/request-entry.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestEntryState } from '../../../core/data/request-entry-state.model';
-import { RestResponse } from '../../../core/cache/response.models';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { testPatchDataImplementation } from '../../../core/data/base/patch-data.spec';
-import { testDeleteDataImplementation } from '../../../core/data/base/delete-data.spec';
-import { DeleteData } from '../../../core/data/base/delete-data';
-import { PatchData } from '../../../core/data/base/patch-data';
+import { TestScheduler } from 'rxjs/testing';
+
+import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RestResponse } from '../../../core/cache/response.models';
 import { CreateData } from '../../../core/data/base/create-data';
 import { testCreateDataImplementation } from '../../../core/data/base/create-data.spec';
+import { DeleteData } from '../../../core/data/base/delete-data';
+import { testDeleteDataImplementation } from '../../../core/data/base/delete-data.spec';
+import { FindAllData } from '../../../core/data/base/find-all-data';
+import { testFindAllDataImplementation } from '../../../core/data/base/find-all-data.spec';
+import { PatchData } from '../../../core/data/base/patch-data';
+import { testPatchDataImplementation } from '../../../core/data/base/patch-data.spec';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { RequestEntry } from '../../../core/data/request-entry.model';
+import { RequestEntryState } from '../../../core/data/request-entry-state.model';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 
 describe('CoarNotifyConfigDataService test', () => {
   let scheduler: TestScheduler;
@@ -44,7 +48,7 @@ describe('CoarNotifyConfigDataService test', () => {
       rdbService,
       objectCache,
       halService,
-      notificationsService
+      notificationsService,
     );
   }
 
@@ -66,12 +70,12 @@ describe('CoarNotifyConfigDataService test', () => {
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: of(endpointURL)
+      getEndpoint: of(endpointURL),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: createSuccessfulRemoteDataObject$({}, 500),
-      buildList: cold('a', { a: remoteDataMocks.Success })
+      buildList: cold('a', { a: remoteDataMocks.Success }),
     });
 
 

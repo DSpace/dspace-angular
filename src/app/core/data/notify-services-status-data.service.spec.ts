@@ -1,17 +1,24 @@
-import { NotifyRequestsStatusDataService } from './notify-services-status-data.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { TestScheduler } from 'rxjs/testing';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestEntry } from './request-entry.model';
-import { RemoteData } from './remote-data';
-import { RequestEntryState } from './request-entry-state.model';
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { RestResponse } from '../cache/response.models';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of } from 'rxjs';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { TestScheduler } from 'rxjs/testing';
+
 import { NotifyRequestsStatus } from '../../item-page/simple/notify-requests-status/notify-requests-status.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NotifyRequestsStatusDataService } from './notify-services-status-data.service';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
+import { RequestEntryState } from './request-entry-state.model';
 
 describe('NotifyRequestsStatusDataService test', () => {
   let scheduler: TestScheduler;
@@ -55,13 +62,13 @@ describe('NotifyRequestsStatusDataService test', () => {
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: of(endpointURL)
+      getEndpoint: of(endpointURL),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: createSuccessfulRemoteDataObject$({}, 500),
       buildList: cold('a', { a: remoteDataMocks.Success }),
-      buildFromHref: createSuccessfulRemoteDataObject$({test: 'test'})
+      buildFromHref: createSuccessfulRemoteDataObject$({ test: 'test' }),
     });
 
 
@@ -73,7 +80,7 @@ describe('NotifyRequestsStatusDataService test', () => {
       service.getNotifyRequestsStatus(requestUUID).subscribe((status) => {
         expect(halService.getEndpoint).toHaveBeenCalled();
         expect(requestService.generateRequestId).toHaveBeenCalled();
-        expect(status).toEqual(createSuccessfulRemoteDataObject({test: 'test'} as unknown as NotifyRequestsStatus));
+        expect(status).toEqual(createSuccessfulRemoteDataObject({ test: 'test' } as unknown as NotifyRequestsStatus));
         done();
       });
     });

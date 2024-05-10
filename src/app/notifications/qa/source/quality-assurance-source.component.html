@@ -10,7 +10,7 @@
         <h4 class="border-bottom pb-2">{{'quality-assurance.source'| translate}}</h4>
 
         <ds-loading class="container" *ngIf="(isSourceLoading() | async)" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
-        <ds-pagination *ngIf="!(isSourceLoading() | async)"
+        <ds-pagination *ngIf="(isSourceLoading() | async) !== true"
                        [paginationOptions]="paginationConfig"
                        [collectionSize]="(totalElements$ | async)"
                        [hideGear]="false"
@@ -18,11 +18,11 @@
                        (paginationChange)="getQualityAssuranceSource()">
 
           <ds-loading class="container" *ngIf="(isSourceProcessing() | async)" message="'quality-assurance.loading' | translate"></ds-loading>
-          <ng-container *ngIf="!(isSourceProcessing() | async)">
-            <div *ngIf="(sources$|async)?.length == 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
+          <ng-container *ngIf="(isSourceProcessing() | async) !== true">
+            <div *ngIf="(sources$ | async)?.length === 0" class="alert alert-info w-100 mb-2 mt-2" role="alert">
               {{'quality-assurance.noSource' | translate}}
             </div>
-            <div *ngIf="(sources$|async)?.length != 0" class="table-responsive mt-2">
+            <div *ngIf="(sources$ | async)?.length !== 0" class="table-responsive mt-2">
               <table id="epeople" class="table table-striped table-hover table-bordered">
                 <thead>
                 <tr>

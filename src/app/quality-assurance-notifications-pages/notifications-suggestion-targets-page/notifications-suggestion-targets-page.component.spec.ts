@@ -1,32 +1,41 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NotificationsSuggestionTargetsPageComponent } from './notifications-suggestion-targets-page.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  AdminNotificationsPublicationClaimPageComponent
-} from '../../admin/admin-notifications/admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { AdminNotificationsPublicationClaimPageComponent } from '../../admin/admin-notifications/admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
+import { PublicationClaimComponent } from '../../notifications/suggestion-targets/publication-claim/publication-claim.component';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { NotificationsSuggestionTargetsPageComponent } from './notifications-suggestion-targets-page.component';
 
 describe('NotificationsSuggestionTargetsPageComponent', () => {
   let component: NotificationsSuggestionTargetsPageComponent;
   let fixture: ComponentFixture<NotificationsSuggestionTargetsPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
-        NotificationsSuggestionTargetsPageComponent
+        TranslateModule.forRoot(),
+        NotificationsSuggestionTargetsPageComponent,
       ],
       providers: [
-        AdminNotificationsPublicationClaimPageComponent
+        AdminNotificationsPublicationClaimPageComponent,
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .overrideComponent(NotificationsSuggestionTargetsPageComponent, {
+        remove: {
+          imports: [PublicationClaimComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

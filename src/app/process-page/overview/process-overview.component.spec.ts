@@ -1,15 +1,25 @@
-import { ProcessOverviewComponent } from './process-overview.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA, TemplateRef } from '@angular/core';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import {
+  NO_ERRORS_SCHEMA,
+  TemplateRef,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BehaviorSubject } from 'rxjs';
-import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
+
+import { ProcessDataService } from '../../core/data/processes/process-data.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import { ProcessOverviewComponent } from './process-overview.component';
 import { ProcessOverviewService } from './process-overview.service';
+import { ProcessOverviewTableComponent } from './table/process-overview-table.component';
 
 describe('ProcessOverviewComponent', () => {
   let component: ProcessOverviewComponent;
@@ -32,7 +42,7 @@ describe('ProcessOverviewComponent', () => {
       hasSelected: true,
       isToBeDeleted: true,
       toggleDelete: {},
-      getAmountOfSelectedProcesses: 5
+      getAmountOfSelectedProcesses: 5,
 
     });
 
@@ -41,22 +51,28 @@ describe('ProcessOverviewComponent', () => {
     });
 
     modalService = jasmine.createSpyObj('modalService', {
-      open: {}
+      open: {},
     });
   }
 
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProcessOverviewComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ProcessOverviewComponent, VarDirective],
       providers: [
         { provide: ProcessOverviewService, useValue: processService },
         { provide: ProcessBulkDeleteService, useValue: processBulkDeleteService },
         { provide: NgbModal, useValue: modalService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ProcessOverviewComponent, {
+        remove: { imports: [
+          PaginationComponent,
+          ProcessOverviewTableComponent,
+        ] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

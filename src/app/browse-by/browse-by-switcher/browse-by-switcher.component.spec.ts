@@ -1,16 +1,22 @@
-import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SimpleChange, Component } from '@angular/core';
-import { rendersBrowseBy } from './browse-by-decorator';
-import { ThemeService } from '../../shared/theme-support/theme.service';
-import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
-import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
-import { NonHierarchicalBrowseDefinition } from '../../core/shared/non-hierarchical-browse-definition';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { BrowseByDataType } from './browse-by-data-type';
+import {
+  Component,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 
-@rendersBrowseBy('BrowseBySwitcherComponent' as BrowseByDataType)
+import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
+import { NonHierarchicalBrowseDefinition } from '../../core/shared/non-hierarchical-browse-definition';
+import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
+import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { BrowseByDataType } from './browse-by-data-type';
+import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
+
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
@@ -28,26 +34,26 @@ describe('BrowseBySwitcherComponent', () => {
       new FlatBrowseDefinition(), {
         id: 'title',
         dataType: BrowseByDataType.Title,
-      }
+      },
     ),
     Object.assign(
       new FlatBrowseDefinition(), {
         id: 'dateissued',
         dataType: BrowseByDataType.Date,
-        metadataKeys: ['dc.date.issued']
-      }
+        metadataKeys: ['dc.date.issued'],
+      },
     ),
     Object.assign(
       new ValueListBrowseDefinition(), {
         id: 'author',
         dataType: BrowseByDataType.Metadata,
-      }
+      },
     ),
     Object.assign(
       new ValueListBrowseDefinition(), {
         id: 'subject',
         dataType: BrowseByDataType.Metadata,
-      }
+      },
     ),
   ];
 
@@ -58,7 +64,7 @@ describe('BrowseBySwitcherComponent', () => {
     themeService = getMockThemeService(themeName);
 
     void TestBed.configureTestingModule({
-      declarations: [
+      imports: [
         BrowseBySwitcherComponent,
         DynamicComponentLoaderDirective,
       ],

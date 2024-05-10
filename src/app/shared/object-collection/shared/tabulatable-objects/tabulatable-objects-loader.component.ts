@@ -9,24 +9,38 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import { ListableObject } from '../listable-object.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { Context } from '../../../../core/shared/context.model';
-import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { ThemeService } from '../../../theme-support/theme.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
+
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import { Context } from '../../../../core/shared/context.model';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { ListableObject } from '../listable-object.model';
 import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';
+import { TabulatableObjectsDirective } from './tabulatable-objects.directive';
 
 @Component({
   selector: 'ds-tabulatable-objects-loader',
-  templateUrl: './tabulatable-objects-loader.component.html'
+  templateUrl: './tabulatable-objects-loader.component.html',
+  imports: [
+    TabulatableObjectsDirective,
+  ],
+  standalone: true,
 })
 /**
  * Component to load the matching component flagged by the tabulatableObjectsComponent decorator.
@@ -157,8 +171,8 @@ export class TabulatableObjectsLoaderComponent implements OnInit, OnChanges, OnD
     this.compRef = viewContainerRef.createComponent(
       component, {
         index: 0,
-        injector: undefined
-      }
+        injector: undefined,
+      },
     );
 
     if (hasValue(changes)) {
@@ -188,8 +202,8 @@ export class TabulatableObjectsLoaderComponent implements OnInit, OnChanges, OnD
    * @returns {GenericConstructor<Component>}
    */
   getComponent(renderTypes: (string | GenericConstructor<ListableObject>)[],
-               viewMode: ViewMode,
-               context: Context): GenericConstructor<Component> {
+    viewMode: ViewMode,
+    context: Context): GenericConstructor<Component> {
     return getTabulatableObjectsComponent(renderTypes, viewMode, context, this.themeService.getThemeName());
   }
 

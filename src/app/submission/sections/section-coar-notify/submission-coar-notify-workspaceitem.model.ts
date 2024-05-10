@@ -1,10 +1,14 @@
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { autoserialize, deserialize, deserializeAs, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+  inheritSerialization,
+} from 'cerialize';
 
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../core/cache/cacheable-object.model';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { COAR_NOTIFY_WORKSPACEITEM } from './section-coar-notify-service.resource-type';
-
 
 /** An CoarNotify  and its properties. */
 @typedObject

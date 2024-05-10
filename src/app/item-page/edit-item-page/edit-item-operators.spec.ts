@@ -1,12 +1,13 @@
-import {RemoteData} from '../../core/data/remote-data';
-import {hot} from 'jasmine-marbles';
-import {Item} from '../../core/shared/item.model';
-import {findSuccessfulAccordingTo} from './edit-item-operators';
+import { hot } from 'jasmine-marbles';
+
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { isNotEmpty } from '../../shared/empty.util';
 import {
   createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject
+  createSuccessfulRemoteDataObject,
 } from '../../shared/remote-data.utils';
-import { isNotEmpty } from '../../shared/empty.util';
+import { findSuccessfulAccordingTo } from './edit-item-operators';
 
 describe('findSuccessfulAccordingTo', () => {
   let mockItem1;

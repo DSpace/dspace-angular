@@ -1,22 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';
-import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SectionsService } from '../sections.service';
-import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { ChangeDetectorRef } from '@angular/core';
-import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+
+import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
+import { NotifyServicePattern } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
 import {
   LdnService,
-  LdnServiceByPattern
+  LdnServiceByPattern,
 } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { NotifyServicePattern } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
-import { TranslateModule } from '@ngx-translate/core';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { SectionsService } from '../sections.service';
+import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
+import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';
+import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
 
 describe('SubmissionSectionCoarNotifyComponent', () => {
   let component: SubmissionSectionCoarNotifyComponent;
@@ -33,8 +36,8 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
   const patterns: SubmissionCoarNotifyConfig[] = Object.assign(
     [new SubmissionCoarNotifyConfig()],
     {
-      patterns: [{pattern: 'review', multipleRequest: false}, {pattern: 'endorsment', multipleRequest: false}],
-    }
+      patterns: [{ pattern: 'review', multipleRequest: false }, { pattern: 'endorsment', multipleRequest: false }],
+    },
   );
   const patternsPL = createPaginatedList(patterns);
   const coarNotifyConfig = createSuccessfulRemoteDataObject$(patternsPL);
@@ -45,7 +48,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     ]);
     coarNotifyConfigDataService = jasmine.createSpyObj(
       'CoarNotifyConfigDataService',
-      ['findAll']
+      ['findAll'],
     );
     operationsBuilder = jasmine.createSpyObj('JsonPatchOperationsBuilder', [
       'remove',
@@ -63,16 +66,15 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [SubmissionSectionCoarNotifyComponent],
+      imports: [TranslateModule.forRoot(), SubmissionSectionCoarNotifyComponent],
       providers: [
         { provide: LdnServicesService, useValue: ldnServicesService },
-        { provide: CoarNotifyConfigDataService, useValue: coarNotifyConfigDataService},
+        { provide: CoarNotifyConfigDataService, useValue: coarNotifyConfigDataService },
         { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
         { provide: SectionsService, useValue: sectionService },
         { provide: ChangeDetectorRef, useValue: cdRefStub },
         { provide: 'collectionIdProvider', useValue: 'collectionId' },
-        { provide: 'sectionDataProvider', useValue: { id: 'sectionId', data: {} }},
+        { provide: 'sectionDataProvider', useValue: { id: 'sectionId', data: {} } },
         { provide: 'submissionIdProvider', useValue: 'submissionId' },
         NgbDropdown,
       ],
@@ -89,8 +91,8 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
         Object.assign([], {
           path: 'sections/sectionId/data/notifyCoar',
           message: 'error',
-        })
-      )
+        }),
+      ),
     );
     fixture.detectChanges();
   });
@@ -112,7 +114,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
   });
 
   describe('onChange', () => {
-    const ldnPattern = {pattern: 'review', multipleRequest: false};
+    const ldnPattern = { pattern: 'review', multipleRequest: false };
     const index = 0;
     const selectedService: LdnService = Object.assign(new LdnService(), {
       id: 1,
@@ -128,7 +130,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     beforeEach(() => {
       component.ldnServiceByPattern[ldnPattern.pattern] = {
         allowsMultipleRequests: false,
-        services: []
+        services: [],
       } as LdnServiceByPattern;
 
       component.patterns = [];
@@ -149,7 +151,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
       component.onChange(ldnPattern.pattern, index, null);
 
       expect(componentAsAny.operationsBuilder.flushOperation).toHaveBeenCalledWith(
-        componentAsAny.pathCombiner.getPath([ldnPattern.pattern, '-'])
+        componentAsAny.pathCombiner.getPath([ldnPattern.pattern, '-']),
       );
       expect(component.ldnServiceByPattern[ldnPattern.pattern].services[index]).toBeNull();
       expect(component.previousServices[ldnPattern.pattern].services[index]).toBeNull();
@@ -169,7 +171,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
       component.ldnServiceByPattern[ldnPattern.pattern].services[index] = previousService;
       component.previousServices[ldnPattern.pattern] = {
         allowsMultipleRequests: false,
-        services: [previousService]
+        services: [previousService],
       } as LdnServiceByPattern;
 
       component.onChange(ldnPattern.pattern, index, selectedService);
@@ -178,13 +180,13 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
         componentAsAny.pathCombiner.getPath([ldnPattern.pattern, '-']),
         [selectedService.id],
         false,
-        true
+        true,
       );
       expect(component.ldnServiceByPattern[ldnPattern.pattern].services[index]).toEqual(
-        selectedService
+        selectedService,
       );
       expect(component.previousServices[ldnPattern.pattern].services[index].id).toEqual(
-        selectedService.id
+        selectedService.id,
       );
     });
 
@@ -195,20 +197,20 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
         componentAsAny.pathCombiner.getPath([ldnPattern.pattern, '-']),
         [selectedService.id],
         false,
-        true
+        true,
       );
       expect(component.ldnServiceByPattern[ldnPattern.pattern].services[index]).toEqual(
-        selectedService
+        selectedService,
       );
       expect(component.previousServices[ldnPattern.pattern].services[index].id).toEqual(
-        selectedService.id
+        selectedService.id,
       );
     });
   });
 
   describe('initSelectedServicesByPattern', () => {
-    const pattern1 = {pattern: 'review', multipleRequest: false};
-    const pattern2 = {pattern: 'endorsement', multipleRequest: false};
+    const pattern1 = { pattern: 'review', multipleRequest: false };
+    const pattern2 = { pattern: 'endorsement', multipleRequest: false };
     const service1: LdnService = Object.assign(new LdnService(), {
       id: 1,
       uuid: 1,
@@ -247,16 +249,16 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
 
     beforeEach(() => {
       ldnServicesService.findByInboundPattern.and.returnValue(
-          createSuccessfulRemoteDataObject$(createPaginatedList(services))
+        createSuccessfulRemoteDataObject$(createPaginatedList(services)),
       );
       component.ldnServiceByPattern[pattern1.pattern] = {
         allowsMultipleRequests: false,
-        services: []
+        services: [],
       } as LdnServiceByPattern;
 
       component.ldnServiceByPattern[pattern2.pattern] = {
         allowsMultipleRequests: false,
-        services: []
+        services: [],
       } as LdnServiceByPattern;
 
       component.patterns = [pattern1, pattern2];
@@ -290,7 +292,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
   });
 
   describe('addService', () => {
-    const ldnPattern = {pattern: 'review', multipleRequest: false};
+    const ldnPattern = { pattern: 'review', multipleRequest: false };
     const service: any = {
       id: 1,
       name: 'service1',
@@ -300,7 +302,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     beforeEach(() => {
       component.ldnServiceByPattern[ldnPattern.pattern] = {
         allowsMultipleRequests: false,
-        services: []
+        services: [],
       } as LdnServiceByPattern;
     });
 
@@ -312,7 +314,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
   });
 
   describe('removeService', () => {
-    const ldnPattern = {pattern: 'review', multipleRequest: false};
+    const ldnPattern = { pattern: 'review', multipleRequest: false };
     const service1: LdnService = Object.assign(new LdnService(), {
       id: 1,
       name: 'service1',
@@ -344,7 +346,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
     beforeEach(() => {
       component.ldnServiceByPattern[ldnPattern.pattern] = {
         allowsMultipleRequests: false,
-        services: []
+        services: [],
       } as LdnServiceByPattern;
     });
 
@@ -381,7 +383,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
 
     beforeEach(() => {
       ldnServicesService.findByInboundPattern.and.returnValue(
-        createSuccessfulRemoteDataObject$(createPaginatedList(services))
+        createSuccessfulRemoteDataObject$(createPaginatedList(services)),
       );
     });
 
@@ -415,7 +417,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
         { path: 'sections/sectionId/data/notifyCoar', message: 'error' },
       ];
       sectionService.getSectionServerErrors.and.returnValue(
-        of(validationErrors)
+        of(validationErrors),
       );
 
       componentAsAny.getSectionServerErrorsAndSetErrorsToDisplay();
@@ -423,7 +425,7 @@ describe('SubmissionSectionCoarNotifyComponent', () => {
       expect(sectionService.setSectionError).toHaveBeenCalledWith(
         component.submissionId,
         component.sectionData.id,
-        validationErrors[0]
+        validationErrors[0],
       );
     });
   });

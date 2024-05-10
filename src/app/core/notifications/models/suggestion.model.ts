@@ -1,12 +1,19 @@
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
 
-import { SUGGESTION } from './suggestion-objects.resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { HALLink } from '../../shared/hal-link.model';
 import { typedObject } from '../../cache/builders/build-decorators';
-import { MetadataMap, MetadataMapSerializer } from '../../shared/metadata.models';
-import {CacheableObject} from '../../cache/cacheable-object.model';
+import { CacheableObject } from '../../cache/cacheable-object.model';
+import { HALLink } from '../../shared/hal-link.model';
+import {
+  MetadataMap,
+  MetadataMapSerializer,
+} from '../../shared/metadata.models';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { SUGGESTION } from './suggestion-objects.resource-type';
 
 /**
  * The interface representing Suggestion Evidences such as scores (authorScore, datescore)

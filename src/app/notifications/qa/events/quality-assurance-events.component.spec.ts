@@ -1,49 +1,63 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { of as observableOf } from 'rxjs';
 import {
-  QualityAssuranceEventDataService
-} from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from 'src/app/core/data/item-data.service';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { PageInfo } from '../../../core/shared/page-info.model';
 import {
   getMockQualityAssuranceEventRestService,
-  ItemMockPid10,
   ItemMockPid8,
   ItemMockPid9,
+  ItemMockPid10,
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
-  qualityAssuranceEventObjectMissingProjectNotFound
+  qualityAssuranceEventObjectMissingProjectNotFound,
 } from '../../../shared/mocks/notifications.mock';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import {
-  QualityAssuranceEventObject
-} from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
-import { TestScheduler } from 'rxjs/testing';
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
+import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 
 describe('QualityAssuranceEventsComponent test suite', () => {
   let fixture: ComponentFixture<QualityAssuranceEventsComponent>;
@@ -52,24 +66,24 @@ describe('QualityAssuranceEventsComponent test suite', () => {
   let scheduler: TestScheduler;
 
   const modalStub = {
-      open: () => ( {result: new Promise((res, rej) => 'do')} ),
-      close: () => null,
-      dismiss: () => null
+    open: () => ( { result: new Promise((res, rej) => 'do') } ),
+    close: () => null,
+    dismiss: () => null,
   };
   const qualityAssuranceEventRestServiceStub: any = getMockQualityAssuranceEventRestService();
   const activatedRouteParams = {
     qualityAssuranceEventsParams: {
       currentPage: 0,
-      pageSize: 10
-    }
+      pageSize: 10,
+    },
   };
   const activatedRouteParamsMap = {
-    id: 'ENRICH!MISSING!PROJECT'
+    id: 'ENRICH!MISSING!PROJECT',
   };
 
   const events: QualityAssuranceEventObject[] = [
     qualityAssuranceEventObjectMissingProjectFound,
-    qualityAssuranceEventObjectMissingProjectNotFound
+    qualityAssuranceEventObjectMissingProjectNotFound,
   ];
   const paginationService = new PaginationServiceStub();
 
@@ -84,7 +98,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
       handle: ItemMockPid10.handle,
       reason: null,
       isRunning: false,
-      target: ItemMockPid8
+      target: ItemMockPid8,
     };
   }
 
@@ -99,7 +113,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
       handle: null,
       reason: null,
       isRunning: false,
-      target: ItemMockPid9
+      target: ItemMockPid9,
     };
   }
 
@@ -108,8 +122,6 @@ describe('QualityAssuranceEventsComponent test suite', () => {
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         QualityAssuranceEventsComponent,
         TestComponent,
       ],
@@ -122,9 +134,9 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: ItemDataService, useValue: {} },
         { provide: AuthorizationDataService, useValue: {} },
-        QualityAssuranceEventsComponent
+        QualityAssuranceEventsComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
     scheduler = getTestScheduler();
   }));
@@ -170,8 +182,8 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         const expected = cold('(a|)', {
           a: [
             getQualityAssuranceEventData1(),
-            getQualityAssuranceEventData2()
-          ]
+            getQualityAssuranceEventData2(),
+          ],
         });
         expect(result).toBeObservable(expected);
       });
@@ -217,10 +229,10 @@ describe('QualityAssuranceEventsComponent test suite', () => {
               externalSourceEntry: null,
               label: null,
               importedObject: observableOf({
-                indexableObject: NotificationsMockDspaceObject
-              })
-            }
-          }
+                indexableObject: NotificationsMockDspaceObject,
+              }),
+            },
+          },
         );
         scheduler.schedule(() => {
           comp.openModalLookup(getQualityAssuranceEventData1());
@@ -237,7 +249,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         const action = 'ACCEPTED';
         spyOn(compAsAny, 'getQualityAssuranceEvents').and.returnValue(observableOf([
           getQualityAssuranceEventData1(),
-          getQualityAssuranceEventData2()
+          getQualityAssuranceEventData2(),
         ]));
         qualityAssuranceEventRestServiceStub.patchEvent.and.returnValue(createSuccessfulRemoteDataObject$({}));
 
@@ -296,14 +308,14 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         comp.topic = activatedRouteParamsMap.id;
         const options: FindListOptions = Object.assign(new FindListOptions(), {
           currentPage: comp.paginationConfig.currentPage,
-          elementsPerPage: comp.paginationConfig.pageSize
+          elementsPerPage: comp.paginationConfig.pageSize,
         });
 
         const pageInfo = new PageInfo({
           elementsPerPage: comp.paginationConfig.pageSize,
           totalElements: 2,
           totalPages: 1,
-          currentPage: comp.paginationConfig.currentPage
+          currentPage: comp.paginationConfig.currentPage,
         });
         const array =  [
           qualityAssuranceEventObjectMissingProjectFound,
@@ -314,7 +326,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         qualityAssuranceEventRestServiceStub.getEventsByTopic.and.returnValue(observableOf(paginatedListRD));
         spyOn(compAsAny, 'fetchEvents').and.returnValue(observableOf([
           getQualityAssuranceEventData1(),
-          getQualityAssuranceEventData2()
+          getQualityAssuranceEventData2(),
         ]));
 
         scheduler.schedule(() => {
@@ -325,7 +337,7 @@ describe('QualityAssuranceEventsComponent test suite', () => {
         expect(compAsAny.qualityAssuranceEventRestService.getEventsByTopic).toHaveBeenCalledWith(
           activatedRouteParamsMap.id,
           options,
-          followLink('target'),followLink('related')
+          followLink('target'),followLink('related'),
         );
         expect(compAsAny.fetchEvents).toHaveBeenCalled();
       });
@@ -337,7 +349,9 @@ describe('QualityAssuranceEventsComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
 

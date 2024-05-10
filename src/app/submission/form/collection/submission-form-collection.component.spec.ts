@@ -1,30 +1,48 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { CommunityDataService } from '../../../core/data/community-data.service';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { Collection } from '../../../core/shared/collection.model';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
+import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import {
+  mockSubmissionId,
+  mockSubmissionRestResponse,
+} from '../../../shared/mocks/submission.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { mockSubmissionId, mockSubmissionRestResponse } from '../../../shared/mocks/submission.mock';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { SectionsService } from '../../sections/sections.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 
 describe('SubmissionFormCollectionComponent Component', () => {
 
@@ -46,11 +64,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'Community 1-Collection 1'
+        value: 'Community 1-Collection 1',
       }],
     _links: {
-      defaultAccessConditions: collectionId + '/defaultAccessConditions'
-    }
+      defaultAccessConditions: collectionId + '/defaultAccessConditions',
+    },
   });
 
   const mockCollectionList = [
@@ -58,71 +76,71 @@ describe('SubmissionFormCollectionComponent Component', () => {
       communities: [
         {
           id: '123456789-1',
-          name: 'Community 1'
-        }
+          name: 'Community 1',
+        },
       ],
       collection: {
         id: '1234567890-1',
-        name: 'Community 1-Collection 1'
-      }
+        name: 'Community 1-Collection 1',
+      },
     },
     {
       communities: [
         {
           id: '123456789-1',
-          name: 'Community 1'
-        }
+          name: 'Community 1',
+        },
       ],
       collection: {
         id: '1234567890-2',
-        name: 'Community 1-Collection 2'
-      }
+        name: 'Community 1-Collection 2',
+      },
     },
     {
       communities: [
         {
           id: '123456789-2',
-          name: 'Community 2'
-        }
+          name: 'Community 2',
+        },
       ],
       collection: {
         id: '1234567890-3',
-        name: 'Community 2-Collection 1'
-      }
+        name: 'Community 2-Collection 1',
+      },
     },
     {
       communities: [
         {
           id: '123456789-2',
-          name: 'Community 2'
-        }
+          name: 'Community 2',
+        },
       ],
       collection: {
         id: '1234567890-4',
-        name: 'Community 2-Collection 2'
-      }
-    }
+        name: 'Community 2-Collection 2',
+      },
+    },
   ];
 
   const communityDataService: any = jasmine.createSpyObj('communityDataService', {
-    findAll: jasmine.createSpy('findAll')
+    findAll: jasmine.createSpy('findAll'),
   });
 
   const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {
     findById: jasmine.createSpy('findById'),
-    getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity')
+    getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity'),
   });
 
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
-    select: jasmine.createSpy('select')
+    select: jasmine.createSpy('select'),
   });
   const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
-    replace: jasmine.createSpy('replace')
+    replace: jasmine.createSpy('replace'),
   });
 
   const sectionsService: any = jasmine.createSpyObj('sectionsService', {
-    isSectionTypeAvailable: of(true)
+    isSectionTypeAvailable: of(true),
   });
 
   beforeEach(waitForAsync(() => {
@@ -131,11 +149,9 @@ describe('SubmissionFormCollectionComponent Component', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SubmissionFormCollectionComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
@@ -147,10 +163,14 @@ describe('SubmissionFormCollectionComponent Component', () => {
         { provide: Store, useValue: store },
         { provide: SectionsService, useValue: sectionsService },
         ChangeDetectorRef,
-        SubmissionFormCollectionComponent
+        SubmissionFormCollectionComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideComponent(SubmissionFormCollectionComponent, {
+        remove: { imports: [ThemedCollectionDropdownComponent] },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -281,7 +301,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
         expect(submissionServiceStub.changeSubmissionCollection).toHaveBeenCalled();
         expect(comp.selectedCollectionId).toBe(mockCollectionList[1].collection.id);
         expect(comp.selectedCollectionName$).toBeObservable(cold('(a|)', {
-          a: mockCollectionList[1].collection.name
+          a: mockCollectionList[1].collection.name,
         }));
       });
     });
@@ -292,7 +312,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    NgbModule],
 })
 class TestComponent {
 

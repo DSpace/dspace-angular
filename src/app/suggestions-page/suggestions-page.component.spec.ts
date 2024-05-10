@@ -1,39 +1,51 @@
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { BrowserModule } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-import { SuggestionsPageComponent } from './suggestions-page.component';
-
-import { getMockSuggestionNotificationsStateService, getMockSuggestionsService } from '../shared/mocks/suggestion.mock';
-import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo } from '../shared/mocks/publication-claim.mock';
+import { AuthService } from '../core/auth/auth.service';
+import { PaginationService } from '../core/pagination/pagination.service';
+import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
+import { SuggestionEvidencesComponent } from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
+import { SuggestionsService } from '../notifications/suggestions.service';
+import {
+  mockSuggestionPublicationOne,
+  mockSuggestionPublicationTwo,
+} from '../shared/mocks/publication-claim.mock';
+import { mockSuggestionTargetsObjectOne } from '../shared/mocks/publication-claim-targets.mock';
+import {
+  getMockSuggestionNotificationsStateService,
+  getMockSuggestionsService,
+} from '../shared/mocks/suggestion.mock';
+import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { RouterStub } from '../shared/testing/router.stub';
 import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
 import { VarDirective } from '../shared/utils/var.directive';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../shared/testing/router.stub';
-import { mockSuggestionTargetsObjectOne } from '../shared/mocks/publication-claim-targets.mock';
-import { AuthService } from '../core/auth/auth.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { getMockTranslateService } from '../shared/mocks/translate.service.mock';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
-import { TestScheduler } from 'rxjs/testing';
-import { getTestScheduler } from 'jasmine-marbles';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { PaginationService } from '../core/pagination/pagination.service';
-import {
-  SuggestionEvidencesComponent
-} from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
-import {
-  SuggestionApproveAndImport,
-  SuggestionListElementComponent
-} from '../notifications/suggestion-list-element/suggestion-list-element.component';
-import { SuggestionsService } from '../notifications/suggestions.service';
-import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
+import { SuggestionsPageComponent } from './suggestions-page.component';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
@@ -44,17 +56,17 @@ describe('SuggestionPageComponent', () => {
   const router = new RouterStub();
   const routeStub = {
     data: observableOf({
-      suggestionTargets: createSuccessfulRemoteDataObject(mockSuggestionTargetsObjectOne)
+      suggestionTargets: createSuccessfulRemoteDataObject(mockSuggestionTargetsObjectOne),
     }),
-    queryParams: observableOf({})
+    queryParams: observableOf({}),
   };
   const workspaceitemServiceMock = jasmine.createSpyObj('WorkspaceitemDataService', {
-    importExternalSourceEntry: jasmine.createSpy('importExternalSourceEntry')
+    importExternalSourceEntry: jasmine.createSpy('importExternalSourceEntry'),
   });
 
   const authService = jasmine.createSpyObj('authService', {
     isAuthenticated: observableOf(true),
-    setRedirectUrl: {}
+    setRedirectUrl: {},
   });
   const paginationService = new PaginationServiceStub();
 
@@ -63,14 +75,12 @@ describe('SuggestionPageComponent', () => {
       imports: [
         BrowserModule,
         CommonModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SuggestionEvidencesComponent,
         SuggestionListElementComponent,
         SuggestionsPageComponent,
         ObjectKeysPipe,
-        VarDirective
+        VarDirective,
       ],
       providers: [
         { provide: AuthService, useValue: authService },
@@ -82,9 +92,9 @@ describe('SuggestionPageComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: PaginationService, useValue: paginationService },
-        SuggestionsPageComponent
+        SuggestionsPageComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents().then();
   }));
@@ -160,7 +170,7 @@ describe('SuggestionPageComponent', () => {
 
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    component.approveAndImport({collectionId: '1234'} as unknown as SuggestionApproveAndImport);
+    component.approveAndImport({ collectionId: '1234' } as unknown as SuggestionApproveAndImport);
     expect(mockSuggestionsService.approveAndImport).toHaveBeenCalled();
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();
@@ -171,7 +181,7 @@ describe('SuggestionPageComponent', () => {
 
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
-    component.approveAndImportAllSelected({collectionId: '1234'} as unknown as SuggestionApproveAndImport);
+    component.approveAndImportAllSelected({ collectionId: '1234' } as unknown as SuggestionApproveAndImport);
     expect(mockSuggestionsService.approveAndImportMultiple).toHaveBeenCalled();
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();
@@ -201,17 +211,17 @@ describe('SuggestionPageComponent', () => {
   });
 
   it('should check if all collection is fixed', () => {
-      component.isCollectionFixed([mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
-      expect(mockSuggestionsService.isCollectionFixed).toHaveBeenCalled();
+    component.isCollectionFixed([mockSuggestionPublicationOne, mockSuggestionPublicationTwo]);
+    expect(mockSuggestionsService.isCollectionFixed).toHaveBeenCalled();
   });
 
   it('should translate suggestion source', () => {
-      component.translateSuggestionSource();
-      expect(mockSuggestionsService.translateSuggestionSource).toHaveBeenCalled();
+    component.translateSuggestionSource();
+    expect(mockSuggestionsService.translateSuggestionSource).toHaveBeenCalled();
   });
 
   it('should translate suggestion type', () => {
-      component.translateSuggestionType();
-      expect(mockSuggestionsService.translateSuggestionType).toHaveBeenCalled();
+    component.translateSuggestionType();
+    expect(mockSuggestionsService.translateSuggestionType).toHaveBeenCalled();
   });
 });

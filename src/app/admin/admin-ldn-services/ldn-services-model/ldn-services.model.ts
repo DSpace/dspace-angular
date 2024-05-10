@@ -1,11 +1,16 @@
-import {ResourceType} from '../../../core/shared/resource-type';
-import {CacheableObject} from '../../../core/cache/cacheable-object.model';
-import {autoserialize, deserialize, deserializeAs, inheritSerialization} from 'cerialize';
-import {LDN_SERVICE} from './ldn-service.resource-type';
-import {excludeFromEquals} from '../../../core/utilities/equals.decorators';
-import {typedObject} from '../../../core/cache/builders/build-decorators';
-import {NotifyServicePattern} from './ldn-service-patterns.model';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+  inheritSerialization,
+} from 'cerialize';
 
+import { typedObject } from '../../../core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../core/cache/cacheable-object.model';
+import { ResourceType } from '../../../core/shared/resource-type';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { LDN_SERVICE } from './ldn-service.resource-type';
+import { NotifyServicePattern } from './ldn-service-patterns.model';
 
 /**
  * LDN Services bounded to each selected pattern, relation set in service creation

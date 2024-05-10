@@ -1,9 +1,13 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
-import { RemoveFromObjectCacheAction } from './object-cache.actions';
-import { serverSyncBufferReducer } from './server-sync-buffer.reducer';
+
 import { RestRequestMethod } from '../data/rest-request-method';
-import { AddToSSBAction, EmptySSBAction } from './server-sync-buffer.actions';
+import { RemoveFromObjectCacheAction } from './object-cache.actions';
+import {
+  AddToSSBAction,
+  EmptySSBAction,
+} from './server-sync-buffer.actions';
+import { serverSyncBufferReducer } from './server-sync-buffer.reducer';
 
 class NullAction extends RemoveFromObjectCacheAction {
   type = null;
@@ -27,8 +31,8 @@ describe('serverSyncBufferReducer', () => {
         {
           href: selfLink2,
           method: RestRequestMethod.GET,
-        }
-      ]
+        },
+      ],
   };
   const newSelfLink = 'https://localhost:8080/api/core/items/1ce6b5ae-97e1-4e5a-b4b0-f9029bad10c0';
 
@@ -87,7 +91,7 @@ describe('serverSyncBufferReducer', () => {
     // testState has already been frozen above
     const newState = serverSyncBufferReducer(testState, action);
     expect(newState.buffer).toContain({
-      href: newSelfLink, method: RestRequestMethod.PUT
+      href: newSelfLink, method: RestRequestMethod.PUT,
     })
     ;
   });

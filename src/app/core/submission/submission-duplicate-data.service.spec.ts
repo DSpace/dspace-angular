@@ -1,6 +1,6 @@
-import { SubmissionDuplicateDataService } from './submission-duplicate-data.service';
-import { FindListOptions } from '../data/find-list-options.model';
 import { RequestParam } from '../cache/models/request-param.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { SubmissionDuplicateDataService } from './submission-duplicate-data.service';
 
 /**
  * Basic tests for the submission-duplicate-data.service.ts service

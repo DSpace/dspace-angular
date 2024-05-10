@@ -1,50 +1,35 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AdminNotifyOutgoingComponent } from './admin-notify-outgoing.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
-import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
-import { provideMockStore } from '@ngrx/store/testing';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
-import { RouteService } from '../../../../core/services/route.service';
-import { routeServiceStub } from '../../../../shared/testing/route-service.stub';
-import { RequestService } from '../../../../core/data/request.service';
-import { getMockRemoteDataBuildService } from '../../../../shared/mocks/remote-data-build.service.mock';
-import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
+import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admin-notify-logs-result.component';
+import { AdminNotifyOutgoingComponent } from './admin-notify-outgoing.component';
 
 describe('AdminNotifyOutgoingComponent', () => {
   let component: AdminNotifyOutgoingComponent;
   let fixture: ComponentFixture<AdminNotifyOutgoingComponent>;
-  let halService: HALEndpointService;
-  let requestService: RequestService;
-  let rdbService: RemoteDataBuildService;
 
+  let searchConfigurationService: SearchConfigurationServiceStub;
 
   beforeEach(async () => {
-    rdbService = getMockRemoteDataBuildService();
-    requestService = jasmine.createSpyObj('requestService', {
-      'generateRequestId': 'client/1234',
-      'send': '',
-    });
-    halService = jasmine.createSpyObj('halService', {
-      'getRootHref': '/api'
-    });
+    searchConfigurationService = new SearchConfigurationServiceStub();
+
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifyOutgoingComponent ],
-      providers: [
-        { provide: SEARCH_CONFIG_SERVICE, useValue: SearchConfigurationService },
-        { provide: RouteService, useValue: routeServiceStub },
-        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
-        { provide: HALEndpointService, useValue: halService },
-        { provide: RequestService, useValue: requestService },
-        { provide: RemoteDataBuildService, useValue: rdbService },
-        provideMockStore({}),
-      ]
-    })
-    .compileComponents();
+      imports: [
+        AdminNotifyOutgoingComponent,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+      ],
+    }).overrideProvider(SEARCH_CONFIG_SERVICE, {
+      useValue: searchConfigurationService,
+    }).overrideComponent(AdminNotifyOutgoingComponent, {
+      remove: { imports: [AdminNotifyLogsResultComponent] },
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminNotifyOutgoingComponent);
     component = fixture.componentInstance;

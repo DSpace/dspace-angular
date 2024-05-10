@@ -1,5 +1,13 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+
 import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { mockData } from '../../testing/browse-definition-data-service.stub';
 import { MetadataRepresentationListElementComponent } from './metadata-representation-list-element.component';
@@ -7,11 +15,11 @@ import { MetadataRepresentationListElementComponent } from './metadata-represent
 // Mock metadata representation values
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type', mockData[1]), {
   key: 'dc.contributor.author',
-  value: 'Test Author'
+  value: 'Test Author',
 });
 const mockMetadataRepresentationUrl = Object.assign(new MetadatumRepresentation('type', mockData[1]), {
   key: 'dc.subject',
-  value: 'https://www.google.com'
+  value: 'https://www.google.com',
 });
 
 describe('MetadataRepresentationListElementComponent', () => {
@@ -20,11 +28,10 @@ describe('MetadataRepresentationListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-      imports: [],
-      declarations: [MetadataRepresentationListElementComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      imports: [MetadataRepresentationListElementComponent],
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataRepresentationListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -1,11 +1,19 @@
-import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-
-import { TranslateModule } from '@ngx-translate/core';
-import { By } from '@angular/platform-browser';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { FilterInputSuggestionsComponent } from './filter-input-suggestions.component';
 
 describe('FilterInputSuggestionsComponent', () => {
@@ -16,17 +24,16 @@ describe('FilterInputSuggestionsComponent', () => {
   let el: HTMLElement;
   const suggestions = [{ displayValue: 'suggestion uno', value: 'suggestion uno' }, {
     displayValue: 'suggestion dos',
-    value: 'suggestion dos'
+    value: 'suggestion dos',
   }, { displayValue: 'suggestion tres', value: 'suggestion tres' }];
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
-      declarations: [FilterInputSuggestionsComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule, FilterInputSuggestionsComponent],
       providers: [],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(FilterInputSuggestionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -57,7 +64,7 @@ describe('FilterInputSuggestionsComponent', () => {
 
   describe('component methods', () => {
     const testData = {
-      value: 'test-field'
+      value: 'test-field',
     } as unknown as any;
 
     beforeEach(() => {

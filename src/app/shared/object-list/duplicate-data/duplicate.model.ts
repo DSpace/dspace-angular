@@ -1,9 +1,13 @@
-import {autoserialize, deserialize} from 'cerialize';
-import { MetadataMap } from '../../../core/shared/metadata.models';
-import { HALLink} from '../../../core/shared/hal-link.model';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { DUPLICATE } from './duplicate.resource-type';
+import { HALLink } from '../../../core/shared/hal-link.model';
+import { MetadataMap } from '../../../core/shared/metadata.models';
 import { ResourceType } from '../../../core/shared/resource-type';
+import { DUPLICATE } from './duplicate.resource-type';
 
 /**
  * This implements the model of a duplicate preview stub, to be displayed to submitters or reviewers
