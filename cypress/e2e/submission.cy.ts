@@ -137,7 +137,7 @@ describe('New Submission page', () => {
 
         // Upload our DSpace logo via drag & drop onto submission form
         // cy.get('div#section_upload')
-        cy.get('div.ds-document-drop-zone').selectFile('src/assets/images/dspace-logo.png', {
+        cy.get('div.ds-document-drop-zone').selectFile('src/assets/images/dspace-logo.svg', {
             action: 'drag-drop'
         });
 
