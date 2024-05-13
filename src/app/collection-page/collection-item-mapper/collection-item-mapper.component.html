@@ -6,7 +6,7 @@
       <p>{{'collection.edit.item-mapper.description' | translate}}</p>
 
       <ul ngbNav (navChange)="tabChange($event)" [destroyOnHide]="true" #tabs="ngbNav" class="nav-tabs">
-        <li [ngbNavItem]="'browseTab'" role="presentation">
+        <li [ngbNavItem]="'browseTab'" role="presentation" data-test="browseTab">
           <a ngbNavLink>{{'collection.edit.item-mapper.tabs.browse' | translate}}</a>
           <ng-template ngbNavContent>
             <div class="mt-2">
@@ -23,19 +23,19 @@
             </div>
           </ng-template>
         </li>
-        <li [ngbNavItem]="'mapTab'" role="presentation">
+        <li [ngbNavItem]="'mapTab'" role="presentation" data-test="mapTab">
           <a ngbNavLink>{{'collection.edit.item-mapper.tabs.map' | translate}}</a>
           <ng-template ngbNavContent>
             <div class="row mt-2">
               <div class="col-12 col-lg-6">
-                <ds-themed-search-form id="search-form"
+                <ds-search-form id="search-form"
                                 [query]="(searchOptions$ | async)?.query"
                                 [scope]="(searchOptions$ | async)?.scope"
                                 [currentUrl]="'./'"
                                 [inPlaceSearch]="true"
                                 [searchPlaceholder]="'collection.edit.item-mapper.search-form.placeholder' | translate"
                                 (submitSearch)="performedSearch = true">
-                </ds-themed-search-form>
+                </ds-search-form>
               </div>
             </div>
 

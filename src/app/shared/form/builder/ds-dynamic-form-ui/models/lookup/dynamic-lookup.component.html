@@ -88,7 +88,6 @@
        aria-expanded="false"
        [attr.aria-labelledby]="'label_' + model.id">
     <div class="scrollable-menu"
-         aria-labelledby="scrollableDropdownMenuButton"
          infiniteScroll
          [infiniteScrollDistance]="2"
          [infiniteScrollThrottle]="50"
@@ -96,7 +95,7 @@
          [scrollWindow]="false">
 
       <button class="dropdown-item disabled"
-              *ngIf="optionsList && optionsList.length == 0"
+              *ngIf="optionsList && optionsList.length === 0"
               (click)="$event.stopPropagation(); clearFields(); sdRef.close();">{{'form.no-results' | translate}}
       </button>
       <button class="dropdown-item lookup-item"

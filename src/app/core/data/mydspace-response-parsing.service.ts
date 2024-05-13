@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
+
+import { hasValue } from '../../shared/empty.util';
+import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { hasValue } from '../../shared/empty.util';
-import { SearchObjects } from '../../shared/search/models/search-objects.model';
-import { MetadataMap, MetadataValue } from '../shared/metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../shared/metadata.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MyDSpaceResponseParsingService extends DspaceRestResponseParsingService {
   parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
     // fallback for unexpected empty response
     const emptyPayload = {
       _embedded: {
-        objects: []
-      }
+        objects: [],
+      },
     };
     const payload = data.payload._embedded.searchResult || emptyPayload;
     const hitHighlights: MetadataMap[] = payload._embedded.objects
@@ -26,7 +30,7 @@ export class MyDSpaceResponseParsingService extends DspaceRestResponseParsingSer
           for (const key of Object.keys(hhObject)) {
             const value: MetadataValue = Object.assign(new MetadataValue(), {
               value: hhObject[key].join('...'),
-              language: null
+              language: null,
             });
             mdMap[key] = [value];
           }
@@ -46,7 +50,7 @@ export class MyDSpaceResponseParsingService extends DspaceRestResponseParsingSer
       .map((object, index) => Object.assign({}, object, {
         indexableObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
-        _embedded: this.filterEmbeddedObjects(object)
+        _embedded: this.filterEmbeddedObjects(object),
       }));
     payload.objects = objects;
     const deserialized: any = new DSpaceSerializer(SearchObjects).deserialize(payload);
@@ -65,8 +69,8 @@ export class MyDSpaceResponseParsingService extends DspaceRestResponseParsingSer
             .reduce((obj, key) => {
               obj[key] = object._embedded.indexableObject._embedded[key];
               return obj;
-            }, {})
-        })
+            }, {}),
+        }),
       });
     } else {
       return object;

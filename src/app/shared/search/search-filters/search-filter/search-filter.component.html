@@ -2,7 +2,7 @@
      [id]="regionId" [attr.aria-labelledby]="toggleId" [ngClass]="{ 'focus': focusBox }" role="region">
   <button (click)="toggle()" (focusin)="focusBox = true" (focusout)="focusBox = false"
           class="filter-name d-flex" [attr.aria-controls]="regionId" [id]="toggleId"
-          [attr.aria-expanded]="!(collapsed$ | async)"
+          [attr.aria-expanded]="(collapsed$ | async) !== true"
           [attr.aria-label]="(((collapsed$ | async) ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate) + ' ' + (('search.filters.filter.' + filter.name + '.head') | translate | lowercase)"
           [attr.data-test]="'filter-toggle' | dsBrowserOnly"
   >
@@ -19,9 +19,10 @@
        (@slide.start)="startSlide($event)" (@slide.done)="finishSlide($event)"
        class="search-filter-wrapper" [ngClass]="{ 'closed' : closed, 'notab': notab }">
     <ds-search-facet-filter-wrapper
+      [scope]="scope"
       [filterConfig]="filter"
       [inPlaceSearch]="inPlaceSearch"
-      [refreshFilters]="refreshFilters" >
+      [refreshFilters]="refreshFilters">
     </ds-search-facet-filter-wrapper>
   </div>
 </div>

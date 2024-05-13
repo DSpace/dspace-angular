@@ -1,7 +1,8 @@
 <a class="d-flex flex-row"
    [tabIndex]="-1"
    [routerLink]="[searchLink]"
-   [queryParams]="removeQueryParams" queryParamsHandling="merge">
+   [queryParams]="removeQueryParams | async"
+   (click)="searchFilterService.minimizeAll()">
   <label class="mb-0 d-flex w-100">
     <input type="checkbox" [checked]="true" class="my-1 align-self-stretch filter-checkbox"/>
     <span class="filter-value pl-1 break-facet">

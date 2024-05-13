@@ -5,34 +5,56 @@
  *
  * http://www.dspace.org/license/
  */
-import { InitService } from '../../app/init.service';
+import {
+  Inject,
+  Injectable,
+  TransferState,
+} from '@angular/core';
+import {
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app/app.reducer';
-import { TransferState } from '@angular/platform-browser';
-import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
-import { DefaultAppConfig } from '../../config/default-app-config';
-import { extendEnvironmentWithAppConfig } from '../../config/config.util';
-import { environment } from '../../environments/environment';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
-import { Inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  firstValueFrom,
+  lastValueFrom,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  find,
+  map,
+} from 'rxjs/operators';
+
+import { logStartupMessage } from '../../../startup-message';
+import { AppState } from '../../app/app.reducer';
+import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
+import { AuthService } from '../../app/core/auth/auth.service';
+import { coreSelector } from '../../app/core/core.selectors';
+import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
+import { HeadTagService } from '../../app/core/metadata/head-tag.service';
+import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
+import { InitService } from '../../app/init.service';
+import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { isNotEmpty } from '../../app/shared/empty.util';
+import { MenuService } from '../../app/shared/menu/menu.service';
+import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { MetadataService } from '../../app/core/metadata/metadata.service';
-import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { KlaroService } from '../../app/shared/cookies/klaro.service';
-import { AuthService } from '../../app/core/auth/auth.service';
-import { ThemeService } from '../../app/shared/theme-support/theme.service';
-import { StoreAction, StoreActionTypes } from '../../app/store.actions';
-import { coreSelector } from '../../app/core/core.selectors';
-import { filter, find, map } from 'rxjs/operators';
-import { isNotEmpty } from '../../app/shared/empty.util';
-import { logStartupMessage } from '../../../startup-message';
-import { MenuService } from '../../app/shared/menu/menu.service';
-import { RootDataService } from '../../app/core/data/root-data.service';
-import { firstValueFrom, Subscription } from 'rxjs';
-import { ServerCheckGuard } from '../../app/core/server-check/server-check.guard';
+import {
+  StoreAction,
+  StoreActionTypes,
+} from '../../app/store.actions';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+} from '../../config/app-config.interface';
+import { extendEnvironmentWithAppConfig } from '../../config/config.util';
+import { DefaultAppConfig } from '../../config/default-app-config';
+import { environment } from '../../environments/environment';
 
 /**
  * Performs client-side initialization.
@@ -51,14 +73,14 @@ export class BrowserInitService extends InitService {
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
     protected googleAnalyticsService: GoogleAnalyticsService,
-    protected metadata: MetadataService,
+    protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
     protected klaroService: KlaroService,
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
     private rootDataService: RootDataService,
-    protected serverCheckGuard: ServerCheckGuard,
+    protected router: Router,
   ) {
     super(
       store,
@@ -67,7 +89,7 @@ export class BrowserInitService extends InitService {
       translate,
       localeService,
       angulartics2DSpace,
-      metadata,
+      headTagService,
       breadcrumbsService,
       themeService,
       menuService,
@@ -103,7 +125,7 @@ export class BrowserInitService extends InitService {
 
       this.initKlaro();
 
-      await this.authenticationReady$().toPromise();
+      await lastValueFrom(this.authenticationReady$());
 
       return true;
     };
@@ -120,10 +142,12 @@ export class BrowserInitService extends InitService {
     const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
     this.transferState.remove(InitService.NGRX_STATE);
     this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
-    return this.store.select(coreSelector).pipe(
-      find((core: any) => isNotEmpty(core)),
-      map(() => true)
-    ).toPromise();
+    return lastValueFrom(
+      this.store.select(coreSelector).pipe(
+        find((core: any) => isNotEmpty(core)),
+        map(() => true),
+      ),
+    );
   }
 
   private trackAuthTokenExpiration(): void {
@@ -152,12 +176,12 @@ export class BrowserInitService extends InitService {
   private externalAuthCheck() {
 
     this.sub = this.authService.isExternalAuthentication().pipe(
-        filter((externalAuth: boolean) => externalAuth)
-      ).subscribe(() => {
-        // Clear the transferState data.
-        this.rootDataService.invalidateRootCache();
-        this.authService.setExternalAuthStatus(false);
-      }
+      filter((externalAuth: boolean) => externalAuth),
+    ).subscribe(() => {
+      // Clear the transferState data.
+      this.rootDataService.invalidateRootCache();
+      this.authService.setExternalAuthStatus(false);
+    },
     );
 
     this.closeAuthCheckSubscription();
@@ -169,9 +193,9 @@ export class BrowserInitService extends InitService {
    * @private
    */
   private closeAuthCheckSubscription() {
-    firstValueFrom(this.authenticationReady$()).then(() => {
-        this.sub.unsubscribe();
-      });
+    void firstValueFrom(this.authenticationReady$()).then(() => {
+      this.sub.unsubscribe();
+    });
   }
 
   /**
@@ -180,7 +204,25 @@ export class BrowserInitService extends InitService {
    */
   protected initRouteListeners(): void {
     super.initRouteListeners();
-    this.serverCheckGuard.listenForRouteChanges();
+    this.listenForRouteChanges();
+  }
+
+  /**
+   * Listen to all router events. Every time a new navigation starts, invalidate the cache
+   * for the root endpoint. That way we retrieve it once per routing operation to ensure the
+   * backend is not down. But if the guard is called multiple times during the same routing
+   * operation, the cached version is used.
+   */
+  protected listenForRouteChanges(): void {
+    // we'll always be too late for the first NavigationStart event with the router subscribe below,
+    // so this statement is for the very first route operation.
+    this.rootDataService.invalidateRootCache();
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationStart),
+    ).subscribe(() => {
+      this.rootDataService.invalidateRootCache();
+    });
   }
 
 }

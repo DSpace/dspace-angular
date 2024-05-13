@@ -1,19 +1,31 @@
-import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import {
+  Component,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { createPaginatedList, createTestComponent } from '../../../shared/testing/utils.test';
-import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown.component';
+
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { RouterStub } from '../../../shared/testing/router.stub';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../../../shared/testing/utils.test';
+import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {
   const pageInfo = { elementsPerPage: 20, totalElements: 4, totalPages: 1, currentPage: 0 } as PageInfo;
@@ -22,26 +34,26 @@ export function getMockEntityTypeService(): EntityTypeDataService {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const type2: ItemType = {
     id: '2',
     label: 'Journal',
     uuid: '2',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const type3: ItemType = {
     id: '2',
     label: 'DataPackage',
     uuid: '2',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1, type2, type3]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipTypeImport: rd$,
-    hasMoreThanOneAuthorizedImport: observableOf(true)
+    hasMoreThanOneAuthorizedImport: observableOf(true),
   });
 }
 
@@ -52,12 +64,12 @@ export function getMockEmptyEntityTypeService(): EntityTypeDataService {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipTypeImport: rd$,
-    hasMoreThanOneAuthorizedImport: observableOf(false)
+    hasMoreThanOneAuthorizedImport: observableOf(false),
   });
 }
 
@@ -72,7 +84,7 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
 
   describe('With only one Entity', () => {
@@ -81,18 +93,15 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewExternalDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
           { provide: Router, useValue: new RouterStub() },
-          MyDSpaceNewExternalDropdownComponent
+          MyDSpaceNewExternalDropdownComponent,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
@@ -133,18 +142,15 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewExternalDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
           { provide: Router, useValue: new RouterStub() },
-          MyDSpaceNewExternalDropdownComponent
+          MyDSpaceNewExternalDropdownComponent,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
@@ -183,7 +189,9 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

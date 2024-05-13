@@ -1,18 +1,30 @@
-import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  Component,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { createPaginatedList, createTestComponent } from '../../../shared/testing/utils.test';
-import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
+
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
+import {
+  createPaginatedList,
+  createTestComponent,
+} from '../../../shared/testing/utils.test';
+import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {
   const type1: ItemType = {
@@ -20,26 +32,26 @@ export function getMockEntityTypeService(): EntityTypeDataService {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const type2: ItemType = {
     id: '2',
     label: 'Journal',
     uuid: '2',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const type3: ItemType = {
     id: '2',
     label: 'DataPackage',
     uuid: '2',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1, type2, type3]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipType: rd$,
-    hasMoreThanOneAuthorized: observableOf(true)
+    hasMoreThanOneAuthorized: observableOf(true),
   });
 }
 
@@ -50,12 +62,12 @@ export function getMockEmptyEntityTypeService(): EntityTypeDataService {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
   const rd$ = createSuccessfulRemoteDataObject$(createPaginatedList([type1]));
   return jasmine.createSpyObj('entityTypeService', {
     getAllAuthorizedRelationshipType: rd$,
-    hasMoreThanOneAuthorized: observableOf(false)
+    hasMoreThanOneAuthorized: observableOf(false),
   });
 }
 
@@ -70,13 +82,13 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
     label: 'Publication',
     uuid: '1',
     type: new ResourceType('entitytype'),
-    _links: undefined
+    _links: undefined,
   };
 
   const modalStub = {
     open: () => null,
     close: () => null,
-    dismiss: () => null
+    dismiss: () => null,
   };
 
   describe('With only one Entity', () => {
@@ -85,18 +97,15 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
-          MyDSpaceNewSubmissionDropdownComponent
+          MyDSpaceNewSubmissionDropdownComponent,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
@@ -137,18 +146,15 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewSubmissionDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
           { provide: NgbModal, useValue: modalStub },
-          MyDSpaceNewSubmissionDropdownComponent
+          MyDSpaceNewSubmissionDropdownComponent,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
@@ -188,7 +194,9 @@ describe('MyDSpaceNewSubmissionDropdownComponent test', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

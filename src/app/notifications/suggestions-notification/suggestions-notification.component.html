@@ -1,0 +1,9 @@
+<ng-container *ngIf="(suggestionsRD$ | async) as suggestions">
+  <ng-container *ngFor="let suggestion of suggestions" class="alert alert-info">
+    <div class="alert alert-success d-block" *ngIf="suggestion.total > 0">
+      <div [innerHTML]="'notification.suggestion' | translate: getNotificationSuggestionInterpolation(suggestion)"></div>
+      {{ 'notification.suggestion.please' | translate }}
+      <a [routerLink]="getNotificationSuggestionInterpolation(suggestion).url"> {{ 'notification.suggestion.review' | translate}} </a>
+    </div>
+  </ng-container>
+</ng-container>

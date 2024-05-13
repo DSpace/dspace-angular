@@ -1,13 +1,28 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { isEmpty } from '../../empty.util';
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import {
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.model';
-import { DspaceRestService, HttpOptions } from '../../../core/dspace-rest/dspace-rest.service';
-import { MOCK_RESPONSE_MAP, ResponseMapMock } from './mocks/response-map.mock';
 import { environment } from '../../../../environments/environment';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import {
+  DspaceRestService,
+  HttpOptions,
+} from '../../../core/dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.model';
+import { isEmpty } from '../../empty.util';
+import {
+  MOCK_RESPONSE_MAP,
+  ResponseMapMock,
+} from './mocks/response-map.mock';
 
 /**
  * Service to access DSpace's REST API.
@@ -21,7 +36,7 @@ export class EndpointMockingRestService extends DspaceRestService {
 
   constructor(
     @Inject(MOCK_RESPONSE_MAP) protected mockResponseMap: ResponseMapMock,
-    protected http: HttpClient
+    protected http: HttpClient,
   ) {
     super(http);
   }
@@ -83,7 +98,7 @@ export class EndpointMockingRestService extends DspaceRestService {
       payload: mockData,
       headers: new HttpHeaders(),
       statusCode: 200,
-      statusText: 'OK'
+      statusText: 'OK',
     });
   }
 

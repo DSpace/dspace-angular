@@ -1,9 +1,16 @@
-import { createSelector, MemoizedSelector, Selector } from '@ngrx/store';
+import {
+  createSelector,
+  MemoizedSelector,
+  Selector,
+} from '@ngrx/store';
 
 import { hasValue } from '../shared/empty.util';
-import { submissionSelector, SubmissionState } from './submission.reducers';
-import { SubmissionObjectEntry} from './objects/submission-objects.reducer';
+import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
+import {
+  submissionSelector,
+  SubmissionState,
+} from './submission.reducers';
 
 /**
  * Export a function to return a subset of the state by key

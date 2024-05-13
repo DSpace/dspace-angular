@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
-  QualityAssuranceSourceDataService
-} from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import {
-  QualityAssuranceSourceObject
-} from '../../../core/notifications/qa/models/quality-assurance-source.model';
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 /**
  * The service handling all Quality Assurance source requests to the REST service.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class QualityAssuranceSourceService {
 
   /**
@@ -26,7 +24,7 @@ export class QualityAssuranceSourceService {
    * @param {QualityAssuranceSourceDataService} qualityAssuranceSourceRestService
    */
   constructor(
-    private qualityAssuranceSourceRestService: QualityAssuranceSourceDataService
+    private qualityAssuranceSourceRestService: QualityAssuranceSourceDataService,
   ) {
   }
 
@@ -46,7 +44,7 @@ export class QualityAssuranceSourceService {
     const findListOptions: FindListOptions = {
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
-      sort: sortOptions
+      sort: sortOptions,
     };
 
     return this.qualityAssuranceSourceRestService.getSources(findListOptions).pipe(
@@ -57,7 +55,7 @@ export class QualityAssuranceSourceService {
         } else {
           throw new Error('Can\'t retrieve Quality Assurance source from the Broker source REST service');
         }
-      })
+      }),
     );
   }
 }

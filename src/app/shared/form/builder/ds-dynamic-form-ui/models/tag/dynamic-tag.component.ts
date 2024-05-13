@@ -1,25 +1,58 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
-import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import isEqual from 'lodash/isEqual';
-
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { DynamicTagModel } from './dynamic-tag.model';
-import { Chips } from '../../../../chips/models/chips.model';
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { environment } from '../../../../../../../environments/environment';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { NgIf } from '@angular/common';
 import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  NgbTypeahead,
+  NgbTypeaheadModule,
+  NgbTypeaheadSelectItemEvent,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
+import isEqual from 'lodash/isEqual';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  merge,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
+import { environment } from '../../../../../../../environments/environment';
+import {
+  buildPaginatedList,
   PaginatedList,
-  buildPaginatedList
 } from '../../../../../../core/data/paginated-list.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../../empty.util';
+import { ChipsComponent } from '../../../../chips/chips.component';
+import { Chips } from '../../../../chips/models/chips.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { DynamicTagModel } from './dynamic-tag.model';
 
 /**
  * Component representing a tag input field
@@ -27,7 +60,14 @@ import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 @Component({
   selector: 'ds-dynamic-tag',
   styleUrls: ['./dynamic-tag.component.scss'],
-  templateUrl: './dynamic-tag.component.html'
+  templateUrl: './dynamic-tag.component.html',
+  imports: [
+    NgbTypeaheadModule,
+    FormsModule,
+    NgIf,
+    ChipsComponent,
+  ],
+  standalone: true,
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 
@@ -53,7 +93,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   constructor(protected vocabularyService: VocabularyService,
               private cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(vocabularyService, layoutService, validationService);
   }
@@ -83,7 +123,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
               this.searchFailed = true;
               return observableOf(buildPaginatedList(
                 new PageInfo(),
-                []
+                [],
               ));
             }));
         }
@@ -93,11 +133,11 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
       map((list: VocabularyEntry[]) => {
         if (list && list.length > 0) {
           if (isNotEmpty(this.currentValue)) {
-            let vocEntry = new VocabularyEntry();
+            const vocEntry = new VocabularyEntry();
             vocEntry.display = this.currentValue;
             vocEntry.value = this.currentValue;
             list.push(vocEntry);
-        }
+          }
         }
         return list;
       }),
@@ -151,7 +191,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
    * @param event The value to emit.
    */
   onBlur(event: Event) {
-    if (isNotEmpty(this.currentValue) && !this.instance.isPopupOpen()) {
+    if (isNotEmpty(this.currentValue) && (!this.model.hasAuthority || !this.instance.isPopupOpen())) {
       this.addTagsToChips();
     }
     this.blur.emit(event);

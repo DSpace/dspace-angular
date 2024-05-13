@@ -5,22 +5,31 @@
  *
  * http://www.dspace.org/license/
  */
-import { InitService } from '../../app/init.service';
+import {
+  Inject,
+  Injectable,
+  TransferState,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app/app.reducer';
-import { TransferState } from '@angular/platform-browser';
-import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
-import { APP_CONFIG, APP_CONFIG_STATE, AppConfig } from '../../config/app-config.interface';
-import { environment } from '../../environments/environment';
-import { Inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
-import { MetadataService } from '../../app/core/metadata/metadata.service';
-import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { ThemeService } from '../../app/shared/theme-support/theme.service';
+import { lastValueFrom } from 'rxjs';
 import { take } from 'rxjs/operators';
+
+import { AppState } from '../../app/app.reducer';
+import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
+import { LocaleService } from '../../app/core/locale/locale.service';
+import { HeadTagService } from '../../app/core/metadata/head-tag.service';
+import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
+import { InitService } from '../../app/init.service';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { ThemeService } from '../../app/shared/theme-support/theme.service';
+import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+} from '../../config/app-config.interface';
+import { environment } from '../../environments/environment';
 
 /**
  * Performs server-side initialization.
@@ -35,10 +44,10 @@ export class ServerInitService extends InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    protected metadata: MetadataService,
+    protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
-    protected menuService: MenuService
+    protected menuService: MenuService,
   ) {
     super(
       store,
@@ -47,7 +56,7 @@ export class ServerInitService extends InitService {
       translate,
       localeService,
       angulartics2DSpace,
-      metadata,
+      headTagService,
       breadcrumbsService,
       themeService,
       menuService,
@@ -67,7 +76,7 @@ export class ServerInitService extends InitService {
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
 
-      await this.authenticationReady$().toPromise();
+      await lastValueFrom(this.authenticationReady$());
 
       return true;
     };

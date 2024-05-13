@@ -1,27 +1,58 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { getRemoteDataPayload } from '../../core/shared/operators';
-import { Bitstream } from '../../core/shared/bitstream.model';
+import {
+  AsyncPipe,
+  isPlatformServer,
+  Location,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { getForbiddenRoute } from '../../app-routing-paths';
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { AuthService } from '../../core/auth/auth.service';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { FileService } from '../../core/shared/file.service';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { isPlatformServer, Location } from '@angular/common';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { FileService } from '../../core/shared/file.service';
+import { getRemoteDataPayload } from '../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-bitstream-download-page',
-  templateUrl: './bitstream-download-page.component.html'
+  templateUrl: './bitstream-download-page.component.html',
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Page component for downloading a bitstream
@@ -42,7 +73,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
     public dsoNameService: DSONameService,
     private signpostingDataService: SignpostingDataService,
     private responseService: ServerResponseService,
-    @Inject(PLATFORM_ID) protected platformId: string
+    @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     this.initPageLinks();
   }
@@ -58,7 +89,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
 
     this.bitstream$ = this.bitstreamRD$.pipe(
       redirectOn4xx(this.router, this.auth),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
     this.bitstream$.pipe(
@@ -80,14 +111,14 @@ export class BitstreamDownloadPageComponent implements OnInit {
         } else {
           return [[isAuthorized, isLoggedIn, bitstream, '']];
         }
-      })
+      }),
     ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
         this.hardRedirectService.redirect(fileLink);
       } else if (isAuthorized && !isLoggedIn) {
         this.hardRedirectService.redirect(bitstream._links.content.href);
       } else if (!isAuthorized && isLoggedIn) {
-        this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
+        this.router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
       } else if (!isAuthorized && !isLoggedIn) {
         this.auth.setRedirectUrl(this.router.url);
         this.router.navigateByUrl('login');

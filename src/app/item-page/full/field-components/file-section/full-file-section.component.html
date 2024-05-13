@@ -6,14 +6,13 @@
                            [hideGear]="true"
                            [hidePagerWhenSinglePage]="true"
                            [paginationOptions]="originalOptions"
-                           [pageInfoState]="originals"
                            [collectionSize]="originals?.totalElements"
                            [retainScrollPosition]="true">
 
 
                 <div class="file-section row mb-3" *ngFor="let file of originals?.page;">
                     <div class="col-3">
-                        <ds-themed-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-themed-thumbnail>
+                        <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
                     </div>
                     <div class="col-7">
                         <dl class="row">
@@ -34,9 +33,9 @@
                         </dl>
                     </div>
                     <div class="col-2">
-                        <ds-themed-file-download-link [bitstream]="file" [item]="item">
+                        <ds-file-download-link [bitstream]="file" [item]="item">
                             {{"item.page.filesection.download" | translate}}
-                        </ds-themed-file-download-link>
+                        </ds-file-download-link>
                     </div>
                 </div>
             </ds-pagination>
@@ -49,14 +48,13 @@
                            [hideGear]="true"
                            [hidePagerWhenSinglePage]="true"
                            [paginationOptions]="licenseOptions"
-                           [pageInfoState]="licenses"
                            [collectionSize]="licenses?.totalElements"
                            [retainScrollPosition]="true">
 
 
                 <div class="file-section row" *ngFor="let file of licenses?.page;">
                     <div class="col-3">
-                        <ds-themed-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-themed-thumbnail>
+                        <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
                     </div>
                     <div class="col-7">
                         <dl class="row">
@@ -75,9 +73,9 @@
                         </dl>
                     </div>
                     <div class="col-2">
-                        <ds-themed-file-download-link [bitstream]="file" [item]="item">
+                        <ds-file-download-link [bitstream]="file" [item]="item">
                             {{"item.page.filesection.download" | translate}}
-                        </ds-themed-file-download-link>
+                        </ds-file-download-link>
                     </div>
                 </div>
             </ds-pagination>

@@ -1,31 +1,35 @@
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
+import { SuggestionNotificationsState } from './notifications.reducer';
+import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
+import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';
 import {
+  getQualityAssuranceSourceCurrentPageSelector,
+  getQualityAssuranceSourceTotalPagesSelector,
+  getQualityAssuranceSourceTotalsSelector,
   getQualityAssuranceTopicsCurrentPageSelector,
   getQualityAssuranceTopicsTotalPagesSelector,
   getQualityAssuranceTopicsTotalsSelector,
-  isQualityAssuranceTopicsLoadedSelector,
-  qualityAssuranceTopicsObjectSelector,
-  isQualityAssuranceTopicsProcessingSelector,
-  qualityAssuranceSourceObjectSelector,
   isQualityAssuranceSourceLoadedSelector,
   isQualityAssuranceSourceProcessingSelector,
-  getQualityAssuranceSourceTotalPagesSelector,
-  getQualityAssuranceSourceCurrentPageSelector,
-  getQualityAssuranceSourceTotalsSelector
+  isQualityAssuranceTopicsLoadedSelector,
+  isQualityAssuranceTopicsProcessingSelector,
+  qualityAssuranceSourceObjectSelector,
+  qualityAssuranceTopicsObjectSelector,
 } from './selectors';
-import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
-import { SuggestionNotificationsState } from './notifications.reducer';
-import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';
-import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
-import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 
 /**
  * The service handling the Notifications State.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NotificationsStateService {
 
   /**
@@ -56,7 +60,7 @@ export class NotificationsStateService {
   public isQualityAssuranceTopicsLoading(): Observable<boolean> {
     return this.store.pipe(
       select(isQualityAssuranceTopicsLoadedSelector),
-      map((loaded: boolean) => !loaded)
+      map((loaded: boolean) => !loaded),
     );
   }
 
@@ -118,8 +122,8 @@ export class NotificationsStateService {
    * @param currentPage
    *    The number of the current page.
    */
-  public dispatchRetrieveQualityAssuranceTopics(elementsPerPage: number, currentPage: number): void {
-    this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage));
+  public dispatchRetrieveQualityAssuranceTopics(elementsPerPage: number, currentPage: number, sourceId: string, targteId?: string): void {
+    this.store.dispatch(new RetrieveAllTopicsAction(elementsPerPage, currentPage, sourceId, targteId));
   }
 
   // Quality Assurance source
@@ -131,7 +135,7 @@ export class NotificationsStateService {
    * @return Observable<QualityAssuranceSourceObject>
    *    The list of Quality Assurance source.
    */
-   public getQualityAssuranceSource(): Observable<QualityAssuranceSourceObject[]> {
+  public getQualityAssuranceSource(): Observable<QualityAssuranceSourceObject[]> {
     return this.store.pipe(select(qualityAssuranceSourceObjectSelector()));
   }
 
@@ -144,7 +148,7 @@ export class NotificationsStateService {
   public isQualityAssuranceSourceLoading(): Observable<boolean> {
     return this.store.pipe(
       select(isQualityAssuranceSourceLoadedSelector),
-      map((loaded: boolean) => !loaded)
+      map((loaded: boolean) => !loaded),
     );
   }
 

@@ -1,20 +1,49 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
-import { Collection } from '../../../core/shared/collection.model';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  Scroll,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest as combineLatestObservable,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ActivatedRoute, NavigationEnd, Router, Scroll } from '@angular/router';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { map, switchMap } from 'rxjs/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { RequestService } from '../../../core/data/request.service';
-import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
+import { Collection } from '../../../core/shared/collection.model';
+import { Item } from '../../../core/shared/item.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { CollectionFormComponent } from '../../collection-form/collection-form.component';
+import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 
 /**
  * Component for editing a collection's metadata
@@ -22,6 +51,15 @@ import { hasValue } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-collection-metadata',
   templateUrl: './collection-metadata.component.html',
+  imports: [
+    CollectionFormComponent,
+    RouterLink,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class CollectionMetadataComponent extends ComcolMetadataComponent<Collection> implements OnInit {
   protected frontendURL = '/collections/';
@@ -40,7 +78,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     protected notificationsService: NotificationsService,
     protected translate: TranslateService,
     protected requestService: RequestService,
-    protected chd: ChangeDetectorRef
+    protected chd: ChangeDetectorRef,
   ) {
     super(collectionDataService, router, route, notificationsService, translate);
   }
@@ -69,7 +107,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
   initTemplateItem() {
     this.itemTemplateRD$ = this.dsoRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      switchMap((collection: Collection) => this.itemTemplateService.findByCollectionID(collection.uuid))
+      switchMap((collection: Collection) => this.itemTemplateService.findByCollectionID(collection.uuid)),
     );
   }
 

@@ -1,20 +1,22 @@
 import { TestBed } from '@angular/core/testing';
+import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { QualityAssuranceSourceService } from './quality-assurance-source.service';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import {
   getMockQualityAssuranceSourceRestService,
   qualityAssuranceSourceObjectMoreAbstract,
-  qualityAssuranceSourceObjectMorePid
+  qualityAssuranceSourceObjectMorePid,
 } from '../../../shared/mocks/notifications.mock';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { cold } from 'jasmine-marbles';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import {
-  QualityAssuranceSourceDataService
-} from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 
 describe('QualityAssuranceSourceService', () => {
   let service: QualityAssuranceSourceService;
@@ -33,8 +35,8 @@ describe('QualityAssuranceSourceService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: QualityAssuranceSourceDataService, useClass: getMockQualityAssuranceSourceRestService },
-        { provide: QualityAssuranceSourceService, useValue: service }
-      ]
+        { provide: QualityAssuranceSourceService, useValue: service },
+      ],
     }).compileComponents();
   });
 
@@ -52,7 +54,7 @@ describe('QualityAssuranceSourceService', () => {
       const findListOptions: FindListOptions = {
         elementsPerPage: elementsPerPage,
         currentPage: currentPage,
-        sort: sortOptions
+        sort: sortOptions,
       };
       const result = service.getSources(elementsPerPage, currentPage);
       expect((service as any).qualityAssuranceSourceRestService.getSources).toHaveBeenCalledWith(findListOptions);
@@ -60,7 +62,7 @@ describe('QualityAssuranceSourceService', () => {
 
     it('Should return a paginated list of Quality Assurance Source', () => {
       const expected = cold('(a|)', {
-        a: paginatedList
+        a: paginatedList,
       });
       const result = service.getSources(elementsPerPage, currentPage);
       expect(result).toBeObservable(expected);
