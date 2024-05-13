@@ -15,14 +15,33 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: COMMUNITY_CREATE_PATH,
-        component: CreateCommunityPageComponent,
-        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard]
+        children: [
+          {
+            path: '',
+            component: CreateCommunityPageComponent,
+            resolve: {
+              breadcrumb: I18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'community.create',
+            },
+          }
+        ],
+        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard],
+        data: {
+          breadcrumbQueryParam: 'parent',
+        },
+        resolve: {
+          breadcrumb: CommunityBreadcrumbResolver,
+        },
+        runGuardsAndResolvers: 'always',
       },
       {
         path: ':id',

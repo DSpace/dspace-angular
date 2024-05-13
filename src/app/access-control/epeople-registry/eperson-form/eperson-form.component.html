@@ -52,7 +52,6 @@
         <ds-pagination
           *ngIf="(groups | async)?.payload?.totalElements > 0"
           [paginationOptions]="config"
-          [pageInfoState]="(groups | async)?.payload"
           [collectionSize]="(groups | async)?.payload?.totalElements"
           [hideGear]="true"
           [hidePagerWhenSinglePage]="true"

@@ -4,7 +4,7 @@ import {
   browseParamsToOptions,
   getBrowseSearchOptions
 } from '../browse-by-metadata-page/browse-by-metadata-page.component';
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BrowseService } from '../../core/browse/browse.service';
@@ -85,12 +85,21 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
    * @param scope           The scope under which to fetch the earliest item for
    */
   updateStartsWithOptions(definition: string, metadataKeys: string[], scope?: string) {
-    const firstItemRD = this.browseService.getFirstItemFor(definition, scope, SortDirection.ASC);
-    const lastItemRD = this.browseService.getFirstItemFor(definition, scope, SortDirection.DESC);
+    const firstItemRD$: Observable<RemoteData<Item>> = this.browseService.getFirstItemFor(definition, scope, SortDirection.ASC);
+    const lastItemRD$: Observable<RemoteData<Item>> = this.browseService.getFirstItemFor(definition, scope, SortDirection.DESC);
+    this.loading$ = observableCombineLatest([
+      firstItemRD$,
+      lastItemRD$,
+    ]).pipe(
+      map(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => firstItemRD.isLoading || lastItemRD.isLoading)
+    );
     this.subs.push(
-      observableCombineLatest([firstItemRD, lastItemRD]).subscribe(([firstItem, lastItem]) => {
-        let lowerLimit: number = this.getLimit(firstItem, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
-        let upperLimit: number = this.getLimit(lastItem, metadataKeys, new Date().getUTCFullYear());
+      observableCombineLatest([
+        firstItemRD$,
+        lastItemRD$,
+      ]).subscribe(([firstItemRD, lastItemRD]: [RemoteData<Item>, RemoteData<Item>]) => {
+        let lowerLimit: number = this.getLimit(firstItemRD, metadataKeys, this.appConfig.browseBy.defaultLowerLimit);
+        let upperLimit: number = this.getLimit(lastItemRD, metadataKeys, new Date().getUTCFullYear());
         const options: number[] = [];
         const oneYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.oneYearLimit) / 5) * 5;
         const fiveYearBreak: number = Math.floor((upperLimit - this.appConfig.browseBy.fiveYearLimit) / 10) * 10;

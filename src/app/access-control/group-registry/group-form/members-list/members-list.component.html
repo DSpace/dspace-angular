@@ -5,7 +5,6 @@
 
   <ds-pagination *ngIf="(ePeopleMembersOfGroup | async)?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(ePeopleMembersOfGroup | async)"
                  [collectionSize]="(ePeopleMembersOfGroup | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -24,8 +23,7 @@
         <tr *ngFor="let eperson of (ePeopleMembersOfGroup | async)?.page">
           <td class="align-middle">{{eperson.id}}</td>
           <td class="align-middle">
-            <a (click)="ePersonDataService.startEditingNewEPerson(eperson)"
-               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+            <a [routerLink]="getEPersonEditRoute(eperson.id)">
               {{ dsoNameService.getName(eperson) }}
             </a>
           </td>
@@ -87,7 +85,6 @@
 
   <ds-pagination *ngIf="(ePeopleSearch | async)?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(ePeopleSearch | async)"
                  [collectionSize]="(ePeopleSearch | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -106,8 +103,7 @@
         <tr *ngFor="let eperson of (ePeopleSearch | async)?.page">
           <td class="align-middle">{{eperson.id}}</td>
           <td class="align-middle">
-            <a (click)="ePersonDataService.startEditingNewEPerson(eperson)"
-               [routerLink]="[ePersonDataService.getEPeoplePageRouterLink()]">
+            <a [routerLink]="getEPersonEditRoute(eperson.id)">
               {{ dsoNameService.getName(eperson) }}
             </a>
           </td>

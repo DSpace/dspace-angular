@@ -3770,7 +3770,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Validatie",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "Wachten op controlleur",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -4609,6 +4609,10 @@
   // "resource-policies.form.name.label": "Name",
   // TODO New key - Add a translation
   "resource-policies.form.name.label": "Name",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   // TODO New key - Add a translation

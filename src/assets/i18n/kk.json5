@@ -4145,7 +4145,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Валидация",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "Контроллерді күтуде",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -4965,6 +4965,14 @@
 
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Аты",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Саясат түрін таңдаңыз",

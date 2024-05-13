@@ -4479,7 +4479,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Validointi",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "Odottaa tarkastajaa",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -5315,6 +5315,9 @@
 
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nimi",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "Enintään 30 merkkiä",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Valitse käytäntötyyppi",

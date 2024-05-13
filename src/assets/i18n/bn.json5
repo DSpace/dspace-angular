@@ -3886,7 +3886,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "বৈধতা",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "নিয়ামক জন্য অপেক্ষা করছে",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -4615,6 +4615,10 @@
 
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "নাম",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "নীতির টাইপ নির্বাচন করুন",
