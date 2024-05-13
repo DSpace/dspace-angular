@@ -88,13 +88,28 @@ import {
           },
           {
             path: 'download',
-            component: ClarinZipDownloadPageComponent,
-            resolve: {
-              dso: ItemPageResolver,
-            },
-            data: {
-              zipDownloadLink: 'This is download link'
-            }
+            children: [
+              {
+                path: '',
+                component: ClarinZipDownloadPageComponent,
+                resolve: {
+                  dso: ItemPageResolver,
+                },
+                data: {
+                  zipDownloadLink: 'This is download link'
+                }
+              },
+              {
+                path: 'zip',
+                component: ClarinZipDownloadPageComponent,
+                resolve: {
+                  dso: ItemPageResolver,
+                },
+                data: {
+                  zipDownloadLink: 'This is download link'
+                }
+              }
+            ],
           },
         ],
         data: {

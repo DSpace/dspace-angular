@@ -15,7 +15,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isUndefined } from '../../shared/empty.util';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -70,8 +70,9 @@ export class ClarinZipDownloadPageComponent extends ClarinBitstreamDownloadPageC
           const current: Bitstream[] = this.bitstreams$.getValue();
           this.bitstreams$.next([...current, ...bitstreamsRD.payload.page]);
           this.bitstreamRD$ = createSuccessfulRemoteDataObject$(this.bitstreams$.getValue()[0]);
+          this.dtoken = isUndefined(this.route.snapshot.queryParams.dtoken) ? null : this.route.snapshot.queryParams.dtoken;
           this.zipDownloadLink.next(this.halService.getRootHref() +
-            `/core/items/${itemRD.payload.uuid}/allzip?handleId=${itemRD?.payload?.handle}`);
+            `/core/items/${itemRD.payload.uuid}/allzip?handleId=${itemRD?.payload?.handle}&dtoken=${this.dtoken}`);
           super.ngOnInit();
         }
       });

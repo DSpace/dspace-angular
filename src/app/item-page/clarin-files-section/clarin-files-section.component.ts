@@ -95,7 +95,7 @@ export class ClarinFilesSectionComponent implements OnInit {
   }
 
   downloadFiles() {
-    void this.router.navigate([getItemPageRoute(this.item), 'download']);
+    void this.router.navigate([getItemPageRoute(this.item), 'download', 'zip']);
   }
 
   generateCurlCommand() {
