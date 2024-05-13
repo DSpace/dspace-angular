@@ -426,25 +426,27 @@ export class FormComponent implements OnDestroy, OnInit {
     const metadataKeys = hasValue(metadataFields) ? Object.keys(metadataFields) : [];
     const formKeys = hasValue(this.formGroup.value) ? Object.keys(this.formGroup.value) : [];
 
-    formKeys.forEach((key) => {
-      const innerObjectKeys = (Object.keys(this.formGroup.value[key] ) as any[]).map((oldKey) => oldKey.replaceAll('_', '.'));
-      const filteredKeys = innerObjectKeys.filter(innerKey => metadataKeys.includes(innerKey));
-      const oldValue = this.formGroup.value[key];
+    formKeys
+      .filter((key) => isNotEmpty(this.formGroup.value[key]))
+      .forEach((key) => {
+        const innerObjectKeys = (Object.keys(this.formGroup.value[key]) as any[]).map((oldKey) => oldKey.replaceAll('_', '.'));
+        const filteredKeys = innerObjectKeys.filter(innerKey => metadataKeys.includes(innerKey));
+        const oldValue = this.formGroup.value[key];
 
-      if (filteredKeys.length > 0) {
-        filteredKeys.forEach((oldValueKey) => {
-          const newValue = {...oldValue};
-          const formattedKey = (oldValueKey as any).replaceAll('.', '_');
-          const patchValue = {};
+        if (filteredKeys.length > 0) {
+          filteredKeys.forEach((oldValueKey) => {
+            const newValue = { ...oldValue };
+            const formattedKey = (oldValueKey as any).replaceAll('.', '_');
+            const patchValue = {};
 
-          newValue[formattedKey] = metadataFields[oldValueKey][0];
-          patchValue[key] = newValue;
+            newValue[formattedKey] = metadataFields[oldValueKey][0];
+            patchValue[key] = newValue;
 
-          if (!isEqual(oldValue[oldValueKey], newValue[oldValueKey])) {
-            this.formGroup.patchValue(patchValue);
-          }
-        });
-      }
-    });
+            if (!isEqual(oldValue[oldValueKey], newValue[oldValueKey])) {
+              this.formGroup.patchValue(patchValue);
+            }
+          });
+        }
+      });
   }
 }
