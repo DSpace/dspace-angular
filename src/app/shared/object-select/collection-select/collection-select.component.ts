@@ -15,7 +15,6 @@ import {
   map,
   Observable,
 } from 'rxjs';
-
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Collection } from '../../../core/shared/collection.model';
