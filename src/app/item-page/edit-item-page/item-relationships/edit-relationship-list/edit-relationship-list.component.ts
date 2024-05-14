@@ -50,7 +50,6 @@ import { RelationshipIdentifiable } from '../../../../core/data/object-updates/o
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Collection } from '../../../../core/shared/collection.model';
@@ -146,7 +145,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   private currentItemIsLeftItem$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
 
-  private relatedEntityType$: Observable<ItemType>;
+  relatedEntityType$: Observable<ItemType>;
 
   /**
    * The translation key for the entity type
@@ -208,7 +207,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     protected objectUpdatesService: ObjectUpdatesService,
     protected linkService: LinkService,
     protected relationshipService: RelationshipDataService,
-    protected relationshipTypeService: RelationshipTypeDataService,
     protected modalService: NgbModal,
     protected paginationService: PaginationService,
     protected selectableListService: SelectableListService,

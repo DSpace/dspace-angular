@@ -5,6 +5,7 @@ import {
   BehaviorSubject,
   EMPTY,
   Observable,
+  Subscription,
 } from 'rxjs';
 import {
   concatMap,
@@ -120,7 +121,7 @@ export class EditItemRelationshipsService {
   /**
    * Sends all initial values of this item to the object updates service
    */
-  public initializeOriginalFields(item: Item, url: string) {
+  public initializeOriginalFields(item: Item, url: string): Subscription {
     return this.relationshipService.getRelatedItems(item).pipe(
       take(1),
     ).subscribe((items: Item[]) => {
@@ -168,7 +169,7 @@ export class EditItemRelationshipsService {
    * - Success notification in case there's at least one successful response
    * @param responses
    */
-  displayNotifications(responses: RemoteData<NoContent>[]) {
+  displayNotifications(responses: RemoteData<NoContent>[]): void {
     const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
     const successfulResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
 
@@ -186,7 +187,7 @@ export class EditItemRelationshipsService {
    * Get translated notification title
    * @param key
    */
-  getNotificationTitle(key: string) {
+  getNotificationTitle(key: string): string {
     return this.translateService.instant(this.notificationsPrefix + key + '.title');
   }
 
@@ -194,7 +195,7 @@ export class EditItemRelationshipsService {
    * Get translated notification content
    * @param key
    */
-  getNotificationContent(key: string) {
+  getNotificationContent(key: string): string {
     return this.translateService.instant(this.notificationsPrefix + key + '.content');
 
   }
