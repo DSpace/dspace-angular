@@ -58,7 +58,6 @@ import {
   PaginationComponentOptions
 } from '../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
@@ -116,7 +115,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   private currentItemIsLeftItem$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
 
-  private relatedEntityType$: Observable<ItemType>;
+  relatedEntityType$: Observable<ItemType>;
 
   /**
    * The translation key for the entity type
@@ -178,7 +177,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     protected objectUpdatesService: ObjectUpdatesService,
     protected linkService: LinkService,
     protected relationshipService: RelationshipDataService,
-    protected relationshipTypeService: RelationshipTypeDataService,
     protected modalService: NgbModal,
     protected paginationService: PaginationService,
     protected selectableListService: SelectableListService,

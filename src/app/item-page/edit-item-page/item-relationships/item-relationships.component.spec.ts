@@ -29,6 +29,7 @@ import { RelationshipTypeDataService } from '../../../core/data/relationship-typ
 import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -52,7 +53,7 @@ const notificationsService = jasmine.createSpyObj('notificationsService',
 const router = new RouterStub();
 let relationshipTypeService;
 let routeStub;
-let itemService;
+let itemService: ItemDataServiceStub;
 
 const url = 'http://test-url.com/test-url';
 router.url = url;
@@ -137,10 +138,7 @@ describe('ItemRelationshipsComponent', () => {
       changeType: FieldChangeType.REMOVE
     };
 
-    itemService = jasmine.createSpyObj('itemService', {
-      findByHref: createSuccessfulRemoteDataObject$(item),
-      findById: createSuccessfulRemoteDataObject$(item)
-    });
+    itemService = new ItemDataServiceStub();
     routeStub = {
       data: observableOf({}),
       parent: {
@@ -232,6 +230,8 @@ describe('ItemRelationshipsComponent', () => {
   }));
 
   beforeEach(() => {
+    spyOn(itemService, 'findByHref').and.returnValue(item);
+    spyOn(itemService, 'findById').and.returnValue(item);
     fixture = TestBed.createComponent(ItemRelationshipsComponent);
     comp = fixture.componentInstance;
     de = fixture.debugElement;

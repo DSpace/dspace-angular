@@ -10,7 +10,7 @@ import {
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { EMPTY, Observable, BehaviorSubject } from 'rxjs';
+import { EMPTY, Observable, BehaviorSubject, Subscription } from 'rxjs';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Item } from '../../../core/shared/item.model';
@@ -109,7 +109,7 @@ export class EditItemRelationshipsService {
   /**
    * Sends all initial values of this item to the object updates service
    */
-  public initializeOriginalFields(item: Item, url: string) {
+  public initializeOriginalFields(item: Item, url: string): Subscription {
     return this.relationshipService.getRelatedItems(item).pipe(
       take(1),
     ).subscribe((items: Item[]) => {
@@ -157,7 +157,7 @@ export class EditItemRelationshipsService {
    * - Success notification in case there's at least one successful response
    * @param responses
    */
-  displayNotifications(responses: RemoteData<NoContent>[]) {
+  displayNotifications(responses: RemoteData<NoContent>[]): void {
     const failedResponses = responses.filter((response: RemoteData<NoContent>) => response.hasFailed);
     const successfulResponses = responses.filter((response: RemoteData<NoContent>) => response.hasSucceeded);
 
@@ -175,7 +175,7 @@ export class EditItemRelationshipsService {
    * Get translated notification title
    * @param key
    */
-  getNotificationTitle(key: string) {
+  getNotificationTitle(key: string): string {
     return this.translateService.instant(this.notificationsPrefix + key + '.title');
   }
 
@@ -183,7 +183,7 @@ export class EditItemRelationshipsService {
    * Get translated notification content
    * @param key
    */
-  getNotificationContent(key: string) {
+  getNotificationContent(key: string): string {
     return this.translateService.instant(this.notificationsPrefix + key + '.content');
 
   }

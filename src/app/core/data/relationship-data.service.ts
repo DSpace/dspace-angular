@@ -196,7 +196,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * Method to remove an item that's part of a relationship from the cache
    * @param item The item to remove from the cache
    */
-  public refreshRelationshipItemsInCache(item) {
+  public refreshRelationshipItemsInCache(item: Item): void {
     this.objectCache.remove(item._links.self.href);
     this.requestService.removeByHrefSubstring(item.uuid);
     observableCombineLatest([
