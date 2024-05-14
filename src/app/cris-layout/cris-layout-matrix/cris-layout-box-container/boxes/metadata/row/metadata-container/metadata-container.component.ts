@@ -18,6 +18,7 @@ import { MetadataFilter } from '../../../../../../../core/data/bitstream-data.se
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { Observable } from 'rxjs';
+import { TranslationUtilityService } from '../../../../../../services/translation.service';
 
 @Component({
   selector: 'ds-metadata-container',
@@ -61,7 +62,8 @@ export class MetadataContainerComponent implements OnInit {
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService,
-    protected cd: ChangeDetectorRef
+    protected cd: ChangeDetectorRef,
+    protected translationService: TranslationUtilityService
   ) {
   }
 
@@ -83,14 +85,12 @@ export class MetadataContainerComponent implements OnInit {
    * Returns a string representing the label of field if exists
    */
   get label(): string {
-    const fieldLabelI18nKey = this.fieldI18nPrefix + this.item.entityType + '.' + this.field.metadata;
-    const header: string = this.translateService.instant(fieldLabelI18nKey);
-    if (header === fieldLabelI18nKey) {
-      // if translation does not exist return the value present in the header property
-      return this.translateService.instant(this.field.label);
-    } else {
-      return header;
-    }
+    return this.translationService.getTranslation(this.fieldI18nPrefix + this.item.entityType + '.[' + this.field.metadata + ']') ??
+      this.translationService.getTranslation(this.fieldI18nPrefix + this.item.entityType + '.' + this.field.metadata) ??
+      this.translationService.getTranslation(this.fieldI18nPrefix + '[' + this.field.metadata + ']') ??
+      this.translationService.getTranslation(this.fieldI18nPrefix + this.field.label) ??
+      this.field.label ??
+      this.field.metadata;
   }
 
   /**

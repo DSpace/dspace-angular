@@ -6,6 +6,7 @@ import { FieldRenderingType, MetadataBoxFieldRendering } from '../../metadata-bo
 import { Item } from '../../../../../../../../core/shared/item.model';
 import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
 import { MetadataGroupComponent } from '../metadata-group.component';
+import { TranslationUtilityService } from '../../../../../../../services/translation.service';
 
 /**
  * This component renders the inline  metadata group fields
@@ -23,9 +24,10 @@ export class InlineComponent extends MetadataGroupComponent implements OnInit {
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     @Inject('tabNameProvider') public tabNameProvider: string,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
+    protected translationUtilityService: TranslationUtilityService,
   ) {
-    super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, translateService);
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, translateService, translationUtilityService);
   }
 
 }
