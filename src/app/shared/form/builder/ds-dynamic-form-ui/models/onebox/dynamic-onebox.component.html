@@ -8,9 +8,7 @@
 <ng-template #hasInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
     <li class="list-item d-flex align-items-center">
-      <div *ngIf="entry.source" class="mr-2">
-        <img onerror="handleImgError(this)" [src]="'assets/images/' + entry.source + '.logo.icon.svg'" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
-      </div>
+      <img *ngIf="entry.source" class="mr-2" #imgTag [src]="getAuthoritySourceIcon(entry.source, imgTag)" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
       <div class="text-truncate text-primary font-weight-bold">{{entry.value}}</div>
       <div *ngIf="entry.source" class="ml-2 text-truncate text-secondary">{{ ('form.entry.source.' + entry.source) | translate}}</div>
     </li>
@@ -25,9 +23,7 @@
 <ng-template #noInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
     <li class="list-item d-flex align-items-center">
-      <div *ngIf="entry.source" class="mr-2">
-        <img onerror="handleImgError(this)" [src]="'assets/images/' + entry.source + '.logo.icon.svg'" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
-      </div>
+      <img  *ngIf="entry.source" class="mr-2" #imgTag [src]="getAuthoritySourceIcon(entry.source, imgTag)" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
       <div class="text-truncate text-primary font-weight-bold">{{entry.value}}</div>
       <div *ngIf="entry.source" class="ml-2 text-truncate text-secondary">{{ ('form.entry.source.' + entry.source) | translate}}</div>
     </li>
