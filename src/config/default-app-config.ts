@@ -250,6 +250,32 @@ export class DefaultAppConfig implements AppConfig {
             style: 'text-gray-500'
           }
 
+        ],
+        sourceIcons: [
+          {
+            source: 'orcid',
+            path: 'assets/images/orcid.logo.icon.svg'
+          },
+          {
+            source: 'openaire',
+            path: 'assets/images/openaire.logo.icon.svg'
+          },
+          {
+            source: 'ror',
+            path: 'assets/images/ror.logo.icon.svg'
+          },
+          {
+            source: 'sherpa',
+            path: 'assets/images/sherpa.logo.icon.svg'
+          },
+          {
+            source: 'zdb',
+            path: 'assets/images/zdb.logo.icon.svg'
+          },
+          {
+            source: 'local',
+            path: 'assets/images/local.logo.icon.svg'
+          },
         ]
       },
       iconsVisibleWithNoAuthority: ['fas fa-user']
