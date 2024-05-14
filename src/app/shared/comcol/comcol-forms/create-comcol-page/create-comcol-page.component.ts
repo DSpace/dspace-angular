@@ -7,16 +7,18 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
+  of,
 } from 'rxjs';
 import {
+  map,
   mergeMap,
   take,
+  tap,
 } from 'rxjs/operators';
 
+import { getHomePageRoute } from '../../../../app-routing-paths';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RequestParam } from '../../../../core/cache/models/request-param.model';
-import { Observable } from 'rxjs';
-import { map, mergeMap, take, tap } from 'rxjs/operators';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -32,12 +34,6 @@ import {
   isNotUndefined,
 } from '../../../empty.util';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { RequestParam } from '../../../../core/cache/models/request-param.model';
-import { RequestService } from '../../../../core/data/request.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { of } from 'rxjs/internal/observable/of';
-import { getHomePageRoute } from '../../../../app-routing-paths';
 
 /**
  * Component representing the create page for communities and collections
@@ -118,7 +114,6 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
           );
       }),
       mergeMap((dsoRD: TDomain) => {
-        this.isLoading$.next(false);
         if (isNotUndefined(dsoRD)) {
           this.newUUID = dsoRD.uuid;
           if (uploader.queue.length > 0) {
@@ -127,21 +122,23 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
               tap((href: string) => {
                 uploader.options.url = href;
                 uploader.onCompleteAll = () => {
+                  this.isLoading$.next(false);
                   this.navigateToNewPage();
                   this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
                 };
                 uploader.uploadAll();
               }),
-              map(() => false)
+              map(() => false),
             );
           } else {
             this.dsoDataService.refreshCache(dsoRD);
             return of(true);
           }
         }
-      })
+      }),
     ).subscribe((notify: boolean) => {
       if (notify) {
+        this.isLoading$.next(false);
         this.navigateToNewPage();
         this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
       }
