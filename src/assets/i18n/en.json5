@@ -2867,6 +2867,8 @@
 
   "item.edit.metadata.headers.security": "Security level",
 
+  "item.edit.metadata.headers.authority": "Authority",
+
   "item.edit.metadata.headers.value": "Value",
 
   "item.edit.metadata.metadatafield.error": "An error occurred validating the metadata field",
