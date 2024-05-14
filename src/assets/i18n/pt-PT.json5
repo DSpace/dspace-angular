@@ -1,6 +1,6 @@
 {
 
-  // Dspace v7.x > i18n pt-PT > last updated December 7, 2023
+  // Dspace v7.x > i18n pt-PT > last updated 14th of May 2024
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
@@ -135,13 +135,13 @@
   "admin.registries.bitstream-formats.edit.extensions.placeholder": "Indique uma extenção de ficheiro sem o ponto",
 
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  "admin.registries.bitstream-formats.edit.failure.content": "Ocorreu um erro ao editar o formato de bitstream.",
+  "admin.registries.bitstream-formats.edit.failure.content": "Ocorreu um erro ao editar o formato de ficheiro.",
 
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
   "admin.registries.bitstream-formats.edit.failure.head": "Falha",
 
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  "admin.registries.bitstream-formats.edit.head": "Formato de bitstream: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "Formato de ficheiro: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
   "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como internos são ocultos para o utilizador, usados por motivos administrativos.",
@@ -162,7 +162,7 @@
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Nome",
 
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  "admin.registries.bitstream-formats.edit.success.content": "O formato de bitstream foi editado com sucesso.",
+  "admin.registries.bitstream-formats.edit.success.content": "O formato de ficheiro foi editado com sucesso.",
 
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   "admin.registries.bitstream-formats.edit.success.head": "Sucesso",
@@ -177,7 +177,7 @@
   "admin.registries.bitstream-formats.head": "Registo de formatos de ficheiros",
 
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  "admin.registries.bitstream-formats.no-items": "Nenhum formato de bitstream para exibir.",
+  "admin.registries.bitstream-formats.no-items": "Nenhum formato de ficheiro para exibir.",
 
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
   "admin.registries.bitstream-formats.table.delete": "Apagar selecionado(s)",
@@ -216,7 +216,7 @@
   "admin.registries.bitstream-formats.title": "Registo de formatos de ficheiro",
 
   // "admin.registries.bitstream-formats.select": "Select bitstream format",
-  "admin.registries.bitstream-formats.select": "Selecionar formato de 'bitstream'",
+  "admin.registries.bitstream-formats.select": "Selecionar formato de ficheiro",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
   "admin.registries.metadata.breadcrumbs": "Registo de metadados",
@@ -336,16 +336,16 @@
   "admin.registries.schema.title": "Registo de esquemas de metadados",
 
   // "admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
-  "admin.access-control.bulk-access.breadcrumbs": "Gestão do acesso em lote",
+  "admin.access-control.bulk-access.breadcrumbs": "Gestão de permissões em lote",
 
   // "administrativeBulkAccess.search.results.head": "Search Results",
   "administrativeBulkAccess.search.results.head": "Resultados de pesquisa",
 
   // "admin.access-control.bulk-access": "Bulk Access Management",
-  "admin.access-control.bulk-access": "Gestão do acesso em lote",
+  "admin.access-control.bulk-access": "Gestão de permissões em lote",
 
   // "admin.access-control.bulk-access.title": "Bulk Access Management",
-  "admin.access-control.bulk-access.title": "Gestão do acesso em lote",
+  "admin.access-control.bulk-access.title": "Gestão de permissões em lote",
 
   // "admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
   "admin.access-control.bulk-access-browse.header": "Passo 1: Selecionar objectos",
@@ -1032,10 +1032,10 @@
   "bitstream.download.page.back": "Voltar",
 
   // "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
-  "bitstream.edit.authorizations.link": "Editar políticas dos bitstreams",
+  "bitstream.edit.authorizations.link": "Editar políticas dos ficheiros",
 
   // "bitstream.edit.authorizations.title": "Edit bitstream's Policies",
-  "bitstream.edit.authorizations.title": "Editar políticas dos bitstreams",
+  "bitstream.edit.authorizations.title": "Editar políticas dos ficheiros",
 
   // "bitstream.edit.return": "Back",
   "bitstream.edit.return": "Voltar",
@@ -1500,7 +1500,7 @@
   "collection.edit.item.authorizations.load-more-button": "Carregar mais",
 
   // "collection.edit.item.authorizations.show-bitstreams-button": "Show bitstream policies for bundle",
-  "collection.edit.item.authorizations.show-bitstreams-button": "Mostrar as políticas do bitstream para o pacote",
+  "collection.edit.item.authorizations.show-bitstreams-button": "Mostrar as políticas do ficheiro para o pacote",
 
   // "collection.edit.tabs.metadata.head": "Edit Metadata",
   "collection.edit.tabs.metadata.head": "Editar metadados",
@@ -1752,7 +1752,7 @@
   "communityList.title": "Lista de comunidades",
 
   // "communityList.showMore": "Show More",
-  "communityList.showMore": "Mostrar mais",
+  "communityList.showMore": "Expandir",
 
   // "community.create.head": "Create a Community",
   "community.create.head": "Criar uma comunidade",
@@ -1917,7 +1917,7 @@
   "comcol-role.edit.bitstream_read.name": "Leitura predefinida de ficheiros (DEFAULT_BITSTREAM_READ)",
 
   // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
-  "comcol-role.edit.bitstream_read.description": "E-Pessoas e grupos que podem ler novos 'bitstreams' submetidos a esta coleção. As alterações feitas esta função não são retroactivas. Os 'bitstreams' existentes no sistema continuarão a poder ser visualizados por quem tinha acesso de leitura no momento da sua adição.",
+  "comcol-role.edit.bitstream_read.description": "E-Pessoas e grupos que podem ler novos ficheiros submetidos a esta coleção. As alterações feitas esta função não são retroactivas. Os ficheiros existentes no sistema continuarão a poder ser visualizados por quem tinha acesso de leitura no momento da sua adição.",
 
   // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
   "comcol-role.edit.bitstream_read.description": "Os 'Administradores de comunidades' podem criar sub-comunidades e coleções, bem como gerir ou delegar a gestão dessas sub-comunidade ou coleções. Adicionalmente, decidem quem pode depositar itens em qualquer coleção, editar metadados (após depósito) e mapear itens de outras coleções (sujeito a autorização).",
@@ -3491,7 +3491,7 @@
   "item.edit.tabs.status.buttons.withdraw.label": "Retirar item da vista pública do repositório",
 
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  "item.edit.tabs.status.description": "Bem-vindo à página de gestão de itens. Nesta área, pode retirar, restabelecer, mover ou apagar definitivamente o item. Adicionalmente, também pode atualizar ou adicionar novos metadados / bitstreams percorrendo pelas outras abas.",
+  "item.edit.tabs.status.description": "Bem-vindo à página de gestão de itens. Nesta área, pode retirar, restabelecer, mover ou apagar definitivamente o item. Adicionalmente, também pode atualizar ou adicionar novos metadados / ficheiros percorrendo pelas outras abas.",
 
   // "item.edit.tabs.status.head": "Status",
   "item.edit.tabs.status.head": "Estado do item",
@@ -4259,7 +4259,7 @@
   "menu.section.access_control_authorizations": "Autorizações",
 
   // "menu.section.access_control_bulk": "Bulk Access Management",
-  "menu.section.access_control_bulk": "Gestão do acesso em lote",
+  "menu.section.access_control_bulk": "Gestão de permissões em lote",
 
   // "menu.section.access_control_groups": "Groups",
   "menu.section.access_control_groups": "Grupos",
@@ -4340,7 +4340,7 @@
   "menu.section.export_metadata": "Metadados",
 
   // "menu.section.export_batch": "Batch Export (ZIP)",
-  "menu.section.export_batch": "Importação em lote (ZIP)",
+  "menu.section.export_batch": "Exportação em lote (ZIP)",
 
   // "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.access_control": "Secção do menu controle de acesso",
@@ -5756,10 +5756,10 @@
   "search.filters.filter.scope.label": "Filtro do âmbito da pesquisa",
 
   // "search.filters.filter.show-less": "Collapse",
-  "search.filters.filter.show-less": "Mostrar menos",
+  "search.filters.filter.show-less": "Colapsar",
 
   // "search.filters.filter.show-more": "Show more",
-  "search.filters.filter.show-more": "Mostrar mais",
+  "search.filters.filter.show-more": "Expandir",
 
   // "search.filters.filter.subject.head": "Subject",
   "search.filters.filter.subject.head": "Assunto",
@@ -7004,7 +7004,7 @@
   "submission.workflow.tasks.claimed.approve": "Aprovar",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Se reviu o item e está conformidade para inclusão na coleção, selecione 'Aprovar'.",
+  "submission.workflow.tasks.claimed.approve_help": "Se reviu o item e está em conformidade para entrada na coleção, selecione 'Aprovar'.",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Editar",
@@ -7871,13 +7871,13 @@
   "admin.system-wide-alert.title": "Alertas gerais do sistema",
 
   // "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
-  "item-access-control-title": "Este formulário permite-lhe efetuar alterações às condições de acesso dos metadados do item ou dos seus 'bitstreams'.",
+  "item-access-control-title": "Este formulário permite-lhe efetuar alterações às condições de acesso dos metadados do item ou dos seus ficheiros.",
 
   // "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
-  "collection-access-control-title": "Este formulário permite-lhe efetuar alterações às condições de acesso de todos os itens pertencentes a esta coleção. As alterações podem ser efectuadas quer nos metadados do item, quer em todo o conteúdo (bitstreams).",
+  "collection-access-control-title": "Este formulário permite-lhe efetuar alterações às condições de acesso de todos os itens pertencentes a esta coleção. As alterações podem ser efectuadas quer nos metadados do item, quer em todo o conteúdo (ficheiros).",
 
   // "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
-  "community-access-control-title": "Este formulário permite-lhe efetuar alterações às condições de acesso de todos os itens pertencentes a qualquer coleção desta comunidade. As alterações podem ser efectuadas quer nos metadados do item, quer em todo o conteúdo (bitstreams).",
+  "community-access-control-title": "Este formulário permite-lhe efetuar alterações às condições de acesso de todos os itens pertencentes a qualquer coleção desta comunidade. As alterações podem ser efectuadas quer nos metadados do item, quer em todo o conteúdo (ficheiros).",
 
   // "access-control-item-header-toggle": "Item's Metadata",
   "access-control-item-header-toggle": "Metadados do item",
@@ -7889,13 +7889,13 @@
   "access-control-item-toggle.disable": "Desativar a opção para efetuar alterações nos metadados do itema",
 
   // "access-control-bitstream-header-toggle": "Bitstreams",
-  "access-control-bitstream-header-toggle": "Bitstreams",
+  "access-control-bitstream-header-toggle": "Ficheiros",
 
   // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
-  "access-control-bitstream-toggle.enable": "Ativar a opção para efetuar alterações nos 'bitstreams'",
+  "access-control-bitstream-toggle.enable": "Ativar a opção para efetuar alterações nos ficheiros",
 
   // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
-  "access-control-bitstream-toggle.disable": "Desativar a opção para efetuar alterações nos 'bitstreams'",
+  "access-control-bitstream-toggle.disable": "Desativar a opção para efetuar alterações nos ficheiros",
 
   // "access-control-mode": "Mode",
   "access-control-mode": "Modo",
@@ -7913,16 +7913,16 @@
   "access-control-add-to-existing": "Adicionar aos existentes",
 
   // "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
-  "access-control-limit-to-specific": "Limitar as alterações a 'bitstreams' específicos",
+  "access-control-limit-to-specific": "Limitar as alterações a ficheiros específicos",
 
   // "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
-  "access-control-process-all-bitstreams": "Atualizar todos os 'bitstreams' no item",
+  "access-control-process-all-bitstreams": "Atualizar todos os ficheiros no item",
 
   // "access-control-bitstreams-selected": "bitstreams selected",
-  "access-control-bitstreams-selected": "bitstreams selecionados",
+  "access-control-bitstreams-selected": "ficheiros selecionados",
 
   // "access-control-bitstreams-select": "Select bitstreams",
-  "access-control-bitstreams-select": "Selecionar 'bitstreams'",
+  "access-control-bitstreams-select": "Selecionar ficheiros",
 
   // "access-control-cancel": "Cancel",
   "access-control-cancel": "Cancelar",
@@ -7937,7 +7937,7 @@
   "access-control-remove": "Remover condição de acesso",
 
   // "access-control-select-bitstreams-modal.title": "Select bitstreams",
-  "access-control-select-bitstreams-modal.title": "Selecionar 'bitstreams'",
+  "access-control-select-bitstreams-modal.title": "Selecionar ficheiros",
 
   // "access-control-select-bitstreams-modal.no-items": "No items to show.",
   "access-control-select-bitstreams-modal.no-items": "Sem itens para mostrar.",
