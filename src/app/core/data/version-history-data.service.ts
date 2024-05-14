@@ -1,36 +1,50 @@
-import { VersionHistory } from '../shared/version-history.model';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { hasValueOperator } from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HttpHeaders } from '@angular/common/http';
-import { PostRequest } from './request.models';
-import { Observable, of } from 'rxjs';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list.model';
-import { Version } from '../shared/version.model';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { VERSION_HISTORY } from '../shared/version-history.resource-type';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { VersionDataService } from './version-data.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../shared/operators';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { hasValueOperator } from '../../shared/empty.util';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { FindListOptions } from './find-list-options.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+} from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
-import { RestRequest } from './rest-request.model';
+import { Version } from '../shared/version.model';
+import { VersionHistory } from '../shared/version-history.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { PostRequest } from './request.models';
+import { RequestService } from './request.service';
+import { RestRequest } from './rest-request.model';
+import { VersionDataService } from './version-data.service';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
  */
-@Injectable()
-@dataService(VERSION_HISTORY)
+@Injectable({ providedIn: 'root' })
 export class VersionHistoryDataService extends IdentifiableDataService<VersionHistory> {
   protected versionsEndpoint = 'versions';
 
@@ -57,7 +71,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
    */
   getVersionsEndpoint(versionHistoryId: string): Observable<string> {
     return this.getBrowseEndpoint().pipe(
-      switchMap((href: string) => this.halService.getEndpoint(this.versionsEndpoint, `${href}/${versionHistoryId}`))
+      switchMap((href: string) => this.halService.getEndpoint(this.versionsEndpoint, `${href}/${versionHistoryId}`)),
     );
   }
 
@@ -74,7 +88,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
    */
   getVersions(versionHistoryId: string, searchOptions?: PaginatedSearchOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Version>[]): Observable<RemoteData<PaginatedList<Version>>> {
     const hrefObs = this.getVersionsEndpoint(versionHistoryId).pipe(
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href),
     );
 
     return this.versionDataService.findListByHref(hrefObs, undefined, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
@@ -97,7 +111,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, itemHref, requestOptions)),
       sendRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.rdbService.buildFromRequestUUID(restRequest.uuid)),
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ) as Observable<RemoteData<Version>>;
   }
 
@@ -111,17 +125,17 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
     const latestVersionOptions = Object.assign(new PaginationComponentOptions(), {
       id: 'item-newest-version-options',
       currentPage: 1,
-      pageSize: 1
+      pageSize: 1,
     });
 
-    const latestVersionSearch = new PaginatedSearchOptions({pagination: latestVersionOptions});
+    const latestVersionSearch = new PaginatedSearchOptions({ pagination: latestVersionOptions });
 
     return this.getVersions(versionHistory.id, latestVersionSearch, false, true, followLink('item')).pipe(
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       hasValueOperator(),
       filter((versions) => versions.page.length > 0),
-      map((versions) => versions.page[0])
+      map((versions) => versions.page[0]),
     );
 
   }
@@ -148,7 +162,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
   isLatest$(version: Version): Observable<boolean> {
     return version ? this.getLatestVersion$(version).pipe(
       take(1),
-      switchMap((latestVersion) => of(version.version === latestVersion.version))
+      switchMap((latestVersion) => of(version.version === latestVersion.version)),
     ) : of(null);
   }
 

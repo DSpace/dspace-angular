@@ -5,12 +5,12 @@ import { EPerson } from './eperson.model';
  */
 export class EpersonDtoModel {
 
-    /**
+  /**
      * The EPerson linked to this object
      */
-    public eperson: EPerson;
-    /**
+  public eperson: EPerson;
+  /**
      * Whether or not the linked EPerson is able to be deleted
      */
-    public ableToDelete: boolean;
+  public ableToDelete: boolean;
 }

@@ -1,32 +1,40 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  tap,
+} from 'rxjs/operators';
 
-import { RequestService } from '../data/request.service';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RemoteData } from '../data/remote-data';
 import {
   DeleteRequest,
   PostRequest,
   SubmissionDeleteRequest,
   SubmissionPatchRequest,
   SubmissionPostRequest,
-  SubmissionRequest
+  SubmissionRequest,
 } from '../data/request.models';
-import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
+import { RequestService } from '../data/request.service';
+import { RestRequest } from '../data/rest-request.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
+import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { RemoteData } from '../data/remote-data';
 import { SubmissionResponse } from './submission-response.model';
-import { RestRequest } from '../data/rest-request.model';
 
 /**
  * The service handling all submission REST requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SubmissionRestService {
   protected linkPath = 'workspaceitems';
 
@@ -54,7 +62,7 @@ export class SubmissionRestService {
           return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

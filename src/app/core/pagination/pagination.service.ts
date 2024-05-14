@@ -1,14 +1,33 @@
 import { Injectable } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { RouteService } from '../services/route.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
-import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { difference } from '../../shared/object.util';
-import { FindListOptions } from '../data/find-list-options.model';
+import {
+  NavigationExtras,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { isNumeric } from '../../shared/numeric.util';
+import { difference } from '../../shared/object.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../cache/models/sort-options.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { RouteService } from '../services/route.service';
+import { PaginationRouteParams } from './pagination-route-params.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +52,7 @@ export class PaginationService {
   private clearParams = {};
 
   constructor(protected routeService: RouteService,
-              protected router: Router
+              protected router: Router,
   ) {
   }
 
@@ -50,9 +69,9 @@ export class PaginationService {
       map(([page, size]) => {
         return Object.assign(new PaginationComponentOptions(), defaultPagination, {
           currentPage: this.convertToNumeric(page, defaultPagination.currentPage),
-          pageSize: this.getBestMatchPageSize(size, defaultPagination)
+          pageSize: this.getBestMatchPageSize(size, defaultPagination),
         });
-      })
+      }),
     );
   }
 
@@ -70,10 +89,10 @@ export class PaginationService {
     const sortDirection$ = this.routeService.getQueryParameterValue(`${paginationId}.sd`);
     const sortField$ = this.routeService.getQueryParameterValue(`${paginationId}.sf`);
     return observableCombineLatest([sortDirection$, sortField$]).pipe(map(([sortDirection, sortField]) => {
-        const field = sortField || defaultSort?.field;
-        const direction = SortDirection[sortDirection] || defaultSort?.direction;
-        return new SortOptions(field, direction);
-      })
+      const field = sortField || defaultSort?.field;
+      const direction = SortDirection[sortDirection] || defaultSort?.direction;
+      return new SortOptions(field, direction);
+    }),
     );
   }
 
@@ -97,7 +116,7 @@ export class PaginationService {
         return Object.assign(new FindListOptions(), defaultFindList, {
           sort: currentSortOptions,
           currentPage: currentPagination.currentPage,
-          elementsPerPage: currentPagination.pageSize
+          elementsPerPage: currentPagination.pageSize,
         });
       }));
   }
@@ -107,7 +126,7 @@ export class PaginationService {
    * @param paginationId - The pagination id for which to reset the page
    */
   resetPage(paginationId: string) {
-    this.updateRoute(paginationId, {page: 1});
+    this.updateRoute(paginationId, { page: 1 });
   }
 
 
@@ -121,13 +140,8 @@ export class PaginationService {
    */
   updateRoute(
     paginationId: string,
-    params: {
-      page?: number
-      pageSize?: number
-      sortField?: string
-      sortDirection?: SortDirection
-    },
-    extraParams?,
+    params: PaginationRouteParams,
+    extraParams?: Record<string, unknown>,
     retainScrollPosition?: boolean,
     navigationExtras?: NavigationExtras,
   ) {
@@ -147,13 +161,8 @@ export class PaginationService {
   updateRouteWithUrl(
     paginationId: string,
     url: string[],
-    params: {
-      page?: number
-      pageSize?: number
-      sortField?: string
-      sortDirection?: SortDirection
-    },
-    extraParams?,
+    params: PaginationRouteParams,
+    extraParams?: Record<string, unknown>,
     retainScrollPosition?: boolean,
     navigationExtras?: NavigationExtras,
   ) {
@@ -215,16 +224,11 @@ export class PaginationService {
           sortField: findListoptions.sort.field,
           sortDirection: findListoptions.sort.direction,
         };
-      })
+      }),
     );
   }
 
-  private getParametersWithIdName(paginationId: string, params: {
-    page?: number
-    pageSize?: number
-    sortField?: string
-    sortDirection?: SortDirection
-  }) {
+  private getParametersWithIdName(paginationId: string, params: PaginationRouteParams) {
     const paramsWithIdName = {};
     if (hasValue(params.page)) {
       paramsWithIdName[`${paginationId}.page`] = `${params.page}`;

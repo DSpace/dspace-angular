@@ -1,58 +1,75 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
-import { Version } from '../../core/shared/version.model';
-import { RemoteData } from '../../core/data/remote-data';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  of,
   Subscription,
 } from 'rxjs';
-import { VersionHistory } from '../../core/shared/version-history.model';
+import {
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { VersionDataService } from '../../core/data/version-data.service';
+import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { Item } from '../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../core/shared/operators';
-import { map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { Version } from '../../core/shared/version.model';
+import { VersionHistory } from '../../core/shared/version-history.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { hasValue, hasValueOperator } from '../../shared/empty.util';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import {
-  getItemEditVersionhistoryRoute,
-  getItemPageRoute,
-  getItemVersionRoute
-} from '../item-page-routing-paths';
-import { UntypedFormBuilder } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
+  hasValue,
+  hasValueOperator,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { Router } from '@angular/router';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { ItemVersionsSharedService } from './item-versions-shared.service';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { getItemPageRoute } from '../item-page-routing-paths';
+import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 
 @Component({
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
-  styleUrls: ['./item-versions.component.scss']
+  styleUrls: ['./item-versions.component.scss'],
+  standalone: true,
+  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule, ItemVersionsRowElementVersionComponent],
 })
 
 /**
@@ -126,6 +143,11 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   hasDraftVersion$: Observable<boolean>;
 
   /**
+   * Show submitter in version history table
+   */
+  showSubmitter$: Observable<boolean> = this.showSubmitter();
+
+  /**
    * The amount of versions to display per page
    */
   pageSize = 10;
@@ -137,7 +159,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   options = Object.assign(new PaginationComponentOptions(), {
     id: 'ivo',
     currentPage: 1,
-    pageSize: this.pageSize
+    pageSize: this.pageSize,
   });
 
   /**
@@ -169,17 +191,10 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
 
   constructor(private versionHistoryService: VersionHistoryDataService,
               private versionService: VersionDataService,
-              private itemService: ItemDataService,
               private paginationService: PaginationService,
-              private formBuilder: UntypedFormBuilder,
-              private modalService: NgbModal,
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
-              private router: Router,
-              private itemVersionShared: ItemVersionsSharedService,
               private authorizationService: AuthorizationDataService,
-              private workspaceItemDataService: WorkspaceitemDataService,
-              private workflowItemDataService: WorkflowItemDataService,
               private configurationService: ConfigurationDataService,
   ) {
   }
@@ -219,14 +234,6 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Get the route to the specified version
-   * @param versionId the ID of the version for which the route will be retrieved
-   */
-  getVersionRoute(versionId: string) {
-    return getItemVersionRoute(versionId);
-  }
-
-  /**
    * Applies changes to version currently being edited
    */
   onSummarySubmit() {
@@ -238,135 +245,20 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
       getFirstSucceededRemoteData(),
       switchMap((findRes: RemoteData<Version>) => {
         const payload = findRes.payload;
-        const summary = {summary: this.versionBeingEditedSummary,};
+        const summary = { summary: this.versionBeingEditedSummary };
         const updatedVersion = Object.assign({}, payload, summary);
         return this.versionService.update(updatedVersion).pipe(getFirstCompletedRemoteData<Version>());
       }),
     ).subscribe((updatedVersionRD: RemoteData<Version>) => {
-        if (updatedVersionRD.hasSucceeded) {
-          this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': this.versionBeingEditedNumber}));
-          this.getAllVersions(this.versionHistory$);
-        } else {
-          this.notificationsService.warning(null, this.translateService.get(failureMessageKey, {'version': this.versionBeingEditedNumber}));
-        }
-        this.disableVersionEditing();
+      if (updatedVersionRD.hasSucceeded) {
+        this.notificationsService.success(null, this.translateService.get(successMessageKey, { 'version': this.versionBeingEditedNumber }));
+        this.getAllVersions(this.versionHistory$);
+      } else {
+        this.notificationsService.warning(null, this.translateService.get(failureMessageKey, { 'version': this.versionBeingEditedNumber }));
       }
+      this.disableVersionEditing();
+    },
     );
-  }
-
-  /**
-   * Delete the item and get the result of the operation
-   * @param item
-   */
-  deleteItemAndGetResult$(item: Item): Observable<boolean> {
-    return this.itemService.delete(item.id).pipe(
-      getFirstCompletedRemoteData(),
-      map((deleteItemRes) => deleteItemRes.hasSucceeded),
-      take(1),
-    );
-  }
-
-  /**
-   * Deletes the specified version, notify the success/failure and redirect to latest version
-   * @param version the version to be deleted
-   * @param redirectToLatest force the redirect to the latest version in the history
-   */
-  deleteVersion(version: Version, redirectToLatest: boolean): void {
-    const successMessageKey = 'item.version.delete.notification.success';
-    const failureMessageKey = 'item.version.delete.notification.failure';
-    const versionNumber = version.version;
-    const versionItem$ = version.item;
-
-    // Open modal
-    const activeModal = this.modalService.open(ItemVersionsDeleteModalComponent);
-    activeModal.componentInstance.versionNumber = version.version;
-    activeModal.componentInstance.firstVersion = false;
-
-    // On modal submit/dismiss
-    activeModal.componentInstance.response.pipe(take(1)).subscribe((ok) => {
-      if (ok) {
-        versionItem$.pipe(
-          getFirstSucceededRemoteDataPayload<Item>(),
-          // Retrieve version history
-          mergeMap((item: Item) => combineLatest([
-            of(item),
-            this.versionHistoryService.getVersionHistoryFromVersion$(version)
-          ])),
-          // Delete item
-          mergeMap(([item, versionHistory]: [Item, VersionHistory]) => combineLatest([
-            this.deleteItemAndGetResult$(item),
-            of(versionHistory)
-          ])),
-          // Retrieve new latest version
-          mergeMap(([deleteItemResult, versionHistory]: [boolean, VersionHistory]) => combineLatest([
-            of(deleteItemResult),
-            this.versionHistoryService.getLatestVersionItemFromHistory$(versionHistory).pipe(
-              tap(() => {
-                this.getAllVersions(of(versionHistory));
-              }),
-            )
-          ])),
-        ).subscribe(([deleteHasSucceeded, newLatestVersionItem]: [boolean, Item]) => {
-          // Notify operation result and redirect to latest item
-          if (deleteHasSucceeded) {
-            this.notificationsService.success(null, this.translateService.get(successMessageKey, {'version': versionNumber}));
-          } else {
-            this.notificationsService.error(null, this.translateService.get(failureMessageKey, {'version': versionNumber}));
-          }
-          if (redirectToLatest) {
-            const path = getItemEditVersionhistoryRoute(newLatestVersionItem);
-            this.router.navigateByUrl(path);
-          }
-        });
-      }
-    });
-  }
-
-  /**
-   * Creates a new version starting from the specified one
-   * @param version the version from which a new one will be created
-   */
-  createNewVersion(version: Version) {
-    const versionNumber = version.version;
-
-    // Open modal and set current version number
-    const activeModal = this.modalService.open(ItemVersionsSummaryModalComponent);
-    activeModal.componentInstance.versionNumber = versionNumber;
-
-    // On createVersionEvent emitted create new version and notify
-    activeModal.componentInstance.createVersionEvent.pipe(
-      mergeMap((summary: string) => combineLatest([
-        of(summary),
-        version.item.pipe(getFirstSucceededRemoteDataPayload())
-      ])),
-      mergeMap(([summary, item]: [string, Item]) => this.versionHistoryService.createVersion(item._links.self.href, summary)),
-      getFirstCompletedRemoteData(),
-      // close model (should be displaying loading/waiting indicator) when version creation failed/succeeded
-      tap(() => activeModal.close()),
-      // show success/failure notification
-      tap((newVersionRD: RemoteData<Version>) => {
-        this.itemVersionShared.notifyCreateNewVersion(newVersionRD);
-        if (newVersionRD.hasSucceeded) {
-          const versionHistory$ = this.versionService.getHistoryFromVersion(version).pipe(
-            tap((versionHistory: VersionHistory) => {
-              this.itemService.invalidateItemCache(this.item.uuid);
-              this.versionHistoryService.invalidateVersionHistoryCache(versionHistory.id);
-            }),
-          );
-          this.getAllVersions(versionHistory$);
-        }
-      }),
-      // get workspace item
-      getFirstSucceededRemoteDataPayload<Version>(),
-      switchMap((newVersion: Version) => this.itemService.findByHref(newVersion._links.item.href)),
-      getFirstSucceededRemoteDataPayload<Item>(),
-      switchMap((newVersionItem: Item) => this.workspaceItemDataService.findByItem(newVersionItem.uuid, true, false)),
-      getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
-    ).subscribe((wsItem) => {
-      const wsiId = wsItem.id;
-      const route = 'workspaceitems/' + wsiId + '/edit';
-      this.router.navigateByUrl(route);
-    });
   }
 
   /**
@@ -402,17 +294,9 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     return combineLatest([includeSubmitter$, isAdmin$]).pipe(
       map(([includeSubmitter, isAdmin]) => {
         return includeSubmitter && isAdmin;
-      })
+      }),
     );
 
-  }
-
-  /**
-   * Check if the current user can delete the version
-   * @param version
-   */
-  canDeleteVersion$(version: Version): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.CanDeleteVersion, version.self);
   }
 
   /**
@@ -424,7 +308,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     combineLatest([versionHistory$, currentPagination]).pipe(
       switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
         return this.versionHistoryService.getVersions(versionHistory.id,
-          new PaginatedSearchOptions({pagination: Object.assign({}, options, {currentPage: options.currentPage})}),
+          new PaginatedSearchOptions({ pagination: Object.assign({}, options, { currentPage: options.currentPage }) }),
           false, true, followLink('item'), followLink('eperson'));
       }),
       getFirstCompletedRemoteData(),
@@ -438,44 +322,6 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
    */
   onPageChange() {
     this.getAllVersions(this.versionHistory$);
-  }
-
-  /**
-   * Get the ID of the workspace item, if present, otherwise return undefined
-   * @param versionItem the item for which retrieve the workspace item id
-   */
-  getWorkspaceId(versionItem): Observable<string> {
-    return versionItem.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((item: Item) => item.uuid),
-      switchMap((itemUuid: string) => this.workspaceItemDataService.findByItem(itemUuid, true)),
-      getFirstCompletedRemoteData<WorkspaceItem>(),
-      map((res: RemoteData<WorkspaceItem>) => res?.payload?.id ),
-    );
-  }
-
-  /**
-   * Get the ID of the workflow item, if present, otherwise return undefined
-   * @param versionItem the item for which retrieve the workspace item id
-   */
-  getWorkflowId(versionItem): Observable<string> {
-    return versionItem.pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((item: Item) => item.uuid),
-      switchMap((itemUuid: string) => this.workflowItemDataService.findByItem(itemUuid, true)),
-      getFirstCompletedRemoteData<WorkspaceItem>(),
-      map((res: RemoteData<WorkspaceItem>) => res?.payload?.id ),
-    );
-  }
-
-  /**
-   * redirect to the edit page of the workspace item
-   * @param id$ the id of the workspace item
-   */
-  editWorkspaceItem(id$: Observable<string>) {
-    id$.subscribe((id) => {
-      this.router.navigateByUrl('workspaceitems/' + id + '/edit');
-    });
   }
 
   /**
@@ -495,17 +341,10 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
         hasValueOperator(),
       );
 
-      this.canCreateVersion$ = this.authorizationService.isAuthorized(FeatureID.CanCreateVersion, this.item.self);
-
       // If there is a draft item in the version history the 'Create version' button is disabled and a different tooltip message is shown
       this.hasDraftVersion$ = this.versionHistoryRD$.pipe(
         getFirstSucceededRemoteDataPayload(),
         map((res) => Boolean(res?.draftVersion)),
-      );
-
-      this.createVersionTitle$ = this.hasDraftVersion$.pipe(
-        take(1),
-        switchMap((res) => of(res ? 'item.version.history.table.action.hasDraft' : 'item.version.history.table.action.newVersion'))
       );
 
       this.getAllVersions(this.versionHistory$);
@@ -514,7 +353,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
         getRemoteDataPayload(),
         hasValueOperator(),
         map((versions: PaginatedList<Version>) => versions.page.filter((version: Version) => version.eperson !== undefined).length > 0),
-        startWith(false)
+        startWith(false),
       );
       this.itemPageRoutes$ = this.versionsRD$.pipe(
         getAllSucceededRemoteDataPayload(),
@@ -523,7 +362,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
           const itemPageRoutes = {};
           versions.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
           return itemPageRoutes;
-        })
+        }),
       );
     }
   }

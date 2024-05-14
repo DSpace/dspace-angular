@@ -1,20 +1,30 @@
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RequestService } from './request.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
-import { PrimaryBitstreamService } from './primary-bitstream.service';
-import { BundleDataService } from './bundle-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { CreateRequest, DeleteRequest, PostRequest, PutRequest } from './request.models';
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { Bundle } from '../shared/bundle.model';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+
+import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { Bitstream } from '../shared/bitstream.model';
+import { Bundle } from '../shared/bundle.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { BundleDataService } from './bundle-data.service';
+import { PrimaryBitstreamService } from './primary-bitstream.service';
+import {
+  CreateRequest,
+  DeleteRequest,
+  PostRequest,
+  PutRequest,
+} from './request.models';
+import { RequestService } from './request.service';
 
 describe('PrimaryBitstreamService', () => {
   let service: PrimaryBitstreamService;
@@ -28,8 +38,8 @@ describe('PrimaryBitstreamService', () => {
   const bitstream = Object.assign(new Bitstream(), {
     uuid: 'fake-bitstream',
     _links: {
-      self: { href: 'fake-bitstream-self' }
-    }
+      self: { href: 'fake-bitstream-self' },
+    },
   });
 
   const bundle = Object.assign(new Bundle(), {
@@ -37,21 +47,21 @@ describe('PrimaryBitstreamService', () => {
     _links: {
       self: { href: 'fake-bundle-self' },
       primaryBitstream: { href: 'fake-primary-bitstream-self' },
-    }
+    },
   });
 
   const url = 'fake-bitstream-url';
 
   beforeEach(() => {
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     requestService = getMockRequestService();
     halService = Object.assign(new HALEndpointServiceStub(url));
 
     rdbService = getMockRemoteDataBuildService();
     notificationService = new NotificationsServiceStub() as any;
-    bundleDataService = jasmine.createSpyObj('bundleDataService', {'findByHref': createSuccessfulRemoteDataObject$(bundle)});
+    bundleDataService = jasmine.createSpyObj('bundleDataService', { 'findByHref': createSuccessfulRemoteDataObject$(bundle) });
     service = new PrimaryBitstreamService(requestService, rdbService, objectCache, halService, notificationService, bundleDataService);
   });
 
@@ -96,7 +106,7 @@ describe('PrimaryBitstreamService', () => {
       expect((service as any).createAndSendRequest).toHaveBeenCalledWith(
         PostRequest,
         bundle._links.primaryBitstream.href,
-        bitstream.self
+        bitstream.self,
       );
     });
   });
@@ -113,7 +123,7 @@ describe('PrimaryBitstreamService', () => {
       expect((service as any).createAndSendRequest).toHaveBeenCalledWith(
         PutRequest,
         bundle._links.primaryBitstream.href,
-        bitstream.self
+        bitstream.self,
       );
     });
   });
@@ -121,12 +131,12 @@ describe('PrimaryBitstreamService', () => {
     const testBundle = Object.assign(new Bundle(), {
       _links: {
         self: {
-          href: 'test-href'
+          href: 'test-href',
         },
         primaryBitstream: {
-          href: 'test-primaryBitstream-href'
-        }
-      }
+          href: 'test-primaryBitstream-href',
+        },
+      },
     });
 
     describe('when the delete request succeeds', () => {

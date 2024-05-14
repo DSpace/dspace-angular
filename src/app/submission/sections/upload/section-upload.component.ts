@@ -1,38 +1,60 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
-
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
   combineLatest as observableCombineLatest,
   Observable,
   Subscription,
-  combineLatest
 } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-
-import { SectionModelComponent } from '../models/section.model';
-import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
-import { SectionUploadService } from './section-upload.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
-import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SectionsType } from '../sections-type';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionDataObject } from '../models/section-data.model';
-import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
-import { AlertType } from '../../../shared/alert/alert-type';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Group } from '../../../core/eperson/models/group.model';
-import { SectionsService } from '../sections.service';
-import { SubmissionService } from '../../submission.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
+import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
+import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { Group } from '../../../core/eperson/models/group.model';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
+import { Collection } from '../../../core/shared/collection.model';
+import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '../../../shared/empty.util';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
+import { SubmissionService } from '../../submission.service';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { SubmissionSectionUploadAccessConditionsComponent } from './accessConditions/submission-section-upload-access-conditions.component';
+import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';
+import { SectionUploadService } from './section-upload.service';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -49,8 +71,17 @@ export interface AccessConditionGroupsMapEntry {
   selector: 'ds-submission-section-upload',
   styleUrls: ['./section-upload.component.scss'],
   templateUrl: './section-upload.component.html',
+  imports: [
+    ThemedSubmissionSectionUploadFileComponent,
+    SubmissionSectionUploadAccessConditionsComponent,
+    NgIf,
+    AlertComponent,
+    TranslateModule,
+    NgForOf,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.Upload)
 export class SubmissionSectionUploadComponent extends SectionModelComponent {
 
   /**
@@ -160,8 +191,8 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
       switchMap((config: SubmissionUploadsModel) =>
         config.metadata.pipe(
           getFirstSucceededRemoteData(),
-          map((remoteData: RemoteData<SubmissionFormsModel>) => remoteData.payload)
-        )
+          map((remoteData: RemoteData<SubmissionFormsModel>) => remoteData.payload),
+        ),
       ));
 
     this.subs.push(
@@ -173,7 +204,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
         tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = this.dsoNameService.getName(collectionRemoteData.payload)),
         // TODO review this part when https://github.com/DSpace/dspace-angular/issues/575 is resolved
-/*        mergeMap((collectionRemoteData: RemoteData<Collection>) => {
+        /*        mergeMap((collectionRemoteData: RemoteData<Collection>) => {
           return this.resourcePolicyService.findByHref(
             (collectionRemoteData.payload as any)._links.defaultAccessConditions.href
           );
@@ -205,11 +236,11 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         }),
         distinctUntilChanged())
         .subscribe(([configMetadataForm, { primary, files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-            this.primaryBitstreamUUID = primary;
-            this.fileList = files;
-            this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
-          }
-        )
+          this.primaryBitstreamUUID = primary;
+          this.fileList = files;
+          this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
+        },
+        ),
     );
   }
 

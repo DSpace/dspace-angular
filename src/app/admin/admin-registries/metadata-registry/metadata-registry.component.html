@@ -47,7 +47,7 @@
 
             </ds-pagination>
 
-            <div *ngIf="(metadataSchemas | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+            <div *ngIf="(metadataSchemas | async)?.payload?.totalElements === 0" class="alert alert-info w-100 mb-2" role="alert">
               {{'admin.registries.metadata.schemas.no-items' | translate}}
             </div>
 

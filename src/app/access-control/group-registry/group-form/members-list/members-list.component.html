@@ -5,7 +5,6 @@
 
   <ds-pagination *ngIf="(ePeopleMembersOfGroup | async)?.totalElements > 0"
                  [paginationOptions]="config"
-                 [pageInfoState]="(ePeopleMembersOfGroup | async)"
                  [collectionSize]="(ePeopleMembersOfGroup | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -49,7 +48,7 @@
 
   </ds-pagination>
 
-  <div *ngIf="(ePeopleMembersOfGroup | async) == undefined || (ePeopleMembersOfGroup | async)?.totalElements == 0" class="alert alert-info w-100 mb-2"
+  <div *ngIf="(ePeopleMembersOfGroup | async) === undefined || (ePeopleMembersOfGroup | async)?.totalElements === 0" class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-members-yet' | translate}}
   </div>
@@ -86,7 +85,6 @@
 
   <ds-pagination *ngIf="(ePeopleSearch | async)?.totalElements > 0"
                  [paginationOptions]="configSearch"
-                 [pageInfoState]="(ePeopleSearch | async)"
                  [collectionSize]="(ePeopleSearch | async)?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true">
@@ -130,7 +128,7 @@
 
   </ds-pagination>
 
-  <div *ngIf="(ePeopleSearch | async)?.totalElements == 0 && searchDone"
+  <div *ngIf="(ePeopleSearch | async)?.totalElements === 0 && searchDone"
        class="alert alert-info w-100 mb-2"
        role="alert">
     {{messagePrefix + '.no-items' | translate}}

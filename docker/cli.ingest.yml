@@ -12,8 +12,6 @@
 # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/cli.ingest.yml
 #
 # Therefore, it should be kept in sync with that file
-version: "3.7"
-
 services:
   dspace-cli:
     environment:
@@ -34,5 +32,7 @@ services:
 
           /dspace/bin/dspace packager -r -a -t AIP -e $${ADMIN_EMAIL} -f -u SITE*.zip
           /dspace/bin/dspace database update-sequences
+          touch /dspace/solr/search/conf/reindex.flag
 
-          /dspace/bin/dspace index-discovery
+          /dspace/bin/dspace oai import
+          /dspace/bin/dspace oai clean-cache

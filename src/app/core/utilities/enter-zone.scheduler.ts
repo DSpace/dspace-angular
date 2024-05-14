@@ -1,5 +1,8 @@
-import { SchedulerLike, Subscription } from 'rxjs';
 import { NgZone } from '@angular/core';
+import {
+  SchedulerLike,
+  Subscription,
+} from 'rxjs';
 
 /**
  *  An RXJS scheduler that will re-enter the Angular zone to run what's scheduled
@@ -9,7 +12,7 @@ export class EnterZoneScheduler implements SchedulerLike {
 
   schedule(...args: any[]): Subscription {
     return this.zone.run(() =>
-      this.scheduler.schedule.apply(this.scheduler, args)
+      this.scheduler.schedule.apply(this.scheduler, args),
     );
   }
 

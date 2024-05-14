@@ -1,8 +1,21 @@
-import { Component, ComponentRef, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { ThemeService } from '../theme-support/theme.service';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { hasValue, isNotEmpty } from '../empty.util';
+import {
+  Component,
+  ComponentRef,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
+import { ThemeService } from '../theme-support/theme.service';
 import { DynamicComponentLoaderDirective } from './dynamic-component-loader.directive';
 
 /**
@@ -19,13 +32,17 @@ import { DynamicComponentLoaderDirective } from './dynamic-component-loader.dire
 @Component({
   selector: 'ds-abstract-component-loader',
   templateUrl: './abstract-component-loader.component.html',
+  standalone: true,
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Directive to determine where the dynamic child component is located
    */
-  @ViewChild(DynamicComponentLoaderDirective, { static: true }) componentDirective: DynamicComponentLoaderDirective;
+  @ViewChild('DynamicComponentLoader', { static: true, read: ViewContainerRef }) componentViewContainerRef: ViewContainerRef;
 
   /**
    * The reference to the dynamic component
@@ -94,7 +111,7 @@ export abstract class AbstractComponentLoaderComponent<T> implements OnInit, OnC
   public instantiateComponent(): void {
     const component: GenericConstructor<T> = this.getComponent();
 
-    const viewContainerRef: ViewContainerRef = this.componentDirective.viewContainerRef;
+    const viewContainerRef: ViewContainerRef = this.componentViewContainerRef;
     viewContainerRef.clear();
 
     this.compRef = viewContainerRef.createComponent(

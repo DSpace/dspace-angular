@@ -1,29 +1,36 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { PublicationClaimComponent } from '../../../notifications/suggestion-targets/publication-claim/publication-claim.component';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page.component';
 
 describe('AdminNotificationsPublicationClaimPageComponent', () => {
   let component: AdminNotificationsPublicationClaimPageComponent;
   let fixture: ComponentFixture<AdminNotificationsPublicationClaimPageComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
-        AdminNotificationsPublicationClaimPageComponent
+        TranslateModule.forRoot(),
+        AdminNotificationsPublicationClaimPageComponent,
       ],
       providers: [
-        AdminNotificationsPublicationClaimPageComponent
+        AdminNotificationsPublicationClaimPageComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(AdminNotificationsPublicationClaimPageComponent, {
+      remove: {
+        imports: [PublicationClaimComponent],
+      },
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

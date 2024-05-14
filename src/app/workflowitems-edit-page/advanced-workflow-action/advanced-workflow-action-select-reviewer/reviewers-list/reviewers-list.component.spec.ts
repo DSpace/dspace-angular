@@ -1,36 +1,74 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA, SimpleChange, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { RestResponse } from '../../../../core/cache/response.models';
-import { buildPaginatedList, PaginatedList } from '../../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { Group } from '../../../../core/eperson/models/group.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { GroupMock } from '../../../../shared/testing/group-mock';
-import { ReviewersListComponent } from './reviewers-list.component';
-import { EPersonMock, EPersonMock2 } from '../../../../shared/testing/eperson.mock';
-import {
-  createSuccessfulRemoteDataObject$,
-  createNoContentRemoteDataObject$
-} from '../../../../shared/remote-data.utils';
-import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
-import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
-import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ContextHelpDirective } from '../../../../shared/context-help.directive';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
+import { RouterMock } from '../../../../shared/mocks/router.mock';
+import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../../../shared/testing/eperson.mock';
+import { GroupMock } from '../../../../shared/testing/group-mock';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
+import { ReviewersListComponent } from './reviewers-list.component';
+
+// todo: optimize imports
 
 // NOTE: Because ReviewersListComponent extends MembersListComponent, the below tests ONLY validate
 // features which are *unique* to ReviewersListComponent. All other features are tested in the
@@ -123,7 +161,7 @@ describe('ReviewersListComponent', () => {
       },
       editGroup() {
         // empty
-      }
+      },
     };
     builderService = getMockFormBuilderService();
     translateService = getMockTranslateService();
@@ -134,11 +172,9 @@ describe('ReviewersListComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [ReviewersListComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }), ReviewersListComponent],
       providers: [ReviewersListComponent,
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataServiceStub },
@@ -146,9 +182,16 @@ describe('ReviewersListComponent', () => {
         { provide: FormBuilderService, useValue: builderService },
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ReviewersListComponent, {
+        remove: {
+          imports: [ContextHelpDirective, PaginationComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -167,7 +210,7 @@ describe('ReviewersListComponent', () => {
   describe('when no group is selected', () => {
     beforeEach(() => {
       component.ngOnChanges({
-        groupId: new SimpleChange(undefined, null, true)
+        groupId: new SimpleChange(undefined, null, true),
       });
       fixture.detectChanges();
     });
@@ -186,7 +229,7 @@ describe('ReviewersListComponent', () => {
   describe('when a group is selected', () => {
     beforeEach(() => {
       component.ngOnChanges({
-        groupId: new SimpleChange(undefined, GroupMock.id, true)
+        groupId: new SimpleChange(undefined, GroupMock.id, true),
       });
       fixture.detectChanges();
     });

@@ -1,22 +1,44 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
+import {
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  ReactiveFormsModule,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
+import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import findKey from 'lodash/findKey';
 
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../../empty.util';
+import { FormBuilderService } from '../../../form-builder.service';
+import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 
 export interface ListItem {
   id: string;
@@ -31,7 +53,15 @@ export interface ListItem {
 @Component({
   selector: 'ds-dynamic-list',
   styleUrls: ['./dynamic-list.component.scss'],
-  templateUrl: './dynamic-list.component.html'
+  templateUrl: './dynamic-list.component.html',
+  imports: [
+    NgClass,
+    NgIf,
+    NgbButtonsModule,
+    NgForOf,
+    ReactiveFormsModule,
+  ],
+  standalone: true,
 })
 export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
 
@@ -49,7 +79,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
               private cdr: ChangeDetectorRef,
               private formBuilderService: FormBuilderService,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }
@@ -113,10 +143,10 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
         listGroup.addValidators(this.hasAtLeastOneVocabularyEntry());
       }
       const pageInfo: PageInfo = new PageInfo({
-        elementsPerPage: 9999, currentPage: 1
+        elementsPerPage: 9999, currentPage: 1,
       } as PageInfo);
       this.vocabularyService.getVocabularyEntries(this.model.vocabularyOptions, pageInfo).pipe(
-        getFirstSucceededRemoteDataPayload()
+        getFirstSucceededRemoteDataPayload(),
       ).subscribe((entries: PaginatedList<VocabularyEntry>) => {
         let groupCounter = 0;
         let itemsPerGroup = 0;
@@ -133,14 +163,14 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
             id: `${this.model.id}_${value}`,
             label: option.display,
             value: checked,
-            index: key
+            index: key,
           };
           if (this.model.repeatable) {
             this.formBuilderService.addFormGroupControl(listGroup, (this.model as DynamicListCheckboxGroupModel), new DynamicCheckboxModel(item));
           } else {
             (this.model as DynamicListRadioGroupModel).options.push({
               label: item.label,
-              value: option
+              value: option,
             });
           }
           tempList.push(item);

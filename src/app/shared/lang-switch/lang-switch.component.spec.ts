@@ -1,14 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
-import { Observable, of } from 'rxjs';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
-import { LangSwitchComponent } from './lang-switch.component';
 import { LangConfig } from '../../../config/lang-config.interface';
 import { LocaleService } from '../../core/locale/locale.service';
+import { LangSwitchComponent } from './lang-switch.component';
 
 // This test is completely independent from any message catalogs or keys in the codebase
 // The translation module is instantiated with these bogus messages that we aren't using anyway.
@@ -23,8 +39,8 @@ class CustomLoader implements TranslateLoader {
       'footer': {
         'copyright': 'copyright © 2002-{{ year }}',
         'link.dspace': 'DSpace software',
-        'link.lyrasis': 'LYRASIS'
-      }
+        'link.lyrasis': 'LYRASIS',
+      },
     });
   }
 }
@@ -39,7 +55,7 @@ describe('LangSwitchComponent', () => {
   function getMockLocaleService(): LocaleService {
     return jasmine.createSpyObj('LocaleService', {
       setCurrentLanguageCode: jasmine.createSpy('setCurrentLanguageCode'),
-      refreshAfterChangeLanguage: jasmine.createSpy('refreshAfterChangeLanguage')
+      refreshAfterChangeLanguage: jasmine.createSpy('refreshAfterChangeLanguage'),
     });
   }
 
@@ -63,21 +79,18 @@ describe('LangSwitchComponent', () => {
           code: 'de',
           label: 'Deutsch',
           active: true,
-        }]
+        }],
       };
 
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, TranslateModule.forRoot(
-          {
-            loader: { provide: TranslateLoader, useClass: CustomLoader }
-          }
-        )],
-        declarations: [LangSwitchComponent],
+        imports: [HttpClientTestingModule, TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: CustomLoader },
+        }), LangSwitchComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,
           { provide: LocaleService, useValue: getMockLocaleService() },
-        ]
+        ],
       }).compileComponents()
         .then(() => {
           translate = TestBed.inject(TranslateService);
@@ -148,22 +161,19 @@ describe('LangSwitchComponent', () => {
         }, {
           code: 'de',
           label: 'Deutsch',
-          active: false
-        }]
+          active: false,
+        }],
       };
 
       TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, TranslateModule.forRoot(
-          {
-            loader: { provide: TranslateLoader, useClass: CustomLoader }
-          }
-        )],
-        declarations: [LangSwitchComponent],
+        imports: [HttpClientTestingModule, TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: CustomLoader },
+        }), LangSwitchComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,
-          { provide: LocaleService, useValue: getMockLocaleService() }
-        ]
+          { provide: LocaleService, useValue: getMockLocaleService() },
+        ],
       }).compileComponents();
       translate = TestBed.inject(TranslateService);
       translate.addLangs(mockConfig.languages.filter((MyLangConfig) => MyLangConfig.active === true).map((a) => a.code));

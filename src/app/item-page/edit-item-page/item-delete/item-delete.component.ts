@@ -1,45 +1,87 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { defaultIfEmpty, filter, map, switchMap, take } from 'rxjs/operators';
 import {
-  AbstractSimpleItemActionComponent
-} from '../simple-item-action/abstract-simple-item-action.component';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
-  combineLatest as observableCombineLatest,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
   combineLatest,
+  combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
   Subscription,
-  BehaviorSubject,
 } from 'rxjs';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import {
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData,
-  getFirstCompletedRemoteData
-} from '../../../core/shared/operators';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { Item } from '../../../core/shared/item.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { ViewMode } from '../../../core/shared/view-mode.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+  defaultIfEmpty,
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
-import { TranslateService } from '@ngx-translate/core';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { getItemEditRoute } from '../../item-page-routing-paths';
 import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { getItemEditRoute } from '../../item-page-routing-paths';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
+import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { VirtualMetadata } from '../virtual-metadata/virtual-metadata.component';
 
 @Component({
   selector: 'ds-item-delete',
-  templateUrl: '../item-delete/item-delete.component.html'
+  templateUrl: '../item-delete/item-delete.component.html',
+  imports: [
+    TranslateModule,
+    ListableObjectComponentLoaderComponent,
+    NgIf,
+    ModifyItemOverviewComponent,
+    AsyncPipe,
+    VarDirective,
+    NgForOf,
+    RouterLink,
+  ],
+  standalone: true,
 })
 /**
  * Component responsible for rendering the item delete page
@@ -143,17 +185,17 @@ export class ItemDeleteComponent
                 } else {
                   return includedTypes;
                 }
-              }, [])
+              }, []),
             ),
           );
-        })
+        }),
       ).subscribe((types: RelationshipType[]) => this.types$.next(types)));
     }
 
     this.subs.push(this.types$.pipe(
       take(1),
     ).subscribe((types) =>
-      this.objectUpdatesService.initialize(this.url, types, this.item.lastModified)
+      this.objectUpdatesService.initialize(this.url, types, this.item.lastModified),
     ));
   }
 
@@ -194,7 +236,7 @@ export class ItemDeleteComponent
       switchMap((relationships) =>
         this.isLeftItem(relationships[0]).pipe(
           map((isLeftItem) => isLeftItem ? relationshipType.leftwardType : relationshipType.rightwardType),
-        )
+        ),
       ),
     );
   }
@@ -212,15 +254,15 @@ export class ItemDeleteComponent
           // filter on type
           switchMap((relationships) =>
             observableCombineLatest(
-              relationships.map((relationship) => this.getRelationshipType(relationship))
+              relationships.map((relationship) => this.getRelationshipType(relationship)),
             ).pipe(
               defaultIfEmpty([]),
               map((types) => relationships.filter(
-                (relationship, index) => relationshipType.id === types[index].id
+                (relationship, index) => relationshipType.id === types[index].id,
               )),
-            )
+            ),
           ),
-        )
+        ),
       );
     }
 
@@ -242,7 +284,7 @@ export class ItemDeleteComponent
     return relationship.relationshipType.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      filter((relationshipType: RelationshipType) => hasValue(relationshipType) && isNotEmpty(relationshipType.uuid))
+      filter((relationshipType: RelationshipType) => hasValue(relationshipType) && isNotEmpty(relationshipType.uuid)),
     );
   }
 
@@ -289,9 +331,9 @@ export class ItemDeleteComponent
                     metadataValue: metadata,
                   };
                 }))
-              .reduce((previous, current) => previous.concat(current))
+              .reduce((previous, current) => previous.concat(current)),
           ),
-        )
+        ),
       );
     }
 
@@ -308,7 +350,7 @@ export class ItemDeleteComponent
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
-      map((leftItem) => leftItem.uuid === this.item.uuid)
+      map((leftItem) => leftItem.uuid === this.item.uuid),
     );
   }
 
@@ -337,22 +379,22 @@ export class ItemDeleteComponent
     this.subs.push(this.types$.pipe(
       switchMap((types) =>
         combineLatest(
-          types.map((type) => this.isSelected(type))
+          types.map((type) => this.isSelected(type)),
         ).pipe(
           defaultIfEmpty([]),
           map((selection) => types.filter(
-            (type, index) => selection[index]
+            (type, index) => selection[index],
           )),
           map((selectedTypes) => selectedTypes.map((type) => type.id)),
-        )
+        ),
       ),
       switchMap((types) =>
-        this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData())
-      )
+        this.itemDataService.delete(this.item.id, types).pipe(getFirstCompletedRemoteData()),
+      ),
     ).subscribe(
       (rd: RemoteData<NoContent>) => {
         this.notify(rd.hasSucceeded);
-      }
+      },
     ));
   }
 

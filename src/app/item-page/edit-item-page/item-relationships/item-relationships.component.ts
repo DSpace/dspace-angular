@@ -1,40 +1,81 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  zip as observableZip,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
 } from '../../../core/data/object-updates/object-updates.reducer';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip, Observable } from 'rxjs';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
-import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { RequestService } from '../../../core/data/request.service';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { hasValue } from '../../../shared/empty.util';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { Item } from '../../../core/shared/item.model';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { EditRelationshipListComponent } from './edit-relationship-list/edit-relationship-list.component';
 
 @Component({
   selector: 'ds-item-relationships',
   styleUrls: ['./item-relationships.component.scss'],
   templateUrl: './item-relationships.component.html',
+  imports: [
+    ThemedLoadingComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+    EditRelationshipListComponent,
+    NgForOf,
+    VarDirective,
+  ],
+  standalone: true,
 })
 /**
  * Component for displaying an item's relationships edit page
@@ -78,9 +119,9 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     const label = this.item.firstMetadataValue('dspace.entity.type');
     if (label !== undefined) {
       this.relationshipTypes$ = this.relationshipTypeService.searchByEntityType(label, true, true, ...this.getRelationshipTypeFollowLinks())
-      .pipe(
-        map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page)
-      );
+        .pipe(
+          map((relationshipTypes: PaginatedList<RelationshipType>) => relationshipTypes.page),
+        );
 
       this.entityType$ = this.entityTypeService.getEntityTypeByLabel(label).pipe(
         getFirstSucceededRemoteData(),
@@ -109,7 +150,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     const removedRelationshipIDs$: Observable<DeleteRelationship[]> = this.relationshipService.getItemRelationshipsArray(this.item).pipe(
       startWith([]),
       map((relationships: Relationship[]) => relationships.map((relationship) =>
-        Object.assign(new Relationship(), relationship, { uuid: relationship.id })
+        Object.assign(new Relationship(), relationship, { uuid: relationship.id }),
       )),
       switchMap((relationships: Relationship[]) => {
         return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>;
@@ -117,7 +158,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       map((fieldUpdates: FieldUpdates) =>
         Object.values(fieldUpdates)
           .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)
-          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as DeleteRelationship)
+          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as DeleteRelationship),
       ),
     );
 
@@ -126,7 +167,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
         Object.values(fieldUpdates)
           .filter((fieldUpdate: FieldUpdate) => hasValue(fieldUpdate))
           .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.ADD)
-          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as RelationshipIdentifiable)
+          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as RelationshipIdentifiable),
       ),
     );
 
@@ -148,25 +189,25 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
             this.displayNotifications(response);
             this.modalService.dismissAll();
           }
-        })
+        }),
       );
     });
   }
 
   deleteRelationships(deleteRelationshipIDs: DeleteRelationship[]): Observable<RemoteData<NoContent>[]> {
     return observableZip(...deleteRelationshipIDs.map((deleteRelationship) => {
-        let copyVirtualMetadata: string;
-        if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
-          copyVirtualMetadata = 'all';
-        } else if (deleteRelationship.keepLeftVirtualMetadata) {
-          copyVirtualMetadata = 'left';
-        } else if (deleteRelationship.keepRightVirtualMetadata) {
-          copyVirtualMetadata = 'right';
-        } else {
-          copyVirtualMetadata = 'none';
-        }
-        return this.relationshipService.deleteRelationship(deleteRelationship.uuid, copyVirtualMetadata);
+      let copyVirtualMetadata: string;
+      if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
+        copyVirtualMetadata = 'all';
+      } else if (deleteRelationship.keepLeftVirtualMetadata) {
+        copyVirtualMetadata = 'left';
+      } else if (deleteRelationship.keepRightVirtualMetadata) {
+        copyVirtualMetadata = 'right';
+      } else {
+        copyVirtualMetadata = 'none';
       }
+      return this.relationshipService.deleteRelationship(deleteRelationship.uuid, copyVirtualMetadata);
+    },
     ));
   }
 
@@ -192,7 +233,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
           }
           return this.relationshipService.addRelationship(addRelationship.type.id, leftItem, rightItem, leftwardValue, rightwardValue);
         }),
-      )
+      ),
     ));
   }
 
@@ -228,7 +269,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   getRelationshipTypeFollowLinks() {
     return [
       followLink('leftType'),
-      followLink('rightType')
+      followLink('rightType'),
     ];
   }
 
