@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { mergeMap, take } from 'rxjs/operators';
+import { map, mergeMap, take, tap } from 'rxjs/operators';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -16,6 +16,8 @@ import { RequestParam } from '../../../../core/cache/models/request-param.model'
 import { RequestService } from '../../../../core/data/request.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { of } from 'rxjs/internal/observable/of';
+import { getHomePageRoute } from '../../../../app-routing-paths';
 
 /**
  * Component representing the create page for communities and collections
@@ -83,33 +85,46 @@ export class CreateComColPageComponent<TDomain extends Collection | Community> i
     this.parentUUID$.pipe(
       take(1),
       mergeMap((uuid: string) => {
-      const params = uuid ? [new RequestParam('parent', uuid)] : [];
-      return this.dsoDataService.create(dso, ...params)
-        .pipe(getFirstSucceededRemoteDataPayload()
-        );
-      }))
-      .subscribe((dsoRD: TDomain) => {
+        const params = uuid ? [new RequestParam('parent', uuid)] : [];
+        return this.dsoDataService.create(dso, ...params)
+          .pipe(getFirstSucceededRemoteDataPayload()
+          );
+      }),
+      mergeMap((dsoRD: TDomain) => {
         if (isNotUndefined(dsoRD)) {
           this.newUUID = dsoRD.uuid;
           if (uploader.queue.length > 0) {
-            this.dsoDataService.getLogoEndpoint(this.newUUID).pipe(take(1)).subscribe((href: string) => {
-              uploader.options.url = href;
-              uploader.uploadAll();
-            });
+            return this.dsoDataService.getLogoEndpoint(this.newUUID).pipe(
+              take(1),
+              tap((href: string) => {
+                uploader.options.url = href;
+                uploader.onCompleteAll = () => {
+                  this.navigateToNewPage();
+                  this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
+                };
+                uploader.uploadAll();
+              }),
+              map(() => false)
+            );
           } else {
-            this.navigateToNewPage();
+            this.dsoDataService.refreshCache(dsoRD);
+            return of(true);
           }
-          this.dsoDataService.refreshCache(dsoRD);
         }
+      })
+    ).subscribe((notify: boolean) => {
+      if (notify) {
+        this.navigateToNewPage();
         this.notificationsService.success(null, this.translate.get(this.type.value + '.create.notifications.success'));
-      });
+      }
+    });
   }
 
   /**
    * Navigate to home page
    */
   navigateToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate([getHomePageRoute()]);
   }
 
   /**
