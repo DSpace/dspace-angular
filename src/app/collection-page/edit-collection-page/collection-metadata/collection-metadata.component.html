@@ -17,6 +17,7 @@
   </div>
 </div>
 <ds-collection-form [dso]="(dsoRD$ | async)?.payload"
+                    [isCreation]="false"
                     (submitForm)="onSubmit($event)"
                     (back)="navigateToHomePage()"
                     (finish)="navigateToHomePage()"></ds-collection-form>

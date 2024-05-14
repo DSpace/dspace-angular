@@ -36,8 +36,6 @@ describe('ComColMetadataComponent', () => {
   let routerStub;
   let routeStub;
 
-  const logoEndpoint = 'rest/api/logo/endpoint';
-
   function initializeVars() {
     community = Object.assign(new Community(), {
       uuid: 'a20da287-e174-466a-9926-f66b9300d347',
@@ -58,7 +56,6 @@ describe('ComColMetadataComponent', () => {
     communityDataServiceStub = {
       update: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
       patch: () => null,
-      getLogoEndpoint: () => observableOf(logoEndpoint),
     };
 
     routerStub = {
@@ -125,7 +122,6 @@ describe('ComColMetadataComponent', () => {
             },
             /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
           },
-          deleteLogo: false,
         };
         spyOn(router, 'navigate');
       });
@@ -157,48 +153,84 @@ describe('ComColMetadataComponent', () => {
       });
     });
 
-    describe('with at least one item in the uploader\'s queue', () => {
+    describe('with an empty operations array', () => {
       beforeEach(() => {
         data = {
-          dso: Object.assign(new Community(), {
-            metadata: [{
-              key: 'dc.title',
-              value: 'test',
-            }],
-          }),
+          operations: [],
+          dso: new Community(),
           uploader: {
             options: {
               url: '',
             },
-            queue: [
-              {},
-            ],
+            queue: [],
             /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
             uploadAll: () => {
             },
-            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
+            /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
           },
         };
-      });
-
-      it('should not navigate', () => {
         spyOn(router, 'navigate');
-        comp.onSubmit(data);
-        fixture.detectChanges();
-        expect(router.navigate).not.toHaveBeenCalled();
       });
 
-      it('should set the uploader\'s url to the logo\'s endpoint', () => {
+      it('should navigate', () => {
         comp.onSubmit(data);
         fixture.detectChanges();
-        expect(data.uploader.options.url).toEqual(logoEndpoint);
+        expect(router.navigate).toHaveBeenCalled();
+      });
+    });
+
+    describe('with a not empty operations array', () => {
+      beforeEach(() => {
+        data = {
+          operations: [
+            {
+              op: 'replace',
+              path: '/metadata/dc.title',
+              value: {
+                value: 'test',
+                language: null,
+              },
+            },
+          ],
+          dso: new Community(),
+          uploader: {
+            options: {
+              url: '',
+            },
+            queue: [],
+            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
+            uploadAll: () => {
+            },
+            /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
+          },
+        };
+        spyOn(router, 'navigate');
       });
 
-      it('should call the uploader\'s uploadAll', () => {
-        spyOn(data.uploader, 'uploadAll');
-        comp.onSubmit(data);
-        fixture.detectChanges();
-        expect(data.uploader.uploadAll).toHaveBeenCalled();
+      describe('when successful', () => {
+
+        beforeEach(() => {
+          spyOn(dsoDataService, 'patch').and.returnValue(createSuccessfulRemoteDataObject$({}));
+        });
+
+        it('should navigate', () => {
+          comp.onSubmit(data);
+          fixture.detectChanges();
+          expect(router.navigate).toHaveBeenCalled();
+        });
+      });
+
+      describe('on failure', () => {
+
+        beforeEach(() => {
+          spyOn(dsoDataService, 'patch').and.returnValue(createFailedRemoteDataObject$('Error', 500));
+        });
+
+        it('should not navigate', () => {
+          comp.onSubmit(data);
+          fixture.detectChanges();
+          expect(router.navigate).not.toHaveBeenCalled();
+        });
       });
     });
   });
