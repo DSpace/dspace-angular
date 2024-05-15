@@ -85,12 +85,23 @@ export class MetadataContainerComponent implements OnInit {
    * Returns a string representing the label of field if exists
    */
   get label(): string {
-    return this.translationService.getTranslation(this.fieldI18nPrefix + this.item.entityType + '.[' + this.field.metadata + ']') ??
-      this.translationService.getTranslation(this.fieldI18nPrefix + this.item.entityType + '.' + this.field.metadata) ??
-      this.translationService.getTranslation(this.fieldI18nPrefix + '[' + this.field.metadata + ']') ??
-      this.translationService.getTranslation(this.fieldI18nPrefix + this.field.label) ??
+    return this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.[' + this.field.metadata + ']') ??
+      this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.' + this.field.metadata) ??
+      this.getTranslationIfExists(this.fieldI18nPrefix + '[' + this.field.metadata + ']') ??
+      this.getTranslationIfExists(this.fieldI18nPrefix + this.field.label) ??
       this.field.label ??
       this.field.metadata;
+  }
+
+  /**
+   * If the translation haven't found return null otherwise return translated label
+   */
+  getTranslationIfExists(fieldLabelI18nKey: string): string {
+    const header: string = this.translateService.instant(fieldLabelI18nKey);
+    if (header !== fieldLabelI18nKey) {
+      return header;
+    }
+    return null;
   }
 
   /**

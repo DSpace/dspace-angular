@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { isNotEmpty } from '../../../../../../../shared/empty.util';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { BehaviorSubject } from 'rxjs';
-import { TranslationUtilityService } from '../../../../../../services/translation.service';
 
 
 export interface NestedMetadataGroupEntry {
@@ -36,6 +35,11 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
   fieldI18nPrefix = 'layout.field.label.';
 
   /**
+   * The prefix used for box field label's
+   */
+  nestedName = 'nested';
+
+  /**
    * A boolean representing if component is initialized
    */
   initialized: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -45,8 +49,7 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     @Inject('tabNameProvider') public tabNameProvider: string,
-    protected translateService: TranslateService,
-    protected translationUtilityService: TranslationUtilityService
+    protected translateService: TranslateService
   ) {
     super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, translateService);
   }
@@ -85,13 +88,25 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
    * Returns a string representing the label of field if exists
    */
   getLabel(field: LayoutField): string {
-    return this.translationUtilityService.getTranslation(this.fieldI18nPrefix + this.item.entityType + '.[' + field.metadata + ']') ??
-      this.translationUtilityService.getTranslation(this.fieldI18nPrefix + this.item.entityType + '.[' + field.metadata + ']') ??
-      this.translationUtilityService.getTranslation(this.fieldI18nPrefix + this.item.entityType + '.' + field.metadata) ??
-      this.translationUtilityService.getTranslation(this.fieldI18nPrefix + '[' + field.metadata + ']') ??
-      this.translationUtilityService.getTranslation(this.fieldI18nPrefix + field.label) ??
+    return this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.' + this.nestedName + '.[' + field.metadata + ']') ??
+      this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.[' + field.metadata + ']') ??
+      this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.[' + field.metadata + ']') ??
+      this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.' + field.metadata) ??
+      this.getTranslationIfExists(this.fieldI18nPrefix + '[' + field.metadata + ']') ??
+      this.getTranslationIfExists(this.fieldI18nPrefix + field.label) ??
       field.label ??
       field.metadata;
+  }
+
+  /**
+   * If the translation haven't found return null otherwise return translated label
+   */
+  getTranslationIfExists(fieldLabelI18nKey: string): string {
+    const header: string = this.translateService.instant(fieldLabelI18nKey);
+    if (header !== fieldLabelI18nKey) {
+      return header;
+    }
+    return null;
   }
 
   ngOnDestroy(): void {
