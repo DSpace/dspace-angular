@@ -1,39 +1,49 @@
 import {
-  AsyncPipe,
   NgClass,
   NgIf,
 } from '@angular/common';
 import {
-  Component, Injector,
-  Input, OnDestroy,
+  Component,
+  Injector,
+  Input,
 } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  map,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  catchError,
+  switchMap,
+} from 'rxjs/operators';
 
-import {WorkflowItem} from '../../../../../core/submission/models/workflowitem.model';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { RequestService } from '../../../../../core/data/request.service';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
+import { SearchService } from '../../../../../core/shared/search/search.service';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { ClaimedTaskDataService } from '../../../../../core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
+import { CLAIMED_TASK } from '../../../../../core/tasks/models/claimed-task-object.resource-type';
+import { PoolTaskDataService } from '../../../../../core/tasks/pool-task-data.service';
+import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
+import { MyDSpaceReloadableActionsComponent } from '../../../../../shared/mydspace-actions/mydspace-reloadable-actions';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute,
 } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import {ClaimedTaskDataService} from "../../../../../core/tasks/claimed-task-data.service";
-import {PoolTaskDataService} from "../../../../../core/tasks/pool-task-data.service";
-import {catchError, switchMap, take} from "rxjs/operators";
-import {map, Observable, of} from "rxjs";
-import {RemoteData} from "../../../../../core/data/remote-data";
-import {DSpaceObject} from "../../../../../core/shared/dspace-object.model";
-import {MyDSpaceReloadableActionsComponent} from "../../../../../shared/mydspace-actions/mydspace-reloadable-actions";
-import {ClaimedTask} from "../../../../../core/tasks/models/claimed-task-object.model";
-import {Item} from "../../../../../core/shared/item.model";
-import {NotificationsService} from "../../../../../shared/notifications/notifications.service";
-import {SearchService} from "../../../../../core/shared/search/search.service";
-import {RequestService} from "../../../../../core/data/request.service";
-import {ResourceType} from "../../../../../core/shared/resource-type";
-import {CLAIMED_TASK} from "../../../../../core/tasks/models/claimed-task-object.resource-type";
-import {isEmpty} from "../../../../../shared/empty.util";
-import {getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload} from "../../../../../core/shared/operators";
-import {WorkspaceItem} from "../../../../../core/submission/models/workspaceitem.model";
-import {ITEM_EDIT_AUTHORIZATIONS_PATH} from "../../../../../item-page/edit-item-page/edit-item-page.routing-paths";
-import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'ds-workflow-item-admin-workflow-actions-element',
@@ -72,9 +82,9 @@ export class WorkflowItemAdminWorkflowActionsComponent extends MyDSpaceReloadabl
 
   subs = [];
 
-  showButton: boolean = false;
+  showButton = false;
 
-  isLoading: boolean = false;
+  isLoading = false;
 
   /**
    * Whether to use small buttons or not
@@ -154,13 +164,13 @@ export class WorkflowItemAdminWorkflowActionsComponent extends MyDSpaceReloadabl
       getFirstSucceededRemoteData(),
       switchMap((item: any) => this.claimedTaskDataService.findByItem(item.payload.id).pipe(
         map((response: RemoteData<ClaimedTask>) => response.hasSucceeded && response.statusCode !== 204),
-        catchError(() => of(false))
-      ))
+        catchError(() => of(false)),
+      )),
     ).subscribe({
       next: (show: boolean) => {
         this.showButton = show;
       },
-      error: error => console.error('Error checking item status', error)
+      error: error => console.error('Error checking item status', error),
     });
   }
 
