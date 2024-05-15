@@ -258,6 +258,13 @@ export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Checks if the current topic is related to a reinstate or withdrawn request.
+   */
+  public get isReinstateWithdrawnRequest(): boolean {
+    return this.showTopic.indexOf('/WITHDRAWN') !== -1 || this.showTopic.indexOf('/REINSTATE') !== -1;
+  }
+
+  /**
    * Open a modal or run the executeAction directly based on the presence of the project.
    *
    * @param {string} action

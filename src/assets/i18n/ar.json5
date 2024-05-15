@@ -5470,9 +5470,9 @@
   // "quality-assurance.event.action.ignore": "Ignore suggestion",
   "quality-assurance.event.action.ignore": "تجاهل الاقتراح",
 
-  // "quality-assurance.event.action.undo": "DELETE",
+  // "quality-assurance.event.action.undo": "Delete",
   // TODO New key - Add a translation
-  "quality-assurance.event.action.undo": "DELETE",
+  "quality-assurance.event.action.undo": "Delete",
 
   // "quality-assurance.event.action.reject": "Reject suggestion",
   "quality-assurance.event.action.reject": "رفض الاقتراح",
@@ -6554,6 +6554,10 @@
 
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "الاسم",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "حدد نوع السياسة",

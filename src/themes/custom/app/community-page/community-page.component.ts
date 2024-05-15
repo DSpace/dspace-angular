@@ -17,7 +17,7 @@ import { ThemedCollectionPageSubCollectionListComponent } from '../../../../app/
 import { ThemedCommunityPageSubCommunityListComponent } from '../../../../app/community-page/sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
 import { fadeInOut } from '../../../../app/shared/animations/fade';
 import { ThemedComcolPageBrowseByComponent } from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/themed-comcol-page-content.component';
 import { ThemedComcolPageHandleComponent } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
@@ -26,7 +26,6 @@ import { ErrorComponent } from '../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
-
 
 @Component({
   selector: 'ds-themed-community-page',
@@ -38,7 +37,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
   animations: [fadeInOut],
   standalone: true,
   imports: [
-    ComcolPageContentComponent,
+    ThemedComcolPageContentComponent,
     ErrorComponent,
     ThemedLoadingComponent,
     NgIf,
@@ -60,4 +59,5 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
 /**
  * This component represents a detail page for a single community
  */
-export class CommunityPageComponent extends BaseComponent {}
+export class CommunityPageComponent extends BaseComponent {
+}

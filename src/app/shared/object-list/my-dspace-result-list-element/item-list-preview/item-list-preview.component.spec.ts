@@ -139,7 +139,7 @@ describe('ItemListPreviewComponent', () => {
       component.item = mockItemWithAuthorAndDate;
       fixture.detectChanges();
     });
-    it('should add the ds-thumbnail element', () => {
+    it('should add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeTruthy();
     });
@@ -250,7 +250,7 @@ describe('ItemListPreviewComponent', () => {
       component.item = mockItemWithAuthorAndDate;
       fixture.detectChanges();
     });
-    it('should add the ds-thumbnail element', () => {
+    it('should add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeFalsy();
     });

@@ -8,11 +8,11 @@ import { BuildConfig } from '../config/build-config.interface';
 export const environment: Partial<BuildConfig> = {
   production: false,
 
-  // Angular SSR settings
+  // Angular SSR (Server Side Rendering) settings
   ssr: {
     enabled: false,
     enablePerformanceProfiler: false,
-    inlineCriticalCss: true,
+    inlineCriticalCss: false,
   },
 };
 

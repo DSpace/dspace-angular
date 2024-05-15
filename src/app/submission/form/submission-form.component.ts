@@ -22,6 +22,10 @@ import {
 
 import { AuthService } from '../../core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import {
+  SubmissionSectionModel,
+  SubmissionSectionVisibility,
+} from '../../core/config/models/config-submission-section.model';
 import { Collection } from '../../core/shared/collection.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
@@ -42,14 +46,10 @@ import { SectionsService } from '../sections/sections.service';
 import { SectionsType } from '../sections/sections-type';
 import { VisibilityType } from '../sections/visibility-type';
 import { SubmissionService } from '../submission.service';
-import {
-  SubmissionSectionModel,
-  SubmissionSectionVisibility,
-} from './../../core/config/models/config-submission-section.model';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
 import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
-import { SubmissionUploadFilesComponent } from './submission-upload-files/submission-upload-files.component';
+import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
 
 /**
  * This component represents the submission form.
@@ -63,7 +63,7 @@ import { SubmissionUploadFilesComponent } from './submission-upload-files/submis
     ThemedLoadingComponent,
     SubmissionSectionContainerComponent,
     SubmissionFormFooterComponent,
-    SubmissionUploadFilesComponent,
+    ThemedSubmissionUploadFilesComponent,
     SubmissionFormCollectionComponent,
     SubmissionFormSectionAddComponent,
   ],
@@ -81,7 +81,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
   /**
    * Checks if the collection can be modifiable by the user
-   * @type {booelan}
+   * @type {boolean}
    */
   @Input() collectionModifiable: boolean | null = null;
 
