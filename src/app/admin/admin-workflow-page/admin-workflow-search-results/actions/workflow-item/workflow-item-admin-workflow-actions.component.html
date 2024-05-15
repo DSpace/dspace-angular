@@ -5,4 +5,15 @@
   <a [ngClass]="{'btn-sm': small}" class="btn btn-light my-1 send-back-link" [routerLink]="[getSendBackRoute()]" [title]="'admin.workflow.item.send-back' | translate">
     <i class="fa fa-hand-point-left"></i><span *ngIf="!small" class="d-none d-sm-inline"> {{"admin.workflow.item.send-back" | translate}}</span>
   </a>
+  <ng-container *ngIf="showButton">
+    <a [ngClass]="{'btn-sm': small}" class="btn btn-light my-1" (click)="returnTaskToPool()" [title]="'submission.workflow.tasks.claimed.return' | translate">
+      <ng-container *ngIf="!isLoading">
+        <i class="fa fa-undo"></i><span *ngIf="!small" class="d-none d-sm-inline"> {{"submission.workflow.tasks.claimed.return" | translate}}</span>
+      </ng-container>
+      <ng-container *ngIf="isLoading" class="loader-container">
+        <i class="fas fa-circle-notch fa-spin"></i>
+        <span class="loading-text">{{'submission.workflow.tasks.generic.processing' | translate}}</span>
+      </ng-container>
+    </a>
+  </ng-container>
 </div>

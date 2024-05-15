@@ -17,8 +17,8 @@ import {
 } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import {ClaimedTaskDataService} from "../../../../../core/tasks/claimed-task-data.service";
 import {PoolTaskDataService} from "../../../../../core/tasks/pool-task-data.service";
-import {switchMap, take} from "rxjs/operators";
-import {map, Observable} from "rxjs";
+import {catchError, switchMap, take} from "rxjs/operators";
+import {map, Observable, of} from "rxjs";
 import {RemoteData} from "../../../../../core/data/remote-data";
 import {DSpaceObject} from "../../../../../core/shared/dspace-object.model";
 import {MyDSpaceReloadableActionsComponent} from "../../../../../shared/mydspace-actions/mydspace-reloadable-actions";
@@ -33,6 +33,7 @@ import {isEmpty} from "../../../../../shared/empty.util";
 import {getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload} from "../../../../../core/shared/operators";
 import {WorkspaceItem} from "../../../../../core/submission/models/workspaceitem.model";
 import {ITEM_EDIT_AUTHORIZATIONS_PATH} from "../../../../../item-page/edit-item-page/edit-item-page.routing-paths";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'ds-workflow-item-admin-workflow-actions-element',
@@ -71,6 +72,10 @@ export class WorkflowItemAdminWorkflowActionsComponent extends MyDSpaceReloadabl
 
   subs = [];
 
+  showButton: boolean = false;
+
+  isLoading: boolean = false;
+
   /**
    * Whether to use small buttons or not
    */
@@ -102,14 +107,23 @@ export class WorkflowItemAdminWorkflowActionsComponent extends MyDSpaceReloadabl
   }
 
   returnTaskToPool(): void {
+    this.isLoading = true;
     this.wfi.item.pipe(
       getFirstSucceededRemoteData(),
       switchMap((item: any) => this.claimedTaskDataService.findByItem(item.payload.id)),
       getFirstSucceededRemoteData(),
       switchMap((poolTask: any) => this.objectDataService.returnToPoolTask(poolTask.payload.id)),
     ).subscribe({
-      next: response => console.log('Task returned to pool successfully', response),
-      error: error => console.error('Failed to return task to pool', error),
+      next: response => {
+        this.isLoading = false;
+        this.checkItemStatus();
+        this.reload();
+      },
+      error: error => {
+        this.isLoading = false;
+        this.checkItemStatus();
+        this.reload();
+      },
     });
   }
 
@@ -132,18 +146,21 @@ export class WorkflowItemAdminWorkflowActionsComponent extends MyDSpaceReloadabl
   }
 
   ngOnInit(): void {
-    const item$: Observable<Item> = this.wsi.item.pipe(
-      getFirstSucceededRemoteDataPayload(),
-    );
+    this.checkItemStatus();
+  }
 
-    item$.pipe(
-      map((item: Item) => this.getPoliciesRoute(item)),
-    ).subscribe((route: string[]) => {
-      this.resourcePoliciesPageRoute = route;
-    });
-
-    item$.subscribe((item: Item) => {
-      this.item = item;
+  checkItemStatus(): void {
+    this.wfi.item.pipe(
+      getFirstSucceededRemoteData(),
+      switchMap((item: any) => this.claimedTaskDataService.findByItem(item.payload.id).pipe(
+        map((response: RemoteData<ClaimedTask>) => response.hasSucceeded && response.statusCode !== 204),
+        catchError(() => of(false))
+      ))
+    ).subscribe({
+      next: (show: boolean) => {
+        this.showButton = show;
+      },
+      error: error => console.error('Error checking item status', error)
     });
   }
 
