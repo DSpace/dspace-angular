@@ -1228,6 +1228,9 @@
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Enviar de vuelta",
 
+  // "admin.workflow.item.return": "Return to pool",
+  "admin.workflow.item.return": "Devolver al pool",
+
   // "admin.workflow.item.policies": "Policies",
   "admin.workflow.item.policies": "Políticas",
 

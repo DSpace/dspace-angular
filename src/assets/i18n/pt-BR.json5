@@ -1224,6 +1224,9 @@
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Devolver",
 
+  // "admin.workflow.item.return": "Return to pool",
+  "admin.workflow.item.return": "Retornar para o conjunto",
+
   // "admin.workflow.item.policies": "Policies", (Auto-Translated)
   "admin.workflow.item.policies": "Políticas",
 

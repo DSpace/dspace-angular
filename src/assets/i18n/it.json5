@@ -812,6 +812,9 @@
   // "admin.workflow.item.send-back": "Send back",
   "admin.workflow.item.send-back": "Rinviare",
 
+  // "admin.workflow.item.return": "Return to pool",
+  "admin.workflow.item.return": "Restituisci al pool",
+
   // "admin.workflow.item.policies": "Policies",
   "admin.workflow.item.policies": "Policy",
 

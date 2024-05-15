@@ -668,6 +668,7 @@
   "admin.workflow.breadcrumbs": "Διαχείριση ροής εργασιών",
   "admin.workflow.item.delete": "Διαγραφή",
   "admin.workflow.item.send-back": "Επιστροφή",
+  "admin.workflow.item.return": "Επιστροφή στο pool",
   "admin.workflow.item.workflow": "Ροή εργασιών",
   "admin.workflow.title": "Διαχείριση ροής εργασιών",
   "administrativeView.search.results.head": "Αναζήτηση Διαχειριστή",
