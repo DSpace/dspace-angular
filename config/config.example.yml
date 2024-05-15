@@ -21,8 +21,8 @@ universal:
   # Whether to inline "critical" styles into the server-side rendered HTML.
   # Determining which styles are critical is a relatively expensive operation;
   # this option can be disabled to boost server performance at the expense of
-  # loading smoothness.
-  inlineCriticalCss: true
+  # loading smoothness. For improved SSR performance, DSpace defaults this to false (disabled).
+  inlineCriticalCss: false
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
