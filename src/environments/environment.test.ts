@@ -472,7 +472,7 @@ export const environment: BuildConfig = {
   },
   addToAnyPlugin: {
     scriptUrl: 'https://static.addtoany.com/menu/page.js',
-    socialNetworksEnabled: false,
+    socialNetworksEnabled: true,
     buttons: ['btn1', 'btn2'],
     showPlusButton: true,
     showCounters: true,
