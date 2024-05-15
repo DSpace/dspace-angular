@@ -47,7 +47,7 @@ describe('SubmissionJsonPatchOperationsService', () => {
       expect(resultURL.searchParams.get('embed')).toEqual('item');
 
       // if we delete the embed item param, it should be identical to the original url
-      resultURL.searchParams.delete('embed', 'item');
+      resultURL.searchParams.delete('embed');
       expect(href).toEqual(resultURL.toString());
     });
   });
