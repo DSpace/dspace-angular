@@ -1434,7 +1434,11 @@
 
   "community.edit.logo.delete.title": "Delete logo",
 
+  "community-collection.edit.logo.delete.title": "Confirm deletion",
+
   "community.edit.logo.delete-undo.title": "Undo delete",
+
+  "community-collection.edit.logo.delete-undo.title": "Undo delete",
 
   "community.edit.logo.label": "Community logo",
 
@@ -1803,6 +1807,8 @@
   "confirmation-modal.delete-eperson.cancel": "Cancel",
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
+
+  "confirmation-modal.delete-community-collection-logo.info": "Are you sure you want to delete the logo?",
 
   "confirmation-modal.delete-profile.header": "Delete Profile",
 
@@ -3554,7 +3560,7 @@
 
   "quality-assurance.event.action.ignore": "Ignore suggestion",
 
-  "quality-assurance.event.action.undo": "DELETE",
+  "quality-assurance.event.action.undo": "Delete",
 
   "quality-assurance.event.action.reject": "Reject suggestion",
 
@@ -4247,6 +4253,8 @@
   "resource-policies.form.description.label": "Description",
 
   "resource-policies.form.name.label": "Name",
+
+  "resource-policies.form.name.hint": "Max 30 characters",
 
   "resource-policies.form.policy-type.label": "Select the policy type",
 

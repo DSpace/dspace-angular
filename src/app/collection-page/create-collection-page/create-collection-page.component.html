@@ -6,8 +6,8 @@
     </div>
   </div>
   <ds-collection-form (submitForm)="onSubmit($event)"
-                      (back)="navigateToHome()"
-                      (finish)="navigateToNewPage()"></ds-collection-form>
+                      [isCreation]="true"
+                      (back)="navigateToHome()"></ds-collection-form>
 </div>
 
 <div class="container">
