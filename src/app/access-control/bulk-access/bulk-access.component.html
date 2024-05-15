@@ -7,12 +7,12 @@
 
   <div class="d-flex justify-content-end">
     <button class="btn btn-outline-primary mr-3" (click)="reset()">
-      <i class="fas fa-times"></i>
-      &nbsp;{{ 'access-control-cancel' | translate }}
+      <i class="fas fa-times mr-1"></i>
+      {{ 'access-control-cancel' | translate }}
     </button>
     <button class="btn btn-primary" [disabled]="!canExport()" (click)="submit()">
-      <i class="fas fa-cogs"></i>
-      &nbsp;{{ 'access-control-execute' | translate }}
+      <i class="fas fa-cogs mr-1"></i>
+      {{ 'access-control-execute' | translate }}
     </button>
   </div>
 </div>
