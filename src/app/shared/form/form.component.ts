@@ -53,9 +53,9 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() displaySubmit = true;
 
   /**
-   * A boolean that indicate if to display form's cancel button
+   * A boolean that indicate if to display form's reset button
    */
-  @Input() displayCancel = true;
+  @Input() displayReset = true;
 
   /**
    * A String that indicate the entity type of the item
@@ -78,9 +78,9 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() submitLabel = 'form.submit';
 
   /**
-   * i18n key for the cancel button
+   * i18n key for the reset button
    */
-  @Input() cancelLabel = 'form.cancel';
+  @Input() resetLabel = 'form.reset';
 
   /**
    * An array of DynamicFormControlModel type

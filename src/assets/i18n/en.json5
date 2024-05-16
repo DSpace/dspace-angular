@@ -2407,6 +2407,8 @@
 
   "form.cancel": "Cancel",
 
+  "form.reset": "Reset",
+
   "form.clear": "Clear",
 
   "form.clear-help": "Click here to remove the selected value",
@@ -7289,6 +7291,10 @@
   "access-control-bitstreams-selected": "bitstreams selected",
 
   "access-control-cancel": "Cancel",
+
+  "access-control-reset": "Reset",
+
+  "access-control-back": "Back",
 
   "access-control-execute": "Execute",
 
