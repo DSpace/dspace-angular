@@ -1,12 +1,8 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { NO_ERRORS_SCHEMA, InjectionToken } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -14,23 +10,34 @@ import { RequestEntryState } from '../../../../../core/data/request-entry-state.
 import { Item } from '../../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
-import {
-  getWorkflowItemDeleteRoute,
-  getWorkflowItemSendBackRoute,
-} from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { getWorkflowItemDeleteRoute, getWorkflowItemSendBackRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin-workflow-actions.component';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { RequestService } from '../../../../../core/data/request.service';
+import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
+import { SearchService } from '../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import { ClaimedTaskDataService } from '../../../../../core/tasks/claimed-task-data.service';
+import { PoolTaskDataService } from '../../../../../core/tasks/pool-task-data.service';
+import { environment } from '../../../../../../environments/environment';
+import { By } from '@angular/platform-browser';
+import {APP_CONFIG, APP_DATA_SERVICES_MAP} from "../../../../../../config/app-config.interface";
+import {Angulartics2, RouterlessTracking} from "angulartics2";
 
 describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   let component: WorkflowItemAdminWorkflowActionsComponent;
   let fixture: ComponentFixture<WorkflowItemAdminWorkflowActionsComponent>;
-  let id;
-  let wfi;
-  let item = new Item();
-  item.uuid = 'itemUUID1111';
-  const rd = new RemoteData(undefined, undefined, undefined, RequestEntryState.Success, undefined, item, 200);
+  let id: string;
+  let wfi: WorkflowItem;
+  let item: Item;
+  let rd: RemoteData<Item>;
 
   function init() {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
+    item = new Item();
+    item.uuid = 'itemUUID1111';
+    rd = new RemoteData(undefined, undefined, undefined, RequestEntryState.Success, undefined, item, 200);
     wfi = new WorkflowItem();
     wfi.id = id;
     wfi.item = of(rd);
@@ -42,11 +49,25 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        StoreModule.forRoot({}),
         WorkflowItemAdminWorkflowActionsComponent,
       ],
+      providers: [
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: RouterlessTracking, useValue: { trackLocation: () => {} } },
+        { provide: Angulartics2, useValue: { startTracking: () => {} } },
+        NotificationsService,
+        LinkService,
+        RequestService,
+        ObjectCacheService,
+        SearchService,
+        SearchConfigurationService,
+        ClaimedTaskDataService,
+        PoolTaskDataService,
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -71,5 +92,4 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
     const link = a.nativeElement.href;
     expect(link).toContain(new URLCombiner(getWorkflowItemSendBackRoute(wfi.id)).toString());
   });
-
 });
