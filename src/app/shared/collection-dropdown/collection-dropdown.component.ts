@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -9,7 +14,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   BehaviorSubject,
   from as observableFrom,
@@ -40,6 +51,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
 import { hasValue } from '../empty.util';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { followLink } from '../utils/follow-link-config.model';
 
 /**
@@ -60,9 +72,11 @@ export interface CollectionListEntry {
 }
 
 @Component({
-  selector: 'ds-collection-dropdown',
+  selector: 'ds-base-collection-dropdown',
   templateUrl: './collection-dropdown.component.html',
   styleUrls: ['./collection-dropdown.component.scss'],
+  standalone: true,
+  imports: [NgIf, FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class CollectionDropdownComponent implements OnInit, OnDestroy {
 

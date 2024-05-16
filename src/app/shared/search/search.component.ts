@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -12,6 +17,7 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
@@ -48,7 +54,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../animations/push';
 import {
   hasValue,
@@ -59,22 +65,41 @@ import {
 import { HostWindowService } from '../host-window.service';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
+import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { followLink } from '../utils/follow-link-config.model';
 import { currentPath } from '../utils/route.utils';
+import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { PaginatedSearchOptions } from './models/paginated-search-options.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchResult } from './models/search-result.model';
+import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';
+import { ThemedSearchResultsComponent } from './search-results/themed-search-results.component';
+import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 @Component({
-  selector: 'ds-search',
+  selector: 'ds-base-search',
   styleUrls: ['./search.component.scss'],
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    NgIf,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    SearchLabelsComponent,
+    ViewModeSwitchComponent,
+  ],
 })
 
 /**
@@ -342,7 +367,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     }
 
     this.currentScope$ = this.routeService.getQueryParameterValue('scope').pipe(
-      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope),
+      map((routeValue: string) => hasValue(routeValue) ? routeValue : this.scope ?? ''),
     );
 
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
@@ -463,7 +488,6 @@ export class SearchComponent implements OnDestroy, OnInit {
    * @private
    */
   private retrieveFilters(searchOptions: PaginatedSearchOptions) {
-    this.filtersRD$.next(null);
     this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {

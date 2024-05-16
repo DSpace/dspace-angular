@@ -1,10 +1,15 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -24,13 +29,27 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { fadeIn } from '../../../../shared/animations/fade';
 import { hasValue } from '../../../../shared/empty.util';
+import { ErrorComponent } from '../../../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 
 @Component({
-  selector: 'ds-community-page-sub-collection-list',
+  selector: 'ds-base-community-page-sub-collection-list',
   styleUrls: ['./community-page-sub-collection-list.component.scss'],
   templateUrl: './community-page-sub-collection-list.component.html',
-  animations:[fadeIn],
+  animations: [fadeIn],
+  imports: [
+    ObjectCollectionComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    NgIf,
+    TranslateModule,
+    AsyncPipe,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class CommunityPageSubCollectionListComponent implements OnInit, OnDestroy {
   @Input() community: Community;

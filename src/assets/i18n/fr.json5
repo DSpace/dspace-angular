@@ -176,7 +176,8 @@
 
   // "admin.registries.bitstream-formats.table.name": "Name",
   "admin.registries.bitstream-formats.table.name": "Nom",
-  // TODO New key - Add a translation
+
+  // "admin.registries.bitstream-formats.table.id": "ID",
   "admin.registries.bitstream-formats.table.id": "ID",
 
   // "admin.registries.bitstream-formats.table.return": "Back",
@@ -253,7 +254,8 @@
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Champ",
-  // TODO New key - Add a translation
+
+  // "admin.registries.schema.fields.table.id": "ID",
   "admin.registries.schema.fields.table.id": "ID",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
@@ -312,6 +314,33 @@
 
   // "admin.registries.schema.title": "Metadata Schema Registry",
   "admin.registries.schema.title": "Registre des schémas de métadonnées",
+
+  //"admin.access-control.bulk-access.breadcrumbs": "Bulk Access Management",
+  "admin.access-control.bulk-access.breadcrumbs": "Gestion des accès en lot",
+
+  //"administrativeBulkAccess.search.results.head": "Search Results",
+  "administrativeBulkAccess.search.results.head": "Résultats de recherche",
+
+  //"admin.access-control.bulk-access": "Bulk Access Management",
+  "admin.access-control.bulk-access": "Gestion des accès en lot",
+
+  //"admin.access-control.bulk-access.title": "Bulk Access Management",
+  "admin.access-control.bulk-access.title": "Gestion des accès en lot",
+
+
+  //"admin.access-control.bulk-access-browse.header": "Step 1: Select Objects",
+  "admin.access-control.bulk-access-browse.header": "Étape 1 : Sélectionner les objets",
+
+  //"admin.access-control.bulk-access-browse.search.header": "Search",
+  "admin.access-control.bulk-access-browse.search.header": "Chercher",
+
+
+  //"admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
+  "admin.access-control.bulk-access-browse.selected.header": "Sélection actuelle({{number}})",
+
+
+  //"admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
+  "admin.access-control.bulk-access-settings.header": "Étape 2 : Opération à exécuter",
 
   // "admin.access-control.epeople.actions.delete": "Delete EPerson",
   "admin.access-control.epeople.actions.delete": "Supprimer un(e) EPerson",
@@ -749,9 +778,6 @@
   "admin.reports.collections.match_all_selected_filters": "Correspondant à tous les filtres sélectionnés",
 
 
-  //"admin.reports.items.title": "Metadata Query Report",
-  "admin.reports.items.title": "Rapport de requête de métadonnées",
-
   //"admin.reports.items.breadcrumbs": "Metadata Query Report",
   "admin.reports.items.breadcrumbs": "Requête de métadonnées",
 
@@ -1069,17 +1095,33 @@
   // "admin.metadata-import.breadcrumbs": "Import Metadata",
   "admin.metadata-import.breadcrumbs": "Importer Métadonnées",
 
+  //"admin.batch-import.breadcrumbs": "Import Batch",
+  "admin.batch-import.breadcrumbs": "Importation en lots",
+
   // "admin.metadata-import.title": "Import Metadata",
   "admin.metadata-import.title": "Importer Métadonnées",
 
   // "admin.metadata-import.page.header": "Import Metadata",
   "admin.metadata-import.page.header": "Importer Métadonnées",
 
+  //"admin.batch-import.page.header": "Import Batch",
+  "admin.batch-import.page.header": "Importation en lots",
+
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Vous pouvez glisser-déposer ou rechercher ici des fichiers CSV qui contiennent des opérations en lot sur les métadonnées",
 
+  //"admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  "admin.batch-import.page.help": "Sélectionner la collection dans laquelle importer les données. Ensuite, ajouter le fichier zip Simple Archive Format (SAF) contenant tous les Items à importer.",
+
+  //"admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
+  "admin.batch-import.page.toggle.help": "Il est possible d'effectuer l'importation en téléversant un fichier ou en utilisant un URL. Utiliser le bouton à bascule ci-dessus afin de sélectionner la source.",
+
   // "admin.metadata-import.page.dropMsg": "Drop a metadata CSV to import",
   "admin.metadata-import.page.dropMsg": "Déposer un fichier CSV à importer",
+
+  //"admin.batch-import.page.dropMsg": "Drop a batch ZIP to import",
+  "admin.batch-import.page.dropMsg": "Glisser/déposer un fichier zip à importer",
+
 
   // "admin.metadata-import.page.dropMsgReplace": "Drop to replace the metadata CSV to import",
   "admin.metadata-import.page.dropMsgReplace": "Déposer un nouveau fichier CSV pour remplacer le fichier à importer",
@@ -1090,8 +1132,26 @@
   // "admin.metadata-import.page.button.proceed": "Proceed",
   "admin.metadata-import.page.button.proceed": "Importer",
 
+  //"admin.metadata-import.page.button.select-collection": "Select Collection",
+  "admin.metadata-import.page.button.select-collection": "Sélectionner une collection",
+
   // "admin.metadata-import.page.error.addFile": "Select file first!",
   "admin.metadata-import.page.error.addFile": "Veuillez d'abord sélectionner un fichier",
+
+  //"admin.metadata-import.page.toggle.upload": "Upload",
+  "admin.metadata-import.page.toggle.upload": "Téléverser",
+
+  //"admin.metadata-import.page.validateOnly": "Validate Only",
+  "admin.metadata-import.page.validateOnly": "Valider seulement",
+
+  //"admin.metadata-import.page.validateOnly.hint": "When selected, the uploaded CSV will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.metadata-import.page.validateOnly.hint": "Si activé, le fichier CSV sera uniquement validé. Vous recevrez un rapport identifiant les changements détectés, mais aucun changement ne sera appliqué aux métadonnées.",
+
+  //"admin.batch-import.page.validateOnly.hint": "When selected, the uploaded ZIP will be validated. You will receive a report of detected changes, but no changes will be saved.",
+  "admin.batch-import.page.validateOnly.hint": "Si activé, le fichier ZIP SAF sera uniquement validé. Vous recevrez un rapport identifiant les changements détectés, mais aucun changement ne sera appliqué aux données.",
+
+  //"admin.batch-import.page.remove": "remove",
+  "admin.batch-import.page.remove": "supprimer",
 
   // "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.errors.invalid-user": "Adresse électronique ou mot de passe non valide.",
@@ -2186,6 +2246,15 @@
 
   // "dso-selector.placeholder": "Search for a {{ type }}",
   "dso-selector.placeholder": "Rechercher un(e) {{ type }}",
+
+  // "dso-selector.placeholder.type.community": "community",
+  "dso-selector.placeholder.type.community": "communauté",
+
+  // "dso-selector.placeholder.type.collection": "collection",
+  "dso-selector.placeholder.type.collection": "collection",
+
+  // "dso-selector.placeholder.type.item": "item",
+  "dso-selector.placeholder.type.item": "item",
 
   // "dso-selector.select.collection.head": "Select a collection",
   "dso-selector.select.collection.head": "Sélectionner une collection",
@@ -4871,6 +4940,9 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nom",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "30 caractères maximum",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Sélectionner le type de règle",
 
@@ -6402,9 +6474,6 @@
   //"workspace.search.results.head": "Your submissions",
   "workspace.search.results.head": "Vos dépôts",
 
-  // "workspace.search.results.head": "Your submissions",
-  "workspace.search.results.head": "Vos dépôts",
-
   // "workflowAdmin.search.results.head": "Administer Workflow",
   "workflowAdmin.search.results.head": "Workflow Administrateur",
 
@@ -6489,8 +6558,6 @@
   // "idle-modal.extend-session": "Extend session",
   "idle-modal.extend-session": "Prolonger la session",
 
-
-
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
   "system-wide-alert-banner.retrieval.error": "Une erreur s'est produite lors de la récupération de la bannière du message d'avertissement",
 
@@ -6562,6 +6629,63 @@
 
   //"admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Messages d'avertissement",
+
+  //"item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
+  "item-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès des métadonnées de l'Item et de ses Bitstreams.",
+
+  //"collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  "collection-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès de tous les Items de cette collection. Les changements peuvent être appliqués aux métadonnées des Items ou à leur contenu (Bitstreams).",
+
+  //"community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
+  "community-access-control-title": "Ce formulaire vous permet de changer les conditions d'accès de tous les Items de toutes les collections de cette communauté. Les changements peuvent être appliqués aux métadonnées des Items ou à leur contenu (Bitstreams).",
+
+  //"access-control-item-header-toggle": "Item's Metadata",
+  "access-control-item-header-toggle": "Métadonnées de l'Item",
+
+  //"access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
+  "access-control-item-toggle.enable": "Activer l'option permettant d'effectuer des modifications sur les métadonnées de l'Item",
+
+  //"access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
+  "access-control-item-toggle.disable": "Désactiver l'option permettant d'effectuer des modifications sur les métadonnées de l'Item",
+
+  //"access-control-bitstream-header-toggle": "Bitstreams",
+  "access-control-bitstream-header-toggle": "Bitstreams",
+
+  //"access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.enable": "Activer l'option permettant d'effectuer des modifications sur les Bitstreams",
+
+  //"access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
+  "access-control-bitstream-toggle.disable": "Désactiver l'option permettant d'effectuer des modifications sur les Bitstreams",
+
+  //"access-control-mode": "Mode",
+  "access-control-mode": "Mode",
+
+  //"access-control-access-conditions": "Access conditions",
+  "access-control-access-conditions": "Conditions d'accès",
+
+  //"access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
+  //"access-control-no-access-conditions-warning-message": "Aucune condition d'accès n'est spécifiée ci-dessous pour l'instant. Si exécuté, ceci remplacera les conditions d'accès actuelles par les conditions d'accès par défaut héritées de celles de la collection.",
+
+  //"access-control-replace-all": "Replace access conditions",
+  "access-control-replace-all": "Remplacer les conditions d'accès",
+
+  //"access-control-add-to-existing":"Add to existing ones",
+  "access-control-add-to-existing": "Ajouter aux conditions d'accès existantes",
+
+  //"access-control-limit-to-specific": "Limit the changes to specific bitstreams",
+  "access-control-limit-to-specific": "Limiter les modifications à des Bitstreams spécifiques",
+
+  //"access-control-process-all-bitstreams": "Update all the bitstreams in the item",
+  "access-control-process-all-bitstreams": "Mise à jour de tous les Bitstreams de l'Item",
+
+  //"access-control-bitstreams-selected": "bitstreams selected",
+  "access-control-bitstreams-selected": "Bitstreams sélectionnés",
+
+  //"access-control-bitstreams-select": "Select bitstreams",
+  "access-control-bitstreams-select": "Sélectionner les Bitstreams",
+
+  //"access-control-cancel": "Cancel",
+  "access-control-cancel": "Annuler",
 
 
 }

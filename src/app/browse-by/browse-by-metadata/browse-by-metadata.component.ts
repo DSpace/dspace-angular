@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   Input,
@@ -11,6 +15,7 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -19,6 +24,7 @@ import {
   Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
   APP_CONFIG,
@@ -39,14 +45,21 @@ import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Context } from '../../core/shared/context.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
+import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { StartsWithType } from '../../shared/starts-with/starts-with-type';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
-import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -54,6 +67,21 @@ export const BBM_PAGINATION_ID = 'bbm';
   selector: 'ds-browse-by-metadata',
   styleUrls: ['./browse-by-metadata.component.scss'],
   templateUrl: './browse-by-metadata.component.html',
+  imports: [
+    VarDirective,
+    AsyncPipe,
+    ComcolPageHeaderComponent,
+    ComcolPageLogoComponent,
+    NgIf,
+    ThemedComcolPageHandleComponent,
+    ThemedComcolPageContentComponent,
+    DsoEditMenuComponent,
+    ThemedComcolPageBrowseByComponent,
+    TranslateModule,
+    ThemedLoadingComponent,
+    ThemedBrowseByComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component for browsing (items) by metadata definition.
@@ -61,7 +89,6 @@ export const BBM_PAGINATION_ID = 'bbm';
  * or multiple metadata fields.  An example would be 'author' for
  * 'dc.contributor.*'
  */
-@rendersBrowseBy(BrowseByDataType.Metadata)
 export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
   /**
@@ -197,7 +224,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
         this.browseId = params.id || this.defaultBrowseId;
         this.authority = params.authority;
 
-        if (typeof params.value === 'string'){
+        if (typeof params.value === 'string') {
           this.value = params.value.trim();
         } else {
           this.value = '';
@@ -207,7 +234,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
           this.startsWith = undefined;
         }
 
-        if (typeof params.startsWith === 'string'){
+        if (typeof params.startsWith === 'string') {
           this.startsWith = params.startsWith.trim();
         }
 

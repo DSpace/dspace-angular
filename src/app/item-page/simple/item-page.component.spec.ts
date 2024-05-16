@@ -26,14 +26,16 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { ItemDataService } from '../../core/data/item-data.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
-import { MetadataService } from '../../core/metadata/metadata.service';
 import {
   LinkDefinition,
   LinkHeadService,
 } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
@@ -43,8 +45,14 @@ import {
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
 import { ItemPageComponent } from './item-page.component';
 import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
+import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -83,12 +91,6 @@ describe('ItemPageComponent', () => {
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
 
-  const mockMetadataService = {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    processRemoteData: () => {
-    },
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
   });
@@ -128,12 +130,10 @@ describe('ItemPageComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      }), BrowserAnimationsModule],
-      declarations: [ItemPageComponent, VarDirective],
+      }), BrowserAnimationsModule, ItemPageComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
@@ -143,10 +143,20 @@ describe('ItemPageComponent', () => {
         { provide: NotifyInfoService, useValue: notifyInfoService },
         { provide: PLATFORM_ID, useValue: 'server' },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemPageComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [
+        ThemedItemAlertsComponent,
+        ItemVersionsNoticeComponent,
+        ViewTrackerComponent,
+        ListableObjectComponentLoaderComponent,
+        ItemVersionsComponent,
+        ErrorComponent,
+        ThemedLoadingComponent,
+        NotifyRequestsStatusComponent,
+        QaEventNotificationComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -164,7 +174,7 @@ describe('ItemPageComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });

@@ -52,8 +52,7 @@ describe('DsDynamicDisabledComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicDisabledComponent],
-      imports: [FormsModule, TranslateModule.forRoot()],
+      imports: [FormsModule, TranslateModule.forRoot(), DsDynamicDisabledComponent],
       providers: [
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },

@@ -1,25 +1,38 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
   Input,
   Output,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdownModule,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { Suggestion } from '../../core/notifications/models/suggestion.model';
 import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-list-element.component';
+import { ThemedCreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import { EntityDropdownComponent } from '../../shared/entity-dropdown/entity-dropdown.component';
+import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-approve-and-import';
 
 /**
  * Show and trigger the actions to submit for a suggestion
  */
 @Component({
   selector: 'ds-suggestion-actions',
-  styleUrls: [ './suggestion-actions.component.scss' ],
+  styleUrls: ['./suggestion-actions.component.scss'],
   templateUrl: './suggestion-actions.component.html',
+  imports: [
+    EntityDropdownComponent,
+    TranslateModule,
+    NgIf,
+    NgbDropdownModule,
+  ],
+  standalone: true,
 })
 export class SuggestionActionsComponent {
 
@@ -56,7 +69,7 @@ export class SuggestionActionsComponent {
    */
   openDialog(entity: ItemType) {
 
-    const modalRef = this.modalService.open(CreateItemParentSelectorComponent);
+    const modalRef = this.modalService.open(ThemedCreateItemParentSelectorComponent);
     modalRef.componentInstance.emitOnly = true;
     modalRef.componentInstance.entityType = entity.label;
 

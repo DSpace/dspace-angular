@@ -17,7 +17,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core-state.model';
-import { dataService } from '../data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -41,8 +40,7 @@ import { WorkspaceItem } from './models/workspaceitem.model';
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
-@Injectable()
-@dataService(WorkspaceItem.type)
+@Injectable({ providedIn: 'root' })
 export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements DeleteData<WorkspaceItem>, SearchData<WorkspaceItem>{
   protected linkPath = 'workspaceitems';
   protected searchByItemLinkPath = 'item';
@@ -92,7 +90,7 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
    */
   public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
     const findListOptions = new FindListOptions();
-    findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
+    findListOptions.searchParams = [new RequestParam('uuid', uuid)];
     const href$ = this.getIDHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }

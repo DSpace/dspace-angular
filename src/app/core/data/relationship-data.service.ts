@@ -54,11 +54,11 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { MetadataService } from '../metadata/metadata.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
-import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { MetadataValue } from '../shared/metadata.models';
 import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
@@ -72,7 +72,6 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import {
   PutData,
@@ -120,8 +119,7 @@ const compareItemsByUUID = (itemCheck: Item) =>
 /**
  * The service handling all relationship requests
  */
-@Injectable()
-@dataService(RELATIONSHIP)
+@Injectable({ providedIn: 'root' })
 export class RelationshipDataService extends IdentifiableDataService<Relationship> implements SearchData<Relationship> {
   private searchData: SearchData<Relationship>;
   private putData: PutData<Relationship>;
@@ -131,6 +129,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
+    protected metadataService: MetadataService,
     protected itemService: ItemDataService,
     protected appStore: Store<AppState>,
     @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
@@ -534,40 +533,18 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param arrayOfItemIds The uuid of the items to be found on the other side of returned relationships
    */
   searchByItemsAndType(typeId: string,itemUuid: string,relationshipLabel: string, arrayOfItemIds: string[] ): Observable<RemoteData<PaginatedList<Relationship>>> {
-
-    const searchParams = [
-      {
-        fieldName: 'typeId',
-        fieldValue: typeId,
-      },
-      {
-        fieldName: 'focusItem',
-        fieldValue: itemUuid,
-      },
-      {
-        fieldName: 'relationshipLabel',
-        fieldValue: relationshipLabel,
-      },
-      {
-        fieldName: 'size',
-        fieldValue: arrayOfItemIds.length,
-      },
-      {
-        fieldName: 'embed',
-        fieldValue: 'leftItem',
-      },
-      {
-        fieldName: 'embed',
-        fieldValue: 'rightItem',
-      },
+    const searchParams: RequestParam[] = [
+      new RequestParam('typeId', typeId),
+      new RequestParam('focusItem', itemUuid),
+      new RequestParam('relationshipLabel', relationshipLabel),
+      new RequestParam('size', arrayOfItemIds.length),
+      new RequestParam('embed', 'leftItem'),
+      new RequestParam('embed', 'rightItem'),
     ];
 
     arrayOfItemIds.forEach( (itemId) => {
       searchParams.push(
-        {
-          fieldName: 'relatedItem',
-          fieldValue: itemId,
-        },
+        new RequestParam('relatedItem', itemId),
       );
     });
 
@@ -605,8 +582,8 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param itemType    The type of item this metadata value represents (will only be used when no related item can be found, as a fallback)
    */
   resolveMetadataRepresentation(metadatum: MetadataValue, parentItem: DSpaceObject, itemType: string): Observable<MetadataRepresentation> {
-    if (metadatum.isVirtual) {
-      return this.findById(metadatum.virtualValue, true, false, followLink('leftItem'), followLink('rightItem')).pipe(
+    if (this.metadataService.isVirtual(metadatum)) {
+      return this.findById(this.metadataService.virtualValue(metadatum), true, false, followLink('leftItem'), followLink('rightItem')).pipe(
         getFirstSucceededRemoteData(),
         switchMap((relRD: RemoteData<Relationship>) =>
           observableCombineLatest(relRD.payload.leftItem, relRD.payload.rightItem).pipe(

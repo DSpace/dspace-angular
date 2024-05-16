@@ -1,9 +1,17 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -28,11 +36,15 @@ import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
 } from '../../../../../core/shared/operators';
+import { AlertComponent } from '../../../../alert/alert.component';
 import {
   hasNoValue,
   hasValue,
 } from '../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { NotificationsService } from '../../../../notifications/notifications.service';
+import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';
+import { VarDirective } from '../../../../utils/var.directive';
 
 /**
  * Component for managing a community or collection role.
@@ -41,6 +53,17 @@ import { NotificationsService } from '../../../../notifications/notifications.se
   selector: 'ds-comcol-role',
   styleUrls: ['./comcol-role.component.scss'],
   templateUrl: './comcol-role.component.html',
+  imports: [
+    ThemedLoadingComponent,
+    AlertComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+    RouterLink,
+    VarDirective,
+    HasNoValuePipe,
+  ],
+  standalone: true,
 })
 export class ComcolRoleComponent implements OnInit {
 
@@ -48,7 +71,7 @@ export class ComcolRoleComponent implements OnInit {
    * The community or collection to manage.
    */
   @Input()
-    dso: Community | Collection;
+  dso: Community | Collection;
 
   /**
    * The role to manage

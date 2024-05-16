@@ -1,10 +1,15 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -26,15 +31,31 @@ import { Item } from '../../core/shared/item.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
+import { ThemedMediaViewerImageComponent } from './media-viewer-image/themed-media-viewer-image.component';
+import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-media-viewer-video.component';
 
 /**
  * This component renders the media viewers
  */
 @Component({
-  selector: 'ds-media-viewer',
+  selector: 'ds-base-media-viewer',
   templateUrl: './media-viewer.component.html',
   styleUrls: ['./media-viewer.component.scss'],
+  imports: [
+    ThemedMediaViewerImageComponent,
+    ThemedThumbnailComponent,
+    AsyncPipe,
+    NgIf,
+    ThemedMediaViewerVideoComponent,
+    TranslateModule,
+    ThemedLoadingComponent,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class MediaViewerComponent implements OnDestroy, OnInit {
   @Input() item: Item;

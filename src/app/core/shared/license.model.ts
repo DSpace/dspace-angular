@@ -16,11 +16,11 @@ export class License extends DSpaceObject {
    * Is the license custom?
    */
   @autoserialize
-    custom: boolean;
+  custom: boolean;
 
   /**
    * The text of the license
    */
   @autoserialize
-    text: string;
+  text: string;
 }

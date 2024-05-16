@@ -14,6 +14,8 @@ import { of as observableOf } from 'rxjs';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../../shared/form/form.component';
+import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { MetadataSchemaFormComponent } from './metadata-schema-form.component';
 
@@ -44,14 +46,19 @@ describe('MetadataSchemaFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [MetadataSchemaFormComponent, EnumKeysPipe],
+      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, MetadataSchemaFormComponent, EnumKeysPipe],
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
-        { provide: FormBuilderService, useValue: formBuilderServiceStub },
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(MetadataSchemaFormComponent, {
+        remove: {
+          imports: [FormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

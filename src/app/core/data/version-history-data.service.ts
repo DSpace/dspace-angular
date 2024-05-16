@@ -32,8 +32,6 @@ import {
 import { sendRequest } from '../shared/request.operators';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
-import { VERSION_HISTORY } from '../shared/version-history.resource-type';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
@@ -46,8 +44,7 @@ import { VersionDataService } from './version-data.service';
 /**
  * Service responsible for handling requests related to the VersionHistory object
  */
-@Injectable()
-@dataService(VERSION_HISTORY)
+@Injectable({ providedIn: 'root' })
 export class VersionHistoryDataService extends IdentifiableDataService<VersionHistory> {
   protected versionsEndpoint = 'versions';
 

@@ -24,38 +24,38 @@ export class SuggestionTarget implements CacheableObject {
    * The Suggestion Target id
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The Suggestion Target name to display
    */
   @autoserialize
-    display: string;
+  display: string;
 
   /**
    * The Suggestion Target source to display
    */
   @autoserialize
-    source: string;
+  source: string;
 
   /**
    * The total number of suggestions provided by Suggestion Target for
    */
   @autoserialize
-    total: number;
+  total: number;
 
   /**
    * The type of this ConfigObject
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink,
     suggestions: HALLink,
     target: HALLink

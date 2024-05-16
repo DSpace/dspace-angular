@@ -1,17 +1,25 @@
 import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
 import {
-  ControlContainer,
+  FormsModule,
   NgForm,
 } from '@angular/forms';
 import {
   NavigationExtras,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -23,6 +31,9 @@ import { Process } from '../processes/process.model';
 import { ProcessParameter } from '../processes/process-parameter.model';
 import { Script } from '../scripts/script.model';
 import { ScriptParameter } from '../scripts/script-parameter.model';
+import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
+import { ScriptHelpComponent } from './script-help/script-help.component';
+import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 
 /**
  * Component to create a new script
@@ -31,6 +42,8 @@ import { ScriptParameter } from '../scripts/script-parameter.model';
   selector: 'ds-process-form',
   templateUrl: './process-form.component.html',
   styleUrls: ['./process-form.component.scss'],
+  standalone: true,
+  imports: [FormsModule, ScriptsSelectComponent, ProcessParametersComponent, RouterLink, ScriptHelpComponent, NgIf, NgFor, TranslateModule],
 })
 export class ProcessFormComponent implements OnInit {
   /**
@@ -164,8 +177,27 @@ export class ProcessFormComponent implements OnInit {
     };
     void this.router.navigate([getProcessListRoute()], extras);
   }
-}
 
-export function controlContainerFactory(controlContainer?: ControlContainer) {
-  return controlContainer;
+  updateScript($event: Script) {
+    this.selectedScript = $event;
+    this.parameters = undefined;
+  }
+
+  get generatedProcessName() {
+    const paramsString = this.parameters?.map((p: ProcessParameter) => {
+      const value = this.parseValue(p.value);
+      return isEmpty(value) ? p.name : `${p.name} ${value}`;
+    }).join(' ') || '';
+    return isEmpty(paramsString) ? this.selectedScript.name : `${this.selectedScript.name} ${paramsString}`;
+  }
+
+  private parseValue(value: any) {
+    if (typeof value === 'boolean') {
+      return undefined;
+    }
+    if (value instanceof File) {
+      return value.name;
+    }
+    return value?.toString();
+  }
 }

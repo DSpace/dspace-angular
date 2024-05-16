@@ -20,30 +20,30 @@ export class WorkflowAction extends DSpaceObject {
    * The workflow action's identifier
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The options available for this workflow action
    */
   @autoserialize
-    options: string[];
+  options: string[];
 
   /**
    * Whether this action has advanced options
    */
   @autoserialize
-    advanced: boolean;
+  advanced: boolean;
 
   /**
    * The advanced options that the user can select at this action
    */
   @autoserialize
-    advancedOptions: string[];
+  advancedOptions: string[];
 
   /**
    * The advanced info required by the advanced options
    */
   @autoserialize
-    advancedInfo: AdvancedWorkflowInfo[];
+  advancedInfo: AdvancedWorkflowInfo[];
 
 }

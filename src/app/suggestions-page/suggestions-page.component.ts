@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -6,8 +11,12 @@ import {
   ActivatedRoute,
   Data,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -35,20 +44,38 @@ import { redirectOn4xx } from '../core/shared/authorized.operators';
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
+import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
+import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 import {
   SuggestionBulkResult,
   SuggestionsService,
 } from '../notifications/suggestions.service';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../shared/utils/var.directive';
 import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 @Component({
   selector: 'ds-suggestion-page',
   templateUrl: './suggestions-page.component.html',
   styleUrls: ['./suggestions-page.component.scss'],
+  imports: [
+    AsyncPipe,
+    VarDirective,
+    NgIf,
+    RouterLink,
+    TranslateModule,
+    SuggestionActionsComponent,
+    ThemedLoadingComponent,
+    PaginationComponent,
+    SuggestionListElementComponent,
+    NgForOf,
+  ],
+  standalone: true,
 })
 
 /**

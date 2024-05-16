@@ -17,6 +17,13 @@ ui:
   # Trust X-FORWARDED-* headers from proxies (default = true)
   useProxies: true
 
+universal:
+  # Whether to inline "critical" styles into the server-side rendered HTML.
+  # Determining which styles are critical is a relatively expensive operation;
+  # this option can be disabled to boost server performance at the expense of
+  # loading smoothness.
+  inlineCriticalCss: true
+
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
 # 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
@@ -195,6 +202,12 @@ languages:
   - code: en
     label: English
     active: true
+  - code: ar
+    label: العربية
+    active: true
+  - code: bn
+    label: বাংলা
+    active: true
   - code: ca
     label: Català
     active: true
@@ -204,8 +217,14 @@ languages:
   - code: de
     label: Deutsch
     active: true
+  - code: el
+    label: Ελληνικά
+    active: true
   - code: es
     label: Español
+    active: true
+  - code: fi
+    label: Suomi
     active: true
   - code: fr
     label: Français
@@ -213,14 +232,20 @@ languages:
   - code: gd
     label: Gàidhlig
     active: true
-  - code: it
-    label: Italiano
-    active: true
-  - code: lv
-    label: Latviešu
+  - code: hi
+    label: हिंदी
     active: true
   - code: hu
     label: Magyar
+    active: true
+  - code: it
+    label: Italiano
+    active: true
+  - code: kk
+    label: Қазақ
+    active: true
+  - code: lv
+    label: Latviešu
     active: true
   - code: nl
     label: Nederlands
@@ -237,8 +262,8 @@ languages:
   - code: sr-lat
     label: Srpski (lat)
     active: true
-  - code: fi
-    label: Suomi
+  - code: sr-cyr
+    label: Српски
     active: true
   - code: sv
     label: Svenska
@@ -246,26 +271,11 @@ languages:
   - code: tr
     label: Türkçe
     active: true
-  - code: vi
-    label: Tiếng Việt
-    active: true
-  - code: kk
-    label: Қазақ
-    active: true
-  - code: bn
-    label: বাংলা
-    active: true
-  - code: hi
-    label: हिंदी
-    active: true
-  - code: el
-    label: Ελληνικά
-    active: true
-  - code: sr-cyr
-    label: Српски
-    active: true
   - code: uk
     label: Yкраї́нська
+    active: true
+  - code: vi
+    label: Tiếng Việt
     active: true
 
 
@@ -400,10 +410,11 @@ mediaViewer:
 
 # Whether the end user agreement is required before users use the repository.
 # If enabled, the user will be required to accept the agreement before they can use the repository.
-# And whether the privacy statement should exist or not.
+# And whether the privacy statement/COAR notify support page should exist or not.
 info:
   enableEndUserAgreement: true
   enablePrivacyStatement: true
+  enableCOARNotifySupport: true
 
 # Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
 # display in supported metadata fields. By default, only dc.description.abstract is supported.

@@ -23,6 +23,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';
 import { BatchImportPageComponent } from './batch-import-page.component';
@@ -58,8 +59,8 @@ describe('BatchImportPageComponent', () => {
         FormsModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        BatchImportPageComponent, FileValueAccessorDirective, FileValidator,
       ],
-      declarations: [BatchImportPageComponent, FileValueAccessorDirective, FileValidator],
       providers: [
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
@@ -67,7 +68,13 @@ describe('BatchImportPageComponent', () => {
         { provide: Location, useValue: locationStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(BatchImportPageComponent, {
+        remove: {
+          imports: [FileDropzoneNoUploaderComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

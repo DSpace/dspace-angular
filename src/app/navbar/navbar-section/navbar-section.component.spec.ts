@@ -20,19 +20,13 @@ describe('NavbarSectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [NavbarSectionComponent, TestComponent],
+      imports: [NoopAnimationsModule, NavbarSectionComponent, TestComponent],
       providers: [
         { provide: 'sectionDataProvider', useValue: {} },
         { provide: MenuService, useValue: menuService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
       ],
-    }).overrideComponent(NavbarSectionComponent, {
-      set: {
-        entryComponents: [TestComponent],
-      },
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -53,6 +47,7 @@ describe('NavbarSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 }

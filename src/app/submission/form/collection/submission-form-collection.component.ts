@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -9,6 +10,8 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -31,6 +34,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operato
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
+import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import {
   hasValue,
   isNotEmpty,
@@ -46,6 +50,13 @@ import { SubmissionService } from '../../submission.service';
   selector: 'ds-submission-form-collection',
   styleUrls: ['./submission-form-collection.component.scss'],
   templateUrl: './submission-form-collection.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    TranslateModule,
+    NgbDropdownModule,
+    ThemedCollectionDropdownComponent,
+  ],
 })
 export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
@@ -155,7 +166,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
-    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.collection);
+    this.available$ = this.sectionsService.isSectionTypeAvailable(this.submissionId, SectionsType.Collection);
   }
 
   /**

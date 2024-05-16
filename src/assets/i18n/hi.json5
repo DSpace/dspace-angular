@@ -3854,6 +3854,10 @@
 
   "resource-policies.form.name.label": "नाम",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   "resource-policies.form.policy-type.label": "नीति प्रकार चुनें",
 
   "resource-policies.form.policy-type.required": "आपको संसाधन नीति प्रकार का चयन करना होगा।",

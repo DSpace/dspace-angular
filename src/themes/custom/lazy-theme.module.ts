@@ -10,51 +10,9 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { IdlePreloadModule } from 'angular-idle-preload';
-import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 
-import { AdminRegistriesModule } from '../../app/admin/admin-registries/admin-registries.module';
-import { BitstreamFormatsModule } from '../../app/admin/admin-registries/bitstream-formats/bitstream-formats.module';
-import { AdminSearchModule } from '../../app/admin/admin-search-page/admin-search.module';
-import { AdminWorkflowModuleModule } from '../../app/admin/admin-workflow-page/admin-workflow.module';
-import { AppModule } from '../../app/app.module';
-import { BrowseByModule } from '../../app/browse-by/browse-by.module';
-import { CollectionFormModule } from '../../app/collection-page/collection-form/collection-form.module';
-import { CollectionPageModule } from '../../app/collection-page/collection-page.module';
-import { CommunityListPageModule } from '../../app/community-list-page/community-list-page.module';
-import { CommunityFormModule } from '../../app/community-page/community-form/community-form.module';
-import { CommunityPageModule } from '../../app/community-page/community-page.module';
-import { CoreModule } from '../../app/core/core.module';
-import { DsoSharedModule } from '../../app/dso-shared/dso-shared.module';
-import { JournalEntitiesModule } from '../../app/entity-groups/journal-entities/journal-entities.module';
-import { ResearchEntitiesModule } from '../../app/entity-groups/research-entities/research-entities.module';
-import { HomePageModule } from '../../app/home-page/home-page.module';
-import { InfoModule } from '../../app/info/info.module';
-import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
-import { ItemPageModule } from '../../app/item-page/item-page.module';
-import { ItemSharedModule } from '../../app/item-page/item-shared.module';
-import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
-import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
-import { MyDspaceSearchModule } from '../../app/my-dspace-page/my-dspace-search.module';
-import { NavbarModule } from '../../app/navbar/navbar.module';
-import { NotificationsModule } from '../../app/notifications/notifications.module';
-import { ProfilePageModule } from '../../app/profile-page/profile-page.module';
-import { RegisterEmailFormModule } from '../../app/register-email-form/register-email-form.module';
 import { RootModule } from '../../app/root.module';
-import { SearchPageModule } from '../../app/search-page/search-page.module';
-import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { ComcolModule } from '../../app/shared/comcol/comcol.module';
-import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
-import { FormModule } from '../../app/shared/form/form.module';
-import { MenuModule } from '../../app/shared/menu/menu.module';
-import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
-import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
-import { SearchModule } from '../../app/shared/search/search.module';
-import { SharedModule } from '../../app/shared/shared.module';
-import { StatisticsModule } from '../../app/statistics/statistics.module';
-import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
-import { SubmissionModule } from '../../app/submission/submission.module';
-import { SystemWideAlertModule } from '../../app/system-wide-alert/system-wide-alert.module';
+import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
@@ -96,6 +54,7 @@ import { MyDSpacePageComponent } from './app/my-dspace-page/my-dspace-page.compo
 import { ExpandableNavbarSectionComponent } from './app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import { PageNotFoundComponent } from './app/pagenotfound/pagenotfound.component';
 import { ProfilePageComponent } from './app/profile-page/profile-page.component';
+import { ProfilePageMetadataFormComponent } from './app/profile-page/profile-page-metadata-form/profile-page-metadata-form.component';
 import { RegisterEmailFormComponent } from './app/register-email-form/register-email-form.component';
 import { CreateProfileComponent } from './app/register-page/create-profile/create-profile.component';
 import { RegisterEmailComponent } from './app/register-page/register-email/register-email.component';
@@ -108,8 +67,9 @@ import { SearchPageComponent } from './app/search-page/search-page.component';
 import { AuthNavMenuComponent } from './app/shared/auth-nav-menu/auth-nav-menu.component';
 import { UserMenuComponent } from './app/shared/auth-nav-menu/user-menu/user-menu.component';
 import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
-import { ComcolPageBrowseByComponent } from './app/shared/comcol-page-browse-by/comcol-page-browse-by.component';
-import { ComcolPageHandleComponent } from './app/shared/comcol-page-handle/comcol-page-handle.component';
+import { ComcolPageBrowseByComponent } from './app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from './app/shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ComcolPageHandleComponent } from './app/shared/comcol/comcol-page-handle/comcol-page-handle.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { ExternalSourceEntryImportModalComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
@@ -119,8 +79,11 @@ import { BadgesComponent } from './app/shared/object-collection/shared/badges/ba
 import { MyDSpaceStatusBadgeComponent } from './app/shared/object-collection/shared/badges/my-dspace-status-badge/my-dspace-status-badge.component';
 import { StatusBadgeComponent } from './app/shared/object-collection/shared/badges/status-badge/status-badge.component';
 import { TypeBadgeComponent } from './app/shared/object-collection/shared/badges/type-badge/type-badge.component';
+import { ItemDetailPreviewFieldComponent } from './app/shared/object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import { ItemListPreviewComponent } from './app/shared/object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
 import { ObjectListComponent } from './app/shared/object-list/object-list.component';
 import { ResultsBackButtonComponent } from './app/shared/results-back-button/results-back-button.component';
+import { SearchComponent } from './app/shared/search/search.component';
 import { SearchFiltersComponent } from './app/shared/search/search-filters/search-filters.component';
 import { SearchResultsComponent } from './app/shared/search/search-results/search-results.component';
 import { SearchSettingsComponent } from './app/shared/search/search-settings/search-settings.component';
@@ -131,13 +94,14 @@ import { CommunityStatisticsPageComponent } from './app/statistics-page/communit
 import { ItemStatisticsPageComponent } from './app/statistics-page/item-statistics-page/item-statistics-page.component';
 import { SiteStatisticsPageComponent } from './app/statistics-page/site-statistics-page/site-statistics-page.component';
 import { SubmissionEditComponent } from './app/submission/edit/submission-edit.component';
+import { SubmissionUploadFilesComponent } from './app/submission/form/submission-upload-files/submission-upload-files.component';
 import { SubmissionImportExternalComponent } from './app/submission/import-external/submission-import-external.component';
 import { SubmissionSectionUploadFileComponent } from './app/submission/sections/upload/file/section-upload-file.component';
 import { SubmissionSubmitComponent } from './app/submission/submit/submission-submit.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { WorkflowItemDeleteComponent } from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemSendBackComponent } from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
-import { WorkspaceItemsDeletePageComponent } from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
+import { WorkspaceItemsDeletePageComponent } from './app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -223,69 +187,32 @@ const DECLARATIONS = [
   UserMenuComponent,
   BrowseByComponent,
   RegisterEmailFormComponent,
+  SearchComponent,
+  ItemListPreviewComponent,
+  MetadataImportPageComponent,
+  ItemDetailPreviewFieldComponent,
+  ProfilePageMetadataFormComponent,
+  SubmissionUploadFilesComponent,
+  ComcolPageContentComponent,
 ];
 
 @NgModule({
   imports: [
-    AdminRegistriesModule,
-    AdminSearchModule,
-    AdminWorkflowModuleModule,
-    AppModule,
     RootModule,
-    BitstreamFormatsModule,
-    BrowseByModule,
-    CollectionFormModule,
-    CollectionPageModule,
     CommonModule,
-    CommunityFormModule,
-    CommunityListPageModule,
-    CommunityPageModule,
-    CoreModule,
     DragDropModule,
-    ItemSharedModule,
-    ItemPageModule,
-    EditItemPageModule,
-    ItemVersionsModule,
     FormsModule,
-    HomePageModule,
     HttpClientModule,
-    IdlePreloadModule,
-    InfoModule,
-    JournalEntitiesModule,
-    MenuModule,
-    DsoPageModule,
-    MyDspaceSearchModule,
-    NavbarModule,
     NgbModule,
-    ProfilePageModule,
-    RegisterEmailFormModule,
-    ResearchEntitiesModule,
     RouterModule,
     ScrollToModule,
-    SearchPageModule,
-    SharedModule,
-    SharedBrowseByModule,
-    ResultsBackButtonModule,
-    StatisticsModule,
-    StatisticsPageModule,
     StoreModule,
     StoreRouterConnectingModule,
     TranslateModule,
-    SubmissionModule,
-    MyDSpacePageModule,
-    MyDspaceSearchModule,
-    SearchModule,
     FormsModule,
-    ResourcePoliciesModule,
-    ComcolModule,
-    DsoSharedModule,
-    SystemWideAlertModule,
     NgxGalleryModule,
-    FormModule,
-    RequestCopyModule,
-    NotificationsModule,
+    ...DECLARATIONS,
   ],
-  declarations: DECLARATIONS,
 })
 
 /**

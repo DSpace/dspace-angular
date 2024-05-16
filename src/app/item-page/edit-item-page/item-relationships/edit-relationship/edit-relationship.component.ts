@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnChanges,
@@ -7,10 +11,11 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of,
 } from 'rxjs';
 import {
   filter,
@@ -36,12 +41,21 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../../shared/empty.util';
+import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ds-edit-relationship',
   styleUrls: ['./edit-relationship.component.scss'],
   templateUrl: './edit-relationship.component.html',
+  imports: [
+    ListableObjectComponentLoaderComponent,
+    AsyncPipe,
+    NgIf,
+    TranslateModule,
+    VirtualMetadataComponent,
+  ],
+  standalone: true,
 })
 export class EditRelationshipComponent implements OnChanges {
   /**
@@ -80,7 +94,7 @@ export class EditRelationshipComponent implements OnChanges {
   /**
    * The related item of this relationship
    */
-  relatedItem$: Observable<Item>;
+  relatedItem$: BehaviorSubject<Item> = new BehaviorSubject<Item>(null);
 
   /**
    * The view-mode we're currently on
@@ -113,16 +127,19 @@ export class EditRelationshipComponent implements OnChanges {
         getRemoteDataPayload(),
         filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
       );
-      this.relatedItem$ = observableCombineLatest(
+      observableCombineLatest([
         this.leftItem$,
         this.rightItem$,
-      ).pipe(
+      ]).pipe(
         map((items: Item[]) =>
           items.find((item) => item.uuid !== this.editItem.uuid),
         ),
-      );
+        take(1),
+      ).subscribe((relatedItem) => {
+        this.relatedItem$.next(relatedItem);
+      });
     } else {
-      this.relatedItem$ = of(this.update.relatedItem);
+      this.relatedItem$.next(this.update.relatedItem);
     }
   }
 
@@ -131,10 +148,10 @@ export class EditRelationshipComponent implements OnChanges {
    */
   remove(): void {
     this.closeVirtualMetadataModal();
-    observableCombineLatest(
+    observableCombineLatest([
       this.leftItem$,
       this.rightItem$,
-    ).pipe(
+    ]).pipe(
       map((items: Item[]) =>
         items.map((item) => this.objectUpdatesService
           .isSelectedVirtualMetadata(this.url, this.relationship.id, item.uuid)),
@@ -182,6 +199,6 @@ export class EditRelationshipComponent implements OnChanges {
    * Check if a user should be allowed to cancel the update to this field
    */
   canUndo(): boolean {
-    return this.fieldUpdate.changeType >= 0;
+    return this.fieldUpdate.changeType?.valueOf() >= 0;
   }
 }

@@ -78,7 +78,7 @@ const entryFromSelfLinkSelector =
 /**
  * A service to interact with the object cache
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ObjectCacheService {
   constructor(
     private store: Store<CoreState>,

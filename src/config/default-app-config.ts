@@ -34,7 +34,7 @@ export class DefaultAppConfig implements AppConfig {
   // NOTE: will log all redux actions and transfers in console
   debug = false;
 
-  // Angular Universal server settings
+  // Angular express server settings
   // NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
   ui: UIServerConfig = {
     ssl: false,
@@ -256,30 +256,31 @@ export class DefaultAppConfig implements AppConfig {
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: LangConfig[] = [
     { code: 'en', label: 'English', active: true },
+    { code: 'ar', label: 'العربية', active: true },
+    { code: 'bn', label: 'বাংলা', active: true },
     { code: 'ca', label: 'Català', active: true },
     { code: 'cs', label: 'Čeština', active: true },
     { code: 'de', label: 'Deutsch', active: true },
+    { code: 'el', label: 'Ελληνικά', active: true },
     { code: 'es', label: 'Español', active: true },
+    { code: 'fi', label: 'Suomi', active: true },
     { code: 'fr', label: 'Français', active: true },
     { code: 'gd', label: 'Gàidhlig', active: true },
-    { code: 'it', label: 'Italiano', active: true },
-    { code: 'lv', label: 'Latviešu', active: true },
+    { code: 'hi', label: 'हिंदी', active: true },
     { code: 'hu', label: 'Magyar', active: true },
+    { code: 'it', label: 'Italiano', active: true },
+    { code: 'kk', label: 'Қазақ', active: true },
+    { code: 'lv', label: 'Latviešu', active: true },
     { code: 'nl', label: 'Nederlands', active: true },
     { code: 'pl', label: 'Polski', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
     { code: 'sr-lat', label: 'Srpski (lat)', active: true },
-    { code: 'fi', label: 'Suomi', active: true },
+    { code: 'sr-cyr', label: 'Српски', active: true },
     { code: 'sv', label: 'Svenska', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
-    { code: 'vi', label: 'Tiếng Việt', active: true },
-    { code: 'kk', label: 'Қазақ', active: true },
-    { code: 'bn', label: 'বাংলা', active: true },
-    { code: 'hi', label: 'हिंदी', active: true },
-    { code: 'el', label: 'Ελληνικά', active: true },
-    { code: 'sr-cyr', label: 'Српски', active: true },
     { code: 'uk', label: 'Yкраї́нська', active: true },
+    { code: 'vi', label: 'Tiếng Việt', active: true },
   ];
 
   // Browse-By Pages
@@ -468,9 +469,13 @@ export class DefaultAppConfig implements AppConfig {
   // Disabling the privacy policy feature will result in:
   // - A 404 page if you manually try to navigate to the privacy policy page at info/privacy
   // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
+  // Disabling the COAR notify support page feature will result in:
+  // - A 404 page if you manually try to navigate to the COAR notify support page
+  // - All mentions of the COAR notify support page being removed from the UI (e.g. in the footer)
   info: InfoConfig = {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+    enableCOARNotifySupport: true,
   };
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)

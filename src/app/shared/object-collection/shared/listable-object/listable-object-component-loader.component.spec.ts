@@ -1,7 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -10,15 +7,32 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideMockStore } from '@ngrx/store/testing';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { Context } from '../../../../core/shared/context.model';
+import { FileService } from '../../../../core/shared/file.service';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ListableModule } from '../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
+import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ItemListElementComponent } from '../../../object-list/item-list-element/item-types/item/item-list-element.component';
+import { SearchResultListElementComponent } from '../../../object-list/search-result-list-element/search-result-list-element.component';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { AuthServiceStub } from '../../../testing/auth-service.stub';
+import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
+import { FileServiceStub } from '../../../testing/file-service.stub';
+import { TruncatableServiceStub } from '../../../testing/truncatable-service.stub';
 import { ThemeService } from '../../../theme-support/theme.service';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { ListableObject } from '../listable-object.model';
 import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
 
@@ -30,30 +44,55 @@ export class TestType extends ListableObject {
   getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
     return [testType];
   }
+  firstMetadataValue(): string {
+    return '';
+  }
+  allMetadata() {
+    return [];
+  }
 }
 
 describe('ListableObjectComponentLoaderComponent', () => {
   let comp: ListableObjectComponentLoaderComponent;
   let fixture: ComponentFixture<ListableObjectComponentLoaderComponent>;
 
+  let activatedRoute: ActivatedRouteStub;
+  let authService: AuthServiceStub;
+  let authorizationService: AuthorizationDataServiceStub;
+  let fileService: FileServiceStub;
   let themeService: ThemeService;
+  let truncatableService: TruncatableServiceStub;
 
   beforeEach(waitForAsync(() => {
-    themeService = jasmine.createSpyObj('themeService', {
-      getThemeName: 'dspace',
-    });
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ListableObjectComponentLoaderComponent, ItemListElementComponent, DynamicComponentLoaderDirective],
-      schemas: [NO_ERRORS_SCHEMA],
+    activatedRoute = new ActivatedRouteStub();
+    authService = new AuthServiceStub();
+    authorizationService = new AuthorizationDataServiceStub();
+    fileService = new FileServiceStub();
+    themeService = getMockThemeService();
+    truncatableService = new TruncatableServiceStub();
+
+    void TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+        ListableObjectComponentLoaderComponent,
+        ListableModule,
+        ItemListElementComponent,
+        DynamicComponentLoaderDirective,
+      ],
       providers: [
-        provideMockStore({}),
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: FileService, useValue: fileService },
         { provide: ThemeService, useValue: themeService },
+        { provide: TruncatableService, useValue: truncatableService },
+        { provide: XSRFService, useValue: {} },
       ],
     }).overrideComponent(ListableObjectComponentLoaderComponent, {
       set: {
         changeDetection: ChangeDetectionStrategy.Default,
-        entryComponents: [ItemListElementComponent],
       },
     }).compileComponents();
   }));
@@ -61,11 +100,10 @@ describe('ListableObjectComponentLoaderComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(ListableObjectComponentLoaderComponent);
     comp = fixture.componentInstance;
-
     comp.object = new TestType();
     comp.viewMode = testViewMode;
     comp.context = testContext;
-    spyOn(comp, 'getComponent').and.returnValue(ItemListElementComponent as any);
+    spyOn(comp, 'getComponent').and.returnValue(SearchResultListElementComponent as any);
     spyOn(comp as any, 'connectInputsAndOutputs').and.callThrough();
     fixture.detectChanges();
 
@@ -89,7 +127,7 @@ describe('ListableObjectComponentLoaderComponent', () => {
       spyOn(comp, 'instantiateComponent').and.returnValue(null);
       spyOn(comp.contentChange, 'emit').and.returnValue(null);
 
-      listableComponent = fixture.debugElement.query(By.css('ds-item-list-element')).componentInstance;
+      listableComponent = fixture.debugElement.query(By.css('ds-search-result-list-element')).componentInstance;
       reloadedObject = 'object';
     });
 

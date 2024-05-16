@@ -1,10 +1,15 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -27,17 +32,23 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * this component renders the Top-Level Community list
  */
 @Component({
-  selector: 'ds-top-level-community-list',
+  selector: 'ds-base-top-level-community-list',
   styleUrls: ['./top-level-community-list.component.scss'],
   templateUrl: './top-level-community-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
+  standalone: true,
+  imports: [VarDirective, NgIf, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 
 export class TopLevelCommunityListComponent implements OnInit, OnDestroy {

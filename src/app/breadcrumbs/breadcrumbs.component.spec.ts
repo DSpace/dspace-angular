@@ -47,10 +47,6 @@ describe('BreadcrumbsComponent', () => {
     } as BreadcrumbsService;
 
     TestBed.configureTestingModule({
-      declarations: [
-        BreadcrumbsComponent,
-        VarDirective,
-      ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
@@ -59,6 +55,8 @@ describe('BreadcrumbsComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        BreadcrumbsComponent,
+        VarDirective,
       ],
       providers: [
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceMock },

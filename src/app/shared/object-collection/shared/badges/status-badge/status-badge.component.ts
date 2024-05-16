@@ -1,15 +1,19 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { hasValue } from '../../../../empty.util';
 
 @Component({
-  selector: 'ds-status-badge',
+  selector: 'ds-base-status-badge',
   templateUrl: './status-badge.component.html',
+  standalone: true,
+  imports: [NgIf, TranslateModule],
 })
 /**
  * Component rendering the status of an item as a badge

@@ -4,8 +4,8 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 
+import { REQUEST } from '../../../express.tokens';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { ForwardClientIpInterceptor } from './forward-client-ip.interceptor';
 

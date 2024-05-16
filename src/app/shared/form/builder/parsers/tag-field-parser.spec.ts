@@ -1,3 +1,5 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
 import { DynamicTagModel } from '../ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -7,6 +9,7 @@ import { TagFieldParser } from './tag-field-parser';
 describe('TagFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {
@@ -38,13 +41,13 @@ describe('TagFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new TagFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new TagFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     expect(parser instanceof TagFieldParser).toBe(true);
   });
 
   it('should return a DynamicTagModel object when repeatable option is false', () => {
-    const parser = new TagFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new TagFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -59,7 +62,7 @@ describe('TagFieldParser test suite', () => {
       ],
     };
 
-    const parser = new TagFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new TagFieldParser(submissionId, field, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 

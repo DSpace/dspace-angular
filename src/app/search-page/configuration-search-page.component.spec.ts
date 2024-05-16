@@ -8,6 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 
 import { RouteService } from '../core/services/route.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
@@ -20,11 +21,15 @@ const QUERY = 'test query';
 
 @Component({
   template: `
-    <ds-configuration-search-page [configuration]="'${CONFIGURATION}'"
-                                  [fixedFilterQuery]="'${QUERY}'"
-                                  #configurationSearchPage>
-    </ds-configuration-search-page>
+      <ds-base-configuration-search-page [configuration]="'${CONFIGURATION}'"
+                                    [fixedFilterQuery]="'${QUERY}'"
+                                    #configurationSearchPage>
+      </ds-base-configuration-search-page>
   `,
+  imports: [
+    ConfigurationSearchPageComponent,
+  ],
+  standalone: true,
 })
 class HostComponent {
   @ViewChild('configurationSearchPage') configurationSearchPage: ConfigurationSearchPageComponent;
@@ -48,6 +53,7 @@ describe('ConfigurationSearchPageComponent', () => {
 
     routeService = TestBed.inject(RouteService);
     routeService.setParameter = createSpy('setParameter');
+    routeService.getRouteParameterValue = createSpy('getRouteParameterValue').and.returnValue(of(CONFIGURATION));
 
     fixture.detectChanges();
 

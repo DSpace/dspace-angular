@@ -1,7 +1,11 @@
-import { InjectionToken } from '@angular/core';
-import { makeStateKey } from '@angular/platform-browser';
+import {
+  InjectionToken,
+  makeStateKey,
+  Type,
+} from '@angular/core';
 
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+import { HALDataService } from '../app/core/data/base/hal-data-service.interface';
 import { ActuatorsConfig } from './actuators.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
@@ -68,6 +72,10 @@ interface AppConfig extends Config {
 const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
 
 const APP_CONFIG_STATE = makeStateKey<AppConfig>('APP_CONFIG_STATE');
+
+export type LazyDataServicesMap = Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>;
+
+export const APP_DATA_SERVICES_MAP: InjectionToken<LazyDataServicesMap> = new InjectionToken<LazyDataServicesMap>('APP_DATA_SERVICES_MAP');
 
 export {
   APP_CONFIG,

@@ -11,7 +11,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -35,8 +34,7 @@ import { WorkspaceItem } from './models/workspaceitem.model';
 /**
  * A service that provides methods to make REST requests with workflow items endpoint.
  */
-@Injectable()
-@dataService(WorkflowItem.type)
+@Injectable({ providedIn: 'root' })
 export class WorkflowItemDataService extends IdentifiableDataService<WorkflowItem> implements SearchData<WorkflowItem>, DeleteData<WorkflowItem> {
   protected linkPath = 'workflowitems';
   protected searchByItemLinkPath = 'item';
@@ -117,7 +115,7 @@ export class WorkflowItemDataService extends IdentifiableDataService<WorkflowIte
    */
   public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
     const findListOptions = new FindListOptions();
-    findListOptions.searchParams = [new RequestParam('uuid', encodeURIComponent(uuid))];
+    findListOptions.searchParams = [new RequestParam('uuid', uuid)];
     const href$ = this.searchData.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }

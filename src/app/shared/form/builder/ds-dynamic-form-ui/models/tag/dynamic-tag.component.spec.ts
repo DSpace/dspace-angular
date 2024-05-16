@@ -28,6 +28,7 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
@@ -98,16 +99,15 @@ describe('DsDynamicTagComponent test suite', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
         NgbModule,
         ReactiveFormsModule,
-      ],
-      declarations: [
         DsDynamicTagComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         DsDynamicTagComponent,
@@ -310,6 +310,12 @@ describe('DsDynamicTagComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule],
 })
 class TestComponent {
 

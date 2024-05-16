@@ -1,16 +1,15 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../core/shared/value-list-browse-definition.resource-type';
-import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
-@metadataRepresentationComponent('Publication', MetadataRepresentationType.PlainText)
-// For now, authority controlled fields are rendered the same way as plain text fields
-@metadataRepresentationComponent('Publication', MetadataRepresentationType.AuthorityControlled)
 @Component({
   selector: 'ds-plain-text-metadata-list-element',
   templateUrl: './plain-text-metadata-list-element.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink],
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of plain text
@@ -23,6 +22,8 @@ export class PlainTextMetadataListElementComponent extends MetadataRepresentatio
    */
   getQueryParams() {
     const queryParams = { startsWith: this.mdRepresentation.getValue() };
+    // todo: should compare with type instead?
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     if (this.mdRepresentation.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
       return { value: this.mdRepresentation.getValue() };
     }

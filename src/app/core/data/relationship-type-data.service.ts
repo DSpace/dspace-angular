@@ -16,18 +16,17 @@ import {
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { RELATIONSHIP_TYPE } from '../shared/item-relationships/relationship-type.resource-type';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
 import { BaseDataService } from './base/base-data.service';
-import { dataService } from './base/data-service.decorator';
 import { FindAllDataImpl } from './base/find-all-data';
 import { SearchDataImpl } from './base/search-data';
 import { PaginatedList } from './paginated-list.model';
@@ -46,8 +45,7 @@ const checkSide = (typeRd: RemoteData<ItemType>, label: string): boolean =>
 /**
  * The service handling all relationship type requests
  */
-@Injectable()
-@dataService(RELATIONSHIP_TYPE)
+@Injectable({ providedIn: 'root' })
 export class RelationshipTypeDataService extends BaseDataService<RelationshipType> {
   private searchData: SearchDataImpl<RelationshipType>;
   private findAllData: FindAllDataImpl<RelationshipType>;
@@ -146,14 +144,8 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
       'byEntityType',
       {
         searchParams: [
-          {
-            fieldName: 'type',
-            fieldValue: type,
-          },
-          {
-            fieldName: 'size',
-            fieldValue: 100,
-          },
+          new RequestParam('type', type),
+          new RequestParam('size', 100),
         ],
       }, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow,
     ).pipe(

@@ -8,15 +8,25 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { JournalIssueSearchResultListElementComponent } from './journal-issue-search-result-list-element.component';
 
 let journalIssueListElementComponent: JournalIssueSearchResultListElementComponent;
@@ -81,17 +91,26 @@ const enviromentNoThumbs = {
 describe('JournalIssueSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JournalIssueSearchResultListElementComponent, TruncatePipe],
+      imports: [
+        TranslateModule.forRoot(),
+        TruncatePipe,
+        JournalIssueSearchResultListElementComponent,
+      ],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalIssueSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
-    }).compileComponents();
+      add: { changeDetection: ChangeDetectionStrategy.Default } ,
+      remove: {
+        imports: [ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent],
+      } },
+    ).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {
@@ -169,13 +188,14 @@ describe('JournalIssueSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JournalIssueSearchResultListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, TranslateModule.forRoot(), JournalIssueSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalIssueSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

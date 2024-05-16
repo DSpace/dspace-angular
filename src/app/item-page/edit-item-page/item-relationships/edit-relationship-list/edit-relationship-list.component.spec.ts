@@ -8,11 +8,21 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
+import { CookieService } from 'src/app/core/services/cookie.service';
+import { HardRedirectService } from 'src/app/core/services/hard-redirect.service';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
+import { AuthRequestServiceStub } from 'src/app/shared/testing/auth-request-service.stub';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { REQUEST } from '../../../../../express.tokens';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
@@ -28,13 +38,13 @@ import { ItemType } from '../../../../core/shared/item-relationships/item-type.m
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { SharedModule } from '../../../../shared/shared.module';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
@@ -51,6 +61,7 @@ let relationshipService;
 let selectableListService;
 let paginationService;
 let hostWindowService;
+let hardRedirectService;
 const relationshipTypeService = {};
 
 const url = 'http://test-url.com/test-url';
@@ -79,6 +90,18 @@ describe('EditRelationshipListComponent', () => {
     comp.hasChanges = observableOf(false);
     fixture.detectChanges();
   };
+
+  const initialState: any = {
+    core: {
+      'cache/object': {},
+      'cache/syncbuffer': {},
+      'cache/object-updates': {},
+      'data/request': {},
+      'index': {},
+    },
+  };
+
+  hardRedirectService = jasmine.createSpyObj('hardRedirectService', ['redirect']);
 
   beforeEach(waitForAsync(() => {
 
@@ -217,9 +240,9 @@ describe('EditRelationshipListComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [SharedModule, TranslateModule.forRoot()],
-      declarations: [EditRelationshipListComponent],
+      imports: [TranslateModule.forRoot(), EditRelationshipListComponent],
       providers: [
+        provideMockStore({ initialState }),
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: SelectableListService, useValue: selectableListService },
@@ -232,7 +255,13 @@ describe('EditRelationshipListComponent', () => {
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
+        { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: XSRFService, useValue: {} },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: REQUEST, useValue: {} },
+        CookieService,
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],

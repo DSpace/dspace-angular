@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
@@ -9,6 +10,7 @@ import {
   Router,
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import {
@@ -17,6 +19,7 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -28,10 +31,12 @@ import {
  */
 
 @Component({
-  selector: 'ds-create-item-parent-selector',
+  selector: 'ds-base-create-item-parent-selector',
   // styleUrls: ['./create-item-parent-selector.component.scss'],
   // templateUrl: '../dso-selector-modal-wrapper.component.html',
   templateUrl: './create-item-parent-selector.component.html',
+  standalone: true,
+  imports: [NgIf, AuthorizedCollectionSelectorComponent, TranslateModule],
 })
 export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

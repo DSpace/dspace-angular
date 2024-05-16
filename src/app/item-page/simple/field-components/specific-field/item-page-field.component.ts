@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -8,6 +9,9 @@ import { map } from 'rxjs/operators';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { Item } from '../../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import { ImageField } from './image-field';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 /**
@@ -37,6 +41,11 @@ export interface ImageField {
 
 @Component({
   templateUrl: './item-page-field.component.html',
+  imports: [
+    MetadataValuesComponent,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class ItemPageFieldComponent {
 
@@ -49,7 +58,7 @@ export class ItemPageFieldComponent {
     @Input() item: Item;
 
     /**
-     * Whether the {@link MarkdownPipe} should be used to render this metadata.
+     * Whether the {@link MarkdownDirective} should be used to render this metadata.
      */
     enableMarkdown = false;
 

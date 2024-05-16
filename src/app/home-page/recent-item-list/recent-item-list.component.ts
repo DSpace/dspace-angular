@@ -1,4 +1,10 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,6 +13,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import {
@@ -31,6 +38,9 @@ import {
   fadeIn,
   fadeInOut,
 } from '../../shared/animations/fade';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import {
@@ -38,6 +48,7 @@ import {
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
 import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-recent-item-list',
@@ -48,6 +59,8 @@ import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
     fadeIn,
     fadeInOut,
   ],
+  standalone: true,
+  imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class RecentItemListComponent implements OnInit {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;

@@ -15,7 +15,7 @@
   <div ngbCollapse #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
 
     <ng-container *ngVar="(processesRD$ | async) as processesRD">
-      <ds-themed-loading *ngIf="!processesRD || processesRD.isLoading"/>
+      <ds-loading *ngIf="!processesRD || processesRD.isLoading"/>
 
       <ds-pagination *ngIf="processesRD?.payload?.totalElements > 0"
                      [paginationOptions]="(paginationOptions$ | async)"

@@ -26,25 +26,25 @@ export class NotifyRequestsStatus implements CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The notify statuses.
    */
   @autoserialize
-    notifyStatus: NotifyStatuses[];
+  notifyStatus: NotifyStatuses[];
 
   /**
    * The UUID of the item.
    */
   @autoserialize
-    itemuuid: string;
+  itemuuid: string;
 
   /**
    * The links associated with the notify requests status.
    */
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     [k: string]: HALLink | HALLink[];
   };

@@ -839,10 +839,6 @@
   "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
 
 
-  //"admin.reports.items.title": "Metadata Query Report",
-  // TODO New key - Add a translation
-  "admin.reports.items.title": "Metadata Query Report",
-
   //"admin.reports.items.breadcrumbs": "Metadata Query Report",
   // TODO New key - Add a translation
   "admin.reports.items.breadcrumbs": "Metadata Query Report",
@@ -2376,6 +2372,15 @@
 
   // "dso-selector.placeholder": "Search for a {{ type }}",
   "dso-selector.placeholder": "Zoek een {{ type }}",
+
+  // "dso-selector.placeholder.type.community": "community",
+  "dso-selector.placeholder.type.community": "community",
+
+  // "dso-selector.placeholder.type.collection": "collection",
+  "dso-selector.placeholder.type.collection": "collectie",
+
+  // "dso-selector.placeholder.type.item": "item",
+  "dso-selector.placeholder.type.item": "item",
 
 
 
@@ -5026,6 +5031,10 @@
   // "resource-policies.form.name.label": "Name",
   // TODO New key - Add a translation
   "resource-policies.form.name.label": "Name",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   // TODO New key - Add a translation

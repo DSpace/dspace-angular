@@ -10,10 +10,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of,
-} from 'rxjs';
+import { of } from 'rxjs';
 import { MetadataField } from 'src/app/core/metadata/metadata-field.model';
 import { MetadataSchema } from 'src/app/core/metadata/metadata-schema.model';
 import { RegistryService } from 'src/app/core/registry/registry.service';
@@ -37,6 +34,9 @@ import {
   VIRTUAL_METADATA_PREFIX,
 } from '../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
+import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import {
@@ -149,7 +149,9 @@ describe('DsoEditMetadataValueComponent', () => {
     ];
 
     relationshipService = jasmine.createSpyObj('relationshipService', {
-      resolveMetadataRepresentation: of(new ItemMetadataRepresentation(metadataValue)),
+      resolveMetadataRepresentation: of(
+        new ItemMetadataRepresentation(metadataValue),
+      ),
     });
     dsoNameService = jasmine.createSpyObj('dsoNameService', {
       getName: 'Related Name',
@@ -164,7 +166,7 @@ describe('DsoEditMetadataValueComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
   }
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
     metadataValue = Object.assign(new MetadataValue(), {
       value: 'Regular Name',
       language: 'en',
@@ -180,9 +182,13 @@ describe('DsoEditMetadataValueComponent', () => {
 
     initServices();
 
-    TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataValueComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+    await TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        DsoEditMetadataValueComponent,
+        VarDirective,
+      ],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
         { provide: DSONameService, useValue: dsoNameService },
@@ -192,7 +198,13 @@ describe('DsoEditMetadataValueComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(DsoEditMetadataValueComponent, {
+        remove: {
+          imports: [DsDynamicOneboxComponent, DsDynamicScrollableDropdownComponent, ThemedTypeBadgeComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -205,7 +217,9 @@ describe('DsoEditMetadataValueComponent', () => {
   });
 
   it('should not show a badge', () => {
-    expect(fixture.debugElement.query(By.css('ds-themed-type-badge'))).toBeNull();
+    expect(
+      fixture.debugElement.query(By.css('ds-type-badge')),
+    ).toBeNull();
   });
 
   describe('when no changes have been made', () => {
@@ -271,7 +285,9 @@ describe('DsoEditMetadataValueComponent', () => {
     });
 
     it('should show a badge', () => {
-      expect(fixture.debugElement.query(By.css('ds-themed-type-badge'))).toBeTruthy();
+      expect(
+        fixture.debugElement.query(By.css('ds-type-badge')),
+      ).toBeTruthy();
     });
 
     assertButton(EDIT_BTN, true, true);
@@ -327,14 +343,11 @@ describe('DsoEditMetadataValueComponent', () => {
     });
 
     it('getModel should return a DynamicScrollableDropdownModel', () => {
-      const result = component.getModel();
+      const model = component.getModel();
 
-      expect(result instanceof Observable).toBe(true);
+      expect(model instanceof DynamicScrollableDropdownModel).toBe(true);
+      expect(model.vocabularyOptions.name).toBe(mockVocabularyScrollable.name);
 
-      result.subscribe((model) => {
-        expect(model instanceof DynamicScrollableDropdownModel).toBe(true);
-        expect(model.vocabularyOptions.name).toBe(mockVocabularyScrollable.name);
-      });
     });
   });
 
@@ -361,14 +374,10 @@ describe('DsoEditMetadataValueComponent', () => {
     });
 
     it('getModel should return a DynamicOneboxModel', () => {
-      const result = component.getModel();
+      const model = component.getModel();
 
-      expect(result instanceof Observable).toBe(true);
-
-      result.subscribe((model) => {
-        expect(model instanceof DynamicOneboxModel).toBe(true);
-        expect(model.vocabularyOptions.name).toBe(mockVocabularyHierarchical.name);
-      });
+      expect(model instanceof DynamicOneboxModel).toBe(true);
+      expect(model.vocabularyOptions.name).toBe(mockVocabularyHierarchical.name);
     });
   });
 
@@ -397,14 +406,10 @@ describe('DsoEditMetadataValueComponent', () => {
     });
 
     it('getModel should return a DynamicOneboxModel', () => {
-      const result = component.getModel();
+      const model = component.getModel();
 
-      expect(result instanceof Observable).toBe(true);
-
-      result.subscribe((model) => {
-        expect(model instanceof DynamicOneboxModel).toBe(true);
-        expect(model.vocabularyOptions.name).toBe(mockVocabularySuggester.name);
-      });
+      expect(model instanceof DynamicOneboxModel).toBe(true);
+      expect(model.vocabularyOptions.name).toBe(mockVocabularySuggester.name);
     });
 
     describe('authority key edition', () => {
@@ -447,22 +452,30 @@ describe('DsoEditMetadataValueComponent', () => {
         expect(component.onChangeEditingAuthorityStatus).toHaveBeenCalledWith(true);
       });
 
-      it('should disable the input when editingAuthority is false', () => {
+      it('should disable the input when editingAuthority is false', (done) => {
         component.editingAuthority = false;
 
         fixture.detectChanges();
 
-        const inputElement = fixture.nativeElement.querySelector('input');
-        expect(inputElement.disabled).toBe(true);
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          const inputElement = fixture.nativeElement.querySelector('input[data-test="authority-input"]');
+          expect(inputElement.disabled).toBeTruthy();
+          done();
+        });
       });
 
-      it('should enable the input when editingAuthority is true', () => {
+      it('should enable the input when editingAuthority is true', (done) => {
         component.editingAuthority = true;
 
         fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          const inputElement = fixture.nativeElement.querySelector('input[data-test="authority-input"]');
+          expect(inputElement.disabled).toBeFalsy();
+          done();
+        });
 
-        const inputElement = fixture.nativeElement.querySelector('input');
-        expect(inputElement.disabled).toBe(false);
+
       });
 
       it('should update mdValue.newValue properties when authority is present', () => {

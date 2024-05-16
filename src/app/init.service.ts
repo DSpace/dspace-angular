@@ -8,13 +8,12 @@
 import {
   APP_INITIALIZER,
   Inject,
+  makeStateKey,
   Provider,
+  TransferState,
   Type,
 } from '@angular/core';
-import {
-  makeStateKey,
-  TransferState,
-} from '@angular/platform-browser';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import {
   select,
   Store,
@@ -29,6 +28,7 @@ import {
 
 import {
   APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
   AppConfig,
 } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
@@ -36,12 +36,15 @@ import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticationBlocking } from './core/auth/selectors';
+import { LAZY_DATA_SERVICES } from './core/data-services-map';
 import { LocaleService } from './core/locale/locale.service';
-import { MetadataService } from './core/metadata/metadata.service';
+import { HeadTagService } from './core/metadata/head-tag.service';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
+import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+
 
 /**
  * Performs the initialization of the app.
@@ -67,7 +70,7 @@ export abstract class InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    protected metadata: MetadataService,
+    protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
@@ -107,6 +110,14 @@ export abstract class InitService {
         useFactory: (initService: InitService) => initService.init(),
         deps: [ InitService ],
         multi: true,
+      },
+      {
+        provide: APP_DATA_SERVICES_MAP,
+        useValue: LAZY_DATA_SERVICES,
+      },
+      {
+        provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+        useValue: dsDynamicFormControlMapFn,
       },
     ];
   }
@@ -196,13 +207,13 @@ export abstract class InitService {
 
   /**
    * Start route-listening subscriptions
-   * - {@link MetadataService.listenForRouteChange}
+   * - {@link HeadTagService.listenForRouteChange}
    * - {@link BreadcrumbsService.listenForRouteChanges}
    * - {@link ThemeService.listenForRouteChanges}
    * @protected
    */
   protected initRouteListeners(): void {
-    this.metadata.listenForRouteChange();
+    this.headTagService.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
     this.menuService.listenForRouteChanges();

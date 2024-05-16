@@ -14,6 +14,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
@@ -27,6 +28,13 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
+import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
+import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
@@ -97,8 +105,15 @@ describe('BrowseByDateComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [BrowseByDateComponent, EnumKeysPipe, VarDirective],
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([]),
+        TranslateModule.forRoot(),
+        NgbModule,
+        BrowseByDateComponent,
+        EnumKeysPipe,
+        VarDirective,
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
@@ -106,10 +121,25 @@ describe('BrowseByDateComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: ChangeDetectorRef, useValue: mockCdRef },
+        { provide: Store, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(BrowseByDateComponent, {
+        remove: {
+          imports: [
+            ComcolPageHeaderComponent,
+            ComcolPageLogoComponent,
+            ThemedComcolPageHandleComponent,
+            ComcolPageContentComponent,
+            ThemedComcolPageBrowseByComponent,
+            ThemedLoadingComponent,
+            ThemedBrowseByComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

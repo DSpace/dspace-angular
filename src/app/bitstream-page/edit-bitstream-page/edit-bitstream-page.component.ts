@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -9,6 +13,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
 import {
   DynamicFormControlModel,
@@ -18,7 +23,10 @@ import {
   DynamicInputModel,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 import {
   combineLatest,
@@ -60,16 +68,35 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { FormComponent } from '../../shared/form/form.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';
 
 @Component({
-  selector: 'ds-edit-bitstream-page',
+  selector: 'ds-base-edit-bitstream-page',
   styleUrls: ['./edit-bitstream-page.component.scss'],
   templateUrl: './edit-bitstream-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    FormComponent,
+    NgIf,
+    VarDirective,
+    ThemedThumbnailComponent,
+    AsyncPipe,
+    RouterLink,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    FileSizePipe,
+  ],
+  standalone: true,
 })
 /**
  * Page component for editing a bitstream

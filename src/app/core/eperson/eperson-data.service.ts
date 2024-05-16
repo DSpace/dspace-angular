@@ -32,7 +32,6 @@ import {
   CreateData,
   CreateDataImpl,
 } from '../data/base/create-data';
-import { dataService } from '../data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -67,7 +66,6 @@ import {
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
 import { EPerson } from './models/eperson.model';
-import { EPERSON } from './models/eperson.resource-type';
 
 // todo: optimize imports
 
@@ -77,8 +75,7 @@ export const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, 
 /**
  * A service to retrieve {@link EPerson}s from the REST API & EPerson related CRUD actions
  */
-@Injectable()
-@dataService(EPERSON)
+@Injectable({ providedIn: 'root' })
 export class EPersonDataService extends IdentifiableDataService<EPerson> implements CreateData<EPerson>, SearchData<EPerson>, PatchData<EPerson>, DeleteData<EPerson> {
   protected searchByEmailPath = 'byEmail';
   protected searchByMetadataPath = 'byMetadata';
@@ -166,7 +163,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    */
   public getEPersonByEmail(query: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<EPerson | NoContent>> {
     const findListOptions = new FindListOptions();
-    findListOptions.searchParams = [new RequestParam('email', encodeURIComponent(query))];
+    findListOptions.searchParams = [new RequestParam('email', query)];
     const href$ = this.searchData.getSearchByHref(this.searchByEmailPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
@@ -183,7 +180,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    *                                    {@link HALLink}s should be automatically resolved
    */
   private getEpeopleByMetadata(query: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const searchParams = [new RequestParam('query', encodeURIComponent(query))];
+    const searchParams = [new RequestParam('query', query)];
     return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 

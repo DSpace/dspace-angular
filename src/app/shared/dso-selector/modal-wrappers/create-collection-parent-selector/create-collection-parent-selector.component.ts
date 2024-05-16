@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -8,6 +9,7 @@ import {
   Router,
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import {
@@ -20,6 +22,7 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -30,8 +33,10 @@ import {
  */
 
 @Component({
-  selector: 'ds-create-collection-parent-selector',
+  selector: 'ds-base-create-collection-parent-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
+  standalone: true,
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COLLECTION;

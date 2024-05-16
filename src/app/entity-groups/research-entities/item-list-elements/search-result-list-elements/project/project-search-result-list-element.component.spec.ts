@@ -8,15 +8,23 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { ProjectSearchResultListElementComponent } from './project-search-result-list-element.component';
 
 let projectListElementComponent: ProjectSearchResultListElementComponent;
@@ -75,16 +83,18 @@ const enviromentNoThumbs = {
 describe('ProjectSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ProjectSearchResultListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, ProjectSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: { imports: [ThemedThumbnailComponent, TruncatableComponent, ThemedBadgesComponent] },
     }).compileComponents();
   }));
 
@@ -138,14 +148,14 @@ describe('ProjectSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ProjectSearchResultListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, ProjectSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
-
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ProjectSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

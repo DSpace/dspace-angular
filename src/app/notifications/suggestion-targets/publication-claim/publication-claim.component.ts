@@ -1,9 +1,18 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
@@ -16,6 +25,8 @@ import {
 import { SuggestionTarget } from '../../../core/notifications/models/suggestion-target.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
 import { SuggestionsService } from '../../suggestions.service';
@@ -28,6 +39,16 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
   selector: 'ds-publication-claim',
   templateUrl: './publication-claim.component.html',
   styleUrls: ['./publication-claim.component.scss'],
+  imports: [
+    ThemedLoadingComponent,
+    AsyncPipe,
+    TranslateModule,
+    PaginationComponent,
+    NgIf,
+    NgFor,
+    RouterLink,
+  ],
+  standalone: true,
 })
 export class PublicationClaimComponent implements OnInit {
 

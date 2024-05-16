@@ -1,5 +1,9 @@
+import { TestBed } from '@angular/core/testing';
+import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
+import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import {
@@ -11,7 +15,9 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { ObjectCacheServiceStub } from '../../shared/testing/object-cache-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
@@ -20,6 +26,7 @@ import { MetadataRepresentationType } from '../shared/metadata-representation/me
 import { PageInfo } from '../shared/page-info.model';
 import { testSearchDataImplementation } from './base/search-data.spec';
 import { FindListOptions } from './find-list-options.model';
+import { ItemDataService } from './item-data.service';
 import { buildPaginatedList } from './paginated-list.model';
 import { RelationshipDataService } from './relationship-data.service';
 import { DeleteRequest } from './request.models';
@@ -123,18 +130,6 @@ describe('RelationshipDataService', () => {
     findByHref: createSuccessfulRemoteDataObject$(relatedItems[0]),
   });
 
-  function initTestService() {
-    return new RelationshipDataService(
-      requestService,
-      rdbService,
-      halService,
-      objectCache as ObjectCacheService,
-      itemService,
-      null,
-      jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v),
-    );
-  }
-
   const getRequestEntry$ = (successful: boolean) => {
     return observableOf({
       response: { isSuccessful: successful, payload: relationships } as any,
@@ -143,11 +138,25 @@ describe('RelationshipDataService', () => {
 
   beforeEach(() => {
     requestService = getMockRequestService(getRequestEntry$(true));
-    service = initTestService();
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: RequestService, useValue: requestService },
+        { provide: RemoteDataBuildService, useValue: rdbService },
+        { provide: HALEndpointService, useValue: halService },
+        { provide: ObjectCacheService, useValue: objectCache },
+        { provide: ItemDataService, useValue: itemService },
+        { provide: RequestService, useValue: requestService },
+        { provide: PAGINATED_RELATIONS_TO_ITEMS_OPERATOR, useValue: jasmine.createSpy('paginatedRelationsToItems').and.returnValue((v) => v) },
+        { provide: Store, useValue: provideMockStore() },
+        RelationshipDataService,
+      ],
+    });
+    service = TestBed.inject(RelationshipDataService);
   });
 
   describe('composition', () => {
-    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null);
+    const initService = () => new RelationshipDataService(null, null, null, null, null, null, null, null);
 
     testSearchDataImplementation(initService);
   });

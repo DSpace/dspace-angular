@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   AfterViewInit,
   Component,
   OnDestroy,
@@ -7,7 +13,9 @@ import {
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
@@ -31,7 +39,10 @@ import {
 } from '../../../core/shared/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { hasValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { NotificationsStateService } from '../../notifications-state.service';
 
@@ -42,6 +53,8 @@ import { NotificationsStateService } from '../../notifications-state.service';
   selector: 'ds-quality-assurance-topic',
   templateUrl: './quality-assurance-topics.component.html',
   styleUrls: ['./quality-assurance-topics.component.scss'],
+  standalone: true,
+  imports: [AlertComponent, NgIf, ThemedLoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
 export class QualityAssuranceTopicsComponent implements OnInit, OnDestroy, AfterViewInit {
   /**

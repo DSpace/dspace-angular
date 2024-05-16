@@ -29,7 +29,7 @@ const objectSelectionListStateSelector = (state: AppState) => state.objectSelect
 /**
  * Service that takes care of selecting and deselecting objects
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ObjectSelectService {
 
   constructor(

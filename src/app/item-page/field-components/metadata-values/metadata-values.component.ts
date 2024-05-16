@@ -1,10 +1,18 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   Component,
   Inject,
   Input,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   APP_CONFIG,
@@ -15,7 +23,9 @@ import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../../../core/shared/value-list-browse-definition.resource-type';
 import { hasValue } from '../../../shared/empty.util';
-import { ImageField } from '../../simple/field-components/specific-field/item-page-field.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
+import { ImageField } from '../../simple/field-components/specific-field/image-field';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component.
@@ -25,6 +35,8 @@ import { ImageField } from '../../simple/field-components/specific-field/item-pa
   selector: 'ds-metadata-values',
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
+  standalone: true,
+  imports: [MetadataFieldWrapperComponent, NgFor, NgTemplateOutlet, NgIf, RouterLink, AsyncPipe, TranslateModule, MarkdownDirective],
 })
 export class MetadataValuesComponent implements OnChanges {
 
@@ -49,7 +61,7 @@ export class MetadataValuesComponent implements OnChanges {
   @Input() label: string;
 
   /**
-   * Whether the {@link MarkdownPipe} should be used to render these metadata values.
+   * Whether the {@link MarkdownDirective} should be used to render these metadata values.
    * This will only have effect if {@link MarkdownConfig#enabled} is true.
    * Mathjax will only be rendered if {@link MarkdownConfig#mathjax} is true.
    */
@@ -105,6 +117,8 @@ export class MetadataValuesComponent implements OnChanges {
    */
   getQueryParams(value) {
     const queryParams = { startsWith: value };
+    // todo: should compare with type instead?
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     if (this.browseDefinition.getRenderType() === VALUE_LIST_BROWSE_DEFINITION.value) {
       return { value: value };
     }
