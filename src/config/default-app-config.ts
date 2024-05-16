@@ -36,6 +36,7 @@ import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
 import { LoaderConfig } from './loader-config.interfaces';
+import { MetaTagsConfig } from './meta-tags.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -793,5 +794,13 @@ export class DefaultAppConfig implements AppConfig {
     showFallbackMessagesByDefault: false,
     warningMessageDelay: 5000, // 5 seconds
     errorMessageDelay: 15000, // 15 seconds
+  };
+
+  metaTags: MetaTagsConfig = {
+    defaultLogo: '/assets/images/dspace-cris-logo-hd.png',
+    defaultDescription: 'DSpace-CRIS is a comprehensive, free and open-source Research Information Management System (CRIS/RIMS).\n' +
+      'It is based on DSpace, providing broader functionality and an expanded data model, relying on its large community.\n' +
+      'It is compliant with and supports key international standards, facilitating interoperability and data transfer.\n' +
+      'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.'
   };
 }

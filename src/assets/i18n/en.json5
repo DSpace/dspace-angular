@@ -7392,4 +7392,7 @@
   "form.other-information.selection.data-crispj_coinvestigator_affiliation": "Affiliation",
 
   "form.other-information.selection.alternative-names": "Select alternative name",
+
+  "meta.tag.missing.description": "No description available",
+
 }
