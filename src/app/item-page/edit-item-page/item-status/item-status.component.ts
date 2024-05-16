@@ -175,7 +175,7 @@ export class ItemStatusComponent implements OnInit {
               const op = new ItemOperation('register-doi', `${currentUrl}/register-doi`, FeatureID.CanRegisterDOI, true);
               ops.splice(ops.length - 1, 0, op); // Add item before last
             }
-            return inititalOperations;
+            return ops;
           }),
           concatMap((op: ItemOperation) => {
             if (hasValue(op.featureID)) {
