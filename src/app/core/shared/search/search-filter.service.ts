@@ -1,41 +1,72 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
-import { Injectable, InjectionToken } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
 import {
-  SearchFiltersState,
-  SearchFilterState
-} from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { InputSuggestion } from '../../../shared/input-suggestions/input-suggestions.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { FacetValue } from '../../../shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
+import { SearchOptions } from '../../../shared/search/models/search-options.model';
+import {
+  getFacetValueForType,
+  stripOperatorFromFilterValue,
+} from '../../../shared/search/search.utils';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
   SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
+  SearchFilterMinimizeAllPageAction,
   SearchFilterResetPageAction,
-  SearchFilterToggleAction
+  SearchFilterToggleAction,
 } from '../../../shared/search/search-filters/search-filter/search-filter.actions';
-import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
-import { SearchFilterConfig } from '../../../shared/search/models/search-filter-config.model';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
+import {
+  SearchFiltersState,
+  SearchFilterState,
+} from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
+import { EmphasizePipe } from '../../../shared/utils/emphasize.pipe';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
 import { RouteService } from '../../services/route.service';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { Params } from '@angular/router';
+import { getFirstSucceededRemoteData } from '../operators';
+import { SearchService } from './search.service';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
-
-export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
-export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
-export const REFRESH_FILTER: InjectionToken<BehaviorSubject<any>> = new InjectionToken<boolean>('refreshFilters');
 
 /**
  * Service that performs all actions that have to do with search filters and facets
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchFilterService {
 
-  constructor(private store: Store<SearchFiltersState>,
-              private routeService: RouteService) {
+  constructor(
+    protected searchService: SearchService,
+    protected store: Store<SearchFiltersState>,
+    protected routeService: RouteService,
+  ) {
   }
 
   /**
@@ -61,7 +92,7 @@ export class SearchFilterService {
    * Fetch the current active scope from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentScope() {
+  getCurrentScope(): Observable<string> {
     return this.routeService.getQueryParameterValue('scope');
   }
 
@@ -69,7 +100,7 @@ export class SearchFilterService {
    * Fetch the current query from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentQuery() {
+  getCurrentQuery(): Observable<string> {
     return this.routeService.getQueryParameterValue('query');
   }
 
@@ -85,7 +116,7 @@ export class SearchFilterService {
     return observableCombineLatest(page$, size$).pipe(map(([page, size]) => {
       return Object.assign(new PaginationComponentOptions(), pagination, {
         currentPage: page || 1,
-        pageSize: size || pagination.pageSize
+        pageSize: size || pagination.pageSize,
       });
     }));
   }
@@ -100,10 +131,10 @@ export class SearchFilterService {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
     return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
-        const field = sortField || defaultSort.field;
-        const direction = SortDirection[sortDirection] || defaultSort.direction;
-        return new SortOptions(field, direction);
-      }
+      const field = sortField || defaultSort.field;
+      const direction = SortDirection[sortDirection] || defaultSort.direction;
+      return new SortOptions(field, direction);
+    },
     ));
   }
 
@@ -111,7 +142,7 @@ export class SearchFilterService {
    * Fetch the current active filters from the query parameters
    * @returns {Observable<Params>}
    */
-  getCurrentFilters() {
+  getCurrentFilters(): Observable<Params> {
     return this.routeService.getQueryParamsWithPrefix('f.');
   }
 
@@ -119,29 +150,44 @@ export class SearchFilterService {
    * Fetch the current view from the query parameters
    * @returns {Observable<string>}
    */
-  getCurrentView() {
+  getCurrentView(): Observable<string> {
     return this.routeService.getQueryParameterValue('view');
   }
 
   /**
-   * Requests the active filter values set for a given filter
-   * @param {SearchFilterConfig} filterConfig The configuration for which the filters are active
-   * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
+   * Updates the found facet value suggestions for a given query
+   * Transforms the found values into display values
+   *
+   * @param searchFilterConfig The search filter config
+   * @param searchOptions The search options
+   * @param query The query for which is being searched
    */
-  getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
-    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
-    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
-      map((params: Params) => [].concat(...Object.values(params))),
-    );
-    return observableCombineLatest(values$, prefixValues$).pipe(
-      map(([values, prefixValues]) => {
-          if (isNotEmpty(values)) {
-            return values;
-          }
-          return prefixValues;
-        }
-      )
-    );
+  findSuggestions(searchFilterConfig: SearchFilterConfig, searchOptions: SearchOptions, query: string): Observable<InputSuggestion[]> {
+    if (isNotEmpty(query)) {
+      return this.searchService.getFacetValuesFor(searchFilterConfig, 1, searchOptions, query.toLowerCase()).pipe(
+        getFirstSucceededRemoteData(),
+        map((rd: RemoteData<PaginatedList<FacetValue>>) => rd.payload.page.map((facet) => {
+          return {
+            displayValue: this.getDisplayValue(facet, query),
+            query: getFacetValueForType(facet, searchFilterConfig),
+            value: stripOperatorFromFilterValue(getFacetValueForType(facet, searchFilterConfig)),
+          };
+        })),
+      );
+    } else {
+      return observableOf([]);
+    }
+  }
+
+  /**
+   * Transforms the facet value string, so if the query matches part of the value, it's emphasized in the value
+   *
+   * @param facet The value of the facet as returned by the server
+   * @param query The query that was used to search facet values
+   * @returns {string} The facet value with the query part emphasized
+   */
+  getDisplayValue(facet: FacetValue, query: string): string {
+    return `${new EmphasizePipe().transform(facet.value, query)} (${facet.count})`;
   }
 
   /**
@@ -154,12 +200,12 @@ export class SearchFilterService {
       select(filterByNameSelector(filterName)),
       map((object: SearchFilterState) => {
         if (object) {
-          return object.filterCollapsed;
+          return object.filterCollapsed || object.minimized;
         } else {
           return false;
         }
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -235,6 +281,10 @@ export class SearchFilterService {
    */
   public resetPage(filterName: string): void {
     this.store.dispatch(new SearchFilterResetPageAction(filterName));
+  }
+
+  public minimizeAll(): void {
+    this.store.dispatch(new SearchFilterMinimizeAllPageAction());
   }
 }
 

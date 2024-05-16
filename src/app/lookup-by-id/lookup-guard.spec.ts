@@ -1,27 +1,28 @@
 import { of as observableOf } from 'rxjs';
-import { IdentifierType } from '../core/data/request.models';
-import { LookupGuard } from './lookup-guard';
 
-describe('LookupGuard', () => {
+import { IdentifierType } from '../core/data/request.models';
+import { lookupGuard } from './lookup-guard';
+
+describe('lookupGuard', () => {
   let dsoService: any;
   let guard: any;
 
   beforeEach(() => {
     dsoService = {
       findByIdAndIDType: jasmine.createSpy('findByIdAndIDType').and.returnValue(observableOf({ hasFailed: false,
-        hasSucceeded: true }))
+        hasSucceeded: true })),
     };
-    guard = new LookupGuard(dsoService);
+    guard = lookupGuard;
   });
 
   it('should call findByIdAndIDType with handle params', () => {
     const scopedRoute = {
       params: {
         id: '1234',
-        idType: '123456789'
-      }
+        idType: '123456789',
+      },
     };
-    guard.canActivate(scopedRoute as any, undefined);
+    guard(scopedRoute as any, undefined, dsoService);
     expect(dsoService.findByIdAndIDType).toHaveBeenCalledWith('hdl:123456789/1234', IdentifierType.HANDLE);
   });
 
@@ -29,10 +30,10 @@ describe('LookupGuard', () => {
     const scopedRoute = {
       params: {
         id: '123456789%2F1234',
-        idType: 'handle'
-      }
+        idType: 'handle',
+      },
     };
-    guard.canActivate(scopedRoute as any, undefined);
+    guard(scopedRoute as any, undefined, dsoService);
     expect(dsoService.findByIdAndIDType).toHaveBeenCalledWith('hdl:123456789%2F1234', IdentifierType.HANDLE);
   });
 
@@ -40,10 +41,10 @@ describe('LookupGuard', () => {
     const scopedRoute = {
       params: {
         id: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
-        idType: 'uuid'
-      }
+        idType: 'uuid',
+      },
     };
-    guard.canActivate(scopedRoute as any, undefined);
+    guard(scopedRoute as any, undefined, dsoService);
     expect(dsoService.findByIdAndIDType).toHaveBeenCalledWith('34cfed7c-f597-49ef-9cbe-ea351f0023c2', IdentifierType.UUID);
   });
 

@@ -1,23 +1,41 @@
-import { AuthorizationDataService } from '../authorization-data.service';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { RemoteData } from '../../remote-data';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { DsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
-import { FeatureID } from '../feature-id';
 import { AuthService } from '../../../auth/auth.service';
+import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { Item } from '../../../shared/item.model';
+import { RemoteData } from '../../remote-data';
+import { AuthorizationDataService } from '../authorization-data.service';
+import { FeatureID } from '../feature-id';
+import { DsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
+
+const object = {
+  self: 'test-selflink',
+} as DSpaceObject;
+
+const testResolver: ResolveFn<RemoteData<any>> = () => createSuccessfulRemoteDataObject$(object);
 
 /**
  * Test implementation of abstract class DsoPageSingleFeatureGuard
  */
 class DsoPageSingleFeatureGuardImpl extends DsoPageSingleFeatureGuard<any> {
-  constructor(protected resolver: Resolve<RemoteData<any>>,
-              protected authorizationService: AuthorizationDataService,
+
+  protected resolver: ResolveFn<RemoteData<Item>> = testResolver;
+
+  constructor(protected authorizationService: AuthorizationDataService,
               protected router: Router,
               protected authService: AuthService,
               protected featureID: FeatureID) {
-    super(resolver, authorizationService, router, authService);
+    super(authorizationService, router, authService);
   }
 
   getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID> {
@@ -30,39 +48,30 @@ describe('DsoPageSingleFeatureGuard', () => {
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
-  let resolver: Resolve<RemoteData<any>>;
-  let object: DSpaceObject;
   let route;
   let parentRoute;
 
   function init() {
-    object = {
-      self: 'test-selflink'
-    } as DSpaceObject;
-
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     router = jasmine.createSpyObj('router', {
-      parseUrl: {}
-    });
-    resolver = jasmine.createSpyObj('resolver', {
-      resolve: createSuccessfulRemoteDataObject$(object)
+      parseUrl: {},
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true)
+      isAuthenticated: observableOf(true),
     });
     parentRoute = {
       params: {
-        id: '3e1a5327-dabb-41ff-af93-e6cab9d032f0'
-      }
+        id: '3e1a5327-dabb-41ff-af93-e6cab9d032f0',
+      },
     };
     route = {
       params: {
       },
-      parent: parentRoute
+      parent: parentRoute,
     };
-    guard = new DsoPageSingleFeatureGuardImpl(resolver, authorizationService, router, authService, undefined);
+    guard = new DsoPageSingleFeatureGuardImpl(authorizationService, router, authService, undefined);
   }
 
   beforeEach(() => {

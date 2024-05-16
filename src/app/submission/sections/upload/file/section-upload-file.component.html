@@ -1,15 +1,31 @@
 <ng-container *ngIf="fileData">
   <div class="row">
-    <div class="col-md-12">
+    <!-- Default switch -->
+    <div class="col-md-2 d-flex justify-content-center align-items-center" >
+      <div class="custom-control custom-switch">
+        <input
+        type="checkbox"
+        class="custom-control-input"
+        id="primaryBitstream{{fileIndex}}"
+        [disabled]="processingSaveStatus$ | async"
+        [checked]="isPrimary"
+        (change)="togglePrimaryBitstream($event)">
+        <label class="custom-control-label" for="primaryBitstream{{fileIndex}}">
+          <span class="sr-only" *ngIf="!isPrimary">{{'submission.sections.upload.primary.make' | translate:{ fileName: fileName } }}</span>
+          <span class="sr-only" *ngIf="isPrimary">{{'submission.sections.upload.primary.remove' | translate:{ fileName: fileName } }}</span>
+        </label>
+      </div>
+    </div>
+    <div class="col-md-10">
       <div class="float-left w-75">
         <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
       </div>
       <div class="float-right w-15">
         <ng-container>
-          <ds-themed-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
+          <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
                                         [bitstream]="getBitstream()" [enableRequestACopy]="false">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
-          </ds-themed-file-download-link>
+          </ds-file-download-link>
           <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.edit.title' | translate"
                   title="{{ 'submission.sections.upload.edit.title' | translate }}"
@@ -22,7 +38,7 @@
                   [disabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">
             <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
-            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
+            <i *ngIf="(processingDelete$ | async) !== true" class="fa fa-trash fa-2x text-danger"></i>
           </button>
         </ng-container>
       </div>

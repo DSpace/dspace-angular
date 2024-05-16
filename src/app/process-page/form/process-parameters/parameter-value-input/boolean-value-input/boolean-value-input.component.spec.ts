@@ -1,5 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+
 import { BooleanValueInputComponent } from './boolean-value-input.component';
 
 describe('BooleanValueInputComponent', () => {
@@ -8,10 +13,7 @@ describe('BooleanValueInputComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-      ],
-      declarations: [BooleanValueInputComponent]
+      imports: [BooleanValueInputComponent, TranslateModule.forRoot()],
     })
       .compileComponents();
   }));

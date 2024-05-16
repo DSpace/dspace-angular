@@ -1,15 +1,20 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
-
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ProfileClaimService } from './profile-claim.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { Item } from '../../core/shared/item.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { ItemSearchResult } from '../../shared/object-collection/shared/item-search-result.model';
+import {
+  createNoContentRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../shared/remote-data.utils';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
-import { Item } from '../../core/shared/item.model';
-import { createNoContentRemoteDataObject, createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+import { ProfileClaimService } from './profile-claim.service';
 
 describe('ProfileClaimService', () => {
   let scheduler: TestScheduler;
@@ -22,81 +27,81 @@ describe('ProfileClaimService', () => {
     metadata: {
       'eperson.firstname': [
         {
-          value: 'John'
-        }
+          value: 'John',
+        },
       ],
       'eperson.lastname': [
         {
-          value: 'Doe'
+          value: 'Doe',
         },
       ],
     },
-    email: 'fake@email.com'
+    email: 'fake@email.com',
   });
   const item1: Item = Object.assign(new Item(), {
     uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e',
     metadata: {
       'person.email': [
         {
-          value: 'fake@email.com'
-        }
+          value: 'fake@email.com',
+        },
       ],
       'person.familyName': [
         {
-          value: 'Doe'
-        }
+          value: 'Doe',
+        },
       ],
       'person.givenName': [
         {
-          value: 'John'
-        }
-      ]
+          value: 'John',
+        },
+      ],
     },
     _links: {
       self: {
-        href: 'item-href'
-      }
-    }
+        href: 'item-href',
+      },
+    },
   });
   const item2: Item = Object.assign(new Item(), {
     uuid: 'c8279647-1acc-41ae-b036-951d5f65649b',
     metadata: {
       'person.email': [
         {
-          value: 'fake2@email.com'
-        }
+          value: 'fake2@email.com',
+        },
       ],
       'dc.title': [
         {
-          value: 'John, Doe'
-        }
-      ]
+          value: 'John, Doe',
+        },
+      ],
     },
     _links: {
       self: {
-        href: 'item-href'
-      }
-    }
+        href: 'item-href',
+      },
+    },
   });
   const item3: Item = Object.assign(new Item(), {
     uuid: 'c8279647-1acc-41ae-b036-951d5f65649b',
     metadata: {
       'person.email': [
         {
-          value: 'fake3@email.com'
-        }
+          value: 'fake3@email.com',
+        },
       ],
       'dc.title': [
         {
-          value: 'John, Doe'
-        }
-      ]
+          value: 'John, Doe',
+        },
+      ],
     },
     _links: {
       self: {
-        href: 'item-href'
-      }
-    }
+        href: 'item-href',
+      },
+    },
   });
 
   const searchResult1 = Object.assign(new ItemSearchResult(), { indexableObject: item1 });
@@ -104,10 +109,10 @@ describe('ProfileClaimService', () => {
   const searchResult3 = Object.assign(new ItemSearchResult(), { indexableObject: item3 });
 
   const searchResult = Object.assign(new SearchObjects(), {
-    page: [searchResult1, searchResult2, searchResult3]
+    page: [searchResult1, searchResult2, searchResult3],
   });
   const emptySearchResult = Object.assign(new SearchObjects(), {
-    page: []
+    page: [],
   });
   const searchResultRD = createSuccessfulRemoteDataObject(searchResult);
   const emptySearchResultRD = createSuccessfulRemoteDataObject(emptySearchResult);
@@ -116,7 +121,7 @@ describe('ProfileClaimService', () => {
     scheduler = getTestScheduler();
 
     searchService = jasmine.createSpyObj('SearchService', {
-      search: jasmine.createSpy('search')
+      search: jasmine.createSpy('search'),
     });
 
     service = new ProfileClaimService(searchService);
@@ -133,7 +138,7 @@ describe('ProfileClaimService', () => {
       it('should return true', () => {
         const result = service.hasProfilesToSuggest(eperson);
         const expected = cold('(a|)', {
-          a: true
+          a: true,
         });
         expect(result).toBeObservable(expected);
       });
@@ -148,7 +153,7 @@ describe('ProfileClaimService', () => {
       it('should return false', () => {
         const result = service.hasProfilesToSuggest(eperson);
         const expected = cold('(a|)', {
-          a: false
+          a: false,
         });
         expect(result).toBeObservable(expected);
       });
@@ -159,7 +164,7 @@ describe('ProfileClaimService', () => {
       it('should return false', () => {
         const result = service.hasProfilesToSuggest(null);
         const expected = cold('(a|)', {
-          a: false
+          a: false,
         });
         expect(result).toBeObservable(expected);
       });
@@ -178,7 +183,7 @@ describe('ProfileClaimService', () => {
       it('should return the proper search object', () => {
         const result = service.searchForSuggestions(eperson);
         const expected = cold('(a|)', {
-          a: searchResultRD
+          a: searchResultRD,
         });
         expect(result).toBeObservable(expected);
       });
@@ -193,7 +198,7 @@ describe('ProfileClaimService', () => {
       it('should return null', () => {
         const result = service.searchForSuggestions(eperson);
         const expected = cold('(a|)', {
-          a: emptySearchResultRD
+          a: emptySearchResultRD,
         });
         expect(result).toBeObservable(expected);
       });
@@ -204,7 +209,7 @@ describe('ProfileClaimService', () => {
       it('should return null', () => {
         const result = service.searchForSuggestions(null);
         const expected = cold('(a|)', {
-          a: createNoContentRemoteDataObject()
+          a: createNoContentRemoteDataObject(),
         });
         expect(result).toBeObservable(expected);
       });

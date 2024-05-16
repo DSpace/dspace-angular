@@ -1,19 +1,44 @@
 /* eslint-disable max-classes-per-file */
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { filter } from 'rxjs/operators';
+
 import { AppState } from '../../../../../app.reducer';
 import { Item } from '../../../../../core/shared/item.model';
-import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
-import { hasValue, isNotEmpty } from '../../../../empty.util';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../../../core/shared/operators';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { SubmissionService } from '../../../../../submission/submission.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../empty.util';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { ReorderableRelationship } from '../existing-metadata-list-element/existing-metadata-list-element.component';
-import { SubmissionService } from '../../../../../submission/submission.service';
+import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
 /**
  * Abstract class that defines objects that can be reordered
@@ -53,7 +78,14 @@ export abstract class Reorderable {
 @Component({
   selector: 'ds-existing-relation-list-element',
   templateUrl: './existing-relation-list-element.component.html',
-  styleUrls: ['./existing-relation-list-element.component.scss']
+  styleUrls: ['./existing-relation-list-element.component.scss'],
+  imports: [
+    ThemedLoadingComponent,
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class ExistingRelationListElementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() listId: string;
@@ -74,7 +106,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
   constructor(
     private selectableListService: SelectableListService,
     private submissionService: SubmissionService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) {
   }
 
@@ -92,7 +124,7 @@ export class ExistingRelationListElementComponent implements OnInit, OnChanges, 
       this.subs.push(item$.pipe(
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
-        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
+        filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid)),
       ).subscribe((item: Item) => {
         this.relatedItem$.next(item);
       }));

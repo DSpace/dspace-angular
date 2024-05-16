@@ -1,10 +1,10 @@
-.loginDropdownMenu, .logoutDropdownMenu {
+#loginDropdownMenu, #logoutDropdownMenu {
   min-width: 330px;
   z-index: 1002;
 }
 
-.loginDropdownMenu {
-  min-height: 260px;
+#loginDropdownMenu {
+  min-height: 75px;
 }
 
 .dropdown-item.active, .dropdown-item:active,

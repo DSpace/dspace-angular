@@ -1,0 +1,36 @@
+<h3>{{ 'search.sidebar.advanced-search.title' | translate }}</h3>
+<div class="advanced-search b-3 p-3">
+  <h4>{{ 'search.sidebar.advanced-search.filter-by' | translate }}</h4>
+  <label class="sr-only" for="advanced-search-filters">
+    {{ 'search.sidebar.advanced-search.filters' | translate }}
+  </label>
+  <select [(ngModel)]="currentFilter" (keyup.enter)="applyFilter()"
+          (ngModelChange)="currentOperator = advancedFilterMap.get(currentFilter).operators[0].operator"
+          class="form-control mb-2" id="advanced-search-filters">
+    <option *ngFor="let advancedFilter of (advancedFilters$ | async) | keyvalue" [value]="advancedFilter.value.filter">
+      {{ 'search.filters.filter.' + advancedFilter.value.filter + '.head' | translate }}
+    </option>
+  </select>
+  <label class="sr-only" for="advanced-search-operators">
+    {{ 'search.sidebar.advanced-search.operators' | translate }}
+  </label>
+  <select [(ngModel)]="currentOperator" (keyup.enter)="applyFilter()"
+          class="form-control mb-2" id="advanced-search-operators">
+    <option *ngFor="let operator of advancedFilterMap.get(currentFilter)?.operators" [value]="operator.operator">
+      {{ 'search.filters.operator.' + operator.operator + '.text' | translate }}
+    </option>
+  </select>
+  <ds-filter-input-suggestions [suggestions]="(filterSearchResults$ | async)"
+                               [placeholder]="'search.filters.filter.' + currentFilter + '.placeholder' | translate"
+                               [label]="'search.filters.filter.' + currentFilter + '.label' | translate"
+                               [action]="router.url"
+                               [name]="'f.' + currentFilter"
+                               [(ngModel)]="currentValue"
+                               (submitSuggestion)="applyFilter()"
+                               (findSuggestions)="findSuggestions($event)"
+                               ngDefaultControl>
+  </ds-filter-input-suggestions>
+  <button (click)="applyFilter()" [disabled]="currentValue === ''" class="btn btn-primary mt-2">
+    {{ 'search.sidebar.advanced-search.add' | translate }}
+  </button>
+</div>

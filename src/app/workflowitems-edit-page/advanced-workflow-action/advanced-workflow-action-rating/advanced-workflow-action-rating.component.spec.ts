@@ -1,35 +1,48 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
-import {
-  AdvancedWorkflowActionRatingComponent,
-  ADVANCED_WORKFLOW_TASK_OPTION_RATING
-} from './advanced-workflow-action-rating.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { RouteService } from '../../../core/services/route.service';
-import { routeServiceStub } from '../../../shared/testing/route-service.stub';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { createSuccessfulRemoteDataObject$, createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { Item } from '../../../core/shared/item.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { RequestService } from '../../../core/data/request.service';
+import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
+import { RouteService } from '../../../core/services/route.service';
+import { Item } from '../../../core/shared/item.model';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
-import { RequestService } from '../../../core/data/request.service';
-import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { ClaimedTaskDataServiceStub } from '../../../shared/testing/claimed-task-data-service.stub';
 import { LocationStub } from '../../../shared/testing/location.stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RequestServiceStub } from '../../../shared/testing/request-service.stub';
+import { routeServiceStub } from '../../../shared/testing/route-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { WorkflowActionDataServiceStub } from '../../../shared/testing/workflow-action-data-service.stub';
+import { WorkflowItemDataServiceStub } from '../../../shared/testing/workflow-item-data-service.stub';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import {
+  ADVANCED_WORKFLOW_TASK_OPTION_RATING,
+  AdvancedWorkflowActionRatingComponent,
+} from './advanced-workflow-action-rating.component';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -57,8 +70,6 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdvancedWorkflowActionRatingComponent,
         VarDirective,
       ],

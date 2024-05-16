@@ -1,23 +1,47 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { Observable } from 'rxjs';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  EMPTY,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { Version } from '../../../core/shared/version.model';
-import { hasValue, hasValueOperator } from '../../../shared/empty.util';
+import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { Item } from '../../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
+import { Version } from '../../../core/shared/version.model';
+import { VersionHistory } from '../../../core/shared/version-history.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
+import {
+  hasValue,
+  hasValueOperator,
+} from '../../../shared/empty.util';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
   selector: 'ds-item-versions-notice',
-  templateUrl: './item-versions-notice.component.html'
+  templateUrl: './item-versions-notice.component.html',
+  standalone: true,
+  imports: [NgIf, AlertComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying a warning notice when the item is not the latest version within its version history
@@ -73,18 +97,31 @@ export class ItemVersionsNoticeComponent implements OnInit {
         getAllSucceededRemoteData(),
         getRemoteDataPayload(),
         hasValueOperator(),
-        switchMap((version: Version) => version.versionhistory)
+        switchMap((version: Version) => version.versionhistory),
       );
 
       this.latestVersion$ = this.versionHistoryRD$.pipe(
-        getFirstSucceededRemoteDataPayload(),
-        switchMap((vh) => this.versionHistoryService.getLatestVersionFromHistory$(vh))
+        getFirstCompletedRemoteData(),
+        switchMap((vhRD: RemoteData<VersionHistory>) => {
+          if (vhRD.hasSucceeded) {
+            return this.versionHistoryService.getLatestVersionFromHistory$(vhRD.payload);
+          } else {
+            return EMPTY;
+          }
+        }),
       );
 
       this.showLatestVersionNotice$ = this.versionRD$.pipe(
-        getFirstSucceededRemoteDataPayload(),
-        switchMap((version) => this.versionHistoryService.isLatest$(version)),
-        map((isLatest) => isLatest != null && !isLatest),
+        getFirstCompletedRemoteData(),
+        switchMap((versionRD: RemoteData<Version>) => {
+          if (versionRD.hasSucceeded) {
+            return this.versionHistoryService.isLatest$(versionRD.payload).pipe(
+              map((isLatest) => isLatest != null && !isLatest),
+            );
+          } else {
+            return of(false);
+          }
+        }),
         startWith(false),
       );
     }

@@ -6,7 +6,7 @@
   <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
     <div *ngIf="item" @fadeInOut>
       <div class="d-flex">
-        <ds-themed-badges [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-themed-badges>
+        <ds-badges [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-badges>
       </div>
       <ds-truncatable [id]="item.id">
         <h3 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
@@ -21,7 +21,7 @@
                 class="item-list-authors">
                 <span
                   *ngIf="item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0">{{'mydspace.results.no-authors'
-                  | translate}}</span>
+                 | translate}}</span>
                 <span
                   *ngFor="let author of item.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
                   <span [innerHTML]="author"><span [innerHTML]="author"></span></span>

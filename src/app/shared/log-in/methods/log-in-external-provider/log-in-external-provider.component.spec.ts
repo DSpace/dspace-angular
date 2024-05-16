@@ -1,22 +1,29 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { provideMockStore } from '@ngrx/store/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { storeModuleConfig } from '../../../../app.reducer';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
-import { storeModuleConfig } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { LogInExternalProviderComponent } from './log-in-external-provider.component';
-import { NativeWindowService } from '../../../../core/services/window.service';
-import { RouterStub } from '../../../testing/router.stub';
-import { ActivatedRouteStub } from '../../../testing/active-router.stub';
-import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { NativeWindowService } from '../../../../core/services/window.service';
+import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
+import { AuthServiceStub } from '../../../testing/auth-service.stub';
+import { RouterStub } from '../../../testing/router.stub';
+import { LogInExternalProviderComponent } from './log-in-external-provider.component';
 
 describe('LogInExternalProviderComponent', () => {
 
@@ -35,7 +42,7 @@ describe('LogInExternalProviderComponent', () => {
 
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
       getCurrentRoute: {},
-      redirect: {}
+      redirect: {},
     });
 
     initialState = {
@@ -45,9 +52,9 @@ describe('LogInExternalProviderComponent', () => {
           loaded: false,
           blocking: false,
           loading: false,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
   });
 
@@ -56,10 +63,8 @@ describe('LogInExternalProviderComponent', () => {
     void TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
-        TranslateModule.forRoot()
-      ],
-      declarations: [
-        LogInExternalProviderComponent
+        TranslateModule.forRoot(),
+        LogInExternalProviderComponent,
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
@@ -72,8 +77,8 @@ describe('LogInExternalProviderComponent', () => {
         provideMockStore({ initialState }),
       ],
       schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     })
       .compileComponents();
 

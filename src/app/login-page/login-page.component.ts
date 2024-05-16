@@ -1,28 +1,44 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
 import {
   AddAuthenticationMessageAction,
   AuthenticatedAction,
   AuthenticationSuccessAction,
-  ResetAuthenticationMessagesAction
+  ResetAuthenticationMessagesAction,
 } from '../core/auth/auth.actions';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '../core/auth/selectors';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
+import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 
 /**
  * This component represents the login page
  */
 @Component({
-  selector: 'ds-login-page',
+  selector: 'ds-base-login-page',
   styleUrls: ['./login-page.component.scss'],
-  templateUrl: './login-page.component.html'
+  templateUrl: './login-page.component.html',
+  standalone: true,
+  imports: [ThemedLogInComponent, TranslateModule],
 })
 export class LoginPageComponent implements OnDestroy, OnInit {
 
@@ -49,7 +65,7 @@ export class LoginPageComponent implements OnDestroy, OnInit {
     const authenticated = this.store.select(isAuthenticated);
     this.sub = observableCombineLatest(queryParamsObs, authenticated).pipe(
       filter(([params, auth]) => isNotEmpty(params.token) || isNotEmpty(params.expired)),
-      take(1)
+      take(1),
     ).subscribe(([params, auth]) => {
       const token = params.token;
       let authToken: AuthTokenInfo;
