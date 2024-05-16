@@ -36,6 +36,7 @@ import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
 import { LoaderConfig } from './loader-config.interfaces';
+import { MetaTagsConfig } from './meta-tags.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -769,8 +770,11 @@ export class DefaultAppConfig implements AppConfig {
     errorMessageDelay: 15000, // 15 seconds
   };
 
-  metaTagFallbacksConfig = {
-    logo: '/assets/images/dspace-cris-logo.png',
-    description: 'DSpace is the most widely used repository software with more than 3000 installations around the world. It is free, open source and completely customisable to fit the needs of any organisation.'
+  metaTags: MetaTagsConfig = {
+    defaultLogo: '/assets/images/dspace-cris-logo-hd.png',
+    defaultDescription: 'DSpace-CRIS is a comprehensive, free and open-source Research Information Management System (CRIS/RIMS).\n' +
+      'It is based on DSpace, providing broader functionality and an expanded data model, relying on its large community.\n' +
+      'It is compliant with and supports key international standards, facilitating interoperability and data transfer.\n' +
+      'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.'
   };
 }

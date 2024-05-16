@@ -33,7 +33,7 @@ import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
 import { LoaderConfig } from './loader-config.interfaces';
-import { MetaTagFallbacksConfig } from './metatag-fallbacks.config';
+import { MetaTagsConfig } from './meta-tags.config';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -73,7 +73,7 @@ interface AppConfig extends Config {
   searchResult: SearchResultConfig;
   mirador: MiradorConfig;
   loader: LoaderConfig;
-  metaTagFallbacksConfig: MetaTagFallbacksConfig
+  metaTags: MetaTagsConfig;
 }
 
 /**

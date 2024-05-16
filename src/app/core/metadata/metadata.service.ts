@@ -83,8 +83,8 @@ export class MetadataService {
     'application/epub+zip',                                                     // .epub
   ];
 
-  private fallbackImagePath = environment.metaTagFallbacksConfig.logo;
-  private defaultPageDescription = environment.metaTagFallbacksConfig.description;
+  private fallbackImagePath = environment.metaTags.defaultLogo;
+  private defaultPageDescription = environment.metaTags.defaultDescription;
 
   constructor(
     private router: Router,
