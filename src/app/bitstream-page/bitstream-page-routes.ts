@@ -11,7 +11,7 @@ import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bit
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
 import { bitstreamPageResolver } from './bitstream-page.resolver';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
-import { legacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
+import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -24,17 +24,13 @@ export const ROUTES: Route[] = [
     // Resolve XMLUI bitstream download URLs
     path: 'handle/:prefix/:suffix/:filename',
     component: BitstreamDownloadPageComponent,
-    resolve: {
-      bitstream: legacyBitstreamUrlResolver,
-    },
+    canActivate: [legacyBitstreamURLRedirectGuard],
   },
   {
     // Resolve JSPUI bitstream download URLs
     path: ':prefix/:suffix/:sequence_id/:filename',
     component: BitstreamDownloadPageComponent,
-    resolve: {
-      bitstream: legacyBitstreamUrlResolver,
-    },
+    canActivate: [legacyBitstreamURLRedirectGuard],
   },
   {
     // Resolve angular bitstream download URLs
