@@ -1,9 +1,20 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import {Store, StoreModule} from '@ngrx/store';
+import {
+  Angulartics2,
+  RouterlessTracking,
+} from 'angulartics2';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../environments/environment';
@@ -27,7 +38,6 @@ import { ThemeService } from '../../../../../shared/theme-support/theme.service'
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './workflow-item-search-result-admin-workflow-list-element.component';
-import {Angulartics2, RouterlessTracking} from 'angulartics2';
 
 describe('WorkflowItemSearchResultAdminWorkflowListElementComponent', () => {
   let component: WorkflowItemSearchResultAdminWorkflowListElementComponent;

@@ -1,29 +1,42 @@
-import { NO_ERRORS_SCHEMA, InjectionToken } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Angulartics2,
+  RouterlessTracking,
+} from 'angulartics2';
 import { of } from 'rxjs';
 
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment';
+import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
+import { RequestService } from '../../../../../core/data/request.service';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
-import { getWorkflowItemDeleteRoute, getWorkflowItemSendBackRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin-workflow-actions.component';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
-import { RequestService } from '../../../../../core/data/request.service';
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
 import { ClaimedTaskDataService } from '../../../../../core/tasks/claimed-task-data.service';
 import { PoolTaskDataService } from '../../../../../core/tasks/pool-task-data.service';
-import { environment } from '../../../../../../environments/environment';
-import { By } from '@angular/platform-browser';
-import {APP_CONFIG, APP_DATA_SERVICES_MAP} from "../../../../../../config/app-config.interface";
-import {Angulartics2, RouterlessTracking} from "angulartics2";
+import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import {
+  getWorkflowItemDeleteRoute,
+  getWorkflowItemSendBackRoute,
+} from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { WorkflowItemAdminWorkflowActionsComponent } from './workflow-item-admin-workflow-actions.component';
 
 describe('WorkflowItemAdminWorkflowActionsComponent', () => {
   let component: WorkflowItemAdminWorkflowActionsComponent;
