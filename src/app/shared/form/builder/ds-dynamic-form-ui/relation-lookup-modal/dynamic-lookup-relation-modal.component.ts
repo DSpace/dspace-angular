@@ -29,6 +29,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -141,12 +142,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   /**
    * Maintain the list of the related items to be added
    */
-  toAdd = [];
+  toAdd: ItemSearchResult[] = [];
 
   /**
    * Maintain the list of the related items to be removed
    */
-  toRemove = [];
+  toRemove: ItemSearchResult[] = [];
 
   /**
    * Disable buttons while the submit button is pressed
