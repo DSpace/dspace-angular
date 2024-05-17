@@ -2,9 +2,7 @@ import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { getTestScheduler } from 'jasmine-marbles';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
@@ -30,6 +28,7 @@ import { relationshipTypes } from '../../../shared/testing/relationship-types.mo
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -58,7 +57,6 @@ let itemService: ItemDataServiceStub;
 const url = 'http://test-url.com/test-url';
 router.url = url;
 
-let scheduler: TestScheduler;
 let item;
 let author1;
 let author2;
@@ -206,9 +204,8 @@ describe('ItemRelationshipsComponent', () => {
       }
     );
 
-    scheduler = getTestScheduler();
     TestBed.configureTestingModule({
-      imports: [SharedModule, TranslateModule.forRoot()],
+      imports: [NoopAnimationsModule, SharedModule, TranslateModule.forRoot()],
       declarations: [ItemRelationshipsComponent],
       providers: [
         { provide: ThemeService, useValue: getMockThemeService() },

@@ -185,8 +185,6 @@ describe('EditItemRelationshipsService', () => {
 
       expect(itemService.invalidateByHref).toHaveBeenCalledWith(currentItem.self);
       expect(itemService.invalidateByHref).toHaveBeenCalledWith(relationshipItem1.self);
-      // TODO currently this isn't done yet
-      // expect(itemService.invalidateByHref).toHaveBeenCalledWith(relationshipItem2.self);
 
       expect(notificationsService.success).toHaveBeenCalledTimes(1);
     });

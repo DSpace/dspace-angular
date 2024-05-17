@@ -28,6 +28,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
 import { compareArraysUsingIds } from '../../simple/item-types/shared/item-relationships-utils';
+import { AlertType } from '../../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -53,6 +54,8 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   get isSaving$(): BehaviorSubject<boolean> {
     return this.editItemRelationshipsService.isSaving$;
   }
+
+  readonly AlertType = AlertType;
 
   constructor(
     public itemService: ItemDataService,
