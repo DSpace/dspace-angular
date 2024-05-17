@@ -13,12 +13,10 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { getTestScheduler } from 'jasmine-marbles';
 import {
   combineLatest as observableCombineLatest,
   of as observableOf,
 } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
@@ -33,6 +31,7 @@ import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import {
   INotification,
@@ -78,7 +77,6 @@ let itemService: ItemDataServiceStub;
 const url = 'http://test-url.com/test-url';
 router.url = url;
 
-let scheduler: TestScheduler;
 let item;
 let author1;
 let author2;
@@ -226,7 +224,6 @@ describe('ItemRelationshipsComponent', () => {
       },
     );
 
-    scheduler = getTestScheduler();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), ItemRelationshipsComponent],
       providers: [
@@ -245,6 +242,12 @@ describe('ItemRelationshipsComponent', () => {
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
+    }).overrideComponent(ItemRelationshipsComponent, {
+      remove: {
+        imports: [
+          AlertComponent,
+        ],
+      },
     }).compileComponents();
   }));
 

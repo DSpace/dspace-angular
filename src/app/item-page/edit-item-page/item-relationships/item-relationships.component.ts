@@ -2,6 +2,7 @@ import {
   AsyncPipe,
   NgForOf,
   NgIf,
+  NgTemplateOutlet,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -39,6 +40,8 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -53,12 +56,14 @@ import { EditRelationshipListComponent } from './edit-relationship-list/edit-rel
   styleUrls: ['./item-relationships.component.scss'],
   templateUrl: './item-relationships.component.html',
   imports: [
-    ThemedLoadingComponent,
+    AlertComponent,
     AsyncPipe,
-    TranslateModule,
-    NgIf,
     EditRelationshipListComponent,
     NgForOf,
+    NgIf,
+    NgTemplateOutlet,
+    ThemedLoadingComponent,
+    TranslateModule,
     VarDirective,
   ],
   standalone: true,
@@ -82,6 +87,8 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   get isSaving$(): BehaviorSubject<boolean> {
     return this.editItemRelationshipsService.isSaving$;
   }
+
+  readonly AlertType = AlertType;
 
   constructor(
     public itemService: ItemDataService,
