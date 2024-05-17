@@ -85,12 +85,9 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     }
 
     this.discardTimeOut = environment.item.edit.undoTimeout;
-    this.url = this.router.url;
+    this.url = this.router.url.split('?')[0];
     this.hasChanges$ = this.hasChanges();
     this.isReinstatable$ = this.isReinstatable();
-    if (this.url.indexOf('?') > 0) {
-      this.url = this.url.substr(0, this.url.indexOf('?'));
-    }
     this.hasChanges().pipe(first()).subscribe((hasChanges) => {
       if (!hasChanges) {
         this.initializeOriginalFields();
