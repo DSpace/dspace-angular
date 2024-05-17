@@ -5542,6 +5542,16 @@
 
   "form.other-information.oairecerif-editor-affiliation": "Affiliation",
 
+  "form.other-information.dc.publisher": "Publisher",
+
+  "form.other-information.miur.journal.othertitle": "Other Title",
+
+  "form.other-information.miur.journal.startdate": "Start Date",
+
+  "form.other-information.miur.journal.enddate": "End Date",
+
+  "form.other-information.dc.identifier.issn": "ISSN",
+
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
   "statistics.table.downloadReports.title.TopItems": "Most downloaded",
