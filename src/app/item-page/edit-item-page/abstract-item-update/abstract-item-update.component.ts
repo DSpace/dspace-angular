@@ -35,6 +35,10 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    */
   updates$: Observable<FieldUpdates>;
 
+  hasChanges$: Observable<boolean>;
+
+  isReinstatable$: Observable<boolean>;
+
   /**
    * Route to the item's page
    */
@@ -82,6 +86,8 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
 
     this.discardTimeOut = environment.item.edit.undoTimeout;
     this.url = this.router.url;
+    this.hasChanges$ = this.hasChanges();
+    this.isReinstatable$ = this.isReinstatable();
     if (this.url.indexOf('?') > 0) {
       this.url = this.url.substr(0, this.url.indexOf('?'));
     }

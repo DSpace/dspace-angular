@@ -3166,6 +3166,8 @@
 
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
+  "orgunit.search.results.head": "Organizational Unit Search Results",
+
   "pagination.options.description": "Pagination options",
 
   "pagination.results-per-page": "Results Per Page",

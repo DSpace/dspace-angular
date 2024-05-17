@@ -43,9 +43,9 @@ export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedCompone
 
   @Input() isEditRelationship: boolean;
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() deselectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() selectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 
