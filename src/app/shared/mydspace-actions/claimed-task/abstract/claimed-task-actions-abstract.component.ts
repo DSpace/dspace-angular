@@ -1,6 +1,7 @@
 import {
   Component,
   Injector,
+  Input,
   OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -44,7 +45,7 @@ export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReload
   /**
    * The item object that belonging to the ClaimedTask object
    */
-  item: Item;
+  @Input() item: Item;
 
   /**
    * Anchor used to reload the pool task.
@@ -56,7 +57,7 @@ export abstract class ClaimedTaskActionsAbstractComponent extends MyDSpaceReload
   /**
    * The workflowitem object that belonging to the ClaimedTask object
    */
-  workflowitem: WorkflowItem;
+  @Input() workflowitem: WorkflowItem;
 
   protected constructor(protected injector: Injector,
                         protected router: Router,
