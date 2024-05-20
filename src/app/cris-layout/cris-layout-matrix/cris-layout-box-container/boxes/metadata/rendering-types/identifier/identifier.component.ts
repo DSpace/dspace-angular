@@ -1,13 +1,15 @@
+import { IdentifierSubtypesConfig, IdentifierSubtypesIconPositionEnum } from './../../../../../../../../config/identifier-subtypes-config.interface';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
-import { hasValue, isNotEmpty } from '../../../../../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { TranslateService } from '@ngx-translate/core';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { environment } from 'src/environments/environment';
 
 /**
  * This component renders the identifier metadata fields.
@@ -36,6 +38,31 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
    * specifies where to open the linked document
    */
   target = '_blank';
+
+  /**
+   * The identifier subtype configurations
+   */
+  identifierSubtypeConfig: IdentifierSubtypesConfig[] = environment.identifierSubtypes;
+
+  /**
+   * The icon to display for the identifier subtype
+   */
+  subTypeIcon: string;
+
+  /**
+   * The position of the icon relative to the identifier
+   */
+  iconPosition: IdentifierSubtypesIconPositionEnum = IdentifierSubtypesIconPositionEnum.NONE;
+
+  /**
+   * The link to navigate to when the icon is clicked
+   */
+  iconLink = '';
+
+  /**
+   * The identifier subtype to render
+   */
+  iconPositionEnum = IdentifierSubtypesIconPositionEnum;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
@@ -102,5 +129,28 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
 
   ngOnInit(): void {
     this.identifier = this.getIdentifierFromValue();
+    this.getSubtypeValue();
   }
+
+  /**
+   * Retrieves the subtype value for the identifier component.
+   * If the identifier subtype is not empty, it searches for the subtype with a matching name to the rendering subtype.
+   * If a matching subtype is found, it sets the icon position, subtype icon, and icon link based on the subtype's properties.
+   */
+  private getSubtypeValue() {
+    if (isNotEmpty(this.identifierSubtypeConfig)) {
+      const subtypeVal = this.identifierSubtypeConfig.find((subtype) => subtype.name === this.renderingSubType);
+      if (hasNoValue(subtypeVal)) {
+        return;
+      }
+
+      this.iconPosition = subtypeVal.iconPosition;
+      this.subTypeIcon = subtypeVal.iconPosition !== IdentifierSubtypesIconPositionEnum.NONE ? subtypeVal?.icon : '';
+      this.iconLink = subtypeVal?.link;
+    }
+  }
+
+  // TODO: Check the internal | external link
+  // TODO: UNIT TESTs
+
 }
