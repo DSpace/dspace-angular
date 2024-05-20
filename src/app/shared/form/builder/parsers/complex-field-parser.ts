@@ -124,9 +124,7 @@ export class ComplexFieldParser extends FieldParser {
         inputConfig.readOnly = true;
       }
 
-      if (this.configData.mandatory) {
-        inputConfig.required = hasValue(complexDefinitionInput.required) && complexDefinitionInput.required === 'true';
-      }
+      inputConfig.required = hasValue(complexDefinitionInput.required) && complexDefinitionInput.required === 'true';
 
       // max length - 200 chars
       this.addValidatorToComplexInput(inputConfig, complexDefinitionInput);
@@ -155,6 +153,12 @@ export class ComplexFieldParser extends FieldParser {
 
       // for non-EU funds hide EU identifier read only input field
       inputModel.hidden = complexDefinitionInput.name === OPENAIRE_INPUT_NAME;
+
+      // Show error messages in the input field. It is ignored in the `initForm` because a whole input group is not
+      // required. It should be marked as required in the complex group for every input field.
+      if (inputConfig.required) {
+        this.markAsRequired(inputModel);
+      }
       concatGroup.group.push(inputModel);
     });
 

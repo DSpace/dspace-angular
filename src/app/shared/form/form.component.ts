@@ -18,7 +18,6 @@ import { hasValue, isNotEmpty, isNotNull, isNull } from '../empty.util';
 import { FormService } from './form.service';
 import { FormEntry, FormError } from './form.reducer';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import {DsDynamicInputModel} from './builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
 /**
  * The default form component.
@@ -191,25 +190,8 @@ export class FormComponent implements OnDestroy, OnInit {
               }
 
               if (field) {
-                const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
-
-                // Check if field has nested input fields
-                if (field instanceof UntypedFormGroup && isNotEmpty(field?.controls)) {
-                  // For input field which consist of more input fields e.g. DynamicComplexModel
-                  // add error for every input field
-                  Object.keys(field.controls).forEach((nestedInputName, nestedInputIndex) => {
-                    const nestedInputField = (model as DynamicFormGroupModel).group?.[nestedInputIndex];
-                    const nestedInputFieldInForm = formGroup.get(this.formBuilderService.getPath(nestedInputField));
-                    // Do not add errors for non-mandatory inputs
-                    if (nestedInputField instanceof DsDynamicInputModel && !nestedInputField.required) {
-                      return;
-                    }
-                    this.formService.addErrorToField(nestedInputFieldInForm, nestedInputField, error.message);
-                  });
-                } else {
-                  // Add error to the input field
-                  this.formService.addErrorToField(field, model, error.message);
-                }
+                                                                                                                                                                                                                                                                                                                                                                                                      const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
+                this.formService.addErrorToField(field, model, error.message);
                 this.changeDetectorRef.detectChanges();
               }
             });

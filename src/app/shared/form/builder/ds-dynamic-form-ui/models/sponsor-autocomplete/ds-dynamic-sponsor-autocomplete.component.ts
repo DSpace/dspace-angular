@@ -70,7 +70,7 @@ export class DsDynamicSponsorAutocompleteComponent extends DsDynamicAutocomplete
     if (suggestion instanceof ExternalSourceEntry) {
       // suggestion from the openAIRE
       fundingProjectCode = this.getProjectCodeFromId(suggestion?.id);
-      fundingName = suggestion.metadata?.['project.funder.name']?.[0]?.value;
+      fundingName = suggestion.metadata?.['dc.title']?.[0]?.value;
     } else if (suggestion instanceof  VocabularyEntry) {
       // the value is in the format: `<FUNDING_TYPE>;<PROJECT_CODE>;<FUND_ORGANIZATION>;<FUNDING_NAME>;`
       const fundingFields = suggestion.value?.split(SEPARATOR);

@@ -9,6 +9,7 @@ import { VocabularyService } from '../../../../../../core/submission/vocabularie
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicScrollableDropdownComponent } from '../scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import {
+  DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN,
   DynamicScrollableDropdownModel
 } from '../scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import {
@@ -19,6 +20,7 @@ import { DynamicComplexModel, EU_IDENTIFIER_INDEX } from '../ds-dynamic-complex.
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_AUTOCOMPLETE } from '../autocomplete/ds-dynamic-autocomplete.model';
 import isEqual from 'lodash/isEqual';
+import { TranslateService } from '@ngx-translate/core';
 
 const DYNAMIC_INPUT_TYPE = 'INPUT';
 
@@ -47,7 +49,8 @@ export class DsDynamicSponsorScrollableDropdownComponent extends DsDynamicScroll
   constructor(protected vocabularyService: VocabularyService,
               protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
-              protected validationService: DynamicFormValidationService
+              protected validationService: DynamicFormValidationService,
+              protected translateService: TranslateService
   ) {
     super(vocabularyService, cdr, layoutService, validationService);
   }
@@ -107,6 +110,9 @@ export class DsDynamicSponsorScrollableDropdownComponent extends DsDynamicScroll
         case DYNAMIC_INPUT_TYPE:
           (input as DsDynamicInputModel).value = '';
           break;
+        case DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN:
+          (input as DynamicScrollableDropdownModel).value = '';
+          break;
         default:
           break;
       }
@@ -132,6 +138,11 @@ export class DsDynamicSponsorScrollableDropdownComponent extends DsDynamicScroll
 
     // if the funding type is Non EU and has EU identifier `info:eu..` -> clean inputs
     if (!isEqual(fundingTypeValue, DEFAULT_EU_DISPLAY_VALUE) && !isEmpty(euIdentifierValue)) {
+      return true;
+    }
+
+    // if the funding type is `N/A` -> clean inputs
+    if (isEqual(fundingTypeValue, this.translateService.instant('autocomplete.suggestion.sponsor.empty'))) {
       return true;
     }
 
