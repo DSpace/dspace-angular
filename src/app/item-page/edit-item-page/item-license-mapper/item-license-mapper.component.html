@@ -1,0 +1,42 @@
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-12">
+      <h2>{{'item.edit.license.head' | translate}}</h2>
+      <div class="alert alert-dismissible alert-info">
+        <a [href]="(currentLicense | async)?.definition" class="badge badge-info">
+          {{(currentLicense | async)?.name}}
+        </a>
+        <a class="pl-2 text-info" (click)="removeLicense()">
+          {{'item.edit.license.remove.license.message' | translate}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row pt-3">
+    <div class="col-12">
+      <label class="font-weight-bold" for="selectLicense">{{'item.edit.license.select.license.select.message' | translate}}</label>
+      <select class="form-control" [(ngModel)]="selectedLicenseId" name="selectLicense" id="selectLicense">
+        <option [ngValue]="null">{{'item.edit.license.select.license.initial-value.message' | translate}}</option>
+        <option *ngFor="let license of (allLicenses | async)" [value]="license.id">{{license.name}}</option>
+      </select>
+      <label class="text-info pt-2" for="selectLicense">
+        <i class="fa fa-info-circle"></i>
+        <span class="pl-1">{{'item.edit.license.select.license.info' | translate}}</span>
+      </label>
+    </div>
+  </div>
+  <div>
+    <a class="text-info" [href]="getLicensesModulePath() + getLicensesManageTablePath()">
+      {{'item.edit.license.define.license.message' | translate}}
+    </a>
+  </div>
+  <div class="pt-2">
+    <button class="btn btn-primary"
+            (click)="updateLicense()">
+      {{'item.edit.license.button.name.update' | translate}}
+    </button>
+    <button class="btn btn-primary ml-2" (click)="return()">
+      {{'item.edit.license.button.name.return' | translate}}
+    </button>
+  </div>
+</div>

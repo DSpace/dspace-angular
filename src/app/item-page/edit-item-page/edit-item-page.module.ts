@@ -46,6 +46,7 @@ import { ResultsBackButtonModule } from '../../shared/results-back-button/result
 import {
   AccessControlFormModule
 } from '../../shared/access-control-form-container/access-control-form.module';
+import { ItemLicenseMapperComponent } from './item-license-mapper/item-license-mapper.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -94,6 +95,7 @@ import {
     ItemRegisterDoiComponent,
     ItemCurateComponent,
     ItemAccessControlComponent,
+    ItemLicenseMapperComponent,
   ],
   providers: [
     BundleDataService,

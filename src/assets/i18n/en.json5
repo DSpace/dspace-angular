@@ -2615,6 +2615,28 @@
 
   "item.edit.withdraw.success": "The item was withdrawn successfully",
 
+  "item.edit.tabs.license.head": "License",
+
+  "item.edit.license.head": "Current License",
+
+  "item.edit.license.select.license.initial-value.message": "-Select License-",
+
+  "item.edit.license.select.license.select.message": "Select a license",
+
+  "item.edit.license.select.license.info": "If you want to change the license, select a new license from the list and press update.",
+
+  "item.edit.license.define.license.message": "Define a new license",
+
+  "item.edit.license.button.name.update": "Update",
+
+  "item.edit.license.button.name.return": "Return",
+
+  "item.edit.license.remove.license.message": "Remove License",
+
+  "item.edit.license.update.success": "License updated successfully",
+
+  "item.edit.license.update.error": "Error: cannot update license",
+
   "item.orcid.return": "Back",
 
   "item.listelement.badge": "Item",
