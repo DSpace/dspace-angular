@@ -38,6 +38,7 @@ import { MiradorConfig } from './mirador-config.interfaces';
 import { LoaderConfig } from './loader-config.interfaces';
 import { MetaTagsConfig } from './meta-tags.config';
 import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
+import { IdentifierSubtypesConfig, IdentifierSubtypesIconPositionEnum } from './identifier-subtypes-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -833,4 +834,13 @@ export class DefaultAppConfig implements AppConfig {
         },
       ]
     };
+
+  identifierSubtypes: IdentifierSubtypesConfig[] = [
+    {
+      name: 'ror',
+      icon: 'assets/images/ror.logo.icon.svg',
+      iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+      link: 'https://ror.org'
+    }
+  ];
 }
