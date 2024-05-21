@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 
-import { SearchService } from '../../core/shared/search/search.service';
+import { SearchManager } from '../../core/browse/search-manager';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchResult } from '../search/models/search-result.model';
@@ -39,7 +39,7 @@ export class BrowseMostElementsComponent implements OnInit {
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private searchService: SearchService,
+    private searchService: SearchManager,
     private cdr: ChangeDetectorRef) {
 
   }

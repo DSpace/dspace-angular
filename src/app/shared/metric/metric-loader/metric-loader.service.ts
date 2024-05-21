@@ -58,12 +58,13 @@ export class MetricLoaderService {
   /**
    * Load required data for the metricType and then return the Component type.
    * @param metricType
+   * @param canLoadScript
    * @return the ComponentClass for the metricType
    */
-  public loadMetricTypeComponent(metricType: string): Promise<any> {
+  public loadMetricTypeComponent(metricType: string, canLoadScript = true): Promise<any> {
     const component = this.getComponent(metricType);
     const scriptSrc = this.getScript(metricType);
-    if (scriptSrc) {
+    if (scriptSrc && canLoadScript) {
       return this.metricLoadScriptService.loadScript(metricType, scriptSrc).then(() => component);
     }
     return of(component).toPromise();

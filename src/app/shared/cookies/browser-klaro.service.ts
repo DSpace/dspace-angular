@@ -1,21 +1,22 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../environments/environment';
 import { map, switchMap, take } from 'rxjs/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { KlaroService } from './klaro.service';
+import { CookieConsents, KlaroService } from './klaro.service';
 import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { CookieService } from '../../core/services/cookie.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
 import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
-import { Operation } from 'fast-json-patch';
+import { deepClone, Operation } from 'fast-json-patch';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
+import isEqual from 'lodash/isEqual';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -65,10 +66,18 @@ export class BrowserKlaroService extends KlaroService {
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
+  private lastCookiesConsents: CookieConsents;
+
   /**
    * Initial Klaro configuration
    */
   klaroConfig = cloneDeep(klaroConfiguration);
+
+  /**
+   * Subject to emit updates in the consents
+   */
+  consentsUpdates$:  BehaviorSubject<CookieConsents> = new BehaviorSubject<CookieConsents>(null);
+
 
   constructor(
     private translateService: TranslateService,
@@ -92,6 +101,20 @@ export class BrowserKlaroService extends KlaroService {
     if (!environment.info.enablePrivacyStatement) {
       delete this.klaroConfig.privacyPolicy;
       this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
+    }
+
+    if (hasValue(environment.info.metricsConsents)) {
+      environment.info.metricsConsents.forEach((metric) => {
+        if (metric.enabled) {
+          this.klaroConfig.services.push(
+            {
+              name: metric.key,
+              purposes: ['thirdPartyJs'],
+              required: false,
+            }
+          );
+        }
+      });
     }
 
     const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
@@ -329,6 +352,25 @@ export class BrowserKlaroService extends KlaroService {
    */
   getStorageName(identifier: string) {
     return 'klaro-' + identifier;
+  }
+
+  watchConsentUpdates(): void {
+    this.lazyKlaro.then(({getManager}) => {
+      const manager = getManager(this.klaroConfig);
+      const consentsSubject$ = this.consentsUpdates$;
+      let lastCookiesConsents = this.lastCookiesConsents;
+
+      consentsSubject$.next(manager.consents);
+      manager.watch({
+        update(_, eventName, consents) {
+
+          if (eventName === 'consents' && !isEqual(consents, lastCookiesConsents)) {
+            lastCookiesConsents = deepClone(consents);
+            consentsSubject$.next(consents);
+          }
+        }
+      });
+    });
   }
 
   /**

@@ -1,9 +1,10 @@
 <ds-themed-item-list-preview [item]="dso"
                       [object]="object"
-                      [badgeContext]="badgeContext"></ds-themed-item-list-preview>
+                      [badgeContext]="badgeContext"
+                      [showThumbnails]="showThumbnails"></ds-themed-item-list-preview>
 
 <div class="row">
-  <div [ngClass]="showThumbnails ? 'offset-3 offset-xl-2 pl-3' : ''">
+  <div [ngClass]="showThumbnails ? 'offset-3 offset-xl-2 pl-3' : 'ml-3'">
     <ds-item-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-item-actions>
   </div>
 </div>

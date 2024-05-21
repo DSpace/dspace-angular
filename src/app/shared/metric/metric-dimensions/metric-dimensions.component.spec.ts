@@ -41,6 +41,7 @@ describe('MetricDimensionsComponent', () => {
     component = fixture.componentInstance;
     component.metric = metricMock;
     component.success = true;
+    component.canLoadScript = true;
     component.maxRetry = 0;
     fixture.detectChanges();
   });

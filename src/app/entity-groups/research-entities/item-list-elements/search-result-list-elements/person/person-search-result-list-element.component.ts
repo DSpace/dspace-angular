@@ -36,6 +36,5 @@ export class PersonSearchResultListElementComponent extends ItemSearchResultList
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.showThumbnails = this.appConfig.browseBy.showThumbnails;
   }
 }
