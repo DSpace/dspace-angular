@@ -43,9 +43,9 @@ import { WorkspaceItem } from './models/workspaceitem.model';
 @Injectable({ providedIn: 'root' })
 export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements DeleteData<WorkspaceItem>, SearchData<WorkspaceItem>{
   protected linkPath = 'workspaceitems';
-  protected searchByItemLinkPath = 'workspaceitems/search/item';
+  protected searchByItemLinkPath = 'item';
   private deleteData: DeleteData<WorkspaceItem>;
-  private searchData: SearchData<WorkspaceItem>;
+  private searchData: SearchDataImpl<WorkspaceItem>;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,
@@ -91,8 +91,7 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
   public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
     const findListOptions = new FindListOptions();
     findListOptions.searchParams = [new RequestParam('uuid', uuid)];
-    const href$ = this.halService.getEndpoint(this.searchByItemLinkPath)
-      .pipe(map((href) => this.buildHrefFromFindOptions(href, findListOptions, [], ...linksToFollow)));
+    const href$ = this.searchData.getSearchByHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
