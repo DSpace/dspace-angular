@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { ThemedAdminSearchPageComponent } from './themed-admin-search-page.component';
 import { AdminSearchPageComponent } from './admin-search-page.component';
 import { ItemAdminSearchResultListElementComponent } from './admin-search-results/admin-search-result-list-element/item-search-result/item-admin-search-result-list-element.component';
 import { CommunityAdminSearchResultListElementComponent } from './admin-search-results/admin-search-result-list-element/community-search-result/community-admin-search-result-list-element.component';
@@ -31,6 +32,7 @@ const ENTRY_COMPONENTS = [
     ResearchEntitiesModule.withEntryComponents()
   ],
   declarations: [
+    ThemedAdminSearchPageComponent,
     AdminSearchPageComponent,
     ...ENTRY_COMPONENTS
   ]
