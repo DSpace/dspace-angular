@@ -3,6 +3,7 @@ import { BuildConfig } from 'src/config/build-config.interface';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { AdvancedAttachmentElementType } from '../config/advanced-attachment-rendering.config';
+import { IdentifierSubtypesIconPositionEnum } from 'src/config/identifier-subtypes-config.interface';
 
 export const environment: BuildConfig = {
   production: false,
@@ -587,5 +588,14 @@ export const environment: BuildConfig = {
   metaTags: {
     defaultLogo: '/assets/images/dspace-cris-logo.png',
     defaultDescription: 'DSpace is the most widely used repository software with more than 3000 installations around the world. It is free, open source and completely customisable to fit the needs of any organisation.'
-  }
+  },
+
+  identifierSubtypes: [
+    {
+      name: 'ror',
+      icon: 'assets/images/ror.logo.icon.svg',
+      iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+      link: 'https://ror.org'
+    }
+  ]
 };
