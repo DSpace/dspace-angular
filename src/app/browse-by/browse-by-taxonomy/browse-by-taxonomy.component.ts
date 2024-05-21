@@ -14,7 +14,10 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -125,12 +128,18 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
   browseDefinition$: Observable<BrowseDefinition>;
 
   /**
+   * Browse description
+   */
+  description: string;
+
+  /**
    * Subscriptions to track
    */
   subs: Subscription[] = [];
 
   public constructor(
     protected route: ActivatedRoute,
+    protected translate: TranslateService,
   ) {
   }
 
@@ -141,9 +150,11 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
       }),
     );
     this.subs.push(this.browseDefinition$.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
+      this.selectedItems = [];
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
       this.vocabularyOptions = { name: this.vocabularyName, closed: true };
+      this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.descrption`);
     }));
     this.subs.push(this.scope$.subscribe(() => {
       this.updateQueryParams();
