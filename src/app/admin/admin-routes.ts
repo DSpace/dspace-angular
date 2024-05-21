@@ -11,7 +11,7 @@ import {
   REGISTRIES_MODULE_PATH,
   REPORTS_MODULE_PATH,
 } from './admin-routing-paths';
-import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
+import { ThemedAdminSearchPageComponent } from './admin-search-page/themed-admin-search-page.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
 
 export const ROUTES: Route[] = [
@@ -28,7 +28,7 @@ export const ROUTES: Route[] = [
   {
     path: 'search',
     resolve: { breadcrumb: i18nBreadcrumbResolver },
-    component: AdminSearchPageComponent,
+    component: ThemedAdminSearchPageComponent,
     data: { title: 'admin.search.title', breadcrumbKey: 'admin.search' },
   },
   {
