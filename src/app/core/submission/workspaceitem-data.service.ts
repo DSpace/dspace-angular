@@ -43,7 +43,7 @@ import { WorkspaceItem } from './models/workspaceitem.model';
 @Injectable({ providedIn: 'root' })
 export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceItem> implements DeleteData<WorkspaceItem>, SearchData<WorkspaceItem>{
   protected linkPath = 'workspaceitems';
-  protected searchByItemLinkPath = 'item';
+  protected searchByItemLinkPath = 'workspaceitems/search/item';
   private deleteData: DeleteData<WorkspaceItem>;
   private searchData: SearchData<WorkspaceItem>;
 
@@ -91,7 +91,8 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
   public findByItem(uuid: string, useCachedVersionIfAvailable = false, reRequestOnStale = true, options: FindListOptions = {}, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<WorkspaceItem>> {
     const findListOptions = new FindListOptions();
     findListOptions.searchParams = [new RequestParam('uuid', uuid)];
-    const href$ = this.getIDHref(this.searchByItemLinkPath, findListOptions, ...linksToFollow);
+    const href$ = this.halService.getEndpoint(this.searchByItemLinkPath)
+      .pipe(map((href) => this.buildHrefFromFindOptions(href, findListOptions, [], ...linksToFollow)));
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
