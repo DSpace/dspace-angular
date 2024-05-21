@@ -108,49 +108,81 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
   }
 
   /**
+   * Create a MetadataLinkValue object with the given href and text
+   * @param href the href value
+   * @param text the text value
+   * @returns MetadataLinkValue object
+   */
+  private createMetadataLinkValue(href: string, text: string): MetadataLinkValue {
+    text = text.trim() !== '' ? text : href;
+    return { href, text };
+  }
+
+  /**
    * Set href and text of the component based on urn
-   * and the given metadata value
+   * and the given metadata value.
+   * Is handling the case when the urn is configured in the default-app-config
+   * and the link is pre-configured.
    * @param metadataValue the metadata value
    * @param urn URN type (doi, hdl, mailto)
    */
   composeLink(metadataValue: string, urn: string): MetadataLinkValue {
+    const subtypeValue = this.getIdentifierSubtypeValue();
+
+    if (hasValue(subtypeValue)) {
+      const href = this.validateLink(metadataValue) ? metadataValue : `${subtypeValue.link}/${metadataValue}`;
+      return this.createMetadataLinkValue(href, metadataValue);
+    }
+
     let value = metadataValue;
-    const rep = urn + ':';
+    const rep = `${urn}:`;
     if (metadataValue.startsWith(rep)) {
       value = metadataValue.replace(rep, '');
     }
     const href = this.resolver.getBaseUrl(urn) + value;
-    const text = isNotEmpty(value) && value !== '' ? value : href;
-    return {
-      href,
-      text
-    };
+    return this.createMetadataLinkValue(href, value);
   }
 
   ngOnInit(): void {
     this.identifier = this.getIdentifierFromValue();
-    this.getSubtypeValue();
+    this.setIconDetails();
   }
 
   /**
-   * Retrieves the subtype value for the identifier component.
+   * Sets the icon details based on the identifier subtype configuration.
    * If the identifier subtype is not empty, it searches for the subtype with a matching name to the rendering subtype.
    * If a matching subtype is found, it sets the icon position, subtype icon, and icon link based on the subtype's properties.
    */
-  private getSubtypeValue() {
+  private setIconDetails() {
+    const subtypeVal = this.getIdentifierSubtypeValue();
+    if (hasNoValue(subtypeVal)) {
+      return;
+    }
+    this.iconPosition = subtypeVal.iconPosition;
+    this.subTypeIcon = subtypeVal.iconPosition !== IdentifierSubtypesIconPositionEnum.NONE ? subtypeVal?.icon : '';
+    this.iconLink = subtypeVal?.link;
+  }
+
+  /**
+   * Retrieves the value of the identifier subtype configuration based on the rendering subtype.
+   * @returns The identifier subtype configuration object.
+   */
+  private getIdentifierSubtypeValue(): IdentifierSubtypesConfig {
     if (isNotEmpty(this.identifierSubtypeConfig)) {
       const subtypeVal = this.identifierSubtypeConfig.find((subtype) => subtype.name === this.renderingSubType);
-      if (hasNoValue(subtypeVal)) {
-        return;
-      }
-
-      this.iconPosition = subtypeVal.iconPosition;
-      this.subTypeIcon = subtypeVal.iconPosition !== IdentifierSubtypesIconPositionEnum.NONE ? subtypeVal?.icon : '';
-      this.iconLink = subtypeVal?.link;
+      return subtypeVal;
     }
   }
 
-  // TODO: Check the internal | external link
-  // TODO: UNIT TESTs
-
+  /**
+   * Check if the given link is valid
+   * @param link the link to check
+   * @returns true if the link is valid, false otherwise
+   */
+  private validateLink(link: string): boolean {
+    const urlRegex = /^(http|https):\/\/[^ "]+$/;
+    return urlRegex.test(link);
+  }
 }
+
+
