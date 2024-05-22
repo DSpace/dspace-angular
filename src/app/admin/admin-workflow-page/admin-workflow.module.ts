@@ -6,6 +6,7 @@ import { WorkflowItemAdminWorkflowActionsComponent } from './admin-workflow-sear
 import { WorkflowItemSearchResultAdminWorkflowListElementComponent } from './admin-workflow-search-results/admin-workflow-search-result-list-element/workflow-item/workflow-item-search-result-admin-workflow-list-element.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page.component';
 import { SearchModule } from '../../shared/search/search.module';
+import { ThemedAdminWorkflowPageComponent } from './themed-admin-workflow-page.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -19,6 +20,7 @@ const ENTRY_COMPONENTS = [
     SharedModule.withEntryComponents()
   ],
   declarations: [
+    ThemedAdminWorkflowPageComponent,
     AdminWorkflowPageComponent,
     WorkflowItemAdminWorkflowActionsComponent,
     ...ENTRY_COMPONENTS

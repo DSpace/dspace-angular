@@ -115,6 +115,7 @@ import { BrowseByMetadataPageComponent } from './app/browse-by/browse-by-metadat
 import { BrowseByDatePageComponent } from './app/browse-by/browse-by-date-page/browse-by-date-page.component';
 import { BrowseByTitlePageComponent } from './app/browse-by/browse-by-title-page/browse-by-title-page.component';
 import { AdminSearchPageComponent } from './app/admin/admin-search-page/admin-search-page.component';
+import { AdminWorkflowPageComponent } from './app/admin/admin-workflow-page/admin-workflow-page.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -170,6 +171,7 @@ const DECLARATIONS = [
   BrowseByDatePageComponent,
   BrowseByTitlePageComponent,
   AdminSearchPageComponent,
+  AdminWorkflowPageComponent,
 ];
 
 @NgModule({

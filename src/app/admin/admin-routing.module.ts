@@ -8,6 +8,7 @@ import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.ser
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
 import { REGISTRIES_MODULE_PATH } from './admin-routing-paths';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
+import { ThemedAdminWorkflowPageComponent } from './admin-workflow-page/themed-admin-workflow-page.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { BatchImportPageComponent } from './admin-import-batch-page/batch-import
       {
         path: 'workflow',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
-        component: AdminWorkflowPageComponent,
+        component: ThemedAdminWorkflowPageComponent,
         data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' }
       },
       {
