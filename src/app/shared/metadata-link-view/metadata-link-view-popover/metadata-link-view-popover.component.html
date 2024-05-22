@@ -1,0 +1,49 @@
+<div class="view-container">
+  <div>
+    <ds-metadata-link-view-avatar-popover
+      *ngIf="item.thumbnail | async"
+      [thumbnail]="item.thumbnail | async"
+    ></ds-metadata-link-view-avatar-popover>
+  </div>
+
+  <ng-container *ngFor="let metadata of entityMetdataFields">
+    <div class="row" *ngIf="item.hasMetadata(metadata)">
+      <div class="col-4">
+        <span class="font-weight-bold">{{ "metadata-link-view.popover.label." +  (isOtherEntityType ? "other" : item.entityType) + "." +  metadata | translate }}</span>
+      </div>
+      <div class="col-8">
+        <span class="ellipsis-y-3" *ngIf="longTextMetadataList.includes(metadata)">
+          {{ item.firstMetadataValue(metadata) }}
+        </span>
+        <a [href]="item.firstMetadataValue(metadata)" target="_blank" *ngIf="isLink(item.firstMetadataValue(metadata))">
+          {{ item.firstMetadataValue(metadata) }}
+        </a>
+        <div class="d-flex" *ngIf="!isLink(item.firstMetadataValue(metadata)) && !longTextMetadataList.includes(metadata)">
+          <ds-metadata-link-view-orcid [itemValue]="item" *ngIf="metadata === 'person.identifier.orcid'; else valueIconType"></ds-metadata-link-view-orcid>
+          <ng-template #valueIconType>
+            <span>{{ item.firstMetadataValue(metadata) }}</span>
+            <img
+              *ngIf="showIconMetadataList.includes(metadata)"
+              placement="top"
+              ngbTooltip="{{ item.firstMetadataValue(metadata) }}"
+              class="source-icon"
+              alt="source-logo"
+              [src]="getSourceIconPath(metadata)"
+              data-test="sourceIcon"
+            />
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="d-flex">
+    <a
+      class="font-weight-bold"
+      [routerLink]="[getItemPageRoute()]"
+      data-test="viewItemButton"
+    >
+      {{ "metadata-link-view.popover.label.more-info" | translate }}
+    </a>
+  </div>
+</div>

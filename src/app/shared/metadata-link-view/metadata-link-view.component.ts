@@ -13,14 +13,8 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { environment } from '../../../environments/environment';
-
-interface MetadataView {
-  authority: string;
-  value: string;
-  orcidAuthenticated: string;
-  entityType: string;
-  entityStyle: string|string[];
-}
+import { followLink } from '../utils/follow-link-config.model';
+import { MetadataView } from './metadata-view.model';
 
 @Component({
   selector: 'ds-metadata-link-view',
@@ -58,6 +52,8 @@ export class MetadataLinkViewComponent implements OnInit {
    */
   iconPosition = 'after';
 
+  relatedItem: Item;
+
   /**
    * Map all entities with the icons specified in the environment configuration file
    */
@@ -68,43 +64,51 @@ export class MetadataLinkViewComponent implements OnInit {
    */
   ngOnInit(): void {
     this.metadataView$ = observableOf(this.metadata).pipe(
-      switchMap((metadataValue: MetadataValue) => {
-        if (Metadata.hasValidAuthority(metadataValue.authority)) {
-          return this.itemService.findById(metadataValue.authority).pipe(
-            getFirstCompletedRemoteData(),
-            map((itemRD: RemoteData<Item>) => {
-              if (itemRD.hasSucceeded) {
-                const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
-                return {
-                  authority: metadataValue.authority,
-                  value: metadataValue.value,
-                  orcidAuthenticated: this.getOrcid(itemRD.payload),
-                  entityType: itemRD.payload?.entityType,
-                  entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue)
-                };
-              } else {
-                return {
-                  authority: null,
-                  value: metadataValue.value,
-                  orcidAuthenticated: null,
-                  entityType: 'PRIVATE',
-                  entityStyle: this.metadataName
-                };
-              }
-            })
-          );
-        } else {
-          return observableOf({
-            authority: null,
-            value: metadataValue.value,
-            orcidAuthenticated: null,
-            entityType: null,
-            entityStyle: null
-          });
-        }
-      }),
+      switchMap((metadataValue: MetadataValue) => this.getMetadataView(metadataValue)),
       take(1)
     );
+  }
+
+
+  private getMetadataView(metadataValue: MetadataValue): Observable<MetadataView> {
+    const linksToFollow = [followLink('thumbnail')];
+
+    if (Metadata.hasValidAuthority(metadataValue.authority)) {
+      return this.itemService.findById(metadataValue.authority, true, false, ...linksToFollow).pipe(
+        getFirstCompletedRemoteData(),
+        map((itemRD: RemoteData<Item>) => this.createMetadataView(itemRD, metadataValue))
+      );
+    } else {
+      return observableOf({
+        authority: null,
+        value: metadataValue.value,
+        orcidAuthenticated: null,
+        entityType: null,
+        entityStyle: null
+      });
+    }
+  }
+
+  private createMetadataView(itemRD: RemoteData<Item>, metadataValue: MetadataValue): MetadataView {
+    if (itemRD.hasSucceeded) {
+      this.relatedItem = itemRD.payload;
+      const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
+      return {
+        authority: metadataValue.authority,
+        value: metadataValue.value,
+        orcidAuthenticated: this.getOrcid(itemRD.payload),
+        entityType: itemRD.payload?.entityType,
+        entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue)
+      };
+    } else {
+      return {
+        authority: null,
+        value: metadataValue.value,
+        orcidAuthenticated: null,
+        entityType: 'PRIVATE',
+        entityStyle: this.metadataName
+      };
+    }
   }
 
   /**
@@ -115,6 +119,13 @@ export class MetadataLinkViewComponent implements OnInit {
   getOrcid(referencedItem: Item): string {
     if (referencedItem?.hasMetadata('dspace.orcid.authenticated')) {
       return referencedItem.firstMetadataValue('person.identifier.orcid');
+    }
+    return null;
+  }
+
+  getRor(referencedItem: Item): string {
+    if (referencedItem?.hasMetadata('organization.identifier.ror')) {
+      return referencedItem.firstMetadataValue('organization.identifier.ror');
     }
     return null;
   }
