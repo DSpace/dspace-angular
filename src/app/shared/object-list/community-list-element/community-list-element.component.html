@@ -8,6 +8,6 @@
   <span class="pr-2">&nbsp;</span>
   <span *ngIf="object.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-self-center archived-items-lead">{{object.archivedItemsCount}}</span>
 </div>
-<div *ngIf="object.shortDescription" class="text-muted abstract-text">
-    {{object.shortDescription}}
+<div *ngIf="object.shortDescription(translateService.currentLang) as shorDescription" class="text-muted abstract-text">
+    {{shorDescription}}
 </div>

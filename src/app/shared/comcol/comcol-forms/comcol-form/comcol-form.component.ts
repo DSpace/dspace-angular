@@ -1,9 +1,11 @@
 import {
   AsyncPipe,
   NgClass,
+  NgForOf,
   NgIf,
 } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -12,7 +14,10 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   NgbModal,
   NgbModalRef,
@@ -27,6 +32,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
+import { ReplaceOperation } from 'fast-json-patch/module/core';
 import { FileUploader } from 'ng2-file-upload';
 import {
   BehaviorSubject,
@@ -40,6 +46,8 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { LangConfig } from '../../../../../config/lang-config.interface';
+import { environment } from '../../../../../environments/environment';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
@@ -83,7 +91,10 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
     ComcolPageLogoComponent,
     NgIf,
     NgClass,
+    NgForOf,
     VarDirective,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   standalone: true,
 })
@@ -122,12 +133,32 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   /**
    * The form model that represents the fields in the form
    */
-  formModel: DynamicFormControlModel[];
+  formModels: Map<string, DynamicFormControlModel[]> = new Map();
 
   /**
-   * The form group of this form
+   * The form for the selected current language
    */
-  formGroup: UntypedFormGroup;
+  currentAlternativeForm: DynamicFormControlModel[];
+
+  /**
+   * The default language from config
+   */
+  defaultLanguageCode: string;
+
+  /**
+   * The current page language string
+   */
+  defaultLanguage: string | null;
+
+  /**
+   * The current page outlet string
+   */
+  currentLanguageCode: string | null;
+
+  /**
+   * All languages used by application
+   */
+  languages: LangConfig[];
 
   /**
    * The uploader configuration options
@@ -184,21 +215,27 @@ export class ComColFormComponent<T extends Collection | Community> implements On
                      protected authService: AuthService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
-                     protected modalService: NgbModal){
+                     protected modalService: NgbModal,
+                     protected cdr: ChangeDetectorRef){
   }
 
   ngOnInit(): void {
     this.uploadFilesOptions.autoUpload = !this.isCreation;
 
-    if (hasValue(this.formModel)) {
-      this.formModel.forEach(
-        (fieldModel: DynamicInputModel) => {
-          fieldModel.value = this.dso.firstMetadataValue(fieldModel.name);
-        },
-      );
-      this.formGroup = this.formService.createFormGroup(this.formModel);
+    if (this.formModels.size > 0) {
+      this.formModels.forEach((formModel, language) => {
+        formModel.forEach(
+          (fieldModel: DynamicInputModel) => {
+            fieldModel.value = this.dso.firstMetadataValue(fieldModel.name, { language });
+          },
+        );
+      });
 
       this.updateFieldTranslations();
+      if (this.currentLanguageCode) {
+        this.currentAlternativeForm = this.formModels.get(this.currentLanguageCode);
+      }
+
       this.translate.onLangChange
         .subscribe(() => {
           this.updateFieldTranslations();
@@ -237,16 +274,46 @@ export class ComColFormComponent<T extends Collection | Community> implements On
    */
   onSubmit() {
     const formMetadata = {}  as MetadataMap;
-    this.formModel.forEach((fieldModel: DynamicInputModel) => {
-      const value: MetadataValue = {
-        value: fieldModel.value as string,
-        language: null,
-      } as any;
-      if (formMetadata.hasOwnProperty(fieldModel.name)) {
-        formMetadata[fieldModel.name].push(value);
-      } else {
-        formMetadata[fieldModel.name] = [value];
-      }
+    const operations: Map<string, ReplaceOperation<{value: string, language: string}[]>> = new Map();
+
+    this.formModels.forEach((formModel, language) => {
+      formModel.forEach(
+        (fieldModel: DynamicInputModel) => {
+          const value: MetadataValue = {
+            value: fieldModel.value as string,
+            language,
+          } as any;
+
+          if (formMetadata.hasOwnProperty(fieldModel.name)) {
+            formMetadata[fieldModel.name].push(value);
+          } else {
+            formMetadata[fieldModel.name] = [value];
+          }
+
+          const key = `/metadata/${fieldModel.name}`;
+
+          const keyExistAndAtLeastOneValueIsNotNull: boolean = (fieldModel.value !== null || this.dso.firstMetadataValue(fieldModel.name, { language }) !== null);
+
+          if ( keyExistAndAtLeastOneValueIsNotNull) {
+            if (operations.has(key)) {
+              const operation: Operation = operations.get(key);
+              operation.value.push({
+                value: fieldModel.value,
+                language,
+              });
+            } else {
+              operations.set(key, {
+                op: 'replace',
+                path: key,
+                value: [{
+                  value: fieldModel.value as string,
+                  language,
+                }],
+              });
+            }
+          }
+        },
+      );
     });
 
     const updatedDSO = Object.assign({}, this.dso, {
@@ -257,49 +324,58 @@ export class ComColFormComponent<T extends Collection | Community> implements On
       type: Community.type,
     });
 
-    const operations: Operation[] = [];
-    this.formModel.forEach((fieldModel: DynamicInputModel) => {
-      if (fieldModel.value !== this.dso.firstMetadataValue(fieldModel.name)) {
-        operations.push({
-          op: 'replace',
-          path: `/metadata/${fieldModel.name}`,
-          value: {
-            value: fieldModel.value,
-            language: null,
-          },
-        });
-      }
-    });
-
     if (this.isCreation) {
       this.submitForm.emit({
         dso: updatedDSO,
         uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
-        operations: operations,
+        operations: [...operations.values()],
       });
     } else {
       this.submitForm.emit({
         dso: updatedDSO,
-        operations: operations,
+        operations: [...operations.values()],
       });
     }
+  }
+
+  changeLanguage() {
+    // Because the ds-form require destroy (we cannot change formModel without destroy) we need to remove the component from template
+    this.currentAlternativeForm = null;
+    // Detect changes push the form to rerender, that cause the destroy of the form
+    this.cdr.detectChanges();
+    // And then we can add a component again by providing a new language form
+    this.currentAlternativeForm = this.formModels.get(this.currentLanguageCode);
+  }
+
+  /**
+   * Initialize language method that provide all necessary information for creation, validation, labaling & form submission
+   */
+  initializeLanguage() {
+    this.defaultLanguageCode = environment.defaultLanguage;
+    this.defaultLanguage = environment.languages.find(lang => lang.code === this.defaultLanguageCode).label;
+
+    this.languages = environment.languages.filter(lang => lang.code !== this.defaultLanguageCode);
+    this.currentLanguageCode = this.languages.length > 0 ? this.languages[0].code : null;
   }
 
   /**
    * Used the update translations of errors and labels on init and on language change
    */
   private updateFieldTranslations() {
-    this.formModel.forEach(
-      (fieldModel: DynamicInputModel) => {
-        fieldModel.label = this.translate.instant(this.type.value + this.LABEL_KEY_PREFIX + fieldModel.id);
-        if (isNotEmpty(fieldModel.validators)) {
-          fieldModel.errorMessages = {};
-          Object.keys(fieldModel.validators).forEach((key) => {
-            fieldModel.errorMessages[key] = this.translate.instant(this.type.value + this.ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
-          });
-        }
-      },
-    );
+    [this.defaultLanguageCode, ...this.languages.map(lang => lang.code)].forEach(lang => {
+      const langFormModel = this.formModels.get(lang);
+      langFormModel.forEach(
+        (fieldModel: DynamicInputModel) => {
+          fieldModel.label = this.translate.instant(this.type.value + this.LABEL_KEY_PREFIX + fieldModel.id.replace(`-${lang}`, ''));
+          if (isNotEmpty(fieldModel.validators)) {
+            fieldModel.errorMessages = {};
+            Object.keys(fieldModel.validators).forEach((key) => {
+              fieldModel.errorMessages[key] = this.translate.instant(this.type.value + this.ERROR_KEY_PREFIX + fieldModel.id.replace(`-${lang}`, '') + '.' + key);
+            });
+          }
+        },
+      );
+    });
   }
 
   /**

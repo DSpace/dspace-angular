@@ -78,6 +78,10 @@ export class DSONameService {
       if (hasValue(match)) {
         name = this.factories[match](dso);
       }
+      // If name is empty we try to get a name from different metadata
+      if (isEmpty(name) && dso.metadata) {
+        name = dso.firstMetadataValue('dc.title', { language: this.translateService.currentLang });
+      }
       if (isEmpty(name)) {
         name = this.factories.Default(dso);
       }

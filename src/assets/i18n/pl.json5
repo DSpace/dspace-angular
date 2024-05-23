@@ -755,6 +755,8 @@
   "collection.edit.head": "Edytuj kolekcję",
   "collection.edit.breadcrumbs": "Edytuj kolekcję",
   "collection.edit.tabs.mapper.head": "Item Mapper",
+  "collection.edit.tabs.multilingual-editor": "Wielojęzyczny edytor",
+  "collection.edit.tabs.default-language": "Język podstawowy",
   "collection.edit.tabs.item-mapper.title": "Edytuj kolekcję - Item Mapper",
   "collection.edit.item-mapper.cancel": "Anuluj",
   "collection.edit.item-mapper.collection": "Kolekcja: \"<b>{{name}}</b>\"",

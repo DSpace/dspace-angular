@@ -12,7 +12,10 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -103,6 +106,7 @@ export class CollectionPageComponent implements OnInit {
     protected authService: AuthService,
     protected authorizationDataService: AuthorizationDataService,
     public dsoNameService: DSONameService,
+    public translateService: TranslateService,
   ) {
   }
 

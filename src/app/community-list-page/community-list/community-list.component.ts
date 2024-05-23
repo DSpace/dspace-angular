@@ -13,7 +13,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -59,6 +62,7 @@ export class CommunityListComponent implements OnInit, OnDestroy {
   constructor(
     protected communityListService: CommunityListService,
     public dsoNameService: DSONameService,
+    public translateService: TranslateService,
   ) {
     this.paginationConfig = new FindListOptions();
     this.paginationConfig.elementsPerPage = 2;
