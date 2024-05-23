@@ -564,7 +564,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         tap((rd: RemoteData<PaginatedList<Relationship>>) => {
           this.relationshipsRd$.next(rd);
         }),
-        getFirstSucceededRemoteDataPayload(),
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
       ).subscribe((relationshipPaginatedList: PaginatedList<Relationship>) => {
         this.objectUpdatesService.initialize(this.url, relationshipPaginatedList.page, new Date());
       }),
