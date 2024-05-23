@@ -1757,7 +1757,7 @@
 
   "cookies.consent.ok": "That's ok",
 
-  "cookies.consent.save": "Save",
+  "cookies.consent.save": "Close",
 
   "cookies.consent.content-notice.title": "Cookie Consent",
 
@@ -1807,9 +1807,21 @@
 
   "cookies.consent.purpose.sharing": "Sharing",
 
+  "cookies.consent.app.title.plumX": "PlumX",
+
+  "cookies.consent.app.description.plumX": "PlumX Metrics provide insights into the ways people interact with individual pieces of research output (articles, conference proceedings, book chapters, and many more) in the online environment. (https://plumanalytics.com/)",
+
+  "cookies.consent.app.title.altmetric": "Altmetric",
+
+  "cookies.consent.app.description.altmetric": "Altmetric’s interface tracks online engagement to reveal how and where your research is being visualized. (https://www.altmetric.com)",
+
+  "cookies.consent.app.title.dimensions": "Dimensions",
+
+  "cookies.consent.app.description.dimensions": "Dimensions analyses references from publications and calculates a set of article-level indicators. (https://www.dimensions.ai)",
+
+  "cookies.consent.purpose.thirdPartyJs": "Third-party JavaScript",
 
   "curation-task.task.citationpage.label": "Generate Citation Page",
-
 
   "cris-layout.toggle.open": "Open section",
 
@@ -1858,8 +1870,6 @@
   "curation-task.task.noop.label": "NOOP",
 
   "curation-task.task.profileformats.label": "Profile Bitstream Formats",
-
-  "curation-task.task.registerdoi.label": "Mint DOI",
 
   "curation-task.task.requiredmetadata.label": "Check for Required Metadata",
 
@@ -2460,6 +2470,18 @@
   "form.other-information.ror_orgunit_type": "ROR type",
 
   "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
 
   "form.remove": "Remove",
 
@@ -6262,10 +6284,6 @@
 
   "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
 
-  "submission.sections.submit.progressbar.correction": "Corrections",
-
-
-
   "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
   "submission.sections.status.errors.title": "Errors",
@@ -6894,6 +6912,10 @@
 
   "person.page.orcid.funding-preferences": "Funding preferences",
 
+  "person.page.orcid.products-preferences": "Product preferences",
+
+  "person.page.orcid.patent-preferences": "Patent preferences",
+
   "person.page.orcid.publications-preferences": "Publication preferences",
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
@@ -6916,6 +6938,14 @@
 
   "person.page.orcid.sync-fundings.disabled": "Disabled",
 
+  "person.page.orcid.sync-patents.all": "All patents",
+
+  "person.page.orcid.sync-patents.mine": "My patents",
+
+  "person.page.orcid.sync-patents.my_selected": "Selected patents",
+
+  "person.page.orcid.sync-patents.disabled": "Disabled",
+
   "person.page.orcid.sync-publications.all": "All publications",
 
   "person.page.orcid.sync-publications.mine": "My publications",
@@ -6923,6 +6953,14 @@
   "person.page.orcid.sync-publications.my_selected": "Selected publications",
 
   "person.page.orcid.sync-publications.disabled": "Disabled",
+
+  "person.page.orcid.sync-products.all": "All products",
+
+  "person.page.orcid.sync-products.mine": "My products",
+
+  "person.page.orcid.sync-products.my_selected": "Selected products",
+
+  "person.page.orcid.sync-products.disabled": "Disabled",
 
   "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
 
@@ -6960,7 +6998,11 @@
 
   "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
 
+  "person.page.orcid.sync-queue.tooltip.patent": "Patent",
+
   "person.page.orcid.sync-queue.tooltip.publication": "Publication",
+
+  "person.page.orcid.sync-queue.tooltip.product": "Product",
 
   "person.page.orcid.sync-queue.tooltip.project": "Project",
 
@@ -7042,7 +7084,11 @@
 
   "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
 
+  "person.page.orcid.synchronization-mode-patent-message": "Select whether to send your linked Patent entities to your ORCID record's list of works.",
+
   "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+
+  "person.page.orcid.synchronization-mode-product-message": "Select whether to send your linked Product entities to your ORCID record's list of works.",
 
   "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
 
@@ -7294,4 +7340,10 @@
   "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
 
   "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
+
+  "third-party-metrics-cookies.message": "{{ metricType }} badge is blocked by your ",
+
+  "third-party-metrics-cookies.consent-settings": "consent settings",
+
+  "third-party-metrics-blocked": "Some of the metrics are blocked by your",
 }

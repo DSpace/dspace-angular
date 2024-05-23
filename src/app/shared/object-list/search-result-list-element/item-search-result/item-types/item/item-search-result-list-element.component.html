@@ -13,6 +13,10 @@
   <div [ngClass]="showThumbnails ? 'col-9 col-xl-10' : 'col-12'">
     <div class="d-flex justify-content-between">
       <div class="flex-fill">
+        <small class="d-flex text-muted" *ngIf="!(hasLoadedThirdPartyMetrics$ | async) && showMetrics">
+          {{ "third-party-metrics-blocked" | translate }}&nbsp;
+          <div role="button" class="btn-link" (click)="showSettings()">{{ "third-party-metrics-cookies.consent-settings" | translate }}</div>
+        </small>
         <div class="d-flex">
           <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context" [showAccessStatus]="true"></ds-themed-badges>
         </div>

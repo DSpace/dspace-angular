@@ -34,6 +34,7 @@ import {
 } from './advanced-attachment-rendering.config';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
+import { MiradorConfig } from './mirador-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -156,7 +157,7 @@ export class DefaultAppConfig implements AppConfig {
   submission: SubmissionConfig = {
     autosave: {
       // NOTE: which metadata trigger an autosave
-      metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv', 'dc.identifier.patentno', 'dc.identifier.scopus', 'dc.identifier.isi', 'dcterms.dateSubmitted', 'dc.identifier.applicationnumber'],
+      metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv', 'dc.identifier.patentno', 'dc.identifier.scopus', 'dc.identifier.isi', 'dcterms.dateSubmitted', 'dc.identifier.applicationnumber', 'dc.type'],
       /**
        * NOTE: after how many time (milliseconds) submission is saved automatically
        * eg. timer: 5 * (1000 * 60); // 5 minutes
@@ -336,7 +337,12 @@ export class DefaultAppConfig implements AppConfig {
       // Rounded to the nearest size in the list of selectable sizes on the
       // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
       pageSize: 5
-    }
+    },
+    // The maximum number of metadata values to add to the metatag list of the item page
+    metatagLimit: 20,
+
+    // The maximum number of values for repeatable metadata to show in the full item
+    metadataLimit: 20
   };
 
   // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
@@ -480,7 +486,22 @@ export class DefaultAppConfig implements AppConfig {
   // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
   info: InfoConfig = {
     enableEndUserAgreement: true,
-    enablePrivacyStatement: true
+    enablePrivacyStatement: true,
+    //Configuration for third-party metrics in Klaro
+    metricsConsents: [
+      {
+        key: 'plumX',
+        enabled: true
+      },
+      {
+        key: 'altmetric',
+        enabled: true
+      },
+      {
+        key: 'dimensions',
+        enabled: true
+      },
+    ]
   };
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
@@ -682,12 +703,12 @@ export class DefaultAppConfig implements AppConfig {
     {
       type: 'view',
       icon: 'fa fa-eye',
-      class: 'alert-success',
+      class: 'alert alert-success',
     },
     {
       type: 'download',
       icon: 'fa fa-cloud-download-alt',
-      class: 'alert-danger',
+      class: 'alert alert-danger',
     },
   ];
 
@@ -739,4 +760,7 @@ export class DefaultAppConfig implements AppConfig {
     authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
   };
 
+  mirador: MiradorConfig = {
+    enableDownloadPlugin: true,
+  };
 }

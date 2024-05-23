@@ -41,7 +41,7 @@ import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { dataService } from '../data/base/data-service.decorator';
 import { getGroupEditRoute } from '../../access-control/access-control-routing-paths';
-import { isNotEmpty } from 'src/app/shared/empty.util';
+import { isNotEmpty } from '../../shared/empty.util';
 
 const groupRegistryStateSelector = (state: AppState) => state.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);

@@ -1,5 +1,5 @@
 options:
-  runs-on: ubuntu-latest
+  runs-on: self.hosted
 
 definitions:
   steps:
@@ -15,7 +15,7 @@ definitions:
           - yarn install --frozen-lockfile
           - yarn run lint --quiet
           - yarn run check-circ-deps
-          - yarn run build:prod
+          - yarn run build:prod:ci
           - yarn run test:headless
 
 pipelines:
