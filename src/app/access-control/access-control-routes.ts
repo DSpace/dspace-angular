@@ -6,6 +6,7 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { groupAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { siteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import {
   EPERSON_PATH,
@@ -16,6 +17,7 @@ import { EPeopleRegistryComponent } from './epeople-registry/epeople-registry.co
 import { EPersonFormComponent } from './epeople-registry/eperson-form/eperson-form.component';
 import { EPersonResolver } from './epeople-registry/eperson-resolver.service';
 import { GroupFormComponent } from './group-registry/group-form/group-form.component';
+import { groupPageGuard } from './group-registry/group-page.guard';
 import { GroupsRegistryComponent } from './group-registry/groups-registry.component';
 
 /**
@@ -23,7 +25,7 @@ import { GroupsRegistryComponent } from './group-registry/groups-registry.compon
  */
 export const ValidateEmailErrorStateMatcher: DynamicErrorMessagesMatcher =
   (control: AbstractControl, model: any, hasFocus: boolean) => {
-    return (control.touched && !hasFocus) || (control.errors?.emailTaken && hasFocus);
+    return ( control.touched && !hasFocus ) || ( control.errors?.emailTaken && hasFocus );
   };
 
 const providers = [
@@ -72,7 +74,7 @@ export const ROUTES: Route[] = [
     },
     providers,
     data: { title: 'admin.access-control.groups.title', breadcrumbKey: 'admin.access-control.groups' },
-    canActivate: [siteAdministratorGuard],
+    canActivate: [groupAdministratorGuard],
   },
   {
     path: `${GROUP_PATH}/create`,
@@ -85,7 +87,7 @@ export const ROUTES: Route[] = [
       title: 'admin.access-control.groups.title.addGroup',
       breadcrumbKey: 'admin.access-control.groups.addGroup',
     },
-    canActivate: [siteAdministratorGuard],
+    canActivate: [groupAdministratorGuard],
   },
   {
     path: `${GROUP_PATH}/:groupId/edit`,
@@ -98,7 +100,7 @@ export const ROUTES: Route[] = [
       title: 'admin.access-control.groups.title.singleGroup',
       breadcrumbKey: 'admin.access-control.groups.singleGroup',
     },
-    canActivate: [siteAdministratorGuard],
+    canActivate: [groupPageGuard],
   },
   {
     path: 'bulk-access',
