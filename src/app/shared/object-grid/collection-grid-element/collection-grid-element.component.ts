@@ -7,7 +7,10 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
@@ -41,6 +44,7 @@ export class CollectionGridElementComponent extends AbstractListableElementCompo
   constructor(
     public dsoNameService: DSONameService,
     private linkService: LinkService,
+    public translateService: TranslateService,
   ) {
     super(dsoNameService);
   }
