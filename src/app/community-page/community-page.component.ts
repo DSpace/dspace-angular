@@ -13,7 +13,10 @@ import {
   RouterModule,
   RouterOutlet,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -21,6 +24,7 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
 import { AuthService } from '../core/auth/auth.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
@@ -93,6 +97,11 @@ export class CommunityPageComponent implements OnInit {
   logoRD$: Observable<RemoteData<Bitstream>>;
 
   /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
+
+  /**
    * Route to the community page
    */
   communityPageRoute$: Observable<string>;
@@ -103,11 +112,14 @@ export class CommunityPageComponent implements OnInit {
     private authService: AuthService,
     private authorizationDataService: AuthorizationDataService,
     public dsoNameService: DSONameService,
+    public translateService: TranslateService,
   ) {
 
   }
 
   ngOnInit(): void {
+    this.currentLanguage = this.translateService.currentLang;
+
     this.communityRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Community>),
       redirectOn4xx(this.router, this.authService),

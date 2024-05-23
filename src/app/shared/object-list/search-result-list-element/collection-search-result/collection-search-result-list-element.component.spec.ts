@@ -10,12 +10,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
+import { translateServiceStub } from '../../../mocks/translate.service.mock';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
@@ -73,6 +75,7 @@ describe('CollectionSearchResultListElementComponent', () => {
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: TranslateService, useValue: translateServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionSearchResultListElementComponent, {

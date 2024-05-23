@@ -4,15 +4,24 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 
 @Component({
@@ -32,6 +41,20 @@ export class CollectionSearchResultListElementComponent extends SearchResultList
    * Display thumbnails if required by configuration
    */
   showThumbnails: boolean;
+
+  /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
+
+  constructor(protected truncatableService: TruncatableService,
+              public dsoNameService: DSONameService,
+              public translateService: TranslateService,
+              @Inject(APP_CONFIG) protected appConfig?: AppConfig) {
+    super(truncatableService, dsoNameService, appConfig);
+
+    this.currentLanguage = translateService.currentLang;
+  }
 
   ngOnInit(): void {
     super.ngOnInit();

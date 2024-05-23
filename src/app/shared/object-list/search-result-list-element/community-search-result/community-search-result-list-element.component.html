@@ -4,6 +4,6 @@
     <ds-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-badges>
     <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"  [routerLink]="['/communities/' + dso.id]" class="lead" [innerHTML]="dsoTitle"></a>
     <span *ngIf="linkType === linkTypes.None" class="lead" [innerHTML]="dsoTitle"></span>
-    <div *ngIf="dso.shortDescription" class="text-muted abstract-text" [innerHTML]="firstMetadataValue('dc.description.abstract')"></div>
+    <div *ngIf="dso.shortDescription(currentLanguage)" class="text-muted abstract-text" [innerHTML]="firstMetadataValue('dc.description.abstract')"></div>
   </div>
 </div>

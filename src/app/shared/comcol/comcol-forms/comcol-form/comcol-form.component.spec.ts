@@ -16,7 +16,10 @@ import {
   DynamicFormService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 
@@ -28,6 +31,7 @@ import { Community } from '../../../../core/shared/community.model';
 import { hasValue } from '../../../empty.util';
 import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
+import { translateServiceStub } from '../../../mocks/translate.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
@@ -55,8 +59,8 @@ describe('ComColFormComponent', () => {
   const dcTitle = 'dc.title';
   const dcAbstract = 'dc.description.abstract';
 
-  const abstractMD = { [dcAbstract]: [{ value: 'Community description', language: null }] };
-  const newTitleMD = { [dcTitle]: [{ value: 'New Community Title', language: null }] };
+  const abstractMD = { [dcAbstract]: [{ value: 'Community description', language: 'en_US' }] };
+  const newTitleMD = { [dcTitle]: [{ value: 'New Community Title', language: 'en_US' }] };
   const formModel = [
     new DynamicInputModel({
       id: 'title',
@@ -103,6 +107,7 @@ describe('ComColFormComponent', () => {
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: RequestService, useValue: requestServiceStub },
         { provide: ObjectCacheService, useValue: objectCacheStub },
+        { provide: TranslateService, useValue: translateServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -132,7 +137,7 @@ describe('ComColFormComponent', () => {
     describe('onSubmit', () => {
       beforeEach(() => {
         spyOn(comp.submitForm, 'emit');
-        comp.formModel = formModel;
+        comp.formModels.set('en_US', formModel);
       });
 
       it('should emit the new version of the community', () => {
@@ -143,37 +148,38 @@ describe('ComColFormComponent', () => {
           {
             op: 'replace',
             path: '/metadata/dc.title',
-            value: {
+            value: [{
               value: 'New Community Title',
-              language: null,
-            },
+              language: 'en_US',
+            }],
           },
           {
             op: 'replace',
             path: '/metadata/dc.description.abstract',
-            value: {
+            value: [{
               value: 'Community description',
-              language: null,
-            },
+              language: 'en_US',
+            }],
           },
         ];
 
+        const expectedDso = Object.assign({}, comp.dso, {
+          metadata: {
+            'dc.title': [{
+              value: 'New Community Title',
+              language: 'en_US',
+            }],
+            'dc.description.abstract': [{
+              value: 'Community description',
+              language: 'en_US',
+            }],
+          },
+          type: Community.type,
+        });
+
         expect(comp.submitForm.emit).toHaveBeenCalledWith(
           {
-            dso: Object.assign({}, comp.dso, {
-              metadata: {
-                'dc.title': [{
-                  value: 'New Community Title',
-                  language: null,
-                }],
-                'dc.description.abstract': [{
-                  value: 'Community description',
-                  language: null,
-                }],
-              },
-              type: Community.type,
-            },
-            ),
+            dso: expectedDso,
             operations: operations,
           },
         );
@@ -314,8 +320,16 @@ describe('ComColFormComponent', () => {
   function initComponent(dso: Community) {
     fixture = TestBed.createComponent(ComColFormComponent);
     comp = fixture.componentInstance;
-    comp.formModel = [];
+    comp.formModels.set('en_US', formModel);
+    comp.defaultLanguageCode = 'en_US';
     comp.dso = dso;
+    comp.dso.firstMetadataValue = (name, language) => {
+      if (name === 'dc.title') {
+        return newTitleMD[dcTitle][0].value;
+      } else if (name === 'dc.description.abstract') {
+        return abstractMD[dcAbstract][0].value;
+      }
+    };
     (comp as any).type = Community.type;
     comp.uploaderComponent = { uploader: {} } as any;
 
