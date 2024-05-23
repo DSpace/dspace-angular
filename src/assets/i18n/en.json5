@@ -2479,6 +2479,8 @@
 
   "form.other-information.ror_orgunit_acronym": "ROR acronym",
 
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
   "form.entry.source.local": "",
 
   "form.entry.source.orcid": "",
