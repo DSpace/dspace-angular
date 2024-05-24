@@ -27,7 +27,8 @@ import { BrowserOnlyMockPipe } from './browser-only-mock.pipe';
   ],
     exports: [
         QueryParamsDirectiveStub,
-        RouterLinkDirectiveStub
+        RouterLinkDirectiveStub,
+        NgComponentOutletDirectiveStub
     ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
