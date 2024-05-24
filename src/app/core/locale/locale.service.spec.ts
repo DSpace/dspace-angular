@@ -7,6 +7,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
@@ -20,7 +21,6 @@ import {
   LANG_ORIGIN,
   LocaleService,
 } from './locale.service';
-import { of as observableOf } from 'rxjs';
 
 describe('LocaleService test suite', () => {
   let service: LocaleService;
@@ -45,7 +45,7 @@ describe('LocaleService test suite', () => {
     },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     use: (param: string) => {
-    }
+    },
   };
 
   authService = jasmine.createSpyObj('AuthService', {
@@ -62,8 +62,8 @@ describe('LocaleService test suite', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-            useClass: TranslateLoaderMock,
-          },
+              useClass: TranslateLoaderMock,
+            },
           }),
         ],
         providers: [
@@ -72,7 +72,7 @@ describe('LocaleService test suite', () => {
           { provide: RouteService, useValue: routeServiceStub },
           { provide: TranslateService, useValue: translateServiceStub },
           { provide: Document, useValue: document },
-      ],
+        ],
       });
     }));
 

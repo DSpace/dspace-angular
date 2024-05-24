@@ -1,11 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CrisLayoutHorizontalComponent } from './cris-layout-horizontal.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterMock } from '../../../shared/mocks/router.mock';
-import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+
+import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
+import { RouterMock } from '../../../shared/mocks/router.mock';
 import { loaderTabs } from '../../../shared/testing/layout-tab.mocks';
+import { CrisLayoutHorizontalComponent } from './cris-layout-horizontal.component';
 
 describe('CrisLayoutHorizontalComponent', () => {
   let component: CrisLayoutHorizontalComponent;
@@ -17,7 +23,7 @@ describe('CrisLayoutHorizontalComponent', () => {
       providers: [
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
-      ]
+      ],
     })
       .compileComponents();
   });

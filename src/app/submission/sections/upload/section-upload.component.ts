@@ -42,13 +42,13 @@ import {
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
 import { SubmissionService } from '../../submission.service';
+import { SubmissionVisibility } from '../../utils/visibility.util';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SectionUploadService } from './section-upload.service';
-import { SubmissionVisibility } from '../../utils/visibility.util';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
@@ -241,7 +241,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   isReadOnly(): boolean {
     return SubmissionVisibility.isReadOnly(
       this.sectionData.sectionVisibility,
-      this.submissionService.getSubmissionScope()
+      this.submissionService.getSubmissionScope(),
     );
   }
 

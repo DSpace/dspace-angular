@@ -19,8 +19,8 @@ import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { Item } from '../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { ItemListPreviewComponent } from './item-list-preview.component';
 import { VarDirective } from '../../../utils/var.directive';
+import { ItemListPreviewComponent } from './item-list-preview.component';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;

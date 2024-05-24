@@ -1,14 +1,17 @@
 import { of as observableOf } from 'rxjs';
 
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { createNoContentRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createNoContentRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { EPerson } from '../eperson/models/eperson.model';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
 import {
   END_USER_AGREEMENT_COOKIE,
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
 } from './end-user-agreement.service';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
 
 describe('EndUserAgreementService', () => {
   let service: EndUserAgreementService;

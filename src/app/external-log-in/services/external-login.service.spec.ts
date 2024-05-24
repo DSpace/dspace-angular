@@ -1,11 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-
-import { ExternalLoginService } from './external-login.service';
-import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Registration } from '../../core/shared/registration.model';
@@ -13,6 +12,7 @@ import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { ExternalLoginService } from './external-login.service';
 
 describe('ExternalLoginService', () => {
   let service: ExternalLoginService;
@@ -29,7 +29,7 @@ describe('ExternalLoginService', () => {
 
   beforeEach(() => {
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      patchUpdateRegistration: createSuccessfulRemoteDataObject$(new Registration)
+      patchUpdateRegistration: createSuccessfulRemoteDataObject$(new Registration),
     });
     router = new RouterMock();
     notificationService = new NotificationsServiceStub();
@@ -44,7 +44,7 @@ describe('ExternalLoginService', () => {
         { provide: TranslateService, useValue: translate },
         { provide: Store, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     });
     service = TestBed.inject(ExternalLoginService);
   });

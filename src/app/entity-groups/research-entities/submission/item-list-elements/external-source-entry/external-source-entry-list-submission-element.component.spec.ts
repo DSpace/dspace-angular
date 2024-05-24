@@ -4,13 +4,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
 
 import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
 import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
-import { By } from '@angular/platform-browser';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   let component: ExternalSourceEntryListSubmissionElementComponent;

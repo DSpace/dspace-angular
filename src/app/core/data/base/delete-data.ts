@@ -115,7 +115,7 @@ export class DeleteDataImpl<T extends CacheableObject> extends IdentifiableDataS
 
   deleteAsync(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.getIDHrefObs(objectId).pipe(
-        switchMap((href: string) => this.deleteByHrefAsync(href, copyVirtualMetadata)),
+      switchMap((href: string) => this.deleteByHrefAsync(href, copyVirtualMetadata)),
     );
   }
 
@@ -124,7 +124,7 @@ export class DeleteDataImpl<T extends CacheableObject> extends IdentifiableDataS
 
     if (copyVirtualMetadata) {
       copyVirtualMetadata.forEach((id) =>
-          href += (href.includes('?') ? '&' : '?')
+        href += (href.includes('?') ? '&' : '?')
               + 'copyVirtualMetadata='
               + id,
       );

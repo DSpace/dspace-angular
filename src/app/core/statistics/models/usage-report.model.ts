@@ -1,12 +1,17 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization, } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 
+import { StatisticsType } from '../../../statistics-page/cris-statistics-page/statistics-type.model';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
 import { HALResource } from '../../shared/hal-resource.model';
 import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { USAGE_REPORT } from './usage-report.resource-type';
-import { StatisticsType } from '../../../statistics-page/cris-statistics-page/statistics-type.model';
 
 /**
  * A usage report.
@@ -28,7 +33,7 @@ export class UsageReport extends HALResource {
     id: string;
 
   @autoserializeAs('view-mode')
-  viewMode: StatisticsType;
+    viewMode: StatisticsType;
 
   @autoserializeAs('report-type')
     reportType: string;

@@ -20,7 +20,9 @@ import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
+import { UUIDService } from '../../../core/shared/uuid.service';
 import { HostWindowService } from '../../../shared/host-window.service';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import {
@@ -35,8 +37,6 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -121,7 +121,7 @@ describe('BitstreamFormatsComponent', () => {
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: PaginationService, useValue: paginationService },
         { provide: UUIDService, useValue: getMockUUIDService() },
-      ]
+      ],
     }).compileComponents();
   };
 
@@ -248,9 +248,9 @@ describe('BitstreamFormatsComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService },
-            { provide: UUIDService, useValue: getMockUUIDService() }
-          ]
+          { provide: PaginationService, useValue: paginationService },
+          { provide: UUIDService, useValue: getMockUUIDService() },
+        ],
       }).compileComponents();
     },
     ));
@@ -298,9 +298,9 @@ describe('BitstreamFormatsComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService },
-            { provide: UUIDService, useValue: getMockUUIDService() },
-          ]
+          { provide: PaginationService, useValue: paginationService },
+          { provide: UUIDService, useValue: getMockUUIDService() },
+        ],
       }).compileComponents();
     },
     ));

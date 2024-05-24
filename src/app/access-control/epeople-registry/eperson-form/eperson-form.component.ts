@@ -54,6 +54,7 @@ import {
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Registration } from '../../../core/shared/registration.model';
+import { UUIDService } from '../../../core/shared/uuid.service';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../shared/empty.util';
@@ -63,7 +64,6 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-import { UUIDService } from '../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -227,7 +227,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     public dsoNameService: DSONameService,
     protected route: ActivatedRoute,
     protected router: Router,
-    private uuidService: UUIDService
+    private uuidService: UUIDService,
   ) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;
@@ -563,15 +563,15 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     if (hasValue(this.epersonInitial.email)) {
       this.epersonRegistrationService.registerEmail(this.epersonInitial.email, null, TYPE_REQUEST_FORGOT).pipe(getFirstCompletedRemoteData())
         .subscribe((response: RemoteData<Registration>) => {
-        if (response.hasSucceeded) {
-          this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),
-            this.translateService.get('forgot-email.form.success.content', {email: this.epersonInitial.email}));
-        } else {
-          this.notificationsService.error(this.translateService.get('forgot-email.form.error.head'),
-            this.translateService.get('forgot-email.form.error.content', {email: this.epersonInitial.email}));
-        }
+          if (response.hasSucceeded) {
+            this.notificationsService.success(this.translateService.get('admin.access-control.epeople.actions.reset'),
+              this.translateService.get('forgot-email.form.success.content', { email: this.epersonInitial.email }));
+          } else {
+            this.notificationsService.error(this.translateService.get('forgot-email.form.error.head'),
+              this.translateService.get('forgot-email.form.error.content', { email: this.epersonInitial.email }));
+          }
         },
-    );
+        );
     }
   }
 

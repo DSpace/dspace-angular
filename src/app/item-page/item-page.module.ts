@@ -3,35 +3,24 @@ import { NgModule } from '@angular/core';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { CrisItemPageModule } from '../cris-item-page/cris-item-page.module';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
+import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
 import { ResultsBackButtonModule } from '../shared/results-back-button/results-back-button.module';
 import { SharedModule } from '../shared/shared.module';
 import { UploadModule } from '../shared/upload/upload.module';
 import { StatisticsModule } from '../statistics/statistics.module';
 import { ThemedItemAlertsComponent } from './alerts/themed-item-alerts.component';
-import {
-  BitstreamRequestACopyPageComponent
-} from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
+import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { MetadataUriValuesComponent } from './field-components/metadata-uri-values/metadata-uri-values.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
-import {
-  ThemedFullFileSectionComponent
-} from './full/field-components/file-section/themed-full-file-section.component';
+import { ThemedFullFileSectionComponent } from './full/field-components/file-section/themed-full-file-section.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
-import { PublicationComponent } from './simple/item-types/publication/publication.component';
-import { ItemComponent } from './simple/item-types/shared/item.component';
-import {
-  AbstractIncrementalListComponent
-} from './simple/abstract-incremental-list/abstract-incremental-list.component';
-import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
-import { CrisItemPageModule } from '../cris-item-page/cris-item-page.module';
-import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
-import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { ItemPageRoutingModule } from './item-page-routing.module';
 import { ItemSharedModule } from './item-shared.module';
@@ -42,33 +31,28 @@ import { MediaViewerVideoComponent } from './media-viewer/media-viewer-video/med
 import { ThemedMediaViewerVideoComponent } from './media-viewer/media-viewer-video/themed-media-viewer-video.component';
 import { ThemedMediaViewerComponent } from './media-viewer/themed-media-viewer.component';
 import { MiradorViewerModule } from './mirador-viewer/mirador-viewer.module';
-import { VersionPageComponent } from './version-page/version-page/version-page.component';
-import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
 import { OrcidAuthComponent } from './orcid-page/orcid-auth/orcid-auth.component';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidQueueComponent } from './orcid-page/orcid-queue/orcid-queue.component';
 import { OrcidSyncSettingsComponent } from './orcid-page/orcid-sync-settings/orcid-sync-settings.component';
-import { ItemVersionsModule } from './versions/item-versions.module';
+import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
-import {
-  ItemPageAbstractFieldComponent
-} from './simple/field-components/specific-field/abstract/item-page-abstract-field.component';
-import {
-  ItemPageAuthorFieldComponent
-} from './simple/field-components/specific-field/author/item-page-author-field.component';
-import {
-  ItemPageDateFieldComponent
-} from './simple/field-components/specific-field/date/item-page-date-field.component';
+import { ThemedFileSectionComponent } from './simple/field-components/file-section/themed-file-section.component';
+import { ItemPageAbstractFieldComponent } from './simple/field-components/specific-field/abstract/item-page-abstract-field.component';
+import { ItemPageAuthorFieldComponent } from './simple/field-components/specific-field/author/item-page-author-field.component';
+import { ItemPageDateFieldComponent } from './simple/field-components/specific-field/date/item-page-date-field.component';
 import { ItemPageFieldComponent } from './simple/field-components/specific-field/item-page-field.component';
 import { ItemPageUriFieldComponent } from './simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { ItemPageComponent } from './simple/item-page.component';
-import {
-  NotifyRequestsStatusComponent
-} from './simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
-import {
-  RequestStatusAlertBoxComponent
-} from './simple/notify-requests-status/request-status-alert-box/request-status-alert-box.component';
+import { PublicationComponent } from './simple/item-types/publication/publication.component';
+import { ItemComponent } from './simple/item-types/shared/item.component';
+import { UntypedItemComponent } from './simple/item-types/untyped-item/untyped-item.component';
+import { NotifyRequestsStatusComponent } from './simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { RequestStatusAlertBoxComponent } from './simple/notify-requests-status/request-status-alert-box/request-status-alert-box.component';
 import { QaEventNotificationComponent } from './simple/qa-event-notification/qa-event-notification.component';
+import { ThemedItemPageComponent } from './simple/themed-item-page.component';
+import { VersionPageComponent } from './version-page/version-page/version-page.component';
+import { ItemVersionsModule } from './versions/item-versions.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator

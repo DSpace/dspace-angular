@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { BrowseSection } from '../../../../core/layout/models/section.model';
 
@@ -7,14 +10,14 @@ import { BrowseSection } from '../../../../core/layout/models/section.model';
  */
 @Component({
   selector: 'ds-browse-section',
-  templateUrl: './browse-section.component.html'
+  templateUrl: './browse-section.component.html',
 })
 export class BrowseSectionComponent {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  browseSection: BrowseSection;
+    browseSection: BrowseSection;
 
 }

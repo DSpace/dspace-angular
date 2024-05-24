@@ -34,10 +34,12 @@ import { VersionDataService } from '../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
+import { UUIDService } from '../../core/shared/uuid.service';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -46,8 +48,6 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ItemSharedModule } from '../item-shared.module';
 import { ItemVersionsComponent } from './item-versions.component';
-import { UUIDService } from '../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -170,7 +170,7 @@ describe('ItemVersionsComponent', () => {
         { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
         { provide: ConfigurationDataService, useValue: configurationServiceSpy },
         { provide: Router, useValue: routerSpy },
-        { provide: UUIDService, useValue: getMockUUIDService() }
+        { provide: UUIDService, useValue: getMockUUIDService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

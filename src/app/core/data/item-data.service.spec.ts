@@ -45,7 +45,7 @@ describe('ItemDataService', () => {
     },
     removeByHrefSubstring(href: string) {
       // Do nothing
-    }
+    },
   }) as RequestService;
   const rdbService = getMockRemoteDataBuildService();
 
@@ -161,7 +161,7 @@ describe('ItemDataService', () => {
     it('should send a POST request with stripped query params in collectionHref', () => {
       result.subscribe(() => expect(requestService.send).toHaveBeenCalledWith(objectContaining({
         method: RestRequestMethod.POST,
-        body: 'collection-href'
+        body: 'collection-href',
       })));
     });
   });

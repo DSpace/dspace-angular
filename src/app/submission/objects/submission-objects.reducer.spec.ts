@@ -47,7 +47,10 @@ import {
   UpdateSectionDataAction,
   UpdateSectionErrorsAction,
 } from './submission-objects.actions';
-import { submissionObjectReducer, SubmissionObjectState, } from './submission-objects.reducer';
+import {
+  submissionObjectReducer,
+  SubmissionObjectState,
+} from './submission-objects.reducer';
 
 describe('submissionReducer test suite', () => {
 
@@ -59,15 +62,15 @@ describe('submissionReducer test suite', () => {
     'uuid': null,
     'metadataSecurityDefault': [
       0,
-      1
+      1,
     ],
     'metadataCustomSecurity': {},
     'type': 'securitysetting',
     '_links': {
       'self': {
-        'href': 'http://localhost:8080/server/api/core/securitysettings'
-      }
-    }
+        'href': 'http://localhost:8080/server/api/core/securitysettings',
+      },
+    },
   };
 
   let initState: any;
@@ -90,7 +93,7 @@ describe('submissionReducer test suite', () => {
         saveDecisionPending: false,
         depositPending: false,
         metadataSecurityConfiguration: metadataSecurityConfiguration as any,
-      }
+      },
     };
 
     const action = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, new Item(), null, metadataSecurityConfiguration as any);
@@ -240,7 +243,7 @@ describe('submissionReducer test suite', () => {
   it('should reset state once the discard action is completed successfully', () => {
     const action: any = new DiscardSubmissionSuccessAction(submissionId);
     const newState = submissionObjectReducer(initState, action);
-    expect(newState).toEqual(Object.assign({}, initState, { 826: Object.assign({}, initState[826], { isDiscarding: true })}));
+    expect(newState).toEqual(Object.assign({}, initState, { 826: Object.assign({}, initState[826], { isDiscarding: true }) }));
   });
 
   it('should return same state once the discard action is completed unsuccessfully', () => {
@@ -398,8 +401,8 @@ describe('submissionReducer test suite', () => {
     const errors = [
       {
         path: '/sections/traditionalpageone/dc.title/0',
-        message: 'error.validation.traditionalpageone.required'
-      }
+        message: 'error.validation.traditionalpageone.required',
+      },
     ];
 
     const action = new UpdateSectionErrorsAction(submissionId, 'traditionalpageone', errors, errors);
@@ -710,8 +713,8 @@ describe('submissionReducer test suite', () => {
   it('should set the decision flag to true', () => {
     const state: SubmissionObjectState = Object.assign({}, initState, {
       [submissionId]: Object.assign({}, initState[submissionId], {
-        saveDecisionPending: true
-      })
+        saveDecisionPending: true,
+      }),
     });
 
     const action = new SetDuplicateDecisionAction(submissionId, 'detect-duplicate');
@@ -727,21 +730,21 @@ describe('submissionReducer test suite', () => {
           'detect-duplicate': Object.assign({}, initState[submissionId].sections['detect-duplicate'], {
             enabled: true,
             data: {
-              matches: mockDeduplicationMatches
-            }
-          })
-        })
-      })
+              matches: mockDeduplicationMatches,
+            },
+          }),
+        }),
+      }),
     });
     const submissionObject = {
       [submissionId]: {
         id: parseInt(submissionId, 10),
         sections: {
           'detect-duplicate': {
-            matches: mockDeduplicationMatches
-          }
-        }
-      }
+            matches: mockDeduplicationMatches,
+          },
+        },
+      },
     };
 
     const action = new SetDuplicateDecisionSuccessAction(submissionId, 'detect-duplicate', submissionObject as any);
@@ -755,8 +758,8 @@ describe('submissionReducer test suite', () => {
   it('should set the decision flag to false', () => {
     const state: SubmissionObjectState = Object.assign({}, initState, {
       [submissionId]: Object.assign({}, initState[submissionId], {
-        saveDecisionPending: false
-      })
+        saveDecisionPending: false,
+      }),
     });
 
     const action = new SetDuplicateDecisionSuccessAction(submissionId, 'detect-duplicate', [mockSubmissionObject as any]);

@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+
+import {
+  FieldRenderingType,
+  MetadataBoxFieldRendering,
+} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -8,7 +12,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
 @Component({
   selector: 'ds-heading-row',
   templateUrl: './heading.component.html',
-  styleUrls: ['./heading.component.scss']
+  styleUrls: ['./heading.component.scss'],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.HEADING)
 export class HeadingComponent extends RenderingTypeValueModelComponent {

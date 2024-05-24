@@ -1,5 +1,16 @@
-import { Component, Inject, Input, OnChanges, OnDestroy, OnInit, } from '@angular/core';
-import { ActivatedRoute, Params, Router, } from '@angular/router';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -9,29 +20,39 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { APP_CONFIG, AppConfig, } from '../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
+import { SearchManager } from '../../core/browse/search-manager';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Context } from '../../core/shared/context.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
-import { hasValue, isNotEmpty, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 import { rendersBrowseBy } from '../browse-by-switcher/browse-by-decorator';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
-import { SearchManager } from '../../core/browse/search-manager';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 export const BBM_PAGINATION_ID = 'bbm';
 
@@ -186,7 +207,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
         }),
       ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         this.browseId = params.id || this.defaultBrowseId;
-          this.authority = +params.authority || params.authority || '';
+        this.authority = +params.authority || params.authority || '';
 
         if (typeof params.value === 'string'){
           this.value = params.value.trim();
@@ -271,7 +292,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
         true,
         true,
         ...linksToFollow() as FollowLinkConfig<DSpaceObject>[]).pipe(
-        getFirstSucceededRemoteData()
+        getFirstSucceededRemoteData(),
       );
     }
   }

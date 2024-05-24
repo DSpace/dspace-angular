@@ -1,6 +1,21 @@
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NgZone, SimpleChange, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, } from '@angular/forms';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+  NgZone,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -77,15 +92,11 @@ import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.compone
 import { DynamicOneboxModel } from './models/onebox/dynamic-onebox.model';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
-import {
-  DsDynamicScrollableDropdownComponent
-} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DynamicTagModel } from './models/tag/dynamic-tag.model';
-import {
-  DsDynamicRelationInlineGroupComponent
-} from './models/relation-inline-group/dynamic-relation-inline-group.components';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -157,7 +168,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       vocabularyOptions: vocabularyOptions,
       repeatable: true,
       required: false,
-      hint: 'test hint'
+      hint: 'test hint',
     }),
     new DynamicListRadioGroupModel({
       id: 'radioList',
@@ -177,7 +188,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       submissionScope: '',
       repeatable: false,
       metadataFields: [],
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
     }),
     new DynamicRelationGroupModel({
       submissionId: '1234',

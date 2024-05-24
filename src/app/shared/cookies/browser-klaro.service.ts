@@ -1,23 +1,49 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { deepClone, Operation } from 'fast-json-patch';
+import {
+  deepClone,
+  Operation,
+} from 'fast-json-patch';
 import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
-import { map, switchMap, take, } from 'rxjs/operators';
+import isEqual from 'lodash/isEqual';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { CookieConsents, KlaroService } from './klaro.service';
-import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../core/services/cookie.service';
-import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import isEqual from 'lodash/isEqual';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
+import {
+  CookieConsents,
+  KlaroService,
+} from './klaro.service';
+import {
+  ANONYMOUS_STORAGE_NAME_KLARO,
+  klaroConfiguration,
+} from './klaro-configuration';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -112,7 +138,7 @@ export class BrowserKlaroService extends KlaroService {
               name: metric.key,
               purposes: ['thirdPartyJs'],
               required: false,
-            }
+            },
           );
         }
       });
@@ -356,7 +382,7 @@ export class BrowserKlaroService extends KlaroService {
   }
 
   watchConsentUpdates(): void {
-    this.lazyKlaro.then(({getManager}) => {
+    this.lazyKlaro.then(({ getManager }) => {
       const manager = getManager(this.klaroConfig);
       const consentsSubject$ = this.consentsUpdates$;
       let lastCookiesConsents = this.lastCookiesConsents;
@@ -369,7 +395,7 @@ export class BrowserKlaroService extends KlaroService {
             lastCookiesConsents = deepClone(consents);
             consentsSubject$.next(consents);
           }
-        }
+        },
       });
     });
   }

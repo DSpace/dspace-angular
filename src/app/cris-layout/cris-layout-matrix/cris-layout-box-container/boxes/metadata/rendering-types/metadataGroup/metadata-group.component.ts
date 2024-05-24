@@ -1,11 +1,17 @@
-import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
+
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { TranslateService } from '@ngx-translate/core';
-import { isNotEmpty } from '../../../../../../../shared/empty.util';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { BehaviorSubject } from 'rxjs';
+import { isNotEmpty } from '../../../../../../../shared/empty.util';
+import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
 
 
 export interface NestedMetadataGroupEntry {
@@ -14,7 +20,7 @@ export interface NestedMetadataGroupEntry {
 }
 
 @Component({
-  template: ''
+  template: '',
 })
 export abstract class MetadataGroupComponent extends RenderingTypeStructuredModelComponent implements OnInit, OnDestroy {
 
@@ -43,7 +49,7 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
     super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
   }
@@ -52,14 +58,14 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
     this.field.metadataGroup.elements.forEach((entry: LayoutField) => {
       if (this.item.metadata[entry.metadata]) {
         const styleValue = !entry.styleValue ? this.field.styleValue : (entry.styleValue + this.field.styleValue);
-        this.metadataGroup.push(Object.assign({}, entry, {styleValue: styleValue}) );
+        this.metadataGroup.push(Object.assign({}, entry, { styleValue: styleValue }) );
       }
     });
     this.metadataValues.forEach((mdv, index) => {
       this.metadataGroup.forEach(mdg => {
         const entry = {
           field: mdg,
-          value: this.getMetadataValue(mdg, index)
+          value: this.getMetadataValue(mdg, index),
         } as NestedMetadataGroupEntry;
         if (this.componentsToBeRenderedMap.has(index)) {
           const newEntries = [...this.componentsToBeRenderedMap.get(index), entry];

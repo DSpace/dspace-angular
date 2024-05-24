@@ -111,8 +111,8 @@ describe('EpersonRegistrationService', () => {
         a: jasmine.objectContaining({
           payload: Object.assign(new Registration(), {
             email: registrationWithUser.email,
-          groupNames: [],
-          groups: [],
+            groupNames: [],
+            groups: [],
             token: 'test-token',
             user: registrationWithUser.user,
           }),

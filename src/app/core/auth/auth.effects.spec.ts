@@ -1,17 +1,41 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
-
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { Observable, of as observableOf, throwError as observableThrow } from 'rxjs';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+  throwError as observableThrow,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AppState, storeModuleConfig, } from '../../app.reducer';
-import { authMethodsMock, AuthServiceStub, } from '../../shared/testing/auth-service.stub';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
+import {
+  authMethodsMock,
+  AuthServiceStub,
+} from '../../shared/testing/auth-service.stub';
 import { EPersonMock } from '../../shared/testing/eperson.mock';
+import { RouterStub } from '../../shared/testing/router.stub';
 import { StoreActionTypes } from '../../store.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import {
@@ -43,8 +67,10 @@ import { AuthEffects } from './auth.effects';
 import { authReducer } from './auth.reducer';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
-import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
-import { RouterStub } from '../../shared/testing/router.stub';
+import {
+  isAuthenticated,
+  isAuthenticatedLoaded,
+} from './selectors';
 
 
 describe('AuthEffects', () => {
@@ -472,8 +498,8 @@ describe('AuthEffects', () => {
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
-            payload: { token, redirectUrl }
-          }
+            payload: { token, redirectUrl },
+          },
         });
 
         const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectSuccessAction(EPersonMock, token, redirectUrl) });
@@ -490,8 +516,8 @@ describe('AuthEffects', () => {
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
-            payload: { token, redirectUrl }
-          }
+            payload: { token, redirectUrl },
+          },
         });
 
         const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectErrorAction() });
@@ -514,8 +540,8 @@ describe('AuthEffects', () => {
       actions = hot('--a-', {
         a: {
           type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS,
-          payload: { ePerson: EPersonMock, token, redirectUrl }
-        }
+          payload: { ePerson: EPersonMock, token, redirectUrl },
+        },
       });
 
       const expected = cold('--b-', { b: new RefreshTokenAndRedirectAction(token, redirectUrl) });
@@ -530,7 +556,7 @@ describe('AuthEffects', () => {
     describe('when refresh token and redirect succeeded', () => {
       it('should return a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_TOKEN_AND_REDIRECT action', (done) => {
 
-        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: {token, redirectUrl} } });
+        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: { token, redirectUrl } } });
 
         const expected = cold('--b-', { b: new RefreshTokenAndRedirectSuccessAction(token, redirectUrl) });
 
@@ -543,7 +569,7 @@ describe('AuthEffects', () => {
       it('should return a REFRESH_TOKEN_AND_REDIRECT_ERROR action in response to a REFRESH_TOKEN_AND_REDIRECT action', (done) => {
         spyOn((authEffects as any).authService, 'refreshAuthenticationToken').and.returnValue(observableThrow(''));
 
-        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: {token, redirectUrl} } });
+        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: { token, redirectUrl } } });
 
         const expected = cold('--b-', { b: new RefreshTokenAndRedirectErrorAction() });
 
@@ -562,7 +588,7 @@ describe('AuthEffects', () => {
 
     it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', () => {
 
-      actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS, payload: {token, redirectUrl} } });
+      actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS, payload: { token, redirectUrl } } });
 
       spyOn(authServiceStub, 'replaceToken');
 

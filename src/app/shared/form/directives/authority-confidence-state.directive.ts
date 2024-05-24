@@ -115,7 +115,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges, AfterViewIn
     this.renderer.setAttribute(
       this.elem.nativeElement,
       'title',
-      this.translate.instant('authority-confidence.search-label')
+      this.translate.instant('authority-confidence.search-label'),
     );
   }
 

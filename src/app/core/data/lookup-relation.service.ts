@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import uniqueId from 'lodash/uniqueId';
 import {
   Observable,
   ReplaySubject,
@@ -30,7 +31,6 @@ import { ExternalSourceDataService } from './external-source-data.service';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import uniqueId from 'lodash/uniqueId';
 
 /**
  * A service for retrieving local and external entries information during a relation lookup

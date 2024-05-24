@@ -1,7 +1,11 @@
-import { ItemDataService } from './../../data/item-data.service';
 import { Injectable } from '@angular/core';
+
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
 import { Item } from '../item.model';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { ItemDataService } from './../../data/item-data.service';
 import { EditDsoResolver } from './edit-dso.resolver';
 
 /**
@@ -19,12 +23,12 @@ export class EditItemResolver extends EditDsoResolver<Item> {
     return [
       followLink('owningCollection', {},
         followLink('parentCommunity', {},
-          followLink('parentCommunity'))
+          followLink('parentCommunity')),
       ),
       followLink('relationships'),
       followLink('version', {}, followLink('versionhistory')),
       followLink('thumbnail'),
-      followLink('metrics')
+      followLink('metrics'),
     ];
   }
 }

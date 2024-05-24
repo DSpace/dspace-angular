@@ -18,7 +18,7 @@ describe('OneboxFieldParser test suite', () => {
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
     typeField: 'dc_type',
-    isInnerForm: false
+    isInnerForm: false,
   };
 
   beforeEach(() => {

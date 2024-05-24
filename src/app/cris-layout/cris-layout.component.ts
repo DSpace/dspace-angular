@@ -1,15 +1,30 @@
-import { PaginatedList } from './../core/data/paginated-list.model';
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../core/shared/item.model';
-import { TabDataService } from '../core/layout/tab-data.service';
-import { CrisLayoutTab } from '../core/layout/models/tab.model';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
-
-import { getFirstSucceededRemoteData, getPaginatedListPayload, getRemoteDataPayload } from '../core/shared/operators';
-import { isNotEmpty } from '../shared/empty.util';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { RemoteData } from '../core/data/remote-data';
+import { CrisLayoutTab } from '../core/layout/models/tab.model';
+import { TabDataService } from '../core/layout/tab-data.service';
+import { Item } from '../core/shared/item.model';
+import {
+  getFirstSucceededRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+} from '../core/shared/operators';
+import { isNotEmpty } from '../shared/empty.util';
+import { PaginatedList } from './../core/data/paginated-list.model';
 
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
@@ -17,7 +32,7 @@ import { RemoteData } from '../core/data/remote-data';
 @Component({
   selector: 'ds-cris-layout',
   templateUrl: './cris-layout.component.html',
-  styleUrls: ['./cris-layout.component.scss']
+  styleUrls: ['./cris-layout.component.scss'],
 })
 export class CrisLayoutComponent implements OnInit {
 
@@ -64,17 +79,17 @@ export class CrisLayoutComponent implements OnInit {
    */
   ngOnInit(): void {
 
-    if (!!this.dataTabs$) {
+    if (this.dataTabs$) {
       this.tabs$ = this.dataTabs$.pipe(
         map((res: any) => {
           return res.payload.page;
-        })
+        }),
       );
     } else {
       this.tabs$ = this.router.data.pipe(
         map((res: any) => {
           return res.tabs.payload.page;
-        })
+        }),
       );
     }
     this.leadingTabs$ = this.getLeadingTabs();
@@ -96,7 +111,7 @@ export class CrisLayoutComponent implements OnInit {
     return this.tabService.findByItem(this.item.uuid, true).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      getPaginatedListPayload()
+      getPaginatedListPayload(),
     );
   }
 
@@ -123,7 +138,7 @@ export class CrisLayoutComponent implements OnInit {
    */
   hasLeadingTab(): Observable<boolean> {
     return this.getLeadingTabs().pipe(
-      map((tabs: CrisLayoutTab[]) => tabs && tabs.length > 0)
+      map((tabs: CrisLayoutTab[]) => tabs && tabs.length > 0),
     );
   }
 

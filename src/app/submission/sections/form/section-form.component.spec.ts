@@ -28,12 +28,17 @@ import { of as observableOf } from 'rxjs';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+import {
+  SubmissionVisibilityType,
+  SubmissionVisibilityValue,
+} from '../../../core/config/models/config-submission-section.model';
 import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
 import { RequestService } from '../../../core/data/request.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -63,11 +68,6 @@ import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';
 import { SubmissionSectionFormComponent } from './section-form.component';
 import { SectionFormOperationsService } from './section-form-operations.service';
-import {
-  SubmissionVisibilityType,
-  SubmissionVisibilityValue
-} from '../../../core/config/models/config-submission-section.model';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -89,7 +89,7 @@ const sectionObject: SectionDataObject = {
   header: 'submit.progressbar.describe.stepone',
   id: 'traditionalpageone',
   sectionType: SectionsType.SubmissionForm,
-  sectionVisibility: null
+  sectionVisibility: null,
 };
 
 const testFormConfiguration = {
@@ -360,27 +360,27 @@ describe('SubmissionSectionFormComponent test suite', () => {
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow' }],
                   visibility: {
-                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden
+                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden,
                   } as SubmissionVisibilityType,
-                } as FormFieldModel
-              ]
+                } as FormFieldModel,
+              ],
             },
             {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace' }],
                   visibility: {
-                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden
+                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden,
                   } as SubmissionVisibilityType,
-                } as FormFieldModel
-              ]
+                } as FormFieldModel,
+              ],
             },
             {
               fields: [
                 {
                   selectableMetadata: [{ metadata: 'scoped.workflow.relation' }],
                   visibility: {
-                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden
+                    [SubmissionScopeType.WorkspaceItem]: SubmissionVisibilityValue.Hidden,
                   } as SubmissionVisibilityType,
                 } as FormFieldModel,
               ],
@@ -390,7 +390,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
                 {
                   selectableMetadata: [{ metadata: 'scoped.workspace.relation' }],
                   visibility: {
-                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden
+                    [SubmissionScopeType.WorkflowItem]: SubmissionVisibilityValue.Hidden,
                   } as SubmissionVisibilityType,
                 } as FormFieldModel,
               ],

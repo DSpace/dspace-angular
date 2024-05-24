@@ -1,6 +1,8 @@
+import { isPlatformServer } from '@angular/common';
 import {
   Inject,
-  Injectable, PLATFORM_ID,
+  Injectable,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   Meta,
@@ -54,6 +56,7 @@ import { BundleDataService } from '../data/bundle-data.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
+import { Root } from '../data/root.model';
 import { RootDataService } from '../data/root-data.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { Bitstream } from '../shared/bitstream.model';
@@ -62,6 +65,7 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bundle } from '../shared/bundle.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
+import { ITEM } from '../shared/item.resource-type';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -73,9 +77,6 @@ import {
 } from './meta-tag.actions';
 import { MetaTagState } from './meta-tag.reducer';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
-import { isPlatformServer } from '@angular/common';
-import { ITEM } from '../shared/item.resource-type';
-import { Root } from '../data/root.model';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -407,7 +408,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_conference_title" ... >  to the <head>
    */
-   private setCitationConferenceTag(): void {
+  private setCitationConferenceTag(): void {
     const value = this.getMetaTagValue('dc.relation.conference');
     this.addMetaTag('citation_conference_title', value);
   }
@@ -415,7 +416,7 @@ export class MetadataService {
   /**
    * Add <meta name="citation_technical_report_number" ... >  to the <head>
    */
-   private setCitationTechnicalReportNumberTag(): void {
+  private setCitationTechnicalReportNumberTag(): void {
     const value = this.getMetaTagValue('dc.relation.ispartofseries');
     this.addMetaTag('citation_technical_report_number', value);
   }
@@ -550,7 +551,7 @@ export class MetadataService {
         // Use the found link to set the <meta> tag
         this.addMetaTag(
           tag,
-          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
+          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
         );
       });
     }
@@ -645,19 +646,19 @@ export class MetadataService {
    * @returns {boolean}
    *      true if this._item has a dc.type equal to 'Thesis'
    */
-   private isResearchOutput(): boolean {
+  private isResearchOutput(): boolean {
     return this.hasEntityType('publication') || this.hasEntityType('product') || this.hasEntityType('patent');
   }
 
-    /**
+  /**
    * Returns true if this._item is a research output (publication, patent or product)
    *
    * @returns {boolean}
    *      true if this._item has a dc.type equal to 'Thesis'
    */
-     private isPatent(): boolean {
-      return this.hasEntityType('patent');
-    }
+  private isPatent(): boolean {
+    return this.hasEntityType('patent');
+  }
 
   /**
    * Returns true if this._item is a technical report

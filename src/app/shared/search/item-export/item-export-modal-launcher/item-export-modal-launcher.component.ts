@@ -1,20 +1,32 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, Observable } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { Item } from '../../../../core/shared/item.model';
-import { SearchOptions } from '../../models/search-options.model';
-import { ItemExportComponent } from '../item-export/item-export.component';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
+import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { isNotEmpty } from '../../../empty.util';
-import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import { SearchOptions } from '../../models/search-options.model';
+import { ItemExportComponent } from '../item-export/item-export.component';
 
 export const BULK_EXPORT_LIMIT_ADMIN = 'bulk-export.limit.admin';
 export const BULK_EXPORT_LIMIT_LOGGEDIN = 'bulk-export.limit.loggedIn';
@@ -23,11 +35,11 @@ export const BULK_EXPORT_LIMIT_NOTLOGGEDIN = 'bulk-export.limit.notLoggedIn';
 @Component({
   selector: 'ds-item-export-modal-launcher',
   styleUrls: ['./item-export-modal-launcher.component.scss'],
-  templateUrl: './item-export-modal-launcher.component.html'
+  templateUrl: './item-export-modal-launcher.component.html',
 })
 export class ItemExportModalLauncherComponent implements OnInit {
 
-  @ViewChild('template', {static: true}) template;
+  @ViewChild('template', { static: true }) template;
 
   @Input() item: Item;
   @Input() searchOptions$: Observable<SearchOptions>;
@@ -58,7 +70,7 @@ export class ItemExportModalLauncherComponent implements OnInit {
         }
 
         return this.findByPropertyName(propertyName);
-      })
+      }),
     ).subscribe((bulkExportLimit: string) => {
       this.bulkExportLimit = bulkExportLimit;
     });
@@ -118,7 +130,7 @@ export class ItemExportModalLauncherComponent implements OnInit {
       getFirstCompletedRemoteData(),
       map((res) => {
         return (res.hasSucceeded && res.payload && isNotEmpty(res.payload.values)) ? res.payload.values[0] : '0';
-    }));
+      }));
   }
 
 }

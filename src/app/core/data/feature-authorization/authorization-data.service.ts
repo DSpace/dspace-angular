@@ -1,9 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, of as observableOf, } from 'rxjs';
-import { catchError, map, switchMap, take, } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { hasNoValue, hasValue, isNotEmpty, } from '../../../shared/empty.util';
-import { followLink, FollowLinkConfig, } from '../../../shared/utils/follow-link-config.model';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
@@ -13,7 +28,10 @@ import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { BaseDataService } from '../base/base-data.service';
 import { dataService } from '../base/data-service.decorator';
-import { SearchData, SearchDataImpl, } from '../base/search-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../base/search-data';
 import { FindListOptions } from '../find-list-options.model';
 import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
@@ -62,7 +80,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
   invalidateAuthorization(featureID?: FeatureID, objectUrl?: string) {
     this.searchData.getSearchByHref(this.searchByObjectPath, this.createSearchOptions(objectUrl, {}, null, featureID))
       .pipe(
-        take(1)
+        take(1),
       ).subscribe(url => this.requestService.setStaleByHrefSubstring(url));
   }
 

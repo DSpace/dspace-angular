@@ -17,15 +17,18 @@ import {
   of,
 } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
-import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { CommunityDataService } from '../../../../../core/data/community-data.service';
+import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
 import { DefaultChangeAnalyzer } from '../../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../../core/data/dso-change-analyzer.service';
-import { buildPaginatedList, PaginatedList } from '../../../../../core/data/paginated-list.model';
+import { FindListOptions } from '../../../../../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.service';
@@ -37,14 +40,14 @@ import { ItemSearchResult } from '../../../../object-collection/shared/item-sear
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../remote-data.utils';
+import { createPaginatedList } from '../../../../testing/utils.test';
+import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { FollowLinkConfig } from '../../../../utils/follow-link-config.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
-import { FindListOptions } from '../../../../../core/data/find-list-options.model';
-import { FollowLinkConfig } from '../../../../utils/follow-link-config.model';
-import { createPaginatedList } from '../../../../testing/utils.test';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
@@ -78,11 +81,11 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'This is an abstract'
-      }
-    ]
+        value: 'This is an abstract',
+      },
+    ],
   },
-  thumbnail: createNoContentRemoteDataObject$()
+  thumbnail: createNoContentRemoteDataObject$(),
 });
 const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   hitHighlights: {
@@ -132,12 +135,12 @@ const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
         ],
         'person.familyName': [
           {
-            value: 'Michel'
-          }
-        ]
+            value: 'Michel',
+          },
+        ],
       },
-      thumbnail: createNoContentRemoteDataObject$()
-    })
+      thumbnail: createNoContentRemoteDataObject$(),
+    }),
 });
 const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   hitHighlights: {
@@ -187,12 +190,12 @@ const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
         ],
         'dspace.entity.type': [
           {
-            value: 'OrgUnit'
-          }
-        ]
+            value: 'OrgUnit',
+          },
+        ],
       },
       thumbnail: createNoContentRemoteDataObject$(),
-    })
+    }),
 });
 
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
@@ -203,9 +206,9 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
+        value: 'This is just another title',
+      },
+    ],
   },
   thumbnail: createNoContentRemoteDataObject$(),
 });
@@ -240,7 +243,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     };
 
     const defaultThumbnailService = thumbnailServiceMock ?? jasmine.createSpyObj('ThumbnailService', {
-      getConfig: jasmine.createSpy('getConfig')
+      getConfig: jasmine.createSpy('getConfig'),
     });
 
     beforeEach(waitForAsync(() => {
@@ -346,11 +349,11 @@ const truncatableServiceStub: any = {
 };
 
 const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
-  findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName')
+  findAllByItemAndBundleName: jasmine.createSpy('findAllByItemAndBundleName'),
 });
 
 const defaultThumbnailService = jasmine.createSpyObj('ThumbnailService', {
-  getConfig: jasmine.createSpy('getConfig')
+  getConfig: jasmine.createSpy('getConfig'),
 });
 
 
@@ -358,7 +361,7 @@ export const getGridElementTestBet = (component) => {
   return {
     imports: [
       NoopAnimationsModule,
-      TranslateModule.forRoot()
+      TranslateModule.forRoot(),
     ],
     declarations: [component, TruncatePipe],
     providers: [
@@ -377,6 +380,6 @@ export const getGridElementTestBet = (component) => {
       { provide: ConfigurationDataService, useValue: {} },
       { provide: ThumbnailService, useValue: defaultThumbnailService },
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
   };
 };

@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
-import { DsoContextBreadcrumbService } from './dso-context-breadcrumb.service';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { hasNoValue } from '../../shared/empty.util';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
+
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
+import { hasNoValue } from '../../shared/empty.util';
+import { DsoContextBreadcrumbService } from './dso-context-breadcrumb.service';
 
 /**
  * The class that resolves the BreadcrumbConfig object for an Item
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DsoContextBreadcrumbResolver implements Resolve<BreadcrumbConfig<string>> {
   constructor(

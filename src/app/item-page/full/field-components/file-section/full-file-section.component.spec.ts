@@ -13,15 +13,15 @@ import {
 import { of as observableOf } from 'rxjs';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
 import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
@@ -83,7 +83,7 @@ describe('FullFileSectionComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: UUIDService, useValue: getMockUUIDService() }
+        { provide: UUIDService, useValue: getMockUUIDService() },
       ],
 
       schemas: [NO_ERRORS_SCHEMA],

@@ -1,4 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
 import {
   Observable,
   of as observableOf,
@@ -8,6 +11,10 @@ import {
   map,
 } from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -22,7 +29,6 @@ import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { followLink } from '../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
@@ -48,7 +54,7 @@ export class SidebarSearchListElementComponent<T extends SearchResult<K>, K exte
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected truncatableService: TruncatableService,
     protected linkService: LinkService,
-    public dsoNameService: DSONameService
+    public dsoNameService: DSONameService,
   ) {
     super(truncatableService, dsoNameService, appConfig);
   }

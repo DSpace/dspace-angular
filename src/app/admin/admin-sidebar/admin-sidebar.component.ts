@@ -25,8 +25,8 @@ import { slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
-import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { MenuSection } from '../../shared/menu/menu-section.model';
+import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 
 /**
@@ -108,8 +108,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
     combineLatest([
       this.authService.isAuthenticated(),
       this.menuService.getMenuTopSections(this.menuID).pipe(
-        map((topSections: MenuSection[]) => topSections.length > 0)
-      )
+        map((topSections: MenuSection[]) => topSections.length > 0),
+      ),
     ]).subscribe(([loggedIn, hasTopSections]: [boolean, boolean]) => {
       // admin sidebar menu hidden by default when no visible top sections are found
       if (loggedIn && hasTopSections) {

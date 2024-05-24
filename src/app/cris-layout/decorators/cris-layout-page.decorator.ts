@@ -1,5 +1,8 @@
 import { hasNoValue } from '../../shared/empty.util';
-import { DEFAULT_LAYOUT_PAGE, LayoutPage } from '../enums/layout-page.enum';
+import {
+  DEFAULT_LAYOUT_PAGE,
+  LayoutPage,
+} from '../enums/layout-page.enum';
 
 const layoutPageMap = new Map();
 

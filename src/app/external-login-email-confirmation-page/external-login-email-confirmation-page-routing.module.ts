@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {
+  RouterModule,
+  Routes,
+} from '@angular/router';
+
 import { ExternalLoginEmailConfirmationPageComponent } from './external-login-email-confirmation-page.component';
 
 const routes: Routes = [

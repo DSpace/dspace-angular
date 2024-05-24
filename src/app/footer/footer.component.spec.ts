@@ -23,13 +23,14 @@ import { environment } from 'src/environments/environment';
 import { storeModuleConfig } from '../app.reducer';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { SiteDataService } from '../core/data/site-data.service';
+import { LocaleService } from '../core/locale/locale.service';
+import { Site } from '../core/shared/site.model';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
 // Load the implementations that should be tested
 import { FooterComponent } from './footer.component';
-import { Site } from '../core/shared/site.model';
-import { SiteDataService } from '../core/data/site-data.service';
-import { LocaleService } from '../core/locale/locale.service';
+
 let comp: FooterComponent;
 let compAny: any;
 let fixture: ComponentFixture<FooterComponent>;
@@ -38,24 +39,24 @@ let el: HTMLElement;
 const site: Site = Object.assign(new Site(), {
   id: 'test-site',
   _links: {
-    self: { href: 'test-site-href' }
+    self: { href: 'test-site-href' },
   },
   metadata: {
     'cris.cms.footer': [
       {
         value: 'Test footer',
-        language: 'en'
-      }
+        language: 'en',
+      },
     ],
-  }
+  },
 });
 const siteService = jasmine.createSpyObj('siteService', {
-  find: of(site)
+  find: of(site),
 });
 const localeServiceStub = {
   getCurrentLanguageCode(): string {
     return 'en';
-  }
+  },
 };
 
 let notifyInfoService = {

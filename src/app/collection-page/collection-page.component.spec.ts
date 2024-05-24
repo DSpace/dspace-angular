@@ -1,27 +1,35 @@
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
-import { CollectionPageComponent } from './collection-page.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs';
-import { CollectionDataService } from '../core/data/collection-data.service';
-import { AuthService } from '../core/auth/auth.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../src/config/app-config.interface';
 import { PLATFORM_ID } from '@angular/core';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { RouterStub } from '../shared/testing/router.stub';
-import { environment } from 'src/environments/environment.test';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { Collection } from '../core/shared/collection.model';
-import { SearchService } from '../core/shared/search/search.service';
-import { By } from '@angular/platform-browser';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../shared/utils/var.directive';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { of } from 'rxjs';
+import { environment } from 'src/environments/environment.test';
+
+import { APP_CONFIG } from '../../../src/config/app-config.interface';
+import { AuthService } from '../core/auth/auth.service';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../core/data/collection-data.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { PaginationService } from '../core/pagination/pagination.service';
 import { Bitstream } from '../core/shared/bitstream.model';
+import { Collection } from '../core/shared/collection.model';
+import { SearchService } from '../core/shared/search/search.service';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { RouterStub } from '../shared/testing/router.stub';
+import { VarDirective } from '../shared/utils/var.directive';
+import { CollectionPageComponent } from './collection-page.component';
 
 describe('CollectionPageComponent', () => {
   let component: CollectionPageComponent;
@@ -61,7 +69,7 @@ describe('CollectionPageComponent', () => {
         { provide: SearchService, useValue: searchServiceSpy },
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
-      ]
+      ],
     })
       .compileComponents();
   });

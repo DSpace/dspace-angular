@@ -1,21 +1,36 @@
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { DeleteRequest, GetRequest, PostRequest } from '../data/request.models';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import {
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
+import {
+  DeleteRequest,
+  GetRequest,
+  PostRequest,
+} from '../data/request.models';
+import { RequestService } from '../data/request.service';
 import { RestRequest } from '../data/rest-request.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { sendRequest } from '../shared/request.operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { AuthStatus } from './models/auth-status.model';
-import { ShortLivedToken } from './models/short-lived-token.model';
 import { MachineToken } from './models/machine-token.model';
-import { NoContent } from '../shared/NoContent.model';
-import { sendRequest } from '../shared/request.operators';
+import { ShortLivedToken } from './models/short-lived-token.model';
 
 /**
  * Abstract service to send authentication requests
@@ -143,7 +158,7 @@ export abstract class AuthRequestService {
       map((href: string) => new URLCombiner(href, this.machinetokenEndpoint).toString()),
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL)),
       tap((request: RestRequest) => this.requestService.send(request)),
-      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<MachineToken>(request.uuid))
+      switchMap((request: RestRequest) => this.rdbService.buildFromRequestUUID<MachineToken>(request.uuid)),
     );
   }
 

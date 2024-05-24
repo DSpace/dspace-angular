@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,36 +22,21 @@ import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
-import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
-import { SharedModule } from '../../../../../shared/shared.module';
-import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
+import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import {
   createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../../shared/remote-data.utils';
-import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
-import { ThemeService } from '../../../../../shared/theme-support/theme.service';
-import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
-import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { AuthService } from '../../../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
 import { FileServiceStub } from '../../../../../shared/testing/file-service.stub';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
+import { ThumbnailService } from '../../../../../shared/thumbnail/thumbnail.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
-import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
-import { AuthorizationDataServiceStub } from '../../../../../shared/testing/authorization-service.stub';
-import {
-  ListableObjectDirective
-} from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
-import { ThumbnailService } from '../../../../../shared/thumbnail/thumbnail.service';
-import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
   let component: ItemAdminSearchResultGridElementComponent;
@@ -71,14 +58,14 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
 
   const mockThemeService = getMockThemeService();
   const mockThumbnailService = jasmine.createSpyObj('ThumbnailService', {
-    'getConfig': jasmine.createSpy('getConfig')
+    'getConfig': jasmine.createSpy('getConfig'),
   });
 
   function init() {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
     searchResult = new ItemSearchResult();
     searchResult.indexableObject = Object.assign(new Item(), {
-      thumbnail: createNoContentRemoteDataObject$()
+      thumbnail: createNoContentRemoteDataObject$(),
     });
     searchResult.indexableObject.uuid = id;
   }

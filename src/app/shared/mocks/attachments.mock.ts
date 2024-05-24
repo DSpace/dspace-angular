@@ -1,5 +1,5 @@
-import { MetadataValue } from '../../core/shared/metadata.models';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { MetadataValue } from '../../core/shared/metadata.models';
 
 export const attachmentWithUnspecified = Object.assign(new Bitstream(), {
   id: 'bitstream1',
@@ -17,8 +17,8 @@ export const attachmentWithUnspecified = Object.assign(new Bitstream(), {
         confidence: -1,
         language: null,
         place: 0,
-        value: 'Unspecified description'
-      } as MetadataValue
+        value: 'Unspecified description',
+      } as MetadataValue,
     ],
     'dc.title': [
       {
@@ -26,8 +26,8 @@ export const attachmentWithUnspecified = Object.assign(new Bitstream(), {
         confidence: -1,
         language: null,
         place: 0,
-        value: 'test-unspecified.pdf'
-      } as MetadataValue
+        value: 'test-unspecified.pdf',
+      } as MetadataValue,
     ],
     'dc.type': [
       {
@@ -35,27 +35,27 @@ export const attachmentWithUnspecified = Object.assign(new Bitstream(), {
         confidence: -1,
         language: null,
         place: 0,
-        value: 'Unspecified'
-      } as MetadataValue
+        value: 'Unspecified',
+      } as MetadataValue,
     ],
   },
   _links: {
     'content': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/content'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/content',
     },
     'bundle': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/bundle'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/bundle',
     },
     'format': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/format'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/format',
     },
     'thumbnail': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/thumbnail'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/thumbnail',
     },
     'self': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7'
-    }
-  }
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7',
+    },
+  },
 });
 
 export const attachmentMainArticle = Object.assign(new Bitstream(), {
@@ -74,8 +74,8 @@ export const attachmentMainArticle = Object.assign(new Bitstream(), {
         confidence: -1,
         language: null,
         place: 0,
-        value: 'Main article description'
-      } as MetadataValue
+        value: 'Main article description',
+      } as MetadataValue,
     ],
     'dc.title': [
       {
@@ -83,8 +83,8 @@ export const attachmentMainArticle = Object.assign(new Bitstream(), {
         confidence: -1,
         language: null,
         place: 0,
-        value: 'main.pdf'
-      } as MetadataValue
+        value: 'main.pdf',
+      } as MetadataValue,
     ],
     'dc.type': [
       {
@@ -92,27 +92,27 @@ export const attachmentMainArticle = Object.assign(new Bitstream(), {
         confidence: -1,
         language: null,
         place: 0,
-        value: 'Main Article'
-      } as MetadataValue
+        value: 'Main Article',
+      } as MetadataValue,
     ],
   },
   _links: {
     'content': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/content'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/content',
     },
     'bundle': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/bundle'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/bundle',
     },
     'format': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/format'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/format',
     },
     'thumbnail': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/thumbnail'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/thumbnail',
     },
     'self': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7'
-    }
-  }
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7',
+    },
+  },
 });
 
 
@@ -132,8 +132,8 @@ export const attachmentRegex = Object.assign(new Bitstream(), {
         confidence: -1,
         language: null,
         place: 0,
-        value: 'Main article regex description'
-      } as MetadataValue
+        value: 'Main article regex description',
+      } as MetadataValue,
     ],
     'dc.title': [
       {
@@ -141,8 +141,8 @@ export const attachmentRegex = Object.assign(new Bitstream(), {
         confidence: -1,
         language: null,
         place: 0,
-        value: 'main-regex.pdf'
-      } as MetadataValue
+        value: 'main-regex.pdf',
+      } as MetadataValue,
     ],
     'dc.type': [
       {
@@ -150,27 +150,27 @@ export const attachmentRegex = Object.assign(new Bitstream(), {
         confidence: -1,
         language: null,
         place: 0,
-        value: 'Test Article'
-      } as MetadataValue
+        value: 'Test Article',
+      } as MetadataValue,
     ],
   },
   _links: {
     'content': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/content'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/content',
     },
     'bundle': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/bundle'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/bundle',
     },
     'format': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/format'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/format',
     },
     'thumbnail': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/thumbnail'
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7/thumbnail',
     },
     'self': {
-      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7'
-    }
-  }
+      'href': 'http://localhost:8080/server/api/core/bitstreams/c3eaeb39-aa76-4cb7-ab35-b2f2fa8db2a7',
+    },
+  },
 });
 
 export const attachmentsMock = [attachmentWithUnspecified, attachmentMainArticle, attachmentRegex];

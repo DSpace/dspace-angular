@@ -1,14 +1,21 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { CrisLayoutIIIFViewerBoxComponent } from './cris-layout-iiif-viewer-box.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
-import { AuthService } from '../../../../../core/auth/auth.service';
-import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
-import { Item } from '../../../../../core/shared/item.model';
-import { By } from '@angular/platform-browser';
-import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { AuthService } from '../../../../../core/auth/auth.service';
+import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { CrisLayoutIIIFViewerBoxComponent } from './cris-layout-iiif-viewer-box.component';
 
 xdescribe('CrisLayoutIIIFViewerBoxComponent', () => {
   let component: CrisLayoutIIIFViewerBoxComponent;
@@ -23,7 +30,7 @@ xdescribe('CrisLayoutIIIFViewerBoxComponent', () => {
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
+        'place': 0,
       }],
       'dspace.iiif.enabled': [{
         'value': 'true',
@@ -32,7 +39,7 @@ xdescribe('CrisLayoutIIIFViewerBoxComponent', () => {
         'confidence': 0,
         'place': 0,
         'securityLevel': 0,
-      }]
+      }],
     },
     uuid: 'test-item-uuid',
   });
@@ -50,7 +57,7 @@ xdescribe('CrisLayoutIIIFViewerBoxComponent', () => {
     'maxColumns': null,
     'configuration': null,
     'metadataSecurityFields': [],
-    'container': false
+    'container': false,
   });
 
   beforeEach(waitForAsync(() => {
@@ -59,8 +66,8 @@ xdescribe('CrisLayoutIIIFViewerBoxComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [ CrisLayoutIIIFViewerBoxComponent ],
@@ -69,7 +76,7 @@ xdescribe('CrisLayoutIIIFViewerBoxComponent', () => {
         { provide: 'boxProvider', useValue: testBox },
         { provide: 'itemProvider', useValue: testItem },
         { provide: AuthService, useValue: new AuthServiceMock() },
-      ]
+      ],
     }).compileComponents();
   }));
 

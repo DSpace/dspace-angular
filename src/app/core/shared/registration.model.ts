@@ -1,10 +1,11 @@
 // eslint-disable-next-line max-classes-per-file
+import { AuthRegistrationType } from '../auth/models/auth.registration-type';
 import { typedObject } from '../cache/builders/build-decorators';
+import { MetadataValue } from './metadata.models';
 import { REGISTRATION } from './registration.resource-type';
 import { ResourceType } from './resource-type';
 import { UnCacheableObject } from './uncacheable-object.model';
-import { MetadataValue } from './metadata.models';
-import { AuthRegistrationType } from '../auth/models/auth.registration-type';
+
 export class RegistrationDataMetadataMap {
   [key: string]: RegistrationDataMetadataValue[];
 }

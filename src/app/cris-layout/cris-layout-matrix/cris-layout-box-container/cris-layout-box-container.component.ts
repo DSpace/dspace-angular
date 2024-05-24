@@ -1,17 +1,26 @@
-import { Component, ComponentFactoryResolver, Injector, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { CrisLayoutBox } from '../../../core/layout/models/box.model';
-import { CrisLayoutBoxRenderOptions, getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
-import { TranslateService } from '@ngx-translate/core';
-import { Item } from '../../../core/shared/item.model';
-import { LayoutBox } from '../../enums/layout-box.enum';
-import { hasNoValue } from '../../../shared/empty.util';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { Item } from '../../../core/shared/item.model';
+import { hasNoValue } from '../../../shared/empty.util';
+import {
+  CrisLayoutBoxRenderOptions,
+  getCrisLayoutBox,
+} from '../../decorators/cris-layout-box.decorator';
+import { LayoutBox } from '../../enums/layout-box.enum';
 
 @Component({
   selector: 'ds-cris-layout-box-container',
   templateUrl: './cris-layout-box-container.component.html',
-  styleUrls: ['./cris-layout-box-container.component.scss']
+  styleUrls: ['./cris-layout-box-container.component.scss'],
 })
 export class CrisLayoutBoxContainerComponent implements OnInit {
 
@@ -65,7 +74,7 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
         { provide: 'boxProvider', useFactory: () => (this.box), deps: [] },
         { provide: 'itemProvider', useFactory: () => (this.item), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
 
     this.componentLoader = this.getComponent();

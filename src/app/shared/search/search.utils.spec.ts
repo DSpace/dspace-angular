@@ -4,8 +4,8 @@ import {
   addOperatorToFilterValue,
   escapeRegExp,
   getFacetValueForType,
-  stripOperatorFromFilterValue,
   getFacetValueForTypeAndLabel,
+  stripOperatorFromFilterValue,
 } from './search.utils';
 
 describe('Search Utils', () => {
@@ -60,15 +60,15 @@ describe('Search Utils', () => {
         label: 'Facet Label with search href',
         _links: {
           search: {
-            href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Facet Label with search href,operator'
-          }
-        }
+            href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Facet Label with search href,operator',
+          },
+        },
       });
       facetValueWithoutSearchHref = Object.assign(new FacetValue(), {
         label: 'Facet Label',
       });
       searchFilterConfig = Object.assign(new SearchFilterConfig(), {
-        name: 'facetName'
+        name: 'facetName',
       });
     });
 

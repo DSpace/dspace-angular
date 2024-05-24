@@ -24,18 +24,18 @@ describe('PageWithSidebarComponent', () => {
         providers: [
           {
             provide: SidebarService,
-          useClass: SidebarServiceStub,
+            useClass: SidebarServiceStub,
           },
           {
             provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
               {
                 isXs: observableOf(true),
                 isSm: observableOf(false),
-              isXsOrSm: observableOf(true),
-            }),
+                isXsOrSm: observableOf(true),
+              }),
           },
         ],
-      declarations: [PageWithSidebarComponent],
+        declarations: [PageWithSidebarComponent],
       }).compileComponents().then(() => {
         fixture = TestBed.createComponent(PageWithSidebarComponent);
         comp = fixture.componentInstance;
@@ -120,18 +120,18 @@ describe('PageWithSidebarComponent', () => {
         providers: [
           {
             provide: SidebarService,
-            useClass: SidebarServiceStub
+            useClass: SidebarServiceStub,
           },
           {
             provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
               {
                 isXs: observableOf(false),
                 isSm: observableOf(false),
-                isXsOrSm: observableOf(false)
-              })
+                isXsOrSm: observableOf(false),
+              }),
           },
         ],
-        declarations: [PageWithSidebarComponent]
+        declarations: [PageWithSidebarComponent],
       }).compileComponents().then(() => {
         fixture = TestBed.createComponent(PageWithSidebarComponent);
         comp = fixture.componentInstance;

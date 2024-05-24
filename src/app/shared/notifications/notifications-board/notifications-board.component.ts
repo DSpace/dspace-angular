@@ -12,11 +12,11 @@ import {
   Store,
 } from '@ngrx/store';
 import difference from 'lodash/difference';
+import isEqual from 'lodash/isEqual';
 import {
   BehaviorSubject,
   Subscription,
 } from 'rxjs';
-import isEqual from 'lodash/isEqual';
 
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { AppState } from '../../../app.reducer';

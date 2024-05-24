@@ -1,20 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { SharedModule } from '../../shared/shared.module';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Community } from '../../core/shared/community.model';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { SharedModule } from '../../shared/shared.module';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { CommunityStatisticsPageComponent } from './community-statistics-page.component';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { ActivatedRoute, Router, } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { AuthService } from '../../core/auth/auth.service';
 
 describe('CommunityStatisticsPageComponent', () => {
 

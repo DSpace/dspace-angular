@@ -236,17 +236,17 @@ export class ItemStatusComponent implements OnInit {
         let orcidOps$ = of([]);
         if (this.orcidAuthService.isLinkedToOrcid(item)) {
           orcidOps$ = this.orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid().pipe(
-              map((canDisconnect) => {
-                if (canDisconnect) {
-                  return [new ItemOperation('unlinkOrcid', `${currentUrl}/unlink-orcid`)];
-            }
-                return [];
+            map((canDisconnect) => {
+              if (canDisconnect) {
+                return [new ItemOperation('unlinkOrcid', `${currentUrl}/unlink-orcid`)];
+              }
+              return [];
             }),
           );
         }
 
         return combineLatest([ops$, orcidOps$]);
-          }),
+      }),
       map(([ops, orcidOps]: [ItemOperation[], ItemOperation[]]) => [...ops, ...orcidOps]),
     ).subscribe((ops) => this.operations$.next(ops));
 

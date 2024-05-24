@@ -1,21 +1,30 @@
-import { Component, Inject, OnInit } from '@angular/core';
-
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
+import { AuthService } from '../../../../../../../core/auth/auth.service';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import {
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../../../../../core/shared/operators';
-import { AuthService } from '../../../../../../../core/auth/auth.service';
+import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  FieldRenderingType,
+  MetadataBoxFieldRendering,
+} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 
 /**
  * This component renders the valuepair (value + display) metadata fields.
@@ -24,7 +33,7 @@ import { MetadataValue } from '../../../../../../../core/shared/metadata.models'
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-valuepair]',
   templateUrl: './valuepair.component.html',
-  styleUrls: ['./valuepair.component.scss']
+  styleUrls: ['./valuepair.component.scss'],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.VALUEPAIR)
 export class ValuepairComponent extends RenderingTypeValueModelComponent implements OnInit {
@@ -41,7 +50,7 @@ export class ValuepairComponent extends RenderingTypeValueModelComponent impleme
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected translateService: TranslateService,
     protected vocabularyService: VocabularyService,
-    protected authService: AuthService
+    protected authService: AuthService,
   ) {
     super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, translateService);
   }
@@ -52,7 +61,7 @@ export class ValuepairComponent extends RenderingTypeValueModelComponent impleme
     const authority = this.metadataValue.authority ? this.metadataValue.authority.split(':') : undefined;
     const isControlledVocabulary = authority?.length > 1 && authority[0] === vocabularyName;
 
-    let vocabularyEntry$ = isControlledVocabulary ?
+    const vocabularyEntry$ = isControlledVocabulary ?
       this.vocabularyService.getPublicVocabularyEntryByID(vocabularyName, this.metadataValue.authority) :
       this.vocabularyService.getPublicVocabularyEntryByValue(vocabularyName, this.metadataValue.value);
 
@@ -62,7 +71,7 @@ export class ValuepairComponent extends RenderingTypeValueModelComponent impleme
       getPaginatedListPayload(),
       map((res) => res?.length > 0 ? res[0] : null),
       map((res) => res?.display ?? this.metadataValue.value),
-      take(1)
+      take(1),
     ).subscribe(value => this.value$.next(value));
 
   }

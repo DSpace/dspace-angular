@@ -1,19 +1,37 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { Item } from '../../../core/shared/item.model';
-import { ActivatedRoute, Data, Router, } from '@angular/router';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { first, map, switchMap, tap, } from 'rxjs/operators';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  first,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
 import { getAllSucceededRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item.resolver';
 import { getItemPageRoute } from '../../item-page-routing-paths';
@@ -156,7 +174,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    * Prevent unnecessary rerendering so fields don't lose focus
    */
   trackUpdate(index, update: FieldUpdate) {
-     return update && update.field ? update.field.uuid : undefined;
+    return update && update.field ? update.field.uuid : undefined;
   }
 
   /**

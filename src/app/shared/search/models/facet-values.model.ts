@@ -47,13 +47,13 @@ export class FacetValues extends SearchQueryResponse<FacetValue> {
    * The total number of missing facet values
    */
   @autoserialize
-  missing?: string;
+    missing?: string;
 
   /**
    * The total number of more facet values
    */
   @autoserialize
-  more?: string;
+    more?: string;
 
   /**
    * The results for this query

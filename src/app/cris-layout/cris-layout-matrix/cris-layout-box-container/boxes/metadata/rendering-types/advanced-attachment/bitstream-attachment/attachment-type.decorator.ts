@@ -1,5 +1,6 @@
-import { GenericConstructor } from '../../../../../../../../core/shared/generic-constructor';
 import { Component } from '@angular/core';
+
+import { GenericConstructor } from '../../../../../../../../core/shared/generic-constructor';
 
 export enum AttachmentRenderingType {
   DOWNLOAD = 'DOWNLOAD',
@@ -19,7 +20,7 @@ export function AttachmentTypeRendering(objectType: AttachmentRenderingType, str
     if (objectType) {
       fieldType.set(objectType, {
         componentRef: component,
-        structured: structured
+        structured: structured,
       } as AttachmentTypeFieldRenderOptions);
     }
   };

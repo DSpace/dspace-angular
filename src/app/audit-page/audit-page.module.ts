@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
+
 import { SharedModule } from '../shared/shared.module';
 import { AuditPageRoutingModule } from './audit-page-routing.module';
 import { AuditDetailComponent } from './detail/audit-detail.component';
-import { AuditOverviewComponent } from './overview/audit-overview.component';
 import { ObjectAuditOverviewComponent } from './object-audit-overview/object-audit-overview.component';
+import { AuditOverviewComponent } from './overview/audit-overview.component';
 
 @NgModule({
   imports: [
@@ -13,12 +14,12 @@ import { ObjectAuditOverviewComponent } from './object-audit-overview/object-aud
   declarations: [
     AuditOverviewComponent,
     AuditDetailComponent,
-    ObjectAuditOverviewComponent
+    ObjectAuditOverviewComponent,
   ],
   providers: [
     // TODO breadcrumbs resolvers
   ],
-  entryComponents: []
+  entryComponents: [],
 })
 
 export class AuditPageModule {

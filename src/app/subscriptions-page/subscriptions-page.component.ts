@@ -3,6 +3,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   combineLatestWith,
@@ -32,7 +33,6 @@ import { hasValue } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
-import uniqueId from 'lodash/uniqueId';
 
 @Component({
   selector: 'ds-subscriptions-page',

@@ -1,4 +1,7 @@
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import {
+  isPlatformBrowser,
+  isPlatformServer,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,6 +10,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import uniqueId from 'lodash/uniqueId';
 import { Observable } from 'rxjs';
 
 import {
@@ -38,7 +42,6 @@ import {
   FollowLinkConfig,
 } from '../../shared/utils/follow-link-config.model';
 import { setPlaceHolderAttributes } from '../../shared/utils/object-list-utils';
-import uniqueId from 'lodash/uniqueId';
 
 @Component({
   selector: 'ds-recent-item-list',

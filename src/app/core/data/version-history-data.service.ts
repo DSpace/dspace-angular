@@ -1,12 +1,23 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, } from 'rxjs';
-import { filter, map, switchMap, take, } from 'rxjs/operators';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { hasValueOperator } from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { followLink, FollowLinkConfig, } from '../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
@@ -19,19 +30,19 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
+import { UUIDService } from '../shared/uuid.service';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';
-import { VersionDataService } from './version-data.service';
+import { dataService } from './base/data-service.decorator';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { PostRequest } from './request.models';
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
-import { UUIDService } from '../shared/uuid.service';
+import { VersionDataService } from './version-data.service';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -47,7 +58,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected versionDataService: VersionDataService,
-    protected uuidService: UUIDService
+    protected uuidService: UUIDService,
   ) {
     super('versionhistories', requestService, rdbService, objectCache, halService);
   }

@@ -1,10 +1,9 @@
 /* eslint-disable max-classes-per-file */
 
 import { Action } from '@ngrx/store';
+
+import { OpenaireSuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { type } from '../../../shared/ngrx/type';
-import {
-  OpenaireSuggestionTarget
-} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 
 /**
  * For each action type in A action group, make a simple
@@ -21,7 +20,7 @@ export const SuggestionTargetActionTypes = {
   RETRIEVE_TARGETS_BY_SOURCE_ERROR: type('dspace/integration/openaire/suggestions/target/RETRIEVE_TARGETS_BY_SOURCE_ERROR'),
   ADD_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/ADD_USER_SUGGESTIONS'),
   REFRESH_USER_SUGGESTIONS: type('dspace/integration/openaire/suggestions/target/REFRESH_USER_SUGGESTIONS'),
-  MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/openaire/suggestions/target/MARK_USER_SUGGESTIONS_AS_VISITED')
+  MARK_USER_SUGGESTIONS_AS_VISITED: type('dspace/integration/openaire/suggestions/target/MARK_USER_SUGGESTIONS_AS_VISITED'),
 };
 
 /**
@@ -49,7 +48,7 @@ export class RetrieveTargetsBySourceAction implements Action {
     this.payload = {
       source,
       elementsPerPage,
-      currentPage
+      currentPage,
     };
   }
 }
@@ -71,7 +70,7 @@ export class RetrieveTargetsBySourceErrorAction implements Action {
    */
   constructor(source: string) {
     this.payload = {
-      source
+      source,
     };
   }
 }
@@ -109,7 +108,7 @@ export class AddTargetAction implements Action {
       targets,
       totalPages,
       currentPage,
-      totalElements
+      totalElements,
     };
   }
 
@@ -170,7 +169,7 @@ export class ClearSuggestionTargetsAction implements Action {
    */
   constructor(source: string) {
     this.payload = {
-      source
+      source,
     };
   }
 }

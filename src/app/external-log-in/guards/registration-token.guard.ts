@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, } from '@angular/router';
-import { map, Observable, of } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  map,
+  Observable,
+  of,
+} from 'rxjs';
+import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration-type';
+
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { hasValue } from '../../shared/empty.util';
-import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration-type';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +24,7 @@ import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration
 export class RegistrationTokenGuard implements CanActivate {
   constructor(
     private router: Router,
-    private epersonRegistrationService: EpersonRegistrationService
+    private epersonRegistrationService: EpersonRegistrationService,
   ) { }
 
   /**
@@ -25,7 +35,7 @@ export class RegistrationTokenGuard implements CanActivate {
    */
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Observable<boolean> {
     if (route.params.token) {
       return this.epersonRegistrationService
@@ -39,8 +49,8 @@ export class RegistrationTokenGuard implements CanActivate {
               } else {
                 this.router.navigate(['/404']);
               }
-            }
-          )
+            },
+          ),
         );
     } else {
       this.router.navigate(['/404']);

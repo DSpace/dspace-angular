@@ -10,6 +10,7 @@ import { ParameterSelectComponent } from './form/process-parameters/parameter-se
 import { BooleanValueInputComponent } from './form/process-parameters/parameter-value-input/boolean-value-input/boolean-value-input.component';
 import { DateValueInputComponent } from './form/process-parameters/parameter-value-input/date-value-input/date-value-input.component';
 import { FileValueInputComponent } from './form/process-parameters/parameter-value-input/file-value-input/file-value-input.component';
+import { NumberValueInputComponent } from './form/process-parameters/parameter-value-input/number-value-input/number-value-input.component';
 import { ParameterValueInputComponent } from './form/process-parameters/parameter-value-input/parameter-value-input.component';
 import { StringValueInputComponent } from './form/process-parameters/parameter-value-input/string-value-input/string-value-input.component';
 import { ProcessParametersComponent } from './form/process-parameters/process-parameters.component';
@@ -20,9 +21,6 @@ import { ProcessOverviewComponent } from './overview/process-overview.component'
 import { ProcessOverviewTableComponent } from './overview/table/process-overview-table.component';
 import { ProcessBreadcrumbResolver } from './process-breadcrumb.resolver';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
-import {
-  NumberValueInputComponent
-} from './form/process-parameters/parameter-value-input/number-value-input/number-value-input.component';
 
 @NgModule({
   imports: [

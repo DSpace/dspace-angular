@@ -36,8 +36,6 @@ import { ViewMode } from '../view-mode.model';
 import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
-import { UUIDService } from '../uuid.service';
-import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 @Component({ template: '' })
 class DummyComponent {

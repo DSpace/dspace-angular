@@ -62,7 +62,7 @@ export class PageWithSidebarComponent implements OnInit {
     });
 
     this.sidebarClasses$ = this.isSidebarCollapsed().pipe(
-      map((isCollapsed) => isCollapsed ? '' : 'active')
+      map((isCollapsed) => isCollapsed ? '' : 'active'),
     );
   }
 

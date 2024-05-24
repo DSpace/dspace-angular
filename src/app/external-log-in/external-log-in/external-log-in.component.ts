@@ -1,11 +1,25 @@
-import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy, OnInit, } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { Registration } from '../../core/shared/registration.model';
-import { hasValue, isEmpty } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
 import { getExternalLoginConfirmationType } from '../decorators/external-log-in.methods-decorator';
 
 @Component({
@@ -103,7 +117,7 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
       const authMethodUppercase = authMethod.toUpperCase();
       return this.translate.instant(
         'external-login.haveEmail.informationText',
-        { authMethod: authMethodUppercase }
+        { authMethod: authMethodUppercase },
       );
     }
   }

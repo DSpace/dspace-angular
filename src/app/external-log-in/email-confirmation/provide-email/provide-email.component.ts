@@ -1,8 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ExternalLoginService } from '../../services/external-login.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Subscription } from 'rxjs';
+
 import { hasValue } from '../../../shared/empty.util';
+import { ExternalLoginService } from '../../services/external-login.service';
 
 @Component({
   selector: 'ds-provide-email',

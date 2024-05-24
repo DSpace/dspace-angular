@@ -1,7 +1,11 @@
-import { CollectionDataService } from '../../data/collection-data.service';
 import { Injectable } from '@angular/core';
+
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
+import { CollectionDataService } from '../../data/collection-data.service';
 import { Collection } from '../collection.model';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { EditDsoResolver } from './edit-dso.resolver';
 
 /**
@@ -18,9 +22,9 @@ export class EditCollectionResolver extends EditDsoResolver<Collection> {
   getFollowLinks(): FollowLinkConfig<Collection>[] {
     return [
       followLink('parentCommunity', {},
-        followLink('parentCommunity')
+        followLink('parentCommunity'),
       ),
-      followLink('logo')
+      followLink('logo'),
     ];
   }
 }

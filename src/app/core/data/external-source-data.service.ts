@@ -73,7 +73,7 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
    */
   getEntryIDHref(externalSourceId: string, entryId: string): Observable<string> {
     return this.getBrowseEndpoint().pipe(
-      map((href) => href + '/' + externalSourceId + '/entryValues/' + entryId)
+      map((href) => href + '/' + externalSourceId + '/entryValues/' + entryId),
     );
   }
 
@@ -131,7 +131,7 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
   getExternalSourceEntryById(externalSourceId: string, entryId: string): Observable<RemoteData<ExternalSourceEntry>> {
     const href$ = this.getEntryIDHref(externalSourceId, entryId).pipe(
       isNotEmptyOperator(),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
 
     // TODO create a dedicated ExternalSourceEntryDataService and move this entire method to it. Then the "as any"s won't be necessary

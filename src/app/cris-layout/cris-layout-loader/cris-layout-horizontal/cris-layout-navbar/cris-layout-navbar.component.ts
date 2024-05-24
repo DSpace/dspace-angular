@@ -1,17 +1,27 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Location } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+
 import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
+import { Item } from '../../../../core/shared/item.model';
 import { slideMobileNav } from '../../../../shared/animations/slide';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { CrisLayoutTabsComponent } from '../../shared/cris-layout-tabs/cris-layout-tabs.component';
-import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Item } from '../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-cris-layout-navbar',
   templateUrl: './cris-layout-navbar.component.html',
   styleUrls: ['./cris-layout-navbar.component.scss'],
-  animations: [slideMobileNav]
+  animations: [slideMobileNav],
 })
 export class CrisLayoutNavbarComponent extends CrisLayoutTabsComponent implements OnInit {
 

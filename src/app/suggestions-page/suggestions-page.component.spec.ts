@@ -1,30 +1,39 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick, } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { SuggestionsPageComponent } from './suggestions-page.component';
-import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
-import { VarDirective } from '../shared/utils/var.directive';
-import { RouterStub } from '../shared/testing/router.stub';
 import { AuthService } from '../core/auth/auth.service';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import {
-  SuggestionEvidencesComponent
-} from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
+import { SuggestionEvidencesComponent } from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import {
   SuggestionApproveAndImport,
   SuggestionListElementComponent,
 } from '../notifications/suggestion-list-element/suggestion-list-element.component';
 import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../notifications/suggestions.service';
-import { mockSuggestionPublicationOne, mockSuggestionPublicationTwo, } from '../shared/mocks/publication-claim.mock';
+import {
+  mockSuggestionPublicationOne,
+  mockSuggestionPublicationTwo,
+} from '../shared/mocks/publication-claim.mock';
 import { mockSuggestionTargetsObjectOne } from '../shared/mocks/publication-claim-targets.mock';
 import {
   getMockSuggestionNotificationsStateService,
@@ -35,7 +44,10 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { PageInfo } from '../core/shared/page-info.model';
+import { RouterStub } from '../shared/testing/router.stub';
+import { ObjectKeysPipe } from '../shared/utils/object-keys-pipe';
+import { VarDirective } from '../shared/utils/var.directive';
+import { SuggestionsPageComponent } from './suggestions-page.component';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;

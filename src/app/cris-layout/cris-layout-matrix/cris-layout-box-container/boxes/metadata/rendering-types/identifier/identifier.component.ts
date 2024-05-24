@@ -1,13 +1,24 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
-import { hasValue, isNotEmpty } from '../../../../../../../shared/empty.util';
-import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
-import { Item } from '../../../../../../../core/shared/item.model';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../../../../shared/empty.util';
+import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
+import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
+import {
+  FieldRenderingType,
+  MetadataBoxFieldRendering,
+} from '../metadata-box.decorator';
+import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
  * This component renders the identifier metadata fields.
@@ -15,7 +26,7 @@ import { MetadataValue } from '../../../../../../../core/shared/metadata.models'
 @Component({
   selector: 'ds-identifier',
   templateUrl: './identifier.component.html',
-  styleUrls: ['./identifier.component.scss']
+  styleUrls: ['./identifier.component.scss'],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.IDENTIFIER)
 export class IdentifierComponent extends RenderingTypeValueModelComponent implements OnInit {
@@ -43,7 +54,7 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
     @Inject('metadataValueProvider') public metadataValueProvider: MetadataValue,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected resolver: ResolverStrategyService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
     super(fieldProvider, itemProvider, metadataValueProvider, renderingSubTypeProvider, translateService);
   }
@@ -58,7 +69,7 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
       if (this.resolver.checkLink(this.metadataValue.value)) {
         identifier = {
           href: this.metadataValue.value,
-          text: this.metadataValue.value
+          text: this.metadataValue.value,
         };
       } else {
         for (const urn of this.resolver.managedUrn) {
@@ -70,7 +81,7 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
         if (!identifier) {
           identifier = {
             href: this.metadataValue.value,
-            text: this.metadataValue.value
+            text: this.metadataValue.value,
           };
         }
       }
@@ -95,7 +106,7 @@ export class IdentifierComponent extends RenderingTypeValueModelComponent implem
     const text = isNotEmpty(value) && value !== '' ? value : href;
     return {
       href,
-      text
+      text,
     };
   }
 

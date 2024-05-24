@@ -20,15 +20,15 @@ export class PublicationChapterSchemaType extends SchemaType {
         {
           '@type': 'Chapter',
           'isPartOf': {
-            '@id': '#book'
+            '@id': '#book',
           },
           'name': SchemaType.getMetadataValue(item, 'dc.title'),
           'alternateName': SchemaType.getMetadataValue(item, 'dc.title.alternative'),
           'pageStart': SchemaType.getMetadataValue(item, 'oaire.citation.startPage'),
           'pageEnd': SchemaType.getMetadataValue(item, 'oaire.citation.endPage'),
           'about': SchemaType.getMetadataValue(item, 'dc.subject'),
-        }
-      ]
+        },
+      ],
     };
   }
 }

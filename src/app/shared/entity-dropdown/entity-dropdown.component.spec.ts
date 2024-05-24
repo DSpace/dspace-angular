@@ -1,17 +1,29 @@
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA, Pipe, PipeTransform, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { ItemExportFormatService } from '../../core/itemexportformat/item-export-format.service';
+import {
+  ItemExportFormat,
+  ItemExportFormatMap,
+} from '../../core/itemexportformat/model/item-export-format.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
 import { EntityDropdownComponent } from './entity-dropdown.component';
-import { ItemExportFormatService } from '../../core/itemexportformat/item-export-format.service';
-import { of } from 'rxjs';
-import { ItemExportFormat, ItemExportFormatMap } from '../../core/itemexportformat/model/item-export-format.model';
 
 // eslint-disable-next-line @angular-eslint/pipe-prefix
 @Pipe({ name: 'translate' })
@@ -53,27 +65,27 @@ const listElementMock: ItemType = Object.assign(
   new ItemType(), {
     id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     label: 'Entity_1',
-  uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
-});
+    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+  });
 
-const format = Object.assign(new ItemExportFormat(), { id: 'publication-xml'});
+const format = Object.assign(new ItemExportFormat(), { id: 'publication-xml' });
 
 const entityFormatList: ItemExportFormatMap = {
   'Entity_1': [
-    Object.assign(new ItemExportFormat(), { id: 'publication-xml', entityType: 'Publication'}),
-    Object.assign(new ItemExportFormat(), { id: 'publication-json', entityType: 'Publication'}),
+    Object.assign(new ItemExportFormat(), { id: 'publication-xml', entityType: 'Publication' }),
+    Object.assign(new ItemExportFormat(), { id: 'publication-json', entityType: 'Publication' }),
   ],
   'Entity_2': [
-    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project' }),
   ],
   'Entity_3': [
-    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project' }),
   ],
   'Entity_4': [
-    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project' }),
   ],
   'Entity_5': [
-    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project' }),
   ],
 };
 
@@ -89,7 +101,7 @@ describe('EntityDropdownComponent', () => {
   });
 
   const itemExportFormatServiceMock: any = jasmine.createSpyObj('ItemExportFormatService', {
-    byEntityTypeAndMolteplicity: jasmine.createSpy('byEntityTypeAndMolteplicity')
+    byEntityTypeAndMolteplicity: jasmine.createSpy('byEntityTypeAndMolteplicity'),
   });
 
   let translatePipeSpy: jasmine.Spy;
@@ -104,7 +116,7 @@ describe('EntityDropdownComponent', () => {
       providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
         { provide: ItemExportFormatService, useValue: itemExportFormatServiceMock },
-        ChangeDetectorRef
+        ChangeDetectorRef,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

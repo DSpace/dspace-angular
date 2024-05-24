@@ -1,17 +1,26 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Metric } from '../../../core/shared/metric.model';
-import { hasValue } from '../../empty.util';
-import { getFirstSucceededRemoteListPayload } from '../../../core/shared/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Item } from '../../../core/shared/item.model';
+
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { Item } from '../../../core/shared/item.model';
+import { Metric } from '../../../core/shared/metric.model';
+import { getFirstSucceededRemoteListPayload } from '../../../core/shared/operators';
+import { hasValue } from '../../empty.util';
 import { followLink } from '../../utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-metric-badges',
   templateUrl: './metric-badges.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * Component rendering the metric badges of a Dspace Object

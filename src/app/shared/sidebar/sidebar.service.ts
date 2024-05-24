@@ -14,7 +14,8 @@ import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
 import {
   SidebarCollapseAction,
-  SidebarExpandAction, SidebarToggleAction,
+  SidebarExpandAction,
+  SidebarToggleAction,
 } from './sidebar.actions';
 import { SidebarState } from './sidebar.reducer';
 
@@ -48,9 +49,9 @@ export class SidebarService {
   get isCollapsed(): Observable<boolean> {
     return observableCombineLatest([
       this.isXsOrSm$,
-      this.isCollapsedInStore
+      this.isCollapsedInStore,
     ]).pipe(
-      map(([mobile, store]) => mobile && store)
+      map(([mobile, store]) => mobile && store),
     );
   }
 

@@ -1,4 +1,7 @@
-import { inject, TestBed, } from '@angular/core/testing';
+import {
+  inject,
+  TestBed,
+} from '@angular/core/testing';
 import {
   NG_ASYNC_VALIDATORS,
   NG_VALIDATORS,
@@ -43,13 +46,11 @@ import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row
 import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import {
-  DynamicScrollableDropdownModel
-} from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { DynamicOneboxModel } from './ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
+import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormBuilderService } from './form-builder.service';
 import { FormFieldModel } from './models/form-field.model';
@@ -521,7 +522,7 @@ describe('FormBuilderService test suite', () => {
   it('should return form\'s fields value from form model', () => {
     const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     let value: any = {
-      name: [new FormFieldMetadataValueObject()]
+      name: [new FormFieldMetadataValueObject()],
     };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 

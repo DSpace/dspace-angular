@@ -44,7 +44,7 @@ export class Subscription extends DSpaceObject {
    * The embedded ePerson & dSpaceObject for this Subscription
    */
   @deserialize
-  _embedded: {
+    _embedded: {
     ePerson: EPerson;
     dSpaceObject: DSpaceObject;
   };

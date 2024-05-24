@@ -27,10 +27,12 @@ import { CommunityPageModule } from '../../app/community-page/community-page.mod
 import { CoreModule } from '../../app/core/core.module';
 import { JournalEntitiesModule } from '../../app/entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../../app/entity-groups/research-entities/research-entities.module';
+import { FooterModule } from '../../app/footer/footer.module';
 import { HomePageModule } from '../../app/home-page/home-page.module';
 import { InfoModule } from '../../app/info/info.module';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
+import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
 import { MyDspaceSearchModule } from '../../app/my-dspace-page/my-dspace-search.module';
@@ -41,19 +43,17 @@ import { RootModule } from '../../app/root.module';
 import { SearchPageModule } from '../../app/search-page/search-page.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
+import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
+import { ExploreModule } from '../../app/shared/explore/explore.module';
 import { MenuModule } from '../../app/shared/menu/menu.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { SearchModule } from '../../app/shared/search/search.module';
 import { SharedModule } from '../../app/shared/shared.module';
+import { SocialModule } from '../../app/social/social.module';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
 import { SubmissionModule } from '../../app/submission/submission.module';
-import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
-import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
-import { FooterModule } from '../../app/footer/footer.module';
-import { ExploreModule } from '../../app/shared/explore/explore.module';
-import { SocialModule } from '../../app/social/social.module';
 
 const DECLARATIONS = [
 ];
@@ -115,7 +115,7 @@ const DECLARATIONS = [
     MiradorViewerModule,
     FooterModule,
     ExploreModule,
-    SocialModule
+    SocialModule,
   ],
   declarations: DECLARATIONS,
 })

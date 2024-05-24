@@ -1,11 +1,12 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { RouterModule } from '@angular/router';
+
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { AuditPageResolver } from './audit-page.resolver';
-import { AuditOverviewComponent } from './overview/audit-overview.component';
 import { AuditDetailComponent } from './detail/audit-detail.component';
 import { ObjectAuditOverviewComponent } from './object-audit-overview/object-audit-overview.component';
+import { AuditOverviewComponent } from './overview/audit-overview.component';
 
 @NgModule({
   imports: [
@@ -25,23 +26,23 @@ import { ObjectAuditOverviewComponent } from './object-audit-overview/object-aud
             path: ':id',
             component: AuditDetailComponent,
             resolve: {
-              process: AuditPageResolver
+              process: AuditPageResolver,
               // TODO: breadcrumbs resolver
-            }
+            },
           },
           {
             path: 'object/:objectId',
             component: ObjectAuditOverviewComponent,
             // TODO: breadcrumbs resolver
-          }
-        ]
+          },
+        ],
       },
 
-    ])
+    ]),
   ],
   providers: [
-    AuditPageResolver
-  ]
+    AuditPageResolver,
+  ],
 })
 export class AuditPageRoutingModule {
 

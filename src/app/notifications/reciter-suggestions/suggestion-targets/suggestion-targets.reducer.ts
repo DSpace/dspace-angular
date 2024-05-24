@@ -1,7 +1,8 @@
-import { SuggestionTargetActionTypes, SuggestionTargetsActions } from './suggestion-targets.actions';
+import { OpenaireSuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import {
-  OpenaireSuggestionTarget
-} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+  SuggestionTargetActionTypes,
+  SuggestionTargetsActions,
+} from './suggestion-targets.actions';
 
 /**
  * The interface representing the OpenAIRE suggestion targets state.
@@ -41,7 +42,7 @@ const suggestionSourceTargetsInitialState: SuggestionTargetEntry = {
 const SuggestionTargetInitialState: SuggestionTargetState = {
   sources: {},
   currentUserTargets: null,
-  currentUserTargetsVisited: false
+  currentUserTargetsVisited: false,
 };
 
 /**
@@ -66,8 +67,8 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
       return Object.assign({}, state, {
         sources:
           Object.assign({}, state.sources, {
-            [action.payload.source]: newSourceState
-          })
+            [action.payload.source]: newSourceState,
+          }),
       });
     }
 
@@ -79,14 +80,14 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
         loaded: true,
         totalPages: action.payload.totalPages,
         currentPage: action.payload.currentPage,
-        totalElements: action.payload.totalElements
+        totalElements: action.payload.totalElements,
       });
 
       return Object.assign({}, state, {
         sources:
           Object.assign({}, state.sources, {
-            [action.payload.source]: newSourceState
-          })
+            [action.payload.source]: newSourceState,
+          }),
       });
     }
 
@@ -104,20 +105,20 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
       return Object.assign({}, state, {
         sources:
           Object.assign({}, state.sources, {
-            [action.payload.source]: newSourceState
-          })
+            [action.payload.source]: newSourceState,
+          }),
       });
     }
 
     case SuggestionTargetActionTypes.ADD_USER_SUGGESTIONS: {
       return Object.assign({}, state, {
-        currentUserTargets: action.payload.suggestionTargets
+        currentUserTargets: action.payload.suggestionTargets,
       });
     }
 
     case SuggestionTargetActionTypes.MARK_USER_SUGGESTIONS_AS_VISITED: {
       return Object.assign({}, state, {
-        currentUserTargetsVisited: true
+        currentUserTargetsVisited: true,
       });
     }
 
@@ -135,8 +136,8 @@ export function SuggestionTargetsReducer(state = SuggestionTargetInitialState, a
       return Object.assign({}, state, {
         sources:
           Object.assign({}, state.sources, {
-            [action.payload.source]: newSourceState
-          })
+            [action.payload.source]: newSourceState,
+          }),
       });
     }
 

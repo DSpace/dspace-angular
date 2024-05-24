@@ -1,10 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { ActivatedRoute, Router, } from '@angular/router';
-import { Store, StoreModule, } from '@ngrx/store';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
@@ -17,7 +32,10 @@ import { AuthService } from './core/auth/auth.service';
 import { LocaleService } from './core/locale/locale.service';
 import { MetadataService } from './core/metadata/metadata.service';
 import { RouteService } from './core/services/route.service';
-import { NativeWindowRef, NativeWindowService, } from './core/services/window.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from './core/services/window.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -35,7 +53,6 @@ import { HostWindowServiceStub } from './shared/testing/host-window-service.stub
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { of } from 'rxjs';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -58,7 +75,7 @@ describe('App component', () => {
   const getDefaultTestBedConf = () => {
     breadcrumbsServiceSpy = jasmine.createSpyObj(['listenForRouteChanges']);
     routeServiceMock = jasmine.createSpyObj('RouterService', {
-      getCurrentUrl: of('/home')
+      getCurrentUrl: of('/home'),
     });
 
     return {

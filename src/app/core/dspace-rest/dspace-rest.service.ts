@@ -159,7 +159,7 @@ export class DspaceRestService {
 
       error.statusCode = err.status;
       error.statusText = err.statusText;
-      error.errors = err?.error || null
+      error.errors = err?.error || null;
 
       return error;
     } else {

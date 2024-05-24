@@ -1,11 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../../../../../core/shared/item.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import {
   CrisLayoutBox,
   LayoutField,
   MetadataBoxCell,
-  MetadataBoxRow
+  MetadataBoxRow,
 } from '../../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../../core/shared/item.model';
 
 /**
  * This component renders the rows of metadata boxes
@@ -14,7 +18,7 @@ import {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[ds-row]',
   templateUrl: './row.component.html',
-  styleUrls: ['./row.component.scss']
+  styleUrls: ['./row.component.scss'],
 })
 export class RowComponent {
 

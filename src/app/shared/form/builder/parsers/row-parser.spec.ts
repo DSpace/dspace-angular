@@ -1,13 +1,13 @@
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
+import {
+  SubmissionVisibilityType,
+  SubmissionVisibilityValue,
+} from '../../../../core/config/models/config-submission-section.model';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormFieldModel } from '../models/form-field.model';
 import { RowParser } from './row-parser';
-import {
-  SubmissionVisibilityType,
-  SubmissionVisibilityValue
-} from '../../../../core/config/models/config-submission-section.model';
-import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 
 describe('RowParser test suite', () => {
 
@@ -122,7 +122,7 @@ describe('RowParser test suite', () => {
           repeatable: false,
           hints: 'Enter the name of the events, if any.',
           visibility: {
-            submission: SubmissionVisibilityValue.Hidden
+            submission: SubmissionVisibilityValue.Hidden,
           } as SubmissionVisibilityType,
           selectableMetadata: [
             {

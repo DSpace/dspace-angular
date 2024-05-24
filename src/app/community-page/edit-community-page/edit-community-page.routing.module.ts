@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { CommunityAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/community-administrator.guard';
+import { EditCommunityResolver } from '../../core/shared/resolvers/edit-community.resolver';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
@@ -13,7 +14,6 @@ import { CommunityCurateComponent } from './community-curate/community-curate.co
 import { CommunityMetadataComponent } from './community-metadata/community-metadata.component';
 import { CommunityRolesComponent } from './community-roles/community-roles.component';
 import { EditCommunityPageComponent } from './edit-community-page.component';
-import { EditCommunityResolver } from '../../core/shared/resolvers/edit-community.resolver';
 
 /**
  * Routing module that handles the routing for the Edit Community page administrator functionality
@@ -100,7 +100,7 @@ import { EditCommunityResolver } from '../../core/shared/resolvers/edit-communit
     ResourcePolicyResolver,
     ResourcePolicyTargetResolver,
     EditCommunityResolver,
-  ]
+  ],
 })
 export class EditCommunityPageRoutingModule {
 

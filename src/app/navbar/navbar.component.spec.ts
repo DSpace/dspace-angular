@@ -29,6 +29,7 @@ import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { BrowseService } from '../core/browse/browse.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
+import { SectionDataService } from '../core/layout/section-data.service';
 import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
 import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
 import { Item } from '../core/shared/item.model';
@@ -45,7 +46,6 @@ import { HostWindowServiceStub } from '../shared/testing/host-window-service.stu
 import { MenuServiceStub } from '../shared/testing/menu-service.stub';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { NavbarComponent } from './navbar.component';
-import { SectionDataService } from '../core/layout/section-data.service';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;

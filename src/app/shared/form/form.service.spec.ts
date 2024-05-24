@@ -22,10 +22,10 @@ import {
 
 import { AppState } from '../../app.reducer';
 import { getMockFormBuilderService } from '../mocks/form-builder-service.mock';
+import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormBuilderService } from './builder/form-builder.service';
 import { formReducer } from './form.reducer';
 import { FormService } from './form.service';
-import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 
 describe('FormService test suite', () => {
   const config = {
@@ -84,8 +84,8 @@ describe('FormService test suite', () => {
       group: [
         new DynamicInputModel({ id: 'name_CONCAT_FIRST_INPUT' }),
         new DynamicInputModel({ id: 'name_CONCAT_SECOND_INPUT' }),
-      ]
-    } as any)
+      ],
+    } as any),
   ];
 
   let controls;
@@ -140,13 +140,13 @@ describe('FormService test suite', () => {
       city: new UntypedFormControl(undefined),
     });
 
-      const name: UntypedFormGroup = new UntypedFormGroup({
-        name_CONCAT_FIRST_INPUT: new FormControl(undefined),
-        name_CONCAT_SECOND_INPUT: new FormControl(undefined)
-      });
+    const name: UntypedFormGroup = new UntypedFormGroup({
+      name_CONCAT_FIRST_INPUT: new FormControl(undefined),
+      name_CONCAT_SECOND_INPUT: new FormControl(undefined),
+    });
 
-      formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation, name });
-      controls = { author, title, date, description , addressLocation, name };
+    formGroup = new UntypedFormGroup({ author, title, date, description, addressLocation, name });
+    controls = { author, title, date, description , addressLocation, name };
     service = new FormService(builderService, store);
   }),
   )

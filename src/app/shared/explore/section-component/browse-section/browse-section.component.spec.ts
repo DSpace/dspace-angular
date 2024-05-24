@@ -1,11 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { BrowseSectionComponent } from './browse-section.component';
 
@@ -19,13 +35,13 @@ describe('BrowseSectionComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [BrowseSectionComponent],
       providers: [BrowseSectionComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -37,7 +53,7 @@ describe('BrowseSectionComponent', () => {
     component.browseSection = {
       browseNames: ['rodept', 'author', 'title', 'type'],
       componentType: 'browse',
-      style: 'col-md-4'
+      style: 'col-md-4',
     };
 
     fixture.detectChanges();

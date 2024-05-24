@@ -1,5 +1,7 @@
-import { distinctUntilChanged, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import {
+  DOCUMENT,
+  isPlatformBrowser,
+} from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -9,27 +11,55 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationStart, Router, RouterEvent, } from '@angular/router';
-
-import { BehaviorSubject, Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  RouterEvent,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModalConfig,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  switchMap,
+  take,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
+import {
+  getEditItemPageRoute,
+  getWorkflowItemModuleRoute,
+  getWorkspaceItemModuleRoute,
+} from './app-routing-paths';
 import { AuthService } from './core/auth/auth.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
 import { models } from './core/core.module';
-import { NativeWindowRef, NativeWindowService, } from './core/services/window.service';
-import { distinctNext } from './core/shared/distinct-next';
 import { RouteService } from './core/services/route.service';
-import { getEditItemPageRoute, getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from './app-routing-paths';
-import { SocialService } from './social/social.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from './core/services/window.service';
+import { distinctNext } from './core/shared/distinct-next';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { ThemeService } from './shared/theme-support/theme.service';
+import { SocialService } from './social/social.service';
 
 @Component({
   selector: 'ds-app',
@@ -120,8 +150,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.router.events.pipe(
       switchMap((event: RouterEvent) => this.routeService.getCurrentUrl().pipe(
         take(1),
-        map((currentUrl) => [currentUrl, event])
-      ))
+        map((currentUrl) => [currentUrl, event]),
+      )),
     ).subscribe(([currentUrl, event]: [string, RouterEvent]) => {
       if (event instanceof NavigationStart) {
         if (!(currentUrl.startsWith(getEditItemPageRoute()) || currentUrl.startsWith(getWorkspaceItemModuleRoute()) || currentUrl.startsWith(getWorkflowItemModuleRoute()))) {

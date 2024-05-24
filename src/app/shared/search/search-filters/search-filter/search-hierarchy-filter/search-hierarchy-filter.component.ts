@@ -12,11 +12,9 @@ import {
 import {
   BehaviorSubject,
   combineLatest,
-  Observable,
   Subscription,
 } from 'rxjs';
 import {
-  filter,
   map,
   take,
 } from 'rxjs/operators';
@@ -27,6 +25,9 @@ import {
 } from '../../../../../../config/app-config.interface';
 import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
@@ -54,9 +55,6 @@ import {
   SearchFacetFilterComponent,
 } from '../search-facet-filter/search-facet-filter.component';
 import { renderFacetFor } from '../search-filter-type-decorator';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
@@ -113,7 +111,7 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
         vocabularyName, new PageInfo(), true, false,
       ).pipe(
         getFirstCompletedRemoteData(),
-        map((rd: RemoteData<PaginatedList<VocabularyEntryDetail>>) => rd.hasSucceeded && rd.payload?.totalElements > 0)
+        map((rd: RemoteData<PaginatedList<VocabularyEntryDetail>>) => rd.hasSucceeded && rd.payload?.totalElements > 0),
       ).subscribe((res) => {
         this.vocabularyExists$.next(res);
       });

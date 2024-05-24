@@ -1,5 +1,6 @@
 import { StaticProvider } from '@angular/core';
 
+import { CalendarFieldParser } from './calendar-field-parser';
 import { DateFieldParser } from './date-field-parser';
 import { DisabledFieldParser } from './disabled-field-parser';
 import { DropdownFieldParser } from './dropdown-field-parser';
@@ -15,21 +16,20 @@ import { ListFieldParser } from './list-field-parser';
 import { LookupFieldParser } from './lookup-field-parser';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
 import { NameFieldParser } from './name-field-parser';
+import { NumberFieldParser } from './number-field-parser';
 import { OneboxFieldParser } from './onebox-field-parser';
 import { ParserType } from './parser-type';
 import { RelationGroupFieldParser } from './relation-group-field-parser';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
-import { NumberFieldParser } from './number-field-parser';
-import { CalendarFieldParser } from './calendar-field-parser';
 
 const fieldParserDeps = [
   SUBMISSION_ID,
   CONFIG_DATA,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
-  SECURITY_CONFIG
+  SECURITY_CONFIG,
 ];
 
 /**
@@ -42,7 +42,7 @@ export class ParserFactory {
         return {
           provide: FieldParser,
           useClass: CalendarFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Date: {
@@ -106,7 +106,7 @@ export class ParserFactory {
         return {
           provide: FieldParser,
           useClass: NumberFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Series: {

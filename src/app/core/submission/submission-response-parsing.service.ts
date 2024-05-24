@@ -15,10 +15,10 @@ import { DSOResponseParsingService } from '../data/dso-response-parsing.service'
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/rest-request.model';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { EditItem } from './models/edititem.model';
 import { SubmissionObject } from './models/submission-object.model';
 import { WorkflowItem } from './models/workflowitem.model';
 import { WorkspaceItem } from './models/workspaceitem.model';
-import { EditItem } from './models/edititem.model';
 
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject

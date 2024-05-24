@@ -19,7 +19,7 @@ import { ThemedCommunityListPageComponent } from './themed-community-list-page.c
         resolve: {
           breadcrumb: I18nBreadcrumbResolver,
         },
-        data: { title: 'communityList.tabTitle', breadcrumbKey: 'communityList', showSocialButtons: true},
+        data: { title: 'communityList.tabTitle', breadcrumbKey: 'communityList', showSocialButtons: true },
       },
     ]),
     CdkTreeModule,

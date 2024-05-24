@@ -1,10 +1,17 @@
-import { Component, Injector, Input, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { StatisticsType } from '../../statistics-type.model';
+import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { renderChartStatisticsType } from '../../cris-statistics-element-decorator';
+import { StatisticsType } from '../../statistics-type.model';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
-import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 
 @Component({
   selector: 'ds-statistics-chart-wrapper',
@@ -51,7 +58,7 @@ export class StatisticsChartWrapperComponent implements OnInit {
         { provide: REPORT_DATA, useFactory: () => (this.report), deps: [] },
         { provide: 'categoryType', useValue: this.categoryType },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 

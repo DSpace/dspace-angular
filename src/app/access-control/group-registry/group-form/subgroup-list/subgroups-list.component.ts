@@ -7,6 +7,7 @@ import {
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   Observable,
@@ -33,7 +34,6 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
-import uniqueId from 'lodash/uniqueId';
 
 /**
  * Keys to keep track of specific subscriptions

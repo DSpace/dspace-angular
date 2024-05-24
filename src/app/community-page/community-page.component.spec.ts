@@ -1,23 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CommunityPageComponent } from './community-page.component';
-import { AuthService } from '../core/auth/auth.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { RouterStub } from '../shared/testing/router.stub';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../shared/utils/var.directive';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { Community } from '../core/shared/community.model';
 import { of } from 'rxjs';
+
+import { AuthService } from '../core/auth/auth.service';
+import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '../core/data/community-data.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { MetadataService } from '../core/metadata/metadata.service';
 import { Bitstream } from '../core/shared/bitstream.model';
-import { By } from '@angular/platform-browser';
+import { Community } from '../core/shared/community.model';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { RouterStub } from '../shared/testing/router.stub';
+import { VarDirective } from '../shared/utils/var.directive';
+import { CommunityPageComponent } from './community-page.component';
 
 describe('CommunityPageComponent', () => {
   let component: CommunityPageComponent;
@@ -36,8 +43,8 @@ describe('CommunityPageComponent', () => {
       {
         key: 'dc.title',
         language: 'en_US',
-        value: 'test community'
-      }
+        value: 'test community',
+      },
     ],
     logo: createSuccessfulRemoteDataObject$(new Bitstream()),
   });
@@ -56,8 +63,8 @@ describe('CommunityPageComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationDataServiceSpy },
         { provide: DSONameService, useValue: dsoNameServiceSpy },
         { provide: CommunityDataService, useValue: {} },
-        { provide: MetadataService, useValue: {} }
-      ]
+        { provide: MetadataService, useValue: {} },
+      ],
     }).compileComponents();
   });
 

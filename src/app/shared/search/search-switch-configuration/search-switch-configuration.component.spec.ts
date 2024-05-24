@@ -115,7 +115,7 @@ describe('SearchSwitchConfigurationComponent', () => {
     const navigationExtras: NavigationExtras = {
       queryParams: {
         configuration: MyDSpaceConfigurationValueType.Workflow,
-        scope: 'test-id'
+        scope: 'test-id',
       },
     };
 

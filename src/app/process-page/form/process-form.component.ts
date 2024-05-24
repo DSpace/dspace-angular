@@ -16,7 +16,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { hasValue, isEmpty, isUndefined } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isUndefined,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';
@@ -90,11 +94,11 @@ export class ProcessFormComponent implements OnInit {
 
     if (hasValue(this.parameters)) {
       stringParameters = this.parameters.map((parameter: ProcessParameter) => {
-          return {
-            name: parameter.name,
-        value: this.checkValue(parameter),
-          };
-    },
+        return {
+          name: parameter.name,
+          value: this.checkValue(parameter),
+        };
+      },
       );
     }
     this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)

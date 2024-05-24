@@ -1,16 +1,24 @@
-import { Component, Injector, Input, OnInit, ViewChild, } from '@angular/core';
-
-import { AlertType } from '../../../shared/alert/alert-type';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { SectionsDirective } from '../sections.directive';
-import { SectionDataObject } from '../models/section-data.model';
-import { rendersSectionType } from '../sections-decorator';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsDirective } from '../sections.directive';
+import { rendersSectionType } from '../sections-decorator';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -110,7 +118,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     const messageInfoKey = 'submission.sections.' + this.sectionData.header + '.info';
     this.hasInfoMessage = this.translate.get(messageInfoKey).pipe(
-      map((message: string) => isNotEmpty(message) && messageInfoKey !== message)
+      map((message: string) => isNotEmpty(message) && messageInfoKey !== message),
     );
   }
 

@@ -1,10 +1,23 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, } from '@angular/forms';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DynamicFormControlModel, DynamicFormService, } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -13,9 +26,15 @@ import { FieldUpdate } from '../../../core/data/object-updates/field-update.mode
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RequestService } from '../../../core/data/request.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { ContentSource, ContentSourceHarvestType, } from '../../../core/shared/content-source.model';
+import {
+  ContentSource,
+  ContentSourceHarvestType,
+} from '../../../core/shared/content-source.model';
 import { hasValue } from '../../../shared/empty.util';
-import { INotification, Notification, } from '../../../shared/notifications/models/notification.model';
+import {
+  INotification,
+  Notification,
+} from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
@@ -120,8 +139,8 @@ describe('CollectionSourceComponent', () => {
       updateContentSource: observableOf(contentSource),
       getHarvesterEndpoint: observableOf('harvester-endpoint'),
       patch: createSuccessfulRemoteDataObject$(Object.assign(new Collection(), {
-        uuid: 'fake-collection-id'
-      }))
+        uuid: 'fake-collection-id',
+      })),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 

@@ -1,13 +1,26 @@
-import { Component, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NgbActiveModal, NgbModal, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
@@ -15,18 +28,14 @@ import { RouterStub } from '../../../shared/testing/router.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionService } from '../../submission.service';
-import {
-  SubmissionImportExternalCollectionComponent
-} from '../import-external-collection/submission-import-external-collection.component';
+import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { By } from '@angular/platform-browser';
 
 const uriMetadata = Object.assign(new MetadataValue(), {
-  value: 'https://orcid.org/0001-0001-0001-0001'
+  value: 'https://orcid.org/0001-0001-0001-0001',
 });
 const abstractMetadata = Object.assign(new MetadataValue(), {
-  value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet malesuada nulla. Mauris et tortor sit amet orci vehicula feugiat. Etiam ac libero a dolor pellentesque pellentesque. Nam auctor aliquam sapien, et aliquet sem dapibus nec. Fusce dapibus finibus massa. Aenean malesuada rutrum placerat. Suspendisse lectus dolor, vestibulum in orci vitae, convallis aliquam elit. Aliquam sit amet laoreet nunc, ut laoreet risus. Nulla tincidunt dapibus nibh sagittis molestie. Maecenas hendrerit, elit eget suscipit consectetur, enim quam porttitor tortor, in fermentum turpis mi sit amet odio. Praesent sed vehicula ante. Donec eget est in ligula convallis facilisis. '
+  value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet malesuada nulla. Mauris et tortor sit amet orci vehicula feugiat. Etiam ac libero a dolor pellentesque pellentesque. Nam auctor aliquam sapien, et aliquet sem dapibus nec. Fusce dapibus finibus massa. Aenean malesuada rutrum placerat. Suspendisse lectus dolor, vestibulum in orci vitae, convallis aliquam elit. Aliquam sit amet laoreet nunc, ut laoreet risus. Nulla tincidunt dapibus nibh sagittis molestie. Maecenas hendrerit, elit eget suscipit consectetur, enim quam porttitor tortor, in fermentum turpis mi sit amet odio. Praesent sed vehicula ante. Donec eget est in ligula convallis facilisis. ',
 });
 const externalEntry = Object.assign(new ExternalSourceEntry(), {
   id: '0001-0001-0001-0001',
@@ -35,7 +44,7 @@ const externalEntry = Object.assign(new ExternalSourceEntry(), {
   metadata: {
     'dc.identifier.uri': [uriMetadata],
   },
-  _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
+  _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } },
 });
 const externalEntryWithAbstract = Object.assign(new ExternalSourceEntry(), {
   id: '0001-0001-0001-0001',

@@ -22,6 +22,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -43,7 +44,6 @@ import { TruncatePipe } from '../../shared/utils/truncate.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
 import { FullItemPageComponent } from './full-item-page.component';
-import { APP_CONFIG } from '../../../config/app-config.interface';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
@@ -51,81 +51,81 @@ const mockItem: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'test item'
-      }
+        value: 'test item',
+      },
     ],
     'dc.contributor.author': [
       {
-        value: 'author1'
+        value: 'author1',
       },
       {
-        value: 'author2'
+        value: 'author2',
       },
       {
-        value: 'author3'
+        value: 'author3',
       },
       {
-        value: 'author4'
+        value: 'author4',
       },
       {
-        value: 'author5'
+        value: 'author5',
       },
       {
-        value: 'author6'
+        value: 'author6',
       },
       {
-        value: 'author7'
+        value: 'author7',
       },
       {
-        value: 'author8'
+        value: 'author8',
       },
       {
-        value: 'author9'
+        value: 'author9',
       },
       {
-        value: 'author10'
+        value: 'author10',
       },
       {
-        value: 'author11'
+        value: 'author11',
       },
       {
-        value: 'author12'
+        value: 'author12',
       },
       {
-        value: 'author13'
+        value: 'author13',
       },
       {
-        value: 'author14'
+        value: 'author14',
       },
       {
-        value: 'author15'
+        value: 'author15',
       },
       {
-        value: 'author16'
+        value: 'author16',
       },
       {
-        value: 'author17'
+        value: 'author17',
       },
       {
-        value: 'author18'
+        value: 'author18',
       },
       {
-        value: 'author19'
+        value: 'author19',
       },
       {
-        value: 'author20'
+        value: 'author20',
       },
       {
-        value: 'author21'
+        value: 'author21',
       },
       {
-        value: 'author22'
+        value: 'author22',
       },
       {
-        value: 'author23'
-      }
-    ]
-  }
+        value: 'author23',
+      },
+    ],
+  },
 });
 
 const mockWithdrawnItem: Item = Object.assign(new Item(), {
@@ -169,8 +169,8 @@ describe('FullItemPageComponent', () => {
 
   const appConfig = {
     item: {
-      metadataLimit: 20
-    }
+      metadataLimit: 20,
+    },
   };
 
   beforeEach(waitForAsync(() => {

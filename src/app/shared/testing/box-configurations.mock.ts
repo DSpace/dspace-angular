@@ -1,7 +1,7 @@
 import {
   MetadataBoxConfiguration,
   MetricsBoxConfiguration,
-  RelationBoxConfiguration
+  RelationBoxConfiguration,
 } from '../../core/layout/models/box.model';
 
 /*export const medataBoxConfigurationMock: MetadataBoxConfiguration = {
@@ -41,13 +41,13 @@ import {
 
 export const relationBoxConfigurationMock: RelationBoxConfiguration = {
   type: 'boxrelationconfiguration',
-  'discovery-configuration': 'RELATION.Person.researchoutputs'
+  'discovery-configuration': 'RELATION.Person.researchoutputs',
 };
 
 export const metricsBoxConfigurationMock: MetricsBoxConfiguration = {
   type: 'boxmetricsconfiguration',
   maxColumns: null,
-  metrics: ['view', 'embedded-view']
+  metrics: ['view', 'embedded-view'],
 };
 
 export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
@@ -64,7 +64,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
               'bitstream': {
                 'bundle': 'ORIGINAL',
                 'metadataField': 'dc.type',
-                'metadataValue': 'personal picture'
+                'metadataValue': 'personal picture',
               },
               'label': null,
               'rendering': 'thumbnail',
@@ -73,9 +73,9 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
               'styleLabel': null,
               'styleValue': null,
               'labelAsHeading': false,
-              'valuesInline': true
-            }
-          ]
+              'valuesInline': true,
+            },
+          ],
         },
         {
           'style': 'cell-style',
@@ -89,7 +89,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
               'styleLabel': 'font-weight-bold',
               'styleValue': null,
               'labelAsHeading': false,
-              'valuesInline': true
+              'valuesInline': true,
             },
             {
               'metadata': 'crisrp.name',
@@ -100,7 +100,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
               'styleLabel': 'font-weight-bold',
               'styleValue': null,
               'labelAsHeading': false,
-              'valuesInline': true
+              'valuesInline': true,
             },
             {
               'metadata': 'crisrp.name.translated',
@@ -111,7 +111,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
               'styleLabel': 'font-weight-bold',
               'styleValue': null,
               'labelAsHeading': false,
-              'valuesInline': true
+              'valuesInline': true,
             },
             {
               'metadata': 'crisrp.name.variant',
@@ -122,7 +122,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
               'styleLabel': 'font-weight-bold',
               'styleValue': null,
               'labelAsHeading': false,
-              'valuesInline': true
+              'valuesInline': true,
             },
             {
               'metadata': 'oairecerif.identifier.url',
@@ -133,11 +133,11 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
               'styleLabel': 'font-weight-bold',
               'styleValue': null,
               'labelAsHeading': false,
-              'valuesInline': true
-            }
-          ]
-        }
-      ]
+              'valuesInline': true,
+            },
+          ],
+        },
+      ],
     },
     {
       'style': 'row-style',
@@ -154,7 +154,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
               'styleLabel': 'font-weight-bold',
               'styleValue': null,
               'labelAsHeading': false,
-              'valuesInline': true
+              'valuesInline': true,
             },
             {
               'metadata': 'oairecerif.person.affiliation',
@@ -176,7 +176,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                     'styleLabel': 'col',
                     'styleValue': 'col',
                     'labelAsHeading': false,
-                    'valuesInline': true
+                    'valuesInline': true,
                   },
                   {
                     'metadata': 'oairecerif.person.affiliation',
@@ -187,7 +187,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                     'styleLabel': 'col',
                     'styleValue': 'col',
                     'labelAsHeading': false,
-                    'valuesInline': true
+                    'valuesInline': true,
                   },
                   {
                     'metadata': 'oairecerif.affiliation.startDate',
@@ -198,7 +198,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                     'styleLabel': 'col',
                     'styleValue': 'col',
                     'labelAsHeading': false,
-                    'valuesInline': true
+                    'valuesInline': true,
                   },
                   {
                     'metadata': 'oairecerif.affiliation.endDate',
@@ -209,12 +209,12 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                     'styleLabel': 'col',
                     'styleValue': 'col',
                     'labelAsHeading': false,
-                    'valuesInline': true
-                  }
-                ]
+                    'valuesInline': true,
+                  },
+                ],
               },
               'labelAsHeading': false,
-              'valuesInline': true
+              'valuesInline': true,
             },
             {
               'metadata': 'crisrp.education',
@@ -236,7 +236,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                     'styleLabel': 'col',
                     'styleValue': 'col',
                     'labelAsHeading': false,
-                    'valuesInline': true
+                    'valuesInline': true,
                   },
                   {
                     'metadata': 'crisrp.education',
@@ -247,7 +247,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                     'styleLabel': 'col',
                     'styleValue': 'col',
                     'labelAsHeading': false,
-                    'valuesInline': true
+                    'valuesInline': true,
                   },
                   {
                     'metadata': 'crisrp.education.start',
@@ -258,7 +258,7 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                     'styleLabel': 'col',
                     'styleValue': 'col',
                     'labelAsHeading': false,
-                    'valuesInline': true
+                    'valuesInline': true,
                   },
                   {
                     'metadata': 'crisrp.education.end',
@@ -269,16 +269,16 @@ export const metadataBoxConfigurationMock: MetadataBoxConfiguration = {
                     'styleLabel': 'col',
                     'styleValue': 'col',
                     'labelAsHeading': false,
-                    'valuesInline': true
-                  }
-                ]
+                    'valuesInline': true,
+                  },
+                ],
               },
               'labelAsHeading': false,
-              'valuesInline': true
-            }
-          ]
-        }
-      ]
-    }
-  ]
+              'valuesInline': true,
+            },
+          ],
+        },
+      ],
+    },
+  ],
 };

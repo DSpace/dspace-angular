@@ -1,6 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, } from '@angular/router';
-import { catchError, mergeMap, Observable, of, tap } from 'rxjs';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import {
+  catchError,
+  mergeMap,
+  Observable,
+  of,
+  tap,
+} from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
@@ -16,7 +28,7 @@ export class ReviewAccountGuard implements CanActivate {
   constructor(
     private router: Router,
     private epersonRegistrationService: EpersonRegistrationService,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
   /**
@@ -27,7 +39,7 @@ export class ReviewAccountGuard implements CanActivate {
    */
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Promise<boolean> | boolean | Observable<boolean> {
     if (route.params.token) {
       return this.epersonRegistrationService
@@ -45,7 +57,7 @@ export class ReviewAccountGuard implements CanActivate {
                 }
               }
               return of(false);
-            }
+            },
           ),
           tap((isValid: boolean) => {
             if (!isValid) {
@@ -55,7 +67,7 @@ export class ReviewAccountGuard implements CanActivate {
           catchError(() => {
             this.router.navigate(['/404']);
             return of(false);
-          })
+          }),
         );
     } else {
       this.router.navigate(['/404']);

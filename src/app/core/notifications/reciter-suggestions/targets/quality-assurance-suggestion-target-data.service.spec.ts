@@ -1,27 +1,29 @@
 import { HttpClient } from '@angular/common/http';
-
-import { TestScheduler } from 'rxjs/testing';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
 
-import { RequestService } from '../../../data/request.service';
-import { buildPaginatedList } from '../../../data/paginated-list.model';
-import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { RestResponse } from '../../../cache/response.models';
-import { PageInfo } from '../../../shared/page-info.model';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
 import {
   openaireSuggestionTargetReciterOne,
   openaireSuggestionTargetScopusOne,
-  openaireSuggestionTargetScopusTwo
+  openaireSuggestionTargetScopusTwo,
 } from '../../../../shared/mocks/notifications.mock';
-import { RequestEntry } from '../../../data/request-entry.model';
-import { QualityAssuranceSuggestionTargetDataService } from './quality-assurance-suggestion-target-data.service';
-import { FindListOptions } from '../../../data/find-list-options.model';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../../../../shared/remote-data.utils';
+import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { RequestParam } from '../../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../../cache/object-cache.service';
+import { RestResponse } from '../../../cache/response.models';
+import { FindListOptions } from '../../../data/find-list-options.model';
+import { buildPaginatedList } from '../../../data/paginated-list.model';
+import { RequestService } from '../../../data/request.service';
+import { RequestEntry } from '../../../data/request-entry.model';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { PageInfo } from '../../../shared/page-info.model';
+import { QualityAssuranceSuggestionTargetDataService } from './quality-assurance-suggestion-target-data.service';
 
 describe('QualityAssuranceSuggestionTargetDataService', () => {
   let scheduler: TestScheduler;
@@ -62,18 +64,18 @@ describe('QualityAssuranceSuggestionTargetDataService', () => {
 
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('(a)', {
-        a: qaTargetObjectRD
+        a: qaTargetObjectRD,
       }),
       buildList: cold('(a)', {
-        a: paginatedListSourceRD
+        a: paginatedListSourceRD,
       }),
       buildFromRequestUUID: jasmine.createSpy('buildFromRequestUUID'),
-      buildFromRequestUUIDAndAwait: jasmine.createSpy('buildFromRequestUUIDAndAwait')
+      buildFromRequestUUIDAndAwait: jasmine.createSpy('buildFromRequestUUIDAndAwait'),
     });
 
     objectCache = {} as ObjectCacheService;
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a|', { a: endpointURL })
+      getEndpoint: cold('a|', { a: endpointURL }),
     });
 
     notificationsService = {} as NotificationsService;
@@ -85,7 +87,7 @@ describe('QualityAssuranceSuggestionTargetDataService', () => {
       rdbService,
       objectCache,
       halService,
-      notificationsService
+      notificationsService,
     );
 
     spyOn((service as any).searchData, 'searchBy').and.callThrough();
@@ -101,7 +103,7 @@ describe('QualityAssuranceSuggestionTargetDataService', () => {
     it('should return a RemoteData<OpenaireSuggestionTarget> for the object with the given URL', () => {
       const result = service.getTargetById(openaireSuggestionTargetScopusOne.id);
       const expected = cold('(a)', {
-        a: qaTargetObjectRD
+        a: qaTargetObjectRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -118,8 +120,8 @@ describe('QualityAssuranceSuggestionTargetDataService', () => {
     it('should proxy the call to searchData.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
-          new RequestParam('source', openaireSuggestionTargetScopusOne.source)
-        ]
+          new RequestParam('source', openaireSuggestionTargetScopusOne.source),
+        ],
       };
       service.getTargetsBySource('scopus');
       expect((service as any).searchData.searchBy).toHaveBeenCalledWith('findBySource', options, true, true);
@@ -128,7 +130,7 @@ describe('QualityAssuranceSuggestionTargetDataService', () => {
     it('should return a RemoteData<PaginatedList<OpenaireSuggestionTarget>> for the object with the given Topic', () => {
       const result = service.getTargetsBySource('reciter');
       const expected = cold('(a)', {
-        a: paginatedListSourceRD
+        a: paginatedListSourceRD,
       });
       expect(result).toBeObservable(expected);
     });
@@ -145,8 +147,8 @@ describe('QualityAssuranceSuggestionTargetDataService', () => {
     it('should proxy the call to searchData.searchBy', () => {
       const options: FindListOptions = {
         searchParams: [
-          new RequestParam('target', 'gf3d657-9d6d-4a87-b905-fef0f8cae26')
-        ]
+          new RequestParam('target', 'gf3d657-9d6d-4a87-b905-fef0f8cae26'),
+        ],
       };
       service.getTargetsByUser('gf3d657-9d6d-4a87-b905-fef0f8cae26');
       expect((service as any).searchData.searchBy).toHaveBeenCalledWith('findByTarget', options, true, true);
@@ -155,7 +157,7 @@ describe('QualityAssuranceSuggestionTargetDataService', () => {
     it('should return a RemoteData<PaginatedList<OpenaireSuggestionTarget>> for the object with the given Topic', () => {
       const result = service.getTargetsByUser('gf3d657-9d6d-4a87-b905-fef0f8cae26');
       const expected = cold('(a)', {
-        a: paginatedListSourceRD
+        a: paginatedListSourceRD,
       });
       expect(result).toBeObservable(expected);
     });

@@ -1,17 +1,22 @@
-import { autoserialize, autoserializeAs, deserialize, deserializeAs, inheritSerialization, } from 'cerialize';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+  deserializeAs,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import {
-  AccessStatusObject
-} from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import {
-  ACCESS_STATUS
-} from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
+import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
+import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 
 import { isEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { IdentifierData } from '../../shared/object-list/identifier-data/identifier-data.model';
 import { IDENTIFIERS } from '../../shared/object-list/identifier-data/identifier-data.resource-type';
-import { link, typedObject, } from '../cache/builders/build-decorators';
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
@@ -28,10 +33,10 @@ import { HandleObject } from './handle-object.model';
 import { ITEM } from './item.resource-type';
 import { Relationship } from './item-relationships/relationship.model';
 import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
-import { Version } from './version.model';
-import { VERSION } from './version.resource-type';
 import { Metric } from './metric.model';
 import { METRIC } from './metric.resource-type';
+import { Version } from './version.model';
+import { VERSION } from './version.resource-type';
 
 /**
  * Class representing a DSpace Item
@@ -75,7 +80,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * A boolean representing if this Item is currently withdrawn or not
    */
   @autoserializeAs(String, 'entityType')
-  entityType: string;
+    entityType: string;
 
 
   /**
@@ -150,7 +155,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * Will be undefined unless the metrics {@link HALLink} has been resolved.
    */
   @link(METRIC, true)
-  metrics?: Observable<RemoteData<PaginatedList<Metric>>>;
+    metrics?: Observable<RemoteData<PaginatedList<Metric>>>;
 
   /**
    * Method that returns as which type of object this object should be rendered

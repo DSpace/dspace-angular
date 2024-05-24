@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -15,30 +21,31 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
+import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { filter, mergeMap, take, } from 'rxjs/operators';
 import {
-  DynamicCustomSwitchModel
-} from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+  filter,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
+import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
 import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
 import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
-import {
-  JsonPatchOperationPathCombiner
-} from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import {
-  WorkspaceitemSectionUploadObject
-} from '../../../../../core/submission/models/workspaceitem-section-upload.model';
-import {
-  WorkspaceitemSectionUploadFileObject
-} from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import {
-  SubmissionJsonPatchOperationsService
-} from '../../../../../core/submission/submission-json-patch-operations.service';
+import { WorkspaceitemSectionUploadObject } from '../../../../../core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { dateToISOFormat } from '../../../../../shared/date.util';
-import { hasNoValue, hasValue, isNotEmpty, isNotNull, } from '../../../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '../../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { FormComponent } from '../../../../../shared/form/form.component';
@@ -63,8 +70,6 @@ import {
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
 } from './section-upload-file-edit.model';
-import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
-import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component represents the edit form for bitstream
@@ -339,7 +344,7 @@ implements OnInit, OnDestroy {
           {
             label: this.translate.instant(`${BITSTREAM_FORM_ACCESS_CONDITIONS_TRANSLATION_CONFIG}${accessCondition.name}`),
             value: accessCondition.name,
-          }
+          },
         );
       }
       accessConditionTypeModelConfig.options = accessConditionTypeOptions;
@@ -389,7 +394,7 @@ implements OnInit, OnDestroy {
         // Number of access conditions blocks in form
         accessConditionsArrayConfig.initialCount = isNotEmpty(this.fileData.accessConditions) ? this.fileData.accessConditions.length : 1;
         formModel.push(
-        new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT),
+          new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT),
         );
       }
     }
@@ -520,12 +525,12 @@ implements OnInit, OnDestroy {
   }
 
   private createAccessConditionGroupModel(accessConditionTypeModelConfig: DynamicSelectModelConfig<any>,
-                                          confStart: Partial<DynamicDatePickerModelConfig>,
-                                          confEnd: Partial<DynamicDatePickerModelConfig>,
-                                          hasStartDate: boolean,
-                                          maxStartDate: DynamicDateControlValue,
-                                          hasEndDate: boolean,
-                                          maxEndDate: DynamicDateControlValue ): DynamicFormGroupModel {
+    confStart: Partial<DynamicDatePickerModelConfig>,
+    confEnd: Partial<DynamicDatePickerModelConfig>,
+    hasStartDate: boolean,
+    maxStartDate: DynamicDateControlValue,
+    hasEndDate: boolean,
+    maxEndDate: DynamicDateControlValue ): DynamicFormGroupModel {
     const type = new DynamicSelectModel(accessConditionTypeModelConfig, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT);
     const startDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG, confStart);
     if (maxStartDate) {

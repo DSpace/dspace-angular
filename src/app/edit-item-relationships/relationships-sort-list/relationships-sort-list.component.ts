@@ -1,16 +1,24 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-
+import {
+  CdkDragDrop,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { Context } from '../../core/shared/context.model';
-import { Relationship } from '../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../core/shared/item.model';
+import { Relationship } from '../../core/shared/item-relationships/relationship.model';
 
 @Component({
   selector: 'ds-relationships-sort-list',
   templateUrl: './relationships-sort-list.component.html',
-  styleUrls: ['./relationships-sort-list.component.scss']
+  styleUrls: ['./relationships-sort-list.component.scss'],
 })
 export class RelationshipsSortListComponent implements OnChanges {
 

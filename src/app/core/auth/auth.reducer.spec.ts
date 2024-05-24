@@ -256,7 +256,7 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       user: EPersonMock,
-      idle: false
+      idle: false,
     };
 
     const action = new LogOutAction();
@@ -275,7 +275,7 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       user: EPersonMock,
-      idle: false
+      idle: false,
     };
 
     const action = new LogOutSuccessAction();
@@ -290,7 +290,7 @@ describe('authReducer', () => {
       info: undefined,
       refreshing: false,
       user: undefined,
-      idle: false
+      idle: false,
     };
     expect(newState).toEqual(state);
   });
@@ -305,7 +305,7 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       user: EPersonMock,
-      idle: false
+      idle: false,
     };
 
     const action = new LogOutErrorAction(mockError);
@@ -319,7 +319,7 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       user: EPersonMock,
-      idle: false
+      idle: false,
     };
     expect(newState).toEqual(state);
   });
@@ -346,7 +346,7 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       user: EPersonMock,
-      idle: false
+      idle: false,
     };
     expect(newState).toEqual(state);
   });
@@ -386,7 +386,7 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       user: EPersonMock,
-      idle: false
+      idle: false,
     };
     const newTokenInfo = new AuthTokenInfo('Refreshed token');
     const action = new RefreshTokenAction(newTokenInfo);
@@ -462,7 +462,7 @@ describe('authReducer', () => {
       info: undefined,
       refreshing: false,
       user: undefined,
-      idle: false
+      idle: false,
     };
     expect(newState).toEqual(state);
   });
@@ -477,7 +477,7 @@ describe('authReducer', () => {
       loading: false,
       info: undefined,
       user: EPersonMock,
-      idle: false
+      idle: false,
     };
 
     state = {
@@ -489,7 +489,7 @@ describe('authReducer', () => {
       error: undefined,
       info: 'Message',
       user: undefined,
-      idle: false
+      idle: false,
     };
   });
 
@@ -695,7 +695,7 @@ describe('authReducer', () => {
       info: undefined,
       user: EPersonMock,
       refreshing: true,
-      idle: false
+      idle: false,
     };
     const newTokenInfo = new AuthTokenInfo('Refreshed token');
     const action = new RefreshTokenAndRedirectSuccessAction(newTokenInfo,'/redirect-url');
@@ -710,7 +710,7 @@ describe('authReducer', () => {
       info: undefined,
       user: EPersonMock,
       refreshing: false,
-      idle: false
+      idle: false,
     };
     expect(newState).toEqual(state);
   });

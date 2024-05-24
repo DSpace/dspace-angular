@@ -1,32 +1,41 @@
-import { Component, Inject } from '@angular/core';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
 import { Router } from '@angular/router';
-
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
+import { ChartData } from '../../../../../charts/models/chart-data';
+import { ChartSeries } from '../../../../../charts/models/chart-series';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PaginatedList } from '../../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { getAllCompletedRemoteData } from '../../../../../core/shared/operators';
+import { SearchService } from '../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  REFRESH_FILTER,
+  SearchFilterService,
+} from '../../../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { isNotEmpty } from '../../../../empty.util';
+import { FacetValue } from '../../../models/facet-value.model';
+import { FacetValues } from '../../../models/facet-values.model';
 import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFor } from '../../chart-search-result-element-decorator';
 import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
-import { ChartSeries } from '../../../../../charts/models/chart-series';
-import { ChartData } from '../../../../../charts/models/chart-data';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { FacetValue } from '../../../models/facet-value.model';
-import { isNotEmpty } from '../../../../empty.util';
-import { FacetValues } from '../../../models/facet-values.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH, REFRESH_FILTER,
-  SearchFilterService
-} from '../../../../../core/shared/search/search-filter.service';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { getAllCompletedRemoteData } from '../../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-chart-pie',
@@ -72,7 +81,7 @@ export class SearchChartPieComponent extends SearchChartFilterComponent {
             moreFacetValue.value = facetValue.more;
             moreFacetValue._links = {
               self: facetValue._links.more,
-              search: facetValue._links.more
+              search: facetValue._links.more,
             };
             list.push({
               name: moreFacetValue.label,

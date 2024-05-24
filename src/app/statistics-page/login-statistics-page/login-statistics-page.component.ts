@@ -1,11 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbDate,
+  NgbDateParserFormatter,
+  NgbDateStruct,
+} from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import {
+  take,
+  tap,
+} from 'rxjs/operators';
+
 import {
   getFirstSucceededRemoteData,
   getPaginatedListPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { LoginStatisticsService } from '../../core/statistics/login-statistics.service';
 import { LoginStatistics } from '../../core/statistics/models/login-statistics.model';
@@ -14,7 +25,7 @@ import { AlertType } from '../../shared/alert/alert-type';
 @Component({
   selector: 'ds-login-statistics',
   templateUrl: './login-statistics-page.component.html',
-  styleUrls: ['./login-statistics-page.component.scss']
+  styleUrls: ['./login-statistics-page.component.scss'],
 })
 export class LoginStatisticsPageComponent implements OnInit {
 
@@ -60,7 +71,7 @@ export class LoginStatisticsPageComponent implements OnInit {
       getRemoteDataPayload(),
       getPaginatedListPayload(),
       take(1),
-      tap(() => this.processing$.next(false))
+      tap(() => this.processing$.next(false)),
     ).subscribe((logins) => {
       this.logins$.next(logins);
     });

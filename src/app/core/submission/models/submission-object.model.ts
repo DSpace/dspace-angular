@@ -1,4 +1,8 @@
-import { autoserialize, deserialize, inheritSerialization, } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
 
 import { link } from '../../cache/builders/build-decorators';
@@ -6,6 +10,7 @@ import { CacheableObject } from '../../cache/cacheable-object.model';
 import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
+import { PathableObjectError } from '../../data/response-state.model';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { EPERSON } from '../../eperson/models/eperson.resource-type';
 import { Collection } from '../../shared/collection.model';
@@ -17,7 +22,6 @@ import { SupervisionOrder } from '../../supervision-order/models/supervision-ord
 import { SUPERVISION_ORDER } from '../../supervision-order/models/supervision-order.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
-import { PathableObjectError } from '../../data/response-state.model';
 
 export type SubmissionObjectError = PathableObjectError;
 

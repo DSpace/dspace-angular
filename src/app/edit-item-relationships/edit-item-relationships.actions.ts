@@ -1,4 +1,7 @@
-import { createAction, props } from '@ngrx/store';
+import {
+  createAction,
+  props,
+} from '@ngrx/store';
 
 export interface EditItemRelationshipsState {
   pendingChanges: boolean;
@@ -7,7 +10,7 @@ export interface EditItemRelationshipsState {
 export const EditItemRelationshipsActionTypes = {
   PENDING_CHANGES: createAction(
     'dspace/edit-item-relations-page/PENDING_CHANGES',
-    props<{ pendingChanges: boolean }>()
+    props<{ pendingChanges: boolean }>(),
   ),
 };
 

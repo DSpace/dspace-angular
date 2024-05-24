@@ -1,7 +1,10 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
-  Component, Inject,
+  Component,
+  Inject,
   Input,
-  OnInit, PLATFORM_ID,
+  OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -25,7 +28,6 @@ import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ds-root',
@@ -62,7 +64,7 @@ export class RootComponent implements OnInit {
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
-    @Inject(PLATFORM_ID) platformId: any
+    @Inject(PLATFORM_ID) platformId: any,
   ) {
     this.notificationOptions = environment.notifications;
     this.browserPlatform = isPlatformBrowser(platformId);

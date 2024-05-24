@@ -13,6 +13,8 @@ import { CoreModule } from '../core/core.module';
 import { QualityAssuranceEventDataService } from '../core/notifications/qa/events/quality-assurance-event-data.service';
 import { QualityAssuranceSourceDataService } from '../core/notifications/qa/source/quality-assurance-source-data.service';
 import { QualityAssuranceTopicDataService } from '../core/notifications/qa/topics/quality-assurance-topic-data.service';
+import { QualityAssuranceSuggestionDataService } from '../core/notifications/reciter-suggestions/suggestions/quality-assurance-suggestion-data.service';
+import { QualityAssuranceSuggestionTargetDataService } from '../core/notifications/reciter-suggestions/targets/quality-assurance-suggestion-target-data.service';
 import { SuggestionSourceDataService } from '../core/notifications/source/suggestion-source-data.service';
 import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
 import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
@@ -39,12 +41,6 @@ import { SuggestionTargetsStateService } from './suggestion-targets/suggestion-t
 import { SuggestionsService } from './suggestions.service';
 import { SuggestionsNotificationComponent } from './suggestions-notification/suggestions-notification.component';
 import { SuggestionsPopupComponent } from './suggestions-popup/suggestions-popup.component';
-import {
-  QualityAssuranceSuggestionTargetDataService
-} from '../core/notifications/reciter-suggestions/targets/quality-assurance-suggestion-target-data.service';
-import {
-  QualityAssuranceSuggestionDataService
-} from '../core/notifications/reciter-suggestions/suggestions/quality-assurance-suggestion-data.service';
 
 const MODULES = [
   CommonModule,

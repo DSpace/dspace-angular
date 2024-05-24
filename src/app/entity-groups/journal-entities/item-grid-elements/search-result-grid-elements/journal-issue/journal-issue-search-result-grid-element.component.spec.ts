@@ -5,7 +5,7 @@ import { ItemSearchResult } from '../../../../../shared/object-collection/shared
 import { getEntityGridElementTestComponent } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component.spec';
 import {
   createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../../shared/remote-data.utils';
 import { JournalIssueSearchResultGridElementComponent } from './journal-issue-search-result-grid-element.component';
 
@@ -29,11 +29,11 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
     'journal.title': [
       {
         language: 'en_US',
-        value: 'The journal title'
+        value: 'The journal title',
       },
     ],
   },
-  thumbnail: createNoContentRemoteDataObject$()
+  thumbnail: createNoContentRemoteDataObject$(),
 });
 
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
@@ -44,11 +44,11 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
+        value: 'This is just another title',
       },
     ],
   },
-  thumbnail: createNoContentRemoteDataObject$()
+  thumbnail: createNoContentRemoteDataObject$(),
 });
 
 describe('JournalIssueSearchResultGridElementComponent', getEntityGridElementTestComponent(JournalIssueSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['date', 'journal-title']));

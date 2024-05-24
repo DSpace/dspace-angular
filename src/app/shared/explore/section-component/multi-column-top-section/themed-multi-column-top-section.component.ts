@@ -1,6 +1,10 @@
-import { ThemedComponent } from '../../../theme-support/themed.component';
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { MultiColumnTopSection } from '../../../../core/layout/models/section.model';
+import { ThemedComponent } from '../../../theme-support/themed.component';
 import { MultiColumnTopSectionComponent } from './multi-column-top-section.component';
 
 @Component({
@@ -11,10 +15,10 @@ import { MultiColumnTopSectionComponent } from './multi-column-top-section.compo
 export class ThemedMultiColumnTopSectionComponent extends ThemedComponent<MultiColumnTopSectionComponent> {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  topSection: MultiColumnTopSection;
+    topSection: MultiColumnTopSection;
 
   protected inAndOutputNames: (keyof MultiColumnTopSectionComponent & keyof this)[] = ['sectionId', 'topSection'];
 

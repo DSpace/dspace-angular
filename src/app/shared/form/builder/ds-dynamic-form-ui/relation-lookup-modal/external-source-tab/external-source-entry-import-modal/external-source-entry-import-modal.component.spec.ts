@@ -1,7 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbActiveModal, NgbModule, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
@@ -9,15 +16,18 @@ import { LookupRelationService } from '../../../../../../../core/data/lookup-rel
 import { Collection } from '../../../../../../../core/shared/collection.model';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { UUIDService } from '../../../../../../../core/shared/uuid.service';
+import { getMockUUIDService } from '../../../../../../mocks/uuid.service.mock';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
 import { createPaginatedList } from '../../../../../../testing/utils.test';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
-import { ExternalSourceEntryImportModalComponent, ImportType, } from './external-source-entry-import-modal.component';
-import { getMockUUIDService } from '../../../../../../mocks/uuid.service.mock';
-import { UUIDService } from '../../../../../../../core/shared/uuid.service';
+import {
+  ExternalSourceEntryImportModalComponent,
+  ImportType,
+} from './external-source-entry-import-modal.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: ExternalSourceEntryImportModalComponent;
@@ -78,7 +88,7 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ItemDataService, useValue: itemService },
         { provide: NgbActiveModal, useValue: modalStub },
-        { provide: UUIDService, useValue: getMockUUIDService() }
+        { provide: UUIDService, useValue: getMockUUIDService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

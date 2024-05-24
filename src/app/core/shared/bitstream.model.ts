@@ -45,7 +45,7 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    * The checksum information of this Bitstream
    */
   @autoserialize
-  checkSum: ChecksumInfo;
+    checkSum: ChecksumInfo;
 
   /**
    * The name of the Bundle this Bitstream is part of

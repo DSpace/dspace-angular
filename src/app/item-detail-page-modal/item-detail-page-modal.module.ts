@@ -1,19 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemDetailPageModalComponent } from './item-detail-page-modal.component';
-import { CrisLayoutModule } from '../cris-layout/cris-layout.module';
+import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { CrisLayoutModule } from '../cris-layout/cris-layout.module';
+import { ItemDetailPageModalComponent } from './item-detail-page-modal.component';
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CrisLayoutModule,
-        TranslateModule,
-    ],
-    declarations: [ItemDetailPageModalComponent],
-    exports: [ItemDetailPageModalComponent],
-    entryComponents: [ItemDetailPageModalComponent]
+  imports: [
+    CommonModule,
+    CrisLayoutModule,
+    TranslateModule,
+  ],
+  declarations: [ItemDetailPageModalComponent],
+  exports: [ItemDetailPageModalComponent],
+  entryComponents: [ItemDetailPageModalComponent],
 })
 
 /**

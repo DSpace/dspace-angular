@@ -30,13 +30,13 @@ import {
   isNotEmpty,
   isNotNull,
 } from '../../shared/empty.util';
+import { hasAuthMethodRendering } from '../../shared/log-in/methods/log-in.methods-decorator';
 import { RedirectWhenTokenExpiredAction } from './auth.actions';
 import { AuthService } from './auth.service';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { hasAuthMethodRendering } from '../../shared/log-in/methods/log-in.methods-decorator';
 
 export const ON_BEHALF_OF_HEADER = 'X-On-Behalf-Of';
 

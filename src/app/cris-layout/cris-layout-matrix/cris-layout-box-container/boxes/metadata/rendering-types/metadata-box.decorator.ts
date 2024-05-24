@@ -1,5 +1,6 @@
-import { GenericConstructor } from '../../../../../../core/shared/generic-constructor';
 import { Component } from '@angular/core';
+
+import { GenericConstructor } from '../../../../../../core/shared/generic-constructor';
 
 export enum FieldRenderingType {
   TEXT = 'TEXT',
@@ -32,7 +33,7 @@ export function MetadataBoxFieldRendering(objectType: FieldRenderingType, struct
     if (objectType) {
       fieldType.set(objectType, {
         componentRef: component,
-        structured: structured
+        structured: structured,
       } as MetadataBoxFieldRenderOptions);
     }
   };

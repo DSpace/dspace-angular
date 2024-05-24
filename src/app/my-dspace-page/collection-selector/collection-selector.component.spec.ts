@@ -1,30 +1,47 @@
 /* eslint-disable max-classes-per-file */
-import { ChangeDetectorRef, ElementRef, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  ElementRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
-import { getTestScheduler, hot, } from 'jasmine-marbles';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { CollectionSelectorComponent } from './collection-selector.component';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
 import {
   CollectionDropdownComponent,
-  CollectionListEntry
+  CollectionListEntry,
 } from '../../shared/collection-dropdown/collection-dropdown.component';
-import { Collection } from '../../core/shared/collection.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Community } from '../../core/shared/community.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$, } from '../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { MockElementRef } from '../../shared/testing/element-ref.mock';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { CollectionSelectorComponent } from './collection-selector.component';
 
 describe('CollectionSelectorComponent', () => {
   let component: CollectionSelectorComponent;
@@ -98,7 +115,7 @@ describe('CollectionSelectorComponent', () => {
 
   const entry: CollectionListEntry = {
     communities: [community],
-    collection: collections[0]
+    collection: collections[0],
   };
 
   const collectionDataServiceMock = {

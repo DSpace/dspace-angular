@@ -48,11 +48,11 @@ import {
   getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { UUIDService } from '../../core/shared/uuid.service';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-groups-registry',

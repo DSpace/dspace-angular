@@ -1,4 +1,7 @@
-import { Inject, InjectionToken, } from '@angular/core';
+import {
+  Inject,
+  InjectionToken,
+} from '@angular/core';
 import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
@@ -6,10 +9,24 @@ import {
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
+
+import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { Metadata } from '../../../../core/shared/metadata.utils';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
 import { isNgbDateStruct } from '../../../date.util';
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, } from '../../../empty.util';
-import { DsDynamicInputModel, DsDynamicInputModelConfig, } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '../../../empty.util';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import {
   DynamicRowArrayModel,
   DynamicRowArrayModelConfig,
@@ -20,10 +37,6 @@ import { RelationshipOptions } from '../models/relationship-options.model';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { Metadata } from '../../../../core/shared/metadata.utils';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
-import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -51,7 +64,7 @@ export abstract class FieldParser {
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
-    @Inject(SECURITY_CONFIG) protected securityConfig: any = null
+    @Inject(SECURITY_CONFIG) protected securityConfig: any = null,
   ) {
   }
 

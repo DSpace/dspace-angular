@@ -1,17 +1,26 @@
 // Load the implementations that should be tested
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { FileUploadModule } from 'ng2-file-upload';
 
+import { AuthService } from '../../../core/auth/auth.service';
 import { DragService } from '../../../core/drag.service';
 import { CookieService } from '../../../core/services/cookie.service';
+import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { CookieServiceMock } from '../../mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../mocks/http-xsrf-token-extractor.mock';
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { createTestComponent } from '../../testing/utils.test';
 import { UploaderComponent } from './uploader.component';
 import { UploaderOptions } from './uploader-options.model';

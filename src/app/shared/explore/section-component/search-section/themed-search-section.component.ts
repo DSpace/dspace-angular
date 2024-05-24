@@ -1,6 +1,10 @@
-import { ThemedComponent } from '../../../theme-support/themed.component';
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { SearchSection } from '../../../../core/layout/models/section.model';
+import { ThemedComponent } from '../../../theme-support/themed.component';
 import { SearchSectionComponent } from './search-section.component';
 
 @Component({
@@ -11,10 +15,10 @@ import { SearchSectionComponent } from './search-section.component';
 export class ThemedSearchSectionComponent extends ThemedComponent<SearchSectionComponent> {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  searchSection: SearchSection;
+    searchSection: SearchSection;
 
   protected inAndOutputNames: (keyof SearchSectionComponent & keyof this)[] = ['sectionId', 'searchSection'];
 

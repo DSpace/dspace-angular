@@ -8,6 +8,7 @@ import {
 import { Context } from '../../core/shared/context.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { AlertType } from '../alert/alert-type';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { ThemedComponent } from '../theme-support/themed.component';
@@ -15,7 +16,6 @@ import { SearchObjects } from './models/search-objects.model';
 import { SearchComponent } from './search.component';
 import { SelectionConfig } from './search-results/search-results.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
-import { AlertType } from '../alert/alert-type';
 
 /**
  * Themed wrapper for {@link SearchComponent}

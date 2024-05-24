@@ -1,9 +1,31 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, } from '@angular/core';
-import { ActivatedRoute, Data, Router, } from '@angular/router';
-import { BehaviorSubject, Observable, } from 'rxjs';
-import { filter, map, tap, } from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Router,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  tap,
+} from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -16,7 +38,6 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataMap } from '../../core/shared/metadata.models';
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { ItemPageComponent } from '../simple/item-page.component';
 
 /**
@@ -72,8 +93,8 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
       map((rd: RemoteData<Item>) => rd.payload),
       filter((item: Item) => hasValue(item)),
       map((item: Item) => item.metadata),
-      tap((metadataMap: MetadataMap) => this.nextMetadataMapLimit(metadataMap))
-     );
+      tap((metadataMap: MetadataMap) => this.nextMetadataMapLimit(metadataMap)),
+    );
 
     this.subs.push(this.route.data.subscribe((data: Data) => {
       this.fromSubmissionObject = hasValue(data.wfi) || hasValue(data.wsi);

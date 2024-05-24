@@ -1,13 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { CrisLayoutBoxContainerComponent } from './cris-layout-box-container.component';
+import { Item } from '../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { boxMetadata } from '../../../shared/testing/box.mock';
-import { Item } from '../../../core/shared/item.model';
 import { CrisLayoutMetadataBoxComponent } from './boxes/metadata/cris-layout-metadata-box.component';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import { CrisLayoutBoxContainerComponent } from './cris-layout-box-container.component';
 
 describe('CrisLayoutBoxContainerComponent', () => {
   let component: CrisLayoutBoxContainerComponent;
@@ -22,16 +28,16 @@ describe('CrisLayoutBoxContainerComponent', () => {
       'dc.title': [
         {
           language: null,
-          value: 'test'
-        }
+          value: 'test',
+        },
       ],
       'dspace.entity.type': [
         {
           language: null,
-          value: 'Person'
-        }
-      ]
-    }
+          value: 'Person',
+        },
+      ],
+    },
   });
 
 
@@ -41,9 +47,9 @@ describe('CrisLayoutBoxContainerComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [CrisLayoutBoxContainerComponent],
     }).compileComponents();

@@ -7,6 +7,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
@@ -16,7 +17,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { VarDirective } from '../../utils/var.directive';
-import { APP_CONFIG } from '../../../../config/app-config.interface';
 
 export function createSidebarSearchListElementTests(
   componentClass: any,
@@ -35,8 +35,8 @@ export function createSidebarSearchListElementTests(
 
     const environment = {
       browseBy: {
-        showThumbnails: true
-      }
+        showThumbnails: true,
+      },
     };
 
     beforeEach(waitForAsync(() => {

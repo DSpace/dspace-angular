@@ -1,11 +1,24 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-
+import {
+  DOCUMENT,
+  isPlatformBrowser,
+} from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ChildActivationEnd,
+  Router,
+} from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChildActivationEnd, Router } from '@angular/router';
 
 @Injectable( { providedIn: 'root' } )
 export class SocialService {
@@ -37,7 +50,7 @@ export class SocialService {
       return route;
     }),
     filter(route => route.outlet === 'primary'),
-    map(route => route.data)
+    map(route => route.data),
   );
 
   /**

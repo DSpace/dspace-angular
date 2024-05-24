@@ -18,6 +18,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { validate as uuidValidate } from 'uuid';
 
 import {
   hasValue,
@@ -26,6 +27,7 @@ import {
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
@@ -39,6 +41,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
 import { MetadataMap } from '../shared/metadata.models';
+import { Metric } from '../shared/metric.model';
 import { NoContent } from '../shared/NoContent.model';
 import { sendRequest } from '../shared/request.operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -59,10 +62,11 @@ import {
   PatchData,
   PatchDataImpl,
 } from './base/patch-data';
+import { SearchDataImpl } from './base/search-data';
 import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
-import { Metric } from '../shared/metric.model';
+import { ItemSearchParams } from './item-search-params';
 import { PaginatedList } from './paginated-list.model';
 import { ResponseParsingService } from './parsing.service';
 import { RemoteData } from './remote-data';
@@ -76,10 +80,6 @@ import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
 import { RestRequestMethod } from './rest-request-method';
 import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { ItemSearchParams } from './item-search-params';
-import { validate as uuidValidate } from 'uuid';
-import { SearchDataImpl } from './base/search-data';
 
 /**
  * An abstract service for CRUD operations on Items
@@ -128,7 +128,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     return this.browseService.getBrowseURLFor(field, linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString()),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -247,7 +247,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getMetricsEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('metrics', `${url}/${itemId}`))
+      switchMap((url: string) => this.halService.getEndpoint('metrics', `${url}/${itemId}`)),
     );
   }
 
@@ -258,10 +258,10 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
    */
   public getMetrics(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Metric>>> {
     const hrefObs = this.getMetricsEndpoint(itemId).pipe(
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href),
     );
     hrefObs.pipe(
-      take(1)
+      take(1),
     ).subscribe((href) => {
       const request = new GetRequest(this.requestService.generateRequestId(), href);
       this.requestService.send(request);
@@ -482,7 +482,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       switchMap((params: ItemSearchParams) => {
         return this.searchData.searchBy(this.searchFindAllByIdPath,
           this.createSearchOptionsObjectsFindAllByID(params.uuidList, options), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-      })
+      }),
     );
   }
 
@@ -500,7 +500,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
       params.push(new RequestParam('id', uuid));
     });
     return Object.assign(new FindListOptions(), options, {
-      searchParams: [...params]
+      searchParams: [...params],
     });
   }
 
@@ -565,7 +565,7 @@ export abstract class BaseItemDataService extends IdentifiableDataService<Item> 
     const options = Object.assign({}, {
       searchParams: [
         new RequestParam('q', id),
-      ]
+      ],
     });
 
     projections.forEach((projection) => {

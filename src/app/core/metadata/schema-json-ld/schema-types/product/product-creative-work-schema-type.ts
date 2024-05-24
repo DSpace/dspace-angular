@@ -19,7 +19,7 @@ export class ProductCreativeWorkSchemaType extends SchemaType {
       'genre': SchemaType.getMetadataValue(item, 'dc.subject'),
       'abstract': SchemaType.getMetadataValue(item, 'dc.description.abstract'),
       'funding': SchemaType.getMetadataValue(item, 'dc.relation.funding'),
-      'sponsor': SchemaType.getMetadataValue(item, 'dc.description.sponsorship')
+      'sponsor': SchemaType.getMetadataValue(item, 'dc.description.sponsorship'),
     };
   }
 }

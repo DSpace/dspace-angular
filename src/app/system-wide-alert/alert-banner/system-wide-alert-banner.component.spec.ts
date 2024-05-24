@@ -50,19 +50,19 @@ describe('SystemWideAlertBannerComponent', () => {
     systemWideAlertEmptyMessage = Object.assign(new SystemWideAlert(), {
       alertId: 1,
       message: '',
-      active: true
+      active: true,
     });
 
     systemWideAlertNullMessage = Object.assign(new SystemWideAlert(), {
       alertId: 1,
       message: null,
-      active: true
+      active: true,
     });
 
     systemWideAlertUndefinedMessage = Object.assign(new SystemWideAlert(), {
       alertId: 1,
       message: undefined,
-      active: true
+      active: true,
     });
 
     systemWideAlertDataService = jasmine.createSpyObj('systemWideAlertDataService', {

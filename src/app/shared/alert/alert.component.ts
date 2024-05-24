@@ -1,10 +1,19 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { trigger } from '@angular/animations';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import uniqueId from 'lodash/uniqueId';
 
+import {
+  fadeOutLeave,
+  fadeOutState,
+} from '../animations/fade';
 import { AlertType } from './alert-type';
-import { fadeOutLeave, fadeOutState } from '../animations/fade';
 
 /**
  * This component allow to create div that uses the Bootstrap's Alerts component.

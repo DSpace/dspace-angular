@@ -1,25 +1,29 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
 
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { dataService } from '../../../data/base/data-service.decorator';
-import { RequestService } from '../../../data/request.service';
-import { RemoteData } from '../../../data/remote-data';
-import { OpenaireSuggestionTarget } from '../models/openaire-suggestion-target.model';
-import { SUGGESTION_TARGET } from '../models/openaire-suggestion-objects.resource-type';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { FindListOptions } from '../../../data/find-list-options.model';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../../../data/base/find-all-data';
 import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
-import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
-
-import { RequestParam } from '../../../cache/models/request-param.model';
-import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../../../data/base/search-data';
+import { FindListOptions } from '../../../data/find-list-options.model';
+import { PaginatedList } from '../../../data/paginated-list.model';
+import { RemoteData } from '../../../data/remote-data';
+import { RequestService } from '../../../data/request.service';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { SUGGESTION_TARGET } from '../models/openaire-suggestion-objects.resource-type';
 import { OpenaireSuggestionSource } from '../models/openaire-suggestion-source.model';
+import { OpenaireSuggestionTarget } from '../models/openaire-suggestion-target.model';
 
 /**
  * The service handling all Quality Assurance source REST requests.
@@ -47,7 +51,7 @@ export class QualityAssuranceSuggestionTargetDataService extends IdentifiableDat
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService
+    protected notificationsService: NotificationsService,
   ) {
     super('suggestiontargets', requestService, rdbService, objectCache, halService);
     this.findAllData = new FindAllDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);

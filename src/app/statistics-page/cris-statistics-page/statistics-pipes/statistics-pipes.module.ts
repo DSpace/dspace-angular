@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FilterMapPipe } from './filter-map.pipe';
+import { NgModule } from '@angular/core';
+
 import { CreateLinkPipe } from './create-link.pipe';
+import { FilterMapPipe } from './filter-map.pipe';
 
 const pipes = [FilterMapPipe, CreateLinkPipe];
 

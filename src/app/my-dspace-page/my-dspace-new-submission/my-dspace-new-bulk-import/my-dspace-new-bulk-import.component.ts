@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  BulkImportSelectorComponent
-} from '../../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
+
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { hasValue } from '../../../shared/empty.util';
-import { map, mergeMap, take } from 'rxjs/operators';
-import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Observable, of as observableOf, Subscription } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { BulkImportSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/bulk-import-collection-selector/bulk-import-collection-selector.component';
+import { hasValue } from '../../../shared/empty.util';
 
 
 /**
@@ -18,7 +25,7 @@ import { Observable, of as observableOf, Subscription } from 'rxjs';
  */
 @Component({
   selector: 'ds-my-dspace-new-bulk-import',
-  templateUrl: './my-dspace-new-bulk-import.component.html'
+  templateUrl: './my-dspace-new-bulk-import.component.html',
 })
 export class MyDSpaceNewBulkImportComponent {
 
@@ -62,24 +69,24 @@ export class MyDSpaceNewBulkImportComponent {
         if (!response) {
           const findListOptions: FindListOptions = {
             elementsPerPage: 1,
-            currentPage: 1
+            currentPage: 1,
           };
           return this.entityTypeService.getAllAuthorizedRelationshipType(findListOptions).pipe(
             map((entities: RemoteData<PaginatedList<ItemType>>) => {
               this.initialized$ = observableOf(true);
               return entities.payload.page[0];
             }),
-            take(1)
+            take(1),
           );
         } else {
           this.initialized$ = observableOf(true);
           return observableOf(null);
         }
       }),
-      take(1)
+      take(1),
     );
     this.subs.push(
-      this.singleEntity$.subscribe((result) => this.singleEntity = result )
+      this.singleEntity$.subscribe((result) => this.singleEntity = result ),
     );
   }
 

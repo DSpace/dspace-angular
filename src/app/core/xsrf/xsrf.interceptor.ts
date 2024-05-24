@@ -8,12 +8,22 @@ import {
   HttpXsrfTokenExtractor,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError, } from 'rxjs';
-import { catchError, tap, } from 'rxjs/operators';
+import {
+  Observable,
+  throwError,
+} from 'rxjs';
+import {
+  catchError,
+  tap,
+} from 'rxjs/operators';
 
 import { CookieService } from '../services/cookie.service';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
-import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER, } from './xsrf.constants';
+import {
+  XSRF_COOKIE,
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+} from './xsrf.constants';
 
 /**
  * Custom Http Interceptor intercepting Http Requests & Responses to

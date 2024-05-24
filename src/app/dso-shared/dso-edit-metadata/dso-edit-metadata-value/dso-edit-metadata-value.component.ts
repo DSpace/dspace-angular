@@ -7,9 +7,13 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -18,11 +22,13 @@ import {
   Observable,
   of as observableOf,
   shareReplay,
-  Subscription
+  Subscription,
 } from 'rxjs';
-import { UntypedFormControl, UntypedFormGroup, } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import { map, switchMap, take, } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 import { RegistryService } from 'src/app/core/registry/registry.service';
 import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
@@ -33,10 +39,8 @@ import { RelationshipDataService } from '../../../core/data/relationship-data.se
 import { Collection } from '../../../core/shared/collection.model';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import {
-  ItemMetadataRepresentation
-} from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { Item } from '../../../core/shared/item.model';
+import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
@@ -48,11 +52,14 @@ import {
   getRemoteDataPayload,
   metadataFieldsToString,
 } from '../../../core/shared/operators';
+import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import {
   DsDynamicOneboxModelConfig,
   DynamicOneboxModel,
@@ -63,6 +70,10 @@ import {
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import {
+  DsoEditMetadataChangeType,
+  DsoEditMetadataValue,
+} from '../dso-edit-metadata-form';
 
 @Component({
   selector: 'ds-dso-edit-metadata-value',
@@ -97,7 +108,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
   }
 
   protected readonly _metadataSecurityConfiguration$ =
-      new BehaviorSubject<MetadataSecurityConfiguration | null>(null);
+    new BehaviorSubject<MetadataSecurityConfiguration | null>(null);
 
   /**
    * The metadata field to display a value for
@@ -248,16 +259,16 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
 
     this.sub = combineLatest([
       this._mdField$,
-      this._metadataSecurityConfiguration$
+      this._metadataSecurityConfiguration$,
     ]).subscribe(([mdField, metadataSecurityConfig]) => this.initSecurityLevel(mdField, metadataSecurityConfig));
 
     this.canShowMetadataSecurity$ =
         combineLatest([
           this._mdField$.pipe(distinctUntilChanged()),
-          this.mdSecurityConfigLevel$
+          this.mdSecurityConfigLevel$,
         ]).pipe(
-            map(([mdField, securityConfigLevel]) => hasValue(mdField) && this.hasSecurityChoice(securityConfigLevel)),
-            shareReplay(1),
+          map(([mdField, securityConfigLevel]) => hasValue(mdField) && this.hasSecurityChoice(securityConfigLevel)),
+          shareReplay(1),
         );
   }
 

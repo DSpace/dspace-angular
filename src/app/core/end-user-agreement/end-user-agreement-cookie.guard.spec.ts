@@ -2,10 +2,10 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import { of } from 'rxjs';
 
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { EndUserAgreementCookieGuard } from './end-user-agreement-cookie.guard';
-import { of } from 'rxjs';
 
 describe('EndUserAgreementCookieGuard', () => {
   let guard: EndUserAgreementCookieGuard;

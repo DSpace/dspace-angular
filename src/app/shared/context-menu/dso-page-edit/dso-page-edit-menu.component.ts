@@ -1,20 +1,23 @@
-import { Component, Inject, OnInit } from '@angular/core';
-
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 @Component({
   selector: 'ds-dso-page-edit-menu',
   templateUrl: './dso-page-edit-menu.component.html',
-  styleUrls: ['./dso-page-edit-menu.component.scss']
+  styleUrls: ['./dso-page-edit-menu.component.scss'],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COMMUNITY)
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
@@ -41,7 +44,7 @@ export class DsoPageEditMenuComponent extends ContextMenuEntryComponent implemen
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     protected authorizationService: AuthorizationDataService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditDSO);
   }

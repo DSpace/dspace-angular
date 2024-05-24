@@ -126,7 +126,7 @@ export class JsonPatchOperationsBuilder {
   }
 
   protected prepareValue(value: any, plain: boolean, first: boolean, securityLevel = null) {
-      let operationValue: any = null;
+    let operationValue: any = null;
     if (hasValue(value)) {
       if (plain) {
         operationValue = value;

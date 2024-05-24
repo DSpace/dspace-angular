@@ -11,17 +11,17 @@ import {
 } from 'jasmine-marbles';
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Bitstream } from '../../core/shared/bitstream.model';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { Item } from '../../core/shared/item.model';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { FileDownloadLinkComponent } from './file-download-link.component';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -53,8 +53,8 @@ describe('FileDownloadLinkComponent', () => {
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
       findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
         name: 'request.item.type',
-        values: []
-      }))
+        values: [],
+      })),
     });
   }
 
@@ -67,7 +67,7 @@ describe('FileDownloadLinkComponent', () => {
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
-      ]
+      ],
     })
       .compileComponents();
   }

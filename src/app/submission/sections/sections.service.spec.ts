@@ -19,6 +19,7 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
+import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormService } from '../../shared/form/form.service';
@@ -49,7 +50,6 @@ import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { SectionsService } from './sections.service';
 import { SectionsType } from './sections-type';
-import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;
@@ -271,8 +271,8 @@ describe('SectionsService test suite', () => {
       submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
       store.select.and.returnValue(observableOf({
         visibility: {
-          workflow: SubmissionVisibilityValue.ReadOnly
-        }
+          workflow: SubmissionVisibilityValue.ReadOnly,
+        },
       }));
 
       const expected = cold('(b|)', {
@@ -286,8 +286,8 @@ describe('SectionsService test suite', () => {
       submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
       store.select.and.returnValue(observableOf({
         visibility: {
-          workflow: SubmissionVisibilityValue.ReadOnly
-        }
+          workflow: SubmissionVisibilityValue.ReadOnly,
+        },
       }));
 
       const expected = cold('(b|)', {
@@ -318,15 +318,15 @@ describe('SectionsService test suite', () => {
           'upload': {
             sectionType: SectionsType.Upload,
             visibility: {
-              workflow: SubmissionVisibilityValue.ReadOnly
-            }
-          }
-        }
+              workflow: SubmissionVisibilityValue.ReadOnly,
+            },
+          },
+        },
       };
       store.select.and.returnValue(observableOf(mockState));
 
       const expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
@@ -339,15 +339,15 @@ describe('SectionsService test suite', () => {
           'upload': {
             sectionType: SectionsType.Upload,
             visibility: {
-              workflow: SubmissionVisibilityValue.ReadOnly
-            }
-          }
-        }
+              workflow: SubmissionVisibilityValue.ReadOnly,
+            },
+          },
+        },
       };
       store.select.and.returnValue(observableOf(mockState));
 
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkspaceItem)).toBeObservable(expected);
@@ -358,14 +358,14 @@ describe('SectionsService test suite', () => {
         sections: {
           'upload': {
             sectionType: SectionsType.Upload,
-            visibility: null
-          }
-        }
+            visibility: null,
+          },
+        },
       };
       store.select.and.returnValue(observableOf(mockState));
 
       const expected = cold('(b|)', {
-        b: false
+        b: false,
       });
 
       expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);
@@ -374,12 +374,12 @@ describe('SectionsService test suite', () => {
     it('should return an observable of true when there is no section', () => {
       submissionServiceStub.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkflowItem);
       const mockState = {
-        sections: {}
+        sections: {},
       };
       store.select.and.returnValue(observableOf(mockState));
 
       const expected = cold('(b|)', {
-        b: true
+        b: true,
       });
 
       expect(service.isSectionReadOnlyByType(submissionId, sectionType, SubmissionScopeType.WorkflowItem)).toBeObservable(expected);

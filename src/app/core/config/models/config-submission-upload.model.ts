@@ -45,7 +45,7 @@ export class SubmissionUploadModel extends ConfigObject {
    * Boolean that indicates whether or not the user can see add more access condition options.
    */
   @autoserialize
-  singleAccessCondition: boolean;
+    singleAccessCondition: boolean;
 
   @deserialize
     _links: {

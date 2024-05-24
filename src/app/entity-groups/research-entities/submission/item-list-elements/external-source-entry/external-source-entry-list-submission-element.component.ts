@@ -3,18 +3,18 @@ import {
   OnInit,
 } from '@angular/core';
 
+import { environment } from '../../../../../../environments/environment';
 import { Context } from '../../../../../core/shared/context.model';
 import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
+import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
-import { DuplicateMatchMetadataDetailConfig } from '../../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
-import { environment } from '../../../../../../environments/environment';
-import { Item } from '../../../../../core/shared/item.model';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import { DuplicateMatchMetadataDetailConfig } from '../../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
@@ -52,7 +52,7 @@ export class ExternalSourceEntryListSubmissionElementComponent extends AbstractL
    */
   identifiers: MetadataValue[];
 
- /**
+  /**
    * The search result object.
    * @type {object}
    */

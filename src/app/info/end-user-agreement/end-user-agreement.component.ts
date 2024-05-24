@@ -1,12 +1,30 @@
-import { Component, OnDestroy, OnInit, } from '@angular/core';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, combineLatest, of as observableOf } from 'rxjs';
-import { map, switchMap, take, } from 'rxjs/operators';
+import {
+  combineLatest,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
-import { LogOutAction, RefreshEpersonAndTokenRedirectAction } from '../../core/auth/auth.actions';
+import {
+  LogOutAction,
+  RefreshEpersonAndTokenRedirectAction,
+} from '../../core/auth/auth.actions';
 import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { isNotEmpty } from '../../shared/empty.util';
@@ -57,7 +75,7 @@ export class EndUserAgreementComponent implements OnInit, OnDestroy {
     this.subscription.add(
       combineLatest([
         this.endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement(false),
-        this.authService.isAuthenticated()
+        this.authService.isAuthenticated(),
       ])
         .subscribe(([accepted, authorized]) => {
           if (authorized) {
@@ -71,7 +89,7 @@ export class EndUserAgreementComponent implements OnInit, OnDestroy {
           } else {
             this.alreadyAccepted = true;
           }
-        })
+        }),
     );
   }
 

@@ -25,14 +25,17 @@ import { CommunityListPageModule } from '../../app/community-list-page/community
 import { CommunityFormModule } from '../../app/community-page/community-form/community-form.module';
 import { CommunityPageModule } from '../../app/community-page/community-page.module';
 import { CoreModule } from '../../app/core/core.module';
+import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
 import { DsoSharedModule } from '../../app/dso-shared/dso-shared.module';
 import { JournalEntitiesModule } from '../../app/entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../../app/entity-groups/research-entities/research-entities.module';
+import { FooterModule } from '../../app/footer/footer.module';
 import { HomePageModule } from '../../app/home-page/home-page.module';
 import { InfoModule } from '../../app/info/info.module';
 import { EditItemPageModule } from '../../app/item-page/edit-item-page/edit-item-page.module';
 import { ItemPageModule } from '../../app/item-page/item-page.module';
 import { ItemSharedModule } from '../../app/item-page/item-shared.module';
+import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
 import { ItemVersionsModule } from '../../app/item-page/versions/item-versions.module';
 import { MyDSpacePageModule } from '../../app/my-dspace-page/my-dspace-page.module';
 import { MyDspaceSearchModule } from '../../app/my-dspace-page/my-dspace-search.module';
@@ -44,14 +47,18 @@ import { RootModule } from '../../app/root.module';
 import { SearchPageModule } from '../../app/search-page/search-page.module';
 import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
 import { ComcolModule } from '../../app/shared/comcol/comcol.module';
+import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
 import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
+import { ExploreModule } from '../../app/shared/explore/explore.module';
 import { FormModule } from '../../app/shared/form/form.module';
 import { MenuModule } from '../../app/shared/menu/menu.module';
 import { ResourcePoliciesModule } from '../../app/shared/resource-policies/resource-policies.module';
 import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
 import { SearchModule } from '../../app/shared/search/search.module';
 import { SharedModule } from '../../app/shared/shared.module';
+import { SocialModule } from '../../app/social/social.module';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
+import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
 import { StatisticsPageModule } from '../../app/statistics-page/statistics-page.module';
 import { SubmissionModule } from '../../app/submission/submission.module';
 import { SystemWideAlertModule } from '../../app/system-wide-alert/system-wide-alert.module';
@@ -62,6 +69,7 @@ import { BrowseByDateComponent } from './app/browse-by/browse-by-date/browse-by-
 import { BrowseByMetadataComponent } from './app/browse-by/browse-by-metadata/browse-by-metadata.component';
 import { BrowseByTaxonomyComponent } from './app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component';
 import { BrowseByTitleComponent } from './app/browse-by/browse-by-title/browse-by-title.component';
+import { BrowseMostElementsComponent } from './app/browse-most-elements/browse-most-elements.component';
 import { CollectionPageComponent } from './app/collection-page/collection-page.component';
 import { EditItemTemplatePageComponent } from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
@@ -138,14 +146,6 @@ import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { WorkflowItemDeleteComponent } from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemSendBackComponent } from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
 import { WorkspaceItemsDeletePageComponent } from './app/workspace-items-delete-page/workspace-items-delete/workspace-items-delete.component';
-import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
-import { CrisItemPageModule } from '../../app/cris-item-page/cris-item-page.module';
-import { CrisStatisticsPageModule } from '../../app/statistics-page/cris-statistics-page/cris-statistics-page.module';
-import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
-import { FooterModule } from '../../app/footer/footer.module';
-import { ExploreModule } from '../../app/shared/explore/explore.module';
-import { SocialModule } from '../../app/social/social.module';
-import { BrowseMostElementsComponent } from './app/browse-most-elements/browse-most-elements.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -298,13 +298,13 @@ const DECLARATIONS = [
     MiradorViewerModule,
     FooterModule,
     ExploreModule,
-    SocialModule
+    SocialModule,
   ],
   declarations: DECLARATIONS,
   exports: [
-      CommunityPageSubCollectionListComponent,
-      ConfigurationSearchPageComponent
-  ]
+    CommunityPageSubCollectionListComponent,
+    ConfigurationSearchPageComponent,
+  ],
 })
 
 /**

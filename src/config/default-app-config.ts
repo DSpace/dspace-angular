@@ -1,14 +1,19 @@
-import {
-  AdminNotifyMetricsRow
-} from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { ActuatorsConfig } from './actuators.config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
+import {
+  AdvancedAttachmentElementType,
+  AdvancedAttachmentRenderingConfig,
+} from './advanced-attachment-rendering.config';
 import { AppConfig } from './app-config.interface';
+import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
@@ -19,29 +24,26 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import {
+  CrisLayoutConfig,
+  LayoutConfig,
+  SuggestionConfig,
+} from './layout-config.interfaces';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
+import { MetadataSecurityConfig } from './metadata-security-config';
+import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
+import { MiradorConfig } from './mirador-config.interfaces';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
+import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { SearchConfig } from './search-page-config.interface';
+import { SearchResultConfig } from './search-result-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
-import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
-import { CmsMetadata } from './cms-metadata';
-import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
-import { MetadataSecurityConfig } from './metadata-security-config';
-import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
-import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
-import {
-  AdvancedAttachmentElementType,
-  AdvancedAttachmentRenderingConfig
-} from './advanced-attachment-rendering.config';
-import { AttachmentRenderingConfig } from './attachment-rendering.config';
-import { SearchResultConfig } from './search-result-config.interface';
-import { MiradorConfig } from './mirador-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -194,23 +196,23 @@ export class DefaultAppConfig implements AppConfig {
         },
         {
           name: 'dc.contributor.author',
-          style: 'fas fa-user'
+          style: 'fas fa-user',
         },
         {
           name: 'dc.contributor.editor',
-          style: 'fas fa-user'
+          style: 'fas fa-user',
         },
         {
           name: 'oairecerif.author.affiliation',
-          style: 'fas fa-university'
+          style: 'fas fa-university',
         },
         {
           name: 'oairecerif.editor.affiliation',
-          style: 'fas fa-university'
+          style: 'fas fa-university',
         },
         {
           name: 'dc.relation.grantno',
-          style: 'fas fa-info-circle'
+          style: 'fas fa-info-circle',
         },
         // default configuration
         {
@@ -274,7 +276,7 @@ export class DefaultAppConfig implements AppConfig {
     detectDuplicate: {
       // NOTE: list of additional item metadata to show for duplicate match presentation list
       metadataDetailsList: [
-        { label: 'Document type', name: 'dc.type' }
+        { label: 'Document type', name: 'dc.type' },
       ],
     },
   };
@@ -378,12 +380,12 @@ export class DefaultAppConfig implements AppConfig {
   followAuthorityMetadata: FollowAuthorityMetadata[] = [
     {
       type: 'Publication',
-      metadata: ['dc.contributor.author']
+      metadata: ['dc.contributor.author'],
     },
     {
       type: 'Product',
-      metadata: ['dc.contributor.author']
-    }
+      metadata: ['dc.contributor.author'],
+    },
   ];
 
   // Collection Page Config
@@ -532,17 +534,17 @@ export class DefaultAppConfig implements AppConfig {
     metricsConsents: [
       {
         key: 'plumX',
-        enabled: true
+        enabled: true,
       },
       {
         key: 'altmetric',
-        enabled: true
+        enabled: true,
       },
       {
         key: 'dimensions',
-        enabled: true
+        enabled: true,
       },
-    ]
+    ],
   };
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
@@ -679,7 +681,7 @@ export class DefaultAppConfig implements AppConfig {
       {
         name: 'mailto',
         baseUrl: 'mailto:',
-      }
+      },
     ],
     crisRef: [
       {
@@ -688,8 +690,8 @@ export class DefaultAppConfig implements AppConfig {
           default: {
             icon: 'fa fa-info',
             style: 'text-info',
-          }
-        }
+          },
+        },
       },
       {
         entityType: 'PERSON',
@@ -697,8 +699,8 @@ export class DefaultAppConfig implements AppConfig {
           default: {
             icon: 'fa fa-user',
             style: 'text-info',
-          }
-        }
+          },
+        },
       },
       {
         entityType: 'ORGUNIT',
@@ -706,8 +708,8 @@ export class DefaultAppConfig implements AppConfig {
           default: {
             icon: 'fa fa-university',
             style: 'text-info',
-          }
-        }
+          },
+        },
       },
       {
         entityType: 'PROJECT',
@@ -715,9 +717,9 @@ export class DefaultAppConfig implements AppConfig {
           default: {
             icon: 'fas fa-project-diagram',
             style: 'text-info',
-          }
-        }
-      }
+          },
+        },
+      },
     ],
     crisRefStyleMetadata: {
       default: 'cris.entity.style',
@@ -740,8 +742,8 @@ export class DefaultAppConfig implements AppConfig {
     collectionsBox: {
       defaultCollectionsLabelColStyle: 'col-3 font-weight-bold',
       defaultCollectionsValueColStyle: 'col-9',
-      isInline: true
-    }
+      isInline: true,
+    },
   };
 
   layout: LayoutConfig = {
@@ -751,7 +753,7 @@ export class DefaultAppConfig implements AppConfig {
     },
     breadcrumbs: {
       charLimit: 10,
-    }
+    },
   };
 
   security: MetadataSecurityConfig = {
@@ -770,8 +772,8 @@ export class DefaultAppConfig implements AppConfig {
         value: 2,
         icon: 'fa fa-lock',
         color: 'red',
-      }
-    ]
+      },
+    ],
   };
 
   suggestion: SuggestionConfig[] = [
@@ -787,7 +789,7 @@ export class DefaultAppConfig implements AppConfig {
       'cris.cms.home-header',
       'cris.cms.home-news',
       'cris.cms.footer',
-    ]
+    ],
   };
 
   addToAnyPlugin: AddToAnyPluginConfig = {
@@ -823,7 +825,7 @@ export class DefaultAppConfig implements AppConfig {
     {
       type: 'embedded-view',
       icon: 'fa fa-eye',
-      class: 'alert alert-success'
+      class: 'alert alert-success',
     },
     {
       type: 'embedded-download',
@@ -858,17 +860,17 @@ export class DefaultAppConfig implements AppConfig {
       {
         name: 'dc.title',
         type: AdvancedAttachmentElementType.Metadata,
-        truncatable: false
+        truncatable: false,
       },
       {
         name: 'dc.type',
         type: AdvancedAttachmentElementType.Metadata,
-        truncatable: false
+        truncatable: false,
       },
       {
         name: 'dc.description',
         type: AdvancedAttachmentElementType.Metadata,
-        truncatable: true
+        truncatable: true,
       },
       {
         name: 'size',
@@ -881,7 +883,7 @@ export class DefaultAppConfig implements AppConfig {
       {
         name: 'checksum',
         type: AdvancedAttachmentElementType.Attribute,
-      }
+      },
     ],
   };
 

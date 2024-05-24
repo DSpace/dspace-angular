@@ -7,6 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { Context } from '../../../../core/shared/context.model';
@@ -17,9 +18,8 @@ import { AbstractComponentLoaderComponent } from '../../../abstract-component-lo
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { ListableObject } from '../listable-object.model';
-import { ListableObjectDirective } from './listable-object.directive';
 import { getListableObjectComponent } from './listable-object.decorator';
-import { Subscription } from 'rxjs';
+import { ListableObjectDirective } from './listable-object.directive';
 
 @Component({
   selector: 'ds-listable-object-component-loader',

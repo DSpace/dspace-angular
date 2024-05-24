@@ -16,7 +16,7 @@ export class ResponseState {
   timeCompleted: number;
   statusCode: number;
   errorMessage?: string;
-    errors?: PathableObjectError[];
+  errors?: PathableObjectError[];
   payloadLink?: HALLink;
   unCacheableObject?: UnCacheableObject;
 }

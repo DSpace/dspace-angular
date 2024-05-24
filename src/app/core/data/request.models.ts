@@ -9,9 +9,9 @@ import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { FindListOptions } from './find-list-options.model';
 import { ResponseParsingService } from './parsing.service';
+import { PathableObjectError } from './response-state.model';
 import { RestRequestMethod } from './rest-request-method';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
-import { PathableObjectError } from './response-state.model';
 
 
 // uuid and handle requests have separate endpoints

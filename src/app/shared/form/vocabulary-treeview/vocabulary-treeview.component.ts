@@ -1,8 +1,20 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subscription, } from 'rxjs';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
 
 import { CoreState } from '../../../core/core-state.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -11,12 +23,21 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { AlertType } from '../../alert/alert-type';
-import { hasValue, isEmpty, isNotEmpty, } from '../../empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../empty.util';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
-import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode, } from './vocabulary-treeview-node.model';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import {
+  LOAD_MORE,
+  LOAD_MORE_ROOT,
+  TreeviewFlatNode,
+  TreeviewNode,
+} from './vocabulary-treeview-node.model';
 
 export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEntry | VocabularyEntryDetail;
 
@@ -304,7 +325,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
       null,
       null,
       null,
-      this.searchText
+      this.searchText,
     );
     this.select.emit(userVocabularyEntry);
   }

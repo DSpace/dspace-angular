@@ -423,8 +423,8 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
       map((href: string) =>
         hasValue(metadataKey)
           ? `${href}/${uuid}?token=${token}&override=${metadataKey}`
-          : `${href}/${uuid}?token=${token}`
-      )
+          : `${href}/${uuid}?token=${token}`,
+      ),
     );
 
     hrefObs.pipe(

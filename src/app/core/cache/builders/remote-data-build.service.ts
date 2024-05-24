@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   AsyncSubject,
   combineLatest as observableCombineLatest,
@@ -21,15 +21,15 @@ import {
   isNotEmpty,
   isUndefined,
 } from '../../../shared/empty.util';
-import {createSuccessfulRemoteDataObject$} from '../../../shared/remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import {
   followLink,
   FollowLinkConfig,
 } from '../../../shared/utils/follow-link-config.model';
-import {PaginatedList} from '../../data/paginated-list.model';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
-import {RemoteData} from '../../data/remote-data';
-import {RequestService} from '../../data/request.service';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
 import { RequestEntry } from '../../data/request-entry.model';
 import {
   hasSucceeded,
@@ -38,15 +38,15 @@ import {
 } from '../../data/request-entry-state.model';
 import { ResponseState } from '../../data/response-state.model';
 import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
-import {GenericConstructor} from '../../shared/generic-constructor';
+import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALLink } from '../../shared/hal-link.model';
-import {HALResource} from '../../shared/hal-resource.model';
+import { HALResource } from '../../shared/hal-resource.model';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
 import {
   getRequestFromRequestHref,
   getRequestFromRequestUUID,
 } from '../../shared/request.operators';
-import {getResourceTypeValueFor} from '../object-cache.reducer';
+import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
 import { getClassForType } from './build-decorators';
 import { LinkService } from './link.service';
@@ -263,7 +263,7 @@ export class RemoteDataBuildService {
 
     const callbackDone$ = new AsyncSubject<boolean>();
     return await lastValueFrom(response$.pipe(
-        getFirstCompletedRemoteData<T>()
+      getFirstCompletedRemoteData<T>(),
     ));
   }
 
@@ -349,7 +349,7 @@ export class RemoteDataBuildService {
           response.errorMessage,
           payload,
           response.statusCode,
-          response.errors
+          response.errors,
         );
       }),
     );

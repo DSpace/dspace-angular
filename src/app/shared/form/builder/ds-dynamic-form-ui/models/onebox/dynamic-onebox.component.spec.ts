@@ -1,11 +1,30 @@
 /* eslint-disable max-classes-per-file */
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { NgbModal, NgbModule, } from '@ng-bootstrap/ng-bootstrap';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormsCoreModule,
@@ -13,29 +32,29 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { v4 as uuidv4 } from 'uuid';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { v4 as uuidv4 } from 'uuid';
 
+import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
+import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
-import { FormBuilderService } from '../../../form-builder.service';
-import { SubmissionService } from '../../../../../../submission/submission.service';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
-import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
+import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
@@ -105,8 +124,8 @@ describe('DsDynamicOneboxComponent test suite', () => {
       },
       entries: {
         url: 'entries',
-      }
-    }
+      },
+    },
   });
   const vocabularyExternal: any = Object.assign(new Vocabulary(), {
     id: 'author',
@@ -116,18 +135,18 @@ describe('DsDynamicOneboxComponent test suite', () => {
     preloadLevel: 1,
     entity: 'test',
     externalSource: {
-      onebox: 'authorExternalSource'
+      onebox: 'authorExternalSource',
     },
     type: 'vocabulary',
     uuid: 'vocabulary-author',
     _links: {
       self: {
-        href: 'https://rest.api/rest/api/submission/vocabularies/types'
+        href: 'https://rest.api/rest/api/submission/vocabularies/types',
       },
       entries: {
-        href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
+        href: 'https://rest.api/rest/api/submission/vocabularies/types/entries',
       },
-    }
+    },
   });
   const hierarchicalVocabulary = Object.assign(new Vocabulary(), {
     id: 'hierarchicalVocabulary',
@@ -183,7 +202,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: NgbModal, useValue: modal },
         { provide: FormBuilderService },
-        { provide: SubmissionService, useClass: SubmissionServiceStub }
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
 import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
 import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
-import { hasValue } from '../shared/empty.util';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**

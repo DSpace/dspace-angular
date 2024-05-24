@@ -1,17 +1,21 @@
 import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { MenuService } from '../../../menu/menu.service';
+import { MenuItemType } from '../../../menu/menu-item-type.model';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
 import { CSSVariableServiceStub } from '../../../testing/css-variable-service.stub';
 import { MenuServiceStub } from '../../../testing/menu-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
 import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';
-import { MenuItemType } from '../../../menu/menu-item-type.model';
 
 describe('DsoEditMenuExpandableSectionComponent', () => {
   let component: DsoEditMenuExpandableSectionComponent;

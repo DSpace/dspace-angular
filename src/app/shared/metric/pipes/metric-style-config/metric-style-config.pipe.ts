@@ -1,8 +1,12 @@
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 import isEqual from 'lodash/isEqual';
-import { environment } from '../../../../../environments/environment';
+
 import { MetricVisualizationConfig } from '../../../../../config/metric-visualization-config.interfaces';
+import { environment } from '../../../../../environments/environment';
 import { Metric } from '../../../../core/shared/metric.model';
-import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'dsMetricStyleConfig',

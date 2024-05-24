@@ -11,10 +11,10 @@ import {
 
 import { hasValue } from '../../shared/empty.util';
 import { AuthService } from '../auth/auth.service';
+import { ConfigurationDataService } from '../data/configuration-data.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
 import { CookieService } from '../services/cookie.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
-import { ConfigurationDataService } from '../data/configuration-data.service';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
 export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';

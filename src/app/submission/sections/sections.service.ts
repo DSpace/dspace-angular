@@ -2,19 +2,36 @@ import { Injectable } from '@angular/core';
 import { parseReviver } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { ScrollToConfigOptions, ScrollToService, } from '@nicky-lenaers/ngx-scroll-to';
+import {
+  ScrollToConfigOptions,
+  ScrollToService,
+} from '@nicky-lenaers/ngx-scroll-to';
 import findIndex from 'lodash/findIndex';
 import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
-import { combineLatest, Observable, } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, take, } from 'rxjs/operators';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
 
 import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 import { normalizeSectionData } from '../../core/submission/submission-response-parsing.service';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import { hasValue, isEmpty, isNotEmpty, isNotUndefined, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../shared/empty.util';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormError } from '../../shared/form/form.reducer';
 import { FormService } from '../../shared/form/form.service';
@@ -41,8 +58,8 @@ import {
 import { SubmissionState } from '../submission.reducers';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { SectionsType } from './sections-type';
 import { SubmissionVisibility } from '../utils/visibility.util';
+import { SectionsType } from './sections-type';
 
 /**
  * A service that provides methods used in submission process.
@@ -373,7 +390,7 @@ export class SectionsService {
     return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
       filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
       map((submissionState: SubmissionObjectEntry) => {
-        const key = findKey(submissionState.sections, {sectionType: sectionType});
+        const key = findKey(submissionState.sections, { sectionType: sectionType });
 
         return submissionState.sections[key];
       }),

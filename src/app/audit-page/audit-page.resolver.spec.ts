@@ -1,4 +1,5 @@
 import { first } from 'rxjs/operators';
+
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { AuditPageResolver } from './audit-page.resolver';
 
@@ -10,7 +11,7 @@ describe('AuditPageResolver', () => {
 
     beforeEach(() => {
       auditService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$({ id })
+        findById: (id: string) => createSuccessfulRemoteDataObject$({ id }),
       };
       resolver = new AuditPageResolver(auditService);
     });
@@ -22,7 +23,7 @@ describe('AuditPageResolver', () => {
           (resolved) => {
             expect(resolved.payload.id).toEqual(uuid);
             done();
-          }
+          },
         );
     });
   });

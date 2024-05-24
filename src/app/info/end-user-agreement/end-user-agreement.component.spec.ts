@@ -13,13 +13,16 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { LogOutAction, RefreshEpersonAndTokenRedirectAction } from '../../core/auth/auth.actions';
+import {
+  LogOutAction,
+  RefreshEpersonAndTokenRedirectAction,
+} from '../../core/auth/auth.actions';
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 
 describe('EndUserAgreementComponent', () => {
   let component: EndUserAgreementComponent;

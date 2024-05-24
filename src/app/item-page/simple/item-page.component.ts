@@ -24,26 +24,29 @@ import {
 import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
 
 import { AuthService } from '../../core/auth/auth.service';
-import { getItemPageRoute } from '../item-page-routing-paths';
-import { redirectOn204, redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import {
   LinkDefinition,
   LinkHeadService,
 } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
+import {
+  redirectOn4xx,
+  redirectOn204,
+} from '../../core/shared/authorized.operators';
 import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
-import { CrisLayoutTab } from '../../core/layout/models/tab.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
+import { getItemPageRoute } from '../item-page-routing-paths';
 
 /**
  * This component renders a simple item page.

@@ -1,11 +1,14 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-item-export-alert',
-  templateUrl: './item-export-alert.component.html'
+  templateUrl: './item-export-alert.component.html',
 })
 export class ItemExportAlertComponent {
 

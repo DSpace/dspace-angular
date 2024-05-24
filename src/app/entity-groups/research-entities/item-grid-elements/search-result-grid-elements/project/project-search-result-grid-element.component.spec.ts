@@ -5,7 +5,7 @@ import { ItemSearchResult } from '../../../../../shared/object-collection/shared
 import { getEntityGridElementTestComponent } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component.spec';
 import {
   createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../../shared/remote-data.utils';
 import { ProjectSearchResultGridElementComponent } from './project-search-result-grid-element.component';
 
@@ -23,7 +23,7 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
     'dc.description': [
       {
         language: 'en_US',
-        value: 'The project description'
+        value: 'The project description',
       },
     ],
   },
@@ -38,7 +38,7 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
+        value: 'This is just another title',
       },
     ],
   },

@@ -40,7 +40,7 @@ describe('SubmissionSectionCcLicensesComponent', () => {
     header: 'test header',
     id: 'test section id',
     sectionType: SectionsType.SubmissionForm,
-    sectionVisibility: null
+    sectionVisibility: null,
   };
 
   const submissionCcLicenses: SubmissionCcLicence[] = [

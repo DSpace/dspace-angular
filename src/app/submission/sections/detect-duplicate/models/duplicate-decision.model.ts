@@ -1,6 +1,6 @@
+import { isNotNull } from '../../../../shared/empty.util';
 import { DuplicateDecisionType } from './duplicate-decision-type';
 import { DuplicateDecisionValue } from './duplicate-decision-value';
-import { isNotNull } from '../../../../shared/empty.util';
 
 export class DuplicateDecision {
 

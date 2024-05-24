@@ -13,9 +13,9 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  Subscription,
   combineLatest,
   of,
+  Subscription,
 } from 'rxjs';
 import {
   debounceTime,
@@ -29,24 +29,27 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
-import { getAllSucceededRemoteData, getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+} from '../../core/shared/operators';
+import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import {
   hasValue,
-  isEmpty, isNotEmpty,
+  isEmpty,
+  isNotEmpty,
   isNotEmptyOperator,
   isNotNull,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionService } from '../submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 import { SubmissionEditCanDeactivateService } from './submission-edit-can-deactivate.service';
 
 /**
@@ -173,7 +176,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
 
     this.subs.push(
       this.route.paramMap.pipe(
-        switchMap((params: ParamMap) => this.canDeactivateService.canDeactivate(params.get('id')))
+        switchMap((params: ParamMap) => this.canDeactivateService.canDeactivate(params.get('id'))),
       ).subscribe((res) => {
         this.canDeactivate = res;
       }),
@@ -197,10 +200,10 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
                 } else {
                   return createFailedRemoteDataObject$<MetadataSecurityConfiguration>();
                 }
-              })
-            )
-          ])
-          )))
+              }),
+            ),
+          ]),
+          ))),
       ).subscribe(([submissionObjectRD, metadataSecurityRD]: [RemoteData<SubmissionObject>, RemoteData<MetadataSecurityConfiguration>]) => {
         if (submissionObjectRD.hasSucceeded) {
           if (isEmpty(submissionObjectRD.payload)) {

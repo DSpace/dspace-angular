@@ -1,41 +1,51 @@
 import { Injectable } from '@angular/core';
-
-import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, map, mergeMap, take, tap } from 'rxjs/operators';
-
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
+import { TranslateService } from '@ngx-translate/core';
 import {
-  OpenaireSuggestionTarget
-} from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+  forkJoin,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  mergeMap,
+  take,
+  tap,
+} from 'rxjs/operators';
+
+import { SuggestionConfig } from '../../../config/layout-config.interfaces';
+import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { OpenaireSuggestion } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
+import { OpenaireSuggestionSource } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-source.model';
+import { OpenaireSuggestionTarget } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { QualityAssuranceSuggestionDataService } from '../../core/notifications/reciter-suggestions/suggestions/quality-assurance-suggestion-data.service';
+import { QualityAssuranceSuggestionTargetDataService } from '../../core/notifications/reciter-suggestions/targets/quality-assurance-suggestion-target-data.service';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { NoContent } from '../../core/shared/NoContent.model';
 import {
   getFinishedRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
+  getFirstSucceededRemoteListPayload,
 } from '../../core/shared/operators';
-import { OpenaireSuggestion } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { environment } from '../../../environments/environment';
-import { SuggestionConfig } from '../../../config/layout-config.interfaces';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import {
-  QualityAssuranceSuggestionDataService
-} from '../../core/notifications/reciter-suggestions/suggestions/quality-assurance-suggestion-data.service';
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import {
-  QualityAssuranceSuggestionTargetDataService
-} from '../../core/notifications/reciter-suggestions/targets/quality-assurance-suggestion-target-data.service';
-import {
-  OpenaireSuggestionSource
-} from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-source.model';
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 
 export interface SuggestionBulkResult {
   success: number;
@@ -61,7 +71,7 @@ export class SuggestionsService {
     private researcherProfileService: ResearcherProfileDataService,
     private suggestionsDataService: QualityAssuranceSuggestionDataService,
     private suggestionTargetsDataService: QualityAssuranceSuggestionTargetDataService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
   ) {
   }
 
@@ -100,7 +110,7 @@ export class SuggestionsService {
     const findListOptions: FindListOptions = {
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
-      sort: sortOptions
+      sort: sortOptions,
     };
 
     return this.suggestionTargetsDataService.getTargetsBySource(source, findListOptions).pipe(
@@ -112,7 +122,7 @@ export class SuggestionsService {
         } else {
           throw new Error('Can\'t retrieve Suggestion Target from the Search Target REST service');
         }
-      })
+      }),
     );
   }
 
@@ -136,7 +146,7 @@ export class SuggestionsService {
     const findListOptions: FindListOptions = {
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
-      sort: sortOptions
+      sort: sortOptions,
     };
 
     return this.suggestionsDataService.getSuggestionsByTargetAndSource(target, source, findListOptions);
@@ -162,20 +172,20 @@ export class SuggestionsService {
           throw new Error('Can\'t delete Suggestion from the Search Target REST service');
         }
       }),
-      take(1)
+      take(1),
     );
   }
 
   public deleteReviewedSuggestionAsync(suggestionId: string): Observable<RemoteData<NoContent>> {
     return this.suggestionsDataService.deleteSuggestionAsync(suggestionId).pipe(
-        tap((response: RemoteData<NoContent>) => {
-          if (response.isSuccess) {
-            return response;
-          } else {
-            throw new Error('Can\'t delete Suggestion from the Search Target REST service');
-          }
-        }),
-        take(1)
+      tap((response: RemoteData<NoContent>) => {
+        if (response.isSuccess) {
+          return response;
+        } else {
+          throw new Error('Can\'t delete Suggestion from the Search Target REST service');
+        }
+      }),
+      take(1),
     );
   }
 
@@ -192,12 +202,12 @@ export class SuggestionsService {
         mergeMap((itemId: string) => {
           if (isNotEmpty(itemId)) {
             return this.suggestionTargetsDataService.getTargetsByUser(itemId, {}, false).pipe(
-              getFirstSucceededRemoteListPayload()
+              getFirstSucceededRemoteListPayload(),
             );
           } else {
             return of([]);
           }
-        })
+        }),
       )),
     );
   }
@@ -210,14 +220,14 @@ export class SuggestionsService {
    * @private
    */
   public approveAndImport(workspaceitemService: WorkspaceitemDataService,
-                          suggestion: OpenaireSuggestion,
-                          collectionId: string): Observable<WorkspaceItem> {
+    suggestion: OpenaireSuggestion,
+    collectionId: string): Observable<WorkspaceItem> {
 
     const resolvedCollectionId = this.resolveCollectionId(suggestion, collectionId);
     return workspaceitemService.importExternalSourceEntry(suggestion.externalSourceUri, resolvedCollectionId)
       .pipe(
         getFirstSucceededRemoteDataPayload(),
-        catchError((error) => of(null))
+        catchError((error: unknown) => of(null)),
       );
   }
 
@@ -227,13 +237,13 @@ export class SuggestionsService {
    */
   public notMine(suggestionId): Observable<RemoteData<NoContent>> {
     return this.deleteReviewedSuggestion(suggestionId).pipe(
-      catchError((error) => of(null))
+      catchError((error: unknown) => of(null)),
     );
   }
 
   public notMineAsync(suggestionId): Observable<RemoteData<NoContent>> {
     return this.deleteReviewedSuggestionAsync(suggestionId).pipe(
-        catchError((error) => of(null))
+      catchError((error: unknown) => of(null)),
     );
   }
 
@@ -244,15 +254,15 @@ export class SuggestionsService {
    * @param collectionId the collectionId
    */
   public approveAndImportMultiple(workspaceitemService: WorkspaceitemDataService,
-                                  suggestions: OpenaireSuggestion[],
-                                  collectionId: string): Observable<SuggestionBulkResult> {
+    suggestions: OpenaireSuggestion[],
+    collectionId: string): Observable<SuggestionBulkResult> {
 
     return forkJoin(suggestions.map((suggestion: OpenaireSuggestion) =>
       this.approveAndImport(workspaceitemService, suggestion, collectionId)))
       .pipe(map((results: WorkspaceItem[]) => {
         return {
           success: results.filter((result) => result != null).length,
-          fails: results.filter((result) => result == null).length
+          fails: results.filter((result) => result == null).length,
         };
       }), take(1));
   }
@@ -266,7 +276,7 @@ export class SuggestionsService {
       .pipe(map((results: RemoteData<NoContent>[]) => {
         return {
           success: results.filter((result) => result != null).length,
-          fails: results.filter((result) => result == null).length
+          fails: results.filter((result) => result == null).length,
         };
       }), take(1));
   }
@@ -292,7 +302,7 @@ export class SuggestionsService {
       source: this.translateService.instant(this.translateSuggestionSource(suggestionTarget.source)),
       type:  this.translateService.instant(this.translateSuggestionType(suggestionTarget.source)),
       suggestionId: suggestionTarget.id,
-      displayName: suggestionTarget.display
+      displayName: suggestionTarget.display,
     };
   }
 

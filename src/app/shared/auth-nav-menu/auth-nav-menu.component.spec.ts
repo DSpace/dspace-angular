@@ -69,7 +69,7 @@ describe('AuthNavMenuComponent', () => {
       loading: false,
       authToken: new AuthTokenInfo('test_token'),
       user: EPersonMock,
-      idle: false
+      idle: false,
     };
   }
 

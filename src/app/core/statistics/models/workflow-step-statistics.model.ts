@@ -1,4 +1,8 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { HALLink } from '../../shared/hal-link.model';
@@ -10,29 +14,29 @@ import { WORKFLOW_STEP_STATISTICS } from './workflow-step-statistics.resource-ty
  * Class the represents a Workflow statistics.
  */
  @typedObject
- export class WorkflowStepStatistics extends CacheableObject {
+export class WorkflowStepStatistics extends CacheableObject {
 
-   static type = WORKFLOW_STEP_STATISTICS;
+  static type = WORKFLOW_STEP_STATISTICS;
 
    @excludeFromEquals
    @autoserialize
-   type: ResourceType;
+     type: ResourceType;
 
    @autoserialize
-   id: string;
+     id: string;
 
    @autoserialize
-   name: string;
+     name: string;
 
    @autoserialize
-   count: number;
+     count: number;
 
    @autoserialize
-   actionCounts: Map<string, number>;
+     actionCounts: Map<string, number>;
 
    @deserialize
-   _links: {
+     _links: {
      self: HALLink
    };
 
- }
+}

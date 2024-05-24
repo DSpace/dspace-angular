@@ -11,6 +11,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
+import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { ItemPageResolver } from './item-page.resolver';
 import { ItemPageAdministratorGuard } from './item-page-administrator.guard';
@@ -19,7 +20,6 @@ import {
   ORCID_PATH,
   UPLOAD_BITSTREAM_PATH,
 } from './item-page-routing-paths';
-import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
@@ -43,8 +43,8 @@ import { VersionPageComponent } from './version-page/version-page/version-page.c
             component: ThemedItemPageComponent,
             pathMatch: 'full',
             resolve: {
-              tabs: CrisItemPageTabResolver
-            }
+              tabs: CrisItemPageTabResolver,
+            },
           },
           {
             path: 'full',
@@ -55,7 +55,7 @@ import { VersionPageComponent } from './version-page/version-page/version-page.c
             loadChildren: () => import('./edit-item-page/edit-item-page.module')
               .then((m) => m.EditItemPageModule),
             canActivate: [ItemPageAdministratorGuard],
-            data: { title: 'submission.edit.title' }
+            data: { title: 'submission.edit.title' },
           },
           {
             path: UPLOAD_BITSTREAM_PATH,
@@ -69,15 +69,15 @@ import { VersionPageComponent } from './version-page/version-page/version-page.c
           {
             path: ORCID_PATH,
             component: OrcidPageComponent,
-            canActivate: [AuthenticatedGuard, OrcidPageGuard]
+            canActivate: [AuthenticatedGuard, OrcidPageGuard],
           },
           {
             path: ':tab',
             component: ThemedItemPageComponent,
             resolve: {
-              tabs: CrisItemPageTabResolver
+              tabs: CrisItemPageTabResolver,
             },
-          }
+          },
         ],
         data: {
           menu: {
@@ -93,7 +93,7 @@ import { VersionPageComponent } from './version-page/version-page/version-page.c
               } as LinkMenuItemModel,
             }],
           },
-          showSocialButtons: true
+          showSocialButtons: true,
         },
       },
       {
@@ -119,7 +119,7 @@ import { VersionPageComponent } from './version-page/version-page/version-page.c
     VersionResolver,
     OrcidPageGuard,
     CrisItemPageTabResolver,
-  ]
+  ],
 
 })
 export class ItemPageRoutingModule {

@@ -18,8 +18,8 @@ import { RequestService } from './request.service';
 import { VersionDataService } from './version-data.service';
 import { VersionHistoryDataService } from './version-history-data.service';
 import SpyObj = jasmine.SpyObj;
-import { UUIDService } from '../shared/uuid.service';
 import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
+import { UUIDService } from '../shared/uuid.service';
 
 const url = 'fake-url';
 
@@ -126,7 +126,7 @@ describe('VersionHistoryDataService', () => {
       objectCache,
       halService,
       versionService,
-      uuidService
+      uuidService,
     );
   }
 

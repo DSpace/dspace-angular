@@ -104,5 +104,5 @@ const metricMock = {
   remark: null,
   startDate: null,
   type: null,
-  _links: null
+  _links: null,
 };

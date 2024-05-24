@@ -15,7 +15,7 @@ import { ThemedHomePageComponent } from './themed-home-page.component';
           title: 'home.title',
           menu: {
             public: [],
-          }, showSocialButtons: true
+          }, showSocialButtons: true,
         },
         resolve: {
           site: HomePageResolver,

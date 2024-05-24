@@ -29,6 +29,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../../../../core/shared/operators';
+import { UUIDService } from '../../../../../../../core/shared/uuid.service';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
@@ -40,7 +41,6 @@ import { PaginationComponentOptions } from '../../../../../../pagination/paginat
 import { PaginatedSearchOptions } from '../../../../../../search/models/paginated-search-options.model';
 import { SearchResult } from '../../../../../../search/models/search-result.model';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
-import { UUIDService } from '../../../../../../../core/shared/uuid.service';
 
 /**
  * The possible types of import for the external entry

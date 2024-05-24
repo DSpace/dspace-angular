@@ -6,12 +6,12 @@ export const SearchResultsMock: any = {
   'errorMessage': null,
   'payload': {
     'type': {
-      'value': 'discovery-objects'
+      'value': 'discovery-objects',
     },
     'page': [
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -21,16 +21,16 @@ export const SearchResultsMock: any = {
               {
                 'message': 'error.validation.required',
                 'paths': [
-                  '/sections/publication/dc.type'
-                ]
-              }
+                  '/sections/publication/dc.type',
+                ],
+              },
             ],
             'lastModified': '2021-04-26T21:16:19.928+0000',
             'sections': {
               'license': {
                 'url': null,
                 'acceptanceDate': null,
-                'granted': false
+                'granted': false,
               },
               'publication_references': {},
               'upload': {
@@ -44,8 +44,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.title': [
                         {
@@ -53,9 +53,9 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
-                      ]
+                          'place': 0,
+                        },
+                      ],
                     },
                     'accessConditions': [],
                     'format': {
@@ -66,18 +66,18 @@ export const SearchResultsMock: any = {
                       'supportLevel': 'KNOWN',
                       'internal': false,
                       'extensions': [
-                        'pdf'
+                        'pdf',
                       ],
-                      'type': 'bitstreamformat'
+                      'type': 'bitstreamformat',
                     },
                     'sizeBytes': 1537579,
                     'checkSum': {
                       'checkSumAlgorithm': 'MD5',
-                      'value': 'abdc75986daae51f0876b8be2351c309'
+                      'value': 'abdc75986daae51f0876b8be2351c309',
                     },
-                    'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/098d9791-b464-4a11-9c8f-95971d300c05/content'
-                  }
-                ]
+                    'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/098d9791-b464-4a11-9c8f-95971d300c05/content',
+                  },
+                ],
               },
               'publication': {
                 'dc.contributor.author': [
@@ -86,22 +86,22 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': 400,
-                    'place': 0
+                    'place': 0,
                   },
                   {
                     'value': 'Drobíková, Barbora',
                     'language': null,
                     'authority': null,
                     'confidence': 400,
-                    'place': 1
+                    'place': 1,
                   },
                   {
                     'value': 'Bollini, Andrea',
                     'language': null,
                     'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                     'confidence': 400,
-                    'place': 2
-                  }
+                    'place': 2,
+                  },
                 ],
                 'dc.title': [
                   {
@@ -109,8 +109,8 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
-                  }
+                    'place': 0,
+                  },
                 ],
                 'oairecerif.author.affiliation': [
                   {
@@ -118,22 +118,22 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
+                    'place': 0,
                   },
                   {
                     'value': '#PLACEHOLDER_PARENT_METADATA_VALUE#',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 1
+                    'place': 1,
                   },
                   {
                     'value': '4Science',
                     'language': null,
                     'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                     'confidence': 600,
-                    'place': 2
-                  }
+                    'place': 2,
+                  },
                 ],
                 'dc.date.issued': [
                   {
@@ -141,9 +141,9 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
-                  }
-                ]
+                    'place': 0,
+                  },
+                ],
               },
               'publication_indexing': {
                 'dc.description.abstract': [
@@ -152,8 +152,8 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
-                  }
+                    'place': 0,
+                  },
                 ],
                 'dc.subject': [
                   {
@@ -161,79 +161,79 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
+                    'place': 0,
                   },
                   {
                     'value': 'interoperability',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 1
+                    'place': 1,
                   },
                   {
                     'value': 'CERIF',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 2
+                    'place': 2,
                   },
                   {
                     'value': 'functions of scientific communication',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 3
+                    'place': 3,
                   },
                   {
                     'value': 'publication metadata',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 4
+                    'place': 4,
                   },
                   {
                     'value': 'FRBR',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 5
+                    'place': 5,
                   },
                   {
                     'value': 'SWAP',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 6
+                    'place': 6,
                   },
                   {
                     'value': 'scholarly work',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 7
+                    'place': 7,
                   },
                   {
                     'value': 'expression',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 8
+                    'place': 8,
                   },
                   {
                     'value': 'manifestation',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 9
+                    'place': 9,
                   },
                   {
                     'value': 'research evaluation',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 10
-                  }
-                ]
+                    'place': 10,
+                  },
+                ],
               },
               'detect-duplicate': {
                 'matches': {
@@ -255,22 +255,22 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'Drobíková, Barbora',
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'Bollini, Andrea',
                             'language': null,
                             'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                             'confidence': 400,
-                            'place': 2
-                          }
+                            'place': 2,
+                          },
                         ],
                         'dc.description.abstract': [
                           {
@@ -278,8 +278,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.identifier': [
                           {
@@ -287,8 +287,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.subject': [
                           {
@@ -296,78 +296,78 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'interoperability',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'CERIF',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 2
+                            'place': 2,
                           },
                           {
                             'value': 'functions of scientific communication',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 3
+                            'place': 3,
                           },
                           {
                             'value': 'publication metadata',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 4
+                            'place': 4,
                           },
                           {
                             'value': 'FRBR',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 5
+                            'place': 5,
                           },
                           {
                             'value': 'SWAP',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 6
+                            'place': 6,
                           },
                           {
                             'value': 'scholarly work',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 7
+                            'place': 7,
                           },
                           {
                             'value': 'expression',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 8
+                            'place': 8,
                           },
                           {
                             'value': 'manifestation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 9
+                            'place': 9,
                           },
                           {
                             'value': 'research evaluation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 10
-                          }
+                            'place': 10,
+                          },
                         ],
                         'dc.title': [
                           {
@@ -375,8 +375,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dspace.entity.type': [
                           {
@@ -384,17 +384,17 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
-                        ]
+                            'place': 0,
+                          },
+                        ],
                       },
                       'inArchive': false,
                       'discoverable': true,
                       'withdrawn': false,
                       'lastModified': '2021-04-16T11:03:11.014+0000',
                       'entityType': 'Publication',
-                      'type': 'item'
-                    }
+                      'type': 'item',
+                    },
                   },
                   'eb4762fa-1046-443f-8f29-5e2c907c3c78': {
                     'submitterDecision': null,
@@ -414,22 +414,22 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'Drobíková, Barbora',
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'Bollini, Andrea',
                             'language': null,
                             'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                             'confidence': 400,
-                            'place': 2
-                          }
+                            'place': 2,
+                          },
                         ],
                         'dc.description.abstract': [
                           {
@@ -437,8 +437,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.identifier': [
                           {
@@ -446,8 +446,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.subject': [
                           {
@@ -455,78 +455,78 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'interoperability',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'CERIF',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 2
+                            'place': 2,
                           },
                           {
                             'value': 'functions of scientific communication',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 3
+                            'place': 3,
                           },
                           {
                             'value': 'publication metadata',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 4
+                            'place': 4,
                           },
                           {
                             'value': 'FRBR',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 5
+                            'place': 5,
                           },
                           {
                             'value': 'SWAP',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 6
+                            'place': 6,
                           },
                           {
                             'value': 'scholarly work',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 7
+                            'place': 7,
                           },
                           {
                             'value': 'expression',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 8
+                            'place': 8,
                           },
                           {
                             'value': 'manifestation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 9
+                            'place': 9,
                           },
                           {
                             'value': 'research evaluation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 10
-                          }
+                            'place': 10,
+                          },
                         ],
                         'dc.title': [
                           {
@@ -534,8 +534,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dspace.entity.type': [
                           {
@@ -543,40 +543,40 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
-                        ]
+                            'place': 0,
+                          },
+                        ],
                       },
                       'inArchive': false,
                       'discoverable': true,
                       'withdrawn': false,
                       'lastModified': '2021-04-15T21:48:03.591+0000',
                       'entityType': 'Publication',
-                      'type': 'item'
-                    }
-                  }
-                }
+                      'type': 'item',
+                    },
+                  },
+                },
               },
               'collection': '8bb47238-2964-4d9f-be56-e912bf17ac58',
-              'publication_bibliographic_details': {}
+              'publication_bibliographic_details': {},
             },
             'type': 'workspaceitem',
             '_links': {
               'collection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/collection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/collection',
               },
               'item': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/item'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/item',
               },
               'submissionDefinition': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/submissionDefinition'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/submissionDefinition',
               },
               'submitter': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/submitter'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/submitter',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241'
-              }
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241',
+              },
             },
             '_embedded': {
               'submitter': {
@@ -591,8 +591,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.agreements.end-user': [
                     {
@@ -600,8 +600,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'eperson.firstname': [
                     {
@@ -609,8 +609,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'eperson.lastname': [
                     {
@@ -618,9 +618,9 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'netid': null,
                 'lastActive': '2021-04-26T21:14:19.119+0000',
@@ -631,12 +631,12 @@ export const SearchResultsMock: any = {
                 'type': 'eperson',
                 '_links': {
                   'groups': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda/groups'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda/groups',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda',
+                  },
+                },
               },
               'item': {
                 'id': '3c43135f-3e8b-46c2-bac3-288ed58e3fc1',
@@ -650,22 +650,22 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': 400,
-                      'place': 0
+                      'place': 0,
                     },
                     {
                       'value': 'Drobíková, Barbora',
                       'language': null,
                       'authority': null,
                       'confidence': 400,
-                      'place': 1
+                      'place': 1,
                     },
                     {
                       'value': 'Bollini, Andrea',
                       'language': null,
                       'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                       'confidence': 400,
-                      'place': 2
-                    }
+                      'place': 2,
+                    },
                   ],
                   'dc.date.issued': [
                     {
@@ -673,8 +673,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.description.abstract': [
                     {
@@ -682,8 +682,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.identifier': [
                     {
@@ -691,8 +691,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.subject': [
                     {
@@ -700,78 +700,78 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
+                      'place': 0,
                     },
                     {
                       'value': 'interoperability',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 1
+                      'place': 1,
                     },
                     {
                       'value': 'CERIF',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 2
+                      'place': 2,
                     },
                     {
                       'value': 'functions of scientific communication',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 3
+                      'place': 3,
                     },
                     {
                       'value': 'publication metadata',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 4
+                      'place': 4,
                     },
                     {
                       'value': 'FRBR',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 5
+                      'place': 5,
                     },
                     {
                       'value': 'SWAP',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 6
+                      'place': 6,
                     },
                     {
                       'value': 'scholarly work',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 7
+                      'place': 7,
                     },
                     {
                       'value': 'expression',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 8
+                      'place': 8,
                     },
                     {
                       'value': 'manifestation',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 9
+                      'place': 9,
                     },
                     {
                       'value': 'research evaluation',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 10
-                    }
+                      'place': 10,
+                    },
                   ],
                   'dc.title': [
                     {
@@ -779,8 +779,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.entity.type': [
                     {
@@ -788,8 +788,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'oairecerif.author.affiliation': [
                     {
@@ -797,23 +797,23 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
+                      'place': 0,
                     },
                     {
                       'value': '#PLACEHOLDER_PARENT_METADATA_VALUE#',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 1
+                      'place': 1,
                     },
                     {
                       'value': '4Science',
                       'language': null,
                       'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                       'confidence': 600,
-                      'place': 2
-                    }
-                  ]
+                      'place': 2,
+                    },
+                  ],
                 },
                 'inArchive': false,
                 'discoverable': true,
@@ -823,30 +823,30 @@ export const SearchResultsMock: any = {
                 'type': 'item',
                 '_links': {
                   'bundles': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/bundles'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/bundles',
                   },
                   'mappedCollections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/mappedCollections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/mappedCollections',
                   },
                   'owningCollection': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/owningCollection'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/owningCollection',
                   },
                   'relationships': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/relationships'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/relationships',
                   },
                   'version': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/version'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/version',
                   },
                   'templateItemOf': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/templateItemOf'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/templateItemOf',
                   },
                   'metrics': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/metrics'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1/metrics',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/3c43135f-3e8b-46c2-bac3-288ed58e3fc1',
+                  },
+                },
               },
               'submissionDefinition': {
                 'id': 'publication',
@@ -855,15 +855,15 @@ export const SearchResultsMock: any = {
                 'isDefault': true,
                 '_links': {
                   'collections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/collections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/collections',
                   },
                   'sections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/sections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/sections',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication',
+                  },
+                },
               },
               'collection': {
                 'id': '8bb47238-2964-4d9f-be56-e912bf17ac58',
@@ -877,8 +877,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.title': [
                     {
@@ -886,8 +886,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.entity.type': [
                     {
@@ -895,68 +895,68 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'type': 'collection',
                 '_links': {
                   'harvester': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/harvester'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/harvester',
                   },
                   'itemtemplate': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemtemplate'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemtemplate',
                   },
                   'license': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/license'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/license',
                   },
                   'logo': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/logo'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/logo',
                   },
                   'mappedItems': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/mappedItems'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/mappedItems',
                   },
                   'parentCommunity': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/parentCommunity'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/parentCommunity',
                   },
                   'adminGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/adminGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/adminGroup',
                   },
                   'submittersGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/submittersGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/submittersGroup',
                   },
                   'itemReadGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemReadGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemReadGroup',
                   },
                   'bitstreamReadGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/bitstreamReadGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/bitstreamReadGroup',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58',
                   },
                   'workflowGroups': [
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/workflowGroups/editor',
-                      'name': 'editor'
+                      'name': 'editor',
                     },
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/workflowGroups/finaleditor',
-                      'name': 'finaleditor'
+                      'name': 'finaleditor',
                     },
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/workflowGroups/reviewer',
-                      'name': 'reviewer'
-                    }
-                  ]
-                }
-              }
-            }
-          }
+                      'name': 'reviewer',
+                    },
+                  ],
+                },
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241',
+          },
         },
         'indexableObject': {
           'uuid': 'workspaceitem-241',
@@ -966,7 +966,7 @@ export const SearchResultsMock: any = {
             'license': {
               'url': null,
               'acceptanceDate': null,
-              'granted': false
+              'granted': false,
             },
             'publication_references': {},
             'upload': {
@@ -980,8 +980,8 @@ export const SearchResultsMock: any = {
                         'language': null,
                         'authority': null,
                         'confidence': -1,
-                        'place': 0
-                      }
+                        'place': 0,
+                      },
                     ],
                     'dc.title': [
                       {
@@ -989,9 +989,9 @@ export const SearchResultsMock: any = {
                         'language': null,
                         'authority': null,
                         'confidence': -1,
-                        'place': 0
-                      }
-                    ]
+                        'place': 0,
+                      },
+                    ],
                   },
                   'accessConditions': [],
                   'format': {
@@ -1002,18 +1002,18 @@ export const SearchResultsMock: any = {
                     'supportLevel': 'KNOWN',
                     'internal': false,
                     'extensions': [
-                      'pdf'
+                      'pdf',
                     ],
-                    'type': 'bitstreamformat'
+                    'type': 'bitstreamformat',
                   },
                   'sizeBytes': 1537579,
                   'checkSum': {
                     'checkSumAlgorithm': 'MD5',
-                    'value': 'abdc75986daae51f0876b8be2351c309'
+                    'value': 'abdc75986daae51f0876b8be2351c309',
                   },
-                  'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/098d9791-b464-4a11-9c8f-95971d300c05/content'
-                }
-              ]
+                  'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/098d9791-b464-4a11-9c8f-95971d300c05/content',
+                },
+              ],
             },
             'publication': {
               'dc.contributor.author': [
@@ -1022,22 +1022,22 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': 400,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'Drobíková, Barbora',
                   'language': null,
                   'authority': null,
                   'confidence': 400,
-                  'place': 1
+                  'place': 1,
                 },
                 {
                   'value': 'Bollini, Andrea',
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 400,
-                  'place': 2
-                }
+                  'place': 2,
+                },
               ],
               'dc.title': [
                 {
@@ -1045,8 +1045,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'oairecerif.author.affiliation': [
                 {
@@ -1054,22 +1054,22 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': '#PLACEHOLDER_PARENT_METADATA_VALUE#',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 1
+                  'place': 1,
                 },
                 {
                   'value': '4Science',
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 2
-                }
+                  'place': 2,
+                },
               ],
               'dc.date.issued': [
                 {
@@ -1077,9 +1077,9 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
-              ]
+                  'place': 0,
+                },
+              ],
             },
             'publication_indexing': {
               'dc.description.abstract': [
@@ -1088,8 +1088,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.subject': [
                 {
@@ -1097,79 +1097,79 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'interoperability',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 1
+                  'place': 1,
                 },
                 {
                   'value': 'CERIF',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 2
+                  'place': 2,
                 },
                 {
                   'value': 'functions of scientific communication',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 3
+                  'place': 3,
                 },
                 {
                   'value': 'publication metadata',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 4
+                  'place': 4,
                 },
                 {
                   'value': 'FRBR',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 5
+                  'place': 5,
                 },
                 {
                   'value': 'SWAP',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 6
+                  'place': 6,
                 },
                 {
                   'value': 'scholarly work',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 7
+                  'place': 7,
                 },
                 {
                   'value': 'expression',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 8
+                  'place': 8,
                 },
                 {
                   'value': 'manifestation',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 9
+                  'place': 9,
                 },
                 {
                   'value': 'research evaluation',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 10
-                }
-              ]
+                  'place': 10,
+                },
+              ],
             },
             'detect-duplicate': {
               'matches': {
@@ -1191,22 +1191,22 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'Drobíková, Barbora',
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'Bollini, Andrea',
                           'language': null,
                           'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                           'confidence': 400,
-                          'place': 2
-                        }
+                          'place': 2,
+                        },
                       ],
                       'dc.description.abstract': [
                         {
@@ -1214,8 +1214,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.identifier': [
                         {
@@ -1223,8 +1223,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.subject': [
                         {
@@ -1232,78 +1232,78 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'interoperability',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'CERIF',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 2
+                          'place': 2,
                         },
                         {
                           'value': 'functions of scientific communication',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 3
+                          'place': 3,
                         },
                         {
                           'value': 'publication metadata',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 4
+                          'place': 4,
                         },
                         {
                           'value': 'FRBR',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 5
+                          'place': 5,
                         },
                         {
                           'value': 'SWAP',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 6
+                          'place': 6,
                         },
                         {
                           'value': 'scholarly work',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 7
+                          'place': 7,
                         },
                         {
                           'value': 'expression',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 8
+                          'place': 8,
                         },
                         {
                           'value': 'manifestation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 9
+                          'place': 9,
                         },
                         {
                           'value': 'research evaluation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 10
-                        }
+                          'place': 10,
+                        },
                       ],
                       'dc.title': [
                         {
@@ -1311,8 +1311,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dspace.entity.type': [
                         {
@@ -1320,17 +1320,17 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
-                      ]
+                          'place': 0,
+                        },
+                      ],
                     },
                     'inArchive': false,
                     'discoverable': true,
                     'withdrawn': false,
                     'lastModified': '2021-04-16T11:03:11.014+0000',
                     'entityType': 'Publication',
-                    'type': 'item'
-                  }
+                    'type': 'item',
+                  },
                 },
                 'eb4762fa-1046-443f-8f29-5e2c907c3c78': {
                   'submitterDecision': null,
@@ -1350,22 +1350,22 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'Drobíková, Barbora',
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'Bollini, Andrea',
                           'language': null,
                           'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                           'confidence': 400,
-                          'place': 2
-                        }
+                          'place': 2,
+                        },
                       ],
                       'dc.description.abstract': [
                         {
@@ -1373,8 +1373,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.identifier': [
                         {
@@ -1382,8 +1382,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.subject': [
                         {
@@ -1391,78 +1391,78 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'interoperability',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'CERIF',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 2
+                          'place': 2,
                         },
                         {
                           'value': 'functions of scientific communication',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 3
+                          'place': 3,
                         },
                         {
                           'value': 'publication metadata',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 4
+                          'place': 4,
                         },
                         {
                           'value': 'FRBR',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 5
+                          'place': 5,
                         },
                         {
                           'value': 'SWAP',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 6
+                          'place': 6,
                         },
                         {
                           'value': 'scholarly work',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 7
+                          'place': 7,
                         },
                         {
                           'value': 'expression',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 8
+                          'place': 8,
                         },
                         {
                           'value': 'manifestation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 9
+                          'place': 9,
                         },
                         {
                           'value': 'research evaluation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 10
-                        }
+                          'place': 10,
+                        },
                       ],
                       'dc.title': [
                         {
@@ -1470,8 +1470,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dspace.entity.type': [
                         {
@@ -1479,47 +1479,47 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
-                      ]
+                          'place': 0,
+                        },
+                      ],
                     },
                     'inArchive': false,
                     'discoverable': true,
                     'withdrawn': false,
                     'lastModified': '2021-04-15T21:48:03.591+0000',
                     'entityType': 'Publication',
-                    'type': 'item'
-                  }
-                }
-              }
+                    'type': 'item',
+                  },
+                },
+              },
             },
             'collection': '8bb47238-2964-4d9f-be56-e912bf17ac58',
-            'publication_bibliographic_details': {}
+            'publication_bibliographic_details': {},
           },
           'errors': [
             {
               'message': 'error.validation.required',
               'paths': [
-                '/sections/publication/dc.type'
-              ]
-            }
+                '/sections/publication/dc.type',
+              ],
+            },
           ],
           '_links': {
             'collection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/collection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/collection',
             },
             'item': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/item'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/item',
             },
             'submissionDefinition': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/submissionDefinition'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/submissionDefinition',
             },
             'submitter': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/submitter'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241/submitter',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/241',
+            },
           },
           'type': 'workspaceitem',
           'item': {
@@ -1533,23 +1533,23 @@ export const SearchResultsMock: any = {
                   'source': {
                     '_isScalar': false,
                     'source': {
-                      '_isScalar': false
+                      '_isScalar': false,
                     },
-                    'operator': {}
+                    'operator': {},
                   },
-                  'operator': {}
+                  'operator': {},
                 },
-                'operator': {}
+                'operator': {},
               },
-              'operator': {}
+              'operator': {},
             },
-            'operator': {}
-          }
-        }
+            'operator': {},
+          },
+        },
       },
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -1560,20 +1560,20 @@ export const SearchResultsMock: any = {
                 'message': 'error.validation.required',
                 'paths': [
                   '/sections/publication/dc.date.issued',
-                  '/sections/publication/dc.type'
-                ]
-              }
+                  '/sections/publication/dc.type',
+                ],
+              },
             ],
             'lastModified': '2021-04-26T21:16:20.586+0000',
             'sections': {
               'license': {
                 'url': null,
                 'acceptanceDate': null,
-                'granted': false
+                'granted': false,
               },
               'publication_references': {},
               'upload': {
-                'files': []
+                'files': [],
               },
               'publication': {
                 'dc.contributor.author': [
@@ -1582,8 +1582,8 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                     'confidence': 600,
-                    'place': 0
-                  }
+                    'place': 0,
+                  },
                 ],
                 'dc.title': [
                   {
@@ -1591,8 +1591,8 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
-                  }
+                    'place': 0,
+                  },
                 ],
                 'oairecerif.author.affiliation': [
                   {
@@ -1600,32 +1600,32 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                     'confidence': 600,
-                    'place': 0
-                  }
-                ]
+                    'place': 0,
+                  },
+                ],
               },
               'publication_indexing': {},
               'detect-duplicate': {},
               'collection': '6a96c5c8-38d7-4161-a6c3-0d3adcce1281',
-              'publication_bibliographic_details': {}
+              'publication_bibliographic_details': {},
             },
             'type': 'workspaceitem',
             '_links': {
               'collection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/collection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/collection',
               },
               'item': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/item'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/item',
               },
               'submissionDefinition': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/submissionDefinition'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/submissionDefinition',
               },
               'submitter': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/submitter'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/submitter',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328'
-              }
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328',
+              },
             },
             '_embedded': {
               'submitter': {
@@ -1640,8 +1640,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.agreements.end-user': [
                     {
@@ -1649,8 +1649,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'eperson.firstname': [
                     {
@@ -1658,8 +1658,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'eperson.lastname': [
                     {
@@ -1667,9 +1667,9 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'netid': null,
                 'lastActive': '2021-04-26T21:14:19.119+0000',
@@ -1680,12 +1680,12 @@ export const SearchResultsMock: any = {
                 'type': 'eperson',
                 '_links': {
                   'groups': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda/groups'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda/groups',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda',
+                  },
+                },
               },
               'item': {
                 'id': 'ee9db57b-0baf-4088-a1f8-74666181411d',
@@ -1699,8 +1699,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                       'confidence': 600,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.title': [
                     {
@@ -1708,8 +1708,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.entity.type': [
                     {
@@ -1717,8 +1717,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'oairecerif.author.affiliation': [
                     {
@@ -1726,9 +1726,9 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                       'confidence': 600,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'inArchive': false,
                 'discoverable': true,
@@ -1738,30 +1738,30 @@ export const SearchResultsMock: any = {
                 'type': 'item',
                 '_links': {
                   'bundles': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/bundles'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/bundles',
                   },
                   'mappedCollections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/mappedCollections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/mappedCollections',
                   },
                   'owningCollection': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/owningCollection'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/owningCollection',
                   },
                   'relationships': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/relationships'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/relationships',
                   },
                   'version': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/version'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/version',
                   },
                   'templateItemOf': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/templateItemOf'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/templateItemOf',
                   },
                   'metrics': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/metrics'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d/metrics',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/ee9db57b-0baf-4088-a1f8-74666181411d',
+                  },
+                },
               },
               'submissionDefinition': {
                 'id': 'publication',
@@ -1770,15 +1770,15 @@ export const SearchResultsMock: any = {
                 'isDefault': true,
                 '_links': {
                   'collections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/collections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/collections',
                   },
                   'sections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/sections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/sections',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication',
+                  },
+                },
               },
               'collection': {
                 'id': '6a96c5c8-38d7-4161-a6c3-0d3adcce1281',
@@ -1792,8 +1792,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.description.abstract': [
                     {
@@ -1801,8 +1801,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.description.tableofcontents': [
                     {
@@ -1810,8 +1810,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.identifier.uri': [
                     {
@@ -1819,8 +1819,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.rights': [
                     {
@@ -1828,8 +1828,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.rights.license': [
                     {
@@ -1837,8 +1837,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.title': [
                     {
@@ -1846,8 +1846,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.entity.type': [
                     {
@@ -1855,68 +1855,68 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'type': 'collection',
                 '_links': {
                   'harvester': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/harvester'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/harvester',
                   },
                   'itemtemplate': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/itemtemplate'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/itemtemplate',
                   },
                   'license': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/license'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/license',
                   },
                   'logo': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/logo'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/logo',
                   },
                   'mappedItems': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/mappedItems'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/mappedItems',
                   },
                   'parentCommunity': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/parentCommunity'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/parentCommunity',
                   },
                   'adminGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/adminGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/adminGroup',
                   },
                   'submittersGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/submittersGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/submittersGroup',
                   },
                   'itemReadGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/itemReadGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/itemReadGroup',
                   },
                   'bitstreamReadGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/bitstreamReadGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/bitstreamReadGroup',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281',
                   },
                   'workflowGroups': [
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/workflowGroups/editor',
-                      'name': 'editor'
+                      'name': 'editor',
                     },
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/workflowGroups/finaleditor',
-                      'name': 'finaleditor'
+                      'name': 'finaleditor',
                     },
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/6a96c5c8-38d7-4161-a6c3-0d3adcce1281/workflowGroups/reviewer',
-                      'name': 'reviewer'
-                    }
-                  ]
-                }
-              }
-            }
-          }
+                      'name': 'reviewer',
+                    },
+                  ],
+                },
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328',
+          },
         },
         'indexableObject': {
           'uuid': 'workspaceitem-328',
@@ -1926,11 +1926,11 @@ export const SearchResultsMock: any = {
             'license': {
               'url': null,
               'acceptanceDate': null,
-              'granted': false
+              'granted': false,
             },
             'publication_references': {},
             'upload': {
-              'files': []
+              'files': [],
             },
             'publication': {
               'dc.contributor.author': [
@@ -1939,8 +1939,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 600,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.title': [
                 {
@@ -1948,8 +1948,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'oairecerif.author.affiliation': [
                 {
@@ -1957,40 +1957,40 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 0
-                }
-              ]
+                  'place': 0,
+                },
+              ],
             },
             'publication_indexing': {},
             'detect-duplicate': {},
             'collection': '6a96c5c8-38d7-4161-a6c3-0d3adcce1281',
-            'publication_bibliographic_details': {}
+            'publication_bibliographic_details': {},
           },
           'errors': [
             {
               'message': 'error.validation.required',
               'paths': [
                 '/sections/publication/dc.date.issued',
-                '/sections/publication/dc.type'
-              ]
-            }
+                '/sections/publication/dc.type',
+              ],
+            },
           ],
           '_links': {
             'collection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/collection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/collection',
             },
             'item': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/item'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/item',
             },
             'submissionDefinition': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/submissionDefinition'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/submissionDefinition',
             },
             'submitter': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/submitter'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328/submitter',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/328',
+            },
           },
           'type': 'workspaceitem',
           'item': {
@@ -2004,23 +2004,23 @@ export const SearchResultsMock: any = {
                   'source': {
                     '_isScalar': false,
                     'source': {
-                      '_isScalar': false
+                      '_isScalar': false,
                     },
-                    'operator': {}
+                    'operator': {},
                   },
-                  'operator': {}
+                  'operator': {},
                 },
-                'operator': {}
+                'operator': {},
               },
-              'operator': {}
+              'operator': {},
             },
-            'operator': {}
-          }
-        }
+            'operator': {},
+          },
+        },
       },
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -2031,16 +2031,16 @@ export const SearchResultsMock: any = {
                 'message': 'error.validation.required',
                 'paths': [
                   '/sections/publication/dc.date.issued',
-                  '/sections/publication/dc.type'
-                ]
-              }
+                  '/sections/publication/dc.type',
+                ],
+              },
             ],
             'lastModified': '2021-04-26T21:16:20.854+0000',
             'sections': {
               'license': {
                 'url': null,
                 'acceptanceDate': null,
-                'granted': false
+                'granted': false,
               },
               'publication_references': {},
               'upload': {
@@ -2054,8 +2054,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.title': [
                         {
@@ -2063,9 +2063,9 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
-                      ]
+                          'place': 0,
+                        },
+                      ],
                     },
                     'accessConditions': [],
                     'format': {
@@ -2076,18 +2076,18 @@ export const SearchResultsMock: any = {
                       'supportLevel': 'KNOWN',
                       'internal': false,
                       'extensions': [
-                        'pdf'
+                        'pdf',
                       ],
-                      'type': 'bitstreamformat'
+                      'type': 'bitstreamformat',
                     },
                     'sizeBytes': 1537579,
                     'checkSum': {
                       'checkSumAlgorithm': 'MD5',
-                      'value': 'abdc75986daae51f0876b8be2351c309'
+                      'value': 'abdc75986daae51f0876b8be2351c309',
                     },
-                    'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/af8c7930-7943-41ba-abc7-e1266e6e0d4d/content'
-                  }
-                ]
+                    'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/af8c7930-7943-41ba-abc7-e1266e6e0d4d/content',
+                  },
+                ],
               },
               'publication': {
                 'dc.contributor.author': [
@@ -2096,22 +2096,22 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': 400,
-                    'place': 0
+                    'place': 0,
                   },
                   {
                     'value': 'Drobíková, Barbora',
                     'language': null,
                     'authority': null,
                     'confidence': 400,
-                    'place': 1
+                    'place': 1,
                   },
                   {
                     'value': 'Bollini, Andrea',
                     'language': null,
                     'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                     'confidence': 400,
-                    'place': 2
-                  }
+                    'place': 2,
+                  },
                 ],
                 'dc.title': [
                   {
@@ -2119,9 +2119,9 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
-                  }
-                ]
+                    'place': 0,
+                  },
+                ],
               },
               'publication_indexing': {
                 'dc.description.abstract': [
@@ -2130,8 +2130,8 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
-                  }
+                    'place': 0,
+                  },
                 ],
                 'dc.subject': [
                   {
@@ -2139,79 +2139,79 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
+                    'place': 0,
                   },
                   {
                     'value': 'interoperability',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 1
+                    'place': 1,
                   },
                   {
                     'value': 'CERIF',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 2
+                    'place': 2,
                   },
                   {
                     'value': 'functions of scientific communication',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 3
+                    'place': 3,
                   },
                   {
                     'value': 'publication metadata',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 4
+                    'place': 4,
                   },
                   {
                     'value': 'FRBR',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 5
+                    'place': 5,
                   },
                   {
                     'value': 'SWAP',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 6
+                    'place': 6,
                   },
                   {
                     'value': 'scholarly work',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 7
+                    'place': 7,
                   },
                   {
                     'value': 'expression',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 8
+                    'place': 8,
                   },
                   {
                     'value': 'manifestation',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 9
+                    'place': 9,
                   },
                   {
                     'value': 'research evaluation',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 10
-                  }
-                ]
+                    'place': 10,
+                  },
+                ],
               },
               'detect-duplicate': {
                 'matches': {
@@ -2233,22 +2233,22 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'Drobíková, Barbora',
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'Bollini, Andrea',
                             'language': null,
                             'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                             'confidence': 400,
-                            'place': 2
-                          }
+                            'place': 2,
+                          },
                         ],
                         'dc.description.abstract': [
                           {
@@ -2256,8 +2256,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.identifier': [
                           {
@@ -2265,8 +2265,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.subject': [
                           {
@@ -2274,78 +2274,78 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'interoperability',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'CERIF',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 2
+                            'place': 2,
                           },
                           {
                             'value': 'functions of scientific communication',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 3
+                            'place': 3,
                           },
                           {
                             'value': 'publication metadata',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 4
+                            'place': 4,
                           },
                           {
                             'value': 'FRBR',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 5
+                            'place': 5,
                           },
                           {
                             'value': 'SWAP',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 6
+                            'place': 6,
                           },
                           {
                             'value': 'scholarly work',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 7
+                            'place': 7,
                           },
                           {
                             'value': 'expression',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 8
+                            'place': 8,
                           },
                           {
                             'value': 'manifestation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 9
+                            'place': 9,
                           },
                           {
                             'value': 'research evaluation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 10
-                          }
+                            'place': 10,
+                          },
                         ],
                         'dc.title': [
                           {
@@ -2353,8 +2353,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dspace.entity.type': [
                           {
@@ -2362,17 +2362,17 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
-                        ]
+                            'place': 0,
+                          },
+                        ],
                       },
                       'inArchive': false,
                       'discoverable': true,
                       'withdrawn': false,
                       'lastModified': '2021-04-16T11:03:11.014+0000',
                       'entityType': 'Publication',
-                      'type': 'item'
-                    }
+                      'type': 'item',
+                    },
                   },
                   '3c43135f-3e8b-46c2-bac3-288ed58e3fc1': {
                     'submitterDecision': null,
@@ -2392,22 +2392,22 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'Drobíková, Barbora',
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'Bollini, Andrea',
                             'language': null,
                             'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                             'confidence': 400,
-                            'place': 2
-                          }
+                            'place': 2,
+                          },
                         ],
                         'dc.date.issued': [
                           {
@@ -2415,8 +2415,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.description.abstract': [
                           {
@@ -2424,8 +2424,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.identifier': [
                           {
@@ -2433,8 +2433,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.subject': [
                           {
@@ -2442,78 +2442,78 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'interoperability',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'CERIF',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 2
+                            'place': 2,
                           },
                           {
                             'value': 'functions of scientific communication',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 3
+                            'place': 3,
                           },
                           {
                             'value': 'publication metadata',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 4
+                            'place': 4,
                           },
                           {
                             'value': 'FRBR',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 5
+                            'place': 5,
                           },
                           {
                             'value': 'SWAP',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 6
+                            'place': 6,
                           },
                           {
                             'value': 'scholarly work',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 7
+                            'place': 7,
                           },
                           {
                             'value': 'expression',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 8
+                            'place': 8,
                           },
                           {
                             'value': 'manifestation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 9
+                            'place': 9,
                           },
                           {
                             'value': 'research evaluation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 10
-                          }
+                            'place': 10,
+                          },
                         ],
                         'dc.title': [
                           {
@@ -2521,8 +2521,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dspace.entity.type': [
                           {
@@ -2530,8 +2530,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'oairecerif.author.affiliation': [
                           {
@@ -2539,54 +2539,54 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': '#PLACEHOLDER_PARENT_METADATA_VALUE#',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': '4Science',
                             'language': null,
                             'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                             'confidence': 600,
-                            'place': 2
-                          }
-                        ]
+                            'place': 2,
+                          },
+                        ],
                       },
                       'inArchive': false,
                       'discoverable': true,
                       'withdrawn': false,
                       'lastModified': '2020-12-07T10:10:11.248+0000',
                       'entityType': 'Publication',
-                      'type': 'item'
-                    }
-                  }
-                }
+                      'type': 'item',
+                    },
+                  },
+                },
               },
               'collection': '8bb47238-2964-4d9f-be56-e912bf17ac58',
-              'publication_bibliographic_details': {}
+              'publication_bibliographic_details': {},
             },
             'type': 'workspaceitem',
             '_links': {
               'collection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/collection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/collection',
               },
               'item': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/item'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/item',
               },
               'submissionDefinition': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/submissionDefinition'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/submissionDefinition',
               },
               'submitter': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/submitter'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/submitter',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485'
-              }
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485',
+              },
             },
             '_embedded': {
               'submitter': {
@@ -2601,8 +2601,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.agreements.end-user': [
                     {
@@ -2610,8 +2610,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'eperson.firstname': [
                     {
@@ -2619,8 +2619,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'eperson.lastname': [
                     {
@@ -2628,9 +2628,9 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'netid': null,
                 'lastActive': '2021-04-26T21:14:19.119+0000',
@@ -2641,12 +2641,12 @@ export const SearchResultsMock: any = {
                 'type': 'eperson',
                 '_links': {
                   'groups': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda/groups'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda/groups',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda',
+                  },
+                },
               },
               'item': {
                 'id': 'eb4762fa-1046-443f-8f29-5e2c907c3c78',
@@ -2660,22 +2660,22 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': 400,
-                      'place': 0
+                      'place': 0,
                     },
                     {
                       'value': 'Drobíková, Barbora',
                       'language': null,
                       'authority': null,
                       'confidence': 400,
-                      'place': 1
+                      'place': 1,
                     },
                     {
                       'value': 'Bollini, Andrea',
                       'language': null,
                       'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                       'confidence': 400,
-                      'place': 2
-                    }
+                      'place': 2,
+                    },
                   ],
                   'dc.description.abstract': [
                     {
@@ -2683,8 +2683,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.identifier': [
                     {
@@ -2692,8 +2692,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.subject': [
                     {
@@ -2701,78 +2701,78 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
+                      'place': 0,
                     },
                     {
                       'value': 'interoperability',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 1
+                      'place': 1,
                     },
                     {
                       'value': 'CERIF',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 2
+                      'place': 2,
                     },
                     {
                       'value': 'functions of scientific communication',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 3
+                      'place': 3,
                     },
                     {
                       'value': 'publication metadata',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 4
+                      'place': 4,
                     },
                     {
                       'value': 'FRBR',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 5
+                      'place': 5,
                     },
                     {
                       'value': 'SWAP',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 6
+                      'place': 6,
                     },
                     {
                       'value': 'scholarly work',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 7
+                      'place': 7,
                     },
                     {
                       'value': 'expression',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 8
+                      'place': 8,
                     },
                     {
                       'value': 'manifestation',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 9
+                      'place': 9,
                     },
                     {
                       'value': 'research evaluation',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 10
-                    }
+                      'place': 10,
+                    },
                   ],
                   'dc.title': [
                     {
@@ -2780,8 +2780,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.entity.type': [
                     {
@@ -2789,9 +2789,9 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'inArchive': false,
                 'discoverable': true,
@@ -2801,30 +2801,30 @@ export const SearchResultsMock: any = {
                 'type': 'item',
                 '_links': {
                   'bundles': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/bundles'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/bundles',
                   },
                   'mappedCollections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/mappedCollections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/mappedCollections',
                   },
                   'owningCollection': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/owningCollection'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/owningCollection',
                   },
                   'relationships': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/relationships'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/relationships',
                   },
                   'version': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/version'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/version',
                   },
                   'templateItemOf': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/templateItemOf'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/templateItemOf',
                   },
                   'metrics': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/metrics'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78/metrics',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/eb4762fa-1046-443f-8f29-5e2c907c3c78',
+                  },
+                },
               },
               'submissionDefinition': {
                 'id': 'publication',
@@ -2833,15 +2833,15 @@ export const SearchResultsMock: any = {
                 'isDefault': true,
                 '_links': {
                   'collections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/collections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/collections',
                   },
                   'sections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/sections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/sections',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication',
+                  },
+                },
               },
               'collection': {
                 'id': '8bb47238-2964-4d9f-be56-e912bf17ac58',
@@ -2855,8 +2855,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.title': [
                     {
@@ -2864,8 +2864,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.entity.type': [
                     {
@@ -2873,68 +2873,68 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'type': 'collection',
                 '_links': {
                   'harvester': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/harvester'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/harvester',
                   },
                   'itemtemplate': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemtemplate'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemtemplate',
                   },
                   'license': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/license'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/license',
                   },
                   'logo': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/logo'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/logo',
                   },
                   'mappedItems': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/mappedItems'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/mappedItems',
                   },
                   'parentCommunity': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/parentCommunity'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/parentCommunity',
                   },
                   'adminGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/adminGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/adminGroup',
                   },
                   'submittersGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/submittersGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/submittersGroup',
                   },
                   'itemReadGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemReadGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemReadGroup',
                   },
                   'bitstreamReadGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/bitstreamReadGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/bitstreamReadGroup',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58',
                   },
                   'workflowGroups': [
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/workflowGroups/editor',
-                      'name': 'editor'
+                      'name': 'editor',
                     },
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/workflowGroups/finaleditor',
-                      'name': 'finaleditor'
+                      'name': 'finaleditor',
                     },
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/workflowGroups/reviewer',
-                      'name': 'reviewer'
-                    }
-                  ]
-                }
-              }
-            }
-          }
+                      'name': 'reviewer',
+                    },
+                  ],
+                },
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485',
+          },
         },
         'indexableObject': {
           'uuid': 'workspaceitem-485',
@@ -2944,7 +2944,7 @@ export const SearchResultsMock: any = {
             'license': {
               'url': null,
               'acceptanceDate': null,
-              'granted': false
+              'granted': false,
             },
             'publication_references': {},
             'upload': {
@@ -2958,8 +2958,8 @@ export const SearchResultsMock: any = {
                         'language': null,
                         'authority': null,
                         'confidence': -1,
-                        'place': 0
-                      }
+                        'place': 0,
+                      },
                     ],
                     'dc.title': [
                       {
@@ -2967,9 +2967,9 @@ export const SearchResultsMock: any = {
                         'language': null,
                         'authority': null,
                         'confidence': -1,
-                        'place': 0
-                      }
-                    ]
+                        'place': 0,
+                      },
+                    ],
                   },
                   'accessConditions': [],
                   'format': {
@@ -2980,18 +2980,18 @@ export const SearchResultsMock: any = {
                     'supportLevel': 'KNOWN',
                     'internal': false,
                     'extensions': [
-                      'pdf'
+                      'pdf',
                     ],
-                    'type': 'bitstreamformat'
+                    'type': 'bitstreamformat',
                   },
                   'sizeBytes': 1537579,
                   'checkSum': {
                     'checkSumAlgorithm': 'MD5',
-                    'value': 'abdc75986daae51f0876b8be2351c309'
+                    'value': 'abdc75986daae51f0876b8be2351c309',
                   },
-                  'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/af8c7930-7943-41ba-abc7-e1266e6e0d4d/content'
-                }
-              ]
+                  'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/af8c7930-7943-41ba-abc7-e1266e6e0d4d/content',
+                },
+              ],
             },
             'publication': {
               'dc.contributor.author': [
@@ -3000,22 +3000,22 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': 400,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'Drobíková, Barbora',
                   'language': null,
                   'authority': null,
                   'confidence': 400,
-                  'place': 1
+                  'place': 1,
                 },
                 {
                   'value': 'Bollini, Andrea',
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 400,
-                  'place': 2
-                }
+                  'place': 2,
+                },
               ],
               'dc.title': [
                 {
@@ -3023,9 +3023,9 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
-              ]
+                  'place': 0,
+                },
+              ],
             },
             'publication_indexing': {
               'dc.description.abstract': [
@@ -3034,8 +3034,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.subject': [
                 {
@@ -3043,79 +3043,79 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'interoperability',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 1
+                  'place': 1,
                 },
                 {
                   'value': 'CERIF',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 2
+                  'place': 2,
                 },
                 {
                   'value': 'functions of scientific communication',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 3
+                  'place': 3,
                 },
                 {
                   'value': 'publication metadata',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 4
+                  'place': 4,
                 },
                 {
                   'value': 'FRBR',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 5
+                  'place': 5,
                 },
                 {
                   'value': 'SWAP',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 6
+                  'place': 6,
                 },
                 {
                   'value': 'scholarly work',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 7
+                  'place': 7,
                 },
                 {
                   'value': 'expression',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 8
+                  'place': 8,
                 },
                 {
                   'value': 'manifestation',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 9
+                  'place': 9,
                 },
                 {
                   'value': 'research evaluation',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 10
-                }
-              ]
+                  'place': 10,
+                },
+              ],
             },
             'detect-duplicate': {
               'matches': {
@@ -3137,22 +3137,22 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'Drobíková, Barbora',
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'Bollini, Andrea',
                           'language': null,
                           'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                           'confidence': 400,
-                          'place': 2
-                        }
+                          'place': 2,
+                        },
                       ],
                       'dc.description.abstract': [
                         {
@@ -3160,8 +3160,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.identifier': [
                         {
@@ -3169,8 +3169,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.subject': [
                         {
@@ -3178,78 +3178,78 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'interoperability',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'CERIF',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 2
+                          'place': 2,
                         },
                         {
                           'value': 'functions of scientific communication',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 3
+                          'place': 3,
                         },
                         {
                           'value': 'publication metadata',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 4
+                          'place': 4,
                         },
                         {
                           'value': 'FRBR',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 5
+                          'place': 5,
                         },
                         {
                           'value': 'SWAP',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 6
+                          'place': 6,
                         },
                         {
                           'value': 'scholarly work',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 7
+                          'place': 7,
                         },
                         {
                           'value': 'expression',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 8
+                          'place': 8,
                         },
                         {
                           'value': 'manifestation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 9
+                          'place': 9,
                         },
                         {
                           'value': 'research evaluation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 10
-                        }
+                          'place': 10,
+                        },
                       ],
                       'dc.title': [
                         {
@@ -3257,8 +3257,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dspace.entity.type': [
                         {
@@ -3266,17 +3266,17 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
-                      ]
+                          'place': 0,
+                        },
+                      ],
                     },
                     'inArchive': false,
                     'discoverable': true,
                     'withdrawn': false,
                     'lastModified': '2021-04-16T11:03:11.014+0000',
                     'entityType': 'Publication',
-                    'type': 'item'
-                  }
+                    'type': 'item',
+                  },
                 },
                 '3c43135f-3e8b-46c2-bac3-288ed58e3fc1': {
                   'submitterDecision': null,
@@ -3296,22 +3296,22 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'Drobíková, Barbora',
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'Bollini, Andrea',
                           'language': null,
                           'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                           'confidence': 400,
-                          'place': 2
-                        }
+                          'place': 2,
+                        },
                       ],
                       'dc.date.issued': [
                         {
@@ -3319,8 +3319,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.description.abstract': [
                         {
@@ -3328,8 +3328,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.identifier': [
                         {
@@ -3337,8 +3337,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.subject': [
                         {
@@ -3346,78 +3346,78 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'interoperability',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'CERIF',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 2
+                          'place': 2,
                         },
                         {
                           'value': 'functions of scientific communication',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 3
+                          'place': 3,
                         },
                         {
                           'value': 'publication metadata',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 4
+                          'place': 4,
                         },
                         {
                           'value': 'FRBR',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 5
+                          'place': 5,
                         },
                         {
                           'value': 'SWAP',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 6
+                          'place': 6,
                         },
                         {
                           'value': 'scholarly work',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 7
+                          'place': 7,
                         },
                         {
                           'value': 'expression',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 8
+                          'place': 8,
                         },
                         {
                           'value': 'manifestation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 9
+                          'place': 9,
                         },
                         {
                           'value': 'research evaluation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 10
-                        }
+                          'place': 10,
+                        },
                       ],
                       'dc.title': [
                         {
@@ -3425,8 +3425,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dspace.entity.type': [
                         {
@@ -3434,8 +3434,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'oairecerif.author.affiliation': [
                         {
@@ -3443,62 +3443,62 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': '#PLACEHOLDER_PARENT_METADATA_VALUE#',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': '4Science',
                           'language': null,
                           'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                           'confidence': 600,
-                          'place': 2
-                        }
-                      ]
+                          'place': 2,
+                        },
+                      ],
                     },
                     'inArchive': false,
                     'discoverable': true,
                     'withdrawn': false,
                     'lastModified': '2020-12-07T10:10:11.248+0000',
                     'entityType': 'Publication',
-                    'type': 'item'
-                  }
-                }
-              }
+                    'type': 'item',
+                  },
+                },
+              },
             },
             'collection': '8bb47238-2964-4d9f-be56-e912bf17ac58',
-            'publication_bibliographic_details': {}
+            'publication_bibliographic_details': {},
           },
           'errors': [
             {
               'message': 'error.validation.required',
               'paths': [
                 '/sections/publication/dc.date.issued',
-                '/sections/publication/dc.type'
-              ]
-            }
+                '/sections/publication/dc.type',
+              ],
+            },
           ],
           '_links': {
             'collection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/collection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/collection',
             },
             'item': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/item'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/item',
             },
             'submissionDefinition': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/submissionDefinition'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/submissionDefinition',
             },
             'submitter': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/submitter'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485/submitter',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/485',
+            },
           },
           'type': 'workspaceitem',
           'item': {
@@ -3512,23 +3512,23 @@ export const SearchResultsMock: any = {
                   'source': {
                     '_isScalar': false,
                     'source': {
-                      '_isScalar': false
+                      '_isScalar': false,
                     },
-                    'operator': {}
+                    'operator': {},
                   },
-                  'operator': {}
+                  'operator': {},
                 },
-                'operator': {}
+                'operator': {},
               },
-              'operator': {}
+              'operator': {},
             },
-            'operator': {}
-          }
-        }
+            'operator': {},
+          },
+        },
       },
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -3544,15 +3544,15 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'Lombardi, Corrado',
                   'language': null,
                   'authority': 'b5ad6864-012d-4989-8e0d-4acfa1156fd9',
                   'confidence': 600,
-                  'place': 1
-                }
+                  'place': 1,
+                },
               ],
               'dc.date.accessioned': [
                 {
@@ -3560,8 +3560,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.available': [
                 {
@@ -3569,8 +3569,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.issued': [
                 {
@@ -3578,8 +3578,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': 0,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.description.provenance': [
                 {
@@ -3587,8 +3587,8 @@ export const SearchResultsMock: any = {
                   'language': 'en',
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.pmid': [
                 {
@@ -3596,8 +3596,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.uri': [
                 {
@@ -3605,8 +3605,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.relation.ispartof': [
                 {
@@ -3614,8 +3614,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.title': [
                 {
@@ -3623,8 +3623,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.type': [
                 {
@@ -3632,8 +3632,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'types:c_1843',
                   'confidence': 600,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dspace.entity.type': [
                 {
@@ -3641,8 +3641,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'oairecerif.author.affiliation': [
                 {
@@ -3650,16 +3650,16 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': '4Science',
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 1
-                }
-              ]
+                  'place': 1,
+                },
+              ],
             },
             'inArchive': true,
             'discoverable': true,
@@ -3669,36 +3669,36 @@ export const SearchResultsMock: any = {
             'type': 'item',
             '_links': {
               'bundles': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/bundles'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/bundles',
               },
               'mappedCollections': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/mappedCollections'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/mappedCollections',
               },
               'owningCollection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/owningCollection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/owningCollection',
               },
               'relationships': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/relationships'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/relationships',
               },
               'version': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/version'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/version',
               },
               'templateItemOf': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/templateItemOf'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/templateItemOf',
               },
               'metrics': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/metrics'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/metrics',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e'
-              }
-            }
-          }
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e',
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e',
+          },
         },
         'indexableObject': {
           'handle': '123456789/181',
@@ -3708,29 +3708,29 @@ export const SearchResultsMock: any = {
           'isWithdrawn': false,
           '_links': {
             'bundles': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/bundles'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/bundles',
             },
             'mappedCollections': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/mappedCollections'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/mappedCollections',
             },
             'owningCollection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/owningCollection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/owningCollection',
             },
             'relationships': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/relationships'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/relationships',
             },
             'version': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/version'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/version',
             },
             'templateItemOf': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/templateItemOf'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/templateItemOf',
             },
             'metrics': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/metrics'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e/metrics',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e',
+            },
           },
           '_name': 'Anti-Daltonism screens and glasses',
           'id': 'afc9a6cd-0f1b-4fc9-a88b-818d5666fb8e',
@@ -3744,7 +3744,7 @@ export const SearchResultsMock: any = {
                 'value': 'Bollini, Andrea',
                 'place': 0,
                 'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': '17209f50-a1e0-46c5-a920-e8dace1a6145',
@@ -3752,8 +3752,8 @@ export const SearchResultsMock: any = {
                 'value': 'Lombardi, Corrado',
                 'place': 1,
                 'authority': 'b5ad6864-012d-4989-8e0d-4acfa1156fd9',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dc.date.accessioned': [
               {
@@ -3762,8 +3762,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:33Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.available': [
               {
@@ -3772,8 +3772,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:33Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.issued': [
               {
@@ -3782,8 +3782,8 @@ export const SearchResultsMock: any = {
                 'value': '1953-02-09',
                 'place': 0,
                 'authority': null,
-                'confidence': 0
-              }
+                'confidence': 0,
+              },
             ],
             'dc.description.provenance': [
               {
@@ -3792,8 +3792,8 @@ export const SearchResultsMock: any = {
                 'value': 'Made available in DSpace on 2021-04-15T20:20:33Z (GMT). No. of bitstreams: 0  Previous issue date:    9',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.pmid': [
               {
@@ -3802,8 +3802,8 @@ export const SearchResultsMock: any = {
                 'value': '13051875',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.uri': [
               {
@@ -3812,8 +3812,8 @@ export const SearchResultsMock: any = {
                 'value': 'https://dspacecris7.4science.cloud/handle/123456789/181',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.relation.ispartof': [
               {
@@ -3822,8 +3822,8 @@ export const SearchResultsMock: any = {
                 'value': 'C R Hebd Seances Acad Sci',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.title': [
               {
@@ -3832,8 +3832,8 @@ export const SearchResultsMock: any = {
                 'value': 'Anti-Daltonism screens and glasses',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.type': [
               {
@@ -3842,8 +3842,8 @@ export const SearchResultsMock: any = {
                 'value': 'Controlled Vocabulary for Resource Type Genres::other',
                 'place': 0,
                 'authority': 'types:c_1843',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dspace.entity.type': [
               {
@@ -3852,8 +3852,8 @@ export const SearchResultsMock: any = {
                 'value': 'Publication',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'oairecerif.author.affiliation': [
               {
@@ -3862,7 +3862,7 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 0,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': '8f0e0598-6c34-49ce-889c-f4518870a7bf',
@@ -3870,15 +3870,15 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 1,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
-              }
-            ]
-          }
-        }
+                'confidence': 600,
+              },
+            ],
+          },
+        },
       },
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -3889,16 +3889,16 @@ export const SearchResultsMock: any = {
                 'message': 'error.validation.required',
                 'paths': [
                   '/sections/publication/dc.date.issued',
-                  '/sections/publication/dc.type'
-                ]
-              }
+                  '/sections/publication/dc.type',
+                ],
+              },
             ],
             'lastModified': '2021-04-26T21:16:21.340+0000',
             'sections': {
               'license': {
                 'url': null,
                 'acceptanceDate': null,
-                'granted': false
+                'granted': false,
               },
               'publication_references': {},
               'upload': {
@@ -3912,8 +3912,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.title': [
                         {
@@ -3921,9 +3921,9 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
-                      ]
+                          'place': 0,
+                        },
+                      ],
                     },
                     'accessConditions': [],
                     'format': {
@@ -3934,18 +3934,18 @@ export const SearchResultsMock: any = {
                       'supportLevel': 'KNOWN',
                       'internal': false,
                       'extensions': [
-                        'pdf'
+                        'pdf',
                       ],
-                      'type': 'bitstreamformat'
+                      'type': 'bitstreamformat',
                     },
                     'sizeBytes': 1537579,
                     'checkSum': {
                       'checkSumAlgorithm': 'MD5',
-                      'value': 'abdc75986daae51f0876b8be2351c309'
+                      'value': 'abdc75986daae51f0876b8be2351c309',
                     },
-                    'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/f9e0012e-1f0a-420c-bdd1-1936b9eb25fa/content'
-                  }
-                ]
+                    'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/f9e0012e-1f0a-420c-bdd1-1936b9eb25fa/content',
+                  },
+                ],
               },
               'publication': {
                 'dc.contributor.author': [
@@ -3954,22 +3954,22 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': 400,
-                    'place': 0
+                    'place': 0,
                   },
                   {
                     'value': 'Drobíková, Barbora',
                     'language': null,
                     'authority': null,
                     'confidence': 400,
-                    'place': 1
+                    'place': 1,
                   },
                   {
                     'value': 'Bollini, Andrea',
                     'language': null,
                     'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                     'confidence': 400,
-                    'place': 2
-                  }
+                    'place': 2,
+                  },
                 ],
                 'dc.title': [
                   {
@@ -3977,9 +3977,9 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
-                  }
-                ]
+                    'place': 0,
+                  },
+                ],
               },
               'publication_indexing': {
                 'dc.description.abstract': [
@@ -3988,8 +3988,8 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
-                  }
+                    'place': 0,
+                  },
                 ],
                 'dc.subject': [
                   {
@@ -3997,79 +3997,79 @@ export const SearchResultsMock: any = {
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 0
+                    'place': 0,
                   },
                   {
                     'value': 'interoperability',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 1
+                    'place': 1,
                   },
                   {
                     'value': 'CERIF',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 2
+                    'place': 2,
                   },
                   {
                     'value': 'functions of scientific communication',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 3
+                    'place': 3,
                   },
                   {
                     'value': 'publication metadata',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 4
+                    'place': 4,
                   },
                   {
                     'value': 'FRBR',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 5
+                    'place': 5,
                   },
                   {
                     'value': 'SWAP',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 6
+                    'place': 6,
                   },
                   {
                     'value': 'scholarly work',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 7
+                    'place': 7,
                   },
                   {
                     'value': 'expression',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 8
+                    'place': 8,
                   },
                   {
                     'value': 'manifestation',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 9
+                    'place': 9,
                   },
                   {
                     'value': 'research evaluation',
                     'language': null,
                     'authority': null,
                     'confidence': -1,
-                    'place': 10
-                  }
-                ]
+                    'place': 10,
+                  },
+                ],
               },
               'detect-duplicate': {
                 'matches': {
@@ -4091,22 +4091,22 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'Drobíková, Barbora',
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'Bollini, Andrea',
                             'language': null,
                             'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                             'confidence': 400,
-                            'place': 2
-                          }
+                            'place': 2,
+                          },
                         ],
                         'dc.description.abstract': [
                           {
@@ -4114,8 +4114,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.identifier': [
                           {
@@ -4123,8 +4123,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.subject': [
                           {
@@ -4132,78 +4132,78 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'interoperability',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'CERIF',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 2
+                            'place': 2,
                           },
                           {
                             'value': 'functions of scientific communication',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 3
+                            'place': 3,
                           },
                           {
                             'value': 'publication metadata',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 4
+                            'place': 4,
                           },
                           {
                             'value': 'FRBR',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 5
+                            'place': 5,
                           },
                           {
                             'value': 'SWAP',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 6
+                            'place': 6,
                           },
                           {
                             'value': 'scholarly work',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 7
+                            'place': 7,
                           },
                           {
                             'value': 'expression',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 8
+                            'place': 8,
                           },
                           {
                             'value': 'manifestation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 9
+                            'place': 9,
                           },
                           {
                             'value': 'research evaluation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 10
-                          }
+                            'place': 10,
+                          },
                         ],
                         'dc.title': [
                           {
@@ -4211,8 +4211,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dspace.entity.type': [
                           {
@@ -4220,17 +4220,17 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
-                        ]
+                            'place': 0,
+                          },
+                        ],
                       },
                       'inArchive': false,
                       'discoverable': true,
                       'withdrawn': false,
                       'lastModified': '2021-04-15T21:48:03.591+0000',
                       'entityType': 'Publication',
-                      'type': 'item'
-                    }
+                      'type': 'item',
+                    },
                   },
                   '3c43135f-3e8b-46c2-bac3-288ed58e3fc1': {
                     'submitterDecision': null,
@@ -4250,22 +4250,22 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'Drobíková, Barbora',
                             'language': null,
                             'authority': null,
                             'confidence': 400,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'Bollini, Andrea',
                             'language': null,
                             'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                             'confidence': 400,
-                            'place': 2
-                          }
+                            'place': 2,
+                          },
                         ],
                         'dc.date.issued': [
                           {
@@ -4273,8 +4273,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.description.abstract': [
                           {
@@ -4282,8 +4282,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.identifier': [
                           {
@@ -4291,8 +4291,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dc.subject': [
                           {
@@ -4300,78 +4300,78 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': 'interoperability',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': 'CERIF',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 2
+                            'place': 2,
                           },
                           {
                             'value': 'functions of scientific communication',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 3
+                            'place': 3,
                           },
                           {
                             'value': 'publication metadata',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 4
+                            'place': 4,
                           },
                           {
                             'value': 'FRBR',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 5
+                            'place': 5,
                           },
                           {
                             'value': 'SWAP',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 6
+                            'place': 6,
                           },
                           {
                             'value': 'scholarly work',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 7
+                            'place': 7,
                           },
                           {
                             'value': 'expression',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 8
+                            'place': 8,
                           },
                           {
                             'value': 'manifestation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 9
+                            'place': 9,
                           },
                           {
                             'value': 'research evaluation',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 10
-                          }
+                            'place': 10,
+                          },
                         ],
                         'dc.title': [
                           {
@@ -4379,8 +4379,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'dspace.entity.type': [
                           {
@@ -4388,8 +4388,8 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
-                          }
+                            'place': 0,
+                          },
                         ],
                         'oairecerif.author.affiliation': [
                           {
@@ -4397,54 +4397,54 @@ export const SearchResultsMock: any = {
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 0
+                            'place': 0,
                           },
                           {
                             'value': '#PLACEHOLDER_PARENT_METADATA_VALUE#',
                             'language': null,
                             'authority': null,
                             'confidence': -1,
-                            'place': 1
+                            'place': 1,
                           },
                           {
                             'value': '4Science',
                             'language': null,
                             'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                             'confidence': 600,
-                            'place': 2
-                          }
-                        ]
+                            'place': 2,
+                          },
+                        ],
                       },
                       'inArchive': false,
                       'discoverable': true,
                       'withdrawn': false,
                       'lastModified': '2020-12-07T10:10:11.248+0000',
                       'entityType': 'Publication',
-                      'type': 'item'
-                    }
-                  }
-                }
+                      'type': 'item',
+                    },
+                  },
+                },
               },
               'collection': '8bb47238-2964-4d9f-be56-e912bf17ac58',
-              'publication_bibliographic_details': {}
+              'publication_bibliographic_details': {},
             },
             'type': 'workspaceitem',
             '_links': {
               'collection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/collection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/collection',
               },
               'item': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/item'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/item',
               },
               'submissionDefinition': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/submissionDefinition'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/submissionDefinition',
               },
               'submitter': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/submitter'
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/submitter',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490'
-              }
+                'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490',
+              },
             },
             '_embedded': {
               'submitter': {
@@ -4459,8 +4459,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.agreements.end-user': [
                     {
@@ -4468,8 +4468,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'eperson.firstname': [
                     {
@@ -4477,8 +4477,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'eperson.lastname': [
                     {
@@ -4486,9 +4486,9 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'netid': null,
                 'lastActive': '2021-04-26T21:14:19.119+0000',
@@ -4499,12 +4499,12 @@ export const SearchResultsMock: any = {
                 'type': 'eperson',
                 '_links': {
                   'groups': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda/groups'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda/groups',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda',
+                  },
+                },
               },
               'item': {
                 'id': '6e63adab-a02d-4722-a079-e1a8779cab3a',
@@ -4518,22 +4518,22 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': 400,
-                      'place': 0
+                      'place': 0,
                     },
                     {
                       'value': 'Drobíková, Barbora',
                       'language': null,
                       'authority': null,
                       'confidence': 400,
-                      'place': 1
+                      'place': 1,
                     },
                     {
                       'value': 'Bollini, Andrea',
                       'language': null,
                       'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                       'confidence': 400,
-                      'place': 2
-                    }
+                      'place': 2,
+                    },
                   ],
                   'dc.description.abstract': [
                     {
@@ -4541,8 +4541,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.identifier': [
                     {
@@ -4550,8 +4550,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.subject': [
                     {
@@ -4559,78 +4559,78 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
+                      'place': 0,
                     },
                     {
                       'value': 'interoperability',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 1
+                      'place': 1,
                     },
                     {
                       'value': 'CERIF',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 2
+                      'place': 2,
                     },
                     {
                       'value': 'functions of scientific communication',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 3
+                      'place': 3,
                     },
                     {
                       'value': 'publication metadata',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 4
+                      'place': 4,
                     },
                     {
                       'value': 'FRBR',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 5
+                      'place': 5,
                     },
                     {
                       'value': 'SWAP',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 6
+                      'place': 6,
                     },
                     {
                       'value': 'scholarly work',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 7
+                      'place': 7,
                     },
                     {
                       'value': 'expression',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 8
+                      'place': 8,
                     },
                     {
                       'value': 'manifestation',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 9
+                      'place': 9,
                     },
                     {
                       'value': 'research evaluation',
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 10
-                    }
+                      'place': 10,
+                    },
                   ],
                   'dc.title': [
                     {
@@ -4638,8 +4638,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.entity.type': [
                     {
@@ -4647,9 +4647,9 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'inArchive': false,
                 'discoverable': true,
@@ -4659,30 +4659,30 @@ export const SearchResultsMock: any = {
                 'type': 'item',
                 '_links': {
                   'bundles': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/bundles'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/bundles',
                   },
                   'mappedCollections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/mappedCollections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/mappedCollections',
                   },
                   'owningCollection': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/owningCollection'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/owningCollection',
                   },
                   'relationships': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/relationships'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/relationships',
                   },
                   'version': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/version'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/version',
                   },
                   'templateItemOf': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/templateItemOf'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/templateItemOf',
                   },
                   'metrics': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/metrics'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a/metrics',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/items/6e63adab-a02d-4722-a079-e1a8779cab3a',
+                  },
+                },
               },
               'submissionDefinition': {
                 'id': 'publication',
@@ -4691,15 +4691,15 @@ export const SearchResultsMock: any = {
                 'isDefault': true,
                 '_links': {
                   'collections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/collections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/collections',
                   },
                   'sections': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/sections'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication/sections',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication'
-                  }
-                }
+                    'href': 'https://dspacecris7.4science.cloud/server/api/config/submissiondefinitions/publication',
+                  },
+                },
               },
               'collection': {
                 'id': '8bb47238-2964-4d9f-be56-e912bf17ac58',
@@ -4713,8 +4713,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dc.title': [
                     {
@@ -4722,8 +4722,8 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
+                      'place': 0,
+                    },
                   ],
                   'dspace.entity.type': [
                     {
@@ -4731,68 +4731,68 @@ export const SearchResultsMock: any = {
                       'language': null,
                       'authority': null,
                       'confidence': -1,
-                      'place': 0
-                    }
-                  ]
+                      'place': 0,
+                    },
+                  ],
                 },
                 'type': 'collection',
                 '_links': {
                   'harvester': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/harvester'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/harvester',
                   },
                   'itemtemplate': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemtemplate'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemtemplate',
                   },
                   'license': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/license'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/license',
                   },
                   'logo': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/logo'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/logo',
                   },
                   'mappedItems': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/mappedItems'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/mappedItems',
                   },
                   'parentCommunity': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/parentCommunity'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/parentCommunity',
                   },
                   'adminGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/adminGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/adminGroup',
                   },
                   'submittersGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/submittersGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/submittersGroup',
                   },
                   'itemReadGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemReadGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/itemReadGroup',
                   },
                   'bitstreamReadGroup': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/bitstreamReadGroup'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/bitstreamReadGroup',
                   },
                   'self': {
-                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58'
+                    'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58',
                   },
                   'workflowGroups': [
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/workflowGroups/editor',
-                      'name': 'editor'
+                      'name': 'editor',
                     },
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/workflowGroups/finaleditor',
-                      'name': 'finaleditor'
+                      'name': 'finaleditor',
                     },
                     {
                       'href': 'https://dspacecris7.4science.cloud/server/api/core/collections/8bb47238-2964-4d9f-be56-e912bf17ac58/workflowGroups/reviewer',
-                      'name': 'reviewer'
-                    }
-                  ]
-                }
-              }
-            }
-          }
+                      'name': 'reviewer',
+                    },
+                  ],
+                },
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490',
+          },
         },
         'indexableObject': {
           'uuid': 'workspaceitem-490',
@@ -4802,7 +4802,7 @@ export const SearchResultsMock: any = {
             'license': {
               'url': null,
               'acceptanceDate': null,
-              'granted': false
+              'granted': false,
             },
             'publication_references': {},
             'upload': {
@@ -4816,8 +4816,8 @@ export const SearchResultsMock: any = {
                         'language': null,
                         'authority': null,
                         'confidence': -1,
-                        'place': 0
-                      }
+                        'place': 0,
+                      },
                     ],
                     'dc.title': [
                       {
@@ -4825,9 +4825,9 @@ export const SearchResultsMock: any = {
                         'language': null,
                         'authority': null,
                         'confidence': -1,
-                        'place': 0
-                      }
-                    ]
+                        'place': 0,
+                      },
+                    ],
                   },
                   'accessConditions': [],
                   'format': {
@@ -4838,18 +4838,18 @@ export const SearchResultsMock: any = {
                     'supportLevel': 'KNOWN',
                     'internal': false,
                     'extensions': [
-                      'pdf'
+                      'pdf',
                     ],
-                    'type': 'bitstreamformat'
+                    'type': 'bitstreamformat',
                   },
                   'sizeBytes': 1537579,
                   'checkSum': {
                     'checkSumAlgorithm': 'MD5',
-                    'value': 'abdc75986daae51f0876b8be2351c309'
+                    'value': 'abdc75986daae51f0876b8be2351c309',
                   },
-                  'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/f9e0012e-1f0a-420c-bdd1-1936b9eb25fa/content'
-                }
-              ]
+                  'url': 'https://dspacecris7.4science.cloud/server/api/core/bitstreams/f9e0012e-1f0a-420c-bdd1-1936b9eb25fa/content',
+                },
+              ],
             },
             'publication': {
               'dc.contributor.author': [
@@ -4858,22 +4858,22 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': 400,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'Drobíková, Barbora',
                   'language': null,
                   'authority': null,
                   'confidence': 400,
-                  'place': 1
+                  'place': 1,
                 },
                 {
                   'value': 'Bollini, Andrea',
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 400,
-                  'place': 2
-                }
+                  'place': 2,
+                },
               ],
               'dc.title': [
                 {
@@ -4881,9 +4881,9 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
-              ]
+                  'place': 0,
+                },
+              ],
             },
             'publication_indexing': {
               'dc.description.abstract': [
@@ -4892,8 +4892,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.subject': [
                 {
@@ -4901,79 +4901,79 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'interoperability',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 1
+                  'place': 1,
                 },
                 {
                   'value': 'CERIF',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 2
+                  'place': 2,
                 },
                 {
                   'value': 'functions of scientific communication',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 3
+                  'place': 3,
                 },
                 {
                   'value': 'publication metadata',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 4
+                  'place': 4,
                 },
                 {
                   'value': 'FRBR',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 5
+                  'place': 5,
                 },
                 {
                   'value': 'SWAP',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 6
+                  'place': 6,
                 },
                 {
                   'value': 'scholarly work',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 7
+                  'place': 7,
                 },
                 {
                   'value': 'expression',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 8
+                  'place': 8,
                 },
                 {
                   'value': 'manifestation',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 9
+                  'place': 9,
                 },
                 {
                   'value': 'research evaluation',
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 10
-                }
-              ]
+                  'place': 10,
+                },
+              ],
             },
             'detect-duplicate': {
               'matches': {
@@ -4995,22 +4995,22 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'Drobíková, Barbora',
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'Bollini, Andrea',
                           'language': null,
                           'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                           'confidence': 400,
-                          'place': 2
-                        }
+                          'place': 2,
+                        },
                       ],
                       'dc.description.abstract': [
                         {
@@ -5018,8 +5018,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.identifier': [
                         {
@@ -5027,8 +5027,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.subject': [
                         {
@@ -5036,78 +5036,78 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'interoperability',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'CERIF',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 2
+                          'place': 2,
                         },
                         {
                           'value': 'functions of scientific communication',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 3
+                          'place': 3,
                         },
                         {
                           'value': 'publication metadata',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 4
+                          'place': 4,
                         },
                         {
                           'value': 'FRBR',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 5
+                          'place': 5,
                         },
                         {
                           'value': 'SWAP',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 6
+                          'place': 6,
                         },
                         {
                           'value': 'scholarly work',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 7
+                          'place': 7,
                         },
                         {
                           'value': 'expression',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 8
+                          'place': 8,
                         },
                         {
                           'value': 'manifestation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 9
+                          'place': 9,
                         },
                         {
                           'value': 'research evaluation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 10
-                        }
+                          'place': 10,
+                        },
                       ],
                       'dc.title': [
                         {
@@ -5115,8 +5115,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dspace.entity.type': [
                         {
@@ -5124,17 +5124,17 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
-                      ]
+                          'place': 0,
+                        },
+                      ],
                     },
                     'inArchive': false,
                     'discoverable': true,
                     'withdrawn': false,
                     'lastModified': '2021-04-15T21:48:03.591+0000',
                     'entityType': 'Publication',
-                    'type': 'item'
-                  }
+                    'type': 'item',
+                  },
                 },
                 '3c43135f-3e8b-46c2-bac3-288ed58e3fc1': {
                   'submitterDecision': null,
@@ -5154,22 +5154,22 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'Drobíková, Barbora',
                           'language': null,
                           'authority': null,
                           'confidence': 400,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'Bollini, Andrea',
                           'language': null,
                           'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                           'confidence': 400,
-                          'place': 2
-                        }
+                          'place': 2,
+                        },
                       ],
                       'dc.date.issued': [
                         {
@@ -5177,8 +5177,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.description.abstract': [
                         {
@@ -5186,8 +5186,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.identifier': [
                         {
@@ -5195,8 +5195,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dc.subject': [
                         {
@@ -5204,78 +5204,78 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': 'interoperability',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': 'CERIF',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 2
+                          'place': 2,
                         },
                         {
                           'value': 'functions of scientific communication',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 3
+                          'place': 3,
                         },
                         {
                           'value': 'publication metadata',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 4
+                          'place': 4,
                         },
                         {
                           'value': 'FRBR',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 5
+                          'place': 5,
                         },
                         {
                           'value': 'SWAP',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 6
+                          'place': 6,
                         },
                         {
                           'value': 'scholarly work',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 7
+                          'place': 7,
                         },
                         {
                           'value': 'expression',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 8
+                          'place': 8,
                         },
                         {
                           'value': 'manifestation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 9
+                          'place': 9,
                         },
                         {
                           'value': 'research evaluation',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 10
-                        }
+                          'place': 10,
+                        },
                       ],
                       'dc.title': [
                         {
@@ -5283,8 +5283,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'dspace.entity.type': [
                         {
@@ -5292,8 +5292,8 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
-                        }
+                          'place': 0,
+                        },
                       ],
                       'oairecerif.author.affiliation': [
                         {
@@ -5301,62 +5301,62 @@ export const SearchResultsMock: any = {
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 0
+                          'place': 0,
                         },
                         {
                           'value': '#PLACEHOLDER_PARENT_METADATA_VALUE#',
                           'language': null,
                           'authority': null,
                           'confidence': -1,
-                          'place': 1
+                          'place': 1,
                         },
                         {
                           'value': '4Science',
                           'language': null,
                           'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                           'confidence': 600,
-                          'place': 2
-                        }
-                      ]
+                          'place': 2,
+                        },
+                      ],
                     },
                     'inArchive': false,
                     'discoverable': true,
                     'withdrawn': false,
                     'lastModified': '2020-12-07T10:10:11.248+0000',
                     'entityType': 'Publication',
-                    'type': 'item'
-                  }
-                }
-              }
+                    'type': 'item',
+                  },
+                },
+              },
             },
             'collection': '8bb47238-2964-4d9f-be56-e912bf17ac58',
-            'publication_bibliographic_details': {}
+            'publication_bibliographic_details': {},
           },
           'errors': [
             {
               'message': 'error.validation.required',
               'paths': [
                 '/sections/publication/dc.date.issued',
-                '/sections/publication/dc.type'
-              ]
-            }
+                '/sections/publication/dc.type',
+              ],
+            },
           ],
           '_links': {
             'collection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/collection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/collection',
             },
             'item': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/item'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/item',
             },
             'submissionDefinition': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/submissionDefinition'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/submissionDefinition',
             },
             'submitter': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/submitter'
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490/submitter',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/submission/workspaceitems/490',
+            },
           },
           'type': 'workspaceitem',
           'item': {
@@ -5370,23 +5370,23 @@ export const SearchResultsMock: any = {
                   'source': {
                     '_isScalar': false,
                     'source': {
-                      '_isScalar': false
+                      '_isScalar': false,
                     },
-                    'operator': {}
+                    'operator': {},
                   },
-                  'operator': {}
+                  'operator': {},
                 },
-                'operator': {}
+                'operator': {},
               },
-              'operator': {}
+              'operator': {},
             },
-            'operator': {}
-          }
-        }
+            'operator': {},
+          },
+        },
       },
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -5402,15 +5402,15 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'Bollini, Andrea',
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 600,
-                  'place': 1
-                }
+                  'place': 1,
+                },
               ],
               'dc.date.accessioned': [
                 {
@@ -5418,8 +5418,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.available': [
                 {
@@ -5427,8 +5427,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.issued': [
                 {
@@ -5436,8 +5436,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': 0,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.description.provenance': [
                 {
@@ -5445,8 +5445,8 @@ export const SearchResultsMock: any = {
                   'language': 'en',
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.doi': [
                 {
@@ -5454,8 +5454,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.pmid': [
                 {
@@ -5463,8 +5463,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.uri': [
                 {
@@ -5472,8 +5472,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.relation.ispartof': [
                 {
@@ -5481,8 +5481,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.title': [
                 {
@@ -5490,8 +5490,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.type': [
                 {
@@ -5499,8 +5499,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'types:c_7877',
                   'confidence': 600,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dspace.entity.type': [
                 {
@@ -5508,8 +5508,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'oairecerif.author.affiliation': [
                 {
@@ -5517,16 +5517,16 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': '4Science',
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 1
-                }
-              ]
+                  'place': 1,
+                },
+              ],
             },
             'inArchive': true,
             'discoverable': true,
@@ -5536,36 +5536,36 @@ export const SearchResultsMock: any = {
             'type': 'item',
             '_links': {
               'bundles': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/bundles'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/bundles',
               },
               'mappedCollections': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/mappedCollections'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/mappedCollections',
               },
               'owningCollection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/owningCollection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/owningCollection',
               },
               'relationships': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/relationships'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/relationships',
               },
               'version': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/version'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/version',
               },
               'templateItemOf': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/templateItemOf'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/templateItemOf',
               },
               'metrics': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/metrics'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/metrics',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df'
-              }
-            }
-          }
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df',
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df',
+          },
         },
         'indexableObject': {
           'handle': '123456789/173',
@@ -5575,29 +5575,29 @@ export const SearchResultsMock: any = {
           'isWithdrawn': false,
           '_links': {
             'bundles': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/bundles'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/bundles',
             },
             'mappedCollections': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/mappedCollections'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/mappedCollections',
             },
             'owningCollection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/owningCollection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/owningCollection',
             },
             'relationships': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/relationships'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/relationships',
             },
             'version': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/version'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/version',
             },
             'templateItemOf': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/templateItemOf'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/templateItemOf',
             },
             'metrics': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/metrics'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df/metrics',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/60067f34-ccd4-4c38-a30d-130a98b391df',
+            },
           },
           '_name': 'Clinical Outcomes Of A COVID-19 Vaccine: Implementation Over Efficacy',
           'id': '60067f34-ccd4-4c38-a30d-130a98b391df',
@@ -5611,7 +5611,7 @@ export const SearchResultsMock: any = {
                 'value': 'Cortese, Claudio',
                 'place': 0,
                 'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': '54d89f7e-da08-42ee-961e-f81fa1e5f731',
@@ -5619,8 +5619,8 @@ export const SearchResultsMock: any = {
                 'value': 'Bollini, Andrea',
                 'place': 1,
                 'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dc.date.accessioned': [
               {
@@ -5629,8 +5629,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:31Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.available': [
               {
@@ -5639,8 +5639,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:31Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.issued': [
               {
@@ -5649,8 +5649,8 @@ export const SearchResultsMock: any = {
                 'value': '2020-11-09',
                 'place': 0,
                 'authority': null,
-                'confidence': 0
-              }
+                'confidence': 0,
+              },
             ],
             'dc.description.provenance': [
               {
@@ -5659,8 +5659,8 @@ export const SearchResultsMock: any = {
                 'value': 'Made available in DSpace on 2021-04-15T20:20:31Z (GMT). No. of bitstreams: 0  Previous issue date:    9',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.doi': [
               {
@@ -5669,8 +5669,8 @@ export const SearchResultsMock: any = {
                 'value': '10.1377/hlthaff.2020.02054',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.pmid': [
               {
@@ -5679,8 +5679,8 @@ export const SearchResultsMock: any = {
                 'value': '32451112',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.uri': [
               {
@@ -5689,8 +5689,8 @@ export const SearchResultsMock: any = {
                 'value': 'https://dspacecris7.4science.cloud/handle/123456789/173',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.relation.ispartof': [
               {
@@ -5699,8 +5699,8 @@ export const SearchResultsMock: any = {
                 'value': 'Health Aff (Millwood)',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.title': [
               {
@@ -5709,8 +5709,8 @@ export const SearchResultsMock: any = {
                 'value': 'Clinical Outcomes Of A COVID-19 Vaccine: Implementation Over Efficacy',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.type': [
               {
@@ -5719,8 +5719,8 @@ export const SearchResultsMock: any = {
                 'value': 'Controlled Vocabulary for Resource Type Genres::clinical study',
                 'place': 0,
                 'authority': 'types:c_7877',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dspace.entity.type': [
               {
@@ -5729,8 +5729,8 @@ export const SearchResultsMock: any = {
                 'value': 'Publication',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'oairecerif.author.affiliation': [
               {
@@ -5739,7 +5739,7 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 0,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': '39322f4a-3664-498a-8220-2f984a8032ee',
@@ -5747,15 +5747,15 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 1,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
-              }
-            ]
-          }
-        }
+                'confidence': 600,
+              },
+            ],
+          },
+        },
       },
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -5771,15 +5771,15 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'Bollini, Andrea',
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 600,
-                  'place': 1
-                }
+                  'place': 1,
+                },
               ],
               'dc.date.accessioned': [
                 {
@@ -5787,8 +5787,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.available': [
                 {
@@ -5796,8 +5796,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.issued': [
                 {
@@ -5805,8 +5805,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': 0,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.description.provenance': [
                 {
@@ -5814,8 +5814,8 @@ export const SearchResultsMock: any = {
                   'language': 'en',
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.doi': [
                 {
@@ -5823,8 +5823,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.pmid': [
                 {
@@ -5832,8 +5832,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.uri': [
                 {
@@ -5841,8 +5841,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.relation.ispartof': [
                 {
@@ -5850,8 +5850,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.title': [
                 {
@@ -5859,8 +5859,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.type': [
                 {
@@ -5868,8 +5868,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'types:c_cb28',
                   'confidence': 600,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dspace.entity.type': [
                 {
@@ -5877,8 +5877,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'oairecerif.author.affiliation': [
                 {
@@ -5886,16 +5886,16 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': '4Science',
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 1
-                }
-              ]
+                  'place': 1,
+                },
+              ],
             },
             'inArchive': true,
             'discoverable': true,
@@ -5905,36 +5905,36 @@ export const SearchResultsMock: any = {
             'type': 'item',
             '_links': {
               'bundles': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/bundles'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/bundles',
               },
               'mappedCollections': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/mappedCollections'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/mappedCollections',
               },
               'owningCollection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/owningCollection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/owningCollection',
               },
               'relationships': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/relationships'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/relationships',
               },
               'version': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/version'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/version',
               },
               'templateItemOf': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/templateItemOf'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/templateItemOf',
               },
               'metrics': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/metrics'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/metrics',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205'
-              }
-            }
-          }
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205',
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205',
+          },
         },
         'indexableObject': {
           'handle': '123456789/158',
@@ -5944,29 +5944,29 @@ export const SearchResultsMock: any = {
           'isWithdrawn': false,
           '_links': {
             'bundles': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/bundles'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/bundles',
             },
             'mappedCollections': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/mappedCollections'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/mappedCollections',
             },
             'owningCollection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/owningCollection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/owningCollection',
             },
             'relationships': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/relationships'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/relationships',
             },
             'version': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/version'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/version',
             },
             'templateItemOf': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/templateItemOf'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/templateItemOf',
             },
             'metrics': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/metrics'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205/metrics',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/457cc4c7-8d1b-4884-ac02-2b8328dcb205',
+            },
           },
           '_name': 'COVID-19 vaccine testing in pregnant females is necessary',
           'id': '457cc4c7-8d1b-4884-ac02-2b8328dcb205',
@@ -5980,7 +5980,7 @@ export const SearchResultsMock: any = {
                 'value': 'Cortese, Claudio',
                 'place': 0,
                 'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': 'b10479f0-276c-4f1e-935b-8825c8e380f6',
@@ -5988,8 +5988,8 @@ export const SearchResultsMock: any = {
                 'value': 'Bollini, Andrea',
                 'place': 1,
                 'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dc.date.accessioned': [
               {
@@ -5998,8 +5998,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:27Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.available': [
               {
@@ -6008,8 +6008,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:27Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.issued': [
               {
@@ -6018,8 +6018,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-01-04',
                 'place': 0,
                 'authority': null,
-                'confidence': 0
-              }
+                'confidence': 0,
+              },
             ],
             'dc.description.provenance': [
               {
@@ -6028,8 +6028,8 @@ export const SearchResultsMock: any = {
                 'value': 'Made available in DSpace on 2021-04-15T20:20:27Z (GMT). No. of bitstreams: 0  Previous issue date:    4',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.doi': [
               {
@@ -6038,8 +6038,8 @@ export const SearchResultsMock: any = {
                 'value': '10.1172/JCI147553',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.pmid': [
               {
@@ -6048,8 +6048,8 @@ export const SearchResultsMock: any = {
                 'value': '33340022',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.uri': [
               {
@@ -6058,8 +6058,8 @@ export const SearchResultsMock: any = {
                 'value': 'https://dspacecris7.4science.cloud/handle/123456789/158',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.relation.ispartof': [
               {
@@ -6068,8 +6068,8 @@ export const SearchResultsMock: any = {
                 'value': 'J Clin Invest',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.title': [
               {
@@ -6078,8 +6078,8 @@ export const SearchResultsMock: any = {
                 'value': 'COVID-19 vaccine testing in pregnant females is necessary',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.type': [
               {
@@ -6088,8 +6088,8 @@ export const SearchResultsMock: any = {
                 'value': 'Controlled Vocabulary for Resource Type Genres::clinical trial',
                 'place': 0,
                 'authority': 'types:c_cb28',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dspace.entity.type': [
               {
@@ -6098,8 +6098,8 @@ export const SearchResultsMock: any = {
                 'value': 'Publication',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'oairecerif.author.affiliation': [
               {
@@ -6108,7 +6108,7 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 0,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': '9042aad5-cd3d-4de9-b1bc-ce3059985c50',
@@ -6116,15 +6116,15 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 1,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
-              }
-            ]
-          }
-        }
+                'confidence': 600,
+              },
+            ],
+          },
+        },
       },
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -6140,15 +6140,15 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'Bollini, Andrea',
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 600,
-                  'place': 1
-                }
+                  'place': 1,
+                },
               ],
               'dc.date.accessioned': [
                 {
@@ -6156,8 +6156,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.available': [
                 {
@@ -6165,8 +6165,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.issued': [
                 {
@@ -6174,8 +6174,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': 0,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.description.provenance': [
                 {
@@ -6183,8 +6183,8 @@ export const SearchResultsMock: any = {
                   'language': 'en',
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.doi': [
                 {
@@ -6192,8 +6192,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.pmid': [
                 {
@@ -6201,8 +6201,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.uri': [
                 {
@@ -6210,8 +6210,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.relation.ispartof': [
                 {
@@ -6219,8 +6219,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.title': [
                 {
@@ -6228,8 +6228,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.type': [
                 {
@@ -6237,8 +6237,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'types:c_1843',
                   'confidence': 600,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dspace.entity.type': [
                 {
@@ -6246,8 +6246,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'oairecerif.author.affiliation': [
                 {
@@ -6255,16 +6255,16 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': '4Science',
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 1
-                }
-              ]
+                  'place': 1,
+                },
+              ],
             },
             'inArchive': true,
             'discoverable': true,
@@ -6274,36 +6274,36 @@ export const SearchResultsMock: any = {
             'type': 'item',
             '_links': {
               'bundles': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/bundles'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/bundles',
               },
               'mappedCollections': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/mappedCollections'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/mappedCollections',
               },
               'owningCollection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/owningCollection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/owningCollection',
               },
               'relationships': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/relationships'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/relationships',
               },
               'version': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/version'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/version',
               },
               'templateItemOf': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/templateItemOf'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/templateItemOf',
               },
               'metrics': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/metrics'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/metrics',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe'
-              }
-            }
-          }
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe',
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe',
+          },
         },
         'indexableObject': {
           'handle': '123456789/155',
@@ -6313,29 +6313,29 @@ export const SearchResultsMock: any = {
           'isWithdrawn': false,
           '_links': {
             'bundles': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/bundles'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/bundles',
             },
             'mappedCollections': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/mappedCollections'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/mappedCollections',
             },
             'owningCollection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/owningCollection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/owningCollection',
             },
             'relationships': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/relationships'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/relationships',
             },
             'version': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/version'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/version',
             },
             'templateItemOf': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/templateItemOf'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/templateItemOf',
             },
             'metrics': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/metrics'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe/metrics',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/e6fa5246-53ff-4f06-b3c2-f6cbdc88effe',
+            },
           },
           '_name': 'A global survey of potential acceptance of a COVID-19 vaccine',
           'id': 'e6fa5246-53ff-4f06-b3c2-f6cbdc88effe',
@@ -6349,7 +6349,7 @@ export const SearchResultsMock: any = {
                 'value': 'Cortese, Claudio',
                 'place': 0,
                 'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': 'd4a64323-52ce-49e0-9123-5c339592e25e',
@@ -6357,8 +6357,8 @@ export const SearchResultsMock: any = {
                 'value': 'Bollini, Andrea',
                 'place': 1,
                 'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dc.date.accessioned': [
               {
@@ -6367,8 +6367,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:26Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.available': [
               {
@@ -6377,8 +6377,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:26Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.issued': [
               {
@@ -6387,8 +6387,8 @@ export const SearchResultsMock: any = {
                 'value': '2020-12-11',
                 'place': 0,
                 'authority': null,
-                'confidence': 0
-              }
+                'confidence': 0,
+              },
             ],
             'dc.description.provenance': [
               {
@@ -6397,8 +6397,8 @@ export const SearchResultsMock: any = {
                 'value': 'Made available in DSpace on 2021-04-15T20:20:26Z (GMT). No. of bitstreams: 0  Previous issue date:   11',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.doi': [
               {
@@ -6407,8 +6407,8 @@ export const SearchResultsMock: any = {
                 'value': '10.1038/s41591-020-1124-9',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.pmid': [
               {
@@ -6417,8 +6417,8 @@ export const SearchResultsMock: any = {
                 'value': '33306990',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.uri': [
               {
@@ -6427,8 +6427,8 @@ export const SearchResultsMock: any = {
                 'value': 'https://dspacecris7.4science.cloud/handle/123456789/155',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.relation.ispartof': [
               {
@@ -6437,8 +6437,8 @@ export const SearchResultsMock: any = {
                 'value': 'Nat Med',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.title': [
               {
@@ -6447,8 +6447,8 @@ export const SearchResultsMock: any = {
                 'value': 'A global survey of potential acceptance of a COVID-19 vaccine',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.type': [
               {
@@ -6457,8 +6457,8 @@ export const SearchResultsMock: any = {
                 'value': 'Controlled Vocabulary for Resource Type Genres::other',
                 'place': 0,
                 'authority': 'types:c_1843',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dspace.entity.type': [
               {
@@ -6467,8 +6467,8 @@ export const SearchResultsMock: any = {
                 'value': 'Publication',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'oairecerif.author.affiliation': [
               {
@@ -6477,7 +6477,7 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 0,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': '3c0a55f4-7848-4bc2-8139-1c3875e25483',
@@ -6485,15 +6485,15 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 1,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
-              }
-            ]
-          }
-        }
+                'confidence': 600,
+              },
+            ],
+          },
+        },
       },
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -6509,15 +6509,15 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'Bollini, Andrea',
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 600,
-                  'place': 1
-                }
+                  'place': 1,
+                },
               ],
               'dc.date.accessioned': [
                 {
@@ -6525,8 +6525,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.available': [
                 {
@@ -6534,8 +6534,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.issued': [
                 {
@@ -6543,8 +6543,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.description.provenance': [
                 {
@@ -6552,8 +6552,8 @@ export const SearchResultsMock: any = {
                   'language': 'en',
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.uri': [
                 {
@@ -6561,8 +6561,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.title': [
                 {
@@ -6570,8 +6570,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.type': [
                 {
@@ -6579,8 +6579,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dspace.entity.type': [
                 {
@@ -6588,8 +6588,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'oairecerif.author.affiliation': [
                 {
@@ -6597,16 +6597,16 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': '4Science',
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 1
-                }
-              ]
+                  'place': 1,
+                },
+              ],
             },
             'inArchive': true,
             'discoverable': true,
@@ -6616,36 +6616,36 @@ export const SearchResultsMock: any = {
             'type': 'item',
             '_links': {
               'bundles': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/bundles'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/bundles',
               },
               'mappedCollections': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/mappedCollections'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/mappedCollections',
               },
               'owningCollection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/owningCollection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/owningCollection',
               },
               'relationships': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/relationships'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/relationships',
               },
               'version': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/version'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/version',
               },
               'templateItemOf': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/templateItemOf'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/templateItemOf',
               },
               'metrics': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/metrics'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/metrics',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c'
-              }
-            }
-          }
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c',
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c',
+          },
         },
         'indexableObject': {
           'handle': '123456789/188',
@@ -6655,29 +6655,29 @@ export const SearchResultsMock: any = {
           'isWithdrawn': false,
           '_links': {
             'bundles': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/bundles'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/bundles',
             },
             'mappedCollections': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/mappedCollections'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/mappedCollections',
             },
             'owningCollection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/owningCollection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/owningCollection',
             },
             'relationships': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/relationships'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/relationships',
             },
             'version': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/version'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/version',
             },
             'templateItemOf': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/templateItemOf'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/templateItemOf',
             },
             'metrics': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/metrics'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c/metrics',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/daf8587e-724e-4399-bc47-006bfa10fd2c',
+            },
           },
           '_name': 'Building a Semantic Web Digital Library for the Municipality of Milan',
           'id': 'daf8587e-724e-4399-bc47-006bfa10fd2c',
@@ -6691,7 +6691,7 @@ export const SearchResultsMock: any = {
                 'value': 'Cortese, Claudio',
                 'place': 0,
                 'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': 'd52fab22-af3f-48a9-bad7-6ee11ef511ae',
@@ -6699,8 +6699,8 @@ export const SearchResultsMock: any = {
                 'value': 'Bollini, Andrea',
                 'place': 1,
                 'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dc.date.accessioned': [
               {
@@ -6709,8 +6709,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T21:39:12Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.available': [
               {
@@ -6719,8 +6719,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T21:39:12Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.issued': [
               {
@@ -6729,8 +6729,8 @@ export const SearchResultsMock: any = {
                 'value': '2018',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.description.provenance': [
               {
@@ -6739,8 +6739,8 @@ export const SearchResultsMock: any = {
                 'value': 'Made available in DSpace on 2021-04-15T21:39:12Z (GMT). No. of bitstreams: 0  Previous issue date: 2018',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.uri': [
               {
@@ -6749,8 +6749,8 @@ export const SearchResultsMock: any = {
                 'value': 'https://dspacecris7.4science.cloud/handle/123456789/188',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.title': [
               {
@@ -6759,8 +6759,8 @@ export const SearchResultsMock: any = {
                 'value': 'Building a Semantic Web Digital Library for the Municipality of Milan',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.type': [
               {
@@ -6769,8 +6769,8 @@ export const SearchResultsMock: any = {
                 'value': 'Controlled Vocabulary for Resource Type Genres::other',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dspace.entity.type': [
               {
@@ -6779,8 +6779,8 @@ export const SearchResultsMock: any = {
                 'value': 'Publication',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'oairecerif.author.affiliation': [
               {
@@ -6789,7 +6789,7 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 0,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': '4e442625-9ace-4ec0-b509-d962f48ae188',
@@ -6797,15 +6797,15 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 1,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
-              }
-            ]
-          }
-        }
+                'confidence': 600,
+              },
+            ],
+          },
+        },
       },
       {
         'type': {
-          'value': 'searchresult'
+          'value': 'searchresult',
         },
         'hitHighlights': {},
         '_embedded': {
@@ -6821,15 +6821,15 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': 'Bollini, Andrea',
                   'language': null,
                   'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
                   'confidence': 600,
-                  'place': 1
-                }
+                  'place': 1,
+                },
               ],
               'dc.date.accessioned': [
                 {
@@ -6837,8 +6837,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.available': [
                 {
@@ -6846,8 +6846,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.date.issued': [
                 {
@@ -6855,8 +6855,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': 0,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.description.provenance': [
                 {
@@ -6864,8 +6864,8 @@ export const SearchResultsMock: any = {
                   'language': 'en',
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.doi': [
                 {
@@ -6873,8 +6873,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.pmid': [
                 {
@@ -6882,8 +6882,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.identifier.uri': [
                 {
@@ -6891,8 +6891,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.relation.ispartof': [
                 {
@@ -6900,8 +6900,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.title': [
                 {
@@ -6909,8 +6909,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dc.type': [
                 {
@@ -6918,8 +6918,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'types:c_1843',
                   'confidence': 600,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'dspace.entity.type': [
                 {
@@ -6927,8 +6927,8 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': null,
                   'confidence': -1,
-                  'place': 0
-                }
+                  'place': 0,
+                },
               ],
               'oairecerif.author.affiliation': [
                 {
@@ -6936,16 +6936,16 @@ export const SearchResultsMock: any = {
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 0
+                  'place': 0,
                 },
                 {
                   'value': '4Science',
                   'language': null,
                   'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
                   'confidence': 600,
-                  'place': 1
-                }
-              ]
+                  'place': 1,
+                },
+              ],
             },
             'inArchive': true,
             'discoverable': true,
@@ -6955,36 +6955,36 @@ export const SearchResultsMock: any = {
             'type': 'item',
             '_links': {
               'bundles': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/bundles'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/bundles',
               },
               'mappedCollections': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/mappedCollections'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/mappedCollections',
               },
               'owningCollection': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/owningCollection'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/owningCollection',
               },
               'relationships': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/relationships'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/relationships',
               },
               'version': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/version'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/version',
               },
               'templateItemOf': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/templateItemOf'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/templateItemOf',
               },
               'metrics': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/metrics'
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/metrics',
               },
               'self': {
-                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634'
-              }
-            }
-          }
+                'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634',
+              },
+            },
+          },
         },
         '_links': {
           'indexableObject': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634'
-          }
+            'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634',
+          },
         },
         'indexableObject': {
           'handle': '123456789/164',
@@ -6994,29 +6994,29 @@ export const SearchResultsMock: any = {
           'isWithdrawn': false,
           '_links': {
             'bundles': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/bundles'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/bundles',
             },
             'mappedCollections': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/mappedCollections'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/mappedCollections',
             },
             'owningCollection': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/owningCollection'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/owningCollection',
             },
             'relationships': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/relationships'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/relationships',
             },
             'version': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/version'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/version',
             },
             'templateItemOf': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/templateItemOf'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/templateItemOf',
             },
             'metrics': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/metrics'
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634/metrics',
             },
             'self': {
-              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634'
-            }
+              'href': 'https://dspacecris7.4science.cloud/server/api/core/items/70403a07-1915-4b2c-aaf2-174b32be3634',
+            },
           },
           '_name': 'COVID-19 vaccine development: What lessons can we learn from TB?',
           'id': '70403a07-1915-4b2c-aaf2-174b32be3634',
@@ -7030,7 +7030,7 @@ export const SearchResultsMock: any = {
                 'value': 'Cortese, Claudio',
                 'place': 0,
                 'authority': 'b14b8d90-fba7-4678-8153-46017a38a218',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': '888ac22d-7b42-449c-872b-b458f8757003',
@@ -7038,8 +7038,8 @@ export const SearchResultsMock: any = {
                 'value': 'Bollini, Andrea',
                 'place': 1,
                 'authority': '092b59e8-8159-4e70-98b5-93ec60bd3431',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dc.date.accessioned': [
               {
@@ -7048,8 +7048,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:28Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.available': [
               {
@@ -7058,8 +7058,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-04-15T20:20:28Z',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.date.issued': [
               {
@@ -7068,8 +7068,8 @@ export const SearchResultsMock: any = {
                 'value': '2021-02-01',
                 'place': 0,
                 'authority': null,
-                'confidence': 0
-              }
+                'confidence': 0,
+              },
             ],
             'dc.description.provenance': [
               {
@@ -7078,8 +7078,8 @@ export const SearchResultsMock: any = {
                 'value': 'Made available in DSpace on 2021-04-15T20:20:28Z (GMT). No. of bitstreams: 0  Previous issue date:    1',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.doi': [
               {
@@ -7088,8 +7088,8 @@ export const SearchResultsMock: any = {
                 'value': '10.1186/s12941-020-00402-x',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.pmid': [
               {
@@ -7098,8 +7098,8 @@ export const SearchResultsMock: any = {
                 'value': '32893468',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.identifier.uri': [
               {
@@ -7108,8 +7108,8 @@ export const SearchResultsMock: any = {
                 'value': 'https://dspacecris7.4science.cloud/handle/123456789/164',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.relation.ispartof': [
               {
@@ -7118,8 +7118,8 @@ export const SearchResultsMock: any = {
                 'value': 'Ann Clin Microbiol Antimicrob',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.title': [
               {
@@ -7128,8 +7128,8 @@ export const SearchResultsMock: any = {
                 'value': 'COVID-19 vaccine development: What lessons can we learn from TB?',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'dc.type': [
               {
@@ -7138,8 +7138,8 @@ export const SearchResultsMock: any = {
                 'value': 'Controlled Vocabulary for Resource Type Genres::other',
                 'place': 0,
                 'authority': 'types:c_1843',
-                'confidence': 600
-              }
+                'confidence': 600,
+              },
             ],
             'dspace.entity.type': [
               {
@@ -7148,8 +7148,8 @@ export const SearchResultsMock: any = {
                 'value': 'Publication',
                 'place': 0,
                 'authority': null,
-                'confidence': -1
-              }
+                'confidence': -1,
+              },
             ],
             'oairecerif.author.affiliation': [
               {
@@ -7158,7 +7158,7 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 0,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
+                'confidence': 600,
               },
               {
                 'uuid': '371f1bce-dce0-45fd-b994-29e5a7cc30ed',
@@ -7166,37 +7166,37 @@ export const SearchResultsMock: any = {
                 'value': '4Science',
                 'place': 1,
                 'authority': 'a14ba215-c0f0-4b74-b21a-06359bfabd45',
-                'confidence': 600
-              }
-            ]
-          }
-        }
-      }
+                'confidence': 600,
+              },
+            ],
+          },
+        },
+      },
     ],
     'scope': '092b59e8-8159-4e70-98b5-93ec60bd3431',
     'appliedFilters': null,
     'sort': {
       'by': 'score',
-      'order': 'DESC'
+      'order': 'DESC',
     },
     'configuration': 'RELATION.Person.researchoutputs',
     '_links': {
       'next': {
-        'href': 'https://dspacecris7.4science.cloud/server/api/discover/search/objects?scope=092b59e8-8159-4e70-98b5-93ec60bd3431&configuration=RELATION.Person.researchoutputs&sort=score,DESC&page=1&size=10'
+        'href': 'https://dspacecris7.4science.cloud/server/api/discover/search/objects?scope=092b59e8-8159-4e70-98b5-93ec60bd3431&configuration=RELATION.Person.researchoutputs&sort=score,DESC&page=1&size=10',
       },
       'last': {
-        'href': 'https://dspacecris7.4science.cloud/server/api/discover/search/objects?scope=092b59e8-8159-4e70-98b5-93ec60bd3431&configuration=RELATION.Person.researchoutputs&sort=score,DESC&page=3&size=10'
+        'href': 'https://dspacecris7.4science.cloud/server/api/discover/search/objects?scope=092b59e8-8159-4e70-98b5-93ec60bd3431&configuration=RELATION.Person.researchoutputs&sort=score,DESC&page=3&size=10',
       },
       'self': {
-        'href': 'https://dspacecris7.4science.cloud/server/api/discover/search/objects?scope=092b59e8-8159-4e70-98b5-93ec60bd3431&configuration=RELATION.Person.researchoutputs&sort=score,DESC'
-      }
+        'href': 'https://dspacecris7.4science.cloud/server/api/discover/search/objects?scope=092b59e8-8159-4e70-98b5-93ec60bd3431&configuration=RELATION.Person.researchoutputs&sort=score,DESC',
+      },
     },
     'pageInfo': {
       'elementsPerPage': 10,
       'totalElements': 39,
       'totalPages': 4,
-      'currentPage': 1
-    }
+      'currentPage': 1,
+    },
   },
-  'statusCode': 200
+  'statusCode': 200,
 };

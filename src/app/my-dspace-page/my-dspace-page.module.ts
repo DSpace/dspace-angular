@@ -8,6 +8,7 @@ import { UploadModule } from '../shared/upload/upload.module';
 import { CollectionSelectorComponent } from './collection-selector/collection-selector.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
+import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
 import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission/my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
@@ -16,9 +17,6 @@ import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 import { MyDspaceSearchModule } from './my-dspace-search.module';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
-import {
-  MyDSpaceNewBulkImportComponent
-} from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
@@ -29,7 +27,7 @@ const DECLARATIONS = [
   MyDSpaceNewExternalDropdownComponent,
   MyDspaceQaEventsNotificationsComponent,
   MyDSpaceNewExternalDropdownComponent,
-  MyDSpaceNewBulkImportComponent
+  MyDSpaceNewBulkImportComponent,
 ];
 
 @NgModule({

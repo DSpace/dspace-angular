@@ -383,7 +383,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const hrefObs = this.getSearchByHref(
       'byItemId',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findListByHref(
@@ -391,7 +391,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
       options,
       useCachedVersionIfAvailable,
       reRequestOnStale,
-      ...linksToFollow
+      ...linksToFollow,
     );
   }
 
@@ -432,7 +432,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const hrefObs = this.getSearchByHref(
       'showableByItem',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findListByHref(
@@ -440,7 +440,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
       options,
       useCachedVersionIfAvailable,
       reRequestOnStale,
-      ...linksToFollow
+      ...linksToFollow,
     );
   }
 
@@ -481,7 +481,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const hrefObs = this.getSearchByHref(
       'showableByItem',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findListByHref(
@@ -489,7 +489,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
       options,
       useCachedVersionIfAvailable,
       reRequestOnStale,
-      ...linksToFollow
+      ...linksToFollow,
     );
   }
 

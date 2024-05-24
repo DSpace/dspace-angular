@@ -192,7 +192,7 @@ describe('MyDSpaceConfigurationService', () => {
         b: [
           MyDSpaceConfigurationValueType.Workspace,
           MyDSpaceConfigurationValueType.OtherWorkspace,
-        ]
+        ],
       }));
     });
 

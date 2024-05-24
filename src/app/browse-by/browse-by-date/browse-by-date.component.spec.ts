@@ -22,6 +22,7 @@ import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
+import { SearchManager } from '../../core/browse/search-manager';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
@@ -35,10 +36,6 @@ import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { toRemoteData } from '../browse-by-metadata/browse-by-metadata.component.spec';
 import { BrowseByDateComponent } from './browse-by-date.component';
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
-import { SearchManager } from '../../core/browse/search-manager';
 
 describe('BrowseByDateComponent', () => {
   let comp: BrowseByDateComponent;
@@ -80,11 +77,11 @@ describe('BrowseByDateComponent', () => {
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
-     getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => createSuccessfulRemoteDataObject$(firstItem)
-   };
+    getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => createSuccessfulRemoteDataObject$(firstItem),
+  };
 
   const mockBrowseManager = {
-    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem])
+    getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
   };
 
   const mockDsoService = {

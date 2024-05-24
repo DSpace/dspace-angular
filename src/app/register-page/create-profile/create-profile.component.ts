@@ -1,11 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, take } from 'rxjs/operators';
-import { Registration } from '../../core/shared/registration.model';
-import { Observable } from 'rxjs';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
@@ -18,7 +32,11 @@ import {
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { Registration } from '../../core/shared/registration.model';
 import { isEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
@@ -72,7 +90,7 @@ export class CreateProfileComponent implements OnInit {
         }
         this.email = registration.email;
         this.token = registration.token;
-    });
+      });
     this.activeLangs = environment.languages.filter((MyLangConfig) => MyLangConfig.active === true);
 
     this.userInfoForm = this.formBuilder.group({
@@ -86,7 +104,7 @@ export class CreateProfileComponent implements OnInit {
       language: new UntypedFormControl(''),
       userAgreementAccept: new UntypedFormControl(false, {
         validators: [Validators.requiredTrue],
-      })
+      }),
     });
 
   }
@@ -169,8 +187,8 @@ export class CreateProfileComponent implements OnInit {
           if (isUserAgreementEnabled && this.userAgreementAccept) {
             values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
               {
-            value: String(true),
-          },
+                value: String(true),
+              },
             ];
             this.endUserAgreementService.removeCookieAccepted();
           }
@@ -181,7 +199,7 @@ export class CreateProfileComponent implements OnInit {
           return this.ePersonDataService.createEPersonForToken(eperson, this.token).pipe(
             getFirstCompletedRemoteData(),
           );
-        })
+        }),
       ).subscribe((rd: RemoteData<EPerson>) => {
         if (rd.hasSucceeded) {
           this.notificationsService.success(this.translateService.get(this.NOTIFICATIONS_PREFIX + 'success.head'),

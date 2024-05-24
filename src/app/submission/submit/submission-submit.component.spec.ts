@@ -4,8 +4,8 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed,
   fakeAsync,
+  TestBed,
   waitForAsync,
 } from '@angular/core/testing';
 import {
@@ -19,23 +19,21 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemDataService } from '../../core/data/item-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../submission.service';
 import { SubmissionSubmitComponent } from './submission-submit.component';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 
 describe('SubmissionSubmitComponent Component', () => {
   const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {
     findById: jasmine.createSpy('findById'),
-    getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity')
+    getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity'),
   });
   let comp: SubmissionSubmitComponent;
   let fixture: ComponentFixture<SubmissionSubmitComponent>;

@@ -1,7 +1,16 @@
-import { Injectable, Injector, } from '@angular/core';
-import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig, } from '@ng-dynamic-forms/core';
+import {
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
+  DynamicFormGroupModelConfig,
+} from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
-import { isEmpty, } from '../../../empty.util';
+
+import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
+import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
+import { isEmpty } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormFieldModel } from '../models/form-field.model';
@@ -17,8 +26,6 @@ import { setLayout } from './parser.utils';
 import { ParserFactory } from './parser-factory';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
-import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -39,9 +46,9 @@ export class RowParser {
     initFormValues: any,
     submissionScope,
     readOnly: boolean,
-               typeField: string,
-               isInnerForm: boolean = false,
-               securityConfig: any = null): DynamicRowGroupModel {
+    typeField: string,
+    isInnerForm: boolean = false,
+    securityConfig: any = null): DynamicRowGroupModel {
     let fieldModel: any = null;
     let parsedResult = null;
     const config: DynamicFormGroupModelConfig = {
@@ -59,7 +66,7 @@ export class RowParser {
       submissionScope: submissionScope,
       collectionUUID: scopeUUID,
       typeField: typeField,
-      isInnerForm: isInnerForm
+      isInnerForm: isInnerForm,
     };
 
     // Iterate over row's fields

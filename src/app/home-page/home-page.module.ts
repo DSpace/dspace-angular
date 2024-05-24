@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { JournalEntitiesModule } from '../entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from '../entity-groups/research-entities/research-entities.module';
 import { NotificationsModule } from '../notifications/notifications.module';
+import { ExploreModule } from '../shared/explore/explore.module';
 import { SearchModule } from '../shared/search/search.module';
 import { SharedModule } from '../shared/shared.module';
 import { StatisticsModule } from '../statistics/statistics.module';
@@ -15,8 +16,6 @@ import { RecentItemListComponent } from './recent-item-list/recent-item-list.com
 import { ThemedHomePageComponent } from './themed-home-page.component';
 import { ThemedTopLevelCommunityListComponent } from './top-level-community-list/themed-top-level-community-list.component';
 import { TopLevelCommunityListComponent } from './top-level-community-list/top-level-community-list.component';
-import { NotificationsModule } from '../notifications/notifications.module';
-import { ExploreModule } from '../shared/explore/explore.module';
 
 const DECLARATIONS = [
   HomePageComponent,

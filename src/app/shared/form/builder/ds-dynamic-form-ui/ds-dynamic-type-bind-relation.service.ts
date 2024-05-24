@@ -19,6 +19,7 @@ import {
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
+import { VocabularyEntry } from '../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import {
   hasNoValue,
   hasValue,
@@ -26,7 +27,6 @@ import {
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
-import { VocabularyEntry } from '../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 
 /**
  * Service to manage type binding for submission input fields

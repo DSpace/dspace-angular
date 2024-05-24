@@ -1,9 +1,15 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-
 import { Component } from '@angular/core';
-import { BaseEmbeddedMetricComponent } from './base-embedded-metric.component';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
+
 import { metricAltmetricMock } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
+import { BaseEmbeddedMetricComponent } from './base-embedded-metric.component';
 
 describe('BaseEmbeddedMetricComponent', () => {
   let component: TestEmbeddedMetricComponent;
@@ -14,7 +20,7 @@ describe('BaseEmbeddedMetricComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ TestEmbeddedMetricComponent ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -81,7 +87,7 @@ describe('BaseEmbeddedMetricComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestEmbeddedMetricComponent extends BaseEmbeddedMetricComponent {
 

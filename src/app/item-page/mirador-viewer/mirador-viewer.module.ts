@@ -1,19 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MiradorViewerComponent } from './mirador-viewer.component';
+import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { MiradorViewerComponent } from './mirador-viewer.component';
 
 
 @NgModule({
   declarations: [
-    MiradorViewerComponent
+    MiradorViewerComponent,
   ],
   exports: [
-    MiradorViewerComponent
+    MiradorViewerComponent,
   ],
   imports: [
     CommonModule,
-    TranslateModule
-  ]
+    TranslateModule,
+  ],
 })
 export class MiradorViewerModule { }

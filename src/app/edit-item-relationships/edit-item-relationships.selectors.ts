@@ -1,4 +1,8 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  createSelector,
+} from '@ngrx/store';
+
 import { EditItemRelationshipsState } from './edit-item-relationships.actions';
 
 /**

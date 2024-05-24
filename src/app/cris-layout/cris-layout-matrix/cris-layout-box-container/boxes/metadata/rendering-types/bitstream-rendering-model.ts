@@ -1,28 +1,42 @@
-import { FindListOptions } from '../../../../../../core/data/find-list-options.model';
-import { Component, Inject } from '@angular/core';
-
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
 
-import { Bitstream, ChecksumInfo } from '../../../../../../core/shared/bitstream.model';
-import { hasValue, isNotEmpty } from '../../../../../../shared/empty.util';
-import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
-import { BitstreamDataService, MetadataFilter } from '../../../../../../core/data/bitstream-data.service';
-import { Item } from '../../../../../../core/shared/item.model';
-import { LayoutField } from '../../../../../../core/layout/models/box.model';
-import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
-import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
+import {
+  BitstreamDataService,
+  MetadataFilter,
+} from '../../../../../../core/data/bitstream-data.service';
+import { FindListOptions } from '../../../../../../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
+import { LayoutField } from '../../../../../../core/layout/models/box.model';
+import {
+  Bitstream,
+  ChecksumInfo,
+} from '../../../../../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../../../../../core/shared/bitstream-format.model';
+import { Item } from '../../../../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../../../shared/empty.util';
 import { followLink } from '../../../../../../shared/utils/follow-link-config.model';
+import { RenderingTypeStructuredModelComponent } from './rendering-type-structured.model';
 
 /**
  * This class defines the basic model to extends for create a new
  * bitstream field render component
  */
 @Component({
-  template: ''
+  template: '',
 })
 export abstract class BitstreamRenderingModelComponent extends RenderingTypeStructuredModelComponent {
 
@@ -36,7 +50,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
     protected bitstreamDataService: BitstreamDataService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
     super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
   }
@@ -53,7 +67,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
           return response.hasSucceeded ? response.payload : buildPaginatedList(null, []);
-        })
+        }),
       );
   }
 
@@ -106,7 +120,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
     return bitstream.format?.pipe(
       map((rd: RemoteData<BitstreamFormat>) => {
         return rd.payload?.shortDescription;
-      })
+      }),
     );
   }
 
@@ -132,13 +146,13 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
         options,
         false,
         false,
-        followLink('thumbnail')
+        followLink('thumbnail'),
       )
       .pipe(
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
           return response.hasSucceeded ? response.payload : buildPaginatedList(null, []);
-        })
+        }),
       );
   }
 
@@ -149,11 +163,11 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
    * @protected
    */
   protected getMetadataFilters(): MetadataFilter[] {
-    let filters: MetadataFilter[] = [];
+    const filters: MetadataFilter[] = [];
     if (isNotEmpty(this.field.bitstream.metadataValue)) {
       filters.push({
         metadataName: this.field.bitstream.metadataField,
-        metadataValue: this.field.bitstream.metadataValue
+        metadataValue: this.field.bitstream.metadataValue,
       });
     }
     return filters;

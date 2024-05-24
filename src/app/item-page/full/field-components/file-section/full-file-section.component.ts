@@ -23,6 +23,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
+import { UUIDService } from '../../../../core/shared/uuid.service';
 import {
   hasValue,
   isEmpty,
@@ -31,7 +32,6 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 
 /**
  * This component renders the file section of the item

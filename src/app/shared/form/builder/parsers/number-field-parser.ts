@@ -1,6 +1,9 @@
-import { FieldParser } from './field-parser';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { FieldParser } from './field-parser';
 
 /**
  * A parser for number field.

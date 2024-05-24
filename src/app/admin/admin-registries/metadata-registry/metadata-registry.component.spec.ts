@@ -13,7 +13,10 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf, of } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
 import { RestResponse } from '../../../core/cache/response.models';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
@@ -21,6 +24,7 @@ import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { HostWindowService } from '../../../shared/host-window.service';
+import { MetadataSchemaExportService } from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -29,9 +33,6 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { MetadataRegistryComponent } from './metadata-registry.component';
-import {
-  MetadataSchemaExportService
-} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -92,8 +93,8 @@ describe('MetadataRegistryComponent', () => {
           provide: MetadataSchemaExportService,
           useValue: jasmine.createSpyObj('metadataSchemaExportService', {
             exportSchema: of(1),
-          })
-        }
+          }),
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataRegistryComponent, {

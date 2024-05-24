@@ -57,8 +57,8 @@ const DECLARATIONS = [
     ...DECLARATIONS,
   ],
   exports: [
-    ...DECLARATIONS
-  ]
+    ...DECLARATIONS,
+  ],
 })
 
 /**

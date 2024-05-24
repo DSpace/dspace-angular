@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { DsoRedirectService } from '../core/data/dso-redirect.service';
 import { SharedModule } from '../shared/shared.module';
 import { LookupRoutingModule } from './lookup-by-id-routing.module';
+import { ObjectGoneComponent } from './objectgone/objectgone.component';
+import { ThemedObjectGoneComponent } from './objectgone/themed-objectgone.component';
 import { ObjectNotFoundComponent } from './objectnotfound/objectnotfound.component';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
-import { ThemedObjectGoneComponent } from './objectgone/themed-objectgone.component';
-import { ObjectGoneComponent } from './objectgone/objectgone.component';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { ObjectGoneComponent } from './objectgone/objectgone.component';
     ObjectNotFoundComponent,
     ObjectGoneComponent,
     ThemedObjectNotFoundComponent,
-    ThemedObjectGoneComponent
+    ThemedObjectGoneComponent,
   ],
   providers: [
     DsoRedirectService,

@@ -1,6 +1,12 @@
 import { Injector } from '@angular/core';
-import { inject, TestBed, } from '@angular/core/testing';
-import { ReactiveFormsModule, UntypedFormControl, } from '@angular/forms';
+import {
+  inject,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormControl,
+} from '@angular/forms';
 import {
   DISABLED_MATCHER_PROVIDER,
   DynamicFormControlRelation,
@@ -12,12 +18,15 @@ import {
   REQUIRED_MATCHER_PROVIDER,
 } from '@ng-dynamic-forms/core';
 
-import { mockInputWithTypeBindModel, MockRelationModel } from '../../../mocks/form-models.mock';
-import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
-import { FormBuilderService } from '../form-builder.service';
 import { VocabularyEntryDetail } from '../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
+import {
+  mockInputWithTypeBindModel,
+  MockRelationModel,
+} from '../../../mocks/form-models.mock';
+import { FormBuilderService } from '../form-builder.service';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 
 describe('DSDynamicTypeBindRelationService test suite', () => {
   let service: DsDynamicTypeBindRelationService;
@@ -38,7 +47,7 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
 
   beforeEach(inject([DsDynamicTypeBindRelationService, DynamicFormRelationService],
     (relationService: DsDynamicTypeBindRelationService,
-     formRelationService: DynamicFormRelationService
+      formRelationService: DynamicFormRelationService,
     ) => {
       service = relationService;
       dynamicFormRelationService = formRelationService;

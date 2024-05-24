@@ -1,7 +1,19 @@
-import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActivatedRouteSnapshot, CanActivate, NavigationExtras, Router } from '@angular/router';
-import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  NavigationExtras,
+  Router,
+} from '@angular/router';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 
 export const LOCAL_PROTOCOL = 'local://';
 
@@ -10,7 +22,7 @@ export interface RedirectionExtras extends NavigationExtras {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RedirectService implements CanActivate {
 
@@ -19,7 +31,7 @@ export class RedirectService implements CanActivate {
   constructor(
     readonly router: Router,
     @Inject(DOCUMENT) readonly document: Document,
-    @Inject(APP_CONFIG) readonly appConfig: AppConfig
+    @Inject(APP_CONFIG) readonly appConfig: AppConfig,
   ) {
   }
 
@@ -56,7 +68,7 @@ export class RedirectService implements CanActivate {
     // Extracts the target from the extras
     const target = extras && extras.target;
     // Compose the url link for redirection
-    const link = '/redirect?url=' + encodeURIComponent(url) + (!!target ? '&=' + target : '');
+    const link = '/redirect?url=' + encodeURIComponent(url) + (target ? '&=' + target : '');
     // Navigates with the router activat the redirection guard
     return this.router.navigateByUrl(link, extras);
   }
@@ -75,7 +87,7 @@ export class RedirectService implements CanActivate {
       // Navigates with the router otherwise
       this.router.navigateByUrl(
         this.sanitizeLocalUrl(url),
-        extras
+        extras,
       );
   }
 

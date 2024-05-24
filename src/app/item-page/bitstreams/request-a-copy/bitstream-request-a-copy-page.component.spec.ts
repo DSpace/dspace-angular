@@ -1,8 +1,21 @@
-import { CommonModule, Location, } from '@angular/common';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import {
+  CommonModule,
+  Location,
+} from '@angular/common';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -22,9 +35,9 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
-import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
-import { RouterStub } from '../../../shared/testing/router.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 
 
 describe('BitstreamRequestACopyPageComponent', () => {

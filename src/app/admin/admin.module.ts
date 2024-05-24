@@ -5,6 +5,7 @@ import { AccessControlModule } from '../access-control/access-control.module';
 import { SharedModule } from '../shared/shared.module';
 import { UploadModule } from '../shared/upload/upload.module';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
+import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
 import { AdminRegistriesModule } from './admin-registries/admin-registries.module';
@@ -14,7 +15,6 @@ import { AdminSearchModule } from './admin-search-page/admin-search.module';
 import { AdminSidebarSectionComponent } from './admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from './admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { AdminWorkflowModuleModule } from './admin-workflow-page/admin-workflow.module';
-import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 import { EditCmsMetadataComponent } from './edit-cms-metadata/edit-cms-metadata.component';
 
 const ENTRY_COMPONENTS = [
@@ -41,8 +41,8 @@ const ENTRY_COMPONENTS = [
     MetadataImportPageComponent,
     AdminEditUserAgreementComponent,
     EditCmsMetadataComponent,
-    BatchImportPageComponent
-  ]
+    BatchImportPageComponent,
+  ],
 })
 export class AdminModule {
   /**

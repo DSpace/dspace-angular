@@ -1,5 +1,6 @@
 import {
-  Component, OnDestroy,
+  Component,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -27,7 +28,6 @@ import { EPerson } from '../core/eperson/models/eperson.model';
 import { Group } from '../core/eperson/models/group.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import {
-  getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../core/shared/operators';

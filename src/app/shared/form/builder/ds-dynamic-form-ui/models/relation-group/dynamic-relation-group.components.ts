@@ -1,39 +1,58 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-
-import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { filter, map, mergeMap, scan, take } from 'rxjs/operators';
-import isEqual from 'lodash/isEqual';
-import isObject from 'lodash/isObject';
-
-import { environment } from '../../../../../../../environments/environment';
-import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
-import { FormService } from '../../../../form.service';
-import { Chips } from '../../../../chips/models/chips.model';
-import { hasValue, isEmpty } from '../../../../../empty.util';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import {
-  VocabularyEntryDetail
-} from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { shrinkInOut } from '../../../../../animations/shrink';
-import { ChipsItem } from '../../../../chips/models/chips-item.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { SubmissionService } from '../../../../../../submission/submission.service';
-import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
-import {
-  MetadataSecurityConfiguration
-} from '../../../../../../core/submission/models/metadata-security-configuration';
-import { Metadata } from '../../../../../../core/shared/metadata.utils';
-import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
+import isEqual from 'lodash/isEqual';
+import isObject from 'lodash/isObject';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  mergeMap,
+  scan,
+  take,
+} from 'rxjs/operators';
+
+import { environment } from '../../../../../../../environments/environment';
+import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
+import { Metadata } from '../../../../../../core/shared/metadata.utils';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import { MetadataSecurityConfiguration } from '../../../../../../core/submission/models/metadata-security-configuration';
+import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { shrinkInOut } from '../../../../../animations/shrink';
+import {
+  hasValue,
+  isEmpty,
+} from '../../../../../empty.util';
+import { Chips } from '../../../../chips/models/chips.model';
+import { ChipsItem } from '../../../../chips/models/chips-item.model';
+import { FormService } from '../../../../form.service';
+import { FormBuilderService } from '../../../form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
+import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
 
 /**
  * Component representing a group input field
@@ -68,7 +87,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
               protected modalService: NgbModal,
-              protected submissionService: SubmissionService
+              protected submissionService: SubmissionService,
   ) {
     super(layoutService, validationService);
   }
@@ -151,7 +170,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               } else {
                 return$ = observableOf(valueObj[fieldName]);
               }
-              return return$.pipe(map((entry) => ({[fieldName]: entry})));
+              return return$.pipe(map((entry) => ({ [fieldName]: entry })));
             });
 
             returnList.push(combineLatest(returnObj));
@@ -212,7 +231,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   private getVocabulary(valueObj, fieldName): Observable<any> {
-    const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
+    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
     const formModel = this.formBuilderService.modelFromConfiguration(
       this.model.submissionId,
       config,
@@ -227,15 +246,15 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if ((model as any)?.vocabularyOptions?.name) {
       return this.vocabularyService.findEntryDetailById(
         valueObj[fieldName].authority,
-        (model as any).vocabularyOptions.name
+        (model as any).vocabularyOptions.name,
       ).pipe(
         getFirstSucceededRemoteDataPayload(),
         map((entryDetail: VocabularyEntryDetail) => Object.assign(
           new FormFieldMetadataValueObject(),
           valueObj[fieldName],
           {
-            otherInformation: entryDetail.otherInformation
-          })
+            otherInformation: entryDetail.otherInformation,
+          }),
         ));
     } else {
       return observableOf(valueObj[fieldName]);

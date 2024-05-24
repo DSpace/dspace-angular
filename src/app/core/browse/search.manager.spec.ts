@@ -1,17 +1,21 @@
 import { getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { SearchManager } from './search-manager';
-import { toRemoteData } from '../../browse-by/browse-by-metadata-page/browse-by-metadata-page.component.spec';
-import { Item } from '../shared/item.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { of } from 'rxjs';
-import { MetadataValue } from '../shared/metadata.models';
+import { TestScheduler } from 'rxjs/testing';
 import { v4 as uuidv4 } from 'uuid';
+
+import { toRemoteData } from '../../browse-by/browse-by-metadata-page/browse-by-metadata-page.component.spec';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { Item } from '../shared/item.model';
+import { MetadataValue } from '../shared/metadata.models';
 import { AUTHORITY_REFERENCE } from '../shared/metadata.utils';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
+import { SearchManager } from './search-manager';
 
 describe('SearchManager', () => {
   let scheduler: TestScheduler;
@@ -27,11 +31,11 @@ describe('SearchManager', () => {
       'dc.contributor.author': [
         Object.assign(new MetadataValue(), {
           authority: validAuthority,
-          value: 'author1'
-        })
+          value: 'author1',
+        }),
 
-      ]
-    }
+      ],
+    },
   });
 
   const secondPublication = Object.assign(new Item(), {
@@ -41,10 +45,10 @@ describe('SearchManager', () => {
       'dc.contributor.author': [
         Object.assign(new MetadataValue(), {
           authority: validAuthority2,
-          value: 'author2'
-        })
-      ]
-    }
+          value: 'author2',
+        }),
+      ],
+    },
   });
 
   const firstProject = Object.assign(new Item(), {
@@ -54,10 +58,10 @@ describe('SearchManager', () => {
       'dc.contributor.author': [
         Object.assign(new MetadataValue(), {
           authority: validAuthority3,
-          value: 'author3'
-        })
-      ]
-    }
+          value: 'author3',
+        }),
+      ],
+    },
   });
 
   const thirdPublication = Object.assign(new Item(), {
@@ -66,11 +70,11 @@ describe('SearchManager', () => {
     metadata: {
       'dc.contributor.author': [
         Object.assign(new MetadataValue(),{
-          value: 'author4'
-        })
+          value: 'author4',
+        }),
 
-      ]
-    }
+      ],
+    },
   });
 
   const invalidAuthorityPublication = Object.assign(new Item(), {
@@ -80,28 +84,28 @@ describe('SearchManager', () => {
       'dc.contributor.author': [
         Object.assign(new MetadataValue(),{
           authority: AUTHORITY_REFERENCE + 'invalid',
-          value: 'author4'
-        })
+          value: 'author4',
+        }),
 
-      ]
-    }
+      ],
+    },
   });
 
   const mockBrowseService: any = {
     getBrowseItemsFor: (options: BrowseEntrySearchOptions) =>
       toRemoteData([firstPublication, secondPublication, firstProject]),
     getBrowseItemsForAuthority: () =>
-      createSuccessfulRemoteDataObject$(createPaginatedList([firstPublication, secondPublication, firstProject]))
+      createSuccessfulRemoteDataObject$(createPaginatedList([firstPublication, secondPublication, firstProject])),
   };
 
   const mockItemService: any = {
     findAllById: (uuidList: string[], options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]) =>
-      of(createSuccessfulRemoteDataObject(createPaginatedList([])))
+      of(createSuccessfulRemoteDataObject(createPaginatedList([]))),
   };
 
   const mockSearchService: any = {
     search: (options: FindListOptions = {}, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Item>[]) =>
-      of(createSuccessfulRemoteDataObject(createPaginatedList([])))
+      of(createSuccessfulRemoteDataObject(createPaginatedList([]))),
   };
 
   function initTestService() {
@@ -124,7 +128,7 @@ describe('SearchManager', () => {
 
       const filterValue = 'filterValue';
       const filterAuthority = null;
-      const options: BrowseEntrySearchOptions = { options: null} as any;
+      const options: BrowseEntrySearchOptions = { options: null } as any;
       const followLink: FollowLinkConfig<any> = {} as any;
 
       scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options, followLink).subscribe());
@@ -139,7 +143,7 @@ describe('SearchManager', () => {
 
       const filterValue = 'filterValue';
       const filterAuthority = 'filterAuthority';
-      const options: BrowseEntrySearchOptions = { options: null} as any;
+      const options: BrowseEntrySearchOptions = { options: null } as any;
       const followLink: FollowLinkConfig<any> = {} as any;
 
       scheduler.schedule(() => service.getBrowseItemsFor(filterValue, filterAuthority, options, followLink).subscribe());
@@ -158,22 +162,22 @@ describe('SearchManager', () => {
     });
 
     it('should extract uuid from metadata authority', () => {
-      const uuidList = (service as any).extractUUID([thirdPublication], [{type: 'Publication', metadata: ['dc.contributor.author']}]);
+      const uuidList = (service as any).extractUUID([thirdPublication], [{ type: 'Publication', metadata: ['dc.contributor.author'] }]);
       expect(uuidList).toEqual([]);
     });
 
     it('should extract uuid only from from valid authority', () => {
-      const uuidList = (service as any).extractUUID([firstPublication, secondPublication, invalidAuthorityPublication], [{type: 'Publication', metadata: ['dc.contributor.author']}]);
+      const uuidList = (service as any).extractUUID([firstPublication, secondPublication, invalidAuthorityPublication], [{ type: 'Publication', metadata: ['dc.contributor.author'] }]);
       expect(uuidList).toEqual([validAuthority, validAuthority2]);
     });
 
     it('should extract uuid only from item with the specified type', () => {
-      const uuidList = (service as any).extractUUID([firstProject], [{type: 'Publication', metadata: ['dc.contributor.author']}]);
+      const uuidList = (service as any).extractUUID([firstProject], [{ type: 'Publication', metadata: ['dc.contributor.author'] }]);
       expect(uuidList).toEqual([]);
     });
 
     it('should not duplicate extracted uuid', () => {
-      const uuidList = (service as any).extractUUID([firstPublication, firstPublication], [{type: 'Publication', metadata: ['dc.contributor.author']}]);
+      const uuidList = (service as any).extractUUID([firstPublication, firstPublication], [{ type: 'Publication', metadata: ['dc.contributor.author'] }]);
       expect(uuidList).toEqual([validAuthority]);
     });
   });

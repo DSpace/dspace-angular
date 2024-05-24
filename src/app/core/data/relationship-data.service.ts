@@ -164,7 +164,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
       take(1),
       distinctUntilChanged(),
       map( (endpointURL: string) => {
-        if ( !!copyVirtualMetadata ) {
+        if ( copyVirtualMetadata ) {
           return new DeleteRequest(this.requestService.generateRequestId(), endpointURL + '?copyVirtualMetadata=' + copyVirtualMetadata);
         } else {
           return new DeleteRequest(this.requestService.generateRequestId(), endpointURL);
@@ -268,7 +268,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
   getItemRelationshipsAsArrayAll(item: Item, ...linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
     // Set the pagination info
     const findOptions: FindListOptions = {
-      elementsPerPage: 100
+      elementsPerPage: 100,
     };
     return this.findListByHref(item._links.relationships.href, findOptions, false, false, ...linksToFollow).pipe(
       getFirstSucceededRemoteData(),

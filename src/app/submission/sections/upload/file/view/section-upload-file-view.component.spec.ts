@@ -1,5 +1,14 @@
-import { Component, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Metadata } from '../../../../../core/shared/metadata.utils';
@@ -8,7 +17,6 @@ import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 

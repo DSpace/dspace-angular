@@ -5,13 +5,16 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
-import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
-import { Site } from '../../../core/shared/site.model';
-import { Observable, of } from 'rxjs';
 import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
-import { cold } from 'jasmine-marbles';
+import { Site } from '../../../core/shared/site.model';
+import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
 
 describe('EndUserAgreementContentComponent', () => {
   let component: EndUserAgreementContentComponent;
@@ -24,13 +27,13 @@ describe('EndUserAgreementContentComponent', () => {
     metadata: {
       'dc.rights' : [{
         value: 'English text',
-        language: 'en'
+        language: 'en',
       },
       {
         value: 'German text',
-        language: 'de'
-      }]
-    }
+        language: 'de',
+      }],
+    },
   });
 
   beforeEach(waitForAsync(() => {
@@ -38,18 +41,18 @@ describe('EndUserAgreementContentComponent', () => {
     localeServiceStub = {
       getCurrentLanguageCode(): string {
         return 'es';
-      }
+      },
     };
     siteServiceStub = {
       find(): Observable<Site> {
         return of(site);
-      }
+      },
     };
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [EndUserAgreementContentComponent],
       providers: [{ provide: SiteDataService, useValue: siteServiceStub },
-                  { provide: LocaleService, useValue: localeServiceStub }],
+        { provide: LocaleService, useValue: localeServiceStub }],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
@@ -66,7 +69,7 @@ describe('EndUserAgreementContentComponent', () => {
 
   it('should render the English text as fallback', () => {
     expect(component.userAgreementText$).toBeObservable(cold('b', {
-      b: 'English text'
+      b: 'English text',
     }));
   });
 

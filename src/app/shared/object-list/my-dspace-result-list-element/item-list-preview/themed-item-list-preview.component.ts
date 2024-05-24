@@ -4,9 +4,7 @@ import {
 } from '@angular/core';
 import { Context } from 'src/app/core/shared/context.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
-import {
-  DuplicateMatchMetadataDetailConfig
-} from 'src/app/submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
+import { DuplicateMatchMetadataDetailConfig } from 'src/app/submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 
 import { Item } from '../../../../core/shared/item.model';
 import { SearchResult } from '../../../search/models/search-result.model';

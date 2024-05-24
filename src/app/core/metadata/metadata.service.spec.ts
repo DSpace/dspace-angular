@@ -109,7 +109,7 @@ xdescribe('MetadataService', () => {
     });
     schemaJsonLDService = jasmine.createSpyObj('authorizationService', {
       insertSchema: jasmine.createSpy('insertSchema'),
-      removeStructuredData: jasmine.createSpy('removeStructuredData')
+      removeStructuredData: jasmine.createSpy('removeStructuredData'),
     });
 
     // @ts-ignore

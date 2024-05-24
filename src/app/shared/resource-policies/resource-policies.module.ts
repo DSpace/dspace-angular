@@ -18,7 +18,7 @@ const COMPONENTS = [
   ResourcePolicyEntryComponent,
   ResourcePolicyFormComponent,
   ResourcePolicyEditComponent,
-  ResourcePolicyCreateComponent
+  ResourcePolicyCreateComponent,
 ];
 
 const PROVIDERS = [

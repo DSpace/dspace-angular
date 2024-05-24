@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { SocialComponent } from './social.component';
 
 @NgModule({
   declarations: [
-    SocialComponent
+    SocialComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
-    SocialComponent
-  ]
+    SocialComponent,
+  ],
 })
 export class SocialModule { }

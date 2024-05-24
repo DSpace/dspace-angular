@@ -189,14 +189,14 @@ describe('EditBitstreamPageComponent', () => {
           ],
           'dc.title': [
             {
-              value: 'Bitstream title'
-            }
+              value: 'Bitstream title',
+            },
           ],
           'dc.type': [
             {
-              value: 'Logo'
-            }
-          ]
+              value: 'Logo',
+            },
+          ],
         },
         format: createSuccessfulRemoteDataObject$(selectedFormat),
         _links: {
@@ -462,8 +462,8 @@ describe('EditBitstreamPageComponent', () => {
           ],
           'dc.type': [
             {
-              value: 'Logo'
-            }
+              value: 'Logo',
+            },
           ],
           'iiif.label': [
             {
@@ -590,11 +590,11 @@ describe('EditBitstreamPageComponent', () => {
               value: 'Bitstream title',
             },
           ],
-            'dc.type': [
-              {
-                value: 'Logo'
-              }
-            ],
+          'dc.type': [
+            {
+              value: 'Logo',
+            },
+          ],
           'iiif.label': [
             {
               value: 'chapter one',

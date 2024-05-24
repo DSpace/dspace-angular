@@ -95,8 +95,8 @@ describe('DSpaceObjectDataService', () => {
       const result = (service as  any).findByCustomUrl('customurl');
       const expected = cold('a', {
         a: {
-          payload: testObject
-        }
+          payload: testObject,
+        },
       });
       expect(result).toBeObservable(expected);
     });

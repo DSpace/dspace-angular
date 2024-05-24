@@ -25,6 +25,7 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
 import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
@@ -32,7 +33,6 @@ import { SubmissionServiceStub } from '../../../shared/testing/submission-servic
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
 

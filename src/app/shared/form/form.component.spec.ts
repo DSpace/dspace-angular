@@ -1,7 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -13,24 +25,30 @@ import {
   DynamicFormValidationService,
   DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-import { Store, StoreModule, } from '@ngrx/store';
+import { DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core/lib/model/form-group/dynamic-form-group.model';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
 import { StoreMock } from '../testing/store.mock';
 import { createTestComponent } from '../testing/utils.test';
+import {
+  DynamicScrollableDropdownModel,
+  DynamicScrollableDropdownModelConfig,
+} from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import { FormChangeAction, FormStatusChangeAction, } from './form.actions';
+import {
+  FormChangeAction,
+  FormStatusChangeAction,
+} from './form.actions';
 import { FormComponent } from './form.component';
 import { FormState } from './form.reducer';
 import { FormService } from './form.service';
-import {
-  DynamicScrollableDropdownModel,
-  DynamicScrollableDropdownModelConfig
-} from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core/lib/model/form-group/dynamic-form-group.model';
 
 let TEST_FORM_MODEL;
 
@@ -478,20 +496,20 @@ describe('FormComponent test suite', () => {
               group: [
                 {
                   id: 'groupId',
-                  value: 'groupValue1'
-                }
+                  value: 'groupValue1',
+                },
               ],
             },
             {
               group: [
                 {
                   id: 'groupId',
-                  value: 'groupValue2'
-                }
+                  value: 'groupValue2',
+                },
               ],
-            }
-          ]
-        }
+            },
+          ],
+        },
       };
 
       const result = formComp.isArrayGroupEmpty(group);
@@ -507,12 +525,12 @@ describe('FormComponent test suite', () => {
               group: [
                 {
                   id: 'groupId',
-                  value: 'groupValue1'
-                }
+                  value: 'groupValue1',
+                },
               ],
-            }
-          ]
-        }
+            },
+          ],
+        },
       };
 
       const result = formComp.isArrayGroupEmpty(group);
@@ -528,12 +546,12 @@ describe('FormComponent test suite', () => {
               group: [
                 {
                   id: 'groupId',
-                  value: null
-                }
+                  value: null,
+                },
               ],
-            }
-          ]
-        }
+            },
+          ],
+        },
       };
 
       const result = formComp.isArrayGroupEmpty(group);
@@ -544,8 +562,8 @@ describe('FormComponent test suite', () => {
     it('should return true if array group does not have any value', () => {
       const group = {
         context: {
-          groups: []
-        }
+          groups: [],
+        },
       };
 
       const result = formComp.isArrayGroupEmpty(group);

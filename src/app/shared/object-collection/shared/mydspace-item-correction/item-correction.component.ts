@@ -1,12 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  startWith,
+} from 'rxjs/operators';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, map, startWith } from 'rxjs/operators';
-
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
+import { Item } from '../../../../core/shared/item.model';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/operators';
 
 /**
  * This component represents a badge with correction item information.
@@ -14,7 +24,7 @@ import { RelationshipDataService } from '../../../../core/data/relationship-data
 @Component({
   selector: 'ds-item-correction',
   styleUrls: ['./item-correction.component.scss'],
-  templateUrl: './item-correction.component.html'
+  templateUrl: './item-correction.component.html',
 })
 export class ItemCorrectionComponent implements OnInit {
 
@@ -36,12 +46,12 @@ export class ItemCorrectionComponent implements OnInit {
   ngOnInit(): void {
     this.isCorrectionOfItem$ =  this.relationshipService.getItemRelationshipsByLabel(
       this.item,
-      'isCorrectionOfItem'
+      'isCorrectionOfItem',
     ).pipe(
       getFirstSucceededRemoteListPayload(),
       map((list: Relationship[]) => list.length > 0),
       startWith(false),
-      catchError(() => observableOf(false))
+      catchError(() => observableOf(false)),
     );
   }
 }

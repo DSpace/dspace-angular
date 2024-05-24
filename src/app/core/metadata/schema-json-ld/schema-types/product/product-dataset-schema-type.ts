@@ -32,7 +32,7 @@ export class ProductDatasetSchemaType extends SchemaType {
       'about': SchemaType.getMetadataValue(item, 'dc.subject'),
       'abstract': SchemaType.getMetadataValue(item, 'dc.description.abstract'),
       'funding': SchemaType.getMetadataValue(item, 'dc.relation.funding'),
-      'url': SchemaType.getMetadataValue(item, 'dc.description.uri')
+      'url': SchemaType.getMetadataValue(item, 'dc.description.uri'),
     };
   }
 }

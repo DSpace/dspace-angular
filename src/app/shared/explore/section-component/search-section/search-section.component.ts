@@ -1,30 +1,37 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SearchSection } from '../../../../core/layout/models/section.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchConfig } from '../../../search/search-filters/search-config.model';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { SearchConfig } from '../../../search/search-filters/search-config.model';
 
 /**
  * Component representing the Search component section.
  */
 @Component({
   selector: 'ds-search-section',
-  templateUrl: './search-section.component.html'
+  templateUrl: './search-section.component.html',
 })
 export class SearchSectionComponent implements OnInit {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  searchSection: SearchSection;
+    searchSection: SearchSection;
 
   // The search form
   searchForm: FormGroup;
@@ -55,11 +62,11 @@ export class SearchSectionComponent implements OnInit {
         return [this.allFilter].concat(searchFilterConfig.filters
           .filter((filterConfig) => !filterConfig.filter.startsWith('graph'))
           .map((filterConfig) => filterConfig.filter));
-      })
+      }),
     );
 
     this.searchForm = this.formBuilder.group(({
-      queryArray: this.formBuilder.array([])
+      queryArray: this.formBuilder.array([]),
     }));
 
     const statements = this.searchSection.initialStatements ? this.searchSection.initialStatements : 3;
@@ -79,8 +86,8 @@ export class SearchSectionComponent implements OnInit {
       queryParams: {
         page: 1,
         configuration: configurationName,
-        query: query
-      }
+        query: query,
+      },
     });
   }
 
@@ -102,7 +109,7 @@ export class SearchSectionComponent implements OnInit {
     return this.formBuilder.group({
       filter: this.allFilter,
       query: '',
-      operation: this.operations[0]
+      operation: this.operations[0],
     });
   }
 

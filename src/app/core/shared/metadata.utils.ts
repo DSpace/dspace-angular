@@ -3,6 +3,7 @@ import groupBy from 'lodash/groupBy';
 import isObject from 'lodash/isObject';
 import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
+import { validate as uuidValidate } from 'uuid';
 
 import {
   hasValue,
@@ -17,7 +18,6 @@ import {
   MetadataValueFilter,
   MetadatumViewModel,
 } from './metadata.models';
-import { validate as uuidValidate } from 'uuid';
 
 export const AUTHORITY_GENERATE = 'will be generated::';
 export const AUTHORITY_REFERENCE = 'will be referenced::';
@@ -282,27 +282,27 @@ export class Metadata {
     }
   }
 
-    /**
+  /**
      * Check whether the two arrays of metadata are equals (value matching).
      * @param metadata1
      * @param metadata2
      * @private
      */
-    public static multiEquals(metadata1: MetadataValue[], metadata2: MetadataValue[]): boolean {
-      if (metadata1.length !== metadata2.length) {
-        return false;
-      }
-
-      // 0. sort array by value
-      const sortedMetadata1 = orderBy(metadata1, ['value'],['asc']);
-      const sortedMetadata2 = orderBy(metadata2, ['value'],['asc']);
-      // 1. check differences
-      const differences = differenceWith(sortedMetadata1, sortedMetadata2, Metadata.valueMatches);
-      if (differences.length > 0) {
-        return false;
-      }
-
-      // arrays appear to be equal ...
-      return true;
+  public static multiEquals(metadata1: MetadataValue[], metadata2: MetadataValue[]): boolean {
+    if (metadata1.length !== metadata2.length) {
+      return false;
     }
+
+    // 0. sort array by value
+    const sortedMetadata1 = orderBy(metadata1, ['value'],['asc']);
+    const sortedMetadata2 = orderBy(metadata2, ['value'],['asc']);
+    // 1. check differences
+    const differences = differenceWith(sortedMetadata1, sortedMetadata2, Metadata.valueMatches);
+    if (differences.length > 0) {
+      return false;
+    }
+
+    // arrays appear to be equal ...
+    return true;
+  }
 }

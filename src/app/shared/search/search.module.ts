@@ -11,6 +11,10 @@ import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed
 import { SharedModule } from '../shared.module';
 import { MissingTranslationHelper } from '../translate/missing-translation.helper';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
+import { ItemExportComponent } from './item-export/item-export/item-export.component';
+import { ItemExportListComponent } from './item-export/item-export/item-export-list/item-export-list.component';
+import { ItemExportAlertComponent } from './item-export/item-export-alert/item-export-alert.component';
+import { ItemExportModalLauncherComponent } from './item-export/item-export-modal-launcher/item-export-modal-launcher.component';
 import { FacetConfigResponse } from './models/facet-config-response.model';
 import { FacetValues } from './models/facet-values.model';
 import { SearchObjects } from './models/search-objects.model';
@@ -39,12 +43,6 @@ import { SearchSidebarComponent } from './search-sidebar/search-sidebar.componen
 import { ThemedSearchSidebarComponent } from './search-sidebar/themed-search-sidebar.component';
 import { SearchSwitchConfigurationComponent } from './search-switch-configuration/search-switch-configuration.component';
 import { ThemedSearchComponent } from './themed-search.component';
-import { ItemExportComponent } from './item-export/item-export/item-export.component';
-import { ItemExportAlertComponent } from './item-export/item-export-alert/item-export-alert.component';
-import {
-  ItemExportModalLauncherComponent
-} from './item-export/item-export-modal-launcher/item-export-modal-launcher.component';
-import { ItemExportListComponent } from './item-export/item-export/item-export-list/item-export-list.component';
 
 const COMPONENTS = [
   SearchComponent,
@@ -77,7 +75,7 @@ const COMPONENTS = [
   ItemExportListComponent,
   ItemExportComponent,
   ItemExportAlertComponent,
-  ItemExportModalLauncherComponent
+  ItemExportModalLauncherComponent,
 ];
 
 const ENTRY_COMPONENTS = [

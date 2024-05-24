@@ -1,19 +1,28 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Bitstream } from '../../../../../../../../core/shared/bitstream.model';
-import { environment } from '../../../../../../../../../environments/environment';
-import { AdvancedAttachmentElementType } from '../../../../../../../../../config/advanced-attachment-rendering.config';
-import { BitstreamRenderingModelComponent } from '../../bitstream-rendering-model';
-import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
-import { Item } from '../../../../../../../../core/shared/item.model';
-import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
+
+import { AdvancedAttachmentElementType } from '../../../../../../../../../config/advanced-attachment-rendering.config';
+import { environment } from '../../../../../../../../../environments/environment';
+import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
+import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
+import { Bitstream } from '../../../../../../../../core/shared/bitstream.model';
+import { Item } from '../../../../../../../../core/shared/item.model';
+import { BitstreamRenderingModelComponent } from '../../bitstream-rendering-model';
 import { AttachmentRenderingType } from './attachment-type.decorator';
 
 @Component({
   selector: 'ds-bitstream-attachment',
   templateUrl: './bitstream-attachment.component.html',
-  styleUrls: ['./bitstream-attachment.component.scss']
+  styleUrls: ['./bitstream-attachment.component.scss'],
 })
 export class BitstreamAttachmentComponent extends BitstreamRenderingModelComponent implements OnInit {
 
@@ -35,7 +44,7 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
   allAttachmentProviders: string[] = [];
 
   @Input()
-  attachment: Bitstream;
+    attachment: Bitstream;
 
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,

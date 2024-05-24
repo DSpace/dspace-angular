@@ -1,25 +1,31 @@
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
-
-import { TestScheduler } from 'rxjs/testing';
-import { getTestScheduler } from 'jasmine-marbles';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
 
-import { ProfilePageAccessTokenComponent } from './profile-page-access-token.component';
 import { AuthService } from '../../core/auth/auth.service';
+import { MachineToken } from '../../core/auth/models/machine-token.model';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { By } from '@angular/platform-browser';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { MachineToken } from '../../core/auth/models/machine-token.model';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { ProfilePageAccessTokenComponent } from './profile-page-access-token.component';
 
 describe('ProfilePageAccessTokenComponent', () => {
   let component: ProfilePageAccessTokenComponent;
@@ -28,18 +34,18 @@ describe('ProfilePageAccessTokenComponent', () => {
   let scheduler: TestScheduler;
   let authServiceStub = jasmine.createSpyObj('AuthService', {
     createMachineToken: jasmine.createSpy('createMachineToken'),
-    deleteMachineToken: jasmine.createSpy('deleteMachineToken')
+    deleteMachineToken: jasmine.createSpy('deleteMachineToken'),
   });
   const mockEPersonWithoutToken = Object.assign(new EPerson(), {
-    machineTokenGenerated: false
+    machineTokenGenerated: false,
   });
 
   const mockEPersonWithToken = Object.assign(new EPerson(), {
-    machineTokenGenerated: true
+    machineTokenGenerated: true,
   });
 
   const machineTokenMock = Object.assign(new MachineToken(), {
-    value: 'test-machine-token'
+    value: 'test-machine-token',
   });
 
   beforeEach(async () => {
@@ -48,9 +54,9 @@ describe('ProfilePageAccessTokenComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       declarations: [ProfilePageAccessTokenComponent],
       providers: [
@@ -59,7 +65,7 @@ describe('ProfilePageAccessTokenComponent', () => {
         Clipboard,
         NgbModal,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   });

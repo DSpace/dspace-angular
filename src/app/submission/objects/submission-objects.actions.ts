@@ -2,11 +2,11 @@
 import { Action } from '@ngrx/store';
 
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { SubmissionVisibilityType } from '../../core/config/models/config-submission-section.model';
 import { Item } from '../../core/shared/item.model';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import {
-  WorkspaceitemSectionUploadFileObject
-} from '../../core/submission/models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
   WorkspaceitemSectionsObject,
@@ -15,8 +15,6 @@ import { type } from '../../shared/ngrx/type';
 import { SectionsType } from '../sections/sections-type';
 import { SubmissionError } from './submission-error.model';
 import { SubmissionSectionError } from './submission-section-error.model';
-import { SubmissionVisibilityType } from '../../core/config/models/config-submission-section.model';
-import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 /**
  * For each action type in an action group, make a simple
@@ -80,7 +78,7 @@ export const SubmissionObjectActionTypes = {
   REMOVE_SECTION_ERRORS: type('dspace/submission/REMOVE_SECTION_ERRORS'),
 
   // Clean detect duplicate section
-  CLEAN_DETECT_DUPLICATE: type('dspace/submission/CLEAN_DETECT_DUPLICATE')
+  CLEAN_DETECT_DUPLICATE: type('dspace/submission/CLEAN_DETECT_DUPLICATE'),
 };
 
 
@@ -173,14 +171,14 @@ export class InitSectionAction implements Action {
     header: string,
     config: string,
     mandatory: boolean,
-              opened: boolean,
+    opened: boolean,
     sectionType: SectionsType,
-              visibility: SubmissionVisibilityType,
+    visibility: SubmissionVisibilityType,
     enabled: boolean,
     data: WorkspaceitemSectionDataType,
-              errors: SubmissionSectionError[],
-              metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
-    this.payload = {submissionId, sectionId, header, config, mandatory, opened, sectionType, visibility, enabled, data, errors};
+    errors: SubmissionSectionError[],
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
+    this.payload = { submissionId, sectionId, header, config, mandatory, opened, sectionType, visibility, enabled, data, errors };
   }
 }
 
@@ -362,9 +360,9 @@ export class UpdateSectionErrorsAction implements Action {
    *    the list of the section errors detected by the server
    */
   constructor(submissionId: string,
-              sectionId: string,
-              errorsToShow: SubmissionSectionError[],
-              serverValidationErrors: SubmissionSectionError[]) {
+    sectionId: string,
+    errorsToShow: SubmissionSectionError[],
+    serverValidationErrors: SubmissionSectionError[]) {
     this.payload = { submissionId, sectionId, errorsToShow, serverValidationErrors };
   }
 }
@@ -472,8 +470,8 @@ export class InitSubmissionFormAction implements Action {
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
     item: Item,
-              errors: SubmissionError,
-              metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
+    errors: SubmissionError,
+    metadataSecurityConfiguration?: MetadataSecurityConfiguration) {
     this.payload = {
       collectionId,
       submissionId,
@@ -482,7 +480,7 @@ export class InitSubmissionFormAction implements Action {
       sections,
       item,
       errors,
-      metadataSecurityConfiguration
+      metadataSecurityConfiguration,
     };
   }
 }
@@ -708,7 +706,7 @@ export class ResetSubmissionFormAction implements Action {
       sections,
       submissionDefinition,
       item,
-      metadataSecurityConfiguration
+      metadataSecurityConfiguration,
     };
   }
 }

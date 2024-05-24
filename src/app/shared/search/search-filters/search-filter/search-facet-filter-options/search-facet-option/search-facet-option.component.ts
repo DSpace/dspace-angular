@@ -4,7 +4,11 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -21,7 +25,6 @@ import { currentPath } from '../../../../../utils/route.utils';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { getFacetValueForType } from '../../../../search.utils';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-search-facet-option',

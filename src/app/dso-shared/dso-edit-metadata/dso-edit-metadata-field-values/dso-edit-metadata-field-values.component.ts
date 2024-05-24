@@ -1,10 +1,25 @@
-import { CdkDragDrop, moveItemInArray, } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, Output, } from '@angular/core';
-import { BehaviorSubject, Observable, } from 'rxjs';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
-import { DsoEditMetadataChangeType, DsoEditMetadataForm, DsoEditMetadataValue, } from '../dso-edit-metadata-form';
+import {
+  DsoEditMetadataChangeType,
+  DsoEditMetadataForm,
+  DsoEditMetadataValue,
+} from '../dso-edit-metadata-form';
 
 @Component({
   selector: 'ds-dso-edit-metadata-field-values',

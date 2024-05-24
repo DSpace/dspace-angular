@@ -1,10 +1,10 @@
 import { environment } from '../../../../../environments/environment';
-import { FieldParser } from './field-parser';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
   DsDynamicTextAreaModel,
   DsDynamicTextAreaModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FieldParser } from './field-parser';
 
 export class TextareaFieldParser extends FieldParser {
 

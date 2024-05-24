@@ -14,10 +14,10 @@ export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<s
   required: true,
   disabled: false,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'collection.form.errors.entityType.required'
+    required: 'collection.form.errors.entityType.required',
   },
 };
 
@@ -27,17 +27,17 @@ export const collectionFormSubmissionDefinitionSelectionConfig: DynamicSelectMod
   required: true,
   disabled: false,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'collection.form.errors.submissionDefinition.required'
+    required: 'collection.form.errors.submissionDefinition.required',
   },
 };
 export const collectionFormCorrectionSubmissionDefinitionSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'correctionSubmissionDefinition',
   name: 'cris.submission.definition-correction',
   required: false,
-  disabled: false
+  disabled: false,
 };
 
 export const collectionFormSharedWorkspaceCheckboxConfig: DynamicCheckboxModelConfig = {

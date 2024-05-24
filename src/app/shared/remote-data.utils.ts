@@ -56,7 +56,7 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
     errorMessage,
     undefined,
     statusCode,
-    errors
+    errors,
   );
 }
 

@@ -1,16 +1,37 @@
-import { Component, Input, OnInit, } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, shareReplay, } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  shareReplay,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
 
-import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute, } from '../../app-routing-paths';
+import {
+  getBitstreamDownloadRoute,
+  getBitstreamRequestACopyRoute,
+} from '../../app-routing-paths';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { hasValue, isNotEmpty } from '../empty.util';
-import { Item } from '../../core/shared/item.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { Item } from '../../core/shared/item.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 
 @Component({
   selector: 'ds-file-download-link',
@@ -56,7 +77,7 @@ export class FileDownloadLinkComponent implements OnInit {
    * Whether or not the user can request a copy of the item
    * based on the configuration property `request.item.type`.
    */
-    public canRequestItemCopy$: Observable<boolean>;
+  public canRequestItemCopy$: Observable<boolean>;
 
 
   constructor(
@@ -78,10 +99,10 @@ export class FileDownloadLinkComponent implements OnInit {
         getRemoteDataPayload(),
         map((requestItemType: ConfigurationProperty) =>
         // in case requestItemType empty/commented out(undefined) - request-copy not allowed
-            hasValue(requestItemType) && requestItemType.values.length > 0
+          hasValue(requestItemType) && requestItemType.values.length > 0,
         ),
         catchError(() => observableOf(false)),
-        shareReplay(1)
+        shareReplay(1),
       );
     } else {
       this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());

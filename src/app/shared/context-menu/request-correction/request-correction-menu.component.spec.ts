@@ -1,24 +1,37 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf, throwError as observableThrow } from 'rxjs';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import {
+  of as observableOf,
+  throwError as observableThrow,
+} from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { Item } from '../../../core/shared/item.model';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { SubmissionService } from '../../../submission/submission.service';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
 import { RequestCorrectionMenuComponent } from './request-correction-menu.component';
-import { SubmissionService } from '../../../submission/submission.service';
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { By } from '@angular/platform-browser';
 
 describe('RequestCorrectionMenuComponent', () => {
   let component: RequestCorrectionMenuComponent;
@@ -39,54 +52,54 @@ describe('RequestCorrectionMenuComponent', () => {
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
+          value: '2015-06-26',
+        },
       ],
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
-      ]
-    }
+          value: 'Article',
+        },
+      ],
+    },
   });
   const submissionObject = Object.assign(new WorkspaceItem(), {
     id: 'wsi-test-id',
-    item: createSuccessfulRemoteDataObject$(mockItem)
+    item: createSuccessfulRemoteDataObject$(mockItem),
   });
 
   beforeEach(async(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
-        self: { href: 'test-item-selflink' }
-      }
+        self: { href: 'test-item-selflink' },
+      },
     });
 
     authorizationService = jasmine.createSpyObj('AuthorizationDataService', {
-      isAuthorized: jasmine.createSpy('isAuthorized')
+      isAuthorized: jasmine.createSpy('isAuthorized'),
     });
 
     requestService = jasmine.createSpyObj('RequestService', {
-      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring')
+      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring'),
     });
     router = jasmine.createSpyObj('Router', {
-      navigate: jasmine.createSpy('navigate')
+      navigate: jasmine.createSpy('navigate'),
     });
     submissionService = jasmine.createSpyObj('SubmissionService', {
-      createSubmissionByItem: jasmine.createSpy('createSubmissionByItem')
+      createSubmissionByItem: jasmine.createSpy('createSubmissionByItem'),
     });
 
     TestBed.configureTestingModule({
@@ -95,9 +108,9 @@ describe('RequestCorrectionMenuComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
@@ -107,8 +120,8 @@ describe('RequestCorrectionMenuComponent', () => {
         { provide: NgbModal, useValue: ngbModal },
         { provide: SubmissionService, useValue: submissionService },
         { provide: AuthorizationDataService, useValue: authorizationService },
-        TranslateService
-      ]
+        TranslateService,
+      ],
     }).compileComponents();
   }));
 
@@ -140,7 +153,7 @@ describe('RequestCorrectionMenuComponent', () => {
       component.modalRef = {
         close: () => {
           return;
-        }
+        },
       } as NgbModalRef;
       spyOn(component.modalRef, 'close');
 
@@ -157,7 +170,7 @@ describe('RequestCorrectionMenuComponent', () => {
       component.modalRef = {
         close: () => {
           return;
-        }
+        },
       } as NgbModalRef;
       spyOn(component.modalRef, 'close');
 

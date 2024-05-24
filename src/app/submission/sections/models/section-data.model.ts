@@ -1,7 +1,7 @@
+import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
 import { WorkspaceitemSectionDataType } from '../../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SectionsType } from '../sections-type';
-import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
 
 /**
  * An interface to represent section model

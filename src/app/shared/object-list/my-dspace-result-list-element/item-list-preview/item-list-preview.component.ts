@@ -11,14 +11,12 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../core/shared/item.model';
+import { DuplicateMatchMetadataDetailConfig } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 import { fadeInOut } from '../../../animations/fade';
 import { SearchResult } from '../../../search/models/search-result.model';
-import {
-  DuplicateMatchMetadataDetailConfig
-} from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
-import { environment } from '../../../../../environments/environment';
 
 /**
  * This component show metadata for the given item object in the list view.

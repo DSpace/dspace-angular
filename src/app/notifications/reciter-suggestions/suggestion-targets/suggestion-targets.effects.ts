@@ -1,11 +1,28 @@
 import { Injectable } from '@angular/core';
-
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
+import {
+  AuthActionTypes,
+  RetrieveAuthenticatedEpersonSuccessAction,
+} from '../../../core/auth/auth.actions';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { OpenaireSuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,
   AddUserSuggestionsAction,
@@ -14,14 +31,6 @@ import {
   RetrieveTargetsBySourceErrorAction,
   SuggestionTargetActionTypes,
 } from './suggestion-targets.actions';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SuggestionsService } from '../suggestions.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { AuthActionTypes, RetrieveAuthenticatedEpersonSuccessAction } from '../../../core/auth/auth.actions';
-import {
-  OpenaireSuggestionTarget
-} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
 
 /**
  * Provides effect methods for the Suggestion Targets actions.
@@ -38,19 +47,19 @@ export class SuggestionTargetsEffects {
       return this.suggestionsService.getTargets(
         action.payload.source,
         action.payload.elementsPerPage,
-        action.payload.currentPage
+        action.payload.currentPage,
       ).pipe(
         map((targets: PaginatedList<OpenaireSuggestionTarget>) =>
-          new AddTargetAction(action.payload.source, targets.page, targets.totalPages, targets.currentPage, targets.totalElements)
+          new AddTargetAction(action.payload.source, targets.page, targets.totalPages, targets.currentPage, targets.totalElements),
         ),
         catchError((error: Error) => {
           if (error) {
             console.error(error.message);
           }
           return of(new RetrieveTargetsBySourceErrorAction(action.payload.source));
-        })
+        }),
       );
-    })
+    }),
   ));
 
   /**
@@ -60,7 +69,7 @@ export class SuggestionTargetsEffects {
     ofType(SuggestionTargetActionTypes.RETRIEVE_TARGETS_BY_SOURCE_ERROR),
     tap(() => {
       this.notificationsService.error(null, this.translate.get('reciter.suggestion.target.error.service.retrieve'));
-    })
+    }),
   ), { dispatch: false });
 
   /**
@@ -70,7 +79,7 @@ export class SuggestionTargetsEffects {
     ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS),
     switchMap((action: RetrieveAuthenticatedEpersonSuccessAction) => {
       return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload).pipe(
-        map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets))
+        map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
       );
     })));
 
@@ -86,10 +95,10 @@ export class SuggestionTargetsEffects {
             return this.suggestionsService.retrieveCurrentUserSuggestions(user)
               .pipe(
                 map((suggestionTargets: OpenaireSuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
-                catchError((errors) => of(errors))
-            );
+                catchError((errors: unknown) => of(errors)),
+              );
           }),
-          catchError((errors) => of(errors))
+          catchError((errors: unknown) => of(errors)),
         );
     })));
 
@@ -106,7 +115,7 @@ export class SuggestionTargetsEffects {
     private store$: Store<any>,
     private translate: TranslateService,
     private notificationsService: NotificationsService,
-    private suggestionsService: SuggestionsService
+    private suggestionsService: SuggestionsService,
   ) {
   }
 }

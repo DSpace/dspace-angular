@@ -1,19 +1,28 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, take } from 'rxjs/operators';
-
 import {
-  OpenaireSuggestionTarget
-} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
-import { hasValue } from '../../../shared/empty.util';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SuggestionTargetsStateService } from './suggestion-targets.state.service';
-import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
-import { SuggestionsService } from '../suggestions.service';
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  take,
+} from 'rxjs/operators';
+
+import { OpenaireSuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { UUIDService } from '../../../core/shared/uuid.service';
+import { hasValue } from '../../../shared/empty.util';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
+import { SuggestionsService } from '../suggestions.service';
+import { SuggestionTargetsStateService } from './suggestion-targets.state.service';
 
 /**
  * Component to display the Suggestion Target list.
@@ -36,7 +45,7 @@ export class SuggestionTargetsComponent implements AfterViewInit, OnInit, OnDest
    */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: this.uuidService.generate(),
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
 
   /**
@@ -66,7 +75,7 @@ export class SuggestionTargetsComponent implements AfterViewInit, OnInit, OnDest
     private suggestionTargetsStateService: SuggestionTargetsStateService,
     private suggestionService: SuggestionsService,
     private router: Router,
-    private uuidService: UUIDService
+    private uuidService: UUIDService,
   ) {
   }
 
@@ -84,10 +93,10 @@ export class SuggestionTargetsComponent implements AfterViewInit, OnInit, OnDest
   ngAfterViewInit(): void {
     this.subs.push(
       this.suggestionTargetsStateService.isReciterSuggestionTargetsLoaded(this.source).pipe(
-        take(1)
+        take(1),
       ).subscribe(() => {
         this.getSuggestionTargets();
-      })
+      }),
     );
   }
 
@@ -139,12 +148,12 @@ export class SuggestionTargetsComponent implements AfterViewInit, OnInit, OnDest
   public getSuggestionTargets(): void {
     this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(
       distinctUntilChanged(),
-      take(1)
+      take(1),
     ).subscribe((options: PaginationComponentOptions) => {
       this.suggestionTargetsStateService.dispatchRetrieveReciterSuggestionTargets(
         this.source,
         options.pageSize,
-        options.currentPage
+        options.currentPage,
       );
     });
   }

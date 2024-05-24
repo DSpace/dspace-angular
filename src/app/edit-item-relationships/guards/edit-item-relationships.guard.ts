@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { isNotEmpty } from '../../shared/empty.util';
 
+import {
+  AuthService,
+  LOGIN_ROUTE,
+} from '../../core/auth/auth.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+} from '../../core/shared/operators';
 import { EditItemDataService } from '../../core/submission/edititem-data.service';
-import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../../core/shared/operators';
-import { AuthService, LOGIN_ROUTE } from '../../core/auth/auth.service';
 import { EditItemMode } from '../../core/submission/models/edititem-mode.model';
+import { isNotEmpty } from '../../shared/empty.util';
 
 /**
  * Prevent unauthorized activating and loading of routes
@@ -22,7 +33,7 @@ export class EditItemRelationsGuard implements CanActivate {
    */
   constructor(private router: Router,
     private editItemService: EditItemDataService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
   }
 

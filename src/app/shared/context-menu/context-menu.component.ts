@@ -1,20 +1,38 @@
-import { ChangeDetectorRef, Component, Inject, Injector, Input, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  from,
+  Observable,
+} from 'rxjs';
+import {
+  concatMap,
+  filter,
+  map,
+  reduce,
+  take,
+} from 'rxjs/operators';
 
-import { from, Observable } from 'rxjs';
-import { concatMap, filter, map, reduce, take } from 'rxjs/operators';
-
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { ContextMenuEntryRenderOptions, getContextMenuEntriesForDSOType } from './context-menu.decorator';
-import { ContextMenuEntryComponent } from './context-menu-entry.component';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { ContextMenuEntryType } from './context-menu-entry-type';
-import { isNotEmpty } from '../empty.util';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { isNotEmpty } from '../empty.util';
+import {
+  ContextMenuEntryRenderOptions,
+  getContextMenuEntriesForDSOType,
+} from './context-menu.decorator';
+import { ContextMenuEntryComponent } from './context-menu-entry.component';
+import { ContextMenuEntryType } from './context-menu-entry-type';
 
 /**
  * This component renders a context menu for a given DSO.
@@ -22,7 +40,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
 @Component({
   selector: 'ds-context-menu',
   styleUrls: ['./context-menu.component.scss'],
-  templateUrl: './context-menu.component.html'
+  templateUrl: './context-menu.component.html',
 })
 export class ContextMenuComponent implements OnInit {
 
@@ -60,7 +78,7 @@ export class ContextMenuComponent implements OnInit {
     @Inject(DOCUMENT) private _document: Document,
     private cdr: ChangeDetectorRef,
     private configurationService: ConfigurationDataService,
-    private injector: Injector
+    private injector: Injector,
   ) {
   }
 
@@ -70,7 +88,7 @@ export class ContextMenuComponent implements OnInit {
         { provide: 'contextMenuObjectProvider', useFactory: () => (this.contextMenuObject), deps: [] },
         { provide: 'contextMenuObjectTypeProvider', useFactory: () => (this.contextMenuObjectType), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 
@@ -97,11 +115,11 @@ export class ContextMenuComponent implements OnInit {
         const entryComp: ContextMenuEntryComponent = new constructor();
         return this.isDisabled(entryComp.menuEntryType).pipe(
           filter((disabled) => !disabled),
-          map(() => constructor)
+          map(() => constructor),
         );
       }),
       reduce((acc: any, value: any) => [...acc, value], []),
-      take(1)
+      take(1),
     );
   }
 
@@ -115,7 +133,7 @@ export class ContextMenuComponent implements OnInit {
       getFirstCompletedRemoteData(),
       map((res: RemoteData<ConfigurationProperty>) => {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'false';
-      })
+      }),
     );
   }
 

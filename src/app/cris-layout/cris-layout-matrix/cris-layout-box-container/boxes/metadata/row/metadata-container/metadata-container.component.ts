@@ -1,29 +1,49 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { environment } from '../../../../../../../../environments/environment';
+import {
+  BitstreamDataService,
+  MetadataFilter,
+} from '../../../../../../../core/data/bitstream-data.service';
+import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../../core/data/remote-data';
+import {
+  CrisLayoutBox,
+  LayoutField,
+  LayoutFieldType,
+} from '../../../../../../../core/layout/models/box.model';
+import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { CrisLayoutBox, LayoutField, LayoutFieldType } from '../../../../../../../core/layout/models/box.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../../../../../shared/empty.util';
 import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,
-  MetadataBoxFieldRenderOptions
+  MetadataBoxFieldRenderOptions,
 } from '../../rendering-types/metadata-box.decorator';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../shared/empty.util';
-import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../../../../../../environments/environment';
-import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
-import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
-import { map, take } from 'rxjs/operators';
-import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { MetadataFilter } from '../../../../../../../core/data/bitstream-data.service';
-import { RemoteData } from '../../../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-metadata-container',
   templateUrl: './metadata-container.component.html',
   styleUrls: ['./metadata-container.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MetadataContainerComponent implements OnInit {
   /**
@@ -57,7 +77,7 @@ export class MetadataContainerComponent implements OnInit {
   constructor(
     protected bitstreamDataService: BitstreamDataService,
     protected translateService: TranslateService,
-    protected cd: ChangeDetectorRef
+    protected cd: ChangeDetectorRef,
   ) {
   }
 
@@ -127,11 +147,11 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   hasBitstream(): Observable<boolean> {
-    let filters: MetadataFilter[] = [];
+    const filters: MetadataFilter[] = [];
     if (isNotEmpty(this.field.bitstream.metadataValue)) {
       filters.push({
         metadataName: this.field.bitstream.metadataField,
-        metadataValue: this.field.bitstream.metadataValue
+        metadataValue: this.field.bitstream.metadataValue,
       });
     }
     return this.bitstreamDataService.findShowableBitstreamsByItem(this.item.uuid, this.field.bitstream.bundle, filters)
@@ -139,7 +159,7 @@ export class MetadataContainerComponent implements OnInit {
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
           return response.hasSucceeded && response.payload.page.length > 0;
-        })
+        }),
       );
   }
 

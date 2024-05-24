@@ -4,6 +4,7 @@ import {
   Selector,
 } from '@ngrx/store';
 
+import { MetadataSecurityConfiguration } from '../core/submission/models/metadata-security-configuration';
 import { hasValue } from '../shared/empty.util';
 import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
@@ -11,7 +12,6 @@ import {
   submissionSelector,
   SubmissionState,
 } from './submission.reducers';
-import { MetadataSecurityConfiguration } from '../core/submission/models/metadata-security-configuration';
 
 /**
  * Export a function to return a subset of the state by key

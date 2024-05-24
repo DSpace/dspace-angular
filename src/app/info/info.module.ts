@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { NotifyInfoComponent } from '../core/coar-notify/notify-info/notify-info.component';
 import { FeedbackGuard } from '../core/feedback/feedback.guard';
+import { MarkdownViewerModule } from '../shared/markdown-viewer/markdown-viewer.module';
 import { SharedModule } from '../shared/shared.module';
 import { EndUserAgreementComponent } from './end-user-agreement/end-user-agreement.component';
 import { EndUserAgreementContentComponent } from './end-user-agreement/end-user-agreement-content/end-user-agreement-content.component';
@@ -15,7 +16,6 @@ import { InfoRoutingModule } from './info-routing.module';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { PrivacyContentComponent } from './privacy/privacy-content/privacy-content.component';
 import { ThemedPrivacyComponent } from './privacy/themed-privacy.component';
-import { MarkdownViewerModule } from '../shared/markdown-viewer/markdown-viewer.module';
 
 
 const DECLARATIONS = [
@@ -37,7 +37,7 @@ const DECLARATIONS = [
     CommonModule,
     SharedModule,
     InfoRoutingModule,
-    MarkdownViewerModule
+    MarkdownViewerModule,
   ],
   declarations: [
     ...DECLARATIONS,

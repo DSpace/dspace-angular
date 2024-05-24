@@ -39,7 +39,7 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject impleme
    * The embedded indexable object.
    */
    @deserialize
-  _embedded: {indexableObject: T};
+     _embedded: {indexableObject: T};
 
   /**
    * The {@link HALLink}s for this SearchResult

@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
@@ -27,7 +28,6 @@ import { SectionsDirective } from '../sections.directive';
 import { SectionsService } from '../sections.service';
 import { SectionsType } from '../sections-type';
 import { SubmissionSectionContainerComponent } from './section-container.component';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 
 const sectionState = {
   header: 'submit.progressbar.describe.stepone',
@@ -53,7 +53,7 @@ const sectionObject: SectionDataObject = {
   header:	'submit.progressbar.describe.stepone',
   id:	'traditionalpageone',
   sectionType:	SectionsType.SubmissionForm,
-  sectionVisibility: null
+  sectionVisibility: null,
 };
 
 describe('SubmissionSectionContainerComponent test suite', () => {

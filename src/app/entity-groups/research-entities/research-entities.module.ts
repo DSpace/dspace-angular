@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ItemSharedModule } from '../../item-page/item-shared.module';
+import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
 import { DsoPageModule } from '../../shared/dso-page/dso-page.module';
 import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
 import { SharedModule } from '../../shared/shared.module';
@@ -33,7 +34,6 @@ import { OrgUnitInputSuggestionsComponent } from './submission/item-list-element
 import { PersonSearchResultListSubmissionElementComponent } from './submission/item-list-elements/person/person-search-result-list-submission-element.component';
 import { PersonInputSuggestionsComponent } from './submission/item-list-elements/person/person-suggestions/person-input-suggestions.component';
 import { NameVariantModalComponent } from './submission/name-variant-modal/name-variant-modal.component';
-import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
 
 const ENTRY_COMPONENTS = [
 // put only entry components that use custom decorator

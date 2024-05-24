@@ -18,7 +18,6 @@ import {
   distinctUntilChanged,
   map,
   switchMap,
-  take,
   tap,
 } from 'rxjs/operators';
 
@@ -34,7 +33,10 @@ import { Suggestion } from '../core/notifications/models/suggestion.model';
 import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
 import { PaginationService } from '../core/pagination/pagination.service';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../core/shared/operators';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-list-element.component';
@@ -125,13 +127,13 @@ export class SuggestionsPageComponent implements OnInit {
     this.targetRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
       tap((suggestionTarget: SuggestionTarget) => {
-      this.suggestionTarget = suggestionTarget;
-      this.suggestionId = suggestionTarget.id;
-      this.researcherName = suggestionTarget.display;
-      this.suggestionSource = suggestionTarget.source;
-      this.researcherUuid = this.suggestionService.getTargetUuid(suggestionTarget);
+        this.suggestionTarget = suggestionTarget;
+        this.suggestionId = suggestionTarget.id;
+        this.researcherName = suggestionTarget.display;
+        this.suggestionSource = suggestionTarget.source;
+        this.researcherUuid = this.suggestionService.getTargetUuid(suggestionTarget);
       }),
-      switchMap(() => this.updatePage())
+      switchMap(() => this.updatePage()),
     ).subscribe();
 
     this.suggestionTargetsStateService.dispatchMarkUserSuggestionsAsVisitedAction();
@@ -152,9 +154,9 @@ export class SuggestionsPageComponent implements OnInit {
     const pageConfig$: Observable<FindListOptions> = this.paginationService.getFindListOptions(
       this.paginationOptions.id,
       this.defaultConfig,
-      this.paginationOptions
+      this.paginationOptions,
     ).pipe(
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
 
     return combineLatest([this.targetId$, pageConfig$]).pipe(
@@ -169,11 +171,11 @@ export class SuggestionsPageComponent implements OnInit {
       getFirstCompletedRemoteData(),
       tap((resultsRD: RemoteData<PaginatedList<Suggestion>>) => {
         this.processing$.next(false);
-          if (resultsRD.hasSucceeded) {
-            this.suggestionsRD$.next(resultsRD.payload);
-          } else {
-            this.suggestionsRD$.next(null);
-          }
+        if (resultsRD.hasSucceeded) {
+          this.suggestionsRD$.next(resultsRD.payload);
+        } else {
+          this.suggestionsRD$.next(null);
+        }
 
         this.suggestionService.clearSuggestionRequests();
         // navigate to the mydspace if no suggestions remains
@@ -185,7 +187,7 @@ export class SuggestionsPageComponent implements OnInit {
         // TODO if the target is not the current use route to the suggestion target page
         //     this.router.navigate(['/mydspace']);
         // }
-      })
+      }),
     );
   }
 
@@ -226,7 +228,7 @@ export class SuggestionsPageComponent implements OnInit {
                 { count: results.fails }));
           }
         }),
-        switchMap(() => this.updatePage())
+        switchMap(() => this.updatePage()),
       ).subscribe();
   }
 
@@ -241,7 +243,7 @@ export class SuggestionsPageComponent implements OnInit {
         this.notificationService.success('', content, { timeOut:0 }, true);
         this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
       }),
-      switchMap(() => this.updatePage())
+      switchMap(() => this.updatePage()),
     ).subscribe();
   }
 
@@ -270,7 +272,7 @@ export class SuggestionsPageComponent implements OnInit {
                 { count: results.fails }));
           }
         }),
-        switchMap(() => this.updatePage())
+        switchMap(() => this.updatePage()),
       ).subscribe();
   }
 

@@ -1,41 +1,51 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { CrisItemPageComponent } from './cris-item-page.component';
+import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '../core/data/item-data.service';
 import { Item } from '../core/shared/item.model';
+import { createRelationshipsObservable } from '../item-page/simple/item-types/shared/item.component.spec';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import {
   createNoContentRemoteDataObject,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../shared/remote-data.utils';
-import { createRelationshipsObservable } from '../item-page/simple/item-types/shared/item.component.spec';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { of } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDataService } from '../core/data/item-data.service';
-import { By } from '@angular/platform-browser';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VarDirective } from '../shared/utils/var.directive';
-import { AuthService } from '../core/auth/auth.service';
 import { createPaginatedList } from '../shared/testing/utils.test';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { VarDirective } from '../shared/utils/var.directive';
+import { CrisItemPageComponent } from './cris-item-page.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   metadata: [],
-  relationships: createRelationshipsObservable()
+  relationships: createRelationshipsObservable(),
 });
 
 const authService = jasmine.createSpyObj('authService', {
   isAuthenticated: of(true),
-  setRedirectUrl: {}
+  setRedirectUrl: {},
 });
 
 const authorizationService = jasmine.createSpyObj('AuthorizationDataService', {
-  isAuthorized: of(true)
+  isAuthorized: of(true),
 });
 
 describe('CrisItemPageComponent', () => {
@@ -43,7 +53,7 @@ describe('CrisItemPageComponent', () => {
   let fixture: ComponentFixture<CrisItemPageComponent>;
 
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: of({ dso: createSuccessfulRemoteDataObject(mockItem) })
+    data: of({ dso: createSuccessfulRemoteDataObject(mockItem) }),
   });
 
   beforeEach(waitForAsync(() => {
@@ -51,20 +61,20 @@ describe('CrisItemPageComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }), BrowserAnimationsModule],
       declarations: [ CrisItemPageComponent, VarDirective ],
       providers: [
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: ActivatedRoute, useValue: mockRoute},
-        {provide: ItemDataService, useValue: {}},
-        {provide: Router, useValue: {}},
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ActivatedRoute, useValue: mockRoute },
+        { provide: ItemDataService, useValue: {} },
+        { provide: Router, useValue: {} },
         { provide: AuthService, useValue: authService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

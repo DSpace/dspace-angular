@@ -55,7 +55,7 @@ describe('SiteDataService', () => {
       rdbService,
       objectCache,
       halService,
-      null
+      null,
     );
   });
 

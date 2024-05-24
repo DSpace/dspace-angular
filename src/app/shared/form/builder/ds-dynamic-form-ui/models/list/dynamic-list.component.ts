@@ -1,8 +1,18 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  UntypedFormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import {
   DynamicCheckboxModel,
   DynamicFormControlComponent,
@@ -10,13 +20,18 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import findKey from 'lodash/findKey';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { hasValue, isNotEmpty, } from '../../../../../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../../empty.util';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
@@ -78,7 +93,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     }
     this.currentListValue = this.model.value;
     this.subscription = this.model.valueChanges.pipe(
-      filter((value) => this.currentListValue !== value)
+      filter((value) => this.currentListValue !== value),
     ).subscribe(() => {
       this.setOptionsFromVocabulary();
     });

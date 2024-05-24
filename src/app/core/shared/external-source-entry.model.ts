@@ -10,12 +10,12 @@ import { excludeFromEquals } from '../utilities/equals.decorators';
 import { EXTERNAL_SOURCE_ENTRY } from './external-source-entry.resource-type';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
+import { Item } from './item.model';
 import {
   MetadataMap,
   MetadataMapSerializer,
 } from './metadata.models';
 import { ResourceType } from './resource-type';
-import { Item } from './item.model';
 
 /**
  * Model class for a single entry from an external source
@@ -65,7 +65,7 @@ export class ExternalSourceEntry extends ListableObject {
    * The list of objects that match this entry
    */
   @autoserializeAs(Item)
-  matchObjects: Item[];
+    matchObjects: Item[];
 
   /**
    * The {@link HALLink}s for this ExternalSourceEntry

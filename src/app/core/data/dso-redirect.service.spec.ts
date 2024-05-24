@@ -1,8 +1,12 @@
-import { cold, getTestScheduler, } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AppConfig } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -12,9 +16,11 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { EMBED_SEPARATOR } from './base/base-data.service';
 import { DsoRedirectService } from './dso-redirect.service';
-import { GetRequest, IdentifierType, } from './request.models';
+import {
+  GetRequest,
+  IdentifierType,
+} from './request.models';
 import { RequestService } from './request.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;
@@ -67,7 +73,7 @@ describe('DsoRedirectService', () => {
       objectCache,
       halService,
       redirectService,
-      routerMock
+      routerMock,
     );
   });
 

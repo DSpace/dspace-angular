@@ -53,7 +53,7 @@ export const rotateNavbar = trigger('rotateNavbar',
     state('expanded', style(expandedStyleNav)),
     state('collapsed', style(collapsedStyleNav)),
     transition('expanded <=> collapsed', [
-      animate('200ms')
-    ])
+      animate('200ms'),
+    ]),
 
   ]);

@@ -3,8 +3,17 @@ import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
+import { WorkspaceitemSectionDetectDuplicateObject } from '../../core/submission/models/workspaceitem-section-deduplication.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNull, isUndefined, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNull,
+  isUndefined,
+} from '../../shared/empty.util';
 import {
   ChangeSubmissionCollectionAction,
   CleanDetectDuplicateAction,
@@ -48,11 +57,7 @@ import {
   UpdateSectionDataAction,
   UpdateSectionErrorsAction,
 } from './submission-objects.actions';
-import {
-  WorkspaceitemSectionDetectDuplicateObject
-} from '../../core/submission/models/workspaceitem-section-deduplication.model';
 import { SubmissionSectionObject } from './submission-section-object.model';
-import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 /**
  * An interface to represent SubmissionSectionObject entry
@@ -396,7 +401,7 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
     saveDecisionPending: false,
     depositPending: false,
     metadataSecurityConfiguration: action.payload.metadataSecurityConfiguration,
-    isDiscarding: false
+    isDiscarding: false,
   };
   return newState;
 }
@@ -456,12 +461,12 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
  * @return SubmissionObjectState
  *    the new state, with the discard success.
  */
- function discardSuccess(state: SubmissionObjectState, action: DiscardSubmissionSuccessAction): SubmissionObjectState {
+function discardSuccess(state: SubmissionObjectState, action: DiscardSubmissionSuccessAction): SubmissionObjectState {
   if (hasValue(state[ action.payload.submissionId ])) {
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
-        isDiscarding: true
-      })
+        isDiscarding: true,
+      }),
     });
   } else {
     return state;
@@ -735,10 +740,10 @@ function updateSectionErrors(state: SubmissionObjectState, action: UpdateSection
             enabled: true,
             errorsToShow: action.payload.errorsToShow,
             serverValidationErrors: action.payload.errorsToShow,
-          })
+          }),
         }),
         savePending: false,
-      })
+      }),
     });
   } else {
     return state;
@@ -784,7 +789,7 @@ function changeSectionState(state: SubmissionObjectState, action: EnableSectionA
           [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
             enabled,
             data: (enabled) ? state[ action.payload.submissionId ].sections [ action.payload.sectionId ] : {},
-            removePending: false
+            removePending: false,
           }),
         }),
       }),
@@ -813,7 +818,7 @@ function changeSectionRemoveState(state: SubmissionObjectState, action: DisableS
         // sections: deleteProperty(state[ action.payload.submissionId ].sections, action.payload.sectionId),
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
-            removePending
+            removePending,
           }),
         }),
       }),
@@ -1038,7 +1043,7 @@ function startSaveDecision(state: SubmissionObjectState, action: SetDuplicateDec
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         saveDecisionPending: true,
-      })
+      }),
     });
   } else {
     return state;
@@ -1048,7 +1053,7 @@ function startSaveDecision(state: SubmissionObjectState, action: SetDuplicateDec
 function setDuplicateMatches(state: SubmissionObjectState, action: SetDuplicateDecisionSuccessAction) {
   const index: any = findKey(
     action.payload.submissionObject,
-    {id: parseInt(action.payload.submissionId, 10) as any});
+    { id: parseInt(action.payload.submissionId, 10) as any });
   const sectionData = action.payload.submissionObject[index].sections[ action.payload.sectionId ] as WorkspaceitemSectionDetectDuplicateObject;
   const newData = (sectionData && sectionData.matches) ? sectionData : Object.create({});
 
@@ -1059,12 +1064,12 @@ function setDuplicateMatches(state: SubmissionObjectState, action: SetDuplicateD
           Object.assign({}, {
             [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
               enabled: true,
-              data: newData
-            })
-          })
+              data: newData,
+            }),
+          }),
         ),
-        saveDecisionPending: false
-      })
+        saveDecisionPending: false,
+      }),
     });
   } else {
     return state;
@@ -1086,7 +1091,7 @@ function endSaveDecision(state: SubmissionObjectState, action: SetDuplicateDecis
     return Object.assign({}, state, {
       [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
         saveDecisionPending: false,
-      })
+      }),
     });
   } else {
     return state;
@@ -1100,10 +1105,10 @@ function cleanDetectDuplicateSection(state: SubmissionObjectState, action: Clean
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ 'detect-duplicate' ]: Object.assign({}, state[ action.payload.submissionId ].sections [ 'detect-duplicate' ], {
             enabled: false,
-            data: {}
-          })
-        })
-      })
+            data: {},
+          }),
+        }),
+      }),
     });
   } else {
     return state;

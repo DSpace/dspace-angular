@@ -17,7 +17,7 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import {
   createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../../shared/remote-data.utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
@@ -41,11 +41,11 @@ const mockItem = Object.assign(new Item(), {
     'dc.description': [
       {
         language: 'en_US',
-        value: 'A description for the journal volume'
+        value: 'A description for the journal volume',
       },
     ],
   },
-  thumbnail: createNoContentRemoteDataObject$()
+  thumbnail: createNoContentRemoteDataObject$(),
 });
 
 describe('JournalVolumeGridElementComponent', () => {

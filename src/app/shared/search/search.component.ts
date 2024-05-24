@@ -1,3 +1,4 @@
+import { isPlatformServer } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -34,6 +35,7 @@ import {
 } from '../../../config/app-config.interface';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
+import { SearchManager } from '../../core/browse/search-manager';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
@@ -50,6 +52,7 @@ import { SubmissionObject } from '../../core/submission/models/submission-object
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { AlertType } from '../alert/alert-type';
 import { pushInOut } from '../animations/push';
 import {
   hasValue,
@@ -69,9 +72,6 @@ import { SearchObjects } from './models/search-objects.model';
 import { SearchResult } from './models/search-result.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
-import { SearchManager } from '../../core/browse/search-manager';
-import { isPlatformServer } from '@angular/common';
-import { AlertType } from '../alert/alert-type';
 
 @Component({
   selector: 'ds-search',
@@ -563,10 +563,10 @@ export class SearchComponent implements OnDestroy, OnInit {
       getFirstCompletedRemoteData(),
     ).subscribe((filtersRD: RemoteData<SearchFilterConfig[]>) => {
       const filtersPayload = filtersRD.payload.filter((entry: SearchFilterConfig) =>
-        !this.chartReg.test(entry.filterType)
+        !this.chartReg.test(entry.filterType),
       );
       const chartFiltersPayload = filtersRD.payload.filter((entry: SearchFilterConfig) =>
-        this.chartReg.test(entry.filterType)
+        this.chartReg.test(entry.filterType),
       );
       const filters = new RemoteData(
         filtersRD.timeCompleted,
@@ -576,7 +576,7 @@ export class SearchComponent implements OnDestroy, OnInit {
         filtersRD.errorMessage,
         filtersPayload,
         filtersRD.statusCode,
-        filtersRD.errors
+        filtersRD.errors,
       );
       this.filtersRD$.next(filters);
       const chartFilters  = new RemoteData(
@@ -587,7 +587,7 @@ export class SearchComponent implements OnDestroy, OnInit {
         filtersRD.errorMessage,
         chartFiltersPayload,
         filtersRD.statusCode,
-        filtersRD.errors
+        filtersRD.errors,
       );
       this.chartFiltersRD$.next(chartFilters);
     });
@@ -607,14 +607,14 @@ export class SearchComponent implements OnDestroy, OnInit {
         followLink<Item>('thumbnail', { isOptional: true }),
         followLink<SubmissionObject>('item', { isOptional: true },
           followLink<Item>('thumbnail', { isOptional: true }),
-          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: this.appConfig.item.showAccessStatuses })
-        ) as any
+          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: this.appConfig.item.showAccessStatuses }),
+        ) as any,
       ];
     } else {
       followLinks = [
         followLink<SubmissionObject>('item', { isOptional: true },
-          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: this.appConfig.item.showAccessStatuses })
-        ) as any
+          followLink<Item>('accessStatus', { isOptional: true, shouldEmbed: this.appConfig.item.showAccessStatuses }),
+        ) as any,
       ];
     }
 
@@ -624,7 +624,7 @@ export class SearchComponent implements OnDestroy, OnInit {
 
     if (this.projection) {
       searchOptions = Object.assign(new PaginatedSearchOptions({}), searchOptions, {
-        projection: this.projection
+        projection: this.projection,
       });
     }
 

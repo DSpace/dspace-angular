@@ -1,31 +1,40 @@
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  forkJoin,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SearchObjects } from '../../../search/models/search-objects.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
-import { SectionComponent } from '../../../../core/layout/models/section.model';
-import { SearchManager } from '../../../../core/browse/search-manager';
-import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 import { InternalLinkService } from 'src/app/core/services/internal-link.service';
+
+import { SearchManager } from '../../../../core/browse/search-manager';
+import { SectionComponent } from '../../../../core/layout/models/section.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { UUIDService } from '../../../../core/shared/uuid.service';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
+import { SearchObjects } from '../../../search/models/search-objects.model';
 
 @Component({
   selector: 'ds-counters-section',
   styleUrls: ['./counters-section.component.scss'],
-  templateUrl: './counters-section.component.html'
+  templateUrl: './counters-section.component.html',
 })
 export class CountersSectionComponent implements OnInit {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  countersSection: CountersSection;
+    countersSection: CountersSection;
 
   counterData: CounterData[] = [];
   counterData$: Observable<CounterData[]>;
@@ -34,7 +43,7 @@ export class CountersSectionComponent implements OnInit {
   pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: this.uuidService.generate(),
     pageSize: 1,
-    currentPage: 1
+    currentPage: 1,
   });
 
 
@@ -56,7 +65,7 @@ export class CountersSectionComponent implements OnInit {
       this.countersSection.counterSettingsList.map((counterSettings: CountersSettings) =>
         this.searchService.search(new PaginatedSearchOptions({
           configuration: counterSettings.discoveryConfigurationName,
-          pagination: this.pagination})).pipe(
+          pagination: this.pagination })).pipe(
           getFirstSucceededRemoteDataPayload(),
           map((rs: SearchObjects<DSpaceObject>) => rs.totalElements),
           map((total: number) => {
@@ -64,10 +73,10 @@ export class CountersSectionComponent implements OnInit {
               count: total.toString(),
               label: counterSettings.entityName,
               icon: counterSettings.icon,
-              link: counterSettings.link
+              link: counterSettings.link,
 
             };
-          })
+          }),
         )));
     this.counterData$.subscribe(() => this.isLoading$.next(false));
   }

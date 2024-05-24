@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '../../shared/empty.util';
+
 import { environment } from '../../../environments/environment';
+import { hasValue } from '../../shared/empty.util';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ResolverStrategyService {
 

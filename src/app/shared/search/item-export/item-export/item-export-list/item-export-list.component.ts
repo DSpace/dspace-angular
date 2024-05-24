@@ -1,19 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SearchOptions } from '../../../models/search-options.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
-import { SearchObjects } from '../../../models/search-objects.model';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+
 import { SearchManager } from '../../../../../core/browse/search-manager';
-import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
-import { Context } from '../../../../../core/shared/context.model';
+import { RemoteData } from '../../../../../core/data/remote-data';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
-import { fadeIn } from '../../../../animations/fade';
-import { PaginatedSearchOptions } from '../../../models/paginated-search-options.model';
+import { Context } from '../../../../../core/shared/context.model';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { fadeIn } from '../../../../animations/fade';
+import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../../models/paginated-search-options.model';
+import { SearchObjects } from '../../../models/search-objects.model';
+import { SearchOptions } from '../../../models/search-options.model';
 
 @Component({
   selector: 'ds-item-export-list',
@@ -22,10 +30,10 @@ import { UUIDService } from '../../../../../core/shared/uuid.service';
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
+      useClass: SearchConfigurationService,
+    },
   ],
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class ItemExportListComponent implements OnInit {
 
@@ -55,7 +63,7 @@ export class ItemExportListComponent implements OnInit {
    */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: this.uuidService.generate(),
-    pageSize: 10
+    pageSize: 10,
   });
 
   /**
@@ -75,7 +83,7 @@ export class ItemExportListComponent implements OnInit {
     this.currentPagination$.subscribe((paginationOptions: PaginationComponentOptions) => {
       this.searchOptions = Object.assign(new PaginatedSearchOptions({}), this.searchOptions, {
         fixedFilter: `f.entityType=${this.itemEntityType},equals`,
-        pagination: paginationOptions
+        pagination: paginationOptions,
       });
       this.retrieveResultList(this.searchOptions);
     });

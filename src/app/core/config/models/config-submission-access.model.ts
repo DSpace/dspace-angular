@@ -40,7 +40,7 @@ export class SubmissionAccessModel extends ConfigObject {
    * Boolean that indicates whether or not the user can see add more access condition options.
    */
   @autoserialize
-  singleAccessCondition: boolean;
+    singleAccessCondition: boolean;
 
   /**
    * The links to all related resources returned by the rest api.

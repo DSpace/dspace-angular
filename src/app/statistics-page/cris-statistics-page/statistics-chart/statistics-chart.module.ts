@@ -1,42 +1,45 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  NgModule,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 
-import { StatisticsChartComponent } from './statistics-chart.component';
-import { StatisticsChartWrapperComponent } from './statistics-chart-wrapper/statistics-chart-wrapper.component';
-import { StatisticsChartPieComponent } from './statistics-chart-pie/statistics-chart-pie.component';
-import { StatisticsChartLineComponent } from './statistics-chart-line/statistics-chart-line.component';
-import { StatisticsChartBarComponent } from './statistics-chart-bar/statistics-chart-bar.component';
+import { ChartsModule } from '../../../charts/charts.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { StatisticsPipesPageModule } from '../statistics-pipes/statistics-pipes.module';
+import { StatisticsChartComponent } from './statistics-chart.component';
+import { StatisticsChartBarComponent } from './statistics-chart-bar/statistics-chart-bar.component';
+import { StatisticsChartLineComponent } from './statistics-chart-line/statistics-chart-line.component';
+import { StatisticsChartPieComponent } from './statistics-chart-pie/statistics-chart-pie.component';
+import { StatisticsChartWrapperComponent } from './statistics-chart-wrapper/statistics-chart-wrapper.component';
 import { StatisticsTableComponent } from './statistics-table/statistics-table.component';
-import { ChartsModule } from '../../../charts/charts.module';
 
 const ENTRY_COMPONENTS = [
   StatisticsChartPieComponent,
   StatisticsChartLineComponent,
   StatisticsChartBarComponent,
-  StatisticsTableComponent
+  StatisticsTableComponent,
 ];
 
 const IMPORTS = [
   CommonModule,
   SharedModule.withEntryComponents(),
   StatisticsPipesPageModule,
-  ChartsModule.withEntryComponents()
+  ChartsModule.withEntryComponents(),
 ];
 const COMPONENTS = [
   StatisticsChartComponent,
   StatisticsChartWrapperComponent,
-  ...ENTRY_COMPONENTS
+  ...ENTRY_COMPONENTS,
 ];
 
 @NgModule({
   declarations: COMPONENTS,
   imports: [
-    ...IMPORTS
+    ...IMPORTS,
   ],
   exports : COMPONENTS,
-  schemas: [ NO_ERRORS_SCHEMA ]
+  schemas: [ NO_ERRORS_SCHEMA ],
 })
 export class StatisticsChartModule {
   /**
@@ -46,7 +49,7 @@ export class StatisticsChartModule {
   static withEntryComponents() {
     return {
       ngModule: StatisticsChartModule,
-      providers: ENTRY_COMPONENTS.map((component) => ({provide: component})),
+      providers: ENTRY_COMPONENTS.map((component) => ({ provide: component })),
     };
   }
 

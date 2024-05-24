@@ -323,8 +323,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     new DynamicFormGroupModel({
       id: 'fileTypeContainer',
       group: [
-        this.fileTypeModel
-      ]
+        this.fileTypeModel,
+      ],
     }),
     new DynamicFormGroupModel({
       id: 'formatContainer',
@@ -364,8 +364,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     },
     fileType: {
       grid: {
-        host: 'col-12 d-inline-block'
-      }
+        host: 'col-12 d-inline-block',
+      },
     },
     embargo: {
       grid: {
@@ -538,7 +538,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         description: bitstream.firstMetadataValue('dc.description'),
       },
       fileTypeContainer: {
-        fileType: bitstream.firstMetadataValue('dc.type')
+        fileType: bitstream.firstMetadataValue('dc.type'),
       },
       formatContainer: {
         newFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined,

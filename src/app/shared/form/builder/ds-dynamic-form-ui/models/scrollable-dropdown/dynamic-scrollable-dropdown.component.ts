@@ -10,28 +10,44 @@ import {
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdown,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { Observable, of as observableOf, Subject, } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, tap, } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+  Subject,
+} from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  tap,
+} from 'rxjs/operators';
 
-import { buildPaginatedList, PaginatedList, } from '../../../../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../core/data/remote-data';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
 import { isEmpty } from '../../../../../empty.util';
+import { Subscription } from '../../../../../subscriptions/models/subscription.model';
+import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { Subscription } from '../../../../../subscriptions/models/subscription.model';
-import { SubmissionService } from '../../../../../../submission/submission.service';
-import { RemoteData } from '../../../../../../core/data/remote-data';
 
 /**
  * Component representing a dropdown input field
@@ -82,7 +98,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
               protected validationService: DynamicFormValidationService,
               protected formBuilderService: FormBuilderService,
               protected modalService: NgbModal,
-              protected submissionService: SubmissionService
+              protected submissionService: SubmissionService,
   ) {
     super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
@@ -295,9 +311,9 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     search$.pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() => observableOf(buildPaginatedList(
-          new PageInfo(),
-          []
-        ))
+        new PageInfo(),
+        [],
+      )),
       ),
       tap(() => this.loading = false))
       .subscribe((list: PaginatedList<VocabularyEntry>) => {
@@ -309,7 +325,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
           list.pageInfo.elementsPerPage,
           list.pageInfo.currentPage,
           list.pageInfo.totalElements,
-          list.pageInfo.totalPages
+          list.pageInfo.totalPages,
         );
         this.cdr.detectChanges();
       });

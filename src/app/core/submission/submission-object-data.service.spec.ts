@@ -1,12 +1,12 @@
 import { SubmissionService } from '../../submission/submission.service';
 import { RemoteData } from '../data/remote-data';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { EditItemDataService } from './edititem-data.service';
 import { SubmissionObject } from './models/submission-object.model';
 import { SubmissionObjectDataService } from './submission-object-data.service';
 import { SubmissionScopeType } from './submission-scope-type';
 import { WorkflowItemDataService } from './workflowitem-data.service';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';
-import { EditItemDataService } from './edititem-data.service';
 
 describe('SubmissionObjectDataService', () => {
   let service: SubmissionObjectDataService;
@@ -29,7 +29,7 @@ describe('SubmissionObjectDataService', () => {
       findById: wfiResult,
     });
     editItemDataService  = jasmine.createSpyObj('EditItemDataService', {
-      findById: eiResult
+      findById: eiResult,
     });
     halService = jasmine.createSpyObj('HALEndpointService', {
       getEndpoint: '/workspaceItem',

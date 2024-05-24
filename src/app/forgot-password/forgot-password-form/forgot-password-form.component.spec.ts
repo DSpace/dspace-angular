@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { AuthenticateAction } from '../../core/auth/auth.actions';
+import { AuthService } from '../../core/auth/auth.service';
 import { CoreState } from '../../core/core-state.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { Registration } from '../../core/shared/registration.model';
@@ -33,7 +34,6 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { RouterStub } from '../../shared/testing/router.stub';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';
-import { AuthService } from '../../core/auth/auth.service';
 
 describe('ForgotPasswordFormComponent', () => {
   let comp: ForgotPasswordFormComponent;
@@ -81,7 +81,7 @@ describe('ForgotPasswordFormComponent', () => {
         { provide: EPersonDataService, useValue: ePersonDataService },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
         { provide: NotificationsService, useValue: notificationsService },
-        {provide: AuthService, useValue: authService},
+        { provide: AuthService, useValue: authService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

@@ -1,17 +1,25 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
-import { SubscriptionMenuComponent } from './subscription-menu.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { Item } from '../../../core/shared/item.model';
+import { SubscriptionMenuComponent } from './subscription-menu.component';
 
 describe('SubscriptionMenuComponent', () => {
   let component: SubscriptionMenuComponent;
@@ -23,19 +31,19 @@ describe('SubscriptionMenuComponent', () => {
   let authorizationServiceStub: any;
 
   const ngbModal = jasmine.createSpyObj('modal', {
-    open: jasmine.createSpy('open')
+    open: jasmine.createSpy('open'),
   });
 
   beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
-        self: { href: 'test-item-selflink' }
-      }
+        self: { href: 'test-item-selflink' },
+      },
     });
 
     authorizationServiceStub = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: jasmine.createSpy('isAuthorized')
+      isAuthorized: jasmine.createSpy('isAuthorized'),
     });
 
     TestBed.configureTestingModule({
@@ -45,9 +53,9 @@ describe('SubscriptionMenuComponent', () => {
         { provide: NgbModal, useValue: ngbModal },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
-        { provide: AuthorizationDataService, useValue: authorizationServiceStub}
+        { provide: AuthorizationDataService, useValue: authorizationServiceStub },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

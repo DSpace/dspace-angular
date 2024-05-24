@@ -1,17 +1,24 @@
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { EntityTypeEnum } from '../../../cris-layout/enums/entity-type.enum';
-import { Point } from '../../../core/statistics/models/usage-report.model';
-import { Pipe, PipeTransform } from '@angular/core';
-import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
-import { Item } from '../../../core/shared/item.model';
-import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
-import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+
+import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
+import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Item } from '../../../core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { Point } from '../../../core/statistics/models/usage-report.model';
+import { EntityTypeEnum } from '../../../cris-layout/enums/entity-type.enum';
+import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 
 @Pipe({
   name: 'dsCreateLink',
@@ -37,7 +44,7 @@ export class CreateLinkPipe implements PipeTransform {
               if (item) {
                 return getItemPageRoute(item);
               }
-            })
+            }),
           );
           break;
         case EntityTypeEnum.Bitstream:
@@ -47,14 +54,14 @@ export class CreateLinkPipe implements PipeTransform {
               if (bitstream) {
                 return getBitstreamDownloadRoute(bitstream);
               }
-            })
+            }),
           );
           break;
       }
       return link$.pipe(
         map((link: string) => {
           return link ? `${link}` : '';
-        })
+        }),
       );
     }
   }

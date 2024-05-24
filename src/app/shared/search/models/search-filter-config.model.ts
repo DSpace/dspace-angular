@@ -8,9 +8,9 @@ import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { CacheableObject } from '../../../core/cache/cacheable-object.model';
 import { HALLink } from '../../../core/shared/hal-link.model';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { FacetValue } from './facet-value.model';
 import { FilterType } from './filter-type.model';
 import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type';
-import { FacetValue } from './facet-value.model';
 
 /**
  * The configuration for a search filter
@@ -60,7 +60,7 @@ export class SearchFilterConfig implements CacheableObject {
      * Defines the list of available operators
      */
     @autoserialize
-    operators: OperatorConfig[];
+      operators: OperatorConfig[];
 
 
     /**
@@ -79,7 +79,7 @@ export class SearchFilterConfig implements CacheableObject {
      * The embedded facet values.
      */
     @autoserialize
-    _embedded: { values: FacetValue[] };
+      _embedded: { values: FacetValue[] };
 
     /**
      * The {@link HALLink}s for this SearchFilterConfig

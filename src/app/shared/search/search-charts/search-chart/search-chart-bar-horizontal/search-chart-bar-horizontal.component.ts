@@ -1,7 +1,11 @@
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import isEqual from 'lodash/isEqual';
-import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
-import { Component, OnInit } from '@angular/core';
+
 import { FilterType } from '../../../models/filter-type.model';
+import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
 import { renderChartFor } from '../../chart-search-result-element-decorator';
 import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
 
@@ -23,7 +27,7 @@ export class SearchChartBarHorizontalComponent extends SearchChartFilterComponen
     if (
       isEqual(
         this.filterConfig.filterType,
-        FilterType['chart.reverse-bar.horizontal']
+        FilterType['chart.reverse-bar.horizontal'],
       )
     ) {
       this.isReverseChart = true;

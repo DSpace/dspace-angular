@@ -27,6 +27,7 @@ import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
+import { SearchManager } from '../../core/browse/search-manager';
 import {
   SortDirection,
   SortOptions,
@@ -57,7 +58,6 @@ import { PaginatedSearchOptions } from './models/paginated-search-options.model'
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchComponent } from './search.component';
-import { SearchManager } from '../../core/browse/search-manager';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -127,21 +127,21 @@ const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfi
   filterType: FilterType.text,
   hasFacets: false,
   isOpenByDefault: false,
-  pageSize: 2
+  pageSize: 2,
 });
 const mockFilterConfig2: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
   name: 'test2',
   filterType: FilterType.text,
   hasFacets: false,
   isOpenByDefault: false,
-  pageSize: 1
+  pageSize: 1,
 });
 const mockChartFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
   name: 'line',
   filterType: FilterType['chart.line'],
   hasFacets: false,
   isOpenByDefault: false,
-  pageSize: 1
+  pageSize: 1,
 });
 
 const filtersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig, mockFilterConfig2, mockChartFilterConfig]);
@@ -290,7 +290,7 @@ describe('SearchComponent', () => {
     const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
       configuration: 'default',
       sort: sortOptionsList[0],
-      forcedEmbeddedKeys: ['metrics']
+      forcedEmbeddedKeys: ['metrics'],
     });
     expect(comp.currentConfiguration$).toBeObservable(cold('b', {
       b: 'default',

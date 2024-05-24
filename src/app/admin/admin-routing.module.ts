@@ -5,6 +5,7 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
 import { SiteAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
 import { AdminCurationTasksComponent } from './admin-curation-tasks/admin-curation-tasks.component';
+import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 import { BatchImportPageComponent } from './admin-import-batch-page/batch-import-page.component';
 import { MetadataImportPageComponent } from './admin-import-metadata-page/metadata-import-page.component';
 import {
@@ -16,7 +17,6 @@ import {
 } from './admin-routing-paths';
 import { AdminSearchPageComponent } from './admin-search-page/admin-search-page.component';
 import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
-import { AdminEditUserAgreementComponent } from './admin-edit-user-agreement/admin-edit-user-agreement.component';
 import { EditCmsMetadataComponent } from './edit-cms-metadata/edit-cms-metadata.component';
 
 @NgModule({
@@ -65,13 +65,13 @@ import { EditCmsMetadataComponent } from './edit-cms-metadata/edit-cms-metadata.
         path: 'edit-user-agreement',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: AdminEditUserAgreementComponent,
-        data: { title: 'admin.edit-user-agreement.title', breadcrumbKey: 'admin.edit-user-agreement' }
+        data: { title: 'admin.edit-user-agreement.title', breadcrumbKey: 'admin.edit-user-agreement' },
       },
       {
         path: 'edit-cms-metadata',
         resolve: { breadcrumb: I18nBreadcrumbResolver },
         component: EditCmsMetadataComponent,
-        data: { title: 'admin.edit-cms-metadata.title', breadcrumbKey: 'admin.edit-cms-metadata' }
+        data: { title: 'admin.edit-cms-metadata.title', breadcrumbKey: 'admin.edit-cms-metadata' },
       },
       {
         path: 'batch-import',

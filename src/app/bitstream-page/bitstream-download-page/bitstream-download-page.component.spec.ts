@@ -18,11 +18,14 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../core/services/window.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { FileService } from '../../core/shared/file.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
-import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
 
 describe('BitstreamDownloadPageComponent', () => {
   let component: BitstreamDownloadPageComponent;

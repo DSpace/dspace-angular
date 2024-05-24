@@ -1,21 +1,42 @@
-import { ChangeDetectorRef, Component, Inject, OnInit, } from '@angular/core';
-import { ActivatedRoute, Params, Router, } from '@angular/router';
-import { combineLatest as observableCombineLatest, Observable, } from 'rxjs';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { APP_CONFIG, AppConfig, } from '../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
-import { SortDirection, SortOptions, } from '../../core/cache/models/sort-options.model';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { isValidDate } from '../../shared/date.util';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
 import { SearchManager } from '../../core/browse/search-manager';
-import { hasValue, isNotEmpty, } from '../../shared/empty.util';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { Item } from '../../core/shared/item.model';
+import { isValidDate } from '../../shared/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import {
   BrowseByMetadataComponent,
   browseParamsToOptions,

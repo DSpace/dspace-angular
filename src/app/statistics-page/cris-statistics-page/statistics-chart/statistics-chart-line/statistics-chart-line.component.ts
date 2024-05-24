@@ -1,14 +1,23 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
-import { Observable, of } from 'rxjs';
-
-import { StatisticsType } from '../../statistics-type.model';
-import { renderChartFor } from '../../cris-statistics-element-decorator';
-import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 import { ChartData } from '../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../charts/models/chart-series';
-import { Point, UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
+import {
+  Point,
+  UsageReport,
+} from '../../../../core/statistics/models/usage-report.model';
+import { renderChartFor } from '../../cris-statistics-element-decorator';
+import { StatisticsType } from '../../statistics-type.model';
+import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 
 /**
  * This component renders a simple item page.
@@ -29,7 +38,7 @@ export class StatisticsChartLineComponent extends StatisticsChartDataComponent {
   constructor(
     @Inject(REPORT_DATA) public report: UsageReport,
     @Inject('categoryType') public categoryType: string,
-    @Inject(PLATFORM_ID) protected platformId: Object
+    @Inject(PLATFORM_ID) protected platformId: Object,
   ) {
     super(report, categoryType, platformId);
   }
@@ -41,7 +50,7 @@ export class StatisticsChartLineComponent extends StatisticsChartDataComponent {
 
     let key = 'views';
 
-    if (!!this.report.points[0]) {
+    if (this.report.points[0]) {
       key = Object.keys(this.report.points[0].values)[0];
     }
 
@@ -58,9 +67,9 @@ export class StatisticsChartLineComponent extends StatisticsChartDataComponent {
       [
         {
           name: this.report.reportType,
-          series: series
-        }
-      ]
+          series: series,
+        },
+      ],
     );
   }
 

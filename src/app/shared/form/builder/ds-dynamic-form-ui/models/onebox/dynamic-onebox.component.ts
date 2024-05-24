@@ -1,13 +1,30 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild, } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-
+import {
+  NgbModal,
+  NgbModalRef,
+  NgbTypeahead,
+  NgbTypeaheadSelectItemEvent,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { NgbModal, NgbModalRef, NgbTypeahead, NgbTypeaheadSelectItemEvent, } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, of as observableOf, Subject, Subscription, } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+  Subject,
+  Subscription,
+} from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -20,22 +37,28 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { DynamicOneboxModel } from './dynamic-onebox.model';
-import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../../../core/data/paginated-list.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import {
-  VocabularyTreeviewModalComponent
-} from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
-import { FormBuilderService } from '../../../form-builder.service';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '../../../../../empty.util';
+import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
+import { FormBuilderService } from '../../../form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { DynamicOneboxModel } from './dynamic-onebox.model';
 
 /**
  * Component representing a onebox input field.
@@ -102,7 +125,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({list: []});
+          return observableOf({ list: [] });
         } else {
           return this.vocabularyService.getVocabularyEntriesByValue(
             term,
@@ -138,7 +161,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
         if (this.model.value) {
           this.setCurrentValue(this.model.value, isHierarchical);
         }
-      })
+      }),
     );
     this.subs.push(this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
@@ -177,7 +200,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event
    */
   onInput(event) {
-        if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
+    if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
       this.inputValue = new FormFieldMetadataValueObject(event.target.value);
       if (this.model.value) {
         if ((this.model.value as any).securityLevel != null) {
@@ -197,7 +220,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
         if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
           this.dispatchUpdate(this.inputValue);
         }
-         this.inputValue = null;
+        this.inputValue = null;
       }
       this.blur.emit(event);
     } else {
@@ -256,7 +279,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     ).subscribe((preloadLevel) => {
       const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, {
         size: 'lg',
-        windowClass: 'treeview'
+        windowClass: 'treeview',
       });
       modalRef.componentInstance.vocabularyOptions = this.model.vocabularyOptions;
       modalRef.componentInstance.preloadLevel = preloadLevel;

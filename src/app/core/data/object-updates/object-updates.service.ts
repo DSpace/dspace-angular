@@ -1,10 +1,29 @@
-import { Injectable, Injector, } from '@angular/core';
-import { createSelector, MemoizedSelector, select, Store, } from '@ngrx/store';
+import {
+  Injectable,
+  Injector,
+} from '@angular/core';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
-import { hasNoValue, hasValue, hasValueOperator, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 import { coreSelector } from '../../core.selectors';
 import { CoreState } from '../../core-state.model';
@@ -138,7 +157,7 @@ export class ObjectUpdatesService {
         for (const object of initialFields) {
           let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
           if (isEmpty(fieldUpdate)) {
-            fieldUpdate = {field: object, changeType: undefined};
+            fieldUpdate = { field: object, changeType: undefined };
           }
           fieldUpdates[object.uuid] = fieldUpdate;
         }

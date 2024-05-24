@@ -9,13 +9,21 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Subscription,
+} from 'rxjs';
+import { startWith } from 'rxjs/operators';
+
 import { Metric } from '../../../core/shared/metric.model';
+import {
+  CookieConsents,
+  KlaroService,
+} from '../../cookies/klaro.service';
+import { hasValue } from '../../empty.util';
 import { BaseMetricComponent } from './base-metric.component';
 import { MetricLoaderService } from './metric-loader.service';
-import { hasValue } from '../../empty.util';
-import { CookieConsents, KlaroService } from '../../cookies/klaro.service';
-import { startWith } from 'rxjs/operators';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -133,7 +141,7 @@ export class MetricLoaderComponent implements OnInit, OnDestroy {
 
     this.settingsSubscription = combineLatest([
       this.consentUpdates$,
-      componentInstance.requestSettingsConsent.pipe(startWith(undefined))
+      componentInstance.requestSettingsConsent.pipe(startWith(undefined)),
     ]).subscribe(([consents, request]) => {
       canLoadScript = this.getCanLoadScript(consents);
 

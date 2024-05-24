@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { Observable } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { map } from 'rxjs/operators';
+
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { Process } from '../../../process-page/processes/process.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { Process } from '../../../process-page/processes/process.model';
+import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MetadataSchemaExportService {
 
@@ -20,13 +21,13 @@ export class MetadataSchemaExportService {
   constructor(
     protected readonly notificationsService: NotificationsService,
     protected readonly translate: TranslateService,
-    protected readonly scriptDataService: ScriptDataService
+    protected readonly scriptDataService: ScriptDataService,
   ) {
   }
 
   public exportSchema(schema: MetadataSchema): Observable<number> {
     const schemaExportParameters: ProcessParameter[] = [
-      { name: '-i', value: schema.id }
+      { name: '-i', value: schema.id },
     ];
     return this.scriptDataService.invoke(this.SCRIPT_NAME, schemaExportParameters, [])
       .pipe(

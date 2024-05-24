@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { OpenaireSuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SuggestionsService } from '../suggestions.service';
 import { Observable } from 'rxjs';
+
+import { OpenaireSuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
+import { SuggestionsService } from '../suggestions.service';
 
 @Component({
   selector: 'ds-suggestions-notification',
   templateUrl: './suggestions-notification.component.html',
-  styleUrls: ['./suggestions-notification.component.scss']
+  styleUrls: ['./suggestions-notification.component.scss'],
 })
 export class SuggestionsNotificationComponent implements OnInit {
 
@@ -24,7 +28,7 @@ export class SuggestionsNotificationComponent implements OnInit {
     private translateService: TranslateService,
     private reciterSuggestionStateService: SuggestionTargetsStateService,
     private notificationsService: NotificationsService,
-    private suggestionsService: SuggestionsService
+    private suggestionsService: SuggestionsService,
   ) { }
 
   ngOnInit() {

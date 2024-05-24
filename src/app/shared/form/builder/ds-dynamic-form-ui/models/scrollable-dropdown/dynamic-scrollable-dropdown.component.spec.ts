@@ -1,9 +1,28 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
   DynamicFormsCoreModule,
@@ -13,23 +32,26 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
+import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
-import { createTestComponent, hasClass, } from '../../../../../testing/utils.test';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
+import {
+  createTestComponent,
+  hasClass,
+} from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { SubmissionService } from '../../../../../../submission/submission.service';
-import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import { buildPaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 export const SD_TEST_GROUP = new UntypedFormGroup({
   dropdown: new UntypedFormControl(),
@@ -92,7 +114,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: FormBuilderService },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
-        NgbModal
+        NgbModal,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -202,7 +224,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         const selectedValue = Object.assign(new VocabularyEntry(), { authority: 1, display: 'one', value: 1 });
         expect(scrollableDropdownComp.searchText).toBeNull();
         spyOn((scrollableDropdownComp as any).vocabularyService, 'getVocabularyEntriesByValue').and.returnValue(
-          createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [selectedValue]))
+          createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [selectedValue])),
         );
 
         let de: any = scrollableDropdownFixture.debugElement.query(By.css('input.form-control'));
@@ -215,8 +237,8 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         btnEl = de[0];
         btnEl.triggerEventHandler('input', {
           target: {
-            value: 'test'
-          }
+            value: 'test',
+          },
         });
         tick(700);
 

@@ -1,38 +1,64 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-import { of as observableOf } from 'rxjs';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormLayoutService,
+  DynamicFormsCoreModule,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
+import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
+import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
+import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicLookupComponent } from './dynamic-lookup.component';
-import { DynamicLookupModel, DynamicLookupModelConfig, } from './dynamic-lookup.model';
+import {
+  DynamicLookupModel,
+  DynamicLookupModelConfig,
+} from './dynamic-lookup.model';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
-import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { SubmissionScopeType } from '../../../../../../core/submission/submission-scope-type';
-import { SubmissionService } from '../../../../../../submission/submission.service';
-import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 
 let LOOKUP_TEST_MODEL_CONFIG: DynamicLookupModelConfig = {
   vocabularyOptions: {
@@ -91,12 +117,12 @@ const vocabulary = Object.assign(new Vocabulary(), {
   type: 'vocabulary',
   _links: {
     self: {
-      url: 'self'
+      url: 'self',
     },
     entries: {
-      url: 'entries'
-    }
-  }
+      url: 'entries',
+    },
+  },
 });
 const vocabularyExternal: any = Object.assign(new Vocabulary(), {
   id: 'author',
@@ -107,18 +133,18 @@ const vocabularyExternal: any = Object.assign(new Vocabulary(), {
   entity: 'test',
   externalSource: {
     lookup: 'authorExternalSource',
-    lookupName: 'authorExternalSource'
+    lookupName: 'authorExternalSource',
   },
   type: 'vocabulary',
   uuid: 'vocabulary-author',
   _links: {
     self: {
-      href: 'https://rest.api/rest/api/submission/vocabularies/types'
+      href: 'https://rest.api/rest/api/submission/vocabularies/types',
     },
     entries: {
-      href: 'https://rest.api/rest/api/submission/vocabularies/types/entries'
+      href: 'https://rest.api/rest/api/submission/vocabularies/types/entries',
     },
-  }
+  },
 });
 const validAuthority = uuidv4();
 describe('Dynamic Lookup component', () => {

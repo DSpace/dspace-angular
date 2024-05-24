@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ExplorePageComponent } from './explore-page.component';
-import { ExploreI18nBreadcrumbResolver } from './explore-i18n-breadcrumb.resolver';
+
 import { EndUserAgreementCurrentUserGuard } from '../core/end-user-agreement/end-user-agreement-current-user.guard';
+import { ExploreI18nBreadcrumbResolver } from './explore-i18n-breadcrumb.resolver';
+import { ExplorePageComponent } from './explore-page.component';
 
 @NgModule({
   imports: [
@@ -12,13 +13,13 @@ import { EndUserAgreementCurrentUserGuard } from '../core/end-user-agreement/end
         component: ExplorePageComponent,
         resolve: { breadcrumb: ExploreI18nBreadcrumbResolver },
         data: { title: 'explore.title', breadcrumbKey: 'explore', showSocialButtons: true },
-        canActivate: [EndUserAgreementCurrentUserGuard]
+        canActivate: [EndUserAgreementCurrentUserGuard],
       },
-    ])
+    ]),
   ],
   providers: [
-     ExploreI18nBreadcrumbResolver,
-  ]
+    ExploreI18nBreadcrumbResolver,
+  ],
 })
 export class ExploreRoutingModule {
 

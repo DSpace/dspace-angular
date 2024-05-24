@@ -1,5 +1,6 @@
 // import actions
 import { StoreActionTypes } from '../../store.actions';
+import { EPerson } from '../eperson/models/eperson.model';
 import {
   AddAuthenticationMessageAction,
   AuthActions,
@@ -21,7 +22,6 @@ import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
 // import models
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { EPerson } from '../eperson/models/eperson.model';
 
 /**
  * The auth state.
@@ -140,7 +140,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: false,
         blocking: false,
         info: undefined,
-        user: (action as RetrieveAuthenticatedEpersonSuccessAction).payload
+        user: (action as RetrieveAuthenticatedEpersonSuccessAction).payload,
       });
 
     case AuthActionTypes.AUTHENTICATE_ERROR:
@@ -172,7 +172,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: false,
         info: undefined,
         refreshing: false,
-        user: undefined
+        user: undefined,
       });
 
     case AuthActionTypes.LOG_OUT_SUCCESS:
@@ -185,7 +185,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: true,
         info: undefined,
         refreshing: false,
-        user: undefined
+        user: undefined,
       });
 
     case AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED:
@@ -197,7 +197,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         blocking: false,
         loading: false,
         info: (action as RedirectWhenTokenExpiredAction as RedirectWhenAuthenticationIsRequiredAction).payload,
-        user: undefined
+        user: undefined,
       });
 
     case AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT:
@@ -276,7 +276,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS:
       return Object.assign({}, state, {
         authToken: (action as RefreshTokenAndRedirectSuccessAction).payload.token,
-        refreshing: false
+        refreshing: false,
       });
 
     case AuthActionTypes.SET_USER_AS_IDLE:

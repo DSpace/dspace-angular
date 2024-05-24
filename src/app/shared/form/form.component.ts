@@ -1,5 +1,20 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayGroupModel,
@@ -9,19 +24,32 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayout,
 } from '@ng-dynamic-forms/core';
+import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
-import { Observable, Subscription, } from 'rxjs';
-import { distinctUntilChanged, filter, map, } from 'rxjs/operators';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
 
-import { hasValue, isNotEmpty, isNotNull, isNull, } from '../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNull,
+} from '../empty.util';
+import { DynamicScrollableDropdownModel } from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
-import { FormEntry, FormError, } from './form.reducer';
-import { FormService } from './form.service';
-import cloneDeep from 'lodash/cloneDeep';
 import {
-  DynamicScrollableDropdownModel
-} from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+  FormEntry,
+  FormError,
+} from './form.reducer';
+import { FormService } from './form.service';
 
 /**
  * The default form component.

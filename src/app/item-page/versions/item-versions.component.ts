@@ -42,6 +42,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
+import { UUIDService } from '../../core/shared/uuid.service';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
@@ -64,7 +65,6 @@ import {
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
-import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-item-versions',
@@ -198,7 +198,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
               private workspaceItemDataService: WorkspaceitemDataService,
               private workflowItemDataService: WorkflowItemDataService,
               private configurationService: ConfigurationDataService,
-              private uuidService: UUIDService
+              private uuidService: UUIDService,
   ) {
   }
 

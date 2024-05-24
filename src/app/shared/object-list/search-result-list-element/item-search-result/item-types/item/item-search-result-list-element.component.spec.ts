@@ -1,18 +1,28 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../../../core/shared/item.model';
-import { DSONameServiceMock, UNDEFINED_NAME, } from '../../../../../mocks/dso-name.service.mock';
+import {
+  DSONameServiceMock,
+  UNDEFINED_NAME,
+} from '../../../../../mocks/dso-name.service.mock';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../utils/truncate.pipe';
-import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 import { VarDirective } from '../../../../../utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
+import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;

@@ -248,12 +248,12 @@ export class SectionFormOperationsService {
       if ((event.model as DsDynamicInputModel).hasAuthority) {
         if (Array.isArray(value)) {
           value.forEach((authority, index) => {
-            authority = Object.assign(new VocabularyEntry(), authority, {language});
+            authority = Object.assign(new VocabularyEntry(), authority, { language });
             value[index] = authority;
           });
           fieldValue = value;
         } else {
-          fieldValue = Object.assign(new VocabularyEntry(), value, {language});
+          fieldValue = Object.assign(new VocabularyEntry(), value, { language });
         }
       } else {
         // Language without Authority (input, textArea)
@@ -556,8 +556,8 @@ export class SectionFormOperationsService {
   }
 
   protected changeSecurityLevel(pathCombiner: JsonPatchOperationPathCombiner,
-                                event: DynamicFormControlEvent,
-                                previousValue: FormFieldPreviousValueObject): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject): void {
     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);

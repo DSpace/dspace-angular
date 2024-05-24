@@ -52,12 +52,12 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
   searchStatistics(uri: string, page: number, size: number, categoryId?: string, startDate?: string, endDate?: string): Observable<UsageReport[]> {
     const params = [
       {
-          fieldName: `uri`,
-          fieldValue: uri,
+        fieldName: `uri`,
+        fieldValue: uri,
       },{
         fieldName: `category`,
         fieldValue: categoryId,
-      }
+      },
     ];
 
     if (startDate !== undefined) {
@@ -87,7 +87,7 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
 
   public searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<UsageReport>[]): Observable<RemoteData<PaginatedList<UsageReport>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
-      getFirstSucceededRemoteData()
+      getFirstSucceededRemoteData(),
     );
   }
 }

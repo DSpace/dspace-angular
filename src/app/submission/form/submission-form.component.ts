@@ -25,6 +25,9 @@ import { SubmissionDefinitionsModel } from '../../core/config/models/config-subm
 import { Collection } from '../../core/shared/collection.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import {
@@ -38,16 +41,12 @@ import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { SectionsService } from '../sections/sections.service';
 import { SectionsType } from '../sections/sections-type';
-import { VisibilityType } from '../sections/visibility-type';
 import { SubmissionService } from '../submission.service';
+import { SubmissionVisibility } from '../utils/visibility.util';
 import {
   SubmissionSectionModel,
-  SubmissionSectionVisibility, SubmissionVisibilityType,
+  SubmissionVisibilityType,
 } from './../../core/config/models/config-submission-section.model';
-import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
-import { SubmissionVisibility } from '../utils/visibility.util';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 /**
  * This component represents the submission form.
@@ -198,10 +197,10 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
       const isReadOnly$ = this.sectionsService.isSectionReadOnlyByType(
         this.submissionId,
         SectionsType.Upload,
-        this.submissionService.getSubmissionScope()
+        this.submissionService.getSubmissionScope(),
       );
       this.uploadEnabled$ = combineLatest([isAvailable$, isReadOnly$]).pipe(
-        map(([isAvailable, isReadOnly]: [boolean, boolean]) => isAvailable && !isReadOnly)
+        map(([isAvailable, isReadOnly]: [boolean, boolean]) => isAvailable && !isReadOnly),
       );
 
       // check if is submission loading
@@ -211,27 +210,27 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         map((isLoading: boolean) => isLoading),
         distinctUntilChanged());
       // init submission state
-        this.subs.push(
-          this.halService.getEndpoint(this.submissionService.getSubmissionObjectLinkName()).pipe(
-            filter((href: string) => isNotEmpty(href)),
-            distinctUntilChanged())
-            .subscribe((endpointURL) => {
-              this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
-              this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
-              this.definitionId = this.submissionDefinition.name;
-              // const { errors } = item;
-              this.submissionService.dispatchInit(
-                this.collectionId,
-                this.submissionId,
-                this.selfUrl,
-                this.submissionDefinition,
-                this.sections,
-                this.item,
-                this.submissionErrors,
-                this.metadataSecurityConfiguration);
-              this.changeDetectorRef.detectChanges();
+      this.subs.push(
+        this.halService.getEndpoint(this.submissionService.getSubmissionObjectLinkName()).pipe(
+          filter((href: string) => isNotEmpty(href)),
+          distinctUntilChanged())
+          .subscribe((endpointURL) => {
+            this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+            this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
+            this.definitionId = this.submissionDefinition.name;
+            // const { errors } = item;
+            this.submissionService.dispatchInit(
+              this.collectionId,
+              this.submissionId,
+              this.selfUrl,
+              this.submissionDefinition,
+              this.sections,
+              this.item,
+              this.submissionErrors,
+              this.metadataSecurityConfiguration);
+            this.changeDetectorRef.detectChanges();
           }),
-        );
+      );
 
       // start auto save
       this.submissionService.startAutoSave(this.submissionId);
@@ -247,7 +246,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         (section) => isEqual(section.sectionType, SectionsType.Collection),
       );
 
-   return (hasValue(submissionSectionModel) && isNotUndefined(submissionSectionModel.visibility)) ? submissionSectionModel.visibility : null;
+    return (hasValue(submissionSectionModel) && isNotUndefined(submissionSectionModel.visibility)) ? submissionSectionModel.visibility : null;
   }
 
   /**
@@ -307,8 +306,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
           this.submissionDefinition,
           this.sections,
           this.item,
-          this.metadataSecurityConfiguration
-         );
+          this.metadataSecurityConfiguration,
+        );
       } else {
         this.changeDetectorRef.detectChanges();
       }

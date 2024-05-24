@@ -1,23 +1,43 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
-
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { RemoteData } from '../../../core/data/remote-data';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
-import { shrinkInOut } from '../../animations/shrink';
-import { hasValue, isNotEmpty } from '../../empty.util';
 import { getRemoteDataPayload } from '../../../core/shared/operators';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { shrinkInOut } from '../../animations/shrink';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
 
 @Component({
   selector: 'ds-search-charts',
   styleUrls: ['./search-charts.component.scss'],
   templateUrl: './search-charts.component.html',
-  animations: [shrinkInOut]
+  animations: [shrinkInOut],
 })
 
 /**
@@ -85,7 +105,7 @@ export class SearchChartsComponent implements OnInit {
                 ? this.selectedFilter
                 : rd.hasSucceeded && hasValues ? rd.payload[0] : null;
               this.cdr.detectChanges();
-            })
+            }),
           );
         }),
       ).subscribe();
@@ -127,7 +147,7 @@ export class SearchChartsComponent implements OnInit {
           return this.searchService.getFacetValuesFor(filterConfig, 1, options).pipe(
             filter((RD) => !RD.isLoading),
             map((valuesRD) => valuesRD.payload.totalElements > 0));
-        }
+        },
         ));
     }
     return of(false);
@@ -162,8 +182,8 @@ export class SearchChartsComponent implements OnInit {
           }
 
           return hasValues;
-        })
-      ))
+        }),
+      )),
     );
   }
 }

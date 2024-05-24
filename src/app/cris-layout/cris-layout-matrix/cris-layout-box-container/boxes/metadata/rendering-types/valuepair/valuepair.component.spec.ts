@@ -1,15 +1,25 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  EMPTY,
+  of,
+} from 'rxjs';
 
-import { ValuepairComponent } from './valuepair.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
-import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { EMPTY, of } from 'rxjs';
 import { AuthService } from '../../../../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../../../../../shared/testing/auth-service.stub';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
+import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
+import { AuthServiceStub } from '../../../../../../../shared/testing/auth-service.stub';
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
+import { ValuepairComponent } from './valuepair.component';
 
 const METADATA_KEY_1 = 'person.knowsLanguage';
 const METADATA_KEY_2 = 'dc.type';
@@ -30,7 +40,7 @@ describe('ValuepairComponent', () => {
       case METADATA_KEY_1:
         return [
           { value: 'it', authority: null },
-          { value: 'en', authority: null }
+          { value: 'en', authority: null },
         ];
       case METADATA_KEY_2:
         return [
@@ -57,7 +67,7 @@ describe('ValuepairComponent', () => {
     fieldType: 'METADATA',
     metadataGroup: null,
     labelAsHeading: false,
-    valuesInline: false
+    valuesInline: false,
   };
 
   const testField2 = {
@@ -67,7 +77,7 @@ describe('ValuepairComponent', () => {
     fieldType: 'METADATA',
     metadataGroup: null,
     labelAsHeading: false,
-    valuesInline: false
+    valuesInline: false,
   };
 
   const vocabularyEntriesMock = (vocabularyName, value) => {
@@ -86,7 +96,7 @@ describe('ValuepairComponent', () => {
   const vocabularyServiceSpy =
     jasmine.createSpyObj(
       'vocabularyService',
-      { getPublicVocabularyEntryByValue: EMPTY, getPublicVocabularyEntryByID: EMPTY }
+      { getPublicVocabularyEntryByValue: EMPTY, getPublicVocabularyEntryByID: EMPTY },
     );
 
   describe('when the vocabulary has no authority', () => {
@@ -97,8 +107,8 @@ describe('ValuepairComponent', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
+              useClass: TranslateLoaderMock,
+            },
           }),
         ],
         declarations: [ValuepairComponent, DsDatePipe],
@@ -144,8 +154,8 @@ describe('ValuepairComponent', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
+              useClass: TranslateLoaderMock,
+            },
           }),
         ],
         declarations: [ValuepairComponent, DsDatePipe],
@@ -154,7 +164,7 @@ describe('ValuepairComponent', () => {
           { provide: AuthService, useValue: authService },
           { provide: 'fieldProvider', useValue: testField2 },
           { provide: 'itemProvider', useValue: testItem2 },
-          { provide: 'metadataValueProvider', useValue: {value: undefined, authority: VOCABULARY_NAME_2 + ':asd' } },
+          { provide: 'metadataValueProvider', useValue: { value: undefined, authority: VOCABULARY_NAME_2 + ':asd' } },
           { provide: 'renderingSubTypeProvider', useValue: VOCABULARY_NAME_2 },
         ],
       }).compileComponents();

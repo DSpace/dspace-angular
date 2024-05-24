@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { NoPreloading, RouterModule } from '@angular/router';
-import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
-
-import { AuthenticatedGuard } from './core/auth/authenticated.guard';
+import {
+  NoPreloading,
+  RouterModule,
+} from '@angular/router';
 
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
@@ -26,9 +26,9 @@ import {
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import {
-  GroupAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
+import { AuthenticatedGuard } from './core/auth/authenticated.guard';
+import { GroupAdministratorGuard } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
 import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
 import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
 import { ReloadGuard } from './core/reload/reload.guard';
@@ -38,9 +38,7 @@ import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component
 import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
-import {
-  ThemedPageInternalServerErrorComponent
-} from './page-internal-server-error/themed-page-internal-server-error.component';
+import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
@@ -67,7 +65,7 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: 'home',
             loadChildren: () => import('./home-page/home-page.module')
               .then((m) => m.HomePageModule),
-            data: { showBreadcrumbs: false},
+            data: { showBreadcrumbs: false },
             canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
@@ -185,17 +183,17 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           {
             path: 'external-login/:token',
             loadChildren: () => import('./external-login-page/external-login-page.module')
-              .then((m) => m.ExternalLoginPageModule)
+              .then((m) => m.ExternalLoginPageModule),
           },
           {
             path: 'review-account/:token',
             loadChildren: () => import('./external-login-review-account-info-page/external-login-review-account-info-page.module')
-              .then((m) => m.ExternalLoginReviewAccountInfoModule)
+              .then((m) => m.ExternalLoginReviewAccountInfoModule),
           },
           {
             path: 'email-confirmation',
             loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page.module')
-              .then((m) => m.ExternalLoginEmailConfirmationPageModule)
+              .then((m) => m.ExternalLoginEmailConfirmationPageModule),
           },
           {
             path: 'logout',
@@ -224,13 +222,13 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
             path: WORKFLOW_ITEM_MODULE_PATH,
             loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page.module')
               .then((m) => m.WorkflowItemsEditPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: EDIT_ITEM_PATH,
             loadChildren: () => import('./edit-item/edit-item.module')
               .then((m) => m.EditItemModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: PROFILE_MODULE_PATH,
@@ -247,18 +245,18 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           { path: SUGGESTION_MODULE_PATH,
             loadChildren: () => import('./suggestions-page/suggestions-page.module')
               .then((m) => m.SuggestionsPageModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           { path: 'auditlogs',
             loadChildren: () => import('./audit-page/audit-page.module')
               .then((m) => m.AuditPageModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: BULK_IMPORT_PATH,
             loadChildren: () => import('./bulk-import/bulk-import-page.module')
               .then((m) => m.BulkImportPageModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: INFO_MODULE_PATH,
@@ -303,16 +301,16 @@ import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-rout
           {
             path: 'lucky-search',
             loadChildren: () => import('./lucky-search/lucky-search.module')
-              .then((m) => m.LuckySearchModule)
+              .then((m) => m.LuckySearchModule),
           },
           {
             path: 'invitation',
             loadChildren: () => import('./invitation/invitation.module')
-              .then((m) => m.InvitationModule)
+              .then((m) => m.InvitationModule),
           },
           { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent, canActivate: [RedirectService] },
-        ]
-      }
+        ],
+      },
     ], {
       // enableTracing: true,
       useHash: false,

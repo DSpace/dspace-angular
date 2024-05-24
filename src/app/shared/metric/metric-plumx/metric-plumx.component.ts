@@ -1,9 +1,19 @@
-import { Component, Inject, Injector, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 
-import { BaseMetricComponent } from '../metric-loader/base-metric.component';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../core/services/window.service';
 import { hasValue } from '../../empty.util';
+import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { MetricLoadScriptService } from '../metric-loader/metric-load-script.service';
-import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 
 @Component({
   selector: 'ds-metric-plumx',

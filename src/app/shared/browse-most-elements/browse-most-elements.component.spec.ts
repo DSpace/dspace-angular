@@ -1,20 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import {
+  ChangeDetectorRef,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { BrowseMostElementsComponent } from './browse-most-elements.component';
-import { SearchManager } from '../../core/browse/search-manager';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { APP_CONFIG } from '../../../config/app-config.interface';
-import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
-import { Item } from '../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { SearchManager } from '../../core/browse/search-manager';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { Item } from '../../core/shared/item.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { ItemSearchResult } from '../object-collection/shared/item-search-result.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { followLink } from '../utils/follow-link-config.model';
+import { BrowseMostElementsComponent } from './browse-most-elements.component';
 
 describe('BrowseMostElementsComponent', () => {
   let component: BrowseMostElementsComponent;
@@ -30,28 +39,28 @@ describe('BrowseMostElementsComponent', () => {
       'dc.title': [
         {
           language: 'en_US',
-          value: 'This is just another title'
-        }
+          value: 'This is just another title',
+        },
       ],
       'dc.type': [
         {
           language: null,
-          value: 'Article'
-        }
+          value: 'Article',
+        },
       ],
       'dc.contributor.author': [
         {
           language: 'en_US',
-          value: 'Smith, Donald'
-        }
+          value: 'Smith, Donald',
+        },
       ],
       'dc.date.issued': [
         {
           language: null,
-          value: '2015-06-26'
-        }
-      ]
-    }
+          value: '2015-06-26',
+        },
+      ],
+    },
   });
   const mockResponse = createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [mockResultObject]));
 
@@ -61,8 +70,8 @@ describe('BrowseMostElementsComponent', () => {
 
   const mockConfig = {
     browseBy: {
-      showThumbnails: true
-    }
+      showThumbnails: true,
+    },
   };
 
   beforeEach(waitForAsync(() => {
@@ -85,9 +94,9 @@ describe('BrowseMostElementsComponent', () => {
       pagination: Object.assign(new PaginationComponentOptions(), {
         id: 'search-object-pagination',
         pageSize: 5,
-        currentPage: 1
+        currentPage: 1,
       }),
-      sort: new SortOptions('dc.title', SortDirection.ASC)
+      sort: new SortOptions('dc.title', SortDirection.ASC),
     });
   });
 
@@ -106,7 +115,7 @@ describe('BrowseMostElementsComponent', () => {
       null,
       true,
       true,
-      followLink('thumbnail')
+      followLink('thumbnail'),
     );
   });
 
@@ -119,7 +128,7 @@ describe('BrowseMostElementsComponent', () => {
       null,
       true,
       true,
-      followLink('thumbnail')
+      followLink('thumbnail'),
     );
   });
 
@@ -131,7 +140,7 @@ describe('BrowseMostElementsComponent', () => {
       component.paginatedSearchOptions,
       null,
       true,
-      true
+      true,
     );
   });
 

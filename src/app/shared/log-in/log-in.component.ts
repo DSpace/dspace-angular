@@ -9,14 +9,20 @@ import {
   select,
   Store,
 } from '@ngrx/store';
+import { uniqBy } from 'lodash/uniqBy';
 import {
   map,
   Observable,
   Subscription,
 } from 'rxjs';
 
+import {
+  getForgotPasswordRoute,
+  getRegisterRoute,
+} from '../../app-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import {
   getAuthenticationError,
   getAuthenticationMethods,
@@ -24,13 +30,10 @@ import {
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core-state.model';
-import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../empty.util';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
-import { AuthMethodType } from '../../core/auth/models/auth.method-type';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { uniqBy } from 'lodash/uniqBy';
 
 @Component({
   selector: 'ds-log-in',
@@ -86,7 +89,7 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
-              protected authorizationService: AuthorizationDataService
+              protected authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -100,7 +103,7 @@ export class LogInComponent implements OnInit, OnDestroy {
         .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
       ),
       // ignore the ip authentication method when it's returned by the backend
-      map((authMethods: AuthMethod[]) => uniqBy(authMethods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType'))
+      map((authMethods: AuthMethod[]) => uniqBy(authMethods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType')),
     );
 
     // set loading

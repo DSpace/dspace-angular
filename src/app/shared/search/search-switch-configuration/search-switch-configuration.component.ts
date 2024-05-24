@@ -100,7 +100,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
     };
     if (this.currentScope) {
       navigationExtras.queryParams = Object.assign(navigationExtras.queryParams, {
-        scope: this.currentScope
+        scope: this.currentScope,
       });
     }
 

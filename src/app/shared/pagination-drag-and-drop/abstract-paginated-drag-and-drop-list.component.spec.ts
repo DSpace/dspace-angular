@@ -1,5 +1,12 @@
-import { Component, ElementRef, } from '@angular/core';
-import { BehaviorSubject, Observable, of as observableOf, } from 'rxjs';
+import {
+  Component,
+  ElementRef,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
@@ -8,14 +15,14 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { UUIDService } from '../../core/shared/uuid.service';
+import { getMockUUIDService } from '../mocks/uuid.service.mock';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
 import { AbstractPaginatedDragAndDropListComponent } from './abstract-paginated-drag-and-drop-list.component';
-import { UUIDService } from '../../core/shared/uuid.service';
-import { getMockUUIDService } from '../mocks/uuid.service.mock';
 
 @Component({
   selector: 'ds-mock-paginated-drag-drop-abstract',

@@ -5,6 +5,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { environment } from '../../../../environments/environment';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../core/shared/item.model';
@@ -16,7 +17,6 @@ import {
 } from '../../empty.util';
 import { ObjectSelectService } from '../object-select.service';
 import { ObjectSelectComponent } from '../object-select/object-select.component';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-item-select',

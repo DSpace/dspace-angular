@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -13,11 +16,14 @@ import {
 import { NotificationOptions } from './models/notification-options.model';
 import { NotificationType } from './models/notification-type';
 import {
+  IProcessNotification,
+  ProcessNotification,
+} from './models/process-notification.model';
+import {
   NewNotificationAction,
   RemoveAllNotificationsAction,
   RemoveNotificationAction,
 } from './notifications.actions';
-import { IProcessNotification, ProcessNotification } from './models/process-notification.model';
 
 @Injectable()
 export class NotificationsService {
@@ -73,10 +79,10 @@ export class NotificationsService {
   }
 
   process(processId: string,
-          checkTime: number,
-          title: any = observableOf(''),
-          options: NotificationOptions = this.getDefaultOptions(),
-          html: boolean = false): IProcessNotification {
+    checkTime: number,
+    title: any = observableOf(''),
+    options: NotificationOptions = this.getDefaultOptions(),
+    html: boolean = false): IProcessNotification {
     const notificationOptions = { ...this.getDefaultOptions(), ...options };
     const notification = new ProcessNotification(uniqueId(), NotificationType.Process, processId, checkTime, title, notificationOptions, html);
     this.add(notification);

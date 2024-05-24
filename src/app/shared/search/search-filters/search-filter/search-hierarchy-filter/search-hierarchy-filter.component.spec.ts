@@ -133,11 +133,11 @@ describe('SearchHierarchyFilterComponent', () => {
         elementsPerPage: 1,
         totalElements: 1,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
       });
       spyOn(component, 'getVocabularyEntry').and.returnValue('test');
       spyOn(vocabularyService, 'searchTopEntries').and.returnValue(observableOf(new RemoteData(
-        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(pageInfo, [new VocabularyEntryDetail()]), 200
+        undefined, 0, 0, RequestEntryState.Success, undefined, buildPaginatedList(pageInfo, [new VocabularyEntryDetail()]), 200,
       )));
       fixture.detectChanges();
       showVocabularyTreeLink = fixture.debugElement.query(By.css('[data-test="btn-more"]'));

@@ -185,16 +185,16 @@ export const environment: BuildConfig = {
             value: 'default',
             style: 'text-muted',
             icon: 'fa-circle',
-          }
-        ]
-      }
+          },
+        ],
+      },
     },
     detectDuplicate: {
       // NOTE: list of additional item metadata to show for duplicate match presentation list
       metadataDetailsList: [
-        { label: 'Document type', name: 'dc.type' }
-      ]
-    }
+        { label: 'Document type', name: 'dc.type' },
+      ],
+    },
   },
 
   // NOTE: will log all redux actions and transfers in console
@@ -279,8 +279,8 @@ export const environment: BuildConfig = {
   followAuthorityMetadata: [
     {
       type: 'Publication',
-      metadata: ['dc.contributor.author']
-    }
+      metadata: ['dc.contributor.author'],
+    },
   ],
   item: {
     edit: {
@@ -298,7 +298,7 @@ export const environment: BuildConfig = {
     metatagLimit: 20,
 
     // The maximum number of values for repeatable metadata to show in the full item
-    metadataLimit: 20
+    metadataLimit: 20,
   },
   community: {
     searchSection: {
@@ -352,17 +352,17 @@ export const environment: BuildConfig = {
     metricsConsents: [
       {
         key: 'plumX',
-        enabled: true
+        enabled: true,
       },
       {
         key: 'altmetric',
-        enabled: true
+        enabled: true,
       },
       {
         key: 'dimensions',
-        enabled: true
+        enabled: true,
       },
-    ]
+    ],
   },
   markdown: {
     enabled: false,
@@ -475,16 +475,16 @@ export const environment: BuildConfig = {
     urn: [
       {
         name: 'doi',
-        baseUrl: 'https://doi.org/'
+        baseUrl: 'https://doi.org/',
       },
       {
         name: 'hdl',
-        baseUrl: 'https://hdl.handle.net/'
+        baseUrl: 'https://hdl.handle.net/',
       },
       {
         name: 'mailto',
-        baseUrl: 'mailto:'
-      }
+        baseUrl: 'mailto:',
+      },
     ],
     crisRef: [
       {
@@ -492,60 +492,60 @@ export const environment: BuildConfig = {
         entityStyle: {
           default: {
             icon: 'fa fa-user',
-            style: 'text-success'
-          }
-        }
+            style: 'text-success',
+          },
+        },
       },
       {
         entityType: 'PERSON',
         entityStyle: {
           person: {
             icon: 'fa fa-user',
-            style: 'text-success'
+            style: 'text-success',
           },
           personStaff: {
             icon: 'fa fa-user',
-            style: 'text-primary'
+            style: 'text-primary',
           },
           default: {
             icon: 'fa fa-user',
-            style: 'text-success'
-          }
-        }
+            style: 'text-success',
+          },
+        },
       },
       {
         entityType: 'ORGUNIT',
         entityStyle: {
           default: {
             icon: 'fa fa-university',
-            style: 'text-success'
-          }
-        }
-      }
+            style: 'text-success',
+          },
+        },
+      },
     ],
     crisRefStyleMetadata: {
       default: 'cris.entity.style',
     },
     itemPage: {
       Person: {
-        orientation: 'horizontal'
+        orientation: 'horizontal',
       },
       OrgUnit: {
-        orientation: 'horizontal'
+        orientation: 'horizontal',
       },
       default: {
-        orientation: 'vertical'
+        orientation: 'vertical',
       },
     },
     metadataBox: {
       defaultMetadataLabelColStyle: 'col-3',
-      defaultMetadataValueColStyle: 'col-9'
+      defaultMetadataValueColStyle: 'col-9',
     },
     collectionsBox: {
       defaultCollectionsLabelColStyle: 'col-3 font-weight-bold',
       defaultCollectionsValueColStyle: 'col-9',
-      isInline: true
-    }
+      isInline: true,
+    },
   },
 
   layout: {
@@ -562,18 +562,18 @@ export const environment: BuildConfig = {
       {
         value: 0,
         icon: 'fa fa-globe',
-        color: 'green'
+        color: 'green',
       },
       {
         value: 1,
         icon: 'fa fa-key',
-        color: 'orange'
+        color: 'orange',
       },
       {
         value: 2,
         icon: 'fa fa-lock',
-        color: 'red'
-      }]
+        color: 'red',
+      }],
   },
 
   cms: {
@@ -581,7 +581,7 @@ export const environment: BuildConfig = {
       'cris.cms.home-header',
       'cris.cms.home-news',
       'cris.cms.footer',
-    ]
+    ],
   },
 
   addToAnyPlugin: {
@@ -617,7 +617,7 @@ export const environment: BuildConfig = {
     {
       type: 'embedded-view',
       icon: 'fa fa-eye',
-      class: 'alert-success'
+      class: 'alert-success',
     },
     {
       type: 'embedded-download',
@@ -639,30 +639,30 @@ export const environment: BuildConfig = {
   attachmentRendering: {
     pagination: {
       enabled: true,
-      elementsPerPage: 2
+      elementsPerPage: 2,
     },
   },
 
   advancedAttachmentRendering: {
     pagination: {
       enabled: true,
-      elementsPerPage: 2
+      elementsPerPage: 2,
     },
     metadata: [
       {
         name: 'dc.title',
         type: AdvancedAttachmentElementType.Metadata,
-        truncatable: false
+        truncatable: false,
       },
       {
         name: 'dc.type',
         type: AdvancedAttachmentElementType.Metadata,
-        truncatable: false
+        truncatable: false,
       },
       {
         name: 'dc.description',
         type: AdvancedAttachmentElementType.Metadata,
-        truncatable: true
+        truncatable: true,
       },
       {
         name: 'size',
@@ -675,16 +675,16 @@ export const environment: BuildConfig = {
       {
         name: 'checksum',
         type: AdvancedAttachmentElementType.Attribute,
-      }
-    ]
+      },
+    ],
   },
 
   searchResult: {
     additionalMetadataFields: [
       {
         entityType: 'default',
-        metadataConfiguration: []
-      }
+        metadataConfiguration: [],
+      },
     ],
     authorMetadata: ['dc.contributor.author', 'dc.contributor.editor', 'dc.contributor.contributor', 'dc.creator'],
   },

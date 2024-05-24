@@ -80,7 +80,7 @@ describe('HALEndpointService', () => {
   const timeStamp = new Date().getTime();
   const msToLive = 15 * 60 * 1000;
   const payload = {
-    _links: endpointMaps[one]
+    _links: endpointMaps[one],
   };
   const statusCodeSuccess = 200;
   const statusCodeError = 404;
@@ -150,7 +150,7 @@ describe('HALEndpointService', () => {
 
         const expected = '(b|)';
         const values = {
-          b: endpointMap.test.href
+          b: endpointMap.test.href,
         };
         expectObservable(result).toBe(expected, values);
       });
@@ -280,24 +280,24 @@ describe('HALEndpointService', () => {
     describe(`when the RemoteData returned from rdbService is stale`, () => {
       it(`should re-request it`, () => {
         spyOn(service as any, 'getEndpointMapAt').and.callThrough();
-          testScheduler.run(({ cold }) => {
-            (rdbService.buildFromHref as jasmine.Spy).and.returnValue(cold('a', { a: remoteDataMocks.ResponsePendingStale }));
-            // we need to subscribe to the result, to ensure the "tap" that does the re-request can fire
-            (service as any).getEndpointMapAt(href).subscribe();
-          });
-          expect((service as any).getEndpointMapAt).toHaveBeenCalledTimes(2);
+        testScheduler.run(({ cold }) => {
+          (rdbService.buildFromHref as jasmine.Spy).and.returnValue(cold('a', { a: remoteDataMocks.ResponsePendingStale }));
+          // we need to subscribe to the result, to ensure the "tap" that does the re-request can fire
+          (service as any).getEndpointMapAt(href).subscribe();
+        });
+        expect((service as any).getEndpointMapAt).toHaveBeenCalledTimes(2);
       });
     });
 
     describe(`when the RemoteData returned from rdbService isn't stale`, () => {
       it(`should not re-request it`, () => {
         spyOn(service as any, 'getEndpointMapAt').and.callThrough();
-          testScheduler.run(({ cold }) => {
-            (rdbService.buildFromHref as jasmine.Spy).and.returnValue(cold('a', { a: remoteDataMocks.ResponsePending }));
-            // we need to subscribe to the result, to ensure the "tap" that does the re-request can fire
-            (service as any).getEndpointMapAt(href).subscribe();
-          });
-          expect((service as any).getEndpointMapAt).toHaveBeenCalledTimes(1);
+        testScheduler.run(({ cold }) => {
+          (rdbService.buildFromHref as jasmine.Spy).and.returnValue(cold('a', { a: remoteDataMocks.ResponsePending }));
+          // we need to subscribe to the result, to ensure the "tap" that does the re-request can fire
+          (service as any).getEndpointMapAt(href).subscribe();
+        });
+        expect((service as any).getEndpointMapAt).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -318,7 +318,7 @@ describe('HALEndpointService', () => {
         }));
         const expected = '------------(g|)';
         const values = {
-          g: endpointMaps[one]
+          g: endpointMaps[one],
         };
         expectObservable((service as any).getEndpointMapAt(one)).toBe(expected, values);
       });
@@ -331,7 +331,7 @@ describe('HALEndpointService', () => {
         }));
         const expected = '(a|)';
         const values = {
-          g: undefined
+          g: undefined,
         };
         expectObservable((service as any).getEndpointMapAt(href)).toBe(expected, values);
       });

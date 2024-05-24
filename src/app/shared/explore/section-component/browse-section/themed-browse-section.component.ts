@@ -1,6 +1,10 @@
-import { ThemedComponent } from '../../../theme-support/themed.component';
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { BrowseSection } from '../../../../core/layout/models/section.model';
+import { ThemedComponent } from '../../../theme-support/themed.component';
 import { BrowseSectionComponent } from './browse-section.component';
 
 @Component({
@@ -11,10 +15,10 @@ import { BrowseSectionComponent } from './browse-section.component';
 export class ThemedBrowseSectionComponent extends ThemedComponent<BrowseSectionComponent> {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  browseSection: BrowseSection;
+    browseSection: BrowseSection;
 
   protected inAndOutputNames: (keyof BrowseSectionComponent & keyof this)[] = ['sectionId', 'browseSection'];
 

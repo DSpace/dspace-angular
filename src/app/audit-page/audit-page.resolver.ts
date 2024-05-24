@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { RemoteData } from '../core/data/remote-data';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Observable } from 'rxjs';
-import { Audit } from '../core/audit/model/audit.model';
+
 import { AuditDataService } from '../core/audit/audit-data.service';
+import { Audit } from '../core/audit/model/audit.model';
+import { RemoteData } from '../core/data/remote-data';
 import { getFirstSucceededRemoteData } from '../core/shared/operators';
 
 /**
@@ -23,7 +28,7 @@ export class AuditPageResolver implements Resolve<RemoteData<Audit>> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Audit>> {
     return this.auditService.findById(route.params.id).pipe(
-      getFirstSucceededRemoteData()
+      getFirstSucceededRemoteData(),
     );
   }
 }

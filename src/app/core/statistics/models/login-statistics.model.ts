@@ -1,4 +1,8 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { HALLink } from '../../shared/hal-link.model';
@@ -10,29 +14,29 @@ import { LOGIN_STATISTICS } from './login-statistics.resource-type';
  * Class the represents a Login statistics.
  */
  @typedObject
- export class LoginStatistics extends CacheableObject {
+export class LoginStatistics extends CacheableObject {
 
-   static type = LOGIN_STATISTICS;
+  static type = LOGIN_STATISTICS;
 
    @excludeFromEquals
    @autoserialize
-   type: ResourceType;
+     type: ResourceType;
 
    @autoserialize
-   id: string;
+     id: string;
 
    @autoserialize
-   name: string;
+     name: string;
 
    @autoserialize
-   email: string;
+     email: string;
 
    @autoserialize
-   count: number;
+     count: number;
 
    @deserialize
-   _links: {
+     _links: {
      self: HALLink
    };
 
- }
+}

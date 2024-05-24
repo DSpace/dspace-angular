@@ -23,11 +23,7 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '../../../../core/services/window.service';
-import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
-import {
-  isEmpty,
-  isNotNull,
-} from '../../../empty.util';
+import { isEmpty } from '../../../empty.util';
 import { renderAuthMethodFor } from '../log-in.methods-decorator';
 
 @Component({
@@ -109,7 +105,7 @@ export class LogInExternalProviderComponent implements OnInit {
       const externalServerUrl = this.authService.getExternalServerRedirectUrl(
         this._window.nativeWindow.origin,
         redirectRoute,
-        this.location
+        this.location,
       );
       // redirect to shibboleth/orcid/(external) authentication url
       this.hardRedirectService.redirect(externalServerUrl);

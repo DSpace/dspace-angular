@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -22,13 +22,10 @@ import { RegistryService } from '../../../core/registry/registry.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
+import { MetadataSchemaExportService } from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import {
-  MetadataSchemaExportService
-} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
-import uniqueId from 'lodash/uniqueId';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -195,10 +192,10 @@ export class MetadataRegistryComponent {
     this.metadataSchemaExportService.exportSchema(schema)
       .pipe(
         take(1),
-        filter(Object)
+        filter(Object),
       ).subscribe((processId: number) => {
-      const title = this.translateService.get('export-schema.process.title');
-      this.notificationsService.process(processId.toString(), 5000, title);
-    });
+        const title = this.translateService.get('export-schema.process.title');
+        this.notificationsService.process(processId.toString(), 5000, title);
+      });
   }
 }

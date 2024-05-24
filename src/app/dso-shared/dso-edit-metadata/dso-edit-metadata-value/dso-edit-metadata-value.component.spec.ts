@@ -1,9 +1,19 @@
-import { DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { MetadataField } from 'src/app/core/metadata/metadata-field.model';
 import { MetadataSchema } from 'src/app/core/metadata/metadata-schema.model';
 import { RegistryService } from 'src/app/core/registry/registry.service';
@@ -11,9 +21,7 @@ import { ConfidenceType } from 'src/app/core/shared/confidence-type';
 import { Vocabulary } from 'src/app/core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
 import { DynamicOneboxModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import {
-  DynamicScrollableDropdownModel
-} from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { NotificationsService } from 'src/app/shared/notifications/notifications.service';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 import { VocabularyServiceStub } from 'src/app/shared/testing/vocabulary-service.stub';
@@ -21,18 +29,21 @@ import { VocabularyServiceStub } from 'src/app/shared/testing/vocabulary-service
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { of } from 'rxjs/internal/observable/of';
-import {
-  ItemMetadataRepresentation
-} from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
-import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
-import { mockSecurityConfig } from '../../../shared/mocks/submission.mock';
 import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
+import {
+  MetadataValue,
+  VIRTUAL_METADATA_PREFIX,
+} from '../../../core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { mockSecurityConfig } from '../../../shared/mocks/submission.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import {
+  DsoEditMetadataChangeType,
+  DsoEditMetadataValue,
+} from '../dso-edit-metadata-form';
 import { DsoEditMetadataValueComponent } from './dso-edit-metadata-value.component';
 
 const EDIT_BTN = 'edit';

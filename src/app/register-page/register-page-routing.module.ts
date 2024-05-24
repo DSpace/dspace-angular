@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+import { RegistrationResolver } from '../register-email-form/registration.resolver';
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
 import { ThemedRegisterEmailComponent } from './register-email/themed-register-email.component';
 import { RegistrationGuard } from './registration.guard';
-import { RegistrationResolver } from '../register-email-form/registration.resolver';
 
 @NgModule({
   imports: [
@@ -16,16 +17,16 @@ import { RegistrationResolver } from '../register-email-form/registration.resolv
       {
         path: ':token',
         component: ThemedCreateProfileComponent,
-        resolve: {registration: RegistrationResolver},
+        resolve: { registration: RegistrationResolver },
         canActivate: [
-          RegistrationGuard
+          RegistrationGuard,
         ],
       },
     ]),
   ],
   providers: [
     RegistrationResolver,
-  ]
+  ],
 })
 /**
  * Module related to the navigation to components used to register a new user

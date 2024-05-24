@@ -1,8 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { Context } from 'vm';
+
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { BrowseMostElementsComponent } from './browse-most-elements.component';
-import { Context } from 'vm';
-import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
 
 /**
  * Themed wrapper for BrowseMostElementsComponent

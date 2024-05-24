@@ -1,10 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { BitstreamAttachmentComponent } from './bitstream-attachment.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateService } from '@ngx-translate/core';
+
+import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
+import { BitstreamAttachmentComponent } from './bitstream-attachment.component';
 
 describe('BitstreamAttachmentComponent', () => {
   let component: BitstreamAttachmentComponent;
@@ -15,15 +18,15 @@ describe('BitstreamAttachmentComponent', () => {
       declarations: [ BitstreamAttachmentComponent ],
       imports: [RouterTestingModule.withRoutes([])],
       providers: [
-        {provide: 'fieldProvider', useValue: {}},
-        {provide: 'itemProvider', useValue: {}},
-        {provide: 'renderingSubTypeProvider', useValue: ''},
-        {provide: BitstreamDataService, useValue: {}},
-        {provide: TranslateService, useValue: {}},
+        { provide: 'fieldProvider', useValue: {} },
+        { provide: 'itemProvider', useValue: {} },
+        { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: BitstreamDataService, useValue: {} },
+        { provide: TranslateService, useValue: {} },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [ NO_ERRORS_SCHEMA ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

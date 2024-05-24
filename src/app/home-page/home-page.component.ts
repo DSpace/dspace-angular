@@ -24,18 +24,24 @@ import {
 
 import { environment } from '../../environments/environment';
 import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
+import { SiteDataService } from '../core/data/site-data.service';
+import {
+  SectionComponent,
+  TextRowSection,
+} from '../core/layout/models/section.model';
+import { SectionDataService } from '../core/layout/section-data.service';
+import { LocaleService } from '../core/locale/locale.service';
 import {
   LinkDefinition,
   LinkHeadService,
 } from '../core/services/link-head.service';
 import { ServerResponseService } from '../core/services/server-response.service';
-import { Site } from '../core/shared/site.model';
-import { isEmpty, isNotEmpty } from '../shared/empty.util';
-import { SectionComponent, TextRowSection } from '../core/layout/models/section.model';
-import { SectionDataService } from '../core/layout/section-data.service';
-import { SiteDataService } from '../core/data/site-data.service';
-import { LocaleService } from '../core/locale/locale.service';
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import { Site } from '../core/shared/site.model';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../shared/empty.util';
 
 @Component({
   selector: 'ds-home-page',
@@ -60,7 +66,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
     content: 'cris.cms.home-header',
     contentType: 'text-metadata',
     componentType: 'text-row',
-    style: ''
+    style: '',
   };
 
   /**
@@ -100,21 +106,21 @@ export class HomePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.data.pipe(
       map((data) => data.site as Site),
-      take(1)
+      take(1),
     ).subscribe((site: Site) => {
       this.site$.next(site);
     });
 
     this.sectionComponents = this.sectionDataService.findById('site').pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((section) => section.componentRows)
+      map((section) => section.componentRows),
     );
 
     this.siteService.find().pipe(take(1)).subscribe(
       (site: Site) => {
         this.hasHomeHeaderMetadata = !isEmpty(site?.firstMetadataValue('cris.cms.home-header',
           { language: this.locale.getCurrentLanguageCode() }));
-      }
+      },
     );
   }
 

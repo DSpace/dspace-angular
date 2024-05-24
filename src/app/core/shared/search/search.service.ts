@@ -1,10 +1,26 @@
 /* eslint-disable max-classes-per-file */
-import { Injectable, OnDestroy, } from '@angular/core';
+import {
+  Injectable,
+  OnDestroy,
+} from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
-import { combineLatest as observableCombineLatest, Observable, of, } from 'rxjs';
-import { map, switchMap, take, } from 'rxjs/operators';
+import { isEmpty } from 'lodash';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { hasValue, hasValueOperator, isNotEmpty, } from '../../../shared/empty.util';
+import {
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { FacetValues } from '../../../shared/search/models/facet-values.model';
@@ -13,11 +29,17 @@ import { SearchFilterConfig } from '../../../shared/search/models/search-filter-
 import { SearchObjects } from '../../../shared/search/models/search-objects.model';
 import { SearchResult } from '../../../shared/search/models/search-result.model';
 import { getSearchResultFor } from '../../../shared/search/search-result-element-decorator';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
+import { LinkService } from '../../cache/builders/link.service';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { BaseDataService } from '../../data/base/base-data.service';
+import { CommunityDataService } from '../../data/community-data.service';
 import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
 import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { ResponseParsingService } from '../../data/parsing.service';
 import { RemoteData } from '../../data/remote-data';
 import { GetRequest } from '../../data/request.models';
@@ -27,17 +49,17 @@ import { SearchResponseParsingService } from '../../data/search-response-parsing
 import { PaginationService } from '../../pagination/pagination.service';
 import { RouteService } from '../../services/route.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
+import { Community } from '../community.model';
 import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData, getRemoteDataPayload, } from '../operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../operators';
 import { ViewMode } from '../view-mode.model';
 import { SearchConfigurationService } from './search-configuration.service';
-import { LinkService } from '../../cache/builders/link.service';
-import { CommunityDataService } from '../../data/community-data.service';
-import { isEmpty } from 'lodash';
-import { Community } from '../community.model';
-import { PaginatedList } from '../../data/paginated-list.model';
 
 /**
  * A limited data service implementation for the 'discover' endpoint
@@ -315,8 +337,8 @@ export class SearchService implements OnDestroy {
       const top: Observable<Community[]> = this.communityService.findTop({ elementsPerPage: 9999 }).pipe(
         getFirstSucceededRemoteData(),
         map(
-          (communities: RemoteData<PaginatedList<Community>>) => communities.payload.page
-        )
+          (communities: RemoteData<PaginatedList<Community>>) => communities.payload.page,
+        ),
       );
       return top;
     }
@@ -324,22 +346,22 @@ export class SearchService implements OnDestroy {
     const scopeObject: Observable<RemoteData<DSpaceObject>> = this.dspaceObjectService.findById(scopeId).pipe(getFirstSucceededRemoteData());
     const scopeList: Observable<DSpaceObject[]> = scopeObject.pipe(
       switchMap((dsoRD: RemoteData<DSpaceObject>) => {
-          if ((dsoRD.payload as any).type === Community.type.value) {
-            const community: Community = dsoRD.payload as Community;
-            this.linkService.resolveLinks(community, followLink('subcommunities'), followLink('collections'));
-            return observableCombineLatest([
-              community.subcommunities.pipe(getFirstCompletedRemoteData()),
-              community.collections.pipe(getFirstCompletedRemoteData())
-            ]).pipe(
-              map(([subCommunities, collections]) => {
-                /*if this is a community, we also need to show the direct children*/
-                return [community, ...subCommunities.payload.page, ...collections.payload.page];
-              })
-            );
-          } else {
-            return of([dsoRD.payload]);
-          }
+        if ((dsoRD.payload as any).type === Community.type.value) {
+          const community: Community = dsoRD.payload as Community;
+          this.linkService.resolveLinks(community, followLink('subcommunities'), followLink('collections'));
+          return observableCombineLatest([
+            community.subcommunities.pipe(getFirstCompletedRemoteData()),
+            community.collections.pipe(getFirstCompletedRemoteData()),
+          ]).pipe(
+            map(([subCommunities, collections]) => {
+              /*if this is a community, we also need to show the direct children*/
+              return [community, ...subCommunities.payload.page, ...collections.payload.page];
+            }),
+          );
+        } else {
+          return of([dsoRD.payload]);
         }
+      },
       ));
 
     return scopeList;

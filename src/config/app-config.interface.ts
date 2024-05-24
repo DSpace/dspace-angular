@@ -1,44 +1,46 @@
 import { InjectionToken } from '@angular/core';
 import { makeStateKey } from '@angular/platform-browser';
-import { Config } from './config.interface';
-import { ServerConfig } from './server-config.interface';
-import { CacheConfig } from './cache-config.interface';
-import { INotificationBoardOptions } from './notifications-config.interfaces';
-import { SubmissionConfig } from './submission-config.interface';
-import { FormConfig } from './form-config.interfaces';
-import { LangConfig } from './lang-config.interface';
-import { ItemConfig } from './item-config.interface';
-import { CollectionPageConfig } from './collection-page-config.interface';
-import { ThemeConfig } from './theme.config';
+
+import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { ActuatorsConfig } from './actuators.config';
+import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
+import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
+import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { AuthConfig } from './auth-config.interfaces';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { BundleConfig } from './bundle-config.interface';
+import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
+import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
+import { Config } from './config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
+import { FormConfig } from './form-config.interfaces';
 import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
+import { ItemConfig } from './item-config.interface';
+import { LangConfig } from './lang-config.interface';
+import {
+  CrisLayoutConfig,
+  LayoutConfig,
+} from './layout-config.interfaces';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { QualityAssuranceConfig } from './quality-assurance.config';
-import { CrisLayoutConfig, LayoutConfig } from './layout-config.interfaces';
-import { SuggestionConfig } from './suggestion-config.interfaces';
-import { UIServerConfig } from './ui-server-config.interface';
-import { SearchConfig } from './search-page-config.interface';
-import {
-  AdminNotifyMetricsRow
-} from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { MetadataSecurityConfig } from './metadata-security-config';
-import { CmsMetadata } from './cms-metadata';
-import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
-import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
-import { AttachmentRenderingConfig } from './attachment-rendering.config';
-import { AdvancedAttachmentRenderingConfig } from './advanced-attachment-rendering.config';
-import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
+import { INotificationBoardOptions } from './notifications-config.interfaces';
+import { QualityAssuranceConfig } from './quality-assurance.config';
+import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
+import { SearchConfig } from './search-page-config.interface';
+import { SearchResultConfig } from './search-result-config.interface';
+import { ServerConfig } from './server-config.interface';
+import { SubmissionConfig } from './submission-config.interface';
+import { SuggestionConfig } from './suggestion-config.interfaces';
+import { ThemeConfig } from './theme.config';
+import { UIServerConfig } from './ui-server-config.interface';
 
 interface AppConfig extends Config {
   ui: UIServerConfig;

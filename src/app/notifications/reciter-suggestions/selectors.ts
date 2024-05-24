@@ -1,10 +1,18 @@
-import { createSelector, MemoizedSelector } from '@ngrx/store';
-import { subStateSelector } from '../../shared/selector.util';
-import { suggestionNotificationsSelector, SuggestionNotificationsState } from '../notifications.reducer';
 import {
-  OpenaireSuggestionTarget
-} from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
-import { SuggestionTargetEntry, SuggestionTargetState } from './suggestion-targets/suggestion-targets.reducer';
+  createSelector,
+  MemoizedSelector,
+} from '@ngrx/store';
+
+import { OpenaireSuggestionTarget } from '../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { subStateSelector } from '../../shared/selector.util';
+import {
+  suggestionNotificationsSelector,
+  SuggestionNotificationsState,
+} from '../notifications.reducer';
+import {
+  SuggestionTargetEntry,
+  SuggestionTargetState,
+} from './suggestion-targets/suggestion-targets.reducer';
 
 
 // Reciter Suggestion Targets

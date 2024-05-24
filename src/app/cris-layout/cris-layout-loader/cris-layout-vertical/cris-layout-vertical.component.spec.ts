@@ -1,14 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CrisLayoutVerticalComponent } from './cris-layout-vertical.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterMock } from '../../../shared/mocks/router.mock';
-import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 import { HostWindowService } from '../../../shared/host-window.service';
+import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
+import { RouterMock } from '../../../shared/mocks/router.mock';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { loaderTabs } from '../../../shared/testing/layout-tab.mocks';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { CrisLayoutVerticalComponent } from './cris-layout-vertical.component';
 
 describe('CrisLayoutVerticalComponent', () => {
   let component: CrisLayoutVerticalComponent;
@@ -24,7 +30,7 @@ describe('CrisLayoutVerticalComponent', () => {
       ],
       imports: [
         SharedModule,
-      ]
+      ],
     })
       .compileComponents();
   });

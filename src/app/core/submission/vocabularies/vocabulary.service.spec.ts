@@ -1,4 +1,8 @@
-import { cold, getTestScheduler, hot, } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -107,20 +111,20 @@ describe('VocabularyService', () => {
     otherInformation: {
       id: 'authorityId',
       hasChildren: 'true',
-      note: 'Familjeforskning'
+      note: 'Familjeforskning',
     },
     type: 'vocabularyEntryDetail',
     _links: {
       self: {
-        href: entryDetailRequestURL
+        href: entryDetailRequestURL,
       },
       parent: {
-        href: entryDetailParentRequestURL
+        href: entryDetailParentRequestURL,
       },
       children: {
-        href: entryDetailChildrenRequestURL
-      }
-    }
+        href: entryDetailChildrenRequestURL,
+      },
+    },
   };
 
   const vocabularyEntryParentDetail: any = {
@@ -210,7 +214,7 @@ describe('VocabularyService', () => {
     name: vocabularyId,
     metadata: metadata,
     scope: collectionUUID,
-    closed: false
+    closed: false,
   };
   const pageInfo = new PageInfo();
   const array = [vocabulary, hierarchicalVocabulary];
@@ -276,7 +280,7 @@ describe('VocabularyService', () => {
           buildList: hot('a|', {
             a: paginatedListRD,
           }),
-          setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
+          setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
         });
 
         service = initTestService();
@@ -372,7 +376,7 @@ describe('VocabularyService', () => {
         it('should return a RemoteData<Vocabulary> for the search', () => {
           const result = service.searchVocabularyByMetadataAndCollection(vocabularyOptions);
           const expected = cold('a|', {
-            a: vocabularyRD
+            a: vocabularyRD,
           });
           expect(result).toBeObservable(expected);
         });
@@ -480,7 +484,7 @@ describe('VocabularyService', () => {
         buildList: hot('a|', {
           a: vocabularyEntryChildrenRD,
         }),
-        setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring')
+        setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
       });
 
       service = initTestService();

@@ -22,7 +22,7 @@ export function rendersContextMenuEntriesForType(type: DSpaceObjectType, isStand
     let entryList: any[];
     const renderOptions: ContextMenuEntryRenderOptions = {
       componentRef: entryComponent,
-      isStandAlone
+      isStandAlone,
     };
     if (contextMenuEntriesMap.has(type)) {
       entryList = [...contextMenuEntriesMap.get(type), renderOptions];

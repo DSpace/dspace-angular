@@ -14,9 +14,15 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of as observableOf, of } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
@@ -29,10 +35,7 @@ import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/s
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { SubmissionService } from '../submission.service';
 import { SubmissionEditComponent } from './submission-edit.component';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
 import { SubmissionEditCanDeactivateService } from './submission-edit-can-deactivate.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 
 describe('SubmissionEditComponent Component', () => {
 
@@ -53,7 +56,7 @@ describe('SubmissionEditComponent Component', () => {
   const collectionDataServiceSpy: jasmine.SpyObj<CollectionDataService> = jasmine.createSpyObj('collectionDataService', {
     findById: jasmine.createSpy('findById'),
     getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity'),
-    getAuthorizedCollectionByCommunityAndEntityType: jasmine.createSpy('getAuthorizedCollectionByCommunityAndEntityType')
+    getAuthorizedCollectionByCommunityAndEntityType: jasmine.createSpy('getAuthorizedCollectionByCommunityAndEntityType'),
   });
   const canDeactivateServiceSpy: jasmine.SpyObj<SubmissionEditCanDeactivateService> = jasmine.createSpyObj('canDeactivateService', {
     canDeactivate: of(true),

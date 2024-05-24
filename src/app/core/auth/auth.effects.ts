@@ -1,8 +1,21 @@
-import { Injectable, NgZone, Type, } from '@angular/core';
+import {
+  Injectable,
+  NgZone,
+  Type,
+} from '@angular/core';
+import { Router } from '@angular/router';
 // import @ngrx
 // import @ngrx
-import { Actions, createEffect, ofType, } from '@ngrx/effects';
-import { Action, select, Store, } from '@ngrx/store';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  Action,
+  select,
+  Store,
+} from '@ngrx/store';
 import {
   asyncScheduler,
   combineLatest as observableCombineLatest,
@@ -11,7 +24,16 @@ import {
   queueScheduler,
   timer,
 } from 'rxjs';
-import { catchError, delay, filter, map, observeOn, switchMap, take, tap } from 'rxjs/operators';
+import {
+  catchError,
+  delay,
+  filter,
+  map,
+  observeOn,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
@@ -55,13 +77,15 @@ import {
   RetrieveTokenAction,
   SetUserAsIdleAction,
 } from './auth.actions';
-import { Router } from '@angular/router';
 // import services
 import { AuthService } from './auth.service';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { isAuthenticated, isAuthenticatedLoaded, } from './selectors';
+import {
+  isAuthenticated,
+  isAuthenticatedLoaded,
+} from './selectors';
 
 // Action Types that do not break/prevent the user from an idle state
 const IDLE_TIMER_IGNORE_TYPES: string[]
@@ -282,9 +306,9 @@ export class AuthEffects {
       switchMap((action: RefreshTokenAndRedirectAction) => {
         return this.authService.refreshAuthenticationToken(action.payload.token)
           .pipe(map((token: AuthTokenInfo) => new RefreshTokenAndRedirectSuccessAction(token, action.payload.redirectUrl)),
-            catchError((error) => observableOf(new RefreshTokenAndRedirectErrorAction()))
+            catchError((error: unknown) => observableOf(new RefreshTokenAndRedirectErrorAction())),
           );
-      }))
+      })),
   );
 
   public refreshStateTokenRedirect$: Observable<Action> = createEffect(() => this.actions$
@@ -294,24 +318,24 @@ export class AuthEffects {
           .pipe(
             switchMap(user => this.authService.retrieveAuthenticatedUserById(user.id)),
             map(user => new RefreshEpersonAndTokenRedirectSuccessAction(user, action.payload.token, action.payload.redirectUrl)),
-            catchError((error) => observableOf(new RefreshEpersonAndTokenRedirectErrorAction()))
-          )
-      )
-    )
+            catchError((error: unknown) => observableOf(new RefreshEpersonAndTokenRedirectErrorAction())),
+          ),
+      ),
+    ),
   );
 
   public refreshStateTokenRedirectSuccess$: Observable<Action> = createEffect(() => this.actions$
     .pipe(ofType(AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS),
-      map((action: RefreshEpersonAndTokenRedirectAction) => new RefreshTokenAndRedirectAction(action.payload.token, action.payload.redirectUrl)))
+      map((action: RefreshEpersonAndTokenRedirectAction) => new RefreshTokenAndRedirectAction(action.payload.token, action.payload.redirectUrl))),
   );
 
   public refreshTokenAndRedirectSuccess$: Observable<Action> = createEffect(() => this.actions$
-      .pipe(ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS),
-        tap((action: RefreshTokenAndRedirectSuccessAction) => this.authService.replaceToken(action.payload.token)),
-        delay(1),
-        tap((action: RefreshTokenAndRedirectSuccessAction) => this.router.navigate([decodeURIComponent(action.payload.redirectUrl)]))
-      ),
-    { dispatch: false }
+    .pipe(ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS),
+      tap((action: RefreshTokenAndRedirectSuccessAction) => this.authService.replaceToken(action.payload.token)),
+      delay(1),
+      tap((action: RefreshTokenAndRedirectSuccessAction) => this.router.navigate([decodeURIComponent(action.payload.redirectUrl)])),
+    ),
+  { dispatch: false },
   );
 
   /**

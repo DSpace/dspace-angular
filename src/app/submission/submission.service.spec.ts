@@ -1,4 +1,7 @@
-import { HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import {
   fakeAsync,
   flush,
@@ -16,6 +19,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import {
   cold,
   getTestScheduler,
@@ -30,6 +34,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { environment } from '../../environments/environment';
 import { storeModuleConfig } from '../app.reducer';
 import { ErrorResponse } from '../core/cache/response.models';
+import { SubmissionVisibilityValue } from '../core/config/models/config-submission-section.model';
 import { RequestService } from '../core/data/request.service';
 import { RequestError } from '../core/data/request-error.model';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
@@ -48,6 +53,7 @@ import {
   mockSubmissionRestResponse,
 } from '../shared/mocks/submission.mock';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { createFailedRemoteDataObject } from '../shared/remote-data.utils';
 import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
@@ -66,9 +72,6 @@ import {
 } from './objects/submission-objects.actions';
 import { submissionReducers } from './submission.reducers';
 import { SubmissionService } from './submission.service';
-import { SubmissionVisibilityValue } from '../core/config/models/config-submission-section.model';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -89,7 +92,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'utils',
             visibility: {
               submission: SubmissionVisibilityValue.Hidden,
-              workflow: SubmissionVisibilityValue.Hidden
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -106,7 +109,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'collection',
             visibility: {
               submission: SubmissionVisibilityValue.Hidden,
-              workflow: SubmissionVisibilityValue.Hidden
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -221,7 +224,7 @@ describe('SubmissionService test suite', () => {
             opened: true,
             sectionType: 'license',
             visibility: {
-              workflow: SubmissionVisibilityValue.ReadOnly
+              workflow: SubmissionVisibilityValue.ReadOnly,
             },
             collapsed: false,
             enabled: true,
@@ -235,9 +238,9 @@ describe('SubmissionService test suite', () => {
         isLoading: false,
         savePending: false,
         saveDecisionPending: false,
-        depositPending: false
-      }
-    }
+        depositPending: false,
+      },
+    },
   };
   const validSubState = {
     objects: {
@@ -253,7 +256,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'utils',
             visibility: {
               submission: SubmissionVisibilityValue.Hidden,
-              workflow: SubmissionVisibilityValue.Hidden
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -269,7 +272,7 @@ describe('SubmissionService test suite', () => {
             sectionType: 'collection',
             visibility: {
               submission: SubmissionVisibilityValue.Hidden,
-              workflow: SubmissionVisibilityValue.Hidden
+              workflow: SubmissionVisibilityValue.Hidden,
             },
             collapsed: false,
             enabled: true,
@@ -376,7 +379,7 @@ describe('SubmissionService test suite', () => {
             mandatory: true,
             sectionType: 'license',
             visibility: {
-              workflow: SubmissionVisibilityValue.ReadOnly
+              workflow: SubmissionVisibilityValue.ReadOnly,
             },
             collapsed: false,
             enabled: true,
@@ -390,9 +393,9 @@ describe('SubmissionService test suite', () => {
         isLoading: false,
         savePending: false,
         saveDecisionPending: false,
-        depositPending: false
-      }
-    }
+        depositPending: false,
+      },
+    },
   };
   const restService = new SubmissionRestServiceStub();
   const router = new RouterMock();
@@ -452,7 +455,7 @@ describe('SubmissionService test suite', () => {
   describe('createSubmission', () => {
     it('should create a new submission', () => {
       const paramsObj = Object.create({});
-      const params = new HttpParams({fromObject: paramsObj});
+      const params = new HttpParams({ fromObject: paramsObj });
       const options: HttpOptions = Object.create({});
       options.params = params;
       service.createSubmission();
@@ -463,7 +466,7 @@ describe('SubmissionService test suite', () => {
 
     it('should create a new submission with entity type', () => {
       const entityType = 'Publication';
-      const params = new HttpParams({fromObject: {entityType: entityType}});
+      const params = new HttpParams({ fromObject: { entityType: entityType } });
       const options: HttpOptions = Object.create({});
       options.params = params;
 
@@ -475,7 +478,7 @@ describe('SubmissionService test suite', () => {
 
     it('should create a new submission with collection', () => {
       const paramsObj = Object.create({});
-      const params = new HttpParams({fromObject: paramsObj});
+      const params = new HttpParams({ fromObject: paramsObj });
       const options: HttpOptions = Object.create({});
       options.params = params;
 
@@ -492,7 +495,7 @@ describe('SubmissionService test suite', () => {
 
       paramsObj.collection = '1234';
 
-      const params = new HttpParams({fromObject: paramsObj});
+      const params = new HttpParams({ fromObject: paramsObj });
       const options: HttpOptions = Object.create({});
       options.params = params;
 
@@ -662,7 +665,7 @@ describe('SubmissionService test suite', () => {
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
-              sectionVisibility: undefined
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.indexing',
@@ -674,7 +677,7 @@ describe('SubmissionService test suite', () => {
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
-              sectionVisibility: undefined
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.publicationchannel',
@@ -686,7 +689,7 @@ describe('SubmissionService test suite', () => {
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
-              sectionVisibility: undefined
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.acknowledgement',
@@ -698,7 +701,7 @@ describe('SubmissionService test suite', () => {
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
-              sectionVisibility: undefined
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.identifiers',
@@ -710,7 +713,7 @@ describe('SubmissionService test suite', () => {
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
-              sectionVisibility: undefined
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.describe.references',
@@ -722,7 +725,7 @@ describe('SubmissionService test suite', () => {
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
-              sectionVisibility: undefined
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.upload',
@@ -734,7 +737,7 @@ describe('SubmissionService test suite', () => {
               data: {},
               errorsToShow: [],
               serverValidationErrors: [],
-              sectionVisibility: undefined
+              sectionVisibility: undefined,
             },
             {
               header: 'submit.progressbar.license',
@@ -747,10 +750,10 @@ describe('SubmissionService test suite', () => {
               errorsToShow: [],
               serverValidationErrors: [],
               sectionVisibility: {
-                workflow: SubmissionVisibilityValue.ReadOnly
-              }
-            }
-          ]
+                workflow: SubmissionVisibilityValue.ReadOnly,
+              },
+            },
+          ],
       });
 
       expect(result).toBeObservable(expected);
@@ -878,12 +881,12 @@ describe('SubmissionService test suite', () => {
   describe('getSubmissionDuplicateDecisionProcessingStatus', () => {
     it('should return submission save-decision status', () => {
       spyOn((service as any).store, 'select').and.returnValue(hot('-a', {
-        a: subState.objects[826]
+        a: subState.objects[826],
       }));
 
       const result = service.getSubmissionDuplicateDecisionProcessingStatus('826');
       const expected = cold('aa', {
-        a: false
+        a: false,
       });
 
       expect(result).toBeObservable(expected);
@@ -913,7 +916,7 @@ describe('SubmissionService test suite', () => {
         mandatory: true,
         sectionType: 'collection' as any,
         visibility: {
-          submission: SubmissionVisibilityValue.Hidden
+          submission: SubmissionVisibilityValue.Hidden,
         },
         collapsed: false,
         enabled: true,

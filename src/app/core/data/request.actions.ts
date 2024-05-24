@@ -4,8 +4,8 @@ import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
 import { HALLink } from '../shared/hal-link.model';
 import { UnCacheableObject } from '../shared/uncacheable-object.model';
-import { RestRequest } from './rest-request.model';
 import { PathableObjectError } from './response-state.model';
+import { RestRequest } from './rest-request.model';
 
 /**
  * The list of RequestAction type definitions
@@ -127,7 +127,7 @@ export class RequestErrorAction extends RequestUpdateAction {
       timeCompleted: new Date().getTime(),
       statusCode,
       errorMessage,
-      errors
+      errors,
     };
   }
 }

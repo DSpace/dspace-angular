@@ -25,9 +25,9 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { UUIDService } from '../../../core/shared/uuid.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { UUIDService } from '../../../core/shared/uuid.service';
 
 /**
  * This component renders a list of bitstream formats
@@ -58,7 +58,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private paginationService: PaginationService,
-              private uuidService: UUIDService
+              private uuidService: UUIDService,
   ) {
   }
 

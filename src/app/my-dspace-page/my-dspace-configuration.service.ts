@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import uniqueId from 'lodash/uniqueId';
 import {
   combineLatest,
   Observable,
 } from 'rxjs';
 import {
   first,
-  map, take,
+  map,
+  take,
 } from 'rxjs/operators';
 
 import { LinkService } from '../core/cache/builders/link.service';
@@ -25,7 +27,6 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
-import uniqueId from 'lodash/uniqueId';
 
 export const MyDSpaceConfigurationToContextMap = new Map([
   [MyDSpaceConfigurationValueType.Workspace, Context.Workspace],
@@ -114,7 +115,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
   public getAvailableConfigurationTypes(): Observable<MyDSpaceConfigurationValueType[]> {
     return combineLatest([this.isSubmitter$, this.isController$, this.isAdmin$]).pipe(
       take(1),
-       map(([isSubmitter, isController, isAdmin]: [boolean, boolean, boolean]) => {
+      map(([isSubmitter, isController, isAdmin]: [boolean, boolean, boolean]) => {
         const availableConf: MyDSpaceConfigurationValueType[] = [];
         if (isSubmitter) {
           availableConf.push(MyDSpaceConfigurationValueType.Workspace);

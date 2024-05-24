@@ -1,30 +1,62 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  NgbDate,
+  NgbDateParserFormatter,
+  NgbDateStruct,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
-import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { StatisticsCategory } from '../../core/statistics/models/statistics-category.model';
-import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
-import { SiteDataService } from '../../core/data/site-data.service';
-import { getCategoryId, getReportId } from '../../core/statistics/statistics-selector';
-import { CleanCategoryReportAction, SetCategoryReportAction } from '../../core/statistics/statistics.action';
 import { AppState } from '../../app.reducer';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { SiteDataService } from '../../core/data/site-data.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import { StatisticsCategory } from '../../core/statistics/models/statistics-category.model';
+import {
+  CleanCategoryReportAction,
+  SetCategoryReportAction,
+} from '../../core/statistics/statistics.action';
+import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
+import {
+  getCategoryId,
+  getReportId,
+} from '../../core/statistics/statistics-selector';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 
 @Component({
   selector: 'ds-cris-statistics-page',
   templateUrl: './cris-statistics-page.component.html',
-  styleUrls: ['./cris-statistics-page.component.scss']
+  styleUrls: ['./cris-statistics-page.component.scss'],
 })
 export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
 
@@ -76,7 +108,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   /**
    * This property holds a selected report id
    */
-   selectedReportId: string;
+  selectedReportId: string;
 
   constructor(
     protected route: ActivatedRoute,
@@ -87,7 +119,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
     protected authService: AuthService,
     protected siteService: SiteDataService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) {
   }
 
@@ -120,7 +152,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
       map((data: any) => data.scope as RemoteData<any>),
       redirectOn4xx(this.router, this.authService),
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
   }
 
@@ -149,7 +181,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
           }
           this.getUserReports(this.selectedCategory);
         });
-      })
+      }),
     );
   }
 
@@ -183,10 +215,10 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
     this.reports$ =
       of(category)
         .pipe(
-          switchMap(c => c == null ? [] : this.getReports$(c.id))
+          switchMap(c => c == null ? [] : this.getReports$(c.id)),
         );
     combineLatest([
-      this.reports$, this.getReportId(), this.getCategoryId()
+      this.reports$, this.getReportId(), this.getCategoryId(),
     ]).subscribe(([report, reportId, categoryId]) => {
       if (!reportId && !categoryId) {
         this.setStatisticsState(report[0].id, category.id);
@@ -266,7 +298,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   getReportId(): Observable<string> {
     return this.store.pipe(
       select(getReportId),
-      take(1)
+      take(1),
     );
   }
 
@@ -277,7 +309,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   getCategoryId(): Observable<string> {
     return this.store.pipe(
       select(getCategoryId),
-      take(1)
+      take(1),
     );
   }
 

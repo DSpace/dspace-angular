@@ -3,6 +3,7 @@ import {
   MetadataValueInterface,
   VIRTUAL_METADATA_PREFIX,
 } from '../../../../core/shared/metadata.models';
+import { Metadata } from '../../../../core/shared/metadata.utils';
 import {
   hasValue,
   isEmpty,
@@ -10,7 +11,6 @@ import {
   isNotNull,
 } from '../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { Metadata } from '../../../../core/shared/metadata.utils';
 
 export interface OtherInformation {
   [name: string]: string;
@@ -38,15 +38,15 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
 
   constructor(value: any = null,
     language: any = null,
-              securityLevel: any = null,
+    securityLevel: any = null,
     authority: string = null,
     display: string = null,
     place: number = 0,
     confidence: number = null,
     otherInformation: any = null,
-              source: string = null,
-              metadata: string = null
-              ) {
+    source: string = null,
+    metadata: string = null,
+  ) {
     this.value = isNotNull(value) ? ((typeof value === 'string') ? value.trim() : value) : null;
     this.language = language;
     this.authority = authority;
@@ -87,7 +87,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
    * Returns true if this this object has a value
    */
   hasValue(): boolean {
-     return isNotEmpty(this.value);
+    return isNotEmpty(this.value);
   }
 
   /**

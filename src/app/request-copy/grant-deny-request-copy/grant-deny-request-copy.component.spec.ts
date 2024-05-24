@@ -1,7 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -12,9 +19,15 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { Item } from '../../core/shared/item.model';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$, } from '../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { getRequestCopyDenyRoute, getRequestCopyGrantRoute, } from '../request-copy-routing-paths';
+import {
+  getRequestCopyDenyRoute,
+  getRequestCopyGrantRoute,
+} from '../request-copy-routing-paths';
 import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy.component';
 
 describe('GrantDenyRequestCopyComponent', () => {

@@ -1,28 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../core/cache/models/sort-options.model';
 import { TopSection } from '../../../../core/layout/models/section.model';
+import { Context } from '../../../../core/shared/context.model';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
-import { Context } from '../../../../core/shared/context.model';
 
 /**
  * Component representing the Top component section.
  */
 @Component({
   selector: 'ds-top-section',
-  templateUrl: './top-section.component.html'
+  templateUrl: './top-section.component.html',
 })
 export class TopSectionComponent implements OnInit {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  topSection: TopSection;
+    topSection: TopSection;
 
   @Input()
-  context: Context = Context.BrowseMostElements;
+    context: Context = Context.BrowseMostElements;
 
   paginatedSearchOptions: PaginatedSearchOptions;
 
@@ -35,13 +42,13 @@ export class TopSectionComponent implements OnInit {
     const pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
       id: 'search-object-pagination',
       pageSize: numberOfItems,
-      currentPage: 1
+      currentPage: 1,
     });
 
     this.paginatedSearchOptions = new PaginatedSearchOptions({
       configuration: this.topSection.discoveryConfigurationName,
       pagination: pagination,
-      sort: new SortOptions(this.topSection.sortField, sortDirection)
+      sort: new SortOptions(this.topSection.sortField, sortDirection),
     });
 
     this.showThumbnails = this.topSection.showThumbnails;

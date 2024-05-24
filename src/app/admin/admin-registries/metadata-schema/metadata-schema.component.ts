@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   combineLatest,
@@ -34,7 +35,6 @@ import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import uniqueId from 'lodash/uniqueId';
 
 @Component({
   selector: 'ds-metadata-schema',

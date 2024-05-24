@@ -201,7 +201,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'importObject',
     'sortFieldChange',
     'customData',
-    'customEvent'
+    'customEvent',
   ];
 
   protected getComponentName(): string {

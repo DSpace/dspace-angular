@@ -1,11 +1,16 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 
 import { fadeIn } from '../../../shared/animations/fade';
 import { renderChartFor } from '../../charts.decorator';
-import { ChartType } from '../../models/chart-type';
-import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
 import { ChartData } from '../../models/chart-data';
 import { ChartSeries } from '../../models/chart-series';
+import { ChartType } from '../../models/chart-type';
+import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
 
 @Component({
   selector: 'ds-bar-chart',
@@ -56,7 +61,7 @@ export class BarChartComponent extends AbstractChartComponent implements OnInit 
     this.subs.push(
       this.chartData.subscribe((data: ChartData[] | ChartSeries[]) => {
         this.setViewSize(data.length);
-      })
+      }),
     );
   }
 

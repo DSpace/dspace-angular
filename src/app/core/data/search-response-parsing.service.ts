@@ -51,7 +51,7 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
       .map((object, index) => Object.assign({}, object, {
         indexableObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
-        _embedded: this.filterEmbeddedObjects(object, request)
+        _embedded: this.filterEmbeddedObjects(object, request),
       }));
     payload.objects = objects;
     const deserialized: any = new DSpaceSerializer(SearchObjects).deserialize(payload);
@@ -71,8 +71,8 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
             .reduce((obj, key) => {
               obj[key] = object._embedded.indexableObject._embedded[key];
               return obj;
-            }, {})
-        })
+            }, {}),
+        }),
       });
     } else {
       return object;

@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { I18nBreadcrumbResolver } from '../../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { I18nBreadcrumbsService } from '../../core/breadcrumbs/i18n-breadcrumbs.service';
+import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
@@ -18,8 +19,8 @@ import {
   ITEM_EDIT_PUBLIC_PATH,
   ITEM_EDIT_REGISTER_DOI_PATH,
   ITEM_EDIT_REINSTATE_PATH,
+  ITEM_EDIT_UNLINK_ORCID,
   ITEM_EDIT_WITHDRAW_PATH,
-  ITEM_EDIT_UNLINK_ORCID
 } from './edit-item-page.routing-paths';
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
@@ -37,6 +38,7 @@ import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { ItemPageReinstateGuard } from './item-page-reinstate.guard';
 import { ItemPageRelationshipsGuard } from './item-page-relationships.guard';
 import { ItemPageStatusGuard } from './item-page-status.guard';
+import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
 import { ItemPageVersionHistoryGuard } from './item-page-version-history.guard';
 import { ItemPageWithdrawGuard } from './item-page-withdraw.guard';
 import { ItemPrivateComponent } from './item-private/item-private.component';
@@ -45,11 +47,9 @@ import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.
 import { ItemReinstateComponent } from './item-reinstate/item-reinstate.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
+import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemWithdrawComponent } from './item-withdraw/item-withdraw.component';
-import { ItemUnlinkOrcidComponent } from './item-unlink-orcid/item-unlink-orcid.component';
-import { ItemPageUnlinkOrcidGuard } from './item-page-unlink-orcid.guard';
-import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -226,7 +226,7 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     ItemPageAccessControlGuard,
     ItemPageRegisterDoiGuard,
     ItemPageUnlinkOrcidGuard,
-    EditItemResolver
+    EditItemResolver,
   ],
 })
 export class EditItemPageRoutingModule {

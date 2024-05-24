@@ -1,18 +1,43 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators, } from '@angular/forms';
-import { BrowserModule, By, } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
-import { Observable, of as observableOf, } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { buildPaginatedList, PaginatedList, } from '../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RequestService } from '../../../core/data/request.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -20,14 +45,19 @@ import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { UUIDService } from '../../../core/shared/uuid.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
-import { EPersonMock, EPersonMock2, } from '../../../shared/testing/eperson.mock';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../../shared/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
@@ -37,8 +67,6 @@ import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -199,7 +227,7 @@ describe('EPersonFormComponent', () => {
     router = new RouterStub();
 
     epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      registerEmail: createSuccessfulRemoteDataObject$(null)
+      registerEmail: createSuccessfulRemoteDataObject$(null),
     });
 
     TestBed.configureTestingModule({

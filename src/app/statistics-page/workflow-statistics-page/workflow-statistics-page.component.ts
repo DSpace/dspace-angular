@@ -1,18 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbDate, NgbDateParserFormatter, NgbDateStruct, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbDate,
+  NgbDateParserFormatter,
+  NgbDateStruct,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
+
 import {
   getFirstSucceededRemoteData,
   getPaginatedListPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../core/shared/operators';
-import { WorkflowStepStatisticsDataService } from '../../core/statistics/workflow-step-statistics-data.service';
-import { WorkflowStepStatistics } from '../../core/statistics/models/workflow-step-statistics.model';
-import { CollectionSelectorComponent } from '../../my-dspace-page/collection-selector/collection-selector.component';
-import { TranslateService } from '@ngx-translate/core';
-import { WorkflowOwnerStatisticsDataService } from '../../core/statistics/workflow-owner-statistics-data.service';
 import { WorkflowOwnerStatistics } from '../../core/statistics/models/workflow-owner-statistics.model';
+import { WorkflowStepStatistics } from '../../core/statistics/models/workflow-step-statistics.model';
+import { WorkflowOwnerStatisticsDataService } from '../../core/statistics/workflow-owner-statistics-data.service';
+import { WorkflowStepStatisticsDataService } from '../../core/statistics/workflow-step-statistics-data.service';
+import { CollectionSelectorComponent } from '../../my-dspace-page/collection-selector/collection-selector.component';
 import { AlertType } from '../../shared/alert/alert-type';
 
 /**
@@ -21,7 +31,7 @@ import { AlertType } from '../../shared/alert/alert-type';
 @Component({
   selector: 'ds-workflow-statistics',
   templateUrl: './workflow-statistics-page.component.html',
-  styleUrls: ['./workflow-statistics-page.component.scss']
+  styleUrls: ['./workflow-statistics-page.component.scss'],
 })
 export class WorkflowStatisticsPageComponent implements OnInit {
 
@@ -97,7 +107,7 @@ export class WorkflowStatisticsPageComponent implements OnInit {
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
-      take(1)
+      take(1),
     ).subscribe((workflowSteps) => {
       this.workflowSteps$.next(workflowSteps);
     });
@@ -106,7 +116,7 @@ export class WorkflowStatisticsPageComponent implements OnInit {
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
-      take(1)
+      take(1),
     ).subscribe((workflowOwners) => {
       this.workflowOwners$.next(workflowOwners);
     });
@@ -122,7 +132,7 @@ export class WorkflowStatisticsPageComponent implements OnInit {
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
       getPaginatedListPayload(),
-      take(1)
+      take(1),
     ).subscribe((workflowSteps) => {
       this.currentWorkflowSteps$.next(workflowSteps);
     });

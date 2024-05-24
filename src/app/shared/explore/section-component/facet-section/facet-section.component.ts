@@ -1,15 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { FacetSection } from '../../../../core/layout/models/section.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';
-import { SearchFilterConfig } from '../../../search/models/search-filter-config.model';
-import { FilterType } from '../../../search/models/filter-type.model';
-import { FacetValue } from '../../../search/models/facet-value.model';
-import { getFacetValueForTypeAndLabel } from '../../../search/search.utils';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { FacetValue } from '../../../search/models/facet-value.model';
+import { FilterType } from '../../../search/models/filter-type.model';
+import { SearchFilterConfig } from '../../../search/models/search-filter-config.model';
+import { getFacetValueForTypeAndLabel } from '../../../search/search.utils';
 
 /**
  * Component representing the Facet component section.
@@ -21,10 +24,10 @@ import { SearchConfigurationService } from '../../../../core/shared/search/searc
 export class FacetSectionComponent implements OnInit {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  facetSection: FacetSection;
+    facetSection: FacetSection;
 
   discoveryConfiguration: string;
 
@@ -61,7 +64,7 @@ export class FacetSectionComponent implements OnInit {
   getSearchQueryParams(facet: SearchFilterConfig, facetValue: FacetValue) {
     const queryParams = {
       configuration: this.facetSection.discoveryConfigurationName,
-      page: 1
+      page: 1,
     };
     this.addFacetValuesToQueryParams(facet, facetValue, queryParams);
     return queryParams;

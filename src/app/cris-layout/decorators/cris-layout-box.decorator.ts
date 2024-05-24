@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { LayoutBox } from '../enums/layout-box.enum';
-import { hasNoValue } from '../../shared/empty.util';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { hasNoValue } from '../../shared/empty.util';
+import { LayoutBox } from '../enums/layout-box.enum';
 
 const layoutBoxesMap = new Map<LayoutBox, CrisLayoutBoxRenderOptions>();
 
@@ -19,7 +19,7 @@ export function RenderCrisLayoutBoxFor(boxType: LayoutBox, hasOwnContainer = fal
     if (hasNoValue(layoutBoxesMap.get(boxType))) {
       layoutBoxesMap.set(boxType, {
         componentRef: component,
-        hasOwnContainer: hasOwnContainer
+        hasOwnContainer: hasOwnContainer,
       } as CrisLayoutBoxRenderOptions);
     }
   };

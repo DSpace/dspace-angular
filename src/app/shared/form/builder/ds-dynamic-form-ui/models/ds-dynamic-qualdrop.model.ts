@@ -53,7 +53,7 @@ export class DynamicQualdropModel extends DynamicFormGroupModel {
     return (this.get(1) as DsDynamicInputModel).value;
   }
   get securityLevel() {
-     return (this.get(1) as any).securityLevel;
+    return (this.get(1) as any).securityLevel;
   }
   get qualdropId(): string {
     return (this.get(0) as DsDynamicInputModel).value.toString();

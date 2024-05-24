@@ -1,12 +1,33 @@
-import { Component, OnDestroy, OnInit, } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef, } from '@ng-bootstrap/ng-bootstrap';
-import { BehaviorSubject, combineLatest, Subscription, } from 'rxjs';
-import { filter, mergeMap, switchMap, take, tap, } from 'rxjs/operators';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import uniqueId from 'lodash/uniqueId';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  mergeMap,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { buildPaginatedList, PaginatedList, } from '../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RouteService } from '../../core/services/route.service';
 import { Context } from '../../core/shared/context.model';
@@ -15,16 +36,16 @@ import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type
 import { getFinishedRemoteData } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { UUIDService } from '../../core/shared/uuid.service';
 import { fadeIn } from '../../shared/animations/fade';
-import { hasValue, isNotEmpty, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import {
-  SubmissionImportExternalPreviewComponent
-} from './import-external-preview/submission-import-external-preview.component';
+import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
-import { UUIDService } from '../../core/shared/uuid.service';
-import uniqueId from 'lodash/uniqueId';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
@@ -110,7 +131,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     private routeService: RouteService,
     private router: Router,
     private modalService: NgbModal,
-    private uuidService: UUIDService
+    private uuidService: UUIDService,
   ) {
   }
 
@@ -164,7 +185,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   public import(entry): void {
     this.modalRef = this.modalService.open(SubmissionImportExternalPreviewComponent, {
       size: 'lg',
-      scrollable: true
+      scrollable: true,
     });
     const modalComp = this.modalRef.componentInstance;
     modalComp.externalSourceEntry = entry;

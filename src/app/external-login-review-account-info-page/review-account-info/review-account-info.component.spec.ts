@@ -1,29 +1,42 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-
-import { ReviewAccountInfoComponent } from './review-account-info.component';
-import { TranslateLoader, TranslateModule, TranslateService, } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { Observable, of, Subscription } from 'rxjs';
+import { EventEmitter } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { NativeWindowService } from '../../core/services/window.service';
+import { Registration } from '../../core/shared/registration.model';
+import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
+import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
+import { NativeWindowMockFactory } from '../../shared/mocks/mock-native-window-ref';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { Router } from '@angular/router';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { EventEmitter } from '@angular/core';
 import { CompareValuesPipe } from '../helpers/compare-values.pipe';
-import { Registration } from '../../core/shared/registration.model';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
-import { NativeWindowService } from '../../core/services/window.service';
-import { NativeWindowMockFactory } from '../../shared/mocks/mock-native-window-ref';
+import { ReviewAccountInfoComponent } from './review-account-info.component';
 
 describe('ReviewAccountInfoComponent', () => {
   let component: ReviewAccountInfoComponent;
@@ -40,11 +53,11 @@ describe('ReviewAccountInfoComponent', () => {
     get: () => of('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
   const mockEPerson = EPersonMock;
   const modalStub = {
-    open: () => ({ componentInstance: { response: of(true) }}),
+    open: () => ({ componentInstance: { response: of(true) } }),
     close: () => null,
     dismiss: () => null,
   };
@@ -67,7 +80,7 @@ describe('ReviewAccountInfoComponent', () => {
       },
       mergeEPersonDataWithToken(
         token: string,
-        metadata?: string
+        metadata?: string,
       ): Observable<RemoteData<EPerson>> {
         return createSuccessfulRemoteDataObject$(mockEPerson);
       },
@@ -115,7 +128,7 @@ describe('ReviewAccountInfoComponent', () => {
     componentAsAny = component;
     component.registrationData = Object.assign(
       new Registration(),
-      registrationDataMock
+      registrationDataMock,
     );
     component.registrationToken = 'test-token';
     fixture.detectChanges();
@@ -166,7 +179,7 @@ describe('ReviewAccountInfoComponent', () => {
   it('should merge EPerson data with token when overrideValue is true', fakeAsync(() => {
     component.dataToCompare[0].overrideValue = true;
     spyOn(ePersonDataServiceStub, 'mergeEPersonDataWithToken').and.returnValue(
-      of({ hasSucceeded: true })
+      of({ hasSucceeded: true }),
     );
     component.mergeEPersonDataWithToken(registrationDataMock.user, registrationDataMock.registrationType);
     tick();

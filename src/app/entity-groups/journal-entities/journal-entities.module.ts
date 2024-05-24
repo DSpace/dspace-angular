@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { ItemSharedModule } from '../../item-page/item-shared.module';
+import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
 import { DsoPageModule } from '../../shared/dso-page/dso-page.module';
 import { ResultsBackButtonModule } from '../../shared/results-back-button/results-back-button.module';
 import { SharedModule } from '../../shared/shared.module';
@@ -23,7 +24,6 @@ import { JournalVolumeSidebarSearchListElementComponent } from './item-list-elem
 import { JournalComponent } from './item-pages/journal/journal.component';
 import { JournalIssueComponent } from './item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './item-pages/journal-volume/journal-volume.component';
-import { ContextMenuModule } from '../../shared/context-menu/context-menu.module';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator

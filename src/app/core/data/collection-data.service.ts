@@ -2,9 +2,18 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, take, } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { hasValue, isNotEmpty, isNotEmptyOperator, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
 import { INotification } from '../../shared/notifications/models/notification.model';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -20,7 +29,10 @@ import { Community } from '../shared/community.model';
 import { ContentSource } from '../shared/content-source.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../shared/operators';
 import { dataService } from './base/data-service.decorator';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
@@ -29,7 +41,10 @@ import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { ContentSourceRequest, UpdateContentSourceRequest, } from './request.models';
+import {
+  ContentSourceRequest,
+  UpdateContentSourceRequest,
+} from './request.models';
 import { RequestService } from './request.service';
 import { RestRequest } from './rest-request.model';
 
@@ -93,7 +108,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
   getAdministeredCollection(query: string, options: FindListOptions = {}, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAdministered';
     options = Object.assign({}, options, {
-      searchParams: [new RequestParam('query', query)]
+      searchParams: [new RequestParam('query', query)],
     });
 
     return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
@@ -120,7 +135,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
       searchParams: [
         new RequestParam('query', query),
         new RequestParam('entityType', entityType),
-      ]
+      ],
     });
 
     return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
@@ -155,7 +170,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
     });
 
     return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
-      getAllCompletedRemoteData()
+      getAllCompletedRemoteData(),
     );
   }
 
@@ -180,7 +195,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
     });
 
     return this.searchBy(searchHref, options, reRequestOnStale).pipe(
-      getAllCompletedRemoteData()
+      getAllCompletedRemoteData(),
     );
   }
   /**
@@ -212,7 +227,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
     });
 
     return this.searchBy(searchHref, options, true, reRequestOnStale, ...linksToFollow).pipe(
-      getAllCompletedRemoteData()
+      getAllCompletedRemoteData(),
     );
   }
 
@@ -229,7 +244,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
 
     return this.searchBy(searchHref, options).pipe(
       getAllCompletedRemoteData(),
-      map((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.totalElements > 0)
+      map((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.totalElements > 0),
     );
   }
 

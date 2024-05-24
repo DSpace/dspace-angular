@@ -9,21 +9,31 @@ import {
   OnDestroy,
   SimpleChanges,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
 import {
   BehaviorSubject,
   combineLatest,
   from as fromPromise,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
-import { ThemeService } from './theme.service';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import {
+  catchError,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'ds-themed',

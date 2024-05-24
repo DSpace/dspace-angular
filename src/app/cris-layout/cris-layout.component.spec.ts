@@ -1,19 +1,33 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { SharedModule } from '../shared/shared.module';
-
-import { CrisLayoutComponent } from './cris-layout.component';
-import { Item } from '../core/shared/item.model';
-import { TabDataService } from '../core/layout/tab-data.service';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { bothTabs, leadingTabs, loaderTabs } from '../shared/testing/layout-tab.mocks';
-import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { TabDataService } from '../core/layout/tab-data.service';
+import { Item } from '../core/shared/item.model';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
+import { SharedModule } from '../shared/shared.module';
+import {
+  bothTabs,
+  leadingTabs,
+  loaderTabs,
+} from '../shared/testing/layout-tab.mocks';
 import { createPaginatedList } from '../shared/testing/utils.test';
+import { CrisLayoutComponent } from './cris-layout.component';
 
 const mockItem = Object.assign(new Item(), {
   id: 'fake-id',
@@ -23,23 +37,23 @@ const mockItem = Object.assign(new Item(), {
     'dc.title': [
       {
         language: null,
-        value: 'test'
-      }
+        value: 'test',
+      },
     ],
     'dspace.entity.type': [
       {
         language: null,
-        value: 'Person'
-      }
-    ]
-  }
+        value: 'Person',
+      },
+    ],
+  },
 });
 
 const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
-  findByItem: observableOf(leadingTabs)
+  findByItem: observableOf(leadingTabs),
 });
 const route = {
-  data: observableOf({ tabs: createSuccessfulRemoteDataObject(createPaginatedList(leadingTabs)) })
+  data: observableOf({ tabs: createSuccessfulRemoteDataObject(createPaginatedList(leadingTabs)) }),
 };
 
 describe('CrisLayoutComponent', () => {
@@ -51,8 +65,8 @@ describe('CrisLayoutComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }), BrowserAnimationsModule, SharedModule],
       declarations: [CrisLayoutComponent],
       providers: [
@@ -60,7 +74,7 @@ describe('CrisLayoutComponent', () => {
         { provide: ChangeDetectorRef, useValue: {} },
         { provide: ActivatedRoute, useValue: route },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

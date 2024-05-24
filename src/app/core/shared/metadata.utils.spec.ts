@@ -198,31 +198,31 @@ describe('Metadata', () => {
     });
     describe('with undefined value for a MetadataValue object', () => {
       const value: Partial<MetadataValue> = {
-        value: undefined
+        value: undefined,
       };
       testHasValue(value, false);
     });
     describe('with null value for a MetadataValue object', () => {
       const value: Partial<MetadataValue> = {
-        value: null
+        value: null,
       };
       testHasValue(value, false);
     });
     describe('with empty string for a MetadataValue object', () => {
       const value: Partial<MetadataValue> = {
-        value: ''
+        value: '',
       };
       testHasValue(value, false);
     });
     describe('with value for a MetadataValue object', () => {
       const value: Partial<MetadataValue> = {
-        value: 'test'
+        value: 'test',
       };
       testHasValue(value, true);
     });
     describe('with a generic object', () => {
       const value: Object = {
-        test: 'test'
+        test: 'test',
       };
       testHasValue(value, true);
     });

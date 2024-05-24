@@ -1,9 +1,11 @@
 import { Inject } from '@angular/core';
-
-import { hasNoValue, hasValue, isNotEmpty, } from '../../../empty.util';
-import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
@@ -11,7 +13,12 @@ import {
   DynamicConcatModel,
   DynamicConcatModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { DsDynamicInputModel, DsDynamicInputModelConfig, } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { FormFieldModel } from '../models/form-field.model';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
   CONFIG_DATA,
   FieldParser,
@@ -53,8 +60,8 @@ export class ConcatFieldParser extends FieldParser {
     };
     clsInput2 = {
       grid: {
-        host: 'col-sm-6 d-flex flex-column justify-content-start'
-      }
+        host: 'col-sm-6 d-flex flex-column justify-content-start',
+      },
     };
 
     const groupId = id.replace(/\./g, '_') + CONCAT_GROUP_SUFFIX;

@@ -62,7 +62,7 @@ export class MetadataValue implements MetadataValueInterface {
 
   /** The security level value */
   @autoserialize
-  securityLevel: number;
+    securityLevel: number;
 
 
   /**

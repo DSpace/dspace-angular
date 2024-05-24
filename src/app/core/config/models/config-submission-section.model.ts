@@ -46,7 +46,7 @@ export class SubmissionSectionModel extends ConfigObject {
    * A boolean representing if this submission section is opened or collapsed by default
    */
   @autoserialize
-  opened: boolean;
+    opened: boolean;
 
   /**
    * A string representing the kind of section object
@@ -58,7 +58,7 @@ export class SubmissionSectionModel extends ConfigObject {
    * The [SubmissionVisibilityType] object for this section
    */
   @autoserialize
-  visibility: SubmissionVisibilityType;
+    visibility: SubmissionVisibilityType;
 
   /**
    * The {@link HALLink}s for this SubmissionSectionModel

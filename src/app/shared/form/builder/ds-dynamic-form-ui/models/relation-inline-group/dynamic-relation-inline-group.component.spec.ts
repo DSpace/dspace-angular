@@ -1,40 +1,56 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { Store, StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlEvent,
   DynamicFormGroupModel,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-
 import {
-  DynamicRelationGroupModel,
-  DynamicRelationGroupModelConfig
-} from '../relation-group/dynamic-relation-group.model';
-import { DsDynamicRelationInlineGroupComponent } from './dynamic-relation-inline-group.components';
-import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
-import { FormFieldModel } from '../../../models/form-field.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { FormService } from '../../../../form.service';
-import { FormComponent } from '../../../../form.component';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { DsDynamicInputModel } from '../ds-dynamic-input.model';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { StoreMock } from '../../../../../testing/store.mock';
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
+import { SubmissionService } from '../../../../../../submission/submission.service';
+import { StoreMock } from '../../../../../testing/store.mock';
+import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
+import { createTestComponent } from '../../../../../testing/utils.test';
+import { FormComponent } from '../../../../form.component';
+import { FormService } from '../../../../form.service';
+import { FormBuilderService } from '../../../form-builder.service';
+import { FormFieldModel } from '../../../models/form-field.model';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
+import { DsDynamicInputModel } from '../ds-dynamic-input.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../ds-dynamic-row-group-model';
-import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
-import {SubmissionService} from '../../../../../../submission/submission.service';
-import {SubmissionServiceStub} from '../../../../../testing/submission-service.stub';
-import {of as observableOf} from 'rxjs';
+import {
+  DynamicRelationGroupModel,
+  DynamicRelationGroupModelConfig,
+} from '../relation-group/dynamic-relation-group.model';
+import { DsDynamicRelationInlineGroupComponent } from './dynamic-relation-inline-group.components';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -45,15 +61,15 @@ const metadataSecurity = {
   'uuid': null,
   'metadataSecurityDefault': [
     0,
-    1
+    1,
   ],
   'metadataCustomSecurity': {},
   'type': 'securitysetting',
   '_links': {
     'self': {
-      'href': 'http://localhost:8080/server/api/core/securitysettings'
-    }
-  }
+      'href': 'http://localhost:8080/server/api/core/securitysettings',
+    },
+  },
 };
 function init() {
   FORM_GROUP_TEST_MODEL_CONFIG = {
@@ -71,7 +87,7 @@ function init() {
         selectableMetadata: [{
           controlledVocabulary: 'RPAuthority',
           closed: false,
-          metadata: 'dc.contributor.author'
+          metadata: 'dc.contributor.author',
         }],
       } as FormFieldModel, {
         hints: 'Enter the affiliation of the author.',
@@ -83,9 +99,9 @@ function init() {
         selectableMetadata: [{
           controlledVocabulary: 'OUAuthority',
           closed: false,
-          metadata: 'local.contributor.affiliation'
-        }]
-      } as FormFieldModel]
+          metadata: 'local.contributor.affiliation',
+        }],
+      } as FormFieldModel],
     } as FormRowModel],
     submissionId,
     id: 'dc_contributor_author',
@@ -102,7 +118,7 @@ function init() {
     validators: { required: null },
     repeatable: false,
     metadataFields: [],
-    hasSelectableMetadata: false
+    hasSelectableMetadata: false,
   } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new FormGroup({
@@ -137,7 +153,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         ReactiveFormsModule,
         NgbModule,
         StoreModule.forRoot({}),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         FormComponent,
@@ -153,9 +169,9 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         FormComponent,
         FormService,
         { provide: Store, useClass: StoreMock },
-        { provide: SubmissionService, useClass: SubmissionServiceStub}
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -235,7 +251,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         groupComp.model.scopeUUID,
         {},
         groupComp.model.submissionScope,
-        groupComp.model.readOnly
+        groupComp.model.readOnly,
       );
 
       const formArrayItemModel: DynamicFormGroupModel = groupComp.initArrayItemModel(formConfig) as DynamicFormGroupModel;
@@ -251,7 +267,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         control: null,
         group: null,
         model: null,
-        type: 'blur'
+        type: 'blur',
       };
       spyOn(groupCompAsAny.blur, 'emit');
 
@@ -275,7 +291,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
           control: null,
           group: null,
           model: model,
-          type: 'change'
+          type: 'change',
         };
 
       });
@@ -299,7 +315,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
       it('should validate form when mandatory group field is empty', () => {
 
         spyOn(groupComp, 'hasEmptyGroupValue').and.returnValue(false);
-        spyOn(groupCompAsAny, 'getRowValue').and.returnValue({'dc.contributor.author': null, 'local.contributor.affiliation': 'test'});
+        spyOn(groupCompAsAny, 'getRowValue').and.returnValue({ 'dc.contributor.author': null, 'local.contributor.affiliation': 'test' });
         spyOn(groupCompAsAny.formService, 'validateAllFormFields');
         spyOn(groupCompAsAny.change, 'emit');
 
@@ -313,7 +329,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
       it('should update Array Model Value', () => {
 
         spyOn(groupComp, 'hasEmptyGroupValue').and.returnValue(false);
-        spyOn(groupCompAsAny, 'getRowValue').and.returnValue({'dc.contributor.author': 'test', 'local.contributor.affiliation': 'test'});
+        spyOn(groupCompAsAny, 'getRowValue').and.returnValue({ 'dc.contributor.author': 'test', 'local.contributor.affiliation': 'test' });
         spyOn(groupCompAsAny, 'updateArrayModelValue');
         spyOn(groupCompAsAny.change, 'emit');
 
@@ -326,13 +342,13 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
 
     it('should return true when group Value is empty', () => {
 
-      let groupValue: any = {'dc.contributor.author': '', 'local.contributor.affiliation': PLACEHOLDER_PARENT_METADATA};
+      let groupValue: any = { 'dc.contributor.author': '', 'local.contributor.affiliation': PLACEHOLDER_PARENT_METADATA };
 
       groupComp.hasEmptyGroupValue(groupValue);
 
       expect(groupComp.hasEmptyGroupValue(groupValue)).toBeTruthy();
 
-      groupValue = {'dc.contributor.author': '', 'local.contributor.affiliation': ''};
+      groupValue = { 'dc.contributor.author': '', 'local.contributor.affiliation': '' };
 
       groupComp.hasEmptyGroupValue(groupValue);
 
@@ -347,13 +363,13 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
 
     it('should return false when group Value is not empty', () => {
 
-      let groupValue: any = {'dc.contributor.author': 'test', 'local.contributor.affiliation': PLACEHOLDER_PARENT_METADATA};
+      let groupValue: any = { 'dc.contributor.author': 'test', 'local.contributor.affiliation': PLACEHOLDER_PARENT_METADATA };
 
       groupComp.hasEmptyGroupValue(groupValue);
 
       expect(groupComp.hasEmptyGroupValue(groupValue)).toBeFalsy();
 
-      groupValue = {'dc.contributor.author': '', 'local.contributor.affiliation': 'test'};
+      groupValue = { 'dc.contributor.author': '', 'local.contributor.affiliation': 'test' };
 
       groupComp.hasEmptyGroupValue(groupValue);
 
@@ -367,7 +383,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         control: null,
         group: null,
         model: null,
-        type: 'focus'
+        type: 'focus',
       };
       spyOn(groupCompAsAny.focus, 'emit');
 
@@ -381,9 +397,9 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         parent: {
           index: 1,
           parent: {
-            size: 2
-          }
-        }
+            size: 2,
+          },
+        },
       };
       event = {
         $event: new Event('remove'),
@@ -391,14 +407,14 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         control: null,
         group: null,
         model: model,
-        type: 'remove'
+        type: 'remove',
       };
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }, {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2'),
       }];
       groupComp.model.value = modelValue;
       spyOn(groupCompAsAny, 'removeItemFromModelValue');
@@ -413,9 +429,9 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         parent: {
           index: 1,
           parent: {
-            size: 1
-          }
-        }
+            size: 1,
+          },
+        },
       };
       event = {
         $event: new Event('remove'),
@@ -423,14 +439,14 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         control: null,
         group: null,
         model: model,
-        type: 'remove'
+        type: 'remove',
       };
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }, {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2'),
       }];
       groupComp.model.value = modelValue;
       spyOn(groupCompAsAny, 'removeItemFromModelValue');
@@ -445,17 +461,17 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         group:[
           {
             name: 'dc.contributor.author',
-            value: new FormFieldMetadataValueObject('test author')
+            value: new FormFieldMetadataValueObject('test author'),
           },
           {
             name: 'local.contributor.affiliation',
-            value: new FormFieldMetadataValueObject('test affiliation')
-          }
-        ]
+            value: new FormFieldMetadataValueObject('test affiliation'),
+          },
+        ],
       };
       const expectedValue = {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       };
 
       expect(groupCompAsAny.getRowValue(formGroup)).toEqual(expectedValue);
@@ -464,10 +480,10 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
     it('should normalize Group Form Value', () => {
       const groupValue: any = {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject(PLACEHOLDER_PARENT_METADATA)
+        'local.contributor.affiliation': new FormFieldMetadataValueObject(PLACEHOLDER_PARENT_METADATA),
       };
       const normalizedValue = {
-        'dc.contributor.author': [new FormFieldMetadataValueObject('test author')]
+        'dc.contributor.author': [new FormFieldMetadataValueObject('test author')],
       };
 
       expect(groupCompAsAny.normalizeGroupFormValue(groupValue)).toEqual(normalizedValue);
@@ -476,16 +492,16 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
     it('should remove item from model value array', () => {
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }, {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2'),
       }];
       groupComp.model.value = modelValue;
 
       const expectedModelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2'),
       }];
       spyOn(groupCompAsAny.change, 'emit');
       groupCompAsAny.removeItemFromModelValue(0);
@@ -500,10 +516,10 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
           index: 1,
           parent: {
             parent: {
-              size: 2
-            }
-          }
-        }
+              size: 2,
+            },
+          },
+        },
       };
       event = {
         $event: new Event('remove'),
@@ -511,7 +527,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         control: null,
         group: null,
         model: model,
-        type: 'remove'
+        type: 'remove',
       };
 
       spyOn(groupCompAsAny.formBuilderService, 'getPath');
@@ -531,10 +547,10 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
           index: 1,
           parent: {
             parent: {
-              size: 1
-            }
-          }
-        }
+              size: 1,
+            },
+          },
+        },
       };
       event = {
         $event: new Event('remove'),
@@ -542,7 +558,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         control: null,
         group: null,
         model: model,
-        type: 'remove'
+        type: 'remove',
       };
 
       spyOn(groupCompAsAny.formBuilderService, 'getPath');
@@ -559,12 +575,12 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
     it('should update model properly', () => {
       const groupValue: any = {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       };
 
       const expectedModelValue: any = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }];
 
       spyOn(groupCompAsAny.change, 'emit');
@@ -577,12 +593,12 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
     it('should update model properly when model value is not empty', () => {
       const groupValue: any = {
         'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2'),
       };
 
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }];
 
       groupComp.model.value = modelValue;
@@ -590,12 +606,12 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
       const expectedModelValue: any = [
         {
           'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-          'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+          'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
         },
         {
           'dc.contributor.author': new FormFieldMetadataValueObject('test author 2'),
-          'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2')
-        }
+          'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation 2'),
+        },
       ];
 
       spyOn(groupCompAsAny.change, 'emit');
@@ -618,7 +634,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
       groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
       }];
       groupComp.model.value = modelValue;
       groupFixture.detectChanges();
@@ -642,7 +658,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

@@ -1,14 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertType } from '../shared/alert/alert-type';
-import { first, map, Observable, tap } from 'rxjs';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { hasNoValue } from '../shared/empty.util';
-import { Registration } from '../core/shared/registration.model';
+import {
+  first,
+  map,
+  Observable,
+  tap,
+} from 'rxjs';
+
 import { RemoteData } from '../core/data/remote-data';
+import { Registration } from '../core/shared/registration.model';
+import { AlertType } from '../shared/alert/alert-type';
+import { hasNoValue } from '../shared/empty.util';
 
 @Component({
   templateUrl: './external-login-review-account-info-page.component.html',
-  styleUrls: ['./external-login-review-account-info-page.component.scss']
+  styleUrls: ['./external-login-review-account-info-page.component.scss'],
 })
 export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   /**
@@ -31,7 +40,7 @@ export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   public hasErrors = false;
 
   constructor(
-    private arouter: ActivatedRoute
+    private arouter: ActivatedRoute,
   ) {
     this.token = this.arouter.snapshot.params.token;
     this.hasErrors = hasNoValue(this.arouter.snapshot.params.token);

@@ -1,8 +1,12 @@
-import { EditDsoResolver } from './edit-dso.resolver';
+import { waitForAsync } from '@angular/core/testing';
+
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
 import { Collection } from '../collection.model';
 import { EditCollectionResolver } from './edit-collection.resolver';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { waitForAsync } from '@angular/core/testing';
+import { EditDsoResolver } from './edit-dso.resolver';
 
 describe('EditDsoResolver', () => {
   describe('resolve', () => {
@@ -16,7 +20,7 @@ describe('EditDsoResolver', () => {
       uuid = '1234-65487-12354-1235';
       testCollection = Object.assign(new Collection(), { uuid });
       collectionService = {
-        findByIdWithProjections: (id: string) => createSuccessfulRemoteDataObject$(testCollection)
+        findByIdWithProjections: (id: string) => createSuccessfulRemoteDataObject$(testCollection),
       };
       resolver = new EditCollectionResolver(collectionService);
     });

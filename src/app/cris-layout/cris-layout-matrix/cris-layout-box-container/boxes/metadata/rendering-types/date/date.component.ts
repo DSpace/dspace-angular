@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+
+import {
+  FieldRenderingType,
+  MetadataBoxFieldRendering,
+} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -9,7 +13,7 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-date]',
   templateUrl: './date.component.html',
-  styleUrls: ['./date.component.scss']
+  styleUrls: ['./date.component.scss'],
 })
 @MetadataBoxFieldRendering(FieldRenderingType.DATE)
 export class DateComponent extends RenderingTypeValueModelComponent {

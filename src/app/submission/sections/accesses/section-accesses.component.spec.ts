@@ -1,17 +1,8 @@
-import { ComponentFixture, inject, TestBed, } from '@angular/core/testing';
-import { SectionAccessesService } from './section-accesses.service';
-import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
-  SubmissionJsonPatchOperationsService
-} from '../../../core/submission/submission-json-patch-operations.service';
-import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
-import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
-import {
-  SubmissionJsonPatchOperationsServiceStub
-} from '../../../shared/testing/submission-json-patch-operations-service.stub';
+  ComponentFixture,
+  inject,
+  TestBed,
+} from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   DynamicCheckboxModel,
@@ -21,26 +12,42 @@ import {
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
 import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
+import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import { getSectionAccessesService } from '../../../shared/mocks/section-accesses.service.mock';
 import {
-  accessConditionSectionConfigRes, accessConditionSectionSingleAccessConfigRes,
+  accessConditionSectionConfigRes,
+  accessConditionSectionSingleAccessConfigRes,
   getSubmissionAccessesConfigNotChangeDiscoverableService,
   getSubmissionAccessesConfigService,
 } from '../../../shared/mocks/section-accesses-config.service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
-import { accessConditionChangeEvent, checkboxChangeEvent, } from '../../../shared/testing/form-event.stub';
+import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  accessConditionChangeEvent,
+  checkboxChangeEvent,
+} from '../../../shared/testing/form-event.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
+import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { SectionAccessesService } from './section-accesses.service';
 
 describe('SubmissionSectionAccessesComponent', () => {
   let component: SubmissionSectionAccessesComponent;
@@ -111,7 +118,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
         component = fixture.componentInstance;
         formService = TestBed.inject(FormService);
-      formbuilderService = TestBed.inject(FormBuilderService);
+        formbuilderService = TestBed.inject(FormBuilderService);
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
@@ -146,15 +153,15 @@ describe('SubmissionSectionAccessesComponent', () => {
         expect(formGroup[2] instanceof DynamicDatePickerModel).toBeTrue();
       });
 
-    it('should have set maxStartDate and maxEndDate properly', () => {
-      const maxStartDate = { year: 2024, month: 12, day: 20 };
-      const maxEndDate = { year: 2022, month: 6, day: 20 };
+      it('should have set maxStartDate and maxEndDate properly', () => {
+        const maxStartDate = { year: 2024, month: 12, day: 20 };
+        const maxEndDate = { year: 2022, month: 6, day: 20 };
 
-      const startDateModel = formbuilderService.findById('startDate', component.formModel);
-      expect(startDateModel.max).toEqual(maxStartDate);
-      const endDateModel = formbuilderService.findById('endDate', component.formModel);
-      expect(endDateModel.max).toEqual(maxEndDate);
-    });
+        const startDateModel = formbuilderService.findById('startDate', component.formModel);
+        expect(startDateModel.max).toEqual(maxStartDate);
+        const endDateModel = formbuilderService.findById('endDate', component.formModel);
+        expect(endDateModel.max).toEqual(maxEndDate);
+      });
 
       it('when checkbox changed it should call operationsBuilder replace function', () => {
         component.onChange(checkboxChangeEvent);

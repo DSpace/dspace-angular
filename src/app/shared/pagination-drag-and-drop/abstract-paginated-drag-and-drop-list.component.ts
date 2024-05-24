@@ -1,25 +1,44 @@
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { hasValue } from '../empty.util';
 import {
-  paginatedListToArray,
-  getFirstSucceededRemoteData,
-  getAllSucceededRemoteData
-} from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
-import { PaginationComponent } from '../pagination/pagination.component';
-import { ObjectValuesPipe } from '../utils/object-values-pipe';
-import { compareArraysUsing } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import { PaginationService } from '../../core/pagination/pagination.service';
+  CdkDragDrop,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { FieldUpdate } from '../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteData,
+  paginatedListToArray,
+} from '../../core/shared/operators';
 import { UUIDService } from '../../core/shared/uuid.service';
+import { compareArraysUsing } from '../../item-page/simple/item-types/shared/item-relationships-utils';
+import { hasValue } from '../empty.util';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ObjectValuesPipe } from '../utils/object-values-pipe';
 
 /**
  * Operator used for comparing {@link FieldUpdate}s by their field's UUID
@@ -118,7 +137,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
                         protected elRef: ElementRef,
                         protected objectValuesPipe: ObjectValuesPipe,
                         protected paginationService: PaginationService,
-                        protected uuidService: UUIDService
+                        protected uuidService: UUIDService,
   ) {
   }
 

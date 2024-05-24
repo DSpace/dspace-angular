@@ -1,7 +1,17 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
-
-import { of as observableOf } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  FormArray,
+  FormGroup,
+} from '@angular/forms';
 import {
   DynamicFormArrayGroupModel,
   DynamicFormControlComponent,
@@ -11,30 +21,37 @@ import {
   DynamicFormGroupModel,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicInputModel
+  DynamicInputModel,
 } from '@ng-dynamic-forms/core';
-
-import { DynamicRelationGroupModel } from '../relation-group/dynamic-relation-group.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
-import { FormService } from '../../../../form.service';
-import { FormComponent } from '../../../../form.component';
-import { isEmpty, isNotEmpty } from '../../../../../empty.util';
-import { shrinkInOut } from '../../../../../animations/shrink';
-import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../ds-dynamic-row-array-model';
-import { setLayout } from '../../../parsers/parser.utils';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
-import { MetadataSecurityConfiguration } from '../../../../../../core/submission/models/metadata-security-configuration';
+import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
+
+import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
+import { MetadataSecurityConfiguration } from '../../../../../../core/submission/models/metadata-security-configuration';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { shrinkInOut } from '../../../../../animations/shrink';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../../../../empty.util';
+import { FormComponent } from '../../../../form.component';
+import { FormService } from '../../../../form.service';
+import { FormBuilderService } from '../../../form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { setLayout } from '../../../parsers/parser.utils';
+import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
+import {
+  DynamicRowArrayModel,
+  DynamicRowArrayModelConfig,
+} from '../ds-dynamic-row-array-model';
+import { DynamicRelationGroupModel } from '../relation-group/dynamic-relation-group.model';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
   selector: 'ds-dynamic-relation-inline-group',
   styleUrls: ['./dynamic-relation-inline-group.component.scss'],
   templateUrl: './dynamic-relation-inline-group.component.html',
-  animations: [shrinkInOut]
+  animations: [shrinkInOut],
 })
 export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {
 
@@ -57,7 +74,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     private formService: FormService,
     protected layoutService: DynamicFormLayoutService,
     protected submissionService: SubmissionService,
-    protected validationService: DynamicFormValidationService
+    protected validationService: DynamicFormValidationService,
   ) {
     super(layoutService, validationService);
   }
@@ -65,8 +82,8 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
   ngOnInit() {
     this.submissionService.getSubmissionSecurityConfiguration(this.model.submissionId).pipe(
       take(1)).subscribe(security => {
-        this.metadataSecurityConfiguration = security;
-      });
+      this.metadataSecurityConfiguration = security;
+    });
     const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
 
     this.formId = this.formService.getUniqueId(this.model.id);
@@ -92,13 +109,13 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
           setLayout(model, 'grid', 'control', 'col');
         }
         return [model];
-      }
+      },
     } as DynamicRowArrayModelConfig;
 
     const layout: DynamicFormControlLayout = {
       grid: {
-        group: 'form-row'
-      }
+        group: 'form-row',
+      },
     };
 
     return [new DynamicRowArrayModel(config, layout)];
@@ -201,9 +218,9 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     }
     if (this.model.securityConfigLevel?.length === 1) {
       modelGroup.group.forEach((item: any) => {
-          item.securityConfigLevel = this.model.securityConfigLevel;
-          item.toggleSecurityVisibility = false;
-          item.securityLevel = this.model.securityLevel;
+        item.securityConfigLevel = this.model.securityConfigLevel;
+        item.toggleSecurityVisibility = false;
+        item.securityLevel = this.model.securityLevel;
       });
     }
   }

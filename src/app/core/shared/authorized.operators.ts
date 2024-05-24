@@ -69,7 +69,7 @@ export const redirectOn204 = <T>(router: Router, authService: AuthService) =>
         }
         return true;
       }),
-      map(([rd,]: [RemoteData<T>, boolean]) => rd)
+      map(([rd]: [RemoteData<T>, boolean]) => rd),
     );
 
 /**

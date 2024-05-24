@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { DebugElement } from '@angular/core';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { SharedModule } from '../../shared/shared.module';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -11,8 +16,10 @@ import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Collection } from '../../core/shared/collection.model';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { SharedModule } from '../../shared/shared.module';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { CollectionStatisticsPageComponent } from './collection-statistics-page.component';
 

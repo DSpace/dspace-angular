@@ -1,27 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { first, map, mergeMap, switchMap } from 'rxjs/operators';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { RequestService } from '../../data/request.service';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  first,
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators';
 
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { createFailedRemoteDataObject } from '../../../shared/remote-data.utils';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { FindListOptions } from '../../data/find-list-options.model';
 import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
-import { Vocabulary } from './models/vocabulary.model';
-import { VocabularyEntry } from './models/vocabulary-entry.model';
+import { RequestService } from '../../data/request.service';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
+  getFirstSucceededRemoteListPayload,
 } from '../../shared/operators';
 import { PageInfo } from '../../shared/page-info.model';
+import { Vocabulary } from './models/vocabulary.model';
+import { VocabularyEntry } from './models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
 import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
 import { VocabularyOptions } from './models/vocabulary-options.model';
 import { VocabularyDataService } from './vocabulary.data.service';
-import { createFailedRemoteDataObject } from '../../../shared/remote-data.utils';
 import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 
 /**
@@ -174,7 +188,7 @@ export class VocabularyService {
   getPublicVocabularyEntryByValue(vocabularyName: string, value: string): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
     const params: RequestParam[] = [
       new RequestParam('filter', value),
-      new RequestParam('exact', 'true')
+      new RequestParam('exact', 'true'),
     ];
     const options = Object.assign(new FindListOptions(), {
       searchParams: params,
@@ -193,7 +207,7 @@ export class VocabularyService {
    */
   getPublicVocabularyEntryByID(vocabularyName: string, entryID: string): Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>> {
     const params: RequestParam[] = [
-      new RequestParam('entryID', entryID)
+      new RequestParam('entryID', entryID),
     ];
     const options = Object.assign(new FindListOptions(), {
       searchParams: params,
@@ -274,7 +288,7 @@ export class VocabularyService {
 
     return this.vocabularyDataService.getSearchByHref(this.searchByMetadataAndCollectionMethod, options, ...linksToFollow).pipe(
       first((href: string) => hasValue(href)),
-      mergeMap((href: string) => this.vocabularyDataService.findByHref(href))
+      mergeMap((href: string) => this.vocabularyDataService.findByHref(href)),
     );
   }
 
@@ -340,12 +354,12 @@ export class VocabularyService {
             entryRD.payload._links.parent.href,
             useCachedVersionIfAvailable,
             reRequestOnStale,
-            ...linksToFollow
+            ...linksToFollow,
           );
         } else {
           return of(createFailedRemoteDataObject<VocabularyEntryDetail>(entryRD.errorMessage));
         }
-      })
+      }),
     );
   }
 
@@ -385,12 +399,12 @@ export class VocabularyService {
             options,
             useCachedVersionIfAvailable,
             reRequestOnStale,
-            ...linksToFollow
+            ...linksToFollow,
           );
         } else {
           return of(createFailedRemoteDataObject<PaginatedList<VocabularyEntryDetail>>(entryRD.errorMessage));
         }
-      })
+      }),
     );
   }
 

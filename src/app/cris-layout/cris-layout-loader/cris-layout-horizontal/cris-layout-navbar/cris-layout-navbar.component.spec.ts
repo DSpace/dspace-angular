@@ -1,20 +1,29 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DebugElement } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-
-import { CrisLayoutNavbarComponent } from './cris-layout-navbar.component';
-import { HostWindowService } from '../../../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
+
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
+import { Item } from '../../../../core/shared/item.model';
+import { HostWindowService } from '../../../../shared/host-window.service';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { loaderMultilevelTabs } from '../../../../shared/testing/layout-tab.mocks';
 import { RouterStub } from '../../../../shared/testing/router.stub';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
-import { Item } from '../../../../core/shared/item.model';
-import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
-import { BehaviorSubject } from 'rxjs';
+import { CrisLayoutNavbarComponent } from './cris-layout-navbar.component';
 
 
 describe('CrisLayoutNavbarComponent', () => {
@@ -34,16 +43,16 @@ describe('CrisLayoutNavbarComponent', () => {
       'dc.title': [
         {
           language: null,
-          value: 'test'
-        }
+          value: 'test',
+        },
       ],
       'dspace.entity.type': [
         {
           language: null,
-          value: 'Person'
-        }
-      ]
-    }
+          value: 'Person',
+        },
+      ],
+    },
   });
 
   beforeEach(async () => {
@@ -53,8 +62,8 @@ describe('CrisLayoutNavbarComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [CrisLayoutNavbarComponent],
@@ -62,7 +71,7 @@ describe('CrisLayoutNavbarComponent', () => {
         { provide: HostWindowService, useValue: windowServiceStub },
         { provide: Router, useClass: RouterStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-      ]
+      ],
     })
       .compileComponents();
   });

@@ -31,13 +31,13 @@ describe(`DSONameService`, () => {
         'dc.title': [
           {
             language: null,
-            value: 'User Test'
-          }
-        ]
+            value: 'User Test',
+          },
+        ],
       },
       getRenderTypes(): (string | GenericConstructor<ListableObject>)[] {
         return ['Person', Item, DSpaceObject];
-      }
+      },
     });
 
     mockOrgUnitName = 'Molecular Spectroscopy';

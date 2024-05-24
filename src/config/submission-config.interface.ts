@@ -1,5 +1,5 @@
-import { Config } from './config.interface';
 import { DuplicateMatchMetadataDetailConfig } from '../app/submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
+import { Config } from './config.interface';
 
 interface AutosaveConfig extends Config {
   metadata: string[];

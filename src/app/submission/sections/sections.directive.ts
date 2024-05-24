@@ -172,7 +172,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
     this.readOnly = this.sectionService.isSectionReadOnly(
       this.submissionId,
       this.sectionId,
-      this.submissionService.getSubmissionScope()
+      this.submissionService.getSubmissionScope(),
     );
   }
 

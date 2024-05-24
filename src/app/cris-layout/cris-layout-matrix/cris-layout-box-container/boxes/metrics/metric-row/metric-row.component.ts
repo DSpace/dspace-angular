@@ -1,6 +1,12 @@
-import { Component, Input } from '@angular/core';
-
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+} from 'rxjs';
 
 import { CrisLayoutMetricRow } from '../../../../../../core/layout/models/tab.model';
 

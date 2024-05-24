@@ -1,18 +1,28 @@
-import { CreateProfileComponent } from './create-profile.component';
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
-import { Registration } from '../../core/shared/registration.model';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormBuilder, } from '@angular/forms';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { of, of as observableOf } from 'rxjs';
-import { EPerson } from '../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
 import { AuthenticateAction } from '../../core/auth/auth.actions';
 import { CoreState } from '../../core/core-state.model';
@@ -20,6 +30,10 @@ import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
 } from '../../core/end-user-agreement/end-user-agreement.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { Registration } from '../../core/shared/registration.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -27,6 +41,7 @@ import {
 } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
+import { CreateProfileComponent } from './create-profile.component';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -35,7 +50,7 @@ describe('CreateProfileComponent', () => {
   const ePerson = Object.assign(new EPerson(), {
     id: 'test-eperson',
     uuid: 'test-eperson',
-    email: 'albamail@atis.al'
+    email: 'albamail@atis.al',
   });
   let router;
   let route;
@@ -54,7 +69,7 @@ describe('CreateProfileComponent', () => {
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
       setRedirectUrl: {},
-      getAuthenticatedUserFromStore: observableOf(ePerson)
+      getAuthenticatedUserFromStore: observableOf(ePerson),
     });
     values = {
       metadata: {
@@ -146,9 +161,9 @@ describe('CreateProfileComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: Store, useValue: store },
         { provide: EPersonDataService, useValue: ePersonDataService },
-        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
+        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
         { provide: NotificationsService, useValue: notificationsService },
-        { provide: EndUserAgreementService, useValue: endUserAgreementService }
+        { provide: EndUserAgreementService, useValue: endUserAgreementService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

@@ -1,4 +1,9 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   Router,
@@ -10,12 +15,14 @@ import { map } from 'rxjs/operators';
 
 import { ItemDataService } from '../core/data/item-data.service';
 import { RemoteData } from '../core/data/remote-data';
+import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { Item } from '../core/shared/item.model';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
 import { ItemResolver } from './item.resolver';
 import { getItemPageRoute } from './item-page-routing-paths';
-import { HardRedirectService } from '../core/services/hard-redirect.service';
-import { isPlatformServer } from '@angular/common';
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated and will redirect to the

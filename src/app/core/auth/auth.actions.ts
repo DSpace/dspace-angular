@@ -4,11 +4,11 @@ import { Action } from '@ngrx/store';
 
 // import type function
 import { type } from '../../shared/ngrx/type';
+import { EPerson } from '../eperson/models/eperson.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
 // import models
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { EPerson } from '../eperson/models/eperson.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),
@@ -492,7 +492,7 @@ export class RefreshTokenAndRedirectAction implements Action {
   };
 
   constructor(token: AuthTokenInfo, redirectUrl: string) {
-    this.payload = {token, redirectUrl};
+    this.payload = { token, redirectUrl };
   }
 }
 
@@ -509,7 +509,7 @@ export class RefreshTokenAndRedirectSuccessAction implements Action {
   };
 
   constructor(token: AuthTokenInfo, redirectUrl: string) {
-    this.payload = {token, redirectUrl};
+    this.payload = { token, redirectUrl };
   }
 }
 

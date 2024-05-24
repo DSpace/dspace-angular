@@ -6,8 +6,8 @@ import {
 
 import { isNotEmpty } from '../shared/empty.util';
 import { LookupGuard } from './lookup-guard';
-import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 import { ThemedObjectGoneComponent } from './objectgone/themed-objectgone.component';
+import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 
 @NgModule({
   imports: [

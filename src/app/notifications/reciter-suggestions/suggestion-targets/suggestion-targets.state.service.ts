@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-
-import { select, Store } from '@ngrx/store';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { OpenaireSuggestionTarget } from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
+import { SuggestionNotificationsState } from '../../notifications.reducer';
 import {
   getCurrentUserSuggestionTargetsSelector,
   getCurrentUserSuggestionTargetsVisitedSelector,
@@ -11,18 +15,14 @@ import {
   getReciterSuggestionTargetTotalsSelector,
   isReciterSuggestionTargetLoadedSelector,
   isreciterSuggestionTargetProcessingSelector,
-  reciterSuggestionTargetObjectSelector
+  reciterSuggestionTargetObjectSelector,
 } from '../selectors';
-import {
-  OpenaireSuggestionTarget
-} from '../../../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import {
   ClearSuggestionTargetsAction,
   MarkUserSuggestionsAsVisitedAction,
   RefreshUserSuggestionsAction,
-  RetrieveTargetsBySourceAction
+  RetrieveTargetsBySourceAction,
 } from './suggestion-targets.actions';
-import { SuggestionNotificationsState } from '../../notifications.reducer';
 
 /**
  * The service handling the Suggestion targets State.
@@ -55,7 +55,7 @@ export class SuggestionTargetsStateService {
   public isReciterSuggestionTargetsLoading(source: string): Observable<boolean> {
     return this.store.pipe(
       select(isReciterSuggestionTargetLoadedSelector(source)),
-      map((loaded: boolean) => !loaded)
+      map((loaded: boolean) => !loaded),
     );
   }
 

@@ -2,7 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbModalModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { SharedModule } from '../shared.module';
@@ -27,7 +30,7 @@ const COMPONENTS = [
     SharedModule,
   ],
   providers:[
-    NgbActiveModal
+    NgbActiveModal,
   ],
   exports: [
     ...COMPONENTS,

@@ -57,7 +57,7 @@ export class EditItemPageComponent implements OnInit {
    */
   pages: { page: string, enabled: Observable<boolean> }[];
 
-  constructor(private route: ActivatedRoute, private router: Router, private injector: Injector
+  constructor(private route: ActivatedRoute, private router: Router, private injector: Injector,
   ) {
     this.router.events.subscribe(
       () => {
@@ -80,7 +80,7 @@ export class EditItemPageComponent implements OnInit {
             map((canActivateOutcomes: any[]) => canActivateOutcomes.every((e) => e === true)),
           );
         }
-        return {page: child.path, enabled: enabled};
+        return { page: child.path, enabled: enabled };
       }); // ignore reroutes
     this.itemRD$ = this.route.data.pipe(map((data) => data.dso));
   }

@@ -1,10 +1,32 @@
+import {
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf, Subscription, timer as observableTimer, } from 'rxjs';
-import { catchError, concatMap, distinctUntilChanged, filter, find, map, startWith, take, tap, } from 'rxjs/operators';
+import {
+  ScrollToConfigOptions,
+  ScrollToService,
+} from '@nicky-lenaers/ngx-scroll-to';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+  timer as observableTimer,
+} from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  startWith,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { ErrorResponse } from '../core/cache/response.models';
@@ -15,14 +37,24 @@ import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { RouteService } from '../core/services/route.service';
 import { Item } from '../core/shared/item.model';
 import { SearchService } from '../core/shared/search/search.service';
+import { MetadataSecurityConfiguration } from '../core/submission/models/metadata-security-configuration';
 import { SubmissionObject } from '../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { hasValue, isEmpty, isNotEmpty, isNotUndefined, } from '../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+} from '../shared/empty.util';
+import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject, } from '../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+} from '../shared/remote-data.utils';
 import { SubmissionError } from './objects/submission-error.model';
 import {
   CancelSubmissionFormAction,
@@ -36,15 +68,21 @@ import {
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction,
 } from './objects/submission-objects.actions';
-import { SubmissionObjectEntry, SubmissionSectionEntry, } from './objects/submission-objects.reducer';
+import {
+  SubmissionObjectEntry,
+  SubmissionSectionEntry,
+} from './objects/submission-objects.reducer';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';
 import { SectionDataObject } from './sections/models/section-data.model';
 import { SectionsType } from './sections/sections-type';
-import { securityConfigurationObjectFromIdSelector, submissionObjectFromIdSelector } from './selectors';
-import { submissionSelector, SubmissionState, } from './submission.reducers';
-import { MetadataSecurityConfiguration } from '../core/submission/models/metadata-security-configuration';
-import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import { NotificationOptions } from '../shared/notifications/models/notification-options.model';
+import {
+  securityConfigurationObjectFromIdSelector,
+  submissionObjectFromIdSelector,
+} from './selectors';
+import {
+  submissionSelector,
+  SubmissionState,
+} from './submission.reducers';
 import { SubmissionVisibility } from './utils/visibility.util';
 
 /**
@@ -114,7 +152,7 @@ export class SubmissionService {
    * @return Observable<SubmissionObject>
    *    observable of SubmissionObject
    */
-  createSubmission(collectionId?: string, entityType?: string,): Observable<SubmissionObject> {
+  createSubmission(collectionId?: string, entityType?: string): Observable<SubmissionObject> {
     const paramsObj = Object.create({});
 
     if (isNotEmpty(entityType)) {
@@ -582,7 +620,7 @@ export class SubmissionService {
   isSubmissionDiscarding(submissionId: string): Observable<boolean> {
     return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
       map((submission: SubmissionObjectEntry) => isEmpty(submission) || submission?.isDiscarding),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -603,7 +641,7 @@ export class SubmissionService {
       this.notificationsService.warning(null, msg, new NotificationOptions(10000));
       const config: ScrollToConfigOptions = {
         target: sectionId,
-        offset: -70
+        offset: -70,
       };
 
       this.scrollToService.scrollTo(config);
@@ -678,7 +716,7 @@ export class SubmissionService {
     submissionDefinition: SubmissionDefinitionsModel,
     sections: WorkspaceitemSectionsObject,
     item: Item,
-    metadataSecurityConfiguration: MetadataSecurityConfiguration = null
+    metadataSecurityConfiguration: MetadataSecurityConfiguration = null,
   ) {
     this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition, item, metadataSecurityConfiguration));
   }

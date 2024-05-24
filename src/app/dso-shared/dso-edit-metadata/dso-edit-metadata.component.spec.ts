@@ -1,5 +1,13 @@
-import { DebugElement, Injectable, NO_ERRORS_SCHEMA, } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  DebugElement,
+  Injectable,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,10 +21,10 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { ITEM } from '../../core/shared/item.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
-import { mockSecurityConfig } from '../../shared/mocks/submission.mock';
 import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
+import { mockSecurityConfig } from '../../shared/mocks/submission.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
@@ -181,7 +189,7 @@ describe('DsoEditMetadataComponent', () => {
     it('should fetch security settings for Item', () => {
       component.dso = Object.assign(new Item(), {
         ...dso,
-        entityType: 'Person'
+        entityType: 'Person',
       });
       component.getSecuritySettings().subscribe((securitySettings: MetadataSecurityConfiguration) => {
         expect(securitySettings).toBeDefined();

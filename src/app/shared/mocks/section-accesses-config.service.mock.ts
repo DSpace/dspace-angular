@@ -1,7 +1,7 @@
 import { SubmissionFormsModel } from '../../core/config/models/config-submission-forms.model';
+import { SubmissionAccessesConfigDataService } from '../../core/config/submission-accesses-config-data.service';
 import { SubmissionFormsConfigDataService } from '../../core/config/submission-forms-config-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { SubmissionAccessesConfigDataService } from '../../core/config/submission-accesses-config-data.service';
 
 export const accessConditionSectionConfigRes = Object.assign(new SubmissionFormsModel(), {
   'id': 'AccessConditionDefaultConfiguration',
@@ -45,33 +45,33 @@ export const accessConditionSectionSingleAccessConfigRes = Object.assign(new Sub
     {
       'name': 'openaccess',
       'hasStartDate': false,
-      'hasEndDate': false
+      'hasEndDate': false,
     },
     {
       'name': 'lease',
       'hasStartDate': false,
       'hasEndDate': true,
-      'maxEndDate': '2022-06-20T12:17:44.420+00:00'
+      'maxEndDate': '2022-06-20T12:17:44.420+00:00',
     },
     {
       'name': 'embargo',
       'hasStartDate': true,
       'hasEndDate': false,
-      'maxStartDate': '2024-12-20T12:17:44.420+00:00'
+      'maxStartDate': '2024-12-20T12:17:44.420+00:00',
     },
     {
       'name': 'administrator',
       'hasStartDate': false,
-      'hasEndDate': false
-    }
+      'hasEndDate': false,
+    },
   ],
   'singleAccessCondition': true,
   'type': 'submissionaccessoption',
   '_links': {
     'self': {
-      'href': 'http://localhost:8080/server/api/config/submissionaccessoptions/AccessConditionDefaultConfiguration'
-    }
-  }
+      'href': 'http://localhost:8080/server/api/config/submissionaccessoptions/AccessConditionDefaultConfiguration',
+    },
+  },
 });
 
 const configResNotChangeDiscoverable = Object.assign(new SubmissionFormsModel(), {
@@ -111,7 +111,7 @@ const configResNotChangeDiscoverable = Object.assign(new SubmissionFormsModel(),
 
 export function getSubmissionAccessesConfigService(): jasmine.SpyObj<SubmissionAccessesConfigDataService> {
   return jasmine.createSpyObj('SubmissionAccessesConfigService', {
-    findByHref: jasmine.createSpy('findByHref')
+    findByHref: jasmine.createSpy('findByHref'),
   });
 }
 

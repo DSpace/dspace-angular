@@ -1,26 +1,34 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
 
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
 import { dataService } from '../../../data/base/data-service.decorator';
-import { RequestService } from '../../../data/request.service';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../../../data/base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../../../data/base/find-all-data';
+import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../../../data/base/search-data';
+import { FindListOptions } from '../../../data/find-list-options.model';
+import { PaginatedList } from '../../../data/paginated-list.model';
 import { RemoteData } from '../../../data/remote-data';
+import { RequestService } from '../../../data/request.service';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { NoContent } from '../../../shared/NoContent.model';
 import { OpenaireSuggestion } from '../models/openaire-suggestion.model';
 import { SUGGESTION } from '../models/openaire-suggestion-objects.resource-type';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { FindListOptions } from '../../../data/find-list-options.model';
-import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
-import { FindAllData, FindAllDataImpl } from '../../../data/base/find-all-data';
-import { RequestParam } from '../../../cache/models/request-param.model';
-import { SearchData, SearchDataImpl } from '../../../data/base/search-data';
 import { OpenaireSuggestionSource } from '../models/openaire-suggestion-source.model';
-import { DeleteData, DeleteDataImpl } from '../../../data/base/delete-data';
-import { NoContent } from '../../../shared/NoContent.model';
 
 /**
  * The service handling all Quality Assurance source REST requests.
@@ -48,7 +56,7 @@ export class QualityAssuranceSuggestionDataService extends IdentifiableDataServi
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected notificationsService: NotificationsService
+    protected notificationsService: NotificationsService,
   ) {
     super('suggestions', requestService, rdbService, objectCache, halService);
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
@@ -118,7 +126,7 @@ export class QualityAssuranceSuggestionDataService extends IdentifiableDataServi
   ): Observable<RemoteData<PaginatedList<OpenaireSuggestion>>> {
     options.searchParams = [
       new RequestParam('target', target),
-      new RequestParam('source', source)
+      new RequestParam('source', source),
     ];
 
     return this.searchData.searchBy(this.searchFindByTargetAndSourceMethod, options, true, true, ...linksToFollow);

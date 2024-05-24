@@ -1,9 +1,14 @@
-import { CacheableObject } from '../../cache/cacheable-object.model';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 
 /**
@@ -19,7 +24,7 @@ export class EditItemMode extends CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The universally unique identifier of this WorkspaceItem
@@ -27,32 +32,32 @@ export class EditItemMode extends CacheableObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer(EditItemMode.type.value), 'name')
-  uuid: string;
+    uuid: string;
 
   /**
    * Name of the EditItem Mode
    */
   @autoserialize
-  name: string;
+    name: string;
 
   /**
    * Label used for i18n
    */
   @autoserialize
-  label: string;
+    label: string;
 
   /**
    * Name of the Submission Definition used
    * for this EditItem mode
    */
   @autoserialize
-  submissionDefinition: string;
+    submissionDefinition: string;
 
   /**
    * The {@link HALLink}s for this EditItemMode
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
   };
 }

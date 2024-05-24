@@ -2,10 +2,10 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
+import { of } from 'rxjs';
 
 import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormBuilderService } from '../form/builder/form-builder.service';
-import { of } from 'rxjs';
 
 export function getMockFormBuilderService(): FormBuilderService {
 
@@ -41,15 +41,15 @@ export function getMockFormBuilderService(): FormBuilderService {
       metadataFields: ['dc.type'],
       hasSelectableMetadata: false,
       typeBindRelations: [
-          { match: 'VISIBLE', operator: 'OR', when: [{ id: 'dc.type', value: 'boundType' }] }
-        ]
-      }
+        { match: 'VISIBLE', operator: 'OR', when: [{ id: 'dc.type', value: 'boundType' }] },
+      ],
+    },
     ),
     removeFormModel: {},
     addFormModel: {},
     updateValue: {},
     addFormGroups: {},
-    getTypeBindModelUpdates: of('test')
+    getTypeBindModelUpdates: of('test'),
   });
 
 }

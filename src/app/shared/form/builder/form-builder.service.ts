@@ -28,8 +28,14 @@ import {
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { distinctUntilChanged, switchMap } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  switchMap,
+} from 'rxjs/operators';
 
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
@@ -116,7 +122,7 @@ export class FormBuilderService extends DynamicFormService {
       switchMap((bindModel: any) => {
         return (bindModel.type === 'CHECKBOX_GROUP' ? bindModel.valueUpdates : bindModel.valueChanges);
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -369,7 +375,7 @@ export class FormBuilderService extends DynamicFormService {
 
   modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {},
     submissionScope?: string, readOnly = false, typeBindModel = null,
-                         isInnerForm = false, securityConfig: any = null): DynamicFormControlModel[] | never {
+    isInnerForm = false, securityConfig: any = null): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
     if (rawData.rows && !isEmpty(rawData.rows)) {
@@ -676,19 +682,19 @@ export class FormBuilderService extends DynamicFormService {
    */
   copyFormArrayGroup(index: number, formArray: FormArray, formArrayModel: DynamicFormArrayModel) {
 
-      const groupModel = formArrayModel.insertGroup(index);
-      const previousGroup = formArray.controls[index] as UntypedFormGroup;
-      const newGroup = this.createFormGroup(groupModel.group, null, groupModel);
-      const previousKey = Object.keys(previousGroup.getRawValue())[0];
-      const newKey = Object.keys(newGroup.getRawValue())[0];
-      const rawValue = previousGroup.getRawValue()[previousKey];
-      if (!isObjectEmpty(rawValue)) {
-        newGroup.get(newKey).patchValue(rawValue);
-      }
+    const groupModel = formArrayModel.insertGroup(index);
+    const previousGroup = formArray.controls[index] as UntypedFormGroup;
+    const newGroup = this.createFormGroup(groupModel.group, null, groupModel);
+    const previousKey = Object.keys(previousGroup.getRawValue())[0];
+    const newKey = Object.keys(newGroup.getRawValue())[0];
+    const rawValue = previousGroup.getRawValue()[previousKey];
+    if (!isObjectEmpty(rawValue)) {
+      newGroup.get(newKey).patchValue(rawValue);
+    }
 
-      formArray.insert(index, newGroup);
+    formArray.insert(index, newGroup);
 
-      return newGroup;
+    return newGroup;
   }
 
 

@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+} from '@angular/forms';
+
 import { AuthRegistrationType } from '../../../core/auth/models/auth.registration-type';
 import { Registration } from '../../../core/shared/registration.model';
 import { renderExternalLoginConfirmationFor } from '../../decorators/external-log-in.methods-decorator';
@@ -9,7 +18,7 @@ import { ExternalLoginMethodEntryComponent } from '../../decorators/external-log
   selector: 'ds-orcid-confirmation',
   templateUrl: './orcid-confirmation.component.html',
   styleUrls: ['./orcid-confirmation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @renderExternalLoginConfirmationFor(AuthRegistrationType.Orcid)
 export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponent implements OnInit  {
@@ -25,7 +34,7 @@ export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponen
    */
   constructor(
     @Inject('registrationDataProvider') protected injectedRegistrationDataObject: Registration,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     super(injectedRegistrationDataObject);
   }
