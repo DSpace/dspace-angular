@@ -1,16 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NgbAccordionModule,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { NgbAccordionModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { HealthPanelComponent } from './health-panel.component';
 import { HealthResponseObj } from '../../shared/mocks/health-endpoint.mocks';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
+import { HealthPanelComponent } from './health-panel.component';
 
 describe('HealthPanelComponent', () => {
   let component: HealthPanelComponent;
@@ -26,15 +34,15 @@ describe('HealthPanelComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       declarations: [
         HealthPanelComponent,
-        ObjNgFor
+        ObjNgFor,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 

@@ -1,23 +1,33 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { Store, StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LogInPasswordComponent } from './log-in-password.component';
+import { storeModuleConfig } from '../../../../app.reducer';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
-import { storeModuleConfig } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
+import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
+import { LogInPasswordComponent } from './log-in-password.component';
 
 describe('LogInPasswordComponent', () => {
 
@@ -29,7 +39,7 @@ describe('LogInPasswordComponent', () => {
 
   beforeEach(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
-      getCurrentRoute: {}
+      getCurrentRoute: {},
     });
 
     initialState = {
@@ -39,9 +49,9 @@ describe('LogInPasswordComponent', () => {
           loaded: false,
           blocking: false,
           loading: false,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
   });
 
@@ -52,7 +62,7 @@ describe('LogInPasswordComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         LogInPasswordComponent,
@@ -67,8 +77,8 @@ describe('LogInPasswordComponent', () => {
         provideMockStore({ initialState }),
       ],
       schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     })
       .compileComponents();
 

@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, of as observableOf} from 'rxjs';
-import { first } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
+import { BehaviorSubject, of as observableOf } from 'rxjs';
+import { first } from 'rxjs/operators';
 
-import { INotification, Notification } from './models/notification.model';
-import { NotificationType } from './models/notification-type';
-import { NotificationOptions } from './models/notification-options.model';
-import { IProcessNotification, ProcessNotification } from './models/process-notification.model';
-
-import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
 import { environment } from '../../../environments/environment';
+import {
+  INotification,
+  Notification,
+} from './models/notification.model';
+import { NotificationOptions } from './models/notification-options.model';
+import { NotificationType } from './models/notification-type';
+import {
+  NewNotificationAction,
+  RemoveAllNotificationsAction,
+  RemoveNotificationAction,
+} from './notifications.actions';
+import { IProcessNotification, ProcessNotification } from './models/process-notification.model';
 
 @Injectable()
 export class NotificationsService {
@@ -22,15 +28,14 @@ export class NotificationsService {
   }
 
   private add(notification: Notification) {
-    let notificationAction;
-    notificationAction = new NewNotificationAction(notification);
+    const notificationAction = new NewNotificationAction(notification);
     this.store.dispatch(notificationAction);
   }
 
   success(title: any = observableOf(''),
-          content: any = observableOf(''),
-          options: Partial<NotificationOptions> = {},
-          html: boolean = false): INotification {
+    content: any = observableOf(''),
+    options: Partial<NotificationOptions> = {},
+    html: boolean = false): INotification {
     const notificationOptions = { ...this.getDefaultOptions(), ...options };
     const notification = new Notification(uniqueId(), NotificationType.Success, title, content, notificationOptions, html);
     this.add(notification);
@@ -38,9 +43,9 @@ export class NotificationsService {
   }
 
   error(title: any = observableOf(''),
-        content: any = observableOf(''),
-        options: Partial<NotificationOptions> = {},
-        html: boolean = false): INotification {
+    content: any = observableOf(''),
+    options: Partial<NotificationOptions> = {},
+    html: boolean = false): INotification {
     const notificationOptions = { ...this.getDefaultOptions(), ...options };
     const notification = new Notification(uniqueId(), NotificationType.Error, title, content, notificationOptions, html);
     this.add(notification);
@@ -48,9 +53,9 @@ export class NotificationsService {
   }
 
   info(title: any = observableOf(''),
-       content: any = observableOf(''),
-       options: Partial<NotificationOptions> = {},
-       html: boolean = false): INotification {
+    content: any = observableOf(''),
+    options: Partial<NotificationOptions> = {},
+    html: boolean = false): INotification {
     const notificationOptions = { ...this.getDefaultOptions(), ...options };
     const notification = new Notification(uniqueId(), NotificationType.Info, title, content, notificationOptions, html);
     this.add(notification);
@@ -58,9 +63,9 @@ export class NotificationsService {
   }
 
   warning(title: any = observableOf(''),
-          content: any = observableOf(''),
-          options: NotificationOptions = this.getDefaultOptions(),
-          html: boolean = false): INotification {
+    content: any = observableOf(''),
+    options: NotificationOptions = this.getDefaultOptions(),
+    html: boolean = false): INotification {
     const notificationOptions = { ...this.getDefaultOptions(), ...options };
     const notification = new Notification(uniqueId(), NotificationType.Warning, title, content, notificationOptions, html);
     this.add(notification);
@@ -79,11 +84,11 @@ export class NotificationsService {
   }
 
   notificationWithAnchor(notificationType: NotificationType,
-                         options: NotificationOptions,
-                         href: string,
-                         hrefTranslateLabel: string,
-                         messageTranslateLabel: string,
-                         interpolateParam: string) {
+    options: NotificationOptions,
+    href: string,
+    hrefTranslateLabel: string,
+    messageTranslateLabel: string,
+    interpolateParam: string) {
     this.translate.get(hrefTranslateLabel)
       .pipe(first())
       .subscribe((hrefMsg) => {
@@ -127,7 +132,7 @@ export class NotificationsService {
     return new NotificationOptions(
       environment.notifications.timeOut,
       environment.notifications.clickToClose,
-      environment.notifications.animate
+      environment.notifications.animate,
     );
   }
 }

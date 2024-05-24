@@ -1,11 +1,23 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
-import { Observable, of } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { Collection } from '../../../../core/shared/collection.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType,
+} from '../dso-selector-modal-wrapper.component';
 
 /**
  * Component to wrap a list of existing dso's inside a modal
@@ -24,7 +36,7 @@ export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperCompone
    * An event fired when the modal is closed
    */
   @Output()
-  response = new EventEmitter<DSpaceObject>();
+    response = new EventEmitter<DSpaceObject>();
 
   constructor(protected activeModal: NgbActiveModal,
               protected route: ActivatedRoute) {

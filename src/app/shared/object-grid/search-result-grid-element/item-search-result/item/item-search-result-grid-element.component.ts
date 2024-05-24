@@ -1,27 +1,24 @@
 import { Component } from '@angular/core';
 
-import { Observable, of } from 'rxjs';
-
-import { focusShadow } from '../../../../animations/focus';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import {
-  listableObjectComponent
-} from '../../../../object-collection/shared/listable-object/listable-object.decorator';
-import { SearchResultGridElementComponent } from '../../search-result-grid-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { Bitstream } from '../../../../../core/shared/bitstream.model';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
+import { Item } from '../../../../../core/shared/item.model';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
+import { focusShadow } from '../../../../animations/focus';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
+import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { SearchResultGridElementComponent } from '../../search-result-grid-element.component';
+import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { ConfigurationProperty } from '../../../../../core/shared/configuration-property.model';
 import { isEmpty, isNotNull, isUndefined } from '../../../../empty.util';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
 import { environment } from '../../../../../../environments/environment';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.GridElement)
@@ -30,7 +27,7 @@ import { environment } from '../../../../../../environments/environment';
   selector: 'ds-item-search-result-grid-element',
   styleUrls: ['./item-search-result-grid-element.component.scss'],
   templateUrl: './item-search-result-grid-element.component.html',
-  animations: [focusShadow]
+  animations: [focusShadow],
 })
 /**
  * The component for displaying a grid element for an item search result of the type Publication

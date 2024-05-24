@@ -1,13 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of as observableOf, of } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+  of,
+} from 'rxjs';
+
 import { ConfigurationDataService } from '../../../../../core/data/configuration-data.service';
-import { ThumbnailService } from '../../../../../shared/thumbnail/thumbnail.service';
+import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -41,7 +52,7 @@ const dcTitle = 'This is just another <em>title</em>';
 mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
   hitHighlights: {
     'dc.title': [{
-      value: dcTitle
+      value: dcTitle,
     }],
   },
   bundles: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
@@ -49,20 +60,20 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: dcTitle
-      }
+        value: dcTitle,
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
+        value: '2015-06-26',
+      },
     ],
     'dc.description.abstract': [
       {
@@ -76,7 +87,7 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
 const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   hitHighlights: {
     'person.familyName': [{
-      value: '<em>Michel</em>'
+      value: '<em>Michel</em>',
     }],
   },
   indexableObject:
@@ -87,37 +98,37 @@ const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'dc.contributor.author': [
           {
             language: 'en_US',
-            value: 'Smith, Donald'
-          }
+            value: 'Smith, Donald',
+          },
         ],
         'dc.publisher': [
           {
             language: 'en_US',
-            value: 'a publisher'
-          }
+            value: 'a publisher',
+          },
         ],
         'dc.date.issued': [
           {
             language: 'en_US',
-            value: '2015-06-26'
-          }
+            value: '2015-06-26',
+          },
         ],
         'dc.description.abstract': [
           {
             language: 'en_US',
-            value: 'This is the abstract'
-          }
+            value: 'This is the abstract',
+          },
         ],
         'dspace.entity.type': [
           {
-            value: 'Person'
-          }
+            value: 'Person',
+          },
         ],
         'person.familyName': [
           {
@@ -131,7 +142,7 @@ const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
 const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   hitHighlights: {
     'organization.legalName': [{
-      value: '<em>Science</em>'
+      value: '<em>Science</em>',
     }],
   },
   indexableObject:
@@ -142,37 +153,37 @@ const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'dc.contributor.author': [
           {
             language: 'en_US',
-            value: 'Smith, Donald'
-          }
+            value: 'Smith, Donald',
+          },
         ],
         'dc.publisher': [
           {
             language: 'en_US',
-            value: 'a publisher'
-          }
+            value: 'a publisher',
+          },
         ],
         'dc.date.issued': [
           {
             language: 'en_US',
-            value: '2015-06-26'
-          }
+            value: '2015-06-26',
+          },
         ],
         'dc.description.abstract': [
           {
             language: 'en_US',
-            value: 'This is the abstract'
-          }
+            value: 'This is the abstract',
+          },
         ],
         'organization.legalName': [
           {
-            value: 'Science'
-          }
+            value: 'Science',
+          },
         ],
         'dspace.entity.type': [
           {
@@ -180,7 +191,7 @@ const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
           }
         ]
       },
-      thumbnail: createNoContentRemoteDataObject$()
+      thumbnail: createNoContentRemoteDataObject$(),
     })
 });
 
@@ -196,7 +207,7 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
       }
     ]
   },
-  thumbnail: createNoContentRemoteDataObject$()
+  thumbnail: createNoContentRemoteDataObject$(),
 });
 
 describe('ItemGridElementComponent', getEntityGridElementTestComponent(ItemSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['authors', 'date', 'abstract']));
@@ -225,7 +236,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
       },
       findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<RemoteData<PaginatedList<Bitstream>>> {
         return createSuccessfulRemoteDataObject$(createPaginatedList([new Bitstream()]));
-      }
+      },
     };
 
     const defaultThumbnailService = thumbnailServiceMock ?? jasmine.createSpyObj('ThumbnailService', {
@@ -236,7 +247,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
       TestBed.configureTestingModule({
         imports: [
           NoopAnimationsModule,
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
         ],
         declarations: [component, TruncatePipe],
         providers: [
@@ -255,9 +266,9 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
           { provide: ConfigurationDataService, useValue: {} },
           { provide: ThumbnailService, useValue: defaultThumbnailService },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).overrideComponent(component, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        set: { changeDetection: ChangeDetectionStrategy.Default },
       }).compileComponents();
     }));
 

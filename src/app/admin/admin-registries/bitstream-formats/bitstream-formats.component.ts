@@ -1,18 +1,32 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable} from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
-import { map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  switchMap,
+  take,
+  toArray,
+} from 'rxjs/operators';
+
+import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { UUIDService } from '../../../core/shared/uuid.service';
 
 /**
@@ -20,7 +34,7 @@ import { UUIDService } from '../../../core/shared/uuid.service';
  */
 @Component({
   selector: 'ds-bitstream-formats',
-  templateUrl: './bitstream-formats.component.html'
+  templateUrl: './bitstream-formats.component.html',
 })
 export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
@@ -36,7 +50,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: this.uuidService.generate(),
     pageSize: 20,
-    pageSizeOptions: [20, 40, 60, 80, 100]
+    pageSizeOptions: [20, 40, 60, 80, 100],
   });
 
   constructor(private notificationsService: NotificationsService,
@@ -66,7 +80,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
         map((response: RemoteData<NoContent>) => response.hasSucceeded),
       )),
       // wait for all responses to come in and return them as a single array
-      toArray()
+      toArray(),
     ).subscribe((results: boolean[]) => {
       // Count the number of succeeded and failed deletions
       const successResponses = results.filter((result: boolean) => result);
@@ -103,7 +117,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
     return this.bitstreamFormatService.getSelectedBitstreamFormats().pipe(
       map((bitstreamFormats: BitstreamFormat[]) => {
         return bitstreamFormats.find((selectedFormat) => selectedFormat.id === bitstreamFormat.id) != null;
-      })
+      }),
     );
   }
 
@@ -129,7 +143,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
 
     const messages = observableCombineLatest(
       this.translateService.get(`${prefix}.${suffix}.head`),
-      this.translateService.get(`${prefix}.${suffix}.amount`, {amount: amount})
+      this.translateService.get(`${prefix}.${suffix}.amount`, { amount: amount }),
     );
     messages.subscribe(([head, content]) => {
 
@@ -146,7 +160,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
     this.bitstreamFormats = this.paginationService.getFindListOptions(this.pageConfig.id, this.pageConfig).pipe(
       switchMap((findListOptions: FindListOptions) => {
         return this.bitstreamFormatService.findAll(findListOptions);
-      })
+      }),
     );
   }
 

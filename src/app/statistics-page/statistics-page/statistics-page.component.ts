@@ -1,25 +1,23 @@
-import { Component } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
+import { Component, } from '@angular/core';
+import { ActivatedRoute, Router, } from '@angular/router';
+import { combineLatest, Observable, } from 'rxjs';
+import { map, switchMap, } from 'rxjs/operators';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { map, switchMap } from 'rxjs/operators';
 import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { RemoteData } from '../../core/data/remote-data';
-import {
-  getRemoteDataPayload,
-  getFirstSucceededRemoteData
-} from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthService } from '../../core/auth/auth.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { getFirstSucceededRemoteData, getRemoteDataPayload, } from '../../core/shared/operators';
 
 /**
  * Class representing an abstract statistics page component.
  */
 @Component({
   selector: 'ds-statistics-page',
-  template: ''
+  template: '',
 })
 export abstract class StatisticsPageComponent<T extends DSpaceObject> {
 
@@ -68,7 +66,7 @@ export abstract class StatisticsPageComponent<T extends DSpaceObject> {
     return this.scope$.pipe(
       switchMap((scope) =>
         combineLatest(
-          this.types.map((type) => this.usageReportService.getStatistic(scope.id, type))
+          this.types.map((type) => this.usageReportService.getStatistic(scope.id, type)),
         ),
       ),
     );

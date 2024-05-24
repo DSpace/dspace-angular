@@ -1,14 +1,17 @@
-import { Injectable, Injector } from '@angular/core';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { coreSelector } from '../../core.selectors';
-import {
-  FieldState,
-  OBJECT_UPDATES_TRASH_PATH,
-  ObjectUpdatesEntry,
-  ObjectUpdatesState,
-  VirtualMetadataSource
-} from './object-updates.reducer';
+import { Injectable, Injector, } from '@angular/core';
+import { createSelector, MemoizedSelector, select, Store, } from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap, } from 'rxjs/operators';
+
+import { hasNoValue, hasValue, hasValueOperator, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
+import { INotification } from '../../../shared/notifications/models/notification.model';
+import { coreSelector } from '../../core.selectors';
+import { CoreState } from '../../core-state.model';
+import { GenericConstructor } from '../../shared/generic-constructor';
+import { FieldChangeType } from './field-change-type.model';
+import { FieldUpdates } from './field-updates.model';
+import { Identifiable } from './identifiable.model';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
@@ -17,18 +20,16 @@ import {
   RemoveFieldUpdateAction,
   SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
-  SetValidFieldUpdateAction
+  SetValidFieldUpdateAction,
 } from './object-updates.actions';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
-import { hasNoValue, hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { INotification } from '../../../shared/notifications/models/notification.model';
-import { Operation } from 'fast-json-patch';
+import {
+  FieldState,
+  OBJECT_UPDATES_TRASH_PATH,
+  ObjectUpdatesEntry,
+  ObjectUpdatesState,
+  VirtualMetadataSource,
+} from './object-updates.reducer';
 import { PatchOperationService } from './patch-operation-service/patch-operation.service';
-import { GenericConstructor } from '../../shared/generic-constructor';
-import { Identifiable } from './identifiable.model';
-import { FieldUpdates } from './field-updates.model';
-import { FieldChangeType } from './field-change-type.model';
-import { CoreState } from '../../core-state.model';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -116,7 +117,7 @@ export class ObjectUpdatesService {
               fieldUpdates[uuid] = fieldUpdatesExclusive[uuid];
             });
             return fieldUpdates;
-          })
+          }),
         );
       }),
     );
@@ -155,7 +156,7 @@ export class ObjectUpdatesService {
     return fieldState$.pipe(
       filter((fieldState) => hasValue(fieldState)),
       map((fieldState) => fieldState.editable),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -169,7 +170,7 @@ export class ObjectUpdatesService {
     return fieldState$.pipe(
       filter((fieldState) => hasValue(fieldState)),
       map((fieldState) => fieldState.isValid),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -183,7 +184,7 @@ export class ObjectUpdatesService {
       map((entry: ObjectUpdatesEntry) => {
         return Object.values(entry.fieldStates).findIndex((state: FieldState) => !state.isValid) < 0;
       }),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -228,7 +229,7 @@ export class ObjectUpdatesService {
       .pipe(
         select(virtualMetadataSourceSelector(url, relationship)),
         map((virtualMetadataSource) => virtualMetadataSource && virtualMetadataSource[item]),
-    );
+      );
   }
 
   /**
@@ -361,7 +362,7 @@ export class ObjectUpdatesService {
           patch = this.injector.get(entry.patchOperationService).fieldUpdatesToPatchOperations(entry.fieldUpdates);
         }
         return patch;
-      })
+      }),
     );
   }
 }

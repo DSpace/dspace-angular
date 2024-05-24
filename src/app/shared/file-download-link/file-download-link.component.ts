@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute } from '../../app-routing-paths';
+import { Component, Input, OnInit, } from '@angular/core';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, shareReplay, } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
+import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute, } from '../../app-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { Bitstream } from '../../core/shared/bitstream.model';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { catchError, map } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, shareReplay } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
@@ -14,7 +15,7 @@ import { ConfigurationProperty } from '../../core/shared/configuration-property.
 @Component({
   selector: 'ds-file-download-link',
   templateUrl: './file-download-link.component.html',
-  styleUrls: ['./file-download-link.component.scss']
+  styleUrls: ['./file-download-link.component.scss'],
 })
 /**
  * Component displaying a download link
@@ -69,7 +70,7 @@ export class FileDownloadLinkComponent implements OnInit {
       this.canDownload$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
       const canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
       this.bitstreamPath$ = observableCombineLatest([this.canDownload$, canRequestACopy$]).pipe(
-        map(([canDownload, canRequestACopy]) => this.getBitstreamPath(canDownload, canRequestACopy))
+        map(([canDownload, canRequestACopy]) => this.getBitstreamPath(canDownload, canRequestACopy)),
       );
 
       this.canRequestItemCopy$ = this.configurationService.findByPropertyName('request.item.type').pipe(
@@ -99,7 +100,7 @@ export class FileDownloadLinkComponent implements OnInit {
   getBitstreamDownloadPath() {
     return {
       routerLink: getBitstreamDownloadRoute(this.bitstream),
-      queryParams: {}
+      queryParams: {},
     };
   }
 }

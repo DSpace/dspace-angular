@@ -1,11 +1,22 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { SidebarState } from './sidebar.reducer';
-import { createSelector, select, Store } from '@ngrx/store';
-import { SidebarCollapseAction, SidebarExpandAction, SidebarToggleAction } from './sidebar.actions';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
-import { map } from 'rxjs/operators';
+import {
+  SidebarCollapseAction,
+  SidebarExpandAction, SidebarToggleAction,
+} from './sidebar.actions';
+import { SidebarState } from './sidebar.reducer';
 
 const sidebarStateSelector = (state: AppState) => state.sidebar;
 const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SidebarState) => sidebar.sidebarCollapsed);

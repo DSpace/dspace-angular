@@ -3,9 +3,8 @@ import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
-import {
-  SiteAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+
+import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
@@ -27,24 +26,24 @@ import {
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
-import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
-import { ReloadGuard } from './core/reload/reload.guard';
-import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
-import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
-import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
-import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import {
   GroupAdministratorGuard
 } from './core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
+import { SiteRegisterGuard } from './core/data/feature-authorization/feature-authorization-guard/site-register.guard';
+import { EndUserAgreementCurrentUserGuard } from './core/end-user-agreement/end-user-agreement-current-user.guard';
+import { ReloadGuard } from './core/reload/reload.guard';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
+import { ServerCheckGuard } from './core/server-check/server-check.guard';
+import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
+import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
+import { MenuResolver } from './menu.resolver';
+import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import {
   ThemedPageInternalServerErrorComponent
 } from './page-internal-server-error/themed-page-internal-server-error.component';
-import { ServerCheckGuard } from './core/server-check/server-check.guard';
-import { MenuResolver } from './menu.resolver';
-import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
+import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
-import { RedirectService } from './redirect/redirect.service';
 
 @NgModule({
   imports: [
@@ -62,98 +61,98 @@ import { RedirectService } from './redirect/redirect.service';
             path: 'reload/:rnd',
             component: ThemedPageNotFoundComponent,
             pathMatch: 'full',
-            canActivate: [ReloadGuard]
+            canActivate: [ReloadGuard],
           },
           {
             path: 'home',
             loadChildren: () => import('./home-page/home-page.module')
               .then((m) => m.HomePageModule),
             data: { showBreadcrumbs: false},
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'community-list',
             loadChildren: () => import('./community-list-page/community-list-page.module')
               .then((m) => m.CommunityListPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'id',
             loadChildren: () => import('./lookup-by-id/lookup-by-id.module')
               .then((m) => m.LookupIdModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'handle',
             loadChildren: () => import('./lookup-by-id/lookup-by-id.module')
               .then((m) => m.LookupIdModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: REGISTER_PATH,
             loadChildren: () => import('./register-page/register-page.module')
               .then((m) => m.RegisterPageModule),
-            canActivate: [SiteRegisterGuard]
+            canActivate: [SiteRegisterGuard],
           },
           {
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard, ForgotPasswordCheckGuard],
           },
           {
             path: COMMUNITY_MODULE_PATH,
             loadChildren: () => import('./community-page/community-page.module')
               .then((m) => m.CommunityPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: COLLECTION_MODULE_PATH,
             loadChildren: () => import('./collection-page/collection-page.module')
               .then((m) => m.CollectionPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: ITEM_MODULE_PATH,
             loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'entities/:entity-type',
             loadChildren: () => import('./item-page/item-page.module')
               .then((m) => m.ItemPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: LEGACY_BITSTREAM_MODULE_PATH,
             loadChildren: () => import('./bitstream-page/bitstream-page.module')
               .then((m) => m.BitstreamPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: BITSTREAM_MODULE_PATH,
             loadChildren: () => import('./bitstream-page/bitstream-page.module')
               .then((m) => m.BitstreamPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'mydspace',
             loadChildren: () => import('./my-dspace-page/my-dspace-page.module')
               .then((m) => m.MyDSpacePageModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'search',
             loadChildren: () => import('./search-page/search-page-routing.module')
               .then((m) => m.SearchPageRoutingModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'browse',
             loadChildren: () => import('./browse-by/browse-by-page.module')
               .then((m) => m.BrowseByPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'explore',
@@ -164,12 +163,24 @@ import { RedirectService } from './redirect/redirect.service';
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
-            canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./admin/admin-notifications/admin-notifications.module')
+              .then((m) => m.AdminNotificationsModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
+          },
+          {
+            path: NOTIFICATIONS_MODULE_PATH,
+            loadChildren: () => import('./quality-assurance-notifications-pages/notifications-pages.module')
+              .then((m) => m.NotificationsPageModule),
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'login',
             loadChildren: () => import('./login-page/login-page.module')
-              .then((m) => m.LoginPageModule)
+              .then((m) => m.LoginPageModule),
           },
           {
             path: 'external-login/:token',
@@ -189,25 +200,25 @@ import { RedirectService } from './redirect/redirect.service';
           {
             path: 'logout',
             loadChildren: () => import('./logout-page/logout-page.module')
-              .then((m) => m.LogoutPageModule)
+              .then((m) => m.LogoutPageModule),
           },
           {
             path: 'submit',
             loadChildren: () => import('./submit-page/submit-page.module')
               .then((m) => m.SubmitPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'import-external',
             loadChildren: () => import('./import-external-page/import-external-page.module')
               .then((m) => m.ImportExternalPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: 'workspaceitems',
             loadChildren: () => import('./workspaceitems-edit-page/workspaceitems-edit-page.module')
               .then((m) => m.WorkspaceitemsEditPageModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: WORKFLOW_ITEM_MODULE_PATH,
@@ -225,13 +236,13 @@ import { RedirectService } from './redirect/redirect.service';
             path: PROFILE_MODULE_PATH,
             loadChildren: () => import('./profile-page/profile-page.module')
               .then((m) => m.ProfilePageModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           {
             path: PROCESS_MODULE_PATH,
             loadChildren: () => import('./process-page/process-page.module')
               .then((m) => m.ProcessPageModule),
-            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [AuthenticatedGuard, EndUserAgreementCurrentUserGuard],
           },
           { path: SUGGESTION_MODULE_PATH,
             loadChildren: () => import('./suggestions-page/suggestions-page.module')
@@ -251,16 +262,16 @@ import { RedirectService } from './redirect/redirect.service';
           },
           {
             path: INFO_MODULE_PATH,
-            loadChildren: () => import('./info/info.module').then((m) => m.InfoModule)
+            loadChildren: () => import('./info/info.module').then((m) => m.InfoModule),
           },
           {
             path: REQUEST_COPY_MODULE_PATH,
             loadChildren: () => import('./request-copy/request-copy.module').then((m) => m.RequestCopyModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [EndUserAgreementCurrentUserGuard],
           },
           {
             path: FORBIDDEN_PATH,
-            component: ThemedForbiddenComponent
+            component: ThemedForbiddenComponent,
           },
           {
             path: STATISTICS_PAGE_PATH,
@@ -271,7 +282,7 @@ import { RedirectService } from './redirect/redirect.service';
           {
             path: HEALTH_PAGE_PATH,
             loadChildren: () => import('./health-page/health-page.module')
-              .then((m) => m.HealthPageModule)
+              .then((m) => m.HealthPageModule),
           },
           {
             path: ACCESS_CONTROL_MODULE_PATH,
@@ -287,7 +298,7 @@ import { RedirectService } from './redirect/redirect.service';
             path: 'subscriptions',
             loadChildren: () => import('./subscriptions-page/subscriptions-page-routing.module')
               .then((m) => m.SubscriptionsPageRoutingModule),
-            canActivate: [AuthenticatedGuard]
+            canActivate: [AuthenticatedGuard],
           },
           {
             path: 'lucky-search',
@@ -310,7 +321,7 @@ import { RedirectService } from './redirect/redirect.service';
       initialNavigation: 'enabledBlocking',
       preloadingStrategy: NoPreloading,
       onSameUrlNavigation: 'reload',
-})
+    }),
   ],
   exports: [RouterModule],
 })

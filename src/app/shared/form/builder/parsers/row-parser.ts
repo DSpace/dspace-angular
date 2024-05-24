@@ -1,9 +1,8 @@
-import { Injectable, Injector } from '@angular/core';
-
-import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core';
+import { Injectable, Injector, } from '@angular/core';
+import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig, } from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
-
-import { isEmpty } from '../../../empty.util';
+import { isEmpty, } from '../../../empty.util';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormFieldModel } from '../models/form-field.model';
 import {
@@ -12,20 +11,19 @@ import {
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
   SECURITY_CONFIG,
-  SUBMISSION_ID
+  SUBMISSION_ID,
 } from './field-parser';
+import { setLayout } from './parser.utils';
 import { ParserFactory } from './parser-factory';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { setLayout } from './parser.utils';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
 import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
+import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 /**
@@ -36,11 +34,11 @@ export class RowParser {
   }
 
   public parse(submissionId: string,
-               rowData,
-               scopeUUID,
-               initFormValues: any,
-               submissionScope,
-               readOnly: boolean,
+    rowData,
+    scopeUUID,
+    initFormValues: any,
+    submissionScope,
+    readOnly: boolean,
                typeField: string,
                isInnerForm: boolean = false,
                securityConfig: any = null): DynamicRowGroupModel {
@@ -77,14 +75,14 @@ export class RowParser {
             { provide: CONFIG_DATA, useValue: fieldData },
             { provide: INIT_FORM_VALUES, useValue: initFormValues },
             { provide: PARSER_OPTIONS, useValue: parserOptions },
-            { provide: SECURITY_CONFIG, useValue: securityConfig }
+            { provide: SECURITY_CONFIG, useValue: securityConfig },
           ],
-          parent: this.parentInjector
+          parent: this.parentInjector,
         });
 
         fieldModel = fieldInjector.get(FieldParser).parse();
       } else {
-        throw new Error(`unknown form control model type "${fieldData.input.type}" defined for Input field with label "${fieldData.label}".`,);
+        throw new Error(`unknown form control model type "${fieldData.input.type}" defined for Input field with label "${fieldData.label}".`);
       }
 
       if (fieldModel) {
@@ -119,7 +117,7 @@ export class RowParser {
       const clsGroup = {
         element: {
           control: 'form-row',
-        }
+        },
       };
       const groupModel = new DynamicRowGroupModel(config, clsGroup);
       if (Array.isArray(parsedResult)) {

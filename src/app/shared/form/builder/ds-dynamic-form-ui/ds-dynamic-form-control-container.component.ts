@@ -15,10 +15,10 @@ import {
   SimpleChanges,
   Type,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import { UntypedFormArray, UntypedFormGroup } from '@angular/forms';
-
+import { UntypedFormArray, UntypedFormGroup, } from '@angular/forms';
+import { NgbModal, NgbModalRef, } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX,
@@ -53,10 +53,12 @@ import {
   DynamicNGBootstrapRadioGroupComponent,
   DynamicNGBootstrapSelectComponent,
   DynamicNGBootstrapTextAreaComponent,
-  DynamicNGBootstrapTimePickerComponent
+  DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { ReorderableRelationship } from './existing-metadata-list-element/existing-metadata-list-element.component';
+import { combineLatest as observableCombineLatest, Observable, Subscription, } from 'rxjs';
+import { find, map, startWith, switchMap, take, } from 'rxjs/operators';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
 import {
@@ -84,52 +86,49 @@ import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relat
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
-import { find, map, startWith, switchMap, take } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import {
   DsDynamicRelationInlineGroupComponent
 } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 import { SearchResult } from '../../../search/models/search-result.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { APP_CONFIG, AppConfig, } from '../../../../../config/app-config.interface';
+import { AppState } from '../../../../app.reducer';
+import { ItemDataService } from '../../../../core/data/item-data.service';
+import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
-import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Collection } from '../../../../core/shared/collection.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { Item } from '../../../../core/shared/item.model';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { MetadataValue, VIRTUAL_METADATA_PREFIX, } from '../../../../core/shared/metadata.models';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Item } from '../../../../core/shared/item.model';
-import { ItemDataService } from '../../../../core/data/item-data.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../app.reducer';
-import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
-import { FormService } from '../../form.service';
-import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
-import { SubmissionService } from '../../../../submission/submission.service';
-import { followLink } from '../../../utils/follow-link-config.model';
+import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
-import { RelationshipOptions } from '../models/relationship-options.model';
-import { FormBuilderService } from '../form-builder.service';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
+import { SubmissionService } from '../../../../submission/submission.service';
+import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { followLink } from '../../../utils/follow-link-config.model';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
+import { FormService } from '../../form.service';
+import { FormBuilderService } from '../form-builder.service';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { RelationshipOptions } from '../models/relationship-options.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
 import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { Metadata } from '../../../../core/shared/metadata.utils';
+import { ReorderableRelationship } from './existing-metadata-list-element/existing-metadata-list-element.component';
+import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
+import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -143,9 +142,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
       return (model instanceof DynamicListCheckboxGroupModel) ? DsDynamicListComponent : DynamicNGBootstrapCheckboxGroupComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER:
-      const datepickerModel = model as DynamicDatePickerModel;
-
-      return datepickerModel.inline ? DynamicNGBootstrapCalendarComponent : DsDatePickerInlineComponent;
+      return (model as DynamicDatePickerModel).inline ? DynamicNGBootstrapCalendarComponent : DsDatePickerInlineComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_GROUP:
       return DsDynamicFormGroupComponent;
@@ -303,11 +300,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               true,
               followLink('leftItem'),
               followLink('rightItem'),
-              followLink('relationshipType')
+              followLink('relationshipType'),
             );
             relationshipsRD$.pipe(
               getFirstSucceededRemoteDataPayload(),
-              getPaginatedListPayload()
+              getPaginatedListPayload(),
             ).subscribe((relationships: Relationship[]) => {
               // set initial namevariants for pre-existing relationships
               relationships.forEach((relationship: Relationship) => {
@@ -324,7 +321,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               getFirstSucceededRemoteData(),
               map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((i) => Object.assign(new ItemSearchResult(), {indexableObject: i}))),
             );
-          })
+          }),
         ).subscribe((relatedItems: SearchResult<Item>[]) => this.selectableListService.select(this.listId, relatedItems));
         this.subs.push(subscription);
       }
@@ -339,8 +336,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           true,
           true,
           ... itemLinksToFollow(this.fetchThumbnail)).pipe(
-            getAllSucceededRemoteData(),
-            getRemoteDataPayload());
+          getAllSucceededRemoteData(),
+          getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(
           switchMap(([item, relationship]: [Item, Relationship]) =>
             relationship.leftItem.pipe(
@@ -349,9 +346,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               map((leftItem: Item) => {
                 return new ReorderableRelationship(relationship, leftItem.uuid !== item.uuid, this.store, this.model.submissionId);
               }),
-            )
+            ),
           ),
-          startWith(undefined)
+          startWith(undefined),
         );
       }
     }
@@ -444,7 +441,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    */
   openLookup() {
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
-      size: 'lg'
+      size: 'lg',
     });
 
     if (hasValue(this.model.value)) {
@@ -453,7 +450,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         context: this.context,
         control: this.control,
         model: this.model,
-        type: DynamicFormControlEventType.Focus
+        type: DynamicFormControlEventType.Focus,
       } as DynamicFormControlEvent);
 
       this.change.emit({
@@ -461,7 +458,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         context: this.context,
         control: this.control,
         model: this.model,
-        type: DynamicFormControlEventType.Change
+        type: DynamicFormControlEventType.Change,
       } as DynamicFormControlEvent);
     }
 
@@ -542,7 +539,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     const submissionObject$ = this.submissionObjectService
       .findById(this.model.submissionId, true, true, followLink('item'), followLink('collection')).pipe(
         getAllSucceededRemoteData(),
-        getRemoteDataPayload()
+        getRemoteDataPayload(),
       );
 
     this.item$ = submissionObject$.pipe(switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));

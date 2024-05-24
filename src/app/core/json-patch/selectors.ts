@@ -1,8 +1,15 @@
 import { MemoizedSelector } from '@ngrx/store';
+
+import {
+  keySelector,
+  subStateSelector,
+} from '../../submission/selectors';
 import { coreSelector } from '../core.selectors';
-import { JsonPatchOperationsEntry, JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
-import { keySelector, subStateSelector } from '../../submission/selectors';
 import { CoreState } from '../core-state.model';
+import {
+  JsonPatchOperationsEntry,
+  JsonPatchOperationsResourceEntry,
+} from './json-patch-operations.reducer';
 
 /**
  * Return MemoizedSelector to select all jsonPatchOperations for a specified resource type, stored in the state

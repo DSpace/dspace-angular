@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Inject,
@@ -50,7 +49,6 @@ export class ChipsComponent implements OnChanges {
 
   constructor(
     @Inject(PLATFORM_ID) protected platformId: string,
-    private cdr: ChangeDetectorRef,
     private translate: TranslateService) {
   }
 

@@ -1,36 +1,46 @@
 // Load the implementations that should be tested
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { of as observableOf } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 
-import { SubmissionSectionContainerComponent } from './section-container.component';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { SectionsType } from '../sections-type';
-import { SectionsDirective } from '../sections.directive';
-import { SubmissionService } from '../../submission.service';
-import { SectionsService } from '../sections.service';
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionId,
+} from '../../../shared/mocks/submission.mock';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { SubmissionService } from '../../submission.service';
 import { SectionDataObject } from '../models/section-data.model';
-import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/submission.mock';
+import { SectionsDirective } from '../sections.directive';
+import { SectionsService } from '../sections.service';
+import { SectionsType } from '../sections-type';
+import { SubmissionSectionContainerComponent } from './section-container.component';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 
 const sectionState = {
   header: 'submit.progressbar.describe.stepone',
-    config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
-    mandatory: true,
-    sectionType: SectionsType.SubmissionForm,
-    collapsed: false,
-    enabled: true,
-    data: {},
-    errorsToShow:	[],
-    serverValidationErrors:	[],
-    isLoading: false,
-    isValid: false
+  config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
+  mandatory: true,
+  sectionType: SectionsType.SubmissionForm,
+  collapsed: false,
+  enabled: true,
+  data: {},
+  errorsToShow:	[],
+  serverValidationErrors:	[],
+  isLoading: false,
+  isValid: false,
 } as any;
 
 const sectionObject: SectionDataObject = {
@@ -76,7 +86,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         SubmissionSectionContainerComponent,
@@ -87,9 +97,9 @@ describe('SubmissionSectionContainerComponent test suite', () => {
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionsService, useValue: sectionsServiceStub },
         { provide: SubmissionService, useValue: submissionServiceStub },
-        SubmissionSectionContainerComponent
+        SubmissionSectionContainerComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -235,7 +245,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

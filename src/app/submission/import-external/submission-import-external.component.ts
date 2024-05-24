@@ -1,30 +1,30 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
-import { filter, mergeMap, switchMap, take, tap } from 'rxjs/operators';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, } from '@ng-bootstrap/ng-bootstrap';
+import { BehaviorSubject, combineLatest, Subscription, } from 'rxjs';
+import { filter, mergeMap, switchMap, take, tap, } from 'rxjs/operators';
+import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
+import { buildPaginatedList, PaginatedList, } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { Context } from '../../core/shared/context.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RouteService } from '../../core/services/route.service';
+import { Context } from '../../core/shared/context.model';
+import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
+import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
+import { getFinishedRemoteData } from '../../core/shared/operators';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { fadeIn } from '../../shared/animations/fade';
+import { hasValue, isNotEmpty, } from '../../shared/empty.util';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import {
   SubmissionImportExternalPreviewComponent
 } from './import-external-preview/submission-import-external-preview.component';
-import { fadeIn } from '../../shared/animations/fade';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { getFinishedRemoteData } from '../../core/shared/operators';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
-import { AlertType } from '../../shared/alert/alert-type';
+import { ExternalSourceData } from './import-external-searchbar/submission-import-external-searchbar.component';
 import { UUIDService } from '../../core/shared/uuid.service';
+import uniqueId from 'lodash/uniqueId';
 
 /**
  * This component allows to submit a new workspaceitem importing the data from an external source.
@@ -33,7 +33,7 @@ import { UUIDService } from '../../core/shared/uuid.service';
   selector: 'ds-submission-import-external',
   styleUrls: ['./submission-import-external.component.scss'],
   templateUrl: './submission-import-external.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
 
@@ -53,7 +53,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   public reload$: BehaviorSubject<ExternalSourceData> = new BehaviorSubject<ExternalSourceData>({
     entity: '',
     query: '',
-    sourceId: ''
+    sourceId: '',
   });
   /**
    * Configuration to use for the import buttons
@@ -75,8 +75,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * The initial pagination options
    */
   public initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    pageSize: 10
+    id: uniqueId('spc'),
+    pageSize: 10,
   });
   /**
    * The context to displaying lists for
@@ -121,9 +121,9 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.listId = 'list-submission-external-sources';
     this.context = Context.EntitySearchModalWithNameVariants;
     this.repeatable = false;
-    this.routeData = {entity: '', sourceId: '', query: ''};
+    this.routeData = { entity: '', sourceId: '', query: '' };
     this.importConfig = {
-      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
+      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label,
     };
     this.entriesRD$ = new BehaviorSubject(createSuccessfulRemoteDataObject(buildPaginatedList(new PageInfo(), [])));
     this.isLoading$ = new BehaviorSubject(false);
@@ -131,11 +131,11 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       [
         this.routeService.getQueryParameterValue('entity'),
         this.routeService.getQueryParameterValue('sourceId'),
-        this.routeService.getQueryParameterValue('query')
+        this.routeService.getQueryParameterValue('query'),
       ]).pipe(
-      take(1)
+      take(1),
     ).subscribe(([entity, sourceId, query]: [string, string, string]) => {
-      this.reload$.next({entity: entity || NONE_ENTITY_TYPE, query: query, sourceId: sourceId});
+      this.reload$.next({ entity: entity || NONE_ENTITY_TYPE, query: query, sourceId: sourceId });
       this.selectLabel(entity);
       this.retrieveExternalSources();
     }));
@@ -149,8 +149,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
       [],
       {
         queryParams: event,
-        replaceUrl: true
-      }
+        replaceUrl: true,
+      },
     ).then(() => {
       this.reload$.next(event);
       this.retrieveExternalSources();
@@ -194,16 +194,16 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     this.retrieveExternalSourcesSub = this.reload$.pipe(
       filter((sourceQueryObject: ExternalSourceData) => isNotEmpty(sourceQueryObject.sourceId) && isNotEmpty(sourceQueryObject.query)),
       switchMap((sourceQueryObject: ExternalSourceData) => {
-          const query = sourceQueryObject.query;
-          this.routeData = sourceQueryObject;
-          return this.searchConfigService.paginatedSearchOptions.pipe(
-            tap(() => this.isLoading$.next(true)),
-            filter((searchOptions) => searchOptions.query === query),
-            mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
-              getFinishedRemoteData(),
-            ))
-          );
-        }
+        const query = sourceQueryObject.query;
+        this.routeData = sourceQueryObject;
+        return this.searchConfigService.paginatedSearchOptions.pipe(
+          tap(() => this.isLoading$.next(true)),
+          filter((searchOptions) => searchOptions.query === query),
+          mergeMap((searchOptions) => this.externalService.getExternalSourceEntries(this.routeData.sourceId, searchOptions).pipe(
+            getFinishedRemoteData(),
+          )),
+        );
+      },
       ),
     ).subscribe((rdData) => {
       this.entriesRD$.next(rdData);
@@ -219,7 +219,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
   private selectLabel(entity: string): void {
     this.label = entity;
     this.importConfig = {
-      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label
+      buttonLabel: 'submission.sections.describe.relationship-lookup.external-source.import-button-title.' + this.label,
     };
   }
 

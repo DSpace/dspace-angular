@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
+
 import { ObjectNotFoundComponent as BaseComponent } from '../../../../../app/lookup-by-id/objectnotfound/objectnotfound.component';
 
 @Component({
@@ -7,7 +11,7 @@ import { ObjectNotFoundComponent as BaseComponent } from '../../../../../app/loo
   styleUrls: ['../../../../../app/lookup-by-id/objectnotfound/objectnotfound.component.scss'],
   // templateUrl: './objectnotfound.component.html',
   templateUrl: '../../../../../app/lookup-by-id/objectnotfound/objectnotfound.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 
 /**

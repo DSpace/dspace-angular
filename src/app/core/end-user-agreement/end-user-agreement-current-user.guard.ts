@@ -6,6 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { AbstractEndUserAgreementGuard } from './abstract-end-user-agreement.guard';
 import { EndUserAgreementService } from './end-user-agreement.service';
 import { Router } from '@angular/router';
+
 import { environment } from '../../../environments/environment';
 
 /**

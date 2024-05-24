@@ -1,21 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PLATFORM_ID } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
 import { SearchService } from 'src/app/core/shared/search/search.service';
 import { createSuccessfulRemoteDataObject } from 'src/app/shared/remote-data.utils';
 import { SearchServiceStub } from 'src/app/shared/testing/search-service.stub';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { RecentItemListComponent } from './recent-item-list.component';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { of as observableOf } from 'rxjs';
+
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
-import { PLATFORM_ID } from '@angular/core';
-import { UUIDService } from '../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { RecentItemListComponent } from './recent-item-list.component';
 
 describe('RecentItemListComponent', () => {
   let component: RecentItemListComponent;
@@ -25,7 +30,7 @@ describe('RecentItemListComponent', () => {
   const searchServiceStub = Object.assign(new SearchServiceStub(), {
     search: () => observableOf(emptyList),
     /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    clearDiscoveryRequests: () => {}
+    clearDiscoveryRequests: () => {},
     /* eslint-enable no-empty,@typescript-eslint/no-empty-function */
   });
   paginationService = new PaginationServiceStub();
@@ -33,12 +38,12 @@ describe('RecentItemListComponent', () => {
     pagination: Object.assign(new PaginationComponentOptions(), {
       id: 'search-page-configuration',
       pageSize: 10,
-      currentPage: 1
+      currentPage: 1,
     }),
     sort: new SortOptions('dc.date.accessioned', SortDirection.DESC),
   }));
   const searchConfigServiceStub = {
-    paginatedSearchOptions: mockSearchOptions
+    paginatedSearchOptions: mockSearchOptions,
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -49,10 +54,9 @@ describe('RecentItemListComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
-        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

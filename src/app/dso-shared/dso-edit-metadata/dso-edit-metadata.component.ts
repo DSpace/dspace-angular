@@ -7,18 +7,19 @@ import { DsoEditMetadataChangeType, DsoEditMetadataForm } from './dso-edit-metad
 import { map, switchMap, tap } from 'rxjs/operators';
 import { ActivatedRoute, Data } from '@angular/router';
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, of, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+
+import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
+import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
+import { HALDataService } from '../../core/data/base/hal-data-service.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { UpdateDataService } from '../../core/data/update-data.service';
+import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector/metadata-field-selector.component';
-import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
-import { DATA_SERVICE_FACTORY } from '../../core/data/base/data-service.decorator';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { HALDataService } from '../../core/data/base/hal-data-service.interface';
 import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 @Component({
@@ -144,7 +145,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
         map(([data, parentData]: [Data, Data]) => Object.assign({}, data, parentData)),
         map((data: any) => data.dso),
         tap((rd: RemoteData<DSpaceObject>) => this.dso = rd.payload),
-        switchMap(() => this.getSecuritySettings())
+        switchMap(() => this.getSecuritySettings()),
       ).subscribe((securitySettings: MetadataSecurityConfiguration) => {
         this.securitySettings$.next(securitySettings);
         this.initDataService();
@@ -197,7 +198,7 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
       const provider = this.getDataServiceFor(type);
       this.updateDataService = Injector.create({
         providers: [],
-        parent: this.parentInjector
+        parent: this.parentInjector,
       }).get(provider);
     }
     this.dsoType = type.value;
@@ -229,15 +230,15 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
   submit(): void {
     this.saving$.next(true);
     this.updateDataService.patch(this.dso, this.form.getOperations(this.arrayMoveChangeAnalyser)).pipe(
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd: RemoteData<DSpaceObject>) => {
       this.saving$.next(false);
       if (rd.hasFailed) {
         this.notificationsService.error(this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.error.title`), rd.errorMessage);
       } else {
         this.notificationsService.success(
-            this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.title`),
-            this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.content`)
+          this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.title`),
+          this.translateService.instant(`${this.dsoType}.edit.metadata.notifications.saved.content`),
         );
         this.dso = rd.payload;
         this.initForm();

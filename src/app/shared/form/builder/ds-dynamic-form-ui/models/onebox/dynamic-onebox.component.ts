@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild, } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 
 import {
@@ -6,6 +6,8 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
+import { NgbModal, NgbModalRef, NgbTypeahead, NgbTypeaheadSelectItemEvent, } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, of as observableOf, Subject, Subscription, } from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -15,10 +17,8 @@ import {
   merge,
   switchMap,
   take,
-  tap
+  tap,
 } from 'rxjs/operators';
-import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
-import { NgbModal, NgbModalRef, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
@@ -29,13 +29,13 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
 import {
   VocabularyTreeviewModalComponent
 } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 
 /**
  * Component representing a onebox input field.
@@ -44,7 +44,7 @@ import { SubmissionService } from '../../../../../../submission/submission.servi
 @Component({
   selector: 'ds-dynamic-onebox',
   styleUrls: ['./dynamic-onebox.component.scss'],
-  templateUrl: './dynamic-onebox.component.html'
+  templateUrl: './dynamic-onebox.component.html',
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
 
@@ -60,6 +60,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
 
   pageInfo: PageInfo = new PageInfo();
   searching = false;
+  loadingInitialValue = false;
   searchFailed = false;
   hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));
   click$ = new Subject<string>();
@@ -77,7 +78,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
               protected modalService: NgbModal,
               protected validationService: DynamicFormValidationService,
               protected formBuilderService: FormBuilderService,
-              protected submissionService: SubmissionService
+              protected submissionService: SubmissionService,
   ) {
     super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
@@ -114,14 +115,14 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
               this.searchFailed = true;
               return observableOf(buildPaginatedList(
                 new PageInfo(),
-                []
+                [],
               ));
             }));
         }
       }),
       map((list: PaginatedList<VocabularyEntry>) => list.page),
       tap(() => this.changeSearchingStatus(false)),
-      merge(this.hideSearchingWhenUnsubscribed$)
+      merge(this.hideSearchingWhenUnsubscribed$),
     );
   };
 
@@ -152,6 +153,15 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    */
   changeSearchingStatus(status: boolean) {
     this.searching = status;
+    this.cdr.detectChanges();
+  }
+
+  /**
+   * Changes the loadingInitialValue status
+   * @param status
+   */
+  changeLoadingInitialValueStatus(status: boolean) {
+    this.loadingInitialValue = status;
     this.cdr.detectChanges();
   }
 
@@ -194,8 +204,13 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       // prevent on blur propagation if typeahed suggestions are showed
       event.preventDefault();
       event.stopImmediatePropagation();
-      // set focus on input again, this is to avoid to lose changes when no suggestion is selected
-      (event.target as HTMLInputElement).focus();
+      // update the value with the searched text if the user hasn't selected any suggestion
+      if (!this.model.vocabularyOptions.closed && isNotEmpty(this.inputValue)) {
+        if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
+          this.dispatchUpdate(this.inputValue);
+        }
+        this.inputValue = null;
+      }
     }
   }
 
@@ -237,7 +252,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     event.stopImmediatePropagation();
     this.subs.push(this.vocabulary$.pipe(
       map((vocabulary: Vocabulary) => vocabulary.preloadLevel),
-      take(1)
+      take(1),
     ).subscribe((preloadLevel) => {
       const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, {
         size: 'lg',
@@ -275,8 +290,10 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   setCurrentValue(value: any, init = false): void {
     let result: string;
     if (init) {
-      this.getInitValueFromModel()
+      this.changeLoadingInitialValueStatus(true);
+      this.getInitValueFromModel(true)
         .subscribe((formValue: FormFieldMetadataValueObject) => {
+          this.changeLoadingInitialValueStatus(false);
           this.currentValue = formValue;
           this.previousValue = formValue;
           this.cdr.detectChanges();

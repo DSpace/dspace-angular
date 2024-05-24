@@ -5,12 +5,17 @@
  *
  * http://www.dspace.org/license/
  */
-import { constructSearchEndpointDefault, SearchData, SearchDataImpl } from './search-data';
-import { FindListOptions } from '../find-list-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { of, of as observableOf } from 'rxjs';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { of as observableOf, of } from 'rxjs';
+
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { FindListOptions } from '../find-list-options.model';
+import {
+  constructSearchEndpointDefault,
+  SearchData,
+  SearchDataImpl,
+} from './search-data';
 import { TestScheduler } from 'rxjs/testing';
 import { RemoteData } from '../remote-data';
 import { RequestEntryState } from '../request-entry-state.model';

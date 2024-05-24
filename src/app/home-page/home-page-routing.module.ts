@@ -18,14 +18,14 @@ import { ThemedHomePageComponent } from './themed-home-page.component';
           }, showSocialButtons: true
         },
         resolve: {
-          site: HomePageResolver
-        }
-      }
-    ])
+          site: HomePageResolver,
+        },
+      },
+    ]),
   ],
   providers: [
-    HomePageResolver
-  ]
+    HomePageResolver,
+  ],
 })
 export class HomePageRoutingModule {
 }

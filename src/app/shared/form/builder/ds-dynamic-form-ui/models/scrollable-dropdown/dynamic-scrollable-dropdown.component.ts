@@ -1,25 +1,35 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-
-import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { Observable, of as observableOf, Subject, } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, tap, } from 'rxjs/operators';
 
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { isEmpty } from '../../../../../empty.util';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { buildPaginatedList, PaginatedList, } from '../../../../../../core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { isEmpty } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { FormBuilderService } from '../../../form-builder.service';
+import { Subscription } from '../../../../../subscriptions/models/subscription.model';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 
@@ -29,9 +39,11 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
   styleUrls: ['./dynamic-scrollable-dropdown.component.scss'],
-  templateUrl: './dynamic-scrollable-dropdown.component.html'
+  templateUrl: './dynamic-scrollable-dropdown.component.html',
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit, OnDestroy {
+  @ViewChild('dropdownMenu', { read: ElementRef }) dropdownMenu: ElementRef;
+
   @Input() bindId = true;
   @Input() group: UntypedFormGroup;
   @Input() model: DynamicScrollableDropdownModel;
@@ -45,7 +57,9 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: VocabularyEntry[] = [];
-
+  public inputText: string = null;
+  public selectedIndex = 0;
+  public acceptableKeys = ['Space', 'NumpadMultiply', 'NumpadAdd', 'NumpadSubtract', 'NumpadDecimal', 'Semicolon', 'Equal', 'Comma', 'Minus', 'Period', 'Quote', 'Backquote'];
 
   /**
    * The text that is being searched
@@ -58,7 +72,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   filterTextChanged: Subject<string> = new Subject<string>();
 
   /**
-   * The subscribtion to be utilized on destroy to remove filterTextChange subscription
+   * The subscription to be utilized on destroy to remove filterTextChange subscription
    */
   subSearch: Subscription;
 
@@ -98,7 +112,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   initFilterSubscriber(): void {
     this.subSearch = this.filterTextChanged.pipe(
       debounceTime(700),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     ).subscribe((searchText) => {
       this.retrieveEntries(searchText);
     });
@@ -124,7 +138,27 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
       this.group.markAsUntouched();
+      this.inputText = null;
+      this.updatePageInfo(this.model.maxOptions, 1);
+      this.retrieveEntries(null, false);
       sdRef.open();
+    }
+  }
+
+  navigateDropdown(event: KeyboardEvent) {
+    if (event.key === 'ArrowDown') {
+      this.selectedIndex = Math.min(this.selectedIndex + 1, this.optionsList.length - 1);
+    } else if (event.key === 'ArrowUp') {
+      this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+    }
+    this.scrollToSelected();
+  }
+
+  scrollToSelected() {
+    const dropdownItems = this.dropdownMenu.nativeElement.querySelectorAll('.dropdown-item');
+    const selectedItem = dropdownItems[this.selectedIndex];
+    if (selectedItem) {
+      selectedItem.scrollIntoView({ block: 'nearest' });
     }
   }
 
@@ -136,13 +170,54 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   selectOnKeyDown(event: KeyboardEvent, sdRef: NgbDropdown) {
     const keyName = event.key;
 
-    if (keyName === ' ' || keyName === 'Enter') {
+    if (keyName === 'Enter') {
       event.preventDefault();
       event.stopPropagation();
-      sdRef.toggle();
+      if (sdRef.isOpen()) {
+        this.onSelect(this.optionsList[this.selectedIndex]);
+        sdRef.close();
+      } else {
+        sdRef.open();
+      }
     } else if (keyName === 'ArrowDown' || keyName === 'ArrowUp') {
-      this.openDropdown(sdRef);
+      event.preventDefault();
+      event.stopPropagation();
+      this.navigateDropdown(event);
+    } else if (keyName === 'Backspace') {
+      this.removeKeyFromInput();
+    } else if (this.isAcceptableKey(keyName)) {
+      this.addKeyToInput(keyName);
     }
+  }
+
+  addKeyToInput(keyName: string) {
+    if (this.inputText === null) {
+      this.inputText = '';
+    }
+    this.inputText += keyName;
+    // When a new key is added, we need to reset the page info
+    this.updatePageInfo(this.model.maxOptions, 1);
+    this.retrieveEntries(this.inputText, false);
+  }
+
+  removeKeyFromInput() {
+    if (this.inputText !== null) {
+      this.inputText = this.inputText.slice(0, -1);
+      if (this.inputText === '') {
+        this.inputText = null;
+      }
+      this.retrieveEntries(this.inputText, false);
+    }
+  }
+
+
+  isAcceptableKey(keyPress: string): boolean {
+    // allow all letters and numbers
+    if (keyPress.length === 1 && keyPress.match(/^[a-zA-Z0-9]*$/)) {
+      return true;
+    }
+    // Some other characters like space, dash, etc should be allowed as well
+    return this.acceptableKeys.includes(keyPress);
   }
 
   /**
@@ -155,7 +230,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         this.pageInfo.elementsPerPage,
         this.pageInfo.currentPage + 1,
         this.pageInfo.totalElements,
-        this.pageInfo.totalPages
+        this.pageInfo.totalPages,
       );
       this.retrieveEntries(this.searchText, false, true);
     }
@@ -181,7 +256,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
 
     if (init) {
       result = this.getInitValueFromModel().pipe(
-        map((formValue: FormFieldMetadataValueObject) => formValue.display)
+        map((formValue: FormFieldMetadataValueObject) => formValue.display),
       );
     } else {
       if (isEmpty(value)) {

@@ -1,26 +1,28 @@
 import { Injectable } from '@angular/core';
-
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { Operation } from 'fast-json-patch';
+import { FollowLinkConfig } from 'src/app/shared/utils/follow-link-config.model';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
 import { SITE } from '../shared/site.resource-type';
+import { dataService } from './base/data-service.decorator';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
+import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { FindAllData, FindAllDataImpl } from './base/find-all-data';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { FindListOptions } from './find-list-options.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from './base/data-service.decorator';
+import { IdentifiableDataService } from './base/identifiable-data.service';
 import { PatchData, PatchDataImpl } from './base/patch-data';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { Operation } from 'fast-json-patch';
 
 /**
  * Service responsible for handling requests related to the Site object

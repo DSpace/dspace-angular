@@ -1,14 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { SearchComponent } from './search.component';
-import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { Context } from '../../core/shared/context.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { SelectionConfig } from './search-results/search-results.component';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchComponent } from './search.component';
+import { SelectionConfig } from './search-results/search-results.component';
+import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 import { AlertType } from '../alert/alert-type';
 
 /**
@@ -16,12 +22,54 @@ import { AlertType } from '../alert/alert-type';
  */
 @Component({
   selector: 'ds-themed-search',
-  styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
-  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'forcedEmbeddedKeys', 'useCachedVersionIfAvailable', 'collapseCharts', 'collapseFilters', 'inPlaceSearch', 'linkType', 'paginationId', 'projection', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCharts', 'showExport', 'showSidebar', 'showThumbnails', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'showFilterToggle', 'showChartsToggle', 'showCsvExport', 'resultFound', 'deselectObject', 'selectObject', 'customEvent', 'trackStatistics', 'query', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice', 'renderOnServerSide'];
+  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = [
+    'collapseCharts',
+    'collapseFilters',
+    'configurationList',
+    'context',
+    'configuration',
+    'customEvent',
+    'fixedFilterQuery',
+    'forcedEmbeddedKeys',
+    'useCachedVersionIfAvailable',
+    'inPlaceSearch',
+    'linkType',
+    'paginationId',
+    'projection',
+    'query',
+    'renderOnServerSide',
+    'searchEnabled',
+    'searchResultNotice',
+    'searchResultNoticeType',
+    'sideBarWidth',
+    'searchFormPlaceholder',
+    'selectable',
+    'selectionConfig',
+    'showCharts',
+    'showChartsToggle',
+    'showCsvExport',
+    'showExport',
+    'showFilterToggle',
+    'showSearchResultNotice',
+    'showSidebar',
+    'showThumbnails',
+    'showViewModes',
+    'useUniquePageId',
+    'viewModeList',
+    'showScopeSelector',
+    'trackStatistics',
+    'query',
+    'scope',
+    'hideScopeInUrl',
+    'resultFound',
+    'deselectObject',
+    'selectObject',
+    'trackStatistics',
+  ];
 
   @Input() configurationList: SearchConfigurationOption[];
 
@@ -69,7 +117,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() showSidebar: boolean;
 
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   @Input() showViewModes: boolean;
 
@@ -88,6 +136,10 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Input() trackStatistics: boolean;
 
   @Input() query: string;
+
+  @Input() scope: string;
+
+  @Input() hideScopeInUrl: boolean;
 
   @Input() renderOnServerSide = false;
 

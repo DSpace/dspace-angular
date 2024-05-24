@@ -1,34 +1,51 @@
-import { ItemVersionsComponent } from './item-versions.component';
+import { CommonModule } from '@angular/common';
 import {
-  ComponentFixture, TestBed, waitForAsync
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  EMPTY,
+  of as observableOf,
+  of,
+} from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { VersionDataService } from '../../core/data/version-data.service';
+import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { EMPTY, of, of as observableOf } from 'rxjs';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { AuthService } from '../../core/auth/auth.service';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { ItemSharedModule } from '../item-shared.module';
+import { ItemVersionsComponent } from './item-versions.component';
 import { UUIDService } from '../../core/shared/uuid.service';
 import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
@@ -82,9 +99,9 @@ describe('ItemVersionsComponent', () => {
     version: createSuccessfulRemoteDataObject$(version1),
     _links: {
       self: {
-        href: '/items/item-identifier-1'
-      }
-    }
+        href: '/items/item-identifier-1',
+      },
+    },
   });
   const item2 = Object.assign(new Item(), {
     id: 'item-identifier-2',
@@ -93,9 +110,9 @@ describe('ItemVersionsComponent', () => {
     version: createSuccessfulRemoteDataObject$(version2),
     _links: {
       self: {
-        href: '/items/item-identifier-2'
-      }
-    }
+        href: '/items/item-identifier-2',
+      },
+    },
   });
   const items = [item1, item2];
   version1.item = createSuccessfulRemoteDataObject$(item1);
@@ -108,10 +125,10 @@ describe('ItemVersionsComponent', () => {
   });
   const authenticationServiceSpy = jasmine.createSpyObj('authenticationService', {
     isAuthenticated: observableOf(true),
-    setRedirectUrl: {}
+    setRedirectUrl: {},
   });
   const authorizationServiceSpy = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true)
+    isAuthorized: observableOf(true),
   });
   const workspaceItemDataServiceSpy = jasmine.createSpyObj('workspaceItemDataService', {
     findByItem: EMPTY,
@@ -141,21 +158,21 @@ describe('ItemVersionsComponent', () => {
       declarations: [ItemVersionsComponent, VarDirective],
       imports: [TranslateModule.forRoot(), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule],
       providers: [
-        {provide: PaginationService, useValue: new PaginationServiceStub()},
-        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
-        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
-        {provide: AuthService, useValue: authenticationServiceSpy},
-        {provide: AuthorizationDataService, useValue: authorizationServiceSpy},
-        {provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy},
-        {provide: ItemDataService, useValue: itemDataServiceSpy},
-        {provide: VersionDataService, useValue: versionServiceSpy},
-        {provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy},
-        {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
-        {provide: ConfigurationDataService, useValue: configurationServiceSpy},
+        { provide: PaginationService, useValue: new PaginationServiceStub() },
+        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: AuthService, useValue: authenticationServiceSpy },
+        { provide: AuthorizationDataService, useValue: authorizationServiceSpy },
+        { provide: VersionHistoryDataService, useValue: versionHistoryServiceSpy },
+        { provide: ItemDataService, useValue: itemDataServiceSpy },
+        { provide: VersionDataService, useValue: versionServiceSpy },
+        { provide: WorkspaceitemDataService, useValue: workspaceItemDataServiceSpy },
+        { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
+        { provide: ConfigurationDataService, useValue: configurationServiceSpy },
         { provide: Router, useValue: routerSpy },
         { provide: UUIDService, useValue: getMockUUIDService() }
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     versionHistoryService = TestBed.inject(VersionHistoryDataService);
@@ -223,20 +240,21 @@ describe('ItemVersionsComponent', () => {
       authorizationServiceSpy.isAuthorized.and.callFake(canDelete);
     }));
     it('should not disable the delete button', () => {
-      const deleteButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-delete`));
-      deleteButtons.forEach((btn) => {
+      const deleteButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-delete'));
+      expect(deleteButtons.length).not.toBe(0);
+      deleteButtons.forEach((btn: DebugElement) => {
         expect(btn.nativeElement.disabled).toBe(false);
       });
     });
-    it('should disable other buttons', () => {
-      const createButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
-      createButtons.forEach((btn) => {
-        expect(btn.nativeElement.disabled).toBe(true);
-      });
-      const editButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
-      editButtons.forEach((btn) => {
-        expect(btn.nativeElement.disabled).toBe(true);
-      });
+
+    it('should hide the create buttons', () => {
+      const createButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-create'));
+      expect(createButtons.length).toBe(0);
+    });
+
+    it('should hide the edit buttons', () => {
+      const editButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.version-row-element-edit'));
+      expect(editButtons.length).toBe(0);
     });
   });
 

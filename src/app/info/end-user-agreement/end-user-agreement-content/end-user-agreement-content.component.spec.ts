@@ -1,11 +1,16 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
+import { Site } from '../../../core/shared/site.model';
 import { Observable, of } from 'rxjs';
 import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
-import { Site } from '../../../core/shared/site.model';
-import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
 import { cold } from 'jasmine-marbles';
 
 describe('EndUserAgreementContentComponent', () => {
@@ -45,7 +50,7 @@ describe('EndUserAgreementContentComponent', () => {
       declarations: [EndUserAgreementContentComponent],
       providers: [{ provide: SiteDataService, useValue: siteServiceStub },
                   { provide: LocaleService, useValue: localeServiceStub }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../core/data/remote-data';
-import { ItemDataService } from '../core/data/item-data.service';
-import { Item } from '../core/shared/item.model';
-import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { ItemDataService } from '../core/data/item-data.service';
+import { RemoteData } from '../core/data/remote-data';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
+import { Item } from '../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../shared/utils/follow-link-config.model';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future
@@ -16,12 +25,12 @@ import { ResolvedAction } from '../core/resolving/resolver.actions';
 export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
   followLink('owningCollection', {},
     followLink('parentCommunity', {},
-      followLink('parentCommunity'))
+      followLink('parentCommunity')),
   ),
   followLink('relationships'),
   followLink('version', {}, followLink('versionhistory')),
   followLink('thumbnail'),
-  followLink('metrics')
+  followLink('metrics'),
 ];
 
 /**
@@ -32,7 +41,7 @@ export class ItemResolver implements Resolve<RemoteData<Item>> {
   constructor(
     protected itemService: ItemDataService,
     protected store: Store<any>,
-    protected router: Router
+    protected router: Router,
   ) {
   }
 
@@ -47,7 +56,7 @@ export class ItemResolver implements Resolve<RemoteData<Item>> {
     const itemRD$ = this.itemService.findById(route.params.id,
       true,
       false,
-      ...ITEM_PAGE_LINKS_TO_FOLLOW
+      ...ITEM_PAGE_LINKS_TO_FOLLOW,
     ).pipe(
       getFirstCompletedRemoteData(),
     );

@@ -2,30 +2,31 @@ import { CreateProfileComponent } from './create-profile.component';
 import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
 import { Registration } from '../../core/shared/registration.model';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormBuilder, } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router, } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
-import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { of, of as observableOf } from 'rxjs';
-import { By } from '@angular/platform-browser';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { CoreState } from '../../core/core-state.model';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService
+  EndUserAgreementService,
 } from '../../core/end-user-agreement/end-user-agreement.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { CoreState } from '../../core/core-state.model';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
 
 describe('CreateProfileComponent', () => {
   let comp: CreateProfileComponent;
@@ -59,72 +60,72 @@ describe('CreateProfileComponent', () => {
       metadata: {
         'eperson.firstname': [
           {
-            value: 'First'
-          }
+            value: 'First',
+          },
         ],
         'eperson.lastname': [
           {
-            value: 'Last'
+            value: 'Last',
           },
         ],
         'eperson.phone': [
           {
-            value: 'Phone'
-          }
+            value: 'Phone',
+          },
         ],
         'eperson.language': [
           {
-            value: 'en'
-          }
-        ]
+            value: 'en',
+          },
+        ],
       },
       email: 'test@email.org',
       password: 'password',
       canLogIn: true,
-      requireCertificate: false
+      requireCertificate: false,
     };
     eperson = Object.assign(new EPerson(), values);
     valuesWithAgreement = {
       metadata: {
         'eperson.firstname': [
           {
-            value: 'First'
-          }
+            value: 'First',
+          },
         ],
         'eperson.lastname': [
           {
-            value: 'Last'
+            value: 'Last',
           },
         ],
         'eperson.phone': [
           {
-            value: 'Phone'
-          }
+            value: 'Phone',
+          },
         ],
         'eperson.language': [
           {
-            value: 'en'
-          }
+            value: 'en',
+          },
         ],
         [END_USER_AGREEMENT_METADATA_FIELD]: [
           {
-            value: 'true'
-          }
-        ]
+            value: 'true',
+          },
+        ],
       },
       email: 'test@email.org',
       password: 'password',
       canLogIn: true,
-      requireCertificate: false
+      requireCertificate: false,
     };
     epersonWithAgreement = Object.assign(new EPerson(), valuesWithAgreement);
 
-    route = {data: observableOf({registration: createSuccessfulRemoteDataObject(registration)})};
+    route = { data: observableOf({ registration: createSuccessfulRemoteDataObject(registration) }) };
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
     ePersonDataService = jasmine.createSpyObj('ePersonDataService', {
-      createEPersonForToken: createSuccessfulRemoteDataObject$({})
+      createEPersonForToken: createSuccessfulRemoteDataObject$({}),
     });
 
     store = jasmine.createSpyObj('store', {
@@ -149,7 +150,7 @@ describe('CreateProfileComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: EndUserAgreementService, useValue: endUserAgreementService }
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 

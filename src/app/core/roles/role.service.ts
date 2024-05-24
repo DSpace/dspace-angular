@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { RoleType } from './role-types';
 import { CollectionDataService } from '../data/collection-data.service';
-import { FeatureID } from '../data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-
+import { RoleType } from './role-types';
+import { FeatureID } from '../data/feature-authorization/feature-id';
 
 /**
  * A service that provides methods to identify user role.

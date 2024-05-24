@@ -7,18 +7,18 @@ import {
   DynamicFormControlModel,
   DynamicFormOptionConfig,
   DynamicFormService,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import { hasNoValue, isNotNull, } from 'src/app/shared/empty.util';
 
-import { Collection } from '../../core/shared/collection.model';
-import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
-import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { RequestService } from '../../core/data/request.service';
+import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { SubmissionDefinitionModel } from '../../core/config/models/config-submission-definition.model';
@@ -32,9 +32,9 @@ import {
 } from './collection-form.models';
 import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
 import { ConfigObject } from '../../core/config/models/config.model';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
-import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
 
+import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Form used for creating and editing collections
@@ -42,7 +42,7 @@ import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
 @Component({
   selector: 'ds-collection-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
 })
 export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
   /**
@@ -124,7 +124,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     }
 
     const entities$: Observable<ItemType[]> = this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
-      getFirstSucceededRemoteListPayload()
+      getFirstSucceededRemoteListPayload(),
     );
 
     const definitions$: Observable<ConfigObject[]> = this.submissionDefinitionService
@@ -138,17 +138,17 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
       .subscribe(([entityTypes, definitions]: [ItemType[], SubmissionDefinitionModel[]]) => {
 
       entityTypes = entityTypes.filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE);
-          entityTypes.forEach((type: ItemType, index: number) => {
-          this.entityTypeSelection.add({
-            disabled: false,
-            label: type.label,
-            value: type.label
-          } as DynamicFormOptionConfig<string>);
-          if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
-            this.entityTypeSelection.select(index);
-            this.entityTypeSelection.disabled = true;
-          }
-        });
+      entityTypes.forEach((type: ItemType, index: number) => {
+        this.entityTypeSelection.add({
+          disabled: false,
+          label: type.label,
+          value: type.label,
+        } as DynamicFormOptionConfig<string>);
+        if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
+          this.entityTypeSelection.select(index);
+          this.entityTypeSelection.disabled = true;
+        }
+      });
 
         definitions.forEach((definition: SubmissionDefinitionModel, index: number) => {
           this.submissionDefinitionSelection.add({
@@ -173,12 +173,12 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           [...collectionFormModels, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox] :
           [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox];
 
-        super.ngOnInit();
+      super.ngOnInit();
 
         if (currentSharedWorkspaceValue && currentSharedWorkspaceValue.length > 0) {
           this.sharedWorkspaceChekbox.value = currentSharedWorkspaceValue[0].value === 'true';
         }
-        this.chd.detectChanges();
+      this.chd.detectChanges();
     });
 
   }

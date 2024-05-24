@@ -1,9 +1,10 @@
-import { Inject, Injectable, Injector, Optional } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  Injector,
+  Optional,
+} from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-
-import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
-
 import {
   AND_OPERATOR,
   DYNAMIC_MATCHERS,
@@ -13,10 +14,15 @@ import {
   DynamicFormControlRelation,
   DynamicFormRelationService,
   MATCH_VISIBLE,
-  OR_OPERATOR
+  OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
+import { Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
-import { hasNoValue, hasValue } from '../../../empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../empty.util';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
@@ -218,13 +224,13 @@ export class DsDynamicTypeBindRelationService {
     configuredTypeBindValues.forEach((value) => {
       bindValues.push({
         id: 'dc.type',
-        value: value
+        value: value,
       });
     });
     return [{
       match: MATCH_VISIBLE,
       operator: OR_OPERATOR,
-      when: bindValues
+      when: bindValues,
     }];
   }
 

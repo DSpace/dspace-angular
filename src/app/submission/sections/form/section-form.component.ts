@@ -1,42 +1,41 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
-import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
-
-import { combineLatest as observableCombineLatest, interval, Observable, race, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, mapTo, mergeMap, take, tap } from 'rxjs/operators';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, ViewChild, } from '@angular/core';
+import { DynamicFormControlEvent, DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
+import { combineLatest as observableCombineLatest, interval, Observable, Subscription, race, } from 'rxjs';
+import { distinctUntilChanged, filter, find, map, mapTo, mergeMap, take, tap, } from 'rxjs/operators';
 
+import { environment } from '../../../../environments/environment';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { ConfigObject } from '../../../core/config/models/config.model';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
+import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { getFirstSucceededRemoteData, getRemoteDataPayload, } from '../../../core/shared/operators';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { hasValue, isEmpty, isNotEmpty, isUndefined, } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { difference } from '../../../shared/object.util';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
+import { SubmissionService } from '../../submission.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { hasValue, isEmpty, isNotEmpty, isUndefined } from '../../../shared/empty.util';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
-import { SubmissionService } from '../../submission.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SectionsService } from '../sections.service';
-import { difference } from '../../../shared/object.util';
-import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RequestService } from '../../../core/data/request.service';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { environment } from '../../../../environments/environment';
-import { ConfigObject } from '../../../core/config/models/config.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 import { SubmissionVisibility } from '../../utils/visibility.util';
 import { MetadataSecurityConfiguration } from '../../../core/submission/models/metadata-security-configuration';
 import { SubmissionVisibilityType } from '../../../core/config/models/config-submission-section.model';
@@ -227,11 +226,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
   protected getSectionStatus(): Observable<boolean> {
     const formStatus$ = this.formService.isValid(this.formId);
     const serverValidationStatus$ = this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
-      map((validationErrors) => isEmpty(validationErrors))
+      map((validationErrors) => isEmpty(validationErrors)),
     );
 
     return observableCombineLatest([formStatus$, serverValidationStatus$]).pipe(
-      map(([formValidation, serverSideValidation]: [boolean, boolean]) => formValidation && serverSideValidation)
+      map(([formValidation, serverSideValidation]: [boolean, boolean]) => formValidation && serverSideValidation),
     );
   }
 
@@ -318,9 +317,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
       const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
       const sectionError: SubmissionSectionError = {
         message: msg,
-        path: '/sections/' + this.sectionData.id
+        path: '/sections/' + this.sectionData.id,
       };
-      console.error(e.stack);
+      if (e instanceof Error) {
+        console.error(e.stack);
+      }
       this.sectionService.setSectionError(this.submissionId, this.sectionData.id, sectionError);
     }
   }
@@ -396,7 +397,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
           this.fieldsOnTheirWayToBeRemoved = new Map();
           this.sectionMetadata = sectionState.metadata;
           this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errorsToShow);
-        })
+        }),
     );
   }
 

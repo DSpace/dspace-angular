@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SuggestionsPageResolver } from './suggestions-page.resolver';
-import { SuggestionsPageComponent } from './suggestions-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { PublicationClaimBreadcrumbResolver } from '../core/breadcrumbs/publication-claim-breadcrumb.resolver';
+import { SuggestionsPageComponent } from './suggestions-page.component';
+import { SuggestionsPageResolver } from './suggestions-page.resolver';
 
 @NgModule({
   imports: [
@@ -13,22 +13,23 @@ import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
         path: ':targetId',
         resolve: {
           suggestionTargets: SuggestionsPageResolver,
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: PublicationClaimBreadcrumbResolver,//I18nBreadcrumbResolver
         },
         data: {
-          title: 'admin.notifications.recitersuggestion.page.title',
-          breadcrumbKey: 'admin.notifications.recitersuggestion',
-          showBreadcrumbsFluid: false
+          title: 'admin.notifications.publicationclaim.page.title',
+          breadcrumbKey: 'admin.notifications.publicationclaim',
+          showBreadcrumbsFluid: false,
         },
         canActivate: [AuthenticatedGuard],
         runGuardsAndResolvers: 'always',
         component: SuggestionsPageComponent,
       },
-    ])
+    ]),
   ],
   providers: [
-    SuggestionsPageResolver
-  ]
+    SuggestionsPageResolver,
+    PublicationClaimBreadcrumbResolver,
+  ],
 })
 export class SuggestionsPageRoutingModule {
 

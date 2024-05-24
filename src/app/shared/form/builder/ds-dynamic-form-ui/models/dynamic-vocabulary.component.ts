@@ -1,23 +1,22 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-
 import {
   DynamicFormControlComponent,
   DynamicFormControlCustomEvent,
   DynamicFormControlModel,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { Observable, of as observableOf, } from 'rxjs';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
-import { Observable, of as observableOf } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
 import { hasValue, isEmpty, isNotEmpty } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
-import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { FormBuilderService } from '../../form-builder.service';
 import { Vocabulary } from '../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
@@ -33,7 +32,7 @@ import { Metadata } from '../../../../../core/shared/metadata.utils';
  */
 @Component({
   selector: 'ds-dynamic-vocabulary',
-  template: ''
+  template: '',
 })
 export abstract class DsDynamicVocabularyComponent extends DynamicFormControlComponent {
 
@@ -74,8 +73,9 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
 
   /**
    * Retrieves the init form value from model
+   * @param preserveConfidence if the original model confidence value should be used after retrieving the vocabulary's entry
    */
-  getInitValueFromModel(): Observable<FormFieldMetadataValueObject> {
+  getInitValueFromModel(preserveConfidence = false): Observable<FormFieldMetadataValueObject> {
     let initValue$: Observable<FormFieldMetadataValueObject>;
     if (isNotEmpty(this.model.value) && (this.model.value instanceof FormFieldMetadataValueObject) && !this.model.value.hasAuthorityToGenerate()) {
       let initEntry$: Observable<VocabularyEntry>;
@@ -87,7 +87,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       initValue$ = initEntry$.pipe(map((initEntry: VocabularyEntry) => {
         if (isNotEmpty(initEntry)) {
           // Integrate FormFieldMetadataValueObject with retrieved information
-          return new FormFieldMetadataValueObject(
+          const formField = new FormFieldMetadataValueObject(
             initEntry.value,
             null,
             (this.model.value as any).securityLevel,
@@ -95,8 +95,13 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
             initEntry.display,
             (this.model.value as any).place,
             (this.model.value as any).confidence || null,
-            initEntry.otherInformation || null
+            initEntry.otherInformation || null,
           );
+          // Preserve the original confidence
+          if (preserveConfidence) {
+            formField.confidence = (this.model.value as any).confidence;
+          }
+          return formField;
         } else {
           return this.model.value as any;
         }
@@ -111,7 +116,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
           this.model.value.display,
           0,
           (this.model.value as any).confidence || null,
-          this.model.value.otherInformation || null
+          this.model.value.otherInformation || null,
         )
       );
     } else {
@@ -232,7 +237,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
       elementsPerPage: elementsPerPage,
       currentPage: currentPage,
       totalElements: totalElements,
-      totalPages: totalPages
+      totalPages: totalPages,
     });
   }
 

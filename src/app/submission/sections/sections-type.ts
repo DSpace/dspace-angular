@@ -10,6 +10,8 @@ export enum SectionsType {
   SherpaPolicies = 'sherpaPolicy',
   Identifiers = 'identifiers',
   Collection = 'collection',
+  CoarNotify = 'coarnotify',
+  Duplicates = 'duplicates',
   DetectDuplicate = 'detect-duplicate',
   Correction = 'correction'
 }

@@ -1,7 +1,14 @@
 import { Inject } from '@angular/core';
+
 import { FormFieldModel } from '../models/form-field.model';
 import { ConcatFieldParser } from './concat-field-parser';
-import { CONFIG_DATA, INIT_FORM_VALUES, PARSER_OPTIONS, SECURITY_CONFIG, SUBMISSION_ID } from './field-parser';
+import {
+  CONFIG_DATA,
+  INIT_FORM_VALUES,
+  PARSER_OPTIONS,
+  SECURITY_CONFIG,
+  SUBMISSION_ID,
+} from './field-parser';
 import { ParserOptions } from './parser-options';
 
 export class SeriesFieldParser extends ConcatFieldParser {

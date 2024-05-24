@@ -1,20 +1,32 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-
-import { Observable, of as obeservableOf } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-
-import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import {
-  getFinishedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
-} from '../../../core/shared/operators';
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  EventType,
+  Router,
+  Scroll,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
+import { BrowseService } from '../../../core/browse/browse.service';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 
 export interface ComColPageNavOption {
   id: string;
@@ -30,102 +42,94 @@ export interface ComColPageNavOption {
 @Component({
   selector: 'ds-comcol-page-browse-by',
   styleUrls: ['./comcol-page-browse-by.component.scss'],
-  templateUrl: './comcol-page-browse-by.component.html'
+  templateUrl: './comcol-page-browse-by.component.html',
 })
-export class ComcolPageBrowseByComponent implements OnInit {
+export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
   /**
    * The ID of the Community or Collection
    */
   @Input() id: string;
-
   @Input() contentType: string;
-
-  allOptions: ComColPageNavOption[];
 
   allOptions$: Observable<ComColPageNavOption[]>;
 
-  currentOptionId$: Observable<string>;
+  currentOption$: BehaviorSubject<ComColPageNavOption> = new BehaviorSubject(undefined);
+
+  subs: Subscription[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private configurationService: ConfigurationDataService,
-    private collectionService: CollectionDataService) {
+    public router: Router,
+    private browseService: BrowseService,
+  ) {
   }
 
   ngOnInit(): void {
-    this.allOptions$ = this.calculateBrowseProperty().pipe(
-      switchMap ( (browseProperty) => this.configurationService.findByPropertyName( browseProperty) ),
-      getFinishedRemoteData(),
-      switchMap( (remoteData) => this.searchForBaseBrowseCollectionPropertyIfDataNotFound(remoteData)),
-      getFinishedRemoteData(),
-      getRemoteDataPayload(),
-      map ( (configProperty) => {
-        let options = [this.getFirstOptionByContentType()];
-        if (configProperty) {
-          options = [...options, ...configProperty.values.map((configValue: string) => ({
-            id: configValue,
-            label: `browse.comcol.by.${configValue}`,
-            routerLink: `/browse/${configValue}`,
-            params: { scope: this.id }
-          }))];
+    this.allOptions$ = this.browseService.getBrowseDefinitions().pipe(
+      getFirstCompletedRemoteData(),
+      map((browseDefListRD: RemoteData<PaginatedList<BrowseDefinition>>) => {
+        const allOptions: ComColPageNavOption[] = [];
+        if (browseDefListRD.hasSucceeded) {
+          let comColRoute: string;
+          if (this.contentType === 'collection') {
+            comColRoute = getCollectionPageRoute(this.id);
+            allOptions.push({
+              id: 'search',
+              label: 'collection.page.browse.search.head',
+              routerLink: comColRoute,
+            });
+          } else if (this.contentType === 'community') {
+            comColRoute = getCommunityPageRoute(this.id);
+            allOptions.push({
+              id: 'search',
+              label: 'collection.page.browse.search.head',
+              routerLink: comColRoute,
+            });
+            allOptions.push({
+              id: 'comcols',
+              label: 'community.all-lists.head',
+              routerLink: `${comColRoute}/subcoms-cols`,
+            });
+          }
+
+          allOptions.push(...browseDefListRD.payload.page.map((config: BrowseDefinition) => ({
+            id: `browse_${config.id}`,
+            label: `browse.comcol.by.${config.id}`,
+            routerLink: `${comColRoute}/browse/${config.id}`,
+          })));
         }
-        this.allOptions = options;
-        return options;
-      })
+        return allOptions;
+      }),
     );
 
-    this.currentOptionId$ = this.route.params.pipe(
-      map((params: Params) => params.id)
-    );
+    this.subs.push(combineLatest([
+      this.allOptions$,
+      this.router.events,
+    ]).subscribe(([navOptions, scrollEvent]: [ComColPageNavOption[], Scroll]) => {
+      if (scrollEvent.type === EventType.Scroll) {
+        for (const option of navOptions) {
+          if (option.routerLink === scrollEvent.routerEvent.urlAfterRedirects.split('?')[0]) {
+            this.currentOption$.next(option);
+          }
+        }
+      }
+    }));
   }
 
-  onSelectChange(newId: string) {
-    const selectedOption = this.allOptions
-      .find((option: ComColPageNavOption) => option.id === newId);
-
-    this.router.navigate([selectedOption.routerLink], { queryParams: selectedOption.params });
+  ngOnDestroy(): void {
+    this.subs.forEach((sub: Subscription) => sub.unsubscribe());
   }
 
-  calculateBrowseProperty(): Observable<string> {
-    if ( this.contentType === 'collection' ) {
-      return this.collectionService.findById(this.id).pipe(
-        getFirstSucceededRemoteDataPayload(),
-        map( (collection) => collection.firstMetadataValue('dspace.entity.type') ),
-        map ( (entityType) => entityType ? 'browse.collection.' + entityType : 'browse.collection' )
-      );
-    }
-    return obeservableOf('browse.' + this.contentType);
-  }
-
-  /**
-   * Search for the base browse.collection property if the current content type is
-   * a collection and no remoteData was found.
-   * @param remoteData the remote data coming from the previous search
-   */
-  searchForBaseBrowseCollectionPropertyIfDataNotFound(remoteData: RemoteData<ConfigurationProperty>): Observable<RemoteData<ConfigurationProperty>> {
-    if (remoteData.hasFailed && remoteData.statusCode === 404 && this.contentType === 'collection') {
-      return this.configurationService.findByPropertyName('browse.collection')
-        .pipe(getFinishedRemoteData());
-    } else {
-      return obeservableOf(remoteData);
-    }
-  }
-
-  getFirstOptionByContentType(): ComColPageNavOption {
-    if (this.contentType === 'collection') {
-      return {
-        id: this.id,
-        label: 'collection.page.browse.recent.head',
-        routerLink: getCollectionPageRoute(this.id)
-      };
-    } else if (this.contentType === 'community') {
-      return {
-          id: this.id,
-          label: 'community.all-lists.head',
-          routerLink: getCommunityPageRoute(this.id)
-        };
-    }
-    return null;
+  onSelectChange(event: any): void {
+    this.allOptions$.pipe(
+      take(1),
+    ).subscribe((allOptions: ComColPageNavOption[]) => {
+      for (const option of allOptions) {
+        if (option.id === event.target.value) {
+          this.currentOption$.next(option[0]);
+          void this.router.navigate([option.routerLink], { queryParams: option.params });
+          break;
+        }
+      }
+    });
   }
 }

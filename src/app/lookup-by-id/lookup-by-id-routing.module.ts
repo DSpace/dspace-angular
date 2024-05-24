@@ -1,7 +1,11 @@
-import { LookupGuard } from './lookup-guard';
 import { NgModule } from '@angular/core';
-import { RouterModule, UrlSegment } from '@angular/router';
+import {
+  RouterModule,
+  UrlSegment,
+} from '@angular/router';
+
 import { isNotEmpty } from '../shared/empty.util';
+import { LookupGuard } from './lookup-guard';
 import { ThemedObjectNotFoundComponent } from './objectnotfound/themed-objectnotfound.component';
 import { ThemedObjectGoneComponent } from './objectgone/themed-objectgone.component';
 
@@ -11,17 +15,17 @@ import { ThemedObjectGoneComponent } from './objectgone/themed-objectgone.compon
       {
         matcher: urlMatcher,
         canActivate: [LookupGuard],
-        component: ThemedObjectNotFoundComponent
+        component: ThemedObjectNotFoundComponent,
       },
       {
         path: 'object-gone',
-        component: ThemedObjectGoneComponent
-      }
-    ])
+        component: ThemedObjectGoneComponent,
+      },
+    ]),
   ],
   providers: [
-    LookupGuard
-  ]
+    LookupGuard,
+  ],
 })
 
 export class LookupRoutingModule {
@@ -41,8 +45,8 @@ export function urlMatcher(url) {
       consumed: url,
       posParams: {
         idType: new UrlSegment(idType, {}),
-        id: new UrlSegment(id, {})
-      }
+        id: new UrlSegment(id, {}),
+      },
     };
   }
   return null;

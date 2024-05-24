@@ -1,33 +1,34 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
-import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { Store, StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormValidationService, } from '@ng-dynamic-forms/core';
+import { Store, StoreModule, } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
 import { DynamicRelationGroupModel, DynamicRelationGroupModelConfig } from './dynamic-relation-group.model';
 import { FormFieldModel } from '../../../models/form-field.model';
-import { FormBuilderService } from '../../../form-builder.service';
-import { FormService } from '../../../../form.service';
-import { FormComponent } from '../../../../form.component';
-import { Chips } from '../../../../chips/models/chips.model';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { createTestComponent } from '../../../../../testing/utils.test';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
-import { StoreMock } from '../../../../../testing/store.mock';
-import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { storeModuleConfig } from '../../../../../../app.reducer';
+import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { StoreMock } from '../../../../../testing/store.mock';
+import { createTestComponent } from '../../../../../testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+import { Chips } from '../../../../chips/models/chips.model';
+import { FormComponent } from '../../../../form.component';
+import { FormService } from '../../../../form.service';
+import { FormBuilderService } from '../../../form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
-import { MetadataSecurityConfigurationService } from '../../../../../../core/submission/metadatasecurityconfig-data.service';
+import {
+  MetadataSecurityConfigurationService
+} from '../../../../../../core/submission/metadatasecurityconfig-data.service';
 import { of as observableOf } from 'rxjs';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
@@ -94,9 +95,9 @@ function init() {
         selectableMetadata: [{
           controlledVocabulary: 'RPAuthority',
           closed: false,
-          metadata: 'dc.contributor.author'
+          metadata: 'dc.contributor.author',
         }],
-      } as FormFieldModel]
+      } as FormFieldModel],
     } as FormRowModel, {
       fields: [{
         hints: 'Enter the affiliation of the author.',
@@ -108,9 +109,9 @@ function init() {
         selectableMetadata: [{
           controlledVocabulary: 'OUAuthority',
           closed: false,
-          metadata: 'local.contributor.affiliation'
-        }]
-      } as FormFieldModel]
+          metadata: 'local.contributor.affiliation',
+        }],
+      } as FormFieldModel],
     } as FormRowModel],
     submissionId,
     id: 'dc_contributor_author',
@@ -127,7 +128,7 @@ function init() {
     validators: { required: null },
     repeatable: false,
     metadataFields: [],
-    hasSelectableMetadata: false
+    hasSelectableMetadata: false,
   } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new UntypedFormGroup({
@@ -174,7 +175,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         ReactiveFormsModule,
         NgbModule,
         StoreModule.forRoot({}, storeModuleConfig),
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         FormComponent,
@@ -193,9 +194,9 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         NgbModal,
         { provide: VocabularyService, useValue: vocabularyService },
         { provide: Store, useClass: StoreMock },
-        { provide: SubmissionService, useClass: SubmissionServiceStub }
+        { provide: SubmissionService, useClass: SubmissionServiceStub },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -259,7 +260,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(metadataSecurityConfiguration));
         modelValue = [{
           'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-          'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
         }];
 
         const modalRef = groupComp.openModal();
@@ -283,7 +284,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
         modelValue = [{
           'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
-          'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
+        'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation'),
         }];
         groupComp.model.value = modelValue;
         groupFixture.detectChanges();
@@ -313,7 +314,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
         const newItemValue = {
           'dc.contributor.author': 'test author modified',
-          'local.contributor.affiliation': 'test affiliation'
+          'local.contributor.affiliation': 'test affiliation',
         };
         modalRef.componentInstance.edit.emit(newItemValue);
 
@@ -331,7 +332,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

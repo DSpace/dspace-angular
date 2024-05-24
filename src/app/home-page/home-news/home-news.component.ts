@@ -12,7 +12,7 @@ import { isEmpty } from '../../shared/empty.util';
 @Component({
   selector: 'ds-home-news',
   styleUrls: ['./home-news.component.scss'],
-  templateUrl: './home-news.component.html'
+  templateUrl: './home-news.component.html',
 })
 
 /**

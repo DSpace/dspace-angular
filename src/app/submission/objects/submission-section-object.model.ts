@@ -1,5 +1,5 @@
-import { SectionsType } from '../sections/sections-type';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
+import { SectionsType } from '../sections/sections-type';
 import { SubmissionSectionError } from './submission-section-error.model';
 import { SubmissionVisibilityType } from '../../core/config/models/config-submission-section.model';
 

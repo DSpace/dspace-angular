@@ -1,14 +1,13 @@
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { Component, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
-import { FormComponent } from '../../../../../shared/form/form.component';
-import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
-import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { FormComponent } from '../../../../../shared/form/form.component';
+import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
 import { createTestComponent } from '../../../../../shared/testing/utils.test';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('SubmissionSectionUploadFileViewComponent test suite', () => {
@@ -23,18 +22,18 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbTooltipModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
       ],
       declarations: [
         TruncatePipe,
         FormComponent,
         SubmissionSectionUploadFileViewComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
-        SubmissionSectionUploadFileViewComponent
+        SubmissionSectionUploadFileViewComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();
   }));
 
@@ -94,7 +93,7 @@ describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
 })
 class TestComponent {
 

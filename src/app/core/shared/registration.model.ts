@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { typedObject } from '../cache/builders/build-decorators';
-import { ResourceType } from './resource-type';
 import { REGISTRATION } from './registration.resource-type';
+import { ResourceType } from './resource-type';
 import { UnCacheableObject } from './uncacheable-object.model';
 import { MetadataValue } from './metadata.models';
 import { AuthRegistrationType } from '../auth/models/auth.registration-type';

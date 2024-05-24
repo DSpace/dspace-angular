@@ -15,20 +15,21 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { HostWindowResizeAction } from './shared/host-window.actions';
-import { HostWindowState } from './shared/search/host-window.reducer';
-import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
-import { isAuthenticationBlocking } from './core/auth/selectors';
-import { AuthService } from './core/auth/auth.service';
-import { CSSVariableService } from './shared/sass-helper/css-variable.service';
+
 import { environment } from '../environments/environment';
+import { AuthService } from './core/auth/auth.service';
+import { isAuthenticationBlocking } from './core/auth/selectors';
 import { models } from './core/core.module';
-import { ThemeService } from './shared/theme-support/theme.service';
-import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
+import { NativeWindowRef, NativeWindowService, } from './core/services/window.service';
 import { distinctNext } from './core/shared/distinct-next';
 import { RouteService } from './core/services/route.service';
 import { getEditItemPageRoute, getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from './app-routing-paths';
 import { SocialService } from './social/social.service';
+import { HostWindowResizeAction } from './shared/host-window.actions';
+import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
+import { CSSVariableService } from './shared/sass-helper/css-variable.service';
+import { HostWindowState } from './shared/search/host-window.reducer';
+import { ThemeService } from './shared/theme-support/theme.service';
 
 @Component({
   selector: 'ds-app',
@@ -104,7 +105,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.isAuthBlocking$ = this.store.pipe(
       select(isAuthenticationBlocking),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
 
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
@@ -143,7 +144,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private dispatchWindowSize(width, height): void {
     this.store.dispatch(
-      new HostWindowResizeAction(width, height)
+      new HostWindowResizeAction(width, height),
     );
   }
 

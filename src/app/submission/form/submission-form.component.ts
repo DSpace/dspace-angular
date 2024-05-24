@@ -1,32 +1,53 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-
-import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+} from '@angular/core';
 import isEqual from 'lodash/isEqual';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { Collection } from '../../core/shared/collection.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Item } from '../../core/shared/item.model';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotUndefined,
+} from '../../shared/empty.util';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
+import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SectionDataObject } from '../sections/models/section-data.model';
-import { SubmissionService } from '../submission.service';
-import { Item } from '../../core/shared/item.model';
-import { SectionsType } from '../sections/sections-type';
 import { SectionsService } from '../sections/sections.service';
-import { SubmissionError } from '../objects/submission-error.model';
+import { SectionsType } from '../sections/sections-type';
+import { VisibilityType } from '../sections/visibility-type';
+import { SubmissionService } from '../submission.service';
 import {
   SubmissionSectionModel,
-  SubmissionVisibilityType
-} from '../../core/config/models/config-submission-section.model';
-import { SubmissionVisibility } from '../utils/visibility.util';
-import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+  SubmissionSectionVisibility, SubmissionVisibilityType,
+} from './../../core/config/models/config-submission-section.model';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
+import { SubmissionVisibility } from '../utils/visibility.util';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 
 /**
  * This component represents the submission form.
@@ -209,7 +230,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
                 this.submissionErrors,
                 this.metadataSecurityConfiguration);
               this.changeDetectorRef.detectChanges();
-            })
+          }),
         );
 
       // start auto save
@@ -223,7 +244,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   private getCollectionVisibility(): SubmissionVisibilityType {
     const submissionSectionModel: SubmissionSectionModel =
       this.submissionDefinition.sections.page.find(
-        (section) => isEqual(section.sectionType, SectionsType.Collection)
+        (section) => isEqual(section.sectionType, SectionsType.Collection),
       );
 
    return (hasValue(submissionSectionModel) && isNotUndefined(submissionSectionModel.visibility)) ? submissionSectionModel.visibility : null;

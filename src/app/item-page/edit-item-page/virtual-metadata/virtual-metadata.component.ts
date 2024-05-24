@@ -1,13 +1,24 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Observable } from 'rxjs';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-virtual-metadata',
-  templateUrl: './virtual-metadata.component.html'
+  templateUrl: './virtual-metadata.component.html',
 })
 /**
  * Component that lists both items of a relationship, along with their virtual metadata of the relationship.
@@ -83,7 +94,7 @@ export class VirtualMetadataComponent implements OnInit {
               metadataField: key,
               metadataValue: metadata,
             };
-          })
+          }),
       )
       .reduce((previous, current) => previous.concat(current), []);
   }

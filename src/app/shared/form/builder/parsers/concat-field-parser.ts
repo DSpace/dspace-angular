@@ -1,4 +1,6 @@
 import { Inject } from '@angular/core';
+
+import { hasNoValue, hasValue, isNotEmpty, } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
@@ -7,19 +9,18 @@ import {
   CONCAT_GROUP_SUFFIX,
   CONCAT_SECOND_INPUT_SUFFIX,
   DynamicConcatModel,
-  DynamicConcatModelConfig
+  DynamicConcatModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../empty.util';
-import { ParserOptions } from './parser-options';
+import { DsDynamicInputModel, DsDynamicInputModelConfig, } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import {
   CONFIG_DATA,
   FieldParser,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
   SECURITY_CONFIG,
-  SUBMISSION_ID
+  SUBMISSION_ID,
 } from './field-parser';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { ParserOptions } from './parser-options';
 
 export class ConcatFieldParser extends FieldParser {
 
@@ -33,6 +34,7 @@ export class ConcatFieldParser extends FieldParser {
     protected firstPlaceholder: string = null,
     protected secondPlaceholder: string = null) {
     super(submissionId, configData, initFormValues, parserOptions, securityConfig);
+
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;
     this.secondPlaceholder = secondPlaceholder;
@@ -46,8 +48,8 @@ export class ConcatFieldParser extends FieldParser {
 
     clsInput1 = {
       grid: {
-        host: 'col-sm-6'
-      }
+        host: 'col-sm-6',
+      },
     };
     clsInput2 = {
       grid: {
@@ -66,7 +68,7 @@ export class ConcatFieldParser extends FieldParser {
       false,
       true,
       true,
-      false
+      false,
     );
     input1ModelConfig.name = this.getFieldId();
     const input2ModelConfig: DsDynamicInputModelConfig = this.initModel(
@@ -74,7 +76,7 @@ export class ConcatFieldParser extends FieldParser {
       false,
       true,
       false,
-      false
+      false,
     );
 
     input1ModelConfig.hideErrorMessages = true;
@@ -121,7 +123,7 @@ export class ConcatFieldParser extends FieldParser {
     clsGroup = {
       element: {
         control: 'form-row',
-      }
+      },
     };
     this.initSecurityValue(concatGroup, fieldValue);
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);

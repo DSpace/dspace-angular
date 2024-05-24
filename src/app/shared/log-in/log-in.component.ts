@@ -1,25 +1,36 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  map,
+  Observable,
+  Subscription,
+} from 'rxjs';
 
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
-import uniqBy from 'lodash/uniqBy';
-
+import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import {
   getAuthenticationError,
   getAuthenticationMethods,
   isAuthenticated,
-  isAuthenticationLoading
+  isAuthenticationLoading,
 } from '../../core/auth/selectors';
+import { CoreState } from '../../core/core-state.model';
 import { getForgotPasswordRoute, getRegisterRoute } from '../../app-routing-paths';
 import { hasValue } from '../empty.util';
-import { AuthService } from '../../core/auth/auth.service';
-import { CoreState } from '../../core/core-state.model';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { uniqBy } from 'lodash/uniqBy';
 
 @Component({
   selector: 'ds-log-in',

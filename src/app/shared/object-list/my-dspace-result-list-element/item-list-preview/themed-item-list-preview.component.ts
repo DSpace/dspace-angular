@@ -1,13 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { ThemedComponent } from '../../../theme-support/themed.component';
-import { ItemListPreviewComponent } from './item-list-preview.component';
-import { Item } from '../../../../core/shared/item.model';
-import { SearchResult } from '../../../search/models/search-result.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { Context } from 'src/app/core/shared/context.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 import {
   DuplicateMatchMetadataDetailConfig
 } from 'src/app/submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
+
+import { Item } from '../../../../core/shared/item.model';
+import { SearchResult } from '../../../search/models/search-result.model';
+import { ThemedComponent } from '../../../theme-support/themed.component';
+import { ItemListPreviewComponent } from './item-list-preview.component';
 
 /**
  * Themed wrapper for ItemListPreviewComponent
@@ -15,7 +19,7 @@ import {
 @Component({
   selector: 'ds-themed-item-list-preview',
   styleUrls: [],
-  templateUrl: '../../../theme-support/themed.component.html'
+  templateUrl: '../../../theme-support/themed.component.html',
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
   protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'showThumbnails', 'workflowItem', 'metadataList'];

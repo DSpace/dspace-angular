@@ -1,20 +1,21 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { Item } from '../../core/shared/item.model';
-import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy.component';
-import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
-import { getRequestCopyDenyRoute, getRequestCopyGrantRoute } from '../request-copy-routing-paths';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router, } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { Item } from '../../core/shared/item.model';
+import { ItemRequest } from '../../core/shared/item-request.model';
+import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
+import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$, } from '../../shared/remote-data.utils';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { getRequestCopyDenyRoute, getRequestCopyGrantRoute, } from '../request-copy-routing-paths';
+import { GrantDenyRequestCopyComponent } from './grant-deny-request-copy.component';
 
 describe('GrantDenyRequestCopyComponent', () => {
   let component: GrantDenyRequestCopyComponent;
@@ -34,7 +35,7 @@ describe('GrantDenyRequestCopyComponent', () => {
   beforeEach(waitForAsync(() => {
     itemRequest = Object.assign(new ItemRequest(), {
       token: 'item-request-token',
-      requestName: 'requester name'
+      requestName: 'requester name',
     });
     itemName = 'item-name';
     item = Object.assign(new Item(), {
@@ -42,15 +43,15 @@ describe('GrantDenyRequestCopyComponent', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: itemUrl
-          }
+            value: itemUrl,
+          },
         ],
         'dc.title': [
           {
-            value: itemName
-          }
-        ]
-      }
+            value: itemName,
+          },
+        ],
+      },
     });
     itemUrl = getItemPageRoute(item);
 
@@ -78,7 +79,7 @@ describe('GrantDenyRequestCopyComponent', () => {
         { provide: ItemDataService, useValue: itemDataService },
         { provide: DSONameService, useValue: nameService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -127,7 +128,7 @@ describe('GrantDenyRequestCopyComponent', () => {
 
     it('should be displayed when decisionDate is defined', () => {
       component.itemRequestRD$ = createSuccessfulRemoteDataObject$(Object.assign(new ItemRequest(), itemRequest, {
-        decisionDate: 'defined-date'
+        decisionDate: 'defined-date',
       }));
       fixture.detectChanges();
 

@@ -1,20 +1,36 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map, scan, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  scan,
+  startWith,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
-import { hasValue } from '../../../shared/empty.util';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
 } from '../../../core/shared/operators';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { hasValue } from '../../../shared/empty.util';
 
 /**
  * This component renders the parent collections section of the item
@@ -23,7 +39,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 
 @Component({
   selector: 'ds-item-page-collections',
-  templateUrl: './collections.component.html'
+  templateUrl: './collections.component.html',
 })
 export class CollectionsComponent implements OnInit {
 

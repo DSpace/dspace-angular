@@ -1,20 +1,21 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable, Subscription, } from 'rxjs';
 
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../empty.util';
-import { VocabularyTreeviewService } from './vocabulary-treeview.service';
-import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode } from './vocabulary-treeview-node.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { CoreState } from '../../../core/core-state.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
-import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
 import { AlertType } from '../../alert/alert-type';
+import { hasValue, isEmpty, isNotEmpty, } from '../../empty.util';
+import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
+import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
+import { VocabularyTreeviewService } from './vocabulary-treeview.service';
+import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode, } from './vocabulary-treeview-node.model';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 
 export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEntry | VocabularyEntryDetail;
@@ -25,7 +26,7 @@ export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEn
 @Component({
   selector: 'ds-vocabulary-treeview',
   templateUrl: './vocabulary-treeview.component.html',
-  styleUrls: ['./vocabulary-treeview.component.scss']
+  styleUrls: ['./vocabulary-treeview.component.scss'],
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {
 
@@ -123,7 +124,8 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
   constructor(
     private vocabularyTreeviewService: VocabularyTreeviewService,
     private vocabularyService: VocabularyService,
-    private translate: TranslateService
+    private store: Store<CoreState>,
+    private translate: TranslateService,
   ) {
     this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
@@ -160,7 +162,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
       node.loadMoreParentItem,
       node.isSearchNode,
       node.isInInitValueHierarchy,
-      node.isSelected
+      node.isSelected,
     );
     this.nodeMap.set(entryId, newNode);
 
@@ -212,7 +214,7 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
     this.subs.push(
       this.vocabularyTreeviewService.getData().subscribe((data) => {
         this.dataSource.data = data;
-      })
+      }),
     );
 
     this.loading = this.vocabularyTreeviewService.isLoading();

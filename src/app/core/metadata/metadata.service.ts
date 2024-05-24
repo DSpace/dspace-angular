@@ -1,50 +1,80 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-
-import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-
+import {
+  Inject,
+  Injectable, PLATFORM_ID,
+} from '@angular/core';
+import {
+  Meta,
+  MetaDefinition,
+  Title,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-
 import {
   BehaviorSubject,
   combineLatest,
   concat as observableConcat,
   EMPTY,
   Observable,
-  of as observableOf
+  of as observableOf,
 } from 'rxjs';
-import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
-
-import { RemoteData } from '../data/remote-data';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { Bitstream } from '../shared/bitstream.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Item } from '../shared/item.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../shared/operators';
-import { RootDataService } from '../data/root-data.service';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
-import { BundleDataService } from '../data/bundle-data.service';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { Bundle } from '../shared/bundle.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { MetaTagState } from './meta-tag.reducer';
-import { createSelector, select, Store } from '@ngrx/store';
-import { AddMetaTagAction, ClearMetaTagAction } from './meta-tag.actions';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
+import { BitstreamDataService } from '../data/bitstream-data.service';
+import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
+import { BundleDataService } from '../data/bundle-data.service';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RootDataService } from '../data/root-data.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { Bitstream } from '../shared/bitstream.model';
 import { getDownloadableBitstream } from '../shared/bitstream.operators';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { Bundle } from '../shared/bundle.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../shared/operators';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  AddMetaTagAction,
+  ClearMetaTagAction,
+} from './meta-tag.actions';
+import { MetaTagState } from './meta-tag.reducer';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
-import { ITEM } from '../shared/item.resource-type';
 import { isPlatformServer } from '@angular/common';
+import { ITEM } from '../shared/item.resource-type';
 import { Root } from '../data/root.model';
 
 /**
@@ -52,7 +82,7 @@ import { Root } from '../data/root.model';
  */
 const metaTagSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state.metaTag
+  (state: CoreState) => state.metaTag,
 );
 
 /**
@@ -474,8 +504,8 @@ export class MetadataService {
           findListOptions: {
             // limit the number of bitstreams used to find the citation pdf url to the number
             // shown by default on an item page
-            elementsPerPage: this.appConfig.item.bitstream.pageSize
-          }
+            elementsPerPage: this.appConfig.item.bitstream.pageSize,
+          },
         }, followLink('format')),
       ).pipe(
         getFirstSucceededRemoteDataPayload(),
@@ -492,8 +522,8 @@ export class MetadataService {
             }),
             getDownloadableBitstream(this.authorizationService),
             // return the bundle as well so we can use it again if there's no primary bitstream
-            map((bitstream: Bitstream) => [bundle, bitstream])
-          )
+            map((bitstream: Bitstream) => [bundle, bitstream]),
+          ),
         ),
         switchMap(([bundle, primaryBitstream]: [Bundle, Bitstream]) => {
           if (hasValue(primaryBitstream)) {
@@ -511,11 +541,11 @@ export class MetadataService {
                   // Otherwise check all bitstreams to see if one matches the format whitelist
                   return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
                 }
-              })
+              }),
             );
           }
         }),
-        take(1)
+        take(1),
       ).subscribe((link: string) => {
         // Use the found link to set the <meta> tag
         this.addMetaTag(
@@ -536,7 +566,7 @@ export class MetadataService {
           // Otherwise check all bitstreams to see if one matches the format whitelist
           return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
         }
-      })
+      }),
     );
   }
 
@@ -560,13 +590,13 @@ export class MetadataService {
           getFirstSucceededRemoteDataPayload(),
           // Keep the original bitstream, because it, not the format, is what we'll need
           // for the link at the end
-          map((format: BitstreamFormat) => [bitstream, format])
-        ))
+          map((format: BitstreamFormat) => [bitstream, format]),
+        )),
       ).pipe(
         // Verify that the bitstream is downloadable
         mergeMap(([bitstream, format]: [Bitstream, BitstreamFormat]) => observableOf(bitstream).pipe(
           getDownloadableBitstream(this.authorizationService),
-          map((bit: Bitstream) => [bit, format])
+          map((bit: Bitstream) => [bit, format]),
         )),
         // Filter out only pairs with whitelisted formats and non-null bitstreams, null from download check
         filter(([bitstream, format]: [Bitstream, BitstreamFormat]) =>
@@ -575,7 +605,7 @@ export class MetadataService {
         take(1),
         // Emit the link of the match
         // tap((v) => console.log('result', v)),
-        map(([bitstream, ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream))
+        map(([bitstream ]: [Bitstream, BitstreamFormat]) => getBitstreamDownloadRoute(bitstream)),
       );
     } else {
       return EMPTY;
@@ -677,7 +707,7 @@ export class MetadataService {
     this.schemaJsonLDService.removeStructuredData();
     this.store.pipe(
       select(tagsInUseSelector),
-      take(1)
+      take(1),
     ).subscribe((tagsInUse: string[]) => {
       for (const name of tagsInUse) {
         this.meta.removeTag('name=\'' + name + '\'');

@@ -1,8 +1,13 @@
-import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
+import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
 import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
@@ -114,7 +119,7 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ExternalSourceEntryListSubmissionElementComponent],
       imports: [TranslateModule.forRoot(), NgbCollapseModule],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

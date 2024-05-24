@@ -1,34 +1,39 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 
 import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { filter, map, mergeMap, scan, take } from 'rxjs/operators';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 
-import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
-import { FormBuilderService } from '../../../form-builder.service';
+import { environment } from '../../../../../../../environments/environment';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
 import { Chips } from '../../../../chips/models/chips.model';
 import { hasValue, isEmpty } from '../../../../../empty.util';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
+import {
+  VocabularyEntryDetail
+} from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../chips/models/chips-item.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { environment } from '../../../../../../../environments/environment';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-group-modal.components';
-import { MetadataSecurityConfiguration } from '../../../../../../core/submission/models/metadata-security-configuration';
+import {
+  MetadataSecurityConfiguration
+} from '../../../../../../core/submission/models/metadata-security-configuration';
 import { Metadata } from '../../../../../../core/shared/metadata.utils';
+import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
 
 /**
  * Component representing a group input field
@@ -37,7 +42,7 @@ import { Metadata } from '../../../../../../core/shared/metadata.utils';
   selector: 'ds-dynamic-relation-group',
   styleUrls: ['./dynamic-relation-group.component.scss'],
   templateUrl: './dynamic-relation-group.component.html',
-  animations: [shrinkInOut]
+  animations: [shrinkInOut],
 })
 export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
@@ -156,11 +161,11 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
         mergeMap((valueListObj: Observable<any>, index: number) => {
           return valueListObj.pipe(
             map((valueObj: any) => ({
-                index: index, value: valueObj.reduce(
-                  (acc: any, value: any) => Object.assign({}, acc, value)
-                )
-              })
-            )
+              index: index, value: valueObj.reduce(
+                (acc: any, value: any) => Object.assign({}, acc, value),
+              ),
+            }),
+            ),
           );
         }),
         scan((acc: any[], valueObj: any) => {
@@ -171,7 +176,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           }
           return acc;
         }, []),
-        filter((modelValues: any[]) => (this.model.value as any[]).length === modelValues.length)
+        filter((modelValues: any[]) => (this.model.value as any[]).length === modelValues.length),
       ).subscribe((modelValue) => {
         this.model.value = modelValue;
         this.initChips(modelValue);

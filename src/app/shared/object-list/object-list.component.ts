@@ -1,14 +1,25 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { Context } from '../../core/shared/context.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeIn } from '../animations/fade';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SelectableListService } from './selectable-list/selectable-list.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { Context } from '../../core/shared/context.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -16,7 +27,7 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
   selector: 'ds-object-list',
   styleUrls: ['./object-list.component.scss'],
   templateUrl: './object-list.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
 })
 export class ObjectListComponent {
   /**
@@ -232,14 +243,14 @@ export class ObjectListComponent {
    * Go to the previous page
    */
   goPrev() {
-      this.prev.emit(true);
+    this.prev.emit(true);
   }
 
   /**
    * Go to the next page
    */
   goNext() {
-      this.next.emit(true);
+    this.next.emit(true);
   }
 
 }

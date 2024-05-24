@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 import { Metadata } from '../../../../core/submission/models/sherpa-policies-details.model';
 
@@ -8,7 +11,7 @@ import { Metadata } from '../../../../core/submission/models/sherpa-policies-det
 @Component({
   selector: 'ds-metadata-information',
   templateUrl: './metadata-information.component.html',
-  styleUrls: ['./metadata-information.component.scss']
+  styleUrls: ['./metadata-information.component.scss'],
 })
 export class MetadataInformationComponent {
   /**

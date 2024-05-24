@@ -3,26 +3,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import {
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
-} from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { AuthService } from '../../core/auth/auth.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../core/shared/item.model';
-import { isNotEmpty } from '../../shared/empty.util';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { Item } from '../../core/shared/item.model';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
+import { isNotEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
 
 @Component({
   selector: 'ds-deny-request-copy',
   styleUrls: ['./deny-request-copy.component.scss'],
-  templateUrl: './deny-request-copy.component.html'
+  templateUrl: './deny-request-copy.component.html',
 })
 /**
  * Component for denying an item request
@@ -97,7 +96,7 @@ export class DenyRequestCopyComponent implements OnInit {
     this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((itemRequest: ItemRequest) => this.itemRequestService.deny(itemRequest.token, email)),
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('deny-request-copy.success'));

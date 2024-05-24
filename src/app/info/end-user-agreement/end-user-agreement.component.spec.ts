@@ -1,16 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { EndUserAgreementComponent } from './end-user-agreement.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { LogOutAction, RefreshEpersonAndTokenRedirectAction } from '../../core/auth/auth.actions';
+import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '../../core/auth/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of as observableOf } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { By } from '@angular/platform-browser';
-import { LogOutAction, RefreshEpersonAndTokenRedirectAction } from '../../core/auth/auth.actions';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { EndUserAgreementComponent } from './end-user-agreement.component';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 
 describe('EndUserAgreementComponent', () => {
@@ -34,19 +42,19 @@ describe('EndUserAgreementComponent', () => {
 
     endUserAgreementService = jasmine.createSpyObj('endUserAgreementService', {
       hasCurrentUserOrCookieAcceptedAgreement: observableOf(false),
-      setUserAcceptedAgreement: observableOf(true)
+      setUserAcceptedAgreement: observableOf(true),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error', 'warning']);
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      getToken: token
+      getToken: token,
     });
     store = jasmine.createSpyObj('store', ['dispatch']);
     router = jasmine.createSpyObj('router', ['navigate', 'navigateByUrl']);
     route = Object.assign(new ActivatedRouteStub(), {
       queryParams: observableOf({
-        redirect: redirectUrl
-      })
+        redirect: redirectUrl,
+      }),
     }) as any;
   }
 
@@ -61,9 +69,9 @@ describe('EndUserAgreementComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: Store, useValue: store },
         { provide: Router, useValue: router },
-        { provide: ActivatedRoute, useValue: route }
+        { provide: ActivatedRoute, useValue: route },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

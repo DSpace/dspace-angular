@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { CookieService } from '../services/cookie.service';
-import { Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
+import { AuthService } from '../auth/auth.service';
 import { EPersonDataService } from '../eperson/eperson-data.service';
+import { CookieService } from '../services/cookie.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ConfigurationDataService } from '../data/configuration-data.service';
 
@@ -67,12 +75,12 @@ export class EndUserAgreementService {
       switchMap((authenticated) => {
         if (authenticated) {
           return this.authService.getAuthenticatedUserFromStore().pipe(
-            map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true')
+            map((user) => hasValue(user) && user.hasMetadata(END_USER_AGREEMENT_METADATA_FIELD) && user.firstMetadata(END_USER_AGREEMENT_METADATA_FIELD).value === 'true'),
           );
         } else {
           return observableOf(acceptedWhenAnonymous);
         }
-      })
+      }),
     );
   }
 
@@ -99,14 +107,14 @@ export class EndUserAgreementService {
               return this.ePersonService.patch(user, [operation]);
             }),
             getFirstCompletedRemoteData(),
-            map((response) => response.hasSucceeded)
+            map((response) => response.hasSucceeded),
           );
         } else {
           this.setCookieAccepted(accepted);
           return observableOf(true);
         }
       }),
-      take(1)
+      take(1),
     );
   }
 

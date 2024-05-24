@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {
-  FullFileSectionComponent as BaseComponent
-} from '../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component';
+
+import { FullFileSectionComponent as BaseComponent } from '../../../../../../../app/item-page/full/field-components/file-section/full-file-section.component';
 
 @Component({
   selector: 'ds-item-page-full-file-section',

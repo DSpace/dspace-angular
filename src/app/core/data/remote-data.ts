@@ -10,7 +10,7 @@ import {
   isStale,
   isSuccess,
   isSuccessStale,
-  RequestEntryState
+  RequestEntryState,
 } from './request-entry-state.model';
 import { PathableObjectError } from './response-state.model';
 

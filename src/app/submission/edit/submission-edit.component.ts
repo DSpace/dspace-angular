@@ -1,28 +1,52 @@
-import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-
-import { BehaviorSubject, combineLatest, of, Subscription } from 'rxjs';
-import { debounceTime, filter, mergeMap, switchMap } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Subscription,
+  combineLatest,
+  of,
+} from 'rxjs';
+import {
+  debounceTime,
+  filter,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators';
 
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { hasValue, isEmpty, isNotEmpty, isNotEmptyOperator, isNotNull } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { SubmissionService } from '../submission.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { Collection } from '../../core/shared/collection.model';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteData, getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { ItemDataService } from '../../core/data/item-data.service';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import parseSectionErrors from '../utils/parseSectionErrors';
+import {
+  hasValue,
+  isEmpty, isNotEmpty,
+  isNotEmptyOperator,
+  isNotNull,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionError } from '../objects/submission-error.model';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrors from '../utils/parseSectionErrors';
+import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { MetadataSecurityConfigurationService } from '../../core/submission/metadatasecurityconfig-data.service';
-import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { SubmissionEditCanDeactivateService } from './submission-edit-can-deactivate.service';
 
 /**
@@ -31,7 +55,7 @@ import { SubmissionEditCanDeactivateService } from './submission-edit-can-deacti
 @Component({
   selector: 'ds-submission-edit',
   styleUrls: ['./submission-edit.component.scss'],
-  templateUrl: './submission-edit.component.html'
+  templateUrl: './submission-edit.component.html',
 })
 export class SubmissionEditComponent implements OnDestroy, OnInit {
 
@@ -115,7 +139,6 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    * @param {Router} router
    * @param {ItemDataService} itemDataService
    * @param {SubmissionService} submissionService
-   * @param {CollectionDataService} collectionDataService
    * @param {TranslateService} translate
    * @param {SubmissionJsonPatchOperationsService} submissionJsonPatchOperationsService
    * @param metadataSecurityConfigDataService
@@ -128,7 +151,6 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
     private router: Router,
     private itemDataService: ItemDataService,
     private submissionService: SubmissionService,
-    private collectionDataService: CollectionDataService,
     private translate: TranslateService,
     private submissionJsonPatchOperationsService: SubmissionJsonPatchOperationsService,
     private metadataSecurityConfigDataService: MetadataSecurityConfigurationService,
@@ -209,7 +231,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
       this.itemLink$.pipe(
         isNotEmptyOperator(),
         switchMap((itemLink: string) =>
-          this.itemDataService.findByHref(itemLink)
+          this.itemDataService.findByHref(itemLink),
         ),
         getAllSucceededRemoteData(),
         // Multiple sources can update the item in quick succession.

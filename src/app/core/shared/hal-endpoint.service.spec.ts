@@ -1,14 +1,19 @@
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from './hal-endpoint.service';
-import { EndpointMapRequest } from '../data/request.models';
-import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  combineLatest as observableCombineLatest,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { environment } from '../../../environments/environment';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RemoteData } from '../data/remote-data';
+import { EndpointMapRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
 import { RequestEntryState } from '../data/request-entry-state.model';
+import { HALEndpointService } from './hal-endpoint.service';
+
 
 describe('HALEndpointService', () => {
   let service: HALEndpointService;
@@ -19,22 +24,22 @@ describe('HALEndpointService', () => {
   let remoteDataMocks;
   const endpointMap = {
     test: {
-      href: 'https://rest.api/test'
+      href: 'https://rest.api/test',
     },
     foo: {
-      href: 'https://rest.api/foo'
+      href: 'https://rest.api/foo',
     },
     bar: {
-      href: 'https://rest.api/bar'
+      href: 'https://rest.api/bar',
     },
     endpoint: {
-      href: 'https://rest.api/endpoint'
+      href: 'https://rest.api/endpoint',
     },
     link: {
-      href: 'https://rest.api/link'
+      href: 'https://rest.api/link',
     },
     another: {
-      href: 'https://rest.api/another'
+      href: 'https://rest.api/another',
     },
   };
   const start = 'http://start.com';
@@ -43,19 +48,19 @@ describe('HALEndpointService', () => {
   const endpointMaps = {
     [start]: {
       one: {
-        href: one
+        href: one,
       },
       two: {
-        href: 'empty'
+        href: 'empty',
       },
       endpoint: {
-        href: 'https://rest.api/endpoint'
+        href: 'https://rest.api/endpoint',
       },
       link: {
-        href: 'https://rest.api/link'
+        href: 'https://rest.api/link',
       },
       another: {
-        href: 'https://rest.api/another'
+        href: 'https://rest.api/another',
       },
     },
     [one]: {
@@ -67,8 +72,8 @@ describe('HALEndpointService', () => {
       },
       bar: {
         href: 'https://rest.api/bar',
-      }
-    }
+      },
+    },
   };
   const linkPath = 'test';
 
@@ -99,17 +104,17 @@ describe('HALEndpointService', () => {
     requestService = getMockRequestService();
     rdbService = jasmine.createSpyObj('rdbService', {
       buildFromHref: createSuccessfulRemoteDataObject$({
-        _links: endpointMap
-      })
+        _links: endpointMap,
+      }),
     });
 
     envConfig = {
-      rest: { baseUrl: 'https://rest.api/' }
+      rest: { baseUrl: 'https://rest.api/' },
     } as any;
 
     service = new HALEndpointService(
       requestService,
-      rdbService
+      rdbService,
     );
   });
 
@@ -133,7 +138,7 @@ describe('HALEndpointService', () => {
 
     beforeEach(() => {
       envConfig = {
-        rest: { baseUrl: 'https://rest.api/' }
+        rest: { baseUrl: 'https://rest.api/' },
       } as any;
     });
 
@@ -212,7 +217,7 @@ describe('HALEndpointService', () => {
     beforeEach(() => {
       service = new HALEndpointService(
         requestService,
-        rdbService
+        rdbService,
       );
 
     });

@@ -1,10 +1,10 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { OneboxFieldParser } from './onebox-field-parser';
+import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicOneboxModel } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { ParserOptions } from './parser-options';
+import { FormFieldModel } from '../models/form-field.model';
 import { FieldParser } from './field-parser';
+import { OneboxFieldParser } from './onebox-field-parser';
+import { ParserOptions } from './parser-options';
 
 describe('OneboxFieldParser test suite', () => {
   let field1: FormFieldModel;
@@ -32,10 +32,10 @@ describe('OneboxFieldParser test suite', () => {
         {
           metadata: 'title',
           controlledVocabulary: 'EVENTAuthority',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
     field2 = {
@@ -54,8 +54,8 @@ describe('OneboxFieldParser test suite', () => {
         { metadata: 'dc.identifier.isbn', label: 'ISBN' },
         { metadata: 'dc.identifier.doi', label: 'DOI' },
         { metadata: 'dc.identifier.pmid', label: 'PubMed ID' },
-        { metadata: 'dc.identifier.arxiv', label: 'arXiv' }
-      ]
+        { metadata: 'dc.identifier.arxiv', label: 'arXiv' },
+      ],
     } as FormFieldModel;
 
     field3 = {
@@ -67,9 +67,9 @@ describe('OneboxFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'title',
-        }
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
   });
 
@@ -119,10 +119,10 @@ describe('OneboxFieldParser test suite', () => {
           {
             metadata: 'title',
             controlledVocabulary: 'EVENTAuthority',
-            closed: false
-          }
+            closed: false,
+          },
         ],
-        languageCodes: []
+        languageCodes: [],
       } as FormFieldModel;
 
       parser = new OneboxFieldParser(submissionId, regexField, initFormValues, parserOptions);

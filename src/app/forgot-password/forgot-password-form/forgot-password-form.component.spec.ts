@@ -1,26 +1,38 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Registration } from '../../core/shared/registration.model';
-import { ForgotPasswordFormComponent } from './forgot-password-form.component';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { AuthenticateAction } from '../../core/auth/auth.actions';
+import { CoreState } from '../../core/core-state.model';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { Registration } from '../../core/shared/registration.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { CoreState } from '../../core/core-state.model';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
+import { ForgotPasswordFormComponent } from './forgot-password-form.component';
 import { AuthService } from '../../core/auth/auth.service';
 
 describe('ForgotPasswordFormComponent', () => {
@@ -37,17 +49,17 @@ describe('ForgotPasswordFormComponent', () => {
   const registration = Object.assign(new Registration(), {
     email: 'test@email.org',
     user: 'test-uuid',
-    token: 'test-token'
+    token: 'test-token',
   });
 
   beforeEach(waitForAsync(() => {
 
-    route = {data: observableOf({registration: createSuccessfulRemoteDataObject(registration)})};
+    route = { data: observableOf({ registration: createSuccessfulRemoteDataObject(registration) }) };
     router = new RouterStub();
     notificationsService = new NotificationsServiceStub();
 
     ePersonDataService = jasmine.createSpyObj('ePersonDataService', {
-      patchPasswordWithToken: createSuccessfulRemoteDataObject$({})
+      patchPasswordWithToken: createSuccessfulRemoteDataObject$({}),
     });
 
     authService = jasmine.createSpyObj('authService', ['setRedirectUrlIfNotSet']);
@@ -58,17 +70,20 @@ describe('ForgotPasswordFormComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), ReactiveFormsModule],
-      declarations: [ForgotPasswordFormComponent],
+      declarations: [
+        BrowserOnlyPipe,
+        ForgotPasswordFormComponent,
+      ],
       providers: [
-        {provide: Router, useValue: router},
-        {provide: ActivatedRoute, useValue: route},
-        {provide: Store, useValue: store},
-        {provide: EPersonDataService, useValue: ePersonDataService},
-        {provide: UntypedFormBuilder, useValue: new UntypedFormBuilder()},
-        {provide: NotificationsService, useValue: notificationsService},
+        { provide: Router, useValue: router },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: Store, useValue: store },
+        { provide: EPersonDataService, useValue: ePersonDataService },
+        { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
+        { provide: NotificationsService, useValue: notificationsService },
         {provide: AuthService, useValue: authService},
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
   beforeEach(() => {
@@ -80,7 +95,7 @@ describe('ForgotPasswordFormComponent', () => {
 
   describe('init', () => {
     it('should initialise mail address', () => {
-      const elem = fixture.debugElement.queryAll(By.css('span#email'))[0].nativeElement;
+      const elem = fixture.debugElement.queryAll(By.css('span[data-test="email"]'))[0].nativeElement;
       expect(elem.innerHTML).toContain('test@email.org');
     });
   });

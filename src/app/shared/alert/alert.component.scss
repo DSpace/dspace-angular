@@ -1,6 +1,8 @@
-.close:focus, .btn-link:focus {
-  outline: none !important;
-  box-shadow: none !important;
+.close {
+  opacity: 0.75;
+  &:focus {
+    outline: none !important;
+  }
 }
 
 .collapse:not(.show) {
@@ -9,4 +11,8 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+button.close {
+  opacity: 0.6;
 }

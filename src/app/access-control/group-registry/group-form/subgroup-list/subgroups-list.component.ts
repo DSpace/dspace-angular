@@ -1,24 +1,39 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { NoContent } from '../../../../core/shared/NoContent.model';
 import {
   getAllCompletedRemoteData,
-  getFirstCompletedRemoteData
+  getFirstCompletedRemoteData,
 } from '../../../../core/shared/operators';
+import { PageInfo } from '../../../../core/shared/page-info.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { UUIDService } from '../../../../core/shared/uuid.service';
+import uniqueId from 'lodash/uniqueId';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -31,7 +46,7 @@ enum SubKey {
 
 @Component({
   selector: 'ds-subgroups-list',
-  templateUrl: './subgroups-list.component.html'
+  templateUrl: './subgroups-list.component.html',
 })
 /**
  * The list of subgroups in the edit group page
@@ -39,7 +54,7 @@ enum SubKey {
 export class SubgroupsListComponent implements OnInit, OnDestroy {
 
   @Input()
-  messagePrefix: string;
+    messagePrefix: string;
 
   /**
    * Result of search groups, initially all groups
@@ -50,6 +65,8 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    */
   subGroups$: BehaviorSubject<RemoteData<PaginatedList<Group>>> = new BehaviorSubject(undefined);
 
+  subGroupsPageInfoState$: Observable<PageInfo>;
+
   /**
    * Map of active subscriptions
    */
@@ -59,17 +76,17 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups that are result of groups search
    */
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: uniqueId('ssgl'),
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
   /**
    * Pagination config used to display the list of subgroups of currently active group being edited
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: uniqueId('sgl'),
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
   });
 
   // The search form
@@ -91,7 +108,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
               private paginationService: PaginationService,
               private router: Router,
               public dsoNameService: DSONameService,
-              private uuidService: UUIDService) {
+  ) {
     this.currentSearchQuery = '';
   }
 
@@ -103,9 +120,12 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       if (activeGroup != null) {
         this.groupBeingEdited = activeGroup;
         this.retrieveSubGroups();
-        this.search({query: ''});
+        this.search({ query: '' });
       }
     }));
+    this.subGroupsPageInfoState$ = this.subGroups$.pipe(
+      map(subGroupsRD => subGroupsRD?.payload?.pageInfo),
+    );
   }
 
   /**
@@ -120,13 +140,13 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
       SubKey.Members,
       this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
         switchMap((config) => this.groupDataService.findListByHref(this.groupBeingEdited._links.subgroups.href, {
-            currentPage: config.currentPage,
-            elementsPerPage: config.pageSize
-          },
-          true,
-          true,
-          followLink('object')
-        ))
+          currentPage: config.currentPage,
+          elementsPerPage: config.pageSize,
+        },
+        true,
+        true,
+        followLink('object'),
+        )),
       ).subscribe((rd: RemoteData<PaginatedList<Group>>) => {
         this.subGroups$.next(rd);
       }));
@@ -144,7 +164,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
         // Reload search results (if there is an active query).
         // This will potentially add this deleted subgroup into the list of search results.
         if (this.currentSearchQuery != null) {
-          this.search({query: this.currentSearchQuery});
+          this.search({ query: this.currentSearchQuery });
         }
       } else {
         this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.noActiveGroup'));
@@ -165,7 +185,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
           // Reload search results (if there is an active query).
           // This will potentially remove this added subgroup from search results.
           if (this.currentSearchQuery != null) {
-            this.search({query: this.currentSearchQuery});
+            this.search({ query: this.currentSearchQuery });
           }
         } else {
           this.notificationsService.error(this.translateService.get(this.messagePrefix + '.notification.failure.subgroupToAddIsActiveGroup'));
@@ -195,7 +215,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
 
           return this.groupDataService.searchNonMemberGroups(this.currentSearchQuery, this.groupBeingEdited.id, {
             currentPage: paginationOptions.currentPage,
-            elementsPerPage: paginationOptions.pageSize
+            elementsPerPage: paginationOptions.pageSize,
           }, false, true, followLink('object'));
         }),
         getAllCompletedRemoteData(),

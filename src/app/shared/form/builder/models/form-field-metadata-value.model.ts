@@ -1,6 +1,14 @@
-import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
 import { ConfidenceType } from '../../../../core/shared/confidence-type';
-import { MetadataValueInterface, VIRTUAL_METADATA_PREFIX } from '../../../../core/shared/metadata.models';
+import {
+  MetadataValueInterface,
+  VIRTUAL_METADATA_PREFIX,
+} from '../../../../core/shared/metadata.models';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+} from '../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { Metadata } from '../../../../core/shared/metadata.utils';
 
@@ -29,13 +37,13 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   otherInformation: OtherInformation;
 
   constructor(value: any = null,
-              language: any = null,
+    language: any = null,
               securityLevel: any = null,
-              authority: string = null,
-              display: string = null,
-              place: number = 0,
-              confidence: number = null,
-              otherInformation: any = null,
+    authority: string = null,
+    display: string = null,
+    place: number = 0,
+    confidence: number = null,
+    otherInformation: any = null,
               source: string = null,
               metadata: string = null
               ) {

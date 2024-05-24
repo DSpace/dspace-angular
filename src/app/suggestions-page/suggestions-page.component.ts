@@ -1,46 +1,70 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
-
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Data,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  delay,
+  distinctUntilChanged,
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { SortDirection, SortOptions, } from '../core/cache/models/sort-options.model';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
-import { SuggestionBulkResult, SuggestionsService } from '../notifications/reciter-suggestions/suggestions.service';
-import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { OpenaireSuggestion } from '../core/notifications/reciter-suggestions/models/openaire-suggestion.model';
-import { OpenaireSuggestionTarget } from '../core/notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { AuthService } from '../core/auth/auth.service';
 import {
-  SuggestionApproveAndImport
-} from '../notifications/reciter-suggestions/suggestion-list-element/suggestion-list-element.component';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import {
-  SuggestionTargetsStateService
-} from '../notifications/reciter-suggestions/suggestion-targets/suggestion-targets.state.service';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { PaginationService } from '../core/pagination/pagination.service';
+  SortDirection,
+  SortOptions,
+} from '../core/cache/models/sort-options.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
-import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
+import { PaginatedList } from '../core/data/paginated-list.model';
+import { RemoteData } from '../core/data/remote-data';
+import { Suggestion } from '../core/notifications/models/suggestion.model';
+import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
+import { PaginationService } from '../core/pagination/pagination.service';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { UUIDService } from '../core/shared/uuid.service';
+import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
+import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-list-element.component';
+import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
+import {
+  SuggestionBulkResult,
+  SuggestionsService,
+} from '../notifications/suggestions.service';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { getWorkspaceItemEditRoute } from '../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 
 @Component({
   selector: 'ds-suggestion-page',
   templateUrl: './suggestions-page.component.html',
   styleUrls: ['./suggestions-page.component.scss'],
 })
+
+/**
+ * Component used to visualize one of the suggestions from the publication claim page or from the notification pop up
+ */
+
 export class SuggestionsPageComponent implements OnInit {
 
   /**
    * The pagination configuration
    */
   paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    pageSizeOptions: [5, 10, 20, 40, 60]
+    id: 'sp'._unique(),
+    pageSizeOptions: [5, 10, 20, 40, 60],
   });
 
   /**
@@ -51,7 +75,7 @@ export class SuggestionsPageComponent implements OnInit {
   /**
    * The FindListOptions object
    */
-  defaultConfig: FindListOptions = Object.assign(new FindListOptions(), {sort: this.paginationSortConfig});
+  defaultConfig: FindListOptions = Object.assign(new FindListOptions(), { sort: this.paginationSortConfig });
 
   /**
    * A boolean representing if results are loading
@@ -61,18 +85,18 @@ export class SuggestionsPageComponent implements OnInit {
   /**
    * A list of remote data objects of suggestions
    */
-  suggestionsRD$: BehaviorSubject<PaginatedList<OpenaireSuggestion>> = new BehaviorSubject<PaginatedList<OpenaireSuggestion>>({} as any);
+  suggestionsRD$: BehaviorSubject<PaginatedList<Suggestion>> = new BehaviorSubject<PaginatedList<Suggestion>>({} as any);
 
-  targetRD$: Observable<RemoteData<OpenaireSuggestionTarget>>;
+  targetRD$: Observable<RemoteData<SuggestionTarget>>;
   targetId$: Observable<string>;
 
-  suggestionTarget: OpenaireSuggestionTarget;
+  suggestionTarget: SuggestionTarget;
   suggestionId: any;
   suggestionSource: any;
   researcherName: any;
   researcherUuid: any;
 
-  selectedSuggestions: { [id: string]: OpenaireSuggestion } = {};
+  selectedSuggestions: { [id: string]: Suggestion } = {};
   isBulkOperationPending = false;
 
   constructor(
@@ -85,28 +109,27 @@ export class SuggestionsPageComponent implements OnInit {
     private suggestionTargetsStateService: SuggestionTargetsStateService,
     private translateService: TranslateService,
     private workspaceItemService: WorkspaceitemDataService,
-    private uuidService: UUIDService
   ) {
   }
 
   ngOnInit(): void {
     this.targetRD$ = this.route.data.pipe(
-      map((data: Data) => data.suggestionTargets as RemoteData<OpenaireSuggestionTarget>),
-      redirectOn4xx(this.router, this.authService)
+      map((data: Data) => data.suggestionTargets as RemoteData<SuggestionTarget>),
+      redirectOn4xx(this.router, this.authService),
     );
 
     this.targetId$ = this.targetRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((target: OpenaireSuggestionTarget) => target.id)
+      map((target: SuggestionTarget) => target.id),
     );
     this.targetRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      tap((suggestionTarget: OpenaireSuggestionTarget) => {
-        this.suggestionTarget = suggestionTarget;
-        this.suggestionId = suggestionTarget.id;
-        this.researcherName = suggestionTarget.display;
-        this.suggestionSource = suggestionTarget.source;
-        this.researcherUuid = this.suggestionService.getTargetUuid(suggestionTarget);
+      tap((suggestionTarget: SuggestionTarget) => {
+      this.suggestionTarget = suggestionTarget;
+      this.suggestionId = suggestionTarget.id;
+      this.researcherName = suggestionTarget.display;
+      this.suggestionSource = suggestionTarget.source;
+      this.researcherUuid = this.suggestionService.getTargetUuid(suggestionTarget);
       }),
       switchMap(() => this.updatePage())
     ).subscribe();
@@ -124,7 +147,7 @@ export class SuggestionsPageComponent implements OnInit {
   /**
    * Update the list of suggestions
    */
-  updatePage(): Observable<RemoteData<PaginatedList<OpenaireSuggestion>>> {
+  updatePage(): Observable<RemoteData<PaginatedList<Suggestion>>> {
     this.processing$.next(true);
     const pageConfig$: Observable<FindListOptions> = this.paginationService.getFindListOptions(
       this.paginationOptions.id,
@@ -140,17 +163,17 @@ export class SuggestionsPageComponent implements OnInit {
           targetId,
           config.elementsPerPage,
           config.currentPage,
-          config.sort
+          config.sort,
         );
       }),
       getFirstCompletedRemoteData(),
-      tap((resultsRD: RemoteData<PaginatedList<OpenaireSuggestion>>) => {
+      tap((resultsRD: RemoteData<PaginatedList<Suggestion>>) => {
         this.processing$.next(false);
-        if (resultsRD.hasSucceeded) {
-          this.suggestionsRD$.next(resultsRD.payload);
-        } else {
-          this.suggestionsRD$.next(null);
-        }
+          if (resultsRD.hasSucceeded) {
+            this.suggestionsRD$.next(resultsRD.payload);
+          } else {
+            this.suggestionsRD$.next(null);
+          }
 
         this.suggestionService.clearSuggestionRequests();
         // navigate to the mydspace if no suggestions remains
@@ -170,36 +193,41 @@ export class SuggestionsPageComponent implements OnInit {
    * Used to delete a suggestion.
    * @suggestionId
    */
-  notMine(suggestionId) {
-    this.suggestionService.notMine(suggestionId).pipe(
+  ignoreSuggestion(suggestionId) {
+    this.suggestionService.ignoreSuggestion(suggestionId).pipe(
       tap(() => this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction()),
-      switchMap(() => this.updatePage())
+      //We add a little delay in the page refresh so that we ensure the deletion has been propagated
+      delay(200),
+      switchMap(() => this.updatePage()),
     ).subscribe();
   }
 
   /**
    * Used to delete all selected suggestions.
    */
-  notMineAllSelected() {
+  ignoreSuggestionAllSelected() {
     this.isBulkOperationPending = true;
-    this.suggestionService.notMineMultiple(Object.values(this.selectedSuggestions)).pipe(
-      tap((results: SuggestionBulkResult) => {
-        this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
-        this.isBulkOperationPending = false;
-        this.selectedSuggestions = {};
-        if (results.success > 0) {
-          this.notificationService.success(
-            this.translateService.get('reciter.suggestion.notMine.bulk.success',
-              {count: results.success}));
-        }
-        if (results.fails > 0) {
-          this.notificationService.error(
-            this.translateService.get('reciter.suggestion.notMine.bulk.error',
-              {count: results.fails}));
-        }
-      }),
-      switchMap(() => this.updatePage())
-    ).subscribe();
+    this.suggestionService
+      .ignoreSuggestionMultiple(Object.values(this.selectedSuggestions))
+      .pipe(
+        tap((results: SuggestionBulkResult) => {
+          this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
+          this.updatePage();
+          this.isBulkOperationPending = false;
+          this.selectedSuggestions = {};
+          if (results.success > 0) {
+            this.notificationService.success(
+              this.translateService.get('suggestion.ignoreSuggestion.bulk.success',
+                { count: results.success }));
+          }
+          if (results.fails > 0) {
+            this.notificationService.error(
+              this.translateService.get('suggestion.ignoreSuggestion.bulk.error',
+                { count: results.fails }));
+          }
+        }),
+        switchMap(() => this.updatePage())
+      ).subscribe();
   }
 
   /**
@@ -209,8 +237,8 @@ export class SuggestionsPageComponent implements OnInit {
   approveAndImport(event: SuggestionApproveAndImport) {
     this.suggestionService.approveAndImport(this.workspaceItemService, event.suggestion, event.collectionId).pipe(
       tap((workspaceitem: WorkspaceItem) => {
-        const content = this.translateService.instant('reciter.suggestion.approveAndImport.success', { workspaceItemId: workspaceitem.id });
-        this.notificationService.success('', content, {timeOut:0}, true);
+        const content = this.translateService.instant('suggestion.approveAndImport.success', { url: getWorkspaceItemEditRoute(workspaceitem.id) });
+        this.notificationService.success('', content, { timeOut:0 }, true);
         this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
       }),
       switchMap(() => this.updatePage())
@@ -223,24 +251,27 @@ export class SuggestionsPageComponent implements OnInit {
    */
   approveAndImportAllSelected(event: SuggestionApproveAndImport) {
     this.isBulkOperationPending = true;
-    this.suggestionService.approveAndImportMultiple(this.workspaceItemService, Object.values(this.selectedSuggestions), event.collectionId).pipe(
-      tap((results: SuggestionBulkResult) => {
-        this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
-        this.isBulkOperationPending = false;
-        this.selectedSuggestions = {};
-        if (results.success > 0) {
-          this.notificationService.success(
-            this.translateService.get('reciter.suggestion.approveAndImport.bulk.success',
-              {count: results.success}));
-        }
-        if (results.fails > 0) {
-          this.notificationService.error(
-            this.translateService.get('reciter.suggestion.approveAndImport.bulk.error',
-              {count: results.fails}));
-        }
-      }),
-      switchMap(() => this.updatePage())
-    ).subscribe();
+    this.suggestionService
+      .approveAndImportMultiple(this.workspaceItemService, Object.values(this.selectedSuggestions), event.collectionId)
+      .pipe(
+        tap((results: SuggestionBulkResult) => {
+          this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
+          this.updatePage();
+          this.isBulkOperationPending = false;
+          this.selectedSuggestions = {};
+          if (results.success > 0) {
+            this.notificationService.success(
+              this.translateService.get('suggestion.approveAndImport.bulk.success',
+                { count: results.success }));
+          }
+          if (results.fails > 0) {
+            this.notificationService.error(
+              this.translateService.get('suggestion.approveAndImport.bulk.error',
+                { count: results.fails }));
+          }
+        }),
+        switchMap(() => this.updatePage())
+      ).subscribe();
   }
 
   /**
@@ -248,7 +279,7 @@ export class SuggestionsPageComponent implements OnInit {
    * @param object the suggestions
    * @param selected the new selected value for the suggestion
    */
-  onSelected(object: OpenaireSuggestion, selected: boolean) {
+  onSelected(object: Suggestion, selected: boolean) {
     if (selected) {
       this.selectedSuggestions[object.id] = object;
     } else {
@@ -260,7 +291,7 @@ export class SuggestionsPageComponent implements OnInit {
    * When Toggle Select All occurs.
    * @param suggestions all the visible suggestions inside the page
    */
-  onToggleSelectAll(suggestions: OpenaireSuggestion[]) {
+  onToggleSelectAll(suggestions: Suggestion[]) {
     if ( this.getSelectedSuggestionsCount() > 0) {
       this.selectedSuggestions = {};
     } else {
@@ -281,7 +312,7 @@ export class SuggestionsPageComponent implements OnInit {
    * Return true if all the suggestion are configured with the same fixed collection in the configuration.
    * @param suggestions
    */
-  isCollectionFixed(suggestions: OpenaireSuggestion[]): boolean {
+  isCollectionFixed(suggestions: Suggestion[]): boolean {
     return this.suggestionService.isCollectionFixed(suggestions);
   }
 

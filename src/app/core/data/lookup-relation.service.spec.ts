@@ -1,46 +1,47 @@
-import { LookupRelationService } from './lookup-relation.service';
-import { ExternalSourceDataService } from './external-source-data.service';
-import { SearchService } from '../shared/search/search.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { buildPaginatedList } from './paginated-list.model';
-import { PageInfo } from '../shared/page-info.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
-import { SearchResult } from '../../shared/search/models/search-result.model';
-import { Item } from '../shared/item.model';
-import { skip, take } from 'rxjs/operators';
-import { ExternalSource } from '../shared/external-source.model';
-import { RequestService } from './request.service';
 import { of as observableOf } from 'rxjs';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
-import { UUIDService } from '../shared/uuid.service';
+import {
+  skip,
+  take,
+} from 'rxjs/operators';
+
+import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchResult } from '../../shared/search/models/search-result.model';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ExternalSource } from '../shared/external-source.model';
+import { Item } from '../shared/item.model';
+import { PageInfo } from '../shared/page-info.model';
+import { SearchService } from '../shared/search/search.service';
+import { ExternalSourceDataService } from './external-source-data.service';
+import { LookupRelationService } from './lookup-relation.service';
+import { buildPaginatedList } from './paginated-list.model';
+import { RequestService } from './request.service';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;
   let externalSourceService: ExternalSourceDataService;
   let searchService: SearchService;
   let requestService: RequestService;
-  let uuidService: UUIDService;
 
   const totalExternal = 8;
   const optionsWithQuery = new PaginatedSearchOptions({ query: 'test-query' });
   const relationship = Object.assign(new RelationshipOptions(), {
     filter: 'test-filter',
-    configuration: 'test-configuration'
+    configuration: 'test-configuration',
   });
   const localResults = [
     Object.assign(new SearchResult(), {
       indexableObject: Object.assign(new Item(), {
         uuid: 'test-item-uuid',
-        handle: 'test-item-handle'
-      })
-    })
+        handle: 'test-item-handle',
+      }),
+    }),
   ];
   const externalSource = Object.assign(new ExternalSource(), {
     id: 'orcidV2',
     name: 'orcidV2',
-    hierarchical: false
+    hierarchical: false,
   });
   const searchServiceEndpoint = 'http://test-rest.com/server/api/core/search';
 
@@ -50,16 +51,15 @@ describe('LookupRelationService', () => {
         elementsPerPage: 1,
         totalElements: totalExternal,
         totalPages: totalExternal,
-        currentPage: 1
-      }), [{}]))
+        currentPage: 1,
+      }), [{}])),
     });
     searchService = jasmine.createSpyObj('searchService', {
       search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults)),
-      getEndpoint: observableOf(searchServiceEndpoint)
+      getEndpoint: observableOf(searchServiceEndpoint),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
-    uuidService = getMockUUIDService();
-    service = new LookupRelationService(externalSourceService, searchService, requestService, uuidService);
+    service = new LookupRelationService(externalSourceService, searchService, requestService);
   }
 
   beforeEach(() => {
@@ -81,7 +81,7 @@ describe('LookupRelationService', () => {
 
     it('should set the searchConfig to contain a fixedFilter and configuration', () => {
       expect(service.searchConfig).toEqual(Object.assign(new PaginatedSearchOptions({}), optionsWithQuery,
-        { fixedFilter: relationship.filter, configuration: relationship.searchConfiguration }
+        { fixedFilter: relationship.filter, configuration: relationship.searchConfiguration },
       ));
     });
   });

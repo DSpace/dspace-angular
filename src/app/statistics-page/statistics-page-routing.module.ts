@@ -1,21 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
-import { StatisticsPageModule } from './statistics-page.module';
+
 import { CollectionPageResolver } from '../collection-page/collection-page.resolver';
 import { CommunityPageResolver } from '../community-page/community-page.resolver';
-import { StatisticsItemPageResolver } from './statistics-item-page.resolver';
+import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
+import { StatisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { ItemResolver } from '../item-page/item.resolver';
 import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';
 import { ThemedSiteStatisticsPageComponent } from './site-statistics-page/themed-site-statistics-page.component';
-import { StatisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { StatisticsPageModule } from './statistics-page.module';
 import { DsoContextBreadcrumbResolver } from '../core/breadcrumbs/dso-context-breadcrumb.resolver';
+import { StatisticsItemPageResolver } from './statistics-item-page.resolver';
 import { WorkflowStatisticsPageComponent } from './workflow-statistics-page/workflow-statistics-page.component';
+import {
+  StatisticsWorkflowGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/statistics-workflow.guard';
+import {
+  StatisticsLoginGuard
+} from '../core/data/feature-authorization/feature-authorization-guard/statistics-login.guard';
 import { LoginStatisticsPageComponent } from './login-statistics-page/login-statistics-page.component';
-import { StatisticsLoginGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-login.guard';
-import { StatisticsWorkflowGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-workflow.guard';
 
 @NgModule({
   imports: [
@@ -24,7 +30,7 @@ import { StatisticsWorkflowGuard } from '../core/data/feature-authorization/feat
       {
         path: '',
         resolve: {
-          breadcrumb: I18nBreadcrumbResolver
+          breadcrumb: I18nBreadcrumbResolver,
         },
         data: {
           title: 'statistics.title',
@@ -41,7 +47,7 @@ import { StatisticsWorkflowGuard } from '../core/data/feature-authorization/feat
       {
           path: 'login',
           resolve: {
-            breadcrumb: I18nBreadcrumbResolver
+            breadcrumb: I18nBreadcrumbResolver,
           },
           data: {
             title: 'statistics.login.title',
@@ -53,7 +59,7 @@ import { StatisticsWorkflowGuard } from '../core/data/feature-authorization/feat
               component: LoginStatisticsPageComponent,
            }
           ],
-          canActivate: [StatisticsLoginGuard]
+          canActivate: [StatisticsLoginGuard],
         },
         {
           path: 'workflow',
@@ -70,49 +76,49 @@ import { StatisticsWorkflowGuard } from '../core/data/feature-authorization/feat
               component: WorkflowStatisticsPageComponent,
             }
           ],
-          canActivate: [StatisticsWorkflowGuard]
+          canActivate: [StatisticsWorkflowGuard],
         },
         {
           path: `items/:id`,
           resolve: {
             scope: StatisticsItemPageResolver,
-            breadcrumb: DsoContextBreadcrumbResolver
+            breadcrumb: DsoContextBreadcrumbResolver,
           },
         data: {
           title: 'statistics.title',
-          breadcrumbKey: 'statistics'
+          breadcrumbKey: 'statistics',
         },
         component: ThemedItemStatisticsPageComponent,
-        canActivate: [StatisticsAdministratorGuard]
+        canActivate: [StatisticsAdministratorGuard],
       },
       {
         path: `collections/:id`,
         resolve: {
           scope: CollectionPageResolver,
-            breadcrumb: DsoContextBreadcrumbResolver
+            breadcrumb: DsoContextBreadcrumbResolver,
         },
         data: {
           title: 'statistics.title',
-          breadcrumbKey: 'statistics'
+          breadcrumbKey: 'statistics',
         },
         component: ThemedCollectionStatisticsPageComponent,
-        canActivate: [StatisticsAdministratorGuard]
+        canActivate: [StatisticsAdministratorGuard],
       },
       {
         path: `communities/:id`,
         resolve: {
           scope: CommunityPageResolver,
-            breadcrumb: DsoContextBreadcrumbResolver
+            breadcrumb: DsoContextBreadcrumbResolver,
         },
         data: {
           title: 'statistics.title',
-          breadcrumbKey: 'statistics'
+          breadcrumbKey: 'statistics',
         },
         component: ThemedCommunityStatisticsPageComponent,
-        canActivate: [StatisticsAdministratorGuard]
+        canActivate: [StatisticsAdministratorGuard],
       },
-    ]
-    )
+    ],
+    ),
   ],
   providers: [
     I18nBreadcrumbResolver,

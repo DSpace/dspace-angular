@@ -1,5 +1,6 @@
-import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, Input, OnInit, ViewChild, } from '@angular/core';
 
+import { AlertType } from '../../../shared/alert/alert-type';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
@@ -7,7 +8,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { SectionsDirective } from '../sections.directive';
 import { SectionDataObject } from '../models/section-data.model';
 import { rendersSectionType } from '../sections-decorator';
-import { AlertType } from '../../../shared/alert/alert-type';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { isNotEmpty } from '../../../shared/empty.util';
@@ -18,7 +18,7 @@ import { isNotEmpty } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-submission-section-container',
   templateUrl: './section-container.component.html',
-  styleUrls: ['./section-container.component.scss']
+  styleUrls: ['./section-container.component.scss'],
 })
 export class SubmissionSectionContainerComponent implements OnInit {
 
@@ -105,7 +105,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
         { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: [] },
         { provide: 'entityType', useFactory: () => (this.entityType), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     const messageInfoKey = 'submission.sections.' + this.sectionData.header + '.info';

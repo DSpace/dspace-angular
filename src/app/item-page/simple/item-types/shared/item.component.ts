@@ -1,16 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { environment } from '../../../../../environments/environment';
+import { RouteService } from '../../../../core/services/route.service';
 import { Item } from '../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
-import { RouteService } from '../../../../core/services/route.service';
-import { Observable } from 'rxjs';
-import { getDSpaceQuery, isIiifEnabled, isIiifSearchEnabled } from './item-iiif-utils';
-import { filter, map, take } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import {
+  getDSpaceQuery,
+  isIiifEnabled,
+  isIiifSearchEnabled,
+} from './item-iiif-utils';
 
 @Component({
   selector: 'ds-item',
-  template: ''
+  template: '',
 })
 /**
  * A generic component for displaying metadata and relations of an item
@@ -27,7 +39,7 @@ export class ItemComponent implements OnInit {
   /**
    * Used to show or hide the back to results button in the view.
    */
-  showBackButton: Observable<boolean>;
+  showBackButton$: Observable<boolean>;
 
   /**
    * Route to the item page
@@ -61,22 +73,21 @@ export class ItemComponent implements OnInit {
    */
   back = () => {
     this.routeService.getPreviousUrl().pipe(
-          take(1)
-        ).subscribe(
-          (url => {
-            this.router.navigateByUrl(url);
-          })
-        );
+      take(1),
+    ).subscribe(
+      (url => {
+        this.router.navigateByUrl(url);
+      }),
+    );
   };
 
   ngOnInit(): void {
 
     this.itemPageRoute = getItemPageRoute(this.object);
     // hide/show the back button
-    this.showBackButton = this.routeService.getPreviousUrl().pipe(
-      filter(url => this.previousRoute.test(url)),
+    this.showBackButton$ = this.routeService.getPreviousUrl().pipe(
+      map((url: string) => this.previousRoute.test(url)),
       take(1),
-      map(() => true)
     );
     // check to see if iiif viewer is required.
     this.iiifEnabled = isIiifEnabled(this.object);

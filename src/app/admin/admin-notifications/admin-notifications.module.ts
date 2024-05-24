@@ -1,13 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+
 import { CoreModule } from '../../core/core.module';
-import { SharedModule } from '../../shared/shared.module';
-import { AdminNotificationsRoutingModule } from './admin-notifications-routing.module';
-import { AdminQualityAssuranceTopicsPageComponent } from './admin-quality-assurance-topics-page/admin-quality-assurance-topics-page.component';
-import { AdminQualityAssuranceEventsPageComponent } from './admin-quality-assurance-events-page/admin-quality-assurance-events-page.component';
-import { AdminQualityAssuranceSourcePageComponent } from './admin-quality-assurance-source-page-component/admin-quality-assurance-source-page.component';
-import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page/admin-notifications-suggestion-targets-page.component';
 import { NotificationsModule } from '../../notifications/notifications.module';
+import { SharedModule } from '../../shared/shared.module';
+import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
+import { AdminNotificationsRoutingModule } from './admin-notifications-routing.module';
 
 @NgModule({
   imports: [
@@ -15,15 +13,12 @@ import { NotificationsModule } from '../../notifications/notifications.module';
     SharedModule,
     CoreModule.forRoot(),
     AdminNotificationsRoutingModule,
-    NotificationsModule
+    NotificationsModule,
   ],
   declarations: [
-    AdminQualityAssuranceTopicsPageComponent,
-    AdminQualityAssuranceEventsPageComponent,
-    AdminQualityAssuranceSourcePageComponent,
-    AdminNotificationsSuggestionTargetsPageComponent
+    AdminNotificationsPublicationClaimPageComponent,
   ],
-  entryComponents: []
+  entryComponents: [],
 })
 /**
  * This module handles all components related to the notifications pages

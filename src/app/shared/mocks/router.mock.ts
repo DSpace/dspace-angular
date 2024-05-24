@@ -10,9 +10,9 @@ export class RouterMock {
     snapshot: {
       url: '',
       root: {
-        queryParamMap: null
-      }
-    }
+        queryParamMap: null,
+      },
+    },
   };
 
   // noinspection TypeScriptUnresolvedFunction

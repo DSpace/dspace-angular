@@ -14,10 +14,10 @@ import { fadeOutLeave, fadeOutState } from '../animations/fade';
   animations: [
     trigger('enterLeave', [
       fadeOutLeave, fadeOutState,
-    ])
+    ]),
   ],
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+  styleUrls: ['./alert.component.scss'],
 })
 export class AlertComponent implements OnInit {
 

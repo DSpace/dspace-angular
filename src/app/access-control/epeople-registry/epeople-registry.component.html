@@ -43,7 +43,7 @@
 
       <ds-themed-loading *ngIf="searching$ | async"></ds-themed-loading>
       <ds-pagination
-        *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(searching$ | async)"
+        *ngIf="(pageInfoState$ | async)?.totalElements > 0 && (searching$ | async) !== true"
         [paginationOptions]="config"
         [pageInfoState]="pageInfoState$"
         [collectionSize]="(pageInfoState$ | async)?.totalElements"
@@ -87,7 +87,7 @@
 
       </ds-pagination>
 
-      <div *ngIf="(pageInfoState$ | async)?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+      <div *ngIf="(pageInfoState$ | async)?.totalElements === 0" class="alert alert-info w-100 mb-2" role="alert">
         {{labelPrefix + 'no-items' | translate}}
       </div>
     </div>

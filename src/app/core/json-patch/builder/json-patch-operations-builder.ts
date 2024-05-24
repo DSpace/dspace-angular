@@ -1,18 +1,29 @@
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+
 import {
+  dateToISOFormat,
+  dateToString,
+  isNgbDateStruct,
+} from '../../../shared/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
+import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { CoreState } from '../../core-state.model';
+import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
+import {
+  FlushPatchOperationAction,
   NewPatchAddOperationAction,
   NewPatchMoveOperationAction,
   NewPatchRemoveOperationAction,
-  NewPatchReplaceOperationAction
+  NewPatchReplaceOperationAction,
 } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
-import { Injectable } from '@angular/core';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { dateToISOFormat, dateToString, isNgbDateStruct } from '../../../shared/date.util';
-import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
-import { CoreState } from '../../core-state.model';
 
 /**
  * Provides methods to dispatch JsonPatch Operations Actions
@@ -81,8 +92,8 @@ export class JsonPatchOperationsBuilder {
         path.rootElement,
         path.subRootElement,
         prevPath,
-        path.path
-      )
+        path.path,
+      ),
     );
   }
 
@@ -95,6 +106,20 @@ export class JsonPatchOperationsBuilder {
   remove(path: JsonPatchOperationPathObject) {
     this.store.dispatch(
       new NewPatchRemoveOperationAction(
+        path.rootElement,
+        path.subRootElement,
+        path.path));
+  }
+
+  /**
+   * Dispatches a new FlushPatchOperationAction
+   *
+   * @param path
+   *    a JsonPatchOperationPathObject representing path
+   */
+  flushOperation(path: JsonPatchOperationPathObject) {
+    this.store.dispatch(
+      new FlushPatchOperationAction(
         path.rootElement,
         path.subRootElement,
         path.path));

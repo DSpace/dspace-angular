@@ -5,9 +5,11 @@ import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID } from '@angula
 import { pushInOut } from '../shared/animations/push';
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { Router } from '@angular/router';
+
+import { APP_CONFIG, AppConfig, } from '../../config/app-config.interface';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
-import { Router } from '@angular/router';
 import { SearchManager } from '../core/browse/search-manager';
 
 /**
@@ -22,9 +24,9 @@ import { SearchManager } from '../core/browse/search-manager';
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
-  ]
+      useClass: SearchConfigurationService,
+    },
+  ],
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {
@@ -35,7 +37,9 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               @Inject(PLATFORM_ID) public platformId: any,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
-              protected router: Router) {
-    super(service, searchManager, sidebarService, windowService, searchConfigService, platformId, routeService, router);
+              protected router: Router,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
+    super(service, searchManager, sidebarService, windowService, searchConfigService, platformId, routeService, router, appConfig);
   }
 }

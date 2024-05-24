@@ -1,22 +1,23 @@
-import { OrcidQueueComponent } from './orcid-queue.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { DebugElement, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync, } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
+import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
 import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
-import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { By } from '@angular/platform-browser';
 import { Item } from '../../../core/shared/item.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { OrcidQueueComponent } from './orcid-queue.component';
 import { UUIDService } from '../../../core/shared/uuid.service';
 import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
@@ -33,58 +34,58 @@ describe('OrcidQueueComponent test suite', () => {
     bundles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
     metadata: {
       'dc.title': [{
-        value: 'test person'
+        value: 'test person',
       }],
       'dspace.entity.type': [{
-        'value': 'Person'
+        'value': 'Person',
       }],
       'dspace.object.owner': [{
         'value': 'test person',
         'language': null,
         'authority': 'deced3e7-68e2-495d-bf98-7c44fc33b8ff',
         'confidence': 600,
-        'place': 0
+        'place': 0,
       }],
       'dspace.orcid.authenticated': [{
         'value': '2022-06-10T15:15:12.952872',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
+        'place': 0,
       }],
       'dspace.orcid.scope': [{
         'value': '/authenticate',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
+        'place': 0,
       }, {
         'value': '/read-limited',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 1
+        'place': 1,
       }, {
         'value': '/activities/update',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 2
+        'place': 2,
       }, {
         'value': '/person/update',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 3
+        'place': 3,
       }],
       'person.identifier.orcid': [{
         'value': 'orcid-id',
         'language': null,
         'authority': null,
         'confidence': -1,
-        'place': 0
-      }]
-    }
+        'place': 0,
+      }],
+    },
   });
 
   function orcidQueueElement(id: number) {
@@ -106,7 +107,7 @@ describe('OrcidQueueComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
-      getOrcidAuthorizeUrl: jasmine.createSpy('getOrcidAuthorizeUrl')
+      getOrcidAuthorizeUrl: jasmine.createSpy('getOrcidAuthorizeUrl'),
     });
 
     void TestBed.configureTestingModule({
@@ -114,10 +115,10 @@ describe('OrcidQueueComponent test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
       ],
       declarations: [OrcidQueueComponent],
       providers: [
@@ -128,7 +129,7 @@ describe('OrcidQueueComponent test suite', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: UUIDService, useValue: getMockUUIDService() }
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     orcidQueueService = TestBed.inject(OrcidQueueDataService);

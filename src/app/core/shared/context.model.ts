@@ -41,6 +41,8 @@ export enum Context {
 
   Bitstream = 'bitstream',
 
+  CoarNotify = 'coarNotify',
+
   RelationshipItem = 'relationshipItem',
   BrowseMostElements = 'browseMostElements'
 }

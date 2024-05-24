@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,7 +9,7 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
 @Component({
   selector: 'ds-vocabulary-treeview-modal',
   templateUrl: './vocabulary-treeview-modal.component.html',
-  styleUrls: ['./vocabulary-treeview-modal.component.scss']
+  styleUrls: ['./vocabulary-treeview-modal.component.scss'],
 })
 /**
  * Component that contains a modal to display a VocabularyTreeviewComponent
@@ -42,6 +42,12 @@ export class VocabularyTreeviewModalComponent implements OnInit {
   description: string;
 
   /**
+   * An event fired when a vocabulary entry is selected.
+   * Event's payload equals to {@link VocabularyEntryDetail} selected.
+   */
+  @Output() select: EventEmitter<VocabularyEntryDetail> = new EventEmitter<VocabularyEntryDetail>(null);
+
+  /**
    * Initialize instance variables
    *
    * @param {NgbActiveModal} activeModal
@@ -61,6 +67,7 @@ export class VocabularyTreeviewModalComponent implements OnInit {
    * Method called on entry select
    */
   onSelect(item: VocabularyEntryDetail) {
+    this.select.emit(item);
     this.activeModal.close(item);
   }
 

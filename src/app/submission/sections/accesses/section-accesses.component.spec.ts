@@ -1,19 +1,4 @@
-import { FormService } from '../../../shared/form/form.service';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
-
-import { SubmissionSectionAccessesComponent } from './section-accesses.component';
-import { SectionsService } from '../sections.service';
-import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
-
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
-import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
-import {
-  accessConditionSectionConfigRes,
-  accessConditionSectionSingleAccessConfigRes,
-  getSubmissionAccessesConfigNotChangeDiscoverableService,
-  getSubmissionAccessesConfigService
-} from '../../../shared/mocks/section-accesses-config.service.mock';
+import { ComponentFixture, inject, TestBed, } from '@angular/core/testing';
 import { SectionAccessesService } from './section-accesses.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -28,21 +13,33 @@ import {
   SubmissionJsonPatchOperationsServiceStub
 } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { of as observableOf } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { FormComponent } from '../../../shared/form/form.component';
 import {
   DynamicCheckboxModel,
   DynamicDatePickerModel,
   DynamicFormArrayModel,
   DynamicFormGroupModel,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import { Store } from '@ngrx/store';
+import { of as observableOf } from 'rxjs';
+
 import { AppState } from '../../../app.reducer';
+import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
+import { FormService } from '../../../shared/form/form.service';
+import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
+import {
+  accessConditionSectionConfigRes, accessConditionSectionSingleAccessConfigRes,
+  getSubmissionAccessesConfigNotChangeDiscoverableService,
+  getSubmissionAccessesConfigService,
+} from '../../../shared/mocks/section-accesses-config.service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
-import { accessConditionChangeEvent, checkboxChangeEvent } from '../../../shared/testing/form-event.stub';
+import { accessConditionChangeEvent, checkboxChangeEvent, } from '../../../shared/testing/form-event.stub';
+import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
+import { SectionsService } from '../sections.service';
+import { SubmissionSectionAccessesComponent } from './section-accesses.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 describe('SubmissionSectionAccessesComponent', () => {
@@ -74,12 +71,12 @@ describe('SubmissionSectionAccessesComponent', () => {
     enabled: true,
     data: {
       discoverable: true,
-      accessConditions: []
+      accessConditions: [],
     },
     errorsToShow: [],
     serverValidationErrors: [],
     isLoading: false,
-    isValid: true
+    isValid: true,
   };
 
   describe('First with canChangeDiscoverable true', () => {
@@ -88,7 +85,7 @@ describe('SubmissionSectionAccessesComponent', () => {
       await TestBed.configureTestingModule({
         imports: [
           BrowserModule,
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
         ],
         declarations: [SubmissionSectionAccessesComponent, FormComponent],
         providers: [
@@ -103,8 +100,8 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
-          FormBuilderService
-        ]
+          FormBuilderService,
+        ],
       })
         .compileComponents();
     });
@@ -150,8 +147,8 @@ describe('SubmissionSectionAccessesComponent', () => {
       });
 
     it('should have set maxStartDate and maxEndDate properly', () => {
-      const maxStartDate = {year: 2024, month: 12, day: 20};
-      const maxEndDate = {year: 2022, month: 6, day: 20};
+      const maxStartDate = { year: 2024, month: 12, day: 20 };
+      const maxEndDate = { year: 2022, month: 6, day: 20 };
 
       const startDateModel = formbuilderService.findById('startDate', component.formModel);
       expect(startDateModel.max).toEqual(maxStartDate);
@@ -233,7 +230,7 @@ describe('SubmissionSectionAccessesComponent', () => {
       await TestBed.configureTestingModule({
         imports: [
           BrowserModule,
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
         ],
         declarations: [SubmissionSectionAccessesComponent, FormComponent],
         providers: [
@@ -249,7 +246,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
-        ]
+        ],
       })
         .compileComponents();
     });

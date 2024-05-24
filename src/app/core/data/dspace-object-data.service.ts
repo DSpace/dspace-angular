@@ -9,13 +9,13 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSPACE_OBJECT } from '../shared/dspace-object.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from './request.service';
-import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteData } from './remote-data';
 import { RequestParam } from '../cache/models/request-param.model';
 import { isNotEmpty } from '../../shared/empty.util';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import { RequestService } from './request.service';
 
 @Injectable()
 @dataService(DSPACE_OBJECT)

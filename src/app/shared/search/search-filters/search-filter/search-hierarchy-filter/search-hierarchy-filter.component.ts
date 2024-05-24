@@ -1,48 +1,77 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { renderFacetFor } from '../search-filter-type-decorator';
-import { FilterType } from '../../../models/filter-type.model';
-import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import {
-  VocabularyEntryDetail
-} from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../../config/app-config.interface';
+import { FilterVocabularyConfig } from '../../../../../../config/filter-vocabulary-config';
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
-  SearchFilterService
+  SCOPE,
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { FacetValue } from '../../../models/facet-value.model';
-import { addOperatorToFilterValue, getFacetValueForType } from '../../../search.utils';
-import { map, take } from 'rxjs/operators';
+import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { BehaviorSubject } from 'rxjs';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { environment } from '../../../../../../environments/environment';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { hasValue } from '../../../../empty.util';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
-import { isNotEmpty } from '../../../../empty.util';
-import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
+import { FacetValue } from '../../../models/facet-value.model';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import {
+  addOperatorToFilterValue,
+  getFacetValueForType,
+} from '../../../search.utils';
+import {
+  facetLoad,
+  SearchFacetFilterComponent,
+} from '../search-facet-filter/search-facet-filter.component';
+import { renderFacetFor } from '../search-filter-type-decorator';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
+import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-hierarchy-filter',
   styleUrls: ['./search-hierarchy-filter.component.scss'],
   templateUrl: './search-hierarchy-filter.component.html',
-  animations: [facetLoad]
+  animations: [facetLoad],
 })
 
 /**
  * Component that represents a hierarchy facet for a specific filter configuration
  */
 @renderFacetFor(FilterType.hierarchy)
-export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnInit {
+export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent implements OnDestroy, OnInit {
+
+  subscriptions: Subscription[] = [];
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
@@ -50,15 +79,22 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
               protected router: Router,
               protected modalService: NgbModal,
               protected vocabularyService: VocabularyService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(SCOPE) public scope: string,
   ) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope);
   }
 
   vocabularyExists$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+  }
 
   /**
    * Submits a new active custom value to the filter from the input field
@@ -69,11 +105,12 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
     super.onSubmit(addOperatorToFilterValue(data, 'query'));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
-    if (isNotEmpty(this.getVocabularyEntry())) {
+    const vocabularyName: string = this.getVocabularyEntry();
+    if (hasValue(vocabularyName)) {
       this.vocabularyService.searchTopEntries(
-        this.getVocabularyEntry(), new PageInfo(), true, false,
+        vocabularyName, new PageInfo(), true, false,
       ).pipe(
         getFirstCompletedRemoteData(),
         map((rd: RemoteData<PaginatedList<VocabularyEntryDetail>>) => rd.hasSucceeded && rd.payload?.totalElements > 0)
@@ -90,36 +127,35 @@ export class SearchHierarchyFilterComponent extends SearchFacetFilterComponent i
   showVocabularyTree() {
     const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, {
       size: 'lg',
-      windowClass: 'treeview'
+      windowClass: 'treeview',
     });
     modalRef.componentInstance.vocabularyOptions = {
       name: this.getVocabularyEntry(),
-      closed: true
+      closed: true,
     };
-    modalRef.result.then((detail: VocabularyEntryDetail) => {
-      this.selectedValues$
-        .pipe(take(1))
-        .subscribe((selectedValues) => {
-          this.router.navigate(
-            [this.searchService.getSearchLink()],
-            {
-              queryParams: {
-                [this.filterConfig.paramName]: [...selectedValues, {value: detail.value}]
-                  .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
-              },
-              queryParamsHandling: 'merge',
-            },
-          );
-        });
-    }).catch();
+    this.subscriptions.push(combineLatest([
+      (modalRef.componentInstance as VocabularyTreeviewModalComponent).select,
+      this.selectedValues$.pipe(take(1)),
+    ]).subscribe(([detail, selectedValues]: [VocabularyEntryDetail, FacetValue[]]) => {
+      void this.router.navigate(
+        [this.searchService.getSearchLink()],
+        {
+          queryParams: {
+            [this.filterConfig.paramName]: [...selectedValues, { value: detail.value }]
+              .map((facetValue: FacetValue) => getFacetValueForType(facetValue, this.filterConfig)),
+          },
+          queryParamsHandling: 'merge',
+        },
+      );
+    }));
   }
 
   /**
    * Returns the matching vocabulary entry for the given search filter.
    * These are configurable in the config file.
    */
-  getVocabularyEntry() {
-    const foundVocabularyConfig = environment.vocabularies.filter((v) => v.filter === this.filterConfig.name);
+  getVocabularyEntry(): string {
+    const foundVocabularyConfig: FilterVocabularyConfig[] = this.appConfig.vocabularies.filter((v: FilterVocabularyConfig) => v.filter === this.filterConfig.name);
     if (foundVocabularyConfig.length > 0 && foundVocabularyConfig[0].enabled === true) {
       return foundVocabularyConfig[0].vocabulary;
     }

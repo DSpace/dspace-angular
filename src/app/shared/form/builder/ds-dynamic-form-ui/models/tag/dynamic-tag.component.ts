@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild, } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 
 import {
@@ -30,7 +30,7 @@ import { SubmissionService } from '../../../../../../submission/submission.servi
 @Component({
   selector: 'ds-dynamic-tag',
   styleUrls: ['./dynamic-tag.component.scss'],
-  templateUrl: './dynamic-tag.component.html'
+  templateUrl: './dynamic-tag.component.html',
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 
@@ -90,7 +90,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
               this.searchFailed = true;
               return observableOf(buildPaginatedList(
                 new PageInfo(),
-                []
+                [],
               ));
             }));
         }
@@ -100,11 +100,11 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
       map((list: VocabularyEntry[]) => {
         if (list && list.length > 0) {
           if (isNotEmpty(this.currentValue)) {
-            let vocEntry = new VocabularyEntry();
+            const vocEntry = new VocabularyEntry();
             vocEntry.display = this.currentValue;
             vocEntry.value = this.currentValue;
             list.push(vocEntry);
-        }
+          }
         }
         return list;
       }),
@@ -159,7 +159,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
    * @param event The value to emit.
    */
   onBlur(event: Event) {
-    if (isNotEmpty(this.currentValue) && (isUndefined(this.instance) || !this.instance.isPopupOpen())) {
+    if (isNotEmpty(this.currentValue) && (isUndefined(this.instance) || !this.model.hasAuthority || !this.instance.isPopupOpen())) {
       this.addTagsToChips();
     }
     this.blur.emit(event);

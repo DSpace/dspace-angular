@@ -1,15 +1,25 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-
-import { CookieService } from '../services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { LANG_COOKIE, LANG_ORIGIN, LocaleService } from './locale.service';
-import { AuthService } from '../auth/auth.service';
-import { NativeWindowRef } from '../services/window.service';
-import { RouteService } from '../services/route.service';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { AuthService } from '../auth/auth.service';
+import { CookieService } from '../services/cookie.service';
+import { RouteService } from '../services/route.service';
+import { NativeWindowRef } from '../services/window.service';
+import {
+  LANG_COOKIE,
+  LANG_ORIGIN,
+  LocaleService,
+} from './locale.service';
 import { of as observableOf } from 'rxjs';
 
 describe('LocaleService test suite', () => {
@@ -40,7 +50,7 @@ describe('LocaleService test suite', () => {
 
   authService = jasmine.createSpyObj('AuthService', {
     isAuthenticated: jasmine.createSpy('isAuthenticated'),
-    isAuthenticationLoaded: jasmine.createSpy('isAuthenticationLoaded')
+    isAuthenticationLoaded: jasmine.createSpy('isAuthenticationLoaded'),
   });
   const langList = ['en', 'xx', 'de'];
 
@@ -52,8 +62,8 @@ describe('LocaleService test suite', () => {
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
+            useClass: TranslateLoaderMock,
+          },
           }),
         ],
         providers: [
@@ -62,7 +72,7 @@ describe('LocaleService test suite', () => {
           { provide: RouteService, useValue: routeServiceStub },
           { provide: TranslateService, useValue: translateServiceStub },
           { provide: Document, useValue: document },
-        ]
+      ],
       });
     }));
 

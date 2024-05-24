@@ -1,12 +1,19 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../../../core/cache/builders/build-decorators';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { HALLink } from '../../../core/shared/hal-link.model';
-import { MetadataMap } from '../../../core/shared/metadata.models';
-import { excludeFromEquals, fieldsForEquals } from '../../../core/utilities/equals.decorators';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { HALResource } from '../../../core/shared/hal-resource.model';
+import { MetadataMap } from '../../../core/shared/metadata.models';
+import {
+  excludeFromEquals,
+  fieldsForEquals,
+} from '../../../core/utilities/equals.decorators';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { SEARCH_RESULT } from './types/search-result.resource-type';
 
 /**
@@ -26,7 +33,7 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject impleme
    */
   @excludeFromEquals
   @autoserialize
-  hitHighlights: MetadataMap;
+    hitHighlights: MetadataMap;
 
   /**
    * The embedded indexable object.
@@ -38,7 +45,7 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject impleme
    * The {@link HALLink}s for this SearchResult
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
     indexableObject: HALLink;
   };
@@ -47,7 +54,7 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject impleme
    * The DSpaceObject that was found
    */
   @fieldsForEquals('uuid')
-  indexableObject: T;
+    indexableObject: T;
 
   /**
    * Method that returns as which type of object this object should be rendered
