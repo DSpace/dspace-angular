@@ -12,7 +12,7 @@ import {
   REPORTS_MODULE_PATH,
 } from './admin-routing-paths';
 import { ThemedAdminSearchPageComponent } from './admin-search-page/themed-admin-search-page.component';
-import { AdminWorkflowPageComponent } from './admin-workflow-page/admin-workflow-page.component';
+import { ThemedAdminWorkflowPageComponent } from './admin-workflow-page/themed-admin-workflow-page.component';
 
 export const ROUTES: Route[] = [
   {
@@ -34,7 +34,7 @@ export const ROUTES: Route[] = [
   {
     path: 'workflow',
     resolve: { breadcrumb: i18nBreadcrumbResolver },
-    component: AdminWorkflowPageComponent,
+    component: ThemedAdminWorkflowPageComponent,
     data: { title: 'admin.workflow.title', breadcrumbKey: 'admin.workflow' },
   },
   {

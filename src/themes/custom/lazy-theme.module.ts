@@ -15,6 +15,7 @@ import { RootModule } from '../../app/root.module';
 import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
 import { AdminSearchPageComponent } from './app/admin/admin-search-page/admin-search-page.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
+import { AdminWorkflowPageComponent } from './app/admin/admin-workflow-page/admin-workflow-page.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { BrowseByDateComponent } from './app/browse-by/browse-by-date/browse-by-date.component';
@@ -196,6 +197,7 @@ const DECLARATIONS = [
   SubmissionUploadFilesComponent,
   ComcolPageContentComponent,
   AdminSearchPageComponent,
+  AdminWorkflowPageComponent,
 ];
 
 @NgModule({
