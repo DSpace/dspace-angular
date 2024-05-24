@@ -158,7 +158,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   /**
    * All languages used by application
    */
-  languages: LangConfig[];
+  languages: LangConfig[] = [];
 
   /**
    * The uploader configuration options
