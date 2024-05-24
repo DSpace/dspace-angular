@@ -7,15 +7,12 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import {
-  map,
-  tap,
-} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
 import { BitstreamDataService } from '../core/data/bitstream-data.service';
 import { RemoteData } from '../core/data/remote-data';
-import { ServerResponseService } from '../core/services/server-response.service';
+import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { hasNoValue } from '../shared/empty.util';
@@ -23,17 +20,18 @@ import { hasNoValue } from '../shared/empty.util';
 /**
  * Redirects to a bitstream based on the handle of the item, and the sequence id or the filename of the
  * bitstream. In production mode the status code will also be set the status code to 301 marking it as a permanent URL
- * redirect for bots.
+ * redirect for bots to the regular bitstream download Page.
  *
- * @returns Observable<UrlTree> Returns a URL to redirect the user to the new URL format
+ * @returns Either a {@link UrlTree} to the 404 page when the url isn't a valid format or false in order to make the
+ * user wait until the {@link HardRedirectService#redirect} was performed
  */
 export const legacyBitstreamURLRedirectGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   bitstreamDataService: BitstreamDataService = inject(BitstreamDataService),
-  serverResponseService: ServerResponseService = inject(ServerResponseService),
+  serverHardRedirectService: HardRedirectService = inject(HardRedirectService),
   router: Router = inject(Router),
-): Observable<UrlTree> => {
+): Observable<UrlTree | false> => {
   const prefix = route.params.prefix;
   const suffix = route.params.suffix;
   const filename = route.params.filename;
@@ -47,14 +45,10 @@ export const legacyBitstreamURLRedirectGuard: CanActivateFn = (
     filename,
   ).pipe(
     getFirstCompletedRemoteData(),
-    tap((rd: RemoteData<Bitstream>) => {
-      if (rd.hasSucceeded && !rd.hasNoContent) {
-        serverResponseService.setStatus(301);
-      }
-    }),
     map((rd: RemoteData<Bitstream>) => {
       if (rd.hasSucceeded && !rd.hasNoContent) {
-        return router.parseUrl(`/bitstreams/${rd.payload.uuid}/download`);
+        serverHardRedirectService.redirect(new URL(`/bitstreams/${rd.payload.uuid}/download`, serverHardRedirectService.getCurrentOrigin()).href, 301);
+        return false;
       } else {
         return router.createUrlTree([PAGE_NOT_FOUND_PATH]);
       }

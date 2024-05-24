@@ -23,13 +23,11 @@ export const ROUTES: Route[] = [
   {
     // Resolve XMLUI bitstream download URLs
     path: 'handle/:prefix/:suffix/:filename',
-    component: BitstreamDownloadPageComponent,
     canActivate: [legacyBitstreamURLRedirectGuard],
   },
   {
     // Resolve JSPUI bitstream download URLs
     path: ':prefix/:suffix/:sequence_id/:filename',
-    component: BitstreamDownloadPageComponent,
     canActivate: [legacyBitstreamURLRedirectGuard],
   },
   {
