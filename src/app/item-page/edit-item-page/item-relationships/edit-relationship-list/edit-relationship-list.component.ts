@@ -64,6 +64,7 @@ import { FieldChangeType } from '../../../../core/data/object-updates/field-chan
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { itemLinksToFollow } from '../../../../shared/utils/relation-query.utils';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
+import { RequestParam } from '../../../../core/cache/models/request-param.model';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -464,15 +465,19 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
       observableCombineLatest([
         currentPagination$,
         this.currentItemIsLeftItem$,
+        this.relatedEntityType$,
       ]).pipe(
-        switchMap(([currentPagination, currentItemIsLeftItem]: [PaginationComponentOptions, boolean]) => {
-          // get the relationships for the current item, relationshiptype and page
+        switchMap(([currentPagination, currentItemIsLeftItem, relatedEntityType]: [PaginationComponentOptions, boolean, ItemType]) => {
+          // get the relationships for the current page, item, relationship type and related entity type
           return this.relationshipService.getItemRelationshipsByLabel(
             this.item,
             currentItemIsLeftItem ? this.relationshipType.leftwardType : this.relationshipType.rightwardType,
             {
               elementsPerPage: currentPagination.pageSize,
-              currentPage: currentPagination.currentPage
+              currentPage: currentPagination.currentPage,
+              searchParams: [
+                new RequestParam('relatedEntityType', relatedEntityType.label),
+              ],
             },
             true,
             true,
