@@ -11,9 +11,7 @@ import { Item } from '../../core/shared/item.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ServerResponseService } from '../../core/services/server-response.service';
@@ -72,7 +70,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
     protected signpostingDataService: SignpostingDataService,
@@ -88,7 +85,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
-      redirectOn4xx(this.router, this.authService)
     );
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
