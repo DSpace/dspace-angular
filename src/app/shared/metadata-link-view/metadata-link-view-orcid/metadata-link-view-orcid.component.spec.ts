@@ -52,11 +52,6 @@ describe('MetadataLinkViewOrcidComponent', () => {
         }
       }), BrowserAnimationsModule],
       providers: [
-        { provide: 'fieldProvider', useValue: null },
-        { provide: 'itemProvider', useValue: testItem },
-        { provide: 'metadataValueProvider', useValue: metadataValue },
-        { provide: 'renderingSubTypeProvider', useValue: '' },
-        { provide: 'tabNameProvider', useValue: '' },
         { provide: ConfigurationDataService, useValue: configurationDataService}
       ],
     })
