@@ -221,7 +221,7 @@ describe('Metadata', () => {
       testHasValue(value, true);
     });
     describe('with a generic object', () => {
-      const value: Object = {
+      const value: any = {
         test: 'test',
       };
       testHasValue(value, true);

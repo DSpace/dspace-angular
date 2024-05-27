@@ -18,7 +18,7 @@
 
   </button>
   <button class="action-buttons btn btn-danger mt-1 mb-3"
-          *ngIf="(isHidden | async) !== true && !!object"
+          *ngIf="((isHidden | async) === null || (isHidden | async) === undefined) && !!object"
           ngbTooltip="{{'manage.relationships.hide' | translate}}"
           (click)="emitAction('hide')"
           [disabled]="pendingChanges$ | async">

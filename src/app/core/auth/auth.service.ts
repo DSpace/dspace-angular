@@ -52,7 +52,10 @@ import { Group } from '../eperson/models/group.model';
 import { CookieService } from '../services/cookie.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { RouteService } from '../services/route.service';
-import { NativeWindowService } from '../services/window.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
 import { NoContent } from '../shared/NoContent.model';
 import {
   getAllSucceededRemoteDataPayload,

@@ -100,9 +100,8 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
       isDraggable: true,
       isInlineGroupArray: true,
       groupFactory: () => {
-        let model;
         const fieldValue = isEmpty(this.model.value) || (arrayCounter === 0) ? {} : this.model.value[arrayCounter - 1];
-        model = this.initArrayItemModel(formConfig, this.normalizeGroupFormValue(fieldValue));
+        const model: any = this.initArrayItemModel(formConfig, this.normalizeGroupFormValue(fieldValue));
         arrayCounter++;
         setLayout(model, 'element', 'host', 'col');
         if (model.hasLanguages) {

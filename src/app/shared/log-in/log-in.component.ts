@@ -9,7 +9,7 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import { uniqBy } from 'lodash/uniqBy';
+import uniqBy from 'lodash/uniqBy';
 import {
   map,
   Observable,

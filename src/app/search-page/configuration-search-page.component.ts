@@ -38,16 +38,16 @@ import { SidebarService } from '../shared/sidebar/sidebar.service';
 })
 
 export class ConfigurationSearchPageComponent extends SearchComponent {
-  constructor(protected service: SearchService,
+  constructor(@Inject(PLATFORM_ID) public platformId: any,
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              protected service: SearchService,
               protected searchManager: SearchManager,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
-              @Inject(PLATFORM_ID) public platformId: any,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
               protected router: Router,
-              @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
-    super(service, searchManager, sidebarService, windowService, searchConfigService, platformId, routeService, router, appConfig);
+    super(platformId, searchConfigService, appConfig, service, searchManager, sidebarService, windowService, routeService, router);
   }
 }

@@ -24,7 +24,7 @@ import { SearchConfigurationService } from '../../../../../core/shared/search/se
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  REFRESH_FILTER,
+  REFRESH_FILTER, SCOPE,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
@@ -57,8 +57,10 @@ export class SearchChartPieComponent extends SearchChartFilterComponent {
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+              @Inject(SCOPE) public scope: string,
+  ) {
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope);
   }
 
   protected getInitData(): Observable<ChartSeries[] | ChartData[]> {

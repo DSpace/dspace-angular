@@ -95,10 +95,8 @@ export class MetadataRenderComponent implements OnInit {
    * Generate ComponentRef for metadata rendering
    */
   generateComponentRef(): ComponentRef<any> {
-    let metadataRef: ComponentRef<Component>;
     const factory: ComponentFactory<any> = this.computeComponentFactory();
-    metadataRef = this.metadataValueViewRef.createComponent(factory, 0, this.getComponentInjector());
-    return metadataRef;
+    return this.metadataValueViewRef.createComponent(factory, 0, this.getComponentInjector());
   }
 
   /**

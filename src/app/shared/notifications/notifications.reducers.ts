@@ -1,4 +1,5 @@
 import { INotification } from './models/notification.model';
+import { IProcessNotification } from './models/process-notification.model';
 import {
   NotificationsActions,
   NotificationsActionTypes,

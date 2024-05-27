@@ -177,7 +177,7 @@ export class AuthEffects {
       }
       return user$.pipe(
         take(1),
-        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user.id)),
+        map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user)),
         catchError((error: unknown) => errorToAuthAction$(RetrieveAuthenticatedEpersonErrorAction, error)),
       );
     }),

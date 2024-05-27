@@ -23,6 +23,7 @@ import {
   Observable,
   of as observableOf,
   Subject,
+  Subscription,
 } from 'rxjs';
 import {
   catchError,
@@ -43,7 +44,6 @@ import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { isEmpty } from '../../../../../empty.util';
-import { Subscription } from '../../../../../subscriptions/models/subscription.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';

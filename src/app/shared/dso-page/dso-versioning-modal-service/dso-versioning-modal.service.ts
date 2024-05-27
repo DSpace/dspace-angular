@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
-  fromPromise,
+  from,
   Observable,
   of,
 } from 'rxjs';
@@ -88,7 +88,7 @@ export class DsoVersioningModalService {
       switchMap((newVersionItem: Item) => this.workspaceItemDataService.findByItem(newVersionItem.uuid, true, false)),
       getFirstSucceededRemoteDataPayload<WorkspaceItem>(),
       map((wsItem: WorkspaceItem) => `workspaceitems/${wsItem?.id}/edit`),
-      switchMap((route: string) => fromPromise(this.router.navigateByUrl(route))),
+      switchMap((route: string) => from(this.router.navigateByUrl(route))),
     ).subscribe(() => this.invalidateCacheFor(item));
   }
 
