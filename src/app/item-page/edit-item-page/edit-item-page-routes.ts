@@ -12,6 +12,7 @@ import { resourcePolicyTargetResolver } from '../../shared/resource-policies/res
 import { EditItemPageComponent } from './edit-item-page.component';
 import {
   ITEM_EDIT_AUTHORIZATIONS_PATH,
+  ITEM_EDIT_CLONE_PATH,
   ITEM_EDIT_DELETE_PATH,
   ITEM_EDIT_MOVE_PATH,
   ITEM_EDIT_PRIVATE_PATH,
@@ -23,6 +24,7 @@ import {
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
+import { ItemCloneComponent } from './item-clone/item-clone.component';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
@@ -160,6 +162,11 @@ export const ROUTES: Route[] = [
         path: ITEM_EDIT_MOVE_PATH,
         component: ItemMoveComponent,
         data: { title: 'item.edit.move.title' },
+      },
+      {
+        path: ITEM_EDIT_CLONE_PATH,
+        component: ItemCloneComponent,
+        data: { title: 'item.edit.clone.title' },
       },
       {
         path: ITEM_EDIT_REGISTER_DOI_PATH,
