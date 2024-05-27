@@ -597,5 +597,33 @@ export const environment: BuildConfig = {
       iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
       link: 'https://ror.org'
     }
-  ]
+  ],
+  // Configuration for the metadata link view popover
+  metadataLinkViewPopoverData:
+  {
+    fallbackMetdataList: ['dc.description.abstract'],
+
+    entityDataConfig: [
+      {
+        entityType: 'Person',
+        metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract']
+      },
+      {
+        entityType: 'OrgUnit',
+        metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract']
+      },
+      {
+        entityType: 'Project',
+        metadataList: ['oairecerif.project.status', 'dc.description.abstract']
+      },
+      {
+        entityType: 'Funding',
+        metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract']
+      },
+      {
+        entityType: 'Publication',
+        metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract']
+      },
+    ]
+  },
 };

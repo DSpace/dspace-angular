@@ -8,5 +8,8 @@ import { ThumbnailComponent } from 'src/app/thumbnail/thumbnail.component';
 })
 export class MetadataLinkViewAvatarPopoverComponent extends ThumbnailComponent {
 
+  /**
+   * The fallback image to use when the thumbnail is not available
+   */
   fallbackImage = 'assets/images/person-placeholder.svg';
 }

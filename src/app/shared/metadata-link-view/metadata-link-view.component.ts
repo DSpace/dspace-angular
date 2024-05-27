@@ -52,6 +52,9 @@ export class MetadataLinkViewComponent implements OnInit {
    */
   iconPosition = 'after';
 
+  /**
+   * Related item of the metadata value
+   */
   relatedItem: Item;
 
   /**
@@ -70,6 +73,14 @@ export class MetadataLinkViewComponent implements OnInit {
   }
 
 
+  /**
+   * Retrieves the metadata view for a given metadata value.
+   * If the metadata value has a valid authority, it retrieves the item using the authority and creates a metadata view.
+   * If the metadata value does not have a valid authority, it creates a metadata view with null values.
+   *
+   * @param metadataValue The metadata value for which to retrieve the metadata view.
+   * @returns An Observable that emits the metadata view.
+   */
   private getMetadataView(metadataValue: MetadataValue): Observable<MetadataView> {
     const linksToFollow = [followLink('thumbnail')];
 
@@ -89,6 +100,12 @@ export class MetadataLinkViewComponent implements OnInit {
     }
   }
 
+  /**
+   * Creates a MetadataView object based on the provided itemRD and metadataValue.
+   * @param itemRD - The RemoteData object containing the item information.
+   * @param metadataValue - The MetadataValue object containing the metadata information.
+   * @returns The created MetadataView object.
+   */
   private createMetadataView(itemRD: RemoteData<Item>, metadataValue: MetadataValue): MetadataView {
     if (itemRD.hasSucceeded) {
       this.relatedItem = itemRD.payload;
@@ -119,13 +136,6 @@ export class MetadataLinkViewComponent implements OnInit {
   getOrcid(referencedItem: Item): string {
     if (referencedItem?.hasMetadata('dspace.orcid.authenticated')) {
       return referencedItem.firstMetadataValue('person.identifier.orcid');
-    }
-    return null;
-  }
-
-  getRor(referencedItem: Item): string {
-    if (referencedItem?.hasMetadata('organization.identifier.ror')) {
-      return referencedItem.firstMetadataValue('organization.identifier.ror');
     }
     return null;
   }
