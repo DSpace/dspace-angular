@@ -1,4 +1,6 @@
 .source-icon {
-  height: 1.2rem;
+  height: var(--ds-identifier-sybetype-icon-height);
+  min-height: 16px;
+  width: auto;
   padding-left: 0.3rem;
 }

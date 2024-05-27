@@ -17,25 +17,25 @@
         <span class="ellipsis-y-3" *ngIf="longTextMetadataList.includes(metadata)">
           {{ item.firstMetadataValue(metadata) }}
         </span>
-        <a [href]="item.firstMetadataValue(metadata)" target="_blank" *ngIf="isLink(item.firstMetadataValue(metadata)) && !showIconMetadataList.includes(metadata)">
+        <a [href]="item.firstMetadataValue(metadata)" target="_blank" *ngIf="isLink(item.firstMetadataValue(metadata)) && !getSourceSubTypeIdentifier(metadata)">
           {{ item.firstMetadataValue(metadata) }}
         </a>
-        <!-- TODO: Fix later using configuration -->
-        <div *ngIf="metadata === 'organization.identifier.ror'" class="d-flex align-items-center">
+
+        <div *ngIf="getSourceSubTypeIdentifier(metadata)" class="d-flex align-items-center">
           <ng-container *ngVar="item.firstMetadataValue(metadata) as rorValue">
             <a *ngIf="isLink(rorValue)" [href]="item.firstMetadataValue(metadata)" target="_blank" >
               {{ item.firstMetadataValue(metadata) }}
             </a>
-            <a *ngIf="!isLink(rorValue)" [href]="'https://ror.org/' + item.firstMetadataValue(metadata)" target="_blank" >
+            <a *ngIf="!isLink(rorValue)" [href]="getSourceSubTypeIdentifier(metadata)?.link + '/' + item.firstMetadataValue(metadata)" target="_blank" >
               {{ item.firstMetadataValue(metadata) }}
             </a>
           </ng-container>
           <img
             placement="top"
-            ngbTooltip="https://ror.org"
+            [ngbTooltip]="getSourceSubTypeIdentifier(metadata)?.link"
             class="source-icon"
             alt="source-logo"
-            src="assets/images/ror.logo.icon.svg"
+            [src]="getSourceSubTypeIdentifier(metadata)?.icon"
             data-test="sourceIcon"
           />
         </div>

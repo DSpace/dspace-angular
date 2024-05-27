@@ -1,3 +1,4 @@
+import { IdentifierSubtypesConfig } from './../../../../config/identifier-subtypes-config.interface';
 import { MetadataLinkViewPopoverDataConfig } from 'src/config/metadata-link-view-popoverdata-config.interface';
 import { Item } from './../../../core/shared/item.model';
 import { Component, Input, OnInit } from '@angular/core';
@@ -25,14 +26,12 @@ export class MetadataLinkViewPopoverComponent implements OnInit {
 
   longTextMetadataList = ['dc.description.abstract', 'dc.description'];
 
-  showIconMetadataList = ['organization.identifier.ror'];
-
   sourceIcons: AuthorithyIcon[] = environment.submission.icons.authority.sourceIcons;
 
-    /**
+  /**
    * The identifier subtype configurations
    */
-    // identifierSubtypeConfig: IdentifierSubtypesConfig[] = environment.identifierSubtypes;
+  identifierSubtypeConfig: IdentifierSubtypesConfig[] = environment.identifierSubtypes;
 
   isOtherEntityType = false;
 
@@ -56,5 +55,12 @@ export class MetadataLinkViewPopoverComponent implements OnInit {
 
   getItemPageRoute(): string {
    return getItemPageRoute(this.item);
+  }
+
+  getSourceSubTypeIdentifier(metadataValue: string): IdentifierSubtypesConfig {
+    const metadataValueSplited = metadataValue.split('.');
+    const subtype = metadataValueSplited[metadataValueSplited.length - 1];
+    const identifierSubtype = this.identifierSubtypeConfig.find((config) => config.name === subtype);
+    return identifierSubtype;
   }
 }
