@@ -1,9 +1,11 @@
 <div class="view-container">
-  <div>
+
+  <div class="d-flex flex-row align-items-center gap-4 mb-2">
     <ds-metadata-link-view-avatar-popover
       *ngIf="item.thumbnail | async"
       [thumbnail]="item.thumbnail | async"
     ></ds-metadata-link-view-avatar-popover>
+    <span class="font-weight-bold h4"> {{item.firstMetadataValue('dc.title')}} </span>
   </div>
 
   <ng-container *ngFor="let metadata of entityMetdataFields">
@@ -15,22 +17,33 @@
         <span class="ellipsis-y-3" *ngIf="longTextMetadataList.includes(metadata)">
           {{ item.firstMetadataValue(metadata) }}
         </span>
-        <a [href]="item.firstMetadataValue(metadata)" target="_blank" *ngIf="isLink(item.firstMetadataValue(metadata))">
+        <a [href]="item.firstMetadataValue(metadata)" target="_blank" *ngIf="isLink(item.firstMetadataValue(metadata)) && !showIconMetadataList.includes(metadata)">
           {{ item.firstMetadataValue(metadata) }}
         </a>
+        <!-- TODO: Fix later using configuration -->
+        <div *ngIf="metadata === 'organization.identifier.ror'" class="d-flex align-items-center">
+          <ng-container *ngVar="item.firstMetadataValue(metadata) as rorValue">
+            <a *ngIf="isLink(rorValue)" [href]="item.firstMetadataValue(metadata)" target="_blank" >
+              {{ item.firstMetadataValue(metadata) }}
+            </a>
+            <a *ngIf="!isLink(rorValue)" [href]="'https://ror.org/' + item.firstMetadataValue(metadata)" target="_blank" >
+              {{ item.firstMetadataValue(metadata) }}
+            </a>
+          </ng-container>
+          <img
+            placement="top"
+            ngbTooltip="https://ror.org"
+            class="source-icon"
+            alt="source-logo"
+            src="assets/images/ror.logo.icon.svg"
+            data-test="sourceIcon"
+          />
+        </div>
+
         <div class="d-flex" *ngIf="!isLink(item.firstMetadataValue(metadata)) && !longTextMetadataList.includes(metadata)">
-          <ds-metadata-link-view-orcid [itemValue]="item" *ngIf="metadata === 'person.identifier.orcid'; else valueIconType"></ds-metadata-link-view-orcid>
-          <ng-template #valueIconType>
+          <ds-metadata-link-view-orcid [itemValue]="item" *ngIf="metadata === 'person.identifier.orcid'; else textType"></ds-metadata-link-view-orcid>
+          <ng-template #textType>
             <span>{{ item.firstMetadataValue(metadata) }}</span>
-            <img
-              *ngIf="showIconMetadataList.includes(metadata)"
-              placement="top"
-              ngbTooltip="{{ item.firstMetadataValue(metadata) }}"
-              class="source-icon"
-              alt="source-logo"
-              [src]="getSourceIconPath(metadata)"
-              data-test="sourceIcon"
-            />
           </ng-template>
         </div>
       </div>

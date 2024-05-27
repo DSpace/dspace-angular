@@ -808,28 +808,28 @@ export class DefaultAppConfig implements AppConfig {
   // Configuration for the metadata link view popover
   metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig =
     {
-      fallbackMetdataList: ['dc.title', 'dc.description.abstract'],
+      fallbackMetdataList: ['dc.description.abstract'],
 
       entityDataConfig: [
         {
           entityType: 'Person',
-          metadataList: ['dc.title', 'person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract']
+          metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract']
         },
         {
           entityType: 'OrgUnit',
-          metadataList: ['dc.title', 'organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract']
+          metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract']
         },
         {
           entityType: 'Project',
-          metadataList: ['dc.title', 'oairecerif.project.status', 'dc.description.abstract']
+          metadataList: ['oairecerif.project.status', 'dc.description.abstract']
         },
         {
           entityType: 'Funding',
-          metadataList: ['dc.title', 'oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract']
+          metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract']
         },
         {
           entityType: 'Publication',
-          metadataList: ['dc.title', 'dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract']
+          metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract']
         },
       ]
     };

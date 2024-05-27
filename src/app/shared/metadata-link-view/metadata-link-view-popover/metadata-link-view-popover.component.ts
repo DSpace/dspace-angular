@@ -29,6 +29,11 @@ export class MetadataLinkViewPopoverComponent implements OnInit {
 
   sourceIcons: AuthorithyIcon[] = environment.submission.icons.authority.sourceIcons;
 
+    /**
+   * The identifier subtype configurations
+   */
+    // identifierSubtypeConfig: IdentifierSubtypesConfig[] = environment.identifierSubtypes;
+
   isOtherEntityType = false;
 
   ngOnInit() {
