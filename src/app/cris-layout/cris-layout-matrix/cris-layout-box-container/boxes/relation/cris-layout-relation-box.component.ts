@@ -92,7 +92,7 @@ export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent 
     return this.authService.getAuthenticatedUserFromStore().pipe(
       filter(isNotEmpty),
       map((user) => isNotEmpty(this.getOwner(user))),
-      shareReplay(1),
+      shareReplay({ refCount: false, bufferSize: 1 }),
     );
   }
 

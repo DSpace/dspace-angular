@@ -48,17 +48,14 @@ export class ConcatFieldParser extends FieldParser {
   }
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
-    let clsGroup: DynamicFormControlLayout;
-    let clsInput1: DynamicFormControlLayout;
-    let clsInput2: DynamicFormControlLayout;
     const id: string = this.configData.selectableMetadata[0].metadata;
 
-    clsInput1 = {
+    const clsInput1: DynamicFormControlLayout = {
       grid: {
         host: 'col-sm-6',
       },
     };
-    clsInput2 = {
+    const clsInput2: DynamicFormControlLayout = {
       grid: {
         host: 'col-sm-6 d-flex flex-column justify-content-start',
       },
@@ -127,7 +124,7 @@ export class ConcatFieldParser extends FieldParser {
     concatGroup.group.push(model1);
     concatGroup.group.push(model2);
 
-    clsGroup = {
+    const clsGroup: DynamicFormControlLayout = {
       element: {
         control: 'form-row',
       },

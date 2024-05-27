@@ -10,6 +10,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   Observable,
@@ -33,7 +34,6 @@ import {
   getFirstSucceededRemoteData,
   paginatedListToArray,
 } from '../../core/shared/operators';
-import { UUIDService } from '../../core/shared/uuid.service';
 import { compareArraysUsing } from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { hasValue } from '../empty.util';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -110,7 +110,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
    * Start at page 1 and always use the set page size
    */
   options = Object.assign(new PaginationComponentOptions(),{
-    id: this.uuidService.generate(),
+    id: uniqueId('dad'),
     currentPage: 1,
     pageSize: this.pageSize,
   });
@@ -137,7 +137,6 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
                         protected elRef: ElementRef,
                         protected objectValuesPipe: ObjectValuesPipe,
                         protected paginationService: PaginationService,
-                        protected uuidService: UUIDService,
   ) {
   }
 

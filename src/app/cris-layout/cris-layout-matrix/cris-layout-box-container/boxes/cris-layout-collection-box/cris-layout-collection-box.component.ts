@@ -87,7 +87,7 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
 
     this.owningCollection$ = this.item.owningCollection.pipe(
       getFirstSucceededRemoteDataPayload(),
-      shareReplay(),
+      shareReplay({ refCount: false, bufferSize: 1 }),
     );
 
     this.handleLoadMore();

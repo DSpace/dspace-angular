@@ -51,7 +51,7 @@ export class CountersSectionComponent implements OnInit {
               public internalLinkService: InternalLinkService,
               private searchService: SearchManager,
               private uuidService: UUIDService,
-              @Inject(PLATFORM_ID) private platformId: Object,
+              @Inject(PLATFORM_ID) private platformId: any,
   ) {
 
   }

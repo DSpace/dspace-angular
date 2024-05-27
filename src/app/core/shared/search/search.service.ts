@@ -4,7 +4,6 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
-import { isEmpty } from 'lodash';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -19,6 +18,7 @@ import {
 import {
   hasValue,
   hasValueOperator,
+  isEmpty,
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';

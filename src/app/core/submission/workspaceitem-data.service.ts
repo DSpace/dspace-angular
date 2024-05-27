@@ -62,6 +62,15 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
     this.deleteData = new DeleteDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, notificationsService, this.responseMsToLive, this.constructIdEndpoint);
     this.searchData = new SearchDataImpl(this.linkPath, requestService, rdbService, objectCache, halService, this.responseMsToLive);
   }
+
+  /**
+   * Delete an existing object on the server
+   * @param   objectId The id of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   */
   public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     return this.deleteData.delete(objectId, copyVirtualMetadata);
   }
@@ -138,56 +147,6 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
    */
   searchBy(searchMethod: string, options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<WorkspaceItem>[]): Observable<RemoteData<PaginatedList<WorkspaceItem>>> {
     return this.searchData.searchBy(searchMethod, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-  }
-
-  /**
-   * Delete an existing object on the server
-   * @param   objectId The id of the object to be removed
-   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
-   *                            metadata should be saved as real metadata
-   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
-   *          errorMessage, timeCompleted, etc
-   */
-  public delete(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
-    return this.deleteData.delete(objectId, copyVirtualMetadata);
-  }
-
-  /**
-   * Delete an existing object on the server
-   * @param   href The self link of the object to be removed
-   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
-   *                            metadata should be saved as real metadata
-   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
-   *          errorMessage, timeCompleted, etc
-   *          Only emits once all request related to the DSO has been invalidated.
-   */
-  public deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
-    return this.deleteData.deleteByHref(href, copyVirtualMetadata);
-  }
-
-  /**
-   * Import an external source entry into a collection
-   * @param externalSourceEntryHref
-   * @param collectionId
-   */
-  public importExternalSourceEntry(externalSourceEntryHref: string, collectionId: string): Observable<RemoteData<WorkspaceItem>> {
-    const options: HttpOptions = Object.create({});
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'text/uri-list');
-    options.headers = headers;
-
-    const requestId = this.requestService.generateRequestId();
-    const href$ = this.halService.getEndpoint(this.linkPath).pipe(map((href) => `${href}?owningCollection=${collectionId}`));
-
-    href$.pipe(
-      find((href: string) => hasValue(href)),
-      map((href: string) => {
-        const request = new PostRequest(requestId, href, externalSourceEntryHref, options);
-        this.requestService.send(request);
-      }),
-    ).subscribe();
-
-    return this.rdbService.buildFromRequestUUID(requestId);
   }
 
 }

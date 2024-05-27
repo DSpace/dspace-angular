@@ -102,7 +102,7 @@ export class FileDownloadLinkComponent implements OnInit {
           hasValue(requestItemType) && requestItemType.values.length > 0,
         ),
         catchError(() => observableOf(false)),
-        shareReplay(1),
+        shareReplay({ refCount: false, bufferSize: 1 }),
       );
     } else {
       this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());

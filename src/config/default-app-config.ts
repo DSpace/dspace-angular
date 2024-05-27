@@ -41,7 +41,6 @@ import { SearchConfig } from './search-page-config.interface';
 import { SearchResultConfig } from './search-result-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
-import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
 
@@ -775,14 +774,6 @@ export class DefaultAppConfig implements AppConfig {
       },
     ],
   };
-
-  suggestion: SuggestionConfig[] = [
-    // {
-    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
-    //   source: 'suggestionSource',
-    //   collectionId: 'collectionUUID'
-    // }
-  ];
 
   cms: CmsMetadata = {
     metadataList: [

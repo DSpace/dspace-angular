@@ -1,10 +1,10 @@
 <ds-loading *ngIf="isLoading" message="Loading..."></ds-loading>
 
-<ng-container *ngIf="(getSectionStatus() | async) || !(config$ | async)">
+<ng-container *ngIf="(getSectionStatus() | async) || (config$ | async) !== true">
   <ds-alert [type]="AlertTypeEnum.Info" [content]="('submission.sections.detect-duplicate.disclaimer-no-match' | translate)"></ds-alert>
 </ng-container>
 
-<ng-container *ngIf="!(getSectionStatus() | async) && (config$ | async)">
+<ng-container *ngIf="(getSectionStatus() | async) !== true && (config$ | async)">
   <ds-alert [type]="AlertTypeEnum.Warning" [content]="(disclaimer | async)"></ds-alert>
 
   <ds-pagination

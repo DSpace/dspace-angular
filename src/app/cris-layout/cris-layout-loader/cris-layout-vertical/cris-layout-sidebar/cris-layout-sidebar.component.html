@@ -1,6 +1,6 @@
-<div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': !(isSideBarHidden() | async),
+<div class="wrapper d-flex align-items-stretch" [ngClass]="{'wrapper-close': (isSideBarHidden() | async) !== true,
                                                             'container': (hasSidebar() | async) }">
-  <nav id="sidebar" *ngIf="(hasSidebar() | async) && !(isSideBarHidden() | async) && showNav" [ngClass]="{'active': !(isSideBarHidden() | async)}">
+  <nav id="sidebar" *ngIf="(hasSidebar() | async) && (isSideBarHidden() | async) !== true && showNav" [ngClass]="{'active': (isSideBarHidden() | async) !== true}">
     <div>
       <ul class="list-unstyled components mb-5">
         <ng-container *ngIf="!!(activeTab$ |async)">
@@ -11,9 +11,10 @@
     </div>
   </nav>
   <div id="content" class="position-relative w-100 pr-0 pt-3 pb-3" [ngClass]="{
-	    'p-0': !(hasSidebar() | async),
-	    'pl-3': !(isSideBarHidden() | async),
-	    'pl-0': (isSideBarHidden() | async)}">
+	    'p-0': (hasSidebar() | async) !== true,
+	    'pl-3': (isSideBarHidden() | async) !== true,
+	    'pl-0': (isSideBarHidden() | async) === true
+	    }">
 
     <div *ngIf="(hasSidebar() | async)">
       <button type="button" class="btn btn-link menu-toggle" (click)="toggleSidebar()">

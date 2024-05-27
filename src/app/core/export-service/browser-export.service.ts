@@ -33,7 +33,7 @@ export class BrowserExportService implements ExportService {
    */
   exportAsConfig: ExportAsConfig;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
   }
 
   /**

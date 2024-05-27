@@ -52,7 +52,6 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach((sub) => sub.unsubscribe());
-    this.userAgreementText$.unsubscribe();
   }
 
 }

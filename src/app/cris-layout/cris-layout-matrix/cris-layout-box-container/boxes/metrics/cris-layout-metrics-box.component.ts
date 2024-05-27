@@ -67,7 +67,7 @@ export class CrisLayoutMetricsBoxComponent extends CrisLayoutBoxModelComponent i
     protected translateService: TranslateService,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item,
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: any,
   ) {
     super(translateService, boxProvider, itemProvider);
   }

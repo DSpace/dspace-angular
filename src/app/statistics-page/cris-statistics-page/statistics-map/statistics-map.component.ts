@@ -69,7 +69,7 @@ export class StatisticsMapComponent implements OnInit {
   protected exportService: ExportService;
 
   constructor(
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: any,
   ) {
     if (isPlatformBrowser(this.platformId)) {
       import('../../../core/export-service/browser-export.service').then((s) => {

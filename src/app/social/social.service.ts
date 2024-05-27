@@ -33,7 +33,7 @@ export class SocialService {
   private readonly isSocialEnabled: boolean;
 
   constructor(
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: any,
     @Inject(DOCUMENT) private _document: Document,
     private router: Router,
   ) {

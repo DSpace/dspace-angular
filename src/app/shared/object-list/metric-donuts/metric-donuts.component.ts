@@ -47,7 +47,7 @@ export class MetricDonutsComponent implements OnInit {
    */
   metrics$: BehaviorSubject<Metric[]> = new BehaviorSubject<Metric[]>([]);
 
-  constructor(private linkService: LinkService, @Inject(PLATFORM_ID) protected platformId: Object) {
+  constructor(private linkService: LinkService, @Inject(PLATFORM_ID) protected platformId: any) {
   }
 
   ngOnInit() {

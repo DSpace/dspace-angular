@@ -13,8 +13,8 @@
         <tr *ngFor="let correction of (correctionMetadataData$ | async)" class="correction-row">
             <td>{{correction.label}} ({{correction.metadata}})</td>
             <td>
-              <ng-container *ngIf="correction.oldValues.length==0">-</ng-container>
-              <ng-container *ngIf="correction.oldValues.length==1">{{correction.oldValues[0]}}</ng-container>
+              <ng-container *ngIf="correction.oldValues.length === 0">-</ng-container>
+              <ng-container *ngIf="correction.oldValues.length === 1">{{correction.oldValues[0]}}</ng-container>
               <ul *ngIf="correction.oldValues.length>1">
                 <li *ngFor='let value of correction.oldValues'>
                   {{value}}
@@ -22,8 +22,8 @@
               </ul>
             </td>
             <td>
-              <ng-container *ngIf="correction.newValues.length==0">-</ng-container>
-              <ng-container *ngIf="correction.newValues.length==1">{{correction.newValues[0]}}</ng-container>
+              <ng-container *ngIf="correction.newValues.length === 0">-</ng-container>
+              <ng-container *ngIf="correction.newValues.length === 1">{{correction.newValues[0]}}</ng-container>
               <ul *ngIf="correction.newValues.length>1">
                 <li *ngFor='let value of correction.newValues'>
                   {{value}}
@@ -59,8 +59,8 @@
             <tr *ngFor="let metadata of bitstream.metadata" class="correction-row">
               <td>{{metadata.label}} ({{metadata.metadata}})</td>
               <td>
-                <ng-container *ngIf="metadata.oldValues.length==0">-</ng-container>
-                <ng-container *ngIf="metadata.oldValues.length==1">{{metadata.oldValues[0]}}</ng-container>
+                <ng-container *ngIf="metadata.oldValues.length === 0">-</ng-container>
+                <ng-container *ngIf="metadata.oldValues.length === 1">{{metadata.oldValues[0]}}</ng-container>
                 <ul *ngIf="metadata.oldValues.length>1">
                   <li *ngFor='let value of metadata.oldValues'>
                     {{value}}
@@ -68,8 +68,8 @@
                 </ul>
               </td>
               <td>
-                <ng-container *ngIf="metadata.newValues.length==0">-</ng-container>
-                <ng-container *ngIf="metadata.newValues.length==1">{{metadata.newValues[0]}}</ng-container>
+                <ng-container *ngIf="metadata.newValues.length === 0">-</ng-container>
+                <ng-container *ngIf="metadata.newValues.length === 1">{{metadata.newValues[0]}}</ng-container>
                 <ul *ngIf="metadata.newValues.length>1">
                   <li *ngFor='let value of metadata.newValues'>
                     {{value}}

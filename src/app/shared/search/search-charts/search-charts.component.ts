@@ -87,7 +87,7 @@ export class SearchChartsComponent implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private searchService: SearchService,
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: any,
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
   }
 

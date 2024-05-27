@@ -1,6 +1,6 @@
 <div class="row">
   <div *ngIf="showThumbnails" class="col-3 col-xl-2 pr-sm-0">
-    <a *ngIf="linkType !== linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+    <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
        [routerLink]="[itemPageRoute]" class="dont-break-out">
       <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
       </ds-thumbnail>
@@ -13,7 +13,7 @@
   <div [ngClass]="showThumbnails ? 'col-9 col-xl-10' : 'col-12'">
     <div class="d-flex justify-content-between">
       <div class="flex-fill">
-        <small class="d-flex text-muted" *ngIf="!(hasLoadedThirdPartyMetrics$ | async) && showMetrics">
+        <small class="d-flex text-muted" *ngIf="(hasLoadedThirdPartyMetrics$ | async) !== true && showMetrics">
           {{ "third-party-metrics-blocked" | translate }}&nbsp;
           <div role="button" class="btn-link" (click)="showSettings()">{{ "third-party-metrics-cookies.consent-settings" | translate }}</div>
         </small>

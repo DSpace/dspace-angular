@@ -41,7 +41,7 @@
               class="btn"
               id="saveForLater"
               [attr.data-test]="'save-for-later' | dsBrowserOnly"
-              [disabled]="(!(showDepositAndDiscard | async) && (submissionIsInvalid | async)) || (processingSaveStatus | async) || (processingDepositStatus | async)"
+              [disabled]="((showDepositAndDiscard | async) !== true && (submissionIsInvalid | async)) || (processingSaveStatus | async) || (processingDepositStatus | async)"
               (click)="saveLater($event)">
       <span><i class="fas fa-save"></i> {{saveForLaterLabel() | translate}}</span>
       </button>

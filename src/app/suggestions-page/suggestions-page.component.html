@@ -42,7 +42,7 @@
               </ul>
             </ds-pagination>
           </div>
-          <ds-alert *ngIf="!(processing$ | async) && (suggestionsRD?.pageInfo?.totalElements == 0 || !suggestionsRD)" [type]="'alert-info'">
+          <ds-alert *ngIf="(processing$ | async) !== true && (suggestionsRD?.pageInfo?.totalElements === 0 || !suggestionsRD)" [type]="'alert-info'">
             {{'suggestion.count.missing' | translate}}
           </ds-alert>
         </ng-container>

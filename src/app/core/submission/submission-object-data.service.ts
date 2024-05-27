@@ -12,11 +12,11 @@ import { IdentifiableDataService } from '../data/base/identifiable-data.service'
 import { RemoteData } from '../data/remote-data';
 import { RequestEntryState } from '../data/request-entry-state.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { EditItemDataService } from './edititem-data.service';
 import { SubmissionObject } from './models/submission-object.model';
 import { SubmissionScopeType } from './submission-scope-type';
 import { WorkflowItemDataService } from './workflowitem-data.service';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';
-import { EditItemDataService } from './edititem-data.service';
 
 /**
  * A service to retrieve submission objects (WorkspaceItem/WorkflowItem)
@@ -76,7 +76,7 @@ export class SubmissionObjectDataService {
         return this.workflowItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       case SubmissionScopeType.EditItem:
         return this.editItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale,...linksToFollow);
-      default:
+      default: {
         const now = new Date().getTime();
         return observableOf(new RemoteData(
           now,

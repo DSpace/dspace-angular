@@ -5,7 +5,6 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -19,7 +18,6 @@ import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { ListableObject } from '../listable-object.model';
 import { getListableObjectComponent } from './listable-object.decorator';
-import { ListableObjectDirective } from './listable-object.directive';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
@@ -90,11 +88,6 @@ export class ListableObjectComponentLoaderComponent extends AbstractComponentLoa
    * Pass custom data to the component for custom utilization
    */
   @Input() customData: any;
-
-  /**
-   * Directive hook used to place the dynamic child component
-   */
-  @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
 
   /**
    * Emit when the listable object has been reloaded.

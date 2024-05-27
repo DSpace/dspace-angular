@@ -268,7 +268,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges, OnDestr
           this.mdSecurityConfigLevel$,
         ]).pipe(
           map(([mdField, securityConfigLevel]) => hasValue(mdField) && this.hasSecurityChoice(securityConfigLevel)),
-          shareReplay(1),
+          shareReplay({ refCount: false, bufferSize: 1 }),
         );
   }
 

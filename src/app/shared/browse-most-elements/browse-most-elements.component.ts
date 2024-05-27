@@ -48,7 +48,7 @@ export class BrowseMostElementsComponent implements OnInit {
 
   constructor(
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: any,
     private searchService: SearchManager,
     private cdr: ChangeDetectorRef) {
 

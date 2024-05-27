@@ -16,6 +16,7 @@ import {
 } from 'rxjs';
 import {
   catchError,
+  concatMap,
   filter,
   map,
   mergeMap,
@@ -29,7 +30,10 @@ import { environment } from '../../../environments/environment';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import {
+  SubmissionObject,
+  SubmissionObjectError,
+} from '../../core/submission/models/submission-object.model';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../core/submission/models/workspaceitem-section-deduplication.model';
@@ -43,6 +47,7 @@ import {
   isEmpty,
   isNotEmpty,
   isNotUndefined,
+  isUndefined,
 } from '../../shared/empty.util';
 import { FormState } from '../../shared/form/form.reducer';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -175,9 +180,13 @@ export class SubmissionObjectEffects {
         'sections',
       ).pipe(
         map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual, action.payload.isManual)),
-        catchError((rd: RemoteData<any>) => observableFrom(
-          this.parseErrorResponse(false, rd.errors, action.payload.submissionId, rd.statusCode, rd.errorMessage),
-        )));
+        catchError((rd: unknown) => {
+          if (rd instanceof RemoteData) {
+            return observableFrom(
+              this.parseErrorResponse(false, rd.errors, action.payload.submissionId, rd.statusCode, rd.errorMessage),
+            );
+          }
+        }));
     })));
 
   /**
@@ -192,9 +201,13 @@ export class SubmissionObjectEffects {
         'sections',
       ).pipe(
         map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
-        catchError((rd: RemoteData<any>) => observableFrom(
-          this.parseErrorResponse(false, rd.errors, action.payload.submissionId, rd.statusCode, rd.errorMessage),
-        )));
+        catchError((rd: unknown) => {
+          if (rd instanceof RemoteData) {
+            return observableFrom(
+              this.parseErrorResponse(false, rd.errors, action.payload.submissionId, rd.statusCode, rd.errorMessage),
+            );
+          }
+        }));
     })));
 
   /**
@@ -236,9 +249,13 @@ export class SubmissionObjectEffects {
         action.payload.sectionId,
       ).pipe(
         map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
-        catchError((rd: RemoteData<any>) => observableFrom(
-          this.parseErrorResponse(true, rd.errors, action.payload.submissionId, rd.statusCode, rd.errorMessage),
-        )));
+        catchError((rd: unknown) => {
+          if (rd instanceof RemoteData) {
+            return observableFrom(
+              this.parseErrorResponse(false, rd.errors, action.payload.submissionId, rd.statusCode, rd.errorMessage),
+            );
+          }
+        }));
     })));
 
   /**
@@ -282,9 +299,13 @@ export class SubmissionObjectEffects {
             return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, false, true);
           }
         }),
-        catchError((rd: RemoteData<any>) => observableFrom(
-          this.parseErrorResponse(false, rd.errors, action.payload.submissionId, rd.statusCode, rd.errorMessage),
-        )));
+        catchError((rd: unknown) => {
+          if (rd instanceof RemoteData) {
+            return observableFrom(
+              this.parseErrorResponse(false, rd.errors, action.payload.submissionId, rd.statusCode, rd.errorMessage),
+            );
+          }
+        }));
     })));
 
   removeSection$ = createEffect(() => this.actions$.pipe(

@@ -46,7 +46,7 @@ export class DetectDuplicateService {
     return this.store.pipe(
       select(submissionSectionDataFromIdSelector(submissionId, sectionId)),
       map((sectionData: WorkspaceitemSectionDetectDuplicateObject) => {
-        let matches: {};
+        let matches: WorkspaceitemSectionDetectDuplicateObject = null;
         if (isNotEmpty(sectionData)) {
           matches = sectionData;
         }

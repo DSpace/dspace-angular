@@ -70,7 +70,7 @@ export class CollectionPageComponent implements OnInit {
   collectionPageRoute$: Observable<string>;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: any,
     @Inject(APP_CONFIG) public appConfig: AppConfig,
     protected route: ActivatedRoute,
     protected router: Router,

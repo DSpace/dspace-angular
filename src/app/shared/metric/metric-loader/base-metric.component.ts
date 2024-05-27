@@ -4,7 +4,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 import { Metric } from '../../../core/shared/metric.model';
 import { hasNoValue } from '../../empty.util';

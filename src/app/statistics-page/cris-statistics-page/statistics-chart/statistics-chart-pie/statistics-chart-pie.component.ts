@@ -39,7 +39,7 @@ export class StatisticsChartPieComponent extends StatisticsChartDataComponent {
   constructor(
     @Inject(REPORT_DATA) public report: UsageReport,
     @Inject('categoryType') public categoryType: string,
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: any,
   ) {
     super(report, categoryType, platformId);
   }

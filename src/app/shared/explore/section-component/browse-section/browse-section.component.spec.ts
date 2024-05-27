@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   inject,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import {
   FormsModule,
@@ -29,7 +29,7 @@ describe('BrowseSectionComponent', () => {
   let component: BrowseSectionComponent;
   let fixture: ComponentFixture<BrowseSectionComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule, RouterTestingModule,
         TranslateModule.forRoot({
