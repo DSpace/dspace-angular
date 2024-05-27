@@ -758,6 +758,8 @@
 
   "admin.search.item.move": "Move",
 
+  "admin.search.item.clone": "Clone",
+
   "admin.search.item.reinstate": "Reinstate",
 
   "admin.search.item.withdraw": "Withdraw",
@@ -2500,6 +2502,34 @@
 
   "item.edit.move.title": "Move item",
 
+  "item.edit.clone.cancel": "Back",
+
+  "item.edit.clone.save-button": "Save",
+
+  "item.edit.clone.discard-button": "Discard",
+
+  "item.edit.clone.description": "Select the collection you wish to clone this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
+
+  "item.edit.clone.error": "An error occurred when attempting to clone the item",
+
+  "item.edit.clone.head": "Clone item: {{id}}",
+
+  "item.edit.clone.inheritpolicies.checkbox": "Inherit policies",
+
+  "item.edit.clone.inheritpolicies.description": "Inherit the default policies of the destination collection",
+
+  "item.edit.clone.inheritpolicies.tooltip": "Warning: When enabled, the read access policy for the item and any files associated with the item will be replaced by the default read access policy of the collection. This cannot be undone.",
+
+  "item.edit.clone.clone": "Clone",
+
+  "item.edit.clone.processing": "Processing...",
+
+  "item.edit.clone.search.placeholder": "Enter a search query to look for collections",
+
+  "item.edit.clone.success": "The item has been cloned successfully",
+
+  "item.edit.clone.title": "Clone item",
+
   "item.edit.private.cancel": "Cancel",
 
   "item.edit.private.confirm": "Make it non-discoverable",
@@ -2605,6 +2635,10 @@
   "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
 
   "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
+
+  "item.edit.tabs.status.buttons.clone.button": "Clone this item",
+
+  "item.edit.tabs.status.buttons.clone.label": "Clone this item as a new workspace item",
 
   "item.edit.tabs.status.buttons.private.button": "Make it non-discoverable...",
 
