@@ -528,7 +528,7 @@
   "admin.access-control.epeople.form.goToGroups": "Adicionar aos grupos",
 
   // "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "Ocorreu um erro ao tentar excluir a Pessoa Eletrônica com o ID \"{{id}}\" com código: \"{{statusCode}}\" e mensagem: \"{{restResponse.errorMessage}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Ocorreu um erro ao tentar excluir a EPerson com o ID \"{{id}}\" com código: \"{{statusCode}}\" e mensagem: \"{{restResponse.errorMessage}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   "admin.access-control.epeople.notification.deleted.success": "EPerson: \"{{name}}\" apagada com sucesso",
@@ -807,7 +807,7 @@
   "admin.access-control.groups.form.tooltip.editGroupPage": "Nesta página, você pode modificar as propriedades e membros de um grupo. Na seção superior, é possível editar o nome e a descrição do grupo, a menos que este seja um grupo de administrador para uma coleção ou comunidade, caso em que o nome e a descrição do grupo são gerados automaticamente e não podem ser editados. Nas seções seguintes, você pode editar a associação ao grupo. Consulte [a wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) para mais detalhes.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Para adicionar ou remover uma Pessoa para/deste grupo, clique no botão 'Ver Todos' ou use a barra de pesquisa abaixo para procurar usuários (use o menu suspenso à esquerda da barra de pesquisa para escolher se deseja pesquisar por metadados ou por e-mail). Em seguida, clique no ícone de adição para cada usuário que deseja adicionar à lista abaixo ou no ícone de lixeira para cada usuário que deseja remover. A lista abaixo pode ter várias páginas: use os controles de página abaixo da lista para navegar para as páginas seguintes.",
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Para adicionar ou remover uma EPessoa para/deste grupo, clique no botão 'Ver Todos' ou use a barra de pesquisa abaixo para procurar usuários (use o menu suspenso à esquerda da barra de pesquisa para escolher se deseja pesquisar por metadados ou por e-mail). Em seguida, clique no ícone de adição para cada usuário que deseja adicionar à lista abaixo ou no ícone de lixeira para cada usuário que deseja remover. A lista abaixo pode ter várias páginas: use os controles de página abaixo da lista para navegar para as páginas seguintes.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
   "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Para adicionar ou remover um Subgrupo para/deste grupo, clique no botão 'Ver Todos' ou use a barra de pesquisa abaixo para pesquisar grupos. Em seguida, clique no ícone de adição para cada grupo que deseja adicionar à lista abaixo ou no ícone de lixeira para cada grupo que deseja remover. A lista abaixo pode ter várias páginas: use os controles de página abaixo da lista para navegar para as próximas páginas.",
@@ -1647,7 +1647,7 @@
   "browse.title": "Navegando por {{ field }}{{ startsWith }} {{ value }}",
 
   // "browse.title.page": "Browsing by {{ field }} {{ value }}",
-  "browse.title.page": "Navegando {{ collection }} por {{ field }} {{ value }}",
+  "browse.title.page": "Navegando por {{ field }} {{ value }}",
 
   // "search.browse.item-back": "Back to Results",
   "search.browse.item-back": "Voltar para os Resultados",
@@ -2775,7 +2775,7 @@
   "error.search-results": "Erro ao carregar os resultados de busca",
 
   // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
-  "error.invalid-search-query": "A consulta de pesquisa não é válida. Por favor verifique <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> para melhores práticas e mais informações sobre este erro.",
+  "error.invalid-search-query": "A consulta de pesquisa não é válida. Por favor, verifique <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> para melhores práticas e mais informações sobre este erro.",
 
   // "error.sub-collections": "Error fetching sub-collections",
   "error.sub-collections": "Erro ao carregar subcoleções",
@@ -2784,7 +2784,7 @@
   "error.sub-communities": "Erro ao carregar subcomunidade",
 
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  "error.submission.sections.init-form-error": "Ocorreu um erro durante a seção de inicialização, por favor verifique sua configuração de input-form. Detalhes estão abaixo : <br> <br>",
+  "error.submission.sections.init-form-error": "Ocorreu um erro durante a seção de inicialização, por favor, verifique sua configuração de input-form. Detalhes estão abaixo : <br> <br>",
 
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Erro ao carregar as comunidade de nível superior",
@@ -3528,7 +3528,7 @@
   "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
 
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
-  "item.edit.item-mapper.no-search": "Por favor informe uma consulta para buscar",
+  "item.edit.item-mapper.no-search": "Por favor, informe uma consulta para buscar",
 
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.add.error.content": "Ocorreram erros ao mapear o item em {{amount}} coleções.",
@@ -5178,7 +5178,7 @@
   "mydspace.title": "MeuDSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
-  "mydspace.upload.upload-failed": "Erro ao criar novo espaço de trabalho. Por favor verifique o conteúdo enviado antes de tentar novamente.",
+  "mydspace.upload.upload-failed": "Erro ao criar novo espaço de trabalho. Por favor, verifique o conteúdo enviado antes de tentar novamente.",
 
   // "mydspace.upload.upload-failed-manyentries": "Unprocessable file. Detected too many entries but allowed only one for file.",
   "mydspace.upload.upload-failed-manyentries": "Arquivo não processável. Detectou muitas entradas, mas permitiu apenas uma para o arquivo.",
@@ -6081,7 +6081,7 @@
   "register-page.create-profile.identification.last-name": "Sobrenome *",
 
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
-  "register-page.create-profile.identification.last-name.error": "Por favor preencha o Sobrenome",
+  "register-page.create-profile.identification.last-name.error": "Por favor, preencha o Sobrenome",
 
   // "register-page.create-profile.identification.contact": "Contact Telephone",
   "register-page.create-profile.identification.contact": "Telefone de Contato",
@@ -7758,13 +7758,13 @@
   "submission.sections.general.collection": "Coleção",
 
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
-  "submission.sections.general.deposit_error_notice": "Houve um problema durante a submissão do item, por favor tente novamente mais tarde.",
+  "submission.sections.general.deposit_error_notice": "Houve um problema durante a submissão do item, por favor, tente novamente mais tarde.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
   "submission.sections.general.deposit_success_notice": "Submissão depositada com sucesso.",
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  "submission.sections.general.discard_error_notice": "Houve um problema ao descartar o item, por favor tente novamente mais tarde.",
+  "submission.sections.general.discard_error_notice": "Houve um problema ao descartar o item, por favor, tente novamente mais tarde.",
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
   "submission.sections.general.discard_success_notice": "Submissão descartada com sucesso.",
@@ -7785,7 +7785,7 @@
   "submission.sections.general.no-sections": "Sem opções disponíveis",
 
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
-  "submission.sections.general.save_error_notice": "Houve um problema ao salvar o item, por favor tente novamente mais tarde.",
+  "submission.sections.general.save_error_notice": "Houve um problema ao salvar o item, por favor, tente novamente mais tarde.",
 
   // "submission.sections.general.save_success_notice": "Submission saved successfully.",
   "submission.sections.general.save_success_notice": "Submissão salva com sucesso.",
@@ -7962,7 +7962,7 @@
   "submission.sections.upload.header.policy.default.nolist": "Arquivos enviados na coleção {{collectionName}} serão acessíveis de acordo com o(s) seguinte(s) grupo(s):",
 
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "submission.sections.upload.header.policy.default.withlist": "Por favor note que arquivos enviados a coleção {{collectionName}} serão acessíveis, de acordo com o que está explicitamente definido no arquivo, no(s) seguinte(s) grupo(s):",
+  "submission.sections.upload.header.policy.default.withlist": "Por favor, note que arquivos enviados a coleção {{collectionName}} serão acessíveis, de acordo com o que está explicitamente definido no arquivo, no(s) seguinte(s) grupo(s):",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Aqui você encontra todos os arquivos que estão atualmente no item. Você pode atualizar os metadados do arquivo e condições de acesso ou <strong>enviar arquivos adicionais apenas arrastando os arquivos em qualquer lugar da página</strong>",
@@ -8184,7 +8184,7 @@
   "submission.workflow.tasks.claimed.decline_help": "",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  "submission.workflow.tasks.claimed.reject.reason.info": "Por favor informe o motivo pela rejeição da submissão na caixa abaixo, indicando se o submetedor pode corrigir um problema e reenviar.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Por favor, informe o motivo pela rejeição da submissão na caixa abaixo, indicando se o submetedor pode corrigir um problema e reenviar.",
 
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Descreva o motivo da rejeição",
@@ -8418,7 +8418,7 @@
   "uploader.processing": "Processando arquivo(s) enviado(s)... (agora é seguro fechar esta página)",
 
   // "uploader.queue-length": "Queue length",
-  "uploader.queue-length": "Tamanho da Fila",
+  "uploader.queue-length": "Tamanho da fila",
 
   // "virtual-metadata.delete-item.info": "Select the types for which you want to save the virtual metadata as real metadata",
   "virtual-metadata.delete-item.info": "Selecione os tipos para os quais você deseja salvar os metadados virtuais como metadados reais",
