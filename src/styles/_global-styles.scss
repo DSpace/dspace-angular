@@ -347,3 +347,26 @@ ul.dso-edit-menu-dropdown > li .nav-item.nav-link {
 .mt-ncs { margin-top: calc(var(--ds-content-spacing) * -1); }
 .mb-ncs { margin-bottom: calc(var(--ds-content-spacing) * -1); }
 .my-ncs { margin-top: calc(var(--ds-content-spacing) * -1); margin-bottom: calc(var(--ds-content-spacing) * -1); }
+
+
+.text-gray-500 {
+  color: var(--bs-gray-500) !important;
+}
+
+/* Define a mixin for vertical ellipsis
+   To be used as a class e.g. ellipsis-y-1,... ellipsis-y-4,... ellipsis-y-10
+ */
+@mixin ellipsis-y($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines; // number of lines
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Generate classes for 1 to 10 lines
+@for $i from 1 through 10 {
+  .ellipsis-y-#{$i} {
+    @include ellipsis-y($i);
+  }
+}

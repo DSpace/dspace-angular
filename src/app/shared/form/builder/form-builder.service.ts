@@ -38,7 +38,10 @@ import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qua
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import {
+  DynamicRelationGroupModel,
+  DynamicRelationGroupModelConfig
+} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
@@ -260,6 +263,7 @@ export class FormBuilderService extends DynamicFormService {
                   (controlModel as any).metadataValue.place,
                   (controlModel as any).metadataValue.confidence,
                   (controlModel as any).metadataValue.otherInformation,
+                  (controlModel as any).metadataValue.source,
                   (controlModel as any).metadataValue.metadata);
               }
 
@@ -274,6 +278,7 @@ export class FormBuilderService extends DynamicFormService {
                   (controlModel as any).value.place,
                   (controlModel as any).value.confidence,
                   (controlModel as any).value.otherInformation,
+                  (controlModel as any).value.source,
                   (controlModel as any).value.metadata);
               }
             }
@@ -517,12 +522,13 @@ export class FormBuilderService extends DynamicFormService {
    */
   updateModelValue(fieldId: string, value: FormFieldMetadataValueObject): DynamicFormControlModel {
     let returnModel = null;
-    [...this.formModels.keys()].find((formId) => {
+    [...this.formModels.keys()].forEach((formId) => {
       const models = this.formModels.get(formId);
-      const fieldModel: any = this.findById(fieldId, models);
+      let fieldModel: any = this.findById(fieldId, models);
       if (hasValue(fieldModel) && !fieldModel.hidden) {
+        const isIterable = (typeof value[Symbol.iterator] === 'function');
         if (isNotEmpty(value)) {
-          if (fieldModel.repeatable && isNotEmpty(fieldModel.value)) {
+          if (fieldModel.repeatable && isNotEmpty(fieldModel.value) && !(!isIterable && fieldModel instanceof DynamicRelationGroupModel)) {
             // if model is repeatable and has already a value add a new field instead of replacing it
             const formGroup = this.formGroups.get(formId);
             const arrayContext = fieldModel.parent?.context;
@@ -536,13 +542,30 @@ export class FormBuilderService extends DynamicFormService {
               returnModel = newAddedModel;
             }
           } else {
-            fieldModel.value = value;
+            if ((!isIterable && fieldModel instanceof DynamicRelationGroupModel) && isEmpty(fieldModel.value)) {
+              const config: DynamicRelationGroupModelConfig = {
+                submissionId: fieldModel.submissionId,
+                formConfiguration: fieldModel.formConfiguration,
+                isInlineGroup: fieldModel.isInlineGroup,
+                mandatoryField: fieldModel.mandatoryField,
+                relationFields: fieldModel.relationFields,
+                scopeUUID: fieldModel.scopeUUID,
+                submissionScope: fieldModel.submissionScope,
+                repeatable: fieldModel.repeatable,
+                metadataFields: fieldModel.metadataFields,
+                hasSelectableMetadata: fieldModel.hasSelectableMetadata,
+                id: fieldModel.id,
+                value: fieldModel.getGroupValue(value)
+              };
+              fieldModel = new DynamicRelationGroupModel(config);
+            } else {
+              fieldModel.value =  value;
+            }
             returnModel = fieldModel;
+
           }
         }
-        return returnModel;
       }
-      return false;
     });
     return returnModel;
   }

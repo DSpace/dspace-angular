@@ -1493,7 +1493,11 @@
 
   "community.edit.logo.delete.title": "Delete logo",
 
+  "community-collection.edit.logo.delete.title": "Confirm deletion",
+
   "community.edit.logo.delete-undo.title": "Undo delete",
+
+  "community-collection.edit.logo.delete-undo.title": "Undo delete",
 
   "community.edit.logo.label": "Community logo",
 
@@ -2043,6 +2047,8 @@
 
   "confirmation-modal.delete-eperson.confirm": "Delete",
 
+  "confirmation-modal.delete-community-collection-logo.info": "Are you sure you want to delete the logo?",
+
   "confirmation-modal.delete-profile.header": "Delete Profile",
 
   "confirmation-modal.delete-profile.info": "Are you sure you want to delete your profile",
@@ -2405,6 +2411,8 @@
 
   "form.cancel": "Cancel",
 
+  "form.reset": "Reset",
+
   "form.clear": "Clear",
 
   "form.clear-help": "Click here to remove the selected value",
@@ -2474,6 +2482,20 @@
   "form.other-information.ror_orgunit_type": "ROR type",
 
   "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
 
   "form.remove": "Remove",
 
@@ -2610,6 +2632,8 @@
   "info.end-user-agreement.title": "End User Agreement",
 
   "info.end-user-agreement.hosting-country": "the United States",
+
+  "info.end-user-agreement.content.fallback": "Accept the user agreement.",
 
   "info.privacy.breadcrumbs": "Privacy Statement",
 
@@ -2864,6 +2888,8 @@
   "item.edit.metadata.headers.language": "Lang",
 
   "item.edit.metadata.headers.security": "Security level",
+
+  "item.edit.metadata.headers.authority": "Authority",
 
   "item.edit.metadata.headers.value": "Value",
 
@@ -3273,11 +3299,25 @@
 
   "item.preview.dc.identifier.arxiv": "arXiv ID",
 
-  "item.preview.dc.identifier.patentno": "Patent Number",
+  "item.preview.crispatent.document.description": "Document description:",
+
+  "item.preview.crispatent.document.issueDate": "Publication date:",
+
+  "item.preview.crispatent.document.kind": "Document Kind code:",
+
+  "item.preview.crispatent.document.title": "Document title:",
+
+  "item.preview.crispatent.kind": "Kind code:",
+
+  "item.preview.dc.contributor": "Applicants:",
+
+  "item.preview.dc.identifier.applicationnumber": "Application number:",
+
+  "item.preview.dc.identifier.patentno": "Patent number:",
 
   "item.preview.dc.subject.ipc": "Subject IPC",
 
-  "item.preview.dcterms.dateSubmitted": "Registration Date",
+  "item.preview.dcterms.dateSubmitted": "Registration date:",
 
   "item.preview.dc.identifier.isi": "ISI",
 
@@ -3371,14 +3411,6 @@
 
   "item.preview.oairecerif.oamandate": "OA Mandate",
 
-  "item.preview.oairecerif.identifier.url": "Link",
-
-  "item.preview.organization.identifier.ror": "ROR ID",
-
-  "item.preview.organization.foundingDate": "Founding Date",
-
-  "item.preview.organization.address.addressCountry": "Country",
-
   "item.preview.organization.parentOrganization": "Parent Organization",
 
   "item.preview.person.familyName": "Surname:",
@@ -3396,6 +3428,20 @@
   "item.preview.dc.coverage.spatial": "Jurisdiction:",
 
   "item.preview.oaire.fundingStream": "Funding Stream:",
+
+  "item.preview.oairecerif.identifier.url": "URL",
+
+  "item.preview.organization.address.addressCountry": "Country",
+
+  "item.preview.organization.foundingDate": "Founding Date",
+
+  "item.preview.organization.identifier.crossrefid": "CrossRef ID",
+
+  "item.preview.organization.identifier.isni": "ISNI",
+
+  "item.preview.organization.identifier.ror": "ROR ID",
+
+  "item.preview.organization.legalName": "Legal Name",
 
   "item.preview.person.identifier.rid": "Researcher ID:",
 
@@ -3680,6 +3726,10 @@
   "loading.community": "Loading community...",
 
   "loading.default": "Loading...",
+
+  "loading.warning": "This is taking longer than expected. Please be patient.",
+
+  "loading.error": "An error occurred while loading the page. Please refresh the page and try again.",
 
   "loading.item": "Loading item...",
 
@@ -4494,7 +4544,7 @@
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
 
 
-
+  "patent.page.titleprefix": "Patent",
 
   "patent.listelement.badge": "Patent",
 
@@ -5243,7 +5293,7 @@
 
   "search.form.search_dspace": "All repository",
 
-  "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "All items",
 
   "search.results.head": "Search Results",
 
@@ -5500,6 +5550,16 @@
 
   "form.other-information.oairecerif-editor-affiliation": "Affiliation",
 
+  "form.other-information.dc.publisher": "Publisher",
+
+  "form.other-information.miur.journal.othertitle": "Other Title",
+
+  "form.other-information.miur.journal.startdate": "Start Date",
+
+  "form.other-information.miur.journal.enddate": "End Date",
+
+  "form.other-information.dc.identifier.issn": "ISSN",
+
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
   "statistics.table.downloadReports.title.TopItems": "Most downloaded",
@@ -5723,6 +5783,8 @@
   "submission.import-external.source.crossref": "CrossRef",
 
   "submission.import-external.source.datacite": "DataCite",
+
+  "submission.import-external.source.doi": "DOI",
 
   "submission.import-external.source.scielo": "SciELO",
 
@@ -6906,6 +6968,8 @@
 
   "person.page.orcid.products-preferences": "Product preferences",
 
+  "person.page.orcid.patent-preferences": "Patent preferences",
+
   "person.page.orcid.publications-preferences": "Publication preferences",
 
   "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
@@ -6927,6 +6991,14 @@
   "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
 
   "person.page.orcid.sync-fundings.disabled": "Disabled",
+
+  "person.page.orcid.sync-patents.all": "All patents",
+
+  "person.page.orcid.sync-patents.mine": "My patents",
+
+  "person.page.orcid.sync-patents.my_selected": "Selected patents",
+
+  "person.page.orcid.sync-patents.disabled": "Disabled",
 
   "person.page.orcid.sync-publications.all": "All publications",
 
@@ -6979,6 +7051,8 @@
   "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
 
   "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+
+  "person.page.orcid.sync-queue.tooltip.patent": "Patent",
 
   "person.page.orcid.sync-queue.tooltip.publication": "Publication",
 
@@ -7063,6 +7137,8 @@
   "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
 
   "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+
+  "person.page.orcid.synchronization-mode-patent-message": "Select whether to send your linked Patent entities to your ORCID record's list of works.",
 
   "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
 
@@ -7232,6 +7308,10 @@
 
   "access-control-cancel": "Cancel",
 
+  "access-control-reset": "Reset",
+
+  "access-control-back": "Back",
+
   "access-control-execute": "Execute",
 
   "access-control-add-more": "Add more",
@@ -7324,4 +7404,17 @@
   "third-party-metrics-cookies.consent-settings": "consent settings",
 
   "third-party-metrics-blocked": "Some of the metrics are blocked by your",
+
+  "form.other-information.alternative-names": "Alternative names",
+
+  "form.other-information.selection.data-oairecerif_author_affiliation": "Select alternative affiliation",
+
+  "form.other-information.data-oairecerif_author_affiliation": "Affiliation",
+
+  "form.other-information.selection.data-crispj_coinvestigator_affiliation": "Affiliation",
+
+  "form.other-information.selection.alternative-names": "Select alternative name",
+
+  "meta.tag.missing.description": "No description available",
+
 }

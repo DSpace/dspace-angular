@@ -3753,6 +3753,10 @@
   // "info.end-user-agreement.title": "End User Agreement",
   "info.end-user-agreement.title": "Accordo con l'utente finale",
 
+  //  "info.end-user-agreement.content.fallback": "Accept the user agreement.",
+  // TODO New key - Add a translation
+  "info.end-user-agreement.content.fallback": "Accept the user agreement.",
+
   // "info.privacy.breadcrumbs": "Privacy Statement",
   "info.privacy.breadcrumbs": "Informativa sulla privacy",
 
@@ -5371,6 +5375,12 @@
 
   // "loading.default": "Loading...",
   "loading.default": "Caricamento...",
+
+  // "loading.warning": "This is taking longer than expected. Please be patient.",
+  "loading.warning": "Il caricamento sta richiedendo più tempo del previsto. Si prega di attendere.",
+
+  // "loading.error": "An error occurred while loading the page. Please refresh the page and try again.",
+  "loading.error": "Si è verificato un errore durante il caricamento della pagina. Si prega di aggiornare la pagina e riprovare.",
 
   // "loading.item": "Loading item...",
   "loading.item": "Caricamento articolo...",
@@ -7927,8 +7937,8 @@
   // "search.form.search_dspace": "All repository",
   "search.form.search_dspace": "Tutto il portale",
 
-  // "search.form.scope.all": "All of DSpace",
-  "search.form.scope.all": "Tutto DSpace",
+  // "search.form.scope.all": "All items",
+  "search.form.scope.all": "Tutti gli item",
 
 
 

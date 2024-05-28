@@ -9143,8 +9143,8 @@
   // TODO Source message changed - Revise the translation
   "search.form.search_dspace": "Suche in DSpace",
 
-  // "search.form.scope.all": "All of DSpace",
-  "search.form.scope.all": "Alles durchsuchen",
+  // "search.form.scope.all": "All items",
+  "search.form.scope.all": "Alles Items",
 
 
 

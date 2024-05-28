@@ -35,6 +35,8 @@ import {
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
 import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
+import { LoaderConfig } from './loader-config.interfaces';
+import { MetaTagsConfig } from './meta-tags.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -246,11 +248,38 @@ export class DefaultAppConfig implements AppConfig {
           // default configuration
           {
             value: 'default',
-            style: 'text-muted'
+            style: 'text-gray-500'
           }
 
+        ],
+        sourceIcons: [
+          {
+            source: 'orcid',
+            path: 'assets/images/orcid.logo.icon.svg'
+          },
+          {
+            source: 'openaire',
+            path: 'assets/images/openaire.logo.icon.svg'
+          },
+          {
+            source: 'ror',
+            path: 'assets/images/ror.logo.icon.svg'
+          },
+          {
+            source: 'sherpa',
+            path: 'assets/images/sherpa.logo.icon.svg'
+          },
+          {
+            source: 'zdb',
+            path: 'assets/images/zdb.logo.icon.svg'
+          },
+          {
+            source: 'local',
+            path: 'assets/images/local.logo.icon.svg'
+          },
         ]
-      }
+      },
+      iconsVisibleWithNoAuthority: ['fas fa-user']
     },
     detectDuplicate: {
       // NOTE: list of additional item metadata to show for duplicate match presentation list
@@ -507,8 +536,8 @@ export class DefaultAppConfig implements AppConfig {
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
   // display in supported metadata fields. By default, only dc.description.abstract is supported.
   markdown: MarkdownConfig = {
-    enabled: false,
-    mathjax: false,
+    enabled: true,
+    mathjax: true,
   };
 
   // Which vocabularies should be used for which search filters
@@ -659,7 +688,7 @@ export class DefaultAppConfig implements AppConfig {
 
   addToAnyPlugin: AddToAnyPluginConfig = {
     scriptUrl: 'https://static.addtoany.com/menu/page.js',
-    socialNetworksEnabled: false,
+    socialNetworksEnabled: true,
     buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
     showPlusButton: true,
     showCounters: true,
@@ -759,5 +788,19 @@ export class DefaultAppConfig implements AppConfig {
 
   mirador: MiradorConfig = {
     enableDownloadPlugin: true,
+  };
+
+  loader: LoaderConfig = {
+    showFallbackMessagesByDefault: false,
+    warningMessageDelay: 5000, // 5 seconds
+    errorMessageDelay: 15000, // 15 seconds
+  };
+
+  metaTags: MetaTagsConfig = {
+    defaultLogo: '/assets/images/dspace-cris-logo-hd.png',
+    defaultDescription: 'DSpace-CRIS is a comprehensive, free and open-source Research Information Management System (CRIS/RIMS).\n' +
+      'It is based on DSpace, providing broader functionality and an expanded data model, relying on its large community.\n' +
+      'It is compliant with and supports key international standards, facilitating interoperability and data transfer.\n' +
+      'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.'
   };
 }

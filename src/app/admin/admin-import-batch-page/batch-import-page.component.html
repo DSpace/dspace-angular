@@ -28,7 +28,7 @@
   <small class="form-text text-muted">
     {{'admin.batch-import.page.toggle.help' | translate}}
   </small>
-  
+
 
   <ds-file-dropzone-no-uploader
     *ngIf="isUpload"
@@ -47,6 +47,8 @@
     <button class="btn btn-secondary" id="backButton"
             (click)="this.onReturn();">{{'admin.metadata-import.page.button.return' | translate}}</button>
     <button class="btn btn-primary" id="proceedButton"
-            (click)="this.importMetadata();">{{'admin.metadata-import.page.button.proceed' | translate}}</button>
+            (click)="this.importMetadata();">
+            <i class="fas fa-arrow-right mr-1"></i>
+            {{'admin.metadata-import.page.button.proceed' | translate}}</button>
   </div>
 </div>

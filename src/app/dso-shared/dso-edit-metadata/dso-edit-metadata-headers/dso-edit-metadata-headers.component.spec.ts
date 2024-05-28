@@ -27,6 +27,6 @@ describe('DsoEditMetadataHeadersComponent', () => {
   });
 
   it('should display three headers', () => {
-    expect(fixture.debugElement.queryAll(By.css('.ds-flex-cell')).length).toEqual(4);
+    expect(fixture.debugElement.queryAll(By.css('.ds-flex-cell')).length).toEqual(5);
   });
 });

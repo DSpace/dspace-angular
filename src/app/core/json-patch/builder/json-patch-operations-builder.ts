@@ -13,6 +13,8 @@ import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 import { CoreState } from '../../core-state.model';
+import { Metadata } from '../../shared/metadata.utils';
+import { ConfidenceType } from '../../shared/confidence-type';
 
 /**
  * Provides methods to dispatch JsonPatch Operations Actions
@@ -148,6 +150,11 @@ export class JsonPatchOperationsBuilder {
       } else {
         operationValue = value;
       }
+      //Update confidence if was added once the field was already created, value is set only in constructor of FormFieldMetadataValueObject
+      if (Metadata.hasValidAuthority(operationValue.authority) && (isEmpty(operationValue.confidence) || operationValue.confidence === -1)) {
+        operationValue.confidence = ConfidenceType.CF_ACCEPTED;
+      }
+
     } else if (value instanceof Date) {
       if (securityLevel != null) {
         operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value), null, securityLevel);
