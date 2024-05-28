@@ -34,7 +34,7 @@
 
                     <span *ngIf="(workspaceId$ | async) || (workflowId$ | async); then versionNumberWithoutLink else versionNumberWithLink"></span>
                     <ng-template #versionNumberWithLink>
-                      <a [routerLink]="getVersionRoute(version.id)">{{version.version}}</a>
+                      <a [routerLink]="getVersionRoute(version) | async">{{version.version}}</a>
                     </ng-template>
                     <ng-template #versionNumberWithoutLink>
                       {{version.version}}

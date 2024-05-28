@@ -1,4 +1,12 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 
 import {
@@ -36,6 +44,7 @@ import {
 } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { environment } from '../../../../../../../environments/environment';
 
 /**
  * Component representing a onebox input field.
@@ -67,6 +76,10 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   previousValue: any;
   inputValue: any;
   preloadLevel: number;
+  additionalInfoSelectIsOpen = false;
+  alternativeNamesKey = 'alternative-names';
+  authorithyIcons = environment.submission.icons.authority.sourceIcons;
+
 
   private isHierarchicalVocabulary$: Observable<boolean>;
   private subs: Subscription[] = [];
@@ -94,6 +107,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * to display in the onebox popup.
    */
   search = (text$: Observable<string>) => {
+    this.additionalInfoSelectIsOpen = false;
     return text$.pipe(
       merge(this.click$),
       debounceTime(300),
@@ -167,7 +181,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    * @param event
    */
   onInput(event) {
-        if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
+    if (!this.model.vocabularyOptions.closed && isNotEmpty(event.target.value)) {
       this.inputValue = new FormFieldMetadataValueObject(event.target.value);
       if (this.model.value) {
         if ((this.model.value as any).securityLevel != null) {
@@ -187,7 +201,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
         if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
           this.dispatchUpdate(this.inputValue);
         }
-         this.inputValue = null;
+        this.inputValue = null;
       }
       this.blur.emit(event);
     } else {
@@ -221,8 +235,23 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
    */
   onSelectItem(event: NgbTypeaheadSelectItemEvent) {
     this.inputValue = null;
-    this.setCurrentValue(event.item);
-    this.dispatchUpdate(event.item);
+    const item = event.item;
+
+    if ( hasValue(item.otherInformation)) {
+      const otherInfoKeys = Object.keys(item.otherInformation).filter((key) => !key.startsWith('data'));
+      const hasMultipleValues = otherInfoKeys.some(key => hasValue(item.otherInformation[key]) && item.otherInformation[key].includes('|||'));
+
+      if (hasMultipleValues) {
+        this.setMultipleValuesForOtherInfo(otherInfoKeys, item);
+      } else {
+        this.resetMultipleValuesForOtherInfo();
+      }
+    } else {
+      this.resetMultipleValuesForOtherInfo();
+    }
+
+    this.setCurrentValue(item);
+    this.dispatchUpdate(item);
   }
 
   /**
@@ -287,22 +316,37 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       } else {
         result = value;
       }
+      this.currentValue = null;
+      this.cdr.detectChanges();
 
       this.currentValue = result;
       this.previousValue = result;
       this.cdr.detectChanges();
     }
-
+    if (hasValue(this.currentValue.otherInformation)) {
+      const infoKeys = Object.keys(this.currentValue.otherInformation);
+      this.setMultipleValuesForOtherInfo(infoKeys, this.currentValue);
+    }
   }
 
   /**
    * Get the other information value removing the authority section (after the last ::)
    * @param itemValue the initial item value
+   * @param itemKey
    */
-  getOtherInfoValue(itemValue: string): string {
+  getOtherInfoValue(itemValue: string, itemKey: string): string {
     if (!itemValue || !itemValue.includes('::')) {
       return itemValue;
     }
+
+    if (itemValue.includes('|||')) {
+      let result = '';
+      const values = itemValue.split('|||').map(item => item.substring(0, item.lastIndexOf('::')));
+      const lastIndex = values.length - 1;
+      values.forEach((value, i) => result += i === lastIndex ? value : value + ' · ');
+      return result;
+    }
+
     return itemValue.substring(0, itemValue.lastIndexOf('::'));
   }
 
@@ -310,5 +354,94 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+  }
+
+  toggleOtherInfoSelection() {
+    this.additionalInfoSelectIsOpen = !this.additionalInfoSelectIsOpen;
+  }
+
+  selectAlternativeInfo(info: string) {
+    this.searching = true;
+
+    if (this.otherInfoKey !== this.alternativeNamesKey) {
+      this.otherInfoValue = info;
+    } else {
+      this.otherName = info;
+    }
+
+    const temp = this.createVocabularyObject(info, info, this.currentValue.otherInformation);
+    this.currentValue = null;
+    this.currentValue = temp;
+
+    const event = {
+      item: this.currentValue
+    } as any;
+
+    this.onSelectItem(event);
+    this.searching = false;
+    this.toggleOtherInfoSelection();
+  }
+
+
+  setMultipleValuesForOtherInfo(keys: string[], item: any) {
+    const hasAlternativeNames = keys.includes(this.alternativeNamesKey);
+
+    this.otherInfoKey = hasAlternativeNames ? this.alternativeNamesKey : keys.find(key => hasValue(item.otherInformation[key]) && item.otherInformation[key].includes('|||'));
+    this.otherInfoValuesUnformatted = item.otherInformation[this.otherInfoKey] ? item.otherInformation[this.otherInfoKey].split('|||') : [];
+    this.otherInfoValues = this.otherInfoValuesUnformatted.map(unformattedItem => unformattedItem.substring(0, unformattedItem.lastIndexOf('::')));
+
+    if (hasAlternativeNames) {
+      this.otherName = hasValue(this.otherName) ? this.otherName : this.otherInfoValues[0];
+    }
+
+    if (keys.length > 1) {
+      this.otherInfoValue = hasValue(this.otherInfoValue) ? this.otherInfoValue :  this.otherInfoValues[0];
+    }
+  }
+
+  resetMultipleValuesForOtherInfo() {
+    this.otherInfoKey = undefined;
+    this.otherInfoValuesUnformatted = [];
+    this.otherInfoValues = [];
+    this.otherInfoValue = undefined;
+    this.otherName = undefined;
+  }
+
+  createVocabularyObject(display, value, otherInformation) {
+    return Object.assign(new VocabularyEntry(), this.model.value, {
+      display: display,
+      value: value,
+      otherInformation: otherInformation,
+      type: 'vocabularyEntry'
+    });
+  }
+
+
+  /**
+   * Hide image on error
+   * @param image
+   */
+  handleImgError(image: HTMLElement): void {
+    image.style.display = 'none';
+  }
+
+  /**
+   * Get configured icon for each authority source
+   * @param source
+   */
+  getAuthoritySourceIcon(source: string, image: HTMLElement): string {
+    if (hasValue(this.authorithyIcons)) {
+      const iconPath = this.authorithyIcons.find(icon => icon.source === source)?.path;
+
+      if (!hasValue(iconPath)) {
+        this.handleImgError(image);
+      }
+
+      return iconPath;
+    } else {
+      this.handleImgError(image);
+    }
+
+    return '';
   }
 }

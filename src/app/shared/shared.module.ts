@@ -300,7 +300,6 @@ import { SearchExportCsvComponent } from './search/search-export-csv/search-expo
 import {
   ItemPageTitleFieldComponent
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
-import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
 import { MenuModule } from './menu/menu.module';
 import {
@@ -352,6 +351,7 @@ import {
 import { ItemCollectionComponent } from './object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
+import { MarkdownDirective } from './utils/markdown.directive';
 
 const MODULES = [
   CommonModule,
@@ -398,7 +398,6 @@ const PIPES = [
   ConsolePipe,
   ObjNgFor,
   BrowserOnlyPipe,
-  MarkdownPipe,
   ShortNumberPipe
 ];
 
@@ -612,6 +611,7 @@ const DIRECTIVES = [
   HoverClassDirective,
   ContextHelpDirective,
   EntityIconDirective,
+  MarkdownDirective,
 ];
 
 @NgModule({

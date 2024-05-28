@@ -28,3 +28,8 @@ input[type="text"] {
 
 }
 
+@media screen and (max-width: map-get($grid-breakpoints, sm)) {
+  .search-input {
+    width: 55vw !important;
+  }
+}

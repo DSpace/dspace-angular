@@ -88,19 +88,19 @@
 
     </ds-dynamic-form>
         <ng-content select="[additional]"></ng-content>
-    <ng-content *ngIf="!displaySubmit && !displayCancel"></ng-content>
+    <ng-content *ngIf="!displaySubmit && !displayReset"></ng-content>
 
-    <div *ngIf="displaySubmit || displayCancel">
+    <div *ngIf="displaySubmit || displayReset">
       <hr>
       <div class="form-group row">
         <div class="col text-right space-children-mr">
           <ng-content select="[before]"></ng-content>
-            <button *ngIf="displayCancel" type="reset" class="btn btn-outline-secondary" (click)="reset()">
-              <i class="fa fa-times"></i> {{cancelLabel | translate}}
+            <button *ngIf="displayReset" type="reset" class="btn btn-outline-secondary" (click)="reset()">
+              <i class="fas fa-undo-alt mr-1"></i>{{resetLabel | translate}}
             </button>
             <ng-content select="[between]"></ng-content>
             <button *ngIf="displaySubmit" type="submit" class="btn btn-primary" (click)="onSubmit()"
-                    [disabled]="!(isValid() | async)"><i class="fas fa-save"></i> {{submitLabel | translate}}
+                    [disabled]="!(isValid() | async)"><i class="fas fa-save mr-1"></i> {{submitLabel | translate}}
             </button>
             <ng-content select="[after]"></ng-content>
         </div>

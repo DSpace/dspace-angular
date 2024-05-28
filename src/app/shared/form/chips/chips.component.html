@@ -4,29 +4,28 @@
 </ng-template>
 
 <div [className]="'float-left w-100 ' + wrapperClass">
-  <div *ngIf="isPlatformBrowser" role="list" class="nav nav-pills d-flex flex-column flex-sm-row" [sortablejs]="chips.getChips()" [sortablejsOptions]="options">
+  <div  *ngIf="isPlatformBrowser" role="list" class="nav nav-pills d-flex flex-column flex-sm-row" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDrop($event)">
     <ng-container *ngFor="let c of chips.getChips(); let i = index">
       <ng-template #tipContent>
         <p class="text-left p-0 m-0" *ngFor="let tip of (tipText$ | async)">
           {{tip}}
         </p>
       </ng-template>
-
       <div role="listitem" class="nav-item mr-2 mb-1"
-          #t="ngbTooltip"
-          triggers="manual"
-          [ngbTooltip]="tipContent"
-          (dragstart)="t.close();onDragStart(i)"
-          (dragend)="onDragEnd(i)"
-          (mouseover)="showTooltip(t, i)"
-          (mouseout)="t.close()">
+           #t="ngbTooltip"
+           triggers="manual"
+           [ngbTooltip]="tipContent"
+           (mouseover)="showTooltip(t, i)"
+           (mouseout)="t.close()">
         <a class="flex-sm-fill text-sm-center nav-link active bg-info"
-           href="javascript:void(0);"
-           [class.disabled]="(editable && c.editMode) || dragged == i || !clickable"
+           cdkDrag
+           (cdkDragStarted)="onDrag(i)"
+           href="#"
+           [class.disabled]="!clickable || (editable && c.editMode) || dragged == i  "
            [class.chip-selected]="(editable && c.editMode) || dragged == i"
            (click)="chipsSelected($event, i);">
           <span>
-            <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true"></i>
+            <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="far fa-circle" aria-hidden="true">&nbsp;</i>
             <ng-container *ngIf="showIcons && c.hasVisibleIcons()">
               <span *ngFor="let icon of c.icons; let l = last" class="chip-stacked-icons">
                 <i [ngbTooltip]="tipContent"
@@ -41,7 +40,6 @@
                    [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"
                    [showTooltip]="false"
                    aria-hidden="true"
-                   (dragstart)="t.close();"
                    (mouseover)="showTooltip(t, i, icon.metadata)"
                    (mouseout)="t.close()"></i>
                 <i *ngIf="hasWillBeGenerated(c, icon.metadata)"

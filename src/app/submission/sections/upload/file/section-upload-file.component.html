@@ -1,8 +1,13 @@
 <ng-container *ngIf="fileData">
   <div class="row">
     <div class="col-md-12">
-      <div class="float-left w-75">
-        <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
+      <div class="float-left ml-3 mb-2 badge badge-pill bg-primary text-white" *ngIf="(vocabularyFileType$ | async)">
+        {{(vocabularyFileType$ | async)}}
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="float-left w-75 pl-3">
+        <h4>{{fileName}} <span class="text-secondary">({{fileData?.sizeBytes | dsFileSize}})</span></h4>
       </div>
       <div *ngIf="!readOnly" class="float-right w-15">
         <ng-container>

@@ -43,6 +43,18 @@ export class LocaleService {
     protected routeService: RouteService,
     @Inject(DOCUMENT) protected document: any
   ) {
+    this.initDefaults();
+  }
+
+  /**
+   * Initialize the language from query params
+   */
+  initDefaults() {
+    this.routeService.getQueryParameterValue('lang').subscribe(lang => {
+      if (lang && this.translate.getLangs().includes(lang)) {
+        this.setCurrentLanguageCode(lang);
+      }
+    });
   }
 
   /**

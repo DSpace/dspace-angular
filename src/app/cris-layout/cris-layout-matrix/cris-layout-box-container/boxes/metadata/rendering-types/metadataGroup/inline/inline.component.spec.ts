@@ -84,6 +84,7 @@ describe('InlineComponent', () => {
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
       ],
       declarations: [
         DsDatePipe,

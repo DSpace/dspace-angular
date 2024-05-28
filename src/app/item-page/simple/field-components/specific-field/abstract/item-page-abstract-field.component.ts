@@ -37,7 +37,7 @@ export class ItemPageAbstractFieldComponent extends ItemPageFieldComponent {
     label = 'item.page.abstract';
 
     /**
-     * Use the {@link MarkdownPipe} to render dc.description.abstract values
+     * Use the {@link MarkdownDirective} to render dc.description.abstract values
      */
     enableMarkdown = true;
 }

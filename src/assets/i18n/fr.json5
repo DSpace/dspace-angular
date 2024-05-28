@@ -8927,8 +8927,8 @@
   // "search.form.search_dspace": "All repository",
   "search.form.search_dspace": "Recherche dans DSpace",
 
-  // "search.form.scope.all": "All of DSpace",
-  "search.form.scope.all": "Tout le dépôt DSpace",
+  // "search.form.scope.all": "All items",
+  "search.form.scope.all": "Tous les Items",
 
 
 

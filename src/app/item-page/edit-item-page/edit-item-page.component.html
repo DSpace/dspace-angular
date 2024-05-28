@@ -1,23 +1,25 @@
-<div class="container">
+<div class="bern-component-container mt-4">
     <div class="row">
         <div class="col-12">
             <h2 class="border-bottom">{{'item.edit.head' | translate}}</h2>
             <div class="pt-2">
                 <ul class="nav nav-tabs justify-content-start" role="tablist">
-                    <li *ngFor="let page of pages" class="nav-item" [attr.aria-selected]="page.page === currentPage" role="tab">
-                        <a *ngIf="(page.enabled | async)"
-                           class="nav-link"
-                           [ngClass]="{'active' : page.page === currentPage}"
-                           [routerLink]="['./' + page.page]">
-                            {{'item.edit.tabs.' + page.page + '.head' | translate}}
-                        </a>
-                        <span [ngbTooltip]="'item.edit.tabs.disabled.tooltip' | translate">
-                            <button *ngIf="!(page.enabled | async)"
-                                 class="nav-link disabled">
-                                {{'item.edit.tabs.' + page.page + '.head' | translate}}
-                            </button>
-                        </span>
-                    </li>
+                    <ng-container *ngFor="let page of pages">
+                      <li *ngIf="page.page != 'relationships'" [attr.aria-selected]="page.page === currentPage" role="tab" class="nav-item">
+                          <a *ngIf="(page.enabled | async)"
+                             class="nav-link"
+                             [ngClass]="{'active' : page.page === currentPage}"
+                             [routerLink]="['./' + page.page]">
+                              {{'item.edit.tabs.' + page.page + '.head' | translate}}
+                          </a>
+                          <span [ngbTooltip]="'item.edit.tabs.disabled.tooltip' | translate">
+                              <button *ngIf="!(page.enabled | async)"
+                                   class="nav-link disabled">
+                                  {{'item.edit.tabs.' + page.page + '.head' | translate}}
+                              </button>
+                          </span>
+                      </li>
+                    </ng-container>
                 </ul>
                 <div class="tab-pane active">
                     <div class="mb-4">

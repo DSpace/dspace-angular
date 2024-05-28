@@ -55,14 +55,6 @@ export class BulkAccessComponent implements OnInit {
   }
 
   /**
-   * Reset the form to its initial state
-   * This will also reset the state of the child components (bitstream and item access)
-   */
-  reset(): void {
-    this.settings.reset();
-  }
-
-  /**
    * Submit the form
    * This will create a payload file and execute the script
    */

@@ -23,6 +23,7 @@ import { environment } from 'src/environments/environment';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 import {Item} from '../../../../core/shared/item.model';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;
@@ -59,6 +60,10 @@ describe('FullFileSectionComponent', () => {
     showableByItem: createSuccessfulRemoteDataObject$(createPaginatedList([mockBitstream, mockBitstream, mockBitstream])),
   });
 
+  const authorizedDataService = jasmine.createSpyObj('authorizedDataService',{
+    isAuthorized: observableOf(false),
+  });
+
   const paginationService = new PaginationServiceStub();
 
   beforeEach(waitForAsync(() => {
@@ -76,7 +81,8 @@ describe('FullFileSectionComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: UUIDService, useValue: getMockUUIDService() }
+        { provide: UUIDService, useValue: getMockUUIDService() },
+        { provide: AuthorizationDataService, useValue: authorizedDataService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -100,5 +106,14 @@ describe('FullFileSectionComponent', () => {
       const fileNameElement = fixture.debugElement.query(By.css('[data-test="file-name"]')).nativeElement;
       expect(fileNameElement.classList).toContain('text-break');
     });
+
+    it('canDownload should return an observable with false value, if user is not authorized to download bitstream', waitForAsync(() => {
+      authorizedDataService.isAuthorized.and.returnValue(observableOf(false));
+      comp.canDownload(mockBitstream).subscribe(canDownload => expect(canDownload).toBeFalse());
+    }));
+    it('canDownload should return an observable with true value, if user is authorized to download bitstream', waitForAsync(() => {
+      authorizedDataService.isAuthorized.and.returnValue(observableOf(true));
+      comp.canDownload(mockBitstream).subscribe(canDownload => expect(canDownload).toBeTrue());
+    }));
   });
 });

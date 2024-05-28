@@ -40,3 +40,24 @@
   background-color: #fff;
   cursor: pointer;
 }
+
+.additional-items-icon {
+  padding-right: 5rem !important;
+  cursor: pointer;
+}
+.additional-info-selection {
+  z-index: 9999;
+  width: calc(100% - 10px);
+  border-radius: 4px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+  .list-item {
+    cursor: pointer;
+  }
+  .list-item:hover {
+    background-color: var(--bs-dropdown-link-hover-bg);
+  }
+}
+
+.list-item img {
+  height: 20px
+}

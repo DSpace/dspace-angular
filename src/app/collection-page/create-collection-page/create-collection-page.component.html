@@ -5,6 +5,7 @@
         </div>
     </div>
     <ds-collection-form (submitForm)="onSubmit($event)"
+                        [isCreation]="true"
                         (back)="navigateToHome()"
                         (finish)="navigateToNewPage()"></ds-collection-form>
 </div>
