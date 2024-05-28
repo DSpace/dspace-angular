@@ -111,7 +111,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
 
-    this.datadogRumService.initDatadogRum();
+    if (isPlatformBrowser(this.platformId)) {
+      this.datadogRumService.initDatadogRum();
+    }
   }
 
   private storeCSSVariables() {
