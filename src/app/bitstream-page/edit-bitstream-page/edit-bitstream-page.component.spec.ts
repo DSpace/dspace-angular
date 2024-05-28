@@ -25,10 +25,11 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataValueFilter } from '../../core/shared/metadata.models';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
-import {VocabularyService} from '../../core/submission/vocabularies/vocabulary.service';
-import {VocabularyEntry} from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import {buildPaginatedList} from '../../core/data/paginated-list.model';
-import {PageInfo} from '../../core/shared/page-info.model';
+import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { RequestService } from '../../core/data/request.service';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -60,6 +61,10 @@ describe('EditBitstreamPageComponent', () => {
 
   const mockVocabularyService = jasmine.createSpyObj('vocabularyService', {
     getVocabularyEntries: jasmine.createSpy('getVocabularyEntries'),
+  });
+
+  const mockRequestService = jasmine.createSpyObj('setStaleByHrefSubstring', {
+    setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
   });
 
   beforeEach(() => {
@@ -228,6 +233,7 @@ describe('EditBitstreamPageComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: RequestService, useValue: mockRequestService },
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -528,6 +534,7 @@ describe('EditBitstreamPageComponent', () => {
           {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: RequestService, useValue: mockRequestService },
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -659,6 +666,7 @@ describe('EditBitstreamPageComponent', () => {
             {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
             { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
             { provide: VocabularyService, useValue: mockVocabularyService},
+            { provide: RequestService, useValue: mockRequestService },
             ChangeDetectorRef
           ],
           schemas: [NO_ERRORS_SCHEMA]
@@ -771,6 +779,7 @@ describe('EditBitstreamPageComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: RequestService, useValue: mockRequestService },
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -901,6 +910,7 @@ describe('EditBitstreamPageComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
           { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: RequestService, useValue: mockRequestService },
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
