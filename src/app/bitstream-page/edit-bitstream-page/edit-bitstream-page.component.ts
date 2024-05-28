@@ -498,8 +498,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         })
     );
   }
-  handleHideBitstream(entries: VocabularyEntry[]) {
 
+  handleHideBitstream(entries: VocabularyEntry[]) {
     if (isEmpty(entries)) {
       return;
     }
