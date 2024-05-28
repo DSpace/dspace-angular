@@ -59,7 +59,7 @@
 
   <div class="col-12 col-md-6 p-0" *ngIf="languages.length > 0">
     <div class="pt-2 px-3">
-      <select id="comcol-select-lang" class="form-control" name="comcol-select-lang" [(ngModel)]="currentLanguageCode" (change)="changeLanguage()">
+      <select id="comcol-select-lang" class="form-control" name="comcol-select-lang" aria-label="Select language" [(ngModel)]="currentLanguageCode" (change)="changeLanguage()">
         <option *ngFor="let language of languages" [ngValue]="language.code">{{language.label}}</option>
       </select>
     </div>
