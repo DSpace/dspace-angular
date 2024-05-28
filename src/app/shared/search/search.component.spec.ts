@@ -108,6 +108,7 @@ const searchServiceStub = jasmine.createSpyObj('SearchService', {
 }) as SearchService;
 const configurationParam = 'default';
 const queryParam = 'test query';
+const hiddenQuery = 'hidden query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 const fixedFilter = 'fixed filter';
 
@@ -250,6 +251,7 @@ describe('SearchComponent', () => {
     comp = fixture.componentInstance; // SearchComponent test instance
     comp.inPlaceSearch = false;
     comp.paginationId = paginationId;
+    comp.hiddenQuery = hiddenQuery;
 
     spyOn((comp as any), 'getSearchOptions').and.returnValue(paginatedSearchOptions$.asObservable());
 

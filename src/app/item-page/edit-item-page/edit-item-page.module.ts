@@ -46,6 +46,9 @@ import { ResultsBackButtonModule } from '../../shared/results-back-button/result
 import {
   AccessControlFormModule
 } from '../../shared/access-control-form-container/access-control-form.module';
+import {
+  EditRelationshipListWrapperComponent
+} from './item-relationships/edit-relationship-list-wrapper/edit-relationship-list-wrapper.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -94,6 +97,7 @@ import {
     ItemRegisterDoiComponent,
     ItemCurateComponent,
     ItemAccessControlComponent,
+    EditRelationshipListWrapperComponent,
   ],
   providers: [
     BundleDataService,

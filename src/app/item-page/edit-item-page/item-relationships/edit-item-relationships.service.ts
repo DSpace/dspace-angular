@@ -10,7 +10,7 @@ import {
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { EMPTY, Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { EMPTY, Observable, BehaviorSubject, Subscription, combineLatest as observableCombineLatest } from 'rxjs';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Item } from '../../../core/shared/item.model';
@@ -20,6 +20,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 
 @Injectable({
   providedIn: 'root'
@@ -169,6 +172,49 @@ export class EditItemRelationshipsService {
     }
   }
 
+  isProvidedItemTypeLeftType(relationshipType: RelationshipType, itemType: ItemType, item: Item): Observable<boolean> {
+    return this.getRelationshipLeftAndRightType(relationshipType).pipe(
+      map(([leftType, rightType]: [ItemType, ItemType]) => {
+        if (leftType.id === itemType.id) {
+          return true;
+        }
+
+        if (rightType.id === itemType.id) {
+          return false;
+        }
+
+        // should never happen...
+        console.warn(`The item ${item.uuid} is not on the right or the left side of relationship type ${relationshipType.uuid}`);
+        return undefined;
+      })
+    );
+  }
+
+  relationshipMatchesBothSameTypes(relationshipType: RelationshipType, itemType: ItemType): Observable<boolean> {
+    return this.getRelationshipLeftAndRightType(relationshipType).pipe(
+      map(([leftType, rightType]: [ItemType, ItemType]) => {
+        return leftType.id === itemType.id && rightType.id === itemType.id;
+      })
+    );
+  }
+
+  protected getRelationshipLeftAndRightType(relationshipType: RelationshipType): Observable<[ItemType, ItemType]> {
+    const leftType$: Observable<ItemType> = relationshipType.leftType.pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    );
+
+    const rightType$: Observable<ItemType> = relationshipType.rightType.pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    );
+
+    return observableCombineLatest([
+      leftType$,
+      rightType$,
+    ]);
+  }
+
 
 
   /**
@@ -185,6 +231,5 @@ export class EditItemRelationshipsService {
    */
   getNotificationContent(key: string): string {
     return this.translateService.instant(this.notificationsPrefix + key + '.content');
-
   }
 }

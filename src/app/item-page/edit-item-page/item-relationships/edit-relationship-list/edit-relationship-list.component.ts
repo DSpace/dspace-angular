@@ -113,7 +113,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    * Observable that emits true if {@link itemType} is on the left-hand side of {@link relationshipType},
    * false if it is on the right-hand side and undefined in the rare case that it is on neither side.
    */
-  private currentItemIsLeftItem$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
+  @Input() currentItemIsLeftItem$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
 
   relatedEntityType$: Observable<ItemType>;
 
@@ -213,18 +213,15 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    * Get the relevant label for this relationship type
    */
   private getLabel(): Observable<string> {
-    return observableCombineLatest([
-      this.relationshipType.leftType,
-      this.relationshipType.rightType,
-    ].map((itemTypeRD) => itemTypeRD.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-    ))).pipe(
-      map((itemTypes: ItemType[]) => [
-        this.relationshipType.leftwardType,
-        this.relationshipType.rightwardType,
-      ][itemTypes.findIndex((itemType) => itemType.id === this.itemType.id)]),
-    );
+    return this.currentItemIsLeftItem$.pipe(
+      map((currentItemIsLeftItem) => {
+        if (currentItemIsLeftItem) {
+          return this.relationshipType.leftwardType;
+        } else {
+          return this.relationshipType.rightwardType;
+        }
+      })
+      );
   }
 
   /**
@@ -251,6 +248,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.toAdd = [];
     modalComp.toRemove = [];
     modalComp.isPending = false;
+    modalComp.hiddenQuery = '-search.resourceid:' + this.item.uuid;
 
     this.item.owningCollection.pipe(
       getFirstSucceededRemoteDataPayload()
@@ -423,24 +421,6 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     );
 
     this.relationshipMessageKey$ = this.getRelationshipMessageKey();
-
-    this.subs.push(this.relationshipLeftAndRightType$.pipe(
-      map(([leftType, rightType]: [ItemType, ItemType]) => {
-        if (leftType.id === this.itemType.id) {
-          return true;
-        }
-
-        if (rightType.id === this.itemType.id) {
-          return false;
-        }
-
-        // should never happen...
-        console.warn(`The item ${this.item.uuid} is not on the right or the left side of relationship type ${this.relationshipType.uuid}`);
-        return undefined;
-      })
-    ).subscribe((nextValue: boolean) => {
-      this.currentItemIsLeftItem$.next(nextValue);
-    }));
 
 
     // initialize the pagination options

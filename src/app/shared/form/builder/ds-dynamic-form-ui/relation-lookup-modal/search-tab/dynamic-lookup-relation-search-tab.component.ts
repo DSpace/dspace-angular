@@ -94,6 +94,11 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Input() isEditRelationship: boolean;
 
   /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
+
+  /**
    * Send an event to deselect an object from the list
    */
   @Output() deselectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
