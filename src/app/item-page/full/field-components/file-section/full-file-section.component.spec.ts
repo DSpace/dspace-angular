@@ -22,7 +22,7 @@ import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
-import {Item} from '../../../../core/shared/item.model';
+import { Item } from '../../../../core/shared/item.model';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 describe('FullFileSectionComponent', () => {
@@ -111,6 +111,7 @@ describe('FullFileSectionComponent', () => {
       authorizedDataService.isAuthorized.and.returnValue(observableOf(false));
       comp.canDownload(mockBitstream).subscribe(canDownload => expect(canDownload).toBeFalse());
     }));
+
     it('canDownload should return an observable with true value, if user is authorized to download bitstream', waitForAsync(() => {
       authorizedDataService.isAuthorized.and.returnValue(observableOf(true));
       comp.canDownload(mockBitstream).subscribe(canDownload => expect(canDownload).toBeTrue());
