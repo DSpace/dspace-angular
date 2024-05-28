@@ -15,7 +15,10 @@ import {
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
@@ -82,6 +85,7 @@ describe('EditRelationshipListComponent', () => {
   let relationships: Relationship[];
   let relationshipType: RelationshipType;
   let paginationOptions: PaginationComponentOptions;
+  let currentItemIsLeftItem$ =  new BehaviorSubject<boolean>(true);
 
   const resetComponent = () => {
     fixture = TestBed.createComponent(EditRelationshipListComponent);
@@ -92,6 +96,7 @@ describe('EditRelationshipListComponent', () => {
     comp.url = url;
     comp.relationshipType = relationshipType;
     comp.hasChanges = observableOf(false);
+    comp.currentItemIsLeftItem$ = currentItemIsLeftItem$;
     fixture.detectChanges();
   };
 
@@ -328,6 +333,7 @@ describe('EditRelationshipListComponent', () => {
             leftwardType: 'isAuthorOfPublication',
             rightwardType: 'isPublicationOfAuthor',
           });
+          currentItemIsLeftItem$ =  new BehaviorSubject<boolean>(true);
           relationshipService.getItemRelationshipsByLabel.calls.reset();
           resetComponent();
         });
@@ -352,6 +358,7 @@ describe('EditRelationshipListComponent', () => {
             leftwardType: 'isPublicationOfAuthor',
             rightwardType: 'isAuthorOfPublication',
           });
+          currentItemIsLeftItem$ =  new BehaviorSubject<boolean>(false);
           relationshipService.getItemRelationshipsByLabel.calls.reset();
           resetComponent();
         });

@@ -1,0 +1,30 @@
+<ng-container *ngIf="bothItemsMatchType$ | async">
+    <ds-edit-relationship-list
+            [url]="url"
+            [item]="item"
+            [itemType]="itemType"
+            [relationshipType]="relationshipType"
+            [hasChanges]="hasChanges"
+            [currentItemIsLeftItem$]="isLeftItem$"
+    ></ds-edit-relationship-list>
+    <ds-edit-relationship-list
+            [url]="url"
+            [item]="item"
+            [itemType]="itemType"
+            [relationshipType]="relationshipType"
+            [hasChanges]="hasChanges"
+            [currentItemIsLeftItem$]="isRightItem$"
+    ></ds-edit-relationship-list>
+</ng-container>
+
+<ng-container *ngIf="(bothItemsMatchType$ | async) === false">
+    <ds-edit-relationship-list
+            [url]="url"
+            [item]="item"
+            [itemType]="itemType"
+            [relationshipType]="relationshipType"
+            [hasChanges]="hasChanges"
+            [currentItemIsLeftItem$]="currentItemIsLeftItem$"
+    ></ds-edit-relationship-list>
+</ng-container>
+

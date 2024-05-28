@@ -150,6 +150,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   query: string;
 
   /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  hiddenQuery: string;
+
+  /**
    * A map of subscriptions within this component
    */
   subMap: {
