@@ -26,10 +26,11 @@ import { Item } from '../../core/shared/item.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
-import {VocabularyService} from '../../core/submission/vocabularies/vocabulary.service';
-import {VocabularyOptions} from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import {PageInfo} from '../../core/shared/page-info.model';
-import {VocabularyEntry} from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { RequestService } from '../../core/data/request.service';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -405,6 +406,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   private bundle: Bundle;
 
+  /**
+   * Options for the vocabulary service
+   */
+  readonly vocabularyOptions = new VocabularyOptions('truefalse', 'bitstream.hide');
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private changeDetectorRef: ChangeDetectorRef,
@@ -416,7 +422,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private primaryBitstreamService: PrimaryBitstreamService,
-              private vocabularyService: VocabularyService
+              private vocabularyService: VocabularyService,
+              private requestService: RequestService
               ) {
   }
 
@@ -458,12 +465,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       switchMap((bundle: Bundle) => bundle.item),
       getFirstSucceededRemoteDataPayload(),
     );
-    const vocabularyOptions = new VocabularyOptions(
-      'truefalse',
-      'bitstream.hide',
-    );
-    const pageInfo = new PageInfo();
-    const hide$: Observable<VocabularyEntry[]> = this.vocabularyService.getVocabularyEntries(vocabularyOptions, pageInfo).pipe(
+
+    const hide$: Observable<VocabularyEntry[]> = this.vocabularyService.getVocabularyEntries(this.vocabularyOptions, new PageInfo()).pipe(
       getFirstCompletedRemoteData(),
       map((rq)=> rq.hasSucceeded ? rq.payload.page : []),
     );
@@ -496,24 +499,31 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     );
   }
   handleHideBitstream(entries: VocabularyEntry[]) {
+
     if (isEmpty(entries)) {
       return;
     }
-    const options = entries.map((entry) => ({label: entry.display, value: entry.value}));
-    let hideModel = new DynamicSelectModel({
+
+    this.hideModel = new DynamicSelectModel({
       id: 'hide',
       name: 'hide',
-      options: options
+      options: entries.map((entry) => ({label: entry.display, value: entry.value})),
     });
-    this.hideModel = hideModel;
     this.inputModels.push(this.hideModel);
-    const groupModel = new DynamicFormGroupModel({
+    this.formModel.push(new DynamicFormGroupModel({
       id: 'hideContainer',
       group: [
-        hideModel
+        this.hideModel
       ]
-    });
-    this.formModel.push(groupModel);
+    }));
+  }
+
+  /**
+   * Invalidates the cache for specific items based on their HREF substrings and ID bitstream.
+   */
+  invalidCacheItem(){
+    this.requestService.setStaleByHrefSubstring(this.itemId);
+    this.requestService.setStaleByHrefSubstring(this.bitstream.id);
   }
 
   /**
@@ -647,6 +657,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Check for changes against the bitstream and send update requests to the REST API
    */
   onSubmit() {
+
     const updatedValues = this.formGroup.getRawValue();
     const updatedBitstream = this.formToBitstream(updatedValues);
     const selectedFormat = this.formats.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
@@ -728,6 +739,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       })
     ).subscribe(() => {
       this.bitstreamService.commitUpdates();
+      this.invalidCacheItem();
       this.notificationsService.success(
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
         this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
