@@ -1827,6 +1827,10 @@
 
   "cookies.consent.app.description.dimensions": "Dimensions analyses references from publications and calculates a set of article-level indicators. (https://www.dimensions.ai)",
 
+  "cookies.consent.app.title.datadog": "Datadog",
+
+  "cookies.consent.app.description.datadog": "Datadog provides insights on how users interact with the application.",
+
   "cookies.consent.purpose.thirdPartyJs": "Third-party JavaScript",
 
   "curation-task.task.citationpage.label": "Generate Citation Page",

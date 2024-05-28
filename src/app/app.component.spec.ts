@@ -37,6 +37,7 @@ import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { of } from 'rxjs';
 import { APP_CONFIG } from '../config/app-config.interface';
 import { environment } from '../environments/environment';
+import { KlaroService } from './shared/cookies/klaro.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -55,11 +56,19 @@ describe('App component', () => {
 
   let breadcrumbsServiceSpy;
   let routeServiceMock;
+  let klaroServiceSpy: jasmine.SpyObj<KlaroService>;
 
   const getDefaultTestBedConf = () => {
     breadcrumbsServiceSpy = jasmine.createSpyObj(['listenForRouteChanges']);
     routeServiceMock = jasmine.createSpyObj('RouterService', {
       getCurrentUrl: of('/home')
+    });
+
+    klaroServiceSpy = jasmine.createSpyObj('KlaroService', {
+      getSavedPreferences: jasmine.createSpy('getSavedPreferences'),
+      watchConsentUpdates: jasmine.createSpy('watchConsentUpdates')
+    },{
+      consentsUpdates$: of({})
     });
 
     return {
@@ -89,6 +98,7 @@ describe('App component', () => {
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceSpy },
         { provide: RouteService, useValue: routeServiceMock },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: KlaroService, useValue: klaroServiceSpy },
         provideMockStore({ initialState }),
         AppComponent,
         // RouteService

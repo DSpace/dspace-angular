@@ -37,6 +37,7 @@ import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
 import { LoaderConfig } from './loader-config.interfaces';
 import { MetaTagsConfig } from './meta-tags.config';
+import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -802,5 +803,19 @@ export class DefaultAppConfig implements AppConfig {
       'It is based on DSpace, providing broader functionality and an expanded data model, relying on its large community.\n' +
       'It is compliant with and supports key international standards, facilitating interoperability and data transfer.\n' +
       'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.'
+  };
+
+  datadogRum: DatadogRumConfig = {
+    clientToken: undefined,
+    applicationId: undefined,
+    site: 'datadoghq.eu',
+    service: undefined,
+    env: undefined,
+    sessionSampleRate: 50,
+    sessionReplaySampleRate: 20,
+    trackUserInteractions: true,
+    trackResources: true,
+    trackLongTasks: true,
+    defaultPrivacyLevel: 'mask-user-input',
   };
 }

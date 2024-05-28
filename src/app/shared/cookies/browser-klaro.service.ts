@@ -117,6 +117,17 @@ export class BrowserKlaroService extends KlaroService {
       });
     }
 
+    if (environment.datadogRum?.clientToken && environment.datadogRum?.applicationId &&
+      environment.datadogRum?.service && environment.datadogRum?.env) {
+      this.klaroConfig.services.push(
+        {
+          name: 'datadog',
+          purposes: ['thirdPartyJs'],
+          required: false,
+        }
+      );
+    }
+
     const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
       getFirstCompletedRemoteData(),
       map(remoteData => !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values)),
