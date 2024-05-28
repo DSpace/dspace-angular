@@ -24,6 +24,7 @@ export abstract class RenderingTypeValueModelComponent extends RenderingTypeMode
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('metadataValueProvider') public metadataValueProvider: MetadataValue,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    @Inject('tabNameProvider') public tabNameProvider: string,
     protected translateService: TranslateService
   ) {
     super(translateService);
@@ -31,6 +32,7 @@ export abstract class RenderingTypeValueModelComponent extends RenderingTypeMode
     this.item = itemProvider;
     this.metadataValue = metadataValueProvider;
     this.renderingSubType = renderingSubTypeProvider;
+    this.tabName = tabNameProvider;
   }
 
   /**

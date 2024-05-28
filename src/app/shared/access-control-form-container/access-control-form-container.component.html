@@ -150,15 +150,18 @@
         </div>
       </div>
 
-      <hr *ngIf="showSubmit">
+      <hr>
 
-      <div *ngIf="showSubmit" class="d-flex justify-content-end">
-        <button class="btn btn-outline-primary mr-3" (click)="reset()" type="button">
-          {{ 'access-control-cancel' | translate }}
+      <div  class="d-flex justify-content-end">
+        <button class="btn btn-outline-primary" (click)="reset()" type="button">
+          <i class="fas fa-undo-alt mr-1"></i>
+          {{ 'access-control-reset' | translate }}
         </button>
-        <button class="btn btn-primary"
+        <button class="btn btn-primary ml-3"
+                *ngIf="showSubmit"
                 [disabled]="!state.item.toggleStatus && !state.bitstream.toggleStatus"
                 (click)="submit()" type="submit">
+          <i class="fas fa-cogs mr-1"></i>
           {{ 'access-control-execute' | translate }}
         </button>
       </div>

@@ -25,6 +25,11 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataValueFilter } from '../../core/shared/metadata.models';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
+import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { RequestService } from '../../core/data/request.service';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -48,6 +53,19 @@ let comp: EditBitstreamPageComponent;
 let fixture: ComponentFixture<EditBitstreamPageComponent>;
 
 describe('EditBitstreamPageComponent', () => {
+
+  const entries = [
+    Object.assign(new VocabularyEntry(), {display: 'true', value: 'true' }),
+    Object.assign(new VocabularyEntry(), {display: 'false', value: 'false' }),
+  ];
+
+  const mockVocabularyService = jasmine.createSpyObj('vocabularyService', {
+    getVocabularyEntries: jasmine.createSpy('getVocabularyEntries'),
+  });
+
+  const mockRequestService = jasmine.createSpyObj('setStaleByHrefSubstring', {
+    setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
+  });
 
   beforeEach(() => {
     bitstreamID = 'current-bitstream-id';
@@ -140,6 +158,7 @@ describe('EditBitstreamPageComponent', () => {
   describe('EditBitstreamPageComponent no IIIF fields', () => {
 
     beforeEach(waitForAsync(() => {
+      mockVocabularyService.getVocabularyEntries.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), entries)));
       bundle = {
         _links: {
           primaryBitstream: {
@@ -213,6 +232,8 @@ describe('EditBitstreamPageComponent', () => {
           { provide: DSONameService, useValue: dsoNameService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+          { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: RequestService, useValue: mockRequestService },
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -424,6 +445,7 @@ describe('EditBitstreamPageComponent', () => {
     const bundleName = 'ORIGINAL';
 
     beforeEach(waitForAsync(() => {
+      mockVocabularyService.getVocabularyEntries.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), entries)));
 
       bitstream = Object.assign(new Bitstream(), {
         metadata: {
@@ -511,6 +533,8 @@ describe('EditBitstreamPageComponent', () => {
           {provide: DSONameService, useValue: dsoNameService},
           {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+          { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: RequestService, useValue: mockRequestService },
           ChangeDetectorRef
         ],
         schemas: [NO_ERRORS_SCHEMA]
@@ -549,11 +573,12 @@ describe('EditBitstreamPageComponent', () => {
     });
   });
 
-    describe('ignore OTHERCONTENT bundle', () => {
+  describe('ignore OTHERCONTENT bundle', () => {
 
       const bundleName = 'OTHERCONTENT';
 
       beforeEach(waitForAsync(() => {
+        mockVocabularyService.getVocabularyEntries.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), entries)));
 
         bitstream = Object.assign(new Bitstream(), {
           metadata: {
@@ -640,6 +665,8 @@ describe('EditBitstreamPageComponent', () => {
             {provide: DSONameService, useValue: dsoNameService},
             {provide: BitstreamFormatDataService, useValue: bitstreamFormatService},
             { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+            { provide: VocabularyService, useValue: mockVocabularyService},
+            { provide: RequestService, useValue: mockRequestService },
             ChangeDetectorRef
           ],
           schemas: [NO_ERRORS_SCHEMA]
@@ -670,4 +697,268 @@ describe('EditBitstreamPageComponent', () => {
       });
   });
 
+  describe('EditBitstreamPageComponent with metadata hide', () => {
+
+    beforeEach(waitForAsync(() => {
+      bundle = {
+        _links: {
+          primaryBitstream: {
+            href: 'bundle-selflink'
+          }
+        },
+        item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
+          uuid: 'some-uuid',
+          firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+            return undefined;
+          },
+        }))
+      };
+      const bundleName = 'ORIGINAL';
+
+      bitstream = Object.assign(new Bitstream(), {
+        uuid: bitstreamID,
+        id: bitstreamID,
+        metadata: {
+          'dc.description': [
+            {
+              value: 'Bitstream description'
+            }
+          ],
+          'dc.title': [
+            {
+              value: 'Bitstream title'
+            }
+          ],
+          'dc.type': [
+            {
+              value: 'Logo'
+            }
+          ],
+          'bitstream.hide': [
+            {
+              value: 'false'
+            }
+          ]
+        },
+        format: createSuccessfulRemoteDataObject$(selectedFormat),
+        _links: {
+          self: 'bitstream-selflink'
+        },
+        bundle: createSuccessfulRemoteDataObject$(bundle)
+      });
+      bitstreamService = jasmine.createSpyObj('bitstreamService', {
+        findById: createSuccessfulRemoteDataObject$(bitstream),
+        findByHref: createSuccessfulRemoteDataObject$(bitstream),
+        update: createSuccessfulRemoteDataObject$(bitstream),
+        updateFormat: createSuccessfulRemoteDataObject$(bitstream),
+        commitUpdates: {},
+        patch: {}
+      });
+      bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
+        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
+      });
+      dsoNameService = jasmine.createSpyObj('dsoNameService', {
+        getName: bundleName
+      });
+
+      TestBed.configureTestingModule({
+        imports: [TranslateModule.forRoot(), RouterTestingModule],
+        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        providers: [
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: DynamicFormService, useValue: formService },
+          {
+            provide: ActivatedRoute,
+            useValue: {
+              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              snapshot: { queryParams: {} }
+            }
+          },
+          { provide: BitstreamDataService, useValue: bitstreamService },
+          { provide: DSONameService, useValue: dsoNameService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+          { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+          { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: RequestService, useValue: mockRequestService },
+          ChangeDetectorRef
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
+
+    }));
+    describe('when there are vocabulary entries', () =>{
+      beforeEach(() => {
+        fixture = TestBed.createComponent(EditBitstreamPageComponent);
+        comp = fixture.componentInstance;
+        mockVocabularyService.getVocabularyEntries.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), entries)));
+        fixture.detectChanges();
+        router = TestBed.inject(Router);
+        spyOn(router, 'navigate');
+      });
+      let rawForm;
+      beforeEach(() => {
+        rawForm = comp.formGroup.getRawValue();
+      });
+      it('should have a select with value false', ()=>{
+        expect(rawForm.hideContainer.hide).toEqual(bitstream.firstMetadataValue('bitstream.hide'));
+      });
+      it('should verify that hide model has the correct model with options arriving from entries', ()=>{
+        expect(comp.hideModel).toBeDefined();
+        expect(comp.hideModel.id).toBe('hide');
+        expect(comp.hideModel.name).toBe('hide');
+        expect(comp.hideModel.options.length).toBe(2);
+        expect(comp.hideModel.options[0].label).toBe('true');
+        expect(comp.hideModel.options[0].value).toBe('true');
+        expect(comp.hideModel.options[1].label).toBe('false');
+        expect(comp.hideModel.options[1].value).toBe('false');
+      });
+    });
+    describe('when there no vocabulary entries', () =>{
+      beforeEach(() => {
+        fixture = TestBed.createComponent(EditBitstreamPageComponent);
+        comp = fixture.componentInstance;
+        mockVocabularyService.getVocabularyEntries.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
+        fixture.detectChanges();
+        router = TestBed.inject(Router);
+        spyOn(router, 'navigate');
+      });
+      let rawForm;
+      beforeEach(() => {
+        rawForm = comp.formGroup.getRawValue();
+      });
+      it('should verify that form model has the correct model with options arriving from entries', ()=>{
+        expect(comp.hideModel).toBeUndefined();
+        expect(rawForm.hideContainer).toBeUndefined();
+      });
+    });
+  });
+
+  describe('EditBitstreamPageComponent without metadata hide', () => {
+
+    beforeEach(waitForAsync(() => {
+      bundle = {
+        _links: {
+          primaryBitstream: {
+            href: 'bundle-selflink'
+          }
+        },
+        item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
+          uuid: 'some-uuid',
+          firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+            return undefined;
+          },
+        }))
+      };
+      const bundleName = 'ORIGINAL';
+
+      bitstream = Object.assign(new Bitstream(), {
+        uuid: bitstreamID,
+        id: bitstreamID,
+        metadata: {
+          'dc.description': [
+            {
+              value: 'Bitstream description'
+            }
+          ],
+          'dc.title': [
+            {
+              value: 'Bitstream title'
+            }
+          ],
+          'dc.type': [
+            {
+              value: 'Logo'
+            }
+          ]
+        },
+        format: createSuccessfulRemoteDataObject$(selectedFormat),
+        _links: {
+          self: 'bitstream-selflink'
+        },
+        bundle: createSuccessfulRemoteDataObject$(bundle)
+      });
+      bitstreamService = jasmine.createSpyObj('bitstreamService', {
+        findById: createSuccessfulRemoteDataObject$(bitstream),
+        findByHref: createSuccessfulRemoteDataObject$(bitstream),
+        update: createSuccessfulRemoteDataObject$(bitstream),
+        updateFormat: createSuccessfulRemoteDataObject$(bitstream),
+        commitUpdates: {},
+        patch: {}
+      });
+      bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
+        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
+      });
+      dsoNameService = jasmine.createSpyObj('dsoNameService', {
+        getName: bundleName
+      });
+
+      TestBed.configureTestingModule({
+        imports: [TranslateModule.forRoot(), RouterTestingModule],
+        declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
+        providers: [
+          { provide: NotificationsService, useValue: notificationsService },
+          { provide: DynamicFormService, useValue: formService },
+          {
+            provide: ActivatedRoute,
+            useValue: {
+              data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
+              snapshot: { queryParams: {} }
+            }
+          },
+          { provide: BitstreamDataService, useValue: bitstreamService },
+          { provide: DSONameService, useValue: dsoNameService },
+          { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+          { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
+          { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: RequestService, useValue: mockRequestService },
+          ChangeDetectorRef
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
+
+    }));
+    describe('when there are no vocabulary entries', () =>{
+      beforeEach(() => {
+        fixture = TestBed.createComponent(EditBitstreamPageComponent);
+        comp = fixture.componentInstance;
+        mockVocabularyService.getVocabularyEntries.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
+        fixture.detectChanges();
+        router = TestBed.inject(Router);
+        spyOn(router, 'navigate');
+      });
+      let rawForm;
+      beforeEach(() => {
+        rawForm = comp.formGroup.getRawValue();
+      });
+      it('should have a select with 0 elements', ()=>{
+        expect(rawForm.hideContainer).toBeUndefined();
+        expect(comp.hideModel).toBeUndefined();
+      });
+    });
+    describe('when there are vocabulary entries', () =>{
+      beforeEach(() => {
+        fixture = TestBed.createComponent(EditBitstreamPageComponent);
+        comp = fixture.componentInstance;
+        mockVocabularyService.getVocabularyEntries.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), entries)));
+        fixture.detectChanges();
+        router = TestBed.inject(Router);
+        spyOn(router, 'navigate');
+      });
+      let rawForm;
+      beforeEach(() => {
+        rawForm = comp.formGroup.getRawValue();
+      });
+      it('should have a select with 2 elements', ()=>{
+        expect(rawForm.hideContainer).toBeDefined();
+        expect(comp.hideModel).toBeDefined();
+        expect(comp.hideModel.id).toBe('hide');
+        expect(comp.hideModel.name).toBe('hide');
+        expect(comp.hideModel.options.length).toBe(2);
+        expect(comp.hideModel.options[0].label).toBe('true');
+        expect(comp.hideModel.options[0].value).toBe('true');
+        expect(comp.hideModel.options[1].label).toBe('false');
+        expect(comp.hideModel.options[1].value).toBe('false');
+      });
+    });
+  });
 });

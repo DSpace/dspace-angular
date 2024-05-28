@@ -472,7 +472,7 @@ export const environment: BuildConfig = {
   },
   addToAnyPlugin: {
     scriptUrl: 'https://static.addtoany.com/menu/page.js',
-    socialNetworksEnabled: false,
+    socialNetworksEnabled: true,
     buttons: ['btn1', 'btn2'],
     showPlusButton: true,
     showCounters: true,
@@ -577,4 +577,15 @@ export const environment: BuildConfig = {
   mirador: {
     enableDownloadPlugin: true,
   },
+
+  loader: {
+    showFallbackMessagesByDefault: true,
+    warningMessageDelay: 1000,
+    errorMessageDelay: 2000,
+  },
+
+  metaTags: {
+    defaultLogo: '/assets/images/dspace-cris-logo.png',
+    defaultDescription: 'DSpace is the most widely used repository software with more than 3000 installations around the world. It is free, open source and completely customisable to fit the needs of any organisation.'
+  }
 };

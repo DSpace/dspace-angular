@@ -4,7 +4,7 @@ import { CrisLayoutMetricRow } from './models/tab.model';
 /**
  * A service responsible for managing metrics objects
  */
-export class MetricsComponentsDataService {
+export class MetricsComponentsService {
 
   /**
    * Get matching metrics for item.
@@ -20,17 +20,13 @@ export class MetricsComponentsDataService {
 
   computeMetricsRows(itemMetrics: Metric[], maxColumn, metricTypes: string[]): CrisLayoutMetricRow[] {
 
-    // support
-    const typeMap = {};
-    metricTypes.forEach((type) => typeMap[type] = type);
-
     // filter, enrich, order
-    const metrics = itemMetrics
-      .filter((metric) => typeMap[metric.metricType])
-      .map((metric) => {
-        return { ...metric, position: typeMap[metric.metricType].position };
+    const metrics: Metric[] = itemMetrics
+      .filter((metric: Metric) => metricTypes.includes(metric.metricType))
+      .map((metric: Metric) => {
+        return { ...metric, position: metricTypes.indexOf(metric.metricType) };
       })
-      .sort((metric) => metric.position);
+      .sort((metricA, metricB ) => metricA.position - metricB.position);
 
     // chunker
     const totalRow = Math.ceil(metrics.length / maxColumn);

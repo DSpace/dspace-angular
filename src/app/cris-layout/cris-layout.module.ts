@@ -111,6 +111,9 @@ import {
 } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
 import { FormModule } from '../shared/form/form.module';
 import { CrisLayoutCollectionBoxComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/cris-layout-collection-box/cris-layout-collection-box.component';
+import {
+  LinkAuthorityComponent
+} from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/link-authority/link-authority.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -135,7 +138,8 @@ const ENTRY_COMPONENTS = [
   OrcidComponent,
   ValuepairComponent,
   TagComponent,
-  AdvancedAttachmentComponent
+  AdvancedAttachmentComponent,
+  LinkAuthorityComponent
 ];
 
 @NgModule({

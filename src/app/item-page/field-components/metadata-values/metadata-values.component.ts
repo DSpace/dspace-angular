@@ -37,7 +37,7 @@ export class MetadataValuesComponent implements OnChanges {
   @Input() label: string;
 
   /**
-   * Whether the {@link MarkdownPipe} should be used to render these metadata values.
+   * Whether the {@link MarkdownDirective} should be used to render these metadata values.
    * This will only have effect if {@link MarkdownConfig#enabled} is true.
    * Mathjax will only be rendered if {@link MarkdownConfig#mathjax} is true.
    */
