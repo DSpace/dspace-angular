@@ -29,7 +29,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -103,7 +102,6 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected _location: Location,
     protected responseService: ServerResponseService,
@@ -112,7 +110,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
-    super(route, router, items, authService, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
+    super(route, router, items, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
