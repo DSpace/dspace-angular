@@ -42,7 +42,7 @@ import { getDownloadableBitstream } from '../shared/bitstream.operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 import { ITEM } from '../shared/item.resource-type';
-import { isPlatformServer } from '@angular/common';
+import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { Root } from '../data/root.model';
 import { environment } from '../../../environments/environment';
 
@@ -102,6 +102,7 @@ export class MetadataService {
     private authorizationService: AuthorizationDataService,
     private schemaJsonLDService: SchemaJsonLDService,
     @Inject(PLATFORM_ID) private platformId: any,
+    @Inject(DOCUMENT) private _document: Document,
   ) {
   }
 
@@ -656,11 +657,11 @@ export class MetadataService {
   }
 
   private getMetaTagValue(key: string): string {
-    return this.currentObject.value.firstMetadataValue(key);
+    return this.currentObject?.value?.firstMetadataValue(key);
   }
 
   private getFirstMetaTagValue(keys: string[]): string {
-    return this.currentObject.value.firstMetadataValue(keys);
+    return this.currentObject?.value?.firstMetadataValue(keys);
   }
 
   private getMetaTagValuesAndCombine(key: string): string {
@@ -741,7 +742,7 @@ export class MetadataService {
 
 
   private setGenericPageMetaTags() {
-    const pageDocumentTitle = document.getElementsByTagName('title')[0].innerText;
+    const pageDocumentTitle = this._document.getElementsByTagName('title')[0].innerText;
     const pageUrl = new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.router.url).toString();
     const genericPageOpenGraphType = 'website';
 
