@@ -81,6 +81,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @Input() showThumbnails;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * The value to display for this element
    */
   @Input() value: string;
@@ -133,6 +138,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
     'showLabel',
     'showMetrics',
     'showThumbnails',
+    'showCorrection',
     'context',
     'viewMode',
     'value',

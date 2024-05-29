@@ -69,6 +69,11 @@ export class SearchResultsComponent {
   @Input() showThumbnails;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * The current sorting configuration of the search
    */
   @Input() sortConfig: SortOptions;

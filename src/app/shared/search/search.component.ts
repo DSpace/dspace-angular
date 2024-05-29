@@ -190,6 +190,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showThumbnails;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * Whether to show the view mode switch
    */
   @Input() showViewModes = true;
