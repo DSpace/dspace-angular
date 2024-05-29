@@ -772,7 +772,7 @@
   "admin.reports.items.head": "Informe de Consulta de Metadatos",
 
   //"admin.reports.items.run": "Run Item Query",
-  "admin.reports.items.run": Ejecutar Consulta de Ítems",
+  "admin.reports.items.run": "Ejecutar Consulta de Ítems",
 
   //"admin.reports.items.section.collectionSelector": "Collection Selector",
   "admin.reports.items.section.collectionSelector": "Selección de Colecciones",
@@ -934,13 +934,13 @@
   "admin.reports.commons.filters.bitstream": "Filtros Básicos de Ficheros",
 
   //"admin.reports.commons.filters.bitstream.has_multiple_originals": "Item has Multiple Original Bitstreams",
-  "admin.reports.commons.filters.bitstream.has_multiple_originals": "Ítem tiene múltiples ficheros (bloque Original) 
+  "admin.reports.commons.filters.bitstream.has_multiple_originals": "Ítem tiene múltiples ficheros (bloque Original)",
 
   //"admin.reports.commons.filters.bitstream.has_no_originals": "Item has No Original Bitstreams",
   "admin.reports.commons.filters.bitstream.has_no_originals": "Ítem no tiene ficheros (bloque Original)",
 
   //"admin.reports.commons.filters.bitstream.has_one_original": "Item has One Original Bitstream",
-  "admin.reports.commons.filters.bitstream.has_one_original": "Ítem tiene un fichero (bloque Original),
+  "admin.reports.commons.filters.bitstream.has_one_original": "Ítem tiene un fichero (bloque Original)",
 
   //"admin.reports.commons.filters.bitstream_mime": "Bitstream Filters by MIME Type",
   "admin.reports.commons.filters.bitstream_mime": "Filtros de Fichero por tipo MIME",
@@ -976,7 +976,7 @@
   "admin.reports.commons.filters.mime": "Filtros de tipos MIME soportados",
 
   //"admin.reports.commons.filters.mime.has_only_supp_image_type": "Item Image Bitstreams are Supported",
-  "admin.reports.commons.filters.mime.has_only_supp_image_type": ""El ítem tiene ficheros de tipo imagen soportados",
+  "admin.reports.commons.filters.mime.has_only_supp_image_type": "El ítem tiene ficheros de tipo imagen soportados",
 
   //"admin.reports.commons.filters.mime.has_unsupp_image_type": "Item has Image Bitstream that is Unsupported",
   "admin.reports.commons.filters.mime.has_unsupp_image_type": "El ítem tiene ficheros de tipo imagen no soportados",
