@@ -5,9 +5,10 @@ import { CookieConsents, KlaroService } from '../cookies/klaro.service';
 import { of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { setDatadogRumStatusAction } from './datadog-rum.actions';
+import { BrowserDatadogRumService } from './browser-datadog-rum.service';
 
 describe('DatadogRumService', () => {
-  let service: DatadogRumService;
+  let service: BrowserDatadogRumService;
   let store: MockStore;
   let klaroService: KlaroService;
   let memoizedSelector;
@@ -40,12 +41,12 @@ describe('DatadogRumService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        DatadogRumService,
-        provideMockStore({initialState}),
-        {provide: KlaroService, useValue: klaroServiceSpy},
+        { provide: DatadogRumService, useClass: BrowserDatadogRumService },
+        provideMockStore({ initialState }),
+        { provide: KlaroService, useValue: klaroServiceSpy },
       ]
     });
-    service = TestBed.inject(DatadogRumService);
+    service = TestBed.inject(DatadogRumService) as BrowserDatadogRumService;
     store = TestBed.inject(MockStore);
     memoizedSelector = store.overrideSelector(service.datadogRumStateSelector, initialState.datadogRum);
     klaroService = TestBed.inject(KlaroService);
