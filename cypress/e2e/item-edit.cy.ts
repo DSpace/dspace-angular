@@ -18,6 +18,11 @@ describe('Edit Item > Edit Metadata tab', () => {
         // <ds-edit-item-page> tag must be loaded
         cy.get('ds-edit-item-page').should('be.visible');
 
+        // wait for all the ds-dso-edit-metadata-value components to be rendered
+        cy.get('ds-dso-edit-metadata-value div[role="row"]').each(($row: HTMLDivElement) => {
+            cy.wrap($row).find('div[role="cell"]').should('be.visible');
+        });
+
         // Analyze <ds-edit-item-page> for accessibility issues
         testA11y('ds-edit-item-page');
     });
