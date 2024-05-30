@@ -43,7 +43,7 @@
         </tr>
         <ng-container *ngIf="(currentUser$ | async) == null || (userMetadata$ | async)">
           <tr *ngFor="let requiredInfo of requiredInfo$ | async">
-            <td><b>{{requiredInfo.value}}</b></td>
+            <td><b>{{'clarin.license.agreement.signer.' + requiredInfo.name | translate}}</b></td>
             <td class="input-group">
               <input #requiredInfoRef class="rounded-sm max-width border-gray"
                      [value]="getMetadataValueByKey(requiredInfo.name)"

@@ -27,14 +27,15 @@ export class ClarinLicenseRequiredInfo {
  */
 export const CLARIN_LICENSE_REQUIRED_INFO = {
   SEND_TOKEN: 'Email',
-  NAME: 'User name',
+  NAME: 'Name (given name and surname)',
   DOB: 'Date of birth',
   ADDRESS: 'Address',
   COUNTRY: 'Country',
-  EXTRA_EMAIL: 'Ask user for another email address',
-  ORGANIZATION: 'Ask user for organization (optional)',
-  REQUIRED_ORGANIZATION: 'Ask user for organization (mandatory)',
-  INTENDED_USE: 'Ask user for intentions with the item'
+  EXTRA_EMAIL: 'Email',
+  ORGANIZATION: 'Organization',
+  REQUIRED_ORGANIZATION: 'Organization',
+  INTENDED_USE: 'Intended use',
+  ACA_ORG_NAME_AND_SEAT: 'Name and seat (address) of your academic institution',
 };
 
 /**
@@ -83,6 +84,11 @@ export const CLARIN_LICENSE_FORM_REQUIRED_OPTIONS = [
   }),
   Object.assign(new ClarinLicenseRequiredInfo(), {
     id: 8,
+    value: CLARIN_LICENSE_REQUIRED_INFO.INTENDED_USE,
+    name: 'INTENDED_USE'
+  }),
+  Object.assign(new ClarinLicenseRequiredInfo(), {
+    id: 9,
     value: CLARIN_LICENSE_REQUIRED_INFO.INTENDED_USE,
     name: 'INTENDED_USE'
   })
