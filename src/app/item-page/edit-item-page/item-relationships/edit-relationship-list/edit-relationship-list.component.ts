@@ -305,29 +305,28 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.submitEv = () => {
       modalComp.isPending = true;
       const isLeft = this.currentItemIsLeftItem$.getValue();
-      const addOperations = modalComp.toAdd.map((searchResult: any) => ({ type: 'add', searchResult }));
-      const removeOperations = modalComp.toRemove.map((searchResult: any) => ({ type: 'remove', searchResult }));
+      const addOperations = modalComp.toAdd.map((searchResult: ItemSearchResult) => ({ type: 'add', searchResult }));
+      const removeOperations = modalComp.toRemove.map((searchResult: ItemSearchResult) => ({ type: 'remove', searchResult }));
       observableFrom([...addOperations, ...removeOperations]).pipe(
-        concatMap(({ type, searchResult }: { type: string, searchResult: any }) => {
+        concatMap(({ type, searchResult }: { type: string, searchResult: ItemSearchResult }) => {
+          const relatedItem: Item = searchResult.indexableObject;
           if (type === 'add') {
-            const relatedItem = searchResult.indexableObject;
             return this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
-              map((nameVariant) => {
+              switchMap((nameVariant) => {
                 const update = {
-                  uuid: this.relationshipType.id + '-' + searchResult.indexableObject.uuid,
+                  uuid: `${this.relationshipType.id}-${relatedItem.uuid}`,
                   nameVariant,
                   type: this.relationshipType,
                   originalIsLeft: isLeft,
                   originalItem: this.item,
                   relatedItem,
                 } as RelationshipIdentifiable;
-                this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
-                return update;
+                return this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
               }),
               take(1)
             );
           } else if (type === 'remove') {
-            return this.relationshipService.getNameVariant(this.listId, searchResult.indexableObjectuuid).pipe(
+            return this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
               switchMap((nameVariant) => {
                 return this.getRelationFromId(searchResult.indexableObject).pipe(
                   map( (relationship: Relationship) => {
@@ -339,9 +338,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
                       originalItem: this.item,
                       relationship,
                     } as RelationshipIdentifiable;
-                    this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
-                    return update;
-                  })
+                    return this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
+                  }),
                 );
               }),
               take(1)
