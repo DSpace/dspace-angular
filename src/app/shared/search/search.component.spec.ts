@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, Observable, of, of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { HostWindowService } from '../host-window.service';
@@ -34,15 +34,15 @@ import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
 let searchServiceObject: SearchService;
 let searchConfigurationServiceObject: SearchConfigurationService;
 
-const configurationDataService = jasmine.createSpyObj('configurationDataService', {
-  findByPropertyName: createSuccessfulRemoteDataObject$({ values: ['true'] })
+const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
+  isAuthorized: of(true)
 });
 
 const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
@@ -247,8 +247,8 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
         useValue: searchConfigurationServiceStub
       },
       {
-        provide: ConfigurationDataService,
-        useValue: configurationDataService
+        provide: AuthorizationDataService,
+        useValue: authorizationDataService
       }
     ],
     schemas: [NO_ERRORS_SCHEMA]

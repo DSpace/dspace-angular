@@ -51,7 +51,8 @@ import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routi
 import { SearchManager } from '../../core/browse/search-manager';
 import { AlertType } from '../alert/alert-type';
 import { isPlatformServer } from '@angular/common';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 
 @Component({
   selector: 'ds-search',
@@ -375,7 +376,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
     protected routeService: RouteService,
     protected router: Router,
-    protected configurationService: ConfigurationDataService,) {
+    protected authorizationService: AuthorizationDataService,) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -394,18 +395,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     if (this.showCorrection === null || this.showCorrection === undefined) {
       this.subs.push(
-        this.configurationService.findByPropertyName('context-menu-entry.requestcorrection.enabled').pipe(
-          getFirstCompletedRemoteData(),
-          map((res) => {
-            switch (res?.payload?.values[0]) {
-              case 'true':
-                return true;
-              case 'false':
-              default:
-                return false;
-            }
-          }),
-        ).subscribe((showCorrection) => {
+        this.authorizationService.isAuthorized(FeatureID.CanCorrectItem, null, null, true)
+        .subscribe((showCorrection) => {
           this.showCorrection = showCorrection;
         }));
     }

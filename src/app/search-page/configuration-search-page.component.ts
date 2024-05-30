@@ -9,7 +9,7 @@ import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { Router } from '@angular/router';
 import { SearchManager } from '../core/browse/search-manager';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 
 /**
  * This component renders a search page using a configuration as input.
@@ -37,7 +37,7 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
               protected router: Router,
-              protected configurationService: ConfigurationDataService,) {
-    super(service, searchManager, sidebarService, windowService, searchConfigService, platformId, routeService, router, configurationService);
+              protected authorizationService: AuthorizationDataService,) {
+    super(service, searchManager, sidebarService, windowService, searchConfigService, platformId, routeService, router, authorizationService);
   }
 }
