@@ -312,7 +312,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
           const relatedItem: Item = searchResult.indexableObject;
           if (type === 'add') {
             return this.relationshipService.getNameVariant(this.listId, relatedItem.uuid).pipe(
-              map((nameVariant) => {
+              switchMap((nameVariant) => {
                 const update = {
                   uuid: `${this.relationshipType.id}-${relatedItem.uuid}`,
                   nameVariant,
@@ -321,8 +321,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
                   originalItem: this.item,
                   relatedItem,
                 } as RelationshipIdentifiable;
-                this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
-                return update;
+                return this.objectUpdatesService.saveAddFieldUpdate(this.url, update);
               }),
               take(1)
             );
@@ -339,9 +338,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
                       originalItem: this.item,
                       relationship,
                     } as RelationshipIdentifiable;
-                    this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
-                    return update;
-                  })
+                    return this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
+                  }),
                 );
               }),
               take(1)
