@@ -34,11 +34,17 @@ import { SearchFilterConfig } from './models/search-filter-config.model';
 import { FilterType } from './models/filter-type.model';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
 let searchServiceObject: SearchService;
 let searchConfigurationServiceObject: SearchConfigurationService;
+
+const configurationDataService = jasmine.createSpyObj('configurationDataService', {
+  findByPropertyName: createSuccessfulRemoteDataObject$({ values: ['true'] })
+});
+
 const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   dispatch: {},
@@ -239,6 +245,10 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       {
         provide: SEARCH_CONFIG_SERVICE,
         useValue: searchConfigurationServiceStub
+      },
+      {
+        provide: ConfigurationDataService,
+        useValue: configurationDataService
       }
     ],
     schemas: [NO_ERRORS_SCHEMA]
@@ -327,6 +337,12 @@ describe('SearchComponent', () => {
     fixture.detectChanges();
     tick(100);
     expect(comp.resultFound.emit).toHaveBeenCalledWith(expectedResults);
+  }));
+
+  it('should show correction badge when item is a correction', fakeAsync(() => {
+    comp.ngOnInit();
+    tick(100);
+    expect(comp.showCorrection).toBe(true);
   }));
 
   describe('when the open sidebar button is clicked in mobile view', () => {
