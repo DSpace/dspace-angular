@@ -123,7 +123,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { Metadata } from '../../../../core/shared/metadata.utils';
-import { DynamicLinkModel } from "./models/ds-dynamic-link.model";
+import { DynamicLinkModel } from './models/ds-dynamic-link.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
