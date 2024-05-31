@@ -32,6 +32,7 @@ import {
   Observable,
 } from 'rxjs';
 import {
+  delay,
   distinctUntilChanged,
   take,
   withLatestFrom,
@@ -136,7 +137,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.router.events.subscribe((event) => {
+    this.router.events.pipe(
+      // delay(0) to prevent "Expression has changed after it was checked" errors
+      delay(0),
+    ).subscribe((event) => {
       if (event instanceof NavigationStart) {
         distinctNext(this.isRouteLoading$, true);
       } else if (
