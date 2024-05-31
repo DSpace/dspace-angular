@@ -6,11 +6,11 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { itemPageResolver } from '../item-page.resolver';
 
 /**
- * Guard for preventing unauthorized access to certain {@link Item} pages requiring manage bitstreams rights
- * Check manage bitstreams authorization rights
+ * Guard for preventing unauthorized access to certain {@link Item} pages requiring specific authorizations.
+ * Checks authorization rights for moving items.
  */
-export const itemPageBitstreamsGuard: CanActivateFn =
+export const itemPageMoveGuard: CanActivateFn =
   dsoPageSingleFeatureGuard(
     () => itemPageResolver,
-    () => observableOf(FeatureID.CanManageBitstreamBundles),
+    () => observableOf(FeatureID.CanMove),
   );

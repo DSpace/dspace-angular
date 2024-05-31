@@ -10,6 +10,7 @@ import { resourcePolicyTargetResolver } from '../shared/resource-policies/resolv
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
 import { bitstreamPageResolver } from './bitstream-page.resolver';
+import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorizations.guard';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
 import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';
 
@@ -49,6 +50,7 @@ export const ROUTES: Route[] = [
   },
   {
     path: EDIT_BITSTREAM_AUTHORIZATIONS_PATH,
+    canActivate: [bitstreamPageAuthorizationsGuard],
     children: [
       {
         path: 'create',
