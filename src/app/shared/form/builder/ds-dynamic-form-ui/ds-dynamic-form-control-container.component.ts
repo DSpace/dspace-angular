@@ -123,9 +123,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { Metadata } from '../../../../core/shared/metadata.utils';
-import { DsDynamicMarkdownComponent } from './models/markdown/dynamic-markdown.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_MARKDOWN } from './models/markdown/dynamic-markdown.model';
-import { DynamicLinkModel } from './models/ds-dynamic-link.model';
+import { DynamicLinkModel } from "./models/ds-dynamic-link.model";
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -187,9 +185,6 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
 
     case DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH:
       return CustomSwitchComponent;
-
-    case DYNAMIC_FORM_CONTROL_TYPE_MARKDOWN:
-      return DsDynamicMarkdownComponent;
 
     default:
       return null;
@@ -503,6 +498,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
+    super.ngOnDestroy();
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());

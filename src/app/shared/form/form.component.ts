@@ -55,9 +55,9 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() displaySubmit = true;
 
   /**
-   * A boolean that indicate if to display form's cancel button
+   * A boolean that indicate if to display form's reset button
    */
-  @Input() displayCancel = true;
+  @Input() displayReset = true;
 
   /**
    * A String that indicate the entity type of the item
@@ -82,7 +82,7 @@ export class FormComponent implements OnDestroy, OnInit {
   /**
    * i18n key for the cancel button
    */
-  @Input() cancelLabel = 'form.cancel';
+  @Input() resetLabel = 'form.reset';
 
   /**
    * An array of DynamicFormControlModel type
@@ -350,7 +350,6 @@ export class FormComponent implements OnDestroy, OnInit {
   removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
     const formArrayControl = this.formGroup.get(this.formBuilderService.getPath(arrayContext)) as UntypedFormArray;
     const event = this.getEvent($event, arrayContext, index, 'remove');
-    console.log(formArrayControl, event);
     if (this.formBuilderService.isQualdropGroup(event.model as DynamicFormControlModel) || this.isInlineGroupForm) {
       // In case of qualdrop value or inline-group remove event must be dispatched before removing the control from array
       this.removeArrayItem.emit(event);
@@ -434,25 +433,27 @@ export class FormComponent implements OnDestroy, OnInit {
     const metadataKeys = hasValue(metadataFields) ? Object.keys(metadataFields) : [];
     const formKeys = hasValue(this.formGroup.value) ? Object.keys(this.formGroup.value).map(key => key.replace('_array', '')) : [];
 
-    formKeys.forEach((key) => {
-      const innerObjectKeys = (Object.keys(this.formGroup.value[key] ?? {} ) as any[]).map((oldKey) => oldKey.replaceAll('_', '.'));
-      const filteredKeys = innerObjectKeys.filter(innerKey => metadataKeys.includes(innerKey));
-      const oldValue = this.formGroup.value[key];
+    formKeys
+      .filter((key) => isNotEmpty(this.formGroup.value[key]))
+      .forEach((key) => {
+        const innerObjectKeys = (Object.keys(this.formGroup.value[key] ?? {} ) as any[]).map((oldKey) => oldKey.replaceAll('_', '.'));
+        const filteredKeys = innerObjectKeys.filter(innerKey => metadataKeys.includes(innerKey));
+        const oldValue = this.formGroup.value[key];
 
-      if (filteredKeys.length > 0) {
-        filteredKeys.forEach((oldValueKey) => {
-          const newValue = {...oldValue};
-          const formattedKey = (oldValueKey as any).replaceAll('.', '_');
-          const patchValue = {};
+        if (filteredKeys.length > 0) {
+          filteredKeys.forEach((oldValueKey) => {
+            const newValue = {...oldValue};
+            const formattedKey = (oldValueKey as any).replaceAll('.', '_');
+            const patchValue = {};
 
-          newValue[formattedKey] = metadataFields[oldValueKey][0];
-          patchValue[key] = newValue;
+            newValue[formattedKey] = metadataFields[oldValueKey][0];
+            patchValue[key] = newValue;
 
-          if (!isEqual(oldValue[oldValueKey], newValue[oldValueKey])) {
-            this.formGroup.patchValue(patchValue);
-          }
-        });
-      }
+            if (!isEqual(oldValue[oldValueKey], newValue[oldValueKey])) {
+              this.formGroup.patchValue(patchValue);
+            }
+          });
+        }
     });
   }
 }
