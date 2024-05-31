@@ -1,7 +1,7 @@
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Version } from '../../../core/shared/version.model';
-import { map, startWith, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Item } from '../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,9 +13,7 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ItemVersionsSharedService } from '../../../item-page/versions/item-versions-shared.service';
-import {
-  ItemVersionsSummaryModalComponent
-} from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
+import { ItemVersionsSummaryModalComponent } from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
 
 /**
  * Service to take care of all the functionality related to the version creation modal
@@ -86,7 +84,6 @@ export class DsoVersioningModalService {
       // button is disabled if hasDraftVersion = true, and enabled if hasDraftVersion = false or null
       // (hasDraftVersion is null when a version history does not exist)
       map((res) => Boolean(res)),
-      startWith(true),
     );
   }
 
