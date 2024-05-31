@@ -7,10 +7,12 @@ import { DsoEditMetadataValueComponent } from './dso-edit-metadata/dso-edit-meta
 import { DsoEditMetadataHeadersComponent } from './dso-edit-metadata/dso-edit-metadata-headers/dso-edit-metadata-headers.component';
 import { DsoEditMetadataValueHeadersComponent } from './dso-edit-metadata/dso-edit-metadata-value-headers/dso-edit-metadata-value-headers.component';
 import { ThemedDsoEditMetadataComponent } from './dso-edit-metadata/themed-dso-edit-metadata.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
     SharedModule,
+    InfiniteScrollModule
   ],
   declarations: [
     DsoEditMetadataComponent,
