@@ -293,7 +293,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         getFirstSucceededRemoteDataPayload(),
         tap((facetValues: FacetValues) => {
           this.isLastPage$.next(hasNoValue(facetValues?.next));
-          const hasLimitFacets =  facetValues?.page.length < facetValues?.facetLimit;
+          const hasLimitFacets =  facetValues?.page?.length < facetValues?.facetLimit;
           this.isAvailableForShowSearchText.next(hasLimitFacets && hasNoValue(facetValues?.next));
         }),
       )),
