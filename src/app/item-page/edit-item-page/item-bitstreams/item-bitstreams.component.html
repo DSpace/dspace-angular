@@ -6,21 +6,21 @@
             class="fas fa-upload"></i>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.upload-button" | translate}}</span>
     </button>
-    <button class="btn btn-warning" *ngIf="isReinstatable() | async"
+    <button class="btn btn-warning" *ngIf="isReinstatable$ | async"
             [attr.aria-label]="'item.edit.bitstreams.reinstate-button' | translate"
             (click)="reinstate()"><i
             class="fas fa-undo-alt"></i>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
     </button>
-    <button class="btn btn-primary" [disabled]="!(hasChanges() | async) || submitting"
+    <button class="btn btn-primary" [disabled]="(hasChanges$ | async) !== true || submitting"
             [attr.aria-label]="'item.edit.bitstreams.save-button' | translate"
             (click)="submit()"><i
             class="fas fa-save"></i>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>
     </button>
-    <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"
+    <button class="btn btn-danger" *ngIf="(isReinstatable$ | async) !== true"
             [attr.aria-label]="'item.edit.bitstreams.discard-button' | translate"
-            [disabled]="!(hasChanges() | async) || submitting"
+            [disabled]="(hasChanges$ | async) !== true || submitting"
             (click)="discard()"><i
             class="fas fa-times"></i>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
@@ -52,21 +52,21 @@
 
   <div class="button-row bottom">
     <div class="mt-4 float-right space-children-mr ml-gap">
-      <button class="btn btn-warning" *ngIf="isReinstatable() | async"
+      <button class="btn btn-warning" *ngIf="isReinstatable$ | async"
               [attr.aria-label]="'item.edit.bitstreams.reinstate-button' | translate"
               (click)="reinstate()"><i
         class="fas fa-undo-alt"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
       </button>
-      <button class="btn btn-primary" [disabled]="!(hasChanges() | async) || submitting"
+      <button class="btn btn-primary" [disabled]="(hasChanges$ | async) !== true || submitting"
               [attr.aria-label]="'item.edit.bitstreams.save-button' | translate"
               (click)="submit()"><i
         class="fas fa-save"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>
       </button>
-      <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"
+      <button class="btn btn-danger" *ngIf="(isReinstatable$ | async) !== true"
               [attr.aria-label]="'item.edit.bitstreams.discard-button' | translate"
-              [disabled]="!(hasChanges() | async) || submitting"
+              [disabled]="(hasChanges$ | async) !== true || submitting"
               (click)="discard()"><i
         class="fas fa-times"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
