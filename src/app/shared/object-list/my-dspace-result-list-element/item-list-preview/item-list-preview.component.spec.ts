@@ -17,7 +17,7 @@ import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { Item } from '../../../../core/shared/item.model';
-import { ThumbnailComponent } from '../../../../thumbnail/thumbnail.component';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
@@ -116,7 +116,7 @@ describe('ItemListPreviewComponent', () => {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
-          ThumbnailComponent, ThemedBadgesComponent,
+          ThemedThumbnailComponent, ThemedBadgesComponent,
           TruncatableComponent, TruncatablePartComponent,
           ItemSubmitterComponent, ItemCollectionComponent,
         ],
@@ -139,7 +139,7 @@ describe('ItemListPreviewComponent', () => {
       component.item = mockItemWithAuthorAndDate;
       fixture.detectChanges();
     });
-    it('should add the ds-thumbnail element', () => {
+    it('should add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeTruthy();
     });
@@ -200,7 +200,7 @@ describe('ItemListPreviewComponent', () => {
     });
 
     it('should show the badges', () => {
-      const entityField = fixture.debugElement.query(By.css('ds-themed-badges'));
+      const entityField = fixture.debugElement.query(By.css('ds-badges'));
       expect(entityField).not.toBeNull();
     });
   });
@@ -228,7 +228,7 @@ describe('ItemListPreviewComponent', () => {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
         imports: [
-          ThumbnailComponent, ThemedBadgesComponent,
+          ThemedThumbnailComponent, ThemedBadgesComponent,
           TruncatableComponent, TruncatablePartComponent,
           ItemSubmitterComponent, ItemCollectionComponent,
         ],
@@ -250,7 +250,7 @@ describe('ItemListPreviewComponent', () => {
       component.item = mockItemWithAuthorAndDate;
       fixture.detectChanges();
     });
-    it('should add the ds-thumbnail element', () => {
+    it('should add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeFalsy();
     });

@@ -8,7 +8,6 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { RegisterEmailFormComponent } from '../../register-email-form/register-email-form.component';
 import { ThemedRegisterEmailFormComponent } from '../../register-email-form/themed-registry-email-form.component';
 import { RegisterEmailComponent } from './register-email.component';
 
@@ -24,7 +23,7 @@ describe('RegisterEmailComponent', () => {
     })
       .overrideComponent(RegisterEmailComponent, {
         remove: {
-          imports: [RegisterEmailFormComponent, ThemedRegisterEmailFormComponent],
+          imports: [ThemedRegisterEmailFormComponent],
         },
       })
       .compileComponents();

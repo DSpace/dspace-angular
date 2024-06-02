@@ -1,7 +1,10 @@
 import {
-  ActivatedRouteSnapshot,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
   Router,
-  RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
 import {
   Observable,
@@ -11,37 +14,9 @@ import {
 import { AuthService } from '../../../auth/auth.service';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guard';
-
-/**
- * Test implementation of abstract class SomeFeatureAuthorizationGuard
- * Provide the return values of the overwritten getters as constructor arguments
- */
-class SomeFeatureAuthorizationGuardImpl extends SomeFeatureAuthorizationGuard {
-  constructor(protected authorizationService: AuthorizationDataService,
-              protected router: Router,
-              protected authService: AuthService,
-              protected featureIds: FeatureID[],
-              protected objectUrl: string,
-              protected ePersonUuid: string) {
-    super(authorizationService, router, authService);
-  }
-
-  getFeatureIDs(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> {
-    return observableOf(this.featureIds);
-  }
-
-  getObjectUrl(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
-    return observableOf(this.objectUrl);
-  }
-
-  getEPersonUuid(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> {
-    return observableOf(this.ePersonUuid);
-  }
-}
+import { someFeatureAuthorizationGuard } from './some-feature-authorization.guard';
 
 describe('SomeFeatureAuthorizationGuard', () => {
-  let guard: SomeFeatureAuthorizationGuard;
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
@@ -62,18 +37,27 @@ describe('SomeFeatureAuthorizationGuard', () => {
         return observableOf(authorizedFeatureIds.indexOf(featureId) > -1);
       },
     });
+
     router = jasmine.createSpyObj('router', {
       parseUrl: {},
     });
+
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
     });
-    guard = new SomeFeatureAuthorizationGuardImpl(authorizationService, router, authService, featureIds, objectUrl, ePersonUuid);
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: Router, useValue: router },
+        { provide: AuthService, useValue: authService },
+      ],
+    });
   }
 
-  beforeEach(() => {
+  beforeEach(waitForAsync(() => {
     init();
-  });
+  }));
 
   describe('canActivate', () => {
     describe('when the user isn\'t authorized', () => {
@@ -82,7 +66,16 @@ describe('SomeFeatureAuthorizationGuard', () => {
       });
 
       it('should not return true', (done) => {
-        guard.canActivate(undefined, { url: 'current-url' } as any).subscribe((result) => {
+
+        const result$ = TestBed.runInInjectionContext(() => {
+          return someFeatureAuthorizationGuard(
+            () => observableOf(featureIds),
+            () => observableOf(objectUrl),
+            () => observableOf(ePersonUuid),
+          )(undefined, { url: 'current-url' } as any);
+        }) as Observable<boolean | UrlTree>;
+
+        result$.subscribe((result) => {
           expect(result).not.toEqual(true);
           done();
         });
@@ -95,7 +88,16 @@ describe('SomeFeatureAuthorizationGuard', () => {
       });
 
       it('should return true', (done) => {
-        guard.canActivate(undefined, { url: 'current-url' } as any).subscribe((result) => {
+
+        const result$ = TestBed.runInInjectionContext(() => {
+          return someFeatureAuthorizationGuard(
+            () => observableOf(featureIds),
+            () => observableOf(objectUrl),
+            () => observableOf(ePersonUuid),
+          )(undefined, { url: 'current-url' } as any);
+        }) as Observable<boolean | UrlTree>;
+
+        result$.subscribe((result) => {
           expect(result).toEqual(true);
           done();
         });
@@ -108,7 +110,16 @@ describe('SomeFeatureAuthorizationGuard', () => {
       });
 
       it('should return true', (done) => {
-        guard.canActivate(undefined, { url: 'current-url' } as any).subscribe((result) => {
+
+        const result$ = TestBed.runInInjectionContext(() => {
+          return someFeatureAuthorizationGuard(
+            () => observableOf(featureIds),
+            () => observableOf(objectUrl),
+            () => observableOf(ePersonUuid),
+          )(undefined, { url: 'current-url' } as any);
+        }) as Observable<boolean | UrlTree>;
+
+        result$.subscribe((result) => {
           expect(result).toEqual(true);
           done();
         });

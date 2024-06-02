@@ -13,21 +13,22 @@ import { SearchFiltersComponent } from './search-filters.component';
  * Themed wrapper for SearchFiltersComponent
  */
 @Component({
-  selector: 'ds-themed-search-filters',
-  styleUrls: [],
+  selector: 'ds-search-filters',
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
+  imports: [SearchFiltersComponent],
 })
 export class ThemedSearchFiltersComponent extends ThemedComponent<SearchFiltersComponent> {
 
-  @Input() currentConfiguration;
+  @Input() currentConfiguration: string;
   @Input() currentScope: string;
-  @Input() inPlaceSearch;
-  @Input() refreshFilters: Observable<any>;
+  @Input() inPlaceSearch: boolean;
+  @Input() refreshFilters: Observable<boolean>;
   @Input() filters: Observable<RemoteData<SearchFilterConfig[]>>;
 
   protected inAndOutputNames: (keyof SearchFiltersComponent & keyof this)[] = [
-    'filters', 'currentConfiguration', 'currentScope', 'inPlaceSearch', 'refreshFilters'];
+    'filters', 'currentConfiguration', 'currentScope', 'inPlaceSearch', 'refreshFilters',
+  ];
 
   protected getComponentName(): string {
     return 'SearchFiltersComponent';

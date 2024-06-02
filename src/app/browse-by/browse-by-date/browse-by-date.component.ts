@@ -35,9 +35,8 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
-import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
 import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
@@ -69,10 +68,9 @@ import {
     ComcolPageLogoComponent,
     NgIf,
     ThemedComcolPageHandleComponent,
-    ComcolPageContentComponent,
+    ThemedComcolPageContentComponent,
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
-    BrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,

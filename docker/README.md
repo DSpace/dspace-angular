@@ -20,7 +20,7 @@ the Docker compose scripts in this 'docker' folder.
 
 ### Dockerfile
 
-This Dockerfile is used to build a *development* DSpace 7 Angular UI image, published as 'dspace/dspace-angular'
+This Dockerfile is used to build a *development* DSpace Angular UI image, published as 'dspace/dspace-angular'
 
 ```
 docker build -t dspace/dspace-angular:latest .
@@ -46,11 +46,11 @@ A default/demo version of this image is built *automatically*.
 
 ## 'docker' directory
 - docker-compose.yml
-  - Starts DSpace Angular with Docker Compose from the current branch.  This file assumes that a DSpace 7 REST instance will also be started in Docker.
+  - Starts DSpace Angular with Docker Compose from the current branch.  This file assumes that a DSpace REST instance will also be started in Docker.
 - docker-compose-rest.yml
-  - Runs a published instance of the DSpace 7 REST API - persists data in Docker volumes
+  - Runs a published instance of the DSpace REST API - persists data in Docker volumes
 - docker-compose-ci.yml
-  - Runs a published instance of the DSpace 7 REST API for CI testing.  The database is re-populated from a SQL dump on each startup.
+  - Runs a published instance of the DSpace REST API for CI testing.  The database is re-populated from a SQL dump on each startup.
 - cli.yml
   - Docker compose file that provides a DSpace CLI container to work with a running DSpace REST container.
 - cli.assetstore.yml
@@ -71,7 +71,7 @@ docker-compose -f docker/docker-compose.yml build
 
 This command provides a quick way to start both the frontend & backend from this single codebase
 ```
-docker-compose -p d7 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml up -d
+docker-compose -p d8 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml up -d
 ```
 
 Keep in mind, you may also start the backend by cloning the 'DSpace/DSpace' GitHub repository separately. See the next section.
@@ -86,14 +86,14 @@ _The system will be started in 2 steps. Each step shares the same docker network
 
 From 'DSpace/DSpace' clone (build first as needed):
 ```
-docker-compose -p d7 up -d
+docker-compose -p d8 up -d
 ```
 
 NOTE: More detailed instructions on starting the backend via Docker can be found in the [Docker Compose instructions for the Backend](https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/README.md).
 
 From 'DSpace/dspace-angular' clone (build first as needed)
 ```
-docker-compose -p d7 -f docker/docker-compose.yml up -d
+docker-compose -p d8 -f docker/docker-compose.yml up -d
 ```
 
 At this point, you should be able to access the UI from http://localhost:4000,
@@ -107,19 +107,19 @@ This allows you to run the Angular UI in *production* mode, pointing it at the d
 ```
 docker-compose -f docker/docker-compose-dist.yml pull
 docker-compose -f docker/docker-compose-dist.yml build
-docker-compose -p d7 -f docker/docker-compose-dist.yml up -d
+docker-compose -p d8 -f docker/docker-compose-dist.yml up -d
 ```
 
 ## Ingest test data from AIPDIR
 
 Create an administrator
 ```
-docker-compose -p d7 -f docker/cli.yml run --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en
+docker-compose -p d8 -f docker/cli.yml run --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en
 ```
 
 Load content from AIP files
 ```
-docker-compose -p d7 -f docker/cli.yml -f ./docker/cli.ingest.yml run --rm dspace-cli
+docker-compose -p d8 -f docker/cli.yml -f ./docker/cli.ingest.yml run --rm dspace-cli
 ```
 
 ## Alternative Ingest - Use Entities dataset
@@ -127,12 +127,12 @@ _Delete your docker volumes or use a unique project (-p) name_
 
 Start DSpace with Database Content from a database dump
 ```
-docker-compose -p d7 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/db.entities.yml up -d
+docker-compose -p d8 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/db.entities.yml up -d
 ```
 
 Load assetstore content and trigger a re-index of the repository
 ```
-docker-compose -p d7 -f docker/cli.yml -f docker/cli.assetstore.yml run --rm dspace-cli
+docker-compose -p d8 -f docker/cli.yml -f docker/cli.assetstore.yml run --rm dspace-cli
 ```
 
 ## End to end testing of the REST API (runs in GitHub Actions CI).
@@ -140,5 +140,5 @@ _In this instance, only the REST api runs in Docker using the Entities dataset. 
 
 This command is only really useful for testing our Continuous Integration process.
 ```
-docker-compose -p d7ci -f docker/docker-compose-ci.yml up -d
+docker-compose -p d8ci -f docker/docker-compose-ci.yml up -d
 ```

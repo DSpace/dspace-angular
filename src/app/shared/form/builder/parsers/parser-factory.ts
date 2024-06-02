@@ -1,4 +1,5 @@
 import { StaticProvider } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { DateFieldParser } from './date-field-parser';
 import { DisabledFieldParser } from './disabled-field-parser';
@@ -26,6 +27,7 @@ const fieldParserDeps = [
   CONFIG_DATA,
   INIT_FORM_VALUES,
   PARSER_OPTIONS,
+  TranslateService,
 ];
 
 /**

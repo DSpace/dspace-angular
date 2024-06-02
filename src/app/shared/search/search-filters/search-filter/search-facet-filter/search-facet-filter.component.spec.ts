@@ -11,28 +11,24 @@ import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
 import {
   BehaviorSubject,
   of as observableOf,
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { FacetValue } from '../../../models/facet-value.model';
+import { AppliedFilter } from '../../../models/applied-filter.model';
+import { FacetValues } from '../../../models/facet-values.model';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
@@ -44,6 +40,7 @@ describe('SearchFacetFilterComponent', () => {
   const value1 = 'testvalue1';
   const value2 = 'test2';
   const value3 = 'another value3';
+  const value4 = '52d629dc-7d2f-47b9-aa2d-258b92e45ae1';
   const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
     filterType: FilterType.text,
@@ -51,79 +48,62 @@ describe('SearchFacetFilterComponent', () => {
     isOpenByDefault: false,
     pageSize: 2,
   });
-  const values: FacetValue[] = [
-    {
-      label: value1,
-      value: value1,
-      count: 52,
-      _links: {
-        self: {
-          href: '',
-        },
-        search: {
-          href: '',
-        },
-      },
-    }, {
-      label: value2,
-      value: value2,
-      count: 20,
-      _links: {
-        self: {
-          href: '',
-        },
-        search: {
-          href: '',
-        },
-      },
-    }, {
-      label: value3,
-      value: value3,
-      count: 5,
-      _links: {
-        self: {
-          href: '',
-        },
-        search: {
-          href: '',
-        },
-      },
-    },
-  ];
+  const appliedFilter1: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName1,
+    operator: 'equals',
+    label: value1,
+    value: value1,
+  });
+  const appliedFilter2: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName1,
+    operator: 'equals',
+    label: value2,
+    value: value2,
+  });
+  const appliedFilter3: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName1,
+    operator: 'equals',
+    label: value3,
+    value: value3,
+  });
+  const appliedFilter4: AppliedFilter = Object.assign(new AppliedFilter(), {
+    filter: filterName1,
+    operator: 'notauthority',
+    label: value4,
+    value: value4,
+  });
+  const values: Partial<FacetValues> = {
+    appliedFilters: [
+      appliedFilter1,
+      appliedFilter2,
+      appliedFilter3,
+    ],
+    pageInfo: Object.assign(new PageInfo(), {
+      currentPage: 0,
+    }),
+  };
 
   const searchLink = '/search';
   const selectedValues = [value1, value2];
-  let filterService;
-  let searchService;
-  let router;
-  const page = observableOf(0);
+  let filterService: SearchFilterServiceStub;
+  let searchService: SearchServiceStub;
+  let router: RouterStub;
+  let searchConfigService: SearchConfigurationServiceStub;
 
-  const mockValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), values));
   beforeEach(waitForAsync(() => {
+    searchService = new SearchServiceStub(searchLink);
+    filterService = new SearchFilterServiceStub();
+    router = new RouterStub();
+    searchConfigService = new SearchConfigurationServiceStub();
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchFacetFilterComponent],
       providers: [
-        { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: Router, useValue: new RouterStub() },
-        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
+        { provide: SearchService, useValue: searchService },
+        { provide: SearchFilterService, useValue: filterService },
+        { provide: Router, useValue: router },
         { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: IN_PLACE_SEARCH, useValue: false },
-        { provide: REFRESH_FILTER, useValue: new BehaviorSubject<boolean>(false) },
-        { provide: SCOPE, useValue: undefined },
-        {
-          provide: SearchFilterService, useValue: {
-            getSelectedValuesForFilter: () => observableOf(selectedValues),
-            isFilterActiveWithValue: (paramName: string, filterValue: string) => true,
-            getPage: (paramName: string) => page,
-            /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-            incrementPage: (filterName: string) => {
-            },
-            resetPage: (filterName: string) => {
-            },
-            /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-          },
-        },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchFacetFilterComponent, {
@@ -135,22 +115,10 @@ describe('SearchFacetFilterComponent', () => {
     fixture = TestBed.createComponent(SearchFacetFilterComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.filterConfig = mockFilterConfig;
-    filterService = (comp as any).filterService;
-    searchService = (comp as any).searchService;
-    spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
-    router = (comp as any).router;
+    comp.inPlaceSearch = false;
+    comp.refreshFilters = new BehaviorSubject<boolean>(false);
+    spyOn(searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$(values));
     fixture.detectChanges();
-  });
-
-  describe('when the isChecked method is called with a value', () => {
-    beforeEach(() => {
-      spyOn(filterService, 'isFilterActiveWithValue');
-      comp.isChecked(values[1]);
-    });
-
-    it('should call isFilterActiveWithValue on the filterService with the correct filter parameter name and the passed value', () => {
-      expect(filterService.isFilterActiveWithValue).toHaveBeenCalledWith(mockFilterConfig.paramName, values[1].value);
-    });
   });
 
   describe('when the getSearchLink method is triggered', () => {
@@ -213,20 +181,23 @@ describe('SearchFacetFilterComponent', () => {
     const testValue = 'test';
 
     beforeEach(() => {
-      comp.selectedValues$ = observableOf(selectedValues.map((value) =>
-        Object.assign(new FacetValue(), {
+      comp.selectedAppliedFilters$ = observableOf(selectedValues.map((value) =>
+        Object.assign(new AppliedFilter(), {
+          filter: filterName1,
+          operator: 'equals',
           label: value,
           value: value,
         })));
       fixture.detectChanges();
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
+      spyOn(searchConfigService, 'selectNewAppliedFilterParams').and.returnValue(observableOf({ [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] }));
     });
 
     it('should call navigate on the router with the right searchlink and parameters when the filter is provided with a valid operator', () => {
       comp.onSubmit(testValue + ',equals');
+      expect(searchConfigService.selectNewAppliedFilterParams).toHaveBeenCalledWith(filterName1, testValue, 'equals');
       expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: { [mockFilterConfig.paramName]: [...selectedValues.map((value) => `${value},equals`), `${testValue},equals`] },
-        queryParamsHandling: 'merge',
       });
     });
 
@@ -254,14 +225,25 @@ describe('SearchFacetFilterComponent', () => {
     });
   });
 
-  describe('when findSuggestions is called with query \'test\'', () => {
-    const query = 'test';
+  describe('when new values are detected for a filter', () => {
+    let selectedValues$: BehaviorSubject<AppliedFilter[]>;
+
     beforeEach(() => {
-      comp.findSuggestions(query);
+      selectedValues$ = new BehaviorSubject([appliedFilter1, appliedFilter2, appliedFilter3]);
+      spyOn(searchService, 'getSelectedValuesForFilter').and.returnValue(selectedValues$);
+      comp.ngOnInit();
     });
 
-    it('should call getFacetValuesFor on the component\'s SearchService with the right query', () => {
-      expect((comp as any).searchService.getFacetValuesFor).toHaveBeenCalledWith(comp.filterConfig, 1, {}, query);
+    it('should updated the selectedAppliedFilters$ when they are AppliedFilters that should be displayed in the search facets', () => {
+      expect(comp.selectedAppliedFilters$).toBeObservable(cold('a', {
+        a: [appliedFilter1, appliedFilter2, appliedFilter3],
+      }));
+
+      selectedValues$.next([appliedFilter1, appliedFilter2, appliedFilter3, appliedFilter4]);
+
+      expect(comp.selectedAppliedFilters$).toBeObservable(cold('a', {
+        a: [appliedFilter1, appliedFilter2, appliedFilter3],
+      }));
     });
   });
 });

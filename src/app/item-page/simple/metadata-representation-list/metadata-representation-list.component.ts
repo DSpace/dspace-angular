@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { MetadataService } from '../../../core/metadata/metadata.service';
 import { Item } from '../../../core/shared/item.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
@@ -29,7 +30,7 @@ import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
-  selector: 'ds-metadata-representation-list',
+  selector: 'ds-base-metadata-representation-list',
   templateUrl: './metadata-representation-list.component.html',
   standalone: true,
   imports: [MetadataFieldWrapperComponent, NgFor, VarDirective, MetadataRepresentationLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule],
@@ -76,6 +77,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
   constructor(
     public relationshipService: RelationshipDataService,
     protected browseDefinitionDataService: BrowseDefinitionDataService,
+    protected metadataService: MetadataService,
   ) {
     super();
   }
@@ -101,7 +103,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
         .slice((this.objects.length * this.incrementBy), (this.objects.length * this.incrementBy) + this.incrementBy)
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
-          if (metadatum.isVirtual) {
+          if (this.metadataService.isVirtual(metadatum)) {
             return this.relationshipService.resolveMetadataRepresentation(metadatum, this.parentItem, this.itemType);
           } else {
             // Check for a configured browse link and return a standard metadata representation

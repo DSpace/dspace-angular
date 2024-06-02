@@ -34,7 +34,7 @@ import { SelectableListService } from './selectable-list/selectable-list.service
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-list',
+  selector: 'ds-base-object-list',
   styleUrls: ['./object-list.component.scss'],
   templateUrl: './object-list.component.html',
   animations: [fadeIn],

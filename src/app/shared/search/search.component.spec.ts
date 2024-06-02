@@ -294,6 +294,7 @@ describe('SearchComponent', () => {
 
     const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
       configuration: 'default',
+      scope: '',
       sort: sortOptionsList[0],
     });
     expect(comp.currentConfiguration$).toBeObservable(cold('b', {

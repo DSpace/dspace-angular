@@ -1787,6 +1787,9 @@
   "resource-policies.form.date.start.label": "Датум почетка",
   "resource-policies.form.description.label": "Опис",
   "resource-policies.form.name.label": "Име",
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
   "resource-policies.form.policy-type.label": "Изаберите тип полисе",
   "resource-policies.form.policy-type.required": "Морате да изаберете тип полисе ресурса.",
   "resource-policies.table.headers.action": "Поступак",

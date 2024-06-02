@@ -45,7 +45,7 @@ import { SubmissionFormCollectionComponent } from './collection/submission-form-
 import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
 import { SubmissionFormComponent } from './submission-form.component';
-import { SubmissionUploadFilesComponent } from './submission-upload-files/submission-upload-files.component';
+import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
 
 describe('SubmissionFormComponent Component', () => {
 
@@ -86,7 +86,7 @@ describe('SubmissionFormComponent Component', () => {
             ThemedLoadingComponent,
             SubmissionSectionContainerComponent,
             SubmissionFormFooterComponent,
-            SubmissionUploadFilesComponent,
+            ThemedSubmissionUploadFilesComponent,
             SubmissionFormCollectionComponent,
             SubmissionFormSectionAddComponent,
           ] },

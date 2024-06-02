@@ -14,7 +14,6 @@ import {
   EventEmitter,
   Inject,
   Input,
-  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -77,10 +76,10 @@ import {
   AppConfig,
 } from '../../../../../config/app-config.interface';
 import { AppState } from '../../../../app.reducer';
-import { ItemDataService } from '../../../../core/data/item-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { MetadataService } from '../../../../core/metadata/metadata.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -112,7 +111,6 @@ import { SelectableListService } from '../../../object-list/selectable-list/sele
 import { SearchResult } from '../../../search/models/search-result.model';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
-import { FormService } from '../../form.service';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../models/relationship-options.model';
@@ -155,7 +153,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() formModel: DynamicFormControlModel[];
   @Input() asBootstrapFormGroup = false;
   @Input() bindId = true;
-  @Input() context: any | null = null;
+  @Input() context: any = null;
   @Input() group: UntypedFormGroup;
   @Input() hostClass: string[];
   @Input() hasErrorMessaging = false;
@@ -202,17 +200,15 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected typeBindRelationService: DsDynamicTypeBindRelationService,
     protected translateService: TranslateService,
     protected relationService: DynamicFormRelationService,
-    private modalService: NgbModal,
-    private relationshipService: RelationshipDataService,
-    private selectableListService: SelectableListService,
-    private itemService: ItemDataService,
-    private zone: NgZone,
-    private store: Store<AppState>,
-    private submissionObjectService: SubmissionObjectDataService,
-    private ref: ChangeDetectorRef,
-    private formService: FormService,
-    public formBuilderService: FormBuilderService,
-    private submissionService: SubmissionService,
+    protected modalService: NgbModal,
+    protected relationshipService: RelationshipDataService,
+    protected selectableListService: SelectableListService,
+    protected store: Store<AppState>,
+    protected submissionObjectService: SubmissionObjectDataService,
+    protected ref: ChangeDetectorRef,
+    protected formBuilderService: FormBuilderService,
+    protected submissionService: SubmissionService,
+    protected metadataService: MetadataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(DYNAMIC_FORM_CONTROL_MAP_FN) protected dynamicFormControlFn: DynamicFormControlMapFn,
   ) {
@@ -277,8 +273,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         this.value = Object.assign(new FormFieldMetadataValueObject(), this.model.value);
       }
 
-      if (hasValue(this.value) && this.value.isVirtual) {
-        const relationship$ = this.relationshipService.findById(this.value.virtualValue,
+      if (hasValue(this.value) && this.metadataService.isVirtual(this.value)) {
+        const relationship$ = this.relationshipService.findById(this.metadataService.virtualValue(this.value),
           true,
           true,
           ... itemLinksToFollow(this.fetchThumbnail)).pipe(

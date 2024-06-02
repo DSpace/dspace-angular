@@ -14,7 +14,10 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -27,10 +30,9 @@ import { Context } from '../../core/shared/context.model';
 import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
 import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { BrowseByComponent } from '../../shared/browse-by/browse-by.component';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
 import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
@@ -52,10 +54,9 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
     ComcolPageLogoComponent,
     NgIf,
     ThemedComcolPageHandleComponent,
-    ComcolPageContentComponent,
+    ThemedComcolPageContentComponent,
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
-    BrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,
@@ -127,12 +128,18 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
   browseDefinition$: Observable<BrowseDefinition>;
 
   /**
+   * Browse description
+   */
+  description: string;
+
+  /**
    * Subscriptions to track
    */
   subs: Subscription[] = [];
 
   public constructor(
     protected route: ActivatedRoute,
+    protected translate: TranslateService,
   ) {
   }
 
@@ -143,9 +150,11 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
       }),
     );
     this.subs.push(this.browseDefinition$.subscribe((browseDefinition: HierarchicalBrowseDefinition) => {
+      this.selectedItems = [];
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
       this.vocabularyOptions = { name: this.vocabularyName, closed: true };
+      this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.descrption`);
     }));
     this.subs.push(this.scope$.subscribe(() => {
       this.updateQueryParams();

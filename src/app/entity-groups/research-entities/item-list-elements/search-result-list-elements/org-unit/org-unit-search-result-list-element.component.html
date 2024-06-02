@@ -4,9 +4,9 @@
            [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
            [routerLink]="[itemPageRoute]" class="dont-break-out">
             <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
-                          [defaultImage]="'assets/images/orgunit-placeholder.svg'"
-                          [alt]="'thumbnail.orgunit.alt'"
-                          [placeholder]="'thumbnail.orgunit.placeholder'">
+                                 [defaultImage]="'assets/images/orgunit-placeholder.svg'"
+                                 [alt]="'thumbnail.orgunit.alt'"
+                                 [placeholder]="'thumbnail.orgunit.placeholder'">
             </ds-thumbnail>
         </a>
         <span *ngIf="linkType === linkTypes.None" class="dont-break-out">
@@ -18,7 +18,7 @@
         </span>
     </div>
     <div [ngClass]="showThumbnails ? 'col-9' : 'col-md-12'">
-        <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-themed-badges>
+        <ds-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-badges>
         <ds-truncatable [id]="dso.id">
             <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'"
                [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"

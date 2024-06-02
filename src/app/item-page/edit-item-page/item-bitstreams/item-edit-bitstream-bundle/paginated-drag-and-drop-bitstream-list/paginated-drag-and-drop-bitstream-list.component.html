@@ -3,7 +3,6 @@
                [hidePagerWhenSinglePage]="true"
                [hidePaginationDetail]="true"
                [paginationOptions]="options"
-               [pageInfoState]="(objectsRD$ | async)?.payload"
                [collectionSize]="(objectsRD$ | async)?.payload?.totalElements">
   <ng-container *ngIf="(loading$ | async) !== true">
     <div [id]="bundle.id" class="bundle-bitstreams-list"
@@ -29,5 +28,5 @@
       </ng-container>
     </div>
   </ng-container>
-  <ds-themed-loading *ngIf="(loading$ | async)" [message]="'loading.bitstreams' | translate"></ds-themed-loading>
+  <ds-loading *ngIf="(loading$ | async)" [message]="'loading.bitstreams' | translate"></ds-loading>
 </ds-pagination>

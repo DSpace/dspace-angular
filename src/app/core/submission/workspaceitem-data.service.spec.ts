@@ -2,13 +2,18 @@ import {
   HttpClient,
   HttpHeaders,
 } from '@angular/common/http';
+import { waitForAsync } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import {
   cold,
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockHrefOnlyDataService } from '../../shared/mocks/href-only-data.service.mock';
@@ -151,12 +156,17 @@ describe('WorkspaceitemDataService test', () => {
     });
 
     describe('findByItem', () => {
-      it('should proxy the call to UpdateDataServiceImpl.findByHref', () => {
+      it('should proxy the call to UpdateDataServiceImpl.findByHref', waitForAsync(() => {
         scheduler.schedule(() => service.findByItem('1234-1234', true, true, pageInfo));
         scheduler.flush();
-        const searchUrl = service.getIDHref('item', [new RequestParam('uuid', encodeURIComponent('1234-1234'))]);
-        expect((service as any).findByHref).toHaveBeenCalledWith(searchUrl, true, true);
-      });
+        const searchUrl$ =
+          of('https://rest.api/rest/api/submission/workspaceitems/search/item')
+            .pipe(map(href => service.buildHrefFromFindOptions(href, { searchParams: [new RequestParam('uuid', '1234-1234')] }, [])));
+        searchUrl$.subscribe((url) => {
+          expect(url).toEqual('https://rest.api/rest/api/submission/workspaceitems/search/item?uuid=1234-1234');
+        });
+        expect((service as any).findByHref).toHaveBeenCalled();
+      }));
 
       it('should return a RemoteData<WorkspaceItem> for the search', () => {
         const result = service.findByItem('1234-1234', true, true, pageInfo);

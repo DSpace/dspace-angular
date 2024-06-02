@@ -1,46 +1,45 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
-  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
+  Params,
   Router,
   RouterLink,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
-import { FacetValue } from '../../../../models/facet-value.model';
+import { AppliedFilter } from '../../../../models/applied-filter.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
-import { getFacetValueForType } from '../../../../search.utils';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
   styleUrls: ['./search-facet-selected-option.component.scss'],
   templateUrl: './search-facet-selected-option.component.html',
   standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 
 /**
  * Represents a single selected option in a filter facet
  */
-export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
+export class SearchFacetSelectedOptionComponent implements OnInit {
   /**
    * The value for this component
    */
-  @Input() selectedValue: FacetValue;
+  @Input() selectedValue: AppliedFilter;
 
   /**
    * The filter configuration for this facet option
@@ -48,35 +47,26 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   @Input() filterConfig: SearchFilterConfig;
 
   /**
-   * Emits the active values for this filter
-   */
-  @Input() selectedValues$: Observable<FacetValue[]>;
-
-  /**
    * True when the search component should show results on the current page
    */
-  @Input() inPlaceSearch;
+  @Input() inPlaceSearch: boolean;
 
   /**
    * UI parameters when this filter is removed
    */
-  removeQueryParams;
-
-  /**
-   * Subscription to unsubscribe from on destroy
-   */
-  sub: Subscription;
+  removeQueryParams: Observable<Params>;
 
   /**
    * Link to the search page
    */
   searchLink: string;
 
-  constructor(protected searchService: SearchService,
-              protected filterService: SearchFilterService,
-              protected searchConfigService: SearchConfigurationService,
-              protected router: Router,
-              protected paginationService: PaginationService,
+  constructor(
+    protected paginationService: PaginationService,
+    protected router: Router,
+    protected searchFilterService: SearchFilterService,
+    protected searchService: SearchService,
+    protected searchConfigService: SearchConfigurationService,
   ) {
   }
 
@@ -84,50 +74,25 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
-    this.sub = observableCombineLatest(this.selectedValues$, this.searchConfigService.searchOptions)
-      .subscribe(([selectedValues, searchOptions]) => {
-        this.updateRemoveParams(selectedValues);
-      });
     this.searchLink = this.getSearchLink();
+    this.removeQueryParams = this.updateRemoveParams();
+  }
+
+  /**
+   * Calculates the parameters that should change if this {@link selectedValue} would be removed from the active filters
+   */
+  updateRemoveParams(): Observable<Params> {
+    return this.searchConfigService.unselectAppliedFilterParams(this.selectedValue.filter, this.selectedValue.value, this.selectedValue.operator);
   }
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  private getSearchLink(): string {
+  getSearchLink(): string {
     if (this.inPlaceSearch) {
       return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }
 
-  /**
-   * Calculates the parameters that should change if a given value for this filter would be removed from the active filters
-   * @param {string[]} selectedValues The values that are currently selected for this filter
-   */
-  private updateRemoveParams(selectedValues: FacetValue[]): void {
-    const page = this.paginationService.getPageParam(this.searchConfigService.paginationID);
-    this.removeQueryParams = {
-      [this.filterConfig.paramName]: selectedValues
-        .filter((facetValue: FacetValue) => facetValue.label !== this.selectedValue.label)
-        .map((facetValue: FacetValue) => this.getFacetValue(facetValue)),
-      [page]: 1,
-    };
-  }
-  /**
-   * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
-   * Retrieve facet value related to facet type
-   */
-  private getFacetValue(facetValue: FacetValue): string {
-    return getFacetValueForType(facetValue, this.filterConfig);
-  }
-
-  /**
-   * Make sure the subscription is unsubscribed from when this component is destroyed
-   */
-  ngOnDestroy(): void {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
-  }
 }

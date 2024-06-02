@@ -13,7 +13,6 @@ import {
 import { By } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -21,6 +20,7 @@ import {
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
+import { REQUEST } from '../../../../../../express.tokens';
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
@@ -213,7 +213,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should add the ds-thumbnail element', () => {
+    it('should add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeTruthy();
     });
@@ -266,7 +266,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not add the ds-thumbnail element', () => {
+    it('should not add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeNull();
     });

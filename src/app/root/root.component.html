@@ -2,26 +2,26 @@
   {{ 'root.skip-to-content' | translate }}
 </button>
 
-<div class="outer-wrapper" [class.d-none]="shouldShowFullscreenLoader" [@slideSidebarPadding]="{
+<div class="outer-wrapper" [class.d-none]="shouldShowFullscreenLoader" [ngClass]="browserOsClasses.asObservable() | async" [@slideSidebarPadding]="{
      value: ((isSidebarVisible$ | async) !== true ? 'hidden' : (slideSidebarOver$ | async) ? 'unpinned' : 'pinned'),
      params: { collapsedWidth: (collapsedSidebarWidth$ | async), expandedWidth: (expandedSidebarWidth$ | async) }
     }">
-  <ds-themed-admin-sidebar [expandedSidebarWidth$]="expandedSidebarWidth$" [collapsedSidebarWidth$]="collapsedSidebarWidth$"></ds-themed-admin-sidebar>
+  <ds-admin-sidebar [expandedSidebarWidth$]="expandedSidebarWidth$" [collapsedSidebarWidth$]="collapsedSidebarWidth$"></ds-admin-sidebar>
   <div class="inner-wrapper">
     <ds-system-wide-alert-banner></ds-system-wide-alert-banner>
-    <ds-themed-header-navbar-wrapper></ds-themed-header-navbar-wrapper>
-    <ds-themed-breadcrumbs></ds-themed-breadcrumbs>
+    <ds-header-navbar-wrapper></ds-header-navbar-wrapper>
+    <ds-breadcrumbs></ds-breadcrumbs>
     <main class="my-cs" id="main-content">
 
       <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="shouldShowRouteLoader">
-        <ds-themed-loading [showMessage]="false"></ds-themed-loading>
+        <ds-loading [showMessage]="false"></ds-loading>
       </div>
       <div [class.d-none]="shouldShowRouteLoader">
         <router-outlet></router-outlet>
       </div>
     </main>
 
-    <ds-themed-footer></ds-themed-footer>
+    <ds-footer></ds-footer>
   </div>
 </div>
 
@@ -29,5 +29,5 @@
 </ds-notifications-board>
 
 <div class="ds-full-screen-loader" *ngIf="shouldShowFullscreenLoader">
-  <ds-themed-loading [showMessage]="false"></ds-themed-loading>
+  <ds-loading [showMessage]="false"></ds-loading>
 </div>

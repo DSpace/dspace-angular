@@ -47,16 +47,16 @@ import {
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
 import { VarDirective } from '../shared/utils/var.directive';
-import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form/profile-page-metadata-form.component';
+import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
 @Component({
-  selector: 'ds-profile-page',
+  selector: 'ds-base-profile-page',
   styleUrls: ['./profile-page.component.scss'],
   templateUrl: './profile-page.component.html',
   imports: [
-    ProfilePageMetadataFormComponent,
+    ThemedProfilePageMetadataFormComponent,
     ProfilePageSecurityFormComponent,
     AsyncPipe,
     TranslateModule,
@@ -75,7 +75,7 @@ export class ProfilePageComponent implements OnInit {
   /**
    * A reference to the metadata form component
    */
-  @ViewChild(ProfilePageMetadataFormComponent) metadataForm: ProfilePageMetadataFormComponent;
+  @ViewChild(ThemedProfilePageMetadataFormComponent) metadataForm: ThemedProfilePageMetadataFormComponent;
 
   /**
    * The authenticated user as observable
@@ -157,8 +157,8 @@ export class ProfilePageComponent implements OnInit {
    * Fire an update on both the metadata and security forms
    * Show a warning notification when no changes were made in both forms
    */
-  updateProfile() {
-    const metadataChanged = this.metadataForm.updateProfile();
+  updateProfile(): void {
+    const metadataChanged = this.metadataForm.compRef.instance.updateProfile();
     const securityChanged = this.updateSecurity();
     if (!metadataChanged && !securityChanged) {
       this.notificationsService.warning(

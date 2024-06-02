@@ -1,7 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -14,61 +11,83 @@ import {
   Params,
   Router,
   RouterLink,
+  RouterModule,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
 
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../../../testing/search-service.stub';
 import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
+import { AppliedFilter } from '../../models/applied-filter.model';
+import { addOperatorToFilterValue } from '../../search.utils';
 import { SearchLabelComponent } from './search-label.component';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;
   let fixture: ComponentFixture<SearchLabelComponent>;
 
+  let route: ActivatedRouteStub;
+  let searchConfigurationService: SearchConfigurationServiceStub;
+  let searchFilterService: SearchFilterServiceStub;
+  let paginationService: PaginationServiceStub;
+
   const searchLink = '/search';
-  let searchService;
+  let appliedFilter: AppliedFilter;
+  let initialRouteParams: Params;
+  let pagination: PaginationComponentOptions;
 
-  const key1 = 'author';
-  const key2 = 'subject';
-  const value1 = 'Test, Author';
-  const normValue1 = 'Test, Author';
-  const value2 = 'TestSubject';
-  const value3 = 'Test, Authority,authority';
-  const normValue3 = 'Test, Authority';
-  const filter1 = [key1, value1];
-  const filter2 = [key2, value2];
-  const mockFilters = [
-    filter1,
-    filter2,
-  ];
+  function init(): void {
+    appliedFilter = Object.assign(new AppliedFilter(), {
+      filter: 'author',
+      operator: 'authority',
+      value: '1282121b-5394-4689-ab93-78d537764052',
+      label: 'Odinson, Thor',
+    });
+    initialRouteParams = {
+      'query': '',
+      'spc.page': '1',
+      'f.author': addOperatorToFilterValue(appliedFilter.value, appliedFilter.operator),
+      'f.has_content_in_original_bundle': addOperatorToFilterValue('true', 'equals'),
+    };
+    pagination = Object.assign(new PaginationComponentOptions(), {
+      id: 'page-id',
+      currentPage: 1,
+      pageSize: 20,
+    });
+  }
 
-  const pagination = Object.assign(new PaginationComponentOptions(), { id: 'page-id', currentPage: 1, pageSize: 20 });
-  const paginationService = new PaginationServiceStub(pagination);
+  beforeEach(waitForAsync(async () => {
+    init();
+    route = new ActivatedRouteStub(initialRouteParams);
+    searchConfigurationService = new SearchConfigurationServiceStub();
+    searchFilterService = new SearchFilterServiceStub();
+    paginationService = new PaginationServiceStub(pagination);
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchLabelComponent, ObjectKeysPipe],
+    await TestBed.configureTestingModule({
+      imports: [
+        RouterModule.forRoot([]),
+        NoopAnimationsModule,
+        FormsModule,
+        ObjectKeysPipe,
+        TranslateModule.forRoot(),
+      ],
       providers: [
-        { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: PaginationService, useValue: paginationService },
+        { provide: SearchConfigurationService, useValue: searchConfigurationService },
+        { provide: SearchFilterService, useValue: searchFilterService },
+        { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
+        { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchLabelComponent, {
       remove: {
         imports: [RouterLink],
@@ -80,37 +99,11 @@ describe('SearchLabelComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchLabelComponent);
     comp = fixture.componentInstance;
-    searchService = (comp as any).searchService;
-    comp.key = key1;
-    comp.value = value1;
-    (comp as any).appliedFilters = observableOf(mockFilters);
+    comp.appliedFilter = appliedFilter;
     fixture.detectChanges();
   });
 
-  describe('when getRemoveParams is called', () => {
-    let obs: Observable<Params>;
-
-    beforeEach(() => {
-      obs = comp.getRemoveParams();
-    });
-
-    it('should return all params but the provided filter', () => {
-      obs.subscribe((params) => {
-        // Should contain only filter2 and page: length == 2
-        expect(Object.keys(params).length).toBe(2);
-      });
-    });
-  });
-
-  describe('when normalizeFilterValue is called', () => {
-    it('should return properly filter value', () => {
-      let result: string;
-
-      result = comp.normalizeFilterValue(value1);
-      expect(result).toBe(normValue1);
-
-      result = comp.normalizeFilterValue(value3);
-      expect(result).toBe(normValue3);
-    });
+  it('should create', () => {
+    expect(comp).toBeTruthy();
   });
 });

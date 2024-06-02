@@ -29,6 +29,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   EMPTY,
   Observable,
   of as observableOf,
@@ -37,6 +38,7 @@ import {
   map,
   switchMap,
   take,
+  tap,
 } from 'rxjs/operators';
 import { RegistryService } from 'src/app/core/registry/registry.service';
 import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
@@ -45,6 +47,7 @@ import { NotificationsService } from 'src/app/shared/notifications/notifications
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
+import { MetadataService } from '../../../core/metadata/metadata.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -195,9 +198,9 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   group = new UntypedFormGroup({ authorityField : new UntypedFormControl() });
 
   /**
-   * Observable property of the model to use for editinf authorities values
+   * Model to use for editing authorities values
    */
-  private model$: Observable<DynamicOneboxModel | DynamicScrollableDropdownModel>;
+  private model$: BehaviorSubject<DynamicOneboxModel | DynamicScrollableDropdownModel> = new BehaviorSubject(null);
 
   /**
    * Observable with information about the authority vocabulary used
@@ -212,14 +215,17 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   private isScrollableVocabulary$: Observable<boolean>;
   private isSuggesterVocabulary$: Observable<boolean>;
 
-  constructor(protected relationshipService: RelationshipDataService,
-              protected dsoNameService: DSONameService,
-              protected vocabularyService: VocabularyService,
-              protected itemService: ItemDataService,
-              protected cdr: ChangeDetectorRef,
-              protected registryService: RegistryService,
-              protected notificationsService: NotificationsService,
-              protected translate: TranslateService) {
+  constructor(
+    protected relationshipService: RelationshipDataService,
+    protected dsoNameService: DSONameService,
+    protected vocabularyService: VocabularyService,
+    protected itemService: ItemDataService,
+    protected cdr: ChangeDetectorRef,
+    protected registryService: RegistryService,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService,
+    protected metadataService: MetadataService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -231,7 +237,7 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
    * Initialise potential properties of a virtual metadata value
    */
   initVirtualProperties(): void {
-    this.mdRepresentation$ = this.mdValue.newValue.isVirtual ?
+    this.mdRepresentation$ = this.metadataService.isVirtual(this.mdValue.newValue) ?
       this.relationshipService.resolveMetadataRepresentation(this.mdValue.newValue, this.dso, 'Item')
         .pipe(
           map((mdRepresentation: MetadataRepresentation) =>
@@ -274,6 +280,8 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
     }
 
     this.isAuthorityControlled$ = this.vocabulary$.pipe(
+      // Create the model used by the authority fields to ensure its existence when the field is initialized
+      tap((v: Vocabulary) => this.model$.next(this.createModel(v))),
       map((result: Vocabulary) => isNotEmpty(result)),
     );
 
@@ -289,54 +297,62 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
       map((result: Vocabulary) => isNotEmpty(result) && !result.hierarchical && !result.scrollable),
     );
 
-    this.model$ = this.vocabulary$.pipe(
-      map((vocabulary: Vocabulary) => {
-        let formFieldValue;
-        if (isNotEmpty(this.mdValue.newValue.value)) {
-          formFieldValue = new FormFieldMetadataValueObject();
-          formFieldValue.value = this.mdValue.newValue.value;
-          formFieldValue.display = this.mdValue.newValue.value;
-          if (this.mdValue.newValue.authority) {
-            formFieldValue.authority = this.mdValue.newValue.authority;
-            formFieldValue.confidence = this.mdValue.newValue.confidence;
-          }
-        } else {
-          formFieldValue = this.mdValue.newValue.value;
-        }
+  }
 
-        const vocabularyOptions = vocabulary ? {
-          closed: false,
-          name: vocabulary.name,
-        } as VocabularyOptions : null;
-
-        if (!vocabulary.scrollable) {
-          const model: DsDynamicOneboxModelConfig = {
-            id: 'authorityField',
-            label: `${this.dsoType}.edit.metadata.edit.value`,
-            vocabularyOptions: vocabularyOptions,
-            metadataFields: [this.mdField],
-            value: formFieldValue,
-            repeatable: false,
-            submissionId: 'edit-metadata',
-            hasSelectableMetadata: false,
-          };
-          return new DynamicOneboxModel(model);
-        } else {
-          const model: DynamicScrollableDropdownModelConfig = {
-            id: 'authorityField',
-            label: `${this.dsoType}.edit.metadata.edit.value`,
-            placeholder: `${this.dsoType}.edit.metadata.edit.value`,
-            vocabularyOptions: vocabularyOptions,
-            metadataFields: [this.mdField],
-            value: formFieldValue,
-            repeatable: false,
-            submissionId: 'edit-metadata',
-            hasSelectableMetadata: false,
-            maxOptions: 10,
-          };
-          return new DynamicScrollableDropdownModel(model);
+  /**
+   * Returns a {@link DynamicOneboxModel} or {@link DynamicScrollableDropdownModel} model based on the
+   * vocabulary used.
+   */
+  private createModel(vocabulary: Vocabulary): DynamicOneboxModel | DynamicScrollableDropdownModel {
+    if (isNotEmpty(vocabulary)) {
+      let formFieldValue;
+      if (isNotEmpty(this.mdValue.newValue.value)) {
+        formFieldValue = new FormFieldMetadataValueObject();
+        formFieldValue.value = this.mdValue.newValue.value;
+        formFieldValue.display = this.mdValue.newValue.value;
+        if (this.mdValue.newValue.authority) {
+          formFieldValue.authority = this.mdValue.newValue.authority;
+          formFieldValue.confidence = this.mdValue.newValue.confidence;
         }
-      }));
+      } else {
+        formFieldValue = this.mdValue.newValue.value;
+      }
+
+      const vocabularyOptions = vocabulary ? {
+        closed: false,
+        name: vocabulary.name,
+      } as VocabularyOptions : null;
+
+      if (!vocabulary.scrollable) {
+        const model: DsDynamicOneboxModelConfig = {
+          id: 'authorityField',
+          label: `${this.dsoType}.edit.metadata.edit.value`,
+          vocabularyOptions: vocabularyOptions,
+          metadataFields: [this.mdField],
+          value: formFieldValue,
+          repeatable: false,
+          submissionId: 'edit-metadata',
+          hasSelectableMetadata: false,
+        };
+        return new DynamicOneboxModel(model);
+      } else {
+        const model: DynamicScrollableDropdownModelConfig = {
+          id: 'authorityField',
+          label: `${this.dsoType}.edit.metadata.edit.value`,
+          placeholder: `${this.dsoType}.edit.metadata.edit.value`,
+          vocabularyOptions: vocabularyOptions,
+          metadataFields: [this.mdField],
+          value: formFieldValue,
+          repeatable: false,
+          submissionId: 'edit-metadata',
+          hasSelectableMetadata: false,
+          maxOptions: 10,
+        };
+        return new DynamicScrollableDropdownModel(model);
+      }
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -434,11 +450,11 @@ export class DsoEditMetadataValueComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Returns an observable with the {@link DynamicOneboxModel} or {@link DynamicScrollableDropdownModel} model used
+   * Returns the {@link DynamicOneboxModel} or {@link DynamicScrollableDropdownModel} model used
    * for the authority field
    */
-  getModel(): Observable<DynamicOneboxModel | DynamicScrollableDropdownModel> {
-    return this.model$;
+  getModel(): DynamicOneboxModel | DynamicScrollableDropdownModel {
+    return this.model$.value;
   }
 
   /**

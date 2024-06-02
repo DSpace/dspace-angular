@@ -20,13 +20,11 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
 import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
-import { MetadataService } from '../../core/metadata/metadata.service';
 import {
   LinkDefinition,
   LinkHeadService,
@@ -85,19 +83,12 @@ const mockSignpostingLinks: SignpostingLink[] = [mocklink, mocklink2];
 describe('ItemPageComponent', () => {
   let comp: ItemPageComponent;
   let fixture: ComponentFixture<ItemPageComponent>;
-  let authService: AuthService;
   let authorizationDataService: AuthorizationDataService;
   let serverResponseService: jasmine.SpyObj<ServerResponseService>;
   let signpostingDataService: jasmine.SpyObj<SignpostingDataService>;
   let linkHeadService: jasmine.SpyObj<LinkHeadService>;
   let notifyInfoService: jasmine.SpyObj<NotifyInfoService>;
 
-  const mockMetadataService = {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    processRemoteData: () => {
-    },
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-  };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
     data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
   });
@@ -105,10 +96,6 @@ describe('ItemPageComponent', () => {
   const getCoarLdnLocalInboxUrls = ['http://InboxUrls.org', 'http://InboxUrls2.org'];
 
   beforeEach(waitForAsync(() => {
-    authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
-      setRedirectUrl: {},
-    });
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
       isAuthorized: observableOf(false),
     });
@@ -141,9 +128,7 @@ describe('ItemPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: mockRoute },
         { provide: ItemDataService, useValue: {} },
-        { provide: MetadataService, useValue: mockMetadataService },
         { provide: Router, useValue: {} },
-        { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: ServerResponseService, useValue: serverResponseService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
@@ -182,7 +167,7 @@ describe('ItemPageComponent', () => {
     });
 
     it('should display a loading component', () => {
-      const loading = fixture.debugElement.query(By.css('ds-themed-loading'));
+      const loading = fixture.debugElement.query(By.css('ds-loading'));
       expect(loading.nativeElement).toBeDefined();
     });
   });

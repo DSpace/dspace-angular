@@ -21,12 +21,12 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
-  selector: 'ds-metadata-import-page',
+  selector: 'ds-base-metadata-import-page',
   templateUrl: './metadata-import-page.component.html',
   imports: [
-    TranslateModule,
-    FormsModule,
     FileDropzoneNoUploaderComponent,
+    FormsModule,
+    TranslateModule,
   ],
   standalone: true,
 })

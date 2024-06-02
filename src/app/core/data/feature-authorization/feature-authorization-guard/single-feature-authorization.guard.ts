@@ -1,31 +1,35 @@
 import {
   ActivatedRouteSnapshot,
+  CanActivateFn,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { FeatureID } from '../feature-id';
-import { SomeFeatureAuthorizationGuard } from './some-feature-authorization.guard';
+import {
+  someFeatureAuthorizationGuard,
+  StringGuardParamFn,
+} from './some-feature-authorization.guard';
+
+export declare type SingleFeatureGuardParamFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => Observable<FeatureID>;
 
 /**
- * Abstract Guard for preventing unauthorized activating and loading of routes when a user
- * doesn't have authorized rights on a specific feature and/or object.
- * Override the desired getters in the parent class for checking specific authorization on a feature and/or object.
+ * Guard for preventing unauthorized activating and loading of routes when a user doesn't have
+ * authorized rights on a specific feature and/or object.
+ *
+ * @param getFeatureID    The feature to check authorization for
+ * @param getObjectUrl    The URL of the object to check if the user has authorized rights for,
+ *                        Optional, if not provided, the {@link Site}'s URL will be assumed
+ * @param getEPersonUuid  The UUID of the user to check authorization rights for.
+ *                        Optional, if not provided, the authenticated user's UUID will be assumed.
  */
-export abstract class SingleFeatureAuthorizationGuard extends SomeFeatureAuthorizationGuard {
-  /**
-   * The features to check authorization for
-   */
-  getFeatureIDs(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> {
-    return this.getFeatureID(route, state).pipe(
-      map((featureID) => [featureID]),
-    );
-  }
 
-  /**
-   * The type of feature to check authorization for
-   * Override this method to define a feature
-   */
-  abstract getFeatureID(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID>;
-}
+export const singleFeatureAuthorizationGuard = (
+  getFeatureID: SingleFeatureGuardParamFn,
+  getObjectUrl?: StringGuardParamFn,
+  getEPersonUuid?: StringGuardParamFn,
+): CanActivateFn => someFeatureAuthorizationGuard(
+  (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> => getFeatureID(route, state).pipe(
+    map((featureID: FeatureID) => [featureID]),
+  ), getObjectUrl, getEPersonUuid);

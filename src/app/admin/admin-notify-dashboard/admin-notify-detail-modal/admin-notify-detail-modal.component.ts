@@ -43,7 +43,7 @@ export class AdminNotifyDetailModalComponent {
    * An event fired when the modal is closed
    */
   @Output()
-    response = new EventEmitter<boolean>();
+  response = new EventEmitter<boolean>();
 
   public isCoarMessageVisible = false;
 

@@ -10,10 +10,11 @@ import { ComcolPageBrowseByComponent } from './comcol-page-browse-by.component';
  * Themed wrapper for ComcolPageBrowseByComponent
  */
 @Component({
-  selector: 'ds-themed-comcol-page-browse-by',
+  selector: 'ds-comcol-page-browse-by',
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
+  imports: [ComcolPageBrowseByComponent],
 })
 export class ThemedComcolPageBrowseByComponent extends ThemedComponent<ComcolPageBrowseByComponent> {
   /**
@@ -29,7 +30,7 @@ export class ThemedComcolPageBrowseByComponent extends ThemedComponent<ComcolPag
   }
 
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(`../../../../themes/${themeName}/app/shared/comcol-page-browse-by/comcol-page-browse-by.component`);
+    return import(`../../../../themes/${themeName}/app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component`);
   }
 
   protected importUnthemedComponent(): Promise<any> {

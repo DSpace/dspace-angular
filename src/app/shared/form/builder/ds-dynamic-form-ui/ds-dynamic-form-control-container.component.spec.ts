@@ -62,7 +62,6 @@ import {
   APP_DATA_SERVICES_MAP,
 } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
-import { ItemDataService } from '../../../../core/data/item-data.service';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
@@ -71,7 +70,6 @@ import { VocabularyOptions } from '../../../../core/submission/vocabularies/mode
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { FormService } from '../../form.service';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';
@@ -228,11 +226,9 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: RelationshipDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: ItemDataService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RelationshipDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: FormService, useValue: {} },
         { provide: FormBuilderService, useValue: {} },
         { provide: SubmissionService, useValue: {} },
         {
@@ -241,7 +237,6 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
             findById: () => observableOf(createSuccessfulRemoteDataObject(testWSI)),
           },
         },
-        { provide: NgZone, useValue: new NgZone({}) },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },

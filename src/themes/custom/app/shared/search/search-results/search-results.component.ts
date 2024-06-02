@@ -14,7 +14,7 @@ import { SearchExportCsvComponent } from '../../../../../../app/shared/search/se
 import { SearchResultsComponent as BaseComponent } from '../../../../../../app/shared/search/search-results/search-results.component';
 
 @Component({
-  selector: 'ds-search-results',
+  selector: 'ds-themed-search-results',
   // templateUrl: './search-results.component.html',
   templateUrl: '../../../../../../app/shared/search/search-results/search-results.component.html',
   // styleUrls: ['./search-results.component.scss'],

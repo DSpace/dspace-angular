@@ -35,7 +35,6 @@ import {
   SortDirection,
   SortOptions,
 } from '../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../core/data/collection-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -150,7 +149,6 @@ export class CollectionItemMapperComponent implements OnInit {
               private searchService: SearchService,
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
-              private collectionDataService: CollectionDataService,
               private translateService: TranslateService,
               private dsoNameService: DSONameService) {
   }
@@ -187,6 +185,8 @@ export class CollectionItemMapperComponent implements OnInit {
           this.shouldUpdate$.next(false);
         }
         return this.itemDataService.findListByHref(collectionRD.payload._links.mappedItems.href, Object.assign(options, {
+          currentPage: options.pagination.currentPage,
+          elementsPerPage: options.pagination.pageSize,
           sort: this.defaultSortOptions,
         }),!shouldUpdate, false, followLink('owningCollection')).pipe(
           getAllSucceededRemoteData(),

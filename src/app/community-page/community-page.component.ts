@@ -32,7 +32,7 @@ import { Community } from '../core/shared/community.model';
 import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
 import { ThemedComcolPageBrowseByComponent } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ComcolPageContentComponent } from '../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageContentComponent } from '../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
 import { ThemedComcolPageHandleComponent } from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
@@ -47,13 +47,13 @@ import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-c
 import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
 
 @Component({
-  selector: 'ds-community-page',
+  selector: 'ds-base-community-page',
   styleUrls: ['./community-page.component.scss'],
   templateUrl: './community-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
   imports: [
-    ComcolPageContentComponent,
+    ThemedComcolPageContentComponent,
     ErrorComponent,
     ThemedLoadingComponent,
     NgIf,

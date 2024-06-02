@@ -18,10 +18,11 @@ import { RelationshipOptions } from '../../../models/relationship-options.model'
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
 
 @Component({
-  selector: 'ds-themed-dynamic-lookup-relation-search-tab',
+  selector: 'ds-dynamic-lookup-relation-search-tab',
   styleUrls: [],
   templateUrl: '../../../../../theme-support/themed.component.html',
   standalone: true,
+  imports: [DsDynamicLookupRelationSearchTabComponent],
 })
 export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedComponent<DsDynamicLookupRelationSearchTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationSearchTabComponent & keyof this)[] = ['relationship', 'listId',
@@ -50,9 +51,9 @@ export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedCompone
 
   @Input() isEditRelationship: boolean;
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() deselectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() selectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 

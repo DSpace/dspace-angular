@@ -30,7 +30,7 @@ export class Version extends DSpaceObject {
   static type = VERSION;
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
     item: HALLink;
     versionhistory: HALLink;
@@ -41,50 +41,50 @@ export class Version extends DSpaceObject {
    * The identifier of this Version
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The version number of the version's history this version represents
    */
   @autoserialize
-    version: number;
+  version: number;
 
   /**
    * The summary for the changes made in this version
    */
   @autoserialize
-    summary: string;
+  summary: string;
 
   /**
    * The name of the submitter of this version
    */
   @autoserialize
-    submitterName: string;
+  submitterName: string;
 
   /**
    * The Date this version was created
    */
   @deserialize
-    created: Date;
+  created: Date;
 
   /**
    * The full version history this version is apart of
    */
   @excludeFromEquals
   @link(VERSION_HISTORY)
-    versionhistory: Observable<RemoteData<VersionHistory>>;
+  versionhistory: Observable<RemoteData<VersionHistory>>;
 
   /**
    * The item this version represents
    */
   @excludeFromEquals
   @link(ITEM)
-    item: Observable<RemoteData<Item>>;
+  item: Observable<RemoteData<Item>>;
 
   /**
    * The e-person who created this version
    */
   @excludeFromEquals
   @link(EPERSON)
-    eperson: Observable<RemoteData<EPerson>>;
+  eperson: Observable<RemoteData<EPerson>>;
 }

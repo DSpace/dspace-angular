@@ -1,12 +1,10 @@
-import {
-  mapToCanActivate,
-  Route,
-} from '@angular/router';
+import { Route } from '@angular/router';
 
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { collectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
+import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
@@ -14,7 +12,7 @@ import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { collectionPageResolver } from './collection-page.resolver';
-import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
+import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
   COLLECTION_CREATE_PATH,
   COLLECTION_EDIT_PATH,
@@ -27,12 +25,29 @@ import { itemTemplatePageResolver } from './edit-item-template-page/item-templat
 import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 
-
 export const ROUTES: Route[] = [
   {
     path: COLLECTION_CREATE_PATH,
-    component: CreateCollectionPageComponent,
     canActivate: [authenticatedGuard, createCollectionPageGuard],
+    children: [
+      {
+        path: '',
+        component: CreateCollectionPageComponent,
+        resolve: {
+          breadcrumb: i18nBreadcrumbResolver,
+        },
+        data: {
+          breadcrumbKey: 'collection.create',
+        },
+      },
+    ],
+    data: {
+      breadcrumbQueryParam: 'parent',
+    },
+    resolve: {
+      breadcrumb: communityBreadcrumbResolver,
+    },
+    runGuardsAndResolvers: 'always',
   },
   {
     path: ':id',
@@ -47,7 +62,7 @@ export const ROUTES: Route[] = [
         path: COLLECTION_EDIT_PATH,
         loadChildren: () => import('./edit-collection-page/edit-collection-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: mapToCanActivate([CollectionPageAdministratorGuard]),
+        canActivate: [collectionPageAdministratorGuard],
       },
       {
         path: 'delete',

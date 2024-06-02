@@ -1,12 +1,9 @@
-import {
-  mapToCanActivate,
-  Route,
-} from '@angular/router';
+import { Route } from '@angular/router';
 
 import { collectionPageResolver } from '../collection-page/collection-page.resolver';
 import { communityPageResolver } from '../community-page/community-page.resolver';
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { StatisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
+import { statisticsAdministratorGuard } from '../core/data/feature-authorization/feature-authorization-guard/statistics-administrator.guard';
 import { itemResolver } from '../item-page/item.resolver';
 import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
@@ -29,7 +26,7 @@ export const ROUTES: Route[] = [
         component: ThemedSiteStatisticsPageComponent,
       },
     ],
-    canActivate: mapToCanActivate([StatisticsAdministratorGuard]),
+    canActivate: [statisticsAdministratorGuard],
   },
   {
     path: `items/:id`,
@@ -42,7 +39,7 @@ export const ROUTES: Route[] = [
       breadcrumbKey: 'statistics',
     },
     component: ThemedItemStatisticsPageComponent,
-    canActivate: mapToCanActivate([StatisticsAdministratorGuard]),
+    canActivate: [statisticsAdministratorGuard],
   },
   {
     path: `collections/:id`,
@@ -55,7 +52,7 @@ export const ROUTES: Route[] = [
       breadcrumbKey: 'statistics',
     },
     component: ThemedCollectionStatisticsPageComponent,
-    canActivate: mapToCanActivate([StatisticsAdministratorGuard]),
+    canActivate: [statisticsAdministratorGuard],
   },
   {
     path: `communities/:id`,
@@ -68,6 +65,6 @@ export const ROUTES: Route[] = [
       breadcrumbKey: 'statistics',
     },
     component: ThemedCommunityStatisticsPageComponent,
-    canActivate: mapToCanActivate([StatisticsAdministratorGuard]),
+    canActivate: [statisticsAdministratorGuard],
   },
 ];

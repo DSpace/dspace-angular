@@ -18,9 +18,11 @@ import { Community } from '../../core/shared/community.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../core/shared/search/search-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
+import { SearchFilterServiceStub } from '../testing/search-filter-service.stub';
 import { SearchServiceStub } from '../testing/search-service.stub';
 import { SearchFormComponent } from './search-form.component';
 
@@ -28,10 +30,10 @@ describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
   let fixture: ComponentFixture<SearchFormComponent>;
   let de: DebugElement;
-  let el: HTMLElement;
 
   const router = new RouterStub();
   const searchService = new SearchServiceStub();
+  let searchFilterService: SearchFilterServiceStub;
   const paginationService = new PaginationServiceStub();
   const searchConfigService = { paginationID: 'test-id' };
   const firstPage = { 'spc.page': 1 };
@@ -40,11 +42,14 @@ describe('SearchFormComponent', () => {
   };
 
   beforeEach(waitForAsync(() => {
+    searchFilterService = new SearchFilterServiceStub();
+
     return TestBed.configureTestingModule({
       imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), SearchFormComponent],
       providers: [
         { provide: Router, useValue: router },
         { provide: SearchService, useValue: searchService },
+        { provide: SearchFilterService, useValue: searchFilterService },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
@@ -56,7 +61,6 @@ describe('SearchFormComponent', () => {
     fixture = TestBed.createComponent(SearchFormComponent);
     comp = fixture.componentInstance; // SearchFormComponent test instance
     de = fixture.debugElement.query(By.css('form'));
-    el = de.nativeElement;
   });
 
   it('should not display scopes when showScopeSelector is false', fakeAsync(() => {

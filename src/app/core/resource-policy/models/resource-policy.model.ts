@@ -34,50 +34,50 @@ export class ResourcePolicy implements CacheableObject {
    * The identifier for this Resource Policy
    */
   @autoserialize
-    id: string;
+  id: string;
 
   /**
    * The name for this Resource Policy
    */
   @autoserialize
-    name: string;
+  name: string;
 
   /**
    * The description for this Resource Policy
    */
   @autoserialize
-    description: string;
+  description: string;
 
   /**
    * The classification or this Resource Policy
    */
   @autoserialize
-    policyType: PolicyType;
+  policyType: PolicyType;
 
   /**
    * The action that is allowed by this Resource Policy
    */
   @autoserialize
-    action: ActionType;
+  action: ActionType;
 
   /**
    * The first day of validity of the policy (format YYYY-MM-DD)
    */
   @autoserialize
-    startDate: string;
+  startDate: string;
 
   /**
    * The last day of validity of the policy (format YYYY-MM-DD)
    */
   @autoserialize
-    endDate: string;
+  endDate: string;
 
   /**
    * The object type
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * The universally unique identifier for this Resource Policy
@@ -91,7 +91,7 @@ export class ResourcePolicy implements CacheableObject {
    * The {@link HALLink}s for this ResourcePolicy
    */
   @deserialize
-    _links: {
+  _links: {
     eperson: HALLink,
     group: HALLink,
     self: HALLink,
@@ -102,12 +102,12 @@ export class ResourcePolicy implements CacheableObject {
    * Will be undefined unless the version {@link HALLink} has been resolved.
    */
   @link(EPERSON)
-    eperson?: Observable<RemoteData<EPerson>>;
+  eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * The group linked by this resource policy
    * Will be undefined unless the version {@link HALLink} has been resolved.
    */
   @link(GROUP)
-    group?: Observable<RemoteData<Group>>;
+  group?: Observable<RemoteData<Group>>;
 }

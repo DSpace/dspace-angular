@@ -1,9 +1,11 @@
 import {
   AsyncPipe,
+  NgClass,
   NgIf,
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -13,6 +15,7 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   combineLatest as combineLatestObservable,
   Observable,
   of,
@@ -30,6 +33,10 @@ import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../core/services/window.service';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { slideSidebarPadding } from '../shared/animations/slide';
@@ -42,12 +49,25 @@ import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 
 @Component({
-  selector: 'ds-root',
+  selector: 'ds-base-root',
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.scss'],
   animations: [slideSidebarPadding],
   standalone: true,
-  imports: [TranslateModule, ThemedAdminSidebarComponent, SystemWideAlertBannerComponent, ThemedHeaderNavbarWrapperComponent, ThemedBreadcrumbsComponent, NgIf, ThemedLoadingComponent, RouterOutlet, ThemedFooterComponent, NotificationsBoardComponent, AsyncPipe],
+  imports: [
+    TranslateModule,
+    ThemedAdminSidebarComponent,
+    SystemWideAlertBannerComponent,
+    ThemedHeaderNavbarWrapperComponent,
+    ThemedBreadcrumbsComponent,
+    NgIf,
+    NgClass,
+    ThemedLoadingComponent,
+    RouterOutlet,
+    ThemedFooterComponent,
+    NotificationsBoardComponent,
+    AsyncPipe,
+  ],
 })
 export class RootComponent implements OnInit {
   theme: Observable<ThemeConfig> = of({} as any);
@@ -57,6 +77,8 @@ export class RootComponent implements OnInit {
   expandedSidebarWidth$: Observable<string>;
   notificationOptions: INotificationBoardOptions;
   models: any;
+
+  browserOsClasses = new BehaviorSubject<string[]>([]);
 
   /**
    * Whether or not to show a full screen loader
@@ -73,11 +95,23 @@ export class RootComponent implements OnInit {
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
   ) {
     this.notificationOptions = environment.notifications;
   }
 
   ngOnInit() {
+    const browserName = this.getBrowserName();
+    if (browserName) {
+      const browserOsClasses = new Array<string>();
+      browserOsClasses.push(`browser-${browserName}`);
+      const osName = this.getOSName();
+      if (osName) {
+        browserOsClasses.push(`browser-${browserName}-${osName}`);
+      }
+      this.browserOsClasses.next(browserOsClasses);
+    }
+
     this.isSidebarVisible$ = this.menuService.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
 
     this.expandedSidebarWidth$ = this.cssService.getVariable('--ds-admin-sidebar-total-width').pipe(
@@ -107,5 +141,24 @@ export class RootComponent implements OnInit {
       mainContent.tabIndex = -1;
       mainContent.focus();
     }
+  }
+
+  getBrowserName(): string {
+    const userAgent = this._window.nativeWindow.navigator?.userAgent;
+    if (/Firefox/.test(userAgent)) {
+      return 'firefox';
+    }
+    if (/Safari/.test(userAgent)) {
+      return 'safari';
+    }
+    return undefined;
+  }
+
+  getOSName(): string {
+    const userAgent = this._window.nativeWindow.navigator?.userAgent;
+    if (/Windows/.test(userAgent)) {
+      return 'windows';
+    }
+    return undefined;
   }
 }
