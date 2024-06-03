@@ -63,10 +63,19 @@ export function loadItemAuthors(item, itemAuthors, baseUrl, fields) {
   }
   const itemAuthorsLocal = [];
   authorsMV.forEach((authorMV: MetadataValue) => {
-    const authorSearchLink = baseUrl + '/search?f.author=' + encodeURIComponent(authorMV.value) + ',equals';
+    let value: string, operator: string;
+    if (authorMV.authority) {
+      value = encodeURIComponent(authorMV.authority);
+      operator = 'authority';
+    } else {
+      value = encodeURIComponent(authorMV.value);
+      operator = 'equals';
+    }
+    const authorSearchLink = baseUrl + '/search?f.author=' + value + ',' + operator;
     const authorNameLink = Object.assign(new AuthorNameLink(), {
       name: authorMV.value,
-      url: authorSearchLink
+      url: authorSearchLink,
+      isAuthority: !!authorMV.authority
     });
     itemAuthorsLocal.push(authorNameLink);
   });

@@ -5,12 +5,14 @@
               <span *ngIf="i == (itemAuthors | async).length -1 && (itemAuthors | async).length > 1">
                 {{'item.view.box.author.preview.and' | translate}}
               </span>
-              <a [href]="author.url" class="item-author">{{ author.name }}</a>
+              <a [href]="author.url" class="item-author">{{ author.name }}
+                <i *ngIf="author.isAuthority" class="fa-brands fa-orcid"> &nbsp;</i></a>
             </span>
   </div>
   <div *ngIf="(itemAuthors | async).length > 5">
     <div *ngFor="let author of (itemAuthors | async); let i = index">
-      <span *ngIf="i == 0" ><a [href]="author.url" class="item-author">{{ author.name }}</a>; et al.</span>
+      <span *ngIf="i == 0" ><a [href]="author.url" class="item-author">{{ author.name }}
+        <i *ngIf="author.isAuthority" class="fa-brands fa-orcid"> &nbsp;</i></a>; et al.</span>
     </div>
     <div class="item-author-wrapper">
               <span (click)="toggleShowEveryAuthor()" class="clarin-font-size cursor-pointer">
@@ -25,7 +27,8 @@
                   <span *ngIf="i == (itemAuthors | async).length -1">
                     {{'item.view.box.author.preview.and' | translate}}
                   </span>
-                  <a *ngIf="i > 0" [href]="author.url" class="item-author">{{author.name}}</a>
+                  <a *ngIf="i > 0" [href]="author.url" class="item-author">{{author.name}}
+                    <i *ngIf="author.isAuthority" class="fa-brands fa-orcid"> &nbsp;</i></a>
                 </span>
       </div>
     </div>

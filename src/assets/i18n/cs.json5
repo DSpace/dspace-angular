@@ -1743,8 +1743,31 @@
   "form.no-results": "Nebyli nalezeny žádné výsledky",
   // "form.no-value": "No value entered",
   "form.no-value": "Nebyla zadána hodnota",
-  // "form.other-information": {},
-  "form.other-information": {},
+
+  // "form.other-information.email": "Email",
+  "form.other-information.email": "Email",
+
+  // "form.other-information.first-name": "First Name",
+  "form.other-information.first-name": "Křestní jméno",
+
+  // "form.other-information.insolr": "In Solr Index",
+  "form.other-information.insolr": "V SOLR indexu",
+
+  // "form.other-information.institution": "Institution",
+  "form.other-information.institution": "Organizace",
+
+  // "form.other-information.last-name": "Last Name",
+  "form.other-information.last-name": "Příjmení",
+
+  // "form.other-information.orcid": "ORCID",
+  "form.other-information.orcid": "ORCID",
+
+  // "form.other-information.credit-name": "Credit Name",
+  "form.other-information.credit-name": "Preferované jméno",
+
+  // "form.other-information.other-names": "Other Names",
+  "form.other-information.other-names": "Další jména",
+
   // "form.remove": "Remove",
   "form.remove": "Smazat",
   // "form.save": "Save",
@@ -4833,6 +4856,16 @@
   "submission.sections.submit.progressbar.describe.stepone": "Popis",
   // "submission.sections.submit.progressbar.describe.steptwo": "Describe",
   "submission.sections.submit.progressbar.describe.steptwo": "Popis",
+
+  // "submission.sections.submit.progressbar.describe.dataciterequired": "Required Properties",
+  "submission.sections.submit.progressbar.describe.dataciterequired": "Minimální popis (povinné)",
+
+  // "submission.sections.submit.progressbar.describe.dataciterecommended": "Recommended Properties",
+  "submission.sections.submit.progressbar.describe.dataciterecommended": "Rozšířený popis (doporučené)",
+
+  // "submission.sections.submit.progressbar.describe.dataciteoptional": "Optional Properties",
+  "submission.sections.submit.progressbar.describe.dataciteoptional": "Rozšířený popis (volitelné)",
+
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   "submission.sections.submit.progressbar.detect-duplicate": "Potenciální duplicity",
   // "submission.sections.submit.progressbar.identifiers": "Identifiers",

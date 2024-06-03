@@ -1829,6 +1829,10 @@
 
   "form.other-information.orcid": "ORCID",
 
+  "form.other-information.credit-name": "Credit Name",
+
+  "form.other-information.other-names": "Other Names",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
@@ -5022,6 +5026,12 @@
   "submission.sections.submit.progressbar.describe.stepone": "Describe",
 
   "submission.sections.submit.progressbar.describe.steptwo": "Describe",
+
+  "submission.sections.submit.progressbar.describe.dataciterequired": "Required Properties",
+
+  "submission.sections.submit.progressbar.describe.dataciterecommended": "Recommended Properties",
+
+  "submission.sections.submit.progressbar.describe.dataciteoptional": "Optional Properties",
 
   "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
 
