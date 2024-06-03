@@ -10,6 +10,7 @@
       </select>
       <span class="input-group-btn">
         <button id="edit-metadata-btn" class="btn btn-primary" (click)="editSelectedMetadata()" [disabled]="!selectedMetadata">
+          <i class="fas fa-edit mr-1"></i>
           {{'admin.edit-cms-metadata.edit-button' | translate}}
         </button>
     </span>
@@ -39,14 +40,14 @@
     <div class="col-md">
       <button id="save-metadata-btn" class="btn btn-primary float-right m-2" (click)="saveMetadata()">
           <span>
-            <i class="fas fa-edit"></i>
-            &nbsp;{{ 'admin.edit-cms-metadata.save-button' | translate }}
+            <i class="fas fa-save mr-1"></i>
+            {{ 'admin.edit-cms-metadata.save-button' | translate }}
           </span>
       </button>
       <button id="back-metadata-btn" class="btn btn-outline-secondary float-right m-2" (click)="back()">
           <span>
-            <i class="fas fa-arrow-left"></i>
-            &nbsp;{{ 'admin.edit-cms-metadata.back-button' | translate }}
+            <i class="fas fa-arrow-left mr-1"></i>
+            {{ 'admin.edit-cms-metadata.back-button' | translate }}
           </span>
       </button>
     </div>

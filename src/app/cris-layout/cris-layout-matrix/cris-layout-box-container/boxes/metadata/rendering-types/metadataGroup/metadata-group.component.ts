@@ -43,9 +43,10 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    @Inject('tabNameProvider') public tabNameProvider: string,
     protected translateService: TranslateService
   ) {
-    super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, translateService);
   }
 
   ngOnInit() {

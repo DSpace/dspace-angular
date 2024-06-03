@@ -15,6 +15,11 @@
     <input class="form-control" type="text" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.language"
            [dsDebounce]="300" (onDebounce)="confirm.emit(false)" />
   </div>
+  <div class="ds-flex-cell ds-authority-cell" role="cell">
+    <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing">{{ mdValue.newValue.authority }}</div>
+    <textarea class="form-control" rows="5" *ngIf="mdValue.editing" [(ngModel)]="mdValue.newValue.authority"
+              [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
+  </div>
   <div class="flex-grow-1 ds-flex-cell ds-security-cell d-flex justify-content-center" role="cell">
     <div class="btn-group edit-field">
       <ds-edit-metadata-security *ngIf="canShowMetadataSecurity$ | async"

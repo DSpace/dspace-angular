@@ -97,7 +97,7 @@
               <input type="checkbox" id="userAgreementAccept" class="custom-control-input" formControlName="userAgreementAccept">
               <label class="custom-control-label" for="userAgreementAccept">
                 {{ 'register-page.create-profile.end-user-agreement.accept.text' | translate }}
-                <a href="/info/end-user-agreement" target="_blank">{{ 'register-page.create-profile.end-user-agreement.accept.link' | translate }}</a>
+                <a routerLink="/info/end-user-agreement" target="_blank">{{ 'register-page.create-profile.end-user-agreement.accept.link' | translate }}</a>
               </label>
               <div *ngIf="userAgreementAccept.invalid && (userAgreementAccept.dirty || userAgreementAccept.touched)"
                    class="invalid-feedback show-feedback">

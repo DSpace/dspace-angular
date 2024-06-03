@@ -3,7 +3,7 @@ import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/t
 import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 
-import { of, of as observableOf } from 'rxjs';
+import { EMPTY, of, of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FormService } from '../../../../shared/form/form.service';
@@ -32,6 +32,7 @@ import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/buil
 import { getMockSectionUploadService } from '../../../../shared/mocks/section-upload.service.mock';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
+import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
 
 const configMetadataFormMock = {
   rows: [{
@@ -56,6 +57,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   let operationsBuilder: any;
   let operationsService: any;
 
+
   const submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
   const submissionId = mockSubmissionId;
   const sectionId = 'upload';
@@ -73,6 +75,12 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     replace: jasmine.createSpy('replace'),
     remove: jasmine.createSpy('remove'),
   });
+
+  const vocabularyServiceSpy =
+    jasmine.createSpyObj(
+      'vocabularyService',
+      { getPublicVocabularyEntryByValue: EMPTY, getPublicVocabularyEntryByID: EMPTY }
+    );
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -98,7 +106,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         NgbModal,
         SubmissionSectionUploadFileComponent,
         SubmissionSectionUploadFileEditComponent,
-        FormBuilderService
+        FormBuilderService,
+        { provide: VocabularyService, useValue: vocabularyServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();

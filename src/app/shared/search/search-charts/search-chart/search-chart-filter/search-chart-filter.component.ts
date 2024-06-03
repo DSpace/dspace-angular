@@ -83,8 +83,25 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
       const queryParam: any = {};
       links[1].split('&').forEach(res => {
         const str = res.split('=');
+        if (queryParam[str[0]] && queryParam[str[0]].includes(str[1])) {
+          // if the value is already selected, then return
+          // do not add the same value again
+          return;
+        }
         queryParam[str[0]] = queryParam[str[0]] ? [...queryParam[str[0]], str[1]] : [str[1]];
       });
+
+      if (this.currentUrl) {
+        const currentQueryParams = this.currentUrl.split('?')[1].split('&');
+        const pageParam = currentQueryParams.filter((param) => param.includes('page'));
+        if (pageParam.length > 0) {
+          const paramName = pageParam[0].split('=')[0];
+          queryParam[paramName] = [1];
+        }
+      } else {
+        queryParam['spc.page'] = [1];
+      }
+
       this.router.navigate(this.getSearchLinkParts(), {
         queryParams: queryParam,
         queryParamsHandling: 'merge',

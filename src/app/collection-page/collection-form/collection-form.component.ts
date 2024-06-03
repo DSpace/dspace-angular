@@ -13,7 +13,7 @@ import {
 import { Collection } from '../../core/shared/collection.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
@@ -34,7 +34,7 @@ import { SubmissionDefinitionsConfigDataService } from '../../core/config/submis
 import { ConfigObject } from '../../core/config/models/config.model';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { hasNoValue, isNotNull } from 'src/app/shared/empty.util';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Form used for creating and editing collections
@@ -85,13 +85,14 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
                      protected authService: AuthService,
-                     protected dsoService: CommunityDataService,
+                     protected dsoService: CollectionDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef,
+                     protected modalService: NgbModal,
                      protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache);
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 
   ngOnInit(): void {

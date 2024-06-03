@@ -20,6 +20,7 @@ import { ThemedSearchSectionComponent } from './section-component/search-section
 import { TextSectionComponent } from './section-component/text-section/text-section.component';
 import { ThemedTextSectionComponent } from './section-component/text-section/themed-text-section.component';
 import { SharedModule } from '../shared.module';
+import { MarkdownViewerModule } from '../markdown-viewer/markdown-viewer.module';
 
 const COMPONENTS = [
   BrowseSectionComponent,
@@ -42,10 +43,11 @@ const COMPONENTS = [
   declarations: [
     ...COMPONENTS
   ],
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        MarkdownViewerModule
+    ],
   exports: [
     ...COMPONENTS
   ]
