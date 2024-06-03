@@ -59,6 +59,7 @@ import { Relationship } from '../../../../core/shared/item-relationships/relatio
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import {
   getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
@@ -364,6 +365,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
                       type: this.relationshipType,
                       originalIsLeft: isLeft,
                       originalItem: this.item,
+                      relatedItem,
                       relationship,
                     } as RelationshipIdentifiable;
                     return this.objectUpdatesService.saveRemoveFieldUpdate(this.url,update);
@@ -518,10 +520,24 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
             this.relationshipService.isLeftItem(relationship, this.item).pipe(
               // emit an array containing both the relationship and whether it's the left item,
               // as we'll need both
-              map((isLeftItem: boolean) => [relationship, isLeftItem]),
+              switchMap((isLeftItem: boolean) => {
+                if (isLeftItem) {
+                  return relationship.rightItem.pipe(
+                    getFirstCompletedRemoteData(),
+                    getRemoteDataPayload(),
+                    map((relatedItem: Item) => [relationship, isLeftItem, relatedItem]),
+                  );
+                } else {
+                  return relationship.leftItem.pipe(
+                    getFirstCompletedRemoteData(),
+                    getRemoteDataPayload(),
+                    map((relatedItem: Item) => [relationship, isLeftItem, relatedItem]),
+                  );
+                }
+              }),
             ),
           ),
-          map(([relationship, isLeftItem]: [Relationship, boolean]) => {
+          map(([relationship, isLeftItem, relatedItem]: [Relationship, boolean, Item]) => {
             // turn it into a RelationshipIdentifiable, an
             const nameVariant =
               isLeftItem ? relationship.rightwardValue : relationship.leftwardValue;
@@ -531,6 +547,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
               relationship,
               originalIsLeft: isLeftItem,
               originalItem: this.item,
+              relatedItem: relatedItem,
               nameVariant,
             } as RelationshipIdentifiable;
           }),
