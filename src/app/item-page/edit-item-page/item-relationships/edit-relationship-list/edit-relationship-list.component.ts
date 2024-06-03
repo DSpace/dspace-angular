@@ -26,7 +26,7 @@ import {
   toArray,
   concatMap
 } from 'rxjs/operators';
-import { hasNoValue, hasValue, hasValueOperator } from '../../../../shared/empty.util';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmpty } from '../../../../shared/empty.util';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import {
   RelationshipType
@@ -278,7 +278,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
                 }
               }
 
-              this.loading$.next(true);
+              this.loading$.next(isNotEmpty(modalComp.toAdd) || isNotEmpty(modalComp.toRemove));
               // emit the last page again to trigger a fieldupdates refresh
               this.relationshipsRd$.next(this.relationshipsRd$.getValue());
             });
@@ -296,6 +296,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         } else {
           modalComp.toRemove.push(searchResult);
         }
+        this.loading$.next(isNotEmpty(modalComp.toAdd) || isNotEmpty(modalComp.toRemove));
       });
     };
 
@@ -369,6 +370,11 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
       modalComp.toAdd = [];
       modalComp.toRemove = [];
+      this.loading$.next(false);
+    };
+
+    modalComp.closeEv = () => {
+      this.loading$.next(false);
     };
 
     this.relatedEntityType$
