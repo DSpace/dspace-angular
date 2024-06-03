@@ -555,13 +555,18 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
       );
     });
 
-    return this.searchBy(
+    const searchRD$: Observable<RemoteData<PaginatedList<Relationship>>> = this.searchBy(
       'byItemsAndType',
       {
         searchParams: searchParams
       },
     ) as Observable<RemoteData<PaginatedList<Relationship>>>;
 
+    arrayOfItemIds.forEach((itemId: string) => {
+      this.addDependency(searchRD$, this.itemService.getIDHrefObs(encodeURIComponent(itemId)));
+    });
+
+    return searchRD$;
   }
 
   /**

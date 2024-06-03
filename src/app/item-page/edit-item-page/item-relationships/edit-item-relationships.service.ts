@@ -61,7 +61,17 @@ export class EditItemRelationshipsService {
       // process each update one by one, while waiting for the previous to finish
       concatMap((update: FieldUpdate) => {
         if (update.changeType === FieldChangeType.REMOVE) {
-          return this.deleteRelationship(update.field as DeleteRelationship).pipe(take(1));
+          return this.deleteRelationship(update.field as DeleteRelationship).pipe(
+            take(1),
+            switchMap((deleteRD: RemoteData<NoContent>) => {
+              if (deleteRD.hasSucceeded) {
+                return this.itemService.invalidateByHref((update.field as DeleteRelationship).relatedItem._links.self.href).pipe(
+                  map(() => deleteRD),
+                );
+              }
+              return [deleteRD];
+            }),
+          );
         } else if (update.changeType === FieldChangeType.ADD) {
           return this.addRelationship(update.field as RelationshipIdentifiable).pipe(
             take(1),
