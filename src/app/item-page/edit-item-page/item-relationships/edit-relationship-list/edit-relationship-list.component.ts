@@ -68,6 +68,7 @@ import {
   hasNoValue,
   hasValue,
   hasValueOperator,
+  isNotEmpty,
 } from '../../../../shared/empty.util';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { RelationshipOptions } from '../../../../shared/form/builder/models/relationship-options.model';
@@ -308,7 +309,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
                 }
               }
 
-              this.loading$.next(true);
+              this.loading$.next(isNotEmpty(modalComp.toAdd) || isNotEmpty(modalComp.toRemove));
               // emit the last page again to trigger a fieldupdates refresh
               this.relationshipsRd$.next(this.relationshipsRd$.getValue());
             });
@@ -326,6 +327,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
         } else {
           modalComp.toRemove.push(searchResult);
         }
+        this.loading$.next(isNotEmpty(modalComp.toAdd) || isNotEmpty(modalComp.toRemove));
       });
     };
 
@@ -399,6 +401,11 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
 
       modalComp.toAdd = [];
       modalComp.toRemove = [];
+      this.loading$.next(false);
+    };
+
+    modalComp.closeEv = () => {
+      this.loading$.next(false);
     };
 
     this.relatedEntityType$
