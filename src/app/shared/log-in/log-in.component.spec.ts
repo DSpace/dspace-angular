@@ -19,6 +19,7 @@ import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { AuthMethodType } from 'src/app/core/auth/models/auth.method-type';
 
 import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
@@ -139,6 +140,59 @@ describe('LogInComponent', () => {
       const loginContainers = fixture.debugElement.queryAll(By.css('ds-log-in-container'));
       expect(loginContainers.length).toBe(2);
 
+    });
+
+    it('returns only password method when backdoor is enabled', () => {
+      const authMethods = [
+        { authMethodType: AuthMethodType.Password, position: 1 },
+        { authMethodType: AuthMethodType.Ip, position: 2 },
+        { authMethodType: AuthMethodType.Shibboleth, position: 3 },
+      ];
+      const isBackdoor = true;
+      component.excludedAuthMethod = undefined;
+      const result = component.filterAndSortAuthMethods(authMethods, isBackdoor);
+      expect(result).toEqual([{ authMethodType: AuthMethodType.Password, position: 1 }]);
+    });
+
+    it('excludes password method when standard login is disabled', () => {
+      const authMethods = [
+        { authMethodType: AuthMethodType.Password, position: 1 },
+        { authMethodType: AuthMethodType.Shibboleth, position: 2 },
+      ];
+      component.excludedAuthMethod = undefined;
+      const result = component.filterAndSortAuthMethods(authMethods, false, true);
+      expect(result).toEqual([
+        { authMethodType: AuthMethodType.Shibboleth, position: 2 },
+      ]);
+    });
+
+    it('excludes methods based on excludedAuthMethod input', () => {
+      const authMethods = [
+        { authMethodType: AuthMethodType.Password, position: 1 },
+        { authMethodType: AuthMethodType.Ip, position: 2 },
+        { authMethodType: AuthMethodType.Shibboleth, position: 3 },
+      ];
+      const isBackdoor = false;
+      component.excludedAuthMethod = AuthMethodType.Ip;
+      const result = component.filterAndSortAuthMethods(authMethods, isBackdoor);
+      expect(result).toEqual([
+        { authMethodType: AuthMethodType.Password, position: 1 },
+        { authMethodType: AuthMethodType.Shibboleth, position: 3 },
+      ]);
+    });
+
+    it('sorts methods by position', () => {
+      const authMethods = [
+        { authMethodType: AuthMethodType.Password, position: 2 },
+        { authMethodType: AuthMethodType.Shibboleth, position: 1 },
+      ];
+      const isBackdoor = false;
+      component.excludedAuthMethod = undefined;
+      const result = component.filterAndSortAuthMethods(authMethods, isBackdoor);
+      expect(result).toEqual([
+        { authMethodType: AuthMethodType.Shibboleth, position: 1 },
+        { authMethodType: AuthMethodType.Password, position: 2 },
+      ]);
     });
   });
 

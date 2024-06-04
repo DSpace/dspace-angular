@@ -135,6 +135,8 @@ auth:
     # If the rest token expires in less than this amount of time, it will be refreshed automatically.
     # This is independent from the idle warning.
     timeLeftBeforeTokenRefresh: 120000 # 2 minutes
+  # Standard login enabled
+  disableStandardLogin: false
 
 # Form settings
 form:
