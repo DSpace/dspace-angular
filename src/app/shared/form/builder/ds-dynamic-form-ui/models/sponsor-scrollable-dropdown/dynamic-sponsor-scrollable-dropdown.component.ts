@@ -111,7 +111,10 @@ export class DsDynamicSponsorScrollableDropdownComponent extends DsDynamicScroll
           (input as DsDynamicInputModel).value = '';
           break;
         case DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN:
-          (input as DynamicScrollableDropdownModel).value = '';
+          // Remove it only if the funding type is `N/A`
+          if (this.fundingTypeIsNotApplicable(fundingTypeValue)) {
+            (input as DynamicScrollableDropdownModel).value = '';
+          }
           break;
         default:
           break;
@@ -142,10 +145,17 @@ export class DsDynamicSponsorScrollableDropdownComponent extends DsDynamicScroll
     }
 
     // if the funding type is `N/A` -> clean inputs
-    if (isEqual(fundingTypeValue, this.translateService.instant('autocomplete.suggestion.sponsor.empty'))) {
+    if (this.fundingTypeIsNotApplicable(fundingTypeValue)) {
       return true;
     }
 
     return false;
+  }
+
+  /**
+   * Check if the funding type is `N/A`
+   */
+  fundingTypeIsNotApplicable(fundingTypeValue) {
+    return isEqual(fundingTypeValue, this.translateService.instant('autocomplete.suggestion.sponsor.empty'));
   }
 }
