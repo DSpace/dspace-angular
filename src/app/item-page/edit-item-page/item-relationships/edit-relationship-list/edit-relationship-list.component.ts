@@ -509,8 +509,13 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
             ...linksToFollow,
           );
         }),
-      ).subscribe((rd: RemoteData<PaginatedList<Relationship>>) => {
-        this.relationshipsRd$.next(rd);
+        tap((rd: RemoteData<PaginatedList<Relationship>>) => {
+          this.relationshipsRd$.next(rd);
+        }),
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
+      ).subscribe((relationshipPaginatedList: PaginatedList<Relationship>) => {
+        this.objectUpdatesService.initialize(this.url, relationshipPaginatedList.page, new Date());
       }),
     );
 

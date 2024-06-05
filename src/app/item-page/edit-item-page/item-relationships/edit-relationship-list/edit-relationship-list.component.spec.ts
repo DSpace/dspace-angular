@@ -193,6 +193,9 @@ describe('EditRelationshipListComponent', () => {
           [relationships[0].uuid]: fieldUpdate1,
           [relationships[1].uuid]: fieldUpdate2,
         }),
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        initialize: () => {
+        },
       },
     );
 
