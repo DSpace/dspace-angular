@@ -107,13 +107,17 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    * @param scope   Scope of the EPeople search, default byMetadata
    * @param query   Query of search
    * @param options Options of search request
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
    */
-  public searchByScope(scope: string, query: string, options: FindListOptions = {}, useCachedVersionIfAvailable?: boolean): Observable<RemoteData<PaginatedList<EPerson>>> {
+  public searchByScope(scope: string, query: string, options: FindListOptions = {}, useCachedVersionIfAvailable?: boolean, reRequestOnStale = true): Observable<RemoteData<PaginatedList<EPerson>>> {
     switch (scope) {
       case 'metadata':
-        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable);
+        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable, reRequestOnStale);
       case 'email':
-        return this.getEPersonByEmail(query.trim()).pipe(
+        return this.getEPersonByEmail(query.trim(), useCachedVersionIfAvailable, reRequestOnStale).pipe(
           map((rd: RemoteData<EPerson | NoContent>) => {
             if (rd.hasSucceeded) {
               // Turn the single EPerson or NoContent in to a PaginatedList<EPerson>
@@ -145,7 +149,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
           }),
         );
       default:
-        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable);
+        return this.getEpeopleByMetadata(query.trim(), options, useCachedVersionIfAvailable, reRequestOnStale);
     }
   }
 
