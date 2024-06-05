@@ -3937,7 +3937,7 @@
   "item.page.related-items.view-more": "Mostrar {{ amount }} más",
 
   // "item.page.related-items.view-less": "Hide last {{ amount }}",
-  "item.page.related-items.view-less": "Ocultar loa últimos {{ amount }}",
+  "item.page.related-items.view-less": "Ocultar los últimos {{ amount }}",
 
   // "item.page.relationships.isAuthorOfPublication": "Publications",
   "item.page.relationships.isAuthorOfPublication": "Publicaciones",
