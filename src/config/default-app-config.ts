@@ -795,6 +795,7 @@ export class DefaultAppConfig implements AppConfig {
     showFallbackMessagesByDefault: false,
     warningMessageDelay: 5000, // 5 seconds
     errorMessageDelay: 15000, // 15 seconds
+    numberOfAutomaticPageReloads: 2,
   };
 
   metaTags: MetaTagsConfig = {
