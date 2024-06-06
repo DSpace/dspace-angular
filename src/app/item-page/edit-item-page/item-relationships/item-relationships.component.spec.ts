@@ -2,9 +2,7 @@ import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { getTestScheduler } from 'jasmine-marbles';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
@@ -29,6 +27,8 @@ import { RelationshipTypeDataService } from '../../../core/data/relationship-typ
 import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
+import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -52,12 +52,11 @@ const notificationsService = jasmine.createSpyObj('notificationsService',
 const router = new RouterStub();
 let relationshipTypeService;
 let routeStub;
-let itemService;
+let itemService: ItemDataServiceStub;
 
 const url = 'http://test-url.com/test-url';
 router.url = url;
 
-let scheduler: TestScheduler;
 let item;
 let author1;
 let author2;
@@ -137,10 +136,7 @@ describe('ItemRelationshipsComponent', () => {
       changeType: FieldChangeType.REMOVE
     };
 
-    itemService = jasmine.createSpyObj('itemService', {
-      findByHref: createSuccessfulRemoteDataObject$(item),
-      findById: createSuccessfulRemoteDataObject$(item)
-    });
+    itemService = new ItemDataServiceStub();
     routeStub = {
       data: observableOf({}),
       parent: {
@@ -208,9 +204,8 @@ describe('ItemRelationshipsComponent', () => {
       }
     );
 
-    scheduler = getTestScheduler();
     TestBed.configureTestingModule({
-      imports: [SharedModule, TranslateModule.forRoot()],
+      imports: [NoopAnimationsModule, SharedModule, TranslateModule.forRoot()],
       declarations: [ItemRelationshipsComponent],
       providers: [
         { provide: ThemeService, useValue: getMockThemeService() },
@@ -232,6 +227,8 @@ describe('ItemRelationshipsComponent', () => {
   }));
 
   beforeEach(() => {
+    spyOn(itemService, 'findByHref').and.returnValue(item);
+    spyOn(itemService, 'findById').and.returnValue(item);
     fixture = TestBed.createComponent(ItemRelationshipsComponent);
     comp = fixture.componentInstance;
     de = fixture.debugElement;
@@ -266,7 +263,7 @@ describe('ItemRelationshipsComponent', () => {
     });
 
     it('it should delete the correct relationship', () => {
-      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left');
+      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left', false);
     });
   });
 

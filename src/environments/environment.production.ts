@@ -8,6 +8,6 @@ export const environment: Partial<BuildConfig> = {
     preboot: true,
     async: true,
     time: false,
-    inlineCriticalCss: true,
+    inlineCriticalCss: false,
   }
 };

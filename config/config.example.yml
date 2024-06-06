@@ -21,8 +21,8 @@ universal:
   # Whether to inline "critical" styles into the server-side rendered HTML.
   # Determining which styles are critical is a relatively expensive operation;
   # this option can be disabled to boost server performance at the expense of
-  # loading smoothness.
-  inlineCriticalCss: true
+  # loading smoothness. For improved SSR performance, DSpace defaults this to false (disabled).
+  inlineCriticalCss: false
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
@@ -179,6 +179,9 @@ languages:
   - code: ar
     label: العربية
     active: true
+  - code: bn
+    label: বাংলা
+    active: true
   - code: ca
     label: Català
     active: true
@@ -188,8 +191,14 @@ languages:
   - code: de
     label: Deutsch
     active: true
+  - code: el
+    label: Ελληνικά
+    active: true
   - code: es
     label: Español
+    active: true
+  - code: fi
+    label: Suomi
     active: true
   - code: fr
     label: Français
@@ -197,14 +206,20 @@ languages:
   - code: gd
     label: Gàidhlig
     active: true
-  - code: it
-    label: Italiano
-    active: true
-  - code: lv
-    label: Latviešu
+  - code: hi
+    label: हिंदी
     active: true
   - code: hu
     label: Magyar
+    active: true
+  - code: it
+    label: Italiano
+    active: true
+  - code: kk
+    label: Қазақ
+    active: true
+  - code: lv
+    label: Latviešu
     active: true
   - code: nl
     label: Nederlands
@@ -221,8 +236,8 @@ languages:
   - code: sr-lat
     label: Srpski (lat)
     active: true
-  - code: fi
-    label: Suomi
+  - code: sr-cyr
+    label: Српски
     active: true
   - code: sv
     label: Svenska
@@ -230,26 +245,11 @@ languages:
   - code: tr
     label: Türkçe
     active: true
-  - code: vi
-    label: Tiếng Việt
-    active: true
-  - code: kk
-    label: Қазақ
-    active: true
-  - code: bn
-    label: বাংলা
-    active: true
-  - code: hi
-    label: हिंदी
-    active: true
-  - code: el
-    label: Ελληνικά
-    active: true
-  - code: sr-cyr
-    label: Српски
-    active: true
   - code: uk
     label: Yкраї́нська
+    active: true
+  - code: vi
+    label: Tiếng Việt
     active: true
 
 

@@ -29,6 +29,8 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { getAllSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
 import { followLink } from '../../../../utils/follow-link-config.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -141,12 +143,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   /**
    * Maintain the list of the related items to be added
    */
-  toAdd = [];
+  toAdd: ItemSearchResult[] = [];
 
   /**
    * Maintain the list of the related items to be removed
    */
-  toRemove = [];
+  toRemove: ItemSearchResult[] = [];
 
   /**
    * Disable buttons while the submit button is pressed
@@ -216,7 +218,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * Select (a list of) objects and add them to the store
    * @param selectableObjects
    */
-  select(...selectableObjects: SearchResult<Item>[]) {
+  select(...selectableObjects: SearchResult<DSpaceObject>[]) {
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = observableCombineLatest([...selectableObjects.map((sri: SearchResult<Item>) => {
@@ -259,11 +261,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * Deselect (a list of) objects and remove them from the store
    * @param selectableObjects
    */
-  deselect(...selectableObjects: SearchResult<Item>[]) {
+  deselect(...selectableObjects: SearchResult<DSpaceObject>[]) {
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
-        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType, this.submissionId));
+        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject as Item, this.relationshipOptions.relationshipType, this.submissionId));
       })
     );
   }
