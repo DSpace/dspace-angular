@@ -26,16 +26,16 @@ export class ClarinLicenseRequiredInfo {
  * Required info possible values.
  */
 export const CLARIN_LICENSE_REQUIRED_INFO = {
-  SEND_TOKEN: 'Email',
-  NAME: 'Name (given name and surname)',
+  SEND_TOKEN: 'The user will receive an email with download instructions.',
+  NAME: 'User Name',
   DOB: 'Date of birth',
   ADDRESS: 'Address',
   COUNTRY: 'Country',
-  EXTRA_EMAIL: 'Email',
-  ORGANIZATION: 'Organization',
-  REQUIRED_ORGANIZATION: 'Organization',
-  INTENDED_USE: 'Intended use',
-  ACA_ORG_NAME_AND_SEAT: 'Name and seat (address) of your academic institution',
+  EXTRA_EMAIL: 'Ask user for another email address',
+  ORGANIZATION: 'Ask user for organization (optional)',
+  REQUIRED_ORGANIZATION: 'Ask user for organization (mandatory)',
+  INTENDED_USE: 'Ask user for his intentions with the item',
+  ACA_ORG_NAME_AND_SEAT: 'Ask for the name and seat (address) of user\'s academic institution',
 };
 
 /**

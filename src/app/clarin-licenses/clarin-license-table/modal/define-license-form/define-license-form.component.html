@@ -21,7 +21,7 @@
             <div class="form-group">
               <label id="confirmation" for="confirmation">{{'clarin-license.define-license-form.input-confirmation' | translate}}</label>
               <select formControlName="confirmation" class="custom-select">
-                <option *ngFor="let confirmationOption of confirmationOptions">{{confirmationOption}}</option>
+                <option *ngFor="let confirmationOption of confirmationOptions" [value]="confirmationOption">{{confirmationOption}}</option>
               </select>
             </div>
             <div class="form-group">
