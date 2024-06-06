@@ -2143,6 +2143,8 @@
 
   "error.validation.groupExists": "This group already exists",
 
+  "error.validation.invalidProjectURL": "The URL of the project is invalid",
+
   "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
 
   "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
