@@ -121,7 +121,7 @@ export class ProfilePageComponent implements OnInit {
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       switchMap((user: EPerson) => user.groups)
-    )
+    );
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
     this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();
 
