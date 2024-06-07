@@ -65,7 +65,7 @@ export class SuggestionsPageComponent implements OnInit {
    * The pagination configuration
    */
   paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'sp'._unique(),
+    id: 'sp',
     pageSizeOptions: [5, 10, 20, 40, 60],
   });
 

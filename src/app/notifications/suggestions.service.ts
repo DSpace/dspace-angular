@@ -29,7 +29,6 @@ import { ResearcherProfile } from '../core/profile/model/researcher-profile.mode
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
 import { NoContent } from '../core/shared/NoContent.model';
 import {
-  getAllSucceededRemoteDataPayload,
   getFinishedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -41,6 +40,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
+import { followLink } from '../shared/utils/follow-link-config.model';
 import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
 
 /**
@@ -120,7 +120,7 @@ export class SuggestionsService {
    * @return Observable<RemoteData<PaginatedList<Suggestion>>>
    *    The list of Suggestion.
    */
-  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<PaginatedList<Suggestion>> {
+  public getSuggestions(targetId: string, elementsPerPage, currentPage, sortOptions: SortOptions): Observable<RemoteData<PaginatedList<Suggestion>>> {
     const [source, target] = targetId.split(':');
 
     const findListOptions: FindListOptions = {
@@ -129,9 +129,7 @@ export class SuggestionsService {
       sort: sortOptions,
     };
 
-    return this.suggestionsDataService.getSuggestionsByTargetAndSource(target, source, findListOptions).pipe(
-      getAllSucceededRemoteDataPayload(),
-    );
+    return this.suggestionsDataService.getSuggestionsByTargetAndSource(target, source, findListOptions);
   }
 
   /**
@@ -165,7 +163,7 @@ export class SuggestionsService {
    *   The EPerson id for which to retrieve suggestion targets
    */
   public retrieveCurrentUserSuggestions(userUuid: string): Observable<SuggestionTarget[]> {
-    return this.researcherProfileService.findById(userUuid, true).pipe(
+    return this.researcherProfileService.findById(userUuid, true, true,  followLink('item')).pipe(
       getFirstCompletedRemoteData(),
       mergeMap((profile: RemoteData<ResearcherProfile> ) => {
         if (isNotEmpty(profile) && profile.hasSucceeded && isNotEmpty(profile.payload)) {
