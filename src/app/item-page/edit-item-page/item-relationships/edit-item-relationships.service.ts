@@ -216,10 +216,16 @@ export class EditItemRelationshipsService {
     );
   }
 
-  relationshipMatchesBothSameTypes(relationshipType: RelationshipType, itemType: ItemType): Observable<boolean> {
+  /**
+   * Whether both side of the relationship need to be displayed on the edit relationship page or not.
+   *
+   * @param relationshipType The relationship type
+   * @param itemType         The item type
+   */
+  shouldDisplayBothRelationshipSides(relationshipType: RelationshipType, itemType: ItemType): Observable<boolean> {
     return this.getRelationshipLeftAndRightType(relationshipType).pipe(
       map(([leftType, rightType]: [ItemType, ItemType]) => {
-        return leftType.id === itemType.id && rightType.id === itemType.id;
+        return leftType.id === itemType.id && rightType.id === itemType.id && relationshipType.leftwardType !== relationshipType.rightwardType;
       }),
     );
   }

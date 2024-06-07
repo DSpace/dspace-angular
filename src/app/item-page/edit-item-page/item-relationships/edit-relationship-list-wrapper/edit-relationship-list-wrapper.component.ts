@@ -79,7 +79,7 @@ export class EditRelationshipListWrapperComponent implements OnInit, OnDestroy {
 
   isRightItem$ = new BehaviorSubject(false);
 
-  bothItemsMatchType$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
+  shouldDisplayBothRelationshipSides$: Observable<boolean>;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -99,10 +99,7 @@ export class EditRelationshipListWrapperComponent implements OnInit, OnDestroy {
         this.currentItemIsLeftItem$.next(nextValue);
       }));
 
-    this.subs.push(this.editItemRelationshipsService.relationshipMatchesBothSameTypes(this.relationshipType, this.itemType)
-      .subscribe((nextValue: boolean) => {
-        this.bothItemsMatchType$.next(nextValue);
-      }));
+    this.shouldDisplayBothRelationshipSides$ = this.editItemRelationshipsService.shouldDisplayBothRelationshipSides(this.relationshipType, this.itemType);
   }
 
 
