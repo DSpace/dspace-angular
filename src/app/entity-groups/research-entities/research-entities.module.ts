@@ -34,6 +34,9 @@ import { OrgUnitInputSuggestionsComponent } from './submission/item-list-element
 import { PersonSearchResultListSubmissionElementComponent } from './submission/item-list-elements/person/person-search-result-list-submission-element.component';
 import { PersonInputSuggestionsComponent } from './submission/item-list-elements/person/person-suggestions/person-input-suggestions.component';
 import { NameVariantModalComponent } from './submission/name-variant-modal/name-variant-modal.component';
+import {
+  ItemPageImgFieldComponent
+} from '../../item-page/simple/field-components/specific-field/img/item-page-img-field.component';
 
 const ENTRY_COMPONENTS = [
 // put only entry components that use custom decorator
@@ -62,6 +65,7 @@ const ENTRY_COMPONENTS = [
   OrgUnitSidebarSearchListElementComponent,
   PersonSidebarSearchListElementComponent,
   ProjectSidebarSearchListElementComponent,
+  ItemPageImgFieldComponent,
 ];
 
 const COMPONENTS = [

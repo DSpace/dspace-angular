@@ -42,7 +42,7 @@
 
           <ng-container *ngIf="attachmentConf.type === AdvancedAttachmentElementType.Attribute">
             <ng-container *ngIf="attachmentConf.name === 'format'">
-              <p *ngIf="(getFormat(attachment) | async) !== true "class="text-muted">
+              <p *ngIf="(getFormat(attachment) | async) === null || (getFormat(attachment) | async) === undefined" class="text-muted">
                 {{'cris-layout.advanced-attachment.label.not-present' | translate}}
               </p>
               <p class="word-break m-0">{{getFormat(attachment) | async}}</p>

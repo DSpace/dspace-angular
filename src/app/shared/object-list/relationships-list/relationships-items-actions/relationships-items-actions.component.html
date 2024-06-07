@@ -1,6 +1,6 @@
 <div class="space-children-mr">
   <button class="action-buttons btn btn-success mt-1 mb-3"
-          *ngIf="(isSelected | async) !== true && !!object"
+          *ngIf="((isSelected | async) === undefined || (isSelected | async) === null) && !!object"
           ngbTooltip="{{'manage.relationships.select' | translate}}"
           (click)="emitAction('select')"
           [disabled]="pendingChanges$ | async">

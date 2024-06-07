@@ -34,7 +34,7 @@ import { OpenaireSuggestionSource } from '../models/openaire-suggestion-source.m
  * The service handling all Quality Assurance source REST requests.
  */
 @Injectable()
-@dataService(SUGGESTION)
+// @dataService(SUGGESTION)
 export class QualityAssuranceSuggestionDataService extends IdentifiableDataService<OpenaireSuggestion> {
 
   protected searchFindByTargetAndSourceMethod = 'findByTargetAndSource';
