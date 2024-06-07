@@ -8,6 +8,7 @@ import { RelationshipType } from '../../../../core/shared/item-relationships/rel
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { Item } from '../../../../core/shared/item.model';
+import { cold } from 'jasmine-marbles';
 
 describe('EditRelationshipListWrapperComponent', () => {
   let editItemRelationshipsService: EditItemRelationshipsService;
@@ -36,7 +37,7 @@ describe('EditRelationshipListWrapperComponent', () => {
 
     editItemRelationshipsService = jasmine.createSpyObj('editItemRelationshipsService', {
       isProvidedItemTypeLeftType: observableOf(true),
-      relationshipMatchesBothSameTypes: observableOf(false)
+      shouldDisplayBothRelationshipSides: observableOf(false),
     });
 
 
@@ -69,10 +70,10 @@ describe('EditRelationshipListWrapperComponent', () => {
     });
     it('should set currentItemIsLeftItem$ and bothItemsMatchType$  based on the provided relationshipType, itemType and item', () => {
       expect(editItemRelationshipsService.isProvidedItemTypeLeftType).toHaveBeenCalledWith(relationshipType, leftType, item);
-      expect(editItemRelationshipsService.relationshipMatchesBothSameTypes).toHaveBeenCalledWith(relationshipType, leftType);
+      expect(editItemRelationshipsService.shouldDisplayBothRelationshipSides).toHaveBeenCalledWith(relationshipType, leftType);
 
       expect(comp.currentItemIsLeftItem$.getValue()).toEqual(true);
-      expect(comp.bothItemsMatchType$.getValue()).toEqual(false);
+      expect(comp.shouldDisplayBothRelationshipSides$).toBeObservable(cold('(a|)', { a: false }));
     });
   });
 
@@ -96,7 +97,7 @@ describe('EditRelationshipListWrapperComponent', () => {
 
   describe('when the current item is both left and right', () => {
     it('should render two relationship list sections', () => {
-      (editItemRelationshipsService.relationshipMatchesBothSameTypes as jasmine.Spy).and.returnValue(observableOf(true));
+      (editItemRelationshipsService.shouldDisplayBothRelationshipSides as jasmine.Spy).and.returnValue(observableOf(true));
       comp.ngOnInit();
       fixture.detectChanges();
 

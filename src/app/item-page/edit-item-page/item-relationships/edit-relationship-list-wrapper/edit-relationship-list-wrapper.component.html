@@ -1,4 +1,4 @@
-<ng-container *ngIf="bothItemsMatchType$ | async">
+<ng-container *ngIf="shouldDisplayBothRelationshipSides$ | async">
     <ds-edit-relationship-list
             [url]="url"
             [item]="item"
@@ -6,6 +6,7 @@
             [relationshipType]="relationshipType"
             [hasChanges]="hasChanges"
             [currentItemIsLeftItem$]="isLeftItem$"
+            class="d-block mb-4"
     ></ds-edit-relationship-list>
     <ds-edit-relationship-list
             [url]="url"
@@ -17,7 +18,7 @@
     ></ds-edit-relationship-list>
 </ng-container>
 
-<ng-container *ngIf="!(bothItemsMatchType$ | async)">
+<ng-container *ngIf="(shouldDisplayBothRelationshipSides$ | async) === false">
     <ds-edit-relationship-list
             [url]="url"
             [item]="item"
