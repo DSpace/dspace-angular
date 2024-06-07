@@ -185,6 +185,7 @@ describe('EditItemRelationshipsService', () => {
 
       expect(itemService.invalidateByHref).toHaveBeenCalledWith(currentItem.self);
       expect(itemService.invalidateByHref).toHaveBeenCalledWith(relationshipItem1.self);
+      expect(itemService.invalidateByHref).toHaveBeenCalledWith(relationshipItem2.self);
 
       expect(notificationsService.success).toHaveBeenCalledTimes(1);
     });
@@ -262,6 +263,116 @@ describe('EditItemRelationshipsService', () => {
       } as RelationshipIdentifiable);
 
       expect(relationshipService.addRelationship).toHaveBeenCalledWith(orgUnitToOrgUnitType.id, currentItem, relationshipItem1, null, undefined, false);
+    });
+  });
+
+  describe('isProvidedItemTypeLeftType', () => {
+    it('should return true if the provided item corresponds to the left type of the relationship', (done) => {
+      const relationshipType = Object.assign(new RelationshipType(), {
+        leftType: createSuccessfulRemoteDataObject$({id: 'leftType'}),
+        rightType: createSuccessfulRemoteDataObject$({id: 'rightType'}),
+      });
+      const itemType = Object.assign(new ItemType(), {id: 'leftType'} );
+      const item = Object.assign(new Item(), {uuid: 'item-uuid'});
+
+      const result = service.isProvidedItemTypeLeftType(relationshipType, itemType, item);
+      result.subscribe((resultValue) => {
+        expect(resultValue).toBeTrue();
+        done();
+      });
+    });
+
+    it('should return false if the provided item corresponds to the right type of the relationship', (done) => {
+      const relationshipType = Object.assign(new RelationshipType(), {
+        leftType: createSuccessfulRemoteDataObject$({id: 'leftType'}),
+        rightType: createSuccessfulRemoteDataObject$({id: 'rightType'}),
+      });
+      const itemType = Object.assign(new ItemType(), {id: 'rightType'} );
+      const item = Object.assign(new Item(), {uuid: 'item-uuid'});
+
+      const result = service.isProvidedItemTypeLeftType(relationshipType, itemType, item);
+      result.subscribe((resultValue) => {
+        expect(resultValue).toBeFalse();
+        done();
+      });
+    });
+
+    it('should return undefined if the provided item corresponds does not match any of the relationship types', (done) => {
+      const relationshipType = Object.assign(new RelationshipType(), {
+        leftType: createSuccessfulRemoteDataObject$({id: 'leftType'}),
+        rightType: createSuccessfulRemoteDataObject$({id: 'rightType'}),
+      });
+      const itemType = Object.assign(new ItemType(), {id: 'something-else'} );
+      const item = Object.assign(new Item(), {uuid: 'item-uuid'});
+
+      const result = service.isProvidedItemTypeLeftType(relationshipType, itemType, item);
+      result.subscribe((resultValue) => {
+        expect(resultValue).toBeUndefined();
+        done();
+      });
+    });
+  });
+
+  describe('relationshipMatchesBothSameTypes', () => {
+    it('should return true if both left and right type of the relationship type are the same and match the provided itemtype', (done) => {
+      const relationshipType = Object.assign(new RelationshipType(), {
+        leftType: createSuccessfulRemoteDataObject$({id:  'sameType'}),
+        rightType: createSuccessfulRemoteDataObject$({id:'sameType'}),
+        leftwardType: 'isDepartmentOfDivision',
+        rightwardType: 'isDivisionOfDepartment',
+      });
+      const itemType = Object.assign(new ItemType(), {id: 'sameType'} );
+
+      const result = service.shouldDisplayBothRelationshipSides(relationshipType, itemType);
+      result.subscribe((resultValue) => {
+        expect(resultValue).toBeTrue();
+        done();
+      });
+    });
+    it('should return false if both left and right type of the relationship type are the same and match the provided itemtype but the leftwardType & rightwardType is identical', (done) => {
+      const relationshipType = Object.assign(new RelationshipType(), {
+        leftType: createSuccessfulRemoteDataObject$({ id: 'sameType' }),
+        rightType: createSuccessfulRemoteDataObject$({ id: 'sameType' }),
+        leftwardType: 'isOrgUnitOfOrgUnit',
+        rightwardType: 'isOrgUnitOfOrgUnit',
+      });
+      const itemType = Object.assign(new ItemType(), { id: 'sameType' });
+
+      const result = service.shouldDisplayBothRelationshipSides(relationshipType, itemType);
+      result.subscribe((resultValue) => {
+        expect(resultValue).toBeFalse();
+        done();
+      });
+    });
+    it('should return false if both left and right type of the relationship type are the same and do not match the provided itemtype', (done) => {
+      const relationshipType = Object.assign(new RelationshipType(), {
+        leftType: createSuccessfulRemoteDataObject$({id: 'sameType'}),
+        rightType: createSuccessfulRemoteDataObject$({id: 'sameType'}),
+        leftwardType: 'isDepartmentOfDivision',
+        rightwardType: 'isDivisionOfDepartment',
+      });
+      const itemType = Object.assign(new ItemType(), {id: 'something-else'} );
+
+      const result = service.shouldDisplayBothRelationshipSides(relationshipType, itemType);
+      result.subscribe((resultValue) => {
+        expect(resultValue).toBeFalse();
+        done();
+      });
+    });
+    it('should return false if both left and right type of the relationship type are different', (done) => {
+      const relationshipType = Object.assign(new RelationshipType(), {
+        leftType: createSuccessfulRemoteDataObject$({id: 'leftType'}),
+        rightType: createSuccessfulRemoteDataObject$({id: 'rightType'}),
+        leftwardType: 'isAuthorOfPublication',
+        rightwardType: 'isPublicationOfAuthor',
+      });
+      const itemType = Object.assign(new ItemType(), {id: 'leftType'} );
+
+      const result = service.shouldDisplayBothRelationshipSides(relationshipType, itemType);
+      result.subscribe((resultValue) => {
+        expect(resultValue).toBeFalse();
+        done();
+      });
     });
   });
 

@@ -17,7 +17,6 @@ import {
   UpdateRelationshipNameVariantAction,
 } from './relationship.actions';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
@@ -98,6 +97,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   query: string;
 
   /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  hiddenQuery: string;
+
+  /**
    * A map of subscriptions within this component
    */
   subMap: {
@@ -159,7 +163,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
     private relationshipService: RelationshipDataService,
-    private relationshipTypeService: RelationshipTypeDataService,
     private externalSourceService: ExternalSourceDataService,
     private lookupRelationService: LookupRelationService,
     private searchConfigService: SearchConfigurationService,
@@ -212,6 +215,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.toAdd = [];
     this.toRemove = [];
     this.modal.close();
+    this.closeEv();
   }
 
   /**
@@ -306,13 +310,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
   /**
-   * Called when discard button is clicked, emit discard event to parent to conclude functionality
+   * Called when close button is clicked
+   */
+  closeEv(): void {
+  }
+
+  /**
+   * Called when discard button is clicked
    */
   discardEv(): void {
   }
 
   /**
-   * Called when submit button is clicked, emit submit event to parent to conclude functionality
+   * Called when submit button is clicked
    */
   submitEv(): void {
   }
