@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Group } from '../core/eperson/models/group.model';
 import { RemoteData } from '../core/data/remote-data';
 import { PaginatedList } from '../core/data/paginated-list.model';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
 import { getAllSucceededRemoteData, getFirstCompletedRemoteData, getRemoteDataPayload } from '../core/shared/operators';
 import {hasValue, isNotEmpty} from '../shared/empty.util';
@@ -104,23 +104,24 @@ export class ProfilePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.user$ = observableCombineLatest(
-        [
-          this.paginationService.getCurrentPagination(this.optionsGroupsPagination.id, this.optionsGroupsPagination),
-          this.authService.getAuthenticatedUserFromStore()
-        ]
-      ).pipe(
-        switchMap(([pageOptions, user]: [PaginationComponentOptions, EPerson]) => {
-          return this.epersonService.findById(user.id, true, true, followLink('groups',{findListOptions: {
-              elementsPerPage: pageOptions.pageSize,
-              currentPage: pageOptions.currentPage
-            }}));
-        }),
+    this.user$ = this.authService.getAuthenticatedUserFromStore().pipe(
+      filter((user: EPerson) => hasValue(user.id)),
+      switchMap((user: EPerson) => this.epersonService.findById(user.id, true, true, followLink('groups'))),
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
       tap((user: EPerson) => this.currentUser = user)
     );
-    this.groupsRD$ = this.user$.pipe(switchMap((user: EPerson) => user.groups));
+    this.groupsRD$ = this.paginationService.getCurrentPagination(this.optionsGroupsPagination.id, this.optionsGroupsPagination).pipe(
+      switchMap((pageOptions: PaginationComponentOptions) => {
+        return this.epersonService.findById(this.currentUser.id, true, true, followLink('groups',{findListOptions: {
+            elementsPerPage: pageOptions.pageSize,
+            currentPage: pageOptions.currentPage
+          }}));
+      }),
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((user: EPerson) => user.groups)
+    )
     this.canChangePassword$ = this.user$.pipe(switchMap((user: EPerson) => this.authorizationService.isAuthorized(FeatureID.CanChangePassword, user._links.self.href)));
     this.specialGroupsRD$ = this.authService.getSpecialGroupsFromAuthStatus();
 
