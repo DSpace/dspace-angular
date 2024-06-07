@@ -21,10 +21,10 @@ import {
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { PaginatedList } from '../core/data/paginated-list.model';
 import { RemoteData } from '../core/data/remote-data';
-import { Suggestion } from '../core/notifications/models/suggestion.model';
-import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
-import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
-import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
+import { Suggestion } from '../core/notifications/suggestions/models/suggestion.model';
+import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionDataService } from '../core/notifications/suggestions/suggestion-data.service';
+import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
 import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
 import { NoContent } from '../core/shared/NoContent.model';
@@ -62,12 +62,12 @@ export class SuggestionsService {
    * Initialize the service variables.
    * @param {ResearcherProfileDataService} researcherProfileService
    * @param {SuggestionTargetDataService} suggestionTargetDataService
-   * @param {SuggestionsDataService} suggestionsDataService
+   * @param {SuggestionDataService} suggestionsDataService
    * @param translateService
    */
   constructor(
     private researcherProfileService: ResearcherProfileDataService,
-    private suggestionsDataService: SuggestionsDataService,
+    private suggestionsDataService: SuggestionDataService,
     private suggestionTargetDataService: SuggestionTargetDataService,
     private translateService: TranslateService,
   ) {
@@ -94,7 +94,7 @@ export class SuggestionsService {
       sort: sortOptions,
     };
 
-    return this.suggestionTargetDataService.getTargets(source, findListOptions).pipe(
+    return this.suggestionTargetDataService.getTargetsBySource(source, findListOptions).pipe(
       getFinishedRemoteData(),
       take(1),
       map((rd: RemoteData<PaginatedList<SuggestionTarget>>) => {

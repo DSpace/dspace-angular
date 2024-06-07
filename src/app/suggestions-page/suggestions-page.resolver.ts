@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
 import { RemoteData } from '../core/data/remote-data';
-import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
-import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
+import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
 import { hasValue } from '../shared/empty.util';
 
 /**

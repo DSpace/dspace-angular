@@ -22,7 +22,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

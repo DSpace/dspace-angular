@@ -22,7 +22,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { fromTopEnter } from '../../shared/animations/fromTop';
 import { isNotEmpty } from '../../shared/empty.util';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';

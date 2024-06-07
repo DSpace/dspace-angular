@@ -2,32 +2,31 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../cache/object-cache.service';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../data/base/delete-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchDataImpl } from '../data/base/search-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NoContent } from '../shared/NoContent.model';
+} from '../../data/base/delete-data';
+import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+import { SearchDataImpl } from '../../data/base/search-data';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { NoContent } from '../../shared/NoContent.model';
 import { Suggestion } from './models/suggestion.model';
 
 /**
  * The service handling all Suggestion Target REST requests.
  */
 @Injectable({ providedIn: 'root' })
-export class SuggestionsDataService extends IdentifiableDataService<Suggestion>  {
+export class SuggestionDataService extends IdentifiableDataService<Suggestion>  {
 
-  protected searchFindBySourceMethod = 'findBySource';
   protected searchFindByTargetAndSourceMethod = 'findByTargetAndSource';
 
   private deleteData: DeleteData<Suggestion>;

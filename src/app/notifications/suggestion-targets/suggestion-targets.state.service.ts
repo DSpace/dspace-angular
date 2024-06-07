@@ -6,8 +6,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
-import { SuggestionNotificationsState } from '../../notifications/notifications.reducer';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import {
   getCurrentUserSuggestionTargetsSelector,
   getCurrentUserSuggestionTargetsVisitedSelector,
@@ -17,6 +16,7 @@ import {
   isSuggestionTargetLoadedSelector,
   suggestionTargetObjectSelector,
 } from '../../suggestion-notifications/selectors';
+import { SuggestionNotificationsState } from '../notifications.reducer';
 import {
   ClearSuggestionTargetsAction,
   MarkUserSuggestionsAsVisitedAction,

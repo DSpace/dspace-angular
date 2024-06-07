@@ -15,7 +15,7 @@ import {
 } from 'rxjs/operators';
 
 import { PaginatedList } from '../../core/data/paginated-list.model';
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {
