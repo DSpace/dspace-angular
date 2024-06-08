@@ -4362,8 +4362,8 @@
   // "item.preview.organization.foundingDate": "Founding Date",
   "item.preview.organization.foundingDate": "تاريخ التأسيس",
 
-  // "item.preview.organization.identifier.crossrefid": "CrossRef ID",
-  "item.preview.organization.identifier.crossrefid": "CrossRef معرف",
+  // "item.preview.organization.identifier.crossrefid": "Crossref ID",
+  "item.preview.organization.identifier.crossrefid": "Crossref معرف",
 
   // "item.preview.organization.identifier.isni": "ISNI",
   "item.preview.organization.identifier.isni": "ISNI",
