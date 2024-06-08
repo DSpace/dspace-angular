@@ -1036,7 +1036,11 @@
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
+  "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
+
   "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
+
+  "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
@@ -2780,7 +2784,7 @@
 
   "item.page.reinstate": "Request reinstatement",
 
-  "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.page.claim.button": "Claim",
 
@@ -2910,7 +2914,7 @@
 
   "item.version.history.table.action.deleteVersion": "Delete version",
 
-  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.version.notice": "This is not the latest version of this item. The latest version can be found <a href='{{destination}}'>here</a>.",
 
@@ -2974,7 +2978,7 @@
 
   "item.version.create.notification.failure": "New version has not been created",
 
-  "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
 
   "item.version.delete.modal.header": "Delete version",
 
@@ -3665,6 +3669,8 @@
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
   "orgunit.page.ror": "ROR Identifier",
+
+  "orgunit.search.results.head": "Organizational Unit Search Results",
 
   "pagination.options.description": "Pagination options",
 
@@ -6100,11 +6106,11 @@
 
   "coar-notify-support.title": "COAR Notify Protocol",
 
-  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\\\"https://notify.coar-repositories.org/\\\">COAR Notify website</a>.",
+  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
 
   "coar-notify-support.ldn-inbox.title": "LDN InBox",
 
-  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {ldnInboxUrl}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {{ ldnInboxUrl }}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
 
   "coar-notify-support.message-moderation.title": "Message Moderation",
 

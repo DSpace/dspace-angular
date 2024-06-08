@@ -105,6 +105,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   isLastPage$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
+   * Emits true if show the search text
+   */
+  isAvailableForShowSearchText: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  /**
    * The value of the input field that is used to query for possible values for this filter
    */
   filter: string;
@@ -289,6 +293,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         getFirstSucceededRemoteDataPayload(),
         tap((facetValues: FacetValues) => {
           this.isLastPage$.next(hasNoValue(facetValues?.next));
+          const hasLimitFacets =  facetValues?.page?.length < facetValues?.facetLimit;
+          this.isAvailableForShowSearchText.next(hasLimitFacets && hasNoValue(facetValues?.next));
         }),
       )),
       map((newFacetValues: FacetValues) => {
