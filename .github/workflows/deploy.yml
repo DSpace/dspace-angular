@@ -126,6 +126,7 @@ jobs:
 
       - name: dspace healthcheck
         run: |
+          export DNAME=dspace$INSTANCE
           echo "dspace healthcheck:"
           docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace healthcheck -v"
 
