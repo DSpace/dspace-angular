@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest as observableCombineLatest,
   EMPTY,
   Observable,
   Subscription,
@@ -28,8 +29,14 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
@@ -70,7 +77,17 @@ export class EditItemRelationshipsService {
       // process each update one by one, while waiting for the previous to finish
       concatMap((update: FieldUpdate) => {
         if (update.changeType === FieldChangeType.REMOVE) {
-          return this.deleteRelationship(update.field as DeleteRelationship).pipe(take(1));
+          return this.deleteRelationship(update.field as DeleteRelationship).pipe(
+            take(1),
+            switchMap((deleteRD: RemoteData<NoContent>) => {
+              if (deleteRD.hasSucceeded) {
+                return this.itemService.invalidateByHref((update.field as DeleteRelationship).relatedItem._links.self.href).pipe(
+                  map(() => deleteRD),
+                );
+              }
+              return [deleteRD];
+            }),
+          );
         } else if (update.changeType === FieldChangeType.ADD) {
           return this.addRelationship(update.field as RelationshipIdentifiable).pipe(
             take(1),
@@ -181,6 +198,55 @@ export class EditItemRelationshipsService {
     }
   }
 
+  isProvidedItemTypeLeftType(relationshipType: RelationshipType, itemType: ItemType, item: Item): Observable<boolean> {
+    return this.getRelationshipLeftAndRightType(relationshipType).pipe(
+      map(([leftType, rightType]: [ItemType, ItemType]) => {
+        if (leftType.id === itemType.id) {
+          return true;
+        }
+
+        if (rightType.id === itemType.id) {
+          return false;
+        }
+
+        // should never happen...
+        console.warn(`The item ${item.uuid} is not on the right or the left side of relationship type ${relationshipType.uuid}`);
+        return undefined;
+      }),
+    );
+  }
+
+  /**
+   * Whether both side of the relationship need to be displayed on the edit relationship page or not.
+   *
+   * @param relationshipType The relationship type
+   * @param itemType         The item type
+   */
+  shouldDisplayBothRelationshipSides(relationshipType: RelationshipType, itemType: ItemType): Observable<boolean> {
+    return this.getRelationshipLeftAndRightType(relationshipType).pipe(
+      map(([leftType, rightType]: [ItemType, ItemType]) => {
+        return leftType.id === itemType.id && rightType.id === itemType.id && relationshipType.leftwardType !== relationshipType.rightwardType;
+      }),
+    );
+  }
+
+  protected getRelationshipLeftAndRightType(relationshipType: RelationshipType): Observable<[ItemType, ItemType]> {
+    const leftType$: Observable<ItemType> = relationshipType.leftType.pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    );
+
+    const rightType$: Observable<ItemType> = relationshipType.rightType.pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+    );
+
+    return observableCombineLatest([
+      leftType$,
+      rightType$,
+    ]);
+  }
+
 
 
   /**
@@ -197,6 +263,5 @@ export class EditItemRelationshipsService {
    */
   getNotificationContent(key: string): string {
     return this.translateService.instant(this.notificationsPrefix + key + '.content');
-
   }
 }

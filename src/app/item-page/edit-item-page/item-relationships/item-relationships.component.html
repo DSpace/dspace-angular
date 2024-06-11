@@ -5,13 +5,13 @@
     </div>
     <div *ngIf="relationshipTypes$ | async as relationshipTypes; else loading" class="mb-4">
       <div *ngFor="let relationshipType of relationshipTypes; trackBy: trackById" class="mb-4">
-        <ds-edit-relationship-list
+        <ds-edit-relationship-list-wrapper
           [url]="url"
           [item]="item"
           [itemType]="entityType"
           [relationshipType]="relationshipType"
           [hasChanges]="hasChanges$"
-        ></ds-edit-relationship-list>
+        ></ds-edit-relationship-list-wrapper>
       </div>
     </div>
     <div class="button-row bottom">
