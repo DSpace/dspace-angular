@@ -131,7 +131,7 @@ describe('SuggestionTargetDataService test', () => {
       };
       const searchFindBySourceMethod = 'findBySource';
       const expected = new GetRequest(requestService.generateRequestId(),  `${endpointURL}/search/${searchFindBySourceMethod}?source=testId`);
-      scheduler.schedule(() => service.getTargets('testId', options).subscribe());
+      scheduler.schedule(() => service.getTargetsBySource('testId', options).subscribe());
       scheduler.flush();
 
       expect(requestService.send).toHaveBeenCalledWith(expected, true);

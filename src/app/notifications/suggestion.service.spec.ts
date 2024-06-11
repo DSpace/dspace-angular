@@ -59,7 +59,7 @@ describe('SuggestionsService test', () => {
     });
 
     suggestionTargetDataService = jasmine.createSpyObj('suggestionTargetsDataService', {
-      getTargets: observableOf(null),
+      getTargetsBySource: observableOf(null),
       findById: observableOf(null),
     });
 
