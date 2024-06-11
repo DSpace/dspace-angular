@@ -2,12 +2,13 @@
 	<ng-container *ngIf="metadataView" [ngTemplateOutlet]="metadataView?.authority ? linkToAuthority : (metadataView?.entityType ? textWithIcon : textWithoutIcon)"
                   [ngTemplateOutletContext]="{metadataView: metadataView}"></ng-container>
 </div>
-
 <ng-template class="d-flex" #linkToAuthority let-metadataView="metadataView">
   <span [ngbPopover]="popContent"
         [closeDelay]="500"
+        [openDelay]="1000"
         [animation]="true"
         [autoClose]="'outside'"
+        container="body"
         triggers="mouseenter:mouseleave">
     <a rel="noopener noreferrer" data-test="linkToAuthority"
       [routerLink]="['/items/' + metadataView.authority]">
