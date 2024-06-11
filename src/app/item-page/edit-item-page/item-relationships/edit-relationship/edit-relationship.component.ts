@@ -90,13 +90,11 @@ export class EditRelationshipComponent implements OnChanges {
         getRemoteDataPayload(),
         filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
       );
-      this.relatedItem$ = observableCombineLatest(
+      this.relatedItem$ = observableCombineLatest([
         this.leftItem$,
         this.rightItem$,
-      ).pipe(
-        map((items: Item[]) =>
-          items.find((item) => item.uuid !== this.editItem.uuid)
-        )
+      ]).pipe(
+        map(([leftItem, rightItem]: [Item, Item]) => leftItem.uuid === this.editItem.uuid ? rightItem : leftItem),
       );
     } else {
       this.relatedItem$ = of(this.update.relatedItem);

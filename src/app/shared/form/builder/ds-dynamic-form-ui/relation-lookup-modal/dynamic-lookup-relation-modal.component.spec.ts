@@ -7,7 +7,6 @@ import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../core/data/relationship-type-data.service';
 import { Store } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
@@ -119,7 +118,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         {
           provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) }
         },
-        { provide: RelationshipTypeDataService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
           provide: Store, useValue: {
