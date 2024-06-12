@@ -37,6 +37,9 @@ export const routeServiceStub: any = {
   },
   getPreviousUrl: () => {
     return observableOf('/home');
+  },
+  removeQueryParam: () => {
+    return;
   }
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };
