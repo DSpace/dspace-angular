@@ -16,6 +16,7 @@ import { ResourceType } from '../core/shared/resource-type';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { followLink } from '../shared/utils/follow-link-config.model';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {
@@ -115,7 +116,7 @@ describe('SuggestionsService test', () => {
 
     it('should retrieve current user suggestions', () => {
       service.retrieveCurrentUserSuggestions('1234');
-      expect(researcherProfileService.findById).toHaveBeenCalledWith('1234', true);
+      expect(researcherProfileService.findById).toHaveBeenCalledWith('1234', true, true, followLink('item'));
     });
 
     it('should approve and import suggestion', () => {

@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-12">
         <ng-container *ngVar="(suggestionsRD$ | async) as suggestionsRD">
-          <div *ngIf="suggestionsRD?.pageInfo?.totalElements > 0">
+          <ds-loading *ngIf="(processing$ | async)"></ds-loading>
+          <div *ngIf="(processing$ | async) !== true && suggestionsRD?.pageInfo?.totalElements > 0">
 
             <h1>
               {{'suggestion.suggestionFor' | translate}}
@@ -21,7 +22,6 @@
                                      (ignoreSuggestionClicked)="ignoreSuggestionAllSelected()"></ds-suggestion-actions>
               <i class='fas fa-circle-notch fa-spin' *ngIf="isBulkOperationPending"></i>
             </div>
-            <ds-loading *ngIf="(processing$ | async)"></ds-loading>
             <ds-pagination *ngIf="(processing$ | async) !== true"
                            [paginationOptions]="paginationOptions"
                            [sortOptions]="paginationSortConfig"
@@ -41,7 +41,9 @@
               </ul>
             </ds-pagination>
           </div>
-          <div  *ngIf="suggestionsRD?.pageInfo?.totalElements === 0">{{ 'suggestion.count.missing' | translate }}</div>
+          <ds-alert *ngIf="(processing$ | async) !== true && (suggestionsRD?.pageInfo?.totalElements === 0 || !suggestionsRD)" [type]="'alert-info'">
+            {{'suggestion.count.missing'  | translate}}
+          </ds-alert>
         </ng-container>
     </div>
   </div>

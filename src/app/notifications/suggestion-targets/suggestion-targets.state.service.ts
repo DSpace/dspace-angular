@@ -7,16 +7,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionNotificationsState } from '../notifications.reducer';
 import {
   getCurrentUserSuggestionTargetsSelector,
   getCurrentUserSuggestionTargetsVisitedSelector,
   getSuggestionTargetCurrentPageSelector,
   getSuggestionTargetTotalsSelector,
-  isReciterSuggestionTargetProcessingSelector,
   isSuggestionTargetLoadedSelector,
+  isSuggestionTargetProcessingSelector,
   suggestionTargetObjectSelector,
-} from '../../suggestion-notifications/selectors';
-import { SuggestionNotificationsState } from '../notifications.reducer';
+} from './selectors';
 import {
   ClearSuggestionTargetsAction,
   MarkUserSuggestionsAsVisitedAction,
@@ -42,8 +42,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<SuggestionTarget>
    *    The list of Suggestion Targets.
    */
-  public getSuggestionTargets(): Observable<SuggestionTarget[]> {
-    return this.store.pipe(select(suggestionTargetObjectSelector()));
+  public getSuggestionTargets(source: string): Observable<SuggestionTarget[]> {
+    return this.store.pipe(select(suggestionTargetObjectSelector(source)));
   }
 
   /**
@@ -52,9 +52,9 @@ export class SuggestionTargetsStateService {
    * @return Observable<boolean>
    *    'true' if the targets are loading, 'false' otherwise.
    */
-  public isSuggestionTargetsLoading(): Observable<boolean> {
+  public isSuggestionTargetsLoading(source: string): Observable<boolean> {
     return this.store.pipe(
-      select(isSuggestionTargetLoadedSelector),
+      select(isSuggestionTargetLoadedSelector(source)),
       map((loaded: boolean) => !loaded),
     );
   }
@@ -65,8 +65,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<boolean>
    *    'true' if the targets are loaded, 'false' otherwise.
    */
-  public isSuggestionTargetsLoaded(): Observable<boolean> {
-    return this.store.pipe(select(isSuggestionTargetLoadedSelector));
+  public isSuggestionTargetsLoaded(source: string): Observable<boolean> {
+    return this.store.pipe(select(isSuggestionTargetLoadedSelector(source)));
   }
 
   /**
@@ -75,8 +75,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<boolean>
    *    'true' if there are operations running on the targets (ex.: a REST call), 'false' otherwise.
    */
-  public isSuggestionTargetsProcessing(): Observable<boolean> {
-    return this.store.pipe(select(isReciterSuggestionTargetProcessingSelector));
+  public isSuggestionTargetsProcessing(source: string): Observable<boolean> {
+    return this.store.pipe(select(isSuggestionTargetProcessingSelector(source)));
   }
 
   /**
@@ -85,8 +85,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<number>
    *    The number of the Suggestion Targets pages.
    */
-  public getSuggestionTargetsTotalPages(): Observable<number> {
-    return this.store.pipe(select(getSuggestionTargetTotalsSelector));
+  public getSuggestionTargetsTotalPages(source: string): Observable<number> {
+    return this.store.pipe(select(getSuggestionTargetTotalsSelector(source)));
   }
 
   /**
@@ -95,8 +95,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<number>
    *    The number of the current Suggestion Targets page.
    */
-  public getSuggestionTargetsCurrentPage(): Observable<number> {
-    return this.store.pipe(select(getSuggestionTargetCurrentPageSelector));
+  public getSuggestionTargetsCurrentPage(source: string): Observable<number> {
+    return this.store.pipe(select(getSuggestionTargetCurrentPageSelector(source)));
   }
 
   /**
@@ -105,8 +105,8 @@ export class SuggestionTargetsStateService {
    * @return Observable<number>
    *    The number of the Suggestion Targets.
    */
-  public getSuggestionTargetsTotals(): Observable<number> {
-    return this.store.pipe(select(getSuggestionTargetTotalsSelector));
+  public getSuggestionTargetsTotals(source: string): Observable<number> {
+    return this.store.pipe(select(getSuggestionTargetTotalsSelector(source)));
   }
 
   /**
@@ -130,7 +130,7 @@ export class SuggestionTargetsStateService {
    *    The Suggestion Targets object.
    */
   public getCurrentUserSuggestionTargets(): Observable<SuggestionTarget[]> {
-    return this.store.pipe(select(getCurrentUserSuggestionTargetsSelector));
+    return this.store.pipe(select(getCurrentUserSuggestionTargetsSelector()));
   }
 
   /**
@@ -140,7 +140,7 @@ export class SuggestionTargetsStateService {
    *    True if user already visited, false otherwise.
    */
   public hasUserVisitedSuggestions(): Observable<boolean> {
-    return this.store.pipe(select(getCurrentUserSuggestionTargetsVisitedSelector));
+    return this.store.pipe(select(getCurrentUserSuggestionTargetsVisitedSelector()));
   }
 
   /**
@@ -152,9 +152,12 @@ export class SuggestionTargetsStateService {
 
   /**
    * Dispatch an action to clear the Reciter Suggestion Targets state.
+   *
+   * @param source
+   *    the source of suggestion targets
    */
-  public dispatchClearSuggestionTargetsAction(): void {
-    this.store.dispatch(new ClearSuggestionTargetsAction());
+  public dispatchClearSuggestionTargetsAction(source: string): void {
+    this.store.dispatch(new ClearSuggestionTargetsAction(source));
   }
 
   /**

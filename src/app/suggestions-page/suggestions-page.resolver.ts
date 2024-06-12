@@ -5,12 +5,11 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { find } from 'rxjs/operators';
 
 import { RemoteData } from '../core/data/remote-data';
 import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
 import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
-import { hasValue } from '../shared/empty.util';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
 /**
  * Method for resolving a suggestion target based on the parameters in the current route
@@ -26,6 +25,6 @@ export const suggestionsPageResolver: ResolveFn<RemoteData<SuggestionTarget>> = 
   suggestionsDataService: SuggestionTargetDataService = inject(SuggestionTargetDataService),
 ): Observable<RemoteData<SuggestionTarget>> => {
   return suggestionsDataService.getTargetById(route.params.targetId).pipe(
-    find((RD) => hasValue(RD.hasFailed) || RD.hasSucceeded),
+    getFirstCompletedRemoteData(),
   );
 };

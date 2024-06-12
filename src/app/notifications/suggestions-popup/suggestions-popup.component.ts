@@ -16,6 +16,7 @@ import {
   Observable,
   of,
   Subject,
+  Subscription,
 } from 'rxjs';
 import {
   take,
@@ -53,7 +54,7 @@ export class SuggestionsPopupComponent implements OnInit, OnDestroy {
 
   labelPrefix = 'notification.';
 
-  subscription;
+  subscription: Subscription;
 
   suggestionsRD$: Observable<SuggestionTarget[]>;
 
