@@ -263,14 +263,18 @@
 
     <span (click)="addInboundPattern()"
           class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
+    <hr>
+    <div class="form-group row">
+      <div class="col text-right space-children-mr">
+        <ng-content select="[before]"></ng-content>
+        <button (click)="resetFormAndLeave()" class="btn btn-outline-secondary" type="button">
+          <span>&nbsp;{{ 'submission.general.back.submit' | translate }}</span>
+        </button>
+        <button class="btn btn-primary" type="submit">
+          <span><i class="fas fa-save"></i>&nbsp;{{ 'ldn-new-service.form.label.submit' | translate }}</span>
+        </button>
 
-    <div class="submission-form-footer my-1 position-sticky d-flex justify-content-between" role="group">
-      <button (click)="resetFormAndLeave()" class="btn btn-primary" type="button">
-        <span>&nbsp;{{ 'submission.general.back.submit' | translate }}</span>
-      </button>
-      <button class="btn btn-primary" type="submit">
-        <span><i class="fas fa-save"></i>&nbsp;{{ 'ldn-new-service.form.label.submit' | translate }}</span>
-      </button>
+      </div>
     </div>
   </form>
 </div>
@@ -294,7 +298,7 @@
     </div>
       <div class="modal-footer">
         <div *ngIf="!isNewService">
-          <button (click)="closeModal()" class="btn btn-danger mr-2"
+          <button (click)="closeModal()" class="btn btn-outline-secondary mr-2"
                   id="delete-confirm-edit">{{ 'service.detail.return' | translate }}
           </button>
           <button *ngIf="!isNewService" (click)="patchService()"
@@ -302,7 +306,7 @@
           </button>
         </div>
         <div *ngIf="isNewService">
-          <button (click)="closeModal()" class="btn btn-danger mr-2 "
+          <button (click)="closeModal()" class="btn btn-outline-secondary mr-2 "
                   id="delete-confirm-new">{{ 'service.refuse.create' | translate }}
           </button>
           <button (click)="createService()"
