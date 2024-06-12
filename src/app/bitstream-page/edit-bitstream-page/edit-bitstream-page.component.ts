@@ -2,15 +2,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
-import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import {
-  DynamicFormControlEvent, DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+  BehaviorSubject, combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
+import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import cloneDeep from 'lodash/cloneDeep';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, getFirstSucceededRemoteData, getFirstSucceededRemoteDataPayload, getRemoteDataPayload } from '../../core/shared/operators';
+import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData,  getFirstSucceededRemoteDataPayload, } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
@@ -28,6 +28,34 @@ import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-u
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
 
+/**
+ * All observables that have to return their data before the form can be created and filled. Objects of
+ * the {@link DataObservables} type can directly be used in a 'combineLatest' method to get their values
+ * once all the observables have fired, and the resulting object will be of the {@link DataObjects} type.
+ * This interface does not follow the usual convention of appending the dollar ($) symbol to variables
+ * representing observables, as rxjs will map those names 1-to-1 to the resulting object when used in a
+ * 'combineLatest' method.
+ */
+interface DataObservables {
+  [key: string]: Observable<any>;
+  bitstream: Observable<Bitstream>,
+  bitstreamFormat: Observable<BitstreamFormat>,
+  bitstreamFormatOptions: Observable<PaginatedList<BitstreamFormat>>,
+  bundle: Observable<Bundle>,
+  primaryBitstream: Observable<Bitstream>,
+  item: Observable<Item>,
+}
+
+interface DataObjects {
+  [key: string]: any;
+  bitstream: Bitstream,
+  bitstreamFormat: BitstreamFormat,
+  bitstreamFormatOptions: PaginatedList<BitstreamFormat>,
+  bundle: Bundle,
+  primaryBitstream: Bitstream,
+  item: Item,
+}
+
 @Component({
   selector: 'ds-edit-bitstream-page',
   styleUrls: ['./edit-bitstream-page.component.scss'],
@@ -39,17 +67,13 @@ import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.servi
  */
 export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
   /**
    * The bitstream's remote data observable
    * Tracks changes and updates the view
    */
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
-
-  /**
-   * The formats their remote data observable
-   * Tracks changes and updates the view
-   */
-  bitstreamFormatsRD$: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
 
   /**
    * The UUID of the primary bitstream for this bundle
@@ -394,11 +418,44 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.bitstreamRD$ = this.route.data.pipe(map((data: any) => data.bitstream));
-    this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
+
+    const dataObservables = this.getDataObservables();
+
+    this.subs.push(
+      observableCombineLatest(
+        dataObservables
+      ).pipe()
+        .subscribe((dataObjects: DataObjects) => {
+          this.isLoading$.next(false);
+
+          this.bitstream = dataObjects.bitstream;
+          this.formats = dataObjects.bitstreamFormatOptions.page;
+          this.bundle = dataObjects.bundle;
+          // hasValue(primaryBitstream) because if there's no primaryBitstream on the bundle it will
+          // be a success response, but empty
+          this.primaryBitstreamUUID = hasValue(dataObjects.primaryBitstream) ? dataObjects.primaryBitstream.uuid : null;
+          this.itemId = dataObjects.item.uuid;
+          this.setIiifStatus(dataObjects.bitstreamFormat, dataObjects.bundle, dataObjects.item);
+        })
+    );
+
+    this.subs.push(
+      this.translate.onLangChange
+        .subscribe(() => {
+          this.updateFieldTranslations();
+        })
+    );
+  }
+
+  /**
+   * Create all the observables necessary to create and fill the bitstream form,
+   * and collect them in a {@link DataObservables} object.
+   */
+  protected getDataObservables(): DataObservables {
+    const bitstreamFormatOptionsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
 
     const bitstream$ = this.bitstreamRD$.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
+      getFirstSucceededRemoteDataPayload()
     );
 
     const bitstreamFormat$ = bitstream$.pipe(
@@ -406,9 +463,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       getFirstSucceededRemoteDataPayload(),
     );
 
-    const allFormats$ = this.bitstreamFormatsRD$.pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
+    const bitstreamFormatOptions$ = bitstreamFormatOptionsRD$.pipe(
+      getFirstSucceededRemoteDataPayload()
     );
 
     const bundle$ = bitstream$.pipe(
@@ -426,35 +482,15 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       switchMap((bundle: Bundle) => bundle.item),
       getFirstSucceededRemoteDataPayload(),
     );
-    this.subs.push(
-      observableCombineLatest(
-        [
-          bitstream$,
-          bitstreamFormat$,
-          allFormats$,
-          bundle$,
-          primaryBitstream$,
-          item$,
-        ]
-      ).pipe()
-        .subscribe(([bitstream, format, allFormats, bundle, primaryBitstream, item]) => {
-          this.bitstream = bitstream as Bitstream;
-          this.formats = allFormats.page;
-          this.bundle = bundle;
-          // hasValue(primaryBitstream) because if there's no primaryBitstream on the bundle it will
-          // be a success response, but empty
-          this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
-          this.itemId = item.uuid;
-          this.setIiifStatus(format, bundle, item);
-        })
-    );
 
-    this.subs.push(
-      this.translate.onLangChange
-        .subscribe(() => {
-          this.updateFieldTranslations();
-        })
-    );
+    return {
+      bitstream: bitstream$,
+      bitstreamFormat: bitstreamFormat$,
+      bitstreamFormatOptions: bitstreamFormatOptions$,
+      bundle: bundle$,
+      primaryBitstream: primaryBitstream$,
+      item: item$,
+    };
   }
 
   /**
