@@ -212,7 +212,7 @@
                           <span> {{'ldn-service.control-constaint-select-none' | translate}} </span>
                         </button>
                         <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
-                                *ngFor="let constraint of (itemfiltersRD$ | async)?.payload?.page; let internalIndex = index"
+                                *ngFor="let constraint of (itemFiltersRD$ | async)?.payload?.page; let internalIndex = index"
                                 class="dropdown-item collection-item text-truncate w-100"
                                 ngbDropdownItem
                                 type="button">
