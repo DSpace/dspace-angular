@@ -403,6 +403,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
     );
 
+    const bitstreamFormat$ = bitstream$.pipe(
+      switchMap((bitstream: Bitstream) => bitstream.format),
+      getFirstSucceededRemoteDataPayload(),
+    );
+
     const allFormats$ = this.bitstreamFormatsRD$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -425,13 +430,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     );
     this.subs.push(
       observableCombineLatest(
-        bitstream$,
-        allFormats$,
-        bundle$,
-        primaryBitstream$,
-        item$,
+        [
+          bitstream$,
+          bitstreamFormat$,
+          allFormats$,
+          bundle$,
+          primaryBitstream$,
+          item$,
+        ]
       ).pipe()
-        .subscribe(([bitstream, allFormats, bundle, primaryBitstream, item]) => {
+        .subscribe(([bitstream, format, allFormats, bundle, primaryBitstream, item]) => {
           this.bitstream = bitstream as Bitstream;
           this.formats = allFormats.page;
           this.bundle = bundle;
@@ -439,7 +447,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
           // be a success response, but empty
           this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
           this.itemId = item.uuid;
-          this.setIiifStatus(this.bitstream);
+          this.setIiifStatus(format, bundle, item);
         })
     );
 
@@ -731,53 +739,35 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * Verifies that the parent item is iiif-enabled. Checks bitstream mimetype to be
    * sure it's an image, excluding bitstreams in the THUMBNAIL or OTHERCONTENT bundles.
-   * @param bitstream
    */
-  setIiifStatus(bitstream: Bitstream) {
+  setIiifStatus(format: BitstreamFormat, bundle: Bundle, item: Item) {
 
     const regexExcludeBundles = /OTHERCONTENT|THUMBNAIL|LICENSE/;
     const regexIIIFItem = /true|yes/i;
 
-    const isImage$ = this.bitstream.format.pipe(
-      getFirstSucceededRemoteData(),
-      map((format: RemoteData<BitstreamFormat>) => format.payload.mimetype.includes('image/')));
+    const isImage = format.mimetype.includes('image/');
 
-    const isIIIFBundle$ = this.bitstream.bundle.pipe(
-      getFirstSucceededRemoteData(),
-      map((bundle: RemoteData<Bundle>) =>
-        this.dsoNameService.getName(bundle.payload).match(regexExcludeBundles) == null));
+    const isIIIFBundle = this.dsoNameService.getName(bundle).match(regexExcludeBundles) === null;
 
-    const isEnabled$ = this.bitstream.bundle.pipe(
-      getFirstSucceededRemoteData(),
-      map((bundle: RemoteData<Bundle>) => bundle.payload.item.pipe(
-        getFirstSucceededRemoteData(),
-        map((item: RemoteData<Item>) =>
-          (item.payload.firstMetadataValue('dspace.iiif.enabled') &&
-            item.payload.firstMetadataValue('dspace.iiif.enabled').match(regexIIIFItem) !== null)
-        ))));
+    const isEnabled =
+      item.firstMetadataValue('dspace.iiif.enabled') &&
+      item.firstMetadataValue('dspace.iiif.enabled').match(regexIIIFItem) !== null;
 
-    const iiifSub = combineLatest(
-      isImage$,
-      isIIIFBundle$,
-      isEnabled$
-    ).subscribe(([isImage, isIIIFBundle, isEnabled]) => {
-      if (isImage && isIIIFBundle && isEnabled) {
-        this.isIIIF = true;
-        this.inputModels.push(this.iiifLabelModel);
-        this.formModel.push(this.iiifLabelContainer);
-        this.inputModels.push(this.iiifTocModel);
-        this.formModel.push(this.iiifTocContainer);
-        this.inputModels.push(this.iiifWidthModel);
-        this.formModel.push(this.iiifWidthContainer);
-        this.inputModels.push(this.iiifHeightModel);
-        this.formModel.push(this.iiifHeightContainer);
-      }
-      this.setForm();
-      this.changeDetectorRef.detectChanges();
-    });
+    this.isIIIF = isImage && isIIIFBundle && isEnabled;
 
-    this.subs.push(iiifSub);
+    if (this.isIIIF) {
+      this.inputModels.push(this.iiifLabelModel);
+      this.formModel.push(this.iiifLabelContainer);
+      this.inputModels.push(this.iiifTocModel);
+      this.formModel.push(this.iiifTocContainer);
+      this.inputModels.push(this.iiifWidthModel);
+      this.formModel.push(this.iiifWidthContainer);
+      this.inputModels.push(this.iiifHeightModel);
+      this.formModel.push(this.iiifHeightContainer);
+    }
 
+    this.setForm();
+    this.changeDetectorRef.detectChanges();
   }
 
   /**
