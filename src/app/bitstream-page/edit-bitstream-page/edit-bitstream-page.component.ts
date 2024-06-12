@@ -3,7 +3,8 @@ import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlEvent, DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService, DynamicInputModel, DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
@@ -392,9 +393,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * - Translate the form labels and hints
    */
   ngOnInit(): void {
-
-    this.itemId = this.route.snapshot.queryParams.itemId;
-    this.entityType = this.route.snapshot.queryParams.entityType;
     this.bitstreamRD$ = this.route.data.pipe(map((data: any) => data.bitstream));
     this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
 
@@ -729,11 +727,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * When the item ID is present, navigate back to the item's edit bitstreams page,
-   * otherwise retrieve the item ID based on the owning bundle's link
+   * Navigate back to the item's edit bitstreams page
    */
   navigateToItemEditBitstreams() {
-    this.router.navigate([getEntityEditRoute(this.entityType, this.itemId), 'bitstreams']);
+    void this.router.navigate([getEntityEditRoute(null, this.itemId), 'bitstreams']);
   }
 
   /**
