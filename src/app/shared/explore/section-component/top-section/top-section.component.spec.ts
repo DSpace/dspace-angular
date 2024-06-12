@@ -14,6 +14,7 @@ import { TopSectionComponent } from './top-section.component';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { TopSectionTemplateType } from '../../../../core/layout/models/section.model';
 
 describe('TopSectionComponent', () => {
   let component: TopSectionComponent;
@@ -84,6 +85,7 @@ describe('TopSectionComponent', () => {
       numberOfItems: 5,
       titleKey: undefined,
       showThumbnails: false,
+      template: TopSectionTemplateType.DEFAULT
     };
 
     fixture.detectChanges();
@@ -124,6 +126,7 @@ describe('TopSectionComponent', () => {
         numberOfItems: 5,
         titleKey: 'lastPublications',
         showThumbnails: false,
+        template: TopSectionTemplateType.DEFAULT
       };
 
       fixture.detectChanges();

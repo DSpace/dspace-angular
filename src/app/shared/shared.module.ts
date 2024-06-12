@@ -352,6 +352,8 @@ import { ItemCollectionComponent } from './object-collection/shared/mydspace-ite
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
 import { MarkdownDirective } from './utils/markdown.directive';
+import { DefaultBrowseElementsComponent } from './browse-most-elements/default-browse-elements/default-browse-elements.component';
+import { ThemedDefaultBrowseElementsComponent } from './browse-most-elements/default-browse-elements/themed-default-browse-elements.component';
 
 const MODULES = [
   CommonModule,
@@ -507,7 +509,9 @@ const COMPONENTS = [
   SearchChartBarHorizontalComponent,
   ItemListPreviewComponent,
   ThemedItemListPreviewComponent,
-  ItemCollectionComponent
+  ItemCollectionComponent,
+  DefaultBrowseElementsComponent,
+  ThemedDefaultBrowseElementsComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -584,6 +588,7 @@ const ENTRY_COMPONENTS = [
   SearchChartBarHorizontalComponent,
   RelationshipsListComponent,
   AdditionalMetadataComponent,
+  ThemedDefaultBrowseElementsComponent,
 ];
 
 const PROVIDERS = [
