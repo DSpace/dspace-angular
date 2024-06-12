@@ -2,6 +2,7 @@ import { InjectionToken } from '@angular/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
+  of as observableOf,
   zip as observableZip,
 } from 'rxjs';
 import {
@@ -53,17 +54,19 @@ export const compareArraysUsingIds = <T extends { id: string }>() =>
 /**
  * Operator for turning a list of relationships into a list of the relevant items
  * @param {string} thisId       The item's id of which the relations belong to
- * @returns {(source: Observable<Relationship[]>) => Observable<Item[]>}
  */
-export const relationsToItems = (thisId: string) =>
+export const relationsToItems = (thisId: string): (source: Observable<Relationship[]>) => Observable<Item[]> =>
   (source: Observable<Relationship[]>): Observable<Item[]> =>
     source.pipe(
-      mergeMap((rels: Relationship[]) =>
-        observableZip(
-          ...rels.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem)),
-        ),
-      ),
-      map((arr) =>
+      mergeMap((relationships: Relationship[]) => {
+        if (relationships.length === 0) {
+          return observableOf([]);
+        }
+        return observableZip(
+          ...relationships.map((rel: Relationship) => observableCombineLatest([rel.leftItem, rel.rightItem])),
+        );
+      }),
+      map((arr: [RemoteData<Item>, RemoteData<Item>][]) =>
         arr
           .filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded)
           .map(([leftItem, rightItem]) => {

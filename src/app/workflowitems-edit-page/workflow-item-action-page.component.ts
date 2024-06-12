@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import {
   Directive,
+  Input,
   OnInit,
 } from '@angular/core';
 import {
@@ -42,7 +43,9 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
   standalone: true,
 })
 export abstract class WorkflowItemActionPageDirective implements OnInit {
-  public type;
+
+  @Input() type: string;
+
   public wfi$: Observable<WorkflowItem>;
   public item$: Observable<Item>;
   protected previousQueryParameters?: Params;

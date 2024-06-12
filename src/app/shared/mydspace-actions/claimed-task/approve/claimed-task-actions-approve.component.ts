@@ -39,10 +39,6 @@ export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
  * Component for displaying and processing the approve action on a workflow task item
  */
 export class ClaimedTaskActionsApproveComponent extends ClaimedTaskActionsAbstractComponent {
-  /**
-   * This component represents the approve option
-   */
-  option = WORKFLOW_TASK_OPTION_APPROVE;
 
   constructor(
     protected injector: Injector,
