@@ -157,7 +157,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         this.pageInfo.totalElements,
         this.pageInfo.totalPages
       );
-      this.retrieveEntries(this.searchText, false, true);
+      this.retrieveEntries(this.searchText, false, true, true);
     }
   }
 
@@ -203,13 +203,13 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * @param concatResults  If true concat results to the current list
    * @private
    */
-  private retrieveEntries(searchText = null, initModel = false, concatResults = false) {
+  private retrieveEntries(searchText = null, initModel = false, concatResults = false, isScrolling = false) {
     this.searchText = searchText;
     let search$: Observable<RemoteData<PaginatedList<VocabularyEntry>>>;
     if (searchText) {
       const searchPageInfo = Object.assign(new PageInfo(), {
         elementsPerPage: this.pageInfo.elementsPerPage,
-        currentPage: 1,
+        currentPage: isScrolling ? this.pageInfo.currentPage : 1,
         totalElements: this.pageInfo.totalElements,
         totalPages: this.pageInfo.totalPages });
       search$ = this.vocabularyService.getVocabularyEntriesByValue(this.searchText, false, this.model.vocabularyOptions,
