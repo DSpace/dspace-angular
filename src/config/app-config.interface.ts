@@ -34,6 +34,7 @@ import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
 import { LoaderConfig } from './loader-config.interfaces';
 import { MetaTagsConfig } from './meta-tags.config';
+import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface';
 import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
 interface AppConfig extends Config {
@@ -75,6 +76,7 @@ interface AppConfig extends Config {
   mirador: MiradorConfig;
   loader: LoaderConfig;
   metaTags: MetaTagsConfig;
+  identifierSubtypes: IdentifierSubtypesConfig[];
   datadogRum?: DatadogRumConfig;
 }
 
