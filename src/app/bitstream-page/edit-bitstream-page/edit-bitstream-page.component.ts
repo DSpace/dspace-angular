@@ -667,7 +667,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const isPrimary = updatedValues.fileNamePrimaryContainer.primaryBitstream;
     const wasPrimary = this.primaryBitstreamUUID === this.bitstream.uuid;
 
-    let bitstream$;
+    let bitstream$: Observable<Bitstream>;
     let bundle$: Observable<Bundle>;
     let errorWhileSaving = false;
 
@@ -714,6 +714,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     } else {
       bundle$ = observableOf(this.bundle);
     }
+
     if (isNewFormat) {
       bitstream$ = this.bitstreamService.updateFormat(this.bitstream, selectedFormat).pipe(
         getFirstCompletedRemoteData(),
@@ -732,7 +733,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       bitstream$ = observableOf(this.bitstream);
     }
 
-    combineLatest([bundle$, bitstream$]).pipe(
+    this.subs.push(combineLatest([bundle$, bitstream$]).pipe(
       tap(([bundle]) => this.bundle = bundle),
       switchMap(() => {
         return this.bitstreamService.update(updatedBitstream).pipe(
@@ -748,7 +749,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       if (!errorWhileSaving) {
         this.navigateToItemEditBitstreams();
       }
-    });
+    }));
   }
 
   /**
