@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -58,7 +59,7 @@ import { SubmissionService } from '../../submission.service';
     ThemedCollectionDropdownComponent,
   ],
 })
-export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
+export class SubmissionFormCollectionComponent implements OnDestroy, OnChanges, OnInit {
 
   /**
    * The current collection id this submission belonging to
