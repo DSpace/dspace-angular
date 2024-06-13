@@ -13,7 +13,7 @@ import {
   DynamicInputModel,
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import {
   DynamicCustomSwitchModel
@@ -519,16 +519,31 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Initializes the form.
    */
   setForm() {
-    if (this.isIIIF) {
-      this.appendFormWIthIiifFields();
-    }
+    this.updateFormModel();
+    this.formGroup = this.getFormGroup();
 
-    this.formGroup = this.formService.createFormGroup(this.formModel);
-    this.updateFormatModel();
     this.updateForm();
     this.updateFieldTranslations();
 
     this.changeDetectorRef.detectChanges();
+  }
+
+  /**
+   * Updates the formModel with additional fields & options, depending on the current data
+   */
+  updateFormModel() {
+    this.updateFormatModel();
+
+    if (this.isIIIF) {
+      this.appendFormWIthIiifFields();
+    }
+  }
+
+  /**
+   * Creates a formGroup from the current formModel
+   */
+  getFormGroup(): FormGroup {
+    return this.formService.createFormGroup(this.formModel);
   }
 
   /**
