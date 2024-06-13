@@ -37,6 +37,7 @@ import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
 import { LoaderConfig } from './loader-config.interfaces';
 import { MetaTagsConfig } from './meta-tags.config';
+import { IdentifierSubtypesConfig, IdentifierSubtypesIconPositionEnum } from './identifier-subtypes-config.interface';
 import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
@@ -806,6 +807,14 @@ export class DefaultAppConfig implements AppConfig {
       'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.'
   };
 
+  identifierSubtypes: IdentifierSubtypesConfig[] = [
+    {
+      name: 'ror',
+      icon: 'assets/images/ror.logo.icon.svg',
+      iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+      link: 'https://ror.org'
+    }
+  ];
   datadogRum: DatadogRumConfig = {
     clientToken: undefined,
     applicationId: undefined,
