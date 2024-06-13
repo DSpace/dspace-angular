@@ -1,7 +1,4 @@
-import {
-  mapToCanActivate,
-  Route,
-} from '@angular/router';
+import { Route } from '@angular/router';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
@@ -19,7 +16,7 @@ import {
   UPLOAD_BITSTREAM_PATH,
 } from './item-page-routing-paths';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
-import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
+import { orcidPageGuard } from './orcid-page/orcid-page.guard';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { versionResolver } from './version-page/version.resolver';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
@@ -60,7 +57,7 @@ export const ROUTES: Route[] = [
       {
         path: ORCID_PATH,
         component: OrcidPageComponent,
-        canActivate: [authenticatedGuard, ...mapToCanActivate([OrcidPageGuard])],
+        canActivate: [authenticatedGuard, orcidPageGuard],
       },
     ],
     data: {

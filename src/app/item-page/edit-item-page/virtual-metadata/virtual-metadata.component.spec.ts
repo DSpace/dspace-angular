@@ -77,6 +77,7 @@ describe('VirtualMetadataComponent', () => {
     comp.url = url;
     comp.leftItem = item;
     comp.rightItem = relatedItem;
+    comp.ngOnChanges();
     comp.relationshipId = relationshipId;
 
     fixture.detectChanges();

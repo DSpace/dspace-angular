@@ -50,10 +50,6 @@ export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
  * Component for displaying and processing the reject action on a workflow task item
  */
 export class ClaimedTaskActionsRejectComponent extends ClaimedTaskActionsAbstractComponent implements OnInit {
-  /**
-   * This component represents the reject option
-   */
-  option = WORKFLOW_TASK_OPTION_REJECT;
 
   /**
    * The reject form group

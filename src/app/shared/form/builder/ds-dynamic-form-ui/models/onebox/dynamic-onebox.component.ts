@@ -293,7 +293,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       const modalRef: NgbModalRef = this.modalService.open(VocabularyTreeviewModalComponent, { size: 'lg', windowClass: 'treeview' });
       modalRef.componentInstance.vocabularyOptions = this.model.vocabularyOptions;
       modalRef.componentInstance.preloadLevel = preloadLevel;
-      modalRef.componentInstance.selectedItems = this.currentValue ? [this.currentValue.value] : [];
+      modalRef.componentInstance.selectedItems = this.currentValue ? [this.currentValue] : [];
       modalRef.result.then((result: VocabularyEntryDetail) => {
         if (result) {
           this.currentValue = result;

@@ -13,14 +13,9 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { StoreModule } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { storeModuleConfig } from '../../../app.reducer';
-import { authReducer } from '../../../core/auth/auth.reducer';
-import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -40,7 +35,6 @@ describe('VocabularyTreeviewComponent test suite', () => {
   let comp: VocabularyTreeviewComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<VocabularyTreeviewComponent>;
-  let initialState;
   let de;
 
   const item = new VocabularyEntryDetail();
@@ -71,25 +65,10 @@ describe('VocabularyTreeviewComponent test suite', () => {
     clearSearchTopRequests: jasmine.createSpy('clearSearchTopRequests'),
   });
 
-  initialState = {
-    core: {
-      auth: {
-        authenticated: true,
-        loaded: true,
-        blocking: false,
-        loading: false,
-        authToken: new AuthTokenInfo('test_token'),
-        userId: 'testid',
-        authMethods: [],
-      },
-    },
-  };
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         CdkTreeModule,
-        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
         VocabularyTreeviewComponent,
         TestComponent,
@@ -99,7 +78,6 @@ describe('VocabularyTreeviewComponent test suite', () => {
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: NgbActiveModal, useValue: modalStub },
-        provideMockStore({ initialState }),
         ChangeDetectorRef,
         VocabularyTreeviewComponent,
       ],
@@ -155,10 +133,10 @@ describe('VocabularyTreeviewComponent test suite', () => {
       currentValue.otherInformation = {
         id: 'entryID',
       };
-      comp.selectedItems = [currentValue.value];
+      comp.selectedItems = [currentValue];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['testValue'], null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
     });
 
     it('should should init component properly with init value as VocabularyEntry', () => {
@@ -167,10 +145,20 @@ describe('VocabularyTreeviewComponent test suite', () => {
       currentValue.otherInformation = {
         id: 'entryID',
       };
-      comp.selectedItems = [currentValue.value];
+      comp.selectedItems = [currentValue];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['testValue'], null);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
+    });
+
+    it('should should init component properly with init value as VocabularyEntryDetail', () => {
+      const currentValue = new VocabularyEntryDetail();
+      currentValue.value = 'testValue';
+      currentValue.id = 'entryID';
+      comp.selectedItems = [currentValue];
+      fixture.detectChanges();
+      expect(comp.dataSource.data).toEqual([]);
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
     });
 
     it('should call loadMore function', () => {

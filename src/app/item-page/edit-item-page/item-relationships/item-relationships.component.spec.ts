@@ -13,12 +13,10 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { getTestScheduler } from 'jasmine-marbles';
 import {
   combineLatest as observableCombineLatest,
   of as observableOf,
 } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RestResponse } from '../../../core/cache/response.models';
@@ -33,6 +31,7 @@ import { Item } from '../../../core/shared/item.model';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import {
   INotification,
@@ -44,6 +43,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../shared/remote-data.utils';
+import { ItemDataServiceStub } from '../../../shared/testing/item-data.service.stub';
 import { relationshipTypes } from '../../../shared/testing/relationship-types.mock';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
@@ -72,12 +72,11 @@ const notificationsService = jasmine.createSpyObj('notificationsService',
 const router = new RouterStub();
 let relationshipTypeService;
 let routeStub;
-let itemService;
+let itemService: ItemDataServiceStub;
 
 const url = 'http://test-url.com/test-url';
 router.url = url;
 
-let scheduler: TestScheduler;
 let item;
 let author1;
 let author2;
@@ -157,10 +156,7 @@ describe('ItemRelationshipsComponent', () => {
       changeType: FieldChangeType.REMOVE,
     };
 
-    itemService = jasmine.createSpyObj('itemService', {
-      findByHref: createSuccessfulRemoteDataObject$(item),
-      findById: createSuccessfulRemoteDataObject$(item),
-    });
+    itemService = new ItemDataServiceStub();
     routeStub = {
       data: observableOf({}),
       parent: {
@@ -228,7 +224,6 @@ describe('ItemRelationshipsComponent', () => {
       },
     );
 
-    scheduler = getTestScheduler();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), ItemRelationshipsComponent],
       providers: [
@@ -247,10 +242,18 @@ describe('ItemRelationshipsComponent', () => {
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],
+    }).overrideComponent(ItemRelationshipsComponent, {
+      remove: {
+        imports: [
+          AlertComponent,
+        ],
+      },
     }).compileComponents();
   }));
 
   beforeEach(() => {
+    spyOn(itemService, 'findByHref').and.returnValue(item);
+    spyOn(itemService, 'findById').and.returnValue(item);
     fixture = TestBed.createComponent(ItemRelationshipsComponent);
     comp = fixture.componentInstance;
     de = fixture.debugElement;
@@ -285,7 +288,7 @@ describe('ItemRelationshipsComponent', () => {
     });
 
     it('it should delete the correct relationship', () => {
-      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left');
+      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left', false);
     });
   });
 

@@ -1,7 +1,4 @@
-import {
-  mapToCanActivate,
-  Route,
-} from '@angular/router';
+import { Route } from '@angular/router';
 
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
@@ -14,7 +11,7 @@ import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { communityPageResolver } from './community-page.resolver';
-import { CommunityPageAdministratorGuard } from './community-page-administrator.guard';
+import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {
   COMMUNITY_CREATE_PATH,
   COMMUNITY_EDIT_PATH,
@@ -62,7 +59,7 @@ export const ROUTES: Route[] = [
         path: COMMUNITY_EDIT_PATH,
         loadChildren: () => import('./edit-community-page/edit-community-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: mapToCanActivate([CommunityPageAdministratorGuard]),
+        canActivate: [communityPageAdministratorGuard],
       },
       {
         path: 'delete',

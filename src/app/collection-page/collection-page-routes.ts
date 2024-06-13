@@ -1,7 +1,4 @@
-import {
-  mapToCanActivate,
-  Route,
-} from '@angular/router';
+import { Route } from '@angular/router';
 
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
@@ -15,7 +12,7 @@ import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { collectionPageResolver } from './collection-page.resolver';
-import { CollectionPageAdministratorGuard } from './collection-page-administrator.guard';
+import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
   COLLECTION_CREATE_PATH,
   COLLECTION_EDIT_PATH,
@@ -65,7 +62,7 @@ export const ROUTES: Route[] = [
         path: COLLECTION_EDIT_PATH,
         loadChildren: () => import('./edit-collection-page/edit-collection-page-routes')
           .then((m) => m.ROUTES),
-        canActivate: mapToCanActivate([CollectionPageAdministratorGuard]),
+        canActivate: [collectionPageAdministratorGuard],
       },
       {
         path: 'delete',
