@@ -29,6 +29,7 @@ import { distinctNext } from './core/shared/distinct-next';
 import { RouteService } from './core/services/route.service';
 import { getEditItemPageRoute, getWorkflowItemModuleRoute, getWorkspaceItemModuleRoute } from './app-routing-paths';
 import { SocialService } from './social/social.service';
+import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 
 @Component({
   selector: 'ds-app',
@@ -74,6 +75,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private modalService: NgbModal,
     private modalConfig: NgbModalConfig,
     private socialService: SocialService,
+    private datadogRumService: DatadogRumService
   ) {
     this.notificationOptions = environment.notifications;
 
@@ -108,6 +110,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     );
 
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
+
+    this.datadogRumService.initDatadogRum();
   }
 
   private storeCSSVariables() {

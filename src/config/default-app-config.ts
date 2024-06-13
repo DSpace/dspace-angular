@@ -39,6 +39,7 @@ import { LoaderConfig } from './loader-config.interfaces';
 import { MetaTagsConfig } from './meta-tags.config';
 import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
 import { IdentifierSubtypesConfig, IdentifierSubtypesIconPositionEnum } from './identifier-subtypes-config.interface';
+import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -298,30 +299,30 @@ export class DefaultAppConfig implements AppConfig {
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: LangConfig[] = [
     { code: 'en', label: 'English', active: true },
-    { code: 'ca', label: 'Català', active: true },
-    { code: 'cs', label: 'Čeština', active: true },
+    { code: 'ca', label: 'Català', active: false },
+    { code: 'cs', label: 'Čeština', active: false },
     { code: 'de', label: 'Deutsch', active: true },
     { code: 'es', label: 'Español', active: true },
     { code: 'fr', label: 'Français', active: true },
-    { code: 'gd', label: 'Gàidhlig', active: true },
-    { code: 'it', label: 'Italiano', active: true },
-    { code: 'lv', label: 'Latviešu', active: true },
-    { code: 'hu', label: 'Magyar', active: true },
-    { code: 'nl', label: 'Nederlands', active: true },
-    { code: 'pl', label: 'Polski', active: true },
-    { code: 'pt-PT', label: 'Português', active: true },
-    { code: 'pt-BR', label: 'Português do Brasil', active: true },
-    { code: 'sr-lat', label: 'Srpski (lat)', active: true},
-    { code: 'fi', label: 'Suomi', active: true },
-    { code: 'sv', label: 'Svenska', active: true },
-    { code: 'tr', label: 'Türkçe', active: true },
-    { code: 'vi', label: 'Tiếng Việt', active: true },
-    { code: 'kk', label: 'Қазақ', active: true },
-    { code: 'bn', label: 'বাংলা', active: true },
-    { code: 'hi', label: 'हिंदी', active: true},
-    { code: 'el', label: 'Ελληνικά', active: true },
-    { code: 'sr-cyr', label: 'Српски', active: true},
-    { code: 'uk', label: 'Yкраї́нська', active: true}
+    { code: 'gd', label: 'Gàidhlig', active: false },
+    { code: 'it', label: 'Italiano', active: false },
+    { code: 'lv', label: 'Latviešu', active: false },
+    { code: 'hu', label: 'Magyar', active: false },
+    { code: 'nl', label: 'Nederlands', active: false },
+    { code: 'pl', label: 'Polski', active: false },
+    { code: 'pt-PT', label: 'Português', active: false },
+    { code: 'pt-BR', label: 'Português do Brasil', active: false },
+    { code: 'sr-lat', label: 'Srpski (lat)', active: false},
+    { code: 'fi', label: 'Suomi', active: false },
+    { code: 'sv', label: 'Svenska', active: false },
+    { code: 'tr', label: 'Türkçe', active: false },
+    { code: 'vi', label: 'Tiếng Việt', active: false },
+    { code: 'kk', label: 'Қазақ', active: false },
+    { code: 'bn', label: 'বাংলা', active: false },
+    { code: 'hi', label: 'हिंदी', active: false },
+    { code: 'el', label: 'Ελληνικά', active: false },
+    { code: 'sr-cyr', label: 'Српски', active: false },
+    { code: 'uk', label: 'Yкраї́нська', active: false }
   ];
 
   // Browse-By Pages
@@ -796,6 +797,7 @@ export class DefaultAppConfig implements AppConfig {
     showFallbackMessagesByDefault: false,
     warningMessageDelay: 5000, // 5 seconds
     errorMessageDelay: 15000, // 15 seconds
+    numberOfAutomaticPageReloads: 2,
   };
 
   metaTags: MetaTagsConfig = {
@@ -843,4 +845,17 @@ export class DefaultAppConfig implements AppConfig {
       link: 'https://ror.org'
     }
   ];
+  datadogRum: DatadogRumConfig = {
+    clientToken: undefined,
+    applicationId: undefined,
+    site: 'datadoghq.eu',
+    service: undefined,
+    env: undefined,
+    sessionSampleRate: 50,
+    sessionReplaySampleRate: 20,
+    trackUserInteractions: true,
+    trackResources: true,
+    trackLongTasks: true,
+    defaultPrivacyLevel: 'mask-user-input',
+  };
 }

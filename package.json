@@ -1,6 +1,6 @@
 {
   "name": "dspace-angular",
-  "version": "2023.02.04-SNAPSHOT",
+  "version": "2023.02.05-SNAPSHOT",
   "scripts": {
     "ng": "ng",
     "config:watch": "nodemon",
@@ -84,6 +84,7 @@
     "@angular/platform-server": "^15.2.8",
     "@angular/router": "^15.2.8",
     "@babel/runtime": "7.21.0",
+    "@datadog/browser-rum": "^5.7.0",
     "@kolkov/ngx-gallery": "^2.0.1",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.11.3",

@@ -90,6 +90,18 @@ export class SearchChartFilterComponent extends SearchFacetFilterComponent imple
         }
         queryParam[str[0]] = queryParam[str[0]] ? [...queryParam[str[0]], str[1]] : [str[1]];
       });
+
+      if (this.currentUrl) {
+        const currentQueryParams = this.currentUrl.split('?')[1].split('&');
+        const pageParam = currentQueryParams.filter((param) => param.includes('page'));
+        if (pageParam.length > 0) {
+          const paramName = pageParam[0].split('=')[0];
+          queryParam[paramName] = [1];
+        }
+      } else {
+        queryParam['spc.page'] = [1];
+      }
+
       this.router.navigate(this.getSearchLinkParts(), {
         queryParams: queryParam,
         queryParamsHandling: 'merge',
