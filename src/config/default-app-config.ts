@@ -37,6 +37,7 @@ import { SearchResultConfig } from './search-result-config.interface';
 import { MiradorConfig } from './mirador-config.interfaces';
 import { LoaderConfig } from './loader-config.interfaces';
 import { MetaTagsConfig } from './meta-tags.config';
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
 import { IdentifierSubtypesConfig, IdentifierSubtypesIconPositionEnum } from './identifier-subtypes-config.interface';
 import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
@@ -806,6 +807,35 @@ export class DefaultAppConfig implements AppConfig {
       'It is compliant with and supports key international standards, facilitating interoperability and data transfer.\n' +
       'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.'
   };
+
+  // Configuration for the metadata link view popover
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig =
+    {
+      fallbackMetdataList: ['dc.description.abstract'],
+
+      entityDataConfig: [
+        {
+          entityType: 'Person',
+          metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract']
+        },
+        {
+          entityType: 'OrgUnit',
+          metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract']
+        },
+        {
+          entityType: 'Project',
+          metadataList: ['oairecerif.project.status', 'dc.description.abstract']
+        },
+        {
+          entityType: 'Funding',
+          metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract']
+        },
+        {
+          entityType: 'Publication',
+          metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract']
+        },
+      ]
+    };
 
   identifierSubtypes: IdentifierSubtypesConfig[] = [
     {
