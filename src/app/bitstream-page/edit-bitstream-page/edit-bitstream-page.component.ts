@@ -68,6 +68,46 @@ interface DataObjects {
   item: Item,
 }
 
+/**
+ * Key prefix used to generate form messages
+ */
+const KEY_PREFIX = 'bitstream.edit.form.';
+
+/**
+ * Key suffix used to generate form labels
+ */
+const LABEL_KEY_SUFFIX = '.label';
+
+/**
+ * Key suffix used to generate form labels
+ */
+const HINT_KEY_SUFFIX = '.hint';
+
+/**
+ * Key prefix used to generate notification messages
+ */
+const NOTIFICATIONS_PREFIX = 'bitstream.edit.notifications.';
+
+/**
+ * IIIF image width metadata key
+ */
+const IMAGE_WIDTH_METADATA = 'iiif.image.width';
+
+/**
+ * IIIF image height metadata key
+ */
+const IMAGE_HEIGHT_METADATA = 'iiif.image.height';
+
+/**
+ * IIIF table of contents metadata key
+ */
+const IIIF_TOC_METADATA = 'iiif.toc';
+
+/**
+ * IIIF label metadata key
+ */
+const IIIF_LABEL_METADATA = 'iiif.label';
+
 @Component({
   selector: 'ds-edit-bitstream-page',
   styleUrls: ['./edit-bitstream-page.component.scss'],
@@ -111,46 +151,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * The item that the bitstream belongs to
    */
   item: Item;
-
-  /**
-   * @type {string} Key prefix used to generate form messages
-   */
-  KEY_PREFIX = 'bitstream.edit.form.';
-
-  /**
-   * @type {string} Key suffix used to generate form labels
-   */
-  LABEL_KEY_SUFFIX = '.label';
-
-  /**
-   * @type {string} Key suffix used to generate form labels
-   */
-  HINT_KEY_SUFFIX = '.hint';
-
-  /**
-   * @type {string} Key prefix used to generate notification messages
-   */
-  NOTIFICATIONS_PREFIX = 'bitstream.edit.notifications.';
-
-  /**
-   * IIIF image width metadata key
-   */
-  IMAGE_WIDTH_METADATA = 'iiif.image.width';
-
-  /**
-   * IIIF image height metadata key
-   */
-  IMAGE_HEIGHT_METADATA = 'iiif.image.height';
-
-  /**
-   * IIIF table of contents metadata key
-   */
-  IIIF_TOC_METADATA = 'iiif.toc';
-
-  /**
-   * IIIF label metadata key
-   */
-  IIIF_LABEL_METADATA = 'iiif.label';
 
   /**
    * Options for fetching all bitstream formats
@@ -553,16 +553,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     if (this.isIIIF) {
       this.formGroup.patchValue({
         iiifLabelContainer: {
-          iiifLabel: bitstream.firstMetadataValue(this.IIIF_LABEL_METADATA)
+          iiifLabel: bitstream.firstMetadataValue(IIIF_LABEL_METADATA)
         },
         iiifTocContainer: {
-          iiifToc: bitstream.firstMetadataValue(this.IIIF_TOC_METADATA)
+          iiifToc: bitstream.firstMetadataValue(IIIF_TOC_METADATA)
         },
         iiifWidthContainer: {
-          iiifWidth: bitstream.firstMetadataValue(this.IMAGE_WIDTH_METADATA)
+          iiifWidth: bitstream.firstMetadataValue(IMAGE_WIDTH_METADATA)
         },
         iiifHeightContainer: {
-          iiifHeight: bitstream.firstMetadataValue(this.IMAGE_HEIGHT_METADATA)
+          iiifHeight: bitstream.firstMetadataValue(IMAGE_HEIGHT_METADATA)
         }
       });
     }
@@ -583,7 +583,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.selectedFormatModel.options = this.formatOptions.map((format: BitstreamFormat) =>
       Object.assign({
         value: format.id,
-        label: this.isUnknownFormat(format.id) ? this.translate.instant(this.KEY_PREFIX + 'selectedFormat.unknown') : format.shortDescription
+        label: this.isUnknownFormat(format.id) ? this.translate.instant(KEY_PREFIX + 'selectedFormat.unknown') : format.shortDescription
       }));
   }
 
@@ -624,9 +624,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * @param fieldModel
    */
   private updateFieldTranslation(fieldModel) {
-    fieldModel.label = this.translate.instant(this.KEY_PREFIX + fieldModel.id + this.LABEL_KEY_SUFFIX);
+    fieldModel.label = this.translate.instant(KEY_PREFIX + fieldModel.id + LABEL_KEY_SUFFIX);
     if (fieldModel.id !== this.primaryBitstreamModel.id) {
-      fieldModel.hint = this.translate.instant(this.KEY_PREFIX + fieldModel.id + this.HINT_KEY_SUFFIX);
+      fieldModel.hint = this.translate.instant(KEY_PREFIX + fieldModel.id + HINT_KEY_SUFFIX);
     }
   }
 
@@ -672,7 +672,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         filter((bundleRd: RemoteData<Bundle>) => bundleRd.hasFailed)
       ).subscribe((bundleRd: RemoteData<Bundle>) => {
         this.notificationsService.error(
-          this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
+          this.translate.instant(NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
           bundleRd.errorMessage
         );
         errorWhileSaving = true;
@@ -705,7 +705,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         map((formatResponse: RemoteData<Bitstream>) => {
           if (hasValue(formatResponse) && formatResponse.hasFailed) {
             this.notificationsService.error(
-              this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.format.title'),
+              this.translate.instant(NOTIFICATIONS_PREFIX + 'error.format.title'),
               formatResponse.errorMessage
             );
           } else {
@@ -727,8 +727,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     ).subscribe(() => {
       this.bitstreamService.commitUpdates();
       this.notificationsService.success(
-        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
-        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
+        this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.title'),
+        this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.content')
       );
       if (!errorWhileSaving) {
         this.navigateToItemEditBitstreams();
@@ -755,24 +755,24 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       // remove an existing "table of contents" entry.
       if (isEmpty(rawForm.iiifLabelContainer.iiifLabel)) {
 
-        delete newMetadata[this.IIIF_LABEL_METADATA];
+        delete newMetadata[IIIF_LABEL_METADATA];
       } else {
-        Metadata.setFirstValue(newMetadata, this.IIIF_LABEL_METADATA, rawForm.iiifLabelContainer.iiifLabel);
+        Metadata.setFirstValue(newMetadata, IIIF_LABEL_METADATA, rawForm.iiifLabelContainer.iiifLabel);
       }
       if (isEmpty(rawForm.iiifTocContainer.iiifToc)) {
-        delete newMetadata[this.IIIF_TOC_METADATA];
+        delete newMetadata[IIIF_TOC_METADATA];
       } else {
-        Metadata.setFirstValue(newMetadata, this.IIIF_TOC_METADATA, rawForm.iiifTocContainer.iiifToc);
+        Metadata.setFirstValue(newMetadata, IIIF_TOC_METADATA, rawForm.iiifTocContainer.iiifToc);
       }
       if (isEmpty(rawForm.iiifWidthContainer.iiifWidth)) {
-        delete newMetadata[this.IMAGE_WIDTH_METADATA];
+        delete newMetadata[IMAGE_WIDTH_METADATA];
       } else {
-        Metadata.setFirstValue(newMetadata, this.IMAGE_WIDTH_METADATA, rawForm.iiifWidthContainer.iiifWidth);
+        Metadata.setFirstValue(newMetadata, IMAGE_WIDTH_METADATA, rawForm.iiifWidthContainer.iiifWidth);
       }
       if (isEmpty(rawForm.iiifHeightContainer.iiifHeight)) {
-        delete newMetadata[this.IMAGE_HEIGHT_METADATA];
+        delete newMetadata[IMAGE_HEIGHT_METADATA];
       } else {
-        Metadata.setFirstValue(newMetadata, this.IMAGE_HEIGHT_METADATA, rawForm.iiifHeightContainer.iiifHeight);
+        Metadata.setFirstValue(newMetadata, IMAGE_HEIGHT_METADATA, rawForm.iiifHeightContainer.iiifHeight);
       }
     }
     if (isNotEmpty(rawForm.formatContainer.newFormat)) {
