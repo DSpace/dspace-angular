@@ -14,6 +14,7 @@ import { getHomePageRoute } from '../../../app-routing-paths';
 import { take } from 'rxjs/operators';
 import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import {VALID_EMAIL_PATTERN} from '../../../core/shared/form-patterns.constants';
 
 @Component({
   selector: 'ds-feedback-form',
@@ -29,7 +30,7 @@ export class FeedbackFormComponent implements OnInit {
    * Form builder created used from the feedback from
    */
   feedbackForm = this.fb.group({
-    email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])\\.(?:[a-zA-Z0-9](?:\\.[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')]],
+    email: ['', [Validators.required, Validators.pattern(VALID_EMAIL_PATTERN)]],
     message: ['', Validators.required],
     page: [''],
   });

@@ -40,6 +40,7 @@ import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
+import {VALID_EMAIL_PATTERN} from '../../../core/shared/form-patterns.constants';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -252,7 +253,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
         name: 'email',
         validators: {
           required: null,
-          pattern: '^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])\\.(?:[a-zA-Z0-9](?:\\.[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$',
+          pattern: VALID_EMAIL_PATTERN,
         },
         required: true,
         errorMessages: {

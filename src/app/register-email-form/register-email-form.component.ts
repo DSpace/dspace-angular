@@ -17,6 +17,7 @@ import {AlertType} from '../shared/alert/alert-type';
 import {KlaroService} from '../shared/cookies/klaro.service';
 import {CookieService} from '../core/services/cookie.service';
 import { Subscription } from 'rxjs';
+import {VALID_EMAIL_PATTERN} from '../core/shared/form-patterns.constants';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
@@ -99,7 +100,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
       Validators.email,
       // Regex pattern borrowed from HTML5 specs for a valid email address:
       // https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
-      Validators.pattern('^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@(?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])\\.(?:[a-zA-Z0-9](?:\\.[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
+      Validators.pattern(VALID_EMAIL_PATTERN)
     ];
     this.form = this.formBuilder.group({
       email: new UntypedFormControl('', {
