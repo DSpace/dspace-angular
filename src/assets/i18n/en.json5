@@ -6273,8 +6273,12 @@
 
   "item.page.review": "Review",
 
-  "item.page.dataset": "Dataset",
+  "item.page.referenced": "Referenced By",
+
+  "item.page.supplemented": "Supplemented By",
+
   "menu.section.icon.ldn_services": "LDN Services overview",
+
   "menu.section.services": "LDN Services",
 
   "menu.section.services_new": "LDN Service",
