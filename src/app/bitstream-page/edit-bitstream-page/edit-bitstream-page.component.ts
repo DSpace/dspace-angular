@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import {
   BehaviorSubject, combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription
 } from 'rxjs';
@@ -661,84 +661,106 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   onSubmit() {
     const updatedValues = this.formGroup.getRawValue();
-    const updatedBitstream = this.formToBitstream(updatedValues);
-    const selectedFormat = this.formatOptions.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
-    const isNewFormat = selectedFormat.id !== this.bitstreamFormat.id;
-    const isPrimary = updatedValues.fileNamePrimaryContainer.primaryBitstream;
-    const wasPrimary = this.primaryBitstreamUUID === this.bitstream.uuid;
 
-    let bitstream$: Observable<Bitstream>;
-    let bundle$: Observable<Bundle>;
-    let errorWhileSaving = false;
+    const metadataUpdateRD$ = this.updateBitstreamMetadataRD$(updatedValues);
+    const primaryUpdateRD$ = this.updatePrimaryBitstreamRD$(updatedValues);
+    const formatUpdateRD$ = this.updateBitstreamFormatRD$(updatedValues);
 
-    if (wasPrimary !== isPrimary) {
-      let bundleRd$: Observable<RemoteData<Bundle>>;
-      if (wasPrimary) {
-        bundleRd$ = this.primaryBitstreamService.delete(this.bundle);
-      } else if (hasValue(this.primaryBitstreamUUID)) {
-        bundleRd$ = this.primaryBitstreamService.put(this.bitstream, this.bundle);
-      } else {
-        bundleRd$ = this.primaryBitstreamService.create(this.bitstream, this.bundle);
-      }
+    this.subs.push(combineLatest([metadataUpdateRD$, primaryUpdateRD$, formatUpdateRD$])
+      .subscribe(([metadataUpdateRD, primaryUpdateRD, formatUpdateRD]) => {
+        let errorWhileSaving = false;
 
-      bundle$ = bundleRd$.pipe(
-        getFirstCompletedRemoteData(),
-        // If the request succeeded, use the new bundle data
-        // Otherwise send a notification and use the old bundle data
-        switchMap((bundleRd: RemoteData<Bundle>) => {
-          if (bundleRd.hasSucceeded) {
-            return observableOf(bundleRd.payload);
-          } else {
-            this.notificationsService.error(
-              this.translate.instant(NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
-              bundleRd.errorMessage
-            );
-            errorWhileSaving = true;
+        // Check for errors during the primary bitstream update
+        if (hasValue(primaryUpdateRD) && primaryUpdateRD.hasFailed) {
+          this.notificationsService.error(
+            this.translate.instant(NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
+            primaryUpdateRD.errorMessage
+          );
 
-            return observableOf(this.bundle);
-          }
-        }),
-      );
+          errorWhileSaving = true;
+        }
 
-    } else {
-      bundle$ = observableOf(this.bundle);
-    }
+        // Check for errors during the bitstream format update
+        if (hasValue(formatUpdateRD) && formatUpdateRD.hasFailed) {
+          this.notificationsService.error(
+            this.translate.instant(NOTIFICATIONS_PREFIX + 'error.format.title'),
+            formatUpdateRD.errorMessage
+          );
 
-    if (isNewFormat) {
-      bitstream$ = this.bitstreamService.updateFormat(this.bitstream, selectedFormat).pipe(
-        getFirstCompletedRemoteData(),
-        map((formatResponse: RemoteData<Bitstream>) => {
-          if (hasValue(formatResponse) && formatResponse.hasFailed) {
-            this.notificationsService.error(
-              this.translate.instant(NOTIFICATIONS_PREFIX + 'error.format.title'),
-              formatResponse.errorMessage
-            );
-          } else {
-            return formatResponse.payload;
-          }
-        })
-      );
-    } else {
-      bitstream$ = observableOf(this.bitstream);
-    }
+          errorWhileSaving = true;
+        }
 
-    this.subs.push(combineLatest([bundle$, bitstream$]).pipe(
-      tap(([bundle]) => this.bundle = bundle),
-      switchMap(() => {
-        return this.bitstreamService.update(updatedBitstream).pipe(
-          getFirstSucceededRemoteDataPayload()
+        this.bitstreamService.commitUpdates();
+        this.notificationsService.success(
+          this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.title'),
+          this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.content')
         );
+        if (!errorWhileSaving) {
+          this.navigateToItemEditBitstreams();
+        }
       })
-    ).subscribe(() => {
-      this.bitstreamService.commitUpdates();
-      this.notificationsService.success(
-        this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.title'),
-        this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.content')
-      );
-      if (!errorWhileSaving) {
-        this.navigateToItemEditBitstreams();
-      }
-    }));
+    );
+  }
+
+  updateBitstreamMetadataRD$(updatedValues: any): Observable<RemoteData<Bitstream>> {
+    const updatedBitstream = this.formToBitstream(updatedValues);
+
+    return this.bitstreamService.update(updatedBitstream).pipe(
+      getFirstCompletedRemoteData()
+    );
+  }
+
+  /**
+   * Creates and returns an observable that will update the primary bitstream in the bundle of the
+   * current bitstream, if necessary according to the provided updated values.
+   * When an update is necessary, the observable fires once with the completed RemoteData of the bundle update.
+   * When no update is necessary, the observable fires once with a null value.
+   * @param updatedValues The raw updated values in the bitstream edit form
+   */
+  updatePrimaryBitstreamRD$(updatedValues: any): Observable<RemoteData<Bundle>> {
+    // Whether the edited bitstream should be the primary bitstream according to the form
+    const shouldBePrimary: boolean = updatedValues.fileNamePrimaryContainer.primaryBitstream;
+    // Whether the edited bitstream currently is the primary bitstream
+    const isPrimary = this.primaryBitstreamUUID === this.bitstream.uuid;
+
+    // If the primary bitstream status should not be changed, there is nothing to do
+    if (shouldBePrimary === isPrimary) {
+      return observableOf(null);
+    }
+
+    let updatedBundleRD$: Observable<RemoteData<Bundle>>;
+    if (isPrimary) {
+      updatedBundleRD$ = this.primaryBitstreamService.delete(this.bundle);
+    } else if (hasValue(this.primaryBitstreamUUID)) {
+      updatedBundleRD$ = this.primaryBitstreamService.put(this.bitstream, this.bundle);
+    } else {
+      updatedBundleRD$ = this.primaryBitstreamService.create(this.bitstream, this.bundle);
+    }
+
+    return updatedBundleRD$.pipe(
+      getFirstCompletedRemoteData()
+    );
+  }
+
+  /**
+   * Creates and returns an observable that will update the bitstream format
+   * if necessary according to the provided updated values.
+   * When an update is necessary, the observable fires once with the completed RemoteData of the bitstream update.
+   * When no update is necessary, the observable fires once with a null value.
+   * @param updatedValues The raw updated values in the bitstream edit form
+   */
+  updateBitstreamFormatRD$(updatedValues: any): Observable<RemoteData<Bitstream>> {
+    const selectedFormat = this.formatOptions.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
+    const formatChanged = selectedFormat.id !== this.bitstreamFormat.id;
+
+    // If the format has not changed, there is nothing to do
+    if (!formatChanged) {
+      return observableOf(null);
+    }
+
+    return this.bitstreamService.updateFormat(this.bitstream, selectedFormat).pipe(
+      getFirstCompletedRemoteData(),
+    );
   }
 
   /**
