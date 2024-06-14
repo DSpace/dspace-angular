@@ -681,35 +681,36 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         bundleRd$ = this.primaryBitstreamService.create(this.bitstream, this.bundle);
       }
 
-      const completedBundleRd$ = bundleRd$.pipe(getFirstCompletedRemoteData());
-
-      this.subs.push(completedBundleRd$.pipe(
-        filter((bundleRd: RemoteData<Bundle>) => bundleRd.hasFailed)
-      ).subscribe((bundleRd: RemoteData<Bundle>) => {
-        this.notificationsService.error(
-          this.translate.instant(NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
-          bundleRd.errorMessage
-        );
-        errorWhileSaving = true;
-      }));
-
-      bundle$ = completedBundleRd$.pipe(
-        map((bundleRd: RemoteData<Bundle>) => {
+      bundle$ = bundleRd$.pipe(
+        getFirstCompletedRemoteData(),
+        // If the request succeeded, use the new bundle data
+        // Otherwise send a notification and use the old bundle data
+        switchMap((bundleRd: RemoteData<Bundle>) => {
           if (bundleRd.hasSucceeded) {
-            return bundleRd.payload;
+            return observableOf(bundleRd.payload);
           } else {
-            return this.bundle;
-          }
-        })
-      );
+            this.notificationsService.error(
+              this.translate.instant(NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
+              bundleRd.errorMessage
+            );
+            errorWhileSaving = true;
 
-      this.subs.push(bundle$.pipe(
-        hasValueOperator(),
-        switchMap((bundle: Bundle) => this.bitstreamService.findByHref(bundle._links.primaryBitstream.href, false)),
-        getFirstSucceededRemoteDataPayload()
-      ).subscribe((bitstream: Bitstream) => {
-        this.primaryBitstreamUUID = hasValue(bitstream) ? bitstream.uuid : null;
-      }));
+            return observableOf(this.bundle);
+          }
+        }),
+        // Set the primary bitstream ID depending on the available bundle data
+        switchMap((bundle) => {
+          return this.bitstreamService.findByHref(bundle._links.primaryBitstream.href, false).pipe(
+            getFirstSucceededRemoteDataPayload(),
+            tap((bitstream: Bitstream) => {
+              this.primaryBitstreamUUID = hasValue(bitstream) ? bitstream.uuid : null;
+            }),
+            map((_) => {
+              return bundle;
+            })
+          );
+        }),
+      );
 
     } else {
       bundle$ = observableOf(this.bundle);
