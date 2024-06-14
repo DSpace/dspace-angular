@@ -37,29 +37,12 @@ import { Item } from '../../core/shared/item.model';
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
+import { ObservablesDictionary } from 'src/app/shared/utils/observables-dictionary';
 
 /**
- * All observables that have to return their data before the form can be created and filled. Objects of
- * the {@link DataObservables} type can directly be used in a 'combineLatest' method to get their values
- * once all the observables have fired, and the resulting object will be of the {@link DataObjects} type.
- * This interface does not follow the usual convention of appending the dollar ($) symbol to variables
- * representing observables, as rxjs will map those names 1-to-1 to the resulting object when used in a
- * 'combineLatest' method.
+ * All data that is required before the form can be created and filled.
  */
-interface DataObservables {
-  [key: string]: Observable<any>;
-
-  bitstream: Observable<Bitstream>,
-  bitstreamFormat: Observable<BitstreamFormat>,
-  bitstreamFormatOptions: Observable<PaginatedList<BitstreamFormat>>,
-  bundle: Observable<Bundle>,
-  primaryBitstream: Observable<Bitstream>,
-  item: Observable<Item>,
-}
-
 interface DataObjects {
-  [key: string]: any;
-
   bitstream: Bitstream,
   bitstreamFormat: BitstreamFormat,
   bitstreamFormatOptions: PaginatedList<BitstreamFormat>,
@@ -454,9 +437,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
   /**
    * Create all the observables necessary to create and fill the bitstream form,
-   * and collect them in a {@link DataObservables} object.
+   * and collect them in a {@link ObservablesDictionary} object.
    */
-  protected getDataObservables(): DataObservables {
+  protected getDataObservables(): ObservablesDictionary<DataObjects> {
     const bitstreamFormatOptionsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
 
     const bitstream$ = this.bitstreamRD$.pipe(
