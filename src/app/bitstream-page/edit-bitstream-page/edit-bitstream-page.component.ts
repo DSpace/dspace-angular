@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import {
   BehaviorSubject, combineLatest, combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription
 } from 'rxjs';
@@ -464,7 +464,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     );
 
     const bitstreamFormat$ = bitstream$.pipe(
-      switchMap((bitstream: Bitstream) => bitstream.format),
+      switchMap((bitstream: Bitstream) => this.bitstreamFormatService.findByHref(bitstream._links.format.href, false)),
       getFirstSucceededRemoteDataPayload(),
     );
 
@@ -479,7 +479,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
     const primaryBitstream$ = bundle$.pipe(
       hasValueOperator(),
-      switchMap((bundle: Bundle) => this.bitstreamService.findByHref(bundle._links.primaryBitstream.href)),
+      switchMap((bundle: Bundle) => this.bitstreamService.findByHref(bundle._links.primaryBitstream.href, false)),
       getFirstSucceededRemoteDataPayload(),
     );
 
@@ -697,18 +697,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
             return observableOf(this.bundle);
           }
-        }),
-        // Set the primary bitstream ID depending on the available bundle data
-        switchMap((bundle) => {
-          return this.bitstreamService.findByHref(bundle._links.primaryBitstream.href, false).pipe(
-            getFirstSucceededRemoteDataPayload(),
-            tap((bitstream: Bitstream) => {
-              this.primaryBitstreamUUID = hasValue(bitstream) ? bitstream.uuid : null;
-            }),
-            map((_) => {
-              return bundle;
-            })
-          );
         }),
       );
 
