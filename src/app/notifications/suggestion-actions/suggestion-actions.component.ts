@@ -12,7 +12,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { Suggestion } from '../../core/notifications/models/suggestion.model';
+import { Suggestion } from '../../core/notifications/suggestions/models/suggestion.model';
 import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { ThemedCreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';

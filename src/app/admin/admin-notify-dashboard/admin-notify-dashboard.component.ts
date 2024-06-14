@@ -4,17 +4,21 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   forkJoin,
-  Observable,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchService } from '../../core/shared/search/search.service';
@@ -51,20 +55,25 @@ import {
 /**
  * Component used for visual representation and search of LDN messages for Admins
  */
-export class AdminNotifyDashboardComponent implements OnInit{
+export class AdminNotifyDashboardComponent implements OnInit {
 
-  public notifyMetricsRows$: Observable<AdminNotifyMetricsRow[]>;
+  public notifyMetricsRows$: BehaviorSubject<AdminNotifyMetricsRow[]> = new BehaviorSubject<AdminNotifyMetricsRow[]>([]);
 
-  private metricsConfig = environment.notifyMetrics;
+  private metricsConfig: AdminNotifyMetricsRow[];
+
   private singleResultOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'single-result-options',
     pageSize: 1,
   });
 
-  constructor(private searchService: SearchService) {
+  constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    private searchService: SearchService,
+  ) {
   }
 
   ngOnInit() {
+    this.metricsConfig = this.appConfig.notifyMetrics;
     const mertricsRowsConfigurations = this.metricsConfig
       .map(row => row.boxes)
       .map(boxes => boxes.map(box => box.config).filter(config => !!config));
@@ -74,15 +83,18 @@ export class AdminNotifyDashboardComponent implements OnInit{
         { configuration: config, pagination: this.singleResultOptions },
       ));
 
-    this.notifyMetricsRows$ = forkJoin(searchConfigurations.map(config => this.searchService.search(config)
-      .pipe(
-        getFirstCompletedRemoteData(),
-        map(response => this.mapSearchObjectsToMetricsBox(response.payload)),
+    forkJoin(
+      searchConfigurations.map(config => this.searchService.search(config)
+        .pipe(
+          getFirstCompletedRemoteData(),
+          map(response => this.mapSearchObjectsToMetricsBox(config.configuration, response.payload)),
+        ),
       ),
-    ),
     ).pipe(
       map(metricBoxes => this.mapUpdatedBoxesToMetricsRows(metricBoxes)),
-    );
+    ).subscribe((metricBoxes: AdminNotifyMetricsRow[]) => {
+      this.notifyMetricsRows$.next(metricBoxes);
+    });
   }
 
   /**
@@ -91,13 +103,12 @@ export class AdminNotifyDashboardComponent implements OnInit{
    * @param searchObject The object to map
    * @private
    */
-  private mapSearchObjectsToMetricsBox(searchObject: SearchObjects<DSpaceObject>): AdminNotifyMetricsBox {
+  private mapSearchObjectsToMetricsBox(configuration: string, searchObject: SearchObjects<DSpaceObject>): AdminNotifyMetricsBox {
     const count = searchObject.pageInfo.totalElements;
-    const objectConfig = searchObject.configuration;
-    const metricsBoxes = [].concat(...this.metricsConfig.map((config) => config.boxes));
+    const metricsBoxes = [].concat(...this.metricsConfig.map((config: AdminNotifyMetricsRow) => config.boxes));
 
     return {
-      ...metricsBoxes.find(box => box.config === objectConfig),
+      ...metricsBoxes.find(box => box.config === configuration),
       count,
     };
   }

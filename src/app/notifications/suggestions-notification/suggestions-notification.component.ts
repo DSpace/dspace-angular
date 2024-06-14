@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../suggestions.service';
 
@@ -44,8 +44,8 @@ export class SuggestionsNotificationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
     this.suggestionsRD$ = this.suggestionTargetsStateService.getCurrentUserSuggestionTargets();
+    this.suggestionTargetsStateService.dispatchMarkUserSuggestionsAsVisitedAction();
   }
 
   /**

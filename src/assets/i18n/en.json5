@@ -6218,7 +6218,7 @@
   "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
 
-  "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-register-new-service.breadcrumbs": "New Service",
@@ -6273,8 +6273,12 @@
 
   "item.page.review": "Review",
 
-  "item.page.dataset": "Dataset",
+  "item.page.referenced": "Referenced By",
+
+  "item.page.supplemented": "Supplemented By",
+
   "menu.section.icon.ldn_services": "LDN Services overview",
+
   "menu.section.services": "LDN Services",
 
   "menu.section.services_new": "LDN Service",
@@ -6350,13 +6354,13 @@
 
   "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
-  "ldn-service-button-mark-inbound-deletion": "Mark inbound pattern for deletion",
+  "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
 
-  "ldn-service-button-unmark-inbound-deletion": "Unmark inbound pattern for deletion",
+  "ldn-service-button-unmark-inbound-deletion": "Unmark supported pattern for deletion",
 
-  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for inbound pattern",
+  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for the pattern",
 
-  "ldn-service-input-inbound-pattern-dropdown": "Select inbound pattern for service",
+  "ldn-service-input-inbound-pattern-dropdown": "Select a pattern for service",
 
   "ldn-service-overview-select-delete": "Select service for deletion",
 
