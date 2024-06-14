@@ -145,7 +145,7 @@ describe('LdnServiceFormEditComponent', () => {
 
   it('should init properties correctly', fakeAsync(() => {
     spyOn(component, 'fetchServiceData');
-    spyOn(component, 'setItemfilters');
+    spyOn(component, 'setItemFilters');
     component.ngOnInit();
     tick(100);
     expect((component as any).serviceId).toEqual(testId);
@@ -153,7 +153,7 @@ describe('LdnServiceFormEditComponent', () => {
     expect(component.areControlsInitialized).toBeTruthy();
     expect(component.formModel.controls.notifyServiceInboundPatterns).toBeDefined();
     expect(component.fetchServiceData).toHaveBeenCalledWith(testId);
-    expect(component.setItemfilters).toHaveBeenCalled();
+    expect(component.setItemFilters).toHaveBeenCalled();
   }));
 
   it('should unsubscribe on destroy', () => {

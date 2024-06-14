@@ -4,15 +4,15 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { HALLink } from '../../shared/hal-link.model';
+import { typedObject } from '../../../cache/builders/build-decorators';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { HALLink } from '../../../shared/hal-link.model';
 import {
   MetadataMap,
   MetadataMapSerializer,
-} from '../../shared/metadata.models';
-import { ResourceType } from '../../shared/resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+} from '../../../shared/metadata.models';
+import { ResourceType } from '../../../shared/resource-type';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import { SUGGESTION } from './suggestion-objects.resource-type';
 
 /**

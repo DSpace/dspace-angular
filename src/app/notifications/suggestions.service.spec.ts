@@ -7,22 +7,23 @@ import {
   SortOptions,
 } from '../core/cache/models/sort-options.model';
 import { FindListOptions } from '../core/data/find-list-options.model';
-import { SuggestionTarget } from '../core/notifications/models/suggestion-target.model';
-import { SuggestionsDataService } from '../core/notifications/suggestions-data.service';
-import { SuggestionTargetDataService } from '../core/notifications/target/suggestion-target-data.service';
+import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionDataService } from '../core/notifications/suggestions/suggestion-data.service';
+import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
 import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
 import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
 import { ResourceType } from '../core/shared/resource-type';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
 import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { followLink } from '../shared/utils/follow-link-config.model';
 import { SuggestionsService } from './suggestions.service';
 
 describe('SuggestionsService test', () => {
   let scheduler: TestScheduler;
   let service: SuggestionsService;
   let researcherProfileService: ResearcherProfileDataService;
-  let suggestionsDataService: SuggestionsDataService;
+  let suggestionsDataService: SuggestionDataService;
   let suggestionTargetDataService: SuggestionTargetDataService;
   let translateService: any = {
     instant: (str) => str,
@@ -59,7 +60,7 @@ describe('SuggestionsService test', () => {
     });
 
     suggestionTargetDataService = jasmine.createSpyObj('suggestionTargetsDataService', {
-      getTargets: observableOf(null),
+      getTargetsBySource: observableOf(null),
       findById: observableOf(null),
     });
 
@@ -89,7 +90,7 @@ describe('SuggestionsService test', () => {
         sort: sortOptions,
       };
       service.getTargets('source', 10, 1);
-      expect(suggestionTargetDataService.getTargets).toHaveBeenCalledWith('source', findListOptions);
+      expect(suggestionTargetDataService.getTargetsBySource).toHaveBeenCalledWith('source', findListOptions);
     });
 
     it('should get suggestions', () => {
@@ -115,7 +116,7 @@ describe('SuggestionsService test', () => {
 
     it('should retrieve current user suggestions', () => {
       service.retrieveCurrentUserSuggestions('1234');
-      expect(researcherProfileService.findById).toHaveBeenCalledWith('1234', true);
+      expect(researcherProfileService.findById).toHaveBeenCalledWith('1234', true, true, followLink('item'));
     });
 
     it('should approve and import suggestion', () => {
