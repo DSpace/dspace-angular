@@ -52,6 +52,15 @@ interface DataObjects {
 }
 
 /**
+ * The results after updating all the fields on submission.
+ */
+interface UpdateResult {
+  metadataUpdateRD: RemoteData<Bitstream>,
+  primaryUpdateRD: RemoteData<Bundle>,
+  formatUpdateRD: RemoteData<Bitstream>,
+}
+
+/**
  * Key prefix used to generate form messages
  */
 const KEY_PREFIX = 'bitstream.edit.form.';
@@ -645,44 +654,19 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   onSubmit() {
     const updatedValues = this.formGroup.getRawValue();
 
-    const metadataUpdateRD$ = this.updateBitstreamMetadataRD$(updatedValues);
-    const primaryUpdateRD$ = this.updatePrimaryBitstreamRD$(updatedValues);
-    const formatUpdateRD$ = this.updateBitstreamFormatRD$(updatedValues);
-
-    this.subs.push(combineLatest([metadataUpdateRD$, primaryUpdateRD$, formatUpdateRD$])
-      .subscribe(([metadataUpdateRD, primaryUpdateRD, formatUpdateRD]) => {
-        let errorWhileSaving = false;
-
-        // Check for errors during the primary bitstream update
-        if (hasValue(primaryUpdateRD) && primaryUpdateRD.hasFailed) {
-          this.notificationsService.error(
-            this.translate.instant(NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
-            primaryUpdateRD.errorMessage
-          );
-
-          errorWhileSaving = true;
-        }
-
-        // Check for errors during the bitstream format update
-        if (hasValue(formatUpdateRD) && formatUpdateRD.hasFailed) {
-          this.notificationsService.error(
-            this.translate.instant(NOTIFICATIONS_PREFIX + 'error.format.title'),
-            formatUpdateRD.errorMessage
-          );
-
-          errorWhileSaving = true;
-        }
-
-        this.bitstreamService.commitUpdates();
-        this.notificationsService.success(
-          this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.title'),
-          this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.content')
-        );
-        if (!errorWhileSaving) {
-          this.navigateToItemEditBitstreams();
-        }
+    this.subs.push(combineLatest(this.getUpdateObservables(updatedValues))
+      .subscribe((updateResult: UpdateResult) => {
+        this.handleUpdateResult(updateResult);
       })
     );
+  }
+
+  getUpdateObservables(updatedValues: any): ObservablesDictionary<UpdateResult> {
+    return {
+      metadataUpdateRD: this.updateBitstreamMetadataRD$(updatedValues),
+      primaryUpdateRD: this.updatePrimaryBitstreamRD$(updatedValues),
+      formatUpdateRD: this.updateBitstreamFormatRD$(updatedValues),
+    };
   }
 
   updateBitstreamMetadataRD$(updatedValues: any): Observable<RemoteData<Bitstream>> {
@@ -790,6 +774,42 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     }
     updatedBitstream.metadata = newMetadata;
     return updatedBitstream;
+  }
+
+  handleUpdateResult(updateResult: UpdateResult) {
+    let errorWhileSaving = false;
+
+    // Check for errors during the primary bitstream update
+    const primaryUpdateRD = updateResult.primaryUpdateRD;
+    if (hasValue(primaryUpdateRD) && primaryUpdateRD.hasFailed) {
+      this.notificationsService.error(
+        this.translate.instant(NOTIFICATIONS_PREFIX + 'error.primaryBitstream.title'),
+        primaryUpdateRD.errorMessage
+      );
+
+      errorWhileSaving = true;
+    }
+
+    // Check for errors during the bitstream format update
+    const formatUpdateRD = updateResult.formatUpdateRD;
+    if (hasValue(formatUpdateRD) && formatUpdateRD.hasFailed) {
+      this.notificationsService.error(
+        this.translate.instant(NOTIFICATIONS_PREFIX + 'error.format.title'),
+        formatUpdateRD.errorMessage
+      );
+
+      errorWhileSaving = true;
+    }
+
+    this.bitstreamService.commitUpdates();
+    this.notificationsService.success(
+      this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.title'),
+      this.translate.instant(NOTIFICATIONS_PREFIX + 'saved.content')
+    );
+
+    if (!errorWhileSaving) {
+      this.navigateToItemEditBitstreams();
+    }
   }
 
   /**
