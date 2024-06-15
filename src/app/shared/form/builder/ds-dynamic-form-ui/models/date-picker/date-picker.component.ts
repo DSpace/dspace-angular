@@ -246,12 +246,12 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
     * @Return string
    *  @Param string date current value to convert
    **/
-  completeDate(date: string) : string {
-    if(date.length === 1) {
+  completeDate(date: string): string {
+    if (date.length === 1) {
       const year = new Date().getFullYear().toString();
       return year.substring(-1, 1) + '00' + date;
     }
-    if(date.length < 4) {
+    if (date.length < 4) {
       const year = new Date().getFullYear().toString();
       const difference  = date.length - year.length;
       return year.substring(difference, Math.abs(difference)) + date;
