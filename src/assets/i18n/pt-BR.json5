@@ -1290,7 +1290,7 @@
   "browse.startsWith.type_date.label": "Ou digite na data (year-month) e clique no botão de Ir",
 
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
-  "browse.startsWith.type_text": "Filtrar resultados informando as primeiras letras:",
+  "browse.startsWith.type_text": "Filtrar resultados informando as primeiras letras",
 
   // "browse.startsWith.input": "Filter", (Auto-Translated)
   "browse.startsWith.input": "Filtro",
@@ -7854,4 +7854,7 @@
 
   // "access-control-option-end-date-note": "Select the date until which the related access condition is applied", (Auto-Translated)
   "access-control-option-end-date-note": "Selecione a data até a qual a condição de acesso relacionada é aplicada",
+
+  //"browse.search-form.placeholder": "Search the repository",
+  "browse.search-form.placeholder": "Buscar no repositório",
 }
