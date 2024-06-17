@@ -1828,6 +1828,9 @@
   "resource-policies.form.eperson-group-list.table.headers.id": "ID",
   "resource-policies.form.eperson-group-list.table.headers.name": "Tên",
   "resource-policies.form.name.label": "Tên",
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
   "resource-policies.form.policy-type.label": "Lựa chọn kiểu chính sách",
   "resource-policies.form.policy-type.required": "Bạn cần lựa chọn kiểu chính sách tài nguyên.",
   "resource-policies.table.headers.action": "Quyền",

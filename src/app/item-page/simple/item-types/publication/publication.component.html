@@ -94,11 +94,11 @@
     </ds-item-page-uri-field>
     <ds-item-page-uri-field [item]="object"
       [fields]="['datacite.relation.isSupplementedBy']"
-      [label]="'item.page.dataset'">
+      [label]="'item.page.supplemented'">
     </ds-item-page-uri-field>
     <ds-item-page-uri-field [item]="object"
       [fields]="['datacite.relation.isReferencedBy']"
-      [label]="'item.page.dataset'">
+      [label]="'item.page.referenced'">
     </ds-item-page-uri-field>
     <div>
       <a class="btn btn-outline-primary" role="button" [routerLink]="[itemPageRoute + '/full']">

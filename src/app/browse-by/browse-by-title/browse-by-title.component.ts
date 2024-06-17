@@ -17,7 +17,7 @@ import {
 } from '../../core/cache/models/sort-options.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
 import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
@@ -43,7 +43,7 @@ import {
     ComcolPageLogoComponent,
     NgIf,
     ThemedComcolPageHandleComponent,
-    ComcolPageContentComponent,
+    ThemedComcolPageContentComponent,
     DsoEditMenuComponent,
     ThemedComcolPageBrowseByComponent,
     TranslateModule,

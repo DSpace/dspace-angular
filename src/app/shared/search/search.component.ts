@@ -88,7 +88,18 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
   standalone: true,
-  imports: [NgIf, NgTemplateOutlet, PageWithSidebarComponent, ViewModeSwitchComponent, ThemedSearchResultsComponent, ThemedSearchSidebarComponent, ThemedSearchFormComponent, SearchLabelsComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    NgIf,
+    NgTemplateOutlet,
+    PageWithSidebarComponent,
+    ThemedSearchFormComponent,
+    ThemedSearchResultsComponent,
+    ThemedSearchSidebarComponent,
+    TranslateModule,
+    SearchLabelsComponent,
+    ViewModeSwitchComponent,
+  ],
 })
 
 /**
@@ -118,6 +129,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If empty, the query will be determined by the route parameter called 'filter'
    */
   @Input() fixedFilterQuery: string;
+
+  /**
+   * A hidden query that will be used but not displayed in the url/searchbar
+   */
+  @Input() hiddenQuery: string;
 
   /**
    * If this is true, the request will only be sent if there's
@@ -502,8 +518,18 @@ export class SearchComponent implements OnDestroy, OnInit {
     if (this.configuration === 'supervision') {
       followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
     }
+
+    const searchOptionsWithHidden = Object.assign (new PaginatedSearchOptions({}), searchOptions);
+    if (isNotEmpty(this.hiddenQuery)) {
+      if (isNotEmpty(searchOptionsWithHidden.query)) {
+        searchOptionsWithHidden.query = searchOptionsWithHidden.query + ' AND ' + this.hiddenQuery;
+      } else {
+        searchOptionsWithHidden.query = this.hiddenQuery;
+      }
+    }
+
     this.service.search(
-      searchOptions,
+      searchOptionsWithHidden,
       undefined,
       this.useCachedVersionIfAvailable,
       true,
@@ -512,7 +538,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       .subscribe((results: RemoteData<SearchObjects<DSpaceObject>>) => {
         if (results.hasSucceeded) {
           if (this.trackStatistics) {
-            this.service.trackSearch(searchOptions, results.payload);
+            this.service.trackSearch(searchOptionsWithHidden, results.payload);
           }
           if (results.payload?.page?.length > 0) {
             this.resultFound.emit(results.payload);

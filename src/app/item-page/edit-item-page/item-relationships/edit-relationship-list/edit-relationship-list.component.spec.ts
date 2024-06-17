@@ -10,19 +10,20 @@ import {
 import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
-  Router,
+  RouterModule,
 } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
-import { CookieService } from 'src/app/core/services/cookie.service';
-import { HardRedirectService } from 'src/app/core/services/hard-redirect.service';
-import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
-import { AuthRequestServiceStub } from 'src/app/shared/testing/auth-request-service.stub';
+import { cold } from 'jasmine-marbles';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment.test';
 import { REQUEST } from '../../../../../express.tokens';
+import { AuthRequestService } from '../../../../core/auth/auth-request.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
@@ -31,6 +32,8 @@ import { RelationshipDataService } from '../../../../core/data/relationship-data
 import { RelationshipTypeDataService } from '../../../../core/data/relationship-type-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { CookieService } from '../../../../core/services/cookie.service';
+import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
 import { LinkHeadService } from '../../../../core/services/link-head.service';
 import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -40,54 +43,60 @@ import { RelationshipType } from '../../../../core/shared/item-relationships/rel
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { XSRFService } from '../../../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../../../../shared/host-window.service';
-import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { AuthRequestServiceStub } from '../../../../shared/testing/auth-request-service.stub';
+import { EditItemRelationshipsServiceStub } from '../../../../shared/testing/edit-item-relationships.service.stub';
 import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service.stub';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
+import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';
 
-let comp: EditRelationshipListComponent;
-let fixture: ComponentFixture<EditRelationshipListComponent>;
-let de: DebugElement;
-
-let linkService;
-let objectUpdatesService;
-let relationshipService;
-let selectableListService;
-let paginationService;
-let hostWindowService;
-let hardRedirectService;
-const relationshipTypeService = {};
-
-const url = 'http://test-url.com/test-url';
-
-let item;
-let entityType;
-let relatedEntityType;
-let author1;
-let author2;
-let fieldUpdate1;
-let fieldUpdate2;
-let relationships;
-let relationshipType;
-let paginationOptions;
-
 describe('EditRelationshipListComponent', () => {
+
+  let comp: EditRelationshipListComponent;
+  let fixture: ComponentFixture<EditRelationshipListComponent>;
+  let de: DebugElement;
+
+  let linkService;
+  let objectUpdatesService;
+  let relationshipService;
+  let selectableListService;
+  let paginationService: PaginationServiceStub;
+  let hostWindowService: HostWindowServiceStub;
+  let hardRedirectService;
+  const relationshipTypeService = {};
+  let editItemRelationshipsService: EditItemRelationshipsServiceStub;
+
+  const url = 'http://test-url.com/test-url';
+
+  let itemLeft: Item;
+  let entityTypeLeft: ItemType;
+  let entityTypeRight: ItemType;
+  let itemRight1: Item;
+  let itemRight2: Item;
+  let fieldUpdate1;
+  let fieldUpdate2;
+  let relationships: Relationship[];
+  let relationshipType: RelationshipType;
+  let paginationOptions: PaginationComponentOptions;
+  let currentItemIsLeftItem$ =  new BehaviorSubject<boolean>(true);
 
   const resetComponent = () => {
     fixture = TestBed.createComponent(EditRelationshipListComponent);
     comp = fixture.componentInstance;
     de = fixture.debugElement;
-    comp.item = item;
-    comp.itemType = entityType;
+    comp.item = itemLeft;
+    comp.itemType = entityTypeLeft;
     comp.url = url;
     comp.relationshipType = relationshipType;
     comp.hasChanges = observableOf(false);
+    comp.currentItemIsLeftItem$ = currentItemIsLeftItem$;
     fixture.detectChanges();
   };
 
@@ -101,29 +110,26 @@ describe('EditRelationshipListComponent', () => {
     },
   };
 
-  hardRedirectService = jasmine.createSpyObj('hardRedirectService', ['redirect']);
-
-  beforeEach(waitForAsync(() => {
-
-    entityType = Object.assign(new ItemType(), {
-      id: 'Publication',
-      uuid: 'Publication',
-      label: 'Publication',
+  function init(leftType: string, rightType: string): void {
+    entityTypeLeft = Object.assign(new ItemType(), {
+      id: leftType,
+      uuid: leftType,
+      label: leftType,
     });
 
-    relatedEntityType = Object.assign(new ItemType(), {
-      id: 'Author',
-      uuid: 'Author',
-      label: 'Author',
+    entityTypeRight = Object.assign(new ItemType(), {
+      id: rightType,
+      uuid: rightType,
+      label: rightType,
     });
 
     relationshipType = Object.assign(new RelationshipType(), {
       id: '1',
       uuid: '1',
-      leftType: createSuccessfulRemoteDataObject$(entityType),
-      rightType: createSuccessfulRemoteDataObject$(relatedEntityType),
-      leftwardType: 'isAuthorOfPublication',
-      rightwardType: 'isPublicationOfAuthor',
+      leftType: createSuccessfulRemoteDataObject$(entityTypeLeft),
+      rightType: createSuccessfulRemoteDataObject$(entityTypeRight),
+      leftwardType: `is${rightType}Of${leftType}`,
+      rightwardType: `is${leftType}Of${rightType}`,
     });
 
     paginationOptions = Object.assign(new PaginationComponentOptions(), {
@@ -132,13 +138,13 @@ describe('EditRelationshipListComponent', () => {
       currentPage: 1,
     });
 
-    author1 = Object.assign(new Item(), {
-      id: 'author1',
-      uuid: 'author1',
+    itemRight1 = Object.assign(new Item(), {
+      id: `${rightType}-1`,
+      uuid: `${rightType}-1`,
     });
-    author2 = Object.assign(new Item(), {
-      id: 'author2',
-      uuid: 'author2',
+    itemRight2 = Object.assign(new Item(), {
+      id: `${rightType}-2`,
+      uuid: `${rightType}-2`,
     });
 
     relationships = [
@@ -147,25 +153,25 @@ describe('EditRelationshipListComponent', () => {
         id: '2',
         uuid: '2',
         relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
-        leftItem: createSuccessfulRemoteDataObject$(item),
-        rightItem: createSuccessfulRemoteDataObject$(author1),
+        leftItem: createSuccessfulRemoteDataObject$(itemLeft),
+        rightItem: createSuccessfulRemoteDataObject$(itemRight1),
       }),
       Object.assign(new Relationship(), {
         self: url + '/3',
         id: '3',
         uuid: '3',
         relationshipType: createSuccessfulRemoteDataObject$(relationshipType),
-        leftItem: createSuccessfulRemoteDataObject$(item),
-        rightItem: createSuccessfulRemoteDataObject$(author2),
+        leftItem: createSuccessfulRemoteDataObject$(itemLeft),
+        rightItem: createSuccessfulRemoteDataObject$(itemRight2),
       }),
     ];
 
-    item = Object.assign(new Item(), {
+    itemLeft = Object.assign(new Item(), {
       _links: {
         self: { href: 'fake-item-url/publication' },
       },
-      id: 'publication',
-      uuid: 'publication',
+      id: `1-${leftType}`,
+      uuid: `1-${leftType}`,
       relationships: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
     });
 
@@ -192,12 +198,15 @@ describe('EditRelationshipListComponent', () => {
           [relationships[0].uuid]: fieldUpdate1,
           [relationships[1].uuid]: fieldUpdate2,
         }),
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        initialize: () => {
+        },
       },
     );
 
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
-        getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList([author1, author2])),
+        getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList([itemRight1, itemRight2])),
         getItemRelationshipsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
         isLeftItem: observableOf(true),
       },
@@ -233,14 +242,14 @@ describe('EditRelationshipListComponent', () => {
       })),
     });
 
-    const environmentUseThumbs = {
-      browseBy: {
-        showThumbnails: true,
-      },
-    };
+    editItemRelationshipsService = new EditItemRelationshipsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), EditRelationshipListComponent],
+      imports: [
+        EditRelationshipListComponent,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+      ],
       providers: [
         provideMockStore({ initialState }),
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
@@ -251,15 +260,15 @@ describe('EditRelationshipListComponent', () => {
         { provide: HostWindowService, useValue: hostWindowService },
         { provide: RelationshipTypeDataService, useValue: relationshipTypeService },
         { provide: GroupDataService, useValue: groupDataService },
-        { provide: Router, useValue: new RouterMock() },
         { provide: LinkHeadService, useValue: linkHeadService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
+        { provide: EditItemRelationshipsService, useValue: editItemRelationshipsService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AuthRequestService, useValue: new AuthRequestServiceStub() },
         { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: XSRFService, useValue: {} },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: APP_CONFIG, useValue: environment },
         { provide: REQUEST, useValue: {} },
         CookieService,
       ], schemas: [
@@ -268,114 +277,129 @@ describe('EditRelationshipListComponent', () => {
     }).compileComponents();
 
     resetComponent();
-  }));
+  }
 
-  describe('changeType is REMOVE', () => {
-    beforeEach(() => {
-      fieldUpdate1.changeType = FieldChangeType.REMOVE;
-      fixture.detectChanges();
-    });
-    it('the div should have class alert-danger', () => {
-      const element = de.queryAll(By.css('.relationship-row'))[1].nativeElement;
-      expect(element.classList).toContain('alert-danger');
-    });
-  });
+  describe('Publication - Author relationship', () => {
+    beforeEach(waitForAsync(() => init('Publication', 'Author')));
 
-  describe('pagination component', () => {
-    let paginationComp: PaginationComponent;
-
-    beforeEach(() => {
-      paginationComp = de.query(By.css('ds-pagination')).componentInstance;
-    });
-
-    it('should receive the correct pagination config', () => {
-      expect(paginationComp.paginationOptions).toEqual(paginationOptions);
-    });
-
-    it('should receive correct collection size', () => {
-      expect(paginationComp.collectionSize).toEqual(relationships.length);
-    });
-
-  });
-
-  describe('relationshipService.getItemRelationshipsByLabel', () => {
-    it('should receive the correct pagination info', () => {
-      expect(relationshipService.getItemRelationshipsByLabel).toHaveBeenCalledTimes(1);
-
-      const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
-      const findListOptions = callArgs[2];
-      const linksToFollow = callArgs[5];
-      expect(findListOptions.elementsPerPage).toEqual(paginationOptions.pageSize);
-      expect(findListOptions.currentPage).toEqual(paginationOptions.currentPage);
-      expect(linksToFollow.linksToFollow[0].name).toEqual('thumbnail');
-
-    });
-
-    describe('when the publication is on the left side of the relationship', () => {
+    describe('changeType is REMOVE', () => {
       beforeEach(() => {
-        relationshipType = Object.assign(new RelationshipType(), {
-          id: '1',
-          uuid: '1',
-          leftType: createSuccessfulRemoteDataObject$(entityType), // publication
-          rightType: createSuccessfulRemoteDataObject$(relatedEntityType), // author
-          leftwardType: 'isAuthorOfPublication',
-          rightwardType: 'isPublicationOfAuthor',
-        });
-        relationshipService.getItemRelationshipsByLabel.calls.reset();
-        resetComponent();
-      });
-
-      it('should fetch isAuthorOfPublication', () => {
-        expect(relationshipService.getItemRelationshipsByLabel).toHaveBeenCalledTimes(1);
-
-        const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
-        const label = callArgs[1];
-
-        expect(label).toEqual('isAuthorOfPublication');
-      });
-    });
-
-    describe('when the publication is on the right side of the relationship', () => {
-      beforeEach(() => {
-        relationshipType = Object.assign(new RelationshipType(), {
-          id: '1',
-          uuid: '1',
-          leftType: createSuccessfulRemoteDataObject$(relatedEntityType), // author
-          rightType: createSuccessfulRemoteDataObject$(entityType), // publication
-          leftwardType: 'isPublicationOfAuthor',
-          rightwardType: 'isAuthorOfPublication',
-        });
-        relationshipService.getItemRelationshipsByLabel.calls.reset();
-        resetComponent();
-      });
-
-      it('should fetch isAuthorOfPublication', () => {
-        expect(relationshipService.getItemRelationshipsByLabel).toHaveBeenCalledTimes(1);
-
-        const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
-        const label = callArgs[1];
-
-        expect(label).toEqual('isAuthorOfPublication');
-      });
-    });
-
-
-
-    describe('changes managment for add buttons', () => {
-
-      it('should show enabled add buttons', () => {
-        const element = de.query(By.css('.btn-success'));
-        expect(element.nativeElement?.disabled).toBeFalse();
-      });
-
-      it('after hash changes changed', () => {
-        comp.hasChanges = observableOf(true);
+        fieldUpdate1.changeType = FieldChangeType.REMOVE;
         fixture.detectChanges();
-        const element = de.query(By.css('.btn-success'));
-        expect(element.nativeElement?.disabled).toBeTrue();
+      });
+      it('the div should have class alert-danger', () => {
+        const element = de.queryAll(By.css('.relationship-row'))[1].nativeElement;
+        expect(element.classList).toContain('alert-danger');
       });
     });
 
+    describe('pagination component', () => {
+      let paginationComp: PaginationComponent;
+
+      beforeEach(() => {
+        paginationComp = de.query(By.css('ds-pagination')).componentInstance;
+      });
+
+      it('should receive the correct pagination config', () => {
+        expect(paginationComp.paginationOptions).toEqual(paginationOptions);
+      });
+
+      it('should receive correct collection size', () => {
+        expect(paginationComp.collectionSize).toEqual(relationships.length);
+      });
+
+    });
+
+    describe('relationshipService.getItemRelationshipsByLabel', () => {
+      it('should receive the correct pagination info', () => {
+        expect(relationshipService.getItemRelationshipsByLabel).toHaveBeenCalledTimes(1);
+
+        const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
+        const findListOptions = callArgs[2];
+        const linksToFollow = callArgs[5];
+        expect(findListOptions.elementsPerPage).toEqual(paginationOptions.pageSize);
+        expect(findListOptions.currentPage).toEqual(paginationOptions.currentPage);
+        expect(linksToFollow.linksToFollow[0].name).toEqual('thumbnail');
+
+      });
+
+      describe('when the publication is on the left side of the relationship', () => {
+        beforeEach(() => {
+          relationshipType = Object.assign(new RelationshipType(), {
+            id: '1',
+            uuid: '1',
+            leftType: createSuccessfulRemoteDataObject$(entityTypeLeft), // publication
+            rightType: createSuccessfulRemoteDataObject$(entityTypeRight), // author
+            leftwardType: 'isAuthorOfPublication',
+            rightwardType: 'isPublicationOfAuthor',
+          });
+          currentItemIsLeftItem$ =  new BehaviorSubject<boolean>(true);
+          relationshipService.getItemRelationshipsByLabel.calls.reset();
+          resetComponent();
+        });
+
+        it('should fetch isAuthorOfPublication', () => {
+          expect(relationshipService.getItemRelationshipsByLabel).toHaveBeenCalledTimes(1);
+
+          const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
+          const label = callArgs[1];
+
+          expect(label).toEqual('isAuthorOfPublication');
+        });
+      });
+
+      describe('when the publication is on the right side of the relationship', () => {
+        beforeEach(() => {
+          relationshipType = Object.assign(new RelationshipType(), {
+            id: '1',
+            uuid: '1',
+            leftType: createSuccessfulRemoteDataObject$(entityTypeRight), // author
+            rightType: createSuccessfulRemoteDataObject$(entityTypeLeft), // publication
+            leftwardType: 'isPublicationOfAuthor',
+            rightwardType: 'isAuthorOfPublication',
+          });
+          currentItemIsLeftItem$ =  new BehaviorSubject<boolean>(false);
+          relationshipService.getItemRelationshipsByLabel.calls.reset();
+          resetComponent();
+        });
+
+        it('should fetch isAuthorOfPublication', () => {
+          expect(relationshipService.getItemRelationshipsByLabel).toHaveBeenCalledTimes(1);
+
+          const callArgs = relationshipService.getItemRelationshipsByLabel.calls.mostRecent().args;
+          const label = callArgs[1];
+
+          expect(label).toEqual('isAuthorOfPublication');
+        });
+      });
+
+
+
+      describe('changes managment for add buttons', () => {
+
+        it('should show enabled add buttons', () => {
+          const element = de.query(By.css('.btn-success'));
+          expect(element.nativeElement?.disabled).toBeFalse();
+        });
+
+        it('after hash changes changed', () => {
+          comp.hasChanges = observableOf(true);
+          fixture.detectChanges();
+          const element = de.query(By.css('.btn-success'));
+          expect(element.nativeElement?.disabled).toBeTrue();
+        });
+      });
+
+    });
   });
 
+  describe('OrgUnit - OrgUnit relationship', () => {
+    beforeEach(waitForAsync(() => init('OrgUnit', 'OrgUnit')));
+
+    it('should emit the relatedEntityType$ even for same entity relationships', () => {
+      expect(comp.relatedEntityType$).toBeObservable(cold('(a|)', {
+        a: entityTypeRight,
+      }));
+    });
+  });
 });

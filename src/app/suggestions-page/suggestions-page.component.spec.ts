@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   TestBed,
-  tick,
+  waitForAsync,
 } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import {
@@ -70,7 +69,7 @@ describe('SuggestionPageComponent', () => {
   });
   const paginationService = new PaginationServiceStub();
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -106,7 +105,7 @@ describe('SuggestionPageComponent', () => {
   });
 
   it('should create', () => {
-    spyOn(component, 'updatePage').and.stub();
+    spyOn(component, 'updatePage').and.callThrough();
 
     scheduler.schedule(() => fixture.detectChanges());
     scheduler.flush();
@@ -118,70 +117,72 @@ describe('SuggestionPageComponent', () => {
   });
 
   it('should update page on pagination change', () => {
-    spyOn(component, 'updatePage').and.stub();
+    spyOn(component, 'updatePage').and.callThrough();
+    component.targetId$ = observableOf('testid');
 
-    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.schedule(() => component.onPaginationChange());
     scheduler.flush();
-    component.onPaginationChange();
+
     expect(component.updatePage).toHaveBeenCalled();
   });
 
-  it('should update suggestion on page update', (done) => {
+  it('should update suggestion on page update', () => {
     spyOn(component.processing$, 'next');
     spyOn(component.suggestionsRD$, 'next');
 
-    scheduler.schedule(() => fixture.detectChanges());
+    component.targetId$ = observableOf('testid');
+    scheduler.schedule(() => component.updatePage().subscribe());
     scheduler.flush();
-    paginationService.getFindListOptions().subscribe(() => {
-      expect(component.processing$.next).toHaveBeenCalled();
-      expect(mockSuggestionsService.getSuggestions).toHaveBeenCalled();
-      expect(component.suggestionsRD$.next).toHaveBeenCalled();
-      expect(mockSuggestionsService.clearSuggestionRequests).toHaveBeenCalled();
-      done();
-    });
-    component.updatePage();
+
+    expect(component.processing$.next).toHaveBeenCalledTimes(2);
+    expect(mockSuggestionsService.getSuggestions).toHaveBeenCalled();
+    expect(component.suggestionsRD$.next).toHaveBeenCalled();
+    expect(mockSuggestionsService.clearSuggestionRequests).toHaveBeenCalled();
   });
 
   it('should flag suggestion for deletion', fakeAsync(() => {
-    spyOn(component, 'updatePage').and.stub();
+    spyOn(component, 'updatePage').and.callThrough();
+    component.targetId$ = observableOf('testid');
 
-    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.schedule(() => component.ignoreSuggestion('1'));
     scheduler.flush();
-    component.ignoreSuggestion('1');
+
     expect(mockSuggestionsService.ignoreSuggestion).toHaveBeenCalledWith('1');
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
-    tick(201);
     expect(component.updatePage).toHaveBeenCalled();
   }));
 
   it('should flag all suggestion for deletion', () => {
-    spyOn(component, 'updatePage').and.stub();
+    spyOn(component, 'updatePage').and.callThrough();
+    component.targetId$ = observableOf('testid');
 
-    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.schedule(() => component.ignoreSuggestionAllSelected());
     scheduler.flush();
-    component.ignoreSuggestionAllSelected();
+
     expect(mockSuggestionsService.ignoreSuggestionMultiple).toHaveBeenCalled();
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();
   });
 
   it('should approve and import', () => {
-    spyOn(component, 'updatePage').and.stub();
+    spyOn(component, 'updatePage').and.callThrough();
+    component.targetId$ = observableOf('testid');
 
-    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.schedule(() => component.approveAndImport({ collectionId: '1234' } as unknown as SuggestionApproveAndImport));
     scheduler.flush();
-    component.approveAndImport({ collectionId: '1234' } as unknown as SuggestionApproveAndImport);
+
     expect(mockSuggestionsService.approveAndImport).toHaveBeenCalled();
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();
   });
 
   it('should approve and import multiple suggestions', () => {
-    spyOn(component, 'updatePage').and.stub();
+    spyOn(component, 'updatePage').and.callThrough();
+    component.targetId$ = observableOf('testid');
 
-    scheduler.schedule(() => fixture.detectChanges());
+    scheduler.schedule(() => component.approveAndImportAllSelected({ collectionId: '1234' } as unknown as SuggestionApproveAndImport));
     scheduler.flush();
-    component.approveAndImportAllSelected({ collectionId: '1234' } as unknown as SuggestionApproveAndImport);
+
     expect(mockSuggestionsService.approveAndImportMultiple).toHaveBeenCalled();
     expect(mockSuggestionsTargetStateService.dispatchRefreshUserSuggestionsAction).toHaveBeenCalled();
     expect(component.updatePage).toHaveBeenCalled();

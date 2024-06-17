@@ -36,10 +36,6 @@ export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
  * Component for displaying and processing the return to pool action on a workflow task item
  */
 export class ClaimedTaskActionsReturnToPoolComponent extends ClaimedTaskActionsAbstractComponent {
-  /**
-   * This component represents the return to pool option
-   */
-  option = WORKFLOW_TASK_OPTION_RETURN_TO_POOL;
 
   constructor(protected injector: Injector,
               protected router: Router,

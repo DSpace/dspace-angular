@@ -43,7 +43,7 @@ import { ThemeService } from './theme.service';
 export abstract class ThemedComponent<T extends object> implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('content') themedElementContent: ElementRef;
-  protected compRef: ComponentRef<T>;
+  compRef: ComponentRef<T>;
 
   /**
    * A reference to the themed component. Will start as undefined and emit every time the themed

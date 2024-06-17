@@ -17,7 +17,7 @@ import { SidebarSearchListElementComponent } from '../sidebar-search-list-elemen
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CommunitySearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
-  selector: 'ds-collection-sidebar-search-list-element',
+  selector: 'ds-community-sidebar-search-list-element',
   templateUrl: '../sidebar-search-list-element.component.html',
   standalone: true,
   imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule],

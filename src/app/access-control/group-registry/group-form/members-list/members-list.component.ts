@@ -24,21 +24,29 @@ import {
 } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest as observableCombineLatest,
   Observable,
+  ObservedValueOf,
+  of as observableOf,
   Subscription,
 } from 'rxjs';
 import {
+  defaultIfEmpty,
   map,
   switchMap,
   take,
 } from 'rxjs/operators';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import {
@@ -137,7 +145,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
   /**
    * List of EPeople members of currently active group being edited
    */
-  ePeopleMembersOfGroup: BehaviorSubject<PaginatedList<EPerson>> = new BehaviorSubject<PaginatedList<EPerson>>(undefined);
+  ePeopleMembersOfGroup: BehaviorSubject<PaginatedList<EpersonDtoModel>> = new BehaviorSubject(undefined);
 
   /**
    * Pagination config used to display the list of EPeople that are result of EPeople search
@@ -226,10 +234,35 @@ export class MembersListComponent implements OnInit, OnDestroy {
             return rd;
           }
         }),
-        getRemoteDataPayload())
-        .subscribe((paginatedListOfEPersons: PaginatedList<EPerson>) => {
-          this.ePeopleMembersOfGroup.next(paginatedListOfEPersons);
-        }));
+        switchMap((epersonListRD: RemoteData<PaginatedList<EPerson>>) => {
+          const dtos$ = observableCombineLatest([...epersonListRD.payload.page.map((member: EPerson) => {
+            const dto$: Observable<EpersonDtoModel> = observableCombineLatest(
+              this.isMemberOfGroup(member), (isMember: ObservedValueOf<Observable<boolean>>) => {
+                const epersonDtoModel: EpersonDtoModel = new EpersonDtoModel();
+                epersonDtoModel.eperson = member;
+                epersonDtoModel.ableToDelete = isMember;
+                return epersonDtoModel;
+              });
+            return dto$;
+          })]);
+          return dtos$.pipe(defaultIfEmpty([]), map((dtos: EpersonDtoModel[]) => {
+            return buildPaginatedList(epersonListRD.payload.pageInfo, dtos);
+          }));
+        }),
+      ).subscribe((paginatedListOfDTOs: PaginatedList<EpersonDtoModel>) => {
+        this.ePeopleMembersOfGroup.next(paginatedListOfDTOs);
+      }),
+    );
+  }
+
+  /**
+   * We always return true since this is only used by the top section (which represents all the users part of the group
+   * in {@link MembersListComponent})
+   *
+   * @param possibleMember  EPerson that is a possible member (being tested) of the group currently being edited
+   */
+  isMemberOfGroup(possibleMember: EPerson): Observable<boolean> {
+    return observableOf(true);
   }
 
   /**

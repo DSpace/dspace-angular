@@ -22,7 +22,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../../core/notifications/models/suggestion-target.model';
+import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { hasValue } from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -55,14 +55,14 @@ export class PublicationClaimComponent implements OnInit {
   /**
    * The source for which to list targets
    */
-  @Input() source: string;
+  @Input() source = '';
 
   /**
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}
    */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'stp',
+    id: 'stp_' + this.source,
     pageSizeOptions: [5, 10, 20, 40, 60],
   });
 
@@ -99,11 +99,16 @@ export class PublicationClaimComponent implements OnInit {
    * Component initialization.
    */
   ngOnInit(): void {
-    this.targets$ = this.suggestionTargetsStateService.getSuggestionTargets();
-    this.totalElements$ = this.suggestionTargetsStateService.getSuggestionTargetsTotals();
+    this.targets$ = this.suggestionTargetsStateService.getSuggestionTargets(this.source);
+    this.totalElements$ = this.suggestionTargetsStateService.getSuggestionTargetsTotals(this.source);
+  }
 
+  /**
+   * First Suggestion Targets loading after view initialization.
+   */
+  ngAfterViewInit(): void {
     this.subs.push(
-      this.suggestionTargetsStateService.isSuggestionTargetsLoaded().pipe(
+      this.suggestionTargetsStateService.isSuggestionTargetsLoaded(this.source).pipe(
         take(1),
       ).subscribe(() => {
         this.getSuggestionTargets();
@@ -118,7 +123,7 @@ export class PublicationClaimComponent implements OnInit {
    *    'true' if the targets are loading, 'false' otherwise.
    */
   public isTargetsLoading(): Observable<boolean> {
-    return this.suggestionTargetsStateService.isSuggestionTargetsLoading();
+    return this.suggestionTargetsStateService.isSuggestionTargetsLoading(this.source);
   }
 
   /**
@@ -128,7 +133,7 @@ export class PublicationClaimComponent implements OnInit {
    *    'true' if there are operations running on the targets (ex.: a REST call), 'false' otherwise.
    */
   public isTargetsProcessing(): Observable<boolean> {
-    return this.suggestionTargetsStateService.isSuggestionTargetsProcessing();
+    return this.suggestionTargetsStateService.isSuggestionTargetsProcessing(this.source);
   }
 
   /**
@@ -145,7 +150,7 @@ export class PublicationClaimComponent implements OnInit {
    * Unsubscribe from all subscriptions.
    */
   ngOnDestroy(): void {
-    this.suggestionTargetsStateService.dispatchClearSuggestionTargetsAction();
+    this.suggestionTargetsStateService.dispatchClearSuggestionTargetsAction(this.source);
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());

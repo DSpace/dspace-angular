@@ -1,8 +1,8 @@
+import { TestBed } from '@angular/core/testing';
 import {
-  ActivatedRouteSnapshot,
   ResolveFn,
   Router,
-  RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
 import {
   Observable,
@@ -12,53 +12,39 @@ import {
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { AuthService } from '../../../auth/auth.service';
 import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { Item } from '../../../shared/item.model';
 import { RemoteData } from '../../remote-data';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
-import { DsoPageSomeFeatureGuard } from './dso-page-some-feature.guard';
+import {
+  defaultDSOGetObjectUrl,
+  dsoPageSomeFeatureGuard,
+  getRouteWithDSOId,
+} from './dso-page-some-feature.guard';
 
-const object = {
-  self: 'test-selflink',
-} as DSpaceObject;
 
-const testResolver: ResolveFn<RemoteData<any>> = () => createSuccessfulRemoteDataObject$(object);
-
-/**
- * Test implementation of abstract class DsoPageSomeFeatureGuard
- */
-class DsoPageSomeFeatureGuardImpl extends DsoPageSomeFeatureGuard<any> {
-
-  protected resolver: ResolveFn<RemoteData<Item>> = testResolver;
-
-  constructor(protected authorizationService: AuthorizationDataService,
-              protected router: Router,
-              protected authService: AuthService,
-              protected featureIDs: FeatureID[]) {
-    super(authorizationService, router, authService);
-  }
-
-  getFeatureIDs(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<FeatureID[]> {
-    return observableOf(this.featureIDs);
-  }
-}
-
-describe('DsoPageSomeFeatureGuard', () => {
-  let guard: DsoPageSomeFeatureGuard<any>;
+describe('dsoPageSomeFeatureGuard and its functions', () => {
   let authorizationService: AuthorizationDataService;
   let router: Router;
   let authService: AuthService;
-
+  let resolver: ResolveFn<RemoteData<any>>;
+  let object: DSpaceObject;
   let route;
   let parentRoute;
 
+  let featureIds: FeatureID[];
+
   function init() {
+    object = {
+      self: 'test-selflink',
+    } as DSpaceObject;
+    featureIds = [FeatureID.LoginOnBehalfOf, FeatureID.CanDelete];
     authorizationService = jasmine.createSpyObj('authorizationService', {
       isAuthorized: observableOf(true),
     });
     router = jasmine.createSpyObj('router', {
       parseUrl: {},
     });
+    resolver = () => createSuccessfulRemoteDataObject$(object);
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
     });
@@ -72,16 +58,25 @@ describe('DsoPageSomeFeatureGuard', () => {
       },
       parent: parentRoute,
     };
-    guard = new DsoPageSomeFeatureGuardImpl(authorizationService, router, authService, []);
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: Router, useValue: router },
+        { provide: AuthService, useValue: authService },
+      ],
+    });
+
   }
 
   beforeEach(() => {
     init();
   });
 
-  describe('getObjectUrl', () => {
+
+  describe('defaultDSOGetObjectUrl', () => {
     it('should return the resolved object\'s selflink', (done) => {
-      guard.getObjectUrl(route, undefined).subscribe((selflink) => {
+      defaultDSOGetObjectUrl(resolver)(route, undefined).subscribe((selflink) => {
         expect(selflink).toEqual(object.self);
         done();
       });
@@ -90,8 +85,26 @@ describe('DsoPageSomeFeatureGuard', () => {
 
   describe('getRouteWithDSOId', () => {
     it('should return the route that has the UUID of the DSO', () => {
-      const foundRoute = (guard as any).getRouteWithDSOId(route);
+      const foundRoute = getRouteWithDSOId(route);
       expect(foundRoute).toBe(parentRoute);
+    });
+  });
+
+
+  describe('dsoPageSomeFeatureGuard', () => {
+    it('should call authorizationService.isAuthenticated with the appropriate arguments', (done) => {
+      const result$ = TestBed.runInInjectionContext(() => {
+        return dsoPageSomeFeatureGuard(
+          () => resolver, () => observableOf(featureIds),
+        )(route, { url: 'current-url' } as any);
+      }) as Observable<boolean | UrlTree>;
+
+      result$.subscribe(() => {
+        featureIds.forEach((featureId: FeatureID) => {
+          expect(authorizationService.isAuthorized).toHaveBeenCalledWith(featureId, object.self, undefined);
+        });
+        done();
+      });
     });
   });
 });

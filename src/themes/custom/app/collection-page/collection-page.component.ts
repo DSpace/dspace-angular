@@ -15,7 +15,7 @@ import {
   fadeInOut,
 } from '../../../../app/shared/animations/fade';
 import { ThemedComcolPageBrowseByComponent } from '../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/comcol-page-content.component';
+import { ThemedComcolPageContentComponent } from '../../../../app/shared/comcol/comcol-page-content/themed-comcol-page-content.component';
 import { ThemedComcolPageHandleComponent } from '../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from '../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from '../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
@@ -25,7 +25,6 @@ import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-lo
 import { ObjectCollectionComponent } from '../../../../app/shared/object-collection/object-collection.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
-
 
 @Component({
   selector: 'ds-themed-collection-page',
@@ -40,7 +39,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
   ],
   standalone: true,
   imports: [
-    ComcolPageContentComponent,
+    ThemedComcolPageContentComponent,
     ErrorComponent,
     NgIf,
     ThemedLoadingComponent,
@@ -60,4 +59,5 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
 /**
  * This component represents a detail page for a single collection
  */
-export class CollectionPageComponent extends BaseComponent {}
+export class CollectionPageComponent extends BaseComponent {
+}

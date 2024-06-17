@@ -26,7 +26,7 @@ import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-rela
 })
 export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedComponent<DsDynamicLookupRelationSearchTabComponent> {
   protected inAndOutputNames: (keyof DsDynamicLookupRelationSearchTabComponent & keyof this)[] = ['relationship', 'listId',
-    'query', 'repeatable', 'selection$', 'context', 'relationshipType', 'item', 'isLeft', 'toRemove', 'isEditRelationship',
+    'query', 'hiddenQuery', 'repeatable', 'selection$', 'context', 'relationshipType', 'item', 'isLeft', 'toRemove', 'isEditRelationship',
     'deselectObject', 'selectObject', 'resultFound'];
 
   @Input() relationship: RelationshipOptions;
@@ -34,6 +34,8 @@ export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedCompone
   @Input() listId: string;
 
   @Input() query: string;
+
+  @Input() hiddenQuery: string;
 
   @Input() repeatable: boolean;
 
@@ -51,9 +53,9 @@ export class ThemedDynamicLookupRelationSearchTabComponent extends ThemedCompone
 
   @Input() isEditRelationship: boolean;
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() deselectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
+  @Output() selectObject: EventEmitter<SearchResult<DSpaceObject>> = new EventEmitter();
 
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 
