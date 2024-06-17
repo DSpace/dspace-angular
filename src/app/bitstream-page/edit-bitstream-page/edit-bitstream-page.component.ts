@@ -42,7 +42,7 @@ import { ObservablesDictionary } from 'src/app/shared/utils/observables-dictiona
 /**
  * All data that is required before the form can be created and filled.
  */
-interface DataObjects {
+export interface DataObjects {
   bitstream: Bitstream,
   bitstreamFormat: BitstreamFormat,
   bitstreamFormatOptions: PaginatedList<BitstreamFormat>,
@@ -54,7 +54,7 @@ interface DataObjects {
 /**
  * The results after updating all the fields on submission.
  */
-interface UpdateResult {
+export interface UpdateResult {
   metadataUpdateRD: RemoteData<Bitstream>,
   primaryUpdateRD: RemoteData<Bundle>,
   formatUpdateRD: RemoteData<Bitstream>,
