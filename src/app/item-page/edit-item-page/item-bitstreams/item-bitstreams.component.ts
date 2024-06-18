@@ -20,6 +20,7 @@ import {
 } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
+  combineLatest,
   Observable,
   Subscription,
   zip as observableZip,
@@ -273,7 +274,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   isReinstatable(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self)))),
+      switchMap((bundles: Bundle[]) => combineLatest(bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self)))),
       map((reinstatable: boolean[]) => reinstatable.includes(true)),
     );
   }
@@ -283,7 +284,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   hasChanges(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
+      switchMap((bundles: Bundle[]) => combineLatest(bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
       map((hasChanges: boolean[]) => hasChanges.includes(true)),
     );
   }

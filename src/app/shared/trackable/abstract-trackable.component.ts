@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
@@ -13,7 +17,7 @@ import { NotificationsService } from '../notifications/notifications.service';
   template: '',
   standalone: true,
 })
-export class AbstractTrackableComponent {
+export class AbstractTrackableComponent implements OnInit {
 
   /**
    * The time span for being able to undo discarding changes
@@ -23,12 +27,23 @@ export class AbstractTrackableComponent {
   public url: string;
   public notificationsPrefix = 'static-pages.form.notification';
 
+  hasChanges$: Observable<boolean>;
+
+  isReinstatable$: Observable<boolean>;
+
   constructor(
     public objectUpdatesService: ObjectUpdatesService,
     public notificationsService: NotificationsService,
     public translateService: TranslateService,
+    public router: Router,
   ) {
 
+  }
+
+  ngOnInit(): void {
+    this.url = this.router.url.split('?')[0];
+    this.hasChanges$ = this.hasChanges();
+    this.isReinstatable$ = this.isReinstatable();
   }
 
   /**
