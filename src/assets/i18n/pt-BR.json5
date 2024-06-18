@@ -9422,8 +9422,8 @@
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "Por favor, insira uma pontuação válida (entre 0 e 1). Use o ponto (.) como separador decimal.",
 
-  // "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
-  "ldn-new-service.form.label.inboundPattern": "Padrão de Entrada",
+  // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
+  "ldn-new-service.form.label.inboundPattern": "Padrão Suportado",
 
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ Adicionar mais",
@@ -9572,8 +9572,11 @@
   // "item.page.review": "Review",
   "item.page.review": "Revisão",
 
-  // "item.page.dataset": "Dataset",
-  "item.page.dataset": "Conjunto de dados",
+  // "item.page.referenced": "Referenced By",
+  "item.page.referenced": "Referenciado Por",
+
+  // "item.page.supplemented": "Supplemented By",
+  "item.page.supplemented": "Suplementado Por",
 
   // "menu.section.icon.ldn_services": "LDN Services overview",
   "menu.section.icon.ldn_services": "Visão geral dos serviços LDN",
@@ -9692,17 +9695,17 @@
   // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
   "request-status-alert-box.requested": "O {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> está pendente.",
 
-  // "ldn-service-button-mark-inbound-deletion": "Mark inbound pattern for deletion",
-  "ldn-service-button-mark-inbound-deletion": "Marcar padrão de entrada para exclusão",
+  // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
+  "ldn-service-button-mark-inbound-deletion": "Marcar padrão suportado para exclusão",
 
-  // "ldn-service-button-unmark-inbound-deletion": "Unmark inbound pattern for deletion",
-  "ldn-service-button-unmark-inbound-deletion": "Desmarcar padrão de entrada para exclusão",
+  // "ldn-service-button-unmark-inbound-deletion": "Unmark supported pattern for deletion",
+  "ldn-service-button-unmark-inbound-deletion": "Desmarcar padrão suportado para exclusão",
 
-  // "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for inbound pattern",
-  "ldn-service-input-inbound-item-filter-dropdown": "Selecione o filtro de item para o padrão de entrada",
+  // "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for the pattern",
+  "ldn-service-input-inbound-item-filter-dropdown": "Selecionar filtro de item para padrão de entrada",
 
-  // "ldn-service-input-inbound-pattern-dropdown": "Select inbound pattern for service",
-  "ldn-service-input-inbound-pattern-dropdown": "Selecione o padrão de entrada para o serviço",
+  // "ldn-service-input-inbound-pattern-dropdown": "Select a pattern for service",
+  "ldn-service-input-inbound-pattern-dropdown": "Selecionar um padrão para o serviço",
 
   // "ldn-service-overview-select-delete": "Select service for deletion",
   "ldn-service-overview-select-delete": "Selecione o serviço para exclusão",
