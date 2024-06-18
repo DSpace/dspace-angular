@@ -55,10 +55,6 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
    */
   updates$: Observable<FieldUpdates>;
 
-  hasChanges$: Observable<boolean>;
-
-  isReinstatable$: Observable<boolean>;
-
   /**
    * Route to the item's page
    */
@@ -78,7 +74,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
     public translateService: TranslateService,
     public route: ActivatedRoute,
   ) {
-    super(objectUpdatesService, notificationsService, translateService);
+    super(objectUpdatesService, notificationsService, translateService, router);
   }
 
   /**
@@ -103,11 +99,9 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
         this.setItem(rd.payload);
       });
     }
+    super.ngOnInit();
 
     this.discardTimeOut = environment.item.edit.undoTimeout;
-    this.url = this.router.url.split('?')[0];
-    this.hasChanges$ = this.hasChanges();
-    this.isReinstatable$ = this.isReinstatable();
     this.hasChanges().pipe(first()).subscribe((hasChanges) => {
       if (!hasChanges) {
         this.initializeOriginalFields();
