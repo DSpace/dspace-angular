@@ -1635,7 +1635,7 @@
   "browse.startsWith.type_date.label": "Ou digite na data (ano-mês) e clique no botão de Ir",
 
   // "browse.startsWith.type_text": "Filter results by typing the first few letters",
-  "browse.startsWith.type_text": "Filtrar resultados informando as primeiras letras:",
+  "browse.startsWith.type_text": "Filtrar resultados informando as primeiras letras",
 
   // "browse.startsWith.input": "Filter",
   "browse.startsWith.input": "Filtro",
@@ -10244,4 +10244,6 @@
   // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
   "item.page.cc.license.disclaimer": "Exceto quando indicado de outra forma, a licença deste item é descrita como",
 
+  //"browse.search-form.placeholder": "Search the repository",
+  "browse.search-form.placeholder": "Buscar no repositório",
 }
