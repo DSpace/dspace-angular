@@ -1410,7 +1410,7 @@
   "item.preview.oairecerif.identifier.url": "عنوان URL",
   "item.preview.organization.address.addressCountry": "البلد",
   "item.preview.organization.foundingDate": "تاريخ التأسيس",
-  "item.preview.organization.identifier.crossrefid": "معرف CrossRef",
+  "item.preview.organization.identifier.crossrefid": "معرف Crossref",
   "item.preview.organization.identifier.isni": "إسني",
   "item.preview.organization.identifier.ror": "معرف ROR",
   "item.preview.organization.legalName": "الاسم الساقي",
