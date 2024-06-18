@@ -36,7 +36,6 @@ import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type
 import { getFinishedRemoteData } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { UUIDService } from '../../core/shared/uuid.service';
 import { fadeIn } from '../../shared/animations/fade';
 import {
   hasValue,
@@ -131,7 +130,6 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
     private routeService: RouteService,
     private router: Router,
     private modalService: NgbModal,
-    private uuidService: UUIDService,
   ) {
   }
 

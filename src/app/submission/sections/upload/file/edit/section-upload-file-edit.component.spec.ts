@@ -90,8 +90,13 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   const fileData: any = mockUploadFiles[0];
   const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId);
 
-  let noAccessConditionsMock = Object.assign({}, mockFileFormData);
-  delete noAccessConditionsMock.accessConditions;
+  let noAccessConditionsMock: any = Object.assign({}, mockFileFormData, {
+    accessConditions: [
+      {
+        accessConditionGroup: {},
+      },
+    ],
+  });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -221,9 +226,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp.ngOnInit();
 
       expect(comp.formModel).toBeDefined();
-      expect(comp.formModel.length).toBe(2);
-      expect(comp.formModel[0] instanceof DynamicFormGroupModel).toBeTruthy();
+      expect(comp.formModel.length).toBe(3);
+      expect(comp.formModel[0] instanceof DynamicCustomSwitchModel).toBeTruthy();
       expect(comp.formModel[1] instanceof DynamicFormGroupModel).toBeTruthy();
+      expect(comp.formModel[2] instanceof DynamicFormGroupModel).toBeTruthy();
     });
 
     it('should call setOptions method onChange', () => {

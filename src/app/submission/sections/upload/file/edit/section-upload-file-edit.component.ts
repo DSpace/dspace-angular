@@ -79,8 +79,7 @@ import {
   styleUrls: ['./section-upload-file-edit.component.scss'],
   templateUrl: './section-upload-file-edit.component.html',
 })
-export class SubmissionSectionUploadFileEditComponent
-implements OnInit, OnDestroy {
+export class SubmissionSectionUploadFileEditComponent implements OnInit, OnDestroy {
 
   /**
    * The FormComponent reference

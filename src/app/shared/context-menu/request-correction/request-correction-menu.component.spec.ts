@@ -17,10 +17,11 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import {
   of as observableOf,
-  throwError as observableThrow,
+  throwError,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { ErrorResponse } from '../../../core/cache/response.models';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
@@ -166,7 +167,7 @@ describe('RequestCorrectionMenuComponent', () => {
     });
 
     it('should show notification when correction is created unsuccessfully ', () => {
-      componentAsAny.submissionService.createSubmissionByItem.and.returnValue(observableThrow({ statusCode: 403 }));
+      componentAsAny.submissionService.createSubmissionByItem.and.returnValue(throwError(() => new ErrorResponse( { message: 'error', statusText: 'Forbidden', statusCode: 403 } as any)));
       component.modalRef = {
         close: () => {
           return;

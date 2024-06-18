@@ -20,12 +20,12 @@ import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../../core/shared/file.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { ListableObjectDirective } from '../../../../../shared/object-collection/shared/listable-object/listable-object.directive';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
@@ -74,7 +74,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [ItemAdminSearchResultGridElementComponent, ListableObjectDirective],
+        declarations: [ItemAdminSearchResultGridElementComponent, DynamicComponentLoaderDirective],
         imports: [
           CommonModule,
           BrowserModule,

@@ -80,7 +80,7 @@ describe('DsoEditMetadataValueComponent', () => {
     owningCollection: createSuccessfulRemoteDataObject$(collection),
   });
 
-  const mockVocabularyScrollable: Vocabulary = {
+  const mockVocabularyScrollable: Partial<Vocabulary> = {
     id: 'scrollable',
     name: 'scrollable',
     scrollable: true,
@@ -97,7 +97,7 @@ describe('DsoEditMetadataValueComponent', () => {
     },
   };
 
-  const mockVocabularyHierarchical: Vocabulary = {
+  const mockVocabularyHierarchical: Partial<Vocabulary> = {
     id: 'hierarchical',
     name: 'hierarchical',
     scrollable: false,
@@ -114,7 +114,7 @@ describe('DsoEditMetadataValueComponent', () => {
     },
   };
 
-  const mockVocabularySuggester: Vocabulary = {
+  const mockVocabularySuggester: Partial<Vocabulary> = {
     id: 'suggester',
     name: 'suggester',
     scrollable: false,

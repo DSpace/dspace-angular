@@ -9,14 +9,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
   Subscription,
 } from 'rxjs';
 
-import { CoreState } from '../../../core/core-state.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
@@ -145,7 +143,6 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
   constructor(
     private vocabularyTreeviewService: VocabularyTreeviewService,
     private vocabularyService: VocabularyService,
-    private store: Store<CoreState>,
     private translate: TranslateService,
   ) {
     this.treeFlattener = new VocabularyTreeFlattener(this.transformer, this.getLevel,

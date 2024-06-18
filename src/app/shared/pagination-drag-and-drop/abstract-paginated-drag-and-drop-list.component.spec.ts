@@ -37,7 +37,7 @@ class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDra
               protected paginationService: PaginationService,
               protected mockObjectsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>,
               protected uuidService: UUIDService) {
-    super(objectUpdatesService, elRef, objectValuesPipe, paginationService, uuidService);
+    super(objectUpdatesService, elRef, objectValuesPipe, paginationService);
   }
 
   initializeObjectsRD(): void {

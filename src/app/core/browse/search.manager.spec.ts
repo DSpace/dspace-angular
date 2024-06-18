@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { v4 as uuidv4 } from 'uuid';
 
-import { toRemoteData } from '../../browse-by/browse-by-metadata-page/browse-by-metadata-page.component.spec';
+import { toRemoteData } from '../../browse-by/browse-by-metadata/browse-by-metadata.component.spec';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,

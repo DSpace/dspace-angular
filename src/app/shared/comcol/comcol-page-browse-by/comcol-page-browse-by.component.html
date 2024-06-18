@@ -7,12 +7,12 @@
 
         <div class="list-group list-group-horizontal" role="tablist">
           <a *ngFor="let option of allOptions"
-             [attr.aria-current]="(currentOption$ | async)?.id === option.id"
+             [attr.aria-current]="(currentOptionId$ | async) === option.id"
              class="list-group-item"
              role="tab"
              [routerLink]="option.routerLink"
              [queryParams]="option.params"
-             [class.active]="(currentOption$ | async)?.id === option.id">
+             [class.active]="(currentOptionId$ | async) === option.id">
             {{ option.label | translate }}
           </a>
         </div>
@@ -22,10 +22,11 @@
         <select name="browse-type"
                 class="form-control"
                 aria-label="Browse Community or Collection"
-                (change)="onSelectChange($event)">
+                [ngModel]="currentOptionId$ | async"
+                (ngModelChange)="onSelectChange($event)">
           <option *ngFor="let option of allOptions"
                   [value]="option.id"
-                  [attr.selected]="(currentOption$ | async)?.id === option.id ? 'selected' : null">
+                  [attr.selected]="(currentOptionId$ | async) === option.id ? 'selected' : null">
             {{ option.label | translate }}
           </option>
         </select>

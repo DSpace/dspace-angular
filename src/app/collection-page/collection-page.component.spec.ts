@@ -102,7 +102,6 @@ describe('CollectionPageComponent', () => {
     expect(component.logoRD$).toBeDefined();
     expect(component.isCollectionAdmin$).toBeDefined();
     expect(compAsAny.paginationChanges$).toBeDefined();
-    expect(component.itemRD$).toBeDefined();
     expect(component.collectionPageRoute$).toBeDefined();
   });
 
@@ -145,8 +144,4 @@ describe('CollectionPageComponent', () => {
     });
   });
 
-  it('should clear pagination on ngOnDestroy', () => {
-    component.ngOnDestroy();
-    expect(paginationServiceSpy.clearPagination).toHaveBeenCalledWith(component.paginationConfig.id);
-  });
 });
