@@ -5,14 +5,15 @@ import {
 } from '@ngrx/store';
 
 import { SuggestionTarget } from '../../core/notifications/models/suggestion-target.model';
+import { subStateSelector } from '../../submission/selectors';
 import {
   suggestionNotificationsSelector,
   SuggestionNotificationsState,
 } from '../notifications.reducer';
-import { reciterSuggestionTargetStateSelector } from '../reciter-suggestions/selectors';
-import { SuggestionTargetEntry } from '../reciter-suggestions/suggestion-targets/suggestion-targets.reducer';
-import { SuggestionTargetState } from './suggestion-targets.reducer';
-import { subStateSelector } from '../../submission/selectors';
+import {
+  SuggestionTargetEntry,
+  SuggestionTargetState,
+} from './suggestion-targets.reducer';
 
 /**
  * Returns the Reciter Suggestion Target state.
@@ -35,7 +36,7 @@ export function suggestionTargetStateSelector(): MemoizedSelector<SuggestionNoti
 
 /**
  * Returns the Reciter Suggestion source state
- * @function reciterSuggestionTargetObjectSelector
+ * @function suggestionSourceSelector
  * @return {SuggestionTargetEntry}
  */
 export function suggestionSourceSelector(source: string): MemoizedSelector<SuggestionNotificationsState, SuggestionTargetEntry> {
@@ -98,18 +99,18 @@ export const getSuggestionTargetTotalsSelector = (source: string) => {
 
 /**
  * Returns Suggestion Targets for the current user.
- * @function getCurrentUserSuggestionTargetSelector
+ * @function getCurrentUserSuggestionTargetsSelector
  * @return {SuggestionTarget[]}
  */
 export const getCurrentUserSuggestionTargetsSelector = () => {
-  return createSelector(reciterSuggestionTargetStateSelector(), (state: SuggestionTargetState) => state?.currentUserTargets || []);
+  return createSelector(suggestionTargetStateSelector(), (state: SuggestionTargetState) => state?.currentUserTargets || []);
 };
 
 /**
  * Returns whether or not the user has consulted their suggestions
- * @function getCurrentUserSuggestionTargetSelector
+ * @function getCurrentUserSuggestionTargetsVisitedSelector
  * @return {boolean}
  */
 export const getCurrentUserSuggestionTargetsVisitedSelector = () => {
-  return createSelector(reciterSuggestionTargetStateSelector(), (state: SuggestionTargetState) => state?.currentUserTargetsVisited || false);
+  return createSelector(suggestionTargetStateSelector(), (state: SuggestionTargetState) => state?.currentUserTargetsVisited || false);
 };

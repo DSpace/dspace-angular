@@ -147,9 +147,6 @@ import { SuggestionTarget } from './notifications/models/suggestion-target.model
 import { QualityAssuranceEventObject } from './notifications/qa/models/quality-assurance-event.model';
 import { QualityAssuranceSourceObject } from './notifications/qa/models/quality-assurance-source.model';
 import { QualityAssuranceTopicObject } from './notifications/qa/models/quality-assurance-topic.model';
-import { OpenaireSuggestion } from './notifications/reciter-suggestions/models/openaire-suggestion.model';
-import { OpenaireSuggestionSource } from './notifications/reciter-suggestions/models/openaire-suggestion-source.model';
-import { OpenaireSuggestionTarget } from './notifications/reciter-suggestions/models/openaire-suggestion-target.model';
 import { OrcidHistory } from './orcid/model/orcid-history.model';
 import { OrcidQueue } from './orcid/model/orcid-queue.model';
 import { OrcidAuthService } from './orcid/orcid-auth.service';
@@ -472,9 +469,6 @@ export const models =
     UsageReport,
     QualityAssuranceTopicObject,
     QualityAssuranceEventObject,
-    OpenaireSuggestion,
-    OpenaireSuggestionTarget,
-    OpenaireSuggestionSource,
     ItemExportFormat,
     Section,
     EditItem,

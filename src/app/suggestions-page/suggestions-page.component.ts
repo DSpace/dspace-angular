@@ -14,7 +14,6 @@ import {
   Observable,
 } from 'rxjs';
 import {
-  delay,
   distinctUntilChanged,
   map,
   switchMap,
@@ -178,15 +177,6 @@ export class SuggestionsPageComponent implements OnInit {
         }
 
         this.suggestionService.clearSuggestionRequests();
-        // navigate to the mydspace if no suggestions remains
-
-        // if (results.totalElements === 0) {
-        //     const content = this.translateService.instant('reciter.suggestion.empty',
-        //       this.suggestionService.getNotificationSuggestionInterpolation(this.suggestionTarget));
-        //     this.notificationService.success('', content, {timeOut:0}, true);
-        // TODO if the target is not the current use route to the suggestion target page
-        //     this.router.navigate(['/mydspace']);
-        // }
       }),
     );
   }
@@ -198,8 +188,6 @@ export class SuggestionsPageComponent implements OnInit {
   ignoreSuggestion(suggestionId) {
     this.suggestionService.ignoreSuggestion(suggestionId).pipe(
       tap(() => this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction()),
-      //We add a little delay in the page refresh so that we ensure the deletion has been propagated
-      delay(200),
       switchMap(() => this.updatePage()),
     ).subscribe();
   }
@@ -214,7 +202,6 @@ export class SuggestionsPageComponent implements OnInit {
       .pipe(
         tap((results: SuggestionBulkResult) => {
           this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
-          this.updatePage();
           this.isBulkOperationPending = false;
           this.selectedSuggestions = {};
           if (results.success > 0) {
@@ -258,7 +245,6 @@ export class SuggestionsPageComponent implements OnInit {
       .pipe(
         tap((results: SuggestionBulkResult) => {
           this.suggestionTargetsStateService.dispatchRefreshUserSuggestionsAction();
-          this.updatePage();
           this.isBulkOperationPending = false;
           this.selectedSuggestions = {};
           if (results.success > 0) {
