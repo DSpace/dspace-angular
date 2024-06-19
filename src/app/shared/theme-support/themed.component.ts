@@ -127,6 +127,7 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
       }
       this.compRef$.next(this.compRef);
       this.cdr.markForCheck();
+      this.themedElementContent.nativeElement.remove();
     });
   }
 

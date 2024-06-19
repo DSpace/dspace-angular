@@ -2755,6 +2755,10 @@
 
   "item.page.orcid.tooltip": "Open ORCID setting page",
 
+  "item.page.orcid.title": "ORCID",
+
+  "item.page.orcid.tooltip": "Open ORCID setting page",
+
   "item.page.person.search.title": "Articles by this author",
 
   "item.page.related-items.view-more": "Show {{ amount }} more",
