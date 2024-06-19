@@ -227,20 +227,21 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         this.changeDetectorRef.detectChanges();
       }),
 
-
       // retrieve submission's bitstream data from state
-      combineLatest([this.configMetadataForm$,
-        this.bitstreamService.getUploadedFilesData(this.submissionId, this.sectionData.id)]).pipe(
-        filter(([configMetadataForm, { files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-          return isNotEmpty(configMetadataForm) && isNotEmpty(files);
+      combineLatest([
+        this.configMetadataForm$,
+        this.bitstreamService.getUploadedFilesData(this.submissionId, this.sectionData.id),
+      ]).pipe(
+        filter(([configMetadataForm, sectionUploadObject]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
+          return isNotEmpty(configMetadataForm) && isNotEmpty(sectionUploadObject);
         }),
-        distinctUntilChanged())
-        .subscribe(([configMetadataForm, { primary, files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-          this.primaryBitstreamUUID = primary;
-          this.fileList = files;
-          this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
-        },
-        ),
+        distinctUntilChanged(),
+      ).subscribe(([configMetadataForm, { primary, files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
+        this.primaryBitstreamUUID = primary;
+        this.fileList = files;
+        this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
+        this.changeDetectorRef.detectChanges();
+      }),
     );
   }
 
