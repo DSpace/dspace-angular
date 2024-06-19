@@ -19,8 +19,10 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { ErrorResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
 import { SubmissionResponse } from './submission-response.model';
+import { RequestError } from '../data/request-error.model';
 import { RestRequest } from '../data/rest-request.model';
 
 /**
@@ -49,7 +51,7 @@ export class SubmissionRestService {
       getFirstCompletedRemoteData(),
       map((response: RemoteData<SubmissionResponse>) => {
         if (response.hasFailed) {
-          throw new Error(response.errorMessage);
+          throw new ErrorResponse({ statusText: response.errorMessage, statusCode: response.statusCode } as RequestError);
         } else {
           return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
         }
