@@ -4,11 +4,7 @@ import {
 } from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { cold } from 'jasmine-marbles';
-import {
-  EMPTY,
-  of,
-} from 'rxjs';
-import { take } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import { SubmissionEditCanDeactivateService } from '../submission-edit-can-deactivate.service';
 import { PendingChangesGuard } from './pending-changes.guard';
@@ -28,7 +24,7 @@ describe('PendingChangesGuard', () => {
       confirmLabel: 'confirmLabel',
       brandColor: 'brandColor',
       confirmIcon: 'confirmIcon',
-      response: EMPTY,
+      response: of(true),
     },
   };
 
@@ -62,7 +58,7 @@ describe('PendingChangesGuard', () => {
       canDeactivateServiceSpy.canDeactivate.and.returnValue(of(false));
     });
     it('should open confirmation modal', () => {
-      guard.canDeactivate().pipe(take(1)).subscribe(() => {
+      guard.canDeactivate().subscribe(() => {
         expect(modalService.open).toHaveBeenCalled();
       });
 
