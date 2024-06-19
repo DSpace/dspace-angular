@@ -130,8 +130,6 @@
 
   "admin.registries.bitstream-formats.table.id": "ID",
 
-  "admin.registries.bitstream-formats.table.id": "ID",
-
   "admin.registries.bitstream-formats.table.return": "Back",
 
   "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
@@ -181,8 +179,6 @@
   "admin.registries.schema.fields.table.delete": "Delete selected",
 
   "admin.registries.schema.fields.table.field": "Field",
-
-  "admin.registries.schema.fields.table.id": "ID",
 
   "admin.registries.schema.fields.table.id": "ID",
 
@@ -668,15 +664,11 @@
 
   "admin.batch-import.page.remove": "remove",
 
-  "advanced-workflow-action.select-reviewer.description-single": "Please select a single reviewer below before submitting",
+  "auth.errors.invalid-user": "Invalid email address or password.",
 
-  "advanced-workflow-action.select-reviewer.description-multiple": "Please select one or more reviewers below before submitting",
+  "auth.messages.expired": "Your session has expired. Please log in again.",
 
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.head": "EPeople",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.search.head": "Add EPeople",
-
-  "advanced-workflow-action-select-reviewer.groups.form.reviewers-list.button.see-all": "Browse All",
+  "auth.messages.token-refresh-failed": "Refreshing your session token failed. Please log in again.",
 
   "bitstream.download.page": "Now downloading {{bitstream}}...",
 
@@ -1210,7 +1202,6 @@
   "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
 
   "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
-
   "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
 
   "collection.source.controls.reset.completed": "The reset and reimport completed",
@@ -1931,17 +1922,16 @@
 
   "home.description": "DSpace is a digital service that collects, preserves, and distributes digital material. Repositories are important tools for preserving an organization's legacy; they facilitate digital preservation and scholarly communication.",
 
-  "health-page.status-tab": "Status",
+  "home.breadcrumbs": "Home",
 
-  "health-page.error.msg": "The health check service is temporarily unavailable",
+  "home.search-form.placeholder": "Search the repository ...",
 
-  "health-page.property.status": "Status code",
+  "home.title": "Home",
 
-  "health-page.section.db.title": "Database",
+  "home.top-level-communities.head": "Communities in DSpace",
 
-  "health-page.section.geoIp.title": "GeoIp",
+  "home.top-level-communities.help": "Select a community to browse its collections.",
 
-  "health-page.section.solrAuthorityCore.title": "Solr: authority core",
 
   "home-page.carousel.ldata.info": "Linguistic Data and NLP Tools",
 
@@ -2093,38 +2083,6 @@
   "licenses.breadcrumbs": "Licenses",
 
 
-
-  "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
-
-  "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
-
-  "health-page.section-info.app.title": "Application Backend",
-
-  "health-page.section-info.java.title": "Java",
-
-  "health-page.status": "Status",
-
-  "health-page.status.ok.info": "Operational",
-
-  "health-page.status.error.info": "Problems detected",
-
-  "health-page.status.warning.info": "Possible issues detected",
-
-  "health-page.title": "Health",
-
-  "health-page.section.no-issues": "No issues detected",
-
-  "home.description": "",
-
-  "home.breadcrumbs": "Home",
-
-  "home.search-form.placeholder": "Search the repository ...",
-
-  "home.title": "Home",
-
-  "home.top-level-communities.head": "Communities in DSpace",
-
-  "home.top-level-communities.help": "Select a community to browse its collections.",
 
   "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
 
@@ -3604,7 +3562,7 @@
 
   "nav.user.description": "User profile bar",
 
-  "nav.user.description": "User profile bar",
+  "none.listelement.badge": "Item",
 
   "orgunit.listelement.badge": "Organizational Unit",
 
@@ -5277,35 +5235,7 @@
 
   "submission.submit.breadcrumbs": "New submission",
 
-  "submission.sections.license.notgranted": "You must accept the license",
-
-  "submission.sections.sherpa.publication.information": "Publication information",
-
-  "submission.sections.sherpa.publication.information.title": "Title",
-
-  "submission.sections.sherpa.publication.information.issns": "ISSNs",
-
-  "submission.sections.sherpa.publication.information.url": "URL",
-
-  "submission.sections.sherpa.publication.information.publishers": "Publisher",
-
-  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-
-  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-
-  "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-
-  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-
-  "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-
-  "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
-
-  "submission.sections.sherpa.publisher.policy.version": "Version",
-
-  "submission.sections.sherpa.publisher.policy.embargo": "Embargo",
-
-  "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
+  "submission.submit.title": "New submission",
 
   "submission.workflow.generic.delete": "Delete",
 

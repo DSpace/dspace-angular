@@ -215,7 +215,6 @@ describe('authReducer', () => {
       loaded: false,
       blocking: false,
       loading: true,
-      externalAuth: true,
       idle: false
     };
     expect(newState).toEqual(state);

@@ -1,7 +1,8 @@
 # This workflow checks open PRs for merge conflicts and labels them when conflicts are found
 name: Check for merge conflicts
 
-# Run this for all pushes (i.e. merges) to 'main' or maintenance branches
+# Run whenever the "main" branch is updated
+# NOTE: This means merge conflicts are only checked for when a PR is merged to main.
 on:
   push:
     branches: [ main ]

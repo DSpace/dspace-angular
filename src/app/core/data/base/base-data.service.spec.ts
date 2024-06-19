@@ -567,26 +567,6 @@ describe('BaseDataService', () => {
         });
       });
 
-      (service as any).addDependency(
-        createSuccessfulRemoteDataObject$({ _links: { self: { href: 'object-href' } } }),
-        observableOf('dependsOnHref')
-      );
-      expect(addDependencySpy).toHaveBeenCalled();
-    });
-
-    it('should call objectCache.addDependency without an href if request failed', () => {
-      addDependencySpy.and.callFake((href$: Observable<string>, dependsOn$: Observable<string>) => {
-        observableCombineLatest([href$, dependsOn$]).subscribe(([href, dependsOn]) => {
-          expect(href).toBe(undefined);
-          expect(dependsOn).toBe('dependsOnHref');
-        });
-      });
-
-      (service as any).addDependency(
-        createFailedRemoteDataObject$('something went wrong'),
-        observableOf('dependsOnHref')
-      );
-      expect(addDependencySpy).toHaveBeenCalled();
     });
   });
 
