@@ -55,9 +55,6 @@ runs:
           echo "====="
           # copy assetstore
           echo Preparing assetstore
-          # remove old assetstore
-          docker exec dspace${{ inputs.INSTANCE }} rm -r /dspace/assetstore
-          # copy new assetstore
           docker cp ${{ inputs.ASSETSTORE }} dspace${{ inputs.INSTANCE }}:/dspace/
           echo "====="
           cd ../
