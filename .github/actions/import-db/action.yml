@@ -54,7 +54,7 @@ runs:
           docker logs $DB5NAME || true
           echo "====="
           # copy assetstore
-          cp ${{ inputs.ASSETSTORE }} dspace${{ inputs.INSTANCE }}:/dspace/
+          cp -r ${{ inputs.ASSETSTORE }} dspace${{ inputs.INSTANCE }}:/dspace/
           echo "====="
           cd ../
           pip install -r requirements.txt || true
