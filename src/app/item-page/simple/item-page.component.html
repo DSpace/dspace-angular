@@ -1,11 +1,18 @@
-<div class="container" *ngVar="(itemRD$ | async) as itemRD">
-  <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
-    <div *ngIf="itemRD?.payload as item">
+<div class="container clarin-shadow remove-padding clarin-home-page-borders clarin-cut-bottom-2 clarin-cut-top-1 pb-2"
+     *ngVar="(itemRD$ | async) as itemRD">
+  <div class="item-page" *ngIf="itemRD?.hasSucceeded && itemRD?.payload as item" @fadeInOut>
+    <div *ngIf="!(isAdmin$ | async)?.valueOf() && (withdrawnTombstone || replacedTombstone)">
+      <ds-tombstone [item]="item"></ds-tombstone>
+    </div>
+    <div *ngIf="!(withdrawnTombstone || replacedTombstone)">
       <ds-themed-item-alerts [item]="item"></ds-themed-item-alerts>
       <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
       <ds-view-tracker [object]="item"></ds-view-tracker>
       <ds-listable-object-component-loader *ngIf="!item.isWithdrawn || (isAdmin$|async)" [object]="item" [viewMode]="viewMode"></ds-listable-object-component-loader>
       <ds-item-versions class="mt-2" [item]="item" [displayActions]="false"></ds-item-versions>
+      <div *ngIf="(hasFiles | async) === true">
+        <ds-clarin-files-section [item]="item" [itemHandle]="itemHandle"></ds-clarin-files-section>
+      </div>
     </div>
   </div>
   <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>

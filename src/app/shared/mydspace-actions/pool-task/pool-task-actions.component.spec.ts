@@ -140,6 +140,12 @@ describe('PoolTaskActionsComponent', () => {
     expect(btn).not.toBeNull();
   });
 
+  it('should display view button', () => {
+    const btn = fixture.debugElement.query(By.css('button [data-test="view-btn"]'));
+
+    expect(btn).toBeDefined();
+  });
+
   it('should call claim task with href of getPoolTaskEndpointById', ((done) => {
 
     const poolTaskHref = 'poolTaskHref';

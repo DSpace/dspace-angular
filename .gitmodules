@@ -1,0 +1,3 @@
+[submodule "python_data_import/lib"]
+	path = python_data_import/lib
+	url = https://github.com/dataquest-dev/dspace-blackbox-testing.git

@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="card">
+    <h5 class="card-header">{{ 'handle-table.title' | translate }}</h5>
+    <div class="card-body">
+
+      <!-- The search panel -->
+      <div class="input-group mb-3">
+      <div ngbDropdown class="input-group-prepend">
+        <button id="resultdropdown" type="button"
+                ngbDropdownToggle
+                class="btn btn-outline-secondary dropdown-toggle"
+                data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+          <span *ngIf="searchOption != null" [ngModel]="searchOption" name="searchOption" ngDefaultControl>{{searchOption}}</span>
+          <span *ngIf="searchOption == null" >{{'handle-table.dropdown.search-option' | translate}}</span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="resultdropdown">
+          <button class="dropdown-item" (click)="setSearchOption($event)">{{"handle-table.table.handle" | translate}}</button>
+          <button class="dropdown-item" (click)="setSearchOption($event)">{{"handle-table.table.internal" | translate}}</button>
+          <button class="dropdown-item" (click)="setSearchOption($event)">{{"handle-table.table.resource-type" | translate}}</button>
+        </div>
+      </div>
+        <input type="text" id="clarin-dc-search-box" class="form-control" aria-label="Text input with dropdown button"
+               [value]="searchQuery"
+               #searchInput>
+        <span class="input-group-append" (click)="searchHandles(searchInput.value)">
+          <button type="submit" class="btn btn-primary search-button">
+            <i class="fas fa-search"></i>{{'handle-table.dropdown.search-button' | translate}}</button>
+        </span>
+      </div>
+
+      <!-- The table with pagination -->
+      <div *ngVar="(handlesRD$ | async)?.payload as handles">
+        <div class="mb-2">
+          <ds-pagination (paginationChange)="onPageChange()"
+                         [sortOptions]="sortConfiguration"
+                         [hideGear]="true"
+                         [hidePagerWhenSinglePage]="true"
+                         [paginationOptions]="options"
+                         [pageInfoState]="handles?.pageInfo"
+                         [collectionSize]="handles?.totalElements"
+                         [retainScrollPosition]="true">
+            <table class="table table-striped table-bordered align-middle my-2">
+              <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">{{"handle-table.table.handle" | translate}}</th>
+                <th scope="col">{{"handle-table.table.internal" | translate}}</th>
+                <th scope="col">{{"handle-table.table.url" | translate}}</th>
+                <th scope="col">{{"handle-table.table.resource-type" | translate}}</th>
+                <th scope="col">{{"handle-table.table.resource-id" | translate}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let handle of handles?.page" [id]="'handle-row-' + handle.id">
+                <td><input class="collection-checkbox" [ngModel]="selectedHandle === handle.id" (change)="switchSelectedHandle(handle.id)" type="checkbox" name="{{handle.id}}"></td>
+                <td class="version-row-element-version">
+                  {{handle?.handle}}
+                </td>
+                <td class="version-row-element-editor">
+                  <span *ngIf="handle?.resourceTypeID == null">
+                    {{ 'handle-table.table.not-internal' | translate }}
+                  </span>
+                  <span *ngIf="handle?.resourceTypeID != null">
+                    {{ 'handle-table.table.is-internal' | translate }}
+                  </span>
+                </td>
+                <td class="version-row-element-editor">
+                  {{handle?.url}}
+                </td>
+                <td class="version-row-element-editor">
+                  {{handle?.resourceTypeID}}
+                </td>
+                <td class="version-row-element-editor">
+                  <span *ngIf="handle?.resourceTypeID != null">
+                     {{handle?.id}}
+                  </span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <ds-loading *ngIf="isLoading" class="text-center"></ds-loading>
+          </ds-pagination>
+          <div class="mt-2">
+            <div class="btn-group pr-1">
+              <button type="button" class="btn btn-success"
+                      (click)="redirectWithCurrentPage()">
+                {{'handle-table.button.new-handle' | translate}}
+              </button>
+            </div>
+            <div class="btn-group pr-1">
+              <button type="button" class="btn btn-warning"
+                      (click)="redirectWithHandleParams()"
+                      [disabled]="selectedHandle === null">
+                {{'handle-table.button.edit-handle' | translate}}
+              </button>
+            </div>
+            <div class="btn-group pr-1">
+              <button type="button" class="btn btn-danger"
+                      (click)="deleteHandles()"
+                      [disabled]="selectedHandle === null">
+                {{'handle-table.button.delete-handle' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

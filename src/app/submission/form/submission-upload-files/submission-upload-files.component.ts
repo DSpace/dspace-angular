@@ -155,8 +155,12 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   /**
    * Show error notification on upload fails
    */
-  public onUploadError() {
-    this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
+  public onUploadError(event: any) {
+    const errorMessageUploadLimit = this.translate.instant('submission.sections.upload.upload-failed.size-limit-exceeded');
+    const defaultErrorMessage = this.translate.instant('submission.sections.upload.upload-failed');
+    const errorMessage = event?.response === errorMessageUploadLimit ? errorMessageUploadLimit : defaultErrorMessage;
+
+    this.notificationsService.error(null, errorMessage);
   }
 
   /**

@@ -58,7 +58,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     if (isEmpty(this.viewModeList)) {
-      this.viewModeList = [ViewMode.ListElement, ViewMode.GridElement];
+      this.viewModeList = [ViewMode.ListElement];
     }
 
     this.sub = this.searchService.getViewMode().pipe(

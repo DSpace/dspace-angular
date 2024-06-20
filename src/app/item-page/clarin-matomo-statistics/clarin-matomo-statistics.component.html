@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row px-2 py-2 rounded alert-info">
+    <i class="fas fa-info-circle pt-1"></i>
+    <span class="pl-2">{{'item.matomo-statistics.info.message' | translate}}</span>
+  </div>
+  <div class="row pt-4 clarin-bottom-line">
+    <button type="button" class="col-md-2 clarin-chart-button btn btn-outline-success justify-content-start py-2 px-3"
+            [ngClass]="viewsButtonClicked ? 'clarin-chart-views-clicked' : 'clarin-chart-views'"
+            role="button"
+            data-bs-toggle="button"
+            (click)="toggleViews()">
+      <div class="align-items-center justify-content-center d-flex"><i class="far fa-eye"></i></div>
+      <div class="align-items-center justify-content-center d-flex">{{'item.page.matomo-statistics.views.button' | translate}}</div>
+    </button>
+    <button type="button" class="col-md-2 clarin-chart-button btn btn-outline-info py-2 px-3 ml-1"
+            [ngClass]="downloadsButtonClicked ? 'clarin-chart-downloads-clicked' : 'clarin-chart-downloads'"
+            data-bs-toggle="button"
+            (click)="toggleDownload()">
+      <div class="align-items-center justify-content-center d-flex"><i class="far fa-eye"></i></div>
+      <div class="align-items-center justify-content-center d-flex">{{'item.page.matomo-statistics.downloads.button' | translate}}</div>
+    </button>
+  </div>
+  <div class="row pt-2 justify-content-end">
+    <span class="chart-message rounded px-2 py-2">{{chartMessage}}</span>
+    <button class="btn clarin-btn-back rounded px-2 py-2 ml-2" *ngIf="!(this.actualPeriod === this.periodYear)" (click)="back()">Back</button>
+  </div>
+  <div class="chart pt-2">
+    <canvas baseChart
+            [datasets]="chartLabels.datasets"
+            [labels]="chartLabels.labels"
+            [options]="chartOptions"
+            [legend]="false"
+            (chartClick)="chartClicked($event)"
+            chartType="line">
+    </canvas>
+  </div>
+  <div *ngIf="downloadsButtonClicked" class="pt-3">
+    <table class="table table-striped">
+      <thead>
+      Filewise Statistics
+      </thead>
+      <tbody>
+      <tr *ngFor="let fileData of (filesDownloads | async) | dsKeys">
+        <td><b>{{fileData.value}}</b></td>
+        <td>{{fileData.key}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

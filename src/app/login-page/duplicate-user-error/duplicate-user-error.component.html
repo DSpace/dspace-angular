@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>{{'clarin.auth-failed.duplicate-user.header.message' | translate}}</h1>
+      <div class="alert alert-danger alert-dismissible fade show">
+        <span>{{'clarin.auth-failed.duplicate-user.error.message.0' | translate}}</span>
+        <span><b> {{email}} </b></span>
+        <span>{{'clarin.auth-failed.duplicate-user.error.message.1' | translate}}</span>
+        <span>
+          <a [href]="'mailto:'+(helpDesk$ | async)?.payload?.values[0]">
+          {{'clarin.auth-failed.duplicate-user.error.message.2' | translate}}.
+        </a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

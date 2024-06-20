@@ -17,13 +17,25 @@ import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { storeModuleConfig } from '../app.reducer';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { AuthorizationDataServiceStub } from '../shared/testing/authorization-service.stub';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 
 let comp: FooterComponent;
 let fixture: ComponentFixture<FooterComponent>;
 let de: DebugElement;
 let el: HTMLElement;
+let mockConfigurationDataService: ConfigurationDataService;
 
 describe('Footer component', () => {
+  mockConfigurationDataService = jasmine.createSpyObj('configurationDataService', {
+    findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+      name: 'themed.by.url',
+      values: [
+        'some.url'
+      ]
+    }))
+  });
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
@@ -38,6 +50,8 @@ describe('Footer component', () => {
       providers: [
         FooterComponent,
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
+        FooterComponent,
+        { provide: ConfigurationDataService, useValue: mockConfigurationDataService }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

@@ -1,0 +1,36 @@
+name: 'Erase dspace db'
+description: 'CI/CD Erase db'
+
+inputs:
+  INSTANCE:
+    description: 'port suffix'
+    required: true
+    type: string
+  NAME:
+    description: 'docker compose project name'
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: stop and remove containers
+      shell: bash
+      env:
+        INSTANCE: ${{ inputs.INSTANCE }}
+      run: |
+        docker stop dspacesolr$INSTANCE dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE || true
+        docker rm   dspacesolr$INSTANCE dspacedb$INSTANCE dspace$INSTANCE dspace-angular$INSTANCE || true
+
+    - name: remove volumes
+      shell: bash
+      env:
+        NAME: ${{ inputs.NAME }}
+      run: |
+          # # condition below was found by accident and appears to be useless. Investigate later.
+          # be sure to have INSTANCE set
+          # if [[ "x${NAME}" != "dspace-" ]]; then
+            docker volume rm $(docker volume ls --filter name="${NAME}_" -q) || true
+          # fi;
+

@@ -1,0 +1,104 @@
+.clarin-ref-box {
+  background-color: #fcf8e3 !important;
+  border: 1px solid #fbeed5 !important;
+  color: #c09853;
+  border-radius: 6px 6px 0 0;
+  width: 100%;
+}
+
+.clarin-ref-box-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.clarin-ref-box-header-icon {
+  font-size: 1.8em;
+}
+
+.clarin-ref-box-citation-buttons a {
+  padding: 0.2em 0.5em 0.1em;
+  margin: 0 2px;
+  font-weight: bold;
+  line-height: 1;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+  background-color: #999999;
+  text-transform: uppercase;
+  font-size: 12px;
+  text-decoration: none;
+  text-shadow: none;
+  cursor: pointer;
+}
+
+.clarin-ref-box-citation-buttons {
+  flex: 1 0 auto;
+  text-align: right;
+}
+
+.clarin-ref-box-citation-buttons a:hover, .clarin-ref-box-citation-buttons a:focus {
+  background-color: #808080;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.clarin-ref-box-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.clarin-ref-box-copy-wrapper {
+  background: #c09853;
+  border: none;
+  border-radius: 0.6em;
+  cursor: pointer;
+  color: #fffbf5;
+  padding-inline: 12px;
+  height: 48px;
+  width: 48px;
+}
+
+.clarin-ref-box-copy-wrapper:hover {
+  background-color: #a47e3c;
+}
+
+.clarin-ref-box-copy-button {
+  font-size: 1.6em;
+  padding-top: 11px !important;
+}
+
+.clarin-ref-box-text {
+  color: #999999;
+  font-weight: bold;
+  font-size: 13px;
+  flex: 1 1 0;
+  font-family: "Droid Sans", Helvetica, Arial, sans-serif;
+}
+
+.card-body {
+  padding: 15px !important;
+  padding-bottom: 10px !important;
+}
+
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 2;
+  transition: opacity 200ms ease-in-out;
+  background-color: rgba(27, 31, 35, 0.8);
+  border-radius: 3px;
+  padding: 5px;
+  color: white;
+  font: normal normal 11px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+
+

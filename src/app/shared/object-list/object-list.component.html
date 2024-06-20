@@ -16,7 +16,15 @@
         (prev)="goPrev()"
         (next)="goNext()">
     <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
-        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last" [attr.data-test]="'list-object' | dsBrowserOnly">
+      <div *ngIf="context === 'search'">
+        <ds-clarin-item-box-view
+          *ngFor="let object of objects?.payload?.page; let i = index; let last = last"
+          [object]="object"
+          [isSearchResult]="true">
+        </ds-clarin-item-box-view>
+      </div>
+      <div *ngIf="context !== 'search'">
+        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="hasBorder && !last"  [attr.data-test]="'list-object' | dsBrowserOnly">
           <ds-selectable-list-item-control *ngIf="selectable" [index]="i"
                                            [object]="object"
                                            [selectionConfig]="selectionConfig"
@@ -33,5 +41,6 @@
                                                [listID]="selectionConfig?.listId"
                                                (contentChange)="contentChange.emit($event)"></ds-listable-object-component-loader>
         </li>
+      </div>
     </ul>
 </ds-pagination>

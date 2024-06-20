@@ -415,7 +415,7 @@ export class SearchComponent implements OnInit {
    * @param searchOptions
    * @private
    */
-  private retrieveFilters(searchOptions: PaginatedSearchOptions) {
+  protected retrieveFilters(searchOptions: PaginatedSearchOptions) {
     this.filtersRD$.next(null);
     this.searchConfigService.getConfig(searchOptions.scope, searchOptions.configuration).pipe(
       getFirstCompletedRemoteData(),
@@ -427,9 +427,9 @@ export class SearchComponent implements OnInit {
   /**
    * Retrieve search result by the given search options
    * @param searchOptions
-   * @private
+   * @protected
    */
-  private retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
+  protected retrieveSearchResults(searchOptions: PaginatedSearchOptions) {
     this.resultsRD$.next(null);
     this.lastSearchOptions = searchOptions;
     let followLinks = [
@@ -466,7 +466,7 @@ export class SearchComponent implements OnInit {
    * This method should only be called once and is essentially what SearchTrackingComponent used to do (now removed)
    * @private
    */
-  private subscribeToRoutingEvents() {
+  protected subscribeToRoutingEvents() {
     this.subs.push(
       this.router.events.pipe(
         filter((event) => event instanceof NavigationStart),
@@ -501,14 +501,14 @@ export class SearchComponent implements OnInit {
    * Check if the sidebar is collapsed
    * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
    */
-  private isSidebarCollapsed(): Observable<boolean> {
+  protected isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
   }
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  private getSearchLink(): string {
+  protected getSearchLink(): string {
     if (this.inPlaceSearch) {
       return currentPath(this.router);
     }

@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="card" *ngVar="(collectionRD$ | async)?.payload as collection">
+    <h5 class="card-header">{{'contract.message.distribution-license-agreement' | translate}}</h5>
+    <div class="card-body">
+      <div class=" well" id="cz_cuni_mff_ufal_ContractPage_div_licenses">
+          <h3>{{collection?.name}}</h3>
+            <textarea class="form-control" cols="0" id="cz_cuni_mff_ufal_ContractPage_field_license_text_18"
+                      name="license_text_18" readonly
+                      rows="34">{{(licenseRD$ | async)?.payload?.text}}</textarea>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,7 +17,8 @@
             </a>
         </div>
     </div>
-    <ds-filter-input-suggestions [suggestions]="(filterSearchResults | async)"
+    <ds-filter-input-suggestions *ngIf="!(isLastPage$ | async)"
+                          [suggestions]="(filterSearchResults | async)"
                           [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder' | translate"
                           [label]="'search.filters.filter.' + filterConfig.name + '.label' | translate"
                           [action]="currentUrl"

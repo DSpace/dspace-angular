@@ -1,0 +1,40 @@
+<div *ngIf="(showAttributes | async) == true" class="container" >
+  <div *ngIf="(verificationToken$ | async) != null">
+    <h5 class="display-4">{{'clarin.autoregistration.welcome.message' | translate}} {{dspaceName$ | async}}</h5>
+    <div class="alert alert-info" role="alert" style="width: 100%">
+      <div><b>{{'clarin.autoregistration.privacy.statement' | translate}}</b></div>
+      <p>{{'clarin.autoregistration.information.released.by.idp.message' | translate}}</p>
+      <table class="table bg-white table-responsive">
+        <thead>
+        <th>{{'clarin.autoregistration.table.header' | translate}}</th>
+        <th>{{'clarin.autoregistration.table.value' | translate}}</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let shibHeader of (shibHeaders$ | async)">
+          <td><b>{{shibHeader.header}}</b></td>
+          <td>{{shibHeader.value}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-11">
+          <div>
+            {{'clarin.autoregistration.repository.policy.message.0' | translate}} <b><a routerLink="/info/privacy">{{ baseUrl+'/info/privacy' }}</a></b>
+          </div>
+          <div>{{'clarin.autoregistration.repository.policy.message.1' | translate}}</div>
+        </div>
+        <div class="col-1">
+          <span><i class="fas fa-exclamation-triangle fa-3x alert-danger"></i></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button (click)="autologin()">{{'clarin.autoregistration.button.continue.to.login' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="(verificationToken$ | async) == null">
+    {{'clarin.autoregistration.token.not.valid.message' | translate}}
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="form-group input-group">
+    <input type="text"
+           name="query"
+           [(ngModel)]="searchingLicenseName"
+           class="form-control ng-pristine ng-valid ng-touched"
+           [placeholder]="'clarin-license.button.search.placeholder' | translate"/>
+    <span class="input-group-append" (click)="loadAllLicenses()">
+      <button type="submit" class="btn btn-primary search-button">
+        <i class="fas fa-search"></i>{{'clarin-license.button.search' | translate}}</button>
+    </span>
+  </div>
+  <!-- The table with pagination -->
+  <div *ngVar="(licensesRD$ | async)?.payload as cLicenses">
+    <div class="mb-2">
+      <ds-pagination (paginationChange)="onPageChange()"
+                     [hideGear]="true"
+                     [hidePagerWhenSinglePage]="true"
+                     [paginationOptions]="options"
+                     [pageInfoState]="cLicenses?.pageInfo"
+                     [collectionSize]="cLicenses?.totalElements"
+                     [retainScrollPosition]="true">
+        <table class="table table-striped table-bordered align-middle my-2">
+          <thead>
+          <tr class="col-12">
+            <th class="col-1" style="width: 3.5%; flex: 0 0 3.5%;max-width: 3.5%;"></th>
+            <th class="col-3">{{"clarin-license.table.name" | translate}}</th>
+            <th class="col-2">{{"clarin-license.table.definition" | translate}}</th>
+            <th>{{"clarin-license.table.confirmation" | translate}}</th>
+            <th>{{"clarin-license.table.required-user-info" | translate}}</th>
+            <th>{{"clarin-license.table.label" | translate}}</th>
+            <th >{{"clarin-license.table.extended-labels" | translate}}</th>
+            <th >{{"clarin-license.table.bitstreams" | translate}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let cLicense of cLicenses?.page" [id]="'clarin-license-row-' + cLicense.id" class="col-12">
+            <td class="col-1" style="width: 3.5%; flex: 0 0 3.5%;max-width: 3.5%;">
+              <input class="collection-checkbox"
+                       [ngModel]="selectedLicense?.id === cLicense.id"
+                       (change)="switchSelectedLicense(cLicense)"
+                       type="checkbox"
+                       name="{{cLicense.id}}"></td>
+            <td class="col-3">{{cLicense?.name}}</td>
+            <td class="col-2">{{cLicense?.definition}}</td>
+            <td>{{cLicense?.confirmation}}</td>
+            <td>{{cLicense?.requiredInfo | dsCLicenseRequiredInfo}}</td>
+            <td>{{cLicense?.clarinLicenseLabel?.label}}</td>
+            <td >{{cLicense?.extendedClarinLicenseLabels | dsExtendedCLicense}}</td>
+            <td >{{cLicense?.bitstreams}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <ds-loading *ngIf="isLoading" class="text-center"></ds-loading>
+      </ds-pagination>
+
+      <div class="mt-2">
+        <div class="btn-group pr-1">
+          <div ngbDropdown class="input-group-prepend">
+            <button id="resultdropdown" type="button"
+                    ngbDropdownToggle
+                    class="btn btn-success dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+              {{"clarin-license.button.define" | translate}}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="resultdropdown">
+              <button class="dropdown-item" (click)="openDefineLicenseForm()">{{"clarin-license.button.define-license" | translate}}</button>
+              <button class="dropdown-item" (click)="openDefineLicenseLabelForm()">{{"clarin-license.button.define-license-label" | translate}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group pr-1">
+          <button type="button" class="btn btn-warning" [disabled]="selectedLicense == null" (click)="openEditLicenseForm()">
+            {{'clarin-license.button.edit-license' | translate}}
+          </button>
+        </div>
+        <div class="btn-group pr-1">
+          <button type="button" class="btn btn-danger" [disabled]="selectedLicense == null" (click)="deleteLicense()">
+            {{'clarin-license.button.delete-license' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

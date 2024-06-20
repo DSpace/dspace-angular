@@ -194,24 +194,26 @@ describe('ItemVersionsComponent', () => {
       });
     }
 
-    it(`should display date ${version.created} in the correct column for version ${version.id}`, () => {
-      const date = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-date`));
-      switch (versionItem.uuid) {
-        case item1.uuid:
-          expect(date.nativeElement.textContent.trim()).toEqual('2020-02-01 00:00:00');
-          break;
-        case item2.uuid:
-          expect(date.nativeElement.textContent.trim()).toEqual('2020-02-02 00:00:00');
-          break;
-        default:
-          throw new Error('Unexpected versionItem');
-      }
-    });
+    // NOTE: CLARIN update removed `date` column from the table, so do not test it
+    // it(`should display date ${version.created} in the correct column for version ${version.id}`, () => {
+    //   const date = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-date`));
+    //   switch (versionItem.uuid) {
+    //     case item1.uuid:
+    //       expect(date.nativeElement.textContent.trim()).toEqual('2020-02-01 00:00:00');
+    //       break;
+    //     case item2.uuid:
+    //       expect(date.nativeElement.textContent.trim()).toEqual('2020-02-02 00:00:00');
+    //       break;
+    //     default:
+    //       throw new Error('Unexpected versionItem');
+    //   }
+    // });
 
-    it(`should display summary ${version.summary} in the correct column for version ${version.id}`, () => {
-      const summary = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-summary`));
-      expect(summary.nativeElement.textContent).toEqual(version.summary);
-    });
+    // NOTE: CLARIN update removed `summary` column from the table, so do not test it
+    // it(`should display summary ${version.summary} in the correct column for version ${version.id}`, () => {
+    //   const summary = fixture.debugElement.query(By.css(`#version-row-${version.id} .version-row-element-summary`));
+    //   expect(summary.nativeElement.textContent).toEqual(version.summary);
+    // });
   });
 
   describe('when the user can only delete a version', () => {

@@ -46,8 +46,16 @@ export function getItemVersionRoute(versionId: string) {
   return new URLCombiner(getItemModuleRoute(), ITEM_VERSION_PATH, versionId).toString();
 }
 
+
+export const TOMBSTONE_ITEM_PATH = 'tombstone';
+export function getItemTombstoneRoute(item: Item) {
+  return new URLCombiner(getItemPageRoute(item), TOMBSTONE_ITEM_PATH).toString();
+}
+
 export const ITEM_EDIT_PATH = 'edit';
 export const ITEM_EDIT_VERSIONHISTORY_PATH = 'versionhistory';
 export const ITEM_VERSION_PATH = 'version';
 export const UPLOAD_BITSTREAM_PATH = 'bitstreams/new';
 export const ORCID_PATH = 'orcid';
+
+export const MATOMO_STATISTICS_PATH = 'matomo-statistics';

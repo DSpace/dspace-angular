@@ -4,3 +4,42 @@
     max-width: none;
   }
 }
+
+.clarin-item-page-field {
+  border-bottom: 1px dotted #f8f8f8;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.clarin-home-page-borders {
+  border-left: 1px solid silver;
+  border-right: 1px solid silver;
+}
+
+.clarin-shadow {
+  box-shadow: 8px 0px 8px -7px rgb(0 0 0 / 8%), -8px 0px 8px -7px rgb(0 0 0 / 8%);
+}
+
+.clarin-cut-bottom-2 {
+  margin-bottom: -18px;
+}
+
+.clarin-cut-top-1 {
+  margin-top: -16px;
+  padding-top: 16px;
+}
+
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.428571429;
+  color: #333;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  white-space: pre-wrap;
+}

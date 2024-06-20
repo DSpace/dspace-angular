@@ -25,8 +25,6 @@ import { SectionFormOperationsService } from '../form/section-form-operations.se
 import { SectionDataObject } from '../models/section-data.model';
 
 import { SectionModelComponent } from '../models/section.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { SectionsService } from '../sections.service';
 import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,7 +37,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./section-license.component.scss'],
   templateUrl: './section-license.component.html',
 })
-@renderSectionFor(SectionsType.License)
+// @renderSectionFor(SectionsType.License)
 export class SubmissionSectionLicenseComponent extends SectionModelComponent {
 
   /**

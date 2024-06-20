@@ -15,6 +15,9 @@ import {
 import {
   ItemPageAbstractFieldComponent
 } from './simple/field-components/specific-field/abstract/item-page-abstract-field.component';
+import {
+  ItemPageCitationFieldComponent
+} from './simple/field-components/specific-field/citation/item-page-citation.component';
 import { ItemPageUriFieldComponent } from './simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { ItemPageFieldComponent } from './simple/field-components/specific-field/item-page-field.component';
 import { CollectionsComponent } from './field-components/collections/collections.component';
@@ -60,6 +63,33 @@ import { ThemedItemAlertsComponent } from './alerts/themed-item-alerts.component
 import {
   ThemedFullFileSectionComponent
 } from './full/field-components/file-section/themed-full-file-section.component';
+import { TombstoneComponent } from './tombstone/tombstone.component';
+import { ReplacedTombstoneComponent } from './tombstone/replaced-tombstone/replaced-tombstone.component';
+import { WithdrawnTombstoneComponent } from './tombstone/withdrawn-tombstone/withdrawn-tombstone.component';
+import { ClarinLicenseInfoComponent } from './clarin-license-info/clarin-license-info.component';
+import { ClarinRefBoxComponent } from './clarin-ref-box/clarin-ref-box.component';
+import { ClarinRefCitationComponent } from './clarin-ref-citation/clarin-ref-citation.component';
+import { ClarinRefFeaturedServicesComponent } from './clarin-ref-featured-services/clarin-ref-featured-services.component';
+import { ClarinRefCitationModalComponent } from './clarin-ref-citation-modal/clarin-ref-citation-modal.component';
+import { ClarinMatomoStatisticsComponent } from './clarin-matomo-statistics/clarin-matomo-statistics.component';
+import { ClarinStatisticsButtonComponent } from './clarin-statistics-button/clarin-statistics-button.component';
+import { NgChartsModule } from 'ng2-charts';
+import { ClarinGenericItemFieldComponent } from './simple/field-components/clarin-generic-item-field/clarin-generic-item-field.component';
+import { ClarinCollectionsItemFieldComponent } from './simple/field-components/clarin-collections-item-field/clarin-collections-item-field.component';
+import { ClarinFilesItemFieldComponent } from './simple/field-components/clarin-files-item-field/clarin-files-item-field.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {PreviewSectionComponent} from './simple/field-components/preview-section/preview-section.component';
+import {
+  FileDescriptionComponent
+} from './simple/field-components/preview-section/file-description/file-description.component';
+import {
+  FileTreeViewComponent
+} from './simple/field-components/preview-section/file-description/file-tree-view/file-tree-view.component';
+import { ClarinSponsorItemFieldComponent } from './simple/field-components/clarin-sponsor-item-field/clarin-sponsor-item-field.component';
+import { ClarinIdentifierItemFieldComponent } from './simple/field-components/clarin-identifier-item-field/clarin-identifier-item-field.component';
+import { ClarinDateItemFieldComponent } from './simple/field-components/clarin-date-item-field/clarin-date-item-field.component';
+import { ClarinDescriptionItemFieldComponent } from './simple/field-components/clarin-description-item-field/clarin-description-item-field.component';
+import { ClarinFilesSectionComponent } from './clarin-files-section/clarin-files-section.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -76,6 +106,7 @@ const DECLARATIONS = [
   ThemedFullItemPageComponent,
   MetadataUriValuesComponent,
   ItemPageAuthorFieldComponent,
+  ItemPageCitationFieldComponent,
   ItemPageDateFieldComponent,
   ItemPageAbstractFieldComponent,
   ItemPageUriFieldComponent,
@@ -103,6 +134,27 @@ const DECLARATIONS = [
   ItemAlertsComponent,
   ThemedItemAlertsComponent,
   BitstreamRequestACopyPageComponent,
+  TombstoneComponent,
+  ReplacedTombstoneComponent,
+  WithdrawnTombstoneComponent,
+  ClarinLicenseInfoComponent,
+  ClarinRefBoxComponent,
+  ClarinRefCitationComponent,
+  ClarinRefFeaturedServicesComponent,
+  ClarinRefCitationModalComponent,
+  ClarinMatomoStatisticsComponent,
+  ClarinStatisticsButtonComponent,
+  ClarinGenericItemFieldComponent,
+  ClarinCollectionsItemFieldComponent,
+  ClarinFilesItemFieldComponent,
+  ClarinSponsorItemFieldComponent,
+  PreviewSectionComponent,
+  FileDescriptionComponent,
+  FileTreeViewComponent,
+  ClarinIdentifierItemFieldComponent,
+  ClarinDateItemFieldComponent,
+  ClarinDescriptionItemFieldComponent,
+  ClarinFilesSectionComponent
 ];
 
 @NgModule({
@@ -121,10 +173,11 @@ const DECLARATIONS = [
     ResultsBackButtonModule,
     UploadModule,
     DsoPageModule,
+    NgChartsModule,
+    NgbModule
   ],
   declarations: [
     ...DECLARATIONS,
-
   ],
   exports: [
     ...DECLARATIONS,

@@ -1,0 +1,127 @@
+<span id="secret-selected-license-from-license-selector" style="display: none" #licenseSelection></span>
+<button id="secret-change-button" type="button" (click)="changeLicenseNameFromRef()" style="display: none">
+</button>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="distribution_licnese_head">
+        {{'submission.sections.clarin-license.head.license-select-resource' | translate}}
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div id="aspect_submission_StepTransformer_item_" class="form-group alert alert-primary">
+        <div id="placeholder">
+          <span>{{'submission.sections.clarin-license.head.license-select-providing.0' | translate}}</span>
+          <span>
+            <a routerLink="/licenses" class="target_blank alert-link" target="_blank">
+              {{'submission.sections.clarin-license.head.license-select-providing.1' | translate}}
+            </a>
+          </span>
+          <span>{{'submission.sections.clarin-license.head.license-select-providing.2' | translate}}</span>
+          <button id="button-holder" (click)="clickLicense()"
+                  class="btn btn-repository licenseselector bold btn-block btn-lg">
+            <a>{{'submission.sections.clarin-license.head.license-open-selector' | translate}}</a>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group text-center">
+        {{'submission.sections.clarin-license.head.license-select-or' | translate}}
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+            <span class="license-resource-text">
+              {{'submission.sections.clarin-license.head.license-dropdown-info' | translate}}
+            </span>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group alert alert-danger in" [hidden]="(unsupportedLicenseMsgHidden | async)">
+        {{'submission.sections.clarin-license.head.license-not-supported-message' | translate}}
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group mb-0">
+          <div class="input-group">
+            <input type="button"
+                   class="custom-select clarin-select-input btn text-left"
+                   id="aspect_submission_StepTransformer_field_license"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   [value]="this.selectedLicenseName"/>
+            <ul class="dropdown-menu scrollable-menu"
+                aria-labelledby="aspect_submission_StepTransformer_field_license">
+                <div class="form-group has-search mb-0">
+                  <span class="fa fa-search form-control-feedback"></span>
+                  <input type="search"
+                         (input)="searchInClarinLicenses($event)"
+                         class="form-control border-top-0 border-left-0 border-right-0 no-radius shadow-none"
+                         placeholder="Search">
+                </div>
+              <li class="dropdown-item clarin-dropdown-item pt-2" value="0" (click)="selectLicense(0)">
+                <b>{{'submission.sections.clarin-license.head.license-select-default-value' | translate}}</b>
+              </li>
+              <li class="dropdown-item clarin-dropdown-item pt-2"
+                  *ngFor="let license of filteredLicenses4Selector"
+                  (click)="selectLicense(license.id)"
+                  [value]="license.id"
+                  id="license_option">
+                <span [class]="'label label-default label-' + license.licenseLabel">{{license.licenseLabel}}</span>
+                <b class="pl-1">{{license.name}}</b>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div id="aspect_submission_StepTransformer_list_accordion_lic" class="accordion">
+        <div id="aspect_submission_StepTransformer_list_accordion-group_lic_1"
+             class="accordion-group hidden">
+          <div class="accordion-heading">
+            <a href="#aspect_submission_StepTransformer_list_accordion-body_lic_1"
+               data-toggle="collapse"
+               data-parent="#aspect_submission_StepTransformer_list_accordion_lic">
+              <span class="bold">{{'submission.sections.clarin-license.head.license-more-details' | translate}}</span>
+            </a>
+          </div>
+          <div id="aspect_submission_StepTransformer_list_accordion-body_lic_1"
+               class="accordion-body collapse">
+            <div class="accordion-inner">
+              <ul id="aspect_submission_StepTransformer_list_license-list" class="">
+                <li *ngFor="let license of licenses4Selector">
+                  <a [name]="'license_'+license.id" target="" [href]="license.url">{{license.name}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 alert alert-warning">
+    <div id="" class="form-group bold">
+      {{'submission.sections.clarin-license.head.license-do-not-suits-needs' | translate}}
+    </div>
+    <div class="form-group">
+      {{'submission.sections.clarin-license.head.license-not-offer-proceeds' | translate}}
+    </div>
+    <ul id="aspect_submission_StepTransformer_list_steps" class="ds-bulleted-list">
+      <li>{{'submission.sections.clarin-license.head.license-not-offer-proceed-link' | translate}}</li>
+      <li>{{'submission.sections.clarin-license.head.license-not-offer-proceed-email.0' | translate}}
+        <a [href]="'mailto:'+(helpDesk$ | async)?.payload?.values[0]">
+          {{'submission.sections.clarin-license.head.license-not-offer-proceed-email.1' | translate}}
+        </a>
+        {{'submission.sections.clarin-license.head.license-not-offer-proceed-email.2' | translate}}
+      </li>
+      <li>{{'submission.sections.clarin-license.head.license-not-offer-proceed-wait' | translate}}
+      </li>
+      <li>
+        {{'submission.sections.clarin-license.head.license-not-offer-proceed-continue' | translate}}
+      </li>
+    </ul>
+  </div>
+
+</div>

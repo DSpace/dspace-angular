@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">{{itemName}}</h3>
+      <p class="card-text">{{authors && authors.join(', ')}}</p>
+      <h4 class="card-title">{{'item.tombstone.replaced.another-repository.message' | translate}}</h4>
+      <p class="card-text">{{'item.tombstone.replaced.locations.message' | translate}}</p>
+      <p><a class="card-text" [href]="isReplaced">{{isReplaced}}</a></p>
+      <p class="card-text">
+        <span>{{'item.tombstone.replaced.help-desk.message.0' | translate}}</span>
+        <span><b>{{'item.tombstone.replaced.help-desk.message.1' | translate}}</b></span>
+        <span>{{'item.tombstone.replaced.help-desk.message.2' | translate}}</span>
+        <a [href]="'mailto:'+(helpDesk$ | async)?.payload?.values[0]">{{'item.tombstone.replaced.help-desk.message.3' | translate}}</a>
+      </p>
+    </div>
+  </div>
+</div>

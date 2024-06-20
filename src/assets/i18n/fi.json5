@@ -273,6 +273,9 @@
   // "admin.registries.schema.fields.table.id": "ID",
   "admin.registries.schema.fields.table.id": "ID",
 
+  // "admin.registries.schema.fields.table.id": "ID",
+  "admin.registries.schema.fields.table.id": "ID",
+
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
   "admin.registries.schema.fields.table.scopenote": "Soveltamisala",
 
@@ -2363,6 +2366,30 @@
 
   // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
   "error.validation.metadata.name.invalid-pattern": "Kenttään ei voi syöttää pisteitä, pilkkuja tai välilyöntejä. Käytä tämän kentän sijasta  Elementti- ja Tarkenne-kenttiä.",
+
+  // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
+  "error.validation.metadata.name.max-length": "Kenttään voi laittaa vain 32 merkkiä",
+
+  // "error.validation.metadata.namespace.max-length": "This field may not contain more than 256 characters",
+  "error.validation.metadata.namespace.max-length": "Kenttään voi laittaa vain 256 merkkiä",
+
+  // "error.validation.metadata.element.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Qualifier field instead",
+  "error.validation.metadata.element.invalid-pattern": "Kenttään ei voi syöttää pisteitä, pilkkuja tai välilyöntejä. Käytä tämän kentän sijasta Elementti- ja Tarkenne-kenttiä.",
+
+  // "error.validation.metadata.element.max-length": "This field may not contain more than 64 characters",
+  "error.validation.metadata.element.max-length": "Kenttään voi laittaa vain 64 merkkiä",
+
+  // "error.validation.metadata.qualifier.invalid-pattern": "This field cannot contain dots, commas or spaces",
+  "error.validation.metadata.qualifier.invalid-pattern": "Kenttään ei voi syöttää pisteitä, pilkkuja tai välilyöntejä",
+
+  // "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
+  "error.validation.metadata.qualifier.max-length": "Kenttään voi laittaa vain 64 merkkiä",
+
+  // "feed.description": "Syndication feed",
+  "feed.description": "Jakelusyöte",
+
+  // "file-section.error.header": "Error obtaining files for this item",
+  "file-section.error.header": "Virhe tietueen tiedostoja noudettaessa",
 
   // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
   "error.validation.metadata.name.max-length": "Kenttään voi laittaa vain 32 merkkiä",

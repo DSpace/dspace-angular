@@ -1,0 +1,28 @@
+name: Erase database
+
+on:
+  workflow_dispatch:
+    inputs:
+      INSTANCE:
+        required: true
+        default: '8'
+        type: choice
+        options:
+          - '5'
+          - '8'
+
+
+jobs:
+  erase_db:
+    runs-on: dspace-dep-1
+    timeout-minutes: 5
+    env:
+      INSTANCE: ${{ inputs.INSTANCE }}
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/erase-db
+        with:
+          INSTANCE: ${{ env.INSTANCE }}
+          NAME: dspace-${{ env.INSTANCE }}

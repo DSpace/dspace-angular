@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
-import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute } from '../../app-routing-paths';
+import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { isNotEmpty } from '../empty.util';
 import { map } from 'rxjs/operators';
 import { of as observableOf, combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Item } from '../../core/shared/item.model';
@@ -65,9 +65,9 @@ export class FileDownloadLinkComponent implements OnInit {
   }
 
   getBitstreamPath(canDownload: boolean, canRequestACopy: boolean) {
-    if (!canDownload && canRequestACopy && hasValue(this.item)) {
-      return getBitstreamRequestACopyRoute(this.item, this.bitstream);
-    }
+    // if (!canDownload && canRequestACopy && hasValue(this.item)) {
+    //   return getBitstreamRequestACopyRoute(this.item, this.bitstream);
+    // }
     return this.getBitstreamDownloadPath();
   }
 

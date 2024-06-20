@@ -132,3 +132,19 @@ export const SUBSCRIPTIONS_MODULE_PATH = 'subscriptions';
 export function getSubscriptionsModuleRoute() {
   return `/${SUBSCRIPTIONS_MODULE_PATH}`;
 }
+
+export const LICENSES_MODULE_PATH = 'licenses';
+export function getLicensesModulePath() {
+  return `/${LICENSES_MODULE_PATH}`;
+}
+
+
+export const LICENSES_MANAGE_TABLE_PATH = 'manage-table';
+export function getLicensesManageTablePath() {
+  return `/${LICENSES_MANAGE_TABLE_PATH}`;
+}
+
+export const CONTRACT_PAGE_MODULE_PATH = 'contract';
+export function getLicenseContractPagePath() {
+  return `/${CONTRACT_PAGE_MODULE_PATH}`;
+}

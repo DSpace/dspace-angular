@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<import_structure>
+        <community>
+                <name>Community Name</name>
+                <description>Descriptive text</description>
+                <intro>Introductory text</intro>
+                <copyright>Special copyright notice</copyright>
+                <sidebar>Sidebar text</sidebar>
+                <collection>
+                   <name>Collection Name</name>
+                   <description>Descriptive text</description>
+                   <intro>Introductory text</intro>
+                   <copyright>Special copyright notice</copyright>
+                   <sidebar>Sidebar text</sidebar>
+                   <license>Special licence</license>
+                   <provenance>Provenance information</provenance>
+                </collection>
+         </community>
+</import_structure>

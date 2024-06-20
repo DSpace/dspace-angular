@@ -48,4 +48,96 @@
       </div>
     </div>
   </div>
+  <div class="{{columnSizes.columns[4].buildClasses()}} row-element d-flex align-items-center justify-content-center">
+    <div class="float-left d-flex align-items-center overflow-hidden">
+        <span class="text-center">
+          <i [class]="isBitstreamSynchronized() ? 'fas fa-check' : 'fas fa-times'"></i>
+        </span>
+        <span class="pl-1">|</span>
+        <div class="pl-1" [ngTemplateOutlet]="checksum"></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #checksum>
+  <div class="hover-container"
+       (mouseenter)="showChecksumValues = true"
+       (mouseleave)="showChecksumValues = false"
+       *ngVar="(checkSum$ | async) as bitstreamChecksum">
+    <ng-container *ngIf="computedChecksum == false">
+      <ng-container *ngIf="loading">
+        <i class="fas fa-spinner fa-spin"></i>
+      </ng-container>
+      <ng-container *ngIf="!loading">
+        <i class="fas fa-question"
+           triggers="mouseenter:mouseleave"
+           [ngbPopover]="checksumWarning"></i>
+      </ng-container>
+      <a class="btn" (click)="computeChecksum()"
+         triggers="mouseenter:mouseleave"
+         [ngbPopover]="computeChecksumInfo">
+        <i class="fas fa-download"></i>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="computedChecksum">
+      <i [class]="checksumsAreEqual(bitstreamChecksum) ? 'fas fa-check' : 'fas fa-times'"></i>
+      <i class="pl-2 fas fa-info-circle"
+         triggers="mouseenter:mouseleave"
+         [ngbPopover]="checksumPopover"
+         popoverTitle="Checksums"></i>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #checksumWarning>
+  <div class="font-weight-bold text-decoration-underline">
+    {{ 'item.edit.bitstreams.checksum.popover.warning.header' | translate }}
+  </div>
+  <div>
+    {{ 'item.edit.bitstreams.checksum.popover.warning.body' | translate }}
+  </div>
+</ng-template>
+
+<ng-template #computeChecksumInfo>
+  <div>
+    {{ 'item.edit.bitstreams.checksum.popover.info.body' | translate }}
+  </div>
+</ng-template>
+
+<ng-template #checksumPopover>
+  <div *ngVar="(checkSum$ | async) as bitstreamChecksum">
+    <div>
+      <div class="font-weight-bold text-decoration-underline">
+        {{'item.edit.bitstreams.checksum.database' | translate}}
+      </div>
+      <div>
+        {{'item.edit.bitstreams.checksum.algorithm' | translate}} {{bitstreamChecksum.databaseChecksum.checkSumAlgorithm}}
+      </div>
+      <div>
+        {{'item.edit.bitstreams.checksum.value' | translate}} {{ bitstreamChecksum.databaseChecksum.value }}
+      </div>
+    </div>
+    <div>
+      <div class="font-weight-bold text-decoration-underline">
+        {{'item.edit.bitstreams.checksum.active-store' | translate}}
+      </div>
+      <div>
+        {{'item.edit.bitstreams.checksum.algorithm' | translate}} {{bitstreamChecksum.activeStore.checkSumAlgorithm}}
+      </div>
+      <div>
+        {{'item.edit.bitstreams.checksum.value' | translate}} {{ bitstreamChecksum.activeStore.value }}
+      </div>
+    </div>
+    <div *ngIf="isBitstreamSynchronized()">
+      <div class="font-weight-bold text-decoration-underline">
+        {{'item.edit.bitstreams.checksum.sync-store' | translate}}
+      </div>
+      <div>
+        {{'item.edit.bitstreams.checksum.algorithm' | translate}} {{bitstreamChecksum.synchronizedStore.checkSumAlgorithm}}
+      </div>
+      <div>
+        {{'item.edit.bitstreams.checksum.value' | translate}} {{ bitstreamChecksum.synchronizedStore.value }}
+      </div>
+    </div>
+  </div>
 </ng-template>

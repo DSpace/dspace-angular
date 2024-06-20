@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, Output, ViewEncapsulation, } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input, OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { of as observableOf } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
@@ -12,7 +22,18 @@ import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import { XSRF_COOKIE, XSRF_REQUEST_HEADER, XSRF_RESPONSE_HEADER } from '../../../core/xsrf/xsrf.constants';
 import { CookieService } from '../../../core/services/cookie.service';
 import { DragService } from '../../../core/drag.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { map } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { RemoteData } from '../../../core/data/remote-data';
+import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { TranslateService } from '@ngx-translate/core';
+import { FileLikeObject } from 'ng2-file-upload/file-upload/file-like-object.class';
+import {firstValueFrom} from 'rxjs/internal/firstValueFrom';
+import {Observable} from 'rxjs/internal/Observable';
+import {FileUploaderOptions} from 'ng2-file-upload/file-upload/file-uploader.class';
 
+export const MAX_UPLOAD_FILE_SIZE_CFG_PROPERTY = 'spring.servlet.multipart.max-file-size';
 @Component({
   selector: 'ds-uploader',
   templateUrl: 'uploader.component.html',
@@ -21,7 +42,7 @@ import { DragService } from '../../../core/drag.service';
   encapsulation: ViewEncapsulation.Emulated
 })
 
-export class UploaderComponent {
+export class UploaderComponent implements OnInit, AfterViewInit {
 
   /**
    * The message to show when drag files on the drop zone
@@ -90,7 +111,9 @@ export class UploaderComponent {
     private scrollToService: ScrollToService,
     private dragService: DragService,
     private tokenExtractor: HttpXsrfTokenExtractor,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private configurationService: ConfigurationDataService,
+    private translate: TranslateService
   ) {
   }
 
@@ -111,6 +134,12 @@ export class UploaderComponent {
       queueLimit: this.uploadFilesOptions.maxFileNumber,
     });
 
+    // Update the max file size in the uploader options. Fetch the max file size from the BE configuration.
+    void this.getMaxFileSizeInBytes().then((maxFileSize) => {
+      this.uploader.options.maxFileSize = maxFileSize === -1 ? undefined : maxFileSize;
+      this.uploader.setOptions(this.uploader.options);
+    });
+
     if (isUndefined(this.enableDragOverDocument)) {
       this.enableDragOverDocument = false;
     }
@@ -129,7 +158,7 @@ export class UploaderComponent {
     if (isUndefined(this.onBeforeUpload)) {
       this.onBeforeUpload = () => {return;};
     }
-    this.uploader.onBeforeUploadItem = (item) => {
+    this.uploader.onBeforeUploadItem = async (item) => {
       if (item.url !== this.uploader.options.url) {
         item.url = this.uploader.options.url;
       }
@@ -170,6 +199,16 @@ export class UploaderComponent {
 
       this.onUploadError.emit({ item: item, response: response, status: status, headers: headers });
       this.uploader.cancelAll();
+    };
+    this.uploader.onWhenAddingFileFailed = (item: any, filter: any, options: any) => {
+      if (this.itemFileSizeExceeded(item, options)) {
+        this.onUploadError.emit({
+          item: item,
+          response: this.translate.instant('submission.sections.upload.upload-failed.size-limit-exceeded'),
+          status: 400,
+          headers: {}
+        });
+      }
     };
     this.uploader.onProgressAll = () => this.onProgress();
     this.uploader.onProgressItem = () => this.onProgress();
@@ -223,6 +262,40 @@ export class UploaderComponent {
     // which we will send back in the X-XSRF-TOKEN header per Angular best practices.
     this.cookieService.remove(XSRF_COOKIE);
     this.cookieService.set(XSRF_COOKIE, token);
+  }
+
+  private async getMaxFileSizeInBytes() {
+    const maxFileUploadSize = await firstValueFrom(this.getMaxFileUploadSizeFromCfg());
+    if (maxFileUploadSize) {
+      const maxSizeInGigabytes = parseInt(maxFileUploadSize?.[0], 10);
+      return this.gigabytesToBytes(maxSizeInGigabytes);
+    }
+    // If maxSizeInBytes is -1, it means the value in the config is invalid. The file won't be uploaded and the user
+    // will see error messages in the UI.
+    return -1;
+  }
+  // Check if the file size is exceeded the maximum upload size
+  private itemFileSizeExceeded(item: FileLikeObject, options: FileUploaderOptions): boolean {
+    const maxSizeInBytes = options.maxFileSize;
+    return item?.size > maxSizeInBytes;
+  }
+
+  // Convert gigabytes to bytes
+  private gigabytesToBytes(gigabytes: number): number {
+    if (typeof gigabytes !== 'number' || isNaN(gigabytes) || !isFinite(gigabytes) || gigabytes < 0) {
+      return -1;
+    }
+    return gigabytes * Math.pow(2, 30); // 2^30 bytes in a gigabyte
+  }
+
+  // Get the maximum file upload size from the configuration
+  public getMaxFileUploadSizeFromCfg(): Observable<string[]> {
+    return this.configurationService.findByPropertyName(MAX_UPLOAD_FILE_SIZE_CFG_PROPERTY).pipe(
+      getFirstCompletedRemoteData(),
+      map((propertyRD: RemoteData<ConfigurationProperty>) => {
+        return propertyRD.hasSucceeded ? propertyRD.payload.values : [];
+      })
+    );
   }
 
 }

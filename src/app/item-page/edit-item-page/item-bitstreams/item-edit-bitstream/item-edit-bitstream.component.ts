@@ -1,15 +1,22 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { Bitstream, SYNCHRONIZED_STORES_NUMBER } from '../../../../core/shared/bitstream.model';
 import cloneDeep from 'lodash/cloneDeep';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { Observable } from 'rxjs';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../../core/shared/operators';
+import {
+  getRemoteDataPayload,
+  getFirstSucceededRemoteData,
+} from '../../../../core/shared/operators';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
 import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
+import { BitstreamChecksum, CheckSum } from '../../../../core/shared/bitstream-checksum.model';
+import { hasNoValue } from '../../../../shared/empty.util';
+import { BitstreamChecksumDataService } from '../../../../core/bitstream-checksum-data.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-item-edit-bitstream',
@@ -63,9 +70,30 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
    */
   format$: Observable<BitstreamFormat>;
 
+  /**
+   * True on mouseover, false otherwise
+   */
+  showChecksumValues = false;
+
+  /**
+   * Object containing all checksums
+   */
+  checkSum$: Observable<BitstreamChecksum>;
+
+  /**
+   * Compute checksum - the whole file must be downloaded to compute the checksum
+   */
+  computedChecksum = false;
+
+  /**
+   * True if the bitstream is being downloaded and the checksum is being computed
+   */
+  loading = false;
+
   constructor(private objectUpdatesService: ObjectUpdatesService,
               private dsoNameService: DSONameService,
-              private viewContainerRef: ViewContainerRef) {
+              private viewContainerRef: ViewContainerRef,
+              private bitstreamChecksumDataService: BitstreamChecksumDataService) {
   }
 
   ngOnInit(): void {
@@ -114,4 +142,52 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
     return this.fieldUpdate.changeType >= 0;
   }
 
+  /**
+   * Compare if two checksums are equal
+   *
+   * @param checksum1 e.g. DB checksum
+   * @param checksum2 e.g. Active store checksum (local or S3)
+   */
+  compareChecksums(checksum1: CheckSum, checksum2: CheckSum): boolean {
+    return checksum1?.value === checksum2?.value && checksum1?.checkSumAlgorithm === checksum2?.checkSumAlgorithm;
+  }
+
+  /**
+   * Compare if all checksums are equal (DB, Active store, Synchronized store)
+   *
+   * @param bitstreamChecksum which contains all checksums
+   */
+  checksumsAreEqual(bitstreamChecksum: BitstreamChecksum): boolean {
+    if (hasNoValue(bitstreamChecksum)){
+      return false;
+    }
+
+    if (this.isBitstreamSynchronized()) {
+      // Compare DB and Active store checksums
+      // Compare DB and Synchronized and Active store checksums
+      return this.compareChecksums(bitstreamChecksum.databaseChecksum, bitstreamChecksum.activeStore) &&
+        this.compareChecksums(bitstreamChecksum.synchronizedStore, bitstreamChecksum.activeStore);
+    }
+    // Compare DB and Active store checksums
+    return this.compareChecksums(bitstreamChecksum.databaseChecksum, bitstreamChecksum.activeStore);
+  }
+
+  /**
+   * Check if the bitstream is stored in both stores (S3 and local)
+   */
+  isBitstreamSynchronized() {
+    return this.bitstream?.storeNumber === SYNCHRONIZED_STORES_NUMBER;
+  }
+
+  computeChecksum() {
+    this.loading = true;
+    // Send request to get bitstream checksum
+    this.checkSum$ = this.bitstreamChecksumDataService.findByHref(this.bitstream?._links?.checksum?.href)
+      .pipe(getFirstSucceededRemoteData(), getRemoteDataPayload(),
+        map(value => {
+          this.computedChecksum = true;
+          this.loading = false;
+          return value;
+        }));
+  }
 }

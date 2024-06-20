@@ -45,6 +45,8 @@ import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
+import { ItemPageLicenseMapperGuard } from './item-page-license-mapper.guard';
+import { ItemLicenseMapperComponent } from './item-license-mapper/item-license-mapper.component';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -127,6 +129,12 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
                 component: ItemCollectionMapperComponent,
                 data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
                 canActivate: [ItemPageCollectionMapperGuard]
+              },
+              {
+                path: 'license',
+                component: ItemLicenseMapperComponent,
+                data: { title: 'item.edit.tabs.license.title', showBreadcrumbs: true },
+                canActivate: [ItemPageLicenseMapperGuard]
               }
             ]
           },
@@ -214,6 +222,7 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
     ItemPageCollectionMapperGuard,
     ItemPageAccessControlGuard,
     ItemPageRegisterDoiGuard,
+    ItemPageLicenseMapperGuard
   ]
 })
 export class EditItemPageRoutingModule {

@@ -42,6 +42,9 @@ import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-boots
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
+import { DsDynamicAutocompleteComponent } from './builder/ds-dynamic-form-ui/models/autocomplete/ds-dynamic-autocomplete.component';
+import { DsDynamicSponsorAutocompleteComponent } from './builder/ds-dynamic-form-ui/models/sponsor-autocomplete/ds-dynamic-sponsor-autocomplete.component';
+import { DsDynamicSponsorScrollableDropdownComponent } from './builder/ds-dynamic-form-ui/models/sponsor-scrollable-dropdown/dynamic-sponsor-scrollable-dropdown.component';
 
 const COMPONENTS = [
   CustomSwitchComponent,
@@ -58,6 +61,9 @@ const COMPONENTS = [
   DsDynamicLookupRelationModalComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
+  DsDynamicAutocompleteComponent,
+  DsDynamicSponsorAutocompleteComponent,
+  DsDynamicSponsorScrollableDropdownComponent,
   DsDynamicOneboxComponent,
   DsDynamicRelationGroupComponent,
   DsDatePickerComponent,

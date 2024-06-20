@@ -2,6 +2,7 @@
 
 // imports the base global style
 @import '../../../styles/_global-styles.scss';
+@import '../../../styles/_clarin-styles.scss';
 
 .facet-filter, .setting-option {
   background-color: var(--bs-light);
@@ -20,4 +21,40 @@
   h4 {
     font-size: 1.1rem
   }
+}
+
+.alert-warning {
+  background-color: #fcf8e3 !important;
+  border: 1px solid #fbeed5 !important;
+  color: #c09853 !important;
+}
+
+header {
+  li > .navbar-section,
+  li > .expandable-navbar-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+}
+
+.ng-toggle-on {
+  color: #fff !important;
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+}
+
+.ng-toggle-off {
+  color: #fff !important;
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+
+.page-item.active .page-link{
+  z-index: 2 !important;
+  color: #fff !important;
+  cursor: default !important;
+  background-color: #428bca !important;
+  border-color: #428bca !important;
 }

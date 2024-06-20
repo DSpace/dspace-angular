@@ -13,6 +13,8 @@ import { EMBED_SEPARATOR } from './base/base-data.service';
 import { HardRedirectService } from '../services/hard-redirect.service';
 import { environment } from '../../../environments/environment.test';
 import { AppConfig } from '../../../config/app-config.interface';
+import { AuthService } from '../auth/auth.service';
+import { RouterStub } from '../../shared/testing/router.stub';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;
@@ -22,6 +24,8 @@ describe('DsoRedirectService', () => {
   let rdbService: RemoteDataBuildService;
   let redirectService: HardRedirectService;
   let remoteData;
+  let router: any;
+  let authService: AuthService;
   const dsoUUID = '9b4f22f4-164a-49db-8817-3316b6ee5746';
   const dsoHandle = '1234567789/22';
   const encodedHandle = encodeURIComponent(dsoHandle);
@@ -57,13 +61,21 @@ describe('DsoRedirectService', () => {
       redirect: {}
     });
 
+    router = new RouterStub();
+
+    authService = jasmine.createSpyObj('authService', {
+      setRedirectUrl: {}
+    });
+
     service = new DsoRedirectService(
       environment as AppConfig,
       requestService,
       rdbService,
       objectCache,
       halService,
-      redirectService
+      redirectService,
+      router,
+      authService
     );
   });
 

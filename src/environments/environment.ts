@@ -13,7 +13,16 @@ export const environment: Partial<BuildConfig> = {
     preboot: false,
     async: true,
     time: false
-  }
+  },
+
+  // The REST API server settings.
+  rest: {
+    ssl: false,
+    host: 'localhost',
+    port: 8080,
+    // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
+    nameSpace: '/server',
+  },
 };
 
 /*

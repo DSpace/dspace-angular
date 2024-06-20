@@ -1,5 +1,5 @@
 import { ItemEditBitstreamComponent } from './item-edit-bitstream.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { of as observableOf } from 'rxjs';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
@@ -14,6 +14,9 @@ import { getBitstreamDownloadRoute } from '../../../../app-routing-paths';
 import { By } from '@angular/platform-browser';
 import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RouterLinkDirectiveStub } from '../../../../shared/testing/router-link-directive.stub';
+import { BitstreamChecksum } from '../../../../core/shared/bitstream-checksum.model';
+import { BitstreamChecksumDataService } from '../../../../core/bitstream-checksum-data.service';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -21,13 +24,31 @@ let fixture: ComponentFixture<ItemEditBitstreamComponent>;
 const columnSizes = new ResponsiveTableSizes([
   new ResponsiveColumnSizes(2, 2, 3, 4, 4),
   new ResponsiveColumnSizes(2, 3, 3, 3, 3),
-  new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-  new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+  new ResponsiveColumnSizes(1, 1, 1, 1, 1),
+  new ResponsiveColumnSizes(5, 4, 3, 2, 2),
+  new ResponsiveColumnSizes(2, 2, 2, 2, 2)
 ]);
 
 const format = Object.assign(new BitstreamFormat(), {
   shortDescription: 'PDF'
 });
+
+const checksum = Object.assign(new BitstreamChecksum(), {
+  activeStore: {
+    checkSumAlgorithm: 'MD5',
+    value: '123'
+  },
+  synchronizedStore: {
+    checkSumAlgorithm: 'MD5',
+    value: '456'
+  },
+  databaseChecksum: {
+    checkSumAlgorithm: 'MD5',
+    value: '789'
+  },
+  href: 'checksum-link'
+});
+
 const bitstream = Object.assign(new Bitstream(), {
   uuid: 'bitstreamUUID',
   name: 'Fake Bitstream',
@@ -37,7 +58,8 @@ const bitstream = Object.assign(new Bitstream(), {
     content: { href: 'content-link' }
   },
 
-  format: createSuccessfulRemoteDataObject$(format)
+  format: createSuccessfulRemoteDataObject$(format),
+  checksum: createSuccessfulRemoteDataObject$(checksum)
 });
 const fieldUpdate = {
   field: bitstream,
@@ -47,8 +69,11 @@ const date = new Date();
 const url = 'thisUrl';
 
 let objectUpdatesService: ObjectUpdatesService;
-
+let bitstreamChecksumDataService: BitstreamChecksumDataService;
 describe('ItemEditBitstreamComponent', () => {
+
+  bitstreamChecksumDataService = jasmine.createSpyObj('bitstreamChecksumDataService',
+    { findByHref: observableOf(checksum) });
   beforeEach(waitForAsync(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
@@ -81,9 +106,11 @@ describe('ItemEditBitstreamComponent', () => {
         ItemEditBitstreamComponent,
         VarDirective,
         BrowserOnlyMockPipe,
+        RouterLinkDirectiveStub
       ],
       providers: [
-        { provide: ObjectUpdatesService, useValue: objectUpdatesService }
+        { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: BitstreamChecksumDataService, useValue: bitstreamChecksumDataService }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -144,6 +171,21 @@ describe('ItemEditBitstreamComponent', () => {
     it('should contain the bitstream download page route', () => {
       expect(comp.bitstreamDownloadUrl).not.toEqual(bitstream._links.content.href);
       expect(comp.bitstreamDownloadUrl).toEqual(getBitstreamDownloadRoute(bitstream));
+    });
+  });
+
+  describe('when the bitstream checksum is null', () => {
+    it('should not throw any error', () => {
+      expect(comp.checksumsAreEqual(null)).toBeFalse();
+    });
+
+    it('checksum should be undefined on Init', () => {
+      expect(comp.checkSum$).toBeUndefined();
+    });
+
+    it('checksum should be loaded after click on download and compute checksum button', () => {
+      comp.computeChecksum();
+      expect(bitstreamChecksumDataService.findByHref).toHaveBeenCalled();
     });
   });
 });

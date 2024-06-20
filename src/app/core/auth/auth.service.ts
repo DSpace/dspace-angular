@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
@@ -631,6 +631,23 @@ export class AuthService {
     } else {
       this.store.dispatch(new UnsetUserAsIdleAction());
     }
+  }
+
+  /**
+   * From the authentication retrieve the `netid` from the error message
+   * @param errorMessage from the authentication request
+   * @private
+   */
+  private retrieveParamsFromErrorMessage(errorMessage) {
+    const separator = ',';
+    const paramsArray = errorMessage.split(separator);
+
+    const paramObject: Params = {};
+    // USER_WITHOUT_EMAIL_EXCEPTION is in the 0 - it is ignored
+    // netid param is in the position 1
+    paramObject.netid = paramsArray[1];
+
+    return paramObject;
   }
 
 }

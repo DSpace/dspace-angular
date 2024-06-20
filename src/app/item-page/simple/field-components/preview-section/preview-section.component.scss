@@ -1,0 +1,108 @@
+.file-preview-box {
+    border: 1px solid #ddd;
+    padding: 4px;
+
+    .file-content {
+        display: flex !important;
+        width: 100%;
+        justify-content: space-between;
+
+        .dl-horizontal {
+          margin-bottom: 0;
+        }
+
+        .thumbnails dl {
+            padding: 5px;
+            display: table;
+        }
+
+
+        @media (min-width: 768px){
+            .dl-horizontal dt {
+                float: left;
+                width: 160px;
+                overflow: hidden;
+                clear: left;
+                text-align: right;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .dl-horizontal dd {
+                margin-left: 180px;
+            }
+        }
+
+
+        .preview-image {
+            width: 10%;
+            height: 10%;
+        }
+
+    }
+
+    .button-container {
+        .download-btn, .preview-btn {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25em;
+            border: none;
+            color: white;
+            cursor: pointer;
+            background-color: #5bc0de;
+        }
+    }
+
+    .panel {
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    }
+
+    .panel-info {
+        border-color: #bce8f1;
+    }
+
+    .panel-info>.panel-heading {
+        color: #3a87ad;
+        background-color: #d9edf7;
+        border-color: #bce8f1;
+    }
+
+    .treeview .foldername:before {
+        font-family: FontAwesome;
+        content: '\f07b';
+        margin-right: 5px;
+        color: #a0a0a0;
+    }
+
+    .treeview .filename:before {
+        font-family: FontAwesome;
+        content: '\f016';
+        margin-right: 5px;
+        color: #a0a0a0;
+    }
+
+    .treeview li {
+        padding: 0 0 0 8px;
+        margin: 0;
+        list-style: none;
+    }
+
+    .pull-right {
+        float: right !important;
+    }
+
+    .panel-body {
+        padding: 15px;
+    }
+}

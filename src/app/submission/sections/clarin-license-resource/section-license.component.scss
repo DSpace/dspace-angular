@@ -1,0 +1,112 @@
+@import "ufal-theme.css";
+
+.container {
+  max-width: none;
+}
+
+#aspect_submission_StepTransformer_item_ {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.alert-warning {
+  background-color: #fcf8e3 !important;
+  border: 1px solid #fbeed5 !important;
+  color: #c09853 !important;
+  background-image: none;
+}
+
+.alert-danger {
+  color: #6c2323;
+  background-color: #f5dada;
+  border-color: #f2cbcb;
+  background-image: none;
+  box-shadow: none;
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+
+.alert-primary {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+}
+
+.licenseselector {
+  box-shadow: none;
+  background-image: none;
+}
+
+.label {
+  display: inline;
+  padding: 0.25em 0.6em 0.2em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff !important;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.label-default {
+  background-color: grey;
+}
+
+.label-PUB {
+  background-color: #5cb811 !important;
+}
+
+.label-ACA, .label-PDT {
+  background-color: #ffab23 !important;
+}
+
+.label-RES {
+  background-color: #c62d1f !important;
+}
+
+.clarin-select-input {
+  margin-right: 0;
+  border-bottom-right-radius: 0.25rem !important;
+  border-top-right-radius: 0.25rem !important;
+  align-content: start !important;
+  align-items: start !important;
+  width: 100%;
+}
+
+.clarin-search-input-dropdown {
+  border-left: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.clarin-dropdown-item {
+  cursor: pointer;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 300px;
+  overflow-x: hidden;
+  padding-top: 0;
+  border-top: 0;
+  width: 100%;
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}

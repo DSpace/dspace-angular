@@ -1,0 +1,31 @@
+.clarin-top-header {
+  position: absolute;
+  width: 100%;
+  z-index: 12;
+}
+
+.clarin-logout-badge {
+  background-color: #428bca;
+  font-size: 13px;
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+  display: inherit;
+  position: relative;
+  z-index: 2;
+}
+
+.clarin-login-badge {
+  background-color: #d9534f;
+  font-size: 16px;
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+}
+
+.signon:hover {
+  cursor: pointer;
+  text-decoration: underline !important;
+}
+
+.language-icon {
+  cursor: pointer;
+}

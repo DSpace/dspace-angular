@@ -1,0 +1,32 @@
+name: create_bitstreams - import test files
+
+on:
+  workflow_dispatch:
+    inputs:
+      INSTANCE:
+        required: true
+        default: '8'
+        type: choice
+        options:
+          - '2'
+          - '5'
+          - '6'
+          - '8'
+      
+jobs:
+  import-specific-bitstreams:
+    runs-on: dspace-dep-1
+    env:
+      DSPACE_REST_API: http://dev-5.pc:8${{ github.event.inputs.INSTANCE }}/server/api
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: dataquest-dev/dspace-rest-test
+          ref: master
+          submodules: 'recursive'
+
+      - name: install requirements and run import
+        run: |
+          pip install -q -r requirements.txt
+          cd tests/integration
+          python3 create_bitstreams.py

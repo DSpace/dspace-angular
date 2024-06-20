@@ -6,34 +6,38 @@
 # http://www.dspace.org/license/
 #
 
-# Docker Compose for running the DSpace Angular UI for testing/development
-# Requires also running a REST API backend (either locally or remotely),
-# for example via 'docker-compose-rest.yml'
 version: '3.7'
 networks:
   dspacenet:
 services:
   dspace-angular:
-    container_name: dspace-angular
+    restart: unless-stopped
+    container_name: dspace-angular${INSTANCE}
     environment:
+      TZ: ${TIMEZONE:-Europe/Bratislava}
       DSPACE_UI_SSL: 'false'
       DSPACE_UI_HOST: dspace-angular
-      DSPACE_UI_PORT: '4000'
+      DSPACE_UI_PORT: 4000
       DSPACE_UI_NAMESPACE: /
-      DSPACE_REST_SSL: 'false'
-      DSPACE_REST_HOST: localhost
-      DSPACE_REST_PORT: 8080
+      DSPACE_REST_SSL: ${DSPACE_SSL:-false}
+      DSPACE_REST_HOST: ${DSPACE_HOST:-localhost}
+      DSPACE_REST_PORT: ${DSPACE_REST_PORT}
       DSPACE_REST_NAMESPACE: /server
-    image: dspace/dspace-angular:dspace-7_x
+    image: ${DSPACE_UI_IMAGE:-dataquest/dspace-angular:dspace-7_x}
+    volumes:
+    - ./config.prod.yml:/app/config/config.prod.yml
     build:
       context: ..
       dockerfile: Dockerfile
     networks:
       dspacenet:
+    entrypoint: ${FE_CMD:-/bin/sh -c "pm2-runtime start docker/dspace-ui.json > /dev/null 2> /dev/null"}
     ports:
-    - published: 4000
+    - published: 400${INSTANCE}
       target: 4000
-    - published: 9876
-      target: 9876
+      host_ip: 127.0.0.1
+    - published: 987${INSTANCE}
+      target: 987${INSTANCE}
+      host_ip: 127.0.0.1
     stdin_open: true
     tty: true

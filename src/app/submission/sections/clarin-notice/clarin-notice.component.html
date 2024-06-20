@@ -1,0 +1,8 @@
+<div class="container-fluid">
+  <span>
+    {{'submission.sections.clarin-notice.message.0' | translate}}{{collectionName | async}}{{'submission.sections.clarin-notice.message.1' | translate}}
+    <a class="helpdesk-tolink" [href]="'mailto:'+(helpDesk$ | async)?.payload?.values[0]">
+        {{'submission.sections.clarin-notice.message.2' | translate}}.
+    </a>
+  </span>
+</div>

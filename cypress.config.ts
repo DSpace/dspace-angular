@@ -30,6 +30,14 @@ export default defineConfig({
     // Account used to test basic submission process
     DSPACE_TEST_SUBMIT_USER: 'dspacedemo+submit@gmail.com',
     DSPACE_TEST_SUBMIT_USER_PASSWORD: 'dspace',
+    CLARIN_TEST_WITHDRAWN_ITEM: '7282fc76-0941-4055-a5a3-1f582c638050',
+    CLARIN_TEST_WITHDRAWN_ITEM_WITH_REASON: '8ae76fcf-b26b-42f2-84d3-9a85e0517bca',
+    CLARIN_TEST_WITHDRAWN_ITEM_WITH_REASON_AND_AUTHORS: 'cd368b6a-0019-4813-bad9-5050e50ba36d',
+    CLARIN_TEST_WITHDRAWN_REPLACED_ITEM: '566b1b8b-840d-476c-9fb0-b92fb92d4aad',
+    CLARIN_TEST_WITHDRAWN_REPLACED_ITEM_WITH_AUTHORS: '600a9e09-dd31-428e-9328-2ed6631aa50a',
+    CLARIN_TEST_WITHDRAWN_REASON: 'reason',
+    CLARIN_TEST_WITHDRAWN_REPLACEMENT: 'new URL',
+    CLARIN_TEST_WITHDRAWN_AUTHORS: 'author1, author2'
   },
   e2e: {
     // Setup our plugins for e2e tests

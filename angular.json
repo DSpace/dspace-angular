@@ -45,6 +45,8 @@
             ],
             "styles": [
               "src/styles/startup.scss",
+              "src/aai/discojuice/discojuice.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               {
                 "input": "src/styles/base-theme.scss",
                 "inject": false,
@@ -61,7 +63,11 @@
                 "bundleName": "dspace-theme"
               }
             ],
-            "scripts": [],
+            "scripts": [
+              "src/license-selector.js",
+              "src/license-selector-creation.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
             "baseHref": "/"
           },
           "configurations": {

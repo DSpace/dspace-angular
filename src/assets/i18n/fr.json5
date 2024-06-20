@@ -5168,6 +5168,36 @@
   //"submission.import-external.source.epo": "European Patent Office (EPO)",
   "submission.import-external.source.epo": "Office Européen des brevets (OEB)",
 
+  // "submission.import-external.source.ads": "NASA/ADS",
+  "submission.import-external.source.ads": "NASA/ADS",
+
+  // "submission.import-external.source.cinii": "CiNii",
+  "submission.import-external.source.cinii": "CiNii",
+
+  // "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "CrossRef (DOI)",
+
+  //"submission.import-external.source.datacite": "DataCite",
+  "submission.import-external.source.datacite": "DataCite (DOI)",
+
+  // "submission.import-external.source.scielo": "SciELO",
+  "submission.import-external.source.scielo": "SciELO",
+
+  // "submission.import-external.source.scopus": "Scopus",
+  "submission.import-external.source.scopus": "Scopus",
+
+  // "submission.import-external.source.vufind": "VuFind",
+  "submission.import-external.source.vufind": "VuFind",
+
+  // "submission.import-external.source.wos": "Web Of Science",
+  "submission.import-external.source.wos": "Web Of Science",
+
+  // "submission.import-external.source.orcidWorks": "ORCID",
+  "submission.import-external.source.orcidWorks": "ORCID",
+
+  //"submission.import-external.source.epo": "European Patent Office (EPO)",
+  "submission.import-external.source.epo": "Office Européen des brevets (OEB)",
+
   // "submission.import-external.source.loading": "Loading ...",
   "submission.import-external.source.loading": "En cours de chargement ...",
 
@@ -5188,6 +5218,9 @@
 
   // "submission.import-external.source.pubmed": "Pubmed",
   "submission.import-external.source.pubmed": "Pubmed",
+
+  // "submission.import-external.source.pubmedeu": "Pubmed Europe",
+  "submission.import-external.source.pubmedeu": "Pubmed Europe",
 
   // "submission.import-external.source.pubmedeu": "Pubmed Europe",
   "submission.import-external.source.pubmedeu": "Pubmed Europe",

@@ -10,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LogInPasswordComponent } from './log-in-password.component';
 import { authReducer } from '../../../../core/auth/auth.reducer';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../testing/auth-service.stub';
 import { storeModuleConfig } from '../../../../app.reducer';
 import { AuthMethod } from '../../../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
@@ -18,14 +17,25 @@ import { HardRedirectService } from '../../../../core/services/hard-redirect.ser
 import { BrowserOnlyMockPipe } from '../../../testing/browser-only-mock.pipe';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { AuthorizationDataServiceStub } from '../../../testing/authorization-service.stub';
+import {of, of as observableOf} from 'rxjs';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { ActivatedRoute , Router} from '@angular/router';
+import { RouterMock } from '../../../mocks/router.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
+import { CookieService } from '../../../../core/services/cookie.service';
+import { CookieServiceMock } from '../../../mocks/cookie.service.mock';
 
 describe('LogInPasswordComponent', () => {
-
+  const uiUrl = 'localhost:4000';
+  const redirectUrl = '/items/someId';
   let component: LogInPasswordComponent;
   let fixture: ComponentFixture<LogInPasswordComponent>;
   let page: Page;
   let initialState: any;
   let hardRedirectService: HardRedirectService;
+  let authService: any;
+  let configurationDataService: ConfigurationDataService;
 
   beforeEach(() => {
     hardRedirectService = jasmine.createSpyObj('hardRedirectService', {
@@ -43,6 +53,22 @@ describe('LogInPasswordComponent', () => {
         }
       }
     };
+
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      setRedirectUrl: {},
+      setRedirectUrlIfNotSet: {},
+      getRedirectUrl: of(redirectUrl),
+    });
+    configurationDataService = jasmine.createSpyObj('configurationDataService', {
+      findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
+        name: 'dspace.ui.url',
+        values: [
+          uiUrl
+        ]
+      }))
+    });
+
   });
 
   beforeEach(waitForAsync(() => {
@@ -59,11 +85,23 @@ describe('LogInPasswordComponent', () => {
         BrowserOnlyMockPipe,
       ],
       providers: [
-        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: 'authMethodProvider', useValue: new AuthMethod(AuthMethodType.Password, 0) },
         { provide: 'isStandalonePage', useValue: true },
         { provide: HardRedirectService, useValue: hardRedirectService },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+        { provide: ActivatedRoute, useValue: {
+            params: observableOf({}),
+            data: observableOf({ metadata: 'title' }),
+            snapshot: {
+              queryParams: new Map([
+                ['redirectUrl', redirectUrl],
+              ])
+            }
+          } },
+        { provide: Router, useValue: new RouterMock() },
+        { provide: CookieService, useClass: CookieServiceMock },
         provideMockStore({ initialState }),
       ],
       schemas: [
@@ -107,6 +145,23 @@ describe('LogInPasswordComponent', () => {
     // verify Store.dispatch() is invoked
     expect(page.navigateSpy.calls.any()).toBe(true, 'Store.dispatch not invoked');
   });
+
+  it('should authenticate and redirect', waitForAsync(() => {
+    fixture.detectChanges();
+
+    // set FormControl values
+    component.form.controls.email.setValue('user');
+    component.form.controls.password.setValue('password');
+
+    // verify the fixture is stable (no pending tasks)
+    void fixture.whenStable().then(() => {
+      component.redirectUrl = redirectUrl;
+      component.baseUrl = uiUrl;
+      // submit form
+      component.submit();
+      expect(authService.setRedirectUrl).toHaveBeenCalledWith(redirectUrl);
+    });
+  }));
 
 });
 

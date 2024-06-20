@@ -123,7 +123,7 @@ describe('MetadataService', () => {
     (metadataService as any).processRouteChange({
       data: {
         value: {
-          dso: createSuccessfulRemoteDataObject(ItemMock),
+          dso: createSuccessfulRemoteDataObject(mockType(ItemMock, 'Thesis')),
         }
       }
     });
@@ -142,7 +142,7 @@ describe('MetadataService', () => {
     expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_language', content: 'en' });
     expect(meta.addTag).toHaveBeenCalledWith({
       name: 'citation_keywords',
-      content: 'keyword1; keyword2; keyword3'
+      content: 'keyword1; keyword2; keyword3; Thesis'
     });
   }));
 

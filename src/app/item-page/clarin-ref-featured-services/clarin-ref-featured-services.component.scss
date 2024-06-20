@@ -1,0 +1,85 @@
+
+.clarin-ref-box-footer {
+  background-color: #D8EDF6;
+  border: 1px solid #bbe8ef;
+  color: #3388AA;
+  border-radius: 0 0 6px 6px;
+  width: 100%;
+}
+
+.clarin-ref-box-footer-body {
+  width: 100%;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.clarin-ref-box-footer-icon {
+  font-size: 1.6em;
+}
+
+.clarin-share-buttons {
+  font-size: 2em;
+  cursor: pointer;
+  text-decoration: none;
+  padding-right: 4px;
+}
+
+.clarin-share-facebook {
+  color: #395a93;
+
+  &:hover {
+    color: #2d4373;
+  }
+}
+
+.clarin-share-twitter {
+  color: #00AEE8;
+
+  &:hover {
+    color: #0088cc;
+  }
+}
+
+.clarin-ref-box-footer-services {
+  margin: 0 0 0 2.4em;
+}
+
+.clarin-ref-box-services-button {
+  font: inherit !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  font-weight: bold !important;
+  color: #ffffff !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  padding: 6px 12px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  vertical-align: middle !important;
+  background-color: #428bca !important;
+  background-image: none !important;
+  -moz-appearance: button !important;
+  text-indent: 0 !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+  text-transform: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  border: 1px solid #357ebd !important;
+
+  &:hover {
+    background-color: #3071a9 !important;
+    border-color: #285e8e !important;
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+.lindat-dropdown-menu {
+  max-height: 260px;
+  overflow-y: auto;
+}

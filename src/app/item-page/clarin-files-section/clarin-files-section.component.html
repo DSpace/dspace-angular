@@ -1,0 +1,28 @@
+<ng-container>
+  <ds-clarin-license-info class="mt-3 d-block" [item]="item"></ds-clarin-license-info>
+  <h6><i class="fa fa-paperclip">&nbsp;</i>{{'item.page.files.head' | translate}}</h6>
+  <div class="pb-3">
+    <span class="pr-1">
+      <a class="btn btn-download" (click)="setCommandline()" style="text-decoration: none"
+         *ngIf="canShowCurlDownload">
+        <i class="fa fa-download fa-3x" style="display: block">&nbsp;</i>
+        {{'item.page.download.button.command.line' | translate}}
+      </a>
+    </span>
+    <div id="command-div" *ngIf="isCommandLineVisible">
+        <pre class="command-pre">{{ command }}</pre>
+    </div>
+    <span>
+      <a *ngIf="
+      (totalFileSizes | async) > (downloadZipMinFileSize | async) &&
+      (totalFileSizes | async) < (downloadZipMaxFileSize | async) &&
+      (listOfFiles | async).length >= (downloadZipMinFileCount | async)"
+         class="btn btn-download" id="download-all-button" (click)="downloadFiles()"
+         style="visibility: visible">
+        <i style="display: block" class="fa fa-download fa-3x">&nbsp;</i>
+        {{'item.page.download.button.all.files.zip' | translate}} ({{ (totalFileSizes | async) | dsFileSize }})
+      </a>
+    </span>
+  </div>
+  <ds-preview-section [item]="item"></ds-preview-section>
+</ng-container>

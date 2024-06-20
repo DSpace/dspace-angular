@@ -1,0 +1,26 @@
+<div class="card clarin-ref-box">
+  <div class="card-body">
+    <div class="clarin-ref-box-header d-flex align-items-start">
+      <div class="clarin-ref-box-header-icon">
+        <i class="fas fa-quote-left"></i>
+      </div>
+      <span class="pl-2">{{'item.refbox.citation.featured-service.message' | translate}}</span>
+      <div class="pl-2 clarin-ref-box-citation-buttons">
+        <a (click)="openModal('bibtex')">{{'item.refbox.citation.bibtex.button' | translate}}</a>
+        <a (click)="openModal('cmdi')">{{'item.refbox.citation.cmdi.button' | translate}}</a>
+      </div>
+    </div>
+    <div class="pt-2 clarin-ref-box-body d-flex justify-content-between pl-2" >
+      <div class="clarin-ref-box-text pr-4">
+        <span>{{citationText + ', '}}</span>
+        <span><i>{{itemNameText + ', '}}</i></span>
+        <span>{{repositoryNameText + ', '}}</span>
+        <span><a [href]="identifierURI">{{prettifiedIdentifier | async}}</a></span>
+      </div>
+      <div class="clarin-ref-box-copy-wrapper" placement="bottom" [ngbTooltip]="'Copied!'" #tooltip="ngbTooltip"
+           (click)="copyText()">
+        <i class="far fa-copy clarin-ref-box-copy-button pt-2"></i>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.bg-clarin-yellow {
+  background-color: var(--lt-clarin-yellow-bg);
+  border-color: var(--lt-clarin-yellow-border);
+}
+
+.bg-clarin-red {
+  background-color: var(--lt-clarin-red-bg);
+  border-color: var(--lt-clarin-red-border);
+  color: var(--lt-clarin-red-text);
+}
+
+.bg-clarin-blue {
+  background-color: var(--lt-clarin-blue-bg);
+  border-color: var(--lt-clarin-blue-border);
+  color: var(--lt-clarin-blue-text);
+}
+
+.max-width {
+  width: 100%;
+
+}
+
+.border-gray {
+  border: 1px solid var(--lt-clarin-gray-border);
+}

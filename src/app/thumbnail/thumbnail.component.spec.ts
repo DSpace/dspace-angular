@@ -290,6 +290,7 @@ describe('ThumbnailComponent', () => {
         bundle: { href: 'bundle.url' },
         format: { href: 'format.url' },
         content: { href: CONTENT },
+        checksum: { href: 'checksum.url' },
         thumbnail: undefined
       };
     });

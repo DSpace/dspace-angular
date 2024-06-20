@@ -1,0 +1,6 @@
+<div class="justify-content-between d-flex">
+  <a [href]="identifier">{{ prettifiedIdentifier | async }}</a>
+  <i class="far fa-copy cursor-pointer"
+     (click)="copyToClipboard(identifier)"
+     [ngbTooltip]="'Copied!'" #copyButton="ngbTooltip"></i>
+</div>

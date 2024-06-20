@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="aspect_submission_StepTransformer_item_head" class="form-group distribution_licnese_head">
+        <span> {{'submission.sections.clarin-license.head.read-accept' | translate}} </span>
+        <span class="">
+          <a [routerLink]="[contractRoutingPath]" [queryParams]="{collectionId: collectionId}" class="target_blank"
+             target="_blank">{{'submission.sections.clarin-license.head.license-agreement' | translate}}</a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pl-3">
+    <div class="license-decision-checkbox">
+        <ng-toggle class="btn-dark"
+                   [onColor]="toggleAcceptation.onColor"
+                   [onText]="toggleAcceptation.onText"
+                   [offColor]="toggleAcceptation.offColor"
+                   [offText]="toggleAcceptation.offText"
+                   [size]="toggleAcceptation.size"
+                   (valueChange)="onChange($event)"
+                   (click)="changeToNotInit()"
+                   [(ngModel)]="toggleAcceptation.value">
+        </ng-toggle>
+    </div>
+    <div class="license-decision-message justify-content-center align-self-center">{{ 'submission.sections.clarin-license.head.license-decision-message' | translate}}</div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-md-12">
+      <div class="alert alert-warning justify-content-start align-self-start w-100">
+        <span class="fas fa-exclamation-triangle fa-lg"></span>
+        <span class="pl-1">{{'submission.sections.clarin-license.head.license-question-help-desk.0' | translate}}
+          <a class="helpdesk-tolink" [href]="'mailto:'+(helpDesk$ | async)?.payload?.values[0]">
+        {{'submission.sections.clarin-license.head.license-question-help-desk.1' | translate}}
+      </a>
+    </span>
+      </div>
+    </div>
+  </div>
+</div>

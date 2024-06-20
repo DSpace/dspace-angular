@@ -25,5 +25,10 @@ export enum FilterType {
   /**
    * Represents binary facets
    */
-  boolean = 'standard'
+  boolean = 'standard',
+
+  /**
+   * Represents language text options
+   */
+  isoLanguage = 'iso_language'
 }

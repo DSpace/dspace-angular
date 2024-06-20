@@ -51,7 +51,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
   public pageInfo: PageInfo;
 
   constructor(protected vocabularyService: VocabularyService,
-              private cdr: ChangeDetectorRef,
+              protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
   ) {

@@ -9,4 +9,6 @@ export enum SectionsType {
   SherpaPolicies = 'sherpaPolicy',
   Identifiers = 'identifiers',
   Collection = 'collection',
+  clarinLicense = 'clarin-license',
+  clarinNotice = 'clarin-notice',
 }

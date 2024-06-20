@@ -236,6 +236,13 @@ import { SearchNavbarComponent } from '../search-navbar/search-navbar.component'
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ScopeSelectorModalComponent } from './search-form/scope-selector-modal/scope-selector-modal.component';
 import { DsSelectComponent } from './ds-select/ds-select.component';
+import { ClarinExtendedLicensePipe } from './utils/clarin-extended-license.pipe';
+import { ClarinLicenseCheckedPipe } from './utils/clarin-license-checked.pipe';
+import { ClarinLicenseLabelRadioValuePipe } from './utils/clarin-license-label-radio-value.pipe';
+import { CharToEndPipe } from './utils/char-to-end.pipe';
+import { ClarinLicenseRequiredInfoPipe } from './utils/clarin-license-required-info.pipe';
+import { ClarinItemBoxViewComponent } from './clarin-item-box-view/clarin-item-box-view.component';
+import { ClarinItemAuthorPreviewComponent } from './clarin-item-author-preview/clarin-item-author-preview.component';
 import { ContextHelpDirective } from './context-help.directive';
 import { ContextHelpWrapperComponent } from './context-help-wrapper/context-help-wrapper.component';
 import { RSSComponent } from './rss-feed/rss.component';
@@ -284,6 +291,11 @@ import { BitstreamListItemComponent } from './object-list/bitstream-list-item/bi
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ThemedLangSwitchComponent } from './lang-switch/themed-lang-switch.component';
 import {ThemedUserMenuComponent} from './auth-nav-menu/user-menu/themed-user-menu.component';
+import { HtmlContentService } from './html-content.service';
+import { ClarinSafeHtmlPipe } from './utils/clarin-safehtml.pipe';
+import { ReplacePipe } from './utils/replace.pipe';
+import { ClarinDateService } from './clarin-date.service';
+import { ItemIdentifierService } from './item-identifier.service';
 
 const MODULES = [
   CommonModule,
@@ -323,7 +335,14 @@ const PIPES = [
   ObjNgFor,
   BrowserOnlyPipe,
   MarkdownPipe,
-  ShortNumberPipe
+  ShortNumberPipe,
+  ClarinExtendedLicensePipe,
+  ClarinLicenseCheckedPipe,
+  ClarinLicenseLabelRadioValuePipe,
+  ClarinLicenseRequiredInfoPipe,
+  CharToEndPipe,
+  ClarinSafeHtmlPipe,
+  ReplacePipe
 ];
 
 const COMPONENTS = [
@@ -404,6 +423,8 @@ const COMPONENTS = [
   EpersonSearchBoxComponent,
   GroupSearchBoxComponent,
   ThemedItemPageTitleFieldComponent,
+  ClarinItemBoxViewComponent,
+  ClarinItemAuthorPreviewComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -473,7 +494,10 @@ const ENTRY_COMPONENTS = [
 const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
-  AbstractTrackableComponent
+  AbstractTrackableComponent,
+  HtmlContentService,
+  ClarinDateService,
+  ItemIdentifierService
 ];
 
 const DIRECTIVES = [

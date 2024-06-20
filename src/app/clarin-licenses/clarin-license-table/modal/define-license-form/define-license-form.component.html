@@ -1,0 +1,63 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'clarin-license.define-license-form.form-name' | translate}}</h4>
+        <button type="button" class="btn btn-danger" (click)="activeModal.dismiss('Cross click')" aria-label="Left Align">
+          <span class="fas fa-times" aria-hidden="true"></span>
+        </button>
+      </div>
+      <form [formGroup]="clarinLicenseForm" (ngSubmit)="submitForm()">
+        <div class="modal-boy">
+          <div class="container">
+            <div class="form-group mt-4">
+              <label id="name" for="name">{{'clarin-license.define-license-form.input-name' | translate | dsAddChar: '*'}}</label>
+              <input type="text" class="form-control" formControlName="name"/>
+            </div>
+            <div class="form-group">
+              <label id="definition" for="definition">{{'clarin-license.define-license-form.input-definition-url' | translate | dsAddChar: '*'}}</label>
+              <input type="text" class="form-control" formControlName="definition">
+            </div>
+            <div class="form-group">
+              <label id="confirmation" for="confirmation">{{'clarin-license.define-license-form.input-confirmation' | translate}}</label>
+              <select formControlName="confirmation" class="custom-select">
+                <option *ngFor="let confirmationOption of confirmationOptions" [value]="confirmationOption">{{confirmationOption}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label id="clarinLicenseLabel" for="clarinLicenseLabel">{{'clarin-license.define-license-form.license-labels' | translate | dsAddChar: '*'}}</label>
+              <div *ngFor="let cll of clarinLicenseLabelOptions">
+                <input type="radio" formControlName="clarinLicenseLabel" [value]="cll | dsRadioLicenseLabelValue: clarinLicenseLabel"/>
+                {{ cll.label }} ({{cll.title}})
+              </div>
+            </div>
+            <div class="form-group">
+              <label id="extendedClarinLicenseLabels" for="extendedClarinLicenseLabels">{{'clarin-license.define-license-form.extended-license-labels' | translate}}</label>
+              <div *ngFor="let extendedClarinLicenseLabel of extendedClarinLicenseLabelOptions">
+                <input type="checkbox" formArrayName="extendedClarinLicenseLabels" [value]="extendedClarinLicenseLabel"
+                       [checked]="extendedClarinLicenseLabel | dsCheckedLicense: extendedClarinLicenseLabels"
+                       (change)="changeCheckboxValue($event,'extendedClarinLicenseLabels', extendedClarinLicenseLabel)"/>
+                {{ extendedClarinLicenseLabel.label }} ({{extendedClarinLicenseLabel.title}})
+              </div>
+            </div>
+            <div class="form-group">
+              <label id="requiredInfo" for="requiredInfo">{{'clarin-license.define-license-form.required-info' | translate}}</label>
+              <div *ngFor="let ri of requiredInfoOptions">
+                <input type="checkbox" formArrayName="requiredInfo" [value]="ri"
+                     [checked]="ri | dsCheckedLicense: requiredInfo"
+                     (change)="changeCheckboxValue($event,'requiredInfo', ri)"/>
+                {{ ri.value }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success"
+                  [disabled]="!clarinLicenseForm.valid">
+            {{'clarin-license.define-license-form.submit-button' | translate}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

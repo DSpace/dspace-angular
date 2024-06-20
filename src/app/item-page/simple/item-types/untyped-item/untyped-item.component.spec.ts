@@ -112,34 +112,9 @@ describe('UntypedItemComponent', () => {
       fixture.detectChanges();
     }));
 
-    it('should contain a component to display the date', () => {
-      const fields = fixture.debugElement.queryAll(By.css('ds-item-page-date-field'));
-      expect(fields.length).toBeGreaterThanOrEqual(1);
-    });
-
     it('should not contain a metadata only author field', () => {
       const fields = fixture.debugElement.queryAll(By.css('ds-item-page-author-field'));
       expect(fields.length).toBe(0);
-    });
-
-    it('should contain a mixed metadata and relationship field for authors', () => {
-      const fields = fixture.debugElement.queryAll(By.css('.ds-item-page-mixed-author-field'));
-      expect(fields.length).toBe(1);
-    });
-
-    it('should contain a component to display the abstract', () => {
-      const fields = fixture.debugElement.queryAll(By.css('ds-item-page-abstract-field'));
-      expect(fields.length).toBeGreaterThanOrEqual(1);
-    });
-
-    it('should contain a component to display the uri', () => {
-      const fields = fixture.debugElement.queryAll(By.css('ds-item-page-uri-field'));
-      expect(fields.length).toBeGreaterThanOrEqual(1);
-    });
-
-    it('should contain a component to display the collections', () => {
-      const fields = fixture.debugElement.queryAll(By.css('ds-item-page-collections'));
-      expect(fields.length).toBeGreaterThanOrEqual(1);
     });
 
     it('should not contain an iiif viewer component', () => {

@@ -1,0 +1,27 @@
+<div class="row clarin-item-page-field">
+  <div class="col-lg-3 col-2-5 d-flex">
+    <div><i [class]="'fas ' + iconName + ' fa-xs'"></i></div>
+    <div class="pl-1"><b>{{'item.page.collections' | translate}}</b></div>
+  </div>
+  <div class="col-lg-9">
+    <div class="collections">
+      <a *ngFor="let collection of (this.collections$ | async); let last=last;" [routerLink]="['/collections', collection.id]">
+        <span>{{collection?.name}}</span><span *ngIf="!last" [innerHTML]="separator"></span>
+      </a>
+    </div>
+
+    <div *ngIf="isLoading$ | async">
+      {{'item.page.collections.loading' | translate}}
+    </div>
+
+    <a
+      *ngIf="!(isLoading$ | async) && (hasMore$ | async)"
+      (click)="$event.preventDefault(); handleLoadMore()"
+      class="load-more-btn btn btn-sm btn-outline-secondary"
+      role="button"
+      href="javascript:void(0);"
+    >
+      {{'item.page.collections.load-more' | translate}}
+    </a>
+  </div>
+</div>

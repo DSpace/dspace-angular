@@ -672,7 +672,74 @@
 
   "bitstream.download.page": "Now downloading {{bitstream}}...",
 
-  "bitstream.download.page.back": "Back",
+  "clarin.license.agreement.breadcrumbs": "License Agreement",
+
+  "clarin.license.agreement.title": "License Agreement",
+
+  "clarin.license.agreement.header.info": "The requested content is distributed under one or more licence(s). You have to agree to the licence(s) below before you can obtain the content. Please, view the licence(s) by clicking on the button(s) and read it carefully. The data filled below might be shared with the submitter of the item and/or for creating statistics.",
+
+  "clarin.license.agreement.signer.header.info": ["The information below identifies you, the SIGNER. If the information is incorrect, please contact our", "Help Desk.", "This information will be stored as part of the electronic signatures."],
+
+  "clarin.license.agreement.item.handle": "Item handle",
+
+  "clarin.license.agreement.bitstream.name": "Bitstream",
+
+  "clarin.license.agreement.signer.name": "Signer",
+
+  "clarin.license.agreement.signer.id": "User ID",
+
+  "clarin.license.agreement.token.info": "You will receive an email with download instructions.",
+
+  "clarin.license.agreement.signer.ip.address": "Ip Address",
+
+  "clarin.license.agreement.signer.SEND_TOKEN": "E-mail",
+
+  "clarin.license.agreement.signer.NAME": "Name (given name and surname)",
+
+  "clarin.license.agreement.signer.DOB": "Date of birth",
+
+  "clarin.license.agreement.signer.ADDRESS": "Address",
+
+  "clarin.license.agreement.signer.COUNTRY": "Country",
+
+  "clarin.license.agreement.signer.EXTRA_EMAIL": "E-mail",
+
+  "clarin.license.agreement.signer.ORGANIZATION": "Organization",
+
+  "clarin.license.agreement.signer.REQUIRED_ORGANIZATION": "Organization",
+
+  "clarin.license.agreement.signer.INTENDED_USE": "Intended use",
+
+  "clarin.license.agreement.signer.ACA_ORG_NAME_AND_SEAT": "Name and seat (address) of your academic institution",
+
+  "clarin.license.agreement.button.agree": "I AGREE",
+
+  "clarin.license.agreement.warning": "By clicking on the button below I, SIGNER with the above ID, agree to the LICENCE(s) restricting the usage of requested BITSTREAM(s).",
+
+  "clarin.license.agreement.notification.error.required.info": "You must fill in required info.",
+
+  "clarin.license.agreement.error.message.cannot.download": ["Something went wrong and you cannot download this bitstream, please contact", " Help Desk."],
+
+  "clarin.license.agreement.notification.check.email": "You will receive email with download link.",
+
+  "clarin.license.agreement.notification.cannot.send.email": "Error: cannot send the email.",
+
+  "clarin.bitstream.expired.dtoken.message": "The download token is expired, you will be redirected to the download page.",
+
+  "bitstream.download.page.back": "Back" ,
+
+
+  "clarin.license.all-page.title": "Available Licenses",
+
+  "clarin.license.all-page.source": "Source:",
+
+  "clarin.license.all-page.labels": "Labels:",
+
+  "clarin.license.all-page.extra-information": "Extra information required:",
+
+  "clarin.license.all-page.extra-information.default": "NONE",
+
+
 
   "bitstream.edit.authorizations.link": "Edit bitstream's Policies",
 
@@ -784,6 +851,8 @@
 
   "browse.comcol.by.title": "By Title",
 
+  "browse.comcol.by.language": "By Language",
+
   "browse.comcol.head": "Browse",
 
   "browse.empty": "No items to show.",
@@ -795,6 +864,8 @@
   "browse.metadata.subject": "Subject",
 
   "browse.metadata.title": "Title",
+
+  "browse.metadata.language": "Language",
 
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
@@ -877,6 +948,18 @@
   "claimed-declined-search-result-list-element.title": "Rejected, sent back to submitter",
 
   "claimed-declined-task-search-result-list-element.title": "Declined, sent back to Review Manager's workflow",
+
+  "contact-us.breadcrumbs": "Contact Us",
+
+  "contact-us.title": "Contact Us",
+
+  "contact-us.description": "DSpace administrators may be contacted at:",
+
+  "contact-us.form": "On-line form: ",
+
+  "contact-us.feedback": "Feedback",
+
+  "contact-us.email": "Email: ",
 
   "collection.create.head": "Create a Collection",
 
@@ -1119,7 +1202,6 @@
   "collection.source.controls.reset.submit.success": "The reset and reimport has been successfully initiated",
 
   "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
-
   "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
 
   "collection.source.controls.reset.completed": "The reset and reimport completed",
@@ -1588,6 +1670,8 @@
 
   "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
 
+  "error.validation.clarin-license.notgranted": "You must choose one of the resource licenses.",
+
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
   "error.validation.filerequired": "The file upload is mandatory",
@@ -1614,7 +1698,7 @@
 
   "error.validation.metadata.qualifier.max-length": "This field may not contain more than 64 characters",
 
-  "feed.description": "Syndication feed",
+  "feed.description": "RSS feed",
 
   "file-section.error.header": "Error obtaining files for this item",
 
@@ -1631,6 +1715,8 @@
   "footer.link.end-user-agreement": "End User Agreement",
 
   "footer.link.feedback": "Send Feedback",
+
+  "footer.link.contact-us": "Contact us",
 
   "forgot-email.form.header": "Forgot Password",
 
@@ -1734,6 +1820,10 @@
 
   "form.other-information.orcid": "ORCID",
 
+  "form.other-information.credit-name": "Credit Name",
+
+  "form.other-information.other-names": "Other Names",
+
   "form.remove": "Remove",
 
   "form.save": "Save",
@@ -1830,7 +1920,7 @@
 
   "health-page.section.no-issues": "No issues detected",
 
-  "home.description": "",
+  "home.description": "DSpace is a digital service that collects, preserves, and distributes digital material. Repositories are important tools for preserving an organization's legacy; they facilitate digital preservation and scholarly communication.",
 
   "home.breadcrumbs": "Home",
 
@@ -1841,6 +1931,158 @@
   "home.top-level-communities.head": "Communities in DSpace",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
+
+
+  "home-page.carousel.ldata.info": "Linguistic Data and NLP Tools",
+
+  "home-page.carousel.ldata.find": "Find",
+
+  "home-page.carousel.ldata.citation-support": "Citation Support (with Persistent IDs)",
+
+  "home-page.carousel.deposit.header": "Deposit Free and Safe",
+
+  "home-page.carousel.deposit.info": "License of your Choice (Open licenses encouraged)",
+
+  "home-page.carousel.deposit.find": "Easy to Find",
+
+  "home-page.carousel.deposit.cite": "Easy to Cite",
+
+  "home-page.carousel.deposit.citation": "“There ought to be only one grand dépôt of art in the world, to\n                        which the artist might repair with his works, and on presenting them\n                        receive what he required... ”",
+
+  "home-page.carousel.deposit.small": "Ludwig van Beethoven, 1801",
+
+  "home-page.search": "Search",
+
+  "home-page.advanced-search": "Advanced Search",
+
+  "home-page.hyperlink.author.message": "Author",
+
+  "home-page.hyperlink.subject.message": "Subject",
+
+  "home-page.hyperlink.language.message": "Language (ISO)",
+
+  "home-page.hyperlink.view-more.message": "... View More",
+
+  "home-page.whats-new.message": "What's New",
+
+  "home-page.new-items.message": "Most Viewed Items - Last Month",
+
+
+
+  "handle-table.breadcrumbs": "Handles",
+
+  "handle-table.new-handle.breadcrumbs": "New Handle",
+
+  "handle-table.edit-handle.breadcrumbs": "Edit Handle",
+
+  "handle-table.global-actions.breadcrumbs": "Global Actions",
+
+
+  "handle-table.new-handle.form-handle-input-text": "Handle",
+
+  "handle-table.new-handle.form-handle-input-placeholder": "Enter handle",
+
+  "handle-table.new-handle.form-url-input-text": "URL",
+
+  "handle-table.new-handle.form-url-input-placeholder": "Enter URL",
+
+  "handle-table.new-handle.form-button-submit": "Submit",
+
+
+  "handle-table.new-handle.notify.error": "Server Error - Cannot create new handle",
+
+  "handle-table.new-handle.notify.successful": "The new handle was created!",
+
+
+  "handle-table.edit-handle.notify.error": "Server Error - Cannot edit this handle",
+
+  "handle-table.edit-handle.notify.successful": "The handle was edited!",
+
+
+  "handle-table.delete-handle.notify.error": "Server Error - Cannot delete this handle",
+
+  "handle-table.delete-handle.notify.successful": "The handle was deleted!",
+
+
+
+  "handle-table.edit-handle.form-handle-input-text": "Handle",
+
+  "handle-table.edit-handle.form-handle-input-placeholder": "Enter new handle",
+
+  "handle-table.edit-handle.form-url-input-text": "URL",
+
+  "handle-table.edit-handle.form-url-input-placeholder": "Enter new URL",
+
+  "handle-table.edit-handle.form-archive-input-check": "Archive old handle?",
+
+  "handle-table.edit-handle.form-button-submit": "Submit",
+
+
+  "handle-page.title": "Handles",
+
+  "handle-table.title": "Handle List",
+
+  "handle-table.table.handle": "Handle",
+
+  "handle-table.table.internal": "Internal",
+
+  "handle-table.table.is-internal": "Yes",
+
+  "handle-table.table.not-internal": "No",
+
+  "handle-table.table.url": "URL",
+
+  "handle-table.table.resource-type": "Resource type",
+
+  "handle-table.table.resource-id": "Resource id",
+
+  "handle-table.button.new-handle": "New external handle",
+
+  "handle-table.button.edit-handle": "Edit handle",
+
+  "handle-table.button.delete-handle": "Delete handle",
+
+  "handle-table.dropdown.search-option": "Search option",
+
+  "handle-table.dropdown.search-button": "Search",
+
+
+
+  "handle-table.global-actions.title": "Global Actions",
+
+  "handle-table.global-actions.actions-list-message": "This is the list of available global actions.",
+
+  "handle-table.global-actions.button.change-prefix": "Change handle prefix",
+
+  "handle-table.change-handle-prefix.form-old-prefix-input-text": "Old prefix",
+
+  "handle-table.change-handle-prefix.form-old-prefix-input-error": "Valid old prefix is required",
+
+  "handle-table.change-handle-prefix.form-old-prefix-input-placeholder": "Enter old prefix",
+
+  "handle-table.change-handle-prefix.form-new-prefix-input-text": "New prefix",
+
+  "handle-table.change-handle-prefix.form-new-prefix-input-placeholder": "Enter new prefix",
+
+  "handle-table.change-handle-prefix.form-new-prefix-input-error": "Valid new prefix is required",
+
+  "handle-table.change-handle-prefix.form-archive-input-check": "Archive old handles?",
+
+  "handle-table.change-handle-prefix.notify.started": "Changing of the prefix has been started, it will take some time.",
+
+  "handle-table.change-handle-prefix.notify.successful": "The global prefix was changed!",
+
+  "handle-table.change-handle-prefix.notify.error": "Server Error - Cannot change the global prefix",
+
+  "handle-table.change-handle-prefix.notify.error.empty-table": "Server Error - Cannot change the global prefix because no Handle exist.",
+
+
+
+  "licenses.manage-table.breadcrumbs": "License administration",
+
+  "licenses.breadcrumbs": "Licenses",
+
+
 
   "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
 
@@ -1950,6 +2192,8 @@
 
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
 
+  "item.edit.bitstreams.headers.synchronized": "Sync | Checksum",
+
   "item.edit.bitstreams.headers.actions": "Actions",
 
   "item.edit.bitstreams.headers.bundle": "Bundle",
@@ -1985,6 +2229,23 @@
   "item.edit.bitstreams.save-button": "Save",
 
   "item.edit.bitstreams.upload-button": "Upload",
+
+  "item.edit.bitstreams.checksum.algorithm": "Algorithm: ",
+
+  "item.edit.bitstreams.checksum.value": "Value: ",
+
+  "item.edit.bitstreams.checksum.database": "DB",
+
+  "item.edit.bitstreams.checksum.active-store": "Active store",
+
+  "item.edit.bitstreams.checksum.sync-store": "Sync store",
+
+  "item.edit.bitstreams.checksum.popover.warning.header": "Warning:",
+
+  "item.edit.bitstreams.checksum.popover.warning.body": "The file must be downloaded for the checksum to be computed.:",
+
+  "item.edit.bitstreams.checksum.popover.info.body": "Download the file and compute the checksum.:",
+
 
   "item.edit.delete.cancel": "Cancel",
 
@@ -2336,6 +2597,28 @@
 
   "item.edit.withdraw.success": "The item was withdrawn successfully",
 
+  "item.edit.tabs.license.head": "License",
+
+  "item.edit.license.head": "Current License",
+
+  "item.edit.license.select.license.initial-value.message": "-Select License-",
+
+  "item.edit.license.select.license.select.message": "Select a license",
+
+  "item.edit.license.select.license.info": "If you want to change the license, select a new license from the list and press update.",
+
+  "item.edit.license.define.license.message": "Define a new license",
+
+  "item.edit.license.button.name.update": "Update",
+
+  "item.edit.license.button.name.return": "Return",
+
+  "item.edit.license.remove.license.message": "Remove License",
+
+  "item.edit.license.update.success": "License updated successfully",
+
+  "item.edit.license.update.error": "Error: cannot update license",
+
   "item.orcid.return": "Back",
 
   "item.listelement.badge": "Item",
@@ -2376,6 +2659,20 @@
 
   "workflow-item.search.result.list.element.supervised.remove-tooltip": "Remove supervision group",
 
+  "item.page.project-url": "Project URL",
+
+  "item.page.demo.uri": "Demo URL",
+
+  "item.page.referenced-by": "Referenced by",
+
+  "item.page.type": "Type",
+
+  "item.page.size-info": "Size",
+
+  "item.page.language": "Language(s)",
+
+  "item.page.sponsor": "Acknowledgement",
+
   "item.page.abstract": "Abstract",
 
   "item.page.author": "Authors",
@@ -2388,9 +2685,11 @@
 
   "item.page.collections.load-more": "Load more",
 
-  "item.page.date": "Date",
+  "item.page.date": "Date issued",
 
   "item.page.edit": "Edit this item",
+
+  "item.page.statistics": "Show item statistics",
 
   "item.page.files": "Files",
 
@@ -2406,9 +2705,13 @@
 
   "item.page.journal.search.title": "Articles in this journal",
 
-  "item.page.link.full": "Full item page",
+  "item.page.link.full": "Show full item record",
 
-  "item.page.link.simple": "Simple item page",
+  "item.page.link.simple": "Show simple item record",
+
+  "item.page.orcid.title": "ORCID",
+
+  "item.page.orcid.tooltip": "Open ORCID setting page",
 
   "item.page.orcid.title": "ORCID",
 
@@ -2428,9 +2731,11 @@
 
   "item.page.relationships.isOrgUnitOfProject": "Research Projects",
 
-  "item.page.subject": "Keywords",
+  "item.page.subject": "Subject(s)",
 
-  "item.page.uri": "URI",
+  "item.page.uri": "Item identifier",
+
+  "item.page.doi": "DOI",
 
   "item.page.bitstreams.view-more": "Show more",
 
@@ -2449,6 +2754,20 @@
   "item.page.claim.button": "Claim",
 
   "item.page.claim.tooltip": "Claim this item as profile",
+
+  "item.page.license.message": ["This item is", "and licensed under:"],
+
+  "item.page.matomo-statistics.views.button": "Views",
+
+  "item.page.matomo-statistics.downloads.button": "Downloads",
+
+  "item.page.acknowledgement.project-name": "Project name:",
+
+  "item.page.acknowledgement.project-code": "Project code:",
+
+  "item.page.date.cca.message": "The exact date is unknown",
+
+  "item.page.date.composed.message": "This item is composed of parts issued in",
 
   "item.preview.dc.identifier.uri": "Identifier:",
 
@@ -2502,6 +2821,70 @@
 
   "item.preview.oaire.fundingStream": "Funding Stream:",
 
+  "item.preview.authors.show.everyone": "Show everyone",
+
+  "item.preview.authors.et.al": " ; et al.",
+
+  "item.refbox.modal.copy.instruction": ["Press", "ctrl + c", "to copy"],
+
+  "item.refbox.modal.submit": "Ok",
+
+  "item.refbox.citation.featured-service.message": "Please use the following text to cite this item or export to a predefined format:",
+
+  "item.refbox.citation.bibtex.button": "bibtex",
+
+  "item.refbox.citation.cmdi.button": "cmdi",
+
+  "item.refbox.featured-service.heading": "This resource is also integrated in following services:",
+
+  "item.refbox.featured-service.share.message": "Share",
+
+  "item.matomo-statistics.info.message": "Click on a data point to summarize by year / month.",
+
+
+  "item.view.box.author.message": "Author(s):",
+
+  "item.view.box.publisher.message": "Publisher:",
+
+  "item.view.box.files.message": ["This item contains", "files"],
+
+  "item.view.box.one.file.message": "This item contains 1 file",
+
+  "item.view.box.no-files.message": "This item contains no files.",
+
+  "item.view.box.description.message": "Description:",
+
+
+  "item.view.box.author.preview.and": "and",
+
+  "item.view.box.author.preview.show-everyone": "show everyone",
+
+
+  "item.file.description.not.supported.video": "Your browser does not support the video tag.",
+
+  "item.file.description.name": "Name",
+
+  "item.file.description.size": "Size",
+
+  "item.file.description.format": "Format",
+
+  "item.file.description.description": "Description",
+
+  "item.file.description.checksum": "MD5",
+
+  "item.file.description.download.file": "Download file",
+
+  "item.file.description.preview": "Preview",
+
+  "item.file.description.file.preview": "File Preview",
+
+  "item.page.files.head": "Files in this item",
+
+  "item.page.download.button.command.line": "Download instructions for command line",
+
+  "item.page.download.button.all.files.zip": "Download all files in item",
+
+
   "item.select.confirm": "Confirm selected",
 
   "item.select.empty": "No items to show",
@@ -2523,6 +2906,10 @@
   "item.version.history.selected.alert": "You are currently viewing version {{version}} of the item.",
 
   "item.version.history.table.version": "Version",
+
+  "item.version.history.table.name": "Name",
+
+  "item.version.history.table.handle": "Handle",
 
   "item.version.history.table.item": "Item",
 
@@ -2609,6 +2996,22 @@
   "itemtemplate.edit.metadata.edit.buttons.confirm": "Confirm",
 
   "itemtemplate.edit.metadata.edit.buttons.drag": "Drag to reorder",
+
+  "item.tombstone.withdrawn.message": "This item is withdrawn",
+
+  "item.tombstone.no.available.message": "The selected item is withdrawn and is no longer available.",
+
+  "item.tombstone.withdrawal.reason.message": "The reason for withdrawal:",
+
+  "item.tombstone.withdrawal.reason.default.value": "The reason wasn't specified.",
+
+  "item.tombstone.restricted.contact.help": ["Your user account does not have the credentials to view this item. Please contact the", "Help Desk", "if you have any questions."],
+
+  "item.tombstone.replaced.another-repository.message": "This item is managed by another repository",
+
+  "item.tombstone.replaced.locations.message": "You will find this item at the following location(s):",
+
+  "item.tombstone.replaced.help-desk.message": ["The author(s) asked us to hide this submission.", "We still keep all the data and metadata of the original submission but the submission", "is now located at the above url(s). If you need the contents of the original submission, contact us at our", "Help Desk."],
 
   "itemtemplate.edit.metadata.edit.buttons.edit": "Edit",
 
@@ -2782,6 +3185,8 @@
 
   "login.form.submit": "Log in",
 
+  "login.form.or-divider": "or",
+
   "login.title": "Login",
 
   "login.breadcrumbs": "Login",
@@ -2791,6 +3196,73 @@
   "logout.form.submit": "Log out",
 
   "logout.title": "Logout",
+
+
+  "clarin.help-desk.name": "Help Desk",
+
+  "clarin.auth-failed.error.message": "Authentication Failed",
+
+  "clarin.auth-failed.warning.reason.message": "Reason!",
+
+  "clarin.auth-failed.warning.important.message": "Important!",
+
+  "clarin.auth-failed.warning.no-email.message": ["Your IDP (home organization) has not provided your email address. Please fill and verify your email in order to submit new items to the repository, to download restricted items and optionally to subscribe to advanced statistics and/or collection updates.", "If you have any question contact the ","Help Desk."],
+
+  "clarin.auth-failed.warning.email-info": "This address will be verified and remembered until your IDP provides a different one. You will still sign in through your IDP.",
+
+  "clarin.auth-failed.warning.has-email.message": ["Your IDP (home organization) has not provided your email address.", "You are registered by the e-mail: ", ". Try to login with that e-mail.", " If you have any login issues contact the ", "Help Desk."],
+
+  "clarin.auth-failed.netid": "netid",
+
+  "clarin.auth-failed.fname": "First Name",
+
+  "clarin.auth-failed.lname": "Last Name",
+
+  "clarin.auth-failed.email": "Email",
+
+  "clarin.auth-failed.button.submit": "Submit",
+
+  "clarin.auth-failed.button.login": "Redirect to login",
+
+  "clarin.auth-failed.send-email.successful.message": "Verification email was sent successfully",
+
+  "clarin.auth-failed.send-email.error.message": "Error: cannot sent verification email.",
+
+
+
+  "clarin.auth-failed.duplicate-user.header.message": "Authentication Failed",
+
+  "clarin.auth-failed.duplicate-user.error.message": ["Your email", "is already associated with a different user. It is also possible that you used a different identity provider to before. For more information please contact our", "Help Desk"],
+
+
+
+  "clarin.missing-headers.error.message": "Your IDP (home organization) has not provided required headers, we cannot allow you to login to our repository without required information.",
+
+  "clarin.missing-headers.contact-us.message": "If you have any questions you can contact the ",
+
+
+  "clarin.autoregistration.successful.message": "You have been successfully registered.",
+
+  "clarin.autoregistration.error.message": "Error: registration failed.",
+
+  "clarin.autoregistration.welcome.message": "Welcome to",
+
+  "clarin.autoregistration.privacy.statement": "Privacy statement",
+
+  "clarin.autoregistration.information.released.by.idp.message": "The information released by your IdP (home organisation) is shown below.",
+
+  "clarin.autoregistration.table.header": "Header",
+
+  "clarin.autoregistration.table.value": "Value",
+
+  "clarin.autoregistration.repository.policy.message": ["We use only the required attributes as stated in","However we may log the attributes and keep them for a time period."],
+
+  "clarin.autoregistration.button.continue.to.login": "Continue to login",
+
+  "clarin.autoregistration.token.not.valid.message": "Verification token is not valid.",
+
+  "clarin.autologin.error.message": "Something went wrong, the user cannot be signed in automatically.",
+
 
   "menu.header.admin": "Management",
 
@@ -2886,6 +3358,10 @@
 
   "menu.section.icon.statistics_task": "Statistics Task menu section",
 
+  "menu.section.icon.statistics": "Show site statistics",
+
+  "menu.section.icon.submissions": "Show my submissions",
+
   "menu.section.icon.workflow": "Administer workflow menu section",
 
   "menu.section.icon.unpin": "Unpin sidebar",
@@ -2948,11 +3424,25 @@
 
   "menu.section.workflow": "Administer Workflow",
 
+  "menu.section.handle": "Manage Handles",
+
+  "menu.section.licenses": "License Administration",
+
+  "menu.section.submissions": "Submissions",
+
   "metadata-export-search.tooltip": "Export search results as CSV",
 
   "metadata-export-search.submit.success": "The export was started successfully",
 
   "metadata-export-search.submit.error": "Starting the export has failed",
+
+  "autocomplete.suggestion.sponsor.funding-code": "Funding code",
+
+  "autocomplete.suggestion.sponsor.project-name": "Project name",
+
+  "autocomplete.suggestion.sponsor.empty": "N/A",
+
+  "autocomplete.suggestion.sponsor.eu": "EU",
 
   "mydspace.breadcrumbs": "MyDSpace",
 
@@ -3096,9 +3586,9 @@
 
   "pagination.results-per-page": "Results Per Page",
 
-  "pagination.showing.detail": "{{ range }} of {{ total }}",
+  "pagination.showing.detail": "{{ range }} out of {{ total }} results",
 
-  "pagination.showing.label": "Now showing ",
+  "pagination.showing.label": "Showing ",
 
   "pagination.sort-direction": "Sort Options",
 
@@ -3498,7 +3988,9 @@
 
   "repository.title": "DSpace Repository",
 
-  "repository.title.prefix": "DSpace Repository :: ",
+  "repository.title.prefix": "LINDAT/CLARIAH-CZ Repository ",
+
+  "repository.title.prefixDSpace": "DSpace",
 
   "resource-policies.add.button": "Add",
 
@@ -3616,6 +4108,81 @@
 
   "root.skip-to-content": "Skip to main content",
 
+  "clarin-license-table.title": "License Administration",
+
+  "clarin-license.table.name": "License Name",
+
+  "clarin-license.table.definition": "Definition (URL)",
+
+  "clarin-license.table.confirmation": "Confirmation",
+
+  "clarin-license.table.required-user-info": "Required user info",
+
+  "clarin-license.table.label": "License Label",
+
+  "clarin-license.table.extended-labels": "Extended Labels",
+
+  "clarin-license.table.bitstreams": "Used by Bitstreams",
+
+  "clarin-license.button.define": "Define",
+
+  "clarin-license.button.define-license": "Define License",
+
+  "clarin-license.button.define-license-label": "Define License Label",
+
+  "clarin-license.button.edit-license": "Edit License",
+
+  "clarin-license.button.delete-license": "Delete License",
+
+  "clarin-license.button.search": "Search",
+
+  "clarin-license.button.search.placeholder": "Search by the license name ...",
+
+
+  "clarin-license.define-license-form.form-name": "Define new license",
+
+  "clarin-license.define-license-form.input-name": "License name",
+
+  "clarin-license.define-license-form.input-definition-url": "License Definition URL",
+
+  "clarin-license.define-license-form.input-confirmation": "License requires confirmation",
+
+  "clarin-license.define-license-form.license-labels": "License Labels",
+
+  "clarin-license.define-license-form.extended-license-labels": "Extended License Labels",
+
+  "clarin-license.define-license-form.required-info": "Additional required user info",
+
+  "clarin-license.define-license-form.submit-button": "Save",
+
+  "clarin-license.define-license.notification.successful-content": "License was defined successfully",
+
+  "clarin-license.define-license.notification.error-content": "Error: cannot define new License",
+
+  "clarin-license.edit-license.notification.successful-content": "License was updated successfully",
+
+  "clarin-license.edit-license.notification.error-content": "Error: cannot edit the License",
+
+  "clarin-license.delete-license.notification.successful-content": "License was deleted successfully",
+
+  "clarin-license.delete-license.notification.error-content": "Error: cannot delete License",
+
+
+
+  "clarin-license-label.define-license-label.input-label": "Short Label (max 5. chars)",
+
+  "clarin-license-label.define-license-label.input-title": "Label Title",
+
+  "clarin-license-label.define-license-label.input-is-extended": "Is extended",
+
+  "clarin-license-label.define-license-label.input-icon": "Icon",
+
+  "clarin-license-label.define-license-label.notification.successful-content": "License Label was defined successfully",
+
+  "clarin-license-label.define-license-label.notification.error-content": "Error: cannot define new License Label",
+
+
+
   "search.description": "",
 
   "search.switch-configuration.title": "Show",
@@ -3638,7 +4205,7 @@
 
   "search.filters.applied.f.entityType": "Item Type",
 
-  "search.filters.applied.f.has_content_in_original_bundle": "Has files",
+  "search.filters.applied.f.has_content_in_original_bundle": "Contain Files",
 
   "search.filters.applied.f.itemtype": "Type",
 
@@ -3657,6 +4224,14 @@
   "search.filters.applied.f.supervisedBy": "Supervised by",
 
   "search.filters.applied.f.withdrawn": "Withdrawn",
+
+  "search.filters.applied.f.rights": "Rights",
+
+  "search.filters.applied.f.language": "Language (ISO)",
+
+  "search.filters.applied.f.items_owning_community": "Community",
+
+  "search.filters.applied.f.publisher": "Publisher",
 
   "search.filters.filter.author.head": "Author",
 
@@ -3724,7 +4299,7 @@
 
   "search.filters.filter.expand": "Expand filter",
 
-  "search.filters.filter.has_content_in_original_bundle.head": "Has files",
+  "search.filters.filter.has_content_in_original_bundle.head": "Contain Files",
 
   "search.filters.filter.itemtype.head": "Type",
 
@@ -3800,9 +4375,23 @@
 
   "search.filters.filter.supervisedBy.head": "Supervised By",
 
+  "search.filters.filter.rights.head": "Rights",
+
+  "search.filters.filter.language.head": "Language (ISO)",
+
+  "search.filters.filter.items_owning_community.head": "Community",
+
   "search.filters.filter.supervisedBy.placeholder": "Supervised By",
 
   "search.filters.filter.supervisedBy.label": "Search Supervised By",
+
+  "search.filters.filter.rights.label": "Search rights",
+
+  "search.filters.filter.rights.placeholder": "Rights",
+
+  "search.filters.filter.items_owning_community.label": "Search community",
+
+  "search.filters.filter.items_owning_community.placeholder": "Community",
 
   "search.filters.entityType.JournalIssue": "Journal Issue",
 
@@ -3832,7 +4421,11 @@
 
   "search.filters.withdrawn.false": "No",
 
-  "search.filters.head": "Filters",
+  "search.filters.filter.language.label": "Search language",
+
+  "search.filters.filter.language.placeholder": "Language",
+
+  "search.filters.head": "Limit your search",
 
   "search.filters.reset": "Reset filters",
 
@@ -3884,17 +4477,17 @@
 
   "sorting.DESC": "Descending",
 
-  "sorting.dc.title.ASC": "Title Ascending",
+  "sorting.dc.title.ASC": "Title Asc",
 
-  "sorting.dc.title.DESC": "Title Descending",
+  "sorting.dc.title.DESC": "Title Desc",
 
   "sorting.score.ASC": "Least Relevant",
 
   "sorting.score.DESC": "Most Relevant",
 
-  "sorting.dc.date.issued.ASC": "Date Issued Ascending",
+  "sorting.dc.date.issued.ASC": "Date Issued Asc",
 
-  "sorting.dc.date.issued.DESC": "Date Issued Descending",
+  "sorting.dc.date.issued.DESC": "Date Issued Desc",
 
   "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
 
@@ -4396,6 +4989,12 @@
 
   "submission.sections.submit.progressbar.describe.steptwo": "Describe",
 
+  "submission.sections.submit.progressbar.describe.dataciterequired": "Required Properties",
+
+  "submission.sections.submit.progressbar.describe.dataciterecommended": "Recommended Properties",
+
+  "submission.sections.submit.progressbar.describe.dataciteoptional": "Optional Properties",
+
   "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
 
   "submission.sections.submit.progressbar.identifiers": "Identifiers",
@@ -4404,9 +5003,13 @@
 
   "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
 
+  "submission.sections.submit.progressbar.clarin-license": "Pick license",
+
   "submission.sections.submit.progressbar.upload": "Upload files",
 
   "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
+
+  "submission.sections.submit.progressbar.clarin-notice": "Notice",
 
   "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
 
@@ -4493,6 +5096,8 @@
   "submission.sections.upload.upload-failed": "Upload failed",
 
   "submission.sections.upload.upload-successful": "Upload successful",
+
+  "submission.sections.upload.upload-failed.size-limit-exceeded": "File size exceeds the maximum upload size",
 
   "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
 
@@ -4581,6 +5186,52 @@
   "submission.sections.sherpa.record.information.uri": "URI",
 
   "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
+
+  "contract.breadcrumbs": "Distribution License Agreement",
+
+  "contract.message.distribution-license-agreement": "Distribution License Agreement",
+
+  "submission.sections.clarin-license.head.read-accept": "Read and accept the ",
+
+  "submission.sections.clarin-license.head.license-agreement": "Distribution License Agreement",
+
+  "submission.sections.clarin-license.head.license-decision-message": "By checking this box, you agree to the Distribution License Agreement for this repository to reproduce, translate and distribute your submissions worldwide.",
+
+  "submission.sections.clarin-license.head.license-question-help-desk": ["If you have questions regarding this licence please contact the", "Help Desk"],
+
+  "submission.sections.clarin-license.head.license-select-resource": "Select the resource license",
+
+  "submission.sections.clarin-license.head.license-select-providing": ["The License Selector will provide you visual assistance to select the most appropriate license for your data or software. For the list of all supported licenses and their details visit ", "License List Page", "."],
+
+  "submission.sections.clarin-license.head.license-open-selector": "OPEN License Selector",
+
+  "submission.sections.clarin-license.head.license-select-or": "- OR -",
+
+  "submission.sections.clarin-license.head.license-dropdown-info": "If you already know under which license you want to distribute your work, please select from the dropdown below.",
+
+  "submission.sections.clarin-license.head.license-not-supported-message": "The selected license is not supported at the moment. Please follow the procedure described under section \"None of these licenses suits your needs\".",
+
+  "submission.sections.clarin-license.head.license-select-default-value": "Select a License ...",
+
+  "submission.sections.clarin-license.head.license-more-details": "See more details for the licenses",
+
+  "submission.sections.clarin-license.head.license-do-not-suits-needs": "None of these licenses suits your needs",
+
+  "submission.sections.clarin-license.head.license-not-offer-proceeds": "If you need to use a license we currently do not offer, proceed as follows:",
+
+  "submission.sections.clarin-license.head.license-not-offer-proceed-link": "Obtain a link (or a copy) to the license.",
+
+  "submission.sections.clarin-license.head.license-not-offer-proceed-email": ["Send an email to", "Help Desk", "with the license details."],
+
+  "submission.sections.clarin-license.head.license-not-offer-proceed-wait": "Save the unfinished submission and wait. We will add the license to the selection list and contact you.",
+
+  "submission.sections.clarin-license.head.license-not-offer-proceed-continue": "You will be able to continue the submission afterwards.",
+
+  "submission.sections.clarin-license.toggle.off-text": "Click to accept",
+
+  "submission.sections.clarin-license.toggle.on-text": "Accepted",
+
+  "submission.sections.clarin-notice.message": ["The submission process for this collection (\"","\") is still being fine-tuned. If you find yourself unable to continue the submission because you can't provide the required information, because the required format for a field is too strict, because there's no appropriate field for your information, or for any other reason", "let us know"],
 
   "submission.submit.breadcrumbs": "New submission",
 
@@ -4885,6 +5536,12 @@
   "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
 
   "idle-modal.log-out": "Log out",
+
+  "language.english": "English",
+
+  "language.czech": "Czech",
+
+  "repository.policy.page": "Change me: policy page",
 
   "idle-modal.extend-session": "Extend session",
 
@@ -5234,4 +5891,30 @@
 
   "vocabulary-treeview.search.form.add": "Add",
 
+
+  "navbar.repository": "Repository",
+
+  "navbar.community-list": "Catalog",
+
+  "navbar.education": "Education",
+
+  "navbar.project": "Projects",
+
+  "navbar.tools": "Tools",
+
+  "navbar.services": "Services",
+
+  "navbar.about": "About",
+
+  "navbar.about.partners": "Partners",
+
+  "navbar.about.mission-statement": "Mission Statement",
+
+  "navbar.about.clarin": "CLARIN",
+
+  "navbar.about.dariah": "DARIAH",
+
+  "navbar.about.service-integrations": "Service integrations",
+
+  "navbar.about.project-partnership": "Project partnerships",
 }

@@ -1,0 +1,46 @@
+<div class="row clarin-item-page-field justify-content-start" *ngIf="showMetadataValue | async">
+  <div class="col-lg-3 col-2-5 d-flex">
+    <div><i [class]="'fas ' + iconName + ' fa-xs'"></i></div>
+    <div class="pl-1"><b>{{label | translate}}</b></div>
+  </div>
+  <div class="col-lg-9">
+    <div>
+      <div *ngIf="type === 'author'" class="d-inline">
+        <ds-clarin-item-author-preview [item]="item" [fields]="fields"></ds-clarin-item-author-preview>
+      </div>
+      <div *ngIf="type === 'sponsor'">
+        <ds-clarin-sponsor-item-field [item]="item"></ds-clarin-sponsor-item-field>
+      </div>
+      <div *ngIf="type === 'identifier'">
+        <ds-clarin-identifier-item-field [item]="item" [fields]="fields"></ds-clarin-identifier-item-field>
+      </div>
+      <div *ngIf="type === 'date'">
+        <ds-clarin-date-item-field [item]="item"></ds-clarin-date-item-field>
+      </div>
+      <div *ngIf="type === 'description'">
+        <ds-clarin-description-item-field [item]="item" [fields]="fields"></ds-clarin-description-item-field>
+      </div>
+      <div class="dont-break-out d-inline" *ngFor="let mdValue of item?.allMetadata(fields); let last=last; let i = index">
+        <span *ngIf="type === 'hyperlink'" class="pr-1">
+          <a [href]="mdValue.value">
+            {{mdValue.value | dsReplace: this.replaceCharacter}}
+          </a>
+        </span>
+        <span *ngIf="type === 'search'" class="d-inline-flex pr-1">
+          <a [href]="getLinkToSearch(i)">{{mdValue.value | dsReplace: this.replaceCharacter}}</a>
+          <span *ngIf="!last" [innerHTML]="separator"></span>
+        </span>
+        <span *ngIf="type === 'subject'" class="pr-1">
+          <a class="badge badge-info text-white cursor-pointer mr-1"
+             *ngFor="let subject of mdValue.value.split(separator);"
+             [href]="getLinkToSearch(-1, subject)">
+            {{subject}}
+          </a>
+        </span>
+        <span *ngIf="type == null" class="pr-1">
+          {{mdValue.value | dsReplace: this.replaceCharacter}}<span *ngIf="!last" [innerHTML]="separator"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

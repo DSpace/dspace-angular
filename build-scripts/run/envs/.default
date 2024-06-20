@@ -1,0 +1,6 @@
+DSPACE_UI_IMAGE=dataquest/dspace-angular:dspace-7_x
+DSPACE_REST_IMAGE=dataquest/dspace:dspace-7_x
+DOCKER_OWNER=dataquest
+DSPACE_REST_HOST=dev-5.pc
+REST_URL=http://dev-5.pc:8080/server
+UI_URL=http://dev-5.pc

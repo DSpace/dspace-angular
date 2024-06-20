@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <div class="card">
+    <h5 class="card-header">{{ 'handle-table.global-actions.title' | translate }}</h5>
+    <div class="card-body">
+
+      <div class="col-12 card-text alert alert-info" role="alert">
+        {{ 'handle-table.global-actions.actions-list-message' | translate }}
+      </div>
+      <button type="button" class="btn btn-info" [routerLink]="[globalActionsPath]">
+        {{'handle-table.global-actions.button.change-prefix' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,273 @@
+# DSpace Docker deploy on dataquest servers
+name: Deploy DSpace
+
+on:
+  workflow_call:
+    inputs:
+      INSTANCE:
+        required: false
+        type: string
+        default: '5'
+      IMPORT:
+        required: false
+        default: true
+        type: boolean
+      ERASE_DB:
+        required: false
+        default: false
+        type: boolean
+
+  workflow_dispatch:
+    inputs:
+      INSTANCE:
+        required: true
+        default: '5'
+        type: choice
+        options:
+          - '*'
+          - '5'
+          - '8'
+      IMPORT:
+        required: true
+        default: true
+        type: boolean
+      ERASE_DB:
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  deploy-5:
+    if: inputs.INSTANCE == '*' || inputs.INSTANCE == '5'
+    runs-on: dspace-dep-1
+    timeout-minutes: 10
+    env:
+      INSTANCE: '5'
+      ENVFILE: /opt/dspace-envs/.env.dspace.dev-5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/erase-db
+        if: inputs.ERASE_DB
+        with:
+          INSTANCE: ${{ env.INSTANCE }}
+          NAME: dspace-${{ env.INSTANCE }}
+
+      - name: deploy to dev-5
+        working-directory: build-scripts/run/
+        run: |
+          ./start.sh dspace-$INSTANCE
+
+  deploy-8:
+    if: inputs.INSTANCE == '*' || inputs.INSTANCE == '8'
+    runs-on: dspace-dep-1
+    timeout-minutes: 120
+    env:
+      INSTANCE: '8'
+      # 2024/02: this .env replaces ENTRYPOINT to angular
+      # !!!!WARNING!!!!
+      # disable TSL checks = allowing to cooperate with https backend with invalid
+      # certificate
+      ENVFILE: /opt/dspace-envs/.env.dspace.imported.dev-5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/erase-db
+        if: inputs.ERASE_DB
+        with:
+          INSTANCE: ${{ env.INSTANCE }}
+          NAME: dspace-${{ env.INSTANCE }}
+
+      - name: deploy dspace-import on dev-5
+        working-directory: build-scripts/run/
+        run: |
+          ./start.sh dspace-$INSTANCE
+          cd ../..
+          # this is not necessary, since extra.yml doesn't contain any new images that weren't pulled within script above
+          # docker compose --env-file $ENVFILE -p dspace-$INSTANCE -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f /opt/dspace-envs/8/extra.yml pull
+          docker compose --env-file $ENVFILE -p dspace-$INSTANCE -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f /opt/dspace-envs/8/extra.yml up -d --no-build
+          # this seems to be the easiest solution for now
+          docker restart dockerized-nginx-with-shibboleth-nginx-1
+          /bin/bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://dev-5.pc:8$INSTANCE/server/api)" != "200" ]]; do sleep 5; done'
+
+
+  import-8:
+    runs-on: dspace-dep-1
+    if: inputs.IMPORT
+    needs: deploy-8
+    env:
+      INSTANCE: '8'
+      ENVFILE: /opt/dspace-envs/.env.dspace.imported.dev-5
+    steps:
+      - uses: ./.github/actions/import-db
+        with:
+          INSTANCE: ${{ env.INSTANCE }}
+          DATADIR: /opt/dspace-data/clarin-dspace/
+
+      - name: dspace basic command
+        run: |
+          export DNAME=dspace$INSTANCE
+          docker logs -n 50 $DNAME
+
+          echo "dspace version:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace version"
+
+          echo "dspace cleanup:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace cleanup -v"
+
+          echo "dspace reindex solr:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace index-discovery -b"
+
+          echo "dspace reindex OAI-PMH:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace oai import -c"
+
+          echo "dspace checker:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace checker -v -l"
+
+      - name: dspace healthcheck
+        run: |
+          export DNAME=dspace$INSTANCE
+          echo "dspace healthcheck:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace healthcheck -v"
+
+  playwright-after-deploy8:
+    runs-on: ubuntu-latest
+    needs: deploy-8
+    timeout-minutes: 15
+    if: '!inputs.IMPORT'
+    steps:
+      - name: run playwright
+        run: |
+          # wait until FE stabilizes a bit
+          sleep 3m
+          
+          curl -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
+          --request POST \
+          https://api.github.com/repos/dataquest-dev/\
+          dspace-ui-tests/actions/workflows/cron-test.yml/dispatches \
+          --data "{\"ref\":\"refs/heads/master\"}" 2> /dev/null
+
+          # wait for it to start
+          sleep 30s
+
+          # get result of last job
+          RES=$(curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" https://api.github.com/repos/dataquest-dev/dspace-ui-tests/actions/workflows/cron-test.yml/runs?per_page=1 2> /dev/null | jq .workflow_runs[0].conclusion)
+
+          # while job did not finish, sleep
+          while [[ $RES == 'null' ]]; do
+            sleep 10s
+           RES=$(curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" https://api.github.com/repos/dataquest-dev/dspace-ui-tests/actions/workflows/cron-test.yml/runs?per_page=1 2> /dev/null | jq .workflow_runs[0].conclusion)
+          done;
+
+          echo $RES
+          # if last result is not success, return -1 and fail
+          if [[ $RES != \"success\" ]]; then
+            echo "playwright tests have failed! check appropriate action run"
+            exit 1
+          fi;
+
+  rest-tests-after-deploy8:
+    runs-on: ubuntu-latest
+    needs: playwright-after-deploy8
+    timeout-minutes: 15
+    steps:
+      - name: run rest-tests
+        run: |
+          curl -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
+          --request POST \
+          https://api.github.com/repos/dataquest-dev/\
+          dspace-rest-test/actions/workflows/run_unittests.yml/dispatches \
+          --data "{\"ref\":\"refs/heads/master\"}" 2> /dev/null
+
+          # wait for it to start
+          sleep 30s
+
+          # get result of last job
+          RES=$(curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" https://api.github.com/repos/dataquest-dev/dspace-rest-test/actions/workflows/run_unittests.yml/runs?per_page=1 2> /dev/null | jq .workflow_runs[0].conclusion)
+
+          # while job did not finish, sleep
+          while [[ $RES == 'null' ]]; do
+            sleep 10s
+            RES=$(curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" https://api.github.com/repos/dataquest-dev/dspace-rest-test/actions/workflows/run_unittests.yml/runs?per_page=1 2> /dev/null | jq .workflow_runs[0].conclusion)
+          done;
+
+          echo $RES
+          # if last result is not success, return -1 and fail
+          if [[ $RES != \"success\" ]]; then
+            echo "rest-tests have failed! check appropriate action run"
+            exit 1
+          fi;
+
+
+  playwright-after-import8:
+    runs-on: ubuntu-latest
+    needs: import-8
+    if: inputs.IMPORT
+    timeout-minutes: 15
+    steps:
+      - name: run playwright
+        run: |
+          # wait until FE stabilizes a bit
+          sleep 3m
+          
+          curl -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
+          --request POST \
+          https://api.github.com/repos/dataquest-dev/\
+          dspace-ui-tests/actions/workflows/cron-test.yml/dispatches \
+          --data "{\"ref\":\"refs/heads/master\"}" 2> /dev/null
+
+          # wait for it to start
+          sleep 30s
+
+          # get result of last job
+          RES=$(curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" https://api.github.com/repos/dataquest-dev/dspace-ui-tests/actions/workflows/cron-test.yml/runs?per_page=1 2> /dev/null | jq .workflow_runs[0].conclusion)
+
+          # while job did not finish, sleep
+          while [[ $RES == 'null' ]]; do
+            sleep 10s
+           RES=$(curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" https://api.github.com/repos/dataquest-dev/dspace-ui-tests/actions/workflows/cron-test.yml/runs?per_page=1 2> /dev/null | jq .workflow_runs[0].conclusion)
+          done;
+
+          echo $RES
+          # if last result is not success, return -1 and fail
+          if [[ $RES != \"success\" ]]; then
+
+            echo "playwright tests have failed! check appropriate action run"
+            exit 1
+          fi;
+
+  rest-tests-after-import8:
+    runs-on: ubuntu-latest
+    needs: playwright-after-import8
+    timeout-minutes: 15
+    steps:
+      - name: run rest-tests
+        run: |
+          curl -H "Accept: application/vnd.github.everest-preview+json" \
+          -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
+          --request POST \
+          https://api.github.com/repos/dataquest-dev/\
+          dspace-rest-test/actions/workflows/run_unittests.yml/dispatches \
+          --data "{\"ref\":\"refs/heads/master\"}" 2> /dev/null
+
+          # wait for it to start
+          sleep 30s
+
+          # get result of last job
+          RES=$(curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" https://api.github.com/repos/dataquest-dev/dspace-rest-test/actions/workflows/run_unittests.yml/runs?per_page=1 2> /dev/null | jq .workflow_runs[0].conclusion)
+
+          # while job did not finish, sleep
+          while [[ $RES == 'null' ]]; do
+            sleep 10s
+            RES=$(curl -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" https://api.github.com/repos/dataquest-dev/dspace-rest-test/actions/workflows/run_unittests.yml/runs?per_page=1 2> /dev/null | jq .workflow_runs[0].conclusion)
+          done;
+
+          echo $RES
+          # if last result is not success, return -1 and fail
+          if [[ $RES != \"success\" ]]; then
+            echo "rest-tests have failed! check appropriate action run"
+            exit 1
+          fi;
