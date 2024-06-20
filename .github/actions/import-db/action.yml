@@ -10,6 +10,10 @@ inputs:
     description: 'port suffix'
     required: true
     type: string
+  ASSETSTORE:
+    description: 'location of assetstore folder'
+    required: false
+    type: string
 
 runs:
   using: "composite"
@@ -49,6 +53,9 @@ runs:
           echo "====="
           docker logs $DB5NAME || true
           echo "====="
+          # copy assetstore
+          cp -r $ASSETSTORE dspace${INSTANCE}:/dspace/
+          echo "====="
           cd ../
           pip install -r requirements.txt || true
           echo "====="
@@ -62,4 +69,4 @@ runs:
       run: |
         docker stop ${{ steps.import.outputs.cid }} || true
       if: ${{ always() }}
-          
+
