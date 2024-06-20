@@ -9,7 +9,7 @@ name: Docker images
 on:
   push:
     branches:
-      - dtq-dev
+      - clarin-v7
       - customer/*
   pull_request:
   workflow_dispatch:
@@ -20,11 +20,11 @@ permissions:
 jobs:
   dspace-angular:
     # Ensure this job never runs on forked repos. It's only executed for 'dspace/dspace-angular'
-    if: github.repository == 'dataquest-dev/dspace-angular'
-    uses: dataquest-dev/DSpace/.github/workflows/reusable-docker-build.yml@dtq-dev
+    if: github.repository == 'ufal/dspace-angular'
+    uses: ufal/clarin-dspace/.github/workflows/reusable-docker-build.yml@clarin-v7
     with:
       build_id: dspace-angular
-      image_name: dataquest/dspace-angular
+      image_name: ufal/dspace-angular
       dockerfile_path: ./Dockerfile
       run_python_version_script: true
       python_version_script_dest: src/static-files/VERSION_D.html
@@ -33,12 +33,12 @@ jobs:
       DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
   #############################################################
-  # Build/Push the 'dataquest/dspace-angular' image ('-dist' tag)
+  # Build/Push the 'ufal/dspace-angular' image ('-dist' tag)
   #############################################################
   dspace-angular-dist:
-    # Ensure this job never runs on forked repos. It's only executed for 'dataquest/dspace-angular'
-    if: github.repository == 'dataquest-dev/dspace-angular' && false # not used for now
-    uses: dataquest-dev/DSpace/.github/workflows/reusable-docker-build.yml@dtq-dev
+    # Ensure this job never runs on forked repos. It's only executed for 'ufal/dspace-angular'
+    if: github.repository == 'ufal/dspace-angular' && false # not used for now
+    uses: ufal/clarin-dspace/.github/workflows/reusable-docker-build.yml@clarin-v7
     with:
       build_id: dspace-angular-dist
       image_name: dspace/dspace-angular
@@ -51,12 +51,3 @@ jobs:
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_ACCESS_TOKEN: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-
-  deploy:
-    needs: dspace-angular
-    uses: dataquest-dev/dspace-angular/.github/workflows/deploy.yml@dtq-dev
-    if: ${{ github.event_name != 'pull_request' }}
-    with:
-      INSTANCE: '5'
-      IMPORT: false
-    secrets: inherit
