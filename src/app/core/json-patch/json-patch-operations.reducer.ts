@@ -361,14 +361,18 @@ function addOperationToList(body: JsonPatchOperationObject[], actionType, target
  * @returns deduped JSON patch operation object entries
  */
 function dedupeOperationEntries(body: JsonPatchOperationObject[]): JsonPatchOperationObject[] {
-  const ops = new Map<string, any>();
+  const ops = new Map<string, number>();
   for (let i = body.length - 1; i >= 0; i--) {
     const patch = body[i].operation;
     const key = `${patch.op}-${patch.path}`;
     if (!ops.has(key)) {
-      ops.set(key, patch);
+      ops.set(key, i);
     } else {
-      body.splice(i, 1);
+      const entry = ops.get(key);
+      if (entry - 1 === i) {
+        body.splice(i, 1);
+        ops.set(key, i);
+      }
     }
   }
 
