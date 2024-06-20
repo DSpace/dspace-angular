@@ -54,6 +54,10 @@ runs:
           docker logs $DB5NAME || true
           echo "====="
           # copy assetstore
+          echo Preparing assetstore
+          # remove old assetstore
+          docker exec dspace${{ inputs.INSTANCE }} rm -r /dspace/
+          # copy new assetstore
           docker cp ${{ inputs.ASSETSTORE }} dspace${{ inputs.INSTANCE }}:/dspace/
           echo "====="
           cd ../
@@ -62,7 +66,7 @@ runs:
           cd ./src
           # cleanup resume
           rm __temp/resume/*.json || true
-          python3 repo_import.py --resume=false --config=backend.endpoint=$BEURL --config=db_dspace_7.port=$DB7PORT --config=db_dspace_5.port=$DB5PORT --config=db_utilities_5.port=$DB5PORT --config=input.datadir=$DATADIR/data/ --config=input.icondir=$DATADIR/icon/
+          python3 repo_import.py --resume=false --config=backend.endpoint=$BEURL --config=db_dspace_7.port=$DB7PORT --config=db_dspace_5.port=$DB5PORT --config=db_utilities_5.port=$DB5PORT --config=input.datadir=$DATADIR/data/ --config=input.icondir=$DATADIR/icon/ --assetstore=${{ inputs.ASSETSTORE }}
 
     - name: cleanup
       shell: bash
