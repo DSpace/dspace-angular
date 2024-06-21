@@ -1,12 +1,12 @@
 import { Metric } from '../shared/metric.model';
-import { MetricsComponentsDataService } from './metrics-components-data.service';
+import { MetricsComponentsService } from './metrics-components.service';
 
-describe('MetricsComponentsDataService', () => {
+describe('MetricsComponentsService', () => {
 
-  let service: MetricsComponentsDataService;
+  let service: MetricsComponentsService;
 
   beforeEach(() => {
-    service = new MetricsComponentsDataService();
+    service = new MetricsComponentsService();
 
   });
 
@@ -44,8 +44,8 @@ describe('MetricsComponentsDataService', () => {
 
       expect(result.length).toBe(1);
       expect(result[0].metrics.length).toBe(2);
-      expect(result[0].metrics[0].metricType).toBe('views');
-      expect(result[0].metrics[1].metricType).toBe('downloads');
+      expect(result[0].metrics[0].metricType).toBe('downloads');
+      expect(result[0].metrics[1].metricType).toBe('views');
 
     });
 

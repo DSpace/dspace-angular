@@ -300,7 +300,6 @@ import { SearchExportCsvComponent } from './search/search-export-csv/search-expo
 import {
   ItemPageTitleFieldComponent
 } from '../item-page/simple/field-components/specific-field/title/item-page-title-field.component';
-import { MarkdownPipe } from './utils/markdown.pipe';
 import { GoogleRecaptchaModule } from '../core/google-recaptcha/google-recaptcha.module';
 import { MenuModule } from './menu/menu.module';
 import {
@@ -352,6 +351,10 @@ import {
 import { ItemCollectionComponent } from './object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ThemedItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
+import { MarkdownDirective } from './utils/markdown.directive';
+import { MetadataLinkViewPopoverComponent } from './metadata-link-view/metadata-link-view-popover/metadata-link-view-popover.component';
+import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view/metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
+import { MetadataLinkViewOrcidComponent } from './metadata-link-view/metadata-link-view-orcid/metadata-link-view-orcid.component';
 
 const MODULES = [
   CommonModule,
@@ -398,7 +401,6 @@ const PIPES = [
   ConsolePipe,
   ObjNgFor,
   BrowserOnlyPipe,
-  MarkdownPipe,
   ShortNumberPipe
 ];
 
@@ -503,6 +505,9 @@ const COMPONENTS = [
   BrowseMostElementsComponent,
   EditMetadataSecurityComponent,
   MetadataLinkViewComponent,
+  MetadataLinkViewPopoverComponent,
+  MetadataLinkViewAvatarPopoverComponent,
+  MetadataLinkViewOrcidComponent,
   ExportExcelSelectorComponent,
   ThemedBrowseMostElementsComponent,
   SearchChartBarHorizontalComponent,
@@ -612,6 +617,7 @@ const DIRECTIVES = [
   HoverClassDirective,
   ContextHelpDirective,
   EntityIconDirective,
+  MarkdownDirective,
 ];
 
 @NgModule({

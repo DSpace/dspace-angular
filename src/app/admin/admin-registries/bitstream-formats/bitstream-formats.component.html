@@ -5,7 +5,10 @@
       <h2 id="header" class="border-bottom pb-2 ">{{'admin.registries.bitstream-formats.head' | translate}}</h2>
 
       <p id="description">{{'admin.registries.bitstream-formats.description' | translate}}</p>
-      <p id="create-new" class="mb-2"><a [routerLink]="'add'" class="btn btn-success">{{'admin.registries.bitstream-formats.create.new' | translate}}</a></p>
+      <p id="create-new" class="mb-2"><a [routerLink]="'add'" class="btn btn-success">
+        <i class="fas fa-plus mr-1"></i>
+        {{'admin.registries.bitstream-formats.create.new' | translate}}</a>
+      </p>
 
 
       <ds-pagination
@@ -50,8 +53,14 @@
       </div>
 
       <div>
-        <button *ngIf="(bitstreamFormats | async)?.payload?.page?.length > 0" class="btn btn-primary deselect" (click)="deselectAll()">{{'admin.registries.bitstream-formats.table.deselect-all' | translate}}</button>
-        <button *ngIf="(bitstreamFormats | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteFormats()">{{'admin.registries.bitstream-formats.table.delete' | translate}}</button>
+        <button *ngIf="(bitstreamFormats | async)?.payload?.page?.length > 0" class="btn btn-primary deselect" (click)="deselectAll()">
+          <i class="far fa-minus-square mr-1"></i>
+          {{'admin.registries.bitstream-formats.table.deselect-all' | translate}}
+        </button>
+        <button *ngIf="(bitstreamFormats | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteFormats()">
+          <i class="fas fa-trash mr-1"></i>
+          {{'admin.registries.bitstream-formats.table.delete' | translate}}
+        </button>
       </div>
     </div>
   </div>

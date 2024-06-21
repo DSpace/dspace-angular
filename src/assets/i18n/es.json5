@@ -8713,8 +8713,8 @@
   // "search.form.search_dspace": "All repository",
   "search.form.search_dspace": "Todo el repositorio",
 
-  // "search.form.scope.all": "All of DSpace",
-  "search.form.scope.all": "Todo DSpace",
+  // "search.form.scope.all": "All items",
+  "search.form.scope.all": "Todos los ítems",
 
   // "search.results.head": "Search Results",
   "search.results.head": "Resultados de la búsqueda",
@@ -11727,7 +11727,5 @@
 
   // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
   "access-control-option-end-date-note": "Escoja la fecha hasta la cuál se aplicarán las condiciones de acceso especificadas",
-
-
 
 }

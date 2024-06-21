@@ -33,6 +33,10 @@ import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-requ
 import { BrowserInitService } from './browser-init.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
 import { BrowserReferrerService } from '../../app/core/services/browser.referrer.service';
+import { MathService } from '../../app/core/shared/math.service';
+import { ClientMathService } from '../../app/core/shared/client-math.service';
+import { DatadogRumService } from '../../app/shared/datadog-rum/datadog-rum.service';
+import { BrowserDatadogRumService } from '../../app/shared/datadog-rum/browser-datadog-rum.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -86,6 +90,10 @@ export function getRequest(transferState: TransferState): any {
       useClass: BrowserKlaroService
     },
     {
+      provide: DatadogRumService,
+      useClass: BrowserDatadogRumService
+    },
+    {
       provide: SubmissionService,
       useClass: SubmissionService
     },
@@ -116,6 +124,10 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: LocationToken,
       useFactory: locationProvider,
+    },
+    {
+      provide: MathService,
+      useClass: ClientMathService
     }
   ]
 })

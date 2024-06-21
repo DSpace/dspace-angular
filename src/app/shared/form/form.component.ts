@@ -23,6 +23,17 @@ import cloneDeep from 'lodash/cloneDeep';
 import {
   DynamicScrollableDropdownModel
 } from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import isEqual from 'lodash/isEqual';
+import { DynamicRowGroupModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
+import {
+  DynamicRelationGroupModel
+} from './builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DynamicLinkModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-link.model';
+import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+
+export interface MetadataFields {
+  [key: string]: FormFieldMetadataValueObject[]
+}
 
 /**
  * The default form component.
@@ -44,9 +55,9 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() displaySubmit = true;
 
   /**
-   * A boolean that indicate if to display form's cancel button
+   * A boolean that indicate if to display form's reset button
    */
-  @Input() displayCancel = true;
+  @Input() displayReset = true;
 
   /**
    * A String that indicate the entity type of the item
@@ -71,13 +82,13 @@ export class FormComponent implements OnDestroy, OnInit {
   /**
    * i18n key for the cancel button
    */
-  @Input() cancelLabel = 'form.cancel';
+  @Input() resetLabel = 'form.reset';
 
   /**
    * An array of DynamicFormControlModel type
    */
   @Input() formModel: DynamicFormControlModel[];
-  @Input() parentFormModel: DynamicFormGroupModel | DynamicFormGroupModel[];
+  @Input() parentFormModel: DynamicRowGroupModel | DynamicFormGroupModel | DynamicFormGroupModel[];
   @Input() formGroup: UntypedFormGroup;
   @Input() formLayout = null as DynamicFormLayout;
   @Input() arrayButtonsStyle: string;
@@ -147,7 +158,7 @@ export class FormComponent implements OnDestroy, OnInit {
   }
 
   private getFormGroupValidStatus() {
-    return this.getFormGroup().valid;
+    return this.getFormGroup().valid || this.getFormGroup().disabled;
   }
 
   /**
@@ -168,8 +179,7 @@ export class FormComponent implements OnDestroy, OnInit {
 
     this.formService.initForm(this.formId, this.formModel, this.getFormGroupValidStatus());
 
-    // TODO: take a look to the following method:
-    // this.keepSync();
+    this.keepSync();
 
     this.formValid = this.getFormGroupValidStatus();
 
@@ -260,9 +270,7 @@ export class FormComponent implements OnDestroy, OnInit {
   private keepSync(): void {
     this.subs.push(this.formService.getFormData(this.formId)
       .subscribe((stateFormData) => {
-        if (!Object.is(stateFormData, this.formGroup.value) && this.formGroup) {
-          this.formGroup.setValue(stateFormData);
-        }
+        this.updateMetadataValue(stateFormData);
       }));
   }
 
@@ -283,6 +291,9 @@ export class FormComponent implements OnDestroy, OnInit {
         const control: FormControl = this.formBuilderService.getFormControlByModel(this.formGroup, model) as FormControl;
         if (control) {
           const changeEvent = this.formBuilderService.createDynamicFormControlEvent(control, control.parent as UntypedFormGroup, model, 'change');
+          if (model instanceof  DynamicRelationGroupModel) {
+            control.setValue(model.value);
+          }
           this.onChange(changeEvent);
         }
       });
@@ -346,7 +357,12 @@ export class FormComponent implements OnDestroy, OnInit {
     if (index === 0 && formArrayControl.value?.length === 1) {
       event.model = cloneDeep(event.model);
       const fieldId = event.model.id;
-      formArrayControl.at(0).get(fieldId).setValue(null);
+
+      if (event.model instanceof DynamicLinkModel || event.model instanceof DynamicConcatModel) {
+        formArrayControl.at(0).get(fieldId).reset();
+      } else {
+        formArrayControl.at(0).get(fieldId).setValue(null);
+      }
     } else {
       this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
     }
@@ -411,5 +427,33 @@ export class FormComponent implements OnDestroy, OnInit {
     const model = context.group[0] as DynamicFormControlModel;
     const control = group.controls[index] as UntypedFormControl;
     return { $event, context, control, group, model, type };
+  }
+
+  private updateMetadataValue(metadataFields: MetadataFields): void {
+    const metadataKeys = hasValue(metadataFields) ? Object.keys(metadataFields) : [];
+    const formKeys = hasValue(this.formGroup.value) ? Object.keys(this.formGroup.value).map(key => key.replace('_array', '')) : [];
+
+    formKeys
+      .filter((key) => isNotEmpty(this.formGroup.value[key]))
+      .forEach((key) => {
+        const innerObjectKeys = (Object.keys(this.formGroup.value[key] ?? {} ) as any[]).map((oldKey) => oldKey.replaceAll('_', '.'));
+        const filteredKeys = innerObjectKeys.filter(innerKey => metadataKeys.includes(innerKey));
+        const oldValue = this.formGroup.value[key];
+
+        if (filteredKeys.length > 0) {
+          filteredKeys.forEach((oldValueKey) => {
+            const newValue = {...oldValue};
+            const formattedKey = (oldValueKey as any).replaceAll('.', '_');
+            const patchValue = {};
+
+            newValue[formattedKey] = metadataFields[oldValueKey][0];
+            patchValue[key] = newValue;
+
+            if (!isEqual(oldValue[oldValueKey], newValue[oldValueKey])) {
+              this.formGroup.patchValue(patchValue);
+            }
+          });
+        }
+    });
   }
 }

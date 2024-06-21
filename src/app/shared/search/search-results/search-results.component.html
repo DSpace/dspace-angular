@@ -22,7 +22,7 @@
             (selectObject)="selectObject.emit($event)">
     </ds-viewable-collection>
 </div>
-<ds-themed-loading *ngIf="isLoading()" message="{{'loading.search-results' | translate}}"></ds-themed-loading>
+<ds-themed-loading *ngIf="isLoading()" message="{{'loading.search-results' | translate}}" [showFallbackMessages]="true"></ds-themed-loading>
 <ds-error *ngIf="showError()"
           message="{{errorMessageLabel() | translate}}"></ds-error>
 <div *ngIf="searchResults?.payload?.page.length == 0 || searchResults?.statusCode == 400">

@@ -68,7 +68,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() showSidebar: boolean;
 
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   @Input() showViewModes: boolean;
 
