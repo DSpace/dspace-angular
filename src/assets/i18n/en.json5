@@ -6382,6 +6382,8 @@
 
   "submission.sections.upload.delete.confirm.title": "Delete bitstream",
 
+  "submission.sections.upload.genericError": "The file details are incomplete or invalid. Please open edit the file details for more details",
+
   "submission.sections.upload.delete.submit": "Delete",
 
   "submission.sections.upload.download.title": "Download bitstream",
