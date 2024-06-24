@@ -32,12 +32,12 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
   /**
    * The prefix used for box field label's i18n key
    */
-  fieldI18nPrefix = 'layout.field.label.';
+  readonly fieldI18nPrefix = 'layout.field.label';
 
   /**
    * The prefix used for box field label's
    */
-  nestedName = 'nested';
+  readonly nestedMetadataPrefix = 'NESTED';
 
   /**
    * A boolean representing if component is initialized
@@ -85,28 +85,23 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
   }
 
   /**
-   * Returns a string representing the label of field if exists
+   * Returns the translated label, if exists, otherwiuse returns a fallback value
    */
   getLabel(field: LayoutField): string {
-    return this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.' + this.nestedName + '.[' + field.metadata + ']') ??
-      this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.[' + field.metadata + ']') ??
-      this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.[' + field.metadata + ']') ??
-      this.getTranslationIfExists(this.fieldI18nPrefix + this.item.entityType + '.' + field.metadata) ??
-      this.getTranslationIfExists(this.fieldI18nPrefix + '[' + field.metadata + ']') ??
-      this.getTranslationIfExists(this.fieldI18nPrefix + field.label) ??
-      field.label ??
-      field.metadata;
+    return this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.${this.nestedMetadataPrefix}[${field.metadata}]}`) ??
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.[${field.metadata}]`) ??
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.${field.metadata}`) ?? // old syntax - do not use
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.[${field.metadata}]`) ??
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.${field.label}`) ?? // old syntax - do not use
+      field.label; // the untranslated value from the CRIS layout
   }
 
   /**
-   * If the translation haven't found return null otherwise return translated label
+   * Return the translated label, if exists, otherwise returns null
    */
-  getTranslationIfExists(fieldLabelI18nKey: string): string {
-    const header: string = this.translateService.instant(fieldLabelI18nKey);
-    if (header !== fieldLabelI18nKey) {
-      return header;
-    }
-    return null;
+  getTranslationIfExists(key: string): string {
+    const translation: string = this.translateService.instant(key);
+    return translation !== key ? translation : null;
   }
 
   ngOnDestroy(): void {

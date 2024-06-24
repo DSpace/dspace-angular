@@ -7587,7 +7587,7 @@
   "layout.field.label.Person.[person.affiliation.name]": "Main Affiliation",
   "layout.field.label.Person.[oairecerif.identifier.url]": "Web Site",
   "layout.field.label.Person.[person.email]": "Email",
-  "layout.field.label.Person.[person.identifier.orcid]": "ORCID",
+//  "layout.field.label.Person.[person.identifier.orcid]": "ORCID",
   "layout.field.label.Person.[person.identifier.scopus-author-id]": "Scopus Author ID",
   "layout.field.label.Person.[person.identifier.rid]": "Researcher ID",
   "layout.field.label.Person.[dc.description.abstract]": "Biography",
@@ -7678,4 +7678,5 @@
 
   // Do not add new labels below layout ones
   // All new labels should be placed together with similar ones, or in alphabetical orders
+
 }
