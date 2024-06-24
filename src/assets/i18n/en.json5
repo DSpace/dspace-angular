@@ -896,6 +896,10 @@
 
   "bitstream.edit.form.fileType.hint": "Personal picture, logo, main article, etc.",
 
+  "bitstream.edit.form.hide.label": "Hide",
+
+  "bitstream.edit.form.hide.hint": "Hide the bitstream on the item page.",
+
   "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
 
   "bitstream.edit.form.selectedFormat.label": "Selected Format",
@@ -1823,6 +1827,10 @@
 
   "cookies.consent.app.description.dimensions": "Dimensions analyses references from publications and calculates a set of article-level indicators. (https://www.dimensions.ai)",
 
+  "cookies.consent.app.title.datadog": "Datadog",
+
+  "cookies.consent.app.description.datadog": "Datadog provides insights on how users interact with the application.",
+
   "cookies.consent.purpose.thirdPartyJs": "Third-party JavaScript",
 
   "curation-task.task.citationpage.label": "Generate Citation Page",
@@ -2135,6 +2143,8 @@
 
   "error.validation.groupExists": "This group already exists",
 
+  "error.validation.invalidProjectURL": "The URL of the project is invalid",
+
   "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
 
   "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
@@ -2407,6 +2417,8 @@
 
   "form.cancel": "Cancel",
 
+  "form.reset": "Reset",
+
   "form.clear": "Clear",
 
   "form.clear-help": "Click here to remove the selected value",
@@ -2476,6 +2488,20 @@
   "form.other-information.ror_orgunit_type": "ROR type",
 
   "form.other-information.ror_orgunit_acronym": "ROR acronym",
+
+  "form.other-information.ror_orgunit_countryName": "ROR country",
+
+  "form.entry.source.local": "",
+
+  "form.entry.source.orcid": "",
+
+  "form.entry.source.ror": "",
+
+  "form.entry.source.openaire": "",
+
+  "form.entry.source.zdb": "",
+
+  "form.entry.source.sherpa": "- Sherpa Romeo",
 
   "form.remove": "Remove",
 
@@ -2612,6 +2638,8 @@
   "info.end-user-agreement.title": "End User Agreement",
 
   "info.end-user-agreement.hosting-country": "the United States",
+
+  "info.end-user-agreement.content.fallback": "Accept the user agreement.",
 
   "info.privacy.breadcrumbs": "Privacy Statement",
 
@@ -4522,7 +4550,7 @@
   "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
 
 
-
+  "patent.page.titleprefix": "Patent",
 
   "patent.listelement.badge": "Patent",
 
@@ -5271,7 +5299,7 @@
 
   "search.form.search_dspace": "All repository",
 
-  "search.form.scope.all": "All of DSpace",
+  "search.form.scope.all": "All items",
 
   "search.results.head": "Search Results",
 
@@ -5527,6 +5555,16 @@
   "form.other-information.oairecerif-author-affiliation": "Affiliation",
 
   "form.other-information.oairecerif-editor-affiliation": "Affiliation",
+
+  "form.other-information.dc.publisher": "Publisher",
+
+  "form.other-information.miur.journal.othertitle": "Other Title",
+
+  "form.other-information.miur.journal.startdate": "Start Date",
+
+  "form.other-information.miur.journal.enddate": "End Date",
+
+  "form.other-information.dc.identifier.issn": "ISSN",
 
   "statistics.table.downloadReports.title.TotalVisits": "Most downloaded",
 
@@ -7276,6 +7314,10 @@
 
   "access-control-cancel": "Cancel",
 
+  "access-control-reset": "Reset",
+
+  "access-control-back": "Back",
+
   "access-control-execute": "Execute",
 
   "access-control-add-more": "Add more",
@@ -7378,6 +7420,57 @@
   "form.other-information.selection.data-crispj_coinvestigator_affiliation": "Affiliation",
 
   "form.other-information.selection.alternative-names": "Select alternative name",
+
+  "meta.tag.missing.description": "No description available",
+
+  "metadata-link-view.popover.label.Person.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.Person.person.affiliation.name": "Main affiliation",
+
+  "metadata-link-view.popover.label.Person.person.email": "Email",
+
+  "metadata-link-view.popover.label.Person.person.identifier.orcid": "ORCID",
+
+  "metadata-link-view.popover.label.Person.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.OrgUnit.dc.title": "Fullname",
+
+  "metadata-link-view.popover.label.OrgUnit.organization.identifier.ror": "ROR",
+
+  "metadata-link-view.popover.label.OrgUnit.crisou.director": "Director",
+
+  "metadata-link-view.popover.label.OrgUnit.organization.parentOrganization": "Parent Organization",
+
+  "metadata-link-view.popover.label.OrgUnit.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.Project.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Project.oairecerif.project.status": "Status",
+
+  "metadata-link-view.popover.label.Project.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Funding.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Funding.oairecerif.funder": "Funder",
+
+  "metadata-link-view.popover.label.Funding.oairecerif.fundingProgram": "Funding program",
+
+  "metadata-link-view.popover.label.Funding.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.Publication.dc.title": "Title",
+
+  "metadata-link-view.popover.label.Publication.dc.identifier.doi": "DOI",
+
+  "metadata-link-view.popover.label.Publication.dc.identifier.uri": "URL",
+
+  "metadata-link-view.popover.label.Publication.dc.description.abstract": "Abstract",
+
+  "metadata-link-view.popover.label.other.dc.title": "Title",
+
+  "metadata-link-view.popover.label.other.dc.description.abstract": "Description",
+
+  "metadata-link-view.popover.label.more-info": "More info",
+
 
   // Layout - Common i18n keys: Metadata fallback values (not generated by CRIS layout tool)
 

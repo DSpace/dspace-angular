@@ -13,6 +13,7 @@ import { Process } from '../../process-page/processes/process.model';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { By } from '@angular/platform-browser';
 
 describe('BulkAccessComponent', () => {
   let component: BulkAccessComponent;
@@ -141,11 +142,6 @@ describe('BulkAccessComponent', () => {
       expect(component.canExport()).toBe(true);
     });
 
-    it('should call the settings reset method when reset is called', () => {
-      component.reset();
-      expect(component.settings.reset).toHaveBeenCalled();
-    });
-
     it('should call the bulkAccessControlService executeScript method when submit is called', () => {
       (component.settings as any).getValue.and.returnValue(mockFormState);
       bulkAccessControlService.createPayloadFile.and.returnValue(mockFile);
@@ -153,6 +149,12 @@ describe('BulkAccessComponent', () => {
       component.objectsSelected$.next(['1234']);
       component.submit();
       expect(bulkAccessControlService.executeScript).toHaveBeenCalled();
+    });
+
+    it('should have a link to /home', () => {
+      const link = fixture.debugElement.query(By.css('a.btn-outline-primary'));
+      expect(link).toBeTruthy();
+      expect(link.properties.href).toContain('/home');
     });
   });
 });

@@ -44,6 +44,7 @@ import {
 } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { environment } from '../../../../../../../environments/environment';
 
 /**
  * Component representing a onebox input field.
@@ -77,6 +78,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
   preloadLevel: number;
   additionalInfoSelectIsOpen = false;
   alternativeNamesKey = 'alternative-names';
+  authorithyIcons = environment.submission.icons.authority.sourceIcons;
 
 
   private isHierarchicalVocabulary$: Observable<boolean>;
@@ -412,5 +414,34 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       otherInformation: otherInformation,
       type: 'vocabularyEntry'
     });
+  }
+
+
+  /**
+   * Hide image on error
+   * @param image
+   */
+  handleImgError(image: HTMLElement): void {
+    image.style.display = 'none';
+  }
+
+  /**
+   * Get configured icon for each authority source
+   * @param source
+   */
+  getAuthoritySourceIcon(source: string, image: HTMLElement): string {
+    if (hasValue(this.authorithyIcons)) {
+      const iconPath = this.authorithyIcons.find(icon => icon.source === source)?.path;
+
+      if (!hasValue(iconPath)) {
+        this.handleImgError(image);
+      }
+
+      return iconPath;
+    } else {
+      this.handleImgError(image);
+    }
+
+    return '';
   }
 }

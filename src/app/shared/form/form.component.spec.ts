@@ -178,7 +178,7 @@ describe('FormComponent test suite', () => {
                  [formId]="formId"
                  [formModel]="formModel"
                  [displaySubmit]="displaySubmit"
-                 [displayCancel]="displayCancel"></ds-form>`;
+                 [displayReset]="displayCancel"></ds-form>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -205,7 +205,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testForm';
       formComp.formModel = TEST_FORM_MODEL;
       formComp.displaySubmit = false;
-      formComp.displayCancel = false;
+      formComp.displayReset = false;
       form = new BehaviorSubject(formState);
       valid = new BehaviorSubject(false);
       spyOn((formComp as any).formService, 'getForm').and.returnValue(form);
@@ -405,7 +405,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testFormArray';
       formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;
       formComp.displaySubmit = false;
-      formComp.displayCancel = false;
+      formComp.displayReset = false;
       formFixture.detectChanges();
       spyOn(store, 'dispatch');
     });
@@ -460,7 +460,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testFormArray';
       formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;
       formComp.displaySubmit = false;
-      formComp.displayCancel = false;
+      formComp.displayReset = false;
       formFixture.detectChanges();
       spyOn(store, 'dispatch');
     });
@@ -563,7 +563,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testFormArray';
       formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;
       formComp.displaySubmit = false;
-      formComp.displayCancel = false;
+      formComp.displayReset = false;
       formFixture.detectChanges();
       spyOn(store, 'dispatch');
     });
