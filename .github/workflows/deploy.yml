@@ -103,7 +103,7 @@ jobs:
         with:
           INSTANCE: ${{ env.INSTANCE }}
           DATADIR: /opt/dspace-data/clarin-dspace/
-          ASSETSTORE: /opt/dspace-data/clarin-dspace/assetstore
+          ASSETSTORE: /opt/dspace-data/clarin-dspace/assetstore/
 
       - name: dspace basic command
         run: |
