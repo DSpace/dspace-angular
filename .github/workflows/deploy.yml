@@ -103,6 +103,7 @@ jobs:
         with:
           INSTANCE: ${{ env.INSTANCE }}
           DATADIR: /opt/dspace-data/clarin-dspace/
+          ASSETSTORE: /opt/dspace-data/clarin-dspace/assetstore
 
       - name: dspace basic command
         run: |
@@ -140,7 +141,7 @@ jobs:
         run: |
           # wait until FE stabilizes a bit
           sleep 3m
-          
+
           curl -H "Accept: application/vnd.github.everest-preview+json" \
           -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
           --request POST \
@@ -211,7 +212,7 @@ jobs:
         run: |
           # wait until FE stabilizes a bit
           sleep 3m
-          
+
           curl -H "Accept: application/vnd.github.everest-preview+json" \
           -H "Authorization: token ${{ secrets.DEPLOY_DEV5_GH_ACTION_DISPATCH }}" \
           --request POST \
