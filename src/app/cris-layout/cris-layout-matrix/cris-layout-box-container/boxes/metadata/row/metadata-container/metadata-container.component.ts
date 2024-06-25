@@ -4,7 +4,7 @@ import { CrisLayoutBox, LayoutField, LayoutFieldType } from '../../../../../../.
 import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,
-  MetadataBoxFieldRenderOptions
+  MetadataBoxFieldRenderOptions,
 } from '../../rendering-types/metadata-box.decorator';
 import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../shared/empty.util';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,11 +13,11 @@ import { MetadataValue } from '../../../../../../../core/shared/metadata.models'
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
 import { map, take } from 'rxjs/operators';
-import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { MetadataFilter } from '../../../../../../../core/data/bitstream-data.service';
+import { BitstreamDataService, MetadataFilter } from '../../../../../../../core/data/bitstream-data.service';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'ds-metadata-container',
@@ -46,7 +46,7 @@ export class MetadataContainerComponent implements OnInit {
   /**
    * The prefix used for box field label's i18n key
    */
-  fieldI18nPrefix = 'layout.field.label.';
+  readonly fieldI18nPrefix = 'layout.field.label';
 
   /**
    * A boolean representing if metadata rendering type is structured or not
@@ -58,12 +58,9 @@ export class MetadataContainerComponent implements OnInit {
    */
   metadataFieldRenderOptions: MetadataBoxFieldRenderOptions;
 
-  constructor(
-    protected bitstreamDataService: BitstreamDataService,
-    protected translateService: TranslateService,
-    protected cd: ChangeDetectorRef
-  ) {
-  }
+  protected readonly bitstreamDataService = inject(BitstreamDataService);
+  protected readonly translateService = inject(TranslateService);
+  protected readonly cd = inject(ChangeDetectorRef);
 
   /**
    * Returns all metadata values in the item
@@ -82,15 +79,27 @@ export class MetadataContainerComponent implements OnInit {
   /**
    * Returns a string representing the label of field if exists
    */
-  get label(): string {
-    const fieldLabelI18nKey = this.fieldI18nPrefix + this.item.entityType + '.' + this.field.metadata;
-    const header: string = this.translateService.instant(fieldLabelI18nKey);
-    if (header === fieldLabelI18nKey) {
-      // if translation does not exist return the value present in the header property
-      return this.translateService.instant(this.field.label);
+  getLabel(): string {
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM) {
+      return (hasValue(this.field.bitstream.metadataValue) ?
+        this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.BITSTREAM[${this.field.bitstream.metadataValue}]`) :
+        this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.BITSTREAM`)
+      ) ?? this.field.label;
     } else {
-      return header;
+      return this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.[${this.field.metadata}]`) ??
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.${this.field.metadata}`) ?? // old syntax - do not use
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.[${this.field.metadata}]`) ??
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.field.label}`) ?? // old syntax - do not use
+      this.field.label; // the untranslated value from the CRIS layout
     }
+  }
+
+  /**
+   * Return the translated label, if exists, otherwise returns null
+   */
+  getTranslationIfExists(key: string): string {
+    const translation: string = this.translateService.instant(key);
+    return translation !== key ? translation : null;
   }
 
   /**
