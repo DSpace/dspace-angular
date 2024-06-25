@@ -32,6 +32,7 @@ import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
 import { NuMarkdownModule } from '@ng-util/markdown';
 import { FooterModule } from './footer/footer.module';
+import { SocialModule } from './social/social.module';
 
 export function getConfig() {
   return environment;
@@ -120,10 +121,11 @@ const EXPORTS = [
 ];
 
 @NgModule({
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
-    ...IMPORTS
-  ],
+    imports: [
+        BrowserModule.withServerTransition({appId: 'dspace-angular'}),
+        ...IMPORTS,
+        SocialModule
+    ],
   providers: [
     ...PROVIDERS
   ],
