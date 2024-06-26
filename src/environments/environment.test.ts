@@ -10,7 +10,8 @@ export const environment: BuildConfig = {
   universal: {
     preboot: true,
     async: true,
-    time: false
+    time: false,
+    inlineCriticalCss: false,
   },
 
   // Angular Universal server settings.

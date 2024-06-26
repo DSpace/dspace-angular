@@ -23,6 +23,7 @@ import { PaginationServiceStub } from '../../shared/testing/pagination-service.s
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
+import { cold } from 'jasmine-marbles';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -112,9 +113,13 @@ describe('BrowseByDatePageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should initialize the list of items', () => {
+  it('should initialize the list of items', (done: DoneFn) => {
+    expect(comp.loading$).toBeObservable(cold('(a|)', {
+      a: false,
+    }));
     comp.items$.subscribe((result) => {
       expect(result.payload.page).toEqual([firstItem]);
+      done();
     });
   });
 

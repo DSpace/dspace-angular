@@ -73,6 +73,13 @@ describe('MetadataUriValuesComponent', () => {
     expect(separators.length).toBe(mockMetadata.length - 1);
   });
 
+  it('should contain the correct target attribute for metadata links', () => {
+    const links = fixture.debugElement.queryAll(By.css('a'));
+    for (const link of links) {
+      expect(link.nativeElement.getAttribute('target')).toBe('_blank');
+    }
+  });
+
   describe('when linktext is defined', () => {
 
     beforeEach(() => {

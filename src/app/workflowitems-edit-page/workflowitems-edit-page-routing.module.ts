@@ -19,13 +19,17 @@ import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-
 import {
   AdvancedWorkflowActionPageComponent
 } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';
+import { ItemFromWorkflowBreadcrumbResolver } from './item-from-workflow-breadcrumb.resolver';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: ':id',
-        resolve: { wfi: WorkflowItemPageResolver },
+        resolve: {
+          breadcrumb: ItemFromWorkflowBreadcrumbResolver,
+          wfi: WorkflowItemPageResolver,
+        },
         children: [
           {
             canActivate: [AuthenticatedGuard],
@@ -81,7 +85,11 @@ import {
       }]
     )
   ],
-  providers: [WorkflowItemPageResolver, ItemFromWorkflowResolver]
+  providers: [
+    ItemFromWorkflowBreadcrumbResolver,
+    ItemFromWorkflowResolver,
+    WorkflowItemPageResolver,
+  ],
 })
 /**
  * This module defines the default component to load when navigating to the workflowitems edit page path.

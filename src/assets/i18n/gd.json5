@@ -3106,7 +3106,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Cruthaich dreach ùr",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Cha ghabh dreach ùr a chruthachadh oir tha cur-a-steach a' tachairt ann an eachdraidh nan dreachan",
 
   // "item.preview.dc.identifier.uri": "Identifier:",
@@ -3235,7 +3235,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Dubh às dreach",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Cha ghabh dreach ùr a chruthachadh oir tha cur-a-steach a' tachairt ann an eachdraidh nan dreachan",
 
 
@@ -3276,7 +3276,7 @@
   // "item.version.create.notification.failure" : "New version has not been created",
   "item.version.create.notification.failure": "Cha deach dreach ùr a chruthachadh",
 
-  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress" : "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "Cha ghabh dreach ùr a chruthachadh oir tha cur-a-steach a' tachairt ann an eachdraidh nan dreachan",
 
 
@@ -3867,20 +3867,20 @@
   // "mydspace.show.workspace": "Your Submissions",
   "mydspace.show.workspace": "Do Chur-a-steachan",
 
-  // "mydspace.status.archived": "Archived",
-  "mydspace.status.archived": "San Tasglann",
+  // "mydspace.status.mydspaceArchived": "Archived",
+  "mydspace.status.mydspaceArchived": "San Tasglann",
 
-  // "mydspace.status.validation": "Validation",
-  "mydspace.status.validation": "Dearbhadh",
+  // "mydspace.status.mydspaceValidation": "Validation",
+  "mydspace.status.mydspaceValidation": "Dearbhadh",
 
-  // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  "mydspace.status.waiting-for-controller": "A' feitheamh riaghladair",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
+  "mydspace.status.mydspaceWaitingController": "A' feitheamh riaghladair",
 
-  // "mydspace.status.workflow": "Workflow",
-  "mydspace.status.workflow": "Sruth-obrach",
+  // "mydspace.status.mydspaceWorkflow": "Workflow",
+  "mydspace.status.mydspaceWorkflow": "Sruth-obrach",
 
-  // "mydspace.status.workspace": "Workspace",
-  "mydspace.status.workspace": "Raon-obrach",
+  // "mydspace.status.mydspaceWorkspace": "Workspace",
+  "mydspace.status.mydspaceWorkspace": "Raon-obrach",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MoDSpace",
@@ -4610,6 +4610,10 @@
 
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Ainm",
+
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Tagh an seòrsa poileasaidh",

@@ -2,16 +2,17 @@
     <input type="search"
            class="form-control"
            (click)="$event.stopPropagation();"
+           [attr.aria-label]="'dso-selector.placeholder' | translate: { type: typesString }"
            placeholder="{{'dso-selector.placeholder' | translate: { type: typesString } }}"
            [formControl]="input" ngbAutofocus (keyup.enter)="selectSingleResult()">
 </div>
 <div class="dropdown-divider"></div>
-<div class="scrollable-menu list-group">
+<div id="scrollable-menu-dso-selector-{{randomSeed}}" class="scrollable-menu list-group">
   <div
     infiniteScroll
     [infiniteScrollDistance]="1"
     [infiniteScrollThrottle]="0"
-    [infiniteScrollContainer]="'.scrollable-menu'"
+    [infiniteScrollContainer]="'#scrollable-menu-dso-selector-' + randomSeed"
     [fromRoot]="true"
     (scrolled)="onScrollDown()">
     <ng-container *ngIf="listEntries$ | async">

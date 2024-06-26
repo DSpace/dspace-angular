@@ -28,7 +28,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
 import { compareArraysUsingIds } from '../../simple/item-types/shared/item-relationships-utils';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 
 @Component({
   selector: 'ds-item-relationships',
