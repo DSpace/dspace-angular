@@ -3,8 +3,8 @@ import sys
 from datetime import datetime
 
 # when next editing this script, please introduce argparse.
-# do not forget, it is called in BE by .github\workflows\reusable-docker-build.yml 
-# argparse must be introduced there. 
+# do not forget, it is called in BE by .github\workflows\reusable-docker-build.yml
+# argparse must be introduced there.
 # that action also calls BE version of this script, which is different (BE: scripts/sourceversion.py).
 # It must also cooperate with argparse
 
@@ -12,7 +12,7 @@ from datetime import datetime
 RELEASE_TAG_BASE='none'
 
 if __name__ == '__main__':
-    ts = datetime.now()
+    ts = datetime.now().astimezone()
     # we have html tags, since this script ends up creating VERSION_D.html
     print(f"<h4>This info was generated on: <br> <strong> {ts} </strong> </h4>")
 
