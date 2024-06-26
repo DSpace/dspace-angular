@@ -50,6 +50,7 @@ import { compareArraysUsingIds } from '../../simple/item-types/shared/item-relat
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
 import { EditRelationshipListComponent } from './edit-relationship-list/edit-relationship-list.component';
+import { EditRelationshipListWrapperComponent } from './edit-relationship-list-wrapper/edit-relationship-list-wrapper.component';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -65,6 +66,7 @@ import { EditRelationshipListComponent } from './edit-relationship-list/edit-rel
     ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
+    EditRelationshipListWrapperComponent,
   ],
   standalone: true,
 })

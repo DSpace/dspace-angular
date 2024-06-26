@@ -2850,7 +2850,7 @@
 
   "item.preview.organization.foundingDate": "Founding Date",
 
-  "item.preview.organization.identifier.crossrefid": "CrossRef ID",
+  "item.preview.organization.identifier.crossrefid": "Crossref ID",
 
   "item.preview.organization.identifier.isni": "ISNI",
 
@@ -4778,7 +4778,7 @@
 
   "submission.import-external.source.cinii": "CiNii",
 
-  "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "Crossref",
 
   "submission.import-external.source.datacite": "DataCite",
 
@@ -4804,11 +4804,11 @@
 
   "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
 
-  "submission.import-external.source.openaire": "OpenAIRE Authors",
+  "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
 
-  "submission.import-external.source.openaireTitle": "OpenAIRE Titles",
+  "submission.import-external.source.openaireTitle": "OpenAIRE Search by Title",
 
-  "submission.import-external.source.openaireFunding": "OpenAIRE Funding",
+  "submission.import-external.source.openaireFunding": "OpenAIRE Search by Funder",
 
   "submission.import-external.source.orcid": "ORCID",
 
@@ -4902,11 +4902,11 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importing from OpenAIRE Authors",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importing from OpenAIRE",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importing from OpenAIRE Titles",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importing from OpenAIRE",
 
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE Funding",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
 
@@ -5006,15 +5006,15 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Search by Authors ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Titles ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Search by Title ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Funding ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
 
@@ -6220,7 +6220,7 @@
   "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
 
-  "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-register-new-service.breadcrumbs": "New Service",
@@ -6275,8 +6275,12 @@
 
   "item.page.review": "Review",
 
-  "item.page.dataset": "Dataset",
+  "item.page.referenced": "Referenced By",
+
+  "item.page.supplemented": "Supplemented By",
+
   "menu.section.icon.ldn_services": "LDN Services overview",
+
   "menu.section.services": "LDN Services",
 
   "menu.section.services_new": "LDN Service",
@@ -6352,13 +6356,13 @@
 
   "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
-  "ldn-service-button-mark-inbound-deletion": "Mark inbound pattern for deletion",
+  "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
 
-  "ldn-service-button-unmark-inbound-deletion": "Unmark inbound pattern for deletion",
+  "ldn-service-button-unmark-inbound-deletion": "Unmark supported pattern for deletion",
 
-  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for inbound pattern",
+  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for the pattern",
 
-  "ldn-service-input-inbound-pattern-dropdown": "Select inbound pattern for service",
+  "ldn-service-input-inbound-pattern-dropdown": "Select a pattern for service",
 
   "ldn-service-overview-select-delete": "Select service for deletion",
 
@@ -6735,4 +6739,6 @@
   "item.page.cc.license.title": "Creative Commons license",
 
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+
+  "browse.search-form.placeholder": "Search the repository",
 }

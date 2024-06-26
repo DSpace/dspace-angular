@@ -6514,8 +6514,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite",
@@ -8156,7 +8156,7 @@
   "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "O endereço da organização a enviar requer um país ISO 3166 válido de 2 dígitos",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "É necessário um identificador para desambiguar as organizações. Os identificadores suportados são os identificadores GRID, RINGGOLD, Legal Entity Identity (LEIs) e Crossref Funder Registry (CrossRef)",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "É necessário um identificador para desambiguar as organizações. Os identificadores suportados são os identificadores GRID, RINGGOLD, Legal Entity Identity (LEIs) e Crossref Funder Registry (Crossref)",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
   "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "Os identificadores da organização requerem um valor",

@@ -131,9 +131,7 @@ export class EditRelationshipComponent implements OnChanges {
         this.leftItem$,
         this.rightItem$,
       ]).pipe(
-        map((items: Item[]) =>
-          items.find((item) => item.uuid !== this.editItem.uuid),
-        ),
+        map(([leftItem, rightItem]: [Item, Item]) => leftItem.uuid === this.editItem.uuid ? rightItem : leftItem),
         take(1),
       ).subscribe((relatedItem) => {
         this.relatedItem$.next(relatedItem);

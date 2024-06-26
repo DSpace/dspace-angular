@@ -7,24 +7,24 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { RestResponse } from '../../cache/response.models';
-import { CoreState } from '../../core-state.model';
-import { FindAllData } from '../../data/base/find-all-data';
-import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
-import { SearchData } from '../../data/base/search-data';
-import { testSearchDataImplementation } from '../../data/base/search-data.spec';
-import { DefaultChangeAnalyzer } from '../../data/default-change-analyzer.service';
-import { RemoteData } from '../../data/remote-data';
-import { GetRequest } from '../../data/request.models';
-import { RequestService } from '../../data/request.service';
-import { RequestEntry } from '../../data/request-entry.model';
-import { RequestEntryState } from '../../data/request-entry-state.model';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../../cache/object-cache.service';
+import { RestResponse } from '../../../cache/response.models';
+import { CoreState } from '../../../core-state.model';
+import { FindAllData } from '../../../data/base/find-all-data';
+import { testFindAllDataImplementation } from '../../../data/base/find-all-data.spec';
+import { SearchData } from '../../../data/base/search-data';
+import { testSearchDataImplementation } from '../../../data/base/search-data.spec';
+import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
+import { RemoteData } from '../../../data/remote-data';
+import { GetRequest } from '../../../data/request.models';
+import { RequestService } from '../../../data/request.service';
+import { RequestEntry } from '../../../data/request-entry.model';
+import { RequestEntryState } from '../../../data/request-entry-state.model';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { SuggestionTarget } from '../models/suggestion-target.model';
 import { SuggestionTargetDataService } from './suggestion-target-data.service';
 
@@ -131,7 +131,7 @@ describe('SuggestionTargetDataService test', () => {
       };
       const searchFindBySourceMethod = 'findBySource';
       const expected = new GetRequest(requestService.generateRequestId(),  `${endpointURL}/search/${searchFindBySourceMethod}?source=testId`);
-      scheduler.schedule(() => service.getTargets('testId', options).subscribe());
+      scheduler.schedule(() => service.getTargetsBySource('testId', options).subscribe());
       scheduler.flush();
 
       expect(requestService.send).toHaveBeenCalledWith(expected, true);
