@@ -11,6 +11,7 @@ import { ItemOperation } from './itemOperation.model';
 
 @Component({
   selector: 'ds-item-operation',
+  styleUrls: ['item-operation.component.scss'],
   templateUrl: './item-operation.component.html',
   imports: [
     TranslateModule,
