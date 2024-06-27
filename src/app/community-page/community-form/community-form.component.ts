@@ -1,28 +1,26 @@
 import {
   AsyncPipe,
   NgClass,
+  NgForOf,
   NgIf,
 } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
+  OnInit,
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  DynamicFormControlModel,
-  DynamicFormService,
-  DynamicInputModel,
-  DynamicTextAreaModel,
-} from '@ng-dynamic-forms/core';
+import { DynamicFormService } from '@ng-dynamic-forms/core';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -34,6 +32,7 @@ import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../shared/utils/var.directive';
+import { communityFormModels } from './community-form.models';
 
 /**
  * Form used for creating and editing communities
@@ -51,10 +50,12 @@ import { VarDirective } from '../../shared/utils/var.directive';
     ComcolPageLogoComponent,
     NgIf,
     NgClass,
+    NgForOf,
     VarDirective,
+    FormsModule,
   ],
 })
-export class CommunityFormComponent extends ComColFormComponent<Community> implements OnChanges {
+export class CommunityFormComponent extends ComColFormComponent<Community> implements OnInit, OnChanges {
   /**
    * @type {Community} A new community when a community is being created, an existing Input community when a community is being edited
    */
@@ -65,44 +66,6 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
    */
   type = Community.type;
 
-  /**
-   * The dynamic form fields used for creating/editing a community
-   * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
-   */
-  formModel: DynamicFormControlModel[] = [
-    new DynamicInputModel({
-      id: 'title',
-      name: 'dc.title',
-      required: true,
-      validators: {
-        required: null,
-      },
-      errorMessages: {
-        required: 'Please enter a name for this title',
-      },
-    }),
-    new DynamicTextAreaModel({
-      id: 'description',
-      name: 'dc.description',
-      spellCheck: environment.form.spellCheck,
-    }),
-    new DynamicTextAreaModel({
-      id: 'abstract',
-      name: 'dc.description.abstract',
-      spellCheck: environment.form.spellCheck,
-    }),
-    new DynamicTextAreaModel({
-      id: 'rights',
-      name: 'dc.rights',
-      spellCheck: environment.form.spellCheck,
-    }),
-    new DynamicTextAreaModel({
-      id: 'tableofcontents',
-      name: 'dc.description.tableofcontents',
-      spellCheck: environment.form.spellCheck,
-    }),
-  ];
-
   public constructor(protected formService: DynamicFormService,
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
@@ -110,8 +73,20 @@ export class CommunityFormComponent extends ComColFormComponent<Community> imple
                      protected dsoService: CommunityDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
-                     protected modalService: NgbModal) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
+                     protected modalService: NgbModal,
+                     protected cdr: ChangeDetectorRef) {
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService, cdr);
+  }
+
+  ngOnInit() {
+    this.initializeLanguage();
+
+    this.formModels.set(this.defaultLanguageCode, communityFormModels(this.defaultLanguageCode, true));
+    this.languages.forEach(lang => {
+      this.formModels.set(lang.code, communityFormModels(lang.code, false));
+    });
+
+    super.ngOnInit();
   }
 
   ngOnChanges(changes: SimpleChanges) {

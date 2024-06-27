@@ -23,12 +23,12 @@
             </ds-comcol-page-handle>
             <!-- Introductory text -->
             <ds-comcol-page-content
-                [content]="collection.introductoryText"
+                [content]="collection.introductoryText(translateService.currentLang)"
                 [hasInnerHtml]="true">
             </ds-comcol-page-content>
             <!-- News -->
             <ds-comcol-page-content
-                [content]="collection.sidebarText"
+                [content]="collection.sidebarText(translateService.currentLang)"
                 [hasInnerHtml]="true"
                 [title]="'collection.page.news'">
             </ds-comcol-page-content>
