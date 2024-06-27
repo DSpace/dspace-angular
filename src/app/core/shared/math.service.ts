@@ -15,5 +15,5 @@ export abstract class MathService {
 
   protected abstract registerMathJaxAsync(config: MathJaxConfig): Promise<any>;
   abstract ready(): Observable<boolean>;
-  abstract render(element: HTMLElement): void;
+  abstract render(element: HTMLElement): Promise<any>;
 }

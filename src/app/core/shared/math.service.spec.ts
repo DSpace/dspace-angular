@@ -22,8 +22,8 @@ export class MockMathService extends MathService {
     return of(true);
   }
 
-  render(element: HTMLElement): void {
-    return;
+  render(element: HTMLElement): Promise<any> {
+    return Promise.resolve();
   }
 }
 
