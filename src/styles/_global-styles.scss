@@ -43,17 +43,39 @@ body {
     .cm-btn.cm-btn-success {
       color: var(--button-text-color-cookie);
       background-color: var(--green1);
-    }
-    .cm-btn.cm-btn-success.cm-btn-accept-all {
-      color: var(--button-text-color-cookie);
-      background-color: var(--green1);
+      font-weight: 600;
     }
   }
 }
 
-.klaro .cookie-modal a, .klaro .context-notice a, .klaro .cookie-notice a
-{
+.klaro .cookie-modal .cm-btn.cm-btn-success.cm-btn-accept-all {
+  color: var(--button-text-color-cookie);
+  background-color: var(--green1);
+  font-weight: 600;
+}
+
+.klaro .cookie-modal a,
+.klaro .context-notice a,
+.klaro .cookie-notice a {
   color: var(--green1);
+  text-decoration: underline !important;
+}
+
+.klaro .cookie-modal .cm-modal .cm-body span,
+.klaro
+  .cookie-modal
+  .cm-modal
+  .cm-body
+  ul.cm-purposes
+  li.cm-purpose
+  span.cm-required,
+p.purposes,
+.klaro .cookie-modal .cm-modal .cm-footer .cm-powered-by a {
+  color: var(--bs-light) !important;
+}
+
+.klaro .cookie-modal .cm-btn.cm-btn-info {
+  background-color: var(--very-dark-cyan) !important;
 }
 
 .media-viewer
