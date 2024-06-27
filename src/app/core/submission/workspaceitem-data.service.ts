@@ -96,6 +96,31 @@ export class WorkspaceitemDataService extends IdentifiableDataService<WorkspaceI
   }
 
   /**
+   * Create a new WorkspaceItem  in a specified collection using properties from an existing item
+   * @param itemHref a source item
+   * @param collectionId an UUID of a target collection
+   */
+  public cloneToCollection(itemHref: string, collectionId: string): Observable<RemoteData<WorkspaceItem>> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.halService.getEndpoint(this.linkPath).pipe(map((href) => `${href}?owningCollection=${collectionId}`));
+
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, itemHref, options);
+        this.requestService.send(request);
+      }),
+    ).subscribe();
+
+    return this.rdbService.buildFromRequestUUID(requestId);
+  }
+
+  /**
    * Import an external source entry into a collection
    * @param externalSourceEntryHref
    * @param collectionId
