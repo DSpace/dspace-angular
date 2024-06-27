@@ -18,6 +18,9 @@ Code Contribution Checklist
 - [ ] PRs **must** not introduce circular dependencies (verified via `yarn check-circ-deps`)
 - [ ] PRs **must** include [TypeDoc](https://typedoc.org/) comments for _all new (or modified) public methods and classes_. Large or complex private methods should also have TypeDoc.
 - [ ] PRs **must** pass all automated pecs/tests and includes new/updated specs or tests based on the [Code Testing Guide](https://wiki.lyrasis.org/display/DSPACE/Code+Testing+Guide).
+- [ ] User interface changes **must** align with [Accessibility guidelines](https://wiki.lyrasis.org/display/DSDOC8x/Accessibility)
+- [ ] PRs **must** use i18n (internationalization) keys instead of hardcoded English text, to allow for translations.
+- [ ] Details on how to test the PR **must** be provided. Reviewers must be aware of any steps they need to take to successfully test your fix or feature.
 - [ ] If a PR includes new libraries/dependencies (in `package.json`), then their software licenses **must** align with the [DSpace BSD License](https://github.com/DSpace/dspace-angular/blob/main/LICENSE) based on the [Licensing of Contributions](https://wiki.lyrasis.org/display/DSPACE/Code+Contribution+Guidelines#CodeContributionGuidelines-LicensingofContributions) documentation.
 - [ ] Basic technical documentation _should_ be provided for any new features or configuration, either in the PR itself or in the DSpace Wiki documentation.
 - [ ] If a PR fixes an issue ticket, please [link them together](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue).
