@@ -5,7 +5,9 @@ import {
   NgIf,
 } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -40,7 +42,7 @@ import { NotificationsStateService } from '../../notifications-state.service';
   standalone: true,
   imports: [AlertComponent, NgIf, ThemedLoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
-export class QualityAssuranceSourceComponent implements OnInit {
+export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, AfterViewInit {
 
   /**
    * The pagination system configuration for HTML listing.

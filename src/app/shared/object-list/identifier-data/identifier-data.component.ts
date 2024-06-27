@@ -5,6 +5,7 @@ import {
 import {
   Component,
   Input,
+  OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -28,7 +29,7 @@ import { IdentifierData } from './identifier-data.model';
 /**
  * Component rendering an identifier, eg. DOI or handle
  */
-export class IdentifierDataComponent {
+export class IdentifierDataComponent implements OnInit {
 
   @Input() item: Item;
   identifiers$: Observable<IdentifierData>;
