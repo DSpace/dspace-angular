@@ -1,5 +1,7 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
@@ -11,16 +13,19 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { AuthService } from '../core/auth/auth.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { CommunityDataService } from '../core/data/community-data.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { MetadataService } from '../core/metadata/metadata.service';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { Community } from '../core/shared/community.model';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import {
+  createNoContentRemoteDataObject,
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+} from '../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { VarDirective } from '../shared/utils/var.directive';
@@ -33,10 +38,14 @@ describe('CommunityPageComponent', () => {
   let authServiceSpy: jasmine.SpyObj<AuthService>;
   let authorizationDataServiceSpy: jasmine.SpyObj<AuthorizationDataService>;
   let dsoNameServiceSpy: jasmine.SpyObj<DSONameService>;
-  let aroute = new ActivatedRouteStub();
-  let router = new RouterStub();
+  const aroute: ActivatedRouteStub = new ActivatedRouteStub();
+  const router = new RouterStub();
 
-  const community = Object.assign(new Community(), {
+  const logoRD = createSuccessfulRemoteDataObject(Object.assign(new Bitstream(), {
+    name: 'Test Logo',
+  }));
+
+  const communityWithLogo = Object.assign(new Community(), {
     id: 'test-community',
     uuid: 'test-community',
     metadata: [
@@ -46,8 +55,23 @@ describe('CommunityPageComponent', () => {
         value: 'test community',
       },
     ],
-    logo: createSuccessfulRemoteDataObject$(new Bitstream()),
+    logo: of(logoRD),
   });
+  const communityWithLogoRD = createSuccessfulRemoteDataObject(communityWithLogo);
+
+  const communityWithoutLogo = Object.assign(new Community(), {
+    id: 'test-community',
+    uuid: 'test-community',
+    metadata: [
+      {
+        key: 'dc.title',
+        language: 'en_US',
+        value: 'test community',
+      },
+    ],
+    logo: createNoContentRemoteDataObject$(),
+  });
+  const communityWithoutLogoRD = createSuccessfulRemoteDataObject(communityWithoutLogo);
 
   beforeEach(async () => {
     authServiceSpy = jasmine.createSpyObj('AuthService', ['isAuthenticated']);
@@ -62,69 +86,81 @@ describe('CommunityPageComponent', () => {
         { provide: AuthService, useValue: authServiceSpy },
         { provide: AuthorizationDataService, useValue: authorizationDataServiceSpy },
         { provide: DSONameService, useValue: dsoNameServiceSpy },
-        { provide: CommunityDataService, useValue: {} },
-        { provide: MetadataService, useValue: {} },
       ],
+      schemas: [ NO_ERRORS_SCHEMA ],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CommunityPageComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should initialize the component', () => {
-    const routeData = {
-      data: of({ dso: createSuccessfulRemoteDataObject$(community) }),
-    };
+    authServiceSpy.isAuthenticated.and.returnValue(of(true));
     authorizationDataServiceSpy.isAuthorized.and.returnValue(of(true));
-
-    Object.defineProperty(TestBed.inject(ActivatedRoute), 'data', {
-      get: () => of(routeData),
-    });
-
-    component.ngOnInit();
-    expect(component.communityRD$).toBeDefined();
-    expect(component.logoRD$).toBeDefined();
-    expect(component.communityPageRoute$).toBeDefined();
-    expect(component.isCommunityAdmin$).toBeDefined();
   });
 
-  it('should display community logo if available', () => {
-    component.communityRD$ = createSuccessfulRemoteDataObject$(community);
-    fixture.detectChanges();
-
-    fixture.whenStable().then(() => {
-      const logoElement = fixture.debugElement.query(By.css('ds-comcol-page-logo')).nativeElement;
-      expect(logoElement).toBeTruthy();
+  describe('when community has no logo', () => {
+    beforeEach(() => {
+      aroute.testData = {
+        dso: communityWithoutLogoRD,
+      };
+      fixture.detectChanges();
     });
-  });
 
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
 
-  it('should not display community logo if not available', () => {
-    component.communityRD$ = createSuccessfulRemoteDataObject$(Object.assign(new Community(), {
-      name: 'Test',
-      logo: createSuccessfulRemoteDataObject$(null),
+    it('should initialize the component', () => {
+      expect(component.communityRD$).toBeObservable(cold('(a)', {
+        a: communityWithoutLogoRD,
+      }));
+      expect(component.logoRD$).toBeObservable(cold('(a)', {
+        a: createNoContentRemoteDataObject(),
+      }));
+      expect(component.logoRD$).toBeDefined();
+      expect(component.isCommunityAdmin$).toBeDefined();
+      expect(component.communityPageRoute$).toBeDefined();
+    });
+
+    it('should display community name', fakeAsync(() => {
+      const collectionNameElement = fixture.debugElement.query(By.css('ds-comcol-page-header'));
+      expect(collectionNameElement).toBeDefined();
     }));
-    fixture.detectChanges();
 
-    fixture.whenStable().then(() => {
-      const logoElement = fixture.debugElement.query(By.css('ds-comcol-page-logo'));
-      expect(logoElement).toBeNull();
-    });
   });
 
-  it('should display collection name', () => {
-    component.communityRD$ = createSuccessfulRemoteDataObject$(Object.assign(community));
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      const collectionNameElement = fixture.debugElement.query(By.css('ds-comcol-page-header')).nativeElement;
-      expect(collectionNameElement.textContent.trim()).toBe('Test Collection');
+  describe('when community has logo', () => {
+    beforeEach(() => {
+      aroute.testData = {
+        dso: communityWithLogoRD,
+      };
+      fixture.detectChanges();
     });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should initialize the component', () => {
+      expect(component.communityRD$).toBeObservable(cold('(a)', {
+        a: communityWithLogoRD,
+      }));
+      expect(component.logoRD$).toBeObservable(cold('(a)', {
+        a: logoRD,
+      }));
+      expect(component.isCommunityAdmin$).toBeDefined();
+      expect(component.communityPageRoute$).toBeDefined();
+    });
+
+    it('should display community name', fakeAsync(() => {
+      const collectionNameElement = fixture.debugElement.query(By.css('ds-comcol-page-header'));
+      expect(collectionNameElement).toBeDefined();
+    }));
+
+    it('should display community logo', fakeAsync(() => {
+      const collectionLogoElement = fixture.debugElement.query(By.css('ds-comcol-page-logo'));
+      expect(collectionLogoElement).toBeDefined();
+    }));
+
   });
 });

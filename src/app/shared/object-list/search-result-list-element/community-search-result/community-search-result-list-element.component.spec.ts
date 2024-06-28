@@ -108,7 +108,7 @@ describe('CommunitySearchResultListElementComponent', () => {
 
   describe('when environment is set to show thumbnail images', () => {
     it('should offset content', () => {
-      const offset: DebugElement = fixture.debugElement.query(By.css('.offset-md-2'));
+      const offset: DebugElement = fixture.debugElement.query(By.css('[data-test="comm-thumbnail"]'));
       expect(offset).not.toBeNull();
     });
   });

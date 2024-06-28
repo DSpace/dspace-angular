@@ -20,9 +20,11 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { CollectionDataService } from '../../core/data/collection-data.service';
+import { ItemDataService } from '../../core/data/item-data.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
@@ -38,11 +40,15 @@ describe('SubmissionSubmitComponent Component', () => {
   let comp: SubmissionSubmitComponent;
   let fixture: ComponentFixture<SubmissionSubmitComponent>;
   let submissionServiceStub: SubmissionServiceStub;
+  let itemDataService: ItemDataService;
   let router: RouterStub;
 
   const submissionObject: any = mockSubmissionObject;
 
   beforeEach(waitForAsync(() => {
+    itemDataService = jasmine.createSpyObj('itemDataService', {
+      findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
+    });
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -54,6 +60,7 @@ describe('SubmissionSubmitComponent Component', () => {
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        { provide: ItemDataService, useValue: itemDataService },
         { provide: CollectionDataService, useValue: collectionDataService },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
