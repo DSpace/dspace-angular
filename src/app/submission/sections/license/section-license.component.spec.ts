@@ -38,6 +38,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { License } from '../../../core/shared/license.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { cold } from 'jasmine-marbles';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 
 const collectionId = mockSubmissionCollectionId;
 const licenseText = 'License text';
@@ -137,6 +138,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: XSRFService, useValue: {} },
         ChangeDetectorRef,
         FormBuilderService,
         SubmissionSectionLicenseComponent

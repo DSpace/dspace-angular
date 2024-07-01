@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemListElementComponent } from './item-list-element.component';
 import { Item } from '../../../../../core/shared/item.model';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { of as observableOf } from 'rxjs';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -91,6 +92,7 @@ describe('ItemListElementComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: XSRFService, useValue: {} },
         { provide: FileService, useValue: fileService },
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
