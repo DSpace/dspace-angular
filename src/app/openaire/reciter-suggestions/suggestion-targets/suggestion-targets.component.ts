@@ -13,7 +13,6 @@ import { SuggestionTargetsStateService } from './suggestion-targets.state.servic
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
 import { SuggestionsService } from '../suggestions.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { UUIDService } from '../../../core/shared/uuid.service';
 
 /**
  * Component to display the Suggestion Target list.
@@ -34,10 +33,7 @@ export class SuggestionTargetsComponent implements AfterViewInit, OnInit, OnDest
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}
    */
-  public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    pageSizeOptions: [5, 10, 20, 40, 60]
-  });
+  public paginationConfig: PaginationComponentOptions;
 
   /**
    * The Suggestion Target list.
@@ -59,14 +55,12 @@ export class SuggestionTargetsComponent implements AfterViewInit, OnInit, OnDest
    * @param {SuggestionTargetsStateService} suggestionTargetsStateService
    * @param {SuggestionsService} suggestionService
    * @param {Router} router
-   * @param {uuidService} uuidService
    */
   constructor(
     private paginationService: PaginationService,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
     private suggestionService: SuggestionsService,
-    private router: Router,
-    private uuidService: UUIDService
+    private router: Router
   ) {
   }
 
@@ -74,6 +68,10 @@ export class SuggestionTargetsComponent implements AfterViewInit, OnInit, OnDest
    * Component initialization.
    */
   ngOnInit(): void {
+    this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
+      id: 'stp' + this.source,
+      pageSizeOptions: [5, 10, 20, 40, 60]
+    });
     this.targets$ = this.suggestionTargetsStateService.getReciterSuggestionTargets(this.source);
     this.totalElements$ = this.suggestionTargetsStateService.getReciterSuggestionTargetsTotals(this.source);
   }

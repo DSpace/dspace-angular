@@ -9,8 +9,6 @@ import { Item } from '../../../../../core/shared/item.model';
 import { SearchManager } from '../../../../../core/browse/search-manager';
 import { SearchOptions } from '../../../models/search-options.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { UUIDService } from '../../../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../../mocks/uuid.service.mock';
 
 describe('ItemExportListComponent', () => {
   let component: ItemExportListComponent;
@@ -65,7 +63,6 @@ describe('ItemExportListComponent', () => {
       providers: [
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchManager, useValue: mockSearchManager },
-        { provide: UUIDService, useValue: getMockUUIDService() }
       ]
     })
     .compileComponents();

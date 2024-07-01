@@ -20,8 +20,6 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 import { Item } from '../../../../core/shared/item.model';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
@@ -81,7 +79,6 @@ describe('FullFileSectionComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         { provide: AuthorizationDataService, useValue: authorizedDataService },
       ],
 
