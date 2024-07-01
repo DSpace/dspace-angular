@@ -6,7 +6,7 @@
 
     <div class="custom-url" style="display: flex;align-items: center;">
         <span class="frontend-url"> {{frontendUrl}}/</span>
-        <ds-form *ngIf="formModel" #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false" [displayCancel]="false"
+        <ds-form *ngIf="formModel" #formRef="formComponent" [formId]="formId" [formModel]="formModel" [displaySubmit]="false" [displayReset]="false"
             (dfChange)="onChange($event)"></ds-form>
     </div>
 

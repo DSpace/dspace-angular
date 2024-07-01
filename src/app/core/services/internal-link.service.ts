@@ -7,7 +7,7 @@ import { NativeWindowRef, NativeWindowService } from './window.service';
  */
 @Injectable()
 export class InternalLinkService {
-  currentURL = this._window.nativeWindow.location.origin;
+  currentURL = this._window.nativeWindow?.location?.origin;
 
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,

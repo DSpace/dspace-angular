@@ -21,15 +21,9 @@ input[type="text"] {
 }
 
 @media screen and (max-width: map-get($grid-breakpoints, md)) {
-  .query:focus {
+  .search-input {
     max-width: 250px !important;
     width: 40vw !important;
   }
 
-}
-
-@media screen and (max-width: map-get($grid-breakpoints, sm)) {
-  .search-input {
-    width: 55vw !important;
-  }
 }
