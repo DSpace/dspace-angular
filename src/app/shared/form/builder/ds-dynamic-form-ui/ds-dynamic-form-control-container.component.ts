@@ -581,4 +581,19 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     }
    }
 
+
+ isNotRequiredGroupAndEmpty(): boolean {
+    const parent = this.model.parent;
+    if (hasValue(parent) && parent.type === 'GROUP') {
+     const groupHasSomeValue = parent.group.some(elem => !!elem.value);
+
+     if(!groupHasSomeValue && !parent.isRequired) {
+       this.group.reset()
+     }
+
+     return (groupHasSomeValue && !parent.isRequired) || parent.isRequired;
+    } else {
+     return true
+    }
+ }
 }
