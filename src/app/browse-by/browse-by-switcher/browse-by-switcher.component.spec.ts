@@ -8,6 +8,7 @@ import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FlatBrowseDefinition } from '../../core/shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from '../../core/shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from '../../core/shared/non-hierarchical-browse-definition';
+import { VALUE_LIST_BROWSE_DEFINITION } from '../../core/shared/value-list-browse-definition.resource-type';
 
 describe('BrowseBySwitcherComponent', () => {
   let comp: BrowseBySwitcherComponent;
@@ -72,18 +73,35 @@ describe('BrowseBySwitcherComponent', () => {
     comp = fixture.componentInstance;
   }));
 
-  types.forEach((type: NonHierarchicalBrowseDefinition) => {
-    describe(`when switching to a browse-by page for "${type.id}"`, () => {
-      beforeEach(() => {
-        data.next(createDataWithBrowseDefinition(type));
-        fixture.detectChanges();
-      });
+  types
+    .filter((type: NonHierarchicalBrowseDefinition) => !(type instanceof ValueListBrowseDefinition))
+    .forEach((type: NonHierarchicalBrowseDefinition) => {
+      describe(`when switching to a browse-by page for "${type.id}"`, () => {
+        beforeEach(() => {
+          data.next(createDataWithBrowseDefinition(type));
+          fixture.detectChanges();
+        });
 
-      it(`should call getComponentByBrowseByType with type "${type.dataType}"`, () => {
-        expect((comp as any).getComponentByBrowseByType).toHaveBeenCalledWith(type.dataType, themeName);
+        it(`should call getComponentByBrowseByType with type "${type.dataType}"`, () => {
+          expect((comp as any).getComponentByBrowseByType).toHaveBeenCalledWith(type.dataType, themeName);
+        });
       });
     });
-  });
+
+  types
+    .filter((type: NonHierarchicalBrowseDefinition) => (type instanceof ValueListBrowseDefinition))
+    .forEach((type: ValueListBrowseDefinition) => {
+      describe(`when switching to a browse-by page for "${type.id}"`, () => {
+        beforeEach(() => {
+          data.next(createDataWithBrowseDefinition(type));
+          fixture.detectChanges();
+        });
+
+        it(`should call getComponentByBrowseByType with type "${VALUE_LIST_BROWSE_DEFINITION.value}"`, () => {
+          expect((comp as any).getComponentByBrowseByType).toHaveBeenCalledWith(VALUE_LIST_BROWSE_DEFINITION.value, themeName);
+        });
+      });
+    });
 });
 
 export function createDataWithBrowseDefinition(browseDefinition) {

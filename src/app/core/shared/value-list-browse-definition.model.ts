@@ -31,6 +31,6 @@ export class ValueListBrowseDefinition extends NonHierarchicalBrowseDefinition {
   };
 
   getRenderType(): string {
-    return this.dataType;
+    return this.type.value;
   }
 }
