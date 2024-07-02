@@ -15,7 +15,6 @@ import {
   EPersonListActionConfig,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -59,9 +58,8 @@ export class ReviewersListComponent extends MembersListComponent implements OnIn
     protected paginationService: PaginationService,
     protected router: Router,
     public dsoNameService: DSONameService,
-    protected uuidService: UUIDService
   ) {
-    super(groupService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router, dsoNameService, uuidService);
+    super(groupService, ePersonDataService, translateService, notificationsService, formBuilder, paginationService, router, dsoNameService);
   }
 
   ngOnInit() {

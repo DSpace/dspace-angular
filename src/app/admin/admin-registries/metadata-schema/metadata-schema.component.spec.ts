@@ -25,8 +25,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
@@ -141,8 +139,7 @@ describe('MetadataSchemaComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: Router, useValue: new RouterStub() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: UUIDService, useValue: getMockUUIDService() }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
