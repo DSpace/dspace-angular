@@ -52,6 +52,8 @@ import { environment } from '../environments/environment';
 import { SectionDataService } from './core/layout/section-data.service';
 import { Section } from './core/layout/models/section.model';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { ConfigurationDataService } from './core/data/configuration-data.service';
+import { ConfigurationProperty } from './core/shared/configuration-property.model';
 
 /**
  * Creates all of the app's menus
@@ -70,6 +72,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
     protected sectionDataService: SectionDataService,
+    protected configService: ConfigurationDataService,
   ) {
   }
 
@@ -254,6 +257,7 @@ export class MenuResolver implements Resolve<boolean> {
     this.createExportMenuSections();
     this.createImportMenuSections();
     this.createAccessControlMenuSections();
+    this.createDLExporterMenuItem();
 
     return this.waitForMenu$(MenuID.ADMIN);
   }
@@ -604,6 +608,29 @@ export class MenuResolver implements Resolve<boolean> {
             this.modalService.open(ExportBatchSelectorComponent);
           }
         } as OnClickMenuItemModel,
+        shouldPersistOnRouteChange: true
+      });
+    });
+  }
+
+  /**
+   * Add the DL Exporter menu item to the admin menu
+   */
+  createDLExporterMenuItem() {
+    observableCombineLatest([
+      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
+      this.getDLExporterURL()
+    ]).subscribe(([authorized, url]) => {
+      this.menuService.addSection(MenuID.ADMIN, {
+        id: 'loginmiur_dlexporter_url',
+        parentID: 'export',
+        active: false,
+        visible: authorized && hasValue(url),
+        model: {
+          type: MenuItemType.EXTERNAL,
+          link: url,
+          text: 'menu.section.loginmiur_dlexporter_url',
+        } as LinkMenuItemModel,
         shouldPersistOnRouteChange: true
       });
     });
@@ -973,5 +1000,17 @@ export class MenuResolver implements Resolve<boolean> {
   getObjectUrl(data) {
     const object = data.site ? data.site : data.dso?.payload;
     return object?._links?.self?.href;
+  }
+
+  /**
+   * Get the DL Exporter URL from the configuration
+   */
+  getDLExporterURL(): Observable<string> {
+   return this.configService.findByPropertyName('loginmiur.dlexporter.url').pipe(
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res?.payload?.values[0];
+      })
+    );
   }
 }
