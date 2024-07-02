@@ -5,24 +5,33 @@
  *
  * http://www.dspace.org/license/
  */
-import { FindAllData, FindAllDataImpl } from './find-all-data';
-import { FindListOptions } from '../find-list-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { TestScheduler } from 'rxjs/testing';
-import { RemoteData } from '../remote-data';
-import { RequestEntryState } from '../request-entry-state.model';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { RequestParam } from '../../cache/models/request-param.model';
-
-import { RequestService } from '../request.service';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { RequestParam } from '../../cache/models/request-param.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { Observable, of as observableOf } from 'rxjs';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { FindListOptions } from '../find-list-options.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { RequestEntryState } from '../request-entry-state.model';
 import { EMBED_SEPARATOR } from './base-data.service';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './find-all-data';
 
 /**
  * Tests whether calls to `FindAllData` methods are correctly patched through in a concrete data service that implements it
@@ -143,8 +152,8 @@ describe('FindAllDataImpl', () => {
       options = {};
 
       (service as any).getFindAllHref(options).subscribe((value) => {
-          expect(value).toBe(endpoint);
-        },
+        expect(value).toBe(endpoint);
+      },
       );
     });
 

@@ -1,20 +1,28 @@
-import { Component, Input, OnInit, } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SectionsService } from '../../sections/sections.service';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { SubmissionService } from '../../submission.service';
 import { SectionDataObject } from '../../sections/models/section-data.model';
+import { SectionsService } from '../../sections/sections.service';
+import { SubmissionService } from '../../submission.service';
 
 /**
  * This component allow to add any new section to submission form
  */
 @Component({
   selector: 'ds-submission-form-section-add',
-  styleUrls: [ './submission-form-section-add.component.scss' ],
-  templateUrl: './submission-form-section-add.component.html'
+  styleUrls: ['./submission-form-section-add.component.scss'],
+  templateUrl: './submission-form-section-add.component.html',
+  standalone: true,
+  imports: [CommonModule, TranslateModule, NgbDropdownModule],
 })
 export class SubmissionFormSectionAddComponent implements OnInit {
 
@@ -60,7 +68,7 @@ export class SubmissionFormSectionAddComponent implements OnInit {
   ngOnInit() {
     this.sectionList$ = this.submissionService.getDisabledSectionsList(this.submissionId);
     this.hasSections$ = this.sectionList$.pipe(
-      map((list: SectionDataObject[]) => list.length > 0)
+      map((list: SectionDataObject[]) => list.length > 0),
     );
   }
 

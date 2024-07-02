@@ -1,17 +1,31 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicDatePickerModel, DynamicFormsCoreModule, DynamicFormService } from '@ng-dynamic-forms/core';
+import {
+  DynamicDatePickerModel,
+  DynamicFormsCoreModule,
+  DynamicFormService,
+} from '@ng-dynamic-forms/core';
+
 import { DsDatePickerInlineComponent } from './dynamic-date-picker-inline.component';
 
 describe('DsDatePickerInlineComponent test suite', () => {
 
   const testModel = new DynamicDatePickerModel({ id: 'datepicker' });
   const formModel = [testModel];
-  let formGroup: FormGroup;
+  let formGroup: UntypedFormGroup;
   let fixture: ComponentFixture<DsDatePickerInlineComponent>;
   let component: DsDatePickerInlineComponent;
   let debugElement: DebugElement;
@@ -20,15 +34,13 @@ describe('DsDatePickerInlineComponent test suite', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-
       imports: [
         ReactiveFormsModule,
         NoopAnimationsModule,
         NgbDatepickerModule,
-        DynamicFormsCoreModule.forRoot()
+        DynamicFormsCoreModule.forRoot(),
+        DsDatePickerInlineComponent,
       ],
-      declarations: [DsDatePickerInlineComponent]
-
     }).compileComponents().then(() => {
 
       fixture = TestBed.createComponent(DsDatePickerInlineComponent);
@@ -53,8 +65,8 @@ describe('DsDatePickerInlineComponent test suite', () => {
   it('should initialize correctly', () => {
 
     expect(component.bindId).toBe(true);
-    expect(component.control instanceof FormControl).toBe(true);
-    expect(component.group instanceof FormGroup).toBe(true);
+    expect(component.control instanceof UntypedFormControl).toBe(true);
+    expect(component.group instanceof UntypedFormGroup).toBe(true);
     expect(component.model instanceof DynamicDatePickerModel).toBe(true);
 
     expect(component.blur).toBeDefined();

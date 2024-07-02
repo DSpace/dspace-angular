@@ -1,14 +1,18 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { OneboxFieldParser } from './onebox-field-parser';
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
+import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicOneboxModel } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { FormFieldModel } from '../models/form-field.model';
+import { FieldParser } from './field-parser';
+import { OneboxFieldParser } from './onebox-field-parser';
 import { ParserOptions } from './parser-options';
 
 describe('OneboxFieldParser test suite', () => {
   let field1: FormFieldModel;
   let field2: FormFieldModel;
   let field3: FormFieldModel;
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const initFormValues = {};
@@ -16,7 +20,7 @@ describe('OneboxFieldParser test suite', () => {
     readOnly: false,
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
-    typeField: 'dc_type'
+    typeField: 'dc_type',
   };
 
   beforeEach(() => {
@@ -30,10 +34,10 @@ describe('OneboxFieldParser test suite', () => {
         {
           metadata: 'title',
           controlledVocabulary: 'EVENTAuthority',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
     field2 = {
@@ -52,8 +56,8 @@ describe('OneboxFieldParser test suite', () => {
         { metadata: 'dc.identifier.isbn', label: 'ISBN' },
         { metadata: 'dc.identifier.doi', label: 'DOI' },
         { metadata: 'dc.identifier.pmid', label: 'PubMed ID' },
-        { metadata: 'dc.identifier.arxiv', label: 'arXiv' }
-      ]
+        { metadata: 'dc.identifier.arxiv', label: 'arXiv' },
+      ],
     } as FormFieldModel;
 
     field3 = {
@@ -65,20 +69,20 @@ describe('OneboxFieldParser test suite', () => {
       selectableMetadata: [
         {
           metadata: 'title',
-        }
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
   });
 
   it('should init parser properly', () => {
-    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions);
+    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions, translateService);
 
     expect(parser instanceof OneboxFieldParser).toBe(true);
   });
 
   it('should return a DynamicQualdropModel object when selectableMetadata is multiple', () => {
-    const parser = new OneboxFieldParser(submissionId, field2, initFormValues, parserOptions);
+    const parser = new OneboxFieldParser(submissionId, field2, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -86,7 +90,7 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should return a DsDynamicInputModel object when selectableMetadata is not multiple', () => {
-    const parser = new OneboxFieldParser(submissionId, field3, initFormValues, parserOptions);
+    const parser = new OneboxFieldParser(submissionId, field3, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
@@ -94,11 +98,58 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should return a DynamicOneboxModel object when selectableMetadata has authority', () => {
-    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions);
+    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions, translateService);
 
     const fieldModel = parser.parse();
 
     expect(fieldModel instanceof DynamicOneboxModel).toBe(true);
+  });
+
+  describe('should handle a DynamicOneboxModel with regex', () => {
+    let regexField: FormFieldModel;
+    let parser: FieldParser;
+    let fieldModel: any;
+
+    beforeEach(() => {
+      regexField = {
+        input: { type: 'onebox', regex: '/[a-z]+/mi' },
+        label: 'Title',
+        mandatory: 'false',
+        repeatable: false,
+        hints: 'Enter the name of the events, if any.',
+        selectableMetadata: [
+          {
+            metadata: 'title',
+            controlledVocabulary: 'EVENTAuthority',
+            closed: false,
+          },
+        ],
+        languageCodes: [],
+      } as FormFieldModel;
+
+      parser = new OneboxFieldParser(submissionId, regexField, initFormValues, parserOptions, translateService);
+      fieldModel = parser.parse();
+    });
+
+    it('should have initialized pattern validator', () => {
+      expect(fieldModel instanceof DynamicOneboxModel).toBe(true);
+      expect(fieldModel.validators).not.toBeNull();
+      expect(fieldModel.validators.pattern).not.toBeNull();
+    });
+
+    it('should mark valid not case sensitive basic characters regex in multiline', () => {
+      let pattern = fieldModel.validators.pattern as RegExp;
+      expect(pattern.test('HELLO')).toBe(true);
+      expect(pattern.test('hello')).toBe(true);
+      expect(pattern.test('hello\nhello\nhello')).toBe(true);
+      expect(pattern.test('HeLlO')).toBe(true);
+    });
+
+    it('should be invalid for non-basic alphabet characters', () => {
+      let pattern = fieldModel.validators.pattern as RegExp;
+      expect(pattern.test('12345')).toBe(false);
+      expect(pattern.test('àèìòùáéíóú')).toBe(false);
+    });
   });
 
 });

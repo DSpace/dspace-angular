@@ -1,6 +1,16 @@
-import { Inject, Injectable } from '@angular/core';
-import { Request, Response } from 'express';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  Request,
+  Response,
+} from 'express';
+
+import {
+  REQUEST,
+  RESPONSE,
+} from '../../../express.tokens';
 import { HardRedirectService } from './hard-redirect.service';
 
 /**
@@ -17,10 +27,14 @@ export class ServerHardRedirectService extends HardRedirectService {
   }
 
   /**
-   * Perform a hard redirect to URL
+   * Perform a hard redirect to a given location.
+   *
    * @param url
+   *    the page to redirect to
+   * @param statusCode
+   *    optional HTTP status code to use for redirect (default = 302, which is a temporary redirect)
    */
-  redirect(url: string) {
+  redirect(url: string, statusCode?: number) {
 
     if (url === this.req.url) {
       return;
@@ -38,14 +52,15 @@ export class ServerHardRedirectService extends HardRedirectService {
         process.exit(1);
       }
     } else {
-      // attempt to use the already set status
-      let status = this.res.statusCode || 0;
+      // attempt to use passed in statusCode or the already set status (in request)
+      let status = statusCode || this.res.statusCode || 0;
       if (status < 300 || status >= 400) {
         // temporary redirect
         status = 302;
       }
 
       console.log(`Redirecting from ${this.req.url} to ${url} with ${status}`);
+
       this.res.redirect(status, url);
       this.res.end();
       // I haven't found a way to correctly stop Angular rendering.
@@ -64,8 +79,8 @@ export class ServerHardRedirectService extends HardRedirectService {
   /**
    * Get the origin of the current URL
    * i.e. <scheme> "://" <hostname> [ ":" <port> ]
-   * e.g. if the URL is https://demo7.dspace.org/search?query=test,
-   * the origin would be https://demo7.dspace.org
+   * e.g. if the URL is https://demo.dspace.org/search?query=test,
+   * the origin would be https://demo.dspace.org
    */
   getCurrentOrigin(): string {
     return this.req.protocol + '://' + this.req.headers.host;

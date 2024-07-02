@@ -1,17 +1,30 @@
-import { DynamicFormsCoreModule, DynamicFormService } from '@ng-dynamic-forms/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { DynamicCustomSwitchModel } from './custom-switch.model';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  DynamicFormsCoreModule,
+  DynamicFormService,
+} from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { CustomSwitchComponent } from './custom-switch.component';
+import { DynamicCustomSwitchModel } from './custom-switch.model';
 
 describe('CustomSwitchComponent', () => {
 
   const testModel = new DynamicCustomSwitchModel({ id: 'switch' });
   const formModel = [testModel];
-  let formGroup: FormGroup;
+  let formGroup: UntypedFormGroup;
   let fixture: ComponentFixture<CustomSwitchComponent>;
   let component: CustomSwitchComponent;
   let debugElement: DebugElement;
@@ -20,12 +33,12 @@ describe('CustomSwitchComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         ReactiveFormsModule,
         NoopAnimationsModule,
-        DynamicFormsCoreModule.forRoot()
+        DynamicFormsCoreModule.forRoot(),
+        CustomSwitchComponent,
       ],
-      declarations: [CustomSwitchComponent]
-
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(CustomSwitchComponent);
 
@@ -47,7 +60,7 @@ describe('CustomSwitchComponent', () => {
 
   it('should initialize correctly', () => {
     expect(component.bindId).toBe(true);
-    expect(component.group instanceof FormGroup).toBe(true);
+    expect(component.group instanceof UntypedFormGroup).toBe(true);
     expect(component.model instanceof DynamicCustomSwitchModel).toBe(true);
 
     expect(component.blur).toBeDefined();

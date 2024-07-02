@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { EagerThemeModule as MoFPEagerThemeModule } from './mofp/eager-theme.module';
+
+import { EagerThemeModule as DSpaceEagerThemeModule } from './dspace/eager-theme.module';
 
 /**
  * This module bundles the eager theme modules for all available themes.
@@ -10,7 +11,7 @@ import { EagerThemeModule as MoFPEagerThemeModule } from './mofp/eager-theme.mod
  */
 @NgModule({
   imports: [
-    MoFPEagerThemeModule
+    DSpaceEagerThemeModule
   ],
 })
 export class EagerThemesModule {

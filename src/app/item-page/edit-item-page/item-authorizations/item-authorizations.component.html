@@ -11,7 +11,7 @@
         <div class="card-header">
           <button type="button" class="btn btn-outline-primary" (click)="collapseArea(bundle.id)"
             [attr.aria-expanded]="false" [attr.aria-controls]="bundle.id">
-            {{ 'collection.edit.item.authorizations.show-bitstreams-button' | translate }} {{bundle.name}}
+            {{ 'collection.edit.item.authorizations.show-bitstreams-button' | translate }} {{ nameService.getName(bundle) }}
           </button>
         </div>
         <div class="card-body" [id]="bundle.id" [ngbCollapse]="bundleBitstreamsMap.get(bundle.id).isCollapsed">

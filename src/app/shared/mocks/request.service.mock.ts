@@ -1,4 +1,8 @@
-import {of as observableOf,  Observable } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { RequestService } from '../../core/data/request.service';
 import SpyObj = jasmine.SpyObj;
 import { RequestEntry } from '../../core/data/request-entry.model';
@@ -14,6 +18,7 @@ export function getMockRequestService(requestEntry$: Observable<RequestEntry> = 
     removeByHrefSubstring: observableOf(true),
     setStaleByHrefSubstring: observableOf(true),
     setStaleByUUID: observableOf(true),
-    hasByHref$: observableOf(false)
+    hasByHref$: observableOf(false),
+    shouldDispatchRequest: true,
   });
 }

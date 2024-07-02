@@ -1,26 +1,39 @@
-import { Component, Input } from '@angular/core';
-import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
 import {
-  combineLatest as observableCombineLatest,
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
   Observable,
-  of as observableOf,
-  zip as observableZip
+  zip as observableZip,
 } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { BrowseService } from '../../../core/browse/browse.service';
+import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { MetadataService } from '../../../core/metadata/metadata.service';
 import { Item } from '../../../core/shared/item.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
+import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
 import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
-  selector: 'ds-metadata-representation-list',
-  templateUrl: './metadata-representation-list.component.html'
+  selector: 'ds-base-metadata-representation-list',
+  templateUrl: './metadata-representation-list.component.html',
+  standalone: true,
+  imports: [MetadataFieldWrapperComponent, NgFor, VarDirective, MetadataRepresentationLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * This component is used for displaying metadata
@@ -61,7 +74,11 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
    */
   total: number;
 
-  constructor(public relationshipService: RelationshipDataService) {
+  constructor(
+    public relationshipService: RelationshipDataService,
+    protected browseDefinitionDataService: BrowseDefinitionDataService,
+    protected metadataService: MetadataService,
+  ) {
     super();
   }
 
@@ -86,28 +103,20 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
         .slice((this.objects.length * this.incrementBy), (this.objects.length * this.incrementBy) + this.incrementBy)
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
-          if (metadatum.isVirtual) {
-            return this.relationshipService.findById(metadatum.virtualValue, true, false, followLink('leftItem'), followLink('rightItem')).pipe(
-              getFirstSucceededRemoteData(),
-              switchMap((relRD: RemoteData<Relationship>) =>
-                observableCombineLatest(relRD.payload.leftItem, relRD.payload.rightItem).pipe(
-                  filter(([leftItem, rightItem]) => leftItem.hasCompleted && rightItem.hasCompleted),
-                  map(([leftItem, rightItem]) => {
-                    if (!leftItem.hasSucceeded || !rightItem.hasSucceeded) {
-                      return observableOf(Object.assign(new MetadatumRepresentation(this.itemType), metadatum));
-                    } else if (rightItem.hasSucceeded && leftItem.payload.id === this.parentItem.id) {
-                      return rightItem.payload;
-                    } else if (rightItem.payload.id === this.parentItem.id) {
-                      return leftItem.payload;
-                    }
-                  }),
-                  map((item: Item) => Object.assign(new ItemMetadataRepresentation(metadatum), item))
-                )
-              ));
+          if (this.metadataService.isVirtual(metadatum)) {
+            return this.relationshipService.resolveMetadataRepresentation(metadatum, this.parentItem, this.itemType);
           } else {
-            return observableOf(Object.assign(new MetadatumRepresentation(this.itemType), metadatum));
+            // Check for a configured browse link and return a standard metadata representation
+            let searchKeyArray: string[] = [];
+            this.metadataFields.forEach((field: string) => {
+              searchKeyArray = searchKeyArray.concat(BrowseService.toSearchKeyArray(field));
+            });
+            return this.browseDefinitionDataService.findByFields(this.metadataFields).pipe(
+              getFirstCompletedRemoteData(),
+              map((def) => Object.assign(new MetadatumRepresentation(this.itemType, def.payload), metadatum)),
+            );
           }
-        })
+        }),
     );
   }
 }

@@ -1,41 +1,55 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { SortDirection } from '../cache/models/sort-options.model';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseEntry } from '../shared/browse-entry.model';
+import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import {
   getBrowseDefinitionLinks,
   getFirstOccurrence,
-  getRemoteDataPayload,
   getFirstSucceededRemoteData,
-  getPaginatedListPayload
+  getPaginatedListPayload,
+  getRemoteDataPayload,
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
-import { HrefOnlyDataService } from '../data/href-only-data.service';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 export const BROWSE_LINKS_TO_FOLLOW: FollowLinkConfig<BrowseEntry | Item>[] = [
-  followLink('thumbnail')
+  followLink('thumbnail'),
 ];
 
 /**
  * The service handling all browse requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowseService {
   protected linkPath = 'browses';
 
-  private static toSearchKeyArray(metadataKey: string): string[] {
+  public static toSearchKeyArray(metadataKey: string): string[] {
     const keyParts = metadataKey.split('.');
     const searchFor = [];
     searchFor.push('*');
@@ -100,10 +114,10 @@ export class BrowseService {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      })
+      }),
     );
     if (options.fetchThumbnail ) {
-      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$, {}, undefined, undefined, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findListByHref<BrowseEntry>(href$);
   }
@@ -151,7 +165,7 @@ export class BrowseService {
       }),
     );
     if (options.fetchThumbnail) {
-      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, null, null, ...BROWSE_LINKS_TO_FOLLOW);
+      return this.hrefOnlyDataService.findListByHref<Item>(href$, {}, undefined, undefined, ...BROWSE_LINKS_TO_FOLLOW);
     }
     return this.hrefOnlyDataService.findListByHref<Item>(href$);
   }
@@ -160,8 +174,9 @@ export class BrowseService {
    * Get the first item for a metadata definition in an optional scope
    * @param definition
    * @param scope
+   * @param sortDirection optional sort parameter
    */
-  getFirstItemFor(definition: string, scope?: string): Observable<RemoteData<Item>> {
+  getFirstItemFor(definition: string, scope?: string, sortDirection?: SortDirection): Observable<RemoteData<Item>> {
     const href$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(definition),
       hasValueOperator(),
@@ -177,16 +192,19 @@ export class BrowseService {
         }
         args.push('page=0');
         args.push('size=1');
+        if (sortDirection) {
+          args.push('sort=default,' + sortDirection);
+        }
         if (isNotEmpty(args)) {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }
         return href;
-      })
+      }),
     );
 
     return this.hrefOnlyDataService.findListByHref<Item>(href$).pipe(
       getFirstSucceededRemoteData(),
-      getFirstOccurrence()
+      getFirstOccurrence(),
     );
 
   }
@@ -235,9 +253,14 @@ export class BrowseService {
       getPaginatedListPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
         .find((def: BrowseDefinition) => {
-          const matchingKeys = def.metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
+          let matchingKeys = '';
+
+          if (Array.isArray((def as FlatBrowseDefinition).metadataKeys)) {
+            matchingKeys = (def as FlatBrowseDefinition).metadataKeys.find((key: string) => searchKeyArray.indexOf(key) >= 0);
+          }
+
           return isNotEmpty(matchingKeys);
-        })
+        }),
       ),
       map((def: BrowseDefinition) => {
         if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
@@ -247,7 +270,7 @@ export class BrowseService {
         }
       }),
       startWith(undefined),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 

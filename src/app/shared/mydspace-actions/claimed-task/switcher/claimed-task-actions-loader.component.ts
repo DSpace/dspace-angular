@@ -1,32 +1,31 @@
 import {
   Component,
-  ComponentFactoryResolver,
   EventEmitter,
   Input,
-  OnDestroy,
-  OnInit,
   Output,
-  ViewChild
 } from '@angular/core';
-import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { ClaimedTaskActionsDirective } from './claimed-task-actions.directive';
-import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
-import { hasValue } from '../../../empty.util';
-import { Subscription } from 'rxjs';
-import { MyDSpaceActionsResult } from '../../mydspace-actions';
+
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
+import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
+import { MyDSpaceActionsResult } from '../../mydspace-actions';
+import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
+import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorator';
 
 @Component({
   selector: 'ds-claimed-task-actions-loader',
-  templateUrl: './claimed-task-actions-loader.component.html'
+  templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
+  standalone: true,
+  imports: [ DynamicComponentLoaderDirective ],
 })
 /**
  * Component for loading a ClaimedTaskAction component depending on the "option" input
  * Passes on the ClaimedTask to the component and subscribes to the processCompleted output
  */
-export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
+export class ClaimedTaskActionsLoaderComponent extends AbstractComponentLoaderComponent<ClaimedTaskActionsAbstractComponent> {
   /**
    * The item object that belonging to the ClaimedTask object
    */
@@ -54,52 +53,21 @@ export class ClaimedTaskActionsLoaderComponent implements OnInit, OnDestroy {
   @Output() processCompleted = new EventEmitter<MyDSpaceActionsResult>();
 
   /**
-   * Directive to determine where the dynamic child component is located
+   * The list of input and output names for the dynamic component
    */
-  @ViewChild(ClaimedTaskActionsDirective, {static: true}) claimedTaskActionsDirective: ClaimedTaskActionsDirective;
+  protected inputNames: (keyof this & string)[] = [
+    'item',
+    'object',
+    'option',
+    'workflowitem',
+  ];
 
-  /**
-   * Array to track all subscriptions and unsubscribe them onDestroy
-   * @type {Array}
-   */
-  protected subs: Subscription[] = [];
+  protected outputNames: (keyof this & string)[] = [
+    'processCompleted',
+  ];
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+  public getComponent(): GenericConstructor<ClaimedTaskActionsAbstractComponent> {
+    return getComponentByWorkflowTaskOption(this.option);
   }
 
-  /**
-   * Fetch, create and initialize the relevant component
-   */
-  ngOnInit(): void {
-
-    const comp = this.getComponentByWorkflowTaskOption(this.option);
-    if (hasValue(comp)) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
-
-      const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
-      viewContainerRef.clear();
-
-      const componentRef = viewContainerRef.createComponent(componentFactory);
-      const componentInstance = (componentRef.instance as ClaimedTaskActionsAbstractComponent);
-      componentInstance.item = this.item;
-      componentInstance.object = this.object;
-      componentInstance.workflowitem = this.workflowitem;
-      if (hasValue(componentInstance.processCompleted)) {
-        this.subs.push(componentInstance.processCompleted.subscribe((result) => this.processCompleted.emit(result)));
-      }
-    }
-  }
-
-  getComponentByWorkflowTaskOption(option: string) {
-    return getComponentByWorkflowTaskOption(option);
-  }
-
-  /**
-   * Unsubscribe from open subscriptions
-   */
-  ngOnDestroy(): void {
-    this.subs
-      .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe());
-  }
 }

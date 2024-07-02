@@ -1,69 +1,118 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { SearchComponent } from './search.component';
-import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { Context } from '../../core/shared/context.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { SelectionConfig } from './search-results/search-results.component';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchComponent } from './search.component';
+import { SelectionConfig } from './search-results/search-results.component';
+import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 /**
- * Themed wrapper for SearchComponent
+ * Themed wrapper for {@link SearchComponent}
  */
 @Component({
-  selector: 'ds-themed-search',
-  styleUrls: [],
+  selector: 'ds-search',
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
+  imports: [SearchComponent],
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
-  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'useCachedVersionIfAvailable', 'inPlaceSearch', 'linkType', 'paginationId', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showSidebar', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'resultFound', 'deselectObject', 'selectObject', 'trackStatistics'];
 
-  @Input() configurationList: SearchConfigurationOption[] = [];
+  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = [
+    'configurationList',
+    'context',
+    'configuration',
+    'fixedFilterQuery',
+    'hiddenQuery',
+    'useCachedVersionIfAvailable',
+    'inPlaceSearch',
+    'linkType',
+    'paginationId',
+    'searchEnabled',
+    'sideBarWidth',
+    'searchFormPlaceholder',
+    'selectable',
+    'selectionConfig',
+    'showCsvExport',
+    'showSidebar',
+    'showThumbnails',
+    'showViewModes',
+    'useUniquePageId',
+    'viewModeList',
+    'showScopeSelector',
+    'trackStatistics',
+    'query',
+    'scope',
+    'hideScopeInUrl',
+    'resultFound',
+    'deselectObject',
+    'selectObject',
+  ];
 
-  @Input() context: Context = Context.Search;
+  @Input() configurationList: SearchConfigurationOption[];
 
-  @Input() configuration = 'default';
+  @Input() context: Context;
+
+  @Input() configuration: string;
 
   @Input() fixedFilterQuery: string;
 
-  @Input() useCachedVersionIfAvailable = true;
+  @Input() hiddenQuery: string;
 
-  @Input() inPlaceSearch = true;
+  @Input() useCachedVersionIfAvailable: boolean;
+
+  @Input() inPlaceSearch: boolean;
 
   @Input() linkType: CollectionElementLinkType;
 
-  @Input() paginationId = 'spc';
+  @Input() paginationId: string;
 
-  @Input() searchEnabled = true;
+  @Input() searchEnabled: boolean;
 
-  @Input() sideBarWidth = 3;
+  @Input() sideBarWidth: number;
 
-  @Input() searchFormPlaceholder = 'search.search-form.placeholder';
+  @Input() searchFormPlaceholder: string;
 
-  @Input() selectable = false;
+  @Input() selectable: boolean;
 
   @Input() selectionConfig: SelectionConfig;
 
-  @Input() showSidebar = true;
+  @Input() showCsvExport: boolean;
 
-  @Input() showViewModes = true;
+  @Input() showSidebar: boolean;
 
-  @Input() useUniquePageId: false;
+  @Input() showThumbnails: boolean;
+
+  @Input() showViewModes: boolean;
+
+  @Input() useUniquePageId: boolean;
 
   @Input() viewModeList: ViewMode[];
 
-  @Input() showScopeSelector = true;
+  @Input() showScopeSelector: boolean;
 
-  @Input() trackStatistics = false;
+  @Input() trackStatistics: boolean;
 
-  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
+  @Input() query: string;
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Input() scope: string;
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Input() hideScopeInUrl: boolean;
+
+  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
+
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
+
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
 
   protected getComponentName(): string {
     return 'SearchComponent';

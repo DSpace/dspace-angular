@@ -1,15 +1,34 @@
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
-
-import { AppState } from '../../app.reducer';
-import { formObjectFromIdSelector } from './selectors';
-import { FormBuilderService } from './builder/form-builder.service';
-import { DynamicFormControlEvent, DynamicFormControlModel, DynamicFormGroupModel } from '@ng-dynamic-forms/core';
-import { isEmpty, isNotUndefined } from '../empty.util';
+import {
+  AbstractControl,
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+} from '@ng-dynamic-forms/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import uniqueId from 'lodash/uniqueId';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
+import { AppState } from '../../app.reducer';
+import {
+  isEmpty,
+  isNotUndefined,
+} from '../empty.util';
+import { FormBuilderService } from './builder/form-builder.service';
 import {
   FormAddError,
   FormAddTouchedAction,
@@ -17,12 +36,16 @@ import {
   FormInitAction,
   FormRemoveAction,
   FormRemoveErrorAction,
-  FormStatusChangeAction
+  FormStatusChangeAction,
 } from './form.actions';
-import { FormEntry, FormError, FormTouchedState } from './form.reducer';
-import { environment } from '../../../environments/environment';
+import {
+  FormEntry,
+  FormError,
+  FormTouchedState,
+} from './form.reducer';
+import { formObjectFromIdSelector } from './selectors';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FormService {
 
   constructor(
@@ -38,7 +61,7 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.valid),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -50,7 +73,7 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.data),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -62,7 +85,7 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.touched),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -74,7 +97,7 @@ export class FormService {
       select(formObjectFromIdSelector(formId)),
       filter((state) => isNotUndefined(state)),
       map((state) => state.errors),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
   }
 
@@ -85,7 +108,7 @@ export class FormService {
     return this.store.pipe(
       select(formObjectFromIdSelector(formId)),
       distinctUntilChanged(),
-      map((state) => isNotUndefined(state))
+      map((state) => isNotUndefined(state)),
     );
   }
 
@@ -96,13 +119,13 @@ export class FormService {
   /**
    * Method to validate form's fields
    */
-  public validateAllFormFields(formGroup: FormGroup | FormArray) {
+  public validateAllFormFields(formGroup: UntypedFormGroup | UntypedFormArray) {
     Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
-      if (control instanceof FormControl) {
+      if (control instanceof UntypedFormControl) {
         control.markAsTouched({ onlySelf: true });
         control.markAsDirty({ onlySelf: true });
-      } else if (control instanceof FormGroup || control instanceof FormArray) {
+      } else if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
         this.validateAllFormFields(control);
       }
     });
@@ -112,14 +135,14 @@ export class FormService {
    * Check if form group has an invalid form control
    * @param formGroup The form group to check
    */
-  public hasValidationErrors(formGroup: FormGroup | FormArray): boolean {
+  public hasValidationErrors(formGroup: UntypedFormGroup | UntypedFormArray): boolean {
     let hasErrors = false;
     const fields: string[] = Object.keys(formGroup.controls);
     for (const field of fields) {
       const control = formGroup.get(field);
-      if (control instanceof FormControl) {
+      if (control instanceof UntypedFormControl) {
         hasErrors = !control.valid && control.touched;
-      } else if (control instanceof FormGroup || control instanceof FormArray) {
+      } else if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
         hasErrors = this.hasValidationErrors(control);
       }
       if (hasErrors) {
@@ -162,7 +185,7 @@ export class FormService {
     }
 
     // if the field in question is a concat group, pass down the error to its fields
-    if (field instanceof FormGroup && model instanceof DynamicFormGroupModel && this.formBuilderService.isConcatGroup(model)) {
+    if (field instanceof UntypedFormGroup && model instanceof DynamicFormGroupModel && this.formBuilderService.isConcatGroup(model)) {
       model.group.forEach((subModel) => {
         const subField = field.controls[subModel.id];
 
@@ -183,7 +206,7 @@ export class FormService {
     }
 
     // if the field in question is a concat group, clear the error from its fields
-    if (field instanceof FormGroup && model instanceof DynamicFormGroupModel && this.formBuilderService.isConcatGroup(model)) {
+    if (field instanceof UntypedFormGroup && model instanceof DynamicFormGroupModel && this.formBuilderService.isConcatGroup(model)) {
       model.group.forEach((subModel) => {
         const subField = field.controls[subModel.id];
 
@@ -194,7 +217,7 @@ export class FormService {
     field.markAsUntouched();
   }
 
-  public resetForm(formGroup: FormGroup, groupModel: DynamicFormControlModel[], formId: string) {
+  public resetForm(formGroup: UntypedFormGroup, groupModel: DynamicFormControlModel[], formId: string) {
     this.formBuilderService.clearAllModelsValue(groupModel);
     formGroup.reset();
     this.store.dispatch(new FormChangeAction(formId, formGroup.value));

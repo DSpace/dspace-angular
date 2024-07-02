@@ -1,4 +1,5 @@
 // import actions
+import { StoreActionTypes } from '../../store.actions';
 import {
   AddAuthenticationMessageAction,
   AuthActions,
@@ -11,13 +12,13 @@ import {
   RefreshTokenSuccessAction,
   RetrieveAuthenticatedEpersonSuccessAction,
   RetrieveAuthMethodsSuccessAction,
-  SetRedirectUrlAction
+  SetAuthCookieStatus,
+  SetRedirectUrlAction,
 } from './auth.actions';
-// import models
-import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthMethodType } from './models/auth.method-type';
-import { StoreActionTypes } from '../../store.actions';
+// import models
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 /**
  * The auth state.
@@ -59,6 +60,8 @@ export interface AuthState {
   // all authentication Methods enabled at the backend
   authMethods?: AuthMethod[];
 
+  externalAuth?: boolean,
+
   // true when the current user is idle
   idle: boolean;
 
@@ -73,7 +76,8 @@ const initialState: AuthState = {
   blocking: true,
   loading: false,
   authMethods: [],
-  idle: false
+  externalAuth: false,
+  idle: false,
 };
 
 /**
@@ -89,19 +93,24 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         error: undefined,
         loading: true,
-        info: undefined
+        info: undefined,
       });
 
     case AuthActionTypes.AUTHENTICATED:
       return Object.assign({}, state, {
         loading: true,
-        blocking: true
+        blocking: true,
       });
 
     case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN:
     case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE:
       return Object.assign({}, state, {
         loading: true,
+      });
+
+    case AuthActionTypes.SET_AUTH_COOKIE_STATUS:
+      return Object.assign({}, state, {
+        externalAuth: (action as SetAuthCookieStatus).payload,
       });
 
     case AuthActionTypes.AUTHENTICATED_ERROR:
@@ -112,13 +121,13 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         error: (action as AuthenticationErrorAction).payload.message,
         loaded: true,
         blocking: false,
-        loading: false
+        loading: false,
       });
 
     case AuthActionTypes.AUTHENTICATED_SUCCESS:
       return Object.assign({}, state, {
         authenticated: true,
-        authToken: (action as AuthenticatedSuccessAction).payload.authToken
+        authToken: (action as AuthenticatedSuccessAction).payload.authToken,
       });
 
     case AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS:
@@ -128,7 +137,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: false,
         blocking: false,
         info: undefined,
-        userId: (action as RetrieveAuthenticatedEpersonSuccessAction).payload
+        userId: (action as RetrieveAuthenticatedEpersonSuccessAction).payload,
       });
 
     case AuthActionTypes.AUTHENTICATE_ERROR:
@@ -137,7 +146,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         authToken: undefined,
         error: (action as AuthenticationErrorAction).payload.message,
         blocking: false,
-        loading: false
+        loading: false,
       });
 
     case AuthActionTypes.AUTHENTICATE_SUCCESS:
@@ -147,7 +156,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
     case AuthActionTypes.LOG_OUT_ERROR:
       return Object.assign({}, state, {
         authenticated: true,
-        error: (action as LogOutErrorAction).payload.message
+        error: (action as LogOutErrorAction).payload.message,
       });
 
     case AuthActionTypes.REFRESH_TOKEN_ERROR:
@@ -160,7 +169,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: false,
         info: undefined,
         refreshing: false,
-        userId: undefined
+        userId: undefined,
       });
 
     case AuthActionTypes.LOG_OUT_SUCCESS:
@@ -173,7 +182,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: true,
         info: undefined,
         refreshing: false,
-        userId: undefined
+        userId: undefined,
       });
 
     case AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED:
@@ -185,7 +194,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         blocking: false,
         loading: false,
         info: (action as RedirectWhenTokenExpiredAction as RedirectWhenAuthenticationIsRequiredAction).payload,
-        userId: undefined
+        userId: undefined,
       });
 
     case AuthActionTypes.REFRESH_TOKEN:
@@ -197,7 +206,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         authToken: (action as RefreshTokenSuccessAction).payload,
         refreshing: false,
-        blocking: false
+        blocking: false,
       });
 
     case AuthActionTypes.ADD_MESSAGE:
@@ -221,14 +230,14 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         loading: false,
         blocking: false,
-        authMethods: (action as RetrieveAuthMethodsSuccessAction).payload
+        authMethods: (action as RetrieveAuthMethodsSuccessAction).payload,
       });
 
     case AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR:
       return Object.assign({}, state, {
         loading: false,
         blocking: false,
-        authMethods: [new AuthMethod(AuthMethodType.Password)]
+        authMethods: [new AuthMethod(AuthMethodType.Password, 0)],
       });
 
     case AuthActionTypes.SET_REDIRECT_URL:

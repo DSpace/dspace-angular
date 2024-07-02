@@ -1,5 +1,7 @@
 import { createSelector } from '@ngrx/store';
 
+import { coreSelector } from '../core.selectors';
+import { CoreState } from '../core-state.model';
 /**
  * Every reducer module's default export is the reducer function itself. In
  * addition, each module should export a type or interface that describes
@@ -7,8 +9,6 @@ import { createSelector } from '@ngrx/store';
  * notation packages up all of the exports into a single object.
  */
 import { AuthState } from './auth.reducer';
-import { CoreState } from '../core-state.model';
-import { coreSelector } from '../core.selectors';
 
 /**
  * Returns the user state.
@@ -116,6 +116,8 @@ const _getRedirectUrl = (state: AuthState) => state.redirectUrl;
 
 const _getAuthenticationMethods = (state: AuthState) => state.authMethods;
 
+const _getExternalAuthCookieStatus = (state: AuthState) => state.externalAuth;
+
 /**
  * Returns true if the user is idle.
  * @function _isIdle
@@ -177,6 +179,16 @@ export const isAuthenticated = createSelector(getAuthState, _isAuthenticated);
  * @return {boolean}
  */
 export const isAuthenticatedLoaded = createSelector(getAuthState, _isAuthenticatedLoaded);
+
+/**
+ * Returns the authentication cookie status. Expect to be true when external authentication
+ * is used.
+ * @function getExternalAuthCookieStatus
+ * @param {AuthState} state
+ * @param {any} props
+ * @return {boolean}
+ */
+export const getExternalAuthCookieStatus = createSelector(getAuthState, _getExternalAuthCookieStatus);
 
 /**
  * Returns true if the authentication request is loading.

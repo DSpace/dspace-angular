@@ -25,12 +25,10 @@
               }
             },
             "allowedCommonJsDependencies": [
-              "angular2-text-mask",
               "cerialize",
               "core-js",
               "lodash",
               "jwt-decode",
-              "url-parse",
               "uuid",
               "webfontloader",
               "zone.js"
@@ -116,22 +114,22 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "dspace-angular:build",
+            "buildTarget": "dspace-angular:build",
             "port": 4000
           },
           "configurations": {
             "development": {
-              "browserTarget": "dspace-angular:build:development"
+              "buildTarget": "dspace-angular:build:development"
             },
             "production": {
-              "browserTarget": "dspace-angular:build:production"
+              "buildTarget": "dspace-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dspace-angular:build"
+            "buildTarget": "dspace-angular:build"
           }
         },
         "test": {
@@ -224,23 +222,23 @@
           }
         },
         "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
           "options": {
-            "browserTarget": "dspace-angular:build",
+            "buildTarget": "dspace-angular:build",
             "serverTarget": "dspace-angular:server",
             "port": 4000
           },
           "configurations": {
             "production": {
-              "browserTarget": "dspace-angular:build:production",
+              "buildTarget": "dspace-angular:build:production",
               "serverTarget": "dspace-angular:server:production"
             }
           }
         },
         "prerender": {
-          "builder": "@nguniversal/builders:prerender",
+          "builder": "@angular-devkit/build-angular:prerender",
           "options": {
-            "browserTarget": "dspace-angular:build:production",
+            "buildTarget": "dspace-angular:build:production",
             "serverTarget": "dspace-angular:server:production",
             "routes": [
               "/"
@@ -273,16 +271,28 @@
           "options": {
             "lintFilePatterns": [
               "src/**/*.ts",
-              "src/**/*.html"
+              "cypress/**/*.ts",
+              "lint/**/*.ts",
+              "src/**/*.html",
+              "src/**/*.json5"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "dspace-angular",
   "cli": {
     "analytics": false,
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
   }
 }

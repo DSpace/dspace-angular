@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  NgModule,
+} from '@angular/core';
+
 import { MySimpleItemActionComponent } from '../../item-page/edit-item-page/simple-item-action/abstract-simple-item-action.component.spec';
-import { SharedModule } from '../shared.module';
+import { BrowserOnlyMockPipe } from './browser-only-mock.pipe';
 import { NgComponentOutletDirectiveStub } from './ng-component-outlet-directive.stub';
 import { QueryParamsDirectiveStub } from './query-params-directive.stub';
 import { RouterLinkDirectiveStub } from './router-link-directive.stub';
-import { BrowserOnlyMockPipe } from './browser-only-mock.pipe';
 
 /**
  * This module isn't used. It serves to prevent the AoT compiler
@@ -16,9 +19,6 @@ import { BrowserOnlyMockPipe } from './browser-only-mock.pipe';
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
-  ],
-  declarations: [
     QueryParamsDirectiveStub,
     MySimpleItemActionComponent,
     RouterLinkDirectiveStub,
@@ -26,11 +26,13 @@ import { BrowserOnlyMockPipe } from './browser-only-mock.pipe';
     BrowserOnlyMockPipe,
   ],
   exports: [
-    QueryParamsDirectiveStub
+    QueryParamsDirectiveStub,
+    RouterLinkDirectiveStub,
+    BrowserOnlyMockPipe,
   ],
   schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ]
+    CUSTOM_ELEMENTS_SCHEMA,
+  ],
 })
 export class TestModule {
 }

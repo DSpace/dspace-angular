@@ -3,13 +3,14 @@
     <div class="{{bundleNameColumn.buildClasses()}} font-weight-bold row-element d-flex">
       <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
       <div class="float-left d-flex align-items-center">
-        {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundle.name } }}
+        {{'item.edit.bitstreams.bundle.name' | translate:{ name: dsoNameService.getName(bundle) } }}
       </div>
     </div>
     <div class="{{columnSizes.columns[3].buildClasses()}} text-center row-element">
       <div class="btn-group bundle-action-buttons">
         <button [routerLink]="[itemPageRoute, 'bitstreams', 'new']"
                 [queryParams]="{bundle: bundle.id}"
+                [attr.aria-label]="'item.edit.bitstreams.bundle.edit.buttons.upload' | translate"
                 class="btn btn-outline-success btn-sm"
                 title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
           <i class="fas fa-upload fa-fw"></i>

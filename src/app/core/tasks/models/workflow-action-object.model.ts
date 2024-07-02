@@ -1,6 +1,11 @@
-import { inheritSerialization, autoserialize } from 'cerialize';
+import {
+  autoserialize,
+  inheritSerialization,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
 import { DSpaceObject } from '../../shared/dspace-object.model';
+import { AdvancedWorkflowInfo } from './advanced-workflow-info.model';
 import { WORKFLOW_ACTION } from './workflow-action-object.resource-type';
 
 /**
@@ -22,4 +27,23 @@ export class WorkflowAction extends DSpaceObject {
    */
   @autoserialize
   options: string[];
+
+  /**
+   * Whether this action has advanced options
+   */
+  @autoserialize
+  advanced: boolean;
+
+  /**
+   * The advanced options that the user can select at this action
+   */
+  @autoserialize
+  advancedOptions: string[];
+
+  /**
+   * The advanced info required by the advanced options
+   */
+  @autoserialize
+  advancedInfo: AdvancedWorkflowInfo[];
+
 }

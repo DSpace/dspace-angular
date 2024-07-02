@@ -1,33 +1,51 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
 
-import { combineLatest, Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
-
-import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
+import { LinkService } from '../core/cache/builders/link.service';
+import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
+import {
+  SortDirection,
+  SortOptions,
+} from '../core/cache/models/sort-options.model';
+import { RequestService } from '../core/data/request.service';
+import { PaginationService } from '../core/pagination/pagination.service';
 import { RoleService } from '../core/roles/role.service';
-import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import { RouteService } from '../core/services/route.service';
+import { Context } from '../core/shared/context.model';
+import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { RouteService } from '../core/services/route.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { LinkService } from '../core/cache/builders/link.service';
-import { HALEndpointService } from '../core/shared/hal-endpoint.service';
-import { RequestService } from '../core/data/request.service';
-import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
-import { Context } from '../core/shared/context.model';
+import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 
 export const MyDSpaceConfigurationToContextMap = new Map([
   [MyDSpaceConfigurationValueType.Workspace, Context.Workspace],
-  [MyDSpaceConfigurationValueType.Workflow, Context.Workflow]
+  [MyDSpaceConfigurationValueType.SupervisedItems, Context.SupervisedItems],
+  [MyDSpaceConfigurationValueType.Workflow, Context.Workflow],
 ]);
 
+export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
 
 /**
  * Service that performs all actions that have to do with the current mydspace configuration
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MyDSpaceConfigurationService extends SearchConfigurationService {
   /**
    * Default pagination settings
@@ -35,7 +53,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
   protected defaultPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'mydspace-page',
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   /**
@@ -62,18 +80,6 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
   private isController$: Observable<boolean>;
   private isSubmitter$: Observable<boolean>;
 
-  /**
-   * Initialize class
-   *
-   * @param {roleService} roleService
-   * @param {RouteService} routeService
-   * @param {PaginationService} paginationService
-   * @param {ActivatedRoute} route
-   * @param linkService
-   * @param halService
-   * @param requestService
-   * @param rdb
-   */
   constructor(protected roleService: RoleService,
               protected routeService: RouteService,
               protected paginationService: PaginationService,
@@ -81,9 +87,19 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
               protected linkService: LinkService,
               protected halService: HALEndpointService,
               protected requestService: RequestService,
-              protected rdb: RemoteDataBuildService) {
-
-    super(routeService, paginationService, route, linkService, halService, requestService, rdb);
+              protected rdb: RemoteDataBuildService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
+    super(
+      routeService,
+      paginationService,
+      route,
+      linkService,
+      halService,
+      requestService,
+      rdb,
+      appConfig,
+    );
 
     // override parent class initialization
     this._defaults = null;
@@ -109,6 +125,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
           availableConf.push(MyDSpaceConfigurationValueType.Workspace);
         }
         if (isController || isAdmin) {
+          availableConf.push(MyDSpaceConfigurationValueType.SupervisedItems);
           availableConf.push(MyDSpaceConfigurationValueType.Workflow);
         }
         return availableConf;
@@ -133,7 +150,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
           configurationOptions.push({ value, label, context });
         });
         return configurationOptions;
-      })
+      }),
     );
   }
 
