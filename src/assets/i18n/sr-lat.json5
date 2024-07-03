@@ -6633,6 +6633,10 @@
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "Administracija procesa rada",
 
+  // "menu.section.loginmiur_dlexporter_url": "DLExporter",
+  // TODO New key - Add a translation
+  "menu.section.loginmiur_dlexporter_url": "DLExporter",
+
   // "metadata-export-search.tooltip": "Export search results as CSV",
   "metadata-export-search.tooltip": "Izvezite rezultate pretrage kao CSV",
 

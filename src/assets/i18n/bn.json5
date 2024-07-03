@@ -6880,6 +6880,10 @@
   // "menu.section.workflow": "Administer Workflow",
   "menu.section.workflow": "প্রশাসনিক কর্মধারা",
 
+  // "menu.section.loginmiur_dlexporter_url": "DLExporter",
+  // TODO New key - Add a translation
+  "menu.section.loginmiur_dlexporter_url": "DLExporter",
+
   // "metadata-export-search.tooltip": "Export search results as CSV",
   // TODO New key - Add a translation
   "metadata-export-search.tooltip": "Export search results as CSV",
