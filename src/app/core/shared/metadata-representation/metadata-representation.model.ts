@@ -37,4 +37,9 @@ export interface MetadataRepresentation {
    */
   getValue(): string;
 
+  /**
+   * Fetches the authority key which may also be needed for display
+   */
+  getAuthority(): string;
+
 }
