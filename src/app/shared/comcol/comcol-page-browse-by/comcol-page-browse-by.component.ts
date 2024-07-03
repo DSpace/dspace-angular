@@ -5,6 +5,7 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -33,6 +34,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { BrowseService } from '../../../core/browse/browse.service';
@@ -82,6 +84,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
   subs: Subscription[] = [];
 
   constructor(
+    @Inject(APP_CONFIG) public appConfig: AppConfig,
     public router: Router,
     private browseService: BrowseService,
   ) {
@@ -99,14 +102,14 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
             allOptions.push({
               id: 'search',
               label: 'collection.page.browse.search.head',
-              routerLink: comColRoute,
+              routerLink: `${comColRoute}/search`,
             });
           } else if (this.contentType === 'community') {
             comColRoute = getCommunityPageRoute(this.id);
             allOptions.push({
               id: 'search',
               label: 'collection.page.browse.search.head',
-              routerLink: comColRoute,
+              routerLink: `${comColRoute}/search`,
             });
             allOptions.push({
               id: 'comcols',
@@ -120,6 +123,10 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
             label: `browse.comcol.by.${config.id}`,
             routerLink: `${comColRoute}/browse/${config.id}`,
           })));
+
+          if (this.appConfig[this.contentType].defaultBrowseTab !== 'search') {
+            allOptions.push(allOptions.shift())
+          }
         }
         return allOptions;
       }),
@@ -140,6 +147,15 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
         }
       }
     }));
+
+    this.allOptions$.pipe(
+      take(1),
+    ).subscribe((allOptions: ComColPageNavOption[]) => {
+      if (!allOptions.find(o => o.routerLink === this.router.url?.split('?')[0])) {
+        var option = allOptions.find(o => o.id === this.appConfig[this.contentType].defaultBrowseTab);
+        void this.router.navigate([option.routerLink], { queryParams: option.params });
+      }
+    });
   }
 
   ngOnDestroy(): void {

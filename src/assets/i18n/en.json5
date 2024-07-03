@@ -1324,6 +1324,8 @@
 
   "collection.page.news": "News",
 
+  "collection.search.breadcrumbs": "Search",
+
   "collection.search.results.head": "Search Results",
 
   "collection.select.confirm": "Confirm selected",
@@ -1562,6 +1564,8 @@
 
   "community.all-lists.head": "Subcommunities and Collections",
 
+  "community.search.breadcrumbs": "Search",
+  
   "community.search.results.head": "Search Results",
 
   "community.sub-collection-list.head": "Collections in this Community",
