@@ -34,7 +34,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import { 
+  APP_CONFIG,
+  AppConfig
+} from '../../../../config/app-config.interface';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { BrowseService } from '../../../core/browse/browse.service';
@@ -125,7 +128,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
           })));
 
           if (this.appConfig[this.contentType].defaultBrowseTab !== 'search') {
-            allOptions.push(allOptions.shift())
+            allOptions.push(allOptions.shift());
           }
         }
         return allOptions;
@@ -152,7 +155,7 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
       take(1),
     ).subscribe((allOptions: ComColPageNavOption[]) => {
       if (!allOptions.find(o => o.routerLink === this.router.url?.split('?')[0])) {
-        var option = allOptions.find(o => o.id === this.appConfig[this.contentType].defaultBrowseTab);
+        const option = allOptions.find(o => o.id === this.appConfig[this.contentType].defaultBrowseTab);
         void this.router.navigate([option.routerLink], { queryParams: option.params });
       }
     });
