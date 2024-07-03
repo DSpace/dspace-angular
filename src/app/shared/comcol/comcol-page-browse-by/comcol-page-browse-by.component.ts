@@ -36,7 +36,7 @@ import {
 
 import { 
   APP_CONFIG,
-  AppConfig
+  AppConfig,
 } from '../../../../config/app-config.interface';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
