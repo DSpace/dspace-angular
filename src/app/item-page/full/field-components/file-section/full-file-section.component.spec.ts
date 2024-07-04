@@ -20,8 +20,7 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
+import { Item } from '../../../../core/shared/item.model';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 describe('FullFileSectionComponent', () => {
@@ -56,7 +55,7 @@ describe('FullFileSectionComponent', () => {
     });
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
-    findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([mockBitstream, mockBitstream, mockBitstream]))
+    showableByItem: createSuccessfulRemoteDataObject$(createPaginatedList([mockBitstream, mockBitstream, mockBitstream])),
   });
 
   const authorizedDataService = jasmine.createSpyObj('authorizedDataService',{
@@ -80,7 +79,6 @@ describe('FullFileSectionComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         { provide: AuthorizationDataService, useValue: authorizedDataService },
       ],
 
@@ -91,6 +89,7 @@ describe('FullFileSectionComponent', () => {
   beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(FullFileSectionComponent);
     comp = fixture.componentInstance;
+    comp.item = new Item();
     fixture.detectChanges();
   }));
 
@@ -109,6 +108,7 @@ describe('FullFileSectionComponent', () => {
       authorizedDataService.isAuthorized.and.returnValue(observableOf(false));
       comp.canDownload(mockBitstream).subscribe(canDownload => expect(canDownload).toBeFalse());
     }));
+
     it('canDownload should return an observable with true value, if user is authorized to download bitstream', waitForAsync(() => {
       authorizedDataService.isAuthorized.and.returnValue(observableOf(true));
       comp.canDownload(mockBitstream).subscribe(canDownload => expect(canDownload).toBeTrue());

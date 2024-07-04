@@ -35,7 +35,7 @@
 <ds-form *ngIf="formModel"
          [formId]="'comcol-form-id'"
          [formModel]="formModel"
-         [displayCancel]="false"
+         [displayReset]="false"
          (submitForm)="onSubmit()">
   <button (click)="back.emit()" before class="btn btn-outline-secondary" type="button">
     <i class="fas fa-arrow-left"></i> {{ type.value + '.edit.return' | translate }}

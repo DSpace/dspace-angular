@@ -123,7 +123,8 @@ xdescribe('MetadataService', () => {
       appConfig,
       authorizationService,
       schemaJsonLDService,
-      'browser'
+      'browser',
+      null
     );
   });
 

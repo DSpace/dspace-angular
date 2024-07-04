@@ -28,6 +28,8 @@ import { DynamicRowGroupModel } from './builder/ds-dynamic-form-ui/models/ds-dyn
 import {
   DynamicRelationGroupModel
 } from './builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DynamicLinkModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-link.model';
+import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 
 export interface MetadataFields {
   [key: string]: FormFieldMetadataValueObject[]
@@ -53,9 +55,9 @@ export class FormComponent implements OnDestroy, OnInit {
   @Input() displaySubmit = true;
 
   /**
-   * A boolean that indicate if to display form's cancel button
+   * A boolean that indicate if to display form's reset button
    */
-  @Input() displayCancel = true;
+  @Input() displayReset = true;
 
   /**
    * A String that indicate the entity type of the item
@@ -80,7 +82,7 @@ export class FormComponent implements OnDestroy, OnInit {
   /**
    * i18n key for the cancel button
    */
-  @Input() cancelLabel = 'form.cancel';
+  @Input() resetLabel = 'form.reset';
 
   /**
    * An array of DynamicFormControlModel type
@@ -355,7 +357,12 @@ export class FormComponent implements OnDestroy, OnInit {
     if (index === 0 && formArrayControl.value?.length === 1) {
       event.model = cloneDeep(event.model);
       const fieldId = event.model.id;
-      formArrayControl.at(0).get(fieldId).setValue(null);
+
+      if (event.model instanceof DynamicLinkModel || event.model instanceof DynamicConcatModel) {
+        formArrayControl.at(0).get(fieldId).reset();
+      } else {
+        formArrayControl.at(0).get(fieldId).setValue(null);
+      }
     } else {
       this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
     }
@@ -424,18 +431,18 @@ export class FormComponent implements OnDestroy, OnInit {
 
   private updateMetadataValue(metadataFields: MetadataFields): void {
     const metadataKeys = hasValue(metadataFields) ? Object.keys(metadataFields) : [];
-    const formKeys = hasValue(this.formGroup.value) ? Object.keys(this.formGroup.value) : [];
+    const formKeys = hasValue(this.formGroup.value) ? Object.keys(this.formGroup.value).map(key => key.replace('_array', '')) : [];
 
     formKeys
       .filter((key) => isNotEmpty(this.formGroup.value[key]))
       .forEach((key) => {
-        const innerObjectKeys = (Object.keys(this.formGroup.value[key]) as any[]).map((oldKey) => oldKey.replaceAll('_', '.'));
+        const innerObjectKeys = (Object.keys(this.formGroup.value[key] ?? {} ) as any[]).map((oldKey) => oldKey.replaceAll('_', '.'));
         const filteredKeys = innerObjectKeys.filter(innerKey => metadataKeys.includes(innerKey));
         const oldValue = this.formGroup.value[key];
 
         if (filteredKeys.length > 0) {
           filteredKeys.forEach((oldValueKey) => {
-            const newValue = { ...oldValue };
+            const newValue = {...oldValue};
             const formattedKey = (oldValueKey as any).replaceAll('.', '_');
             const patchValue = {};
 
@@ -447,6 +454,6 @@ export class FormComponent implements OnDestroy, OnInit {
             }
           });
         }
-      });
+    });
   }
 }
