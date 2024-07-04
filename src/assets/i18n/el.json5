@@ -3599,6 +3599,10 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Σφάλμα κατά την ανάκτηση κοινοτήτων ανώτατου επιπέδου",
 
+  // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
   // TODO New key - Add a translation
   "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
@@ -11187,13 +11191,15 @@
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Επεξεργασία",
 
-  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
+  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.edit-help": "Επιλέξτε αυτήν την επιλογή για να αλλάξετε τα μεταδεδομένα του τεκμηρίου.",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "Προβολή",
 
-  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.view-help": "Ορίστε αυτήν την επιλογή για να προβάλετε τα μεταδεδομένα του τεκμηρίου.",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
@@ -11215,13 +11221,15 @@
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Εγκρίνω",
 
-  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.approve_help": "Εάν έχετε ελέγξει το τεκμήριο και είναι κατάλληλο για συμπερίληψη στη συλλογή, επιλέξτε \"Έγκριση\".",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Επεξεργασία",
 
-  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.edit_help": "Επιλέξτε αυτήν την επιλογή για να αλλάξετε τα μεταδεδομένα του τεκμηρίου.",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
@@ -11247,13 +11255,15 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "Απορρίπτω",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "Εάν έχετε ελέγξει το τεκμήριο και διαπιστώσατε ότι <strong>δεν</strong> είναι κατάλληλο για συμπερίληψη στη συλλογή, επιλέξτε \"Απόρριψη\". Στη συνέχεια, θα σας ζητηθεί να εισαγάγετε ένα μήνυμα που θα υποδεικνύει γιατί το τεκμήριο είναι ακατάλληλο και εάν ο υποβάλλων πρέπει να αλλάξει κάτι και να το υποβάλει ξανά.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Επιστροφή στο pool",
 
-  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.return_help": "Επιστρέψτε την εργασία στο pool έτσι ώστε ένας άλλος χρήστης να μπορεί να εκτελέσει την εργασία.",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
@@ -11271,7 +11281,8 @@
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Απαίτηση",
 
-  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
+  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.pool.claim_help": "Αναθέστε αυτή την εργασία στον εαυτό σας.",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
@@ -11283,7 +11294,8 @@
   // "submission.workspace.generic.view": "View",
   "submission.workspace.generic.view": "Προβολή",
 
-  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workspace.generic.view-help": "Ορίστε αυτήν την επιλογή για να προβάλετε τα μεταδεδομένα του τεκμηρίου.",
 
   // "submitter.empty": "N/A",

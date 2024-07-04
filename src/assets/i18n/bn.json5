@@ -3608,6 +3608,10 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "শীর্ষ-স্তরের সম্প্রদায়গুলো নিয়ে আসতে ত্রুটি হচ্ছে",
 
+  // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
   // TODO New key - Add a translation
   "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
@@ -11284,13 +11288,15 @@
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "সম্পাদনা করুন",
 
-  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
+  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.edit-help": "আইটেমটির মেটাডেটা পরিবর্তন করার জন্য এই বিকল্পটি নির্বাচন করুন।",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "দেখুন",
 
-  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.view-help": "আইটেমটির মেটাডাটা দেখতে এই বিকল্পটি নির্বাচন করুন।",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
@@ -11312,13 +11318,15 @@
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "অনুমোদন",
 
-  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.approve_help": "আপনি যদি আইটেমটি পর্যালোচনা করেছেন এবং এটি সংগ্রহের অন্তর্ভুক্তির জন্য উপযুক্ত। \"অনুমোদন\" নির্বাচন করুন।",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "সম্পাদনা করুন",
 
-  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.edit_help": "আইটেমটির মেটাডেটা পরিবর্তন করার জন্য এই বিকল্পটি নির্বাচন করুন।",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
@@ -11344,13 +11352,15 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "প্রত্যাখ্যান",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "যদি আপনি আইটেমটি পর্যালোচনা করেছেন এবং এটি খুঁজে পেয়েছেন এটি <strong> না </strong> সংগ্রহের অন্তর্ভুক্তির জন্য উপযুক্ত \"প্রত্যাখ্যান\"। তারপর আপনাকে একটি বার্তা প্রবেশ করতে বলা হবে যে আইটেমটি অনুপযুক্ত কেন এবং জমা দেওয়ার কিছু পরিবর্তন এবং পুনরায় জমা দিতে হবে কিনা।",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "পুলে ফিরে যান",
 
-  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.return_help": "পুলে টাস্কটি ফেরত দিন যাতে অন্য ব্যবহারকারীটি কাজটি সম্পাদন করতে পারে।",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
@@ -11368,7 +11378,8 @@
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "দাবি",
 
-  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
+  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.pool.claim_help": "নিজেকে এই টাস্ক বরাদ্দ করুন।",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
@@ -11381,9 +11392,9 @@
   // TODO New key - Add a translation
   "submission.workspace.generic.view": "View",
 
-  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
   // TODO New key - Add a translation
-  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
 
   // "submitter.empty": "N/A",
   // TODO New key - Add a translation
