@@ -84,6 +84,7 @@ extendEnvironmentWithAppConfig(environment, appConfig);
 const _window = domino.createWindow(indexHtml);
 
 // Assign the DOM window and document objects to the global object
+(_window as any).screen = {deviceXDPI: 0, logicalXDPI: 0};
 (global as any).window = _window;
 (global as any).document = _window.document;
 (global as any).navigator = _window.navigator;
