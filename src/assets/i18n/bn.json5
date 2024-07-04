@@ -3608,6 +3608,10 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "শীর্ষ-স্তরের সম্প্রদায়গুলো নিয়ে আসতে ত্রুটি হচ্ছে",
 
+  // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
   // TODO New key - Add a translation
   "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
@@ -8400,6 +8404,10 @@
 
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "নির্বাচন করুন",
+
+  // "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
 
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
   "resource-policies.form.eperson-group-list.tab.eperson": "একটি ই-পারসনের জন্য অনুসন্ধান করুন",

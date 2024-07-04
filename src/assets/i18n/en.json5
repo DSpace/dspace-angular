@@ -4893,6 +4893,8 @@
 
   "resource-policies.form.eperson-group-list.select.btn": "Select",
 
+  "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+
   "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
 
   "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
