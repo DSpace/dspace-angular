@@ -17,6 +17,7 @@ export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
   @Input() showMessage: boolean;
   @Input() spinner: boolean;
   @Input() showFallbackMessages: boolean;
+  @Input() numberOfAutomaticPageReloads: number;
   @Input() warningMessage: string;
   @Input() warningMessageDelay: number;
   @Input() errorMessage: string;
@@ -27,6 +28,7 @@ export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
     'showMessage',
     'spinner',
     'showFallbackMessages',
+    'numberOfAutomaticPageReloads',
     'warningMessage',
     'warningMessageDelay',
     'errorMessage',

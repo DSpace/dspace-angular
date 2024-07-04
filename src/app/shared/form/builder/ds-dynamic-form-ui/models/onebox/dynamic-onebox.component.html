@@ -7,7 +7,11 @@
 
 <ng-template #hasInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
-    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+    <li class="list-item d-flex align-items-center">
+      <img *ngIf="entry.source" class="mr-2" #imgTag [src]="getAuthoritySourceIcon(entry.source, imgTag)" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
+      <div class="text-truncate text-primary font-weight-bold">{{entry.value}}</div>
+      <div *ngIf="entry.source" class="ml-2 text-truncate text-secondary">{{ ('form.entry.source.' + entry.source) | translate}}</div>
+    </li>
     <ng-container *ngFor="let item of entry.otherInformation | dsObjNgFor">
       <li *ngIf="!item.key.startsWith('data-')" class="list-item text-truncate text-secondary"  >
         {{ 'form.other-information.' + item.key | translate }} : {{item.value !== '' ? getOtherInfoValue(item.value, item.key) : ('form.other-information.not-available' | translate)}}
@@ -18,7 +22,11 @@
 
 <ng-template #noInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
-    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+    <li class="list-item d-flex align-items-center">
+      <img  *ngIf="entry.source" class="mr-2" #imgTag [src]="getAuthoritySourceIcon(entry.source, imgTag)" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
+      <div class="text-truncate text-primary font-weight-bold">{{entry.value}}</div>
+      <div *ngIf="entry.source" class="ml-2 text-truncate text-secondary">{{ ('form.entry.source.' + entry.source) | translate}}</div>
+    </li>
   </ul>
 </ng-template>
 

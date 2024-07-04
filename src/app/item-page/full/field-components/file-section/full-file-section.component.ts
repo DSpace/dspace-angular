@@ -16,7 +16,6 @@ import { hasValue, isEmpty } from '../../../../shared/empty.util';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 
@@ -40,13 +39,13 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   licenses$: Observable<RemoteData<PaginatedList<Bitstream>>>;
 
   originalOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'obo' + this.item?.id,
     currentPage: 1,
     pageSize: this.appConfig.item.bitstream.pageSize
   });
 
   licenseOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'lbo' + this.item?.id,
     currentPage: 1,
     pageSize: this.appConfig.item.bitstream.pageSize
   });
@@ -57,7 +56,6 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     protected translateService: TranslateService,
     protected paginationService: PaginationService,
     public dsoNameService: DSONameService,
-    protected uuidService: UUIDService,
     public authorizationService: AuthorizationDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig
   ) {
@@ -70,9 +68,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
 
   initialize(): void {
     this.originals$ = this.paginationService.getCurrentPagination(this.originalOptions.id, this.originalOptions).pipe(
-      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
-        this.item,
+      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.showableByItem(
+        this.item.uuid,
         'ORIGINAL',
+        [],
         {elementsPerPage: options.pageSize, currentPage: options.currentPage},
         true,
         true,
@@ -88,9 +87,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     );
 
     this.licenses$ = this.paginationService.getCurrentPagination(this.licenseOptions.id, this.licenseOptions).pipe(
-      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
-        this.item,
+      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.showableByItem(
+        this.item.uuid,
         'LICENSE',
+        [],
         {elementsPerPage: options.pageSize, currentPage: options.currentPage},
         true,
         true,

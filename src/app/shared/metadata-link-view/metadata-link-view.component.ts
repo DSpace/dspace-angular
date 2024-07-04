@@ -13,14 +13,8 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { environment } from '../../../environments/environment';
-
-interface MetadataView {
-  authority: string;
-  value: string;
-  orcidAuthenticated: string;
-  entityType: string;
-  entityStyle: string|string[];
-}
+import { followLink } from '../utils/follow-link-config.model';
+import { MetadataView } from './metadata-view.model';
 
 @Component({
   selector: 'ds-metadata-link-view',
@@ -59,6 +53,11 @@ export class MetadataLinkViewComponent implements OnInit {
   iconPosition = 'after';
 
   /**
+   * Related item of the metadata value
+   */
+  relatedItem: Item;
+
+  /**
    * Map all entities with the icons specified in the environment configuration file
    */
   constructor(private itemService: ItemDataService) { }
@@ -68,43 +67,65 @@ export class MetadataLinkViewComponent implements OnInit {
    */
   ngOnInit(): void {
     this.metadataView$ = observableOf(this.metadata).pipe(
-      switchMap((metadataValue: MetadataValue) => {
-        if (Metadata.hasValidAuthority(metadataValue.authority)) {
-          return this.itemService.findById(metadataValue.authority).pipe(
-            getFirstCompletedRemoteData(),
-            map((itemRD: RemoteData<Item>) => {
-              if (itemRD.hasSucceeded) {
-                const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
-                return {
-                  authority: metadataValue.authority,
-                  value: metadataValue.value,
-                  orcidAuthenticated: this.getOrcid(itemRD.payload),
-                  entityType: itemRD.payload?.entityType,
-                  entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue)
-                };
-              } else {
-                return {
-                  authority: null,
-                  value: metadataValue.value,
-                  orcidAuthenticated: null,
-                  entityType: 'PRIVATE',
-                  entityStyle: this.metadataName
-                };
-              }
-            })
-          );
-        } else {
-          return observableOf({
-            authority: null,
-            value: metadataValue.value,
-            orcidAuthenticated: null,
-            entityType: null,
-            entityStyle: null
-          });
-        }
-      }),
+      switchMap((metadataValue: MetadataValue) => this.getMetadataView(metadataValue)),
       take(1)
     );
+  }
+
+
+  /**
+   * Retrieves the metadata view for a given metadata value.
+   * If the metadata value has a valid authority, it retrieves the item using the authority and creates a metadata view.
+   * If the metadata value does not have a valid authority, it creates a metadata view with null values.
+   *
+   * @param metadataValue The metadata value for which to retrieve the metadata view.
+   * @returns An Observable that emits the metadata view.
+   */
+  private getMetadataView(metadataValue: MetadataValue): Observable<MetadataView> {
+    const linksToFollow = [followLink('thumbnail')];
+
+    if (Metadata.hasValidAuthority(metadataValue.authority)) {
+      return this.itemService.findById(metadataValue.authority, true, false, ...linksToFollow).pipe(
+        getFirstCompletedRemoteData(),
+        map((itemRD: RemoteData<Item>) => this.createMetadataView(itemRD, metadataValue))
+      );
+    } else {
+      return observableOf({
+        authority: null,
+        value: metadataValue.value,
+        orcidAuthenticated: null,
+        entityType: null,
+        entityStyle: null
+      });
+    }
+  }
+
+  /**
+   * Creates a MetadataView object based on the provided itemRD and metadataValue.
+   * @param itemRD - The RemoteData object containing the item information.
+   * @param metadataValue - The MetadataValue object containing the metadata information.
+   * @returns The created MetadataView object.
+   */
+  private createMetadataView(itemRD: RemoteData<Item>, metadataValue: MetadataValue): MetadataView {
+    if (itemRD.hasSucceeded) {
+      this.relatedItem = itemRD.payload;
+      const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
+      return {
+        authority: metadataValue.authority,
+        value: metadataValue.value,
+        orcidAuthenticated: this.getOrcid(itemRD.payload),
+        entityType: itemRD.payload?.entityType,
+        entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue)
+      };
+    } else {
+      return {
+        authority: null,
+        value: metadataValue.value,
+        orcidAuthenticated: null,
+        entityType: 'PRIVATE',
+        entityStyle: this.metadataName
+      };
+    }
   }
 
   /**

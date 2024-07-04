@@ -11,7 +11,6 @@ import { PaginationComponentOptions } from '../../../pagination/pagination-compo
 import { SectionComponent } from '../../../../core/layout/models/section.model';
 import { SearchManager } from '../../../../core/browse/search-manager';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 import { InternalLinkService } from 'src/app/core/services/internal-link.service';
 
 @Component({
@@ -31,17 +30,12 @@ export class CountersSectionComponent implements OnInit {
   counterData$: Observable<CounterData[]>;
   isLoading$ = new BehaviorSubject(true);
 
-  pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    pageSize: 1,
-    currentPage: 1
-  });
+  pagination: PaginationComponentOptions;
 
 
   constructor(
               public internalLinkService: InternalLinkService,
               private searchService: SearchManager,
-              private uuidService: UUIDService,
               @Inject(PLATFORM_ID) private platformId: Object,
   ) {
 
@@ -51,6 +45,12 @@ export class CountersSectionComponent implements OnInit {
     if (isPlatformServer(this.platformId)) {
       return;
     }
+
+    this.pagination  = Object.assign(new PaginationComponentOptions(), {
+      id: 'counters-pagination' + this.sectionId,
+      pageSize: 1,
+      currentPage: 1
+    });
 
     this.counterData$ = forkJoin(
       this.countersSection.counterSettingsList.map((counterSettings: CountersSettings) =>

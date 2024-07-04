@@ -22,6 +22,7 @@ import { TextareaFieldParser } from './textarea-field-parser';
 import { NumberFieldParser } from './number-field-parser';
 import { CalendarFieldParser } from './calendar-field-parser';
 import { DisabledFieldParser } from './disabled-field-parser';
+import { LinkFieldParser } from './link-field-parser';
 
 const fieldParserDeps = [
   SUBMISSION_ID,
@@ -126,6 +127,13 @@ export class ParserFactory {
         return {
           provide: FieldParser,
           useClass: TextareaFieldParser,
+          deps: [...fieldParserDeps]
+        };
+      }
+      case ParserType.Link: {
+        return {
+          provide: FieldParser,
+          useClass: LinkFieldParser,
           deps: [...fieldParserDeps]
         };
       }

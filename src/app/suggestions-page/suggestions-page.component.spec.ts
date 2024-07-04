@@ -31,8 +31,6 @@ import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { PaginationService } from '../core/pagination/pagination.service';
-import { UUIDService } from '../core/shared/uuid.service';
-import { getMockUUIDService } from '../shared/mocks/uuid.service.mock';
 
 describe('SuggestionPageComponent', () => {
   let component: SuggestionsPageComponent;
@@ -82,7 +80,6 @@ describe('SuggestionPageComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: PaginationService, useValue: paginationService },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         SuggestionsPageComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
