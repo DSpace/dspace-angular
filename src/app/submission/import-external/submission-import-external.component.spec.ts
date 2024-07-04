@@ -28,8 +28,6 @@ import { ExternalSourceEntry } from '../../core/shared/external-source-entry.mod
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UUIDService } from '../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
 describe('SubmissionImportExternalComponent test suite', () => {
   let comp: SubmissionImportExternalComponent;
@@ -66,7 +64,6 @@ describe('SubmissionImportExternalComponent test suite', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: new RouterStub() },
         { provide: NgbModal, useValue: ngbModal },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         SubmissionImportExternalComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

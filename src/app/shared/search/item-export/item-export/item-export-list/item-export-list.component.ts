@@ -13,7 +13,6 @@ import { Context } from '../../../../../core/shared/context.model';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
 import { fadeIn } from '../../../../animations/fade';
 import { PaginatedSearchOptions } from '../../../models/paginated-search-options.model';
-import { UUIDService } from '../../../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-item-export-list',
@@ -53,10 +52,7 @@ export class ItemExportListComponent implements OnInit {
   /**
    * The initial pagination options
    */
-  initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    pageSize: 10
-  });
+  initialPagination: PaginationComponentOptions;
 
   /**
    * The displayed list of entries
@@ -65,11 +61,14 @@ export class ItemExportListComponent implements OnInit {
 
   constructor(
     private paginationService: PaginationService,
-    private searchManager: SearchManager,
-    private uuidService: UUIDService) {
+    private searchManager: SearchManager) {
   }
 
   ngOnInit(): void {
+    this.initialPagination = Object.assign(new PaginationComponentOptions(), {
+      id: 'el' + this.listId,
+      pageSize: 10
+    });
     this.configuration = this.searchOptions.configuration;
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.initialPagination.id, this.initialPagination);
     this.currentPagination$.subscribe((paginationOptions: PaginationComponentOptions) => {

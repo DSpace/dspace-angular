@@ -15,7 +15,6 @@ import { Injectable } from '@angular/core';
 import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { RequestService } from './request.service';
-import { UUIDService } from '../shared/uuid.service';
 
 /**
  * A service for retrieving local and external entries information during a relation lookup
@@ -31,14 +30,13 @@ export class LookupRelationService {
    * Pagination options for retrieving exactly one result
    */
   private singleResultOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'single-result-options',
     pageSize: 1
   });
 
   constructor(protected externalSourceService: ExternalSourceDataService,
               protected searchService: SearchService,
-              protected requestService: RequestService,
-              protected uuidService: UUIDService) {
+              protected requestService: RequestService) {
   }
 
   /**
