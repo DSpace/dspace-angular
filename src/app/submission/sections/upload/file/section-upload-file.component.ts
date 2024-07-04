@@ -37,6 +37,7 @@ import {
 
 import uniqBy from 'lodash/uniqBy';
 import { isNumeric } from '../../../../shared/numeric.util';
+import { AlertType } from '../../../../shared/alert/alert-type';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -158,6 +159,11 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @type {BehaviorSubject<boolean>}
    */
   public processingDelete$ = new BehaviorSubject<boolean>(false);
+
+  /**
+   * The Enum for the Alert type to be visualized
+   */
+  public AlertTypeEnum = AlertType;
 
   /**
    * The [JsonPatchOperationPathCombiner] object
@@ -362,6 +368,4 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
       row.fields[0].selectableMetadata[0].metadata === 'dc.type'
     ).map((filteredRow) => filteredRow.fields[0].selectableMetadata[0].controlledVocabulary)[0];
   }
-
-
 }

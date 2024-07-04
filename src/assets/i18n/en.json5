@@ -6436,6 +6436,8 @@
 
   "submission.sections.upload.upload-successful": "Upload successful",
 
+  "submission.sections.upload.upload-warning": "Some information are missing. Please check the upload section",
+
   "submission.sections.custom-url.label.previous-urls": "Previous Urls",
 
   "submission.sections.custom-url.alert.info": "Define here a custom URL which will be used to reach the item instead of using an internal randomly generated UUID identifier. ",

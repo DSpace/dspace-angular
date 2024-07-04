@@ -310,6 +310,8 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     it('should properly read the section status when required is true', () => {
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
 
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
@@ -338,6 +340,8 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
     it('should properly read the section status when required is false', () => {
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
+
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
 
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
 

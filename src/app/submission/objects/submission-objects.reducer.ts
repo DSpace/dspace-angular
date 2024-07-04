@@ -936,8 +936,10 @@ function deleteFile(state: SubmissionObjectState, action: DeleteUploadedFileActi
       {uuid: action.payload.fileId});
     if (isNotNull(fileIndex)) {
       const newData = Array.from(filesData.files);
-      const newErrorsToShow = filesErrorsToShow.filter(errorToShow => !errorToShow.path.includes(fileIndex));
-      const newServerErrorsToShow = filesSeverValidationErrors.filter(serverError => !serverError.path.includes(fileIndex));
+      const newErrorsToShow = filesData.files.length > 1  ? filesErrorsToShow
+        .filter(errorToShow => !errorToShow.path.includes(fileIndex)) : [];
+      const newServerErrorsToShow = filesData.files.length > 1  ? filesSeverValidationErrors
+        .filter(serverError => !serverError.path.includes(fileIndex)) : [];
 
       newData.splice(fileIndex, 1);
       return Object.assign({}, state, {
