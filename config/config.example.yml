@@ -502,7 +502,22 @@ notifyMetrics:
     config: 'NOTIFY.outgoing.delivered'
     description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description'
 
-
+# Creative Commons metadata fields
+ccLicense:
+  # Icon variant:
+  # 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
+  # 'small' (default) variant shows image and name (optional), better for the item page sidebar
+  variant: small
+  # Field name containing the CC license URI, as configured in the back-end, in the 'dspace.cfg' file, property 'cc.license.uri'
+  # Defaults to 'dc.rights.uri'
+  uriField: dc.rights.uri
+  # Field name containing the CC license name, as configured in the back-end, in the 'dspace.cfg' file, property 'cc.license'
+  # Defaults to 'dc.rights'
+  nameField: dc.rights
+  # Shows the CC license name with the image. Always show if image fails to load
+  showName: true
+  # Shows the disclaimer in the 'full' variant of the component
+  showDisclaimer: true
 
 
 

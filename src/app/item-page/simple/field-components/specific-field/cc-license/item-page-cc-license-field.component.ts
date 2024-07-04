@@ -5,12 +5,17 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Item } from 'src/app/core/shared/item.model';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-item-page-cc-license-field',
@@ -31,34 +36,37 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
    * 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
    * 'small' variant shows image and name (optional), better for the item page sidebar
    */
-  @Input() variant?: 'small' | 'full' = 'small';
+  @Input() variant?: 'small' | 'full' = this.appConfig.ccLicense.variant;
 
   /**
-   * Filed name containing the CC license URI, as configured in the back-end, in the 'dspace.cfg' file, propertie
-   * 'cc.license.uri'
+   * Field name containing the CC license URI
    */
-  @Input() ccLicenseUriField? = 'dc.rights.uri';
+  @Input() ccLicenseUriField? = this.appConfig.ccLicense.uriField;
 
   /**
-   * Filed name containing the CC license name, as configured in the back-end, in the 'dspace.cfg' file, propertie
-   * 'cc.license.name'
+   * Field name containing the CC license name
    */
-  @Input() ccLicenseNameField? = 'dc.rights';
+  @Input() ccLicenseNameField? = this.appConfig.ccLicense.nameField;
 
   /**
    * Shows the CC license name with the image. Always show if image fails to load
    */
-  @Input() showName? = true;
+  @Input() showName? = this.appConfig.ccLicense.showName;
 
   /**
    * Shows the disclaimer in the 'full' variant of the component
    */
-  @Input() showDisclaimer? = true;
+  @Input() showDisclaimer? = this.appConfig.ccLicense.showDisclaimer;
 
   uri: string;
   name: string;
   showImage = true;
   imgSrc: string;
+
+  constructor(
+    @Inject(APP_CONFIG) public appConfig: AppConfig,
+  ) {
+  }
 
   ngOnInit() {
     this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
