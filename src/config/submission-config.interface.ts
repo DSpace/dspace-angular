@@ -10,7 +10,7 @@ interface TypeBindConfig extends Config {
   field: string;
 }
 
-interface AuthorithyIcon {
+export interface AuthorithyIcon {
   source: string,
   path: string
 }

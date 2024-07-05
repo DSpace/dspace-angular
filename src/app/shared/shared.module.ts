@@ -354,6 +354,9 @@ import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-el
 import { MarkdownDirective } from './utils/markdown.directive';
 import { DefaultBrowseElementsComponent } from './browse-most-elements/default-browse-elements/default-browse-elements.component';
 import { ThemedDefaultBrowseElementsComponent } from './browse-most-elements/default-browse-elements/themed-default-browse-elements.component';
+import { MetadataLinkViewPopoverComponent } from './metadata-link-view/metadata-link-view-popover/metadata-link-view-popover.component';
+import { MetadataLinkViewAvatarPopoverComponent } from './metadata-link-view/metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
+import { MetadataLinkViewOrcidComponent } from './metadata-link-view/metadata-link-view-orcid/metadata-link-view-orcid.component';
 
 const MODULES = [
   CommonModule,
@@ -504,6 +507,9 @@ const COMPONENTS = [
   BrowseMostElementsComponent,
   EditMetadataSecurityComponent,
   MetadataLinkViewComponent,
+  MetadataLinkViewPopoverComponent,
+  MetadataLinkViewAvatarPopoverComponent,
+  MetadataLinkViewOrcidComponent,
   ExportExcelSelectorComponent,
   ThemedBrowseMostElementsComponent,
   SearchChartBarHorizontalComponent,

@@ -29,8 +29,6 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ItemSharedModule } from '../item-shared.module';
-import { UUIDService } from '../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -172,7 +170,6 @@ describe('ItemVersionsComponent', () => {
         {provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy},
         {provide: ConfigurationDataService, useValue: configurationServiceSpy},
         { provide: Router, useValue: routerSpy },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]

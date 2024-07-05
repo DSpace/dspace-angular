@@ -1,7 +1,8 @@
-:host {
+::ng-deep {
   div#a2a {
     bottom: 0;
     right: 0;
+    z-index: 998;
   }
 }
 
