@@ -37,9 +37,9 @@ import { MenuSection } from '../menu-section.model';
 export class MenuSectionComponent implements OnInit, OnDestroy {
 
   /**
-   * Observable that emits whether or not this section is currently active
+   * {@link BehaviorSubject} containing the current state to whether this section is currently active
    */
-  active: Observable<boolean>;
+  active$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * The ID of the menu this section resides in
@@ -72,7 +72,9 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
    * Set initial values for instance variables
    */
   ngOnInit(): void {
-    this.active = this.menuService.isSectionActive(this.menuID, this.section.id).pipe(distinctUntilChanged());
+    this.menuService.isSectionActive(this.menuID, this.section.id).pipe(distinctUntilChanged()).subscribe((isActive: boolean) => {
+      this.active$.next(isActive);
+    });
     this.initializeInjectorData();
   }
 
