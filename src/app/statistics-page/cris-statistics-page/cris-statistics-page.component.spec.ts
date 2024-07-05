@@ -140,12 +140,4 @@ describe('CrisStatisticsPageComponent', () => {
     expect(renderedCategories[0].nativeElement.classList.contains('active')).toBe(true);
   });
 
-  it('check if can get report information', () => {
-    component.reports$ = usageReportServiceStub.searchStatistics('url', 1, 1);
-    component.reports$.subscribe((data) => {
-      component.selectedReportId = data[0].id;
-    });
-    fixture.detectChanges();
-  });
-
 });

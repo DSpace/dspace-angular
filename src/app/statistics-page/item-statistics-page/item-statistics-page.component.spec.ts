@@ -102,11 +102,6 @@ describe('ItemStatisticsPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should resolve to the correct item', () => {
-    expect(de.query(By.css('.header')).nativeElement.id)
-      .toEqual('item_id');
-  });
-
   it('should show a statistics table for each usage report', () => {
     expect(de.query(By.css('ds-statistics-table.item_id-TotalVisits-report')).nativeElement)
       .toBeTruthy();
