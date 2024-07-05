@@ -14,8 +14,6 @@ import { of as observableOf } from 'rxjs';
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment';
 import { PLATFORM_ID } from '@angular/core';
-import { UUIDService } from '../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
 describe('RecentItemListComponent', () => {
   let component: RecentItemListComponent;
@@ -49,7 +47,6 @@ describe('RecentItemListComponent', () => {
         { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
-        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
     })
     .compileComponents();

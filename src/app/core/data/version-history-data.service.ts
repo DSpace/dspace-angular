@@ -30,7 +30,6 @@ import { sendRequest } from '../shared/request.operators';
 import { RestRequest } from './rest-request.model';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { dataService } from './base/data-service.decorator';
-import { UUIDService } from '../shared/uuid.service';
 
 /**
  * Service responsible for handling requests related to the VersionHistory object
@@ -46,7 +45,6 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected versionDataService: VersionDataService,
-    protected uuidService: UUIDService
   ) {
     super('versionhistories', requestService, rdbService, objectCache, halService);
   }
@@ -116,7 +114,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
 
     // Pagination options to fetch a single version on the first page (this is the latest version in the history)
     const latestVersionOptions = Object.assign(new PaginationComponentOptions(), {
-      id: this.uuidService.generate(),
+      id: 'item-newest-version-options' + versionHistory.id,
       currentPage: 1,
       pageSize: 1
     });

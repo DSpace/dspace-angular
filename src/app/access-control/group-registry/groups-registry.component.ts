@@ -38,7 +38,6 @@ import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-groups-registry',
@@ -56,7 +55,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'gl',
     pageSize: 5,
     currentPage: 1
   });
@@ -107,8 +106,7 @@ export class GroupsRegistryComponent implements OnInit, OnDestroy {
               private authorizationService: AuthorizationDataService,
               private paginationService: PaginationService,
               public requestService: RequestService,
-              public dsoNameService: DSONameService,
-              private uuidService: UUIDService) {
+              public dsoNameService: DSONameService,) {
     this.currentSearchQuery = '';
     this.searchForm = this.formBuilder.group(({
       query: this.currentSearchQuery,

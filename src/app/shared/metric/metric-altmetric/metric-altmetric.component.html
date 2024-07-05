@@ -17,7 +17,7 @@
       [attr.data-link-target]="remark | dsListMetricProps : 'data-link-target' : isListElement"
     ></div>
   </div>
-  <div class="font-weight-bold" *ngIf="!hideLabel">
+  <div class="font-weight-bold" *ngIf="!hideLabel && (showAltmetricLabel$ | async)">
     {{ "item.page.metric.label." + metric.metricType | translate }}
   </div>
 </div>
