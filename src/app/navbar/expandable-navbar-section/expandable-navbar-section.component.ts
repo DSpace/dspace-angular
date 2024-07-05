@@ -166,8 +166,12 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
    * @param event
    */
   navigateDropdown(event: KeyboardEvent): void {
-    if (event.key === 'Tab') {
+    if (event.code === 'Tab') {
       this.deactivateSection(event, false);
+      return;
+    } else if (event.code === 'Escape') {
+      this.deactivateSection(event, false);
+      (document.querySelector(`a[aria-controls="${this.expandableNavbarSectionId()}"]`) as HTMLElement)?.focus();
       return;
     }
     event.preventDefault();
