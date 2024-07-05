@@ -112,10 +112,13 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
 
   ngAfterViewChecked(): void {
     if (this.addArrowEventListeners) {
-      const dropdownItems = document.querySelectorAll(`#${this.expandableNavbarSectionId()} *[role="menuitem"]`);
-      dropdownItems.forEach(item => {
+      const dropdownItems: NodeListOf<HTMLElement> = document.querySelectorAll(`#${this.expandableNavbarSectionId()} *[role="menuitem"]`);
+      dropdownItems.forEach((item: HTMLElement) => {
         item.addEventListener('keydown', this.navigateDropdown.bind(this));
       });
+      if (dropdownItems.length > 0) {
+        dropdownItems.item(0).focus();
+      }
       this.addArrowEventListeners = false;
     }
   }
@@ -195,7 +198,7 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
         this.deactivateSection(event, false);
         break;
       case 'ArrowDown':
-        this.navigateDropdown(event);
+        this.activateSection(event);
         break;
       case 'Space':
         event.preventDefault();
