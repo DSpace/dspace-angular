@@ -156,11 +156,12 @@ describe('SubmissionUploadFilesComponent Component', () => {
       it('should show a success notification and call updateSectionData if successful and no errors are present', () => {
         const expectedErrors: any = [];
         fixture.detectChanges();
-        const data = {...mockSectionsData, upload: {
-            files: [{url: 'testUrl'}],
-        }};
+        const data = {
+          upload: {
+            files: [{url: 'testUrl'}]
+          }};
 
-        comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: mockSectionsData }));
+        comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: data }));
 
         Object.keys(data).forEach((sectionId) => {
           expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(

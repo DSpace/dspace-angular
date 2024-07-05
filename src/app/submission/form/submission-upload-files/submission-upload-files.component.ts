@@ -189,13 +189,13 @@ export class SubmissionUploadFilesComponent implements OnChanges {
    * @private
    */
   private parseErrorsForWarning(files: WorkspaceitemSectionUploadFileObject[], sectionErrors: SubmissionSectionError[]): SubmissionSectionError[] {
-    return sectionErrors.filter((error) => {
+    return !isEmpty(sectionErrors) ? sectionErrors.filter((error) => {
       const errorPaths = error.path.split('/');
       const errorIndexPart = errorPaths[errorPaths.length - 1];
       // if index is not a number means that only one item is present
       const errorIndex =  isNumeric(errorIndexPart) ? parseInt(errorIndexPart, 10) : 0;
       //we check if the files as an url with value, meaning the upload has been successfull
       return hasValue(files[errorIndex]) && hasValue(files[errorIndex].url);
-    });
+    }) : [];
   }
 }
