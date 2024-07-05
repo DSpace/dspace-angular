@@ -62,7 +62,7 @@ const ALL_NESTED_MENUS = [
 ];
 const NO_MENUS = [];
 
-fdescribe('MenuResolver', () => {
+describe('MenuResolver', () => {
   let resolver: MenuResolver;
 
   let menuService;
