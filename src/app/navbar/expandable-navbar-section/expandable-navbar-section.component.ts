@@ -84,13 +84,12 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   /**
    * When the mouse enters the section toggler activate the menu section
    * @param $event
-   * @param isActive
    */
-  onMouseEnter($event: Event, isActive: boolean) {
+  onMouseEnter($event: Event): void {
     this.isMobile$.pipe(
       first(),
     ).subscribe((isMobile) => {
-      if (!isMobile && !isActive && !this.mouseEntered) {
+      if (!isMobile && !this.active$.value && !this.mouseEntered) {
         this.activateSection($event);
       }
       this.mouseEntered = true;
@@ -100,13 +99,12 @@ export class ExpandableNavbarSectionComponent extends NavbarSectionComponent imp
   /**
    * When the mouse leaves the section toggler deactivate the menu section
    * @param $event
-   * @param isActive
    */
-  onMouseLeave($event: Event, isActive: boolean) {
+  onMouseLeave($event: Event): void {
     this.isMobile$.pipe(
       first(),
     ).subscribe((isMobile) => {
-      if (!isMobile && isActive && this.mouseEntered) {
+      if (!isMobile && this.active$.value && this.mouseEntered) {
         this.deactivateSection($event);
       }
       this.mouseEntered = false;
