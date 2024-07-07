@@ -6069,7 +6069,7 @@
   "submission.workspace.generic.view": "Voir",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workspace.generic.view-help": "Sélectionner cette option pour voir les métadonnées de l'item.",
+  "submission.workspace.generic.view-help": "Sélectionner cette option pour afficher les métadonnées de l'item.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Vignette d'image",
