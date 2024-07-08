@@ -17,6 +17,7 @@ import {
   Observable,
   of as observableOf,
   throwError as observableThrowError,
+  throwError,
 } from 'rxjs';
 
 import {
@@ -71,7 +72,6 @@ import {
   SaveForLaterSubmissionFormSuccessAction,
   SaveSubmissionFormErrorAction,
   SaveSubmissionFormSuccessAction,
-  SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
   SetDuplicateDecisionErrorAction,
   SetDuplicateDecisionSuccessAction,
@@ -305,7 +305,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
-        () => observableThrowError('Error'),
+        () => throwError(() => createFailedRemoteDataObject(undefined, undefined, undefined)),
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
@@ -327,7 +327,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
-        () => observableThrowError(createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors)),
+        () => throwError(() => createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors)),
       );
       const errorsList = parseSectionErrors(mockSectionsErrors);
       const expected = cold('--(ab)-', {
@@ -373,7 +373,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
-        () => observableThrowError('Error'),
+        () => throwError(() => createFailedRemoteDataObject(undefined, undefined, undefined)),
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
@@ -395,7 +395,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
-        () => observableThrowError(createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors)),
+        () =>  throwError(() => createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors)),
       );
       const errorsList = parseSectionErrors(mockSectionsErrors);
       const expected = cold('--(ab)-', {
@@ -960,7 +960,7 @@ describe('SubmissionObjectEffects test suite', () => {
       expect(submissionObjectEffects.saveSection$).toBeObservable(expected);
     });
 
-    it('should return a SAVE_SUBMISSION_SECTION_FORM_ERROR action on error', () => {
+    it('should return a SAVE_SUBMISSION_FORM_ERROR action on error', () => {
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM,
@@ -972,10 +972,10 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.callFake(
-        () => observableThrowError('Error'),
+        () => throwError(() => createFailedRemoteDataObject(undefined, undefined, undefined)),
       );
       const expected = cold('--b-', {
-        b: new SaveSubmissionSectionFormErrorAction(
+        b: new SaveSubmissionFormErrorAction(
           submissionId, undefined, undefined,
         ),
       });
@@ -995,7 +995,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.callFake(
-        () => observableThrowError(createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors)),
+        () =>  throwError(() => createFailedRemoteDataObject('error', 422, undefined, mockSectionsErrors)),
       );
       const errorsList = parseSectionErrors(mockSectionsErrors);
       const expected = cold('--(ab)-', {
@@ -1075,7 +1075,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
-        () => observableThrowError('Error'),
+        () =>  throwError(() => createFailedRemoteDataObject(undefined, undefined, undefined)),
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
@@ -1153,7 +1153,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionServiceStub.depositSubmission.and.callFake(
-        () => observableThrowError('Error'),
+        () => throwError(() => createFailedRemoteDataObject(undefined, undefined, undefined)),
       );
       const expected = cold('--b-', {
         b: new DepositSubmissionErrorAction(
@@ -1241,7 +1241,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.callFake(
-        () => observableThrowError('Error'),
+        () => throwError(() => createFailedRemoteDataObject(undefined, undefined, undefined)),
       );
       const expected = cold('--b-', {
         b: new SetDuplicateDecisionErrorAction(
@@ -1381,7 +1381,7 @@ describe('SubmissionObjectEffects test suite', () => {
       });
 
       submissionServiceStub.discardSubmission.and.callFake(
-        () => observableThrowError('Error'),
+        () => throwError(() => 'Error'),
       );
       const expected = cold('--b-', {
         b: new DiscardSubmissionErrorAction(
