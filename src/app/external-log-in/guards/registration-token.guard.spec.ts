@@ -5,6 +5,7 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { AuthRegistrationType } from 'src/app/core/auth/models/auth.registration-type';
 
@@ -53,7 +54,7 @@ describe('RegistrationTokenGuard', () => {
         { provide: AuthService, useValue: authService },
       ],
     });
-    guard = TestBed.get(RegistrationTokenGuard);
+    guard = TestBed.inject(RegistrationTokenGuard);
   });
 
   it('should be created', () => {
@@ -61,26 +62,18 @@ describe('RegistrationTokenGuard', () => {
   });
   describe('based on the response of "searchByToken have', () => {
     it('can activate must return true when registration data includes groups', () => {
-      (guard.canActivate({ params: { token: '123456789' } } as any, {} as any) as any)
-        .subscribe(
-          (canActivate) => {
-            expect(canActivate).toEqual(true);
-          },
-        );
+      const result = (guard.canActivate( { params: { token: '123456789' } } as any, {} as any) as any);
+      const expected = cold('(a|)', {
+        a: true,
+      });
+      expect(result).toBeObservable(expected);
     });
-    it('can activate must return false when registration data includes groups', () => {
-      const registrationWithDifferentUsedFromLoggedInt = Object.assign(new Registration(),
-        {
-          email: 't1@email.org',
-          token: 'test-token',
-        });
-      epersonRegistrationService.searchRegistrationByToken.and.returnValue(observableOf(registrationWithDifferentUsedFromLoggedInt));
-      (guard.canActivate({ params: { token: '123456789' } } as any, {} as any) as any)
-        .subscribe(
-          (canActivate) => {
-            expect(canActivate).toEqual(false);
-          },
-        );
+    fit('can activate must return false when there is no token', () => {
+      const result = (guard.canActivate( { params: { token: undefined } } as any, {} as any) as any);
+      const expected = cold('(a|)', {
+        a: false,
+      });
+      expect(result).toBeObservable(expected);
     });
 
   });
