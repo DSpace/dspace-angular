@@ -293,7 +293,7 @@ jobs:
           echo Starting vanilla import DB
           docker cp $DATADIR $DDBNAME:/tmp/
           echo Dump $FNAME copied
-#          docker exec $DDBNAME /bin/bash -c "psql -U dspace -p 543$INSTANCE -d $DDBNAME < /tmp/$FNAME"
+          # docker exec $DDBNAME /bin/bash -c "psql -U dspace -p 543$INSTANCE -d $DDBNAME < /tmp/$FNAME"
           docker exec $DDBNAME psql -U postgres -d dspace -f /tmp/$FNAME
           echo Database $DDBNAME fulfilled
           docker exec $DDBNAME /bin/bash -c "rm /tmp/$FNAME"
