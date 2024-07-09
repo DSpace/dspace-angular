@@ -292,9 +292,12 @@ jobs:
           echo "====="
           echo Starting vanilla import DB
           docker cp $DATADIR $DDBNAME:/tmp/
-          docker exec $DDBNAME /bin/bash -c "psql -U dspace -p 543$INSTANCE -d $DDBNAME < /tmp/$FNAME"
-          docker exec $DDBNAME /bin/bash -c "rm /tmp/$FNAME"
+          echo Dump $FNAME copied
+#          docker exec $DDBNAME /bin/bash -c "psql -U dspace -p 543$INSTANCE -d $DDBNAME < /tmp/$FNAME"
+          docker exec $DDBNAME psql -U postgres -d dspace -f /tmp/$FNAME
           echo Database $DDBNAME fulfilled
+          docker exec $DDBNAME /bin/bash -c "rm /tmp/$FNAME"
+          echo Dump $FNAME removed
           docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace database migrate ignored"
       - name: dspace basic command
         run: |
