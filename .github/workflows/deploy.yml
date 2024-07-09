@@ -27,6 +27,7 @@ on:
           - '*'
           - '5'
           - '8'
+          - 'ZCU'
       IMPORT:
         required: true
         default: true
@@ -272,3 +273,51 @@ jobs:
             echo "rest-tests have failed! check appropriate action run"
             exit 1
           fi;
+
+  import-ZCU:
+    runs-on: dspace-dep-1
+    if: inputs.IMPORT && inputs.INSTANCE == 'ZCU'
+    env:
+      INSTANCE: '4'
+    steps:
+      - name: vanilla import
+        env:
+          FNAME: zcu-dump.sql
+        run: |
+          export DATADIR=/opt/dspace-data/$FNAME
+          export DNAME=dspace$INSTANCE
+          export DDBNAME=dspacedb$INSTANCE
+
+          docker stop $DB5NAME || true
+          echo "====="
+          echo Starting vanilla import DB
+          docker cp $DATADIR $DDBNAME:/tmp/
+          docker exec $DDBNAME /bin/bash -c "psql -U dspace -p 543$INSTANCE -d $DDBNAME < /tmp/$FNAME"
+          docker exec $DDBNAME /bin/bash -c "rm /tmp/$FNAME"
+          echo Database $DDBNAME fulfilled
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace database migrate ignored"
+      - name: dspace basic command
+        run: |
+          export DNAME=dspace$INSTANCE
+          docker logs -n 50 $DNAME
+
+          echo "dspace version:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace version"
+
+          echo "dspace cleanup:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace cleanup -v"
+
+          echo "dspace reindex solr:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace index-discovery -b"
+
+          echo "dspace reindex OAI-PMH:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace oai import -c"
+
+          echo "dspace checker:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace checker -v -l"
+
+      - name: dspace healthcheck
+        run: |
+          export DNAME=dspace$INSTANCE
+          echo "dspace healthcheck:"
+          docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace healthcheck -v"
