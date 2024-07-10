@@ -8,6 +8,7 @@ import {
 } from '../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
+import { environment } from '../../../../../environments/environment';
 
 export interface ChipsItemIcon {
   metadata: string;
@@ -61,16 +62,18 @@ export class ChipsItem {
   }
 
   hasVisibleIcons(): boolean {
+    const iconsVisibleWithNoAuthority = environment.submission.icons.iconsVisibleWithNoAuthority ?? [];
     if (isNotEmpty(this.icons)) {
       let hasVisible = false;
       // check if it has at least one visible icon
       for (const icon of this.icons) {
         if (this._item.hasOwnProperty(icon.metadata)
           && (((typeof this._item[icon.metadata] === 'string') && hasValue(this._item[icon.metadata]))
-            || (this._item[icon.metadata] as FormFieldMetadataValueObject).hasValue())
+            || this._item[icon.metadata] && hasValue(this._item[icon.metadata].value))
           && !this.hasPlaceholder(this._item[icon.metadata])) {
           if ((icon.visibleWhenAuthorityEmpty
-            || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET)
+            || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET
+            || iconsVisibleWithNoAuthority.includes(icon.style))
             && isNotEmpty(icon.style)) {
             hasVisible = true;
             break;

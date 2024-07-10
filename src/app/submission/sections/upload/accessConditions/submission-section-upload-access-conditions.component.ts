@@ -10,7 +10,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { ResourcePolicy } from '../../../../core/resource-policy/models/resource-policy.model';
-import { isEmpty } from '../../../../shared/empty.util';
+import { hasValue, isEmpty } from '../../../../shared/empty.util';
 
 /**
  * This component represents a badge that describe an access condition
@@ -44,7 +44,7 @@ export class SubmissionSectionUploadAccessConditionsComponent implements OnInit 
    */
   ngOnInit() {
     this.accessConditions.forEach((accessCondition: ResourcePolicy) => {
-      if (isEmpty(accessCondition.name)) {
+      if (isEmpty(accessCondition.name) && hasValue(accessCondition._links?.group.href)) {
         this.groupService.findByHref(accessCondition._links.group.href).pipe(
           find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded))
           .subscribe((rd: RemoteData<Group>) => {

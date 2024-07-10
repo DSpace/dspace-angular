@@ -71,6 +71,7 @@ describe('DateComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: metadataValue },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
         { provide: LocaleService, useValue: localeServiceMock },
       ],
       declarations: [DateComponent, DsDatePipe],

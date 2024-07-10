@@ -53,6 +53,8 @@ import { HostWindowServiceStub } from './shared/testing/host-window-service.stub
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
+import { KlaroService } from './shared/cookies/klaro.service';
+import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -71,11 +73,25 @@ describe('App component', () => {
 
   let breadcrumbsServiceSpy;
   let routeServiceMock;
+  let klaroServiceSpy: jasmine.SpyObj<KlaroService>;
+  let datadogRumServiceSpy: jasmine.SpyObj<DatadogRumService>;
 
   const getDefaultTestBedConf = () => {
     breadcrumbsServiceSpy = jasmine.createSpyObj(['listenForRouteChanges']);
     routeServiceMock = jasmine.createSpyObj('RouterService', {
       getCurrentUrl: of('/home'),
+    });
+
+    klaroServiceSpy = jasmine.createSpyObj('KlaroService', {
+      getSavedPreferences: jasmine.createSpy('getSavedPreferences'),
+      watchConsentUpdates: jasmine.createSpy('watchConsentUpdates')
+    },{
+      consentsUpdates$: of({})
+    });
+
+    datadogRumServiceSpy = jasmine.createSpyObj('DatadogRumService', {
+      initDatadogRum: jasmine.createSpy('initDatadogRum'),
+      getDatadogRumState: jasmine.createSpy('getDatadogRumState')
     });
 
     return {
@@ -105,6 +121,8 @@ describe('App component', () => {
         { provide: BreadcrumbsService, useValue: breadcrumbsServiceSpy },
         { provide: RouteService, useValue: routeServiceMock },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: KlaroService, useValue: klaroServiceSpy },
+        { provide: DatadogRumService, useValue: datadogRumServiceSpy },
         provideMockStore({ initialState }),
         AppComponent,
         RouteService,

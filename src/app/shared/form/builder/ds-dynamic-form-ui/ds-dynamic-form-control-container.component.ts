@@ -3,8 +3,7 @@ import {
   Component,
   ComponentFactoryResolver,
   ContentChildren,
-  EventEmitter,
-  Inject,
+  EventEmitter, Inject,
   Input,
   NgZone,
   OnChanges,
@@ -66,8 +65,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  Subscription,
-} from 'rxjs';
+  Subscription, } from 'rxjs';
 import {
   find,
   map,
@@ -150,6 +148,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollab
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { DynamicLinkModel } from './models/ds-dynamic-link.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -573,13 +572,13 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   addSecurityLevelToMetadata($event) {
     this.model.securityLevel = $event;
     this.securityLevel = $event;
-    if (this.model.parent && this.model.parent instanceof DynamicConcatModel) {
+    if (this.model.parent && (this.model.parent instanceof DynamicConcatModel || this.model.parent instanceof DynamicLinkModel)) {
       this.model.parent.securityLevel = $event;
     }
     if (this.model.value) {
       this.model.securityLevel = $event;
       this.securityLevel = $event;
-      if (this.model.parent && this.model.parent instanceof DynamicConcatModel) {
+      if (this.model.parent && (this.model.parent instanceof DynamicConcatModel || this.model.parent instanceof DynamicLinkModel)) {
         this.model.parent.securityLevel = $event;
       }
       this.change.emit(

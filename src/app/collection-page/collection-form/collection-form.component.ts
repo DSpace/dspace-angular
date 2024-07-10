@@ -26,6 +26,10 @@ import {
   isNotNull,
 } from 'src/app/shared/empty.util';
 
+import { Collection } from '../../core/shared/collection.model';
+import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
 import { ConfigObject } from '../../core/config/models/config.model';
@@ -34,13 +38,10 @@ import { SubmissionDefinitionsConfigDataService } from '../../core/config/submis
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
 import { RequestService } from '../../core/data/request.service';
-import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   collectionFormCorrectionSubmissionDefinitionSelectionConfig,
   collectionFormEntityTypeSelectionConfig,
@@ -48,6 +49,7 @@ import {
   collectionFormSharedWorkspaceCheckboxConfig,
   collectionFormSubmissionDefinitionSelectionConfig,
 } from './collection-form.models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Form used for creating and editing collections
@@ -98,13 +100,14 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
                      protected authService: AuthService,
-                     protected dsoService: CommunityDataService,
+                     protected dsoService: CollectionDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef,
+                     protected modalService: NgbModal,
                      protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache);
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 
   ngOnInit(): void {
@@ -148,20 +151,23 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
 
     // retrieve all entity types and submission definitions to populate the dropdowns selection
     combineLatest([entities$, definitions$])
-      .subscribe(([entityTypes, definitions]: [ItemType[], SubmissionDefinitionModel[]]) => {
+        .subscribe(([entityTypes, definitions]: [ItemType[], SubmissionDefinitionModel[]]) => {
 
-        entityTypes = entityTypes.filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE);
-        entityTypes.forEach((type: ItemType, index: number) => {
-          this.entityTypeSelection.add({
-            disabled: false,
-            label: type.label,
+          const sortedEntityTypes = entityTypes
+              .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
+              .sort((a, b) => a.label.localeCompare(b.label));
+
+          sortedEntityTypes.forEach((type: ItemType, index: number) => {
+            this.entityTypeSelection.add({
+              disabled: false,
+              label: type.label,
             value: type.label,
-          } as DynamicFormOptionConfig<string>);
-          if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
-            this.entityTypeSelection.select(index);
-            this.entityTypeSelection.disabled = true;
-          }
-        });
+            } as DynamicFormOptionConfig<string>);
+            if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
+              this.entityTypeSelection.select(index);
+              this.entityTypeSelection.disabled = true;
+            }
+          });
 
         definitions.forEach((definition: SubmissionDefinitionModel, index: number) => {
           this.submissionDefinitionSelection.add({

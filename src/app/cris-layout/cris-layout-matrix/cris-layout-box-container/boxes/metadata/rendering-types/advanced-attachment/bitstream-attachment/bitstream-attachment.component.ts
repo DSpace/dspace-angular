@@ -43,6 +43,12 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
    */
   allAttachmentProviders: string[] = [];
 
+  /**
+   * Attachment metadata to be displayed in title case
+   */
+
+  attachmentTypeMetadata = 'dc.type';
+
   @Input()
     attachment: Bitstream;
 
@@ -50,12 +56,13 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    @Inject('tabNameProvider') public tabNameProvider: string,
     protected readonly bitstreamDataService: BitstreamDataService,
     protected readonly translateService: TranslateService,
     protected readonly router: Router,
     protected readonly route: ActivatedRoute,
   ) {
-    super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, bitstreamDataService, translateService);
   }
 
   ngOnInit() {

@@ -132,6 +132,7 @@ describe('MetadataRenderComponent', () => {
       ],
       providers: [
         Injector,
+        { provide: 'tabNameProvider', useValue: '' },
       ],
       declarations: [
         DsDatePipe,

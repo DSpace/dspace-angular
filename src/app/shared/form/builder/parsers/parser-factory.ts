@@ -23,6 +23,7 @@ import { RelationGroupFieldParser } from './relation-group-field-parser';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
+import { LinkFieldParser } from './link-field-parser';
 
 const fieldParserDeps = [
   SUBMISSION_ID,
@@ -127,7 +128,14 @@ export class ParserFactory {
         return {
           provide: FieldParser,
           useClass: TextareaFieldParser,
-          deps: [...fieldParserDeps],
+          deps: [...fieldParserDeps]
+        };
+      }
+      case ParserType.Link: {
+        return {
+          provide: FieldParser,
+          useClass: LinkFieldParser,
+          deps: [...fieldParserDeps]
         };
       }
       case undefined: {

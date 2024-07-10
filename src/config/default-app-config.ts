@@ -1,4 +1,6 @@
-import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+import {
+  AdminNotifyMetricsRow
+} from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { ActuatorsConfig } from './actuators.config';
@@ -24,11 +26,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
-import {
-  CrisLayoutConfig,
-  LayoutConfig,
-  SuggestionConfig,
-} from './layout-config.interfaces';
+import { CrisLayoutConfig, LayoutConfig, SuggestionConfig, } from './layout-config.interfaces';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { MetadataSecurityConfig } from './metadata-security-config';
@@ -43,6 +41,11 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import { LoaderConfig } from './loader-config.interfaces';
+import { MetaTagsConfig } from './meta-tags.config';
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
+import { IdentifierSubtypesConfig, IdentifierSubtypesIconPositionEnum } from './identifier-subtypes-config.interface';
+import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -266,11 +269,39 @@ export class DefaultAppConfig implements AppConfig {
           // default configuration
           {
             value: 'default',
-            style: 'text-muted',
+            style: 'text-gray-500',
             icon: 'fa-circle-xmark',
-          },
+          }
+
         ],
+        sourceIcons: [
+          {
+            source: 'orcid',
+            path: 'assets/images/orcid.logo.icon.svg'
+          },
+          {
+            source: 'openaire',
+            path: 'assets/images/openaire.logo.icon.svg'
+          },
+          {
+            source: 'ror',
+            path: 'assets/images/ror.logo.icon.svg'
+          },
+          {
+            source: 'sherpa',
+            path: 'assets/images/sherpa.logo.icon.svg'
+          },
+          {
+            source: 'zdb',
+            path: 'assets/images/zdb.logo.icon.svg'
+          },
+          {
+            source: 'local',
+            path: 'assets/images/local.logo.icon.svg'
+          },
+        ]
       },
+      iconsVisibleWithNoAuthority: ['fas fa-user']
     },
     detectDuplicate: {
       // NOTE: list of additional item metadata to show for duplicate match presentation list
@@ -287,30 +318,30 @@ export class DefaultAppConfig implements AppConfig {
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: LangConfig[] = [
     { code: 'en', label: 'English', active: true },
-    { code: 'ca', label: 'Català', active: true },
-    { code: 'cs', label: 'Čeština', active: true },
+    { code: 'ca', label: 'Català', active: false },
+    { code: 'cs', label: 'Čeština', active: false },
     { code: 'de', label: 'Deutsch', active: true },
     { code: 'es', label: 'Español', active: true },
     { code: 'fr', label: 'Français', active: true },
-    { code: 'gd', label: 'Gàidhlig', active: true },
-    { code: 'it', label: 'Italiano', active: true },
-    { code: 'lv', label: 'Latviešu', active: true },
-    { code: 'hu', label: 'Magyar', active: true },
-    { code: 'nl', label: 'Nederlands', active: true },
-    { code: 'pl', label: 'Polski', active: true },
-    { code: 'pt-PT', label: 'Português', active: true },
-    { code: 'pt-BR', label: 'Português do Brasil', active: true },
-    { code: 'sr-lat', label: 'Srpski (lat)', active: true },
-    { code: 'fi', label: 'Suomi', active: true },
-    { code: 'sv', label: 'Svenska', active: true },
-    { code: 'tr', label: 'Türkçe', active: true },
-    { code: 'vi', label: 'Tiếng Việt', active: true },
-    { code: 'kk', label: 'Қазақ', active: true },
-    { code: 'bn', label: 'বাংলা', active: true },
-    { code: 'hi', label: 'हिंदी', active: true },
-    { code: 'el', label: 'Ελληνικά', active: true },
-    { code: 'sr-cyr', label: 'Српски', active: true },
-    { code: 'uk', label: 'Yкраї́нська', active: true },
+    { code: 'gd', label: 'Gàidhlig', active: false },
+    { code: 'it', label: 'Italiano', active: false },
+    { code: 'lv', label: 'Latviešu', active: false },
+    { code: 'hu', label: 'Magyar', active: false },
+    { code: 'nl', label: 'Nederlands', active: false },
+    { code: 'pl', label: 'Polski', active: false },
+    { code: 'pt-PT', label: 'Português', active: false },
+    { code: 'pt-BR', label: 'Português do Brasil', active: false },
+    { code: 'sr-lat', label: 'Srpski (lat)', active: false },
+    { code: 'fi', label: 'Suomi', active: false },
+    { code: 'sv', label: 'Svenska', active: false },
+    { code: 'tr', label: 'Türkçe', active: false },
+    { code: 'vi', label: 'Tiếng Việt', active: false },
+    { code: 'kk', label: 'Қазақ', active: false },
+    { code: 'bn', label: 'বাংলা', active: false },
+    { code: 'hi', label: 'हिंदी', active: false },
+    { code: 'el', label: 'Ελληνικά', active: false },
+    { code: 'sr-cyr', label: 'Српски', active: false },
+    { code: 'uk', label: 'Yкраї́нська', active: false },
   ];
 
   // Browse-By Pages
@@ -549,8 +580,8 @@ export class DefaultAppConfig implements AppConfig {
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
   // display in supported metadata fields. By default, only dc.description.abstract is supported.
   markdown: MarkdownConfig = {
-    enabled: false,
-    mathjax: false,
+    enabled: true,
+    mathjax: true,
   };
 
   // Which vocabularies should be used for which search filters
@@ -785,7 +816,7 @@ export class DefaultAppConfig implements AppConfig {
 
   addToAnyPlugin: AddToAnyPluginConfig = {
     scriptUrl: 'https://static.addtoany.com/menu/page.js',
-    socialNetworksEnabled: false,
+    socialNetworksEnabled: true,
     buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
     showPlusButton: true,
     showCounters: true,
@@ -885,5 +916,71 @@ export class DefaultAppConfig implements AppConfig {
 
   mirador: MiradorConfig = {
     enableDownloadPlugin: true,
+  };
+
+  loader: LoaderConfig = {
+    showFallbackMessagesByDefault: false,
+    warningMessageDelay: 5000, // 5 seconds
+    errorMessageDelay: 15000, // 15 seconds
+    numberOfAutomaticPageReloads: 2,
+  };
+
+  metaTags: MetaTagsConfig = {
+    defaultLogo: '/assets/images/dspace-cris-logo-hd.png',
+    defaultDescription: 'DSpace-CRIS is a comprehensive, free and open-source Research Information Management System (CRIS/RIMS).\n' +
+      'It is based on DSpace, providing broader functionality and an expanded data model, relying on its large community.\n' +
+      'It is compliant with and supports key international standards, facilitating interoperability and data transfer.\n' +
+      'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.'
+  };
+
+  // Configuration for the metadata link view popover
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig =
+    {
+      fallbackMetdataList: ['dc.description.abstract'],
+
+      entityDataConfig: [
+        {
+          entityType: 'Person',
+          metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract']
+        },
+        {
+          entityType: 'OrgUnit',
+          metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract']
+        },
+        {
+          entityType: 'Project',
+          metadataList: ['oairecerif.project.status', 'dc.description.abstract']
+        },
+        {
+          entityType: 'Funding',
+          metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract']
+        },
+        {
+          entityType: 'Publication',
+          metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract']
+        },
+      ]
+    };
+
+  identifierSubtypes: IdentifierSubtypesConfig[] = [
+    {
+      name: 'ror',
+      icon: 'assets/images/ror.logo.icon.svg',
+      iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+      link: 'https://ror.org'
+    }
+  ];
+  datadogRum: DatadogRumConfig = {
+    clientToken: undefined,
+    applicationId: undefined,
+    site: 'datadoghq.eu',
+    service: undefined,
+    env: undefined,
+    sessionSampleRate: 50,
+    sessionReplaySampleRate: 20,
+    trackUserInteractions: true,
+    trackResources: true,
+    trackLongTasks: true,
+    defaultPrivacyLevel: 'mask-user-input',
   };
 }

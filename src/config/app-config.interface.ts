@@ -36,6 +36,11 @@ import { QualityAssuranceConfig } from './quality-assurance.config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { SearchConfig } from './search-page-config.interface';
 import { SearchResultConfig } from './search-result-config.interface';
+import { LoaderConfig } from './loader-config.interfaces';
+import { MetaTagsConfig } from './meta-tags.config';
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
+import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface';
+import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
@@ -83,6 +88,11 @@ interface AppConfig extends Config {
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;
   searchResult: SearchResultConfig;
   mirador: MiradorConfig;
+  loader: LoaderConfig;
+  metaTags: MetaTagsConfig;
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig;
+  identifierSubtypes: IdentifierSubtypesConfig[];
+  datadogRum?: DatadogRumConfig;
 }
 
 /**

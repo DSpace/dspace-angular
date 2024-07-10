@@ -1,33 +1,18 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  NO_ERRORS_SCHEMA,
-} from '@angular/core';
-import {
-  ComponentFixture,
-  inject,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
-import {
-  BrowserModule,
-  By,
-} from '@angular/platform-browser';
-import {
-  NgbModal,
-  NgbModule,
-} from '@ng-bootstrap/ng-bootstrap';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { ComponentFixture, inject, TestBed, waitForAsync, } from '@angular/core/testing';
+import { BrowserModule, By, } from '@angular/platform-browser';
+import { NgbModal, NgbModule, } from '@ng-bootstrap/ng-bootstrap';
+
+import { EMPTY, of, of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
 
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../../core/submission/submission-json-patch-operations.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../shared/mocks/form-service.mock';
@@ -39,7 +24,9 @@ import {
   mockUploadFiles,
 } from '../../../../shared/mocks/submission.mock';
 import { HALEndpointServiceStub } from '../../../../shared/testing/hal-endpoint-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service.stub';
+import {
+  SubmissionJsonPatchOperationsServiceStub
+} from '../../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../../shared/testing/utils.test';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
@@ -48,6 +35,7 @@ import { POLICY_DEFAULT_WITH_LIST } from '../section-upload.component';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
+import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
 
 const configMetadataFormMock = {
   rows: [{
@@ -72,6 +60,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   let operationsBuilder: any;
   let operationsService: any;
 
+
   const submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
   const submissionId = mockSubmissionId;
   const sectionId = 'upload';
@@ -89,6 +78,12 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
     replace: jasmine.createSpy('replace'),
     remove: jasmine.createSpy('remove'),
   });
+
+  const vocabularyServiceSpy =
+    jasmine.createSpyObj(
+      'vocabularyService',
+      { getPublicVocabularyEntryByValue: EMPTY, getPublicVocabularyEntryByID: EMPTY }
+    );
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -115,6 +110,7 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         SubmissionSectionUploadFileComponent,
         SubmissionSectionUploadFileEditComponent,
         FormBuilderService,
+        { provide: VocabularyService, useValue: vocabularyServiceSpy },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents().then();

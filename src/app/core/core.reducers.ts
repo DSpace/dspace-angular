@@ -12,6 +12,7 @@ import { indexReducer } from './index/index.reducer';
 import { jsonPatchOperationsReducer } from './json-patch/json-patch-operations.reducer';
 import { metaTagReducer } from './metadata/meta-tag.reducer';
 import { routeReducer } from './services/route.reducer';
+import { datadogRumReducer } from '../shared/datadog-rum/datadog-rum.reducer';
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'bitstreamFormats': bitstreamFormatReducer,
@@ -25,4 +26,5 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'json/patch': jsonPatchOperationsReducer,
   'metaTag': metaTagReducer,
   'route': routeReducer,
+  'datadogRum': datadogRumReducer,
 };

@@ -119,6 +119,7 @@ describe('ValuepairComponent', () => {
           { provide: 'itemProvider', useValue: testItem1 },
           { provide: 'metadataValueProvider', useValue: { value: 'it', authority: null } },
           { provide: 'renderingSubTypeProvider', useValue: VOCABULARY_NAME_1 },
+          { provide: 'tabNameProvider', useValue: '' },
         ],
       }).compileComponents();
 
@@ -166,6 +167,7 @@ describe('ValuepairComponent', () => {
           { provide: 'itemProvider', useValue: testItem2 },
           { provide: 'metadataValueProvider', useValue: { value: undefined, authority: VOCABULARY_NAME_2 + ':asd' } },
           { provide: 'renderingSubTypeProvider', useValue: VOCABULARY_NAME_2 },
+          { provide: 'tabNameProvider', useValue: '' },
         ],
       }).compileComponents();
 

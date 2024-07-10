@@ -37,6 +37,10 @@ export class AttachmentRenderComponent implements OnInit {
    * The bitstream
    */
   @Input() renderingType: AttachmentRenderingType | string;
+  /**
+   * The tab name
+   */
+  @Input() tabName: string;
 
   /**
    * Directive hook used to place the dynamic render component
@@ -78,6 +82,7 @@ export class AttachmentRenderComponent implements OnInit {
       attachentComponentRef = this.attachmentValueViewRef.createComponent(factory, 0, this.getComponentInjector());
       (attachentComponentRef.instance as any).item = this.item;
       (attachentComponentRef.instance as any).bitstream = this.bitstream;
+      (attachentComponentRef.instance as any).tabName = this.tabName;
     }
     return attachentComponentRef;
   }
@@ -88,7 +93,8 @@ export class AttachmentRenderComponent implements OnInit {
   getComponentInjector() {
     const providers = [
       { provide: 'itemProvider', useValue: this.item, deps: [] },
-      { provide: 'bitstreamProvider', useValue: this.bitstream, deps: [] },
+      {provide: 'bitstreamProvider', useValue: this.bitstream, deps: []},
+      {provide: 'tabNameProvider', useValue: this.tabName, deps: []}
     ];
 
     return Injector.create({

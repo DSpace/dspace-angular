@@ -1,24 +1,11 @@
 import { XhrFactory } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import {
-  BrowserModule,
-  TransferState,
-} from '@angular/platform-browser';
+import { BrowserModule, TransferState, } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  ServerModule,
-  ServerTransferStateModule,
-} from '@angular/platform-server';
-import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
-import {
-  Angulartics2,
-  Angulartics2GoogleAnalytics,
-  Angulartics2GoogleGlobalSiteTag,
-} from 'angulartics2';
+import { ServerModule, ServerTransferStateModule, } from '@angular/platform-server';
+import { TranslateLoader, TranslateModule, } from '@ngx-translate/core';
+import { Angulartics2, Angulartics2GoogleAnalytics, Angulartics2GoogleGlobalSiteTag, } from 'angulartics2';
 
 import { AppComponent } from '../../app/app.component';
 import { AppModule } from '../../app/app.module';
@@ -43,6 +30,10 @@ import { ServerSubmissionService } from '../../app/submission/server-submission.
 import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
 import { ServerInitService } from './server-init.service';
+import { MathService } from '../../app/core/shared/math.service';
+import { ServerMathService } from '../../app/core/shared/server-math.service';
+import { DatadogRumService } from '../../app/shared/datadog-rum/datadog-rum.service';
+import { ServerDatadogRumService } from '../../app/shared/datadog-rum/server-datadog-rum.service';
 
 export function createTranslateLoader(transferState: TransferState) {
   return new TranslateServerLoader(transferState, 'dist/server/assets/i18n/', '.json');
@@ -121,6 +112,14 @@ export function createTranslateLoader(transferState: TransferState) {
     {
       provide: ReferrerService,
       useClass: ServerReferrerService,
+    },
+    {
+      provide: MathService,
+      useClass: ServerMathService
+    },
+    {
+      provide: DatadogRumService,
+      useClass: ServerDatadogRumService
     },
   ],
 })

@@ -10,6 +10,7 @@ import {
   isNotEmpty,
 } from '../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { environment } from '../../../../../environments/environment';
 import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
 import { ChipsItem } from './chips-item.model';
 
@@ -114,6 +115,8 @@ export class Chips {
 
     const defaultConfigIndex: number = findIndex(this.iconsConfig, { name: 'default' });
     const defaultConfig: MetadataIconConfig = (defaultConfigIndex !== -1) ? this.iconsConfig[defaultConfigIndex] : undefined;
+    const iconsVisibleWithNoAuthority = environment.submission.icons.iconsVisibleWithNoAuthority ?? [];
+
     let config: MetadataIconConfig;
     let configIndex: number;
     let value: any;
@@ -127,7 +130,7 @@ export class Chips {
         config = (configIndex !== -1) ? this.iconsConfig[configIndex] : defaultConfig;
 
         if (hasValue(value) && isNotEmpty(config) && !this.hasPlaceholder(value)) {
-          const visibleWhenAuthorityEmpty = this.displayObj !== metadata;
+          const visibleWhenAuthorityEmpty = this.displayObj !== metadata || (iconsVisibleWithNoAuthority.includes(config.style));
 
           // Set icon
           const icon = {

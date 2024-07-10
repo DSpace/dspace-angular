@@ -72,6 +72,7 @@ import { SearchObjects } from './models/search-objects.model';
 import { SearchResult } from './models/search-result.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-search',
@@ -208,7 +209,7 @@ export class SearchComponent implements OnDestroy, OnInit {
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * Whether to show the view mode switch
@@ -402,7 +403,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     protected windowService: HostWindowService,
     protected routeService: RouteService,
     protected router: Router,
-  ) {
+  @Inject(APP_CONFIG) protected appConfig: any,){
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -418,6 +419,8 @@ export class SearchComponent implements OnDestroy, OnInit {
       this.initialized$.next(true);
       return;
     }
+
+    this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
 
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent

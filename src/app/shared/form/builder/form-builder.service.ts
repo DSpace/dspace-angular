@@ -63,7 +63,10 @@ import {
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import {
+  DynamicRelationGroupModel,
+  DynamicRelationGroupModelConfig
+} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 import { RowParser } from './parsers/row-parser';
@@ -539,12 +542,13 @@ export class FormBuilderService extends DynamicFormService {
    */
   updateModelValue(fieldId: string, value: FormFieldMetadataValueObject): DynamicFormControlModel {
     let returnModel = null;
-    [...this.formModels.keys()].find((formId) => {
+    [...this.formModels.keys()].forEach((formId) => {
       const models = this.formModels.get(formId);
-      const fieldModel: any = this.findById(fieldId, models);
+      let fieldModel: any = this.findById(fieldId, models);
       if (hasValue(fieldModel) && !fieldModel.hidden) {
+        const isIterable = (typeof value[Symbol.iterator] === 'function');
         if (isNotEmpty(value)) {
-          if (fieldModel.repeatable && isNotEmpty(fieldModel.value)) {
+          if (fieldModel.repeatable && isNotEmpty(fieldModel.value) && !(!isIterable && fieldModel instanceof DynamicRelationGroupModel)) {
             // if model is repeatable and has already a value add a new field instead of replacing it
             const formGroup = this.formGroups.get(formId);
             const arrayContext = fieldModel.parent?.context;
@@ -558,13 +562,30 @@ export class FormBuilderService extends DynamicFormService {
               returnModel = newAddedModel;
             }
           } else {
-            fieldModel.value = value;
+            if ((!isIterable && fieldModel instanceof DynamicRelationGroupModel) && isEmpty(fieldModel.value)) {
+              const config: DynamicRelationGroupModelConfig = {
+                submissionId: fieldModel.submissionId,
+                formConfiguration: fieldModel.formConfiguration,
+                isInlineGroup: fieldModel.isInlineGroup,
+                mandatoryField: fieldModel.mandatoryField,
+                relationFields: fieldModel.relationFields,
+                scopeUUID: fieldModel.scopeUUID,
+                submissionScope: fieldModel.submissionScope,
+                repeatable: fieldModel.repeatable,
+                metadataFields: fieldModel.metadataFields,
+                hasSelectableMetadata: fieldModel.hasSelectableMetadata,
+                id: fieldModel.id,
+                value: fieldModel.getGroupValue(value)
+              };
+              fieldModel = new DynamicRelationGroupModel(config);
+            } else {
+              fieldModel.value =  value;
+            }
             returnModel = fieldModel;
+
           }
         }
-        return returnModel;
       }
-      return false;
     });
     return returnModel;
   }

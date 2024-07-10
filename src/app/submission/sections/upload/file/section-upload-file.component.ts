@@ -1,36 +1,31 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subscription, } from 'rxjs';
+import { filter, map, take } from 'rxjs/operators';
 
 import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import {
-  hasValue,
-  isNotUndefined,
-} from '../../../../shared/empty.util';
+  WorkspaceitemSectionUploadFileObject
+} from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import {
+  SubmissionJsonPatchOperationsService
+} from '../../../../core/submission/submission-json-patch-operations.service';
+import { hasValue, isNotUndefined, } from '../../../../shared/empty.util';
 import { FormService } from '../../../../shared/form/form.service';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
+import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload
+} from '../../../../core/shared/operators';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -152,6 +147,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    */
   public formModel: DynamicFormControlModel[];
 
+
+  /**
+   * The translated dc.type of the file
+   */
+  public vocabularyFileType$: Observable<string>;
+
   /**
    * A boolean representing if a submission delete operation is pending
    * @type {BehaviorSubject<boolean>}
@@ -193,6 +194,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SubmissionService} submissionService
    * @param {SectionUploadService} uploadService
+   * @param vocabularyService
    */
   constructor(
     private formService: FormService,
@@ -201,6 +203,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     private operationsService: SubmissionJsonPatchOperationsService,
     private submissionService: SubmissionService,
     private uploadService: SectionUploadService,
+    private vocabularyService: VocabularyService,
   ) {
     this.readMode = true;
   }
@@ -217,8 +220,16 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
           .pipe(filter((bitstream) => isNotUndefined(bitstream)))
           .subscribe((bitstream) => {
             this.fileData = bitstream;
-          },
-          ),
+            const fileType = this.fileData.metadata['dc.type']?.map(data => data.value)[0];
+            this.vocabularyFileType$ = !hasValue(fileType) ? of(null) : this.vocabularyService.getPublicVocabularyEntryByValue(this.getControlledVocabulary(this.configMetadataForm), fileType).pipe(
+              getFirstCompletedRemoteData(),
+              getRemoteDataPayload(),
+              getPaginatedListPayload(),
+              map((res) => res?.length > 0 ? res[0] : null),
+              map((res) => res?.display ?? res?.value),
+              take(1)
+            );
+          })
       );
     }
   }
@@ -298,11 +309,11 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
 
   protected loadFormMetadata() {
     this.configMetadataForm.rows.forEach((row) => {
-      row.fields.forEach((field) => {
-        field.selectableMetadata.forEach((metadatum) => {
-          this.formMetadata.push(metadatum.metadata);
+        row.fields.forEach((field) => {
+          field.selectableMetadata.forEach((metadatum) => {
+            this.formMetadata.push(metadatum.metadata);
+          });
         });
-      });
     },
     );
   }
@@ -328,6 +339,21 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
         this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
         this.processingDelete$.next(false);
       }));
+  }
+
+  /**
+   * Retrieve vocabulary key for dc.type
+   * @param model
+   * @private
+   */
+  private getControlledVocabulary(model: SubmissionFormsModel): string {
+    return  model.rows.filter(row =>
+      hasValue(row.fields) &&
+      hasValue(row.fields[0]) &&
+      hasValue(row.fields[0].selectableMetadata) &&
+      hasValue(row.fields[0].selectableMetadata[0]) &&
+      row.fields[0].selectableMetadata[0].metadata === 'dc.type'
+    ).map((filteredRow) => filteredRow.fields[0].selectableMetadata[0].controlledVocabulary)[0];
   }
 
 }

@@ -1,20 +1,8 @@
-import {
-  Component,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import {
-  switchMap,
-  tap,
-} from 'rxjs/operators';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
+import { switchMap, tap, } from 'rxjs/operators';
+import { APP_CONFIG, AppConfig, } from 'src/config/app-config.interface';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -24,14 +12,13 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
-import {
-  hasValue,
-  isEmpty,
-} from '../../../../shared/empty.util';
+import { hasValue, isEmpty, } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { FileSectionComponent } from '../../../simple/field-components/file-section/file-section.component';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 
 /**
  * This component renders the file section of the item
@@ -71,6 +58,7 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     protected paginationService: PaginationService,
     public dsoNameService: DSONameService,
     protected uuidService: UUIDService,
+    public authorizationService: AuthorizationDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
     super(bitstreamDataService, notificationsService, translateService, dsoNameService, appConfig);
@@ -82,9 +70,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
 
   initialize(): void {
     this.originals$ = this.paginationService.getCurrentPagination(this.originalOptions.id, this.originalOptions).pipe(
-      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
-        this.item,
+      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.showableByItem(
+        this.item.uuid,
         'ORIGINAL',
+        [],
         { elementsPerPage: options.pageSize, currentPage: options.currentPage },
         true,
         true,
@@ -100,9 +89,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     );
 
     this.licenses$ = this.paginationService.getCurrentPagination(this.licenseOptions.id, this.licenseOptions).pipe(
-      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.findAllByItemAndBundleName(
-        this.item,
+      switchMap((options: PaginationComponentOptions) => this.bitstreamDataService.showableByItem(
+        this.item.uuid,
         'LICENSE',
+        [],
         { elementsPerPage: options.pageSize, currentPage: options.currentPage },
         true,
         true,
@@ -125,6 +115,10 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
 
   hasNoDownload(bitstream: Bitstream) {
     return bitstream?.allMetadataValues('bitstream.viewer.provider').includes('nodownload');
+  }
+
+  canDownload(file: Bitstream): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.CanDownload, file.self);
   }
 
   ngOnDestroy(): void {

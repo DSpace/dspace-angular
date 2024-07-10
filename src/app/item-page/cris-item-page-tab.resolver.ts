@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject,Injectable , PLATFORM_ID} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   Resolve,
@@ -22,6 +22,7 @@ import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
 import { getItemPageRoute } from './item-page-routing-paths';
+import { isPlatformServer } from '@angular/common';
 
 /**
  * This class represents a resolver that requests the tabs of specific
@@ -31,6 +32,7 @@ import { getItemPageRoute } from './item-page-routing-paths';
 export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList<CrisLayoutTab>>> {
 
   constructor(
+    @Inject(PLATFORM_ID) protected platformId: any,
     private hardRedirectService: HardRedirectService,
     private tabService: TabDataService,
     private itemDataService: ItemDataService,
@@ -70,8 +72,13 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
                   // If wrong tab is given redirect to 404 page
                   this.router.navigateByUrl(getPageNotFoundRoute(), { skipLocationChange: true, replaceUrl: false });
                 } else if (givenTab === `/${mainTab.shortname}`) {
-                  // If first tab is given redirect to root item page
-                  this.hardRedirectService.redirect(itemPageRoute, 302);
+                  if (isPlatformServer(this.platformId)) {
+                    // If first tab is given redirect to root item page
+                    this.hardRedirectService.redirect(itemPageRoute, 302);
+                  } else {
+                    this.router.navigateByUrl(itemPageRoute);
+                  }
+
                 }
               }
               return tabsRD;

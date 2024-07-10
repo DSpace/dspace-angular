@@ -90,8 +90,8 @@ export class DsoEditMetadataValue {
       if (this.originalValue.value !== this.newValue.value || this.originalValue.language !== this.newValue.language
         || this.originalValue.authority !== this.newValue.authority || this.originalValue.confidence !== this.newValue.confidence) {
         this.change = DsoEditMetadataChangeType.UPDATE;
-      } else {
-        this.change = undefined;
+      } else if (!hasValue(this.originalValue.authority) && hasValue(this.newValue.authority)) {
+        this.change = DsoEditMetadataChangeType.ADD;
       }
     }
     if (finishEditing) {
@@ -447,6 +447,7 @@ export class DsoEditMetadataForm {
                   securityLevel: value.newValue.securityLevel,
                   value: value.newValue.value,
                   language: value.newValue.language,
+                  authority: value.newValue.authority,
                 }));
               }
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {

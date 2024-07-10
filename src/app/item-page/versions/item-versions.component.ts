@@ -1,28 +1,10 @@
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
-import {
-  map,
-  mergeMap,
-  startWith,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of, Subscription, } from 'rxjs';
+import { map, mergeMap, startWith, switchMap, take, tap, } from 'rxjs/operators';
 
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -49,23 +31,20 @@ import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model'
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { AlertType } from '../../shared/alert/alert-type';
-import {
-  hasValue,
-  hasValueOperator,
-} from '../../shared/empty.util';
+import { hasValue, hasValueOperator, } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import {
-  getItemEditVersionhistoryRoute,
-  getItemPageRoute,
-  getItemVersionRoute,
-} from '../item-page-routing-paths';
+import { getItemEditVersionhistoryRoute, getItemPageRoute, getItemVersionRoute, } from '../item-page-routing-paths';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
+import { RenderCrisLayoutBoxFor } from '../../cris-layout/decorators/cris-layout-box.decorator';
+import { LayoutBox } from '../../cris-layout/enums/layout-box.enum';
 
+
+@RenderCrisLayoutBoxFor(LayoutBox.VERSIONING)
 @Component({
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
@@ -199,6 +178,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
               private workflowItemDataService: WorkflowItemDataService,
               private configurationService: ConfigurationDataService,
               private uuidService: UUIDService,
+              private route: ActivatedRoute,
   ) {
   }
 
@@ -238,10 +218,14 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
 
   /**
    * Get the route to the specified version
-   * @param versionId the ID of the version for which the route will be retrieved
+   * @param version the version for which the route will be retrieved
    */
-  getVersionRoute(versionId: string) {
-    return getItemVersionRoute(versionId);
+  getVersionRoute(version: Version): Observable<string> {
+    return version.item.pipe(
+      getFirstCompletedRemoteData(),
+      map(data => data.payload),
+      map(item => getItemVersionRoute(item.uuid))
+    );
   }
 
   /**
@@ -500,6 +484,21 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
    * Initialize all observables
    */
   ngOnInit(): void {
+    if (!hasValue(this.item)) {
+      this.subs.push(this.route.data.pipe(
+        map((data) => {
+          return data.dso as RemoteData<Item>;
+        }),
+        getFirstCompletedRemoteData(),
+        map(data => data.payload)
+      ).subscribe((item) => {
+        this.item = item;
+        this.ngOnInit();
+      }));
+
+      return;
+    }
+
     if (hasValue(this.item.version)) {
       this.versionRD$ = this.item.version;
       this.versionHistoryRD$ = this.versionRD$.pipe(
