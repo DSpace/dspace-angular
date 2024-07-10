@@ -277,6 +277,7 @@ jobs:
   import-ZCU:
     runs-on: dspace-dep-1
     if: inputs.IMPORT && inputs.INSTANCE == 'ZCU'
+    timeout-minutes: 60
     env:
       INSTANCE: '4'
     steps:
@@ -288,17 +289,20 @@ jobs:
           export DNAME=dspace$INSTANCE
           export DDBNAME=dspacedb$INSTANCE
 
-          docker stop $DB5NAME || true
           echo "====="
-          echo Starting vanilla import DB
+          docker stop $DNAME || true
+
+          echo "====="
+          # echo Starting vanilla import DB
           docker cp $DATADIR $DDBNAME:/tmp/
-          echo Dump $FNAME copied
-          # docker exec $DDBNAME /bin/bash -c "psql -U dspace -p 543$INSTANCE -d $DDBNAME < /tmp/$FNAME"
-          docker exec $DDBNAME psql -U postgres -d dspace -f /tmp/$FNAME
-          echo Database $DDBNAME fulfilled
-          docker exec $DDBNAME /bin/bash -c "rm /tmp/$FNAME"
-          echo Dump $FNAME removed
+          # drop + create + import + cleanup
+          docker exec $DDBNAME /bin/bash -c "dropdb -U dspace -p 543$INSTANCE dspace && createdb -U dspace -p 543$INSTANCE --owner=dspace --encoding=UNICODE dspace && psql -p 543$INSTANCE -U dspace -d dspace -f /tmp/$FNAME && rm /tmp/$FNAME"
+          echo "====="
+          docker start $DNAME
+          sleep 60
           docker exec $DNAME /bin/bash -c "cd /dspace/bin && ./dspace database migrate ignored"
+          echo "====="
+
       - name: dspace basic command
         run: |
           export DNAME=dspace$INSTANCE
