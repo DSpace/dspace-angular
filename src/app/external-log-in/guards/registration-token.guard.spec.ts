@@ -68,7 +68,7 @@ describe('RegistrationTokenGuard', () => {
       });
       expect(result).toBeObservable(expected);
     });
-    fit('can activate must return false when there is no token', () => {
+    it('can activate must return false when there is no token', () => {
       const result = (guard.canActivate( { params: { token: undefined } } as any, {} as any) as any);
       const expected = cold('(a|)', {
         a: false,
