@@ -15,8 +15,10 @@ import { APP_CONFIG } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { Item } from '../../../../core/shared/item.model';
 import { UUIDService } from '../../../../core/shared/uuid.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MockBitstreamFormat1 } from '../../../../shared/mocks/item.mock';
@@ -30,8 +32,6 @@ import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { FullFileSectionComponent } from './full-file-section.component';
-import { Item } from '../../../../core/shared/item.model';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 describe('FullFileSectionComponent', () => {
   let comp: FullFileSectionComponent;

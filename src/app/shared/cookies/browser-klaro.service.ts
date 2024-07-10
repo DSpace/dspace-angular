@@ -151,7 +151,7 @@ export class BrowserKlaroService extends KlaroService {
           name: 'datadog',
           purposes: ['thirdPartyJs'],
           required: false,
-        }
+        },
       );
     }
 

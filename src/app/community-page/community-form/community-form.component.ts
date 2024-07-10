@@ -5,6 +5,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlModel,
   DynamicFormService,
@@ -21,7 +22,6 @@ import { RequestService } from '../../core/data/request.service';
 import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Form used for creating and editing communities

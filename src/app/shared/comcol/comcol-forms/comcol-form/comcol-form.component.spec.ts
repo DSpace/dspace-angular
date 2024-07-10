@@ -28,10 +28,7 @@ import { Community } from '../../../../core/shared/community.model';
 import { hasValue } from '../../../empty.util';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '../../../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { VarDirective } from '../../../utils/var.directive';
 import { ComColFormComponent } from './comcol-form.component';
@@ -77,7 +74,7 @@ describe('ComColFormComponent', () => {
   const dsoService = Object.assign({
     getLogoEndpoint: () => observableOf(logoEndpoint),
     deleteLogo: () => createSuccessfulRemoteDataObject$({}),
-    findById: () => createSuccessfulRemoteDataObject$({})
+    findById: () => createSuccessfulRemoteDataObject$({}),
   });
   const notificationsService = new NotificationsServiceStub();
 
@@ -87,7 +84,7 @@ describe('ComColFormComponent', () => {
 
   const requestServiceStub = jasmine.createSpyObj('requestService', {
     removeByHrefSubstring: {},
-    setStaleByHrefSubstring: {}
+    setStaleByHrefSubstring: {},
   });
   const objectCacheStub = jasmine.createSpyObj('objectCache', {
     remove: {},

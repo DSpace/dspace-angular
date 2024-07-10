@@ -1,3 +1,4 @@
+import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -17,7 +18,6 @@ import {
 } from '../shared/testing/layout-tab.mocks';
 import { createPaginatedList } from '../shared/testing/utils.test';
 import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
-import { PLATFORM_ID } from '@angular/core';
 
 describe('CrisItemPageTabResolver', () => {
   beforeEach(() => {
@@ -93,7 +93,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
 
@@ -106,7 +106,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
 
@@ -119,7 +119,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
 
@@ -132,7 +132,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-              }
+              },
             );
         });
       });
@@ -156,7 +156,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).toHaveBeenCalledWith('/entities/publication/1234-65487-12354-1235', 302);
                 expect(resolved).toEqual(tabsRD);
                 done();
-            },
+              },
             );
         });
 
@@ -169,7 +169,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-            },
+              },
             );
         });
 
@@ -182,7 +182,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-            },
+              },
             );
         });
 
@@ -195,7 +195,7 @@ describe('CrisItemPageTabResolver', () => {
                 expect(hardRedirectService.redirect).not.toHaveBeenCalled();
                 expect(resolved).toEqual(tabsRD);
                 done();
-            },
+              },
             );
         });
       });

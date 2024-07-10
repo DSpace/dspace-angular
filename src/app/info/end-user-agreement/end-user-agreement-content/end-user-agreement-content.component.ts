@@ -3,6 +3,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,
@@ -12,7 +13,6 @@ import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { isNotEmpty } from '../../../shared/empty.util';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-end-user-agreement-content',
@@ -34,8 +34,8 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
 
   constructor(private siteService: SiteDataService,
               private localeService: LocaleService,
-              private translateService: TranslateService
-            ) {
+              private translateService: TranslateService,
+  ) {
   }
 
   private filterMetadata(metadata: MetadatumViewModel, langCode: string) {

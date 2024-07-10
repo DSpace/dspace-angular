@@ -4,13 +4,13 @@ import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
 
 import { MetadataIconConfig } from '../../../../../config/submission-config.interface';
+import { environment } from '../../../../../environments/environment';
 import { VocabularyEntry } from '../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import {
   hasValue,
   isNotEmpty,
 } from '../../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { environment } from '../../../../../environments/environment';
 import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
 import { ChipsItem } from './chips-item.model';
 

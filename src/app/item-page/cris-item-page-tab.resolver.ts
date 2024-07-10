@@ -1,4 +1,9 @@
-import { Inject,Injectable , PLATFORM_ID} from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   Resolve,
@@ -22,7 +27,6 @@ import { Item } from '../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
 import { getItemPageRoute } from './item-page-routing-paths';
-import { isPlatformServer } from '@angular/common';
 
 /**
  * This class represents a resolver that requests the tabs of specific

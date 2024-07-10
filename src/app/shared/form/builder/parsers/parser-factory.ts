@@ -12,6 +12,7 @@ import {
   SECURITY_CONFIG,
   SUBMISSION_ID,
 } from './field-parser';
+import { LinkFieldParser } from './link-field-parser';
 import { ListFieldParser } from './list-field-parser';
 import { LookupFieldParser } from './lookup-field-parser';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
@@ -23,7 +24,6 @@ import { RelationGroupFieldParser } from './relation-group-field-parser';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
-import { LinkFieldParser } from './link-field-parser';
 
 const fieldParserDeps = [
   SUBMISSION_ID,
@@ -128,14 +128,14 @@ export class ParserFactory {
         return {
           provide: FieldParser,
           useClass: TextareaFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case ParserType.Link: {
         return {
           provide: FieldParser,
           useClass: LinkFieldParser,
-          deps: [...fieldParserDeps]
+          deps: [...fieldParserDeps],
         };
       }
       case undefined: {

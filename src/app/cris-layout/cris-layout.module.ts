@@ -7,9 +7,9 @@ import { MyDSpacePageModule } from '../my-dspace-page/my-dspace-page.module';
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import { ContextMenuModule } from '../shared/context-menu/context-menu.module';
 import { FormModule } from '../shared/form/form.module';
+import { MetricsModule } from '../shared/metric/metrics.module';
 import { SearchModule } from '../shared/search/search.module';
 import { SharedModule } from '../shared/shared.module';
-import { MetricsModule } from '../shared/metric/metrics.module';
 import { CrisLayoutComponent } from './cris-layout.component';
 import { CrisLayoutLeadingComponent } from './cris-layout-leading/cris-layout-leading.component';
 import { CrisLayoutHorizontalComponent } from './cris-layout-loader/cris-layout-horizontal/cris-layout-horizontal.component';
@@ -31,6 +31,7 @@ import { DateComponent } from './cris-layout-matrix/cris-layout-box-container/bo
 import { HeadingComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/heading/heading.component';
 import { IdentifierComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/identifier/identifier.component';
 import { LinkComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/link/link.component';
+import { LinkAuthorityComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/link-authority/link-authority.component';
 import { LongtextComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/longtext/longtext.component';
 import { InlineComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/metadataGroup/inline/inline.component';
 import { TableComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/metadataGroup/table/table.component';
@@ -49,7 +50,6 @@ import { CrisLayoutBoxContainerComponent } from './cris-layout-matrix/cris-layou
 import { CrisLayoutMatrixComponent } from './cris-layout-matrix/cris-layout-matrix.component';
 import { CrisLayoutLoaderDirective } from './directives/cris-layout-loader.directive';
 import { DsDatePipe } from './pipes/ds-date.pipe';
-import { LinkAuthorityComponent } from './cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/link-authority/link-authority.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -75,7 +75,7 @@ const ENTRY_COMPONENTS = [
   ValuepairComponent,
   TagComponent,
   AdvancedAttachmentComponent,
-  LinkAuthorityComponent
+  LinkAuthorityComponent,
 ];
 
 @NgModule({

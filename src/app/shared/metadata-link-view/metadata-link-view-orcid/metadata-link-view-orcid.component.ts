@@ -1,9 +1,17 @@
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  map,
+  Observable,
+} from 'rxjs';
+
+import { Item } from '../../../core/shared/item.model';
+import { ConfigurationDataService } from './../../../core/data/configuration-data.service';
 import { ConfigurationProperty } from './../../../core/shared/configuration-property.model';
 import { getFirstSucceededRemoteDataPayload } from './../../../core/shared/operators';
-import { ConfigurationDataService } from './../../../core/data/configuration-data.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../core/shared/item.model';
-import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'ds-metadata-link-view-orcid',
@@ -28,11 +36,11 @@ export class MetadataLinkViewOrcidComponent implements OnInit {
       .pipe(
         getFirstSucceededRemoteDataPayload(),
         map((property: ConfigurationProperty) =>
-          property?.values?.length > 0 ? property.values[0] : null
-        )
+          property?.values?.length > 0 ? property.values[0] : null,
+        ),
       );
     this.metadataValue = this.itemValue.firstMetadataValue(
-      'person.identifier.orcid'
+      'person.identifier.orcid',
     );
   }
 

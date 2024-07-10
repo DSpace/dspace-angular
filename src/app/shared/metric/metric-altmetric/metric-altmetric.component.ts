@@ -1,9 +1,15 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit, Renderer2 } from '@angular/core';
-import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { BehaviorSubject } from 'rxjs';
 
 import { hasValue } from '../../empty.util';
-import { BehaviorSubject } from 'rxjs';
+import { BaseEmbeddedMetricComponent } from '../metric-loader/base-embedded-metric.component';
 
 declare let _altmetric_embed_init: any;
 

@@ -5,7 +5,7 @@
             <div class="pt-2">
               <ul *ngIf="pages.length > 0" class="nav nav-tabs justify-content-start" role="tablist">
                     <ng-container *ngFor="let page of pages">
-                      <li *ngIf="page.page != 'relationships'" role="presentation" class="nav-item">
+                      <li *ngIf="page.page !== 'relationships'" role="presentation" class="nav-item">
                           <a *ngIf="(page.enabled | async)"
                            [attr.aria-selected]="page.page === currentPage"
                              class="nav-link"

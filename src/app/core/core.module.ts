@@ -122,6 +122,7 @@ import { FeedbackDataService } from './feedback/feedback-data.service';
 import { ItemExportFormatService } from './itemexportformat/item-export-format.service';
 import { ItemExportFormat } from './itemexportformat/model/item-export-format.model';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
+import { MetricsComponentsService } from './layout/metrics-components.service';
 import { CrisLayoutBox } from './layout/models/box.model';
 import { MetricsComponent } from './layout/models/metrics-component.model';
 import { Section } from './layout/models/section.model';
@@ -241,7 +242,6 @@ import { TaskObject } from './tasks/models/task-object.model';
 import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
-import { MetricsComponentsService } from './layout/metrics-components.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes

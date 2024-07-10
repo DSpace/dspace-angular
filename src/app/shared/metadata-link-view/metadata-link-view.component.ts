@@ -1,6 +1,17 @@
-import { Component, Input, OnInit, } from '@angular/core';
-import { Observable, of as observableOf, } from 'rxjs';
-import { map, switchMap, take, } from 'rxjs/operators';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -10,7 +21,10 @@ import { Item } from '../../core/shared/item.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { isEmpty, isNotEmpty, } from '../empty.util';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
 import { followLink } from '../utils/follow-link-config.model';
 import { MetadataView } from './metadata-view.model';
@@ -67,7 +81,7 @@ export class MetadataLinkViewComponent implements OnInit {
   ngOnInit(): void {
     this.metadataView$ = observableOf(this.metadata).pipe(
       switchMap((metadataValue: MetadataValue) => this.getMetadataView(metadataValue)),
-      take(1)
+      take(1),
     );
   }
 
@@ -86,7 +100,7 @@ export class MetadataLinkViewComponent implements OnInit {
     if (Metadata.hasValidAuthority(metadataValue.authority)) {
       return this.itemService.findById(metadataValue.authority, true, false, ...linksToFollow).pipe(
         getFirstCompletedRemoteData(),
-        map((itemRD: RemoteData<Item>) => this.createMetadataView(itemRD, metadataValue))
+        map((itemRD: RemoteData<Item>) => this.createMetadataView(itemRD, metadataValue)),
       );
     } else {
       return observableOf({
@@ -94,7 +108,7 @@ export class MetadataLinkViewComponent implements OnInit {
         value: metadataValue.value,
         orcidAuthenticated: null,
         entityType: null,
-        entityStyle: null
+        entityStyle: null,
       });
     }
   }
@@ -114,7 +128,7 @@ export class MetadataLinkViewComponent implements OnInit {
         value: metadataValue.value,
         orcidAuthenticated: this.getOrcid(itemRD.payload),
         entityType: itemRD.payload?.entityType,
-                  entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue),
+        entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue),
       };
     } else {
       return {
@@ -122,7 +136,7 @@ export class MetadataLinkViewComponent implements OnInit {
         value: metadataValue.value,
         orcidAuthenticated: null,
         entityType: 'PRIVATE',
-                  entityStyle: this.metadataName,
+        entityStyle: this.metadataName,
       };
     }
   }

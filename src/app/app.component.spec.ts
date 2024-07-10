@@ -36,6 +36,8 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from './core/services/window.service';
+import { KlaroService } from './shared/cookies/klaro.service';
+import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -53,8 +55,6 @@ import { HostWindowServiceStub } from './shared/testing/host-window-service.stub
 import { MenuServiceStub } from './shared/testing/menu-service.stub';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { KlaroService } from './shared/cookies/klaro.service';
-import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -84,14 +84,14 @@ describe('App component', () => {
 
     klaroServiceSpy = jasmine.createSpyObj('KlaroService', {
       getSavedPreferences: jasmine.createSpy('getSavedPreferences'),
-      watchConsentUpdates: jasmine.createSpy('watchConsentUpdates')
+      watchConsentUpdates: jasmine.createSpy('watchConsentUpdates'),
     },{
-      consentsUpdates$: of({})
+      consentsUpdates$: of({}),
     });
 
     datadogRumServiceSpy = jasmine.createSpyObj('DatadogRumService', {
       initDatadogRum: jasmine.createSpy('initDatadogRum'),
-      getDatadogRumState: jasmine.createSpy('getDatadogRumState')
+      getDatadogRumState: jasmine.createSpy('getDatadogRumState'),
     });
 
     return {

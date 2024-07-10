@@ -1,8 +1,27 @@
-import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID, } from '@angular/core';
-import { Meta, MetaDefinition, Title, } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router, } from '@angular/router';
-import { createSelector, select, Store, } from '@ngrx/store';
+import {
+  DOCUMENT,
+  isPlatformServer,
+} from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  Meta,
+  MetaDefinition,
+  Title,
+} from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -12,11 +31,25 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { filter, map, mergeMap, switchMap, take, } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { APP_CONFIG, AppConfig, } from '../../../config/app-config.interface';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
-import { hasNoValue, hasValue, isNotEmpty, } from '../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
@@ -35,12 +68,17 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload, } from '../shared/operators';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
-import { AddMetaTagAction, ClearMetaTagAction, } from './meta-tag.actions';
+import {
+  AddMetaTagAction,
+  ClearMetaTagAction,
+} from './meta-tag.actions';
 import { MetaTagState } from './meta-tag.reducer';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
-import { environment } from '../../../environments/environment';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -457,7 +495,7 @@ export class MetadataService {
   private setOpenGraphUrlTag(url?: string): void {
     const value = url ?? this.getMetaTagValue('dc.identifier.uri');
     this.addMetaTag('og:url', value);
-}
+  }
 
 
   /**
@@ -507,7 +545,7 @@ export class MetadataService {
           return null;
         }
       }),
-      getDownloadableBitstream(this.authorizationService)
+      getDownloadableBitstream(this.authorizationService),
     );
   }
 
@@ -522,13 +560,13 @@ export class MetadataService {
             return null;
           }
         }),
-        take(1)
+        take(1),
       ).subscribe((link) => {
         if (hasValue(link)) {
           // Use the found link to set the <meta> tag
           this.addMetaTag(
             tag,
-          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
+            new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
           );
         } else {
           this.addFallbackImageToTag(tag);
@@ -702,7 +740,7 @@ export class MetadataService {
   private addFallbackImageToTag(tag: string) {
     this.addMetaTag(
       tag,
-      new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.fallbackImagePath).toString()
+      new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.fallbackImagePath).toString(),
     );
   }
 

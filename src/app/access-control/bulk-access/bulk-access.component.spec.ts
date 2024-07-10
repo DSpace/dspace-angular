@@ -3,6 +3,7 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -14,7 +15,6 @@ import { SelectableListState } from '../../shared/object-list/selectable-list/se
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { By } from '@angular/platform-browser';
 import { BulkAccessComponent } from './bulk-access.component';
 
 describe('BulkAccessComponent', () => {

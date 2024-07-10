@@ -1,14 +1,18 @@
-import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
-import { Item } from 'src/app/core/shared/item.model';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover.component';
-import { environment } from 'src/environments/environment.test';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { TranslateModule } from '@ngx-translate/core';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { Item } from 'src/app/core/shared/item.model';
+import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
+import { environment } from 'src/environments/environment.test';
+
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover.component';
 
 describe('MetadataLinkViewPopoverComponent', () => {
   let component: MetadataLinkViewPopoverComponent;
@@ -26,50 +30,50 @@ describe('MetadataLinkViewPopoverComponent', () => {
       'dc.title': [
         {
           value: 'file name',
-          language: null
-        }
+          language: null,
+        },
       ],
       'dc.identifier.uri': [
         {
           value: 'http://example.com',
-          language: null
-        }
+          language: null,
+        },
       ],
       'dc.description.abstract': [
         {
           value: 'Long text description',
-          language: null
-        }
+          language: null,
+        },
       ],
       'organization.identifier.ror': [
         {
           value: 'https://ror.org/1234',
-          language: null
-        }
+          language: null,
+        },
       ],
       'person.identifier.orcid': [
         {
           value: 'https://orcid.org/0000-0000-0000-0000',
-          language: null
-        }
+          language: null,
+        },
       ],
       'dspace.entity.type': [
         {
           value: 'Person',
-          language: null
-        }
-      ]
+          language: null,
+        },
+      ],
     },
-    thumbnail: createSuccessfulRemoteDataObject$(new Bitstream())
+    thumbnail: createSuccessfulRemoteDataObject$(new Bitstream()),
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MetadataLinkViewPopoverComponent ],
       imports: [TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -77,12 +81,12 @@ describe('MetadataLinkViewPopoverComponent', () => {
     component = fixture.componentInstance;
     component.item = itemMock;
     itemMock.firstMetadataValue = jasmine.createSpy()
-                                         .withArgs('dspace.entity.type').and.returnValue('Person')
-                                         .withArgs('dc.title').and.returnValue('Test Title')
-                                         .withArgs('dc.identifier.uri').and.returnValue('http://example.com')
-                                         .withArgs('dc.description.abstract').and.returnValue('Long text description')
-                                         .withArgs('organization.identifier.ror').and.returnValue('https://ror.org/1234')
-                                         .withArgs('person.identifier.orcid').and.returnValue('https://orcid.org/0000-0000-0000-0000');
+      .withArgs('dspace.entity.type').and.returnValue('Person')
+      .withArgs('dc.title').and.returnValue('Test Title')
+      .withArgs('dc.identifier.uri').and.returnValue('http://example.com')
+      .withArgs('dc.description.abstract').and.returnValue('Long text description')
+      .withArgs('organization.identifier.ror').and.returnValue('https://ror.org/1234')
+      .withArgs('person.identifier.orcid').and.returnValue('https://orcid.org/0000-0000-0000-0000');
 
     fixture.detectChanges();
   });

@@ -314,7 +314,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
     } else if (value.indexOf('|||') !== -1 && this.otherInfoValue) {
       const unformattedValue =  this.otherInfoValuesUnformatted.find(otherInfoValue => otherInfoValue.includes(this.otherInfoValue || this.otherName));
       const authorityValue = hasValue(unformattedValue) ?  unformattedValue.substring(unformattedValue.lastIndexOf('::') + 2) : null;
-      let otherInfo = {};
+      const otherInfo = {};
       let alternativeValue;
       otherInfo[key] = value;
       if (hasValue(this.otherName)) {
@@ -329,7 +329,7 @@ export abstract class DsDynamicVocabularyComponent extends DynamicFormControlCom
         null,
         null,
         null,
-        otherInfo
+        otherInfo,
       );
     }
     return returnValue;

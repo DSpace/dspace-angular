@@ -1,11 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { dateToISOFormat, dateToString, isNgbDateStruct, } from '../../../shared/date.util';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
+import {
+  dateToISOFormat,
+  dateToString,
+  isNgbDateStruct,
+} from '../../../shared/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { CoreState } from '../../core-state.model';
+import { ConfidenceType } from '../../shared/confidence-type';
+import { Metadata } from '../../shared/metadata.utils';
 import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
 import {
   FlushPatchOperationAction,
@@ -15,8 +26,6 @@ import {
   NewPatchReplaceOperationAction,
 } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
-import { Metadata } from '../../shared/metadata.utils';
-import { ConfidenceType } from '../../shared/confidence-type';
 
 /**
  * Provides methods to dispatch JsonPatch Operations Actions

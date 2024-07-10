@@ -3,20 +3,14 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { IdentifierSubtypesConfig, IdentifierSubtypesIconPositionEnum } from './../../../../../../../../config/identifier-subtypes-config.interface';
-import { Component, Inject, OnInit } from '@angular/core';
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../../../../../shared/empty.util';
-import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
-import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
-import { Item } from '../../../../../../../core/shared/item.model';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import {
+  hasNoValue,
   hasValue,
   isNotEmpty,
 } from '../../../../../../../shared/empty.util';
@@ -27,7 +21,10 @@ import {
   MetadataBoxFieldRendering,
 } from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
-import { environment } from 'src/environments/environment';
+import {
+  IdentifierSubtypesConfig,
+  IdentifierSubtypesIconPositionEnum,
+} from './../../../../../../../../config/identifier-subtypes-config.interface';
 
 /**
  * This component renders the identifier metadata fields.

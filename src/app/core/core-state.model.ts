@@ -1,4 +1,5 @@
 import { BitstreamFormatRegistryState } from '../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import { DatadogRumState } from '../shared/datadog-rum/datadog-rum.reducer';
 import { AuthState } from './auth/auth.reducer';
 import { ObjectCacheState } from './cache/object-cache.reducer';
 import { ServerSyncBufferState } from './cache/server-sync-buffer.reducer';
@@ -9,7 +10,6 @@ import { MetaIndexState } from './index/index.reducer';
 import { JsonPatchOperationsState } from './json-patch/json-patch-operations.reducer';
 import { MetaTagState } from './metadata/meta-tag.reducer';
 import { RouteState } from './services/route.reducer';
-import { DatadogRumState } from '../shared/datadog-rum/datadog-rum.reducer';
 
 /**
  * The core sub-state in the NgRx store

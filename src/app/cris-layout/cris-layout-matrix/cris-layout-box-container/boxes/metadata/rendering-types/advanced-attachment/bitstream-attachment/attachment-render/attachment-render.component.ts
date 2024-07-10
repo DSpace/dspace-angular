@@ -93,8 +93,8 @@ export class AttachmentRenderComponent implements OnInit {
   getComponentInjector() {
     const providers = [
       { provide: 'itemProvider', useValue: this.item, deps: [] },
-      {provide: 'bitstreamProvider', useValue: this.bitstream, deps: []},
-      {provide: 'tabNameProvider', useValue: this.tabName, deps: []}
+      { provide: 'bitstreamProvider', useValue: this.bitstream, deps: [] },
+      { provide: 'tabNameProvider', useValue: this.tabName, deps: [] },
     ];
 
     return Injector.create({

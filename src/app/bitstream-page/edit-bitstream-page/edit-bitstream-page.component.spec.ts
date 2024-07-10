@@ -26,12 +26,17 @@ import { of as observableOf } from 'rxjs';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
+import { RequestService } from '../../core/data/request.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValueFilter } from '../../core/shared/metadata.models';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { hasValue } from '../../shared/empty.util';
 import {
@@ -48,11 +53,6 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { EditBitstreamPageComponent } from './edit-bitstream-page.component';
-import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { RequestService } from '../../core/data/request.service';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -78,8 +78,8 @@ let fixture: ComponentFixture<EditBitstreamPageComponent>;
 describe('EditBitstreamPageComponent', () => {
 
   const entries = [
-    Object.assign(new VocabularyEntry(), {display: 'true', value: 'true' }),
-    Object.assign(new VocabularyEntry(), {display: 'false', value: 'false' }),
+    Object.assign(new VocabularyEntry(), { display: 'true', value: 'true' }),
+    Object.assign(new VocabularyEntry(), { display: 'false', value: 'false' }),
   ];
 
   const mockVocabularyService = jasmine.createSpyObj('vocabularyService', {
@@ -255,7 +255,7 @@ describe('EditBitstreamPageComponent', () => {
           { provide: DSONameService, useValue: dsoNameService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: VocabularyService, useValue: mockVocabularyService },
           { provide: RequestService, useValue: mockRequestService },
           ChangeDetectorRef,
         ],
@@ -556,7 +556,7 @@ describe('EditBitstreamPageComponent', () => {
           { provide: DSONameService, useValue: dsoNameService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: VocabularyService, useValue: mockVocabularyService },
           { provide: RequestService, useValue: mockRequestService },
           ChangeDetectorRef,
         ],
@@ -601,7 +601,7 @@ describe('EditBitstreamPageComponent', () => {
     const bundleName = 'OTHERCONTENT';
 
     beforeEach(waitForAsync(() => {
-        mockVocabularyService.getVocabularyEntries.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), entries)));
+      mockVocabularyService.getVocabularyEntries.and.returnValue(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), entries)));
 
       bitstream = Object.assign(new Bitstream(), {
         metadata: {
@@ -688,9 +688,9 @@ describe('EditBitstreamPageComponent', () => {
           { provide: DSONameService, useValue: dsoNameService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          { provide: VocabularyService, useValue: mockVocabularyService},
-            { provide: RequestService, useValue: mockRequestService },
-            ChangeDetectorRef,
+          { provide: VocabularyService, useValue: mockVocabularyService },
+          { provide: RequestService, useValue: mockRequestService },
+          ChangeDetectorRef,
         ],
         schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
@@ -726,15 +726,15 @@ describe('EditBitstreamPageComponent', () => {
       bundle = {
         _links: {
           primaryBitstream: {
-            href: 'bundle-selflink'
-          }
+            href: 'bundle-selflink',
+          },
         },
         item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
           uuid: 'some-uuid',
           firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
             return undefined;
           },
-        }))
+        })),
       };
       const bundleName = 'ORIGINAL';
 
@@ -744,30 +744,30 @@ describe('EditBitstreamPageComponent', () => {
         metadata: {
           'dc.description': [
             {
-              value: 'Bitstream description'
-            }
+              value: 'Bitstream description',
+            },
           ],
           'dc.title': [
             {
-              value: 'Bitstream title'
-            }
+              value: 'Bitstream title',
+            },
           ],
           'dc.type': [
             {
-              value: 'Logo'
-            }
+              value: 'Logo',
+            },
           ],
           'bitstream.hide': [
             {
-              value: 'false'
-            }
-          ]
+              value: 'false',
+            },
+          ],
         },
         format: createSuccessfulRemoteDataObject$(selectedFormat),
         _links: {
-          self: 'bitstream-selflink'
+          self: 'bitstream-selflink',
         },
-        bundle: createSuccessfulRemoteDataObject$(bundle)
+        bundle: createSuccessfulRemoteDataObject$(bundle),
       });
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findById: createSuccessfulRemoteDataObject$(bitstream),
@@ -775,13 +775,13 @@ describe('EditBitstreamPageComponent', () => {
         update: createSuccessfulRemoteDataObject$(bitstream),
         updateFormat: createSuccessfulRemoteDataObject$(bitstream),
         commitUpdates: {},
-        patch: {}
+        patch: {},
       });
       bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
+        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats)),
       });
       dsoNameService = jasmine.createSpyObj('dsoNameService', {
-        getName: bundleName
+        getName: bundleName,
       });
 
       TestBed.configureTestingModule({
@@ -794,18 +794,18 @@ describe('EditBitstreamPageComponent', () => {
             provide: ActivatedRoute,
             useValue: {
               data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
-              snapshot: { queryParams: {} }
-            }
+              snapshot: { queryParams: {} },
+            },
           },
           { provide: BitstreamDataService, useValue: bitstreamService },
           { provide: DSONameService, useValue: dsoNameService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: VocabularyService, useValue: mockVocabularyService },
           { provide: RequestService, useValue: mockRequestService },
-          ChangeDetectorRef
+          ChangeDetectorRef,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
     }));
@@ -862,15 +862,15 @@ describe('EditBitstreamPageComponent', () => {
       bundle = {
         _links: {
           primaryBitstream: {
-            href: 'bundle-selflink'
-          }
+            href: 'bundle-selflink',
+          },
         },
         item: createSuccessfulRemoteDataObject$(Object.assign(new Item(), {
           uuid: 'some-uuid',
           firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
             return undefined;
           },
-        }))
+        })),
       };
       const bundleName = 'ORIGINAL';
 
@@ -880,25 +880,25 @@ describe('EditBitstreamPageComponent', () => {
         metadata: {
           'dc.description': [
             {
-              value: 'Bitstream description'
-            }
+              value: 'Bitstream description',
+            },
           ],
           'dc.title': [
             {
-              value: 'Bitstream title'
-            }
+              value: 'Bitstream title',
+            },
           ],
           'dc.type': [
             {
-              value: 'Logo'
-            }
-          ]
+              value: 'Logo',
+            },
+          ],
         },
         format: createSuccessfulRemoteDataObject$(selectedFormat),
         _links: {
-          self: 'bitstream-selflink'
+          self: 'bitstream-selflink',
         },
-        bundle: createSuccessfulRemoteDataObject$(bundle)
+        bundle: createSuccessfulRemoteDataObject$(bundle),
       });
       bitstreamService = jasmine.createSpyObj('bitstreamService', {
         findById: createSuccessfulRemoteDataObject$(bitstream),
@@ -906,13 +906,13 @@ describe('EditBitstreamPageComponent', () => {
         update: createSuccessfulRemoteDataObject$(bitstream),
         updateFormat: createSuccessfulRemoteDataObject$(bitstream),
         commitUpdates: {},
-        patch: {}
+        patch: {},
       });
       bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats))
+        findAll: createSuccessfulRemoteDataObject$(createPaginatedList(allFormats)),
       });
       dsoNameService = jasmine.createSpyObj('dsoNameService', {
-        getName: bundleName
+        getName: bundleName,
       });
 
       TestBed.configureTestingModule({
@@ -925,18 +925,18 @@ describe('EditBitstreamPageComponent', () => {
             provide: ActivatedRoute,
             useValue: {
               data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }),
-              snapshot: { queryParams: {} }
-            }
+              snapshot: { queryParams: {} },
+            },
           },
           { provide: BitstreamDataService, useValue: bitstreamService },
           { provide: DSONameService, useValue: dsoNameService },
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: PrimaryBitstreamService, useValue: primaryBitstreamService },
-          { provide: VocabularyService, useValue: mockVocabularyService},
+          { provide: VocabularyService, useValue: mockVocabularyService },
           { provide: RequestService, useValue: mockRequestService },
-          ChangeDetectorRef
+          ChangeDetectorRef,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
 
     }));

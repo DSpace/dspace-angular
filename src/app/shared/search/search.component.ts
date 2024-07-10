@@ -72,7 +72,6 @@ import { SearchObjects } from './models/search-objects.model';
 import { SearchResult } from './models/search-result.model';
 import { SelectionConfig } from './search-results/search-results.component';
 import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
-import { APP_CONFIG } from '../../../config/app-config.interface';
 
 @Component({
   selector: 'ds-search',
@@ -402,8 +401,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
     protected routeService: RouteService,
-    protected router: Router,
-  @Inject(APP_CONFIG) protected appConfig: any,){
+    protected router: Router){
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 

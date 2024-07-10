@@ -2,7 +2,9 @@ import {
   Component,
   EventEmitter,
   Input,
- OnDestroy, OnInit, Output,
+  OnDestroy,
+  OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
@@ -19,9 +21,10 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { hasValue } from '../../../../../empty.util';
 import { Subscription } from 'rxjs';
+
+import { hasValue } from '../../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 
 @Component({
   selector: 'ds-dynamic-date-picker-inline',

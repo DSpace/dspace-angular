@@ -1,6 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { Observable, of } from 'rxjs';
-import { MathService, MathJaxConfig } from './math.service';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import {
+  MathJaxConfig,
+  MathService,
+} from './math.service';
 
 export class MockMathService extends MathService {
   protected mathJaxOptions: any = {};

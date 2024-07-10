@@ -5,16 +5,16 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
+import { RouterMock } from '../mocks/router.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { LoadingComponent } from './loading.component';
-import { Router } from '@angular/router';
-import { RouterMock } from '../mocks/router.mock';
 
 describe('LoadingComponent (inline template)', () => {
 
@@ -36,7 +36,7 @@ describe('LoadingComponent (inline template)', () => {
       declarations: [LoadingComponent], // declare the test component
       providers: [
         TranslateService,
-        {provide: Router, useValue: new RouterMock()},
+        { provide: Router, useValue: new RouterMock() },
       ],
     }).compileComponents();  // compile template and css
 

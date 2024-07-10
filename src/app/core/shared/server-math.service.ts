@@ -1,9 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { MathJaxConfig, MathService } from './math.service';
+import {
+  Observable,
+  ReplaySubject,
+  Subject,
+} from 'rxjs';
+
+import {
+  MathJaxConfig,
+  MathService,
+} from './math.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 /**
  * Provide the MathService for SSR
@@ -16,17 +24,17 @@ export class ServerMathService extends MathService {
 
   protected mathJax: MathJaxConfig = {
     source: '',
-    id: ''
+    id: '',
   };
   protected mathJaxFallback: MathJaxConfig = {
     source: '',
-    id: ''
+    id: '',
   };
 
   constructor() {
     super();
 
-    this.signal = new ReplaySubject<boolean>();
+    this.signal = new ReplaySubject<boolean>(1);
     this.signal.next(true);
   }
 

@@ -1,5 +1,6 @@
-import { Config } from './config.interface';
 import { DefaultPrivacyLevel } from '@datadog/browser-rum';
+
+import { Config } from './config.interface';
 
 export interface DatadogRumConfig extends Config {
   clientToken: string;

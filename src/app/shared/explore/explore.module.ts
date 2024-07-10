@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { MarkdownViewerModule } from '../markdown-viewer/markdown-viewer.module';
 import { SharedModule } from '../shared.module';
 import { BrowseSectionComponent } from './section-component/browse-section/browse-section.component';
 import { ThemedBrowseSectionComponent } from './section-component/browse-section/themed-browse-section.component';
@@ -16,7 +17,6 @@ import { TextSectionComponent } from './section-component/text-section/text-sect
 import { ThemedTextSectionComponent } from './section-component/text-section/themed-text-section.component';
 import { ThemedTopSectionComponent } from './section-component/top-section/themed-top-section.component';
 import { TopSectionComponent } from './section-component/top-section/top-section.component';
-import { MarkdownViewerModule } from '../markdown-viewer/markdown-viewer.module';
 
 const COMPONENTS = [
   BrowseSectionComponent,
@@ -39,11 +39,11 @@ const COMPONENTS = [
   declarations: [
     ...COMPONENTS,
   ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        MarkdownViewerModule,
-    ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    MarkdownViewerModule,
+  ],
   exports: [
     ...COMPONENTS,
   ],

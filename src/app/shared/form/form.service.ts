@@ -28,6 +28,7 @@ import {
   isEmpty,
   isNotUndefined,
 } from '../empty.util';
+import { DynamicLinkModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-link.model';
 import { FormBuilderService } from './builder/form-builder.service';
 import {
   FormAddError,
@@ -44,7 +45,6 @@ import {
   FormTouchedState,
 } from './form.reducer';
 import { formObjectFromIdSelector } from './selectors';
-import { DynamicLinkModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-link.model';
 
 @Injectable()
 export class FormService {

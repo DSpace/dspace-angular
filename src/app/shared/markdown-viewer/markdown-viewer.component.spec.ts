@@ -2,11 +2,11 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-
-import { MarkdownViewerComponent } from './markdown-viewer.component';
 import { By } from '@angular/platform-browser';
-import { MarkdownDirective } from '../utils/markdown.directive';
+
 import { MathService } from '../../core/shared/math.service';
+import { MarkdownDirective } from '../utils/markdown.directive';
+import { MarkdownViewerComponent } from './markdown-viewer.component';
 
 describe('DsMarkdownViewerComponent', () => {
   let component: MarkdownViewerComponent;
@@ -17,7 +17,7 @@ describe('DsMarkdownViewerComponent', () => {
       declarations: [ MarkdownViewerComponent, MarkdownDirective ],
       providers: [{
         provide: MathService,
-        useValue: {}
+        useValue: {},
       } ],
     })
       .compileComponents();

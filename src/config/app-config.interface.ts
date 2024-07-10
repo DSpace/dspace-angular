@@ -15,10 +15,12 @@ import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
 import { Config } from './config.interface';
+import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { HomeConfig } from './homepage-config.interface';
+import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
@@ -26,8 +28,11 @@ import {
   CrisLayoutConfig,
   LayoutConfig,
 } from './layout-config.interfaces';
+import { LoaderConfig } from './loader-config.interfaces';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
+import { MetaTagsConfig } from './meta-tags.config';
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
 import { MiradorConfig } from './mirador-config.interfaces';
@@ -36,11 +41,6 @@ import { QualityAssuranceConfig } from './quality-assurance.config';
 import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
 import { SearchConfig } from './search-page-config.interface';
 import { SearchResultConfig } from './search-result-config.interface';
-import { LoaderConfig } from './loader-config.interfaces';
-import { MetaTagsConfig } from './meta-tags.config';
-import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
-import { IdentifierSubtypesConfig } from './identifier-subtypes-config.interface';
-import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';

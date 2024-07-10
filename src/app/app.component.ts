@@ -54,13 +54,13 @@ import {
   NativeWindowService,
 } from './core/services/window.service';
 import { distinctNext } from './core/shared/distinct-next';
+import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
 import { CSSVariableService } from './shared/sass-helper/css-variable.service';
 import { HostWindowState } from './shared/search/host-window.reducer';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { SocialService } from './social/social.service';
-import { DatadogRumService } from './shared/datadog-rum/datadog-rum.service';
 
 @Component({
   selector: 'ds-app',
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private modalService: NgbModal,
     private modalConfig: NgbModalConfig,
     private socialService: SocialService,
-    private datadogRumService: DatadogRumService
+    private datadogRumService: DatadogRumService,
   ) {
     this.notificationOptions = environment.notifications;
 

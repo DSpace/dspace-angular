@@ -1,18 +1,30 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Subscription, } from 'rxjs';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
 
-import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { hasValue } from '../../../../../shared/empty.util';
-import { MetricsComponentsService } from '../../../../../core/layout/metrics-components.service';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { CrisLayoutBox, MetricsBoxConfiguration, } from '../../../../../core/layout/models/box.model';
+import { MetricsComponentsService } from '../../../../../core/layout/metrics-components.service';
+import {
+  CrisLayoutBox,
+  MetricsBoxConfiguration,
+} from '../../../../../core/layout/models/box.model';
 import { CrisLayoutMetricRow } from '../../../../../core/layout/models/tab.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
+import { hasValue } from '../../../../../shared/empty.util';
+import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
+import { LayoutBox } from '../../../../enums/layout-box.enum';
+import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 
 /**
  * This component renders the metadata boxes of items

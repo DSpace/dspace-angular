@@ -1,26 +1,35 @@
 /* eslint-disable max-classes-per-file */
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { Observable, of } from 'rxjs';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { createSuccessfulRemoteDataObject } from '../../../../../shared/remote-data.utils';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
 import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { MetricsComponentsService } from '../../../../../core/layout/metrics-components.service';
 import { MetricsComponent } from '../../../../../core/layout/models/metrics-component.model';
 import { CrisLayoutMetricRow } from '../../../../../core/layout/models/tab.model';
 import { Metric } from '../../../../../core/shared/metric.model';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '../../../../../shared/remote-data.utils';
 import { SharedModule } from '../../../../../shared/shared.module';
 import { boxMetrics } from '../../../../../shared/testing/box.mock';
 import { metricsComponent } from '../../../../../shared/testing/metrics-components.mock';
+import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
 import { TextComponent } from '../metadata/rendering-types/text/text.component';
 import { CrisLayoutMetricsBoxComponent } from './cris-layout-metrics-box.component';
-import { MetricsComponentsService } from '../../../../../core/layout/metrics-components.service';
 import SpyObj = jasmine.SpyObj;
 
 export const metric1Mock = {

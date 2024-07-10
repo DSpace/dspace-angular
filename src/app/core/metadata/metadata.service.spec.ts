@@ -140,7 +140,7 @@ xdescribe('MetadataService', () => {
       authorizationService,
       schemaJsonLDService,
       'browser',
-      null
+      null,
     );
   });
 

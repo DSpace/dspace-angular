@@ -22,8 +22,8 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
 } from '../../../../../core/shared/operators';
-import { isEmpty } from '../../../../empty.util';
 import { ResourceType } from '../../../../../core/shared/resource-type';
+import { isEmpty } from '../../../../empty.util';
 import { NotificationsService } from '../../../../notifications/notifications.service';
 
 @Component({
@@ -65,9 +65,9 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
     if (!isEmpty(event.operations)) {
       this.dsoDataService.patch(event.dso, event.operations).pipe(
         getFirstCompletedRemoteData(),
-      ).subscribe(async (response: RemoteData<DSpaceObject>) => {
+      ).subscribe((response: RemoteData<DSpaceObject>) => {
         if (response.hasSucceeded) {
-          await this.router.navigate([this.frontendURL, event.dso.uuid]);
+          this.router.navigate([this.frontendURL, event.dso.uuid]);
           this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
         } else if (response.statusCode === 403) {
           this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));

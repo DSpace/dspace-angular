@@ -37,17 +37,17 @@ import { ClientCookieService } from '../../app/core/services/client-cookie.servi
 import { CookieService } from '../../app/core/services/cookie.service';
 import { HardRedirectService } from '../../app/core/services/hard-redirect.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
+import { ClientMathService } from '../../app/core/shared/client-math.service';
+import { MathService } from '../../app/core/shared/math.service';
 import { BrowserKlaroService } from '../../app/shared/cookies/browser-klaro.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
+import { BrowserDatadogRumService } from '../../app/shared/datadog-rum/browser-datadog-rum.service';
+import { DatadogRumService } from '../../app/shared/datadog-rum/datadog-rum.service';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { StatisticsModule } from '../../app/statistics/statistics.module';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
-import { MathService } from '../../app/core/shared/math.service';
-import { ClientMathService } from '../../app/core/shared/client-math.service';
-import { DatadogRumService } from '../../app/shared/datadog-rum/datadog-rum.service';
-import { BrowserDatadogRumService } from '../../app/shared/datadog-rum/browser-datadog-rum.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -102,7 +102,7 @@ export function getRequest(transferState: TransferState): any {
     },
     {
       provide: DatadogRumService,
-      useClass: BrowserDatadogRumService
+      useClass: BrowserDatadogRumService,
     },
     {
       provide: SubmissionService,
@@ -138,8 +138,8 @@ export function getRequest(transferState: TransferState): any {
     },
     {
       provide: MathService,
-      useClass: ClientMathService
-    }
+      useClass: ClientMathService,
+    },
   ],
 })
 export class BrowserAppModule {

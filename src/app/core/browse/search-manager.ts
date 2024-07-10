@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import isArray from 'lodash/isArray';
-import { Observable, of, } from 'rxjs';
-import { map, switchMap, } from 'rxjs/operators';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
 import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
 import { environment } from '../../../environments/environment';
@@ -14,14 +20,14 @@ import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { BrowseService } from './browse.service';
 import { MetadataValue } from '../shared/metadata.models';
 import { Metadata } from '../shared/metadata.utils';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import { SearchService } from '../shared/search/search.service';
 import { WorkflowItem } from '../submission/models/workflowitem.model';
 import { WorkspaceItem } from '../submission/models/workspaceitem.model';
+import { BrowseService } from './browse.service';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 /**
  * The service aims to manage browse requests and subsequent extra fetch requests.
@@ -116,7 +122,7 @@ export class SearchManager {
         } else {
           of(null);
         }
-      })
+      }),
     ) : of(null);
   }
 

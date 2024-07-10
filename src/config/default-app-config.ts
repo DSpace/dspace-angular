@@ -1,6 +1,4 @@
-import {
-  AdminNotifyMetricsRow
-} from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
+import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
 import { ActuatorsConfig } from './actuators.config';
@@ -19,16 +17,28 @@ import { CmsMetadata } from './cms-metadata';
 import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
+import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
 import { HomeConfig } from './homepage-config.interface';
+import {
+  IdentifierSubtypesConfig,
+  IdentifierSubtypesIconPositionEnum,
+} from './identifier-subtypes-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
-import { CrisLayoutConfig, LayoutConfig, SuggestionConfig, } from './layout-config.interfaces';
+import {
+  CrisLayoutConfig,
+  LayoutConfig,
+  SuggestionConfig,
+} from './layout-config.interfaces';
+import { LoaderConfig } from './loader-config.interfaces';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
+import { MetaTagsConfig } from './meta-tags.config';
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
 import { MetadataSecurityConfig } from './metadata-security-config';
 import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
 import { MiradorConfig } from './mirador-config.interfaces';
@@ -41,11 +51,6 @@ import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
-import { LoaderConfig } from './loader-config.interfaces';
-import { MetaTagsConfig } from './meta-tags.config';
-import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
-import { IdentifierSubtypesConfig, IdentifierSubtypesIconPositionEnum } from './identifier-subtypes-config.interface';
-import { DatadogRumConfig } from './datadog-rum-config.interfaces';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -271,37 +276,37 @@ export class DefaultAppConfig implements AppConfig {
             value: 'default',
             style: 'text-gray-500',
             icon: 'fa-circle-xmark',
-          }
+          },
 
         ],
         sourceIcons: [
           {
             source: 'orcid',
-            path: 'assets/images/orcid.logo.icon.svg'
+            path: 'assets/images/orcid.logo.icon.svg',
           },
           {
             source: 'openaire',
-            path: 'assets/images/openaire.logo.icon.svg'
+            path: 'assets/images/openaire.logo.icon.svg',
           },
           {
             source: 'ror',
-            path: 'assets/images/ror.logo.icon.svg'
+            path: 'assets/images/ror.logo.icon.svg',
           },
           {
             source: 'sherpa',
-            path: 'assets/images/sherpa.logo.icon.svg'
+            path: 'assets/images/sherpa.logo.icon.svg',
           },
           {
             source: 'zdb',
-            path: 'assets/images/zdb.logo.icon.svg'
+            path: 'assets/images/zdb.logo.icon.svg',
           },
           {
             source: 'local',
-            path: 'assets/images/local.logo.icon.svg'
+            path: 'assets/images/local.logo.icon.svg',
           },
-        ]
+        ],
       },
-      iconsVisibleWithNoAuthority: ['fas fa-user']
+      iconsVisibleWithNoAuthority: ['fas fa-user'],
     },
     detectDuplicate: {
       // NOTE: list of additional item metadata to show for duplicate match presentation list
@@ -930,7 +935,7 @@ export class DefaultAppConfig implements AppConfig {
     defaultDescription: 'DSpace-CRIS is a comprehensive, free and open-source Research Information Management System (CRIS/RIMS).\n' +
       'It is based on DSpace, providing broader functionality and an expanded data model, relying on its large community.\n' +
       'It is compliant with and supports key international standards, facilitating interoperability and data transfer.\n' +
-      'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.'
+      'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.',
   };
 
   // Configuration for the metadata link view popover
@@ -941,25 +946,25 @@ export class DefaultAppConfig implements AppConfig {
       entityDataConfig: [
         {
           entityType: 'Person',
-          metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract']
+          metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
         },
         {
           entityType: 'OrgUnit',
-          metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract']
+          metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
         },
         {
           entityType: 'Project',
-          metadataList: ['oairecerif.project.status', 'dc.description.abstract']
+          metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
         },
         {
           entityType: 'Funding',
-          metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract']
+          metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
         },
         {
           entityType: 'Publication',
-          metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract']
+          metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
         },
-      ]
+      ],
     };
 
   identifierSubtypes: IdentifierSubtypesConfig[] = [
@@ -967,8 +972,8 @@ export class DefaultAppConfig implements AppConfig {
       name: 'ror',
       icon: 'assets/images/ror.logo.icon.svg',
       iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
-      link: 'https://ror.org'
-    }
+      link: 'https://ror.org',
+    },
   ];
   datadogRum: DatadogRumConfig = {
     clientToken: undefined,

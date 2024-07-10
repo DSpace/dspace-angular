@@ -10,7 +10,10 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { GroupDataService } from '../../../../core/eperson/group-data.service';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { ResourcePolicy } from '../../../../core/resource-policy/models/resource-policy.model';
-import { hasValue, isEmpty } from '../../../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../../../shared/empty.util';
 
 /**
  * This component represents a badge that describe an access condition

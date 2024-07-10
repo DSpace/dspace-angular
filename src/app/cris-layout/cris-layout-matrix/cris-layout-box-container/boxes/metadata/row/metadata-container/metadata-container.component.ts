@@ -1,18 +1,39 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, OnInit, } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { map, take, } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import { environment } from '../../../../../../../../environments/environment';
-import { BitstreamDataService, MetadataFilter, } from '../../../../../../../core/data/bitstream-data.service';
+import {
+  BitstreamDataService,
+  MetadataFilter,
+} from '../../../../../../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../../../../core/data/remote-data';
-import { CrisLayoutBox, LayoutField, LayoutFieldType, } from '../../../../../../../core/layout/models/box.model';
+import {
+  CrisLayoutBox,
+  LayoutField,
+  LayoutFieldType,
+} from '../../../../../../../core/layout/models/box.model';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
-import { hasValue, isEmpty, isNotEmpty, } from '../../../../../../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../../../../../shared/empty.util';
 import {
   FieldRenderingType,
   getMetadataBoxFieldRendering,

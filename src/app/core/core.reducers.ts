@@ -1,6 +1,7 @@
 import { ActionReducerMap } from '@ngrx/store';
 
 import { bitstreamFormatReducer } from '../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import { datadogRumReducer } from '../shared/datadog-rum/datadog-rum.reducer';
 import { authReducer } from './auth/auth.reducer';
 import { objectCacheReducer } from './cache/object-cache.reducer';
 import { serverSyncBufferReducer } from './cache/server-sync-buffer.reducer';
@@ -12,7 +13,6 @@ import { indexReducer } from './index/index.reducer';
 import { jsonPatchOperationsReducer } from './json-patch/json-patch-operations.reducer';
 import { metaTagReducer } from './metadata/meta-tag.reducer';
 import { routeReducer } from './services/route.reducer';
-import { datadogRumReducer } from '../shared/datadog-rum/datadog-rum.reducer';
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'bitstreamFormats': bitstreamFormatReducer,

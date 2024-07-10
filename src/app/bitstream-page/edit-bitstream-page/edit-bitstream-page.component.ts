@@ -40,6 +40,7 @@ import { BitstreamFormatDataService } from '../../core/data/bitstream-format-dat
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
 import { RemoteData } from '../../core/data/remote-data';
+import { RequestService } from '../../core/data/request.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
@@ -53,6 +54,10 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import {
   hasValue,
@@ -64,11 +69,6 @@ import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-f
 import { DsDynamicInputModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { VocabularyService } from '../../core/submission/vocabularies/vocabulary.service';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { RequestService } from '../../core/data/request.service';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -372,12 +372,12 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     fileType: {
       grid: {
         host: 'col-12 d-inline-block',
-      }
+      },
     },
     hide: {
       grid: {
         host: 'col-12 d-inline-block',
-      }
+      },
     },
     embargo: {
       grid: {
@@ -463,7 +463,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private bitstreamFormatService: BitstreamFormatDataService,
               private primaryBitstreamService: PrimaryBitstreamService,
               private vocabularyService: VocabularyService,
-              private requestService: RequestService
+              private requestService: RequestService,
   ) {
   }
 
@@ -519,16 +519,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         item$,
         hide$,
       ]).subscribe(([bitstream, allFormats, bundle, primaryBitstream, item,entries]) => {
-          this.bitstream = bitstream as Bitstream;
-          this.formats = allFormats.page;
-          this.bundle = bundle;
-          // hasValue(primaryBitstream) because if there's no primaryBitstream on the bundle it will
-          // be a success response, but empty
-          this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
-          this.itemId = item.uuid;
-          this.handleHideBitstream(entries);
-          this.setIiifStatus(this.bitstream);
-        }),
+        this.bitstream = bitstream as Bitstream;
+        this.formats = allFormats.page;
+        this.bundle = bundle;
+        // hasValue(primaryBitstream) because if there's no primaryBitstream on the bundle it will
+        // be a success response, but empty
+        this.primaryBitstreamUUID = hasValue(primaryBitstream) ? primaryBitstream.uuid : null;
+        this.itemId = item.uuid;
+        this.handleHideBitstream(entries);
+        this.setIiifStatus(this.bitstream);
+      }),
     );
 
     this.subs.push(
@@ -547,14 +547,14 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.hideModel = new DynamicSelectModel({
       id: 'hide',
       name: 'hide',
-      options: entries.map((entry) => ({label: entry.display, value: entry.value})),
+      options: entries.map((entry) => ({ label: entry.display, value: entry.value })),
     });
     this.inputModels.push(this.hideModel);
     this.formModel.push(new DynamicFormGroupModel({
       id: 'hideContainer',
       group: [
-        this.hideModel
-      ]
+        this.hideModel,
+      ],
     }));
   }
 
@@ -593,7 +593,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         fileType: bitstream.firstMetadataValue('dc.type'),
       },
       hideContainer: {
-        hide: bitstream.firstMetadataValue('bitstream.hide')
+        hide: bitstream.firstMetadataValue('bitstream.hide'),
       },
       formatContainer: {
         newFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined,

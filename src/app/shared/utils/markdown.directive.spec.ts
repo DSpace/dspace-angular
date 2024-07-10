@@ -1,12 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MarkdownDirective } from './markdown.directive';
-import { Component, DebugElement } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { MathService } from '../../core/shared/math.service';
 import { MockMathService } from '../../core/shared/math.service.spec';
+import { MarkdownDirective } from './markdown.directive';
 
 @Component({
-  template: `<div dsMarkdown="test"></div>`
+  template: `<div dsMarkdown="test"></div>`,
 })
 class TestComponent {}
 
@@ -20,7 +27,7 @@ describe('MarkdownDirective', () => {
       declarations: [ TestComponent, MarkdownDirective ],
       providers: [
         { provide: MathService, useClass: MockMathService },
-      ]
+      ],
     }).compileComponents();
     spyOn(MarkdownDirective.prototype, 'render');
     fixture = TestBed.createComponent(TestComponent);

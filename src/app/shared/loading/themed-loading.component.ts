@@ -37,7 +37,7 @@ export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
     'warningMessage',
     'warningMessageDelay',
     'errorMessage',
-    'errorMessageDelay'
+    'errorMessageDelay',
   ];
 
   constructor(

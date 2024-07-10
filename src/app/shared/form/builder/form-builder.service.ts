@@ -65,7 +65,7 @@ import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qua
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import {
   DynamicRelationGroupModel,
-  DynamicRelationGroupModelConfig
+  DynamicRelationGroupModelConfig,
 } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
@@ -575,7 +575,7 @@ export class FormBuilderService extends DynamicFormService {
                 metadataFields: fieldModel.metadataFields,
                 hasSelectableMetadata: fieldModel.hasSelectableMetadata,
                 id: fieldModel.id,
-                value: fieldModel.getGroupValue(value)
+                value: fieldModel.getGroupValue(value),
               };
               fieldModel = new DynamicRelationGroupModel(config);
             } else {

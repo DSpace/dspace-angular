@@ -58,8 +58,6 @@ import { PaginatedSearchOptions } from './models/paginated-search-options.model'
 import { SearchFilterConfig } from './models/search-filter-config.model';
 import { SearchObjects } from './models/search-objects.model';
 import { SearchComponent } from './search.component';
-import { APP_CONFIG } from '../../../config/app-config.interface';
-import { environment } from '../../../environments/environment';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;

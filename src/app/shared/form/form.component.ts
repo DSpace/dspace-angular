@@ -26,6 +26,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
+import isEqual from 'lodash/isEqual';
 import {
   Observable,
   Subscription,
@@ -42,6 +43,10 @@ import {
   isNotNull,
   isNull,
 } from '../empty.util';
+import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { DynamicLinkModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-link.model';
+import { DynamicRowGroupModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
+import { DynamicRelationGroupModel } from './builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicScrollableDropdownModel } from './builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormBuilderService } from './builder/form-builder.service';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
@@ -50,13 +55,6 @@ import {
   FormError,
 } from './form.reducer';
 import { FormService } from './form.service';
-import isEqual from 'lodash/isEqual';
-import { DynamicRowGroupModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import {
-  DynamicRelationGroupModel
-} from './builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { DynamicLinkModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-link.model';
-import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 
 export interface MetadataFields {
   [key: string]: FormFieldMetadataValueObject[]
@@ -469,7 +467,7 @@ export class FormComponent implements OnDestroy, OnInit {
 
         if (filteredKeys.length > 0) {
           filteredKeys.forEach((oldValueKey) => {
-            const newValue = {...oldValue};
+            const newValue = { ...oldValue };
             const formattedKey = (oldValueKey as any).replaceAll('.', '_');
             const patchValue = {};
 
@@ -481,6 +479,6 @@ export class FormComponent implements OnDestroy, OnInit {
             }
           });
         }
-    });
+      });
   }
 }

@@ -1,10 +1,21 @@
-import { DynamicFormControlLayout, serializable, } from '@ng-dynamic-forms/core';
-import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
-import { hasValue, isEmpty, isNull } from '../../../../../empty.util';
+import {
+  DynamicFormControlLayout,
+  serializable,
+} from '@ng-dynamic-forms/core';
+
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../ds-dynamic-form-constants';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import {
+  hasValue,
+  isEmpty,
+  isNull,
+} from '../../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../ds-dynamic-form-constants';
+import {
+  DsDynamicInputModel,
+  DsDynamicInputModelConfig,
+} from '../ds-dynamic-input.model';
 
 /**
  * Dynamic Group Model configuration interface

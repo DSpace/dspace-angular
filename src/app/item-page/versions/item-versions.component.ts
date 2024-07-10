@@ -1,10 +1,31 @@
-import { Component, Input, OnDestroy, OnInit, } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, Observable, of, Subscription, } from 'rxjs';
-import { map, mergeMap, startWith, switchMap, take, tap, } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  startWith,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -30,18 +51,25 @@ import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { RenderCrisLayoutBoxFor } from '../../cris-layout/decorators/cris-layout-box.decorator';
+import { LayoutBox } from '../../cris-layout/enums/layout-box.enum';
 import { AlertType } from '../../shared/alert/alert-type';
-import { hasValue, hasValueOperator, } from '../../shared/empty.util';
+import {
+  hasValue,
+  hasValueOperator,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { getItemEditVersionhistoryRoute, getItemPageRoute, getItemVersionRoute, } from '../item-page-routing-paths';
+import {
+  getItemEditVersionhistoryRoute,
+  getItemPageRoute,
+  getItemVersionRoute,
+} from '../item-page-routing-paths';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
-import { RenderCrisLayoutBoxFor } from '../../cris-layout/decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../cris-layout/enums/layout-box.enum';
 
 
 @RenderCrisLayoutBoxFor(LayoutBox.VERSIONING)
@@ -224,7 +252,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     return version.item.pipe(
       getFirstCompletedRemoteData(),
       map(data => data.payload),
-      map(item => getItemVersionRoute(item.uuid))
+      map(item => getItemVersionRoute(item.uuid)),
     );
   }
 
@@ -490,7 +518,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
           return data.dso as RemoteData<Item>;
         }),
         getFirstCompletedRemoteData(),
-        map(data => data.payload)
+        map(data => data.payload),
       ).subscribe((item) => {
         this.item = item;
         this.ngOnInit();

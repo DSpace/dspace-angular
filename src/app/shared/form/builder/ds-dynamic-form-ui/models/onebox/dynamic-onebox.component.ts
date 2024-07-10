@@ -37,6 +37,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
+import { environment } from '../../../../../../../environments/environment';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -59,7 +60,6 @@ import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
-import { environment } from '../../../../../../../environments/environment';
 
 /**
  * Component representing a onebox input field.
@@ -406,7 +406,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     this.currentValue = temp;
 
     const event = {
-      item: this.currentValue
+      item: this.currentValue,
     } as any;
 
     this.onSelectItem(event);
@@ -444,7 +444,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       display: display,
       value: value,
       otherInformation: otherInformation,
-      type: 'vocabularyEntry'
+      type: 'vocabularyEntry',
     });
   }
 
