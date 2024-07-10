@@ -27,7 +27,6 @@ on:
           - '*'
           - '5'
           - '8'
-          - 'ZCU'
       IMPORT:
         required: true
         default: true
