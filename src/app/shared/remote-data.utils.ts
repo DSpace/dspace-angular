@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   Observable,
   of as observableOf,
@@ -106,4 +107,28 @@ export function createNoContentRemoteDataObject<T>(timeCompleted?: number): Remo
  */
 export function createNoContentRemoteDataObject$<T>(timeCompleted?: number): Observable<RemoteData<T>> {
   return createSuccessfulRemoteDataObject$(undefined, timeCompleted);
+}
+
+/**
+ * Method to create a remote data object that has failed starting from a given error
+ *
+ * @param error
+ */
+export function createFailedRemoteDataObjectFromError<T>(error: unknown): RemoteData<T> {
+  const remoteData = createFailedRemoteDataObject<T>();
+  if (error instanceof Error) {
+    remoteData.errorMessage = error.message;
+  }
+  if (error instanceof HttpErrorResponse) {
+    remoteData.statusCode = error.status;
+  }
+  return remoteData;
+}
+
+/**
+ * Method to create a remote data object that has failed starting from a given error
+ * @param error
+ */
+export function createFailedRemoteDataObjectFromError$<T>(error: unknown): Observable<RemoteData<T>> {
+  return observableOf(createFailedRemoteDataObjectFromError<T>(error));
 }
