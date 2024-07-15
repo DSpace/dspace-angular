@@ -1,9 +1,0 @@
-.column-height {
-  height: 100%;
-}
-
-@media screen and (max-width: map-get($grid-breakpoints, sm)) {
-  .column-height {
-    height: auto;
-  }
-}
