@@ -2498,14 +2498,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(mindig szükséges)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  // TODO New key - Add a translation
-  "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  // TODO New key - Add a translation
-  "cookies.consent.app.disable-all.title": "Enable or disable all services",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Változások történtek az utolsó látogatása óta, frissítse a beleegyezését.",
 
@@ -2522,15 +2514,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Mentés",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Cookie elfogadása",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Mi gyűjtjük és feldolgozzuk a személyes adatait a következő célból: <strong>Hitelesítés, Beállítások, Elismerés és Statisztikák</strong>. <br/> Részletekért olvassa el: {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  // TODO New key - Add a translation
-  "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Személyreszab",
@@ -2546,14 +2531,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Gyűjtött adatok",
-
-  // "cookies.consent.content-modal.services": "services",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.services": "services",
-
-  // "cookies.consent.content-modal.service": "service",
-  // TODO New key - Add a translation
-  "cookies.consent.content-modal.service": "service",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Hitelesítés",

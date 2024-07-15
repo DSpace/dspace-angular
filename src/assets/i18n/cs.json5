@@ -2517,12 +2517,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(vždy vyžadováno)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Pomocí tohoto přepínače povolíte nebo zakážete všechny služby.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Povolit nebo zakázat všechny služby.",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Od vaší poslední návštěvy došlo ke změnám, aktualizujte prosím svůj souhlas.",
 
@@ -2538,14 +2532,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Uložit",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Souhlas se soubory Cookie",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-notice.description": "Vaše osobní údaje shromažďujeme a zpracováváme pro následující účely: <strong>Ověření, Preference, Potvrzení a Statistiky</strong>. <br/> Chcete-li se dozvědět více, přečtěte si prosím naše {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Vaše osobní údaje shromažďujeme a zpracováváme pro následující účely: <strong>Ověření, Preference, Potvrzení a Statistiky</strong>. <strong>Využíváme osobní údaje pro tyto účely:",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Přizpůsobit",
@@ -2561,12 +2549,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informace, které shromažďujeme",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "služby",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "služba",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Ověřování",

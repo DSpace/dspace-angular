@@ -105,7 +105,7 @@ export class GoogleRecaptchaService {
       tap(([recaptchaVersionRD, recaptchaModeRD, recaptchaKeyRD]) => {
 
         if (
-          this.cookieService.get('klaro-anonymous') && this.cookieService.get('klaro-anonymous')[CAPTCHA_NAME] &&
+          this.cookieService.get('orejime-anonymous') && this.cookieService.get('orejime-anonymous')[CAPTCHA_NAME] &&
           recaptchaKeyRD.hasSucceeded && recaptchaVersionRD.hasSucceeded &&
           isNotEmpty(recaptchaVersionRD.payload?.values) && isNotEmpty(recaptchaKeyRD.payload?.values)
         ) {
