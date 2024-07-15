@@ -6548,11 +6548,11 @@
 
   "submission.workflow.generic.edit": "Edit",
 
-  "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
+  "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
 
   "submission.workflow.generic.view": "View",
 
-  "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
 
   "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
 
@@ -6564,11 +6564,11 @@
 
   "submission.workflow.tasks.claimed.approve": "Approve",
 
-  "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
 
   "submission.workflow.tasks.claimed.edit": "Edit",
 
-  "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+  "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
 
   "submission.workflow.tasks.claimed.decline": "Decline",
 
@@ -6584,11 +6584,11 @@
 
   "submission.workflow.tasks.claimed.reject.submit": "Reject",
 
-  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
 
   "submission.workflow.tasks.claimed.return": "Return to pool",
 
-  "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+  "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
 
   "submission.workflow.tasks.generic.error": "Error occurred during operation...",
 
@@ -6600,7 +6600,7 @@
 
   "submission.workflow.tasks.pool.claim": "Claim",
 
-  "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
+  "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
 
   "submission.workflow.tasks.pool.hide-detail": "Hide detail",
 
@@ -6608,7 +6608,7 @@
 
   "submission.workspace.generic.view": "View",
 
-  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
 
   "submitter.empty": "N/A",
 
