@@ -14,8 +14,6 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../shared/item.model';
 import { of } from 'rxjs';
 import SpyObj = jasmine.SpyObj;
-import { UUIDService } from '../shared/uuid.service';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
 const url = 'fake-url';
 
@@ -27,7 +25,6 @@ describe('VersionHistoryDataService', () => {
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
   let versionService: SpyObj<VersionDataService>;
-  let uuidService: UUIDService;
   let halService: any;
 
   const versionHistoryId = 'version-history-id';
@@ -112,7 +109,6 @@ describe('VersionHistoryDataService', () => {
       findListByHref: jasmine.createSpy('findListByHref'),
       getHistoryFromVersion: jasmine.createSpy('getHistoryFromVersion'),
     });
-    uuidService = getMockUUIDService();
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
 
@@ -122,7 +118,6 @@ describe('VersionHistoryDataService', () => {
       objectCache,
       halService,
       versionService,
-      uuidService
     );
   }
 

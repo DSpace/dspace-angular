@@ -23,8 +23,11 @@
           <td>{{entry.id}}</td>
           <td>{{dsoNameService.getName(entry)}}</td>
           <td class="text-center">
-            <button class="btn btn-sm btn-outline-primary" (click)="emitSelect(entry)">
+            <button class="btn btn-sm btn-outline-primary" *ngIf="!(isSelected(entry) | async)" (click)="emitSelect(entry)">
               {{'resource-policies.form.eperson-group-list.select.btn' | translate}}
+            </button>
+            <button class="btn btn-sm btn-primary" *ngIf="isSelected(entry) | async" (click)="emitDeselect(entry)">
+              {{'resource-policies.form.eperson-group-list.deselect.btn' | translate}}
             </button>
           </td>
         </tr>

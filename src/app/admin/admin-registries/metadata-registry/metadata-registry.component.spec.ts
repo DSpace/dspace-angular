@@ -23,8 +23,6 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import {
   MetadataSchemaExportService
 } from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -81,7 +79,6 @@ describe('MetadataRegistryComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         {
           provide: MetadataSchemaExportService,
           useValue: jasmine.createSpyObj('metadataSchemaExportService', {

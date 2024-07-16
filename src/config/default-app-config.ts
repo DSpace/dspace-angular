@@ -289,6 +289,10 @@ export class DefaultAppConfig implements AppConfig {
       metadataDetailsList: [
         { label: 'Document type', name: 'dc.type' }
       ]
+    },
+    dropdownHintEnabled: {
+      // NOTE: list of metadata fields for which the dropdown hint is enabled
+      // eg. 'dc.access.rights': true,
     }
   };
 

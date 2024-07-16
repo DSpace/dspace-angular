@@ -43,7 +43,7 @@
         <div class="d-flex" *ngIf="!isLink(item.firstMetadataValue(metadata)) && !longTextMetadataList.includes(metadata)">
           <ds-metadata-link-view-orcid [itemValue]="item" *ngIf="metadata === 'person.identifier.orcid'; else textType"></ds-metadata-link-view-orcid>
           <ng-template #textType>
-            <span>{{ item.firstMetadataValue(metadata) }}</span>
+            <span class="ellipsis-y-1">{{ item.firstMetadataValue(metadata) }}</span>
           </ng-template>
         </div>
       </div>
