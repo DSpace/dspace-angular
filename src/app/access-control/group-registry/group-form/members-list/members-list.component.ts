@@ -23,7 +23,6 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -102,7 +101,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of EPeople that are result of EPeople search
    */
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'sml',
     pageSize: 5,
     currentPage: 1
   });
@@ -110,7 +109,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of EPerson Membes of active group being edited
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'ml',
     pageSize: 5,
     currentPage: 1
   });
@@ -140,8 +139,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
     protected formBuilder: UntypedFormBuilder,
     protected paginationService: PaginationService,
     protected router: Router,
-    public dsoNameService: DSONameService,
-    protected uuidService: UUIDService
+    public dsoNameService: DSONameService
   ) {
     this.currentSearchQuery = '';
   }

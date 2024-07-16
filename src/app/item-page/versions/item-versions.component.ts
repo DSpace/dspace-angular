@@ -48,7 +48,6 @@ import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model'
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { UUIDService } from '../../core/shared/uuid.service';
 import { RenderCrisLayoutBoxFor } from '../../cris-layout/decorators/cris-layout-box.decorator';
 import { LayoutBox } from '../../cris-layout/enums/layout-box.enum';
 
@@ -139,11 +138,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
    * The page options to use for fetching the versions
    * Start at page 1 and always use the set page size
    */
-  options = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    currentPage: 1,
-    pageSize: this.pageSize
-  });
+  options: PaginationComponentOptions;
 
   /**
    * The routes to the versions their item pages
@@ -186,7 +181,6 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
               private workspaceItemDataService: WorkspaceitemDataService,
               private workflowItemDataService: WorkflowItemDataService,
               private configurationService: ConfigurationDataService,
-              private uuidService: UUIDService,
               private route: ActivatedRoute,
   ) {
   }
@@ -507,6 +501,12 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
 
       return;
     }
+
+    this.options = Object.assign(new PaginationComponentOptions(), {
+      id: 'ivo' + this.item?.id,
+      currentPage: 1,
+      pageSize: this.pageSize
+    });
 
     if (hasValue(this.item.version)) {
       this.versionRD$ = this.item.version;

@@ -51,6 +51,9 @@ import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/mo
 import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN
+} from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -396,6 +399,10 @@ export class FormBuilderService extends DynamicFormService {
   hasMappedGroupValue(model: DynamicFormControlModel): boolean {
     return (this.isQualdropGroup((model as any).parent)
       || this.isRelationGroup((model as any).parent));
+  }
+
+  isScrollableDropdown(model: DynamicFormControlModel): boolean {
+    return model && (model.type === DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN);
   }
 
   isGroup(model: DynamicFormControlModel): boolean {

@@ -41,6 +41,7 @@
         </div>
         <ds-additional-metadata [object]="dso"></ds-additional-metadata>
         </ds-truncatable>
+        <ds-metric-badges *ngIf="showMetrics" class="d-block clearfix" [item]="dso"></ds-metric-badges>
       </div>
       <div class="align-self-center" *ngIf="showMetrics">
         <ds-metric-donuts [item]="dso"></ds-metric-donuts>

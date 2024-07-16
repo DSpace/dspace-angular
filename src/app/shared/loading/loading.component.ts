@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -6,7 +6,7 @@ import { hasValue } from '../empty.util';
 import { environment } from '../../../environments/environment';
 import { AlertType } from '../alert/alert-type';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { isPlatformBrowser, Location } from '@angular/common';
 
 enum MessageType {
   LOADING = 'loading',
@@ -33,7 +33,6 @@ export class LoadingComponent implements OnDestroy, OnInit {
   @Input() errorMessageDelay = environment.loader.errorMessageDelay;
   errorTimeoutWithRetriesDelay = environment.loader.errorMessageDelay;
 
-
   @Input() numberOfAutomaticPageReloads = environment.loader.numberOfAutomaticPageReloads || 0;
 
   /**
@@ -52,6 +51,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
   readonly AlertTypeEnum = AlertType;
 
   constructor(
+    @Inject(PLATFORM_ID) public platformId: any,
     private router: Router,
     private location: Location,
     private translate: TranslateService,
@@ -77,7 +77,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
       this.message = this.message || this.translate.instant('loading.default');
     }
 
-    if (this.showFallbackMessages) {
+    if (this.showFallbackMessages && isPlatformBrowser(this.platformId)) {
       this.warningMessage = this.warningMessage || this.translate.instant('loading.warning');
       this.errorMessage = this.errorMessage || this.translate.instant('loading.error');
 
