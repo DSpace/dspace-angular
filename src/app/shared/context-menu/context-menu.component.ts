@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Inject, Injector, Input, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, Injector, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 import { from, Observable } from 'rxjs';
 import { concatMap, filter, map, reduce, take } from 'rxjs/operators';
@@ -49,6 +49,11 @@ export class ContextMenuComponent implements OnInit {
   public optionCount = 0;
 
   /**
+   * Flag to check csr rendering
+   */
+  browserPlatform = false;
+
+  /**
    * Initialize instance variables
    *
    * @param {Document} _document
@@ -58,10 +63,12 @@ export class ContextMenuComponent implements OnInit {
    */
   constructor(
     @Inject(DOCUMENT) private _document: Document,
+    @Inject(PLATFORM_ID) protected platformId: Object,
     private cdr: ChangeDetectorRef,
     private configurationService: ConfigurationDataService,
     private injector: Injector
   ) {
+    this.browserPlatform = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit(): void {
@@ -91,7 +98,7 @@ export class ContextMenuComponent implements OnInit {
   private retrieveSelectedContextMenuEntries(isStandAlone: boolean): Observable<any[]> {
     const list = this.contextMenuObjectType ? getContextMenuEntriesForDSOType(this.contextMenuObjectType) : [];
     return from(list).pipe(
-      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions ?.componentRef) && renderOptions ?.isStandAlone === isStandAlone),
+      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions?.componentRef) && renderOptions?.isStandAlone === isStandAlone),
       map((renderOptions: ContextMenuEntryRenderOptions) => renderOptions.componentRef),
       concatMap((constructor: GenericConstructor<ContextMenuEntryComponent>) => {
         const entryComp: ContextMenuEntryComponent = new constructor();
