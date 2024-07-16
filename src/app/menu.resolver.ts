@@ -54,6 +54,7 @@ import { Section } from './core/layout/models/section.model';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { ConfigurationProperty } from './core/shared/configuration-property.model';
+import { HardRedirectService } from './core/services/hard-redirect.service';
 
 /**
  * Creates all of the app's menus
@@ -73,6 +74,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected scriptDataService: ScriptDataService,
     protected sectionDataService: SectionDataService,
     protected configService: ConfigurationDataService,
+    private hardRedirectService: HardRedirectService,
   ) {
   }
 
@@ -625,12 +627,15 @@ export class MenuResolver implements Resolve<boolean> {
         id: 'loginmiur_dlexporter_url',
         parentID: 'export',
         active: false,
-        visible: authorized && hasValue(url),
+        visible: authorized && (hasValue(url) && url.length > 0),
         model: {
-          type: MenuItemType.EXTERNAL,
-          link: url,
+          type: MenuItemType.ONCLICK,
           text: 'menu.section.loginmiur_dlexporter_url',
-        } as LinkMenuItemModel,
+          function: () => {
+            // redirect to external URL
+            this.hardRedirectService.redirect(url);
+          }
+        } as OnClickMenuItemModel,
         shouldPersistOnRouteChange: true
       });
     });
