@@ -195,7 +195,6 @@ describe('ItemVersionsComponent', () => {
         { provide: WorkflowItemDataService, useValue: workflowItemDataServiceSpy },
         { provide: ConfigurationDataService, useValue: configurationServiceSpy },
         { provide: Router, useValue: routerSpy },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],

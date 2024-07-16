@@ -23,9 +23,12 @@ import { FeatureID } from '../../../../core/data/feature-authorization/feature-i
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 import {
   hasValue,
   isEmpty,
@@ -55,13 +58,13 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
   licenses$: Observable<RemoteData<PaginatedList<Bitstream>>>;
 
   originalOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'obo' + this.item?.id,
     currentPage: 1,
     pageSize: this.appConfig.item.bitstream.pageSize,
   });
 
   licenseOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'lbo' + this.item?.id,
     currentPage: 1,
     pageSize: this.appConfig.item.bitstream.pageSize,
   });
@@ -72,7 +75,6 @@ export class FullFileSectionComponent extends FileSectionComponent implements On
     protected translateService: TranslateService,
     protected paginationService: PaginationService,
     public dsoNameService: DSONameService,
-    protected uuidService: UUIDService,
     public authorizationService: AuthorizationDataService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {

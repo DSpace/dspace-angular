@@ -46,8 +46,8 @@ export class LookupRelationService {
    * Pagination options for retrieving exactly one result
    */
   private singleResultOptions = Object.assign(new PaginationComponentOptions(), {
-    id: uniqueId('single-result-options'),
-    pageSize: 1,
+    id: 'single-result-options',
+    pageSize: 1
   });
 
   constructor(protected externalSourceService: ExternalSourceDataService,

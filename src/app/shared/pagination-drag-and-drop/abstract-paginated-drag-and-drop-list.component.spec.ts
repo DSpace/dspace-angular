@@ -22,6 +22,9 @@ import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
+import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
 import { AbstractPaginatedDragAndDropListComponent } from './abstract-paginated-drag-and-drop-list.component';
 
 @Component({
@@ -35,8 +38,7 @@ class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDra
               protected objectValuesPipe: ObjectValuesPipe,
               protected mockUrl: string,
               protected paginationService: PaginationService,
-              protected mockObjectsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>,
-              protected uuidService: UUIDService) {
+              protected mockObjectsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>) {
     super(objectUpdatesService, elRef, objectValuesPipe, paginationService);
   }
 
@@ -54,7 +56,6 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
   let objectUpdatesService: ObjectUpdatesService;
   let elRef: ElementRef;
   let objectValuesPipe: ObjectValuesPipe;
-  let uuidService: UUIDService;
 
   const url = 'mock-abstract-paginated-drag-and-drop-list-component';
 
@@ -88,8 +89,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
     });
     paginationService = new PaginationServiceStub();
     objectsRD$ = new BehaviorSubject(objectsRD);
-    uuidService = getMockUUIDService();
-    component = new MockAbstractPaginatedDragAndDropListComponent(objectUpdatesService, elRef, objectValuesPipe, url, paginationService, objectsRD$, uuidService);
+    component = new MockAbstractPaginatedDragAndDropListComponent(objectUpdatesService, elRef, objectValuesPipe, url, paginationService, objectsRD$);
     component.paginationComponent = paginationComponent;
     component.ngOnInit();
   });

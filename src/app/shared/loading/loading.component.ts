@@ -1,7 +1,8 @@
-import { Location } from '@angular/common';
+import { isPlatformBrowser, Location } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -38,7 +39,6 @@ export class LoadingComponent implements OnDestroy, OnInit {
   @Input() errorMessageDelay = environment.loader.errorMessageDelay;
   errorTimeoutWithRetriesDelay = environment.loader.errorMessageDelay;
 
-
   @Input() numberOfAutomaticPageReloads = environment.loader.numberOfAutomaticPageReloads || 0;
 
   /**
@@ -57,6 +57,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
   readonly AlertTypeEnum = AlertType;
 
   constructor(
+    @Inject(PLATFORM_ID) public platformId: any,
     private router: Router,
     private location: Location,
     private translate: TranslateService,
@@ -82,7 +83,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
       this.message = this.message || this.translate.instant('loading.default');
     }
 
-    if (this.showFallbackMessages) {
+    if (this.showFallbackMessages && isPlatformBrowser(this.platformId)) {
       this.warningMessage = this.warningMessage || this.translate.instant('loading.warning');
       this.errorMessage = this.errorMessage || this.translate.instant('loading.error');
 

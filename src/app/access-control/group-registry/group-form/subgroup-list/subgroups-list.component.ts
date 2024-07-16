@@ -76,7 +76,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups that are result of groups search
    */
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: uniqueId('ssgl'),
+    id: 'ssgl',
     pageSize: 5,
     currentPage: 1,
   });
@@ -84,7 +84,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of subgroups of currently active group being edited
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: uniqueId('sgl'),
+    id: 'sgl',
     pageSize: 5,
     currentPage: 1,
   });

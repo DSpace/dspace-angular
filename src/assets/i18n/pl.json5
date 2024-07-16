@@ -3898,6 +3898,10 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Błąd podczas pobierania nadrzędnego zbioru",
 
+  // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
   // TODO New key - Add a translation
   "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
@@ -8576,6 +8580,10 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "Wybierz",
 
+  // "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
   "resource-policies.form.eperson-group-list.tab.eperson": "Wyszukaj użytkownika",
 
@@ -11374,13 +11382,15 @@
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Edytuj",
 
-  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
+  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.edit-help": "Wybierz tę opcję, aby zmienić metadane pozycji.",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "Podgląd",
 
-  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.view-help": "Wybierz tę opcję, aby wyświetlić metadane pozycji.",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
@@ -11398,13 +11408,15 @@
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Zatwierdź",
 
-  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.approve_help": "Jeśli ta pozycja ma zostać zatwierdzona i wprowadzona do kolekcji, wybierz \"Approve\".",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Edytuj",
 
-  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.edit_help": "Wybierz tę opcję, aby zmienić metadane pozycji.",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
@@ -11428,13 +11440,15 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "Odrzuć",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "Jeśli po przejrzeniu pozycji stwierdzono, że nie nadaje się ona do włączenia do kolekcji, wybierz opcję \"Reject\". Zostaniesz wtedy poproszony o określenie powodu odrzucenia, i wskazanie czy zgłaszający powinien wprowadzić zmiany i przesłać ponownie pozycję.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Cofnij do puli zadań",
 
-  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.return_help": "Cofnij zadanie do puli, aby inny użytkownik mógł się go podjąć.",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
@@ -11452,7 +11466,8 @@
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Podejmij pracę",
 
-  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
+  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.pool.claim_help": "Przypisz to zadanie do siebie.",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
@@ -11464,7 +11479,8 @@
   // "submission.workspace.generic.view": "View",
   "submission.workspace.generic.view": "Podgląd",
 
-  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workspace.generic.view-help": "Wybierz tę opcje, aby zobaczyć metadane.",
 
   // "submitter.empty": "N/A",

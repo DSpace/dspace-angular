@@ -47,6 +47,7 @@ import { SelectableListService } from '../../../object-list/selectable-list/sele
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../models/paginated-search-options.model';
 import { SearchObjects } from '../../models/search-objects.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchOptions } from '../../models/search-options.model';
 import { SearchResult } from '../../models/search-result.model';
 import {
@@ -132,8 +133,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
     protected translate: TranslateService,
     public activeModal: NgbActiveModal,
     private selectableListService: SelectableListService,
-    private searchManager: SearchManager,
-    private uuidService: UUIDService) {
+    private searchManager: SearchManager,) {
   }
 
   ngOnInit() {
@@ -288,7 +288,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
       Object.assign(new PaginatedSearchOptions({}), this.searchOptions, {
         fixedFilter: `f.entityType=${this.itemType.label},equals`,
         pagination: Object.assign(new PaginationComponentOptions(), {
-          id: this.uuidService.generate(),
+          id: 'ex' + this.item?.id,
           pageSize: 1,
         }),
       }),

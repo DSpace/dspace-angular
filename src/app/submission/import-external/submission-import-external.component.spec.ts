@@ -37,6 +37,8 @@ import {
 } from '../../shared/testing/utils.test';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { SubmissionImportExternalPreviewComponent } from './import-external-preview/submission-import-external-preview.component';
+import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SubmissionImportExternalComponent } from './submission-import-external.component';
 
 describe('SubmissionImportExternalComponent test suite', () => {

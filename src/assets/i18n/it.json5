@@ -3297,6 +3297,10 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Errore durante il recupero delle community di primo livello",
 
+  // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
   "error.validation.custom-url.conflict": "L'URL personalizzato è già stato utilizzato, provare con uno nuovo.",
 
@@ -7683,6 +7687,10 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "Seleziona",
 
+  // "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
   "resource-policies.form.eperson-group-list.tab.eperson": "Cerca un ePerson",
 
@@ -10239,14 +10247,14 @@
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Modifica",
 
-  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
-  "submission.workflow.generic.edit-help": "Selezionare questa opzione per modificare i metadati dell'item.",
+  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
+  "submission.workflow.generic.edit-help": "Selezionare questa opzione per modificare i metadati dell'item",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "Visualizza",
 
-  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workflow.generic.view-help": "Selezionare questa opzione per visualizzare i metadati dell'item.",
+  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
+  "submission.workflow.generic.view-help": "Selezionare questa opzione per visualizzare i metadati dell'item",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
   "submission.workflow.generic.submit_select_reviewer": "Seleziona revisore",
@@ -10263,14 +10271,14 @@
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Approva",
 
-  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Se hai esaminato l'item ed è adatto per l'inclusione nella collezione, seleziona \"Approva\".",
+  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
+  "submission.workflow.tasks.claimed.approve_help": "Se hai esaminato l'item ed è adatto per l'inclusione nella collezione, seleziona \"Approva\"",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Modifica",
 
-  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
-  "submission.workflow.tasks.claimed.edit_help": "Selezionare questa opzione per modificare i metadati dell'item.",
+  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
+  "submission.workflow.tasks.claimed.edit_help": "Selezionare questa opzione per modificare i metadati dell'item",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
   "submission.workflow.tasks.claimed.decline": "Rifiuta",
@@ -10293,14 +10301,14 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "Rifiuta",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Se l'item esaminato <strong>non</strong> è adatto per essere inserito nella collezione, seleziona \"Rifiuta\".  Ti verrà quindi chiesto di inserire un messaggio che indichi perché l'item non è adatto e se chi ha inviato l'item deve cambiare qualcosa e inviarlo di nuovo.",
+  // "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
+  "submission.workflow.tasks.claimed.reject_help": "Se l'item esaminato <strong>non</strong> è adatto per essere inserito nella collezione, seleziona \"Rifiuta\".  Ti verrà quindi chiesto di inserire un messaggio che indichi perché l'item non è adatto e se chi ha inviato l'item deve cambiare qualcosa e inviarlo di nuovo",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Restituisci al pool",
 
-  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
-  "submission.workflow.tasks.claimed.return_help": "Restituire il task al pool in modo che un altro utente possa prenderlo in carico.",
+  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
+  "submission.workflow.tasks.claimed.return_help": "Restituire il task al pool in modo che un altro utente possa prenderlo in carico",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   "submission.workflow.tasks.generic.error": "Si è verificato un errore durante l'operazione...",
@@ -10317,8 +10325,8 @@
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Associa",
 
-  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
-  "submission.workflow.tasks.pool.claim_help": "Assegnati il task.",
+  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
+  "submission.workflow.tasks.pool.claim_help": "Assegnati il task",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
   "submission.workflow.tasks.pool.hide-detail": "Nascondi dettaglio",
@@ -10329,12 +10337,11 @@
   // "submission.workspace.generic.view": "View",
   "submission.workspace.generic.view": "Elenco",
 
-  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workspace.generic.view-help": "Seleziona questa opzione per vedere i metadata dell'item.",
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
+  "submission.workspace.generic.view-help": "Seleziona questa opzione per vedere i metadata dell'item",
 
   // "submitter.empty": "N/A",
-  // TODO New key - Add a translation
-  "submitter.empty": "N/A",
+  "submitter.empty": "N/D",
 
   // "subscriptions.title": "Subscriptions",
   "subscriptions.title": "Sottoscrizioni",

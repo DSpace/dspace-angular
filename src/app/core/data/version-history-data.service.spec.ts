@@ -18,8 +18,6 @@ import { RequestService } from './request.service';
 import { VersionDataService } from './version-data.service';
 import { VersionHistoryDataService } from './version-history-data.service';
 import SpyObj = jasmine.SpyObj;
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
-import { UUIDService } from '../shared/uuid.service';
 
 const url = 'fake-url';
 
@@ -31,7 +29,6 @@ describe('VersionHistoryDataService', () => {
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
   let versionService: SpyObj<VersionDataService>;
-  let uuidService: UUIDService;
   let halService: any;
 
   const versionHistoryId = 'version-history-id';
@@ -116,7 +113,6 @@ describe('VersionHistoryDataService', () => {
       findListByHref: jasmine.createSpy('findListByHref'),
       getHistoryFromVersion: jasmine.createSpy('getHistoryFromVersion'),
     });
-    uuidService = getMockUUIDService();
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
 
@@ -126,7 +122,6 @@ describe('VersionHistoryDataService', () => {
       objectCache,
       halService,
       versionService,
-      uuidService,
     );
   }
 

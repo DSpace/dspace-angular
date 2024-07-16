@@ -65,6 +65,10 @@ import {
 } from '../../shared/testing/group-mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { NoContent } from '../../core/shared/NoContent.model';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameServiceMock, UNDEFINED_NAME } from '../../shared/mocks/dso-name.service.mock';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
 import { GroupsRegistryComponent } from './groups-registry.component';
@@ -217,7 +221,6 @@ describe('GroupsRegistryComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
-        { provide: UUIDService, useValue: getMockUUIDService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

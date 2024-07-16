@@ -3978,6 +3978,10 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Жоғары деңгейлі қауымдастықтарды алу қатесі",
 
+  // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
   // TODO New key - Add a translation
   "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
@@ -8711,6 +8715,10 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "Таңдау",
 
+  // "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
   "resource-policies.form.eperson-group-list.tab.eperson": "Адамды іздеу",
 
@@ -11519,13 +11527,15 @@
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Редакциялау",
 
-  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
+  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.edit-help": "Элементтің метадеректерін өзгерту үшін осы параметрді таңдаңыз.",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "Түрі",
 
-  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.view-help": "Элемент метадеректерін көру үшін осы параметрді таңдаңыз.",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
@@ -11547,13 +11557,15 @@
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Мақұлдансын",
 
-  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.approve_help": "Егер сіз тауармен танысқан болсаңыз және ол коллекцияға қосуға жарамды болса, \"Мақұлдау\" таңдаңыз.",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Редакциялау",
 
-  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.edit_help": "Элементтің метадеректерін өзгерту үшін осы параметрді таңдаңыз.",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
@@ -11579,13 +11591,15 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "Қабылдамау",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "Егер сіз затты қарап шығып, оның <strong></strong> емес екенін байқасаңыз, \"Қабылдамау\" таңдаңыз.  Содан кейін сізден тауардың неге сәйкес келмейтінін және жіберуші бірдеңені өзгертіп, қайта жіберуі керек екенін көрсететін хабарлама енгізу сұралады.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Бассейнге оралу",
 
-  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.return_help": "Басқа пайдаланушы бұл тапсырманы орындай алатындай етіп тапсырманы бассейнге қайтарыңыз.",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
@@ -11603,7 +11617,8 @@
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Талап",
 
-  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
+  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.pool.claim_help": "Бұл тапсырманы өзіңе жүкте.",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
@@ -11615,7 +11630,8 @@
   // "submission.workspace.generic.view": "View",
   "submission.workspace.generic.view": "Көрініс",
 
-  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workspace.generic.view-help": "Элемент метадеректерін көру үшін осы параметрді таңдаңыз.",
 
   // "submitter.empty": "N/A",

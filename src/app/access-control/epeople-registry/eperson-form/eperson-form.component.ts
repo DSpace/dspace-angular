@@ -64,6 +64,12 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
+import { Registration } from '../../../core/shared/registration.model';
+import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
+import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { getEPersonsRoute } from '../../access-control-routing-paths';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -182,7 +188,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'gem',
     pageSize: 5,
     currentPage: 1,
   });
@@ -227,7 +233,6 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     public dsoNameService: DSONameService,
     protected route: ActivatedRoute,
     protected router: Router,
-    private uuidService: UUIDService,
   ) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;

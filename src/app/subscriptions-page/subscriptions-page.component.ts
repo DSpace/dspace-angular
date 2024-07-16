@@ -53,7 +53,7 @@ export class SubscriptionsPageComponent implements OnInit, OnDestroy {
    * The current pagination configuration for the page
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: uniqueId('elp'),
+    id: 'elp',
     pageSize: 10,
     currentPage: 1,
   });

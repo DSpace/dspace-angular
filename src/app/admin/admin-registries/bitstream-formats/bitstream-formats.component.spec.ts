@@ -119,9 +119,8 @@ describe('BitstreamFormatsComponent', () => {
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: NotificationsService, useValue: notificationsServiceStub },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: UUIDService, useValue: getMockUUIDService() },
-      ],
+        { provide: PaginationService, useValue: paginationService }
+      ]
     }).compileComponents();
   };
 
@@ -248,9 +247,8 @@ describe('BitstreamFormatsComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
-          { provide: PaginationService, useValue: paginationService },
-          { provide: UUIDService, useValue: getMockUUIDService() },
-        ],
+            { provide: PaginationService, useValue: paginationService }
+          ]
       }).compileComponents();
     },
     ));
@@ -298,9 +296,8 @@ describe('BitstreamFormatsComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
-          { provide: PaginationService, useValue: paginationService },
-          { provide: UUIDService, useValue: getMockUUIDService() },
-        ],
+            { provide: PaginationService, useValue: paginationService }
+          ]
       }).compileComponents();
     },
     ));

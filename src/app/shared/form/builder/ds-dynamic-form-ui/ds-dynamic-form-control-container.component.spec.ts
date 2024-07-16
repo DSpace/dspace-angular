@@ -97,6 +97,7 @@ import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdo
 import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DynamicTagModel } from './models/tag/dynamic-tag.model';
+import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -261,7 +262,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: RelationshipDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: FormService, useValue: {} },
-        { provide: FormBuilderService, useValue: {} },
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: SubmissionService, useValue: {} },
         {
           provide: SubmissionObjectDataService,

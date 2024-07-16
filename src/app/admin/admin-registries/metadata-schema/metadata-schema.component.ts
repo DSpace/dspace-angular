@@ -34,6 +34,8 @@ import {
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
@@ -60,7 +62,7 @@ export class MetadataSchemaComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of metadata fields
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: uniqueId('rm'),
+    id: 'rm',
     pageSize: 25,
     pageSizeOptions: [25, 50, 100, 200],
   });

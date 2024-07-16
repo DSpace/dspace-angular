@@ -58,7 +58,6 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected versionDataService: VersionDataService,
-    protected uuidService: UUIDService,
   ) {
     super('versionhistories', requestService, rdbService, objectCache, halService);
   }
@@ -128,7 +127,7 @@ export class VersionHistoryDataService extends IdentifiableDataService<VersionHi
 
     // Pagination options to fetch a single version on the first page (this is the latest version in the history)
     const latestVersionOptions = Object.assign(new PaginationComponentOptions(), {
-      id: this.uuidService.generate(),
+      id: 'item-newest-version-options' + versionHistory.id,
       currentPage: 1,
       pageSize: 1,
     });

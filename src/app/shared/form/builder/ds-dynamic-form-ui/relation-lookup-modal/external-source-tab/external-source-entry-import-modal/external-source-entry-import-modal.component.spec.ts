@@ -88,7 +88,6 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: ItemDataService, useValue: itemService },
         { provide: NgbActiveModal, useValue: modalStub },
-        { provide: UUIDService, useValue: getMockUUIDService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

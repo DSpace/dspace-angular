@@ -38,6 +38,7 @@ import { getMockUUIDService } from '../../../mocks/uuid.service.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { PageInfo } from '../../../../core/shared/page-info.model';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { SearchObjects } from '../../models/search-objects.model';
 import { SearchResult } from '../../models/search-result.model';
@@ -152,7 +153,6 @@ describe('ItemExportComponent', () => {
         { provide: SelectableListService, useValue: selectService },
         { provide: Router, useValue: router },
         { provide: SearchManager, useValue: mockSearchManager },
-        { provide: UUIDService, useValue: getMockUUIDService() },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,

@@ -45,7 +45,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    * Default pagination settings
    */
   protected defaultPagination = Object.assign(new PaginationComponentOptions(), {
-    id: uniqueId('mydspace-page'),
+    id: 'mydspace-page',
     pageSize: 10,
     currentPage: 1,
   });

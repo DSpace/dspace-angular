@@ -171,13 +171,12 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
               private selectService: SelectableListService,
               private itemService: ItemDataService,
               private notificationsService: NotificationsService,
-              private translateService: TranslateService,
-              private uuidService: UUIDService) {
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
     this.uri = Metadata.first(this.externalSourceEntry.metadata, 'dc.identifier.uri');
-    const pagination = Object.assign(new PaginationComponentOptions(), { id: this.uuidService.generate(), pageSize: 5 });
+    const pagination = Object.assign(new PaginationComponentOptions(), { id: 'external-entry-import', pageSize: 5 });
     this.searchOptions = Object.assign(new PaginatedSearchOptions({ query: this.externalSourceEntry.value, pagination: pagination }));
     this.localEntitiesRD$ = this.lookupRelationService.getLocalResults(this.relationship, this.searchOptions);
   }

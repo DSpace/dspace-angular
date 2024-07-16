@@ -28,6 +28,10 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
+import { APP_CONFIG } from 'src/config/app-config.interface';
+import { environment } from 'src/environments/environment';
+import { Item } from '../../../../core/shared/item.model';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { createPaginatedList } from '../../../../shared/testing/utils.test';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
@@ -89,7 +93,6 @@ describe('FullFileSectionComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: PaginationService, useValue: paginationService },
         { provide: APP_CONFIG, useValue: environment },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         { provide: AuthorizationDataService, useValue: authorizedDataService },
       ],
 

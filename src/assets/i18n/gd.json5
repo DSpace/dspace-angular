@@ -4049,6 +4049,10 @@
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Mearachd a' faighinn choimhearsnachdan sàr-ìre",
 
+  // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+  // TODO New key - Add a translation
+  "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+
   // "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
   // TODO New key - Add a translation
   "error.validation.custom-url.conflict": "The custom url has been already used, please try with a new one.",
@@ -8890,6 +8894,10 @@
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
   "resource-policies.form.eperson-group-list.select.btn": "Tagh",
 
+  // "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+  // TODO New key - Add a translation
+  "resource-policies.form.eperson-group-list.deselect.btn": "Deselect",
+
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
   "resource-policies.form.eperson-group-list.tab.eperson": "Rannsaich airson e-Neach",
 
@@ -11797,13 +11805,15 @@
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Deasaich",
 
-  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
+  // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.edit-help": "Tagh an roghainn seo gus metadata an nì atharrachadh.",
 
   // "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view": "Seall ri",
 
-  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workflow.generic.view-help": "Select this option to view the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.generic.view-help": "Tagh an roghainn seo agus seall ri metadata an nì.",
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
@@ -11825,13 +11835,15 @@
   // "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve": "Aontaich",
 
-  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\"",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.approve_help": "Ma rinn thu ath-sgrùdadh air an nì seo, 's e freagarrach airson a dhol dhan chruinneachadh, tagh  \"Aontaich\".",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
   "submission.workflow.tasks.claimed.edit": "Deasaich",
 
-  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+  // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.edit_help": "Tagh an roghainn seo gus metadata an nì atharrachadh.",
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
@@ -11857,13 +11869,15 @@
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "Diùlt",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  // "submission.workflow.tasks.claimed.reject_help": "If the reviewed item is not ready to be included in the collection, select \"Reject\". You will be asked to indicate the reason for rejection and further edits the user should make before resubmission",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.reject_help": "Ma rinn thu ath-sgrùdadh air an nì seo, 's tu smaoineachadh <strong>nach eil</strong> e freagarrach airson a dhol dhan chruinneachadh, tagh \"Diùlt\".  Thèid iarraidh ort an uair sin brath a chur ann ag innse carson nach eil an nì freagarrach agus am bu chòir an neach-cur-a-steach rudeigin atharrachaadh agus a chur a-steach a-rithist.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Till dhan amar-stòrais",
 
-  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+  // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.claimed.return_help": "Till an nì dhan amar-stòrais airson gum faod neach-cleachdaidh eile an obair a dhèanamh.",
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
@@ -11881,7 +11895,8 @@
   // "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim": "Gabh",
 
-  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
+  // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself",
+  // TODO Source message changed - Revise the translation
   "submission.workflow.tasks.pool.claim_help": "Sònraich an obair seo dhut fhèin.",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
@@ -11894,9 +11909,9 @@
   // TODO New key - Add a translation
   "submission.workspace.generic.view": "View",
 
-  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  // "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
   // TODO New key - Add a translation
-  "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workspace.generic.view-help": "Select this option to view the item's metadata",
 
   // "submitter.empty": "N/A",
   // TODO New key - Add a translation

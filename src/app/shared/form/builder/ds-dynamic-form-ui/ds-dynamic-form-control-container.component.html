@@ -19,8 +19,9 @@
           <div>
             <ng-container #componentViewContainer></ng-container>
           </div>
-          <small
-            *ngIf="hasHint &&
+          <div class="d-flex flex-column w-100">
+            <small
+              *ngIf="hasHint &&
            (formBuilderService.hasArrayGroupValue(model) ||
             (
               (!model.repeatable
@@ -31,8 +32,12 @@
            || (model.repeatable === true && context?.index === context?.context?.groups?.length - 1 )
            || hasHintAndIsRepeatable
            || (model.type==='TAG')) && (!showErrorMessages || errorMessages.length === 0)"
-            class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"
-          ></small>
+              class="text-muted ds-hint" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"
+            ></small>
+            <small class="text-muted mt-2" *ngIf="formBuilderService.isScrollableDropdown(model) && enabledDropdownHints[model?.metadataFields[0]] && (model.value?.value) !== null">
+              <i class="fas fa-info-circle mr-2"></i>{{'submission.dropdown.hint.' + model.value?.value | translate}}
+            </small>
+          </div>
           <!-- In case of repeatable fields show empty space for all elements except the first -->
           <!-- In case of not repeatable field with multiple values show empty space for all elements except the last -->
           <div *ngIf="(context?.index !== null && (!showErrorMessages || errorMessages.length === 0)) || (!hasHint && !showErrorMessages) ||

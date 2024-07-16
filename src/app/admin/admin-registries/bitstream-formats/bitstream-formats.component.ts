@@ -25,7 +25,6 @@ import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { UUIDService } from '../../../core/shared/uuid.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
@@ -48,7 +47,7 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
    * Currently simply renders all bitstream formats
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'rbp',
     pageSize: 20,
     pageSizeOptions: [20, 40, 60, 80, 100],
   });
@@ -58,7 +57,6 @@ export class BitstreamFormatsComponent implements OnInit, OnDestroy {
               private translateService: TranslateService,
               private bitstreamFormatService: BitstreamFormatDataService,
               private paginationService: PaginationService,
-              private uuidService: UUIDService,
   ) {
   }
 

@@ -63,6 +63,9 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';
@@ -255,7 +258,6 @@ describe('EPersonFormComponent', () => {
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         EPeopleRegistryComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],

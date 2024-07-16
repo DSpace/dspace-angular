@@ -16,6 +16,9 @@ import { BehaviorSubject } from 'rxjs';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProcessStatus } from '../processes/process-status.model';
+import { Process } from '../processes/process.model';
 import { ProcessOverviewComponent } from './process-overview.component';
 import { ProcessOverviewService } from './process-overview.service';
 
@@ -62,6 +65,8 @@ describe('ProcessOverviewComponent', () => {
         { provide: ProcessOverviewService, useValue: processService },
         { provide: ProcessBulkDeleteService, useValue: processBulkDeleteService },
         { provide: NgbModal, useValue: modalService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

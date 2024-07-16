@@ -312,8 +312,12 @@ export class DefaultAppConfig implements AppConfig {
       // NOTE: list of additional item metadata to show for duplicate match presentation list
       metadataDetailsList: [
         { label: 'Document type', name: 'dc.type' },
-      ],
+      ]
     },
+    dropdownHintEnabled: {
+      // NOTE: list of metadata fields for which the dropdown hint is enabled
+      // eg. 'dc.access.rights': true,
+    }
   };
 
   // Default Language in which the UI will be rendered if the user's browser language is not an active language

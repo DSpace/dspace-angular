@@ -76,7 +76,7 @@ export class RecentItemListComponent implements OnInit {
   ) {
 
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
-      id: uniqueId('hp'),
+      id: 'hp',
       pageSize: environment.homePage.recentSubmissions.pageSize,
       currentPage: 1,
       maxSize: 1,

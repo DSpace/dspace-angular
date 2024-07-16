@@ -34,6 +34,8 @@ import {
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { getEPersonEditRoute } from '../../../access-control-routing-paths';
 
 /**
@@ -113,7 +115,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of EPeople that are result of EPeople search
    */
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: uniqueId('sml'),
+    id: 'sml',
     pageSize: 5,
     currentPage: 1,
   });
@@ -121,7 +123,7 @@ export class MembersListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of EPerson Membes of active group being edited
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: uniqueId('ml'),
+    id: 'ml',
     pageSize: 5,
     currentPage: 1,
   });

@@ -53,6 +53,7 @@ import {
 } from '../../shared/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { FindListOptions } from '../../core/data/find-list-options.model';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 
@@ -160,7 +161,6 @@ describe('EPeopleRegistryComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: RequestService, useValue: jasmine.createSpyObj('requestService', ['removeByHrefSubstring']) },
         { provide: PaginationService, useValue: paginationService },
-        { provide: UUIDService, useValue: getMockUUIDService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

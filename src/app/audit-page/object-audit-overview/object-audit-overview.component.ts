@@ -26,7 +26,6 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { UUIDService } from '../../core/shared/uuid.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 
 /**
@@ -63,8 +62,8 @@ export class ObjectAuditOverviewComponent implements OnInit {
    * The current pagination configuration for the page
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    pageSize: 10,
+    id: 'oop',
+    pageSize: 10
   });
 
   /**
@@ -78,8 +77,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
               protected auditService: AuditDataService,
               protected itemService: ItemDataService,
               protected authorizationService: AuthorizationDataService,
-              protected paginationService: PaginationService,
-              protected uuidService: UUIDService) {
+              protected paginationService: PaginationService) {
   }
 
   ngOnInit(): void {

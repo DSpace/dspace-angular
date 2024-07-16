@@ -95,8 +95,8 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    * The initial pagination options
    */
   public initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: uniqueId('spc'),
-    pageSize: 10,
+    id: 'spc',
+    pageSize: 10
   });
   /**
    * The context to displaying lists for
