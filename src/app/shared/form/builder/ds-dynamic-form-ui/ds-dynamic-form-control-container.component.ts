@@ -124,6 +124,7 @@ import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { Metadata } from '../../../../core/shared/metadata.utils';
 import { DynamicLinkModel } from './models/ds-dynamic-link.model';
+import { environment } from '../../../../../environments/environment';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -248,6 +249,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     return dsDynamicFormControlMapFn(this.model);
   }
 
+  enabledDropdownHints = environment.submission.dropdownHintEnabled;
+
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected dynamicFormComponentService: DynamicFormComponentService,
@@ -357,7 +360,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     } else {
       this.securityLevel = this.model.securityLevel;
     }
-
  }
 
   get isCheckbox(): boolean {
