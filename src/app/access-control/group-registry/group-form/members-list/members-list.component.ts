@@ -7,7 +7,6 @@ import {
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   Observable,
@@ -34,8 +33,6 @@ import {
 } from '../../../../core/shared/operators';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { getEPersonEditRoute } from '../../../access-control-routing-paths';
 
 /**

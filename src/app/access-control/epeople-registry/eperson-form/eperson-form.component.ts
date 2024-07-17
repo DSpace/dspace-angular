@@ -54,7 +54,6 @@ import {
 } from '../../../core/shared/operators';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Registration } from '../../../core/shared/registration.model';
-import { UUIDService } from '../../../core/shared/uuid.service';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../../shared/empty.util';
@@ -64,12 +63,6 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
-import { Registration } from '../../../core/shared/registration.model';
-import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { getEPersonsRoute } from '../../access-control-routing-paths';
 
 @Component({
   selector: 'ds-eperson-form',

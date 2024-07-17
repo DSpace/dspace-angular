@@ -45,7 +45,6 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
-import { UUIDService } from '../../core/shared/uuid.service';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
@@ -69,12 +68,6 @@ import {
 } from '../item-page-routing-paths';
 import { ItemVersionsDeleteModalComponent } from './item-versions-delete-modal/item-versions-delete-modal.component';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { RenderCrisLayoutBoxFor } from '../../cris-layout/decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../cris-layout/enums/layout-box.enum';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal/item-versions-summary-modal.component';
 
 
@@ -531,7 +524,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     this.options = Object.assign(new PaginationComponentOptions(), {
       id: 'ivo' + this.item?.id,
       currentPage: 1,
-      pageSize: this.pageSize
+      pageSize: this.pageSize,
     });
 
     if (hasValue(this.item.version)) {

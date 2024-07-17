@@ -8,7 +8,6 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   combineLatest,
@@ -96,7 +95,7 @@ export class SubmissionImportExternalComponent implements OnInit, OnDestroy {
    */
   public initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'spc',
-    pageSize: 10
+    pageSize: 10,
   });
   /**
    * The context to displaying lists for

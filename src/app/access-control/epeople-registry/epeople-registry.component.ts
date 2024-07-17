@@ -33,15 +33,11 @@ import { EPerson } from '../../core/eperson/models/eperson.model';
 import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { NoContent } from '../../core/shared/NoContent.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { getEPersonEditRoute, getEPersonsRoute } from '../access-control-routing-paths';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
 } from '../../core/shared/operators';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { UUIDService } from '../../core/shared/uuid.service';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';

@@ -30,7 +30,6 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { sendRequest } from '../shared/request.operators';
-import { UUIDService } from '../shared/uuid.service';
 import { Version } from '../shared/version.model';
 import { VersionHistory } from '../shared/version-history.model';
 import { VERSION_HISTORY } from '../shared/version-history.resource-type';

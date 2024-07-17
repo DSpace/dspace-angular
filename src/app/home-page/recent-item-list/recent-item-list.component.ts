@@ -10,7 +10,6 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import uniqueId from 'lodash/uniqueId';
 import { Observable } from 'rxjs';
 
 import {

@@ -15,7 +15,6 @@ import { Context } from '../../../../../core/shared/context.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { UUIDService } from '../../../../../core/shared/uuid.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
 import { fadeIn } from '../../../../animations/fade';
 import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
@@ -76,7 +75,7 @@ export class ItemExportListComponent implements OnInit {
   ngOnInit(): void {
     this.initialPagination = Object.assign(new PaginationComponentOptions(), {
       id: 'el' + this.listId,
-      pageSize: 10
+      pageSize: 10,
     });
     this.configuration = this.searchOptions.configuration;
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.initialPagination.id, this.initialPagination);

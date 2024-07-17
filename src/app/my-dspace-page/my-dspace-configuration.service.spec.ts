@@ -19,10 +19,6 @@ import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.s
 import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { Context } from '../core/shared/context.model';
-import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
 
 describe('MyDSpaceConfigurationService', () => {
   let service: MyDSpaceConfigurationService;

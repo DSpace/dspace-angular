@@ -20,9 +20,7 @@ import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
-import { UUIDService } from '../../../core/shared/uuid.service';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import {
@@ -119,8 +117,8 @@ describe('BitstreamFormatsComponent', () => {
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: NotificationsService, useValue: notificationsServiceStub },
-        { provide: PaginationService, useValue: paginationService }
-      ]
+        { provide: PaginationService, useValue: paginationService },
+      ],
     }).compileComponents();
   };
 
@@ -247,8 +245,8 @@ describe('BitstreamFormatsComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService }
-          ]
+          { provide: PaginationService, useValue: paginationService },
+        ],
       }).compileComponents();
     },
     ));
@@ -296,8 +294,8 @@ describe('BitstreamFormatsComponent', () => {
           { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
           { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
           { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService }
-          ]
+          { provide: PaginationService, useValue: paginationService },
+        ],
       }).compileComponents();
     },
     ));

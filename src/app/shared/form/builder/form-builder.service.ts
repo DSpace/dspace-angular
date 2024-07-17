@@ -67,17 +67,9 @@ import {
   DynamicRelationGroupModel,
   DynamicRelationGroupModelConfig,
 } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
-import { dateToString, isNgbDateStruct } from '../../date.util';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { CONCAT_GROUP_SUFFIX, DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN
-} from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { RowParser } from './parsers/row-parser';
 
 @Injectable()

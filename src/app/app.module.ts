@@ -56,17 +56,6 @@ import { NavbarModule } from './navbar/navbar.module';
 import { RootModule } from './root.module';
 import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
 import { SharedModule } from './shared/shared.module';
-import { environment } from '../environments/environment';
-import { AuthInterceptor } from './core/auth/auth.interceptor';
-import { LocaleInterceptor } from './core/locale/locale.interceptor';
-import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
-import { LogInterceptor } from './core/log/log.interceptor';
-import { EagerThemesModule } from '../themes/eager-themes.module';
-import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
-import { StoreDevModules } from '../config/store/devtools';
-import { RootModule } from './root.module';
-import { NuMarkdownModule } from '@ng-util/markdown';
-import { FooterModule } from './footer/footer.module';
 import { SocialModule } from './social/social.module';
 
 export function getConfig() {
@@ -156,11 +145,11 @@ const EXPORTS = [
 ];
 
 @NgModule({
-    imports: [
-        BrowserModule.withServerTransition({appId: 'dspace-angular'}),
-        ...IMPORTS,
-        SocialModule
-    ],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'dspace-angular' }),
+    ...IMPORTS,
+    SocialModule,
+  ],
   providers: [
     ...PROVIDERS,
   ],

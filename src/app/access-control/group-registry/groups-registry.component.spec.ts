@@ -46,13 +46,11 @@ import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { UUIDService } from '../../core/shared/uuid.service';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,
 } from '../../shared/mocks/dso-name.service.mock';
 import { RouterMock } from '../../shared/mocks/router.mock';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {
@@ -65,10 +63,6 @@ import {
 } from '../../shared/testing/group-mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { NoContent } from '../../core/shared/NoContent.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock, UNDEFINED_NAME } from '../../shared/mocks/dso-name.service.mock';
 import { routeServiceStub } from '../../shared/testing/route-service.stub';
 import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
 import { GroupsRegistryComponent } from './groups-registry.component';

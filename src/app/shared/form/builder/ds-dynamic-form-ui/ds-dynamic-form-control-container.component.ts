@@ -80,6 +80,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
 import { AppState } from '../../../../app.reducer';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
@@ -151,7 +152,6 @@ import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollab
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { environment } from '../../../../../environments/environment';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {

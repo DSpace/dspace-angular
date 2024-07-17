@@ -37,12 +37,10 @@ import { VersionDataService } from '../../core/data/version-data.service';
 import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
-import { UUIDService } from '../../core/shared/uuid.service';
 import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,

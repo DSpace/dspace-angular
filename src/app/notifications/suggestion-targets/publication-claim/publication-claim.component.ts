@@ -20,7 +20,6 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
 import { SuggestionsService } from '../../suggestions.service';
 import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 
 /**
  * Component to display the Suggestion Target list.
@@ -78,7 +77,7 @@ export class PublicationClaimComponent implements OnInit {
   ngOnInit(): void {
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
       id: 'stp' + this.source,
-      pageSizeOptions: [5, 10, 20, 40, 60]
+      pageSizeOptions: [5, 10, 20, 40, 60],
     });
     this.targets$ = this.suggestionTargetsStateService.getSuggestionTargets(this.source);
     this.totalElements$ = this.suggestionTargetsStateService.getSuggestionTargetsTotals(this.source);

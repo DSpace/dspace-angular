@@ -18,10 +18,8 @@ import { SearchManager } from '../../../../core/browse/search-manager';
 import { SectionComponent } from '../../../../core/layout/models/section.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
-import { InternalLinkService } from 'src/app/core/services/internal-link.service';
 import { SearchObjects } from '../../../search/models/search-objects.model';
 
 @Component({
@@ -60,7 +58,7 @@ export class CountersSectionComponent implements OnInit {
     this.pagination  = Object.assign(new PaginationComponentOptions(), {
       id: 'counters-pagination' + this.sectionId,
       pageSize: 1,
-      currentPage: 1
+      currentPage: 1,
     });
 
     this.counterData$ = forkJoin(

@@ -41,10 +41,8 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { PageInfo } from '../../core/shared/page-info.model';
-import { UUIDService } from '../../core/shared/uuid.service';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../shared/mocks/form-builder-service.mock';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import {
@@ -53,7 +51,6 @@ import {
 } from '../../shared/testing/eperson.mock';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
-import { FindListOptions } from '../../core/data/find-list-options.model';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { EPeopleRegistryComponent } from './epeople-registry.component';
 

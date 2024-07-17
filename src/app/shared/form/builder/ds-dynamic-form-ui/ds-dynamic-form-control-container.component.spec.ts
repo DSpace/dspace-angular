@@ -66,6 +66,7 @@ import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { SharedModule } from '../../../shared.module';
@@ -97,7 +98,6 @@ import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdo
 import { DynamicScrollableDropdownModel } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DynamicTagModel } from './models/tag/dynamic-tag.model';
-import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {

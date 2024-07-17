@@ -1,4 +1,7 @@
-import { isPlatformBrowser, Location } from '@angular/common';
+import {
+  isPlatformBrowser,
+  Location,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -6,6 +9,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';

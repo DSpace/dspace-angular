@@ -7,7 +7,6 @@ import {
 import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   Observable,

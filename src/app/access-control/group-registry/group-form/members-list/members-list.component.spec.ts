@@ -59,8 +59,6 @@ import {
 import { GroupMock } from '../../../../shared/testing/group-mock';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { TranslateLoaderMock } from '../../../../shared/testing/translate-loader.mock';
 import { MembersListComponent } from './members-list.component';
 

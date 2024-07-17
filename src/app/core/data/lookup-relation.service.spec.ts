@@ -17,7 +17,6 @@ import { ExternalSourceDataService } from './external-source-data.service';
 import { LookupRelationService } from './lookup-relation.service';
 import { buildPaginatedList } from './paginated-list.model';
 import { RequestService } from './request.service';
-import { of as observableOf } from 'rxjs';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;

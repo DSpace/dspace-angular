@@ -16,8 +16,6 @@ import { LookupRelationService } from '../../../../../../../core/data/lookup-rel
 import { Collection } from '../../../../../../../core/shared/collection.model';
 import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
 import { Item } from '../../../../../../../core/shared/item.model';
-import { UUIDService } from '../../../../../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../../../../mocks/uuid.service.mock';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';

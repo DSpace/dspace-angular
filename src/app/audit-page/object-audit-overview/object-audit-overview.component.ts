@@ -63,7 +63,7 @@ export class ObjectAuditOverviewComponent implements OnInit {
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'oop',
-    pageSize: 10
+    pageSize: 10,
   });
 
   /**

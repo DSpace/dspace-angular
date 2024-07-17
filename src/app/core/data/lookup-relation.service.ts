@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import uniqueId from 'lodash/uniqueId';
 import {
   Observable,
   ReplaySubject,
@@ -47,7 +46,7 @@ export class LookupRelationService {
    */
   private singleResultOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'single-result-options',
-    pageSize: 1
+    pageSize: 1,
   });
 
   constructor(protected externalSourceService: ExternalSourceDataService,

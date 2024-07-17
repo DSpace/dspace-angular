@@ -35,7 +35,6 @@ import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.mod
 import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 import { MYDSPACE_ROUTE } from '../../../../my-dspace-page/my-dspace-page.component';
 import {
   isEmpty,
@@ -47,7 +46,6 @@ import { SelectableListService } from '../../../object-list/selectable-list/sele
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../models/paginated-search-options.model';
 import { SearchObjects } from '../../models/search-objects.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchOptions } from '../../models/search-options.model';
 import { SearchResult } from '../../models/search-result.model';
 import {
@@ -133,7 +131,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
     protected translate: TranslateService,
     public activeModal: NgbActiveModal,
     private selectableListService: SelectableListService,
-    private searchManager: SearchManager,) {
+    private searchManager: SearchManager) {
   }
 
   ngOnInit() {

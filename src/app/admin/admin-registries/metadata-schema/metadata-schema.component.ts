@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   combineLatest,
@@ -34,8 +33,6 @@ import {
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({

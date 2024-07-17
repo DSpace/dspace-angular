@@ -29,7 +29,6 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../../../../../core/shared/operators';
-import { UUIDService } from '../../../../../../../core/shared/uuid.service';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 import { NotificationsService } from '../../../../../../notifications/notifications.service';

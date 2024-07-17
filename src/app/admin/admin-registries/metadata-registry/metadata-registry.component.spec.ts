@@ -31,9 +31,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.u
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import {
-  MetadataSchemaExportService
-} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { MetadataRegistryComponent } from './metadata-registry.component';
 

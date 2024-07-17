@@ -3,7 +3,6 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   combineLatestWith,

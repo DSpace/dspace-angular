@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import uniqueId from 'lodash/uniqueId';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -25,12 +24,6 @@ import { hasValue } from '../../../shared/empty.util';
 import { MetadataSchemaExportService } from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import {
-  MetadataSchemaExportService
-} from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 
 @Component({
@@ -54,7 +47,7 @@ export class MetadataRegistryComponent {
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rm',
-    pageSize: 25
+    pageSize: 25,
   });
 
   /**

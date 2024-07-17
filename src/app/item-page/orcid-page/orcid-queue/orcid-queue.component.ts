@@ -33,9 +33,6 @@ import { AlertType } from '../../../shared/alert/alert-type';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { AlertType } from '../../../shared/alert/alert-type';
-import { Item } from '../../../core/shared/item.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
 
 @Component({
   selector: 'ds-orcid-queue',
@@ -88,7 +85,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paginationOptions = Object.assign(new PaginationComponentOptions(), {
       id: 'oqp' + this.item?.id,
-      pageSize: 5
+      pageSize: 5,
     });
     this.updateList();
   }
