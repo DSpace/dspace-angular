@@ -8724,7 +8724,7 @@
 
   // "quality-assurance.event.project.removed": "The project has been successfully unlinked.",
   "quality-assurance.event.project.removed": "El proyecto se ha desvinculado con éxito.",
-  
+
   // "quality-assurance.event.project.error": "An error has occurred. No operation performed.",
   "quality-assurance.event.project.error": "Se ha producido un error. No se ha realizado ninguna operación.",
 
