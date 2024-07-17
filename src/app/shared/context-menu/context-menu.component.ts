@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Inject, Injector, Input, OnInit, PLATFORM_ID } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, Injector, Input, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import { from, Observable } from 'rxjs';
 import { concatMap, filter, map, reduce, take } from 'rxjs/operators';
