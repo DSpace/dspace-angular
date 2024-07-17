@@ -2624,6 +2624,8 @@
   "item.page.link.full": "Zobrazit celý záznam",
   // "item.page.link.simple": "Simple item page",
   "item.page.link.simple": "Zobrazit minimální záznam",
+  // "item.page.users.note": "User's note:",
+  "item.page.users.note": "Vzkaz od uživatele:",
   // "item.page.orcid.title": "ORCID",
   "item.page.orcid.title": "ORCID",
   // "item.page.orcid.tooltip": "Open ORCID setting page",

@@ -2709,6 +2709,8 @@
 
   "item.page.link.simple": "Show simple item record",
 
+  "item.page.users.note": "User's note:",
+
   "item.page.orcid.title": "ORCID",
 
   "item.page.orcid.tooltip": "Open ORCID setting page",
