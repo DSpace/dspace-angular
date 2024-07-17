@@ -8149,8 +8149,233 @@
   // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
   "access-control-option-end-date-note": "Escoja la fecha hasta la cuál se aplicarán las condiciones de acceso especificadas",
 
-  //"browse.search-form.placeholder": "Search the repository",
+  // "browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar en el repositorio",
+
+  // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  "search.filters.remove": "Eliminar filtro de tipo {{ type }} con valor {{ value }}",
+
+  // "search.filters.applied.f.title": "Title",
+  "search.filters.applied.f.title": "Título",
+
+  // "search.filters.applied.f.original_bundle_filenames": "File name",
+  "search.filters.applied.f.original_bundle_filenames": "Nombre del archivo",
+
+  // "search.filters.applied.f.original_bundle_descriptions": "File description",
+  "search.filters.applied.f.original_bundle_descriptions": "Descripción del archivo",
+
+  // "search.filters.applied.operator.equals": "",
+  "search.filters.applied.operator.equals": "",
+
+  // "search.filters.applied.operator.notequals": " not equals",
+  "search.filters.applied.operator.notequals": " no es igual a",
+
+  // "search.filters.applied.operator.authority": "",
+  "search.filters.applied.operator.authority": "",
+
+  // "search.filters.applied.operator.notauthority": " not authority",
+  "search.filters.applied.operator.notauthority": " sin autoridad",
+
+  // "search.filters.applied.operator.contains": " contains",
+  "search.filters.applied.operator.contains": " contiene",
+
+  // "search.filters.applied.operator.notcontains": " not contains",
+  "search.filters.applied.operator.notcontains": " no contiene",
+
+  // "search.filters.applied.operator.query": "",
+  "search.filters.applied.operator.query": "",
+
+  // "search.filters.entityType.Person": "Person",
+  "search.filters.entityType.Person": "Persona",
+
+  // "search.filters.entityType.Project": "Project",
+  "search.filters.entityType.Project": "Proyecto",
+
+  // "search.filters.entityType.Publication": "Publication",
+  "search.filters.entityType.Publication": "Publicación",
+
+  // "search.filters.namedresourcetype.Archived": "Archived",
+  "search.filters.namedresourcetype.Archived": "Archivado",
+
+  // "search.filters.namedresourcetype.Validation": "Validation",
+  "search.filters.namedresourcetype.Validation": "Validación",
+
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.Waiting for Controller": "A la espera del revisor",
+
+  // "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.Workflow": "Flujo de trabajo",
+
+  // "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.Workspace": "Espacio de trabajo",
+
+  // "search.filters.operator.equals.text": "Equals",
+  "search.filters.operator.equals.text": "Es igual a",
+
+  // "search.filters.operator.notequals.text": "Not Equals",
+  "search.filters.operator.notequals.text": "No es igual a",
+
+  // "search.filters.operator.authority.text": "Authority",
+  "search.filters.operator.authority.text": "Autoridad",
+
+  // "search.filters.operator.notauthority.text": "Not Authority",
+  "search.filters.operator.notauthority.text": "Sin autoridad",
+
+  // "search.filters.operator.contains.text": "Contains",
+  "search.filters.operator.contains.text": "Contiene",
+
+  // "search.filters.operator.notcontains.text": "Not Contains",
+  "search.filters.operator.notcontains.text": "No contiene",
+
+  // "search.filters.operator.query.text": "Query",
+  "search.filters.operator.query.text": "Consulta",
+
+  // "search.sidebar.advanced-search.title": "Advanced Search",
+  "search.sidebar.advanced-search.title": "Búsqueda Avanzada",
+
+  // "discover.filters.head": "Discover",
+  "discover.filters.head": "Descubrir",
+
+  // "search.filters.filter.title.head": "Title",
+  "search.filters.filter.title.head": "Título",
+
+  // "search.filters.filter.title.placeholder": "Title",
+  "search.filters.filter.title.placeholder": "Título",
+
+  // "search.filters.filter.title.label": "Search Title",
+  "search.filters.filter.title.label": "Buscar por título",
+
+  // "search.filters.filter.original_bundle_filenames.head": "File name",
+  "search.filters.filter.original_bundle_filenames.head": "Nombre del archivo",
+
+  // "search.filters.filter.original_bundle_filenames.placeholder": "File name",
+  "search.filters.filter.original_bundle_filenames.placeholder": "Nombre del archivo",
+
+  // "search.filters.filter.original_bundle_filenames.label": "Search File name",
+  "search.filters.filter.original_bundle_filenames.label": "Buscar por nombre del archivo",
+
+  // "search.filters.filter.original_bundle_descriptions.head": "File description",
+  "search.filters.filter.original_bundle_descriptions.head": "Descripción del archivo",
+
+  // "search.filters.filter.original_bundle_descriptions.placeholder": "File description",
+  "search.filters.filter.original_bundle_descriptions.placeholder": "Descripción del archivo",
+
+  // "search.filters.filter.original_bundle_descriptions.label": "Search File description",
+  "search.filters.filter.original_bundle_descriptions.label": "Buscar por descripción del archivo",
+
+  // "search.filters.filter.funding.head": "Funding",
+  "search.filters.filter.funding.head": "Financiación",
+
+  // "search.filters.filter.funding.placeholder": "Funding",
+  "search.filters.filter.funding.placeholder": "Financiación",
+
+  // "search.filters.filter.queue_last_start_time.head": "Last processing time ",
+  "search.filters.filter.queue_last_start_time.head": "Última hora de procesamiento ",
+
+  // "search.filters.filter.queue_last_start_time.min.label": "Min range",
+  "search.filters.filter.queue_last_start_time.min.label": "Alcance mínimo",
+
+  // "search.filters.filter.queue_last_start_time.max.label": "Max range",
+  "search.filters.filter.queue_last_start_time.max.label": "Alcance máximo",
+
+  // "search.filters.filter.relateditem.head": "Related item",
+  "search.filters.filter.relateditem.head": "Ítem relacionado",
+
+  // "search.filters.filter.origin.head": "Origin",
+  "search.filters.filter.origin.head": "Origen",
+
+  // "search.filters.filter.ldn_service.head": "LDN Service",
+  "search.filters.filter.ldn_service.head": "Servicio LDN",
+
+  // "search.filters.filter.target.head": "Target",
+  "search.filters.filter.target.head": "Destino",
+
+  // "search.filters.filter.queue_status.head": "Queue status",
+  "search.filters.filter.queue_status.head": "Estado de la fila",
+
+  // "search.filters.filter.activity_stream_type.head": "Activity stream type",
+  "search.filters.filter.activity_stream_type.head": "Tipo de flujo de actividad",
+
+  // "search.filters.filter.coar_notify_type.head": "COAR Notify type",
+  "search.filters.filter.coar_notify_type.head": "COAR Tipo de notificación",
+
+  // "search.filters.filter.notification_type.head": "Notification type",
+  "search.filters.filter.notification_type.head": "Tipo de notificación",
+
+  // "search.filters.filter.relateditem.label": "Search related items",
+  "search.filters.filter.relateditem.label": "Buscar ítems relacionados",
+
+  // "search.filters.filter.queue_status.label": "Search queue status",
+  "search.filters.filter.queue_status.label": "Estado de la fila de búsqueda",
+
+  // "search.filters.filter.target.label": "Search target",
+  "search.filters.filter.target.label": "Buscar por destino",
+
+  // "search.filters.filter.activity_stream_type.label": "Search activity stream type",
+  "search.filters.filter.activity_stream_type.label": "Buscar por tipo de flujo de actividad",
+
+  // "search.filters.filter.coar_notify_type.label": "Search COAR Notify type",
+  "search.filters.filter.coar_notify_type.label": "Buscar por COAR Tipo de notificación",
+
+  // "search.filters.filter.notification_type.label": "Search notification type",
+  "search.filters.filter.notification_type.label": "Buscar por tipo de notificación",
+
+  // "search.filters.filter.relateditem.placeholder": "Related items",
+  "search.filters.filter.relateditem.placeholder": "Ítems relacionados",
+
+  // "search.filters.filter.target.placeholder": "Target",
+  "search.filters.filter.target.placeholder": "Destino",
+
+  // "search.filters.filter.origin.label": "Search source",
+  "search.filters.filter.origin.label": "Buscar fuente",
+
+  // "search.filters.filter.origin.placeholder": "Source",
+  "search.filters.filter.origin.placeholder": "Fuente",
+
+  // "search.filters.filter.ldn_service.label": "Search LDN Service",
+  "search.filters.filter.ldn_service.label": "Buscar por servicio LDN",
+
+  // "search.filters.filter.ldn_service.placeholder": "LDN Service",
+  "search.filters.filter.ldn_service.placeholder": "Servicio LDN",
+
+  // "search.filters.filter.queue_status.placeholder": "Queue status",
+  "search.filters.filter.queue_status.placeholder": "Estado de la fila",
+
+  // "search.filters.filter.activity_stream_type.placeholder": "Activity stream type",
+  "search.filters.filter.activity_stream_type.placeholder": "Tipo de flujo de actividad",
+
+  // "search.filters.filter.coar_notify_type.placeholder": "COAR Notify type",
+  "search.filters.filter.coar_notify_type.placeholder": "COAR Tipo de notificación",
+
+  // "search.filters.filter.notification_type.placeholder": "Notification",
+  "search.filters.filter.notification_type.placeholder": "Notificación",
+
+  // "search.filters.filter.notifyRelation.head": "Notify Relation",
+  "search.filters.filter.notifyRelation.head": "Notificación de relación",
+
+  // "search.filters.filter.notifyRelation.label": "Search Notify Relation",
+  "search.filters.filter.notifyRelation.label": "Buscar por notificación de relación",
+
+  // "search.filters.filter.notifyRelation.placeholder": "Notify Relation",
+  "search.filters.filter.notifyRelation.placeholder": "Notificación de relación",
+
+  // "search.filters.filter.notifyReview.head": "Notify Review",
+  "search.filters.filter.notifyReview.head": "Notificación de revisión",
+
+  // "search.filters.filter.notifyReview.label": "Search Notify Review",
+  "search.filters.filter.notifyReview.label": "Buscar por notificación de Revisión",
+
+  // "search.filters.filter.notifyReview.placeholder": "Notify Review",
+  "search.filters.filter.notifyReview.placeholder": "Notificación de revisión",
+
+  // "search.filters.filter.notifyEndorsement.head": "Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.head": "Notificación de aprobación",
+
+  // "search.filters.filter.notifyEndorsement.placeholder": "Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.placeholder": "Notificación de aprobación",
+
+  // "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.label": "Buscar por notificación de aprobación",
 
 
 }
