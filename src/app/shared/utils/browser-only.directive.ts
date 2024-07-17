@@ -3,8 +3,10 @@ import {
   ChangeDetectorRef,
   Directive,
   Inject,
-  OnInit,
+  Input,
+  OnChanges,
   PLATFORM_ID,
+  SimpleChanges,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
@@ -16,28 +18,32 @@ import {
 /**
  * Structural Directive for rendering a template reference on client side only
  */
-export class BrowserOnlyDirective implements OnInit {
+export class BrowserOnlyDirective implements OnChanges {
+
+  @Input() dsRenderOnlyForBrowser: boolean;
 
   constructor(
-    @Inject(PLATFORM_ID) protected platformId: string,
+    @Inject(PLATFORM_ID) private platformId: string,
     private viewContainer: ViewContainerRef,
     private changeDetector: ChangeDetectorRef,
     private templateRef: TemplateRef<any>,
   ) {
   }
 
-  ngOnInit(): void {
-    this.showTemplateBlockInView();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.dsRenderOnlyForBrowser.firstChange && changes.dsRenderOnlyForBrowser.currentValue) {
+      this.showTemplateBlockInView();
+    }
   }
 
   /**
    * Show template in view container according to platform
    */
   private showTemplateBlockInView(): void {
+    this.viewContainer.clear();
     if (!this.templateRef) {
       return;
     }
-    this.viewContainer.clear();
 
     if (isPlatformBrowser(this.platformId)) {
       this.viewContainer.createEmbeddedView(this.templateRef);
