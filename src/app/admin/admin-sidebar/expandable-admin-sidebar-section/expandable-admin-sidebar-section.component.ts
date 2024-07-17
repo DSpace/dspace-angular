@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { Router } from '@angular/router';
+import { HardRedirectService } from '../../../core/services/hard-redirect.service';
 
 /**
  * Represents a expandable section in the sidebar
@@ -55,8 +56,9 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     private variableService: CSSVariableService,
     protected injector: Injector,
     protected router: Router,
+    protected hardRedirectService: HardRedirectService,
   ) {
-    super(menuSection, menuService, injector, router);
+    super(menuSection, menuService, injector, router, hardRedirectService);
   }
 
   /**

@@ -10,6 +10,8 @@ import { AdminSidebarSectionComponent } from './admin-sidebar-section.component'
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { HardRedirectService } from '../../../core/services/hard-redirect.service';
 
 describe('AdminSidebarSectionComponent', () => {
   let component: AdminSidebarSectionComponent;
@@ -17,9 +19,14 @@ describe('AdminSidebarSectionComponent', () => {
   const menuService = new MenuServiceStub();
   const iconString = 'test';
 
+  const hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
+    redirect: of({})
+  });
+
   describe('when not disabled', () => {
 
     beforeEach(waitForAsync(() => {
+
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot()],
         declarations: [AdminSidebarSectionComponent, TestComponent],
@@ -27,6 +34,7 @@ describe('AdminSidebarSectionComponent', () => {
           {provide: 'sectionDataProvider', useValue: {model: {link: 'google.com'}, icon: iconString}},
           {provide: MenuService, useValue: menuService},
           {provide: CSSVariableService, useClass: CSSVariableServiceStub},
+          {provide: HardRedirectService, useValue: hardRedirectService},
         ]
       }).overrideComponent(AdminSidebarSectionComponent, {
         set: {
@@ -67,6 +75,7 @@ describe('AdminSidebarSectionComponent', () => {
           {provide: 'sectionDataProvider', useValue: {model: {link: 'google.com', disabled: true}, icon: iconString}},
           {provide: MenuService, useValue: menuService},
           {provide: CSSVariableService, useClass: CSSVariableServiceStub},
+          {provide: HardRedirectService, useValue: hardRedirectService},
         ]
       }).overrideComponent(AdminSidebarSectionComponent, {
         set: {

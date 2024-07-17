@@ -54,7 +54,7 @@ import { Section } from './core/layout/models/section.model';
 import { NOTIFICATIONS_RECITER_SUGGESTION_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { ConfigurationProperty } from './core/shared/configuration-property.model';
-import { HardRedirectService } from './core/services/hard-redirect.service';
+import { ExternalLinkMenuItemModel } from './shared/menu/menu-item/models/external-link.model';
 
 /**
  * Creates all of the app's menus
@@ -74,7 +74,6 @@ export class MenuResolver implements Resolve<boolean> {
     protected scriptDataService: ScriptDataService,
     protected sectionDataService: SectionDataService,
     protected configService: ConfigurationDataService,
-    private hardRedirectService: HardRedirectService,
   ) {
   }
 
@@ -625,17 +624,16 @@ export class MenuResolver implements Resolve<boolean> {
     ]).subscribe(([authorized, url]) => {
       this.menuService.addSection(MenuID.ADMIN, {
         id: 'loginmiur_dlexporter_url',
-        parentID: 'export',
+        index: 15,
         active: false,
         visible: authorized && (hasValue(url) && url.length > 0),
         model: {
-          type: MenuItemType.ONCLICK,
+          type: MenuItemType.EXTERNAL,
           text: 'menu.section.loginmiur_dlexporter_url',
-          function: () => {
-            // redirect to external URL
-            this.hardRedirectService.redirect(url);
-          }
-        } as OnClickMenuItemModel,
+          disabled: false,
+          href: url
+        } as ExternalLinkMenuItemModel,
+        icon: 'fa-solid fa-arrows-spin',
         shouldPersistOnRouteChange: true
       });
     });

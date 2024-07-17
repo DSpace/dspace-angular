@@ -20,7 +20,6 @@ import { createPaginatedList } from './shared/testing/utils.test';
 import { SectionDataService } from './core/layout/section-data.service';
 import createSpy = jasmine.createSpy;
 import { ConfigurationDataService } from './core/data/configuration-data.service';
-import { HardRedirectService } from './core/services/hard-redirect.service';
 
 const BOOLEAN = { t: true, f: false };
 const MENU_STATE = {
@@ -71,7 +70,6 @@ describe('MenuResolver', () => {
   let authorizationService;
   let scriptService;
   let configService;
-  let hardRedirectService;
 
   beforeEach(waitForAsync(() => {
     menuService = new MenuServiceStub();
@@ -91,10 +89,6 @@ describe('MenuResolver', () => {
       findByPropertyName: observableOf({})
     });
 
-    hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
-      redirect: observableOf({})
-    });
-
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
       declarations: [AdminSidebarComponent],
@@ -104,7 +98,6 @@ describe('MenuResolver', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: ConfigurationDataService, useValue: configService },
-        { provide: HardRedirectService, useValue: hardRedirectService },
         {
           provide: NgbModal, useValue: {
             open: () => {/*comment*/
