@@ -49,11 +49,6 @@ export class ContextMenuComponent implements OnInit {
   public optionCount = 0;
 
   /**
-   * Flag to check csr rendering
-   */
-  browserPlatform = false;
-
-  /**
    * Initialize instance variables
    *
    * @param {Document} _document
@@ -63,13 +58,10 @@ export class ContextMenuComponent implements OnInit {
    */
   constructor(
     @Inject(DOCUMENT) private _document: Document,
-    @Inject(PLATFORM_ID) protected platformId: Object,
     private cdr: ChangeDetectorRef,
     private configurationService: ConfigurationDataService,
     private injector: Injector
-  ) {
-    this.browserPlatform = isPlatformBrowser(this.platformId);
-  }
+  ) { }
 
   ngOnInit(): void {
     this.objectInjector = Injector.create({

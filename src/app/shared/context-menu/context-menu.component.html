@@ -1,4 +1,4 @@
-<div class="d-flex space-children-mr justify-content-end" *ngIf="browserPlatform && contextMenuObject">
+<div class="d-flex space-children-mr justify-content-end" dsRenderOnlyForBrowser>
   <ng-container *ngFor="let entry of (getStandAloneMenuEntries() | async)">
     <ng-container *ngComponentOutlet="entry; injector: objectInjector;"></ng-container>
   </ng-container>
