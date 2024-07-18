@@ -21,7 +21,7 @@
   "403.forbidden": "Proibido",
 
   // "500.page-internal-server-error": "Service unavailable",
- "500.page-internal-server-error": "Serviço indisponível",
+  "500.page-internal-server-error": "Serviço indisponível",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
   "500.help": "O servidor encontra-se temporariamete indisponível para responder ao seu pedido, devido a processos de manutenção em curso ou capacidade de resposta. Por favor tente mais tarde.",
@@ -30,7 +30,7 @@
   "500.link.home-page": "Voltar à página de início",
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
- "404.help": "Não encontramos a página que procura. A página pode ter sido movida ou eliminada. Pode utilizar o botão em baixo para voltar à página de início.",
+  "404.help": "Não encontramos a página que procura. A página pode ter sido movida ou eliminada. Pode utilizar o botão em baixo para voltar à página de início.",
 
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Voltar à página de início",
@@ -39,7 +39,7 @@
   "404.page-not-found": "Página não encontrada",
 
   // "error-page.description.401": "Unauthorized",
- "error-page.description.401": "Não autorizado",
+  "error-page.description.401": "Não autorizado",
 
   // "error-page.description.403": "Forbidden",
   "error-page.description.403": "Proibido",
@@ -2802,7 +2802,7 @@
   "error.search-results": "Erro ao carregar os resultados da pesquisa!",
 
   // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\"target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
-  "error.invalid-search-query": "A query da pesquisa não é válida! Por favor verifique <a href='https://solr.apache.org/guide/query-syntax-and-parsing.html' target=\'_blank\'>Sintaxe de consulta Solr</a> melhores práticas para obter mais informações sobre este erro.",
+  "error.invalid-search-query": "A query da pesquisa não é válida! Por favor verifique <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\"target=\"_blank\">Sintaxe de consulta Solr</a> melhores práticas para obter mais informações sobre este erro.",
 
   // "error.sub-collections": "Error fetching sub-collections",
   "error.sub-collections": "Erro ao carregar sub-coleções!",
@@ -6200,19 +6200,19 @@
   "register-page.registration.google-recaptcha.must-accept-cookies": "Para se registar deve aceitar o <b>registo e a senha de recuperação</b> (Google reCaptcha) cookies.",
 
   // "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
- "register-page.registration.error.maildomain": "Este endereço de e-mail não consta da lista de domínios que podem ser registados. Os domínios permitidos são {{ domains }}",
+  "register-page.registration.error.maildomain": "Este endereço de e-mail não consta da lista de domínios que podem ser registados. Os domínios permitidos são {{ domains }}",
 
   // "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
- "register-page.registration.google-recaptcha.open-cookie-settings": "Configurações de Open cookie",
+  "register-page.registration.google-recaptcha.open-cookie-settings": "Configurações de Open cookie",
 
   // "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
- "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
+  "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
 
   // "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
- "register-page.registration.google-recaptcha.notification.message.error": "Ocorreu um erro na verificação do reCaptcha",
+  "register-page.registration.google-recaptcha.notification.message.error": "Ocorreu um erro na verificação do reCaptcha",
 
   // "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
- "register-page.registration.google-recaptcha.notification.message.expired": "Verificação expirou. Por favor verifique novamente.",
+  "register-page.registration.google-recaptcha.notification.message.expired": "Verificação expirou. Por favor verifique novamente.",
 
   // "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
   "register-page.registration.info.maildomain": "As contas podem ser registadas para os endereços de email os domínios",
@@ -7582,14 +7582,14 @@
   // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isOrgUnitOfProject": "OrgUnit of the Project",
   "submission.sections.describe.relationship - lookup.search - tab.tab - title.isOrgUnitOfProject": "OrgUnit do projeto",
 
-   // "submission.sections.describe.relationship - lookup.selection - tab.title.isProjectOfPublication": "Project",
-   "submission.sections.describe.relationship - lookup.selection - tab.title.isProjectOfPublication": "Projeto",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship - lookup.selection - tab.title.isProjectOfPublication": "Projeto",
 
-   // "submission.sections.describe.relationship - lookup.title.isProjectOfPublication": "Projects",
-   "submission.sections.describe.relationship - lookup.title.isProjectOfPublication": "Projetos",
+  // "submission.sections.describe.relationship - lookup.title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship - lookup.title.isProjectOfPublication": "Projetos",
 
-   // "submission.sections.describe.relationship - lookup.title.isFundingAgencyOfProject": "Funder of the Project",
-   "submission.sections.describe.relationship - lookup.title.isFundingAgencyOfProject": "Financiador do projeto",
+  // "submission.sections.describe.relationship - lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+  "submission.sections.describe.relationship - lookup.title.isFundingAgencyOfProject": "Financiador do projeto",
 
   // "submission.sections.describe.relationship - lookup.selection - tab.search - form.placeholder": "Search...",
   "submission.sections.describe.relationship - lookup.selection - tab.search - form.placeholder": "Pesquisar...",
